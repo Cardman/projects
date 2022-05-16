@@ -263,7 +263,7 @@ public abstract class OperationNode {
             return new AddOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.SHIFT_PRIO) {
-            return shift(_index, _indexChild, _m, _op);
+            return new BitShiftRotateOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.CMP_PRIO) {
             if (_op.isInstanceTest()) {
@@ -278,14 +278,8 @@ public abstract class OperationNode {
         if (_op.getPriority() == ElResolver.EQ_PRIO) {
             return new EqOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == ElResolver.BIT_AND_PRIO) {
-            return new BitAndOperation(_index, _indexChild, _m, _op);
-        }
-        if (_op.getPriority() == ElResolver.BIT_XOR_PRIO) {
-            return new BitXorOperation(_index, _indexChild, _m, _op);
-        }
-        if (_op.getPriority() == ElResolver.BIT_OR_PRIO) {
-            return new BitOrOperation(_index, _indexChild, _m, _op);
+        if (_op.getPriority() == ElResolver.BIT_AND_PRIO || _op.getPriority() == ElResolver.BIT_XOR_PRIO || _op.getPriority() == ElResolver.BIT_OR_PRIO) {
+            return new BitOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.RANGE) {
             return new RangeOperation(_index,_indexChild, _m, _op);
@@ -320,26 +314,6 @@ public abstract class OperationNode {
             return new SafeDotOperation(_index, _indexChild, _m, _op);
         }
         return new DotOperation(_index, _indexChild, _m, _op);
-    }
-
-    private static NumericOperation shift(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        String value_ = _op.getOperators().firstValue().trim();
-        if (StringUtil.quickEq(value_, SHIFT_LEFT)) {
-            return new ShiftLeftOperation(_index, _indexChild, _m, _op);
-        }
-        if (StringUtil.quickEq(value_, SHIFT_RIGHT)) {
-            return new ShiftRightOperation(_index, _indexChild, _m, _op);
-        }
-        if (StringUtil.quickEq(value_, BIT_SHIFT_LEFT)) {
-            return new BitShiftLeftOperation(_index, _indexChild, _m, _op);
-        }
-        if (StringUtil.quickEq(value_, BIT_SHIFT_RIGHT)) {
-            return new BitShiftRightOperation(_index, _indexChild, _m, _op);
-        }
-        if (StringUtil.quickEq(value_, ROTATE_LEFT)) {
-            return new RotateLeftOperation(_index, _indexChild, _m, _op);
-        }
-        return new RotateRightOperation(_index, _indexChild, _m, _op);
     }
 
     private static AbstractUnaryOperation unary(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {

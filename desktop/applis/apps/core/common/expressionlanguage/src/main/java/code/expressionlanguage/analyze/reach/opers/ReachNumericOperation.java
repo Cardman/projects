@@ -2,15 +2,16 @@ package code.expressionlanguage.analyze.reach.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.NumericOperation;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.symbols.AnaOperSymbol;
 import code.util.CustList;
 
-public abstract class ReachNumericOperation extends ReachMethodOperation implements ReachCalculable {
+public final class ReachNumericOperation extends ReachMethodOperation implements ReachCalculable {
 
-    private String op;
-    ReachNumericOperation(NumericOperation _info) {
+    private final AnaOperSymbol symbol;
+    public ReachNumericOperation(OperationNode _info, AnaOperSymbol _sym) {
         super(_info);
-        op = _info.getOp();
+        symbol = _sym;
     }
 
     @Override
@@ -21,13 +22,11 @@ public abstract class ReachNumericOperation extends ReachMethodOperation impleme
         CustList<ReachOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         Argument c_ = chidren_.last().getArgument();
-        Argument r_ = calculateOperAna(a_, op, c_, _page);
+        Argument r_ = new Argument(symbol.calculateOperator(a_.getStruct(),c_.getStruct(), getResultClass().getUnwrapObjectNb(), _page));
         if (r_.isNull()) {
             return;
         }
         setSimpleArgumentAna(r_);
     }
-
-    abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, AnalyzedPageEl _page);
 
 }

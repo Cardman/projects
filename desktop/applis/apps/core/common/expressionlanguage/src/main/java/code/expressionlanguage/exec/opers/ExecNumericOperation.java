@@ -11,19 +11,13 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public abstract class ExecNumericOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
-    private static final String INCR = "++";
     private final int opOffset;
 
     protected ExecNumericOperation(ExecOperationContent _opCont, int _opOffset) {
         super(_opCont);
         opOffset = _opOffset;
-    }
-
-    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, byte _cast, StackCall _stackCall) {
-        return new Argument(calculateOperator(_conf, _op, _left.getStruct(), _right.getStruct(), _cast, _stackCall));
     }
 
     public static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, StringList _cls, AbstractStackCall _stackCall) {
@@ -37,106 +31,22 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         return res_;
     }
 
-    public static Argument calculateIncrDecr(Argument _left, String _op, byte _cast) {
-        Argument o_;
-        if (StringUtil.quickEq(_op, INCR)) {
-            o_ = new Argument(ExecAddOperation.addOne(NumParsers.convertToNumber(_left.getStruct()), _cast));
-        } else {
-            o_ = new Argument(ExecAddOperation.removeOne(NumParsers.convertToNumber(_left.getStruct()), _cast));
-        }
-        return o_;
-    }
-
-    public static Struct calculateOperator(ContextEl _cont,
-                                           String _op,
-                                           Struct _first, Struct _second, byte _cast, StackCall _stackCall) {
-        String op_ = _op.substring(0, _op.length() - 1);
-        if (StringUtil.quickEq(op_, "+")) {
-            return NumParsers.calculateSum(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (StringUtil.quickEq(op_, "-")) {
-            return NumParsers.calculateDiff(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (StringUtil.quickEq(op_, "*")) {
-            return NumParsers.calculateMult(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (StringUtil.quickEq(op_, "/")) {
-            return calculateDivEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast, _stackCall);
-        }
-        if (StringUtil.quickEq(op_, "%")) {
-            return calculateModEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast, _stackCall);
-        }
-        if (StringUtil.quickEq(op_, "&")) {
-            return NumParsers.calculateAnd(_first, _second, _cast);
-        }
-        if (StringUtil.quickEq(op_, "|")) {
-            return NumParsers.calculateOr(_first, _second, _cast);
-        }
-        if (StringUtil.quickEq(op_, "^")) {
-            return NumParsers.calculateXor(_first, _second, _cast);
-        }
-        if (StringUtil.quickEq(op_, "<<")) {
-            return NumParsers.calculateShiftLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (StringUtil.quickEq(op_, ">>")) {
-            return NumParsers.calculateShiftRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (StringUtil.quickEq(op_, "<<<")) {
-            return NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (StringUtil.quickEq(op_, ">>>")) {
-            return NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (StringUtil.quickEq(op_, "<<<<")) {
-            return NumParsers.calculateRotateLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (StringUtil.quickEq(op_, ">>>>")) {
-            return NumParsers.calculateRotateRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
-        }
-        if (isAndLogic(op_)) {
-            return andLogic(_first, _second);
-        }
-        return orLogic(_first, _second);
-    }
-
-    private static boolean isAndLogic(String _op) {
-        return StringUtil.quickEq(_op, "&&") || StringUtil.quickEq(_op, "&&&");
-    }
-
-    private static Struct orLogic(Struct _first, Struct _second) {
-        if (BooleanStruct.isTrue(_first)) {
-            return NumParsers.convertToBoolean(_first);
-        }
-        return NumParsers.convertToBoolean(_second);
-    }
-
-    private static Struct andLogic(Struct _first, Struct _second) {
-        if (BooleanStruct.isFalse(_first)) {
-            return NumParsers.convertToBoolean(_first);
-        }
-        return NumParsers.convertToBoolean(_second);
-    }
-
-    public static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast, StackCall _stackCall) {
-        LgNames stds_ = _an.getStandards();
-        String div_;
-        div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
-        Struct res_ = NumParsers.calculateDiv(_a,_b, _cast);
-        if (res_ == NullStruct.NULL_VALUE) {
+    public static Struct exc(Struct _res, StackCall _stackCall, ContextEl _an) {
+        if (_res == NullStruct.NULL_VALUE) {
+            LgNames stds_ = _an.getStandards();
+            String div_;
+            div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_, _stackCall)));
         }
-        return res_;
+        return _res;
     }
 
-    public static Struct calculateModEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast, StackCall _stackCall) {
-        LgNames stds_ = _an.getStandards();
-        String div_;
-        div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
-        Struct res_ = NumParsers.calculateMod(_a,_b, _cast);
-        if (res_ == NullStruct.NULL_VALUE) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_, _stackCall)));
-        }
-        return res_;
+    public static NumberStruct addOne(NumberStruct _arg, byte _cast) {
+        return NumParsers.calculateIncr(_arg, 1, _cast);
+    }
+
+    public static NumberStruct removeOne(NumberStruct _arg, byte _cast) {
+        return NumParsers.calculateIncr(_arg, -1, _cast);
     }
 
     public int getOpOffset() {

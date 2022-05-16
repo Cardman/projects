@@ -4,17 +4,15 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.symbols.AnaOperCat;
+import code.expressionlanguage.analyze.symbols.AnaOperDir;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.symbol.*;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.StandardMethod;
 
 public abstract class ReachOperationNode {
-
-    protected static final String MULT = "*";
-
-    protected static final String DIV = "/";
-
-    protected static final String PLUS = "+";
 
     protected static final String DIFF = "!=";
 
@@ -53,63 +51,36 @@ public abstract class ReachOperationNode {
             return new ReachDefaultValueOperation((DefaultValueOperation) _oper);
         }
         if (_oper instanceof RangeOperation) {
-            RangeOperation r_ = (RangeOperation) _oper;
-            if (r_.isOkNum()) {
-                return new ReachRangeOperation((RangeOperation)_oper);
-            }
-            return new ReachStdOperation(_oper);
+            return range(_oper);
         }
         if (_oper instanceof SymbolOperation) {
             SymbolOperation s_ = (SymbolOperation) _oper;
-            if (!s_.isOkNum()) {
-                return new ReachStdOperation(_oper);
-            }
-            if (s_.getFct().getFunction() != null) {
+            if (!s_.isOkNum() || s_.getFct().getFunction() != null) {
                 return new ReachStdOperation(_oper);
             }
         }
         if (_oper instanceof QuickOperation) {
             QuickOperation s_ = (QuickOperation) _oper;
-            if (!s_.isOkNum()) {
-                return new ReachStdOperation(_oper);
-            }
-            if (s_.getFct().getFunction() != null) {
+            if (!s_.isOkNum() || s_.getFct().getFunction() != null) {
                 return new ReachStdOperation(_oper);
             }
         }
+        return symbolFct(_oper);
+    }
+
+    private static ReachMethodOperation range(OperationNode _oper) {
+        RangeOperation r_ = (RangeOperation) _oper;
+        if (r_.isOkNum()) {
+            return new ReachRangeOperation((RangeOperation) _oper);
+        }
+        return new ReachStdOperation(_oper);
+    }
+
+    private static ReachMethodOperation symbolFct(OperationNode _oper) {
         if (_oper instanceof AbstractUnaryOperation) {
             AbstractUnaryOperation a_ = (AbstractUnaryOperation) _oper;
             if (a_.getChildrenNodes().size() == 1) {
-                if (_oper instanceof IdOperation) {
-                    return new ReachIdOperation(_oper);
-                }
-                if (_oper instanceof AssocationOperation) {
-                    return new ReachIdOperation(_oper);
-                }
-                if (_oper instanceof FirstOptOperation) {
-                    return new ReachIdOperation(_oper);
-                }
-                if (_oper instanceof NamedArgumentOperation) {
-                    return new ReachNamedArgumentOperation((NamedArgumentOperation)_oper);
-                }
-                if (_oper instanceof CastOperation) {
-                    return new ReachCastOperation((CastOperation) _oper);
-                }
-                if (_oper instanceof ExplicitOperation) {
-                    return new ReachExtCastOperation((ExplicitOperation) _oper);
-                }
-                if (_oper instanceof ImplicitOperation) {
-                    return new ReachExtCastOperation((ImplicitOperation) _oper);
-                }
-                if (_oper instanceof UnaryBooleanOperation) {
-                    return new ReachUnaryBooleanOperation(_oper);
-                }
-                if (_oper instanceof UnaryBinOperation) {
-                    return new ReachUnaryBinOperation(_oper);
-                }
-                if (_oper instanceof UnaryOperation) {
-                    return new ReachUnaryOperation((UnaryOperation) _oper);
-                }
+                return pureUnary(_oper);
             }
         }
         if (_oper instanceof AbstractTernaryOperation) {
@@ -132,40 +103,8 @@ public abstract class ReachOperationNode {
             EqOperation c_ = (EqOperation) _oper;
             return new ReachEqOperation(c_);
         }
-        if (_oper instanceof AddOperation) {
-            AddOperation c_ = (AddOperation) _oper;
-            return new ReachAddOperation(c_);
-        }
-        if (_oper instanceof MultOperation) {
-            MultOperation c_ = (MultOperation) _oper;
-            return new ReachMultOperation(c_);
-        }
-        if (_oper instanceof BitAndOperation) {
-            return new ReachBitAndOperation((NumericOperation) _oper);
-        }
-        if (_oper instanceof BitOrOperation) {
-            return new ReachBitOrOperation((NumericOperation) _oper);
-        }
-        if (_oper instanceof BitXorOperation) {
-            return new ReachBitXorOperation((NumericOperation) _oper);
-        }
-        if (_oper instanceof ShiftLeftOperation) {
-            return new ReachShiftLeftOperation((NumericOperation) _oper);
-        }
-        if (_oper instanceof ShiftRightOperation) {
-            return new ReachShiftRightOperation((NumericOperation) _oper);
-        }
-        if (_oper instanceof BitShiftLeftOperation) {
-            return new ReachBitShiftLeftOperation((NumericOperation) _oper);
-        }
-        if (_oper instanceof BitShiftRightOperation) {
-            return new ReachBitShiftRightOperation((NumericOperation) _oper);
-        }
-        if (_oper instanceof RotateLeftOperation) {
-            return new ReachRotateLeftOperation((NumericOperation) _oper);
-        }
-        if (_oper instanceof RotateRightOperation) {
-            return new ReachRotateRightOperation((NumericOperation) _oper);
+        if (_oper instanceof NumericOperation) {
+            return numeric((NumericOperation) _oper);
         }
         if (_oper instanceof DotOperation) {
             DotOperation d_ = (DotOperation) _oper;
@@ -175,25 +114,31 @@ public abstract class ReachOperationNode {
             AffectationOperation d_ = (AffectationOperation) _oper;
             return new ReachAffectationOperation(d_);
         }
-        if (_oper instanceof PossibleIntermediateDotted) {
-            boolean int_ = ((PossibleIntermediateDotted) _oper).isIntermediateDottedOperation();
-            if (_oper instanceof AbstractCallFctOperation) {
-                AbstractCallFctOperation f_ = (AbstractCallFctOperation) _oper;
-                if (f_.getClassMethodId() != null) {
-                    StandardMethod standardMethod_ = f_.getStandardMethod();
-                    if (standardMethod_ != null) {
-                        if (!f_.isStaticMethod()) {
-                            return new ReachInstanceFctStdOperation(standardMethod_,f_, _oper);
-                        }
-                        return new ReachStaticFctStdOperation(standardMethod_,f_,_oper);
-                    }
+        return fct(_oper);
+    }
+
+    private static ReachMethodOperation fct(OperationNode _oper) {
+        if (_oper instanceof PossibleIntermediateDotted && _oper instanceof AbstractCallFctOperation) {
+            AbstractCallFctOperation f_ = (AbstractCallFctOperation) _oper;
+            if (f_.getClassMethodId() != null) {
+                StandardMethod standardMethod_ = f_.getStandardMethod();
+                if (standardMethod_ != null) {
                     if (!f_.isStaticMethod()) {
-                        return new ReachIntermStdOperation(_oper, int_);
+                        return new ReachInstanceFctStdOperation(standardMethod_, f_, _oper);
                     }
+                    return new ReachStaticFctStdOperation(standardMethod_, f_, _oper);
+                }
+                if (!f_.isStaticMethod()) {
+                    boolean int_ = ((PossibleIntermediateDotted) _oper).isIntermediateDottedOperation();
+                    return new ReachIntermStdOperation(_oper, int_);
                 }
             }
         }
-        if (_oper instanceof ArrOperation||_oper instanceof CallDynMethodOperation) {
+        return defFct(_oper);
+    }
+
+    private static ReachMethodOperation defFct(OperationNode _oper) {
+        if (_oper instanceof ArrOperation|| _oper instanceof CallDynMethodOperation) {
             return new ReachIntermStdOperation(_oper, true);
         }
         if (_oper instanceof StandardInstancingOperation) {
@@ -203,6 +148,52 @@ public abstract class ReachOperationNode {
             }
         }
         return new ReachStdOperation(_oper);
+    }
+
+    private static ReachMethodOperation pureUnary(OperationNode _oper) {
+        if (_oper instanceof IdOperation || _oper instanceof AssocationOperation || _oper instanceof FirstOptOperation) {
+            return new ReachIdOperation(_oper);
+        }
+        if (_oper instanceof NamedArgumentOperation) {
+            return new ReachNamedArgumentOperation((NamedArgumentOperation) _oper);
+        }
+        if (_oper instanceof CastOperation) {
+            return new ReachCastOperation((CastOperation) _oper);
+        }
+        if (_oper instanceof ExplicitOperation) {
+            return new ReachExtCastOperation((ExplicitOperation) _oper);
+        }
+        if (_oper instanceof ImplicitOperation) {
+            return new ReachExtCastOperation((ImplicitOperation) _oper);
+        }
+        if (_oper instanceof UnaryBooleanOperation) {
+            return new ReachNumericOperation(_oper, new AnaOperDir(new CommonOperNegBool()));
+        }
+        if (_oper instanceof UnaryBinOperation) {
+            return new ReachNumericOperation(_oper, new AnaOperDir(new CommonOperNegNum()));
+        }
+        if (_oper instanceof UnaryOperation) {
+            return new ReachNumericOperation(_oper, new AnaOperDir(ForwardInfos.unary((UnaryOperation) _oper)));
+        }
+        return new ReachStdOperation(_oper);
+    }
+
+    private static ReachMethodOperation numeric(NumericOperation _num) {
+        if (_num instanceof AddOperation) {
+            AddOperation c_ = (AddOperation) _num;
+            if (c_.isCatString()) {
+                return new ReachNumericOperation(c_,new AnaOperCat());
+            }
+            return new ReachNumericOperation(c_,new AnaOperDir(ForwardInfos.additiveNum(c_)));
+        }
+        if (_num instanceof MultOperation) {
+            MultOperation c_ = (MultOperation) _num;
+            return new ReachNumericOperation(c_,new AnaOperDir(ForwardInfos.multiplicative(c_)));
+        }
+        if (_num instanceof BitOperation) {
+            return new ReachNumericOperation(_num,new AnaOperDir(ForwardInfos.bitwise((BitOperation) _num)));
+        }
+        return new ReachNumericOperation(_num,new AnaOperDir(ForwardInfos.shiftRotate((BitShiftRotateOperation)_num)));
     }
 
     public final void setRelativeOffsetPossibleAnalyzable(AnalyzedPageEl _page) {

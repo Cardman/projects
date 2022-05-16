@@ -37,9 +37,17 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
         }
         Argument leftArg_ = firstArg(_curr, _nodes);
         _curr.calculateChSetting(_nodes, res_, _context, _rendStack);
-        Argument arg_ = RendSemiAffectationOperation.getPrePost(_curr.isStaticPostEltContent(),leftArg_, res_);
+        Argument arg_ = getPrePost(_curr.isStaticPostEltContent(),leftArg_, res_);
 //        Argument arg_ = endCalculate(_nodes,leftArg_, res_, _advStandards, _context, _rendStack,isStaticPostEltContent());
         _curr.setSimpleArgument(arg_, _nodes, _context, _rendStack);
+    }
+
+    static Argument getPrePost(boolean _post, Argument _stored, Argument _right) {
+        Argument a_ = _right;
+        if (_post) {
+            a_ = _stored;
+        }
+        return a_;
     }
 
     @Override
