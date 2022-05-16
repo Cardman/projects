@@ -12,7 +12,7 @@ public final class ExecStaticFctContent {
     public ExecStaticFctContent(AnaCallFctContent _a, Forwards _fwd) {
         this(new ExecStaticFctCommonContent(_a),new ExecStaticEltContent(_a,_fwd));
     }
-    private ExecStaticFctContent(ExecStaticFctCommonContent _c, ExecStaticEltContent _e) {
+    public ExecStaticFctContent(ExecStaticFctCommonContent _c, ExecStaticEltContent _e) {
         common = _c;
         elts = _e;
     }

@@ -925,7 +925,7 @@ public final class RendForwardInfos {
         if (pair_.getFct() == null) {
             return new RendCompoundAffectationStringOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()),names_,ForwardInfos.semi(_anaNode),FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), _anaNode.isPost());
         }
-        return new RendCompoundAffectationCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), new ExecStaticEltContent(_anaNode.getFct(), _forwards), pair_, FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), names_, _anaNode.isPost());
+        return new RendCompoundAffectationExplicitCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), new ExecStaticFctContent(new ExecStaticFctCommonContent("","",-1),new ExecStaticEltContent(_anaNode.getFct(), _forwards)), pair_, FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), names_, _anaNode.isPost());
     }
 
     private static RendCompoundAffectationOperation compound(CompoundAffectationOperation _anaNode, Forwards _forwards) {
@@ -933,7 +933,7 @@ public final class RendForwardInfos {
         ClassMethodIdMemberIdTypeFct fct_ = _anaNode.getFct();
         ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
         if (pair_.getFct() != null) {
-            return new RendCompoundAffectationCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), new ExecStaticEltContent(fct_, _forwards), pair_, FetchMemberUtil.fetchImplicits(_anaNode.getConv(), _forwards), names_, false);
+            return new RendCompoundAffectationExplicitCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), new ExecStaticFctContent(new ExecStaticFctCommonContent("","",-1),new ExecStaticEltContent(fct_, _forwards)), pair_, FetchMemberUtil.fetchImplicits(_anaNode.getConv(), _forwards), names_, false);
         }
         String oper_ = _anaNode.getOperatorContent().getOper();
         String op_ = oper_.substring(0, oper_.length() - 1);

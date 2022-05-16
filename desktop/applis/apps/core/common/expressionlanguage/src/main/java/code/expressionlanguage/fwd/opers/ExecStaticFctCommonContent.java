@@ -9,9 +9,12 @@ public final class ExecStaticFctCommonContent {
     private final int naturalVararg;
 
     public ExecStaticFctCommonContent(AnaCallFctContent _a) {
-        methodName = _a.getMethodName();
-        lastType = _a.getLastType();
-        naturalVararg = _a.getNaturalVararg();
+        this(_a.getMethodName(),_a.getLastType(), _a.getNaturalVararg());
+    }
+    public ExecStaticFctCommonContent(String _meth, String _last, int _natural){
+        methodName = _meth;
+        lastType = _last;
+        naturalVararg = _natural;
     }
 
     public int getNaturalVararg() {
