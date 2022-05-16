@@ -808,9 +808,12 @@ public final class RendForwardInfos {
             ClassMethodIdMemberIdTypeFct fct_ = n_.getFct();
             AnaTypeFct pair_ = fct_.getFunction();
             if (pair_ != null) {
-                return new RendCustNumericOperation(
+                return new RendExplicitOperatorOperation(
+                        new ExecOperationContent(_anaNode.getContent()),
+                        false,
+                        new ExecStaticFctContent(new ExecStaticFctCommonContent("","",-1), new ExecStaticEltContent(fct_, _forwards)),
                         FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards),
-                        new ExecOperationContent(_anaNode.getContent()), n_.getOpOffset(), new ExecStaticEltContent(fct_, _forwards));
+                        n_.getOpOffset(), new ExecArrContent(false));
             }
         }
         return procGeneOperators(_anaNode, _forwards);
