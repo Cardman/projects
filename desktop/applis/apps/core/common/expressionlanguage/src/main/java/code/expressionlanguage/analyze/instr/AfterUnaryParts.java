@@ -20,19 +20,10 @@ final class AfterUnaryParts {
 
     private static final char NEG_BOOL_CHAR = '!';
 
-    private static final char MULT_CHAR = '*';
-
-    private static final char DIV_CHAR = '/';
-
-    private static final char MOD_CHAR = '%';
-
     private static final char PLUS_CHAR = '+';
 
     private static final char MINUS_CHAR = '-';
 
-    private static final char AND_CHAR = '&';
-
-    private static final char OR_CHAR = '|';
     private static final char NEG_BOOL = '~';
     private static final char BEGIN_TERNARY = '?';
     private static final char END_TERNARY = ':';
@@ -246,26 +237,23 @@ final class AfterUnaryParts {
     }
 
     private void lowerFct(int _offset, String _string, Delimiters _d, String _oper) {
-        char curChar_ = _string.charAt(index);
-        if (curChar_ == BEGIN_TERNARY) {
+        if (_oper.startsWith("?")) {
             int lastPrintChar_ = del.getLastPrintIndex();
             int len_ = lastPrintChar_ + 1;
-            boolean dot_ = isDot(_string);
-            boolean ternary_ = ElResolverCommon.isTernary(_string,len_,index);
-            if (ternary_) {
-                beginTernary(curChar_);
+            if (ElResolverCommon.isTernary(_string,len_,index)) {
+                beginTernary();
                 return;
             }
-            if (parsBrackets == 0&&dot_&&prio != ElResolver.DECL_PRIO) {
+            if (parsBrackets == 0&&(StringUtil.quickEq(_oper,"?")||StringUtil.quickEq(_oper,"?."))&&prio != ElResolver.DECL_PRIO) {
                 safeDot(_oper);
                 return;
             }
         }
-        if (curChar_ == END_TERNARY) {
-            endTernary(curChar_);
+        if (StringUtil.quickEq(_oper,":")) {
+            endTernary();
             return;
         }
-        if (curChar_ == SEP_ARG) {
+        if (StringUtil.quickEq(_oper,",")) {
             declPrio();
             return;
         }
@@ -273,7 +261,7 @@ final class AfterUnaryParts {
             index++;
             return;
         }
-        addNumOperators(_offset, _string, _d, curChar_, _oper);
+        addNumOperators(_offset, _string, _d, _oper);
     }
 
     private void namedArg(char _curChar) {
@@ -300,41 +288,24 @@ final class AfterUnaryParts {
         addPossibleNumOp(_oper, clearOperators_, foundOperator_);
     }
 
-    private void beginTernary(char _curChar) {
+    private void beginTernary() {
         if (parsBrackets == 0 && prio > ElResolver.TERNARY_PRIO) {
             operators.clear();
-            operators.addEntry(index, Character.toString(_curChar));
+            operators.addEntry(index, Character.toString(AfterUnaryParts.BEGIN_TERNARY));
         }
         parsBrackets++;
         index++;
     }
 
-    private void endTernary(char _curChar) {
+    private void endTernary() {
         parsBrackets--;
         if (parsBrackets == 0 && prio > ElResolver.TERNARY_PRIO) {
-            operators.addEntry(index, Character.toString(_curChar));
+            operators.addEntry(index, Character.toString(AfterUnaryParts.END_TERNARY));
             enPars = false;
             enabledId = true;
             prio = ElResolver.TERNARY_PRIO;
         }
         index++;
-    }
-
-    private boolean isDot(String _string) {
-        int lastPrintChar_ = del.getLastPrintIndex();
-        int len_ = lastPrintChar_ + 1;
-        boolean dot_ = false;
-        if (StringExpUtil.nextCharIs(_string, index + 1, len_, DOT_VAR)) {
-            int n_ = StringExpUtil.nextPrintChar(index + 2, len_, _string);
-            if (!ElResolverCommon.isDigitOrDot(_string, n_)) {
-                dot_ = true;
-            }
-        } else {
-            if (StringExpUtil.nextCharIs(_string, index + 1, len_, ARR_LEFT)) {
-                dot_ = true;
-            }
-        }
-        return dot_;
     }
 
     private void parLeft(String _string) {
@@ -467,7 +438,7 @@ final class AfterUnaryParts {
         }
     }
 
-    private void addNumOperators(int _offset, String _string, Delimiters _d, char _curChar, String _oper) {
+    private void addNumOperators(int _offset, String _string, Delimiters _d, String _oper) {
         int min_ = _d.getDelInstanceof().indexOfNb((long)index+_offset);
         if (isPairPositive(min_)) {
             instaOf(_offset, _string, _d);
@@ -509,7 +480,7 @@ final class AfterUnaryParts {
             addAffNumOp(_oper);
             return;
         }
-        changeSingleCharPrioAddPossible(_curChar, _oper);
+        changeSingleCharPrioAddPossible(_oper);
     }
 
     private void instaOf(int _offset, String _string, Delimiters _d) {
@@ -629,10 +600,10 @@ final class AfterUnaryParts {
         addPossibleNumOp(_oper, clearOperators_, foundOperator_);
     }
 
-    private void changeSingleCharPrioAddPossible(char _curChar, String _op) {
+    private void changeSingleCharPrioAddPossible(String _op) {
         boolean clearOperators_ = false;
         boolean foundOperator_ = false;
-        int prioOpMult_ = getSingleCharPrio(_curChar);
+        int prioOpMult_ = getSingleCharPrio(_op);
         if (prio > prioOpMult_) {
             prio = prioOpMult_;
         }
@@ -667,26 +638,20 @@ final class AfterUnaryParts {
         index += _op.length();
     }
 
-    private static int getSingleCharPrio(char _curChar) {
-        int prioOpMult_;
-        if (_curChar == MINUS_CHAR || _curChar == PLUS_CHAR) {
-            prioOpMult_ = ElResolver.ADD_PRIO;
-            return prioOpMult_;
+    private static int getSingleCharPrio(String _oper) {
+        if (StringUtil.quickEq(_oper,"-") || StringUtil.quickEq(_oper,"+")) {
+            return ElResolver.ADD_PRIO;
         }
-        if (_curChar == MULT_CHAR || _curChar == DIV_CHAR || _curChar == MOD_CHAR) {
-            prioOpMult_ = ElResolver.MULT_PRIO;
-            return prioOpMult_;
+        if (StringUtil.quickEq(_oper,"*") || StringUtil.quickEq(_oper,"/") || StringUtil.quickEq(_oper,"%")) {
+            return ElResolver.MULT_PRIO;
         }
-        if (_curChar == AND_CHAR) {
-            prioOpMult_ = ElResolver.BIT_AND_PRIO;
-            return prioOpMult_;
+        if (StringUtil.quickEq(_oper,"&")) {
+            return ElResolver.BIT_AND_PRIO;
         }
-        if (_curChar == OR_CHAR) {
-            prioOpMult_ = ElResolver.BIT_OR_PRIO;
-            return prioOpMult_;
+        if (StringUtil.quickEq(_oper,"|")) {
+            return ElResolver.BIT_OR_PRIO;
         }
-        prioOpMult_ = ElResolver.BIT_XOR_PRIO;
-        return prioOpMult_;
+        return ElResolver.BIT_XOR_PRIO;
     }
 
     private static int incrementUnary(String _string, int _from, int _to, int _offset, Delimiters _d) {
