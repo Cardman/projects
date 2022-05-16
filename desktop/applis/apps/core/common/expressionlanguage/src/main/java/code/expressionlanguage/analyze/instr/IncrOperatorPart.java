@@ -110,11 +110,8 @@ public final class IncrOperatorPart {
 
     private void nullSafeIncr(String _string) {
         int len_ = _string.length();
-        if (StringExpUtil.nextCharIs(_string, secIndex, len_, ElResolver.DOT_VAR)) {
-            int n_ = StringExpUtil.nextPrintChar(secIndex + 1, len_, _string);
-            if (!ElResolverCommon.isDigitOrDot(_string,n_)) {
-                secIndex++;
-            }
+        if (StringExpUtil.nextCharIs(_string, secIndex, len_, ElResolver.DOT_VAR) && !ElResolverCommon.isDigitOrDot(_string, StringExpUtil.nextPrintChar(secIndex + 1, len_, _string))) {
+            secIndex++;
         }
         incOp(_string);
         incOp(_string);

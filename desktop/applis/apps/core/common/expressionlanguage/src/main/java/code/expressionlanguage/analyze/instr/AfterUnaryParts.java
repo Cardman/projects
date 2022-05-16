@@ -240,7 +240,7 @@ final class AfterUnaryParts {
         if (_oper.startsWith("?")) {
             int lastPrintChar_ = del.getLastPrintIndex();
             int len_ = lastPrintChar_ + 1;
-            if (ElResolverCommon.isTernary(_string,len_,index)) {
+            if (StringUtil.quickEq(_oper,"?")&&!StringExpUtil.nextCharIs(_string,index+1,len_,'[')) {
                 beginTernary();
                 return;
             }

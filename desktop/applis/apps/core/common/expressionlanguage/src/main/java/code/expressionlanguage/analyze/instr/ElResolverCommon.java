@@ -56,8 +56,7 @@ public final class ElResolverCommon {
     static boolean isTernary(String _string, int _len, int _i) {
         boolean ternary_ = false;
         if (StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.DOT_VAR)) {
-            int n_ = StringExpUtil.nextPrintChar(_i + 2, _len, _string);
-            if (isDigitOrDot(_string,n_)) {
+            if (isDigitOrDot(_string,StringExpUtil.nextPrintChar(_i + 2, _len, _string))) {
                 ternary_ = true;
             }
         } else {
