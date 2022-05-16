@@ -529,7 +529,7 @@ public final class ElResolver {
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
             next_ = ElResolverCommon.incrInstanceOf(_string, len_, next_);
-            _d.getAllowedOperatorsIndexes().add(i_);
+            _d.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(i_,next_-i_));
             _d.getDelInstanceof().add(i_);
             _d.getDelInstanceof().add(next_);
             _out.setNextIndex(next_);
@@ -677,7 +677,7 @@ public final class ElResolver {
                 StackOperators parsBrackets_;
                 parsBrackets_ = _opers.getParsBrackets();
                 parsBrackets_.addEntry(afterSuper_, PAR_LEFT);
-                _d.getAllowedOperatorsIndexes().add(afterSuper_);
+                _d.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(afterSuper_,1));
                 _out.setNextIndex(min_);
                 return;
             }
@@ -1410,9 +1410,10 @@ public final class ElResolver {
     private static void afterOperator(int _beginIndex, String _string, Delimiters _dout, ResultAfterInstKeyWord _doubleDotted, int _i) {
         IncrOperatorPart incr_ = new IncrOperatorPart(_dout.isEnabledOp());
         int nextIndex_ = incr_.tryAddOp(_beginIndex, _string, _i);
-        int indexOp_ = incr_.getIndexOp();
-        if (indexOp_ > -1) {
-            _dout.getAllowedOperatorsIndexes().add(indexOp_);
+        int opLength_ = incr_.getOpLength();
+        if (opLength_ > 0) {
+            int indexOp_ = incr_.getIndexOp();
+            _dout.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(indexOp_, opLength_));
         }
         _doubleDotted.setNextIndex(nextIndex_);
         _dout.setEnabledOp(incr_.isEnabledOp());

@@ -8,6 +8,7 @@ public final class IncrOperatorPart {
     private static final int LT_GT = 2;
     private int statusOp = -1;
     private int indexOp = -1;
+    private int opLength;
     private int index;
     private int firstIndex;
     private int secIndex;
@@ -36,6 +37,7 @@ public final class IncrOperatorPart {
         }
         if (curChar_ == ElResolver.DOT_VAR) {
             indexOp = index;
+            opLength = 1;
             enabledOp = true;
             index++;
             return index;
@@ -160,12 +162,14 @@ public final class IncrOperatorPart {
     private void tryAddOp() {
         if (addOp && (enabledOp||!unary)) {
             indexOp = index;
+            opLength = secIndex - index;
         }
     }
 
     private int rightOp(char _curChar) {
         if (_curChar == ElResolver.ANN_ARR_RIGHT||_curChar == ElResolver.ARR_RIGHT||_curChar == ElResolver.PAR_RIGHT) {
             indexOp = index;
+            opLength = 1;
             enabledOp = true;
         }
         index++;
@@ -175,6 +179,7 @@ public final class IncrOperatorPart {
     private int incr() {
         if (addOp) {
             indexOp = index;
+            opLength = 2;
         }
         index++;
         index++;
@@ -184,6 +189,10 @@ public final class IncrOperatorPart {
 
     public int getIndexOp() {
         return indexOp;
+    }
+
+    public int getOpLength() {
+        return opLength;
     }
 
     public boolean isEnabledOp() {

@@ -2940,8 +2940,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "composite.integer.int";
         Delimiters d_ = new Delimiters();
-        d_.getAllowedOperatorsIndexes().add(9);
-        d_.getAllowedOperatorsIndexes().add(17);
+        d_.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(9,1));
+        d_.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(17,1));
         VariableInfo vi_ = new VariableInfo();
         vi_.setFirstChar(0);
         vi_.setLastChar(9);
@@ -3772,7 +3772,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     public void checkSyntax1Test() {
         Delimiters d_ = tst("1==0");
         assertEq(1, d_.getAllowedOperatorsIndexes().size());
-        assertEq(1, d_.getAllowedOperatorsIndexes().first());
+        assertEq(1, d_.getAllowedOperatorsIndexes().first().getOffset());
     }
     @Test
     public void checkSyntax2Test() {
@@ -3837,9 +3837,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
     public void checkSyntaxDelimiters7Test() {
         Delimiters d_ = del(" {$new $int[]{1i,3i}}", 2);
         assertEq(3, d_.getAllowedOperatorsIndexes().size());
-        assertEq(13, d_.getAllowedOperatorsIndexes().first());
-        assertEq(16, d_.getAllowedOperatorsIndexes().get(1));
-        assertEq(19, d_.getAllowedOperatorsIndexes().last());
+        assertEq(13, d_.getAllowedOperatorsIndexes().first().getOffset());
+        assertEq(16, d_.getAllowedOperatorsIndexes().get(1).getOffset());
+        assertEq(19, d_.getAllowedOperatorsIndexes().last().getOffset());
         assertEq(19, d_.getIndexEnd());
     }
 

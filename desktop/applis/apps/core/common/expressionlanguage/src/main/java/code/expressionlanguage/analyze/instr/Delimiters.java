@@ -11,7 +11,7 @@ public final class Delimiters {
     private int badOffset=-1;
     private int indexEnd;
     private boolean partOfString;
-    private final Ints allowedOperatorsIndexes = new Ints();
+    private final CustList<OperatorOffsetLength> allowedOperatorsIndexes = new CustList<OperatorOffsetLength>();
     private final Ints namedArgs = new Ints();
     private final Ints delStringsChars = new Ints();
     private final Ints delTextBlocks = new Ints();
@@ -54,7 +54,7 @@ public final class Delimiters {
         badOffset = Math.max(_badOffset,0);
     }
 
-    public Ints getAllowedOperatorsIndexes() {
+    public CustList<OperatorOffsetLength> getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
     }
 
