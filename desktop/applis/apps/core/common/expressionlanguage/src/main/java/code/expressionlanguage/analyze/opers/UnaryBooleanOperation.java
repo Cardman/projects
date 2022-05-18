@@ -5,24 +5,27 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 
 public final class UnaryBooleanOperation extends AbstractUnaryOperation implements SymbolOperation {
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
-    private int opOffset;
+    private final AnaOperatorContent operatorContent;
     private boolean okNum;
 
     public UnaryBooleanOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        operatorContent = new AnaOperatorContent();
+        operatorContent.setOper(getOperators().firstValue());
+        operatorContent.setOpOffset(getOperators().firstKey());
     }
 
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         okNum = true;
         OperationNode child_ = getFirstChild();
-        opOffset = getOperators().firstKey();
         String oper_ = getOperators().firstValue();
         if (child_.getResultClass().isBoolType(_page)) {
             unaryBool(_page);
@@ -42,7 +45,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         String booleanPrimType_ = _page.getAliasPrimBoolean();
         OperationNode child_ = getFirstChild();
         AnaClassArgumentMatching clMatch_ = child_.getResultClass();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+operatorContent.getOpOffset(), _page);
         if (!clMatch_.isBoolType(_page)) {
             errSymbol(_page);
         }
@@ -55,8 +58,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     }
 
     @Override
-    public int getOpOffset() {
-        return opOffset;
+    public AnaOperatorContent getOperatorContent() {
+        return operatorContent;
     }
 
     @Override

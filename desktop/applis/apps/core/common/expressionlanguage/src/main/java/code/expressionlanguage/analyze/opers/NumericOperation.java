@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
@@ -19,15 +20,15 @@ import code.util.core.StringUtil;
 
 public abstract class NumericOperation extends MethodOperation implements MiddleSymbolOperation {
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
-    private final String op;
-    private final int opOffset;
+    private final AnaOperatorContent operatorContent;
     private boolean okNum;
 
     protected NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        op = _op.getOperators().firstValue();
-        opOffset = _op.getOperators().firstKey();
+        operatorContent = new AnaOperatorContent();
+        operatorContent.setOper(_op.getOperators().firstValue());
+        operatorContent.setOpOffset(_op.getOperators().firstKey());
     }
 
     static ResultOperand unwrappBinNumResultClass(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
@@ -173,16 +174,15 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         return fct;
     }
 
-    @Override
-    public String getOp() {
-        return op;
+    public AnaOperatorContent getOperatorContent() {
+        return operatorContent;
     }
 
     @Override
-    public int getOpOffset() {
-        return opOffset;
+    public String getOp() {
+        return operatorContent.getOper();
     }
-    
+
     @Override
     public boolean isOkNum() {
         return okNum;

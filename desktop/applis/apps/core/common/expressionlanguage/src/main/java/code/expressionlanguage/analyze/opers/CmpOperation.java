@@ -140,11 +140,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         return okNum;
     }
 
-    @Override
-    public int getOpOffset() {
-        return operatorContent.getOpOffset();
-    }
-
     public AnaOperatorContent getOperatorContent() {
         return operatorContent;
     }

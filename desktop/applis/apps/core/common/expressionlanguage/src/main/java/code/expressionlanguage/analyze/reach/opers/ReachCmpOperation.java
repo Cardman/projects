@@ -3,16 +3,14 @@ package code.expressionlanguage.analyze.reach.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.CmpOperation;
-import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.util.CustList;
 
 public final class ReachCmpOperation extends ReachMethodOperation implements ReachCalculable {
-    private boolean stringCompare;
-    private String op;
-    ReachCmpOperation(CmpOperation _info) {
+    private final CommonOperSymbol symbol;
+    ReachCmpOperation(CmpOperation _info, CommonOperSymbol _s) {
         super(_info);
-        stringCompare = _info.isStringCompare();
-        op = _info.getOp();
+        symbol = _s;
     }
 
     @Override
@@ -35,12 +33,7 @@ public final class ReachCmpOperation extends ReachMethodOperation implements Rea
         }
         Argument first_ = ch_.first().getArgument();
         Argument second_ = ch_.last().getArgument();
-        Argument arg_;
-        if (stringCompare) {
-            arg_ = new Argument(NumParsers.compareStr(op, first_.getStruct(), second_.getStruct()));
-        } else {
-            arg_ = new Argument(NumParsers.compareNb(op, first_.getStruct(), second_.getStruct()));
-        }
+        Argument arg_ = new Argument(symbol.calculateOperator(first_.getStruct(), second_.getStruct(),(byte)0));
         setSimpleArgumentAna(arg_);
     }
 }

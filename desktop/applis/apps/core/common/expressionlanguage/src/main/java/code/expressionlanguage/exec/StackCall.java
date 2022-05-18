@@ -72,6 +72,11 @@ public final class StackCall implements AbstractStackCall {
         return getLastPage().formatVarType(_varType);
     }
 
+    @Override
+    public StackCall stack() {
+        return this;
+    }
+
     public AbstractPageEl getLastPage() {
         return importing.last();
     }

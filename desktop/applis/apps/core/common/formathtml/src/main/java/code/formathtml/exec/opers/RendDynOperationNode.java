@@ -202,8 +202,6 @@ public abstract class RendDynOperationNode {
                 if (parent_ instanceof CompoundedOperator) {
                     CompoundedOperator par_ = (CompoundedOperator) parent_;
                     ExecOperationNode.testpair(_argument,pair_,par_);
-                } else if (parent_ instanceof RendQuickOperation) {
-                    pair_.argumentTest(((RendQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
                 }
             }
         }

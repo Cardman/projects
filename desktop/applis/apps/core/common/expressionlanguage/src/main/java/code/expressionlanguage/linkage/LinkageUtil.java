@@ -3738,14 +3738,14 @@ public final class LinkageUtil {
             AnaTypeFct function_ = par_.getFct().getFunction();
             if (function_ != null) {
                 addParts(_vars, function_,
-                        _sum + _val.getIndexInEl() + par_.getOpOffset(), function_.getFunction().getName().length(),
+                        _sum + _val.getIndexInEl() + par_.getOperatorContent().getOpOffset(), function_.getFunction().getName().length(),
                         _val.getErrs(), _val.getErrs());
             } else if (!_val.getErrs().isEmpty()){
-                int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
+                int i_ = _sum + _val.getIndexInEl() + par_.getOperatorContent().getOpOffset();
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),i_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             } else if (_val instanceof RandCodeOperation && canCallRandeCode(_vars, _val.getFirstChild().getResultClass())) {
-                int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
+                int i_ = _sum + _val.getIndexInEl() + par_.getOperatorContent().getOpOffset();
                 _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, i_));
                 _vars.addPart(new PartOffset(ExportCst.FOOT_ITALIC, i_ + 1));
             }
@@ -3859,15 +3859,15 @@ public final class LinkageUtil {
     }
     private static void processCustomOperator(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _curOp,
                                               OperationNode _nextSiblingOp, MethodOperation _parentOp) {
-        if (_parentOp instanceof MiddleSymbolOperation) {
+        if (!(_parentOp instanceof AbstractUnaryOperation)&&_parentOp instanceof SymbolOperation) {
             int sum_ = _in.getBeginBlock() + _parentOp.getIndexInEl();
-            MiddleSymbolOperation par_ = (MiddleSymbolOperation) _parentOp;
+            SymbolOperation par_ = (SymbolOperation) _parentOp;
             AnaTypeFct function_ = par_.getFct().getFunction();
             if (function_ != null) {
-                addParts(_vars, function_,sum_+par_.getOpOffset(),par_.getOp().length(),_parentOp.getErrs(),_parentOp.getErrs());
+                addParts(_vars, function_,sum_+par_.getOperatorContent().getOpOffset(),par_.getOperatorContent().getOper().length(),_parentOp.getErrs(),_parentOp.getErrs());
             } else if (_parentOp instanceof AddOperation && ((AddOperation)_parentOp).isCatString() && canCallToString(_vars, _curOp, _nextSiblingOp)) {
-                _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, sum_+par_.getOpOffset()));
-                _vars.addPart(new PartOffset(ExportCst.FOOT_ITALIC, sum_+par_.getOpOffset() + par_.getOp().length()));
+                _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, sum_+par_.getOperatorContent().getOpOffset()));
+                _vars.addPart(new PartOffset(ExportCst.FOOT_ITALIC, sum_+par_.getOperatorContent().getOpOffset() + par_.getOperatorContent().getOper().length()));
             }
 
         }
@@ -3896,8 +3896,8 @@ public final class LinkageUtil {
         if (isWideCmp(_parent)) {
 
             int sum_ = _in.getBeginBlock() + _parent.getIndexInEl();
-            int begin_ = sum_+((MiddleSymbolOperation)_parent).getOpOffset();
-            int length_ = ((MiddleSymbolOperation)_parent) .getOp().length();
+            int begin_ = sum_+((SymbolOperation)_parent).getOperatorContent().getOpOffset();
+            int length_ = ((SymbolOperation)_parent).getOperatorContent().getOper().length();
             if (((SymbolOperation)_parent).getFct().getFunction() == null) {
                 safeReport(_in, _vars, _parent, _cov, begin_, length_);
             }

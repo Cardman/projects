@@ -40,6 +40,11 @@ public final class RendStackCall extends AbsRendStackCall implements AbstractSta
         return ExecInherits.quickFormat(getLastPage().getGlobalClass(),_varType);
     }
 
+    @Override
+    public StackCall stack() {
+        return stackCall;
+    }
+
     public void clearPages() {
         importing.clear();
     }

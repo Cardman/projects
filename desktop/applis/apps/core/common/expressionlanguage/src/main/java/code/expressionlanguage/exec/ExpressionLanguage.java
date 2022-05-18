@@ -156,7 +156,7 @@ public final class ExpressionLanguage {
 
     public static boolean isAncSettable(ExecOperationNode _oper) {
         ExecMethodOperation par_ = _oper.getParent();
-        if (par_ instanceof ExecQuickOperation){
+        if (par_ instanceof CompoundedOperator&&!(par_ instanceof ExecCompoundAffectationOperation)){
             return par_.getFirstChild() == _oper;
         }
         return par_ instanceof ExecCompoundAffectationOperation && _oper == ((ExecAbstractAffectOperation) par_).getSettableAnc();
@@ -165,17 +165,11 @@ public final class ExpressionLanguage {
     private static int getNextIndex(ExecOperationNode _operation, Struct _value) {
         int index_ = _operation.getIndexChild();
         ExecMethodOperation par_ = _operation.getParent();
-        if (par_ instanceof ExecCompoundAffectationNatSafeOperation && isAncSettable(_operation) && _value != NullStruct.NULL_VALUE) {
-            return par_.getOrder();
-        }
         if (safeDotShort(_value, index_, par_ instanceof ExecSafeDotOperation)) {
             ExecOperationNode last_ = ExecHelper.getLastNode(par_);
             if (!(last_ instanceof ExecAbstractLambdaOperation)) {
                 return shortCutNul(par_, last_, par_.getOrder());
             }
-        }
-        if (nulSafeShort(_value, par_)) {
-            return par_.getOrder();
         }
         if (par_ instanceof ExecRefTernaryOperation) {
             if (index_ == 1) {
@@ -190,10 +184,6 @@ public final class ExpressionLanguage {
 
     public static boolean safeDotShort(Struct _value, int _index, boolean _inst) {
         return _index == 0 && safeDotShort(_value, _inst);
-    }
-
-    private static boolean nulSafeShort(Struct _value, ExecMethodOperation _par) {
-        return _par instanceof ExecNullSafeOperation && _value != NullStruct.NULL_VALUE;
     }
 
     private static boolean safeDotShort(Struct _value, boolean _inst) {

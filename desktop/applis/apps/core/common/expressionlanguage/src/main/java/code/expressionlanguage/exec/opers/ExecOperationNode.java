@@ -130,15 +130,19 @@ public abstract class ExecOperationNode {
     }
 
     public static boolean orEq(CompoundedOperator _p) {
-        return shortEq(_p, AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT);
+        return shortEq(_p,"||", AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT);
     }
 
     public static boolean andEq(CompoundedOperator _p) {
-        return shortEq(_p, AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT);
+        return shortEq(_p, "&&", AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT);
     }
 
-    private static boolean shortEq(CompoundedOperator _compound, String _slow, String _quick) {
-        return StringUtil.quickEq(_compound.getOper(), _slow) || StringUtil.quickEq(_compound.getOper(), _quick);
+    public static boolean nullEq(CompoundedOperator _p) {
+        return shortEq(_p,"??", AbsBk.NULL_EQ, AbsBk.NULL_EQ_SHORT);
+    }
+
+    private static boolean shortEq(CompoundedOperator _compound, String _simple, String _slow, String _quick) {
+        return StringUtil.quickEq(_compound.getOper(), _simple) || StringUtil.quickEq(_compound.getOper(), _slow) || StringUtil.quickEq(_compound.getOper(), _quick);
     }
 
     public final int getOrder() {
@@ -205,8 +209,8 @@ public abstract class ExecOperationNode {
                 if (parent_ instanceof CompoundedOperator) {
                     CompoundedOperator par_ = (CompoundedOperator) parent_;
                     testpair(_argument, pair_, par_);
-                } else if (parent_ instanceof ExecQuickOperation) {
-                    pair_.argumentTest(((ExecQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
+//                } else if (parent_ instanceof ExecQuickOperation) {
+//                    pair_.argumentTest(((ExecQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
                 }
             }
         }
@@ -243,6 +247,9 @@ public abstract class ExecOperationNode {
         }
         if (orEq(_par)) {
             _pair.argumentTest(BooleanStruct.isTrue(_argument.getStruct()));
+        }
+        if (nullEq(_par)) {
+            _pair.argumentTest(!_argument.isNull());
         }
     }
 

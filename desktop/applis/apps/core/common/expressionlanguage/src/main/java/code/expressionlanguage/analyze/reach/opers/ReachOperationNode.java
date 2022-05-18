@@ -97,11 +97,11 @@ public abstract class ReachOperationNode {
         }
         if (_oper instanceof CmpOperation) {
             CmpOperation c_ = (CmpOperation) _oper;
-            return new ReachCmpOperation(c_);
+            return new ReachCmpOperation(c_, ForwardInfos.cmp(c_));
         }
         if (_oper instanceof EqOperation) {
             EqOperation c_ = (EqOperation) _oper;
-            return new ReachEqOperation(c_);
+            return new ReachNumericOperation(c_,new AnaOperDir(ForwardInfos.eq(c_)));
         }
         if (_oper instanceof NumericOperation) {
             return numeric((NumericOperation) _oper);

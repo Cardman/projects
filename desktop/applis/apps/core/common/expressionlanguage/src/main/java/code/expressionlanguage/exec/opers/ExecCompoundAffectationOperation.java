@@ -45,7 +45,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
     }
 
     public static boolean sh(ExecOperatorContent _operatorContent) {
-        return StringUtil.quickEq(_operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(_operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT);
+        return StringUtil.quickEq(_operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(_operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT)|| StringUtil.quickEq(_operatorContent.getOper(), AbsBk.NULL_EQ_SHORT);
     }
 
     protected abstract void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

@@ -1,12 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 
 public interface SymbolOperation {
 
-    int getOpOffset();
-
+    AnaOperatorContent getOperatorContent();
     ClassMethodIdMemberIdTypeFct getFct();
 
     boolean isOkNum();

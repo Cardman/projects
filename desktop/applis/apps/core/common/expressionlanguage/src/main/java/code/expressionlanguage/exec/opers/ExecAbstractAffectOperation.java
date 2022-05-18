@@ -149,9 +149,6 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, _current.getSettable());
         return Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
     }
-    protected StringList getNames() {
-        return names;
-    }
 
     public ExecOperationNode getSettable() {
         return settable;

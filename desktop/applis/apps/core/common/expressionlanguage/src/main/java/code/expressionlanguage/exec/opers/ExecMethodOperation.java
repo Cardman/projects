@@ -1,17 +1,13 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.exec.util.ArgumentList;
+import code.expressionlanguage.exec.util.ExecOperationIndexer;
+import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -80,12 +76,6 @@ public abstract class ExecMethodOperation extends ExecOperationNode {
             infos_.add(new ExecOperationInfo(ExecConstLeafOperation.isFilter(c), wr_,index_,calc_));
         }
         return infos_;
-    }
-
-    public void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
-                                         IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecStaticEltContent _st, StackCall _stackCall) {
-        ArgumentListCall l_ = listNamedArguments(buildInfos(_nodes)).getArguments();
-        ParamCheckerUtil.checkParametersOperatorsFormatted(_exit, _conf, _named, l_, ExecFormattedRootBlock.formatType(_st, _stackCall), _st.getKind(), _stackCall);
     }
 
     public final void appendChild(ExecOperationNode _child) {

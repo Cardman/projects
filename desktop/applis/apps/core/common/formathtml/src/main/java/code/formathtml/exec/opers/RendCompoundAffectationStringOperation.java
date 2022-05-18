@@ -24,36 +24,20 @@ public final class RendCompoundAffectationStringOperation extends RendCompoundAf
 
     @Override
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        Argument before_ = firstArg(this,_nodes);
         RendDynOperationNode left_ = getFirstNode(this);
         RendDynOperationNode right_ = getLastNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
         ImplicitMethods converter_ = getConverter();
+        byte cast_;
         if (converter_ != null) {
             String tres_ = converter_.get(0).getFct().getImportedParametersTypes().get(0);
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
-            Argument res_ = new Argument(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), cast_, _context, _rendStack.getStackCall()));
-            Argument conv_ = tryConvert(converter_, res_, _context, _rendStack);
-            if (conv_ == null) {
-                return;
-            }
-            res_ = conv_;
-            Argument aff_ = calculateChSetting(_nodes, res_, _context, _rendStack);
-            Argument arg_ = RendCompoundAffectationOperation.getPrePost(isStaticPostEltContent(),before_,aff_);
-            setSimpleArgument(arg_, _nodes, _context, _rendStack);
-            return;
+            cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
+        } else {
+            cast_ = getResultClass().getUnwrapObjectNb();
         }
-        Argument res_ = new Argument(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), getResultClass().getUnwrapObjectNb(), _context, _rendStack.getStackCall()));
-        Argument aff_ = calculateChSetting(_nodes, res_, _context, _rendStack);
-        Argument arg_ = RendCompoundAffectationOperation.getPrePost(isStaticPostEltContent(),before_,aff_);
-        setSimpleArgument(arg_, _nodes, _context, _rendStack);
-
-//        Argument leftArg_ = getArgument(_nodes,getFirstNode(this));
-//        Argument rightArg_ = getArgument(_nodes,getLastNode(this));
-//        Argument res_ = ExecCatOperation.localSumDiff(leftArg_, rightArg_, _context);
-//        Argument arg_ = calculateChSetting(_nodes,res_, _context,_rendStack);
-//        setSimpleArgument(arg_, _nodes, _context, _rendStack);
+        Argument res_ = new Argument(symbol.calculateOperator(leftArg_.getStruct(), rightArg_.getStruct(), cast_, _context, _rendStack));
+        process(this,_nodes, _context, _rendStack,res_);
     }
 
 }

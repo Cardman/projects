@@ -6,24 +6,27 @@ import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.util.CustList;
 
 public final class UnaryBinOperation extends AbstractUnaryOperation implements SymbolOperation {
 
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
-    private int opOffset;
+    private final AnaOperatorContent operatorContent;
     private boolean okNum;
 
     public UnaryBinOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        operatorContent = new AnaOperatorContent();
+        operatorContent.setOper(getOperators().firstValue());
+        operatorContent.setOpOffset(getOperators().firstKey());
     }
 
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         okNum = true;
         OperationNode child_ = getFirstChild();
-        opOffset = getOperators().firstKey();
         String oper_ = getOperators().firstValue();
         if (AnaTypeUtil.getIntOrderClass(child_.getResultClass(), _page) != 0) {
             unaryBinNum(_page);
@@ -43,7 +46,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         OperationNode child_ = getFirstChild();
         AnaClassArgumentMatching clMatch_ = child_.getResultClass();
         int order_ = AnaTypeUtil.getIntOrderClass(clMatch_, _page);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+operatorContent.getOpOffset(), _page);
         if (order_ == 0) {
             errSymbol(_page);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasNumber()));
@@ -60,8 +63,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     }
 
     @Override
-    public int getOpOffset() {
-        return opOffset;
+    public AnaOperatorContent getOperatorContent() {
+        return operatorContent;
     }
 
     @Override

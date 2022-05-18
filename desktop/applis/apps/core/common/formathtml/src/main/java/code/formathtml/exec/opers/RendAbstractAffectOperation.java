@@ -139,9 +139,6 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         ArgumentsPair pairSet_ = getArgumentPair(_nodes, _current.getSettable());
         return Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
     }
-    protected StringList getNames() {
-        return names;
-    }
 
     public RendDynOperationNode getSettableAnc() {
         return settableAnc;

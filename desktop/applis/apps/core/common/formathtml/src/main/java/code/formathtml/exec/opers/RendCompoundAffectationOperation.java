@@ -82,6 +82,6 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
 
     @Override
     public String getOper() {
-        return operatorContent.getOper();
+        return getOperatorContent().getOper();
     }
 }

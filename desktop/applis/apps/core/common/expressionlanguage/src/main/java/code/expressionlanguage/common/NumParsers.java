@@ -15,10 +15,6 @@ import code.util.core.StringUtil;
 public final class NumParsers {
     public static final int DEFAULT_RADIX = 10;
     private static final long RATIO = 31L;
-    private static final String LOWER_EQ = "<=";
-    private static final String LOWER = "<";
-    private static final String GREATER_EQ = ">=";
-    private static final String GREATER = ">";
     private static final byte HEX_BASE = 16;
     private static final char DOT_VAR = '.';
     private static final char EXP_UPP = 'E';
@@ -1483,48 +1479,6 @@ public final class NumParsers {
         return new ByteStruct((byte)0);
     }
 
-    public static BooleanStruct compareNb(String _op, Struct _one, Struct _two) {
-        String useOp_ = usedOp(_op);
-        BooleanStruct arg_;
-        if (StringUtil.quickEq(useOp_, LOWER)) {
-            arg_ = quickCalculateLowerNb(_one, _two);
-        } else {
-            arg_ = quickCalculateGreaterNb(_one, _two);
-        }
-        if (complement(_op)) {
-            arg_ = arg_.neg();
-        }
-        return arg_;
-    }
-
-    public static BooleanStruct compareStr(String _op, Struct _one, Struct _two) {
-        String useOp_ = usedOp(_op);
-        BooleanStruct arg_;
-        if (StringUtil.quickEq(useOp_, LOWER)) {
-            arg_ = quickCalculateLowerStr(_one, _two);
-        } else {
-            arg_ = quickCalculateGreaterStr(_one, _two);
-        }
-        if (complement(_op)) {
-            arg_ = arg_.neg();
-        }
-        return arg_;
-    }
-
-    private static String usedOp(String _op) {
-        String useOp_ = _op;
-        if (StringUtil.quickEq(_op, LOWER_EQ)) {
-            useOp_ = GREATER;
-        } else if (StringUtil.quickEq(_op, GREATER_EQ)) {
-            useOp_ = LOWER;
-        }
-        return useOp_;
-    }
-
-    private static boolean complement(String _op) {
-        return StringUtil.quickEq(_op, LOWER_EQ) || StringUtil.quickEq(_op, GREATER_EQ);
-    }
-
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
         if (isFloatType(_a,_b)) {
             return BooleanStruct.of(convertToNumber(_a).doubleStruct() < convertToNumber(_b).doubleStruct());
@@ -1539,13 +1493,13 @@ public final class NumParsers {
         return BooleanStruct.of(convertToNumber(_a).longStruct() > convertToNumber(_b).longStruct());
     }
 
-    private static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
+    public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
         String first_ = getCharSeq(_a).toStringInstance();
         String second_ = getCharSeq(_b).toStringInstance();
         return BooleanStruct.of(StringUtil.compareStrings(first_,second_) < 0);
     }
 
-    private static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
+    public static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
         String first_ = getCharSeq(_a).toStringInstance();
         String second_ = getCharSeq(_b).toStringInstance();
         return BooleanStruct.of(StringUtil.compareStrings(first_,second_) > 0);

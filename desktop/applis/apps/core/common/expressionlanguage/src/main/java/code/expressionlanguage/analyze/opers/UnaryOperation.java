@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
@@ -14,21 +15,21 @@ import code.util.CustList;
 
 public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
-    private final String oper;
-    private int opOffset;
+    private final AnaOperatorContent operatorContent;
     private boolean okNum;
 
     public UnaryOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        oper = getOperators().firstValue().trim();
+        operatorContent = new AnaOperatorContent();
+        operatorContent.setOper(getOperators().firstValue());
+        operatorContent.setOpOffset(getOperators().firstKey());
     }
 
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         okNum = true;
         OperationNode child_ = getFirstChild();
-        opOffset = getOperators().firstKey();
         String oper_ = getOperators().firstValue();
         if (AnaTypeUtil.isPureNumberClass(child_.getResultClass(), _page)) {
             unaryNum(_page);
@@ -62,7 +63,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
                 return;
             }
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+operatorContent.getOpOffset(), _page);
         if (!AnaTypeUtil.isPureNumberClass(clMatch_, _page)) {
             errSymbol(_page);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasNumber()));
@@ -80,13 +81,13 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         return fct;
     }
 
-    public String getOper() {
-        return oper;
+    @Override
+    public AnaOperatorContent getOperatorContent() {
+        return operatorContent;
     }
 
-    @Override
-    public int getOpOffset() {
-        return opOffset;
+    public String getOper() {
+        return operatorContent.getOper();
     }
 
     @Override

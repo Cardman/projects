@@ -13,10 +13,9 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ReflectAnnotationPageEl;
 import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
-import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
+import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.opers.ExecQuickOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
@@ -570,30 +569,28 @@ public final class Coverage {
     private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
         Argument res_ = Argument.getNullableValue(_v.getArgument());
         Struct v_ = res_.getStruct();
-        if (!ExpressionLanguage.isAncSettable(_oper) || _ana.getResultClass().getImplicitsTest().isEmpty()) {
-            return v_;
-        }
         ExecMethodOperation par_ = _oper.getParent();
-        Struct out_ = v_;
-        if (par_ instanceof ExecQuickOperation){
-            out_ =  BooleanStruct.of(((ExecQuickOperation)par_).match(BooleanStruct.of(_v.isArgumentTest())));
-        }
-        if (par_ instanceof ExecCompoundAffectationOperation){
-            ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-            out_ = compound(v_,p_,_v);
-        }
-        return out_;
-    }
-
-    private static Struct compound(Struct _before,ExecCompoundAffectationOperation _par, ArgumentsPair _v) {
-        Struct v_ = _before;
-        if (ExecOperationNode.andEq(_par)) {
-            v_ = BooleanStruct.of(!_v.isArgumentTest());
-        }
-        if (ExecOperationNode.orEq(_par)) {
-            v_ = BooleanStruct.of(_v.isArgumentTest());
+        if (par_ instanceof CompoundedOperator){
+            CompoundedOperator p_ = (CompoundedOperator) par_;
+            if (ExecOperationNode.andEq(p_)) {
+                return value(_oper, _ana, v_, !_v.isArgumentTest());
+            }
+            if (ExecOperationNode.orEq(p_)) {
+                return value(_oper, _ana, v_, _v.isArgumentTest());
+            }
         }
         return v_;
+    }
+
+    private static Struct value(ExecOperationNode _oper, OperationNode _ana, Struct _original, boolean _v) {
+        if (noTest(_oper, _ana)) {
+            return _original;
+        }
+        return BooleanStruct.of(_v);
+    }
+
+    private static boolean noTest(ExecOperationNode _oper, OperationNode _ana) {
+        return !ExpressionLanguage.isAncSettable(_oper) || _ana.getResultClass().getImplicitsTest().isEmpty();
     }
 
     public void passCalls(AbstractPageEl _page) {

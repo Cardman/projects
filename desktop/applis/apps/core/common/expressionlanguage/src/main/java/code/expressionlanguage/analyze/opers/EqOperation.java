@@ -8,36 +8,37 @@ import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ParamReturn;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class EqOperation extends MethodOperation implements MiddleSymbolOperation {
 
-    private final String oper;
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
-    private final int opOffset;
+    private final AnaOperatorContent operatorContent;
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        oper = _op.getOperators().values().first();
-        opOffset = _op.getOperators().firstKey();
+        operatorContent = new AnaOperatorContent();
+        operatorContent.setOper(_op.getOperators().firstValue());
+        operatorContent.setOpOffset(_op.getOperators().firstKey());
     }
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
-        if (StringUtil.quickEq(oper.trim(), NEG_BOOL)) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+operatorContent.getOpOffset(), _page);
+        if (StringUtil.quickEq(operatorContent.getOper().trim(), NEG_BOOL)) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(_page);
             //oper len
             badEl_.buildError(_page.getAnalysisMessages().getBadOperatorRef(),
-                    oper.trim());
+                    operatorContent.getOper().trim());
             _page.getLocalizer().addError(badEl_);
             getPartOffsetsChildren().add(new InfoErrorDto(badEl_,_page,1));
         }
-        String custOp_ = oper.trim();
+        String custOp_ = operatorContent.getOper().trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode l_ = chidren_.first();
         OperationNode r_ = chidren_.last();
@@ -53,22 +54,18 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
 
-    public String getOper() {
-        return getOp();
-    }
-
     public ClassMethodIdMemberIdTypeFct getFct() {
         return fct;
     }
 
     @Override
-    public String getOp() {
-        return oper;
+    public AnaOperatorContent getOperatorContent() {
+        return operatorContent;
     }
 
     @Override
-    public int getOpOffset() {
-        return opOffset;
+    public String getOp() {
+        return operatorContent.getOper();
     }
 
     /**The execution cannot occur if there is only one character as symbol

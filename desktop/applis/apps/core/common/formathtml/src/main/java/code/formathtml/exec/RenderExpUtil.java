@@ -3,9 +3,9 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.opers.*;
 import code.util.CustList;
@@ -59,7 +59,7 @@ public final class RenderExpUtil {
     }
     private static boolean isAncSettable(RendDynOperationNode _oper) {
         RendMethodOperation par_ = _oper.getParent();
-        if (par_ instanceof RendQuickOperation){
+        if (par_ instanceof CompoundedOperator && !(par_ instanceof RendCompoundAffectationOperation)){
             return par_.getFirstChild() == _oper;
         }
         return par_ instanceof RendCompoundAffectationOperation && _oper == ((RendAbstractAffectOperation) par_).getSettableAnc();
@@ -68,17 +68,11 @@ public final class RenderExpUtil {
     private static int getNextIndex(RendDynOperationNode _operation, Struct _value) {
         int index_ = _operation.getIndexChild();
         RendMethodOperation par_ = _operation.getParent();
-        if (par_ instanceof RendCompoundAffectationNatSafeOperation && isAncSettable(_operation) && _value != NullStruct.NULL_VALUE) {
-            return par_.getOrder();
-        }
         if (ExpressionLanguage.safeDotShort(_value,index_,par_ instanceof RendSafeDotOperation)) {
             RendDynOperationNode last_ = par_.getChildrenNodes().last();
             if (!(last_ instanceof RendAbstractLambdaOperation)) {
                 return shortCutNul(par_, last_, par_.getOrder());
             }
-        }
-        if (nulSafeShort(_value, par_)) {
-            return par_.getOrder();
         }
         if (par_ instanceof RendRefTernaryOperation) {
             if (index_ == 1) {
@@ -89,10 +83,6 @@ public final class RenderExpUtil {
             }
         }
         return _operation.getOrder() + 1;
-    }
-
-    private static boolean nulSafeShort(Struct _value, RendMethodOperation _par) {
-        return _par instanceof RendNullSafeOperation && _value != NullStruct.NULL_VALUE;
     }
 
     private static int shortCutNul(RendMethodOperation _par, RendDynOperationNode _last, int _order) {
