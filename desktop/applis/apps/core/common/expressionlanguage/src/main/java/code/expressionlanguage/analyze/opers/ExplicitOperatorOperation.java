@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -23,7 +22,6 @@ import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
@@ -40,6 +38,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     private final CustList<AnaResultPartType> typesImpl = new CustList<AnaResultPartType>();
     private final CustList<AnaResultPartType> typesTest = new CustList<AnaResultPartType>();
     private String methodFound = EMPTY_STRING;
+    private String syntheticOperator = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     private ClassMethodIdAncestor methodIdImpl;
     private ClassMethodIdAncestor methodIdTest;
@@ -82,118 +81,41 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         affOffset = next_;
         affect = next_ >= 0;
         if (affect) {
-            String nameTest_ = "";
-            if (StringUtil.quickEq(op_, "&&&")) {
-                opSearch = "&&";
-            } else {
-                if (StringUtil.quickEq(op_, "|||")) {
-                    opSearch = "||";
-                }
-            }
-            if (StringUtil.quickEq(opSearch,"&&")) {
-                nameTest_ = _page.getKeyWords().getKeyWordFalse();
-            }
-            if (StringUtil.quickEq(opSearch,"||")) {
-                nameTest_ = _page.getKeyWords().getKeyWordTrue();
-            }
             next_ = StringExpUtil.nextPrintChar(next_+1, cl_.length(), cl_);
-            if (StringExpUtil.startsWithKeyWord(cl_,next_,_page.getKeyWords().getKeyWordCast())) {
-                beginImpl = next_;
-                int secondRightPar_ = cl_.indexOf(PAR_RIGHT, secondLeftPar_);
-                String clImpl_ = cl_.substring(secondLeftPar_+1, secondRightPar_);
-                StringList argsImpl_ = StringExpUtil.getAllSepCommaTypes(clImpl_);
-                int lenArgImpl_ = argsImpl_.size();
-                if (lenArgImpl_ == 3) {
-                    String firstFull_ = argsImpl_.first();
-                    int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
-                    String fromType_ = firstFull_.trim();
-                    ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + secondLeftPar_ + 1, fromType_, _page);
-                    String resName_ = resolvedIdType_.getFullName();
-                    typesImpl.add(resolvedIdType_.getDels());
-                    if (!resName_.isEmpty()) {
-                        StringList out_ = new StringList();
-                        CustList<BoolVal> ref_ = new CustList<BoolVal>();
-                        int offImpl_ = secondLeftPar_+1;
-                        for (int i = 0; i < 1; i++) {
-                            offImpl_ += argsImpl_.get(i).length() + 1;
-                        }
-                        for (int i = 1; i < lenArgImpl_; i++) {
-                            String full_ = argsImpl_.get(i);
-                            int loc_ = StringUtil.getFirstPrintableCharIndex(full_);
-                            String arg_ = full_.trim();
-                            String type_ = arg_;
-                            AnaResultPartType result_ = ResolvingTypes.resolveCorrectAccessibleType(offImpl_ + loc_, type_, resName_, _page);
-                            typesImpl.add(result_);
-                            arg_ = result_.getResult(_page);
-                            offImpl_ += argsImpl_.get(i).length() + 1;
-                            out_.add(arg_);
-                            ref_.add(BoolVal.FALSE);
-                        }
-                        methodIdImpl = new ClassMethodIdAncestor(resolvedIdType_.getGeneType(),new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, _page.getKeyWords().getKeyWordCast(), out_, ref_, false)),0);
-                    }
-                } else {
-                    FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-                    badCall_.setFile(_page.getCurrentFile());
-                    badCall_.setIndexFile(_page);
-                    //key word len
-                    badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
-                            Long.toString(2),
-                            Long.toString(lenArgImpl_)
-                    );
-                    _page.getLocalizer().addError(badCall_);
-                    addErr(badCall_.getBuiltError());
-                }
-                next_ = StringExpUtil.nextPrintChar(secondRightPar_+1, cl_.length(), cl_);
-            }
-            if (StringExpUtil.startsWithKeyWord(cl_,next_,_page.getKeyWords().getKeyWordExplicit())) {
-                beginTest = next_;
-                int thirdLeftPar_ = cl_.indexOf(PAR_LEFT, next_ + _page.getKeyWords().getKeyWordExplicit().length());
-                String clTest_ = cl_.substring(thirdLeftPar_+1, cl_.lastIndexOf(PAR_RIGHT));
-                StringList argsTest_ = StringExpUtil.getAllSepCommaTypes(clTest_);
-                int lenArgTest_ = argsTest_.size();
-                if (lenArgTest_ == 2) {
-                    String firstFull_ = argsTest_.first();
-                    int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
-                    String fromType_ = firstFull_.trim();
-                    ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + thirdLeftPar_ + 1, fromType_, _page);
-                    String resName_ = resolvedIdType_.getFullName();
-                    typesTest.add(resolvedIdType_.getDels());
-                    if (!resName_.isEmpty()) {
-                        int offImpl_ = thirdLeftPar_+1;
-                        offImpl_ += argsTest_.first().length() + 1;
-                        String full_ = argsTest_.get(1);
-                        int loc_ = StringUtil.getFirstPrintableCharIndex(full_);
-                        String arg_ = full_.trim();
-                        String type_ = arg_;
-                        AnaResultPartType result_ = ResolvingTypes.resolveCorrectAccessibleType(offImpl_ + loc_, type_, resName_, _page);
-                        typesTest.add(result_);
-                        arg_ = result_.getResult(_page);
-                        StringList out_ = new StringList(_page.getAliasPrimBoolean(),arg_);
-                        CustList<BoolVal> ref_ = new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE);
-                        methodIdTest = new ClassMethodIdAncestor(resolvedIdType_.getGeneType(),new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, nameTest_, out_, ref_, false)),0);
-                    }
-                } else {
-                    FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-                    badCall_.setFile(_page.getCurrentFile());
-                    badCall_.setIndexFile(_page);
-                    //key word len
-                    badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
-                            Long.toString(2),
-                            Long.toString(lenArgTest_)
-                    );
-                    _page.getLocalizer().addError(badCall_);
-                    addErr(badCall_.getBuiltError());
-                }
+        } else {
+            affOffset = firstRightPar_;
+            next_ = StringExpUtil.nextPrintChar(firstRightPar_ + 1, cl_.length(), cl_);
+        }
+        String nameTest_ = "";
+        if (StringUtil.quickEq(op_, "&&&")) {
+            opSearch = "&&";
+        } else {
+            if (StringUtil.quickEq(op_, "|||")) {
+                opSearch = "||";
             }
         }
-        if (args_.size() > 1) {
-            int off_ = StringUtil.getFirstPrintableCharIndex(args_.get(1));
-            String fromType_ = args_.get(1).trim();
-            partOffsets = ResolvingTypes.resolveCorrectTypeAccessible(off_ + callFctContent.getMethodName().indexOf(',') + 1, fromType_, _page);
-            from = partOffsets.getResult(_page);
-            accType = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(from));
+        if (StringUtil.quickEq(opSearch,"&&")) {
+            nameTest_ = _page.getKeyWords().getKeyWordFalse();
         }
+        if (StringUtil.quickEq(opSearch,"||")) {
+            nameTest_ = _page.getKeyWords().getKeyWordTrue();
+        }
+        if (StringExpUtil.startsWithKeyWord(cl_,next_,_page.getKeyWords().getKeyWordCast())) {
+            beginImpl = next_;
+            int secondRightPar_ = cl_.indexOf(PAR_RIGHT, secondLeftPar_);
+            implicitId(_page, cl_, secondLeftPar_, secondRightPar_);
+            next_ = StringExpUtil.nextPrintChar(secondRightPar_+1, cl_.length(), cl_);
+        }
+        if (StringExpUtil.startsWithKeyWord(cl_,next_,_page.getKeyWords().getKeyWordExplicit())) {
+            beginTest = next_;
+            explicitId(_page, cl_, next_, nameTest_);
+        }
+        searchType(_page, args_);
         methodFound = op_;
+        lookForMethodsInfos(_page);
+    }
+
+    private void lookForMethodsInfos(AnalyzedPageEl _page) {
         if (from.isEmpty()) {
             CustList<MethodInfo> ops_ = getOperators(isLvalue(), null, _page);
             methodInfos.add(ops_);
@@ -221,6 +143,102 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         filterByReturnType("",apply_,methodInfos, _page, getParentMatching(this));
     }
 
+    private void searchType(AnalyzedPageEl _page, StringList _args) {
+        if (_args.size() > 1) {
+            int off_ = StringUtil.getFirstPrintableCharIndex(_args.get(1));
+            String fromType_ = _args.get(1).trim();
+            partOffsets = ResolvingTypes.resolveCorrectTypeAccessible(off_ + callFctContent.getMethodName().indexOf(',') + 1, fromType_, _page);
+            from = partOffsets.getResult(_page);
+            accType = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(from));
+        }
+    }
+
+    private void explicitId(AnalyzedPageEl _page, String _cl, int _next, String _nameTest) {
+        int thirdLeftPar_ = _cl.indexOf(PAR_LEFT, _next + _page.getKeyWords().getKeyWordExplicit().length());
+        String clTest_ = _cl.substring(thirdLeftPar_+1, _cl.lastIndexOf(PAR_RIGHT));
+        StringList argsTest_ = StringExpUtil.getAllSepCommaTypes(clTest_);
+        int lenArgTest_ = argsTest_.size();
+        if (lenArgTest_ == 2) {
+            String firstFull_ = argsTest_.first();
+            int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
+            String fromType_ = firstFull_.trim();
+            ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + thirdLeftPar_ + 1, fromType_, _page);
+            String resName_ = resolvedIdType_.getFullName();
+            typesTest.add(resolvedIdType_.getDels());
+            if (!resName_.isEmpty()) {
+                int offImpl_ = thirdLeftPar_+1;
+                offImpl_ += argsTest_.first().length() + 1;
+                String full_ = argsTest_.get(1);
+                int loc_ = StringUtil.getFirstPrintableCharIndex(full_);
+                String arg_ = full_.trim();
+                String type_ = arg_;
+                AnaResultPartType result_ = ResolvingTypes.resolveCorrectAccessibleType(offImpl_ + loc_, type_, resName_, _page);
+                typesTest.add(result_);
+                arg_ = result_.getResult(_page);
+                StringList out_ = new StringList(_page.getAliasPrimBoolean(),arg_);
+                CustList<BoolVal> ref_ = new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE);
+                methodIdTest = new ClassMethodIdAncestor(resolvedIdType_.getGeneType(),new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, _nameTest, out_, ref_, false)),0);
+            }
+        } else {
+            FoundErrorInterpret badCall_ = new FoundErrorInterpret();
+            badCall_.setFile(_page.getCurrentFile());
+            badCall_.setIndexFile(_page);
+            //key word len
+            badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
+                    Long.toString(2),
+                    Long.toString(lenArgTest_)
+            );
+            _page.getLocalizer().addError(badCall_);
+            addErr(badCall_.getBuiltError());
+        }
+    }
+
+    private void implicitId(AnalyzedPageEl _page, String _cl, int _secondLeftPar, int _secondRightPar) {
+        String clImpl_ = _cl.substring(_secondLeftPar +1, _secondRightPar);
+        StringList argsImpl_ = StringExpUtil.getAllSepCommaTypes(clImpl_);
+        int lenArgImpl_ = argsImpl_.size();
+        if (lenArgImpl_ == 3) {
+            String firstFull_ = argsImpl_.first();
+            int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
+            String fromType_ = firstFull_.trim();
+            ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + _secondLeftPar + 1, fromType_, _page);
+            String resName_ = resolvedIdType_.getFullName();
+            typesImpl.add(resolvedIdType_.getDels());
+            if (!resName_.isEmpty()) {
+                StringList out_ = new StringList();
+                CustList<BoolVal> ref_ = new CustList<BoolVal>();
+                int offImpl_ = _secondLeftPar +1;
+                for (int i = 0; i < 1; i++) {
+                    offImpl_ += argsImpl_.get(i).length() + 1;
+                }
+                for (int i = 1; i < lenArgImpl_; i++) {
+                    String full_ = argsImpl_.get(i);
+                    int loc_ = StringUtil.getFirstPrintableCharIndex(full_);
+                    String arg_ = full_.trim();
+                    String type_ = arg_;
+                    AnaResultPartType result_ = ResolvingTypes.resolveCorrectAccessibleType(offImpl_ + loc_, type_, resName_, _page);
+                    typesImpl.add(result_);
+                    arg_ = result_.getResult(_page);
+                    offImpl_ += argsImpl_.get(i).length() + 1;
+                    out_.add(arg_);
+                    ref_.add(BoolVal.FALSE);
+                }
+                methodIdImpl = new ClassMethodIdAncestor(resolvedIdType_.getGeneType(),new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, _page.getKeyWords().getKeyWordCast(), out_, ref_, false)),0);
+            }
+        } else {
+            FoundErrorInterpret badCall_ = new FoundErrorInterpret();
+            badCall_.setFile(_page.getCurrentFile());
+            badCall_.setIndexFile(_page);
+            //key word len
+            badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
+                    Long.toString(2),
+                    Long.toString(lenArgImpl_)
+            );
+            _page.getLocalizer().addError(badCall_);
+            addErr(badCall_.getBuiltError());
+        }
+    }
+
     @Override
     public void analyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
@@ -243,19 +261,13 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        ClassMethodIdReturn found_ = findMethodWithName(_page,name_);
+        if (found_ == null) {
+            return;
+        }
+        CustList<OperationNode> all_ = name_.getAllOps();
+        OperationNode next_ = operandTest(all_);
         if (affect) {
-            ClassMethodIdReturn found_ = findMethodWithName(_page,name_);
-            if (found_ == null) {
-                return;
-            }
-            CustList<OperationNode> all_ = name_.getAllOps();
-            OperationNode next_ = null;
-            for (OperationNode o: all_) {
-                if (!(o instanceof NamedArgumentOperation) || ((NamedArgumentOperation) o).getIndex() == 0) {
-                    next_ = o;
-                    break;
-                }
-            }
             if (next_ == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
@@ -267,8 +279,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 addErr(un_.getBuiltError());
                 return;
             }
-            OperationNode def_ = next_;
-            SettableElResult settable_ = AffectationOperation.tryGetSettableArg(def_);
+            SettableElResult settable_ = AffectationOperation.tryGetSettableArg(next_);
             if (!(settable_ instanceof OperationNode)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
@@ -283,91 +294,99 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             settable_.setVariable(false);
             checkSetter((OperationNode)settable_,_page);
             indexVar = next_.getIndexChild();
-            if (settable_ instanceof SettableFieldOperation) {
-                SettableFieldOperation cst_ = (SettableFieldOperation)settable_;
-                StringMap<BoolVal> fieldsAfterLast_ = _page.getDeclaredAssignments();
-                if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
-                    setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(_page);
-                    //field name len
-                    un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                            cst_.getFieldName());
-                    _page.getLocalizer().addError(un_);
-                    addErr(un_.getBuiltError());
+            CompoundAffectationOperation.checkFinal(this,_page,settable_);
+            checkVariable(_page, settable_);
+            tryGetTest(_page, next_);
+            AnaClassArgumentMatching left_ = getSettableResClass(settable_);
+            tryGetImplicit(_page, left_);
+            return;
+        }
+        if ((StringUtil.quickEq(methodFound, "&&&") || StringUtil.quickEq(methodFound, "|||"))&&next_ != null) {
+            tryGetTest(_page, next_);
+            if (!syntheticOperator.isEmpty()) {
+                tryGetImplicit(_page, next_.getResultClass());
+            }
+            return;
+        }
+        syntheticOperator = "";
+    }
+
+    private void checkVariable(AnalyzedPageEl _page, SettableElResult _settable) {
+        if (_settable instanceof VariableOperationUse && ((VariableOperationUse) _settable).isFinalVariable()) {
+            VariableOperationUse cst_ = (VariableOperationUse) _settable;
+            setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(_page.getCurrentFile());
+            un_.setIndexFile(_page);
+            //field name len
+            un_.buildError(_page.getAnalysisMessages().getFinalField(),
+                    cst_.getVariableName());
+            _page.getLocalizer().addError(un_);
+            addErr(un_.getBuiltError());
+        }
+    }
+
+    private void tryGetImplicit(AnalyzedPageEl _page, AnaClassArgumentMatching _left) {
+        if (methodIdImpl != null) {
+            AnaClassArgumentMatching resultClass_ = getResultClass();
+            CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(_left);
+            args_.add(resultClass_);
+            AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
+            ClassMethodIdReturn resMethod_ = tryGetCast(methodIdImpl.getClassMethodId().getClassName(), methodIdImpl, argsClass_, _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
+            if (resMethod_ != null) {
+                Mapping map_ = new Mapping();
+                map_.setArg(resMethod_.getReturnType());
+                map_.setParam(_left);
+                if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFile(_page.getCurrentFile());
+                    cast_.setIndexFile(_page);
+                    //oper len
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            resMethod_.getReturnType(),
+                            StringUtil.join(_left.getNames(),ExportCst.JOIN_TYPES));
+                    _page.getLocalizer().addError(cast_);
+                    addErr(cast_.getBuiltError());
+                } else {
+                    conv.infos(resMethod_);
                 }
-            }
-            if (settable_ instanceof VariableOperationUse && ((VariableOperationUse)settable_).isFinalVariable()) {
-                VariableOperationUse cst_ = (VariableOperationUse)settable_;
-                setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page);
-                //field name len
-                un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                        cst_.getVariableName());
-                _page.getLocalizer().addError(un_);
-                addErr(un_.getBuiltError());
-            }
-            ClassMethodIdReturn test_ = tryGetTest(def_,opSearch,_page, methodIdTest);
-            if (test_ != null){
-                foundChild = next_;
-                def_.getResultClass().implicitInfosTest(test_);
-                functionTest = test_.getPair();
-            } else if (StringExpUtil.isLogical(opSearch)) {
+            } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page);
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                        StringUtil.join(settable_.getResultClass().getNames(),ExportCst.JOIN_TYPES));
+                        StringUtil.join(_left.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 addErr(cast_.getBuiltError());
             }
-            AnaClassArgumentMatching left_ = getSettableResClass(settable_);
-            if (methodIdImpl != null) {
-                AnaClassArgumentMatching resultClass_ = getResultClass();
-                CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(left_);
-                args_.add(resultClass_);
-                AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
-                ClassMethodIdReturn resMethod_ = tryGetCast(methodIdImpl.getClassMethodId().getClassName(), methodIdImpl, argsClass_, _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
-                if (resMethod_ != null) {
-                    Mapping map_ = new Mapping();
-                    map_.setArg(resMethod_.getReturnType());
-                    map_.setParam(left_);
-                    if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFile(_page.getCurrentFile());
-                        cast_.setIndexFile(_page);
-                        //oper len
-                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                resMethod_.getReturnType(),
-                                StringUtil.join(left_.getNames(),ExportCst.JOIN_TYPES));
-                        _page.getLocalizer().addError(cast_);
-                        addErr(cast_.getBuiltError());
-                    } else {
-                        conv.infos(resMethod_);
-                    }
-                } else {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page);
-                    //oper len
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(left_.getNames(),ExportCst.JOIN_TYPES));
-                    _page.getLocalizer().addError(cast_);
-                    addErr(cast_.getBuiltError());
-                }
-                setResultClass(AnaClassArgumentMatching.copy(left_, _page.getPrimitiveTypes()));
-            } else {
-                CompoundAffectationOperation.tryImplicit(this,_page,left_,conv);
-            }
-            return;
+            setResultClass(AnaClassArgumentMatching.copy(_left, _page.getPrimitiveTypes()));
+        } else {
+            CompoundAffectationOperation.tryImplicit(this, _page, _left,conv);
         }
-        findMethodWithName(_page,name_);
+    }
+
+    private void tryGetTest(AnalyzedPageEl _page, OperationNode _next) {
+        ClassMethodIdReturn test_ = tryGetTest(_next,opSearch, _page, methodIdTest);
+        if (test_ != null){
+            foundChild = _next;
+            _next.getResultClass().implicitInfosTest(test_);
+            functionTest = test_.getPair();
+        } else {
+            syntheticOperator = "";
+        }
+    }
+
+    private OperationNode operandTest(CustList<OperationNode> _all) {
+        OperationNode next_ = null;
+        for (OperationNode o: _all) {
+            if (!(o instanceof NamedArgumentOperation) || ((NamedArgumentOperation) o).getIndex() == 0) {
+                next_ = o;
+                break;
+            }
+        }
+        return next_;
     }
 
     static void checkSetter(OperationNode _op, AnalyzedPageEl _page) {
@@ -391,6 +410,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         ClassMethodIdAncestor feed_ = null;
+        syntheticOperator = methodFound;
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
             MethodId mid_ = id_.getConstraints();
@@ -497,6 +517,10 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public ClassMethodIdAncestor getMethodIdTest() {
         return methodIdTest;
+    }
+
+    public String getSyntheticOperator() {
+        return syntheticOperator;
     }
 
     public String getMethodFound() {

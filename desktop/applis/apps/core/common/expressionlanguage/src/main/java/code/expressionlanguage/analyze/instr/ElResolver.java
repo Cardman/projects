@@ -761,8 +761,7 @@ public final class ElResolver {
             _d.setBadOffset(afterFirst_);
             return;
         }
-        char loc_ = _string.charAt(afterFirst_);
-        if (StringExpUtil.startsWithKeyWord(_string, i_, keyWordOperator_) && (loc_ == '=' || loc_ == ':')) {
+        if (StringExpUtil.startsWithKeyWord(_string, i_, keyWordOperator_)) {
             compound(_string, _d, _out, afterFirst_,_page);
             return;
         }
@@ -803,11 +802,18 @@ public final class ElResolver {
 
     private static void compound(String _string, Delimiters _d, ResultAfterInstKeyWord _out, int _afterClassChoice, AnalyzedPageEl _page) {
         int len_ = _string.length();
+        char loc_ = _string.charAt(_afterClassChoice);
+        int after_;
+        if (loc_ == '=' || loc_ == ':') {
+            after_ = _afterClassChoice + 1;
+        } else {
+            after_ = _afterClassChoice;
+        }
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordCast_ = keyWords_.getKeyWordCast();
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
         StackDelimiters stack_ = _d.getStack();
-        int afterAff_ = StringExpUtil.nextPrintChar(_afterClassChoice + 1, len_, _string);
+        int afterAff_ = StringExpUtil.nextPrintChar(after_, len_, _string);
         int nextKey_ = afterAff_;
         if (StringExpUtil.startsWithKeyWord(_string, afterAff_, keyWordCast_)) {
             int impl_ = afterAff_ + keyWordCast_.length();

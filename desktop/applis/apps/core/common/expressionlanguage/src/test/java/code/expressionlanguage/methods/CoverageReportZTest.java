@@ -14141,6 +14141,204 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage721Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<S> {\n");
+        xml_.append(" public S a;\n");
+        xml_.append(" static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public T a;\n");
+        xml_.append(" static boolean false(Ex<T> a){\n");
+        xml_.append("  return (int)a.a<=4;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& ExTwo<int> (Ex<int> a, Ex<int> b){\n");
+        xml_.append("  ExTwo<int> o = new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex<int> one = new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<int> two = new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  operator(&&&,Ex<int>)$(ExTwo,Ex<S>,ExTwo<S>)explicit(Ex,Ex<T>)((Ex<int>)one,two);\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">S</a>&gt; {\n" +
+                " public <a href=\"#m23\">S</a> <span class=\"f\"><a name=\"m38\">a</a></span>;\n" +
+                " static <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt; <a name=\"m55\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;<a href=\"#m23\">S</a>&gt; <a name=\"m66\">a</a>){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m78\">o</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;#S&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m78\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><a href=\"#m66\">a</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.a\" href=\"#m38\">a</a></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m78\">o</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m135\">pkg.Ex</a>&lt;<a name=\"m142\">T</a>&gt; {\n" +
+                " public <a href=\"#m142\">T</a> <span class=\"f\"><a name=\"m157\">a</a></span>;\n" +
+                " static boolean <a name=\"m176\">false</a>(<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m142\">T</a>&gt; <a name=\"m188\">a</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\">(int)<span class=\"f\"><span class=\"f\"><a href=\"#m188\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span></span><a title=\"false\">&lt;=</a><span class=\"f\">4</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m226\">&amp;&amp;</a> <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;int&gt; (<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <a name=\"m249\">a</a>, <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <a name=\"m260\">b</a>){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m277\">o</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a><a title=\"pkg.ExTwo&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m277\">o</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.a\" href=\"#m38\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m249\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m260\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m277\">o</a></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m345\">catching</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m367\">one</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m367\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m407\">two</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m407\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <span class=\"f\"><a title=\"pkg.Ex.static &amp;&amp;(pkg.Ex&lt;int&gt;,pkg.Ex&lt;int&gt;)\" href=\"#m226\">operator</a>(&amp;&amp;&amp;,<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt;)<a title=\"pkg.ExTwo.static $(pkg.Ex&lt;#S&gt;,pkg.ExTwo&lt;#S&gt;)\" href=\"#m55\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>,<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt;,<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;<a href=\"#m23\">S</a>&gt;)<a title=\"pkg.Ex.static false(boolean,pkg.Ex&lt;#T&gt;)\" href=\"#m176\">explicit</a>(<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>,<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m142\">T</a>&gt;)(<span class=\"n\">(<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt;)<span class=\"f\"><a href=\"#m367\">one</a></span></span>,<span class=\"f\"><a href=\"#m407\">two</a></span>)</span>;\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage722Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<S> {\n");
+        xml_.append(" public S a;\n");
+        xml_.append(" static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public T a;\n");
+        xml_.append(" static boolean false(Ex<T> a){\n");
+        xml_.append("  return (int)a.a<=4;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& ExTwo<int> (Ex<int> a, Ex<int> b){\n");
+        xml_.append("  ExTwo<int> o = new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex<int> one = new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<int> two = new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  operator(&&&,Ex<int>)((Ex<int>)one,two);\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">S</a>&gt; {\n" +
+                " public <a href=\"#m23\">S</a> <span class=\"f\"><a name=\"m38\">a</a></span>;\n" +
+                " static <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt; <a name=\"m55\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;<a href=\"#m23\">S</a>&gt; <a name=\"m66\">a</a>){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m78\">o</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;#S&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m78\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><a href=\"#m66\">a</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.a\" href=\"#m38\">a</a></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m78\">o</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m135\">pkg.Ex</a>&lt;<a name=\"m142\">T</a>&gt; {\n" +
+                " public <a href=\"#m142\">T</a> <span class=\"f\"><a name=\"m157\">a</a></span>;\n" +
+                " static boolean <a name=\"m176\">false</a>(<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m142\">T</a>&gt; <a name=\"m188\">a</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\">(int)<span class=\"f\"><span class=\"f\"><a href=\"#m188\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span></span><a title=\"false\">&lt;=</a><span class=\"f\">4</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m226\">&amp;&amp;</a> <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;int&gt; (<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <a name=\"m249\">a</a>, <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <a name=\"m260\">b</a>){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m277\">o</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a><a title=\"pkg.ExTwo&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m277\">o</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.a\" href=\"#m38\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m249\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m260\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m277\">o</a></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m345\">catching</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m367\">one</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m367\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m407\">two</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m407\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <span class=\"f\"><a title=\"pkg.Ex.static &amp;&amp;(pkg.Ex&lt;int&gt;,pkg.Ex&lt;int&gt;)\" href=\"#m226\">operator</a>(&amp;&amp;&amp;,<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt;<a title=\"pkg.ExTwo.static $(pkg.Ex&lt;#S&gt;,pkg.ExTwo&lt;#S&gt;)\" href=\"#m55\"> </a><a title=\"pkg.Ex.static false(boolean,pkg.Ex&lt;#T&gt;)\" href=\"#m176\"> </a>)(<span class=\"n\">(<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt;)<span class=\"f\"><a href=\"#m367\">one</a></span></span>,<span class=\"f\"><a href=\"#m407\">two</a></span>)</span>;\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage723Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<S> {\n");
+        xml_.append(" public S a;\n");
+        xml_.append(" static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public T a;\n");
+        xml_.append(" static boolean false(Ex<T> a){\n");
+        xml_.append("  return (int)a.a> 4;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& ExTwo<int> (Ex<int> a, Ex<int> b){\n");
+        xml_.append("  ExTwo<int> o = new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex<int> one = new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<int> two = new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  operator(&&&,Ex<int>)(b:two,a:(Ex<int>)one);\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">S</a>&gt; {\n" +
+                " public <a href=\"#m23\">S</a> <span class=\"f\"><a name=\"m38\">a</a></span>;\n" +
+                " static <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt; <a name=\"m55\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;<a href=\"#m23\">S</a>&gt; <a name=\"m66\">a</a>){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m23\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m78\">o</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;#S&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m78\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><a href=\"#m66\">a</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.a\" href=\"#m38\">a</a></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m78\">o</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m135\">pkg.Ex</a>&lt;<a name=\"m142\">T</a>&gt; {\n" +
+                " public <a href=\"#m142\">T</a> <span class=\"f\"><a name=\"m157\">a</a></span>;\n" +
+                " static boolean <a name=\"m176\">false</a>(<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;<a href=\"#m142\">T</a>&gt; <a name=\"m188\">a</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\">(int)<span class=\"f\"><span class=\"f\"><a href=\"#m188\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span></span><a title=\"true\">&gt;</a><span class=\"f\"> 4</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m226\">&amp;&amp;</a> <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;int&gt; (<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <a name=\"m249\">a</a>, <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <a name=\"m260\">b</a>){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m277\">o</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a><a title=\"pkg.ExTwo&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m277\">o</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.a\" href=\"#m38\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m249\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m260\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m277\">o</a></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m345\">catching</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m367\">one</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m367\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m407\">two</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m135\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m407\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m157\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <span class=\"f\"><a title=\"pkg.Ex.static &amp;&amp;(pkg.Ex&lt;int&gt;,pkg.Ex&lt;int&gt;)\" href=\"#m226\">operator</a>(&amp;&amp;&amp;,<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt;<a title=\"pkg.ExTwo.static $(pkg.Ex&lt;#S&gt;,pkg.ExTwo&lt;#S&gt;)\" href=\"#m55\"> </a><a title=\"pkg.Ex.static false(boolean,pkg.Ex&lt;#T&gt;)\" href=\"#m176\"> </a>)(<span class=\"f\"><a href=\"#m260\">b</a>:<span class=\"f\"><a href=\"#m407\">two</a></span></span>,<span class=\"n\"><a href=\"#m249\">a</a>:<span class=\"f\">(<a title=\"pkg.Ex\" href=\"#m135\">Ex</a>&lt;int&gt;)<span class=\"f\"><a href=\"#m367\">one</a></span></span></span>)</span>;\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

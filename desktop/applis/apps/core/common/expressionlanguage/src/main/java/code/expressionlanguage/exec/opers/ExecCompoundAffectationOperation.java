@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.common.symbol.SymbolConstants;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
@@ -45,7 +45,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
     }
 
     public static boolean sh(ExecOperatorContent _operatorContent) {
-        return StringUtil.quickEq(_operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(_operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT)|| StringUtil.quickEq(_operatorContent.getOper(), AbsBk.NULL_EQ_SHORT);
+        return StringUtil.quickEq(_operatorContent.getOper(), SymbolConstants.NULL_SHORT) || StringUtil.quickEq(_operatorContent.getOper(), SymbolConstants.OR_SHORT)|| StringUtil.quickEq(_operatorContent.getOper(), SymbolConstants.AND_SHORT);
     }
 
     protected abstract void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

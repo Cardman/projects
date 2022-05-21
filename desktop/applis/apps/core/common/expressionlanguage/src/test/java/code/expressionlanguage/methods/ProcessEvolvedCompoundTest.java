@@ -570,6 +570,39 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
     @Test
+    public void calc16_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $static $boolean $false(Ex<T> a){\n");
+        xml_.append("  $return ($int)a.a<=4;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator&& Ex<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  Ex<$int> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(&&&,Ex<$int>)((Ex<$int>)one,two).a != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void calc17() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {\n");
@@ -597,6 +630,47 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         xml_.append("  two.a=3i;\n");
         xml_.append("  $operator(&&&,Ex<$int>)=((Ex<$int>)one,two);\n");
         xml_.append("  $if (one.a != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calc17_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public S a;\n");
+        xml_.append(" $static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $static $boolean $false(Ex<T> a){\n");
+        xml_.append("  $return ($int)a.a<=4;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator&& ExTwo<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  ExTwo<$int> o = $new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(&&&,Ex<$int>)=((Ex<$int>)one,two).a != 8i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 0i;\n");
@@ -688,6 +762,47 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
     @Test
+    public void calc19_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public S a;\n");
+        xml_.append(" $static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $static $boolean $false(Ex<T> a){\n");
+        xml_.append("  $return ($int)a.a<=5;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator&& ExTwo<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  ExTwo<$int> o = $new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(&&&,Ex<$int>)=((Ex<$int>)one,two).a != 5i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void calc20() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {\n");
@@ -707,6 +822,39 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         xml_.append("  two.a=3i;\n");
         xml_.append("  $operator(|||,Ex<$int>)=((Ex<$int>)one,two);\n");
         xml_.append("  $if (one.a != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calc20_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $static $boolean $true(Ex<T> a){\n");
+        xml_.append("  $return ($int)a.a<=4;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator|| Ex<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  Ex<$int> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(|||,Ex<$int>)((Ex<$int>)one,two).a != 8i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 0i;\n");
@@ -764,6 +912,47 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
     @Test
+    public void calc21_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public S a;\n");
+        xml_.append(" $static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $static $boolean $true(Ex<T> a){\n");
+        xml_.append("  $return ($int)a.a<=4;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator|| ExTwo<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  ExTwo<$int> o = $new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(|||,Ex<$int>)=((Ex<$int>)one,two).a != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void calc22() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {\n");
@@ -783,6 +972,39 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         xml_.append("  two.a=3i;\n");
         xml_.append("  $operator(|||,Ex<$int>)=((Ex<$int>)one,two);\n");
         xml_.append("  $if (one.a != 5i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calc22_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $static $boolean $true(Ex<T> a){\n");
+        xml_.append("  $return ($int)a.a<=5;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator|| Ex<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  Ex<$int> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(|||,Ex<$int>)=((Ex<$int>)one,two).a != 5i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 0i;\n");
@@ -825,6 +1047,47 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         xml_.append("  two.a=3i;\n");
         xml_.append("  $operator(|||,Ex<$int>)=((Ex<$int>)one,two);\n");
         xml_.append("  $if (one.a != 5i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calc23_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public S a;\n");
+        xml_.append(" $static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $static $boolean $true(Ex<T> a){\n");
+        xml_.append("  $return ($int)a.a<=5;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator|| ExTwo<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  ExTwo<$int> o = $new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(|||,Ex<$int>)=((Ex<$int>)one,two).a != 5i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 0i;\n");
@@ -1061,6 +1324,47 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
     @Test
+    public void calc29_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public S a;\n");
+        xml_.append(" $static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $static $boolean $false(Ex<T> a){\n");
+        xml_.append("  $return ($int)a.a<=4;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator&& ExTwo<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  ExTwo<$int> o = $new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(&&&,Ex<$int>)$(ExTwo,Ex<S>,ExTwo<S>)explicit(Ex,Ex<T>)((Ex<$int>)one,two).a != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void calc30() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {\n");
@@ -1278,6 +1582,34 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
     @Test
+    public void calc37() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public S a;\n");
+        xml_.append(" $static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator&& ExTwo<$int> (){\n");
+        xml_.append("  ExTwo<$int> o = $new ExTwo<>();\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ($operator(&&&,Ex<$int>).a != 0i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+    @Test
     public void calc1Fail() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {\n");
@@ -1327,7 +1659,7 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         xml_.append("  Ex<$int> two = $new Ex<>();\n");
         xml_.append("  two.a=3i;\n");
         xml_.append("  $operator(&&,Ex<$int>)=((Ex<$int>)one,two);\n");
-        xml_.append("  $if (one.a != 5i){\n");
+        xml_.append("  $if (one.a != 8i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 0i;\n");
@@ -1335,7 +1667,50 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrReadOnly(files_));
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calc2Fail_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public S a;\n");
+        xml_.append(" $static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator&& ExTwo<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  ExTwo<$int> o = $new ExTwo<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(&&&,Ex<$int>)((Ex<$int>)one,two).a != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calc3Fail() {
@@ -1365,6 +1740,39 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrReadOnly(files_));
+    }
+    @Test
+    public void calc3Fail_() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public S a;\n");
+        xml_.append(" $static Ex<S> $(ExTwo<S> a){\n");
+        xml_.append("  Ex<S> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator&& ExTwo<$int> (){\n");
+        xml_.append("  ExTwo<$int> o = $new ExTwo<>();\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ($operator(&&&,Ex<$int>)().a != 0i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calc4Fail() {

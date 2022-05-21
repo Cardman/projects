@@ -1541,15 +1541,9 @@ public final class ForwardInfos {
             StringList names_ = _anaNode.getResultClass().getNames();
             AnaCallFctContent callFctContent_ = m_.getCallFctContent();
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(callFctContent_.getMemberId(), _forwards);
-            AnaOperatorContent cont_ = new AnaOperatorContent();
-            cont_.setOper(m_.getMethodFound()+'=');
-            cont_.setOpOffset(m_.getOffsetOper());
-            return new ExecCompoundAffectationExplicitCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(cont_), new ExecStaticFctContent(callFctContent_, _forwards), pair_, FetchMemberUtil.fetchImplicits(m_.getConv(), _forwards), names_, m_.isPost());
+            return new ExecCompoundAffectationExplicitCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(ForwardInfos.syntheticOperator(m_.getSyntheticOperator()),m_.getOffsetOper()), new ExecStaticFctContent(callFctContent_, _forwards), pair_, FetchMemberUtil.fetchImplicits(m_.getConv(), _forwards), names_, m_.isPost());
         }
-        AnaOperatorContent cont_ = new AnaOperatorContent();
-        cont_.setOper(m_.getMethodFound());
-        cont_.setOpOffset(m_.getOffsetOper());
-        return new ExecExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getCallFctContent(), _forwards), FetchMemberUtil.fetchFunctionOpPair(m_.getCallFctContent().getMemberId(), _forwards), new ExecArrContent(m_.getArrContent()), null, new ExecOperatorContent(cont_));
+        return new ExecExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getCallFctContent(), _forwards), FetchMemberUtil.fetchFunctionOpPair(m_.getCallFctContent().getMemberId(), _forwards), new ExecArrContent(m_.getArrContent()), FetchMemberUtil.fetchImplicits(m_.getConv(), _forwards), new ExecOperatorContent(ForwardInfos.syntheticOperator(m_.getSyntheticOperator()),m_.getOffsetOper()));
     }
 
     private static ExecLeafOperation finalVariable(FinalVariableOperation _anaNode) {
@@ -1904,6 +1898,27 @@ public final class ForwardInfos {
             return new ExecSimpleMethodLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, lambdaMethodContent_);
         }
         return new ExecMethodLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, lambdaMethodContent_);
+    }
+    public static String syntheticOperator(String _original) {
+        if (StringUtil.quickEq("&&&=",_original)) {
+            return SymbolConstants.AND_SHORT;
+        }
+        if (StringUtil.quickEq("|||=",_original)) {
+            return SymbolConstants.OR_SHORT;
+        }
+        if (StringUtil.quickEq("???=",_original)) {
+            return SymbolConstants.NULL_SHORT;
+        }
+        if (StringUtil.quickEq("&&",_original)||StringUtil.quickEq("&&=",_original)) {
+            return SymbolConstants.AND_LONG;
+        }
+        if (StringUtil.quickEq("||",_original)||StringUtil.quickEq("||=",_original)) {
+            return SymbolConstants.OR_LONG;
+        }
+        if (StringUtil.quickEq("??",_original)||StringUtil.quickEq("??=",_original)) {
+            return SymbolConstants.NULL_LONG;
+        }
+        return "";
     }
 
     public static ExecTypeFunction buildAnonFctPair(Forwards _forwards, AnonymousLambdaOperation _s) {

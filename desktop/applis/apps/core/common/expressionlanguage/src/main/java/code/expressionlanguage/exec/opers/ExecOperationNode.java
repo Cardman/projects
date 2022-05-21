@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.symbol.SymbolConstants;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -130,19 +130,19 @@ public abstract class ExecOperationNode {
     }
 
     public static boolean orEq(CompoundedOperator _p) {
-        return shortEq(_p,"||", AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT);
+        return shortEq(_p, SymbolConstants.OR_SHORT, SymbolConstants.OR_LONG);
     }
 
     public static boolean andEq(CompoundedOperator _p) {
-        return shortEq(_p, "&&", AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT);
+        return shortEq(_p, SymbolConstants.AND_SHORT, SymbolConstants.AND_LONG);
     }
 
     public static boolean nullEq(CompoundedOperator _p) {
-        return shortEq(_p,"??", AbsBk.NULL_EQ, AbsBk.NULL_EQ_SHORT);
+        return shortEq(_p, SymbolConstants.NULL_SHORT, SymbolConstants.NULL_LONG);
     }
 
-    private static boolean shortEq(CompoundedOperator _compound, String _simple, String _slow, String _quick) {
-        return StringUtil.quickEq(_compound.getOper(), _simple) || StringUtil.quickEq(_compound.getOper(), _slow) || StringUtil.quickEq(_compound.getOper(), _quick);
+    private static boolean shortEq(CompoundedOperator _compound, String _slow, String _quick) {
+        return StringUtil.quickEq(_compound.getOper(), _slow) || StringUtil.quickEq(_compound.getOper(), _quick);
     }
 
     public final int getOrder() {

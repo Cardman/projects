@@ -3457,10 +3457,8 @@ public final class LinkageUtil {
     private static void explicitOperatorCom(VariablesOffsets _vars, int _sum, OperationNode _val) {
         ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
         _vars.addParts(export(par_.getPartOffsets()));
-        if (par_.isAffect()) {
-            tryAddMergedParts(_vars,par_.getConv().getFunction(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());
-            tryAddMergedParts(_vars,par_.getFunctionTest(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());
-        }
+        tryAddMergedParts(_vars,par_.getConv().getFunction(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());
+        tryAddMergedParts(_vars,par_.getFunctionTest(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());
         if (par_.getMethodIdImpl() != null) {
             addParts(_vars, par_.getConv().getFunction(),
                     par_.getBeginImpl()+ _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordCast().length(),
