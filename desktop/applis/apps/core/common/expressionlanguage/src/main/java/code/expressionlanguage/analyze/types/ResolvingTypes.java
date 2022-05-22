@@ -210,13 +210,8 @@ public final class ResolvingTypes {
         AccessedBlock r_ = _page.getImporting();
         StringList inners_ = AnaInherits.getAllInnerTypes(_in, _page);
         String firstFull_ = inners_.first();
-        int firstOff_;
         String base_ = firstFull_.trim();
-        if (base_.isEmpty()) {
-            firstOff_ = 0;
-        } else {
-            firstOff_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
-        }
+        int firstOff_ = firstOff(firstFull_, base_);
         String res_ = StringExpUtil.removeDottedSpaces(base_);
         StandardType std_ = _page.getStandardsTypes().getVal(res_);
         if (std_ != null) {
@@ -257,15 +252,10 @@ public final class ResolvingTypes {
         int size_ = inners_.size();
         for (int i = 2; i < size_; i += 2) {
             String i_ = inners_.get(i);
-            String resId_;
-            String oper_ = inners_.get(i - 1);
+             String oper_ = inners_.get(i - 1);
             _operators.addEntry(offsetType_,oper_);
             int delta_ = oper_.length();
-            if (StringUtil.quickEq(".", oper_)) {
-                resId_ = StringUtil.concat(res_,"..",i_.trim());
-            } else {
-                resId_ = StringUtil.concat(res_,"-",i_.trim());
-            }
+            String resId_ = resId(res_, i_, oper_);
             RootBlock inner_ = _page.getAnaClassBody(resId_);
             if (inner_ == null) {
                 _err.add(new FoundTypeErrorDto(offsetType_+delta_,i_.trim(),FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(),
@@ -278,6 +268,26 @@ public final class ResolvingTypes {
             offsetType_ += i_.length() + delta_;
         }
         return new ResolvedIdTypeContent(res_,resType_);
+    }
+
+    private static String resId(String _res, String _i, String _oper) {
+        String resId_;
+        if (StringUtil.quickEq(".", _oper)) {
+            resId_ = StringUtil.concat(_res,"..", _i.trim());
+        } else {
+            resId_ = StringUtil.concat(_res,"-", _i.trim());
+        }
+        return resId_;
+    }
+
+    private static int firstOff(String _firstFull, String _base) {
+        int firstOff_;
+        if (_base.isEmpty()) {
+            firstOff_ = 0;
+        } else {
+            firstOff_ = StringUtil.getFirstPrintableCharIndex(_firstFull);
+        }
+        return firstOff_;
     }
 
     public static AnaResultPartType resolveCorrectType(String _in, AnalyzedPageEl _page) {
