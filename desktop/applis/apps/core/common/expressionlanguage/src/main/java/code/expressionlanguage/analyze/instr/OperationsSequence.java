@@ -19,10 +19,6 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class OperationsSequence {
-    private static final char DOT_VAR = '.';
-    private static final char ARR = '[';
-    private static final char PAR = '(';
-    private static final char ARR_ANNOT = '{';
     private ConstType constType = ConstType.NOTHING;
     private InfoBlock declaringField;
     private StringList errors = new StringList();
@@ -114,15 +110,15 @@ public final class OperationsSequence {
             return;
         }
         char chOp_ = op_.charAt(0);
-        if (chOp_ == ARR_ANNOT) {
+        if (chOp_ == ElResolver.ANN_ARR_LEFT) {
             braceArr(_string);
             return;
         }
-        if (chOp_ == DOT_VAR) {
+        if (chOp_ == ElResolver.DOT_VAR) {
             pureDot(_string);
             return;
         }
-        if (chOp_ == '?') {
+        if (chOp_ == ElResolver.BEGIN_TERNARY) {
             pureDot(_string);
             return;
         }
@@ -134,7 +130,7 @@ public final class OperationsSequence {
         int afterLastPar_ = operators.lastKey() + 1;
         StringBuilder filter_ = new StringBuilder(_string);
         boolean initArrayDim_ = false;
-        if (chOp_ == ARR && _instance) {
+        if (chOp_ == ElResolver.ARR_LEFT && _instance) {
             countArr(_nb, filter_);
             initArrayDim_ = true;
         }
@@ -338,14 +334,14 @@ public final class OperationsSequence {
         if (str_.isEmpty()) {
             return;
         }
-        call = str_.charAt(0) == PAR;
+        call = str_.charAt(0) == ElResolver.PAR_LEFT;
     }
     private void setupArray() {
         String str_ = operators.firstValue();
         if (str_.isEmpty()) {
             return;
         }
-        array = str_.charAt(0) == ARR;
+        array = str_.charAt(0) == ElResolver.ARR_LEFT;
     }
 
     public boolean isImplMiddle() {

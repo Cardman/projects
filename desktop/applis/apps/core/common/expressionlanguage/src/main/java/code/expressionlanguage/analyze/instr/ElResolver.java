@@ -405,19 +405,19 @@ public final class ElResolver {
                 && _resOpers.getParsBrackets().isEmptyStackSymChars()) {
             int len_ = _string.length();
             int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
-            if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {
+            if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, SEP_ARG)) {
                 int j_ = ElResolverCommon.getWord(_string, len_, i_);
                 int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
                 if (n_ < 0
-                        || StringExpUtil.nextCharIs(_string, n_, len_, '=') && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, '=')
-                        || StringExpUtil.nextCharIs(_string, n_, len_, ',')) {
+                        || StringExpUtil.nextCharIs(_string, n_, len_, EQ_CHAR) && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, EQ_CHAR)
+                        || StringExpUtil.nextCharIs(_string, n_, len_, SEP_ARG)) {
                     String word_ = _string.substring(i_, j_);
                     VariableInfo info_ = new VariableInfo();
                     ConstType type_;
                     type_ = ConstType.CUST_FIELD;
                     info_.setKind(type_);
                     info_.declaringField(_resOpers.getFieldNumber(),(InfoBlock)_page.getCurrentBlock());
-                    info_.setAffect(StringExpUtil.nextCharIs(_string, n_, len_, '='));
+                    info_.setAffect(StringExpUtil.nextCharIs(_string, n_, len_, EQ_CHAR));
                     info_.setFirstChar(i_);
                     info_.setLastChar(j_);
                     info_.setName(word_);
@@ -530,8 +530,6 @@ public final class ElResolver {
             int next_ = i_ + keyWordInstanceof_.length();
             next_ = ElResolverCommon.incrInstanceOf(_string, len_, next_);
             _d.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(i_,next_-i_));
-            _d.getDelInstanceof().add(i_);
-            _d.getDelInstanceof().add(next_);
             _out.setNextIndex(next_);
             return;
         }
@@ -677,7 +675,7 @@ public final class ElResolver {
                 StackOperators parsBrackets_;
                 parsBrackets_ = _opers.getParsBrackets();
                 parsBrackets_.addEntry(afterSuper_, PAR_LEFT);
-                _d.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(afterSuper_,1));
+                _d.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(afterSuper_,1,1));
                 _out.setNextIndex(min_);
                 return;
             }
@@ -804,7 +802,7 @@ public final class ElResolver {
         int len_ = _string.length();
         char loc_ = _string.charAt(_afterClassChoice);
         int after_;
-        if (loc_ == '=' || loc_ == ':') {
+        if (loc_ == EQ_CHAR || loc_ == END_TERNARY) {
             after_ = _afterClassChoice + 1;
         } else {
             after_ = _afterClassChoice;
@@ -1138,7 +1136,7 @@ public final class ElResolver {
             return;
         }
         int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
-        if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
+        if (StringExpUtil.nextCharIs(_string,bk_,len_,DOT_VAR)) {
             ConstType type_;
             type_ = ConstType.WORD;
             VariableInfo info_ = new VariableInfo();
@@ -1227,7 +1225,7 @@ public final class ElResolver {
             _dout.setBadOffset(i_);
             return;
         }
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_, 0);
     }
 
     private static void ternEnd(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
@@ -1249,7 +1247,7 @@ public final class ElResolver {
             return;
         }
         parsBrackets_.removeLast();
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_, -1);
     }
 
     private static void ternBeg(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
@@ -1383,7 +1381,7 @@ public final class ElResolver {
         int i_ = doubleDotted_.getNextIndex();
         char curChar_ = _string.charAt(i_);
         parsBrackets_.addEntry(i_, curChar_);
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_, 1);
     }
 
     private static void annot(String _string, Delimiters _dout, ResultAfterInstKeyWord _doubleDotted) {
@@ -1413,13 +1411,13 @@ public final class ElResolver {
         _doubleDotted.setNextIndex(j_);
     }
 
-    private static void afterOperator(int _beginIndex, String _string, Delimiters _dout, ResultAfterInstKeyWord _doubleDotted, int _i) {
+    private static void afterOperator(int _beginIndex, String _string, Delimiters _dout, ResultAfterInstKeyWord _doubleDotted, int _i, int _begin) {
         IncrOperatorPart incr_ = new IncrOperatorPart(_dout.isEnabledOp());
         int nextIndex_ = incr_.tryAddOp(_beginIndex, _string, _i);
         int opLength_ = incr_.getOpLength();
         if (opLength_ > 0) {
             int indexOp_ = incr_.getIndexOp();
-            _dout.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(indexOp_, opLength_));
+            _dout.getAllowedOperatorsIndexes().add(new OperatorOffsetLength(indexOp_, opLength_, _begin));
         }
         _doubleDotted.setNextIndex(nextIndex_);
         _dout.setEnabledOp(incr_.isEnabledOp());
@@ -1912,7 +1910,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_KEYWORD);
             op_.setOperators(new StrTypes());
-            int ind_ = _string.indexOf('.') + 1;
+            int ind_ = _string.indexOf(DOT_VAR) + 1;
             op_.setDelta(ind_);
             op_.setValue(_string.substring(ind_, _lastPrintChar + 1), _firstPrintChar);
             return op_;

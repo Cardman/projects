@@ -15,27 +15,6 @@ import code.util.core.StringUtil;
 final class AfterUnaryParts {
     private static final String EMPTY_STRING = "";
 
-    private static final String ARR = "[";
-    private static final String ANN_ARR = "{";
-
-    private static final char NEG_BOOL_CHAR = '!';
-
-    private static final char PLUS_CHAR = '+';
-
-    private static final char MINUS_CHAR = '-';
-
-    private static final char NEG_BOOL = '~';
-    private static final char BEGIN_TERNARY = '?';
-    private static final char END_TERNARY = ':';
-    private static final char ARR_LEFT = '[';
-    private static final char ARR_RIGHT = ']';
-    private static final char ANN_ARR_LEFT = '{';
-    private static final char ANN_ARR_RIGHT = '}';
-    private static final char PAR_LEFT = '(';
-    private static final char PAR_RIGHT = ')';
-    private static final char SEP_ARG = ',';
-    private static final char DOT_VAR = '.';
-
     private final StrTypes operators = new StrTypes();
     private int parsBrackets;
     private int prio = ElResolver.FCT_OPER_PRIO;
@@ -63,7 +42,7 @@ final class AfterUnaryParts {
         del = _del;
         int firstPrintChar_ = del.getFirstPrintIndex();
         int lastPrintChar_ = del.getLastPrintIndex();
-        boolean preIncr_ = (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR) && firstPrintChar_ + 1 < _string.length() && _string.charAt(firstPrintChar_) == _string.charAt(firstPrintChar_ + 1);
+        boolean preIncr_ = (_string.charAt(firstPrintChar_) == ElResolver.MINUS_CHAR || _string.charAt(firstPrintChar_) == ElResolver.PLUS_CHAR) && firstPrintChar_ + 1 < _string.length() && _string.charAt(firstPrintChar_) == _string.charAt(firstPrintChar_ + 1);
         if (preIncr_) {
             prio = ElResolver.UNARY_PRIO;
             String ch_ = Character.toString(_string.charAt(firstPrintChar_));
@@ -71,8 +50,8 @@ final class AfterUnaryParts {
             index = incrementUnary(_string, firstPrintChar_ + 2, lastPrintChar_, _offset, _d);
             return;
         }
-        if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR
-                || _string.charAt(firstPrintChar_) == NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == NEG_BOOL || _string.charAt(firstPrintChar_) == '*') {
+        if (_string.charAt(firstPrintChar_) == ElResolver.MINUS_CHAR || _string.charAt(firstPrintChar_) == ElResolver.PLUS_CHAR
+                || _string.charAt(firstPrintChar_) == ElResolver.NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == ElResolver.NEG_BOOL || _string.charAt(firstPrintChar_) == ElResolver.MULT_CHAR) {
             prio = ElResolver.UNARY_PRIO;
             operators.addEntry(firstPrintChar_, Character.toString(_string.charAt(firstPrintChar_)));
             index = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
@@ -108,10 +87,10 @@ final class AfterUnaryParts {
         if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordNew_)) {
             int index_ = DefaultProcessKeyWord.skipWhiteSpace(_string,firstPrintChar_ + keyWordNew_.length());
             int next_ = index_;
-            if (StringExpUtil.nextCharIs(_string,index_,_string.length(),'{')) {
+            if (StringExpUtil.nextCharIs(_string,index_,_string.length(),ElResolver.ANN_ARR_LEFT)) {
                 next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,index_+1);
             }
-            if (StringExpUtil.nextCharIs(_string,next_,_string.length(),'}')) {
+            if (StringExpUtil.nextCharIs(_string,next_,_string.length(),ElResolver.ANN_ARR_RIGHT)) {
                 next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,next_+1);
             }
             int ind_ = _d.getDelAnnotNew().indexOfNb((long) _offset + next_);
@@ -124,15 +103,15 @@ final class AfterUnaryParts {
         if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordSwitch_)) {
             switchStrict = true;
         }
-        if (_string.charAt(firstPrintChar_) == ANN_ARR_LEFT) {
+        if (_string.charAt(firstPrintChar_) == ElResolver.ANN_ARR_LEFT) {
             instance = true;
         }
     }
-    private int nextForAnon(int _offset) {
+    private int nextForAnon(int _offset, int _sum) {
         block = null;
         if (instanceStrict) {
             for (AnonymousResult a: anonymousResults) {
-                if (a.getIndex() == index + _offset) {
+                if (a.getIndex() == _sum) {
                     block = a.getType();
                     length = a.getLength();
                     return a.getUntil() - _offset + 1;
@@ -141,7 +120,7 @@ final class AfterUnaryParts {
         }
         if (switchStrict) {
             for (AnonymousResult a: anonymousResults) {
-                if (a.getIndex() == index + _offset) {
+                if (a.getIndex() == _sum) {
                     block = a.getType();
                     length = a.getLength();
                     retSwitch = a.getRetSwitch();
@@ -154,17 +133,18 @@ final class AfterUnaryParts {
     void setState(int _offset, String _string, Delimiters _d) {
         char curChar_ = _string.charAt(index);
         int old_ = index;
-        int nex_ = nextForAnon(_offset);
+        int currentSum_ = index + _offset;
+        int nex_ = nextForAnon(_offset, currentSum_);
         if (nex_ > old_) {
             index = nex_;
             return;
         }
-        if (_d.getDimsAddonIndexes().containsObj((long)index+_offset)) {
+        if (_d.getDimsAddonIndexes().containsObj(currentSum_)) {
             laterIndexesDouble.add(index);
             index++;
             return;
         }
-        if (_d.getNamedArgs().containsObj((long)index+_offset)) {
+        if (_d.getNamedArgs().containsObj(currentSum_)) {
             namedArg(curChar_);
             return;
         }
@@ -174,46 +154,46 @@ final class AfterUnaryParts {
             index++;
             return;
         }
-        OperatorOffsetLength cont_ = contained((long) index + _offset, _d);
+        OperatorOffsetLength cont_ = contained(currentSum_, _d);
         if (cont_ == null) {
             index++;
             return;
         }
-        if (curChar_ == PAR_LEFT) {
+        if (curChar_ == ElResolver.PAR_LEFT) {
             parLeft(_string);
             return;
         }
-        if (curChar_ == SEP_ARG && parsBrackets > 0) {
+        if (curChar_ == ElResolver.SEP_ARG && parsBrackets > 0) {
             commaSepFct();
             return;
         }
-        if (curChar_ == PAR_RIGHT) {
+        if (curChar_ == ElResolver.PAR_RIGHT) {
             parRight();
             return;
         }
-        if (curChar_ == ANN_ARR_LEFT) {
+        if (curChar_ == ElResolver.ANN_ARR_LEFT) {
             annArrLeft(_string);
             return;
         }
-        if (curChar_ == ANN_ARR_RIGHT) {
+        if (curChar_ == ElResolver.ANN_ARR_RIGHT) {
             annArrRight();
             return;
         }
-        if (curChar_ == ARR_LEFT) {
+        if (curChar_ == ElResolver.ARR_LEFT) {
             arrLeft(_string);
             return;
         }
-        if (curChar_ == ARR_RIGHT) {
+        if (curChar_ == ElResolver.ARR_RIGHT) {
             arrRight();
             return;
         }
-        if (curChar_ == DOT_VAR) {
+        if (curChar_ == ElResolver.DOT_VAR) {
             dot();
             return;
         }
-        lowerFct(_offset, _string, _d, _string.substring(index , index + cont_.getLength()));
+        lowerFct(cont_.getBeginDel(), _string.substring(index , index + cont_.getLength()));
     }
-    private OperatorOffsetLength contained(long _index, Delimiters _d) {
+    private OperatorOffsetLength contained(int _index, Delimiters _d) {
         for (OperatorOffsetLength o: _d.getAllowedOperatorsIndexes()) {
             if (o.getOffset() == _index) {
                 return o;
@@ -230,30 +210,22 @@ final class AfterUnaryParts {
                 clearOperators_ = true;
                 foundOperator_ = true;
             }
-            addPossibleNumOp(".", clearOperators_, foundOperator_);
+            addPossibleNumOp(Character.toString(ElResolver.DOT_VAR), clearOperators_, foundOperator_);
         } else {
             index++;
         }
     }
 
-    private void lowerFct(int _offset, String _string, Delimiters _d, String _oper) {
-        if (_oper.startsWith("?")) {
-            int lastPrintChar_ = del.getLastPrintIndex();
-            int len_ = lastPrintChar_ + 1;
-            if (StringUtil.quickEq(_oper,"?")&&!StringExpUtil.nextCharIs(_string,index+1,len_,'[')) {
-                beginTernary();
-                return;
-            }
-            if (parsBrackets == 0&&(StringUtil.quickEq(_oper,"?")||StringUtil.quickEq(_oper,"?."))&&prio != ElResolver.DECL_PRIO) {
-                safeDot(_oper);
-                return;
-            }
+    private void lowerFct(int _beginDel, String _oper) {
+        if (matchChar(_oper, ElResolver.BEGIN_TERNARY) && _beginDel > 0) {
+            beginTernary();
+            return;
         }
-        if (StringUtil.quickEq(_oper,":")) {
+        if (matchChar(_oper,ElResolver.END_TERNARY)) {
             endTernary();
             return;
         }
-        if (StringUtil.quickEq(_oper,",")) {
+        if (matchChar(_oper,ElResolver.SEP_ARG)) {
             declPrio();
             return;
         }
@@ -261,7 +233,18 @@ final class AfterUnaryParts {
             index++;
             return;
         }
-        addNumOperators(_offset, _string, _d, _oper);
+        if (matchChar(_oper,ElResolver.BEGIN_TERNARY)) {
+            safeDot(_oper);
+            fctName = EMPTY_STRING;
+            parsBrackets++;
+            index++;
+            return;
+        }
+        if (matchChars(_oper, ElResolver.BEGIN_TERNARY, ElResolver.DOT_VAR)) {
+            safeDot(_oper);
+            return;
+        }
+        addNumOperators(_oper);
     }
 
     private void namedArg(char _curChar) {
@@ -291,7 +274,7 @@ final class AfterUnaryParts {
     private void beginTernary() {
         if (parsBrackets == 0 && prio > ElResolver.TERNARY_PRIO) {
             operators.clear();
-            operators.addEntry(index, Character.toString(AfterUnaryParts.BEGIN_TERNARY));
+            operators.addEntry(index, Character.toString(ElResolver.BEGIN_TERNARY));
         }
         parsBrackets++;
         index++;
@@ -300,7 +283,7 @@ final class AfterUnaryParts {
     private void endTernary() {
         parsBrackets--;
         if (parsBrackets == 0 && prio > ElResolver.TERNARY_PRIO) {
-            operators.addEntry(index, Character.toString(AfterUnaryParts.END_TERNARY));
+            operators.addEntry(index, Character.toString(ElResolver.END_TERNARY));
             enPars = false;
             enabledId = true;
             prio = ElResolver.TERNARY_PRIO;
@@ -312,7 +295,7 @@ final class AfterUnaryParts {
         if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO) {
             if (enPars) {
                 fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
-                operators.addEntry(index, Character.toString(PAR_LEFT));
+                operators.addEntry(index, Character.toString(ElResolver.PAR_LEFT));
             } else if (enabledId) {
                 instance = false;
                 instanceStrict = false;
@@ -327,7 +310,7 @@ final class AfterUnaryParts {
 
     private void commaSepFct() {
         if (parsBrackets == 1 && prio == ElResolver.FCT_OPER_PRIO && enPars) {
-            addCommaOperIfNotEmpty(operators, index,PAR_LEFT,ARR_LEFT,ANN_ARR_LEFT);
+            addCommaOperIfNotEmpty(operators, index,ElResolver.PAR_LEFT,ElResolver.ARR_LEFT,ElResolver.ANN_ARR_LEFT);
         }
         index++;
     }
@@ -340,7 +323,7 @@ final class AfterUnaryParts {
         instanceStrict = false;
         enabledId = false;
         enPars = false;
-        operators.addEntry(index, Character.toString(SEP_ARG));
+        operators.addEntry(index, Character.toString(ElResolver.SEP_ARG));
         prio = ElResolver.DECL_PRIO;
         index++;
     }
@@ -348,7 +331,7 @@ final class AfterUnaryParts {
     private void parRight() {
         parsBrackets--;
         if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO && enPars) {
-            addOperIfNotEmpty(operators, index, PAR_LEFT,PAR_RIGHT);
+            addOperIfNotEmpty(operators, index, ElResolver.PAR_LEFT,ElResolver.PAR_RIGHT);
             enPars = false;
             enabledId = true;
         }
@@ -358,7 +341,7 @@ final class AfterUnaryParts {
     private void annArrRight() {
         parsBrackets--;
         if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO) {
-            addOperIfNotEmpty(operators, index, ANN_ARR_LEFT,ANN_ARR_RIGHT);
+            addOperIfNotEmpty(operators, index, ElResolver.ANN_ARR_LEFT,ElResolver.ANN_ARR_RIGHT);
             enPars = false;
             enabledId = true;
         }
@@ -370,7 +353,7 @@ final class AfterUnaryParts {
             if (instance) {
                 fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                 if (operators.isEmpty()) {
-                    operators.addEntry(index, ANN_ARR);
+                    operators.addEntry(index, Character.toString(ElResolver.ANN_ARR_LEFT));
                 }
             } else {
                 fctName = EMPTY_STRING;
@@ -386,7 +369,7 @@ final class AfterUnaryParts {
     private void arrRight() {
         parsBrackets--;
         if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO) {
-            addOperIfNotEmpty(operators, index, ARR_LEFT,ARR_RIGHT);
+            addOperIfNotEmpty(operators, index, ElResolver.ARR_LEFT,ElResolver.ARR_RIGHT);
             enPars = false;
             enabledId = true;
         }
@@ -399,35 +382,32 @@ final class AfterUnaryParts {
             if (instance) {
                 arrInstance(_string);
             } else {
-                arrAccess(_string);
+                arrAccess();
             }
         }
         parsBrackets++;
         index++;
     }
 
-    private void arrAccess(String _string) {
+    private void arrAccess() {
         int firstPrintChar_ = del.getFirstPrintIndex();
         fctName = EMPTY_STRING;
+        operators.clear();
         if (firstPrintChar_ == index) {
-            operators.clear();
-            operators.addEntry(index, ARR);
+            operators.addEntry(index, Character.toString(ElResolver.ARR_LEFT));
         } else {
-            if (_string.charAt(index - 1) != '?') {
-                operators.clear();
-                operators.addEntry(index, EMPTY_STRING);
-            }
+            operators.addEntry(index, EMPTY_STRING);
         }
     }
 
     private void arrInstance(String _string) {
         if (operators.isEmpty()) {
             fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
-            operators.addEntry(index, ARR);
+            operators.addEntry(index, Character.toString(ElResolver.ARR_LEFT));
         } else {
             String op_ = operators.firstValue();
-            if (StringUtil.quickEq(op_, ARR)) {
-                operators.addEntry(index, ARR);
+            if (matchChar(op_, ElResolver.ARR_LEFT)) {
+                operators.addEntry(index, Character.toString(ElResolver.ARR_LEFT));
             } else {
                 fctName = EMPTY_STRING;
                 instance = false;
@@ -438,56 +418,73 @@ final class AfterUnaryParts {
         }
     }
 
-    private void addNumOperators(int _offset, String _string, Delimiters _d, String _oper) {
-        int min_ = _d.getDelInstanceof().indexOfNb((long)index+_offset);
-        if (isPairPositive(min_)) {
-            instaOf(_offset, _string, _d);
-            return;
-        }
-        if (StringUtil.quickEq("==", _oper) || StringUtil.quickEq("!=", _oper) || StringUtil.quickEq("!", _oper)) {
+    private void addNumOperators(String _oper) {
+        if (matchChars(_oper,ElResolver.EQ_CHAR,ElResolver.EQ_CHAR) || matchChars(_oper,ElResolver.NEG_BOOL_CHAR,ElResolver.EQ_CHAR) || matchChar(_oper,ElResolver.NEG_BOOL_CHAR)) {
             eq(_oper);
             return;
         }
-        if (StringUtil.quickEq("<<", _oper) || StringUtil.quickEq(">>", _oper) || StringUtil.quickEq("<<<", _oper) || StringUtil.quickEq(">>>", _oper) || StringUtil.quickEq("<<<<", _oper) || StringUtil.quickEq(">>>>", _oper)) {
+        if (matchChars(_oper, ElResolver.LOWER_CHAR, ElResolver.LOWER_CHAR) || matchChars(_oper, ElResolver.GREATER_CHAR, ElResolver.GREATER_CHAR)
+                || matchThreeChars(_oper, ElResolver.LOWER_CHAR, ElResolver.LOWER_CHAR) || matchThreeChars(_oper, ElResolver.GREATER_CHAR, ElResolver.GREATER_CHAR)
+                || matchFoursChars(_oper, ElResolver.LOWER_CHAR, ElResolver.LOWER_CHAR) || matchFoursChars(_oper, ElResolver.GREATER_CHAR, ElResolver.GREATER_CHAR)) {
             shiftOrRotate(_oper);
             return;
         }
-        if (StringUtil.quickEq("<", _oper) || StringUtil.quickEq(">", _oper) || StringUtil.quickEq("<=", _oper) || StringUtil.quickEq(">=", _oper)) {
+        if (matchChar(_oper,ElResolver.LOWER_CHAR) || matchChar(_oper,ElResolver.GREATER_CHAR) || matchChars(_oper,ElResolver.LOWER_CHAR,ElResolver.EQ_CHAR) || matchChars(_oper,ElResolver.GREATER_CHAR,ElResolver.EQ_CHAR)) {
             lowerOrGreater(_oper);
             return;
         }
-        if (StringUtil.quickEq("++", _oper) || StringUtil.quickEq("--", _oper)) {
+        if (matchChars(_oper,ElResolver.PLUS_CHAR,ElResolver.PLUS_CHAR) || matchChars(_oper,ElResolver.MINUS_CHAR,ElResolver.MINUS_CHAR)) {
             incrDecrPost(_oper);
             return;
         }
-        if (StringUtil.quickEq("&&", _oper)){
+        if (matchChars(_oper,ElResolver.AND_CHAR,ElResolver.AND_CHAR)){
             logicalAndOr(_oper,ElResolver.AND_PRIO);
             return;
         }
-        if (StringUtil.quickEq("||", _oper)){
+        if (matchChars(_oper,ElResolver.OR_CHAR,ElResolver.OR_CHAR)){
             logicalAndOr(_oper,ElResolver.OR_PRIO);
             return;
         }
-        if (StringUtil.quickEq("??", _oper)){
+        if (matchChars(_oper,ElResolver.BEGIN_TERNARY,ElResolver.BEGIN_TERNARY)){
             nullSafe(_oper);
             return;
         }
-        if (StringUtil.quickEq("???", _oper)){
+        if (matchThreeChars(_oper,ElResolver.BEGIN_TERNARY, ElResolver.BEGIN_TERNARY)){
             range(_oper);
             return;
         }
-        if (_oper.endsWith("=")) {
+        if (_oper.charAt(_oper.length() - 1) == ElResolver.EQ_CHAR) {
             addAffNumOp(_oper);
             return;
         }
-        changeSingleCharPrioAddPossible(_oper);
+        if (matchChar(_oper, ElResolver.MINUS_CHAR) || matchChar(_oper, ElResolver.PLUS_CHAR) || matchChar(_oper, ElResolver.MULT_CHAR)
+           || matchChar(_oper, ElResolver.DIV_CHAR) || matchChar(_oper, ElResolver.MOD_CHAR) || matchChar(_oper, ElResolver.AND_CHAR)
+                || matchChar(_oper, ElResolver.OR_CHAR) || matchChar(_oper, ElResolver.XOR_CHAR)) {
+            changeSingleCharPrioAddPossible(_oper);
+            return;
+        }
+        instaOf(_oper);
     }
 
-    private void instaOf(int _offset, String _string, Delimiters _d) {
-        int min_ = _d.getDelInstanceof().indexOfNb((long)index+_offset);
+    private static boolean matchFoursChars(String _oper, char _ch, char _chFourth) {
+        return _oper.length() == 4&& _oper.charAt(0) == _ch && _oper.charAt(3) == _chFourth;
+    }
+
+    private static boolean matchThreeChars(String _oper, char _ch, char _chThird) {
+        return _oper.length() == 3&& _oper.charAt(0) == _ch&& _oper.charAt(2) == _chThird;
+    }
+
+    private static boolean matchChars(String _oper, char _ch, char _chSec) {
+        return _oper.length() == 2 && _oper.charAt(0) == _ch && _oper.charAt(1) == _chSec;
+    }
+
+    private static boolean matchChar(String _oper, char _ch) {
+        return _oper.length() == 1 && _oper.charAt(0) == _ch;
+    }
+
+    private void instaOf(String _op) {
         boolean clearOperators_ = false;
         boolean foundOperator_ = false;
-        int next_ = _d.getDelInstanceof().get(min_ +1) - _offset;
         instOf = true;
         if (prio > ElResolver.CMP_PRIO) {
             clearOperators_ = true;
@@ -496,8 +493,7 @@ final class AfterUnaryParts {
         if (prio == ElResolver.CMP_PRIO) {
             foundOperator_ = true;
         }
-        String op_ = _string.substring(index, next_);
-        addPossibleNumOp(op_, clearOperators_, foundOperator_);
+        addPossibleNumOp(_op, clearOperators_, foundOperator_);
     }
 
     private void eq(String _operator) {
@@ -603,7 +599,7 @@ final class AfterUnaryParts {
     private void changeSingleCharPrioAddPossible(String _op) {
         boolean clearOperators_ = false;
         boolean foundOperator_ = false;
-        int prioOpMult_ = getSingleCharPrio(_op);
+        int prioOpMult_ = getSingleCharPrio(_op.charAt(0));
         if (prio > prioOpMult_) {
             prio = prioOpMult_;
         }
@@ -617,10 +613,6 @@ final class AfterUnaryParts {
     private void addAffNumOp(String _oper) {
         boolean foundOperator_ = chgPrioAff();
         addPossibleNumOp(_oper, foundOperator_, foundOperator_);
-    }
-
-    private static boolean isPairPositive(int _nb) {
-        return _nb >= 0 && _nb % 2 == 0;
     }
 
     private void addPossibleNumOp(String _op, boolean _clearOpers, boolean _foundOper) {
@@ -638,17 +630,17 @@ final class AfterUnaryParts {
         index += _op.length();
     }
 
-    private static int getSingleCharPrio(String _oper) {
-        if (StringUtil.quickEq(_oper,"-") || StringUtil.quickEq(_oper,"+")) {
+    private static int getSingleCharPrio(char _oper) {
+        if (_oper == ElResolver.MINUS_CHAR || _oper == ElResolver.PLUS_CHAR) {
             return ElResolver.ADD_PRIO;
         }
-        if (StringUtil.quickEq(_oper,"*") || StringUtil.quickEq(_oper,"/") || StringUtil.quickEq(_oper,"%")) {
+        if (_oper == ElResolver.MULT_CHAR || _oper == ElResolver.DIV_CHAR || _oper == ElResolver.MOD_CHAR) {
             return ElResolver.MULT_PRIO;
         }
-        if (StringUtil.quickEq(_oper,"&")) {
+        if (_oper == ElResolver.AND_CHAR) {
             return ElResolver.BIT_AND_PRIO;
         }
-        if (StringUtil.quickEq(_oper,"|")) {
+        if (_oper == ElResolver.OR_CHAR) {
             return ElResolver.BIT_OR_PRIO;
         }
         return ElResolver.BIT_XOR_PRIO;
@@ -658,7 +650,7 @@ final class AfterUnaryParts {
         int j_ = _from;
         while (j_ <= _to) {
             char ch_ = _string.charAt(j_);
-            if (ch_ == MINUS_CHAR || ch_ == NEG_BOOL || ch_ == PLUS_CHAR || ch_ == NEG_BOOL_CHAR || ch_ == '*' || StringUtil.isWhitespace(ch_)) {
+            if (ch_ == ElResolver.MINUS_CHAR || ch_ == ElResolver.NEG_BOOL || ch_ == ElResolver.PLUS_CHAR || ch_ == ElResolver.NEG_BOOL_CHAR || ch_ == ElResolver.MULT_CHAR || StringUtil.isWhitespace(ch_)) {
                 j_++;
             } else {
                 int sum_ = _offset + j_;
@@ -685,7 +677,7 @@ final class AfterUnaryParts {
         int len_ = oper_.length();
         for (char c: _open) {
             if (StringExpUtil.nextCharIs(oper_,0, len_,c)) {
-                _operators.addEntry(_i, Character.toString(SEP_ARG));
+                _operators.addEntry(_i, Character.toString(ElResolver.SEP_ARG));
                 break;
             }
         }

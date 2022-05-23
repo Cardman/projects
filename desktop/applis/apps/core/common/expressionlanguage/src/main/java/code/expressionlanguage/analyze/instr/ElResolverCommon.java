@@ -61,7 +61,7 @@ public final class ElResolverCommon {
             }
         } else {
             if (!StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.BEGIN_TERNARY)
-                    &&!StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.ARR_LEFT)) {
+                    &&!StringExpUtil.nextCharIs(_string, StringExpUtil.nextPrintChar(_i + 1, _len,_string), _len, ElResolver.ARR_LEFT)) {
                 ternary_ = true;
             }
         }

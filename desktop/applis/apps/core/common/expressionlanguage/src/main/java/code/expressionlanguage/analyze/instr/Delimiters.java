@@ -28,7 +28,6 @@ public final class Delimiters {
     private final Ints delCast = new Ints();
     private final StringList delCastExtract = new StringList();
     private final CustList<AnaResultPartType> castParts = new CustList<AnaResultPartType>();
-    private final Ints delInstanceof = new Ints();
     private final Ints delLambda = new Ints();
     private final Ints delIds = new Ints();
     private final Ints delLoopVars = new Ints();
@@ -120,10 +119,6 @@ public final class Delimiters {
 
     public CustList<AnaResultPartType> getCastParts() {
         return castParts;
-    }
-
-    public Ints getDelInstanceof() {
-        return delInstanceof;
     }
 
     public Ints getDelLambda() {
