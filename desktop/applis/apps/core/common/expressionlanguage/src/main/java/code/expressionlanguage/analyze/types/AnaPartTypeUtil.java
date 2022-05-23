@@ -80,9 +80,9 @@ public final class AnaPartTypeUtil {
     public static AnaResultPartType processAnalyze(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         return processAccessAnalyzeCommon(_input, false, _globalType, _local, _rooted, _loc, _page);
     }
-    public static AnaResultPartType processAccAnalyze(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAccAnalyze(String _input, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         _page.setRefFileName(null);
-        return processAccessAnalyze(_input, false, _globalType, _local, _rooted, _loc, _page);
+        return processAccessAnalyze(_input, false, _local, _rooted, _loc, _page);
     }
     public static AnaResultPartType processAnalyzeHeader(String _input, boolean _rootName, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         return processAccessAnalyzeCommon(_input, _rootName, _globalType, _local, _rooted, _loc, _page);
@@ -90,45 +90,14 @@ public final class AnaPartTypeUtil {
 
     private static AnaResultPartType processAccessAnalyzeCommon(String _input, boolean _rootName, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         _page.setRefFileName(null);
-        AnaResultPartType res_ = processAccessAnalyze(_input, _rootName, _globalType, _local, _rooted, _loc, _page);
+        AnaResultPartType res_ = processAccessAnalyze(_input, _rootName, _local, _rooted, _loc, _page);
         AnaPartType r_ = res_.getPartType();
         checkAccess(r_, _globalType, _page);
         return res_;
     }
 
-    public static AnaResultPartType processAccessAnalyze(String _input, boolean _rootName, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
-        String inputTr_ = _input.trim();
-        Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
-        if (indexes_ == null) {
-            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), getFile(_rooted));
-        }
-        AnaPartType root_ = root(_rootName, _page, inputTr_, indexes_);
-        AnaPartType current_ = root_;
-        while (current_ != null) {
-            AnaPartType child_ = create(_rootName, null, _page, indexes_, 0, current_);
-            if (child_ != null) {
-                ((AnaParentPartType)current_).appendChild(child_);
-                current_ = child_;
-                continue;
-            }
-            while (current_ != null) {
-                current_.analyze(_globalType, _local, _rooted, _page, _loc);
-                AnaPartType next_ = create(_rootName, current_, _page, indexes_, current_.getIndex() + 1, current_.getParent());
-                AnaParentPartType par_ = current_.getParent();
-                if (next_ != null) {
-                    par_.appendChild(next_);
-                    current_ = next_;
-                    break;
-                }
-                if (par_ == root_) {
-                    par_.analyze(_globalType, _local, _rooted, _page, _loc);
-                    current_ = null;
-                } else {
-                    current_ = par_;
-                }
-            }
-        }
-        return new AnaResultPartType(_input, _loc, root_, getFile(_rooted));
+    public static AnaResultPartType processAccessAnalyze(String _input, boolean _rootName, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
+        return getAnalyzeLine(_input,null,_rootName,_local,_rooted,_loc,_page);
     }
 
     private static void checkAccessGeneral(String _gl, AnaPartType _current, AnalyzedPageEl _page) {
@@ -314,7 +283,7 @@ public final class AnaPartTypeUtil {
                 continue;
             }
             while (current_ != null) {
-                current_.analyzeLine(_ready, _local, _rooted, _page, _loc);
+                analyze(current_,_ready, _local, _rooted, _page, _loc);
                 AnaPartType next_ = create(_rootName, current_, _page, indexes_, current_.getIndex() + 1, current_.getParent());
                 AnaParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -323,7 +292,7 @@ public final class AnaPartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    par_.analyzeLine(_ready, _local, _rooted, _page, _loc);
+                    analyze(par_,_ready, _local, _rooted, _page, _loc);
                     current_ = null;
                 } else {
                     current_ = par_;
@@ -333,6 +302,13 @@ public final class AnaPartTypeUtil {
         return new AnaResultPartType(_input, _loc, root_, getFile(_rooted));
     }
 
+    private static void analyze(AnaPartType _current, ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        if (_ready == null) {
+            _current.analyze(_local, _rooted, _page, _loc);
+        } else {
+            _current.analyzeLine(_ready, _local, _rooted, _page, _loc);
+        }
+    }
     private static AnaPartType root(boolean _rootName, AnalyzedPageEl _page, String _inputTr, Ints _indexes) {
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _inputTr, _indexes);
         return commonRoot(_rootName, _page, _inputTr, loc_);

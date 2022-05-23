@@ -17,7 +17,7 @@ final class AnaVariablePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+    void analyze(AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
         anaVar(_loc,_page);
     }
 

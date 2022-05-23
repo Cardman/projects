@@ -37,7 +37,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return StringExpUtil.TEMPLATE_END;
     }
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+    void analyze(AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
         anaTmp(_loc);
     }
 
@@ -86,48 +86,42 @@ final class AnaTemplatePartType extends AnaBinaryType {
                 break;
             }
             String arg_ = f_.getAnalyzedType();
-            if (StringUtil.quickEq(arg_, StringExpUtil.SUB_TYPE)) {
-                i_++;
-                continue;
-            }
-            if (arg_.startsWith(StringExpUtil.SUB_TYPE)) {
-                i_++;
-                continue;
-            }
-            if (arg_.startsWith(StringExpUtil.SUP_TYPE)) {
-                i_++;
-                continue;
-            }
-            String comp_ = arg_;
-            DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
-            comp_ = dimCompArg_.getComponent();
-            boolean lookInInherit_ = comp_.startsWith(AnaInherits.PREFIX_VAR_TYPE);
-            StringList bounds_ = new StringList();
-            if (lookInInherit_) {
-                bounds_.addAllElts(_inherit.getVal(comp_.substring(1)));
-            } else {
-                bounds_.add(comp_);
-            }
-            for (String e: t) {
-                Mapping m_ = new Mapping();
-                String param_ = AnaInherits.format(type_,tempClFull_, e);
-                m_.setParam(param_);
-                boolean ok_ = false;
-                for (String v: bounds_) {
-                    m_.setArg(v);
-                    m_.setMapping(_inherit);
-                    if (AnaInherits.isCorrect(m_, _page)) {
-                        ok_ = true;
-                        break;
-                    }
-                }
-                if (!ok_) {
-                    indexesChildConstraints.add(i_);
-                }
+            if (!StringUtil.quickEq(arg_, StringExpUtil.SUB_TYPE) && !arg_.startsWith(StringExpUtil.SUB_TYPE) && !arg_.startsWith(StringExpUtil.SUP_TYPE)) {
+                checkArg(_inherit, _page, tempClFull_, type_, i_, t, arg_);
             }
             i_++;
         }
         return indexesChildConstraints.isEmpty();
+    }
+
+    private void checkArg(StringMap<StringList> _inherit, AnalyzedPageEl _page, String _tempClFull, AnaGeneType _type, int _i, StringList _t, String _arg) {
+        String comp_ = _arg;
+        DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
+        comp_ = dimCompArg_.getComponent();
+        boolean lookInInherit_ = comp_.startsWith(AnaInherits.PREFIX_VAR_TYPE);
+        StringList bounds_ = new StringList();
+        if (lookInInherit_) {
+            bounds_.addAllElts(_inherit.getVal(comp_.substring(1)));
+        } else {
+            bounds_.add(comp_);
+        }
+        for (String e: _t) {
+            Mapping m_ = new Mapping();
+            String param_ = AnaInherits.format(_type, _tempClFull, e);
+            m_.setParam(param_);
+            boolean ok_ = false;
+            for (String v: bounds_) {
+                m_.setArg(v);
+                m_.setMapping(_inherit);
+                if (AnaInherits.isCorrect(m_, _page)) {
+                    ok_ = true;
+                    break;
+                }
+            }
+            if (!ok_) {
+                indexesChildConstraints.add(_i);
+            }
+        }
     }
 
     Ints getIndexesChildConstraints() {

@@ -36,9 +36,7 @@ public final class ParserType {
                 indexes_.add(i_);
                 count_++;
                 i_++;
-                continue;
-            }
-            if (curChar_ == StringExpUtil.GT) {
+            } else if (curChar_ == StringExpUtil.GT) {
                 if (count_ == 0) {
                     return null;
                 }
@@ -47,9 +45,7 @@ public final class ParserType {
                 indexes_.add(i_);
                 count_--;
                 i_++;
-                continue;
-            }
-            if (curChar_ == StringExpUtil.COMMA) {
+            } else if (curChar_ == StringExpUtil.COMMA) {
                 if (count_ == 0) {
                     return null;
                 }
@@ -57,36 +53,47 @@ public final class ParserType {
                 id_.delete(0, id_.length());
                 indexes_.add(i_);
                 i_++;
-                continue;
-            }
-            if (curChar_ == StringExpUtil.SEP_CLASS_CHAR) {
-                if (StringExpUtil.nextCharIs(_input, i_ + 1, len_, StringExpUtil.SEP_CLASS_CHAR)) {
-                    indexes_.add(i_);
-                    id_.delete(0,id_.length());
-                    i_+=2;
-                    continue;
-                }
-                String tr_ = StringExpUtil.removeDottedSpaces(id_.toString());
-                if (!StringUtil.contains(_pkg,tr_)) {
-                    addDot_ = true;
-                }
-                if (addDot_) {
-                    indexes_.add(i_);
-                    id_.delete(0,id_.length());
-                } else {
-                    id_.append(curChar_);
-                }
+            } else if (curChar_ == StringExpUtil.SEP_CLASS_CHAR&&StringExpUtil.nextCharIs(_input, i_ + 1, len_, StringExpUtil.SEP_CLASS_CHAR)) {
+                indexes_.add(i_);
+                id_.delete(0,id_.length());
+                i_+=2;
+            } else if (curChar_ == StringExpUtil.SEP_CLASS_CHAR) {
+                addDot_ = addDot(_pkg, i_, indexes_, addDot_, id_, curChar_);
+                i_++;
             } else {
-                if (curChar_ != '?' && curChar_ != '!' && curChar_ != '~') {
-                    id_.append(curChar_);
-                }
+                appendToId(id_, curChar_);
+                i_++;
             }
-            i_++;
         }
-        if (count_ > 0) {
+        return endCheck(count_, indexes_);
+    }
+
+    private static Ints endCheck(int _count, Ints _indexes) {
+        if (_count > 0) {
             return null;
         }
-        return indexes_;
+        return _indexes;
+    }
+
+    private static boolean addDot(StringList _pkg, int _i, Ints _indexes, boolean _addDot, StringBuilder _id, char _ch) {
+        boolean addDot_ = _addDot;
+        String tr_ = StringExpUtil.removeDottedSpaces(_id.toString());
+        if (!StringUtil.contains(_pkg, tr_)) {
+            addDot_ = true;
+        }
+        if (addDot_) {
+            _indexes.add(_i);
+            _id.delete(0, _id.length());
+        } else {
+            _id.append(_ch);
+        }
+        return addDot_;
+    }
+
+    private static void appendToId(StringBuilder _id, char _ch) {
+        if (_ch != '?' && _ch != '!' && _ch != '~') {
+            _id.append(_ch);
+        }
     }
 
     public static AnalyzingType analyzeLocal(int _offset, String _string, Ints _indexes) {
@@ -127,20 +134,10 @@ public final class ParserType {
             return _a;
         }
         if (_string.trim().startsWith(StringExpUtil.SUP_TYPE)) {
-            if (StringUtil.quickEq(_string.trim(), StringExpUtil.SUP_TYPE)) {
-                _a.setError(true);
-            }
-            _a.setPrio(WILD_CARD_PRIO);
-            _a.setupWildCardValues(StringExpUtil.SUP_TYPE, _string);
-            return _a;
+            return strictUnary(_string, StringExpUtil.SUP_TYPE, _a);
         }
         if (_string.trim().startsWith("~")) {
-            if (StringUtil.quickEq(_string.trim(), "~")) {
-                _a.setError(true);
-            }
-            _a.setPrio(WILD_CARD_PRIO);
-            _a.setupWildCardValues("~", _string);
-            return _a;
+            return strictUnary(_string, "~", _a);
         }
         StrTypes operators_ = _a.getOperators();
         ArrayResult res_ = StringExpUtil.tryGetArray(_string, values_,operators_);
@@ -158,53 +155,77 @@ public final class ParserType {
         int i_ = 0;
         int prio_ = TMP_PRIO;
         while (i_ < len_) {
-            char curChar_ = _string.charAt(i_);
             if (!_indexes.containsObj((long)i_+_offset)) {
                 i_++;
                 continue;
             }
-            if (curChar_ == StringExpUtil.LT) {
-                if (count_== 0 && prio_ == TMP_PRIO) {
-                    operators_.clear();
-                    operators_.addEntry(i_,StringExpUtil.TEMPLATE_BEGIN);
-                }
-                count_++;
-            }
-            if (curChar_ == StringExpUtil.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
-                operators_.addEntry(i_, StringExpUtil.TEMPLATE_SEP);
-            }
-            if (curChar_ == StringExpUtil.GT) {
-                count_--;
-                if (count_ == 0 && prio_ == TMP_PRIO) {
-                    operators_.addEntry(i_,StringExpUtil.TEMPLATE_END);
-                }
-            }
-            if (count_ == 0) {
-                if (curChar_ == StringExpUtil.SEP_CLASS_CHAR) {
-                    if (prio_ > INT_PRIO) {
-                        operators_.clear();
-                        prio_ = INT_PRIO;
-                    }
-                    if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, StringExpUtil.SEP_CLASS_CHAR)) {
-                        operators_.addEntry(i_,"..");
-                    } else {
-                        operators_.addEntry(i_,".");
-                    }
-                }
-            }
+            count_ = ltGt(_string,operators_, count_, i_, prio_);
+            prio_ = dotOperator(_string, operators_, count_, i_, prio_);
             i_++;
         }
-        if (operators_.isEmpty()) {
-            if (isTypeLeaf(_string)) {
-                _a.setKind(KindPartType.TYPE_NAME);
-                _a.setupValue(_string);
-                return _a;
-            }
+        if (operators_.isEmpty() && isTypeLeaf(_string)) {
+            _a.setKind(KindPartType.TYPE_NAME);
+            _a.setupValue(_string);
+            return _a;
         }
         _a.setPrio(prio_);
         _a.setupValues(_string);
         return _a;
     }
+
+    private static int ltGt(String _string, StrTypes _operators, int _count, int _i, int _prio) {
+        char curChar_ = _string.charAt(_i);
+        int count_ = _count;
+        if (curChar_ == StringExpUtil.LT) {
+            if (count_ == 0 && _prio == TMP_PRIO) {
+                _operators.clear();
+                _operators.addEntry(_i,StringExpUtil.TEMPLATE_BEGIN);
+            }
+            count_++;
+        }
+        if (curChar_ == StringExpUtil.COMMA && count_ == 1 && _prio == TMP_PRIO) {
+            _operators.addEntry(_i, StringExpUtil.TEMPLATE_SEP);
+        }
+        if (curChar_ == StringExpUtil.GT) {
+            count_--;
+            if (count_ == 0 && _prio == TMP_PRIO) {
+                _operators.addEntry(_i,StringExpUtil.TEMPLATE_END);
+            }
+        }
+        return count_;
+    }
+
+    private static int dotOperator(String _string, StrTypes _operators, int _count, int _i, int _prio) {
+        int prio_ = _prio;
+        char curChar_ = _string.charAt(_i);
+        if (_count == 0 && curChar_ == StringExpUtil.SEP_CLASS_CHAR) {
+            if (prio_ > INT_PRIO) {
+                _operators.clear();
+                prio_ = INT_PRIO;
+            }
+            dottedType(_string, _operators, _i);
+        }
+        return prio_;
+    }
+
+    private static void dottedType(String _string, StrTypes _operators, int _i) {
+        int len_ = _string.length();
+        if (StringExpUtil.nextCharIs(_string, _i + 1, len_, StringExpUtil.SEP_CLASS_CHAR)) {
+            _operators.addEntry(_i, "..");
+        } else {
+            _operators.addEntry(_i, ".");
+        }
+    }
+
+    private static AnalyzingType strictUnary(String _string, String _oper, AnalyzingType _a) {
+        if (StringUtil.quickEq(_string.trim(), _oper)) {
+            _a.setError(true);
+        }
+        _a.setPrio(ParserType.WILD_CARD_PRIO);
+        _a.setupWildCardValues(_oper, _string);
+        return _a;
+    }
+
     private static boolean isTypeLeaf(String _string) {
         for (String p : StringUtil.splitChars(_string, StringExpUtil.SEP_CLASS_CHAR)) {
             if (!StringExpUtil.isTypeLeafPart(p.trim())) {

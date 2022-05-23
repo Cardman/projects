@@ -50,12 +50,7 @@ abstract class AnaPartType {
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
                 return new AnaEmptyWildCardPart(_parent, _index, _indexInType, type_,str_, _page.getAnalysisMessages());
             }
-            boolean okVarType_ = false;
-            if (_parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType || _parent instanceof AnaRefPartType) {
-                okVarType_ = true;
-            } else if (_parent instanceof AnaTemplatePartType && _parent.getFirstChild() != null) {
-                okVarType_ = true;
-            }
+            boolean okVarType_ = _parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType || _parent instanceof AnaRefPartType || _parent instanceof AnaTemplatePartType && _parent.getFirstChild() != null;
             Integer val_ = _page.getAvailableVariables().getVal(type_);
             if (val_ != null && okVarType_) {
                 return new AnaVariablePartType(_parent, _index, _indexInType, type_,str_,val_, _page.getAnalysisMessages());
@@ -106,7 +101,7 @@ abstract class AnaPartType {
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_, _messages,values_);
     }
 
-    abstract void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc);
+    abstract void analyze(AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc);
     abstract void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc);
 
     abstract void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc);

@@ -1,14 +1,8 @@
 package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
@@ -19,13 +13,9 @@ import code.expressionlanguage.common.Matching;
 import code.expressionlanguage.common.MatchingEnum;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -10940,7 +10930,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
             _cont.getAvailableVariables().addEntry(s.getKey(),0);
         }
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false,"", null,null, -1, _cont);
+            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false, null,null, -1, _cont);
         } else {
             resType_ = AnaPartTypeUtil.processAnalyzeLine(_className, "", null,null, -1, _cont);
         }

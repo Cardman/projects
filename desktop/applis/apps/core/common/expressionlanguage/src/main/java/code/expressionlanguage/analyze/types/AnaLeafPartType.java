@@ -3,8 +3,8 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 
 abstract class AnaLeafPartType extends AnaPartType {
-    private String typeName;
-    private String previousSeparator;
+    private final String typeName;
+    private final String previousSeparator;
     AnaLeafPartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator, AnalysisMessages _messages) {
         super(_parent, _index, _indexInType, _messages);
         typeName = _type;

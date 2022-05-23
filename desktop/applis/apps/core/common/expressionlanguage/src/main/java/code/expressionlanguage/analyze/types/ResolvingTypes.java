@@ -158,10 +158,9 @@ public final class ResolvingTypes {
         AccessedBlock r_ = _page.getImporting();
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         _page.getBuildingConstraints().buildCurrentConstraintsFull();
-        String gl_ = _page.getGlobalClass();
         AnaResultPartType resType_;
         _page.getCurrentBadIndexes().clear();
-        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, gl_, r_,r_, rc_, _page);
+        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, r_,r_, rc_, _page);
         return checkResType(_in, true, _loc, varsCt_, resType_, _page);
     }
 

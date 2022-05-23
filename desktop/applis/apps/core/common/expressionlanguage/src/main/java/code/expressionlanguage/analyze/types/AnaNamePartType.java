@@ -36,7 +36,7 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+    void analyze(AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
         setLoc(_loc);
         if (skipGenericInners(_page)) {
             return;
@@ -216,24 +216,27 @@ final class AnaNamePartType extends AnaLeafPartType {
                 id_ = StringExpUtil.getIdFromAllTypes(genStr_);
                 resType_ = e.getValue().getSimpleName();
             }
-            if (inner_ != null) {
-                setFoundType(inner_);
-                if (inner_.withoutInstance()) {
-                    setAnalyzedType(StringUtil.concat(id_,"..",resType_));
-                    owner = a;
-                    return true;
-                }
-                if (DefaultTokenValidation.isStaticAcc(_page)) {
-                    setAnalyzedType(StringUtil.concat(id_,"..",resType_));
-                    owner = a;
-                    return true;
-                }
-                setAnalyzedType(StringUtil.concat(genStr_,"..",resType_));
-                owner = a;
-            }
+            endAnalyze(_page,inner_,genStr_,id_,resType_,a);
             return true;
         }
         return false;
+    }
+    private void endAnalyze(AnalyzedPageEl _page,RootBlock _inner,String _genStr,String _id,String _resType, String _a) {
+        if (_inner != null) {
+            setFoundType(_inner);
+            if (_inner.withoutInstance()) {
+                setAnalyzedType(StringUtil.concat(_id,"..",_resType));
+                owner = _a;
+                return;
+            }
+            if (DefaultTokenValidation.isStaticAcc(_page)) {
+                setAnalyzedType(StringUtil.concat(_id,"..",_resType));
+                owner = _a;
+                return;
+            }
+            setAnalyzedType(StringUtil.concat(_genStr,"..",_resType));
+            owner = _a;
+        }
     }
     private void tryAnalyzeInnerPartsLine(ReadyTypes _ready,
                                           AccessedBlock _local,
@@ -364,12 +367,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (part_ != null) {
             String owner_ = part_.getAnalyzedType();
             String id_ = StringExpUtil.getIdFromAllTypes(owner_);
-            String sep_;
-            if (StringUtil.quickEq("..",getPreviousSeparator())) {
-                sep_ = "-";
-            } else {
-                sep_ = "..";
-            }
+            String sep_ = separator();
             String in_ = StringUtil.concat(id_,sep_,type_);
             RootBlock inner_ = _page.getAnaClassBody(in_);
             if (inner_ == null) {
@@ -410,6 +408,16 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
         setFoundType(out_.getGeneType());
         setAnalyzedType(out_.getFullName());
+    }
+
+    private String separator() {
+        String sep_;
+        if (StringUtil.quickEq("..",getPreviousSeparator())) {
+            sep_ = "-";
+        } else {
+            sep_ = "..";
+        }
+        return sep_;
     }
 
     boolean isVoidType() {
