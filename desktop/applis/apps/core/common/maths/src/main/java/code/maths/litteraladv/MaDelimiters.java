@@ -6,12 +6,12 @@ import code.util.Ints;
 
 public final class MaDelimiters {
 
-    private final Ints operatorsIndexes = new Ints();
+    private final CustList<MaIndexStackOperator> operatorsIndexes = new CustList<MaIndexStackOperator>();
     private final Ints numbers = new Ints();
     private final CustList<StringBuilder> nbParts = new CustList<StringBuilder>();
     private final CustList<MatVariableInfo> varParts = new CustList<MatVariableInfo>();
 
-    public Ints getOperatorsIndexes() {
+    public CustList<MaIndexStackOperator> getOperatorsIndexes() {
         return operatorsIndexes;
     }
 

@@ -7,9 +7,6 @@ public final class MaStackOperators {
     public boolean empty() {
         return opers.isEmpty();
     }
-    public int nb() {
-        return opers.size();
-    }
 
     public int ind() {
         return opers.last().getInd();

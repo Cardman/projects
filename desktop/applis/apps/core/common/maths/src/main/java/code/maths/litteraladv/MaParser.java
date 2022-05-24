@@ -313,7 +313,13 @@ public final class MaParser {
         if (_error.getOffset() > -1) {
             return;
         }
-        _m.setIndex(procOper(_d, _m.getIndex(), curChar_));
+        char def_;
+        if (!s_.empty()) {
+            def_ = s_.oper();
+        } else {
+            def_ = ' ';
+        }
+        _m.setIndex(procOper(_d, _m.getIndex(), curChar_, def_));
     }
 
     private static void processLeftDel(MathState _m, char _curChar, MaStackOperators _s, char _left) {
@@ -456,9 +462,9 @@ public final class MaParser {
         return _cur == '-' && _frac;
     }
 
-    private static int procOper(MaDelimiters _d, int _i, char _curChar) {
+    private static int procOper(MaDelimiters _d, int _i, char _curChar, char _ass) {
         if (MathExpUtil.allOp(_curChar)) {
-            _d.getOperatorsIndexes().add(_i);
+            _d.getOperatorsIndexes().add(new MaIndexStackOperator(_i,_ass));
         }
         return _i+1;
     }

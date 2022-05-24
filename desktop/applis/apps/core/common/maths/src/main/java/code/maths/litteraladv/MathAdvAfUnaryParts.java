@@ -9,7 +9,7 @@ import code.util.core.StringUtil;
 public final class MathAdvAfUnaryParts {
 
     private final StrTypes opers = new StrTypes();
-    private final MaStackOperators dels = new MaStackOperators();
+    private int dels;
     private int prio = MatCommonCst.FCT_OPER_PRIO;
     private int current;
     private final int lastPrintChar;
@@ -28,7 +28,8 @@ public final class MathAdvAfUnaryParts {
     void loop(int _offset, String _string,
               MaDelimiters _d) {
         char curChar_ = _string.charAt(current);
-        if (!_d.getOperatorsIndexes().containsObj((long) current +_offset)) {
+        MaIndexStackOperator cont_ = contained(current +_offset, _d);
+        if (cont_ == null) {
             current++;
             return;
         }
@@ -39,7 +40,7 @@ public final class MathAdvAfUnaryParts {
                 opers.clear();
                 opers.addEntry(current, Character.toString(MatCommonCst.PAR_LEFT));
             }
-            dels.add(current,curChar_);
+            dels++;
         }
         if (commaExt(curChar_)) {
             if (prio > MatCommonCst.DECL_PRIO) {
@@ -48,7 +49,8 @@ public final class MathAdvAfUnaryParts {
             prio = MatCommonCst.DECL_PRIO;
             opers.addEntry(current, Character.toString(curChar_));
         }
-        if (comma(curChar_)||commaPt(curChar_)) {
+        char open_ = cont_.getOper();
+        if (comma(curChar_, open_)||commaPt(curChar_, open_)) {
             opers.addEntry(current, Character.toString(curChar_));
         }
         if (rightDel(curChar_)) {
@@ -64,8 +66,16 @@ public final class MathAdvAfUnaryParts {
         procNumOps(_string, curChar_);
     }
 
+    private MaIndexStackOperator contained(int _i, MaDelimiters _e) {
+        for (MaIndexStackOperator p: _e.getOperatorsIndexes()) {
+            if (p.getInd() == _i) {
+                return p;
+            }
+        }
+        return null;
+    }
     private boolean decl() {
-        return !dels.empty()||prio == MatCommonCst.DECL_PRIO;
+        return dels != 0||prio == MatCommonCst.DECL_PRIO;
     }
 
     private void procLeftNoPar(char _curChar, char _leftChar) {
@@ -75,25 +85,25 @@ public final class MathAdvAfUnaryParts {
                 opers.clear();
                 opers.addEntry(current, Character.toString(_leftChar));
             }
-            dels.add(current,_curChar);
+            dels++;
         }
     }
-    private boolean comma(char _curChar) {
-        return _curChar == MatCommonCst.SEP_ARG && dels.nb() == 1 && dels.oper() != '{' && prio == MatCommonCst.FCT_OPER_PRIO;
+    private boolean comma(char _curChar, char _op) {
+        return _curChar == MatCommonCst.SEP_ARG && dels == 1 && _op != '{' && prio == MatCommonCst.FCT_OPER_PRIO;
     }
     private boolean commaExt(char _curChar) {
-        return _curChar == MatCommonCst.SEP_ARG && dels.nb() == 0;
+        return _curChar == MatCommonCst.SEP_ARG && dels == 0;
     }
 
-    private boolean commaPt(char _curChar) {
-        return _curChar == MatCommonCst.SEP_ARG_BRA && dels.nb() == 1 && dels.oper() == '{' && prio == MatCommonCst.FCT_OPER_PRIO;
+    private boolean commaPt(char _curChar, char _op) {
+        return _curChar == MatCommonCst.SEP_ARG_BRA && dels == 1 && _op == '{' && prio == MatCommonCst.FCT_OPER_PRIO;
     }
     private static boolean rightDel(char _curChar) {
         return _curChar == MatCommonCst.PAR_RIGHT || _curChar == MatCommonCst.ARR_RIGHT || _curChar == MatCommonCst.BRA_RIGHT;
     }
 
     private void procRight(char _rightPart) {
-        dels.remove();
+        dels--;
         if (delFct()) {
             opers.addEntry(current, Character.toString(_rightPart));
         }
@@ -101,7 +111,7 @@ public final class MathAdvAfUnaryParts {
     }
 
     private boolean delFct() {
-        return dels.empty() && prio == MatCommonCst.FCT_OPER_PRIO;
+        return dels==0 && prio == MatCommonCst.FCT_OPER_PRIO;
     }
 
     private void procNumOps(String _string, char _curChar) {
