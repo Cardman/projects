@@ -36,6 +36,8 @@ final class AfterUnaryParts {
     private int length;
     private int deltaAnnot;
     private String retSwitch = "";
+    private String currentOperator = "";
+    private String previousOperator = "";
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
 
     AfterUnaryParts(int _offset, String _string, ExpPartDelimiters _del, Delimiters _d) {
@@ -159,6 +161,8 @@ final class AfterUnaryParts {
             index++;
             return;
         }
+        previousOperator = currentOperator;
+        currentOperator = _string.substring(index , index + cont_.getLength());
         if (curChar_ == ElResolver.PAR_LEFT) {
             parLeft(_string);
             return;
@@ -191,7 +195,7 @@ final class AfterUnaryParts {
             dot();
             return;
         }
-        lowerFct(cont_.getBeginDel(), _string.substring(index , index + cont_.getLength()));
+        lowerFct(cont_.getBeginDel(), currentOperator);
     }
     private OperatorOffsetLength contained(int _index, Delimiters _d) {
         for (OperatorOffsetLength o: _d.getAllowedOperatorsIndexes()) {
@@ -233,14 +237,7 @@ final class AfterUnaryParts {
             index++;
             return;
         }
-        if (matchChar(_oper,ElResolver.BEGIN_TERNARY)) {
-            safeDot(_oper);
-            fctName = EMPTY_STRING;
-            parsBrackets++;
-            index++;
-            return;
-        }
-        if (matchChars(_oper, ElResolver.BEGIN_TERNARY, ElResolver.DOT_VAR)) {
+        if (matchChar(_oper, ElResolver.BEGIN_TERNARY) || matchChars(_oper, ElResolver.BEGIN_TERNARY, ElResolver.DOT_VAR)) {
             safeDot(_oper);
             return;
         }
@@ -392,11 +389,14 @@ final class AfterUnaryParts {
     private void arrAccess() {
         int firstPrintChar_ = del.getFirstPrintIndex();
         fctName = EMPTY_STRING;
-        operators.clear();
         if (firstPrintChar_ == index) {
+            operators.clear();
             operators.addEntry(index, Character.toString(ElResolver.ARR_LEFT));
         } else {
-            operators.addEntry(index, EMPTY_STRING);
+            if (!matchChar(previousOperator,ElResolver.BEGIN_TERNARY)) {
+                operators.clear();
+                operators.addEntry(index, EMPTY_STRING);
+            }
         }
     }
 
