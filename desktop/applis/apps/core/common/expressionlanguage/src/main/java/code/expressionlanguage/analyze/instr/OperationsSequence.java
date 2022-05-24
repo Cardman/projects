@@ -27,7 +27,7 @@ public final class OperationsSequence {
     private TextBlockInfo strInfo;
 
     private String fctName = "";
-
+    private int indexFct;
     private int priority;
 
     private StrTypes values;
@@ -260,7 +260,7 @@ public final class OperationsSequence {
         vs_.remove(0);
     }
 
-    public void adjust(MethodOperation _m, AnalyzedPageEl _page) {
+    public void adjust(String _string, MethodOperation _m, AnalyzedPageEl _page) {
         ConstType ct_ = getConstType();
         if (ct_ == ConstType.ERROR) {
             return;
@@ -281,7 +281,7 @@ public final class OperationsSequence {
             return;
         }
         if (getPriority() == ElResolver.FCT_OPER_PRIO) {
-            fctAdjust(_m, _page);
+            fctAdjust(_string, _m, _page);
             return;
         }
         if (getPriority() == ElResolver.AFF_PRIO&&_m instanceof AnnotationInstanceArobaseOperation) {
@@ -289,13 +289,14 @@ public final class OperationsSequence {
         }
     }
 
-    private void fctAdjust(MethodOperation _m, AnalyzedPageEl _page) {
+    private void fctAdjust(String _string, MethodOperation _m, AnalyzedPageEl _page) {
         if (DefaultAnnotationAnalysis.isAnnotAnalysis(_page, _m,this)) {
             removeFirst();
             return;
         }
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
+        fctName = _string.substring(0,indexFct);
         String fctName_ = fctName.trim();
         if (fctName_.startsWith("@")) {
             removeFirst();
@@ -401,6 +402,10 @@ public final class OperationsSequence {
 
     public void setFctName(String _fctName) {
         fctName = _fctName;
+    }
+
+    public void setIndexFct(int _ind) {
+        this.indexFct = _ind;
     }
 
     public boolean isCallDbArray() {

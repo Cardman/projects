@@ -1779,12 +1779,11 @@ public final class ElResolver {
         StrTypes operators_;
         operators_ = af_.getOperators();
         boolean is_ = af_.isInstOf();
-        String fctName_ = af_.getFctName();
         boolean instance_ = af_.isInstance();
         OperationsSequence op_ = new OperationsSequence();
         op_.setPriority(prio_);
         op_.setOperators(operators_);
-        op_.setFctName(fctName_);
+        op_.setIndexFct(af_.getIndexFct());
         op_.setErrorDot(af_.isErrorDot());
         op_.setBlock(af_.getBlock());
         op_.setLength(af_.getLength());
@@ -1795,7 +1794,7 @@ public final class ElResolver {
         op_.setExtractType(extracted_);
         AnaResultPartType partsOffs_ = af_.getPartsOffs();
         op_.setPartOffsets(partsOffs_);
-        op_.adjust(_meth,_page);
+        op_.adjust(_string,_meth,_page);
         return op_;
     }
 

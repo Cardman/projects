@@ -9,7 +9,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 final class AfterUnaryParts {
@@ -24,7 +23,7 @@ final class AfterUnaryParts {
 
     private boolean enPars = true;
     private boolean instOf;
-    private String fctName = EMPTY_STRING;
+    private int indexFct;
     private boolean enabledId;
     private boolean instance;
     private boolean instanceStrict;
@@ -164,7 +163,7 @@ final class AfterUnaryParts {
         previousOperator = currentOperator;
         currentOperator = _string.substring(index , index + cont_.getLength());
         if (curChar_ == ElResolver.PAR_LEFT) {
-            parLeft(_string);
+            parLeft();
             return;
         }
         if (curChar_ == ElResolver.SEP_ARG && parsBrackets > 0) {
@@ -176,7 +175,7 @@ final class AfterUnaryParts {
             return;
         }
         if (curChar_ == ElResolver.ANN_ARR_LEFT) {
-            annArrLeft(_string);
+            annArrLeft();
             return;
         }
         if (curChar_ == ElResolver.ANN_ARR_RIGHT) {
@@ -184,7 +183,7 @@ final class AfterUnaryParts {
             return;
         }
         if (curChar_ == ElResolver.ARR_LEFT) {
-            arrLeft(_string);
+            arrLeft();
             return;
         }
         if (curChar_ == ElResolver.ARR_RIGHT) {
@@ -288,10 +287,10 @@ final class AfterUnaryParts {
         index++;
     }
 
-    private void parLeft(String _string) {
+    private void parLeft() {
         if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO) {
             if (enPars) {
-                fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
+                indexFct = index;
                 operators.addEntry(index, Character.toString(ElResolver.PAR_LEFT));
             } else if (enabledId) {
                 instance = false;
@@ -345,15 +344,15 @@ final class AfterUnaryParts {
         index++;
     }
 
-    private void annArrLeft(String _string) {
+    private void annArrLeft() {
         if (parsBrackets == 0 && ElResolver.FCT_OPER_PRIO == prio) {
             if (instance) {
-                fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
+                indexFct = index;
                 if (operators.isEmpty()) {
                     operators.addEntry(index, Character.toString(ElResolver.ANN_ARR_LEFT));
                 }
             } else {
-                fctName = EMPTY_STRING;
+                indexFct = 0;
                 operators.clear();
                 operators.addEntry(index, EMPTY_STRING);
                 errorDot = true;
@@ -373,11 +372,11 @@ final class AfterUnaryParts {
         index++;
     }
 
-    private void arrLeft(String _string) {
+    private void arrLeft() {
         if (parsBrackets == 0 && ElResolver.FCT_OPER_PRIO == prio) {
 
             if (instance) {
-                arrInstance(_string);
+                arrInstance();
             } else {
                 arrAccess();
             }
@@ -388,7 +387,7 @@ final class AfterUnaryParts {
 
     private void arrAccess() {
         int firstPrintChar_ = del.getFirstPrintIndex();
-        fctName = EMPTY_STRING;
+        indexFct = 0;
         if (firstPrintChar_ == index) {
             operators.clear();
             operators.addEntry(index, Character.toString(ElResolver.ARR_LEFT));
@@ -400,16 +399,16 @@ final class AfterUnaryParts {
         }
     }
 
-    private void arrInstance(String _string) {
+    private void arrInstance() {
         if (operators.isEmpty()) {
-            fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
+            indexFct = index;
             operators.addEntry(index, Character.toString(ElResolver.ARR_LEFT));
         } else {
             String op_ = operators.firstValue();
             if (matchChar(op_, ElResolver.ARR_LEFT)) {
                 operators.addEntry(index, Character.toString(ElResolver.ARR_LEFT));
             } else {
-                fctName = EMPTY_STRING;
+                indexFct = 0;
                 instance = false;
                 instanceStrict = false;
                 operators.clear();
@@ -620,7 +619,7 @@ final class AfterUnaryParts {
             if (_clearOpers) {
                 operators.clear();
             }
-            fctName = EMPTY_STRING;
+            indexFct = 0;
             instance = false;
             instanceStrict = false;
             enPars = false;
@@ -719,8 +718,8 @@ final class AfterUnaryParts {
         return laterIndexesDouble;
     }
 
-    String getFctName() {
-        return fctName;
+    int getIndexFct() {
+        return indexFct;
     }
 
     boolean isInstance() {
