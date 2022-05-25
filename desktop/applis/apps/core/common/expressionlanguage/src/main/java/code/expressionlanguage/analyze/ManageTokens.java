@@ -77,7 +77,8 @@ public final class ManageTokens {
         }
         return checkToken(_id, _analyzing);
     }
-    public static boolean isValidToken(String _id, AnalyzedPageEl _analyzing) {
+
+    public static boolean isValidToken(String _id, TokenCheckerContext _analyzing) {
         return !part().checkToken(_id, _analyzing).isError();
     }
 
@@ -86,16 +87,21 @@ public final class ManageTokens {
     }
 
     public TokenErrorMessage checkToken(String _id, AnalyzedPageEl _analyzing) {
+        TokenCheckerContext tok_ = new TokenCheckerContext(_analyzing.getKeyWords(), _analyzing.getPrimTypes(),_analyzing.getAliasVoid());
+        return checkToken(_id,tok_);
+    }
+
+    public TokenErrorMessage checkToken(String _id, TokenCheckerContext _analyzing) {
         if (!StringExpUtil.isDollarWord(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
         }
-        if (AnaTypeUtil.isPrimitive(_id, _analyzing)) {
+        if (AnaTypeUtil.isPrimitive(_id, _analyzing.getPrims())) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(primMessage,_id),true);
         }
-        if (_analyzing.getKeyWords().isKeyWordNotVar(_id)) {
+        if (_analyzing.getKeys().isKeyWordNotVar(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
         }
-        if (StringUtil.quickEq(_id, _analyzing.getAliasVoid())) {
+        if (StringUtil.quickEq(_id, _analyzing.getAlVoid())) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
         }
         if (StringExpUtil.isDigit(_id.charAt(0))) {

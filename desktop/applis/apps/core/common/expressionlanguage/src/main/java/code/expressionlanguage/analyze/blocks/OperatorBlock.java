@@ -22,9 +22,9 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     private final Ints importsOffset = new Ints();
     private int operatorNumber;
 
-    public OperatorBlock(ParsedFctHeader _header, boolean _retRef, OffsetStringInfo _retType, OffsetStringInfo _fctName,
+    public OperatorBlock(ParsedFctHeader _header, OffsetStringInfo _retType, OffsetStringInfo _fctName,
                          int _offset) {
-        super(_header,_retRef, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
+        super(_header, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName, _offset);
         labelNumber = _header.getInfo().trim();
     }

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
+import code.expressionlanguage.analyze.TokenCheckerContext;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
@@ -1155,7 +1156,8 @@ public final class ElResolver {
             _d.setEnabledOp(true);
             return;
         }
-        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _d.getNamedArgs(),_page);
+        TokenCheckerContext tok_ = new TokenCheckerContext(_page.getKeyWords(),_page.getPrimTypes(),_page.getAliasVoid());
+        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _d.getNamedArgs(),tok_);
         if (n_ >= i_) {
             _out.setNextIndex(n_);
             return;

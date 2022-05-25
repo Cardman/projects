@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.TokenCheckerContext;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
@@ -10848,7 +10849,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         getForwards(opt_,lgName_,kw_,page_);
-        return AnaInherits.isOkQualFields(_string,page_);
+        TokenCheckerContext tok_ = new TokenCheckerContext(page_.getKeyWords(),page_.getPrimTypes(),page_.getAliasVoid());
+        return AnaInherits.isOkQualFields(_string,tok_);
     }
 
     private static String getCorrectTemplateAll(AnalyzedPageEl _cont, StringMap<StringList> _t) {

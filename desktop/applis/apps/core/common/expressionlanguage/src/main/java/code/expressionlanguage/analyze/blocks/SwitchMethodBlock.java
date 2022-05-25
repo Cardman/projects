@@ -45,9 +45,9 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     private boolean retRef;
     private String name;
     private final AnaAnonFctContent anaAnonFctContent = new AnaAnonFctContent();
-    public SwitchMethodBlock(int _offset, AnalyzedPageEl _page) {
+    public SwitchMethodBlock(int _offset, MethodAccessKind _statMeth) {
         super(_offset);
-        kind = _page.getStaticContext();
+        kind = _statMeth;
     }
 
     public AnaClassArgumentMatching getResult() {

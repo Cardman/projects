@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.files;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.BracedBlock;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
@@ -80,16 +79,14 @@ public final class ParsedInstruction {
         this.index = _in;
     }
 
-    public void parseAnnotation(InputTypeCreation _input,
-                                AnalyzedPageEl _page) {
+    public void parseAnnotation(InputTypeCreation _input, KeyWords _keyWords) {
         ResultParsedAnnots annotationsTypes_ = new ResultParsedAnnots();
-        KeyWords keyWords_ = _page.getKeyWords();
         String trLeft_ = builderTrLeft.toString();
         int instructionTrimLocation_ = instLoc();
-        if (ParsedAnnotations.startsWithAnnot(trLeft_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
+        if (ParsedAnnotations.startsWithAnnot(trLeft_, _keyWords.getKeyWordClass(), _keyWords.getKeyWordInterface())) {
             // accessOffesType_ == nextIndex_ == i_ + 1;
             ParsedAnnotations par_ = new ParsedAnnotations(trLeft_, instructionTrimLocation_ + _input.getOffset());
-            par_.parse(getStringParts(),keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface());
+            par_.parse(getStringParts(), _keyWords.getKeyWordClass(), _keyWords.getKeyWordInterface());
             annotationsTypes_.set(par_);
             afterOffset = par_.getIndex() - _input.getOffset();
             after = par_.getAfter();

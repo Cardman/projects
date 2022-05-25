@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.FileResolverContext;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.CustList;
 import code.util.Ints;
@@ -19,6 +20,8 @@ public final class InputTypeCreation {
     private ResultParsedAnnots annotations = new ResultParsedAnnots();
     private CustList<ResultParsedAnnots> annotationsParams = new CustList<ResultParsedAnnots>();
     private CustList<SegmentStringPart> stringParts = new CustList<SegmentStringPart>();
+
+    private FileResolverContext cont;
 
     public int getNextIndex() {
         return nextIndex;
@@ -99,4 +102,13 @@ public final class InputTypeCreation {
     public void setOffset(int _off) {
         this.offset = _off;
     }
+
+    public FileResolverContext getCont() {
+        return cont;
+    }
+
+    public void setCont(FileResolverContext _c) {
+        this.cont = _c;
+    }
+
 }

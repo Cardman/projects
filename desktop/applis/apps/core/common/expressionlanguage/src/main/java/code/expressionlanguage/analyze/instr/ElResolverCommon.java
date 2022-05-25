@@ -1,8 +1,11 @@
 package code.expressionlanguage.analyze.instr;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.TokenCheckerContext;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.common.*;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.NumberInfos;
+import code.expressionlanguage.common.StringDataLetterUtil;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.SuffixedNumber;
 import code.util.CharList;
@@ -13,7 +16,7 @@ public final class ElResolverCommon {
     private ElResolverCommon() {
     }
 
-    static int addNamed(String _string, int _begin, int _end, Ints _namedArgs, AnalyzedPageEl _page) {
+    static int addNamed(String _string, int _begin, int _end, Ints _namedArgs, TokenCheckerContext _page) {
         int bk_ = StringExpUtil.getBackPrintChar(_string, _begin);
         for (char c: CharList.wrapCharArray(',','(','{','[')) {
             if (StringExpUtil.nextCharIs(_string, bk_, _string.length(), c)) {
@@ -28,7 +31,7 @@ public final class ElResolverCommon {
         }
         return _begin;
     }
-    static int nextNamedDbDot(String _string, int _begin, int _end, AnalyzedPageEl _page) {
+    static int nextNamedDbDot(String _string, int _begin, int _end, TokenCheckerContext _page) {
         int s_ = _string.indexOf(':',_end);
         String sub_;
         if (s_ < 0) {

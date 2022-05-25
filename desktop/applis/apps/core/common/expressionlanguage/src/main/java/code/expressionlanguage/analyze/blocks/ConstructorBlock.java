@@ -27,7 +27,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
     public ConstructorBlock(ParsedFctHeader _header, OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             int _leftPar, int _offset) {
-        super(_header,false, _access, _retType, _fctName, _offset);
+        super(_header, _access, _retType, _fctName, _offset);
         leftPar = _leftPar;
     }
 
@@ -101,53 +101,22 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
         StringList filteredCtor_ = _page.getNeedInterfaces();
         boolean checkThis_ = false;
         while (firstChild_ != null) {
-            if (!(firstChild_ instanceof Line)) {
+            if (!(firstChild_ instanceof Line) || ((Line) firstChild_).isCallThis()) {
+                if (firstChild_ instanceof Line) {
+                    checkThis_ = true;
+                }
                 break;
             }
             Line l_ = (Line) firstChild_;
-            if (l_.isCallThis()) {
-                checkThis_ = true;
-                break;
-            }
-            if (l_.isCallInts()) {
-                ConstructorId ctor_ = l_.getConstId();
-                if (ctor_ != null) {
-                    ints_.add(StringExpUtil.getIdFromAllTypes(ctor_.getName()));
-                }
-            }
+            retrieveCall(ints_, l_);
             firstChild_ = firstChild_.getNextSibling();
         }
-        if (!checkThis_) {
-            if (!StringUtil.equalsSet(filteredCtor_, ints_)) {
-                for (String n:filteredCtor_) {
-                    if (!StringUtil.contains(ints_,n)) {
-                        FoundErrorInterpret undef_;
-                        undef_ = new FoundErrorInterpret();
-                        undef_.setFile(getFile());
-                        undef_.setIndexFile(getNameOffset());
-                        //left par of ctor
-                        undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNeed(),
-                                n);
-                        _page.addLocError(undef_);
-                        addNameErrors(undef_);
-                    }
-                }
-                for (String n:ints_) {
-                    if (!StringUtil.contains(filteredCtor_,n)) {
-                        FoundErrorInterpret undef_;
-                        undef_ = new FoundErrorInterpret();
-                        undef_.setFile(getFile());
-                        undef_.setIndexFile(getNameOffset());
-                        //constructor ref header len
-                        undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNotNeed(),
-                                n);
-                        _page.addLocError(undef_);
-                        addNameErrors(undef_);
-                    }
-                }
-            }
-        } else {
-            if (!ints_.isEmpty()) {
+        lookForErrors(_page, ints_, filteredCtor_, checkThis_);
+    }
+
+    private void lookForErrors(AnalyzedPageEl _page, StringList _ints, StringList _filteredCtor, boolean _checkThis) {
+        if (_checkThis) {
+            if (!_ints.isEmpty()) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFile(getFile());
@@ -156,6 +125,44 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
                 undef_.buildError(_page.getAnalysisMessages().getMustNotCallIntCtorAfterThis());
                 _page.addLocError(undef_);
                 addNameErrors(undef_);
+            }
+            return;
+        }
+        if (!StringUtil.equalsSet(_filteredCtor, _ints)) {
+            for (String n: _filteredCtor) {
+                if (!StringUtil.contains(_ints,n)) {
+                    FoundErrorInterpret undef_;
+                    undef_ = new FoundErrorInterpret();
+                    undef_.setFile(getFile());
+                    undef_.setIndexFile(getNameOffset());
+                    //left par of ctor
+                    undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNeed(),
+                            n);
+                    _page.addLocError(undef_);
+                    addNameErrors(undef_);
+                }
+            }
+            for (String n: _ints) {
+                if (!StringUtil.contains(_filteredCtor,n)) {
+                    FoundErrorInterpret undef_;
+                    undef_ = new FoundErrorInterpret();
+                    undef_.setFile(getFile());
+                    undef_.setIndexFile(getNameOffset());
+                    //constructor ref header len
+                    undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNotNeed(),
+                            n);
+                    _page.addLocError(undef_);
+                    addNameErrors(undef_);
+                }
+            }
+        }
+    }
+
+    private static void retrieveCall(StringList _ints, Line _l) {
+        if (_l.isCallInts()) {
+            ConstructorId ctor_ = _l.getConstId();
+            if (ctor_ != null) {
+                _ints.add(StringExpUtil.getIdFromAllTypes(ctor_.getName()));
             }
         }
     }

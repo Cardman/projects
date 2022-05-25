@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.files;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
@@ -30,23 +29,20 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
     private int typeSetterOff;
     private String typeSetter="";
 
-    public void parse(CustList<SegmentStringPart> _parts,String _info, AnalyzedPageEl _parse, int _sum) {
-        KeyWords keyWords_ = _parse.getKeyWords();
-        String keyWordThat_ = keyWords_.getKeyWordThat();
+    public void parse(CustList<SegmentStringPart> _parts, String _info, int _sum, KeyWords _keyWords) {
+        String keyWordThat_ = _keyWords.getKeyWordThat();
         parse(_parts,_info, keyWordThat_, _sum);
     }
 
-    public void parse(CustList<SegmentStringPart> _parts,boolean _meth,String _retType, String _methName, String _info, AnalyzedPageEl _parse, int _sum) {
-        KeyWords keyWords_ = _parse.getKeyWords();
-        String keyWordThat_ = keyWords_.getKeyWordThat();
-        indexerSet = isIndexerSet(_meth,_retType,_methName, _parse);
-        keyWordValue = keyWords_.getKeyWordValue();
+    public void parse(CustList<SegmentStringPart> _parts, String _info, int _sum, boolean _indexer, KeyWords _keyWords) {
+        String keyWordThat_ = _keyWords.getKeyWordThat();
+        indexerSet = _indexer;
+        keyWordValue = _keyWords.getKeyWordValue();
         parse(_parts,_info, keyWordThat_, _sum);
     }
 
-    private static boolean isIndexerSet(boolean _meth, String _retType, String _methName, AnalyzedPageEl _parse) {
-        KeyWords keyWords_ = _parse.getKeyWords();
-        return _meth && StringUtil.quickEq(_retType,_parse.getAliasVoid()) && StringUtil.quickEq(_methName,keyWords_.getKeyWordThis());
+    public static boolean isIndexerSet(boolean _meth, String _retType, String _methName, KeyWords _keyWords, String _aliasVoid) {
+        return _meth && StringUtil.quickEq(_retType, _aliasVoid) && StringUtil.quickEq(_methName, _keyWords.getKeyWordThis());
     }
     public void parse(CustList<SegmentStringPart> _parts,String _info, String _keyWordThat, int _sum) {
         offsetLast = _sum;

@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -68,11 +69,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private boolean retRef;
     private boolean usedRefMethod;
 
-    protected NamedFunctionBlock(ParsedFctHeader _header, boolean _retRef, OffsetAccessInfo _access,
-                              OffsetStringInfo _retType, OffsetStringInfo _fctName,
-                              int _offset) {
+    protected NamedFunctionBlock(ParsedFctHeader _header, OffsetAccessInfo _access,
+                                 OffsetStringInfo _retType, OffsetStringInfo _fctName,
+                                 int _offset) {
         super(_offset);
-        retRef = _retRef;
+        retRef = _header.isRetRef();
         importedParametersTypes = new StringList();
         name = _fctName.getInfo();
         nameOffset = _fctName.getOffset();
@@ -90,11 +91,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     protected NamedFunctionBlock(int _fctName,
-                              int _offset, AnalyzedPageEl _page) {
+                                 int _offset, KeyWords _keyWords) {
         super(_offset);
         retRef = false;
         importedParametersTypes = new StringList();
-        name = _page.getKeyWords().getKeyWordLambda();
+        name = _keyWords.getKeyWordLambda();
         nameOffset = _fctName;
         parametersTypes = new StringList();
         access = AccessEnum.PUBLIC;

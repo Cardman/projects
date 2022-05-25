@@ -11,6 +11,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.PrimitiveType;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
 import code.util.core.SortConstants;
@@ -797,6 +798,10 @@ public final class AnaTypeUtil {
     }
 
     public static boolean isPrimitive(String _className, AnalyzedPageEl _context) {
+        return isPrimitive(_className,_context.getPrimTypes());
+    }
+
+    public static boolean isPrimitive(String _className, PrimitiveTypes _context) {
         return _context.getPrimitiveTypes().contains(_className);
     }
 

@@ -1,20 +1,15 @@
 package code.expressionlanguage.analyze.blocks;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.linkage.ExportCst;
-import code.util.*;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class FinallyEval extends BracedBlock implements Eval {
+public final class FinallyEval extends AbsTryElementBlock {
 
     public FinallyEval(int _offset) {
         super(_offset);
-    }
-
-    @Override
-    public OffsetStringInfo getRealLabelInfo() {
-        return ElseCondition.getRealLabelInfo(this);
     }
 
     @Override

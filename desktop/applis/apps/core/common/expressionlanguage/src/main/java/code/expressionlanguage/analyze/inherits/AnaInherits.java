@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenCheckerContext;
 import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -37,35 +38,12 @@ public final class AnaInherits {
             return _second;
         }
         DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
-        StringList types_ = StringExpUtil.getAllTypes(_first);
-        String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        AnaGeneType root_ = _page.getAnaGeneType(className_);
-        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(root_);
-        String objType_ = _page.getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
-            int arr_ = dc_.getDim();
-            String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
-
-            int index_ = -1;
-            for (TypeVar t: typeVar_) {
-                index_++;
-                if (StringUtil.quickEq(t.getName(), name_)) {
-                    String formatted_ = types_.get(index_+1);
-                    //return type, field getting
-                    if (StringUtil.quickEq(formatted_, SUB_TYPE)) {
-                        return StringExpUtil.getPrettyArrayType(objType_,arr_);
-                    }
-                    if (formatted_.startsWith(SUB_TYPE)) {
-                        return StringExpUtil.getPrettyArrayType(formatted_.substring(SUB_TYPE.length()),arr_);
-                    }
-                    if (formatted_.startsWith(SUP_TYPE)) {
-                        return StringExpUtil.getPrettyArrayType(objType_,arr_);
-                    }
-                    return StringExpUtil.getPrettyArrayType(formatted_,arr_);
-                }
-            }
-            return objType_;
+            return typeVarReturn(_first,_second,_page, dc_.getDim());
         }
+        StringList types_ = StringExpUtil.getAllTypes(_first);
+        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(_page.getAnaGeneType(StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent()));
+        String objType_ = _page.getAliasObject();
         if (typeVar_.size() != types_.size() - 1){
             return objType_;
         }
@@ -77,6 +55,33 @@ public final class AnaInherits {
             varTypes_.put(t.getName(), arg_);
         }
         return StringExpUtil.getWildCardFormattedTypeReturn(_second, varTypes_);
+    }
+
+    private static String typeVarReturn(String _first, String _second, AnalyzedPageEl _page, int _d) {
+        StringList types_ = StringExpUtil.getAllTypes(_first);
+        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(_page.getAnaGeneType(StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent()));
+        String objType_ = _page.getAliasObject();
+        String name_ = _second.substring(PREFIX_VAR_TYPE.length()+ _d);
+
+        int index_ = -1;
+        for (TypeVar t: typeVar_) {
+            index_++;
+            if (StringUtil.quickEq(t.getName(), name_)) {
+                String formatted_ = types_.get(index_+1);
+                //return type, field getting
+                if (StringUtil.quickEq(formatted_, SUB_TYPE)) {
+                    return StringExpUtil.getPrettyArrayType(objType_, _d);
+                }
+                if (formatted_.startsWith(SUB_TYPE)) {
+                    return StringExpUtil.getPrettyArrayType(formatted_.substring(SUB_TYPE.length()), _d);
+                }
+                if (formatted_.startsWith(SUP_TYPE)) {
+                    return StringExpUtil.getPrettyArrayType(objType_, _d);
+                }
+                return StringExpUtil.getPrettyArrayType(formatted_, _d);
+            }
+        }
+        return objType_;
     }
 
     public static StringList wildCardFormatParams(String _first, Identifiable _params, AnalyzedPageEl _page) {
@@ -92,32 +97,11 @@ public final class AnaInherits {
             return _second;
         }
         DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
-        StringList types_ = StringExpUtil.getAllTypes(_first);
-        String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        AnaGeneType root_ = _page.getAnaGeneType(className_);
-        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(root_);
-        String objType_ = _page.getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
-            int arr_ = dc_.getDim();
-            String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
-
-            int index_ = -1;
-            for (TypeVar t: typeVar_) {
-                index_++;
-                if (StringUtil.quickEq(t.getName(), name_)) {
-                    String formatted_ = types_.get(index_+1);
-                    //parameters, field affectation
-                    if (formatted_.startsWith(SUB_TYPE)) {
-                        return "";
-                    }
-                    if (formatted_.startsWith(SUP_TYPE)) {
-                        return StringExpUtil.getPrettyArrayType(formatted_.substring(SUP_TYPE.length()),arr_);
-                    }
-                    return StringExpUtil.getPrettyArrayType(formatted_,arr_);
-                }
-            }
-            return "";
+            return typeVarParam(_first,_second,_page, dc_.getDim());
         }
+        StringList types_ = StringExpUtil.getAllTypes(_first);
+        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(_page.getAnaGeneType(StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent()));
         if (typeVar_.size() != types_.size() - 1){
             return "";
         }
@@ -128,14 +112,36 @@ public final class AnaInherits {
             String arg_ = types_.get(i_);
             varTypes_.put(t.getName(), arg_);
         }
+        String objType_ = _page.getAliasObject();
         return StringExpUtil.getWildCardFormattedTypeParam(objType_,_second, varTypes_);
     }
 
-    public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping, AnalyzedPageEl _page) {
-        if (AnaTypeUtil.isPrimitive(_p, _page)) {
-            if (!AnaTypeUtil.isPrimitive(_a, _page)) {
-                return false;
+    private static String typeVarParam(String _first, String _second, AnalyzedPageEl _page, int _d) {
+        StringList types_ = StringExpUtil.getAllTypes(_first);
+        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(_page.getAnaGeneType(StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent()));
+        String name_ = _second.substring(PREFIX_VAR_TYPE.length()+ _d);
+
+        int index_ = -1;
+        for (TypeVar t: typeVar_) {
+            index_++;
+            if (StringUtil.quickEq(t.getName(), name_)) {
+                String formatted_ = types_.get(index_+1);
+                //parameters, field affectation
+                if (formatted_.startsWith(SUB_TYPE)) {
+                    return "";
+                }
+                if (formatted_.startsWith(SUP_TYPE)) {
+                    return StringExpUtil.getPrettyArrayType(formatted_.substring(SUP_TYPE.length()), _d);
+                }
+                return StringExpUtil.getPrettyArrayType(formatted_, _d);
             }
+        }
+        return "";
+    }
+
+    public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping, AnalyzedPageEl _page) {
+        if (AnaTypeUtil.isPrimitive(_p, _page) && !AnaTypeUtil.isPrimitive(_a, _page)) {
+            return false;
         }
         String void_ = _page.getAliasVoid();
         if (StringUtil.quickEq(_p, void_)) {
@@ -339,10 +345,8 @@ public final class AnaInherits {
             return "";
         }
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
-        if (_subType instanceof AnnotationBlock) {
-            if (StringUtil.quickEq(param_, _page.getAliasAnnotationType())) {
-                return StringExpUtil.getPrettyArrayType(param_,_dim);
-            }
+        if (_subType instanceof AnnotationBlock && StringUtil.quickEq(param_, _page.getAliasAnnotationType())) {
+            return StringExpUtil.getPrettyArrayType(param_, _dim);
         }
         String generic_ = generic(_subType, param_);
         if (generic_.isEmpty()) {
@@ -413,7 +417,7 @@ public final class AnaInherits {
         return StringExpUtil.normalCorrectType(_genericClass, rep_);
     }
 
-    public static boolean isOkQualFields(String _string, AnalyzedPageEl _page) {
+    public static boolean isOkQualFields(String _string, TokenCheckerContext _page) {
         int last_ = _string.lastIndexOf('.');
         if (last_ < 0) {
             return ManageTokens.isValidToken(_string.trim(),_page);
@@ -438,14 +442,14 @@ public final class AnaInherits {
         String lastPart_ = _string.substring(last_+1);
         return ManageTokens.isValidToken(lastPart_.trim(),_page);
     }
-    private static int incr(String _part, char _c, AnalyzedPageEl _page) {
+    private static int incr(String _part, char _c, TokenCheckerContext _page) {
         int ind_ = _part.indexOf(_c);
         if (ind_ >= 0) {
             if (!MathExpUtil.isPositiveNumber(_part.substring(ind_+1).trim())){
                 return -1;
             }
             String pre_ = _part.substring(0, ind_).trim();
-            if (_c == '*' && StringUtil.quickEq(pre_, _page.getKeyWords().getKeyWordId())) {
+            if (_c == '*' && StringUtil.quickEq(pre_, _page.getKeys().getKeyWordId())) {
                 return 1;
             }
             if (!ManageTokens.isValidToken(pre_,_page)) {
@@ -522,26 +526,15 @@ public final class AnaInherits {
         while (arr_) {
             while (j_ >= 0) {
                 char locChar_ = _type.charAt(j_);
-                if (StringUtil.isWhitespace(locChar_)) {
-                    j_--;
-                    continue;
-                }
-                if (locChar_ != ']') {
-                    arr_ = false;
-                }
-                break;
-            }
-            if (arr_) {
-                j_--;
-                while (j_ >= 0) {
-                    char locChar_ = _type.charAt(j_);
-                    if (StringUtil.isWhitespace(locChar_)) {
-                        j_--;
-                        continue;
+                if (!StringUtil.isWhitespace(locChar_)) {
+                    if (locChar_ != ']') {
+                        arr_ = false;
                     }
                     break;
                 }
+                j_--;
             }
+            j_ = pair(arr_,_type,j_);
             if (j_ < 0) {
                 break;
             }
@@ -554,6 +547,21 @@ public final class AnaInherits {
             return new DimComp(count_,_type.substring(0, j_+1));
         }
         return new DimComp(0,"");
+    }
+    private static int pair(boolean _arr, String _type, int _j) {
+        if (!_arr) {
+            return _j;
+        }
+        int j_ = _j;
+        j_--;
+        while (j_ >= 0) {
+            char locChar_ = _type.charAt(j_);
+            if (!StringUtil.isWhitespace(locChar_)) {
+                break;
+            }
+            j_--;
+        }
+        return j_;
     }
 
     public static String check(StringList _errs, RootBlock _root, String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
