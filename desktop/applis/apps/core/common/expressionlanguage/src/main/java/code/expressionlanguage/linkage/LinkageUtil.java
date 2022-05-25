@@ -411,10 +411,10 @@ public final class LinkageUtil {
 
     private static void processDefaultExpError(VariablesOffsets _vars, AbsBk _child) {
         if (_child instanceof WhileCondition) {
-            processWhileConditionError(_vars,(WhileCondition) _child);
+            processLabelledConditionError(_vars, (ConditionBlock) _child);
         }
         if (_child instanceof IfCondition) {
-            processIfConditionError(_vars,(IfCondition) _child);
+            processLabelledConditionError(_vars, (ConditionBlock) _child);
         }
         if (_child instanceof ElseIfCondition) {
             processConditionError((ElseIfCondition) _child, _vars);
@@ -604,13 +604,13 @@ public final class LinkageUtil {
 
     private static void processExpReport(Coverage _coverage, VariablesOffsets _vars, AbsBk _child) {
         if (_child instanceof IfCondition) {
-            processIfConditionReport(_vars,(IfCondition) _child, _coverage);
+            processLabelledConditionReport(_vars, (ConditionBlock) _child, _coverage, _vars.getKeyWords().getKeyWordIf().length());
         }
         if (_child instanceof ElseIfCondition) {
             processElseIfConditionReport(_vars,(ElseIfCondition) _child, _coverage);
         }
         if (_child instanceof WhileCondition) {
-            processWhileConditionReport(_vars,(WhileCondition) _child, _coverage);
+            processLabelledConditionReport(_vars, (ConditionBlock) _child, _coverage, _vars.getKeyWords().getKeyWordWhile().length());
         }
         if (_child instanceof DoWhileCondition) {
             processDoWhileConditionReport(_vars,(DoWhileCondition) _child, _coverage);
@@ -743,29 +743,12 @@ public final class LinkageUtil {
         _vars.addParts(convert(_p.getInfo()));
     }
 
-    private static void processIfConditionReport(VariablesOffsets _vars, IfCondition _cond, Coverage _cov) {
-        if (_vars.getLastStackElt().noVisited()) {
-            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond,_cond);
-            String tag_ = headCoverage(result_);
-            int off_ = _cond.getOffset();
-            _vars.addPart(new PartOffset(tag_, off_));
-            _vars.addPart(new PartOffset(ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordIf().length()));
-        }
-        processConditionReport(_cond,_vars, _cov);
-        refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());
-        processTestCondition(_vars, _cond);
-    }
-    private static void processIfConditionError(VariablesOffsets _vars, IfCondition _cond) {
+    private static void processLabelledConditionError(VariablesOffsets _vars, ConditionBlock _cond) {
         processConditionError(_cond, _vars);
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
         processTestCondition(_vars, _cond);
     }
 
-    private static void processWhileConditionError(VariablesOffsets _vars, WhileCondition _cond) {
-        processConditionError(_cond, _vars);
-        refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
-        processTestCondition(_vars, _cond);
-    }
     private static void processElseIfConditionReport(VariablesOffsets _vars, ElseIfCondition _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
             AbstractCoverageResult result_ = _cov.getCoversConditions(_cond,_cond);
@@ -777,13 +760,14 @@ public final class LinkageUtil {
         processConditionReport(_cond,_vars, _cov);
         processTestCondition(_vars, _cond);
     }
-    private static void processWhileConditionReport(VariablesOffsets _vars, WhileCondition _cond, Coverage _cov) {
+
+    private static void processLabelledConditionReport(VariablesOffsets _vars, ConditionBlock _cond, Coverage _cov, int _length) {
         if (_vars.getLastStackElt().noVisited()) {
             AbstractCoverageResult result_ = _cov.getCoversConditions(_cond,_cond);
             String tag_ = headCoverage(result_);
             int off_ = _cond.getOffset();
             _vars.addPart(new PartOffset(tag_, off_));
-            _vars.addPart(new PartOffset(ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordWhile().length()));
+            _vars.addPart(new PartOffset(ExportCst.END_SPAN, off_ + _length));
         }
         processConditionReport(_cond,_vars, _cov);
         refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());

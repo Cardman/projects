@@ -3,61 +3,35 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.opers.Calculation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.*;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
-import code.util.*;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class ForEachTable extends AbstractForLoop implements Loop,ImportForEachTable {
-
-    private final String label;
-    private final int labelOffset;
-
-    private final String classNameFirst;
+public final class ForEachTable extends AbstractForLoop implements ImportForEachTable {
 
     private String importedClassNameFirst;
 
-    private final int classNameOffsetFirst;
-
-    private final String classNameSecond;
-
     private String importedClassNameSecond;
 
-    private final int classNameOffsetSecond;
-
-    private final String classIndexName;
-    private String importedClassIndexName;
-    private final int classIndexNameOffset;
-
-    private final String variableNameFirst;
-
-    private final int variableNameOffsetFirst;
-
-    private final String variableNameSecond;
-
-    private final int variableNameOffsetSecond;
-
-    private final String expression;
-
-    private final int expressionOffset;
-
+    private final TableLoopExpressionContent tableLoopExpressionContent;
     private final ResultExpression res = new ResultExpression();
     private AnaResultPartType partOffsetsFirst = new AnaResultPartType();
 
@@ -72,48 +46,15 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     private boolean okVarSecond = true;
     private final boolean refVariable;
 
-    public ForEachTable(OffsetStringInfo _className, OffsetStringInfo _variable,
-                        OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, int _sepOffset, AnalyzedPageEl _page, boolean _refVariable) {
-        super(_offset);
-        classNameFirst = _className.getInfo();
-        classNameOffsetFirst = _className.getOffset();
-        variableNameFirst = _variable.getInfo();
-        variableNameOffsetFirst = _variable.getOffset();
-        classNameSecond = _classNameSec.getInfo();
-        classNameOffsetSecond = _classNameSec.getOffset();
-        variableNameSecond = _variableSec.getInfo();
-        variableNameOffsetSecond = _variableSec.getOffset();
-        expression = _expression.getInfo();
-        expressionOffset = _expression.getOffset();
-        String classIndex_ = _classIndex.getInfo();
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _page.getAliasPrimInteger();
-        }
-        classIndexName = classIndex_;
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
-        classIndexNameOffset = _classIndex.getOffset();
+    public ForEachTable(TableLoopExpressionContent _cont, int _offset, int _sepOffset, boolean _refVariable, OffsetStringInfo _label) {
+        super(_offset, _label);
+        tableLoopExpressionContent = _cont;
         sepOffset = _sepOffset;
         refVariable = _refVariable;
     }
 
-    @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
-    public int getRealLabelOffset() {
-        return getLabelOffset();
-    }
-
     public int getExpressionOffset() {
-        return expressionOffset;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
+        return tableLoopExpressionContent.getExpressionOffset();
     }
 
 
@@ -158,43 +99,28 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     }
 
     public String getClassIndexName() {
-        return classIndexName;
+        return tableLoopExpressionContent.getClassIndexName();
     }
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
-        _page.setSumOffset(classIndexNameOffset);
-        _page.zeroOffset();
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_page.getAliasLong());
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFile(getFile());
-            cast_.setIndexFile(classIndexNameOffset);
-            //classIndexName len
-            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
-                    importedClassIndexName);
-            _page.addLocError(cast_);
-            addErrorBlock(cast_.getBuiltError());
-        }
-        TokenErrorMessage resOne_ = ManageTokens.partVar(_page).checkTokenVar(variableNameFirst, _page);
+        tableLoopExpressionContent.resolveIndex(this,_page);
+        TokenErrorMessage resOne_ = ManageTokens.partVar(_page).checkTokenVar(tableLoopExpressionContent.getVariableNameFirst(), _page);
         if (resOne_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(getFile());
-            b_.setIndexFile(variableNameOffsetFirst);
+            b_.setIndexFile(tableLoopExpressionContent.getVariableNameOffsetFirst());
             //first variable name
             b_.setBuiltError(resOne_.getMessage());
             _page.addLocError(b_);
             nameErrorsFirst.add(b_.getBuiltError());
             okVarFirst = false;
         }
-        TokenErrorMessage resTwo_ = ManageTokens.partVar(_page).checkTokenVar(variableNameSecond, _page);
+        TokenErrorMessage resTwo_ = ManageTokens.partVar(_page).checkTokenVar(tableLoopExpressionContent.getVariableNameSecond(), _page);
         if (resTwo_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(getFile());
-            b_.setIndexFile(variableNameOffsetSecond);
+            b_.setIndexFile(tableLoopExpressionContent.getVariableNameOffsetSecond());
             //second variable name
             b_.setBuiltError(resTwo_.getMessage());
             _page.addLocError(b_);
@@ -203,18 +129,18 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         }
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        _page.setSumOffset(classNameOffsetFirst);
+        _page.setSumOffset(tableLoopExpressionContent.getClassNameOffsetFirst());
         _page.zeroOffset();
-        if (!StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
-            partOffsetsFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
+        if (!StringUtil.quickEq(tableLoopExpressionContent.getClassNameFirst().trim(), keyWordVar_)) {
+            partOffsetsFirst = ResolvingTypes.resolveCorrectType(tableLoopExpressionContent.getClassNameFirst(), _page);
             importedClassNameFirst = partOffsetsFirst.getResult(_page);
         } else {
             importedClassNameFirst = "";
         }
-        _page.setSumOffset(classNameOffsetSecond);
+        _page.setSumOffset(tableLoopExpressionContent.getClassNameOffsetSecond());
         _page.zeroOffset();
-        if (!StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {
-            partOffsetsSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
+        if (!StringUtil.quickEq(tableLoopExpressionContent.getClassNameSecond().trim(), keyWordVar_)) {
+            partOffsetsSecond = ResolvingTypes.resolveCorrectType(tableLoopExpressionContent.getClassNameSecond(), _page);
             importedClassNameSecond = partOffsetsSecond.getResult(_page);
         } else {
             importedClassNameSecond = "";
@@ -225,166 +151,144 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     }
 
     public void checkIterableCandidates(StringList _types, AnalyzedPageEl _page) {
-        if (!refVariable&&_types.onlyOneElt()) {
-            KeyWords keyWords_ = _page.getKeyWords();
-            String keyWordVar_ = keyWords_.getKeyWordVar();
-            String type_ = _types.first();
-            Mapping mapping_ = new Mapping();
-            String paramArg_ = StringExpUtil.getAllTypes(type_).get(1);
-            if (StringUtil.quickEq(paramArg_, StringExpUtil.SUB_TYPE)) {
-                paramArg_ = _page.getAliasObject();
-            } else if (paramArg_.startsWith(StringExpUtil.SUB_TYPE)) {
-                paramArg_ = paramArg_.substring(StringExpUtil.SUB_TYPE.length());
-            } else if (paramArg_.startsWith(StringExpUtil.SUP_TYPE)){
-                paramArg_ = _page.getAliasObject();
-            }
-            if (StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
-                importedClassNameFirst = paramArg_;
-            } else {
-                mapping_.setArg(paramArg_);
-                mapping_.setParam(importedClassNameFirst);
-                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                mapping_.setMapping(vars_);
-                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(getFile());
-                    cast_.setIndexFile(expressionOffset);
-                    //separator char before expression
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            paramArg_,
-                            importedClassNameFirst);
-                    _page.addLocError(cast_);
-                    sepErrors.add(cast_.getBuiltError());
-                }
-            }
-            mapping_ = new Mapping();
-            paramArg_ = StringExpUtil.getAllTypes(type_).last();
-            if (StringUtil.quickEq(paramArg_, StringExpUtil.SUB_TYPE)) {
-                paramArg_ = _page.getAliasObject();
-            } else if (paramArg_.startsWith(StringExpUtil.SUB_TYPE)) {
-                paramArg_ = paramArg_.substring(StringExpUtil.SUB_TYPE.length());
-            } else if (paramArg_.startsWith(StringExpUtil.SUP_TYPE)){
-                paramArg_ = _page.getAliasObject();
-            }
-            if (StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {
-                importedClassNameSecond = paramArg_;
-            } else {
-                mapping_.setArg(paramArg_);
-                mapping_.setParam(importedClassNameSecond);
-                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                mapping_.setMapping(vars_);
-                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(getFile());
-                    cast_.setIndexFile(expressionOffset);
-                    //separator char before expression
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            paramArg_,
-                            importedClassNameSecond);
-                    _page.addLocError(cast_);
-                    sepErrors.add(cast_.getBuiltError());
-                }
-            }
-        } else {
+        if (refVariable || !_types.onlyOneElt()) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(getFile());
-            cast_.setIndexFile(expressionOffset);
+            cast_.setIndexFile(tableLoopExpressionContent.getExpressionOffset());
             //separator char before expression
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _page.getAliasObject(),
                     _page.getAliasIterableTable());
             _page.addLocError(cast_);
             sepErrors.add(cast_.getBuiltError());
+            return;
+        }
+        KeyWords keyWords_ = _page.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        String type_ = _types.first();
+        Mapping mapping_ = new Mapping();
+        String paramArg_ = ForEachLoop.extType(_page, StringExpUtil.getAllTypes(type_).get(1));
+        if (StringUtil.quickEq(tableLoopExpressionContent.getClassNameFirst().trim(), keyWordVar_)) {
+            importedClassNameFirst = paramArg_;
+        } else {
+            mapping_.setArg(paramArg_);
+            mapping_.setParam(importedClassNameFirst);
+            StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+            mapping_.setMapping(vars_);
+            if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFile(getFile());
+                cast_.setIndexFile(tableLoopExpressionContent.getExpressionOffset());
+                //separator char before expression
+                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                        paramArg_,
+                        importedClassNameFirst);
+                _page.addLocError(cast_);
+                sepErrors.add(cast_.getBuiltError());
+            }
+        }
+        mapping_ = new Mapping();
+        paramArg_ = ForEachLoop.extType(_page, StringExpUtil.getAllTypes(type_).last());
+        if (StringUtil.quickEq(tableLoopExpressionContent.getClassNameSecond().trim(), keyWordVar_)) {
+            importedClassNameSecond = paramArg_;
+        } else {
+            mapping_.setArg(paramArg_);
+            mapping_.setParam(importedClassNameSecond);
+            StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+            mapping_.setMapping(vars_);
+            if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFile(getFile());
+                cast_.setIndexFile(tableLoopExpressionContent.getExpressionOffset());
+                //separator char before expression
+                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                        paramArg_,
+                        importedClassNameSecond);
+                _page.addLocError(cast_);
+                sepErrors.add(cast_.getBuiltError());
+            }
         }
     }
 
     private void processVariables(AnalyzedPageEl _page) {
-        if (okVarFirst && okVarSecond) {
-            if (StringUtil.quickEq(variableNameFirst, variableNameSecond)) {
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFile(getFile());
-                d_.setIndexFile(variableNameOffsetSecond);
-                //second variable name len
-                d_.buildError(_page.getAnalysisMessages().getDuplicatedVariableName(),
-                        variableNameFirst);
-                _page.addLocError(d_);
-                nameErrorsSecond.add(d_.getBuiltError());
-                return;
-            }
+        if (okVarFirst && okVarSecond && StringUtil.quickEq(tableLoopExpressionContent.getVariableNameFirst(), tableLoopExpressionContent.getVariableNameSecond())) {
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
+            d_.setFile(getFile());
+            d_.setIndexFile(tableLoopExpressionContent.getVariableNameOffsetSecond());
+            //second variable name len
+            d_.buildError(_page.getAnalysisMessages().getDuplicatedVariableName(),
+                    tableLoopExpressionContent.getVariableNameFirst());
+            _page.addLocError(d_);
+            nameErrorsSecond.add(d_.getBuiltError());
+            return;
         }
         if (okVarFirst) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            lv_.setRef(variableNameOffsetFirst);
-            lv_.setIndexClassName(importedClassIndexName);
-            _page.getLoopsVars().put(variableNameFirst, lv_);
+            lv_.setRef(tableLoopExpressionContent.getVariableNameOffsetFirst());
+            lv_.setIndexClassName(tableLoopExpressionContent.getImportedClassIndexName());
+            _page.getLoopsVars().put(tableLoopExpressionContent.getVariableNameFirst(), lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (!importedClassNameFirst.isEmpty()) {
                 lInfo_.setClassName(importedClassNameFirst);
             } else {
                 lInfo_.setClassName(_page.getAliasObject());
             }
-            lInfo_.setRef(variableNameOffsetFirst);
+            lInfo_.setRef(tableLoopExpressionContent.getVariableNameOffsetFirst());
             lInfo_.setConstType(ConstType.FIX_VAR);
             lInfo_.setFinalVariable(true);
-            _page.getInfosVars().put(variableNameFirst, lInfo_);
+            _page.getInfosVars().put(tableLoopExpressionContent.getVariableNameFirst(), lInfo_);
         }
         if (okVarSecond) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            lv_.setRef(variableNameOffsetSecond);
-            lv_.setIndexClassName(importedClassIndexName);
-            _page.getLoopsVars().put(variableNameSecond, lv_);
+            lv_.setRef(tableLoopExpressionContent.getVariableNameOffsetSecond());
+            lv_.setIndexClassName(tableLoopExpressionContent.getImportedClassIndexName());
+            _page.getLoopsVars().put(tableLoopExpressionContent.getVariableNameSecond(), lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (!importedClassNameSecond.isEmpty()) {
                 lInfo_.setClassName(importedClassNameSecond);
             } else {
                 lInfo_.setClassName(_page.getAliasObject());
             }
-            lInfo_.setRef(variableNameOffsetSecond);
+            lInfo_.setRef(tableLoopExpressionContent.getVariableNameOffsetSecond());
             lInfo_.setConstType(ConstType.FIX_VAR);
             lInfo_.setFinalVariable(true);
-            _page.getInfosVars().put(variableNameSecond, lInfo_);
+            _page.getInfosVars().put(tableLoopExpressionContent.getVariableNameSecond(), lInfo_);
         }
     }
-
-
-    public String getLabel() {
-        return label;
-    }
-
     public String getClassNameFirst() {
-        return classNameFirst;
+        return tableLoopExpressionContent.getClassNameFirst();
     }
 
     public String getVariableNameFirst() {
-        return variableNameFirst;
+        return tableLoopExpressionContent.getVariableNameFirst();
     }
 
     public String getClassNameSecond() {
-        return classNameSecond;
+        return tableLoopExpressionContent.getClassNameSecond();
     }
 
     public String getVariableNameSecond() {
-        return variableNameSecond;
+        return tableLoopExpressionContent.getVariableNameSecond();
     }
 
     public int getClassNameOffsetFirst() {
-        return classNameOffsetFirst;
+        return tableLoopExpressionContent.getClassNameOffsetFirst();
     }
 
     public int getClassNameOffsetSecond() {
-        return classNameOffsetSecond;
+        return tableLoopExpressionContent.getClassNameOffsetSecond();
     }
 
     public int getVariableNameOffsetFirst() {
-        return variableNameOffsetFirst;
+        return tableLoopExpressionContent.getVariableNameOffsetFirst();
     }
 
     public int getVariableNameOffsetSecond() {
-        return variableNameOffsetSecond;
+        return tableLoopExpressionContent.getVariableNameOffsetSecond();
     }
 
     public String getExpression() {
-        return expression;
+        return tableLoopExpressionContent.getExpression();
     }
 
     @Override
@@ -398,16 +302,16 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     }
 
     public String getImportedClassIndexName() {
-        return importedClassIndexName;
+        return tableLoopExpressionContent.getImportedClassIndexName();
     }
 
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
-        _ip.getLoopsVars().removeKey(variableNameFirst);
-        _ip.getLoopsVars().removeKey(variableNameSecond);
-        _ip.getInfosVars().removeKey(variableNameFirst);
-        _ip.getInfosVars().removeKey(variableNameSecond);
+        _ip.getLoopsVars().removeKey(tableLoopExpressionContent.getVariableNameFirst());
+        _ip.getLoopsVars().removeKey(tableLoopExpressionContent.getVariableNameSecond());
+        _ip.getInfosVars().removeKey(tableLoopExpressionContent.getVariableNameFirst());
+        _ip.getInfosVars().removeKey(tableLoopExpressionContent.getVariableNameSecond());
     }
 
     public ResultExpression getRes() {

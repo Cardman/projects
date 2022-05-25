@@ -40,19 +40,9 @@ public final class BreakBlock extends AbruptBlock {
         boolean childOfBreakable_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {
-            if (b_ instanceof BreakableBlock) {
-                if (label.isEmpty()) {
-                    if (b_ instanceof Loop || b_ instanceof SwitchBlock) {
-                        childOfBreakable_ = true;
-                        break;
-                    }
-                } else {
-                    if (StringUtil.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
-                        childOfBreakable_ = true;
-                        labelOffsetRef = ((BreakableBlock) b_).getRealLabelOffset();
-                        break;
-                    }
-                }
+            if (b_ instanceof BreakableBlock && exitLoop((BreakableBlock) b_)) {
+                childOfBreakable_ = true;
+                break;
             }
             b_ = b_.getParent();
         }
@@ -105,6 +95,16 @@ public final class BreakBlock extends AbruptBlock {
                 errorsRefLabels.add(un_.getBuiltError());
             }
         }
+    }
+    private boolean exitLoop(BreakableBlock _b) {
+        if (label.isEmpty()) {
+            return _b instanceof Loop || _b instanceof SwitchBlock;
+        }
+        if (StringUtil.quickEq(label, _b.getRealLabelInfo().getInfo())){
+            labelOffsetRef = _b.getRealLabelInfo().getOffset();
+            return true;
+        }
+        return false;
     }
 
     public int getLabelOffsetRef() {

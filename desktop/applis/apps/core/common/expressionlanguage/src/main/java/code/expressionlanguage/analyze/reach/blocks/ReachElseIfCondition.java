@@ -6,10 +6,10 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.util.CustList;
 
 public final class ReachElseIfCondition extends ReachCondition implements ReachBlockCondition {
-    private String label;
-    protected ReachElseIfCondition(ElseIfCondition _info) {
+    private final String label;
+    public ReachElseIfCondition(ElseIfCondition _info) {
         super(_info);
-        label = _info.getRealLabel();
+        label = _info.getRealLabelInfo().getInfo();
     }
 
     @Override

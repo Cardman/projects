@@ -16,46 +16,28 @@ public final class ElseIfCondition extends ConditionBlock implements BlockCondit
     }
 
     @Override
-    public String getRealLabel() {
-        AbsBk p_ = getPreviousSibling();
-        while (!(p_ instanceof IfCondition)) {
-            if (p_ == null) {
-                return EMPTY_STRING;
-            }
-            p_ = p_.getPreviousSibling();
-        }
-        return ((IfCondition)p_).getLabel();
-    }
-
-    @Override
-    public int getRealLabelOffset() {
-        AbsBk p_ = getPreviousSibling();
-        while (!(p_ instanceof IfCondition)) {
-            p_ = p_.getPreviousSibling();
-        }
-        return ((IfCondition)p_).getLabelOffset();
+    public OffsetStringInfo getRealLabelInfo() {
+        return ElseCondition.getRealLabelInfo(this);
     }
 
     @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         AbsBk pBlock_ = getPreviousSibling();
-        if (!(pBlock_ instanceof IfCondition)) {
-            if (!(pBlock_ instanceof ElseIfCondition)) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(getFile());
-                un_.setIndexFile(getOffset());
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _page.getKeyWords().getKeyWordElseif(),
-                        StringUtil.join(
-                                new StringList(
-                                        _page.getKeyWords().getKeyWordIf(),
-                                        _page.getKeyWords().getKeyWordElseif()
-                                ),
-                                ExportCst.JOIN_BLOCK));
-                //key word len
-                addErrorBlock(un_.getBuiltError());
-                _page.addLocError(un_);
-            }
+        if (!(pBlock_ instanceof IfCondition) && !(pBlock_ instanceof ElseIfCondition)) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(getFile());
+            un_.setIndexFile(getOffset());
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                    _page.getKeyWords().getKeyWordElseif(),
+                    StringUtil.join(
+                            new StringList(
+                                    _page.getKeyWords().getKeyWordIf(),
+                                    _page.getKeyWords().getKeyWordElseif()
+                            ),
+                            ExportCst.JOIN_BLOCK));
+            //key word len
+            addErrorBlock(un_.getBuiltError());
+            _page.addLocError(un_);
         }
     }
 

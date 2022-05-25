@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.util.StringList;
 
-public final class CatchEval extends AbstractCatchEval {
+public final class CatchEval extends AbstractCatchEval implements BuildableElMethod {
 
     private final String className;
 

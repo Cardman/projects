@@ -4,7 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.blocks.ForEachLoop;
 import code.expressionlanguage.analyze.blocks.ImportForEachLoop;
+import code.expressionlanguage.analyze.blocks.ListLoopExpressionContent;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -22,9 +24,8 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.PrimitiveTypes;
-import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.RenderAnalysis;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -34,48 +35,23 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     private final String label;
     private final int labelOffset;
 
-    private final String className;
-
     private String importedClassName;
 
-    private final int classNameOffset;
-
-    private final String classIndexName;
-    private String importedClassIndexName;
-    private final int classIndexNameOffset;
-
-    private final String variableName;
-
-    private final int variableNameOffset;
-
-    private final String expression;
-
-    private final int expressionOffset;
+    private final ListLoopExpressionContent listLoopExpressionContent;
     private final ResultExpression resultExpression = new ResultExpression();
 
     private OperationNode root;
     private boolean okVar = true;
     private final boolean refVariable;
     private boolean refVar;
-    AnaRendForEachLoop(OffsetBooleanInfo _refVar, OffsetStringInfo _className, OffsetStringInfo _variable,
-                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, PrimitiveTypes _primTypes) {
+
+    AnaRendForEachLoop(OffsetBooleanInfo _refVar, ListLoopExpressionContent _content, OffsetStringInfo _classIndex, int _offset) {
         super(_offset);
+        listLoopExpressionContent = _content;
         refVariable = _refVar.isInfo();
         refVar = _refVar.isInfo();
-        className = _className.getInfo();
-        classNameOffset = _className.getOffset();
-        variableName = _variable.getInfo();
-        variableNameOffset = _variable.getOffset();
-        expression = _expression.getInfo();
-        expressionOffset = _expression.getOffset();
-        String classIndex_ = _classIndex.getInfo();
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _primTypes.getAliasPrimInteger();
-        }
-        classIndexName = classIndex_;
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
-        classIndexNameOffset = _classIndex.getOffset();
+        label = _classIndex.getInfo();
+        labelOffset = _classIndex.getOffset();
     }
 
     @Override
@@ -85,16 +61,16 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
-            static_.setIndexFile(expressionOffset);
+            static_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getAliasNullPe());
             AnalyzingDoc.addError(static_, _page);
         } else if (root_.getResultClass().isArray()) {
-            inferArrayClass(_anaDoc, root_, _page);
+            inferArrayClass(root_, _page);
         } else {
             StringList names_ = root_.getResultClass().getNames();
             StringList out_ = getInferredIterable(names_, _page);
-            checkIterableCandidates(out_, _anaDoc, _page);
+            checkIterableCandidates(out_, _page);
         }
         if (!okVar) {
             return;
@@ -102,28 +78,28 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         putVariable(_page);
     }
     public OperationNode buildEl(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
+        listLoopExpressionContent.setImportedClassIndexName(ResolvingTypes.resolveCorrectType(listLoopExpressionContent.getClassIndexName(), _page).getResult(_page));
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(listLoopExpressionContent.getImportedClassIndexName()), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(classIndexNameOffset);
+            cast_.setIndexFile(listLoopExpressionContent.getClassIndexNameOffset());
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
-                    importedClassIndexName);
+                    listLoopExpressionContent.getImportedClassIndexName());
             AnalyzingDoc.addError(cast_, _page);
         }
-        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(listLoopExpressionContent.getVariableName(), _page);
         if (res_.isError()) {
             okVar = false;
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(_page.getCurrentFile());
-            b_.setIndexFile(variableNameOffset);
+            b_.setIndexFile(listLoopExpressionContent.getVariableNameOffset());
             b_.setBuiltError(res_.getMessage());
             AnalyzingDoc.addError(b_, _page);
         }
-        _page.setSumOffset(classNameOffset);
+        _page.setSumOffset(listLoopExpressionContent.getClassNameOffset());
         _page.zeroOffset();
         if (!toInfer(_page)) {
-            importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
+            importedClassName = ResolvingTypes.resolveCorrectType(listLoopExpressionContent.getClassName(), _page).getResult(_page);
         } else {
             importedClassName = EMPTY_STRING;
         }
@@ -132,7 +108,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
         return root;
     }
-    public void inferArrayClass(AnalyzingDoc _anaDoc, OperationNode _root, AnalyzedPageEl _page) {
+    public void inferArrayClass(OperationNode _root, AnalyzedPageEl _page) {
         AnaClassArgumentMatching compo_ = AnaTypeUtil.getQuickComponentType(_root.getResultClass());
         if (toInfer(_page) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
@@ -140,15 +116,13 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             if (importedClassName.isEmpty()) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFile(_page.getCurrentFile());
-                cast_.setIndexFile(expressionOffset);
+                cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
                 cast_.buildError(_page.getAnalysisMessages().getUnknownType(),
-                        className.trim());
+                        listLoopExpressionContent.getClassName().trim());
                 AnalyzingDoc.addError(cast_, _page);
             } else {
-                if (refVariable) {
-                    if (!compo_.matchClass(importedClassName)) {
-                        refVar = false;
-                    }
+                if (refVariable && !compo_.matchClass(importedClassName)) {
+                    refVar = false;
                 }
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(compo_);
@@ -158,7 +132,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(expressionOffset);
+                    cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(compo_.getNames(),AND_ERR),
                             importedClassName);
@@ -171,21 +145,14 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(_types,_page);
         return it_.getClassName();
     }
-    public void checkIterableCandidates(StringList _types, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void checkIterableCandidates(StringList _types, AnalyzedPageEl _page) {
         if (refVariable) {
             refVar = false;
         }
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
-            String paramArg_ = StringExpUtil.getAllTypes(type_).last();
-            if (StringUtil.quickEq(paramArg_, StringExpUtil.SUB_TYPE)) {
-                paramArg_ = _page.getAliasObject();
-            } else if (paramArg_.startsWith(StringExpUtil.SUB_TYPE)) {
-                paramArg_ = paramArg_.substring(StringExpUtil.SUB_TYPE.length());
-            } else if (paramArg_.startsWith(StringExpUtil.SUP_TYPE)){
-                paramArg_ = _page.getAliasObject();
-            }
+            String paramArg_ = ForEachLoop.extType(_page, StringExpUtil.getAllTypes(type_).last());
             if (toInfer(_page)) {
                 importedClassName = paramArg_;
             } else {
@@ -196,7 +163,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(expressionOffset);
+                    cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
@@ -206,22 +173,23 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         } else {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(expressionOffset);
+            cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _page.getAliasObject(),
                     _page.getAliasIterable());
             AnalyzingDoc.addError(cast_, _page);
         }
     }
+
     private boolean toInfer(AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        return StringUtil.quickEq(className.trim(), keyWordVar_) || className.trim().isEmpty();
+        return StringUtil.quickEq(listLoopExpressionContent.getClassName().trim(), keyWordVar_) || listLoopExpressionContent.getClassName().trim().isEmpty();
     }
     public void putVariable(AnalyzedPageEl _page) {
         AnaLoopVariable lv_ = new AnaLoopVariable();
-        lv_.setIndexClassName(importedClassIndexName);
-        _page.getLoopsVars().put(variableName, lv_);
+        lv_.setIndexClassName(listLoopExpressionContent.getImportedClassIndexName());
+        _page.getLoopsVars().put(listLoopExpressionContent.getVariableName(), lv_);
         AnaLocalVariable lInfo_ = new AnaLocalVariable();
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
@@ -234,14 +202,14 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             lInfo_.setConstType(ConstType.FIX_VAR);
             lInfo_.setFinalVariable(true);
         }
-        _page.getInfosVars().put(variableName, lInfo_);
+        _page.getInfosVars().put(listLoopExpressionContent.getVariableName(), lInfo_);
     }
 
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
-        _ip.getInfosVars().removeKey(variableName);
-        _ip.getLoopsVars().removeKey(variableName);
+        _ip.getInfosVars().removeKey(listLoopExpressionContent.getVariableName());
+        _ip.getLoopsVars().removeKey(listLoopExpressionContent.getVariableName());
     }
     @Override
     public String getRealLabel() {
@@ -259,15 +227,15 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     }
 
     public String getImportedClassIndexName() {
-        return importedClassIndexName;
+        return listLoopExpressionContent.getImportedClassIndexName();
     }
 
     public String getVariableName() {
-        return variableName;
+        return listLoopExpressionContent.getVariableName();
     }
 
     public String getExpression() {
-        return expression;
+        return listLoopExpressionContent.getExpression();
     }
 
     public ResultExpression getRes() {
@@ -275,7 +243,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     }
 
     public int getExpressionOffset() {
-        return expressionOffset;
+        return listLoopExpressionContent.getExpressionOffset();
     }
 
     public OperationNode getRoot() {

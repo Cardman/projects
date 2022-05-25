@@ -8,9 +8,9 @@ import code.util.IdMap;
 
 public final class ReachFinallyEval extends ReachBracedBlock implements ReachEval {
     private final String label;
-    protected ReachFinallyEval(FinallyEval _info) {
+    public ReachFinallyEval(FinallyEval _info) {
         super(_info);
-        label = _info.getRealLabel();
+        label = _info.getRealLabelInfo().getInfo();
     }
 
     @Override
@@ -55,10 +55,8 @@ public final class ReachFinallyEval extends ReachBracedBlock implements ReachEva
         IdMap<ReachBreakBlock, ReachBreakableBlock> breakables_ = _anEl.getReachBreakables();
         boolean existBreak_ = false;
         for (EntryCust<ReachBreakBlock, ReachBreakableBlock> b: breakables_.entryList()) {
-            if (b.getValue() == this) {
-                if (_anEl.isReachable(b.getKey())) {
-                    existBreak_ = true;
-                }
+            if (b.getValue() == this && _anEl.isReachable(b.getKey())) {
+                existBreak_ = true;
             }
         }
         if (existBreak_) {

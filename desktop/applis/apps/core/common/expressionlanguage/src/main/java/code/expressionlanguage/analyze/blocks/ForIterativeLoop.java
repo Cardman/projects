@@ -1,158 +1,94 @@
 package code.expressionlanguage.analyze.blocks;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.opers.Calculation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.linkage.ExportCst;
-import code.util.*;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ForIterativeLoop extends AbstractForLoop implements Loop {
+public final class ForIterativeLoop extends AbstractForLoop {
 
-    private final String label;
-    private final int labelOffset;
-
-    private final String className;
     private String importedClassName;
-    private final int classNameOffset;
 
-    private final String classIndexName;
-    private String importedClassIndexName;
-    private final int classIndexNameOffset;
-
-    private final String variableName;
-    private final int variableNameOffset;
-
-    private final String init;
-    private final int initOffset;
-
-    private final String expression;
-    private final int expressionOffset;
-
-    private final String step;
-    private final int stepOffset;
-
-    private final boolean eq;
-    private final int eqOffset;
-
-    private final ResultExpression resInit = new ResultExpression();
-    private final ResultExpression resExp = new ResultExpression();
-    private final ResultExpression resStep = new ResultExpression();
-
+    private final OneLoopExpressionsContent oneLoopExpressionsContent;
     private final StringList nameErrors = new StringList();
-    public ForIterativeLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
-                            OffsetStringInfo _from,
-                            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, AnalyzedPageEl _page) {
-        super(_offset);
-        className = _className.getInfo();
-        classNameOffset = _className.getOffset();
-        variableName = _variable.getInfo();
-        variableNameOffset = _variable.getOffset();
-        init = _from.getInfo();
-        initOffset = _from.getOffset();
-        expression = _to.getInfo();
-        expressionOffset = _to.getOffset();
-        step = _step.getInfo();
-        stepOffset = _step.getOffset();
-        eq = _eq.isInfo();
-        eqOffset = _eq.getOffset();
-        String classIndex_ = _classIndex.getInfo();
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _page.getAliasPrimInteger();
-        }
-        classIndexName = classIndex_;
-        classIndexNameOffset = _classIndex.getOffset();
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
-    }
 
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
-    public int getRealLabelOffset() {
-        return getLabelOffset();
-    }
-    public int getLabelOffset() {
-        return labelOffset;
+    public ForIterativeLoop(OneLoopExpressionsContent _content, int _offset, OffsetStringInfo _label) {
+        super(_offset, _label);
+        oneLoopExpressionsContent = _content;
     }
 
     public int getClassNameOffset() {
-        return classNameOffset;
+        return oneLoopExpressionsContent.getClassNameOffset();
     }
 
     public int getClassIndexNameOffset() {
-        return classIndexNameOffset;
+        return oneLoopExpressionsContent.getClassIndexNameOffset();
     }
 
     public int getVariableNameOffset() {
-        return variableNameOffset;
+        return oneLoopExpressionsContent.getVariableNameOffset();
     }
 
     public int getInitOffset() {
-        return initOffset;
+        return oneLoopExpressionsContent.getInitOffset();
     }
 
     public int getExpressionOffset() {
-        return expressionOffset;
+        return oneLoopExpressionsContent.getExpressionOffset();
     }
 
     public int getStepOffset() {
-        return stepOffset;
+        return oneLoopExpressionsContent.getStepOffset();
     }
 
     public int getEqOffset() {
-        return eqOffset;
+        return oneLoopExpressionsContent.getEqOffset();
     }
 
     public String getClassIndexName() {
-        return classIndexName;
+        return oneLoopExpressionsContent.getClassIndexName();
     }
 
     public String getClassName() {
-        return className;
+        return oneLoopExpressionsContent.getClassName();
     }
 
     public String getVariableName() {
-        return variableName;
+        return oneLoopExpressionsContent.getVariableName();
     }
 
     public String getInit() {
-        return init;
+        return oneLoopExpressionsContent.getInit();
     }
 
     public String getExpression() {
-        return expression;
+        return oneLoopExpressionsContent.getExpression();
     }
 
     public String getStep() {
-        return step;
+        return oneLoopExpressionsContent.getStep();
     }
 
     public boolean isEq() {
-        return eq;
+        return oneLoopExpressionsContent.isEq();
     }
 
     public String getImportedClassName() {
@@ -160,7 +96,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
     }
 
     public String getImportedClassIndexName() {
-        return importedClassIndexName;
+        return oneLoopExpressionsContent.getImportedClassIndexName();
     }
 
     @Override
@@ -168,36 +104,36 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         boolean res_ = processVariableNames(_page);
         MemberCallingsBlock f_ = _page.getCurrentFct();
         String cl_ = importedClassName;
-        _page.setSumOffset(resInit.getSumOffset());
+        _page.setSumOffset(oneLoopExpressionsContent.getResInit().getSumOffset());
         _page.zeroOffset();
         MethodAccessKind static_ = f_.getStaticContext();
-        resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, Calculation.staticCalculation(static_), _page));
+        oneLoopExpressionsContent.getResInit().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(oneLoopExpressionsContent.getResInit(), Calculation.staticCalculation(static_), _page));
 //        rootInit = _page.getCurrentRoot();
 //        ExecOperationNode initEl_ = init_.last();
-        checkType(cl_, initOffset, resInit.getRoot(), _page);
-        _page.setSumOffset(resExp.getSumOffset());
+        checkType(cl_, oneLoopExpressionsContent.getInitOffset(), oneLoopExpressionsContent.getResInit().getRoot(), _page);
+        _page.setSumOffset(oneLoopExpressionsContent.getResExp().getSumOffset());
         _page.zeroOffset();
-        resExp.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resExp, Calculation.staticCalculation(static_), _page));
+        oneLoopExpressionsContent.getResExp().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(oneLoopExpressionsContent.getResExp(), Calculation.staticCalculation(static_), _page));
 //        rootExp = _page.getCurrentRoot();
 //        ExecOperationNode expressionEl_ = exp_.last();
-        checkType(cl_, expressionOffset, resExp.getRoot(), _page);
-        _page.setSumOffset(resStep.getSumOffset());
+        checkType(cl_, oneLoopExpressionsContent.getExpressionOffset(), oneLoopExpressionsContent.getResExp().getRoot(), _page);
+        _page.setSumOffset(oneLoopExpressionsContent.getResStep().getSumOffset());
         _page.zeroOffset();
-        resStep.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resStep, Calculation.staticCalculation(static_), _page));
+        oneLoopExpressionsContent.getResStep().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(oneLoopExpressionsContent.getResStep(), Calculation.staticCalculation(static_), _page));
 //        rootStep = _page.getCurrentRoot();
 //        ExecOperationNode stepEl_ = step_.last();
-        checkType(cl_, stepOffset, resStep.getRoot(), _page);
+        checkType(cl_, oneLoopExpressionsContent.getStepOffset(), oneLoopExpressionsContent.getResStep().getRoot(), _page);
         if (res_) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            lv_.setRef(variableNameOffset);
-            lv_.setIndexClassName(importedClassIndexName);
-            _page.getLoopsVars().put(variableName, lv_);
+            lv_.setRef(oneLoopExpressionsContent.getVariableNameOffset());
+            lv_.setIndexClassName(oneLoopExpressionsContent.getImportedClassIndexName());
+            _page.getLoopsVars().put(oneLoopExpressionsContent.getVariableName(), lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             lInfo_.setClassName(cl_);
-            lInfo_.setRef(variableNameOffset);
+            lInfo_.setRef(oneLoopExpressionsContent.getVariableNameOffset());
             lInfo_.setConstType(ConstType.FIX_VAR);
             lInfo_.setFinalVariable(true);
-            _page.getInfosVars().put(variableName, lInfo_);
+            _page.getInfosVars().put(oneLoopExpressionsContent.getVariableName(), lInfo_);
         }
 //        _page.getCoverage().putBlockOperationsLoops(this);
 //        ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
@@ -234,41 +170,29 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
     }
 
     private boolean processVariableNames(AnalyzedPageEl _page) {
-        _page.setSumOffset(classIndexNameOffset);
+        oneLoopExpressionsContent.resolveIndex(this,_page);
+        _page.setSumOffset(oneLoopExpressionsContent.getClassNameOffset());
         _page.zeroOffset();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFile(getFile());
-            cast_.setIndexFile(classIndexNameOffset);
-            //classIndexName len
-            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
-                    importedClassIndexName);
-            _page.addLocError(cast_);
-            addErrorBlock(cast_.getBuiltError());
-        }
-        _page.setSumOffset(classNameOffset);
-        _page.zeroOffset();
-        importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
+        importedClassName = ResolvingTypes.resolveCorrectType(oneLoopExpressionsContent.getClassName(), _page).getResult(_page);
         String cl_ = importedClassName;
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
         if (!AnaTypeUtil.isIntOrderClass(elementClass_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(getFile());
-            cast_.setIndexFile(classNameOffset);
+            cast_.setIndexFile(oneLoopExpressionsContent.getClassNameOffset());
             //className len
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassName);
             _page.addLocError(cast_);
             addErrorBlock(cast_.getBuiltError());
         }
-        _page.setSumOffset(variableNameOffset);
+        _page.setSumOffset(oneLoopExpressionsContent.getVariableNameOffset());
         _page.zeroOffset();
-        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(oneLoopExpressionsContent.getVariableName(), _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(getFile());
-            b_.setIndexFile(variableNameOffset);
+            b_.setIndexFile(oneLoopExpressionsContent.getVariableNameOffset());
             //variable name len
             b_.setBuiltError(res_.getMessage());
             _page.addLocError(b_);
@@ -282,32 +206,32 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
-        _ip.getLoopsVars().removeKey(variableName);
-        _ip.getInfosVars().removeKey(variableName);
+        _ip.getLoopsVars().removeKey(oneLoopExpressionsContent.getVariableName());
+        _ip.getInfosVars().removeKey(oneLoopExpressionsContent.getVariableName());
     }
 
     public ResultExpression getResInit() {
-        return resInit;
+        return oneLoopExpressionsContent.getResInit();
     }
 
     public OperationNode getRootInit() {
-        return resInit.getRoot();
+        return oneLoopExpressionsContent.getResInit().getRoot();
     }
 
     public ResultExpression getResExp() {
-        return resExp;
+        return oneLoopExpressionsContent.getResExp();
     }
 
     public OperationNode getRootExp() {
-        return resExp.getRoot();
+        return oneLoopExpressionsContent.getResExp().getRoot();
     }
 
     public ResultExpression getResStep() {
-        return resStep;
+        return oneLoopExpressionsContent.getResStep();
     }
 
     public OperationNode getRootStep() {
-        return resStep.getRoot();
+        return oneLoopExpressionsContent.getResStep().getRoot();
     }
 
     public StringList getNameErrors() {

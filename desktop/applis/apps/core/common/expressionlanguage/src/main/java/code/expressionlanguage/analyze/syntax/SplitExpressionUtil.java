@@ -387,7 +387,7 @@ public final class SplitExpressionUtil {
         while (current_ != null) {
             _page.setCurrentBlock(current_);
             block(_page, _int, _method, _type, current_);
-            if (current_ instanceof BuildableElMethod || current_ instanceof UnclassedBracedBlock) {
+            if (AbsBk.isVisitableBlock(current_)) {
                 AbsBk ch_ = current_.getFirstChild();
                 if (ch_ != null) {
                     current_ = ch_;

@@ -16,10 +16,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class SwitchBlock extends BracedBlock implements BreakableBlock,BuildableElMethod,AnalyzedSwitch {
-
-    private final String label;
-    private final int labelOffset;
+public final class SwitchBlock extends LabelledOtherBlock implements BreakableBlock,BuildableElMethod,AnalyzedSwitch {
 
     private final String value;
     private final int valueOffset;
@@ -37,28 +34,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     private int caseCount;
 
     public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, int _offset) {
-        super(_offset);
+        super(_offset,_label);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
-    }
-    
-    @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
-    public int getRealLabelOffset() {
-        return getLabelOffset();
-    }
-    public String getLabel() {
-        return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
     }
 
     public int getValueOffset() {

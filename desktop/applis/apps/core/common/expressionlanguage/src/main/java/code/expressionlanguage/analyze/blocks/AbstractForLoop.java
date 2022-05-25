@@ -1,10 +1,14 @@
 package code.expressionlanguage.analyze.blocks;
 
-public abstract class AbstractForLoop extends BracedBlock {
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
+
+public abstract class AbstractForLoop extends LabelledOtherBlock implements Loop,BuildableElMethod{
     private int conditionNb;
-    protected AbstractForLoop(int _offset) {
-        super(_offset);
+
+    protected AbstractForLoop(int _offset, OffsetStringInfo _lab) {
+        super(_offset,_lab);
     }
+
 
     public int getConditionNb() {
         return conditionNb;

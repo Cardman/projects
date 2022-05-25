@@ -1,5 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 
 
-public interface Eval extends BreakableBlock, BuildableElMethod {
+public interface Eval extends BreakableBlock {
 }

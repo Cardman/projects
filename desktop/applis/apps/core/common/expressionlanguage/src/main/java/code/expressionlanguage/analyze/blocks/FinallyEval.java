@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -12,55 +13,28 @@ public final class FinallyEval extends BracedBlock implements Eval {
     }
 
     @Override
-    public String getRealLabel() {
-        AbsBk p_ = getPreviousSibling();
-        while (!(p_ instanceof TryEval)) {
-            if (p_ == null) {
-                return EMPTY_STRING;
-            }
-            p_ = p_.getPreviousSibling();
-        }
-        return ((TryEval)p_).getLabel();
-    }
-
-    @Override
-    public int getRealLabelOffset() {
-        AbsBk p_ = getPreviousSibling();
-        while (!(p_ instanceof TryEval)) {
-            p_ = p_.getPreviousSibling();
-        }
-        return ((TryEval)p_).getLabelOffset();
-    }
-
-    @Override
-    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-//        ExecFinallyEval exec_ = new ExecFinallyEval(getOffset());
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,this);
+    public OffsetStringInfo getRealLabelInfo() {
+        return ElseCondition.getRealLabelInfo(this);
     }
 
     @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         AbsBk pBlock_ = getPreviousSibling();
-        if (!(pBlock_ instanceof AbstractCatchEval)) {
-            if (!(pBlock_ instanceof TryEval)) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(getFile());
-                un_.setIndexFile(getOffset());
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _page.getKeyWords().getKeyWordFinally(),
-                        StringUtil.join(
-                                new StringList(
-                                        _page.getKeyWords().getKeyWordCatch(),
-                                        _page.getKeyWords().getKeyWordTry()
-                                ),
-                                ExportCst.JOIN_BLOCK));
-                //key word len
-                _page.addLocError(un_);
-                addErrorBlock(un_.getBuiltError());
-            }
+        if (!(pBlock_ instanceof AbstractCatchEval) && !(pBlock_ instanceof TryEval)) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(getFile());
+            un_.setIndexFile(getOffset());
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                    _page.getKeyWords().getKeyWordFinally(),
+                    StringUtil.join(
+                            new StringList(
+                                    _page.getKeyWords().getKeyWordCatch(),
+                                    _page.getKeyWords().getKeyWordTry()
+                            ),
+                            ExportCst.JOIN_BLOCK));
+            //key word len
+            _page.addLocError(un_);
+            addErrorBlock(un_.getBuiltError());
         }
     }
 

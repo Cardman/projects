@@ -76,19 +76,18 @@ public abstract class AbsBk {
     }
     public void checkLabelReference(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         if (this instanceof BreakableBlock) {
-            String label_ = ((BreakableBlock)this).getRealLabel();
+            String label_ = ((BreakableBlock)this).getRealLabelInfo().getInfo();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (StringExpUtil.isDollarWordChar(c)) {
-                    continue;
+                if (!StringExpUtil.isDollarWordChar(c)) {
+                    wc_ = false;
+                    break;
                 }
-                wc_ = false;
-                break;
             }
             if (!wc_) {
                 FoundErrorInterpret bad_ = new FoundErrorInterpret();
                 bad_.setFile(getFile());
-                bad_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
+                bad_.setIndexFile(((BreakableBlock)this).getRealLabelInfo().getOffset());
                 //label_ len
                 bad_.buildError(_page.getAnalysisMessages().getBadLabel());
                 _page.addLocError(bad_);
@@ -97,7 +96,7 @@ public abstract class AbsBk {
                 if (StringUtil.contains(_anEl.getLabels(), label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
                     dup_.setFile(getFile());
-                    dup_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
+                    dup_.setIndexFile(((BreakableBlock)this).getRealLabelInfo().getOffset());
                     //label_ len
                     dup_.buildError(_page.getAnalysisMessages().getDuplicatedLabel());
                     _page.addLocError(dup_);
@@ -112,28 +111,29 @@ public abstract class AbsBk {
     public abstract void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page);
 
     protected static boolean tryBuildExpressionLanguageReadOnly(AbsBk _block, AnalyzedPageEl _page) {
-        if (_block instanceof BuildableElMethod) {
-            ((BuildableElMethod)_block).buildExpressionLanguageReadOnly(_page);
+        if (isVisitableBlock(_block)) {
+            if (_block instanceof BuildableElMethod) {
+                ((BuildableElMethod)_block).buildExpressionLanguageReadOnly(_page);
+            }
             return true;
         }
         return processOther(_block, _page);
     }
 
     private static boolean processOther(AbsBk _block, AnalyzedPageEl _page) {
-        if (_block instanceof UnclassedBracedBlock) {
-            return true;
+        if (!(_block instanceof RootBlock)) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(_block.getFile());
+            un_.setIndexFile(_block.getOffset());
+            //defined len first key words
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
+            _page.addLocError(un_);
+            _block.addErrorBlock(un_.getBuiltError());
         }
-        if (_block instanceof RootBlock) {
-            return false;
-        }
-        FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setFile(_block.getFile());
-        un_.setIndexFile(_block.getOffset());
-        //defined len first key words
-        un_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
-        _page.addLocError(un_);
-        _block.addErrorBlock(un_.getBuiltError());
         return false;
+    }
+    public static boolean isVisitableBlock(AbsBk _block) {
+        return _block instanceof DoBlock||_block instanceof TryEval||_block instanceof FinallyEval||_block instanceof NullCatchEval||_block instanceof EmptyInstruction||_block instanceof ElseCondition||_block instanceof BuildableElMethod || _block instanceof UnclassedBracedBlock;
     }
     public final RootBlock retrieveParentType() {
         AbsBk p_ = this;

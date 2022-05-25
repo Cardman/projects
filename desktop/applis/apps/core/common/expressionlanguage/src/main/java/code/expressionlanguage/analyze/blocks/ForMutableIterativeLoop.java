@@ -1,163 +1,94 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.AffectationOperation;
+import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.ErrorPartOperation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.opers.AffectationOperation;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.util.*;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ForMutableIterativeLoop extends BracedBlock implements
+public final class ForMutableIterativeLoop extends AbstractForLoop implements
         Loop,WithConditionPart,AbsLoopDeclarator {
 
-    private final String label;
-    private final int labelOffset;
-
-    private final String className;
-    private final int classNameOffset;
-
     private String importedClassName = EMPTY_STRING;
-
-    private final String classIndexName;
-    private String importedClassIndexName;
-    private final int classIndexNameOffset;
-
-    private final StringList variableNames = new StringList();
-
-    private final boolean finalVariable;
-    private final int finalOffset;
-
-    private final String init;
-    private final int initOffset;
-
-    private final String expression;
-    private final int expressionOffset;
-
-    private final String step;
-    private final int stepOffset;
 
     private boolean alwaysTrue;
     private Argument argument;
 
-    private final ResultExpression resInit = new ResultExpression();
-    private final ResultExpression resExp = new ResultExpression();
-    private final ResultExpression resStep = new ResultExpression();
-
+    private final ManyLoopExpressionsContent manyLoopExpressionsContent;
     private AnaTypeFct functionImpl;
     private AnaTypeFct function;
     private int testOffset;
     private AnaResultPartType partOffsets = new AnaResultPartType();
     private String errInf = EMPTY_STRING;
 
-    private int conditionNb;
-    private final boolean refVariable;
-    public ForMutableIterativeLoop(OffsetBooleanInfo _final,
-                                   OffsetStringInfo _className,
-                                   OffsetStringInfo _from,
-                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, AnalyzedPageEl _page,boolean _refVariable) {
-        super(_offset);
-        className = _className.getInfo();
-        classNameOffset = _className.getOffset();
-        init = _from.getInfo();
-        initOffset = _from.getOffset();
-        expression = _to.getInfo();
-        expressionOffset = _to.getOffset();
-        step = _step.getInfo();
-        stepOffset = _step.getOffset();
-        String classIndex_ = _classIndex.getInfo();
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _page.getAliasPrimInteger();
-        }
-        classIndexName = classIndex_;
-        classIndexNameOffset = _classIndex.getOffset();
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
-        finalVariable = _final.isInfo();
-        finalOffset = _final.getOffset();
-        refVariable = _refVariable;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
-    public int getRealLabelOffset() {
-        return getLabelOffset();
-    }
-    public int getLabelOffset() {
-        return labelOffset;
+    public ForMutableIterativeLoop(int _offset, OffsetStringInfo _label, ManyLoopExpressionsContent _ma) {
+        super(_offset, _label);
+        manyLoopExpressionsContent = _ma;
     }
 
     public int getClassNameOffset() {
-        return classNameOffset;
+        return manyLoopExpressionsContent.getClassNameOffset();
     }
 
     public int getClassIndexNameOffset() {
-        return classIndexNameOffset;
+        return manyLoopExpressionsContent.getClassIndexNameOffset();
     }
 
     public int getInitOffset() {
-        return initOffset;
+        return manyLoopExpressionsContent.getInitOffset();
     }
 
     public int getExpressionOffset() {
-        return expressionOffset;
+        return manyLoopExpressionsContent.getExpressionOffset();
     }
 
     public int getStepOffset() {
-        return stepOffset;
+        return manyLoopExpressionsContent.getStepOffset();
     }
 
     public String getClassIndexName() {
-        return classIndexName;
+        return manyLoopExpressionsContent.getClassIndexName();
     }
 
     public String getClassName() {
-        return className;
+        return manyLoopExpressionsContent.getClassName();
     }
 
     public String getInit() {
-        return init;
+        return manyLoopExpressionsContent.getInit();
     }
 
     public String getExpression() {
-        return expression;
+        return manyLoopExpressionsContent.getExpression();
     }
 
     public String getStep() {
-        return step;
+        return manyLoopExpressionsContent.getStep();
     }
 
     public boolean isFinalVariable() {
-        return finalVariable;
+        return manyLoopExpressionsContent.isFinalVariable();
     }
 
     public int getFinalOffset() {
-        return finalOffset;
+        return manyLoopExpressionsContent.getFinalOffset();
     }
 
     public void setImportedClassName(String _importedClassName) {
@@ -171,30 +102,30 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         MethodAccessKind static_ = f_.getStaticContext();
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
-        _page.setSumOffset(resInit.getSumOffset());
+        _page.setSumOffset(manyLoopExpressionsContent.getResInit().getSumOffset());
         _page.zeroOffset();
         _page.setAcceptCommaInstr(true);
         _page.setForLoopPartState(ForLoopPart.INIT);
-        if (!init.trim().isEmpty()) {
-            resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, Calculation.staticCalculation(static_), _page));
+        if (!manyLoopExpressionsContent.getInit().trim().isEmpty()) {
+            manyLoopExpressionsContent.getResInit().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(manyLoopExpressionsContent.getResInit(), Calculation.staticCalculation(static_), _page));
         }
         addVars(_page);
         _page.setLineDeclarator(null);
-        _page.setSumOffset(resExp.getSumOffset());
+        _page.setSumOffset(manyLoopExpressionsContent.getResExp().getSumOffset());
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.CONDITION);
-        if (expression.trim().isEmpty()) {
+        if (manyLoopExpressionsContent.getExpression().trim().isEmpty()) {
             alwaysTrue = true;
         } else {
-            resExp.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resExp, Calculation.staticCalculation(static_), _page));
-            checkBoolCondition(resExp.getRoot(), _page);
+            manyLoopExpressionsContent.getResExp().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(manyLoopExpressionsContent.getResExp(), Calculation.staticCalculation(static_), _page));
+            checkBoolCondition(manyLoopExpressionsContent.getResExp().getRoot(), _page);
         }
-        _page.setSumOffset(resStep.getSumOffset());
+        _page.setSumOffset(manyLoopExpressionsContent.getResStep().getSumOffset());
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.STEP);
         _page.setAcceptCommaInstr(true);
-        if (!step.trim().isEmpty()) {
-            resStep.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resStep, Calculation.staticCalculation(static_), _page));
+        if (!manyLoopExpressionsContent.getStep().trim().isEmpty()) {
+            manyLoopExpressionsContent.getResStep().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(manyLoopExpressionsContent.getResStep(), Calculation.staticCalculation(static_), _page));
         }
         _page.setAcceptCommaInstr(false);
 
@@ -205,8 +136,8 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             StringList vars_ = _page.getVariablesNames();
             errInf = AffectationOperation.processInfer(importedClassName, _page);
             getVariableNames().addAllElts(vars_);
-            if (refVariable) {
-                checkOpers(resInit.getRoot(), _page);
+            if (manyLoopExpressionsContent.isRefVariable()) {
+                checkOpers(manyLoopExpressionsContent.getResInit().getRoot(), _page);
             }
         }
         _page.setAcceptCommaInstr(false);
@@ -227,29 +158,17 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     }
 
     private void processVariables(AnalyzedPageEl _page) {
-        _page.setSumOffset(classIndexNameOffset);
+        manyLoopExpressionsContent.resolveIndex(this,_page);
+        _page.setSumOffset(manyLoopExpressionsContent.getClassNameOffset());
         _page.zeroOffset();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFile(getFile());
-            cast_.setIndexFile(classIndexNameOffset);
-            //classIndexName len
-            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
-                    importedClassIndexName);
-            _page.addLocError(cast_);
-            addErrorBlock(cast_.getBuiltError());
-        }
-        _page.setSumOffset(classNameOffset);
-        _page.zeroOffset();
-        if (!className.isEmpty()) {
+        if (!manyLoopExpressionsContent.getClassName().isEmpty()) {
             _page.setLineDeclarator(this);
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
+            if (StringUtil.quickEq(manyLoopExpressionsContent.getClassName().trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
+                partOffsets = ResolvingTypes.resolveCorrectType(manyLoopExpressionsContent.getClassName(), _page);
                 importedClassName = partOffsets.getResult(_page);
             }
             _page.setCurrentVarSetting(importedClassName);
@@ -270,7 +189,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFile(getFile());
-                    un_.setIndexFile(expressionOffset);
+                    un_.setIndexFile(manyLoopExpressionsContent.getExpressionOffset());
                     //second ; char
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(exp_.getNames(), ExportCst.JOIN_TYPES));
@@ -285,21 +204,21 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     @Override
     public boolean isRefVariable() {
-        return refVariable;
+        return manyLoopExpressionsContent.isRefVariable();
     }
 
     public String getImportedClassIndexName() {
-        return importedClassIndexName;
+        return manyLoopExpressionsContent.getImportedClassIndexName();
     }
 
     public StringList getVariableNames() {
-        return variableNames;
+        return manyLoopExpressionsContent.getVariableNames();
     }
 
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
-        for (String v: variableNames) {
+        for (String v: manyLoopExpressionsContent.getVariableNames()) {
             _ip.getLoopsVars().removeKey(v);
             _ip.getInfosVars().removeKey(v);
         }
@@ -310,27 +229,27 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     }
 
     public ResultExpression getResInit() {
-        return resInit;
+        return manyLoopExpressionsContent.getResInit();
     }
 
     public OperationNode getRootInit() {
-        return resInit.getRoot();
+        return manyLoopExpressionsContent.getResInit().getRoot();
     }
 
     public ResultExpression getResExp() {
-        return resExp;
+        return manyLoopExpressionsContent.getResExp();
     }
 
     public OperationNode getRootExp() {
-        return resExp.getRoot();
+        return manyLoopExpressionsContent.getResExp().getRoot();
     }
 
     public ResultExpression getResStep() {
-        return resStep;
+        return manyLoopExpressionsContent.getResStep();
     }
 
     public OperationNode getRootStep() {
-        return resStep.getRoot();
+        return manyLoopExpressionsContent.getResStep().getRoot();
     }
 
     public String getImportedClassName() {
@@ -367,14 +286,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public void setAlwaysTrue(boolean _alwaysTrue) {
         this.alwaysTrue = _alwaysTrue;
-    }
-
-    public int getConditionNb() {
-        return conditionNb;
-    }
-
-    public void setConditionNb(int _conditionNb) {
-        conditionNb = _conditionNb;
     }
 
 }

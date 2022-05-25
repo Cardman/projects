@@ -33,7 +33,10 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
     private int conditionNb;
 
     protected ConditionBlock(OffsetStringInfo _condition, int _offset) {
-        super(_offset);
+        this(_condition,_offset,new OffsetStringInfo(0,""));
+    }
+    protected ConditionBlock(OffsetStringInfo _condition, int _offset, OffsetStringInfo _lab) {
+        super(_offset,_lab);
         condition = _condition.getInfo();
         conditionOffset = _condition.getOffset();
     }

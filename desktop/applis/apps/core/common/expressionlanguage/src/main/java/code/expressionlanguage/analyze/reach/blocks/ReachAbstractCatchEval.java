@@ -5,10 +5,10 @@ import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.util.CustList;
 
 public abstract class ReachAbstractCatchEval extends ReachBracedBlock implements ReachEval {
-    private String label;
+    private final String label;
     protected ReachAbstractCatchEval(AbstractCatchEval _info) {
         super(_info);
-        label = _info.getRealLabel();
+        label = _info.getRealLabelInfo().getInfo();
     }
 
     @Override

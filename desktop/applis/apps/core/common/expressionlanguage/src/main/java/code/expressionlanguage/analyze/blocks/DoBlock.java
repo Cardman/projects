@@ -6,33 +6,10 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class DoBlock extends BracedBlock implements Loop {
-
-    private final String label;
-    private final int labelOffset;
+public final class DoBlock extends LabelledOtherBlock implements Loop {
 
     public DoBlock(OffsetStringInfo _label, int _offset) {
-        super(_offset);
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
-    public int getRealLabelOffset() {
-        return getLabelOffset();
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
+        super(_offset,_label);
     }
 
     @Override
@@ -69,11 +46,6 @@ public final class DoBlock extends BracedBlock implements Loop {
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
         }
-    }
-
-    @Override
-    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        //
     }
 
 }

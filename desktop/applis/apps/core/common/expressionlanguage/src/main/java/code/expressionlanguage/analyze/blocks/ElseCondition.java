@@ -1,67 +1,50 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ElseCondition extends BracedBlock implements BlockCondition, BuildableElMethod {
+public final class ElseCondition extends BracedBlock implements BlockCondition {
 
     public ElseCondition(int _offset) {
         super(_offset);
     }
 
     @Override
-    public String getRealLabel() {
-        AbsBk p_ = getPreviousSibling();
-        while (!(p_ instanceof IfCondition)) {
+    public OffsetStringInfo getRealLabelInfo() {
+        return getRealLabelInfo(this);
+    }
+
+    static OffsetStringInfo getRealLabelInfo(AbsBk _current) {
+        AbsBk p_ = _current.getPreviousSibling();
+        while (!(p_ instanceof BreakableLabelBlock)) {
             if (p_ == null) {
-                return EMPTY_STRING;
+                return new OffsetStringInfo(0, EMPTY_STRING);
             }
             p_ = p_.getPreviousSibling();
         }
-        return ((IfCondition)p_).getLabel();
+        return ((BreakableLabelBlock) p_).getLabelInfo();
     }
-
-    @Override
-    public int getRealLabelOffset() {
-        AbsBk p_ = getPreviousSibling();
-        while (!(p_ instanceof IfCondition)) {
-            p_ = p_.getPreviousSibling();
-        }
-        return ((IfCondition)p_).getLabelOffset();
-    }
-
-
-    @Override
-    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-//        ExecElseCondition exec_ = new ExecElseCondition(getOffset());
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,this);
-    }
-
     @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         AbsBk pBlock_ = getPreviousSibling();
-        if (!(pBlock_ instanceof IfCondition)) {
-            if (!(pBlock_ instanceof ElseIfCondition)) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(getFile());
-                un_.setIndexFile(getOffset());
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _page.getKeyWords().getKeyWordElse(),
-                        StringUtil.join(
-                                new StringList(
-                                        _page.getKeyWords().getKeyWordIf(),
-                                        _page.getKeyWords().getKeyWordElseif()
-                                ),
-                                ExportCst.JOIN_BLOCK));
-                //key word len
-                addErrorBlock(un_.getBuiltError());
-                _page.addLocError(un_);
-            }
+        if (!(pBlock_ instanceof IfCondition) && !(pBlock_ instanceof ElseIfCondition)) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(getFile());
+            un_.setIndexFile(getOffset());
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                    _page.getKeyWords().getKeyWordElse(),
+                    StringUtil.join(
+                            new StringList(
+                                    _page.getKeyWords().getKeyWordIf(),
+                                    _page.getKeyWords().getKeyWordElseif()
+                            ),
+                            ExportCst.JOIN_BLOCK));
+            //key word len
+            addErrorBlock(un_.getBuiltError());
+            _page.addLocError(un_);
         }
     }
 

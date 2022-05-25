@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -24,7 +23,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
     }
 
     private static void removeLabel(AbsBk _en, StringList _labels) {
-        if (_en instanceof BreakableBlock && !((BreakableBlock) _en).getRealLabel().isEmpty()) {
+        if (_en instanceof BreakableBlock && !((BreakableBlock) _en).getRealLabelInfo().getInfo().isEmpty()) {
             _labels.removeLast();
         }
     }
@@ -58,10 +57,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
             checkIndexes(en_, _page);
             AbsBk n_ = en_.getFirstChild();
             addParent(anEl_, en_, n_);
-            boolean visit_ = true;
-            if (en_ != this) {
-                visit_ = tryBuildExpressionLanguageReadOnly(en_, _page);
-            }
+            boolean visit_ = visit(_page, en_);
             if (visit_ && n_ != null) {
                 en_ = n_;
                 continue;
@@ -91,6 +87,14 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
         }
     }
 
+    private boolean visit(AnalyzedPageEl _page, AbsBk _en) {
+        boolean visit_ = true;
+        if (_en != this) {
+            visit_ = tryBuildExpressionLanguageReadOnly(_en, _page);
+        }
+        return visit_;
+    }
+
     private void checkIndexes(AbsBk _en, AnalyzedPageEl _page) {
         for (int i:_en.getBadIndexes()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
@@ -105,14 +109,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
 
     private static void addParent(AnalyzingEl _anEl, AbsBk _en,
                                   AbsBk _n) {
-        if (_en instanceof BracedBlock && _n != null) {
-            if (_en instanceof BreakableBlock) {
-                _anEl.putLabel(_en,((BreakableBlock)_en).getRealLabel());
-            }
+        if (_en instanceof BracedBlock && _n != null && _en instanceof BreakableBlock) {
+            _anEl.putLabel(_en, ((BreakableBlock) _en).getRealLabelInfo().getInfo());
         }
     }
-
-    public abstract  MethodAccessKind getStaticContext();
 
     public StringMap<MappingLocalType> getRefMappings() {
         return AnaTypeUtil.getRefMappings(mappings);

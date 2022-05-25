@@ -7,9 +7,9 @@ import code.util.CustList;
 
 public final class ReachElseCondition extends ReachBracedBlock implements ReachBlockCondition,ReachBuildableElMethod {
     private final String label;
-    protected ReachElseCondition(ElseCondition _info) {
+    public ReachElseCondition(ElseCondition _info) {
         super(_info);
-        label = _info.getRealLabel();
+        label = _info.getRealLabelInfo().getInfo();
     }
 
     @Override

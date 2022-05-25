@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -15,7 +16,6 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.*;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -27,30 +27,13 @@ import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class ForEachLoop extends AbstractForLoop implements Loop,ImportForEachLoop {
-
-    private final String label;
-    private final int labelOffset;
-
-    private final String className;
+public final class ForEachLoop extends AbstractForLoop implements ImportForEachLoop {
 
     private String importedClassName;
 
-    private final int classNameOffset;
-
-    private final String classIndexName;
-    private String importedClassIndexName;
-    private final int classIndexNameOffset;
-
-    private final String variableName;
-
-    private final int variableNameOffset;
-
-    private final String expression;
-
     private final int sepOffset;
-    private final int expressionOffset;
 
+    private final ListLoopExpressionContent listLoopExpressionContent;
     private final ResultExpression res = new ResultExpression();
 
     private AnaResultPartType partOffsets = new AnaResultPartType();
@@ -60,75 +43,43 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
     private boolean okVar = true;
     private final boolean refVariable;
 
-    public ForEachLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
-                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, int _sepOffset, AnalyzedPageEl _page, boolean _refVariable) {
-        super(_offset);
-        className = _className.getInfo();
-        classNameOffset = _className.getOffset();
-        variableName = _variable.getInfo();
-        variableNameOffset = _variable.getOffset();
-        expression = _expression.getInfo();
-        expressionOffset = _expression.getOffset();
-        String classIndex_ = _classIndex.getInfo();
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _page.getAliasPrimInteger();
-        }
-        classIndexName = classIndex_;
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
-        classIndexNameOffset = _classIndex.getOffset();
+    public ForEachLoop(ListLoopExpressionContent _content, int _offset, int _sepOffset, boolean _refVariable, OffsetStringInfo _label) {
+        super(_offset, _label);
+        listLoopExpressionContent = _content;
         sepOffset = _sepOffset;
         refVariable = _refVariable;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
-    public int getRealLabelOffset() {
-        return getLabelOffset();
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
     public int getClassNameOffset() {
-        return classNameOffset;
+        return listLoopExpressionContent.getClassNameOffset();
     }
 
     public int getClassIndexNameOffset() {
-        return classIndexNameOffset;
+        return listLoopExpressionContent.getClassIndexNameOffset();
     }
 
     public int getVariableNameOffset() {
-        return variableNameOffset;
+        return listLoopExpressionContent.getVariableNameOffset();
     }
 
     public int getExpressionOffset() {
-        return expressionOffset;
+        return listLoopExpressionContent.getExpressionOffset();
     }
 
     public String getClassIndexName() {
-        return classIndexName;
+        return listLoopExpressionContent.getClassIndexName();
     }
 
     public String getClassName() {
-        return className;
+        return listLoopExpressionContent.getClassName();
     }
 
     public String getVariableName() {
-        return variableName;
+        return listLoopExpressionContent.getVariableName();
     }
 
     public String getExpression() {
-        return expression;
+        return listLoopExpressionContent.getExpression();
     }
 
 
@@ -138,40 +89,25 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
     }
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
-        _page.setSumOffset(classIndexNameOffset);
-        _page.zeroOffset();
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_page.getAliasLong());
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFile(getFile());
-            cast_.setIndexFile(classIndexNameOffset);
-            //classIndexName len
-            cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
-                    importedClassIndexName);
-            _page.addLocError(cast_);
-            addErrorBlock(cast_.getBuiltError());
-        }
-        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
+        listLoopExpressionContent.resolveIndex(this,_page);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(listLoopExpressionContent.getVariableName(), _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(getFile());
-            b_.setIndexFile(variableNameOffset);
+            b_.setIndexFile(listLoopExpressionContent.getVariableNameOffset());
             //variable name len
             b_.setBuiltError(res_.getMessage());
             _page.addLocError(b_);
             nameErrors.add(b_.getBuiltError());
             okVar = false;
         }
-        _page.setSumOffset(classNameOffset);
+        _page.setSumOffset(listLoopExpressionContent.getClassNameOffset());
         _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (!StringUtil.quickEq(className.trim(), keyWordVar_)) {
-            partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
+        if (!StringUtil.quickEq(listLoopExpressionContent.getClassName().trim(), keyWordVar_)) {
+            partOffsets = ResolvingTypes.resolveCorrectType(listLoopExpressionContent.getClassName(), _page);
             importedClassName = partOffsets.getResult(_page);
         } else {
             importedClassName = "";
@@ -185,50 +121,50 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         AnaClassArgumentMatching compo_ = AnaTypeUtil.getQuickComponentType(_elt);
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringUtil.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
+        if (StringUtil.quickEq(listLoopExpressionContent.getClassName().trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
+            return;
+        }
+        Mapping mapping_ = new Mapping();
+        if (importedClassName.isEmpty()) {
+            mapping_.setArg("");
+            mapping_.setParam("");
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+            cast_.setFile(getFile());
+            cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
+            //separator char
+            cast_.buildError(_page.getAnalysisMessages().getUnknownType(),
+                    listLoopExpressionContent.getClassName().trim());
+            _page.addLocError(cast_);
+            sepErrors.add(cast_.getBuiltError());
         } else {
-            Mapping mapping_ = new Mapping();
-            if (importedClassName.isEmpty()) {
-                mapping_.setArg("");
-                mapping_.setParam("");
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFile(getFile());
-                cast_.setIndexFile(expressionOffset);
-                //separator char
-                cast_.buildError(_page.getAnalysisMessages().getUnknownType(),
-                        className.trim());
-                _page.addLocError(cast_);
-                sepErrors.add(cast_.getBuiltError());
+            if (refVariable) {
+                if (!compo_.matchClass(importedClassName)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFile(getFile());
+                    cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
+                    //separator char
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            StringUtil.join(compo_.getNames(), ExportCst.JOIN_TYPES),
+                            importedClassName);
+                    _page.addLocError(cast_);
+                    sepErrors.add(cast_.getBuiltError());
+                }
             } else {
-                if (refVariable) {
-                    if (!compo_.matchClass(importedClassName)) {
-                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFile(getFile());
-                        cast_.setIndexFile(expressionOffset);
-                        //separator char
-                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(compo_.getNames(), ExportCst.JOIN_TYPES),
-                                importedClassName);
-                        _page.addLocError(cast_);
-                        sepErrors.add(cast_.getBuiltError());
-                    }
-                } else {
-                    mapping_.setArg(compo_);
-                    mapping_.setParam(importedClassName);
-                    StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                    mapping_.setMapping(vars_);
-                    if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFile(getFile());
-                        cast_.setIndexFile(expressionOffset);
-                        //separator char
-                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(compo_.getNames(),ExportCst.JOIN_TYPES),
-                                importedClassName);
-                        _page.addLocError(cast_);
-                        sepErrors.add(cast_.getBuiltError());
-                    }
+                mapping_.setArg(compo_);
+                mapping_.setParam(importedClassName);
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+                mapping_.setMapping(vars_);
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFile(getFile());
+                    cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
+                    //separator char
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            StringUtil.join(compo_.getNames(),ExportCst.JOIN_TYPES),
+                            importedClassName);
+                    _page.addLocError(cast_);
+                    sepErrors.add(cast_.getBuiltError());
                 }
             }
         }
@@ -283,17 +219,10 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         if (!refVariable&&_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
-            String paramArg_ = StringExpUtil.getAllTypes(type_).last();
-            if (StringUtil.quickEq(paramArg_, StringExpUtil.SUB_TYPE)) {
-                paramArg_ = _page.getAliasObject();
-            } else if (paramArg_.startsWith(StringExpUtil.SUB_TYPE)) {
-                paramArg_ = paramArg_.substring(StringExpUtil.SUB_TYPE.length());
-            } else if (paramArg_.startsWith(StringExpUtil.SUP_TYPE)){
-                paramArg_ = _page.getAliasObject();
-            }
+            String paramArg_ = extType(_page, StringExpUtil.getAllTypes(type_).last());
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
+            if (StringUtil.quickEq(listLoopExpressionContent.getClassName().trim(), keyWordVar_)) {
                 importedClassName = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
@@ -303,7 +232,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(getFile());
-                    cast_.setIndexFile(expressionOffset);
+                    cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
                     //separator char
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
@@ -315,7 +244,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         } else {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(getFile());
-            cast_.setIndexFile(expressionOffset);
+            cast_.setIndexFile(listLoopExpressionContent.getExpressionOffset());
             //separator char
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _page.getAliasObject(),
@@ -325,32 +254,44 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         }
     }
 
+    public static String extType(AnalyzedPageEl _page, String _ty) {
+        String paramArg_ = _ty;
+        if (StringUtil.quickEq(paramArg_, StringExpUtil.SUB_TYPE)) {
+            paramArg_ = _page.getAliasObject();
+        } else if (paramArg_.startsWith(StringExpUtil.SUB_TYPE)) {
+            paramArg_ = paramArg_.substring(StringExpUtil.SUB_TYPE.length());
+        } else if (paramArg_.startsWith(StringExpUtil.SUP_TYPE)) {
+            paramArg_ = _page.getAliasObject();
+        }
+        return paramArg_;
+    }
+
     private void processVariable(AnalyzedPageEl _page) {
         AnaLoopVariable lv_ = new AnaLoopVariable();
-        lv_.setRef(variableNameOffset);
-        lv_.setIndexClassName(importedClassIndexName);
-        _page.getLoopsVars().put(variableName, lv_);
+        lv_.setRef(listLoopExpressionContent.getVariableNameOffset());
+        lv_.setIndexClassName(listLoopExpressionContent.getImportedClassIndexName());
+        _page.getLoopsVars().put(listLoopExpressionContent.getVariableName(), lv_);
         AnaLocalVariable lInfo_ = new AnaLocalVariable();
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
         } else {
             lInfo_.setClassName(_page.getAliasObject());
         }
-        lInfo_.setRef(variableNameOffset);
+        lInfo_.setRef(listLoopExpressionContent.getVariableNameOffset());
         if (refVariable) {
             lInfo_.setConstType(ConstType.REF_LOC_VAR);
         } else {
             lInfo_.setConstType(ConstType.FIX_VAR);
             lInfo_.setFinalVariable(true);
         }
-        _page.getInfosVars().put(variableName, lInfo_);
+        _page.getInfosVars().put(listLoopExpressionContent.getVariableName(), lInfo_);
     }
 
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
-        _ip.getLoopsVars().removeKey(variableName);
-        _ip.getInfosVars().removeKey(variableName);
+        _ip.getLoopsVars().removeKey(listLoopExpressionContent.getVariableName());
+        _ip.getInfosVars().removeKey(listLoopExpressionContent.getVariableName());
     }
 
     public ResultExpression getRes() {
@@ -358,7 +299,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
     }
 
     public String getImportedClassIndexName() {
-        return importedClassIndexName;
+        return listLoopExpressionContent.getImportedClassIndexName();
     }
 
     public OperationNode getRoot() {

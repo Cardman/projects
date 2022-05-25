@@ -1,18 +1,18 @@
 package code.expressionlanguage.analyze.assign.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.IfCondition;
 import code.expressionlanguage.analyze.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.analyze.assign.util.AssignedVariables;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
+import code.expressionlanguage.analyze.blocks.ConditionBlock;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
 public final class AssIfCondition extends AssCondition implements AssBreakableBlock {
-    private String label;
-    AssIfCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label, IfCondition _c) {
+    private final String label;
+    AssIfCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ConditionBlock _c) {
         super(_completeNormally, _completeNormallyGroup,_c);
         label = _label;
     }

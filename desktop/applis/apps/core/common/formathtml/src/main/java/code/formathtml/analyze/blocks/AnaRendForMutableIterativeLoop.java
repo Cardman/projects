@@ -4,8 +4,8 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsLoopDeclarator;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
+import code.expressionlanguage.analyze.blocks.ManyLoopExpressionsContent;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -26,113 +26,76 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     private final String label;
     private final int labelOffset;
 
-    private final String className;
-    private final int classNameOffset;
-
     private String importedClassName = EMPTY_STRING;
 
-    private final String classIndexName;
-    private String importedClassIndexName;
-    private final int classIndexNameOffset;
+    private final ManyLoopExpressionsContent manyLoopExpressionsContent;
 
-    private final StringList variableNames = new StringList();
-
-    private final String init;
-    private final int initOffset;
-
-    private final String expression;
-    private final int expressionOffset;
-
-    private final String step;
-    private final int stepOffset;
-
-    private final ResultExpression resultExpressionInit = new ResultExpression();
-    private final ResultExpression resultExpressionExp = new ResultExpression();
-    private final ResultExpression resultExpressionStep = new ResultExpression();
-
-    private OperationNode rootInit;
-
-    private OperationNode rootExp;
-
-    private OperationNode rootStep;
-    private final boolean refVariable;
-    AnaRendForMutableIterativeLoop(OffsetBooleanInfo _refVar, OffsetStringInfo _className,
-                                   OffsetStringInfo _from,
-                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, PrimitiveTypes _primTypes) {
+    AnaRendForMutableIterativeLoop(ManyLoopExpressionsContent _cont, OffsetStringInfo _classIndex, int _offset) {
         super(_offset);
-        refVariable = _refVar.isInfo();
-        className = _className.getInfo();
-        classNameOffset = _className.getOffset();
-        init = _from.getInfo();
-        initOffset = _from.getOffset();
-        expression = _to.getInfo();
-        expressionOffset = _to.getOffset();
-        step = _step.getInfo();
-        stepOffset = _step.getOffset();
-        String classIndex_ = _classIndex.getInfo();
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _primTypes.getAliasPrimInteger();
-        }
-        classIndexName = classIndex_;
-        classIndexNameOffset = _classIndex.getOffset();
-        label = _label.getInfo();
-        labelOffset = _label.getOffset();
+        manyLoopExpressionsContent = _cont;
+        label = _classIndex.getInfo();
+        labelOffset = _classIndex.getOffset();
     }
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setSumOffset(classIndexNameOffset);
+        _page.setSumOffset(manyLoopExpressionsContent.getClassIndexNameOffset());
         _page.zeroOffset();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
-        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
+        manyLoopExpressionsContent.setImportedClassIndexName(ResolvingTypes.resolveCorrectType(manyLoopExpressionsContent.getClassIndexName(), _page).getResult(_page));
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(manyLoopExpressionsContent.getImportedClassIndexName()), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(classIndexNameOffset);
+            cast_.setIndexFile(manyLoopExpressionsContent.getClassIndexNameOffset());
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
-                    importedClassIndexName);
+                    manyLoopExpressionsContent.getImportedClassIndexName());
             AnalyzingDoc.addError(cast_, _page);
         }
-        _page.setSumOffset(classNameOffset);
+        _page.setSumOffset(manyLoopExpressionsContent.getClassNameOffset());
         _page.zeroOffset();
-        if (!className.isEmpty()) {
+        if (!manyLoopExpressionsContent.getClassName().isEmpty()) {
             _page.setLineDeclarator(this);
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
+            if (StringUtil.quickEq(manyLoopExpressionsContent.getClassName().trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
+                importedClassName = ResolvingTypes.resolveCorrectType(manyLoopExpressionsContent.getClassName(), _page).getResult(_page);
             }
             _page.setCurrentVarSetting(importedClassName);
         }
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
-        _page.setSumOffset(resultExpressionInit.getSumOffset());
+        _page.setSumOffset(getResInit().getSumOffset());
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.INIT);
         _page.setAcceptCommaInstr(true);
-        if (!init.trim().isEmpty()) {
-            rootInit = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionInit);
+        if (!manyLoopExpressionsContent.getInit().trim().isEmpty()) {
+            manyLoopExpressionsContent.getResInit().setRoot(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,getResInit()));
         }
         if (_page.getLineDeclarator() != null) {
             StringList vars_ = _page.getVariablesNames();
             String t_ = inferOrObject(importedClassName, _page);
             AffectationOperation.processInfer(t_, _page);
             getVariableNames().addAllElts(vars_);
-            if (refVariable) {
-                ForMutableIterativeLoop.checkOpers(rootInit, _page);
+            if (manyLoopExpressionsContent.isRefVariable()) {
+                ForMutableIterativeLoop.checkOpers(getRootInit(), _page);
             }
         }
         _page.setLineDeclarator(null);
         _page.setAcceptCommaInstr(false);
-        _page.setSumOffset(resultExpressionExp.getSumOffset());
+        _page.setSumOffset(getResExp().getSumOffset());
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.CONDITION);
-        if (!expression.trim().isEmpty()) {
-            rootExp = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionExp);
+        if (!manyLoopExpressionsContent.getExpression().trim().isEmpty()) {
+            manyLoopExpressionsContent.getResExp().setRoot(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,getResExp()));
         }
-        if (rootExp != null) {
-            AnaClassArgumentMatching exp_ = rootExp.getResultClass();
+        implicit(_page);
+        buildIncrementPart(_anaDoc, _page);
+    }
+
+    private void implicit(AnalyzedPageEl _page) {
+        if (getRootExp() != null) {
+            AnaClassArgumentMatching exp_ = getRootExp().getResultClass();
             if (!exp_.isBoolType(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
                 if (res_ != null) {
@@ -144,7 +107,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
                     } else {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFile(_page.getCurrentFile());
-                        un_.setIndexFile(expressionOffset);
+                        un_.setIndexFile(manyLoopExpressionsContent.getExpressionOffset());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                 StringUtil.join(exp_.getNames(),AND_ERR));
                         AnalyzingDoc.addError(un_, _page);
@@ -153,12 +116,11 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             }
             exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         }
-        buildIncrementPart(_anaDoc, _page);
     }
 
     @Override
     public boolean isRefVariable() {
-        return refVariable;
+        return manyLoopExpressionsContent.isRefVariable();
     }
 
     @Override
@@ -167,12 +129,12 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     }
 
     private void buildIncrementPart(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setSumOffset(resultExpressionStep.getSumOffset());
+        _page.setSumOffset(getResStep().getSumOffset());
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.STEP);
         _page.setAcceptCommaInstr(true);
-        if (!step.trim().isEmpty()) {
-            rootStep = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionStep);
+        if (!manyLoopExpressionsContent.getStep().trim().isEmpty()) {
+            manyLoopExpressionsContent.getResStep().setRoot(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,getResStep()));
         }
         _page.setAcceptCommaInstr(false);
     }
@@ -180,14 +142,14 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
-        for (String v: variableNames) {
+        for (String v: manyLoopExpressionsContent.getVariableNames()) {
             _ip.getLoopsVars().removeKey(v);
             _ip.getInfosVars().removeKey(v);
         }
     }
 
     public String getImportedClassIndexName() {
-        return importedClassIndexName;
+        return manyLoopExpressionsContent.getImportedClassIndexName();
     }
 
     public String getImportedClassName() {
@@ -199,7 +161,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     }
 
     public StringList getVariableNames() {
-        return variableNames;
+        return manyLoopExpressionsContent.getVariableNames();
     }
 
     @Override
@@ -213,51 +175,51 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     }
 
     public ResultExpression getResInit() {
-        return resultExpressionInit;
+        return manyLoopExpressionsContent.getResInit();
     }
 
     public ResultExpression getResExp() {
-        return resultExpressionExp;
+        return manyLoopExpressionsContent.getResExp();
     }
 
     public ResultExpression getResStep() {
-        return resultExpressionStep;
+        return manyLoopExpressionsContent.getResStep();
     }
 
     public String getInit() {
-        return init;
+        return manyLoopExpressionsContent.getInit();
     }
 
     public String getExpression() {
-        return expression;
+        return manyLoopExpressionsContent.getExpression();
     }
 
     public String getStep() {
-        return step;
+        return manyLoopExpressionsContent.getStep();
     }
 
     public int getInitOffset() {
-        return initOffset;
+        return manyLoopExpressionsContent.getInitOffset();
     }
 
     public int getExpressionOffset() {
-        return expressionOffset;
+        return manyLoopExpressionsContent.getExpressionOffset();
     }
 
     public int getStepOffset() {
-        return stepOffset;
+        return manyLoopExpressionsContent.getStepOffset();
     }
 
     public OperationNode getRootInit() {
-        return rootInit;
+        return manyLoopExpressionsContent.getResInit().getRoot();
     }
 
     public OperationNode getRootExp() {
-        return rootExp;
+        return manyLoopExpressionsContent.getResExp().getRoot();
     }
 
     public OperationNode getRootStep() {
-        return rootStep;
+        return manyLoopExpressionsContent.getResStep().getRoot();
     }
 
 }

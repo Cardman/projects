@@ -1,14 +1,32 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 
 public abstract class BracedBlock extends AbsBk {
 
     private AbsBk firstChild;
 
     private final GraphicErrorList globalErrorsPars = new GraphicErrorList();
-    BracedBlock(int _offset) {
+    private final OffsetStringInfo labelInfo;
+    protected BracedBlock(int _offset) {
+        this(_offset,new OffsetStringInfo(0,""));
+    }
+    protected BracedBlock(int _offset, OffsetStringInfo _lab) {
         super(_offset);
+        labelInfo = _lab;
+    }
+
+    public String getLabel() {
+        return getLabelInfo().getInfo();
+    }
+
+    public int getLabelOffset() {
+        return getLabelInfo().getOffset();
+    }
+
+    public OffsetStringInfo getLabelInfo() {
+        return labelInfo;
     }
 
     public final void appendChild(AbsBk _child) {
