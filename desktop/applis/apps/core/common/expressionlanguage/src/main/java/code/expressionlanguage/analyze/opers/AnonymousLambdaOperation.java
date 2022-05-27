@@ -65,7 +65,7 @@ public final class AnonymousLambdaOperation extends
         String foundType_ = foundType(_page, par_);
         String type_ = _page.getAliasFct();
         int nbParams_ = parse.getParametersType().size()+1;
-        StringBuilder pattern_ = pattern(type_, nbParams_);
+        String pattern_ = pattern(type_, nbParams_);
         StringList candidates_ = initCandidates(_page, foundType_, pattern_);
         OperationNode m_ = par_.getOperation();
         boolean list_ = false;
@@ -198,7 +198,7 @@ public final class AnonymousLambdaOperation extends
         return retType_;
     }
 
-    private void completeCandidate(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, OperationNode _m, boolean _list) {
+    private void completeCandidate(AnalyzedPageEl _page, ParentInferring _par, String _pattern, StringList _candidates, OperationNode _m, boolean _list) {
         if (_m instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) _m;
             String inferRecord_ = n_.infer();
@@ -221,14 +221,13 @@ public final class AnonymousLambdaOperation extends
         }
     }
 
-    private void feedRecordCandidates(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, String _inferRecord) {
+    private void feedRecordCandidates(AnalyzedPageEl _page, ParentInferring _par, String _pattern, StringList _candidates, String _inferRecord) {
         int nbParentsInfer_ = _par.getNbParentsInfer();
         StringMap<String> vars_ = new StringMap<String>();
-        String type_ = _page.getAliasFct();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-        mapping_.setParam(_pattern.toString());
-        StringList format_ = InvokingOperation.tryFormatFctRec(_inferRecord, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+        mapping_.setParam(_pattern);
+        StringList format_ = InvokingOperation.tryFormatFctRec(_inferRecord, nbParentsInfer_, _pattern, vars_, _page);
         for (String c: format_) {
             mapping_.setArg(c);
             if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
@@ -238,16 +237,15 @@ public final class AnonymousLambdaOperation extends
         }
     }
 
-    private void feedMethodCandidateIndirect(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, NamedArgumentOperation _n) {
+    private void feedMethodCandidateIndirect(AnalyzedPageEl _page, ParentInferring _par, String _pattern, StringList _candidates, NamedArgumentOperation _n) {
         int nbParentsInfer_ = _par.getNbParentsInfer();
         String name_ = _n.getName();
         MethodOperation call_ = _n.getParent();
         StringMap<String> vars_ = new StringMap<String>();
-        String type_ = _page.getAliasFct();
         RetrieveMethod f_ = (RetrieveMethod) call_;
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-        mapping_.setParam(_pattern.toString());
+        mapping_.setParam(_pattern);
         NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page, call_);
         CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
         int len_ = methodInfos_.size();
@@ -259,7 +257,7 @@ public final class AnonymousLambdaOperation extends
                 if (InvokingOperation.isValidNameIndex(filter_,methodInfo_, name_)) {
                     newList_.add(methodInfo_);
                 }
-                StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+                StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, _pattern, vars_, _page);
                 for (String c: format_) {
                     mapping_.setArg(c);
                     if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
@@ -272,16 +270,15 @@ public final class AnonymousLambdaOperation extends
         }
     }
 
-    private void feedCtorCandidateIndirect(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, NamedArgumentOperation _n) {
+    private void feedCtorCandidateIndirect(AnalyzedPageEl _page, ParentInferring _par, String _pattern, StringList _candidates, NamedArgumentOperation _n) {
         int nbParentsInfer_ = _par.getNbParentsInfer();
         String name_ = _n.getName();
         MethodOperation call_ = _n.getParent();
         StringMap<String> vars_ = new StringMap<String>();
-        String type_ = _page.getAliasFct();
         RetrieveConstructor f_ = (RetrieveConstructor) call_;
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-        mapping_.setParam(_pattern.toString());
+        mapping_.setParam(_pattern);
         NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page, call_);
         CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
         int len_ = methodInfos_.size();
@@ -291,7 +288,7 @@ public final class AnonymousLambdaOperation extends
             if (InvokingOperation.isValidNameIndex(filter_,methodInfo_, name_)) {
                 newList_.add(methodInfo_);
             }
-            StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+            StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, _pattern, vars_, _page);
             for (String c: format_) {
                 mapping_.setArg(c);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
@@ -304,13 +301,12 @@ public final class AnonymousLambdaOperation extends
         methodInfos_.addAllElts(newList_);
     }
 
-    private void feedMethodCandidateDirect(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, RetrieveMethod _m, boolean _list) {
+    private void feedMethodCandidateDirect(AnalyzedPageEl _page, ParentInferring _par, String _pattern, StringList _candidates, RetrieveMethod _m, boolean _list) {
         StringMap<String> vars_ = new StringMap<String>();
         int nbParentsInfer_ = _par.getNbParentsInfer();
-        String type_ = _page.getAliasFct();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-        mapping_.setParam(_pattern.toString());
+        mapping_.setParam(_pattern);
         OperationNode firstChild_ = _m.getFirstChild();
         int deltaCount_ = InvokingOperation.getDeltaCount(_list,firstChild_);
         int indexChild_ = _par.getOperationChild().getIndexChild()-deltaCount_;
@@ -320,7 +316,7 @@ public final class AnonymousLambdaOperation extends
             int gr_ = methodInfos_.get(i).size();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+                StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, _pattern, vars_, _page);
                 for (String c: format_) {
                     mapping_.setArg(c);
                     if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
@@ -332,13 +328,12 @@ public final class AnonymousLambdaOperation extends
         }
     }
 
-    private void feedCtorCandidateDirect(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, RetrieveConstructor _m, boolean _list) {
+    private void feedCtorCandidateDirect(AnalyzedPageEl _page, ParentInferring _par, String _pattern, StringList _candidates, RetrieveConstructor _m, boolean _list) {
         StringMap<String> vars_ = new StringMap<String>();
-        String type_ = _page.getAliasFct();
         int nbParentsInfer_ = _par.getNbParentsInfer();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-        mapping_.setParam(_pattern.toString());
+        mapping_.setParam(_pattern);
         OperationNode firstChild_ = _m.getFirstChild();
         int deltaCount_ = InvokingOperation.getDeltaCount(_list,firstChild_);
         int indexChild_ = _par.getOperationChild().getIndexChild()-deltaCount_;
@@ -346,7 +341,7 @@ public final class AnonymousLambdaOperation extends
         int len_ = methodInfos_.size();
         for (int i = 0; i < len_; i++) {
             ConstructorInfo methodInfo_ = methodInfos_.get(i);
-            StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+            StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, _pattern, vars_, _page);
             for (String c: format_) {
                 mapping_.setArg(c);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
@@ -357,25 +352,24 @@ public final class AnonymousLambdaOperation extends
         }
     }
 
-    private StringBuilder pattern(String _type, int _nbParams) {
+    private String pattern(String _type, int _nbParams) {
         StringBuilder pattern_ = new StringBuilder(_type);
         StringList wc_ = new StringList();
         for (int i = 0; i < _nbParams; i++) {
             wc_.add("?");
         }
         pattern_.append('<').append(StringUtil.join(wc_,',')).append('>');
-        return pattern_;
+        return pattern_.toString();
     }
 
-    private StringList initCandidates(AnalyzedPageEl _page, String _foundType, StringBuilder _pattern) {
-        String type_ = _page.getAliasFct();
+    private StringList initCandidates(AnalyzedPageEl _page, String _foundType, String _pattern) {
         StringList candidates_ = new StringList();
         if (!_foundType.isEmpty()) {
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-            mapping_.setParam(_pattern.toString());
+            mapping_.setParam(_pattern);
             mapping_.setArg(_foundType);
-            StringList conv_ = InvokingOperation.tryInferOrImplicitFct(type_, _pattern.toString(), new StringMap<String>(), _page, _foundType);
+            StringList conv_ = InvokingOperation.tryInferOrImplicitFct(_pattern,new StringMap<String>(), _page, _foundType);
             for (String c: conv_) {
                 mapping_.setArg(c);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {

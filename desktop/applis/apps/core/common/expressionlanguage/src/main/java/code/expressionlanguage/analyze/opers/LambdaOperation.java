@@ -272,12 +272,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private void completeCandidate(AnalyzedPageEl _page, ParentInferring _par, OperationNode _m, StringList _candidates, boolean _list) {
         StringMap<String> vars_ = new StringMap<String>();
         int nbParentsInfer_ = _par.getNbParentsInfer();
-        String type_ = _page.getAliasFct();
         if (_m instanceof NamedArgumentOperation) {
             NamedArgumentOperation n_ = (NamedArgumentOperation) _m;
             String inferRecord_ = n_.infer();
             if (!inferRecord_.isEmpty()) {
-                StringList format_ = InvokingOperation.tryFormatFctRefRec(inferRecord_, nbParentsInfer_, type_, vars_, _page);
+                StringList format_ = InvokingOperation.tryFormatFctRefRec(inferRecord_, nbParentsInfer_, vars_, _page);
                 _candidates.addAllElts(format_);
             }
             MethodOperation call_ = n_.getParent();
@@ -300,7 +299,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int nbParentsInfer_ = _par.getNbParentsInfer();
         String name_ = _n.getName();
         MethodOperation call_ = _n.getParent();
-        String type_ = _page.getAliasFct();
         StringMap<String> vars_ = new StringMap<String>();
         RetrieveMethod f_ = (RetrieveMethod) call_;
         NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page, call_);
@@ -314,7 +312,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (InvokingOperation.isValidNameIndex(filter_, methodInfo_, name_)) {
                     newList_.add(methodInfo_);
                 }
-                StringList format_ = InvokingOperation.tryParamFormatFctRef(filter_, methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
+                StringList format_ = InvokingOperation.tryParamFormatFctRef(filter_, methodInfo_, name_, nbParentsInfer_, vars_, _page);
                 _candidates.addAllElts(format_);
             }
             methodInfos_.set(i, newList_);
@@ -323,7 +321,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private void feedMethodCandidateDirect(AnalyzedPageEl _page, ParentInferring _par, RetrieveMethod _m, StringList _candidates, boolean _list) {
         StringMap<String> vars_ = new StringMap<String>();
-        String type_ = _page.getAliasFct();
         int nbParentsInfer_ = _par.getNbParentsInfer();
         OperationNode firstChild_ = _m.getFirstChild();
         int deltaCount_ = InvokingOperation.getDeltaCount(_list, firstChild_);
@@ -334,7 +331,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int gr_ = methodInfos_.get(i).size();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                StringList format_ = InvokingOperation.tryFormatFctRef(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
+                StringList format_ = InvokingOperation.tryFormatFctRef(methodInfo_, indexChild_, nbParentsInfer_, vars_, _page);
                 _candidates.addAllElts(format_);
             }
         }
@@ -345,7 +342,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int nbParentsInfer_ = _par.getNbParentsInfer();
         String name_ = _n.getName();
         MethodOperation call_ = _n.getParent();
-        String type_ = _page.getAliasFct();
         RetrieveConstructor f_ = (RetrieveConstructor) call_;
         NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page, call_);
         CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
@@ -356,7 +352,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (InvokingOperation.isValidNameIndex(filter_, methodInfo_, name_)) {
                 newList_.add(methodInfo_);
             }
-            StringList format_ = InvokingOperation.tryParamFormatFctRef(filter_, methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
+            StringList format_ = InvokingOperation.tryParamFormatFctRef(filter_, methodInfo_, name_, nbParentsInfer_, vars_, _page);
             _candidates.addAllElts(format_);
         }
         methodInfos_.clear();
@@ -365,7 +361,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private void feedCtorCandidateDirect(AnalyzedPageEl _page, ParentInferring _par, RetrieveConstructor _m, StringList _candidates, boolean _list) {
         StringMap<String> vars_ = new StringMap<String>();
-        String type_ = _page.getAliasFct();
         int nbParentsInfer_ = _par.getNbParentsInfer();
         OperationNode firstChild_ = _m.getFirstChild();
         int deltaCount_ = InvokingOperation.getDeltaCount(_list, firstChild_);
@@ -374,24 +369,22 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int lenMet_ = methodInfos_.size();
         for (int i = 0; i < lenMet_; i++) {
             ConstructorInfo methodInfo_ = methodInfos_.get(i);
-            StringList format_ = InvokingOperation.tryFormatFctRef(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
+            StringList format_ = InvokingOperation.tryFormatFctRef(methodInfo_, indexChild_, nbParentsInfer_, vars_, _page);
             _candidates.addAllElts(format_);
         }
     }
 
     private StringList initCandidates(AnalyzedPageEl _page, String _foundType) {
-        String type_ = _page.getAliasFct();
-        StringBuilder pattern_ = new StringBuilder(type_);
         StringList candidates_ = new StringList();
         if (!_foundType.isEmpty()) {
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-            mapping_.setParam(pattern_.toString());
+            mapping_.setParam(_page.getAliasFct());
             mapping_.setArg(_foundType);
             if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 candidates_.add(_foundType);
             } else {
-                StringList conv_ = InvokingOperation.tryInferOrImplicitFctRef(pattern_.toString(), new StringMap<String>(), _page, _foundType);
+                StringList conv_ = InvokingOperation.tryInferOrImplicitFctRef(new StringMap<String>(), _page, _foundType);
                 candidates_.addAllElts(conv_);
             }
         }

@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ResolvedId;
+import code.expressionlanguage.analyze.opers.util.ResolvedIdBuilder;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
@@ -130,7 +131,12 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
                 anc_ = idUpdate_.getAncestor();
             }
         }
-        ResolvedId resolved_ = resolveArguments(i_, retRef_, cl_, EMPTY_STRING, static_, args_, className, _page);
+        ResolvedId resolved_;
+        if (off(false, i_, args_, className) > -1) {
+            resolved_ = errCase(i_, cl_, args_, className, _page);
+        } else {
+            resolved_ = new ResolvedIdBuilder(i_, cl_, args_, className, _page).build(i_, retRef_, EMPTY_STRING, static_, args_, _page);
+        }
         partOffsets.addAllElts(resolved_.getResults());
         partOffsetsErr = resolved_.getInfo();
         MethodId argsRes_ = resolved_.getId();
@@ -173,27 +179,13 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
             String fromTypeSet_ = firstFullSet_.trim();
             ResolvedIdType resolvedIdTypeSet_ = ResolvingTypes.resolveAccessibleIdTypeBlock(offSet_ + className.indexOf('(') + 1, fromTypeSet_, _page);
             String clSet_ = resolvedIdTypeSet_.getFullName();
-            AnaGeneType accTypeSet_ = resolvedIdTypeSet_.getGeneType();
             partOffsetsSet.add(resolvedIdTypeSet_.getDels());
             if (clSet_.isEmpty()) {
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
             int iSet_ = i_ + 1;
-            CustList<AnaResultPartType> typesAnaSet_ = types(iSet_, args_, clSet_, className, _page);
-            int fu2_ = off(false, iSet_, args_, className);
-            if (fu2_ > -1) {
-                varargErr(_page, typesAnaSet_, fu2_);
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
-            }
-            StringList classNamesSet_ = typesStr(typesAnaSet_, _page);
-            MethodId idCtSet_ = new MethodId(retRef_, MethodAccessKind.INSTANCE, EMPTY_STRING, classNamesSet_, refs(iSet_, args_.size(), args_), vararg(iSet_, args_) != -1);
-            methodSet = new ClassMethodIdAncestor(accTypeSet_,new ClassMethodId(clSet_, idCtSet_),0);
-            partOffsetsSet.addAllElts(typesAnaSet_);
-            partOffsetsErrSet = new InfoErrorDto("");
-            setSimpleArgument(new Argument());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            arrDef(_page, args_, retRef_, resolvedIdTypeSet_, iSet_);
             return;
         }
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + className.indexOf('(') + 1, fromType_, _page);
@@ -244,7 +236,6 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         String fromTypeSet_ = firstFullSet_.trim();
         ResolvedIdType resolvedIdTypeSet_ = ResolvingTypes.resolveAccessibleIdTypeBlock(offSet_ + className.indexOf('(') + 1, fromTypeSet_, _page);
         String clSet_ = resolvedIdTypeSet_.getFullName();
-        AnaGeneType accTypeSet_ = resolvedIdTypeSet_.getGeneType();
         partOffsetsSet.add(resolvedIdTypeSet_.getDels());
         if (clSet_.isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -252,20 +243,30 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         }
 
         int iSet_ = i_ + typesAna_.size() + 2;
-        CustList<AnaResultPartType> typesAnaSet_ = types(iSet_, args_, clSet_, className, _page);
-        int fu2_ = off(false, iSet_, args_, className);
+        arrDef(_page, args_, retRef_,resolvedIdTypeSet_, iSet_);
+    }
+
+    private void arrDef(AnalyzedPageEl _page, StringList _args, boolean _retRef, ResolvedIdType _resolvedIdTypeSet, int _iSet) {
+        String clSet_ = _resolvedIdTypeSet.getFullName();
+        AnaGeneType accTypeSet_ = _resolvedIdTypeSet.getGeneType();
+        CustList<AnaResultPartType> typesAnaSet_ = types(_iSet, _args, clSet_, className, _page);
+        int fu2_ = off(false, _iSet, _args, className);
         if (fu2_ > -1) {
             varargErr(_page, typesAnaSet_, fu2_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         StringList classNamesSet_ = typesStr(typesAnaSet_, _page);
-        MethodId idCtSet_ = new MethodId(retRef_, MethodAccessKind.INSTANCE, EMPTY_STRING, classNamesSet_, refs(iSet_, args_.size(), args_), vararg(iSet_, args_) != -1);
+        MethodId idCtSet_ = new MethodId(_retRef, MethodAccessKind.INSTANCE, EMPTY_STRING, classNamesSet_, refs(_iSet, _args.size(), _args), vararg(_iSet, _args) != -1);
         methodSet = new ClassMethodIdAncestor(accTypeSet_,new ClassMethodId(clSet_, idCtSet_),0);
         partOffsetsSet.addAllElts(typesAnaSet_);
         partOffsetsErrSet = new InfoErrorDto("");
-        filterMethod();
-        filterCtor();
+        String firstFull_ = _args.first();
+        String fromType_ = firstFull_.trim();
+        if (!StringUtil.quickEq(fromType_,"[]=")) {
+            filterMethod();
+            filterCtor();
+        }
         setSimpleArgument(new Argument());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
@@ -330,13 +331,10 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
             methodInfos_.addAllElts(newList_);
         }
     }
-    public static ResolvedId resolveArguments(int _from, boolean _retRef, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, AnalyzedPageEl _page){
-        int fu_ = off(false,_from, _params, _className);
-        if (fu_ > -1) {
-            FoundErrorInterpret varg_ = err(_from, _params, _className, _page);
-            return unsolvedId(_from, _fromType, _params, _className, _page, varg_);
-        }
-        return solvedId(_from, _retRef, _fromType, _name, _static, _params, _className, _page);
+
+    public static ResolvedId errCase(int _from, String _fromType, StringList _params, String _className, AnalyzedPageEl _page) {
+        FoundErrorInterpret varg_ = err(_from, _params, _className, _page);
+        return unsolvedId(_from, _fromType, _params, _className, _page, varg_);
     }
 
     public static FoundErrorInterpret err(int _from, StringList _params, String _className, AnalyzedPageEl _page) {
@@ -354,12 +352,6 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         int fu_ = off(false,_from, _params, _className);
         CustList<AnaResultPartType> typesAna_ = types(_from, _params, _fromType, _className, _page);
         return new ResolvedId(null, new InfoErrorDto(_varg.getBuiltError(), _page, fu_, 3), typesAna_);
-    }
-
-    public static ResolvedId solvedId(int _from, boolean _retRef, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, AnalyzedPageEl _page) {
-        CustList<AnaResultPartType> typesAna_ = types(_from, _params, _fromType, _className, _page);
-        StringList classNames_ = typesStr(typesAna_, _page);
-        return new ResolvedId(new MethodId(_retRef, _static, _name, classNames_,refs(_from,_from+classNames_.size(),_params), vararg(_from,_params) != -1),new InfoErrorDto(""),typesAna_);
     }
 
 

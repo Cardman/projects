@@ -74,20 +74,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         AnaClassArgumentMatching class_ = getPreviousResultClass();
         fromArray = class_.isArray();
-        String classType_ = "";
-        if (fwd_ != null) {
-            classType_ = fwd_.getClassType();
-        }
-        StringList l_;
-        if (!classType_.isEmpty()) {
-            l_ = new StringList(classType_);
-        } else {
-            l_ = class_.getNames();
-        }
-        StringList bounds_ = new StringList();
-        for (String c: l_) {
-            bounds_.addAllElts(getBounds(c, _page));
-        }
+        StringList bounds_ = bounds(_page, fwd_, class_);
         methodFound = trimMeth_;
         methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, false,excAbs_, _page.getGlobalClass()), getFormattedFilter(_page, this));
         int len_ = methodInfos.size();
@@ -105,10 +92,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         boolean apply_ = false;
         OperationNode curPar_ = getParent();
-        if (curPar_ instanceof AbstractDotOperation) {
-            if (curPar_.getParent() == null) {
-                apply_ = true;
-            }
+        if (curPar_ instanceof AbstractDotOperation && curPar_.getParent() == null) {
+            apply_ = true;
         }
         filterByReturnType("",apply_,methodInfos, _page, getParentMatching(this));
     }
@@ -199,20 +184,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         staticChoiceMethod = staticChoiceMethod_;
         String trimMeth_ = "[]";
         String trimMethSet_ = "[]=";
-        String classType_ = "";
-        if (fwd_ != null) {
-            classType_ = fwd_.getClassType();
-        }
-        StringList l_;
-        if (!classType_.isEmpty()) {
-            l_ = new StringList(classType_);
-        } else {
-            l_ = class_.getNames();
-        }
-        StringList bounds_ = new StringList();
-        for (String c: l_) {
-            bounds_.addAllElts(getBounds(c, _page));
-        }
+        StringList bounds_ = bounds(_page, fwd_, class_);
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.getParameterFilterErr().isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -261,6 +233,24 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             memberIdGet = clMeth2_.getMemberId();
         }
         errIndexer(_page, clMeth2_);
+    }
+
+    private StringList bounds(AnalyzedPageEl _page, ForwardOperation _fwd, AnaClassArgumentMatching _cl) {
+        String classType_ = "";
+        if (_fwd != null) {
+            classType_ = _fwd.getClassType();
+        }
+        StringList l_;
+        if (!classType_.isEmpty()) {
+            l_ = new StringList(classType_);
+        } else {
+            l_ = _cl.getNames();
+        }
+        StringList bounds_ = new StringList();
+        for (String c: l_) {
+            bounds_.addAllElts(getBounds(c, _page));
+        }
+        return bounds_;
     }
 
     private ClassMethodIdAncestor getId(String _tr) {

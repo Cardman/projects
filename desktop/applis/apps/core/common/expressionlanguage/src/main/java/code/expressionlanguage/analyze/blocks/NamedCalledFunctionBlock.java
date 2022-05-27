@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ResolvedId;
+import code.expressionlanguage.analyze.opers.util.ResolvedIdBuilder;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.*;
@@ -294,7 +295,12 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             delta_+= StringExpUtil.getOffset(nameLocId_);
             nameLocId_ = nameLocId_.trim();
         }
-        ResolvedId resolved_ = IdFctOperation.resolveArguments(1, retRef_, clDest_,nameLocId_,MethodAccessKind.INSTANCE,args_,sgn_, _page);
+        ResolvedId resolved_;
+        if (IdFctOperation.off(false, 1, args_, sgn_) > -1) {
+            resolved_ = IdFctOperation.errCase(1, clDest_, args_, sgn_, _page);
+        } else {
+            resolved_ = new ResolvedIdBuilder(1, clDest_, args_, sgn_, _page).build(1, retRef_, nameLocId_, MethodAccessKind.INSTANCE, args_, _page);
+        }
         superPartOffsets_.addAllElts(resolved_.getResults());
         MethodId methodIdDest_ = resolved_.getId();
         if (methodIdDest_ == null) {
