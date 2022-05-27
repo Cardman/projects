@@ -25,7 +25,7 @@ public final class ReachOperationUtil {
         if (!(_ops.last() instanceof DeclaringOperation)) {
             sub_ = list_;
         } else {
-            int index_ = StringUtil.indexOf(_field.getFieldName(),_fieldName);
+            int index_ = StringUtil.indexOf(_field.getElements().getFieldName(),_fieldName);
             CustList<ReachOperationNode> ch_ = root_.getChildrenNodes();
             ReachOperationNode rootLoc_ = ch_.get(index_);
             int from_;
@@ -83,9 +83,9 @@ public final class ReachOperationUtil {
             a_ = curr_.getArgument();
             if (a_ == null) {
                 ind_++;
-                continue;
+            } else {
+                ind_ = getNextIndex(curr_, a_.getStruct());
             }
-            ind_ = getNextIndex(curr_, a_.getStruct());
         }
     }
 
@@ -129,7 +129,7 @@ public final class ReachOperationUtil {
                 current_ = op_;
                 continue;
             }
-            while (true) {
+            while (current_ != null) {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
@@ -143,16 +143,13 @@ public final class ReachOperationUtil {
                 op_ = current_.getParent();
                 if (op_ == null) {
                     current_ = null;
-                    break;
-                }
-                ReachMethodOperation par_ = exp_.getParent();
-                if (op_ == _root) {
-                    out_.add(par_);
+                } else if (op_ == _root) {
+                    out_.add(exp_.getParent());
                     current_ = null;
-                    break;
+                } else {
+                    current_ = op_;
+                    exp_ = exp_.getParent();
                 }
-                current_ = op_;
-                exp_ = par_;
             }
         }
         return out_;
@@ -171,29 +168,21 @@ public final class ReachOperationUtil {
     public static int getNextIndex(ReachOperationNode _operation, Struct _value) {
         int index_ = _operation.getIndexChild();
         ReachMethodOperation par_ = _operation.getParent();
-        if (par_ instanceof ReachNullSafeOperation) {
-            if (_value != NullStruct.NULL_VALUE) {
-                return par_.getOrder();
-            }
+        if (par_ instanceof ReachNullSafeOperation && _value != NullStruct.NULL_VALUE) {
+            return par_.getOrder();
         }
-        if (par_ instanceof ReachAndOperation) {
-            if (BooleanStruct.isFalse(_value)) {
-                return par_.getOrder();
-            }
+        if (par_ instanceof ReachAndOperation && BooleanStruct.isFalse(_value)) {
+            return par_.getOrder();
         }
-        if (par_ instanceof ReachOrOperation) {
-            if (BooleanStruct.isTrue(_value)) {
-                return par_.getOrder();
-            }
+        if (par_ instanceof ReachOrOperation && BooleanStruct.isTrue(_value)) {
+            return par_.getOrder();
         }
         if (par_ instanceof ReachTernaryOperation) {
             if (index_ == 1) {
                 return par_.getOrder();
             }
-            if (index_ == 0) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return _operation.getNextSibling().getOrder() + 1;
-                }
+            if (index_ == 0 && BooleanStruct.isFalse(_value)) {
+                return _operation.getNextSibling().getOrder() + 1;
             }
         }
         return _operation.getOrder() + 1;

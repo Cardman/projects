@@ -5,10 +5,10 @@ import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.util.IntMap;
 
 public abstract class StaticRootBlock extends RootBlock {
-    public StaticRootBlock(int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
+    protected StaticRootBlock(int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
                        String _templateDef, IntMap<String> _directSuperTypes,
                        int _offset) {
-        super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset, _name);
+        super(_access, _templateDef, _directSuperTypes, _offset, contentRoot(_idRowCol, _packageName, _name));
     }
 
     @Override

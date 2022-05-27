@@ -243,7 +243,7 @@ public final class Coverage {
             return;
         }
         CustList<BlockCoverageResult> fctRes_ = getTypeRes((AbsBk)_block);
-        fctRes_.get(_block.getFieldNumber()).getAnnotations().add(new BlockCoverageResult());
+        fctRes_.get(_block.getElements().getFieldNumber()).getAnnotations().add(new BlockCoverageResult());
     }
     public void putBlockOperationsAnnotType(RootBlock _block) {
         if (!isCovering()) {
@@ -317,7 +317,7 @@ public final class Coverage {
     }
 
     private BlockCoverageResult getFieldRes(AbsBk _mem) {
-        return types.get(((RootBlock)_mem.getParent()).getNumberAll()).getFields().get(((InfoBlock)_mem).getFieldNumber());
+        return types.get(((RootBlock)_mem.getParent()).getNumberAll()).getFields().get(((InfoBlock)_mem).getElements().getFieldNumber());
     }
 
     public CustList<FunctionCoverageResult> getOperators() {

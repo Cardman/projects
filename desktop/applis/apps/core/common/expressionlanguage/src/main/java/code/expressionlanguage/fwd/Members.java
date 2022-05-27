@@ -44,7 +44,7 @@ public final class Members {
         return allFields.isValidIndex(_key);
     }
     public ExecInfoBlock getField(InfoBlock _key) {
-        return getField(_key.getFieldNumber());
+        return getField(_key.getElements().getFieldNumber());
     }
     public ExecInfoBlock getField(int _key) {
         return allFields.getValue(_key);

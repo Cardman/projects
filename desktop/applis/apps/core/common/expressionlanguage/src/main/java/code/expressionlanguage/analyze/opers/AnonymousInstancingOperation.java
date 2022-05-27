@@ -111,7 +111,8 @@ public final class AnonymousInstancingOperation extends
         if (!(_type instanceof RootBlock)) {
             return true;
         }
-        if (ContextUtil.isFinalType(_type)) {
+        RootBlock t_ = (RootBlock) _type;
+        if (ContextUtil.isFinalType(t_)) {
             return true;
         }
         return !_type.withoutInstance();
@@ -182,15 +183,15 @@ public final class AnonymousInstancingOperation extends
         }
         AccessedFct imp_ = _page.getAccessedFct();
         if (imp_ != null) {
-            imp_.getAnonymous().add(instancingAnonContent.getBlock());
+            imp_.getElements().getElements().getTypes().add(instancingAnonContent.getBlock());
         }
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
-            ((InfoBlock)currentBlock_).getAnonymous().add(instancingAnonContent.getBlock());
+            ((InfoBlock) currentBlock_).getElements().getElements().getTypes().add(instancingAnonContent.getBlock());
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
-            ((MemberCallingsBlock)currentBlock_).getAnonymous().add(instancingAnonContent.getBlock());
+            ((MemberCallingsBlock)currentBlock_).getElements().getElements().getTypes().add(instancingAnonContent.getBlock());
         } else if (currentBlock_ instanceof RootBlock) {
-            ((RootBlock)currentBlock_).getAnonymousRoot().add(instancingAnonContent.getBlock());
+            ((RootBlock)currentBlock_).getElementsType().getTypes().add(instancingAnonContent.getBlock());
         }
         instancingAnonContent.getBlock().getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         instancingAnonContent.getBlock().getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());

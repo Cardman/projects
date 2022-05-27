@@ -48,10 +48,8 @@ public final class ContextUtil {
         RootBlock parName_ = _block.getParent();
         String rootPkg_ = root_.getPackageName();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            if (parName_ != null) {
-                if (root_.isSubTypeOf(parName_)) {
-                    return true;
-                }
+            if (parName_ != null && root_.isSubTypeOf(parName_)) {
+                return true;
             }
             return processNormalProtected(_block, root_, belongPkg_, rootPkg_);
         }
@@ -93,10 +91,7 @@ public final class ContextUtil {
         }
         return new CustList<TypeVar>();
     }
-    public static boolean isFinalType(AnaGeneType _type) {
-        if (_type instanceof StandardClass) {
-            return ((StandardClass)_type).isFinalStdType();
-        }
+    public static boolean isFinalType(RootBlock _type) {
         if (_type instanceof ClassBlock) {
             return ((ClassBlock)_type).isFinalType();
         }
@@ -207,11 +202,10 @@ public final class ContextUtil {
                 continue;
             }
             InfoBlock i_ = (InfoBlock) b;
-            int ind_ = StringUtil.indexOf(i_.getFieldName(), search_);
-            if (ind_ < 0) {
-                continue;
+            int ind_ = StringUtil.indexOf(i_.getElements().getFieldName(), search_);
+            if (ind_ >= 0) {
+                finalField_ = i_.isFinalField();
             }
-            finalField_ = i_.isFinalField();
         }
         return finalField_;
     }
@@ -225,16 +219,15 @@ public final class ContextUtil {
                 }
                 InfoBlock i_ = (InfoBlock) b;
                 int valOffset_ = AnaTypeUtil.getIndex(i_, _fieldName);
-                if (valOffset_ < 0) {
-                    continue;
+                if (valOffset_ >= 0) {
+                    String type_ = i_.getImportedClassName();
+                    boolean final_ = i_.isFinalField();
+                    boolean static_ = i_.isStaticField();
+                    Accessed a_ = new Accessed(i_.getAccess(), _anaGeneType.getPackageName(), r_);
+                    FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(id_, type_, static_, final_, a_, valOffset_, b.getFile().getFileName());
+                    fieldInfo_.memberId(r_.getNumberAll(), i_.getElements().getFieldNumber());
+                    return fieldInfo_;
                 }
-                String type_ = i_.getImportedClassName();
-                boolean final_ = i_.isFinalField();
-                boolean static_ = i_.isStaticField();
-                Accessed a_ = new Accessed(i_.getAccess(), _anaGeneType.getPackageName(), r_);
-                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(id_, type_, static_, final_, a_, valOffset_,b.getFile().getFileName());
-                fieldInfo_.memberId(r_.getNumberAll(),i_.getFieldNumber());
-                return fieldInfo_;
             }
             return null;
         }

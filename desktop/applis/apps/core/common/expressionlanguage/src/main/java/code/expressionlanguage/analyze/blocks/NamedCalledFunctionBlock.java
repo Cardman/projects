@@ -70,9 +70,9 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     private int typeSetterOff;
     private String typeSetter="";
     private AnaResultPartType partOffsetsReturnSetter = new AnaResultPartType();
-    private CustList<OperationNode> rootsListSupp = new CustList<OperationNode>();
-
-    private final CustList<ResultExpression> resListSupp = new CustList<ResultExpression>();
+//    private CustList<OperationNode> rootsListSupp = new CustList<OperationNode>();
+//
+//    private final CustList<ResultExpression> resListSupp = new CustList<ResultExpression>();
     private ResultParsedAnnots annotationsSupp = new ResultParsedAnnots();
 
     public NamedCalledFunctionBlock(ParsedFctHeader _header, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue, OffsetStringInfo _fctName, int _offset, int _rightPar) {
@@ -216,20 +216,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         return MethodAccessKind.INSTANCE;
     }
     public void buildAnnotationsSupp(AnalyzedPageEl _page) {
-        rootsListSupp = new CustList<OperationNode>();
-        int len_ = annotationsSupp.getAnnotations().size();
-        for (int i = 0; i < len_; i++) {
-            _page.setSumOffset(resListSupp.get(i).getSumOffset());
-            _page.zeroOffset();
-            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resListSupp.get(i), c_, _page);
-            ReachOperationUtil.tryCalculate(r_, _page);
-            rootsListSupp.add(r_);
-        }
-    }
-
-    public CustList<ResultExpression> getResListSupp() {
-        return resListSupp;
+        annotationsSupp.buildAnnotations(_page);
     }
 
     public void buildTypes(RootBlock _root, AnalyzedPageEl _page) {
@@ -566,10 +553,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
 
     public AnaResultPartType getPartOffsetsReturnSetter() {
         return partOffsetsReturnSetter;
-    }
-
-    public CustList<OperationNode> getRootsListSupp() {
-        return rootsListSupp;
     }
 
     public ResultParsedAnnots getAnnotationsSupp() {

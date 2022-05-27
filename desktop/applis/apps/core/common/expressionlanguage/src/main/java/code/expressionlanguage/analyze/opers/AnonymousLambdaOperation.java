@@ -62,172 +62,18 @@ public final class AnonymousLambdaOperation extends
         int offset_ = _page.getOffset();
         int sumOffset_ = _page.getSumOffset();
         ParentInferring par_ = ParentInferring.getParentInferring(this);
-        OperationNode m_ = par_.getOperation();
-        int nbParentsInfer_ = par_.getNbParentsInfer();
-        String typeAff_;
-        AbsBk cur_ = _page.getCurrentBlock();
-        if (m_ == null && cur_ instanceof ReturnMethod) {
-            typeAff_ = InvokingOperation.tryGetRetType(_page);
-        } else {
-            typeAff_ = InvokingOperation.tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
-        }
-        String keyWordVar_ = _page.getKeyWords().getKeyWordVar();
-        String foundType_ = EMPTY_STRING;
-        if (!InvokingOperation.isUndefined(typeAff_, keyWordVar_)) {
-            String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_);
-            if (!InvokingOperation.isNotCorrectDim(cp_)){
-                foundType_ = cp_;
-            }
-        }
+        String foundType_ = foundType(_page, par_);
         String type_ = _page.getAliasFct();
-        StringMap<String> vars_ = new StringMap<String>();
         int nbParams_ = parse.getParametersType().size()+1;
-        StringBuilder pattern_ = new StringBuilder(type_);
-        StringList wc_ = new StringList();
-        for (int i = 0; i < nbParams_; i++) {
-            wc_.add("?");
-        }
-        pattern_.append('<').append(StringUtil.join(wc_,',')).append('>');
-        StringList candidates_ = new StringList();
-        if (!foundType_.isEmpty()) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-            mapping_.setParam(pattern_.toString());
-            mapping_.setArg(foundType_);
-            StringList conv_ = InvokingOperation.tryInferOrImplicitFct(type_, pattern_.toString(), new StringMap<String>(), _page, foundType_);
-            for (String c: conv_) {
-                mapping_.setArg(c);
-                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                    continue;
-                }
-                candidates_.add(c);
-            }
-        }
+        StringBuilder pattern_ = pattern(type_, nbParams_);
+        StringList candidates_ = initCandidates(_page, foundType_, pattern_);
+        OperationNode m_ = par_.getOperation();
         boolean list_ = false;
         if (m_ instanceof ArgumentListInstancing){
             list_ = true;
             m_ = m_.getParent().getParent();
         }
-        if (m_ instanceof NamedArgumentOperation){
-            NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
-            String inferRecord_ = n_.infer();
-            if (!inferRecord_.isEmpty()) {
-                Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-                mapping_.setParam(pattern_.toString());
-                StringList format_ = InvokingOperation.tryFormatFctRec(inferRecord_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
-                for (String c: format_) {
-                    mapping_.setArg(c);
-                    if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                        continue;
-                    }
-                    candidates_.add(c);
-                }
-            }
-            String name_ = n_.getName();
-            MethodOperation call_ = n_.getParent();
-            if (call_ instanceof RetrieveMethod) {
-                RetrieveMethod f_ = (RetrieveMethod) call_;
-                Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-                mapping_.setParam(pattern_.toString());
-                NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page,call_);
-                CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
-                int len_ = methodInfos_.size();
-                for (int i = 0; i < len_; i++) {
-                    int gr_ = methodInfos_.get(i).size();
-                    CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
-                    for (int j = 0; j < gr_; j++) {
-                        MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
-                            newList_.add(methodInfo_);
-                        }
-                        StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
-                        for (String c: format_) {
-                            mapping_.setArg(c);
-                            if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                                continue;
-                            }
-                            candidates_.add(c);
-                        }
-                    }
-                    methodInfos_.set(i,newList_);
-                }
-            }
-            if (call_ instanceof RetrieveConstructor) {
-                RetrieveConstructor f_ = (RetrieveConstructor) call_;
-                Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-                mapping_.setParam(pattern_.toString());
-                NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page,call_);
-                CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
-                int len_ = methodInfos_.size();
-                CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
-                for (int i = 0; i < len_; i++) {
-                    ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                    if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
-                        newList_.add(methodInfo_);
-                    }
-                    StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
-                    for (String c: format_) {
-                        mapping_.setArg(c);
-                        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                            continue;
-                        }
-                        candidates_.add(c);
-                    }
-                }
-                methodInfos_.clear();
-                methodInfos_.addAllElts(newList_);
-            }
-        }
-        if (m_ instanceof RetrieveMethod){
-            RetrieveMethod f_ = (RetrieveMethod) m_;
-            Mapping mapping_ = new Mapping();
-            mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-            mapping_.setParam(pattern_.toString());
-            OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = InvokingOperation.getDeltaCount(list_,firstChild_);
-            int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
-            CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
-            int len_ = methodInfos_.size();
-            for (int i = 0; i < len_; i++) {
-                int gr_ = methodInfos_.get(i).size();
-                for (int j = 0; j < gr_; j++) {
-                    MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
-                    for (String c: format_) {
-                        mapping_.setArg(c);
-                        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                            continue;
-                        }
-                        candidates_.add(c);
-                    }
-                }
-            }
-        }
-        if (m_ instanceof RetrieveConstructor){
-            RetrieveConstructor f_ = (RetrieveConstructor) m_;
-            Mapping mapping_ = new Mapping();
-            mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-            mapping_.setParam(pattern_.toString());
-            OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = InvokingOperation.getDeltaCount(list_,firstChild_);
-            int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
-            CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
-            int len_ = methodInfos_.size();
-            for (int i = 0; i < len_; i++) {
-                ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
-                for (String c: format_) {
-                    mapping_.setArg(c);
-                    if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                        continue;
-                    }
-                    candidates_.add(c);
-                }
-            }
-        }
+        completeCandidate(_page, par_, pattern_, candidates_, m_, list_);
         AnaFormattedRootBlock copy_ = AnaFormattedRootBlock.copy(_page.getGlobalType());
         lambdaCommonContent.setFoundFormatted(copy_);
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -242,65 +88,12 @@ public final class AnonymousLambdaOperation extends
         }
         AccessedFct imp_ = _page.getAccessedFct();
         if (imp_ != null) {
-            imp_.getAnonymousFct().add(block);
+            imp_.getElements().getElements().getLambdas().add(block);
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();
         if (StringUtil.contains(parTypes_,"")||parse.getReturnType().isEmpty()) {
-            StringList modifiedArgCandidates_ = new StringList();
-            int nbArgs_ = parTypes_.size() + 1;
-            for (int i = 0; i < nbArgs_; i++) {
-                StringList argCandidates_ = new StringList();
-                for (String s: candidates_) {
-                    StringList allTypes_ = StringExpUtil.getAllTypes(s);
-                    String arg_ = allTypes_.get(Math.min(i+1,allTypes_.getLastIndex()));
-                    if (StringUtil.quickEq(arg_,"?")) {
-                        continue;
-                    }
-                    argCandidates_.add(arg_);
-                }
-                if (argCandidates_.onlyOneElt()) {
-                    modifiedArgCandidates_.add(argCandidates_.first());
-                } else {
-                    modifiedArgCandidates_.add(_page.getAliasObject());
-                }
-            }
-            StringList feed_ = new StringList();
-            Ints offestsTypes_ = parse.getOffestsTypes();
-            int len_ = Math.min(parTypes_.size(),modifiedArgCandidates_.size());
-            for (int i = 0; i < len_; i++) {
-                String before_ = parTypes_.get(i);
-                if (before_.isEmpty()) {
-                    if (modifiedArgCandidates_.get(i).startsWith("~")) {
-                        feed_.add(modifiedArgCandidates_.get(i).substring(1));
-                    } else {
-                        feed_.add(modifiedArgCandidates_.get(i));
-                    }
-                    block.getPartOffsetsParams().add(new AnaResultPartType());
-                } else {
-                    feed_.add(block.buildInternParam(offestsTypes_.get(i),before_, _page));
-                }
-            }
-            String retType_;
-            if (!parse.getReturnType().isEmpty()) {
-                String void_ = _page.getAliasVoid();
-                if (StringUtil.quickEq(parse.getReturnType().trim(), void_)) {
-                    retType_ = void_;
-                } else {
-                    retType_ = block.buildInternRet(parse.getReturnOffest(), parse.getReturnType(), _page);
-                }
-            } else {
-                if (modifiedArgCandidates_.last().startsWith("~")) {
-                    retType_ = modifiedArgCandidates_.last().substring(1);
-                } else {
-                    retType_ = modifiedArgCandidates_.last();
-                }
-            }
-            block.getImportedParametersTypes().clear();
-            block.getImportedParametersTypes().addAllElts(feed_);
-            block.setImportedReturnType(retType_);
-            block.setVarargs(parse
-            );
+            completeTypes(_page, candidates_);
             built_ = true;
         }
         if (!built_) {
@@ -311,11 +104,11 @@ public final class AnonymousLambdaOperation extends
         RootBlock.validateParameters(block, _page, _page.getCurrentFile());
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
-            ((InfoBlock)currentBlock_).getAnonymousFct().add(block);
+            ((InfoBlock) currentBlock_).getElements().getElements().getLambdas().add(block);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
-            ((MemberCallingsBlock)currentBlock_).getAnonymousFct().add(block);
+            ((MemberCallingsBlock)currentBlock_).getElements().getElements().getLambdas().add(block);
         } else if (currentBlock_ instanceof RootBlock) {
-            ((RootBlock)currentBlock_).getAnonymousRootFct().add(block);
+            ((RootBlock)currentBlock_).getElementsType().getLambdas().add(block);
         }
         String importedReturnType_ = block.getImportedReturnType();
         MethodId idC_ = block.getId();
@@ -329,6 +122,295 @@ public final class AnonymousLambdaOperation extends
         setResultClass(new AnaClassArgumentMatching(fct_));
         _page.setOffset(offset_);
         _page.setSumOffset(sumOffset_);
+    }
+
+    private void completeTypes(AnalyzedPageEl _page, StringList _candidates) {
+        StringList modifiedArgCandidates_ = modifiedArgCandidates(_page, _candidates);
+        StringList feed_ = params(_page, modifiedArgCandidates_);
+        String retType_ = retType(_page, modifiedArgCandidates_);
+        block.getImportedParametersTypes().clear();
+        block.getImportedParametersTypes().addAllElts(feed_);
+        block.setImportedReturnType(retType_);
+        block.setVarargs(parse
+        );
+    }
+
+    private StringList params(AnalyzedPageEl _page, StringList _modifiedArgCandidates) {
+        StringList parTypes_ = parse.getParametersType();
+        StringList feed_ = new StringList();
+        Ints offestsTypes_ = parse.getOffestsTypes();
+        int len_ = Math.min(parTypes_.size(), _modifiedArgCandidates.size());
+        for (int i = 0; i < len_; i++) {
+            String before_ = parTypes_.get(i);
+            if (before_.isEmpty()) {
+                if (_modifiedArgCandidates.get(i).startsWith("~")) {
+                    feed_.add(_modifiedArgCandidates.get(i).substring(1));
+                } else {
+                    feed_.add(_modifiedArgCandidates.get(i));
+                }
+                block.getPartOffsetsParams().add(new AnaResultPartType());
+            } else {
+                feed_.add(block.buildInternParam(offestsTypes_.get(i),before_, _page));
+            }
+        }
+        return feed_;
+    }
+
+    private StringList modifiedArgCandidates(AnalyzedPageEl _page, StringList _candidates) {
+        StringList parTypes_ = parse.getParametersType();
+        StringList modifiedArgCandidates_ = new StringList();
+        int nbArgs_ = parTypes_.size() + 1;
+        for (int i = 0; i < nbArgs_; i++) {
+            StringList argCandidates_ = new StringList();
+            for (String s: _candidates) {
+                StringList allTypes_ = StringExpUtil.getAllTypes(s);
+                String arg_ = allTypes_.get(Math.min(i+1,allTypes_.getLastIndex()));
+                if (StringUtil.quickEq(arg_,"?")) {
+                    continue;
+                }
+                argCandidates_.add(arg_);
+            }
+            if (argCandidates_.onlyOneElt()) {
+                modifiedArgCandidates_.add(argCandidates_.first());
+            } else {
+                modifiedArgCandidates_.add(_page.getAliasObject());
+            }
+        }
+        return modifiedArgCandidates_;
+    }
+
+    private String retType(AnalyzedPageEl _page, StringList _modifiedArgCandidates) {
+        String retType_;
+        if (!parse.getReturnType().isEmpty()) {
+            String void_ = _page.getAliasVoid();
+            if (StringUtil.quickEq(parse.getReturnType().trim(), void_)) {
+                retType_ = void_;
+            } else {
+                retType_ = block.buildInternRet(parse.getReturnOffest(), parse.getReturnType(), _page);
+            }
+        } else {
+            if (_modifiedArgCandidates.last().startsWith("~")) {
+                retType_ = _modifiedArgCandidates.last().substring(1);
+            } else {
+                retType_ = _modifiedArgCandidates.last();
+            }
+        }
+        return retType_;
+    }
+
+    private void completeCandidate(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, OperationNode _m, boolean _list) {
+        if (_m instanceof NamedArgumentOperation){
+            NamedArgumentOperation n_ = (NamedArgumentOperation) _m;
+            String inferRecord_ = n_.infer();
+            if (!inferRecord_.isEmpty()) {
+                feedRecordCandidates(_page, _par, _pattern, _candidates, inferRecord_);
+            }
+            MethodOperation call_ = n_.getParent();
+            if (call_ instanceof RetrieveMethod) {
+                feedMethodCandidateIndirect(_page, _par, _pattern, _candidates, n_);
+            }
+            if (call_ instanceof RetrieveConstructor) {
+                feedCtorCandidateIndirect(_page, _par, _pattern, _candidates, n_);
+            }
+        }
+        if (_m instanceof RetrieveMethod){
+            feedMethodCandidateDirect(_page, _par, _pattern, _candidates, (RetrieveMethod) _m, _list);
+        }
+        if (_m instanceof RetrieveConstructor){
+            feedCtorCandidateDirect(_page, _par, _pattern, _candidates, (RetrieveConstructor) _m, _list);
+        }
+    }
+
+    private void feedRecordCandidates(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, String _inferRecord) {
+        int nbParentsInfer_ = _par.getNbParentsInfer();
+        StringMap<String> vars_ = new StringMap<String>();
+        String type_ = _page.getAliasFct();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+        mapping_.setParam(_pattern.toString());
+        StringList format_ = InvokingOperation.tryFormatFctRec(_inferRecord, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+        for (String c: format_) {
+            mapping_.setArg(c);
+            if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                continue;
+            }
+            _candidates.add(c);
+        }
+    }
+
+    private void feedMethodCandidateIndirect(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, NamedArgumentOperation _n) {
+        int nbParentsInfer_ = _par.getNbParentsInfer();
+        String name_ = _n.getName();
+        MethodOperation call_ = _n.getParent();
+        StringMap<String> vars_ = new StringMap<String>();
+        String type_ = _page.getAliasFct();
+        RetrieveMethod f_ = (RetrieveMethod) call_;
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+        mapping_.setParam(_pattern.toString());
+        NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page, call_);
+        CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+        int len_ = methodInfos_.size();
+        for (int i = 0; i < len_; i++) {
+            int gr_ = methodInfos_.get(i).size();
+            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                if (InvokingOperation.isValidNameIndex(filter_,methodInfo_, name_)) {
+                    newList_.add(methodInfo_);
+                }
+                StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+                for (String c: format_) {
+                    mapping_.setArg(c);
+                    if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                        continue;
+                    }
+                    _candidates.add(c);
+                }
+            }
+            methodInfos_.set(i,newList_);
+        }
+    }
+
+    private void feedCtorCandidateIndirect(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, NamedArgumentOperation _n) {
+        int nbParentsInfer_ = _par.getNbParentsInfer();
+        String name_ = _n.getName();
+        MethodOperation call_ = _n.getParent();
+        StringMap<String> vars_ = new StringMap<String>();
+        String type_ = _page.getAliasFct();
+        RetrieveConstructor f_ = (RetrieveConstructor) call_;
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+        mapping_.setParam(_pattern.toString());
+        NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page, call_);
+        CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+        int len_ = methodInfos_.size();
+        CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+        for (int i = 0; i < len_; i++) {
+            ConstructorInfo methodInfo_ = methodInfos_.get(i);
+            if (InvokingOperation.isValidNameIndex(filter_,methodInfo_, name_)) {
+                newList_.add(methodInfo_);
+            }
+            StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+            for (String c: format_) {
+                mapping_.setArg(c);
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                    continue;
+                }
+                _candidates.add(c);
+            }
+        }
+        methodInfos_.clear();
+        methodInfos_.addAllElts(newList_);
+    }
+
+    private void feedMethodCandidateDirect(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, RetrieveMethod _m, boolean _list) {
+        StringMap<String> vars_ = new StringMap<String>();
+        int nbParentsInfer_ = _par.getNbParentsInfer();
+        String type_ = _page.getAliasFct();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+        mapping_.setParam(_pattern.toString());
+        OperationNode firstChild_ = _m.getFirstChild();
+        int deltaCount_ = InvokingOperation.getDeltaCount(_list,firstChild_);
+        int indexChild_ = _par.getOperationChild().getIndexChild()-deltaCount_;
+        CustList<CustList<MethodInfo>> methodInfos_ = _m.getMethodInfos();
+        int len_ = methodInfos_.size();
+        for (int i = 0; i < len_; i++) {
+            int gr_ = methodInfos_.get(i).size();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+                for (String c: format_) {
+                    mapping_.setArg(c);
+                    if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                        continue;
+                    }
+                    _candidates.add(c);
+                }
+            }
+        }
+    }
+
+    private void feedCtorCandidateDirect(AnalyzedPageEl _page, ParentInferring _par, StringBuilder _pattern, StringList _candidates, RetrieveConstructor _m, boolean _list) {
+        StringMap<String> vars_ = new StringMap<String>();
+        String type_ = _page.getAliasFct();
+        int nbParentsInfer_ = _par.getNbParentsInfer();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+        mapping_.setParam(_pattern.toString());
+        OperationNode firstChild_ = _m.getFirstChild();
+        int deltaCount_ = InvokingOperation.getDeltaCount(_list,firstChild_);
+        int indexChild_ = _par.getOperationChild().getIndexChild()-deltaCount_;
+        CustList<ConstructorInfo> methodInfos_ = _m.getCtors();
+        int len_ = methodInfos_.size();
+        for (int i = 0; i < len_; i++) {
+            ConstructorInfo methodInfo_ = methodInfos_.get(i);
+            StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, _pattern.toString(), vars_, _page);
+            for (String c: format_) {
+                mapping_.setArg(c);
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                    continue;
+                }
+                _candidates.add(c);
+            }
+        }
+    }
+
+    private StringBuilder pattern(String _type, int _nbParams) {
+        StringBuilder pattern_ = new StringBuilder(_type);
+        StringList wc_ = new StringList();
+        for (int i = 0; i < _nbParams; i++) {
+            wc_.add("?");
+        }
+        pattern_.append('<').append(StringUtil.join(wc_,',')).append('>');
+        return pattern_;
+    }
+
+    private StringList initCandidates(AnalyzedPageEl _page, String _foundType, StringBuilder _pattern) {
+        String type_ = _page.getAliasFct();
+        StringList candidates_ = new StringList();
+        if (!_foundType.isEmpty()) {
+            Mapping mapping_ = new Mapping();
+            mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+            mapping_.setParam(_pattern.toString());
+            mapping_.setArg(_foundType);
+            StringList conv_ = InvokingOperation.tryInferOrImplicitFct(type_, _pattern.toString(), new StringMap<String>(), _page, _foundType);
+            for (String c: conv_) {
+                mapping_.setArg(c);
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                    continue;
+                }
+                candidates_.add(c);
+            }
+        }
+        return candidates_;
+    }
+
+    private String foundType(AnalyzedPageEl _page, ParentInferring _par) {
+        int nbParentsInfer_ = _par.getNbParentsInfer();
+        String typeAff_ = typeAff(_page, _par);
+        String keyWordVar_ = _page.getKeyWords().getKeyWordVar();
+        String foundType_ = EMPTY_STRING;
+        if (!InvokingOperation.isUndefined(typeAff_, keyWordVar_)) {
+            String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_);
+            if (!InvokingOperation.isNotCorrectDim(cp_)){
+                foundType_ = cp_;
+            }
+        }
+        return foundType_;
+    }
+
+    static String typeAff(AnalyzedPageEl _page, ParentInferring _par) {
+        OperationNode m_ = _par.getOperation();
+        String typeAff_;
+        AbsBk cur_ = _page.getCurrentBlock();
+        if (m_ == null && cur_ instanceof ReturnMethod) {
+            typeAff_ = InvokingOperation.tryGetRetType(_page);
+        } else {
+            typeAff_ = InvokingOperation.tryGetTypeAff(m_, _par.getOperationChild().getIndexChild());
+        }
+        return typeAff_;
     }
 
     private static String formatReturn(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _constraints) {

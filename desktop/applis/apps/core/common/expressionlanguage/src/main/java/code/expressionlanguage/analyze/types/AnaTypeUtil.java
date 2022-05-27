@@ -446,7 +446,7 @@ public final class AnaTypeUtil {
 
     private static boolean allCst(AnalyzedPageEl _page, String _i, InfoBlock _a) {
         boolean allCst_ = true;
-        for (String n: _a.getFieldName()) {
+        for (String n: _a.getElements().getFieldName()) {
             StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
             if (NumParsers.getStaticField(new ClassField(_i, n), staticFields_) == null) {
                 allCst_ = false;
@@ -869,7 +869,7 @@ public final class AnaTypeUtil {
         return new AnaClassArgumentMatching(cl_);
     }
     public static int getIndex(InfoBlock _i, String _field) {
-        int ind_ = StringUtil.indexOf(_i.getFieldName(), _field.trim());
+        int ind_ = StringUtil.indexOf(_i.getElements().getFieldName(), _field.trim());
         if (ind_ < 0) {
             return -1;
         }

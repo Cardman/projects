@@ -2,6 +2,9 @@ package code.expressionlanguage.fwd.blocks;
 
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.util.CustList;
+import code.util.Ints;
 
 public final class AnaElementContent {
 
@@ -17,6 +20,12 @@ public final class AnaElementContent {
 
     private final int tempClassOffset;
     private final EnumBlock parentEnum;
+    private int trOffset;
+    private final Ints lastBadIndexes = new Ints();
+
+    private boolean koTy;
+    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+
     public AnaElementContent(EnumBlock _m, OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value) {
@@ -58,5 +67,29 @@ public final class AnaElementContent {
 
     public EnumBlock getParentEnum() {
         return parentEnum;
+    }
+
+    public int getTrOffset() {
+        return trOffset;
+    }
+
+    public void setTrOffset(int _tr) {
+        this.trOffset = _tr;
+    }
+
+    public Ints getLastBadIndexes() {
+        return lastBadIndexes;
+    }
+
+    public boolean isKoTy() {
+        return koTy;
+    }
+
+    public void setKoTy(boolean _ko) {
+        this.koTy = _ko;
+    }
+
+    public CustList<AnaResultPartType> getPartOffsets() {
+        return partOffsets;
     }
 }

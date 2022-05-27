@@ -1,14 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.util.CustList;
-
 public interface AccessedFct {
 
-    CustList<RootBlock> getReserved();
+    AnonymousElementsFct getElements();
 
-    CustList<AnonymousTypeBlock> getAnonymous();
-
-    CustList<NamedCalledFunctionBlock> getAnonymousFct();
-
-    CustList<SwitchMethodBlock> getSwitchMethods();
 }

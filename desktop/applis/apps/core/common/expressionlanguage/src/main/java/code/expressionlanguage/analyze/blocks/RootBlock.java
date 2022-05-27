@@ -8,16 +8,11 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
-import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.AccessEnum;
@@ -84,8 +79,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private ResultParsedAnnots annotations = new ResultParsedAnnots();
     private final CustList<AnaFormattedRootBlock> allGenericSuperTypesInfo = new CustList<AnaFormattedRootBlock>();
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
-    private final CustList<OperationNode> roots = new CustList<OperationNode>();
-    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private int nbOperators;
     private int numberAll = -1;
     private final StringList allSuperTypes = new StringList();
@@ -96,9 +89,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private int countsAnonFct;
     private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private ConstructorBlock emptyCtor;
-    private final CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
-    private final CustList<NamedCalledFunctionBlock> anonymousRootFct = new CustList<NamedCalledFunctionBlock>();
-    private final CustList<SwitchMethodBlock> switchMethodRoots = new CustList<SwitchMethodBlock>();
+    private final AnonymousElements elementsType = new AnonymousElements();
     private final CustList<NamedCalledFunctionBlock> overridableBlocks = new CustList<NamedCalledFunctionBlock>();
     private final CustList<NamedCalledFunctionBlock> annotationsMethodsBlocks = new CustList<NamedCalledFunctionBlock>();
     private final CustList<ConstructorBlock> constructorBlocks = new CustList<ConstructorBlock>();
@@ -110,23 +101,26 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<NamedCalledFunctionBlock> validMethods = new CustList<NamedCalledFunctionBlock>();
     private final CustList<ConstructorBlock> validCtors = new CustList<ConstructorBlock>();
     private boolean reference;
-    RootBlock(int _idRowCol,
-              String _packageName, OffsetAccessInfo _access, String _templateDef,
-              IntMap<String> _directSuperTypes, int _offset, String _name) {
+    RootBlock(OffsetAccessInfo _access, String _templateDef,
+              IntMap<String> _directSuperTypes, int _offset, AnaRootBlockContent _content) {
         super(_offset);
         allOverridingMethods = new CustList<OverridingMethodDto>();
-        rootBlockContent = new AnaRootBlockContent();
-        rootBlockContent.setPackageName(StringExpUtil.removeDottedSpaces(_packageName));
+        rootBlockContent = _content;
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         templateDef = _templateDef;
-        rootBlockContent.setIdRowCol(_idRowCol);
-        rootBlockContent.setName(_name.trim());
         rowColDirectSuperTypes = _directSuperTypes;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
             directSuperTypes.add(t.getValue());
             explicitDirectSuperTypes.put(t.getKey(), BoolVal.TRUE);
         }
+    }
+    public static AnaRootBlockContent contentRoot(int _idRowCol,String _packageName, String _name) {
+        AnaRootBlockContent content_ = new AnaRootBlockContent();
+        content_.setPackageName(StringExpUtil.removeDottedSpaces(_packageName));
+        content_.setIdRowCol(_idRowCol);
+        content_.setName(_name.trim());
+        return content_;
     }
 
     public void setupOffsets(String _name, String _packageName) {
@@ -181,16 +175,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
-        int len_ = annotations.getAnnotations().size();
-        roots.clear();
-        for (int i = 0; i < len_; i++) {
-            _page.setSumOffset(resList.get(i).getSumOffset());
-            _page.zeroOffset();
-            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
-            ReachOperationUtil.tryCalculate(r_, _page);
-            roots.add(r_);
-        }
+        annotations.buildAnnotations(_page);
     }
 
     public ResultParsedAnnots getAnnotations() {
@@ -238,87 +223,109 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     protected void checkAccess(AnalyzedPageEl _page) {
         useSuperTypesOverrides(_page);
+        StringMap<StringList> vars_ = extractVarTypes();
+        for (OverridingMethodDto e: allOverridingMethods) {
+            loopOverrideMethod(_page, vars_, e);
+        }
+    }
+
+    private void loopOverrideMethod(AnalyzedPageEl _page, StringMap<StringList> _vars, OverridingMethodDto _e) {
+        CustList<GeneStringOverridable> locGeneInt_ = new CustList<GeneStringOverridable>();
+        CustList<GeneStringOverridable> locGeneCl_ = new CustList<GeneStringOverridable>();
+        feedOverByTypes(_e, locGeneInt_, locGeneCl_);
+        for (GeneStringOverridable i: locGeneInt_) {
+            for (GeneStringOverridable c: locGeneCl_) {
+                crossCheckMethods(_page, _vars, i, c);
+            }
+        }
+    }
+
+    private void crossCheckMethods(AnalyzedPageEl _page, StringMap<StringList> _vars, GeneStringOverridable _i, GeneStringOverridable _c) {
+        String nameCl_ = _c.getGeneString();
+        NamedCalledFunctionBlock supCl_ = _c.getBlock();
+        NamedCalledFunctionBlock supInt_ = _i.getBlock();
+        String name_ = _i.getGeneString();
+        if (supInt_.getAccess().isStrictMoreAccessibleThan(supCl_.getAccess())) {
+            MethodId id_ = supInt_.getId();
+            MethodId idCl_ = supCl_.getId();
+            FoundErrorInterpret err_;
+            err_ = new FoundErrorInterpret();
+            err_.setFile(getFile());
+            err_.setIndexFile(supCl_.getAccessOffset());
+            //key word access or method name
+            err_.buildError(_page.getAnalysisMessages().getMethodsAccesses(),
+                    name_,
+                    id_.getSignature(_page.getDisplayedStrings()),
+                    nameCl_,
+                    idCl_.getSignature(_page.getDisplayedStrings()));
+            _page.addLocError(err_);
+            supCl_.addNameErrors(err_);
+        }
+        String retInt_ = supInt_.getImportedReturnType();
+        String retBase_ = supCl_.getImportedReturnType();
+        String formattedRetDer_ = AnaInherits.quickFormat(_c.getFormat(), retBase_);
+        String formattedRetBase_ = AnaInherits.quickFormat(_i.getFormat(), retInt_);
+        if (supCl_.mustHaveSameRet()) {
+            if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
+                MethodId id_ = supInt_.getId();
+                MethodId idCl_ = supCl_.getId();
+                FoundErrorInterpret err_;
+                err_ = new FoundErrorInterpret();
+                err_.setFile(getFile());
+                err_.setIndexFile(supCl_.getReturnTypeOffset());
+                //sub return type len
+                err_.buildError(_page.getAnalysisMessages().getBadReturnTypeIndexer(),
+                        formattedRetBase_,
+                        id_.getSignature(_page.getDisplayedStrings()),
+                        name_,
+                        formattedRetDer_,
+                        idCl_.getSignature(_page.getDisplayedStrings()),
+                        nameCl_);
+                _page.addLocError(err_);
+                supCl_.addNameErrors(err_);
+            }
+            return;
+        }
+        if (!AnaInherits.isReturnCorrect(formattedRetBase_, formattedRetDer_, _vars, _page)) {
+            MethodId id_ = supInt_.getId();
+            MethodId idCl_ = supCl_.getId();
+            FoundErrorInterpret err_;
+            err_ = new FoundErrorInterpret();
+            err_.setFile(getFile());
+            err_.setIndexFile(supCl_.getReturnTypeOffset());
+            //sub return type len
+            err_.buildError(_page.getAnalysisMessages().getBadReturnTypeInherit(),
+                    formattedRetDer_,
+                    idCl_.getSignature(_page.getDisplayedStrings()),
+                    nameCl_,
+                    formattedRetBase_,
+                    id_.getSignature(_page.getDisplayedStrings()),
+                    name_);
+            _page.addLocError(err_);
+            supCl_.addNameErrors(err_);
+        }
+    }
+
+    private void feedOverByTypes(OverridingMethodDto _e, CustList<GeneStringOverridable> _locGeneInt, CustList<GeneStringOverridable> _locGeneCl) {
+        for (GeneStringOverridable c: _e.getMethodIds()) {
+            RootBlock r_ = c.getType();
+            if (r_ instanceof InterfaceBlock) {
+                _locGeneInt.add(c);
+            }
+            if (r_ instanceof ClassBlock) {
+                _locGeneCl.add(c);
+            }
+        }
+    }
+
+    private StringMap<StringList> extractVarTypes() {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (OverridingMethodDto e: allOverridingMethods) {
-            CustList<GeneStringOverridable> locGeneInt_ = new CustList<GeneStringOverridable>();
-            CustList<GeneStringOverridable> locGeneCl_ = new CustList<GeneStringOverridable>();
-            for (GeneStringOverridable c: e.getMethodIds()) {
-                RootBlock r_ = c.getType();
-                if (r_ instanceof InterfaceBlock) {
-                    locGeneInt_.add(c);
-                }
-                if (r_ instanceof ClassBlock) {
-                    locGeneCl_.add(c);
-                }
-            }
-            for (GeneStringOverridable i: locGeneInt_) {
-                NamedCalledFunctionBlock supInt_ = i.getBlock();
-                String name_ = i.getGeneString();
-                MethodId id_ = supInt_.getId();
-                for (GeneStringOverridable c: locGeneCl_) {
-                    String nameCl_ = c.getGeneString();
-                    NamedCalledFunctionBlock supCl_ = c.getBlock();
-                    MethodId idCl_ = supCl_.getId();
-                    if (supInt_.getAccess().isStrictMoreAccessibleThan(supCl_.getAccess())) {
-                        FoundErrorInterpret err_;
-                        err_ = new FoundErrorInterpret();
-                        err_.setFile(getFile());
-                        err_.setIndexFile(supCl_.getAccessOffset());
-                        //key word access or method name
-                        err_.buildError(_page.getAnalysisMessages().getMethodsAccesses(),
-                                name_,
-                                id_.getSignature(_page.getDisplayedStrings()),
-                                nameCl_,
-                                idCl_.getSignature(_page.getDisplayedStrings()));
-                        _page.addLocError(err_);
-                        supCl_.addNameErrors(err_);
-                    }
-                    String retInt_ = supInt_.getImportedReturnType();
-                    String retBase_ = supCl_.getImportedReturnType();
-                    String formattedRetDer_ = AnaInherits.quickFormat(c.getFormat(), retBase_);
-                    String formattedRetBase_ = AnaInherits.quickFormat(i.getFormat(), retInt_);
-                    if (supCl_.mustHaveSameRet()) {
-                        if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
-                            FoundErrorInterpret err_;
-                            err_ = new FoundErrorInterpret();
-                            err_.setFile(getFile());
-                            err_.setIndexFile(supCl_.getReturnTypeOffset());
-                            //sub return type len
-                            err_.buildError(_page.getAnalysisMessages().getBadReturnTypeIndexer(),
-                                    formattedRetBase_,
-                                    id_.getSignature(_page.getDisplayedStrings()),
-                                    name_,
-                                    formattedRetDer_,
-                                    idCl_.getSignature(_page.getDisplayedStrings()),
-                                    nameCl_);
-                            _page.addLocError(err_);
-                            supCl_.addNameErrors(err_);
-                        }
-                        continue;
-                    }
-                    if (!AnaInherits.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
-                        FoundErrorInterpret err_;
-                        err_ = new FoundErrorInterpret();
-                        err_.setFile(getFile());
-                        err_.setIndexFile(supCl_.getReturnTypeOffset());
-                        //sub return type len
-                        err_.buildError(_page.getAnalysisMessages().getBadReturnTypeInherit(),
-                                formattedRetDer_,
-                                idCl_.getSignature(_page.getDisplayedStrings()),
-                                nameCl_,
-                                formattedRetBase_,
-                                id_.getSignature(_page.getDisplayedStrings()),
-                                name_);
-                        _page.addLocError(err_);
-                        supCl_.addNameErrors(err_);
-                    }
-                }
-            }
-        }
+        return vars_;
     }
+
     public final RootBlock getParentType() {
         return rootBlockContent.getParentType();
     }
@@ -359,9 +366,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (RootBlock r: getSelfAndParentTypes()) {
             if (r == this) {
                 if (r instanceof AnonymousTypeBlock) {
-                    for (TypeVar t: rootBlockContent.getParamTypes()) {
-                        rootBlockContent.getParamTypesMap().addEntry(t.getName(), t);
-                    }
+                    constraintsAnonymous();
                     continue;
                 }
                 int j_ = 0;
@@ -390,19 +395,29 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     rootBlockContent.getParamTypesMap().addEntry(t.getName(), t_);
                 }
             } else {
-                for (EntryCust<String,TypeVar> e: r.rootBlockContent.getParamTypesMap().entryList()) {
-                    boolean exist_ = false;
-                    for (TypeVar t: r.getParamTypes()) {
-                        if (StringUtil.quickEq(t.getName(),e.getKey())) {
-                            exist_ = true;
-                        }
-                    }
-                    if (!exist_) {
-                        continue;
-                    }
-                    rootBlockContent.getParamTypesMap().addEntry(e.getKey(),e.getValue());
+                constraintsParent(r);
+            }
+        }
+    }
+
+    private void constraintsAnonymous() {
+        for (TypeVar t: rootBlockContent.getParamTypes()) {
+            rootBlockContent.getParamTypesMap().addEntry(t.getName(), t);
+        }
+    }
+
+    private void constraintsParent(RootBlock _r) {
+        for (EntryCust<String,TypeVar> e: _r.rootBlockContent.getParamTypesMap().entryList()) {
+            boolean exist_ = false;
+            for (TypeVar t: _r.getParamTypes()) {
+                if (StringUtil.quickEq(t.getName(),e.getKey())) {
+                    exist_ = true;
                 }
             }
+            if (!exist_) {
+                continue;
+            }
+            rootBlockContent.getParamTypesMap().addEntry(e.getKey(),e.getValue());
         }
     }
 
@@ -487,36 +502,532 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public final void validateIds(AnalyzedPageEl _page) {
-        CustList<MethodId> idMethods_ = new CustList<MethodId>();
-        CustList<NamedCalledFunctionBlock> indexersGet_ = new CustList<NamedCalledFunctionBlock>();
-        CustList<NamedCalledFunctionBlock> indexersSet_ = new CustList<NamedCalledFunctionBlock>();
-        CustList<ConstructorId> idConstructors_ = new CustList<ConstructorId>();
+        RootBlockIdValidator validator_ = new RootBlockIdValidator();
         CustList<AbsBk> bl_;
         bl_ = ClassesUtil.getDirectChildren(this);
-        KeyWords keyWords_ = _page.getKeyWords();
+        checkMembers(_page, bl_);
+        checkForRecord(_page, bl_);
         for (AbsBk b: bl_) {
-            if (b instanceof InfoBlock) {
-                continue;
+            validateId(_page,validator_,b);
+        }
+        buildFieldInfos(bl_, _page);
+        _page.getUnary().addEntry(getFullName(),validator_.getUnary());
+        _page.getBinaryAll().addEntry(getFullName(),validator_.getBinaryAll());
+        _page.getBinaryFirst().addEntry(getFullName(),validator_.getBinaryFirst());
+        _page.getBinarySecond().addEntry(getFullName(),validator_.getBinarySecond());
+        _page.getExplicitCastMethods().addEntry(getFullName(),validator_.getExplicit());
+        _page.getExplicitIdCastMethods().addEntry(getFullName(),validator_.getExplicitId());
+        _page.getExplicitFromCastMethods().addEntry(getFullName(),validator_.getExplicitFrom());
+        _page.getImplicitCastMethods().addEntry(getFullName(),validator_.getImplicit());
+        _page.getImplicitIdCastMethods().addEntry(getFullName(),validator_.getImplicitId());
+        _page.getImplicitFromCastMethods().addEntry(getFullName(),validator_.getImplicitFrom());
+        _page.getTrues().addEntry(getFullName(),validator_.getTrues());
+        _page.getFalses().addEntry(getFullName(),validator_.getFalses());
+        validateIndexers(validator_.getIndexersGet(), validator_.getIndexersSet(), _page);
+    }
+    private void validateId(AnalyzedPageEl _page, RootBlockIdValidator _validator, AbsBk _b) {
+        CustList<MethodId> idMethods_ = _validator.getIdMethods();
+        CustList<ConstructorId> idConstructors_ = _validator.getIdConstructors();
+        if (!(_b instanceof NamedFunctionBlock)) {
+            return;
+        }
+        NamedFunctionBlock method_ = (NamedFunctionBlock) _b;
+        if (isOverBlock(method_)) {
+            NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
+            m_.buildImportedTypes(_page);
+            processRegularMethods(_page,_validator, m_);
+        }
+        if (AbsBk.isAnnotBlock(method_)) {
+            NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
+            m_.buildImportedTypes(_page);
+            processAnnotMethods(_page, idMethods_, m_);
+        }
+        if (method_ instanceof ConstructorBlock) {
+            method_.buildImportedTypes(_page);
+            processCtors(_page, idConstructors_, (ConstructorBlock) method_);
+        }
+        validateParameters(method_, _page, getFile());
+    }
+
+    private void processRegularMethods(AnalyzedPageEl _page, RootBlockIdValidator _validator, NamedCalledFunctionBlock _m) {
+        CustList<MethodId> idMethods_ = _validator.getIdMethods();
+        CustList<NamedCalledFunctionBlock> indexersGet_ = _validator.getIndexersGet();
+        CustList<NamedCalledFunctionBlock> indexersSet_ = _validator.getIndexersSet();
+        CustList<MethodHeaderInfo> unary_ = _validator.getUnary();
+        CustList<MethodHeaderInfo> binaryFirst_ = _validator.getBinaryFirst();
+        CustList<MethodHeaderInfo> binarySecond_ = _validator.getBinarySecond();
+        CustList<MethodHeaderInfo> binaryAll_ = _validator.getBinaryAll();
+        CustList<MethodHeaderInfo> explicit_ = _validator.getExplicit();
+        CustList<MethodHeaderInfo> explicitId_ = _validator.getExplicitId();
+        CustList<MethodHeaderInfo> explicitFrom_ = _validator.getExplicitFrom();
+        CustList<MethodHeaderInfo> implicit_ = _validator.getImplicit();
+        CustList<MethodHeaderInfo> implicitId_ = _validator.getImplicitId();
+        CustList<MethodHeaderInfo> implicitFrom_ = _validator.getImplicitFrom();
+        CustList<MethodHeaderInfo> true_ = _validator.getTrues();
+        CustList<MethodHeaderInfo> false_ = _validator.getFalses();
+        boolean valid_;
+        if (_m.getKind() == MethodKind.OPERATOR) {
+            valid_ = checkOperators(_page, _m);
+            feedOperators(unary_, binaryFirst_, binarySecond_, binaryAll_, _m);
+            nbOperators++;
+        } else if (_m.getKind() == MethodKind.TRUE_OPERATOR || _m.getKind() == MethodKind.FALSE_OPERATOR) {
+            valid_ = checkTests(_page, _m, true_, false_);
+        } else if (_m.getKind() == MethodKind.EXPLICIT_CAST || _m.getKind() == MethodKind.IMPLICIT_CAST) {
+            if (koBase(_page, _m)) {
+                valid_ = false;
+            } else if (!StringUtil.quickEq(_m.getImportedReturnType(), getGenericString()) && !StringUtil.quickEq(_m.getImportedParametersTypes().first(), getGenericString())) {
+                int r_ = _m.getNameOffset();
+                FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                badMeth_.setFile(getFile());
+                badMeth_.setIndexFile(r_);
+                //method name len
+                badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                        _m.getSignature(_page),
+                        getGenericString());
+                _page.addLocError(badMeth_);
+                _m.addNameErrors(badMeth_);
+                valid_ = false;
+            } else {
+                valid_ = true;
+                feedConverter(explicit_, explicitId_, explicitFrom_, implicit_, implicitId_, implicitFrom_, _m);
             }
-            if (b instanceof RootBlock) {
-                continue;
+
+        } else if (_m.getKind() == MethodKind.RAND_CODE) {
+            valid_ = checkRandCode(_page, _m);
+        } else if (_m.getKind() == MethodKind.TO_STRING) {
+            valid_ = checkToStr(_page, _m);
+        } else if (_m.getKind() == MethodKind.STD_METHOD) {
+            valid_ = checkStd(_page, _m);
+        } else {
+            valid_ = checkIndexers(_page, indexersGet_, indexersSet_, _m);
+        }
+        checkDuplicates(_page, idMethods_, _m, valid_);
+    }
+
+    private boolean checkOperators(AnalyzedPageEl _page, NamedCalledFunctionBlock _m) {
+        String name_ = _m.getName();
+        boolean valid_ = true;
+        if (!StringExpUtil.isOper(_m.getName())) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadOperatorName(),
+                    name_);
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            valid_ = false;
+        }
+        return valid_;
+    }
+
+    private boolean checkStd(AnalyzedPageEl _page, NamedCalledFunctionBlock _m) {
+        String name_ = _m.getName();
+        boolean valid_ = true;
+        KeyWords keyWords_ = _page.getKeyWords();
+        if (!StringUtil.quickEq(name_, keyWords_.getKeyWordToString()) && koFctName(_page, _m)) {
+            valid_ = false;
+        }
+        return valid_;
+    }
+
+    private boolean checkTests(AnalyzedPageEl _page, NamedCalledFunctionBlock _m, CustList<MethodHeaderInfo> _t, CustList<MethodHeaderInfo> _f) {
+        if (koBase(_page, _m)) {
+            return false;
+        }
+        if (!StringUtil.quickEq(_m.getImportedReturnType(), _page.getAliasPrimBoolean()) || !StringUtil.quickEq(_m.getImportedParametersTypes().first(), getGenericString())) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                    _m.getSignature(_page),
+                    getGenericString());
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            return false;
+        }
+        feedTests(_t, _f, _m);
+        return true;
+    }
+
+    private boolean checkIndexers(AnalyzedPageEl _page, CustList<NamedCalledFunctionBlock> _indexersGet, CustList<NamedCalledFunctionBlock> _indexersSet, NamedCalledFunctionBlock _m) {
+        boolean valid_ = true;
+        if (_m.hiddenInstance()) {
+            int where_ = _m.getOffset();
+            FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+            unexp_.setFile(getFile());
+            unexp_.setIndexFile(where_);
+            //key word this len
+            unexp_.buildError(_page.getAnalysisMessages().getBadIndexerModifier(),
+                    _m.getSignature(_page));
+            _page.addLocError(unexp_);
+            _m.addNameErrors(unexp_);
+            valid_ = false;
+        }
+        if (_m.getParametersTypes().isEmpty()) {
+            int where_ = _m.getOffset();
+            FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+            unexp_.setFile(getFile());
+            unexp_.setIndexFile(where_);
+            //key word this len
+            unexp_.buildError(_page.getAnalysisMessages().getBadIndexerParams(),
+                    _m.getSignature(_page));
+            _page.addLocError(unexp_);
+            _m.addNameErrors(unexp_);
+            valid_ = false;
+        }
+        if (_m.getKind() == MethodKind.GET_INDEX) {
+            _indexersGet.add(_m);
+        } else {
+            _indexersSet.add(_m);
+        }
+        return valid_;
+    }
+
+    private void checkDuplicates(AnalyzedPageEl _page, CustList<MethodId> _allMethods, NamedCalledFunctionBlock _m, boolean _valid) {
+        boolean valid_ = _valid;
+        MethodId id_ = _m.getId();
+        if (_m.getKind() == MethodKind.TO_STRING || _m.getKind() == MethodKind.STD_METHOD || _m.getKind() == MethodKind.OPERATOR || _m.getKind() == MethodKind.EXPLICIT_CAST || _m.getKind() == MethodKind.IMPLICIT_CAST
+                || _m.getKind() == MethodKind.TRUE_OPERATOR || _m.getKind() == MethodKind.FALSE_OPERATOR) {
+            if (ContextUtil.isEnumType(this)) {
+                valid_ = checkSpecialEnumMethoos(_page, _m, valid_, id_);
             }
-            if (b instanceof InternOverrideBlock) {
-                continue;
-            }
-            if (!(b instanceof FunctionBlock)) {
-                int where_ = b.getOffset();
-                FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                unexp_.setFile(getFile());
-                unexp_.setIndexFile(where_);
-                //block len
-                unexp_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
-                _page.addLocError(unexp_);
-                b.addErrorBlock(unexp_.getBuiltError());
+            valid_ = duplicate(_page, _allMethods, _m, valid_, id_, _page.getAnalysisMessages().getDuplicateCustomMethod());
+        } else {
+            valid_ = duplicate(_page, _allMethods, _m, valid_, id_, _page.getAnalysisMessages().getDuplicateIndexer());
+        }
+        _allMethods.add(id_);
+        if (valid_) {
+            validMethods.add(_m);
+        }
+    }
+
+    private boolean duplicate(AnalyzedPageEl _page, CustList<MethodId> _allMethods, NamedCalledFunctionBlock _m, boolean _valid, MethodId _id, String _message) {
+        boolean valid_ = _valid;
+        for (MethodId m: _allMethods) {
+            if (m.eq(_id)) {
+                int r_ = _m.getOffset();
+                FoundErrorInterpret duplicate_;
+                duplicate_ = new FoundErrorInterpret();
+                duplicate_.setIndexFile(r_);
+                duplicate_.setFile(getFile());
+                //method name len
+                duplicate_.buildError(_message,
+                        _id.getSignature(_page.getDisplayedStrings()));
+                _page.addLocError(duplicate_);
+                _m.addNameErrors(duplicate_);
+                valid_ = false;
             }
         }
+        return valid_;
+    }
+
+    private boolean checkSpecialEnumMethoos(AnalyzedPageEl _page, NamedCalledFunctionBlock _m, boolean _valid, MethodId _id) {
+        boolean valid_ = _valid;
+        String valueOf_ = _page.getAliasEnumPredValueOf();
+        String values_ = _page.getAliasEnumValues();
+        String string_ = _page.getAliasString();
+        if (_id.eq(new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_)))) {
+            int r_ = _m.getOffset();
+            FoundErrorInterpret duplicate_;
+            duplicate_ = new FoundErrorInterpret();
+            duplicate_.setIndexFile(r_);
+            duplicate_.setFile(getFile());
+            //method name len
+            duplicate_.buildError(_page.getAnalysisMessages().getReservedCustomMethod(),
+                    _id.getSignature(_page.getDisplayedStrings()));
+            _page.addLocError(duplicate_);
+            _m.addNameErrors(duplicate_);
+            valid_ = false;
+        }
+        if (_id.eq(new MethodId(MethodAccessKind.STATIC, values_, new StringList()))) {
+            int r_ = _m.getOffset();
+            FoundErrorInterpret duplicate_;
+            duplicate_ = new FoundErrorInterpret();
+            duplicate_.setIndexFile(r_);
+            duplicate_.setFile(getFile());
+            //method name len
+            duplicate_.buildError(_page.getAnalysisMessages().getReservedCustomMethod(),
+                    _id.getSignature(_page.getDisplayedStrings()));
+            _page.addLocError(duplicate_);
+            _m.addNameErrors(duplicate_);
+            valid_ = false;
+        }
+        return valid_;
+    }
+
+    private boolean checkToStr(AnalyzedPageEl _page, NamedCalledFunctionBlock _m) {
+        String name_ = _m.getName();
+        boolean valid_ = true;
+        if (!StringUtil.quickEq(_m.getImportedReturnType(), _page.getAliasString())) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                    name_,
+                    _page.getAliasString());
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            valid_ = false;
+        } else if (koAccess(_page, _m)) {
+            valid_ = false;
+        } else {
+            ToStringMethodHeader t_ = new ToStringMethodHeader(getNumberAll(), _m.getNameOverrideNumber(), _m.getName(), _m.getImportedReturnType(), _m.isFinalMethod(), _m.isAbstractMethod());
+            _page.getToStringMethods().addEntry(getFullName(), t_);
+        }
+        return valid_;
+    }
+
+    private boolean checkRandCode(AnalyzedPageEl _page, NamedCalledFunctionBlock _m) {
+        String name_ = _m.getName();
+        boolean valid_ = true;
+        if (_m.getParametersTypes().size() != 0) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
+                    _m.getSignature(_page));
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            valid_ = false;
+        } else if (!StringUtil.quickEq(_m.getImportedReturnType(), _page.getAliasPrimLong()) || _m.getId().isRef()) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                    name_,
+                    _page.getAliasString());
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            valid_ = false;
+        } else if (_m.hiddenInstance()) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
+                    _m.getSignature(_page));
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            valid_ = false;
+        } else if (koAccess(_page, _m)) {
+            valid_ = false;
+        } else {
+            ToStringMethodHeader t_ = new ToStringMethodHeader(getNumberAll(), _m.getNameOverrideNumber(), _m.getName(), _m.getImportedReturnType(), _m.isFinalMethod(), _m.isAbstractMethod());
+            _page.getRandCodeMethods().addEntry(getFullName(), t_);
+        }
+        return valid_;
+    }
+
+    private void processAnnotMethods(AnalyzedPageEl _page, CustList<MethodId> _allAnnotMethods, NamedCalledFunctionBlock _m) {
+        boolean valid_ = true;
+        if (_m.isKo()) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
+            b_.setFile(getFile());
+            b_.setIndexFile(r_);
+            //underline index char
+            b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+            _page.addLocError(b_);
+            _m.addNameErrors(b_);
+            valid_ = false;
+        }
+        if (koFctName(_page, _m)) {
+            valid_ = false;
+        }
+        MethodId id_ = _m.getId();
+        for (MethodId m: _allAnnotMethods) {
+            if (m.eq(id_)) {
+                int r_ = _m.getOffset();
+                FoundErrorInterpret duplicate_;
+                duplicate_ = new FoundErrorInterpret();
+                duplicate_.setIndexFile(r_);
+                duplicate_.setFile(getFile());
+                String sgn_ = id_.getSignature(_page.getDisplayedStrings());
+                //method name len
+                duplicate_.buildError(_page.getAnalysisMessages().getDuplicateCustomMethod(),
+                        sgn_);
+                _page.addLocError(duplicate_);
+                _m.addNameErrors(duplicate_);
+                valid_ = false;
+            }
+        }
+        if (valid_) {
+            validMethods.add(_m);
+        }
+        _allAnnotMethods.add(id_);
+    }
+
+    private void processCtors(AnalyzedPageEl _page, CustList<ConstructorId> _allCtors, ConstructorBlock _ctor) {
+        boolean valid_ = true;
+        String ctorName_ = _ctor.getCtorName();
+        if (StringExpUtil.isTypeLeafPart(ctorName_) && !StringUtil.quickEq(ctorName_, getName())) {
+            int r_ = _ctor.getOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            AnalysisMessages ana_ = _page.getAnalysisMessages();
+            badMeth_.setBuiltError(FoundErrorInterpret.buildARError(ana_.getBadMethodName(), ctorName_));
+            _page.addLocError(badMeth_);
+            _ctor.addNameErrors(badMeth_);
+        }
+        ConstructorId idCt_ = _ctor.getId();
+        for (ConstructorId m: _allCtors) {
+            if (m.eq(idCt_)) {
+                int r_ = _ctor.getOffset();
+                FoundErrorInterpret duplicate_;
+                duplicate_ = new FoundErrorInterpret();
+                duplicate_.setIndexFile(r_);
+                duplicate_.setFile(getFile());
+                //left par len
+                duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedCtor(),
+                        idCt_.getSignature(_page.getDisplayedStrings()));
+                _page.addLocError(duplicate_);
+                _ctor.addNameErrors(duplicate_);
+                valid_ = false;
+            }
+        }
+        _allCtors.add(idCt_);
+        if (valid_) {
+            validCtors.add(_ctor);
+        }
+    }
+
+    private void feedConverter(CustList<MethodHeaderInfo> _explicit, CustList<MethodHeaderInfo> _explicitId, CustList<MethodHeaderInfo> _explicitFrom, CustList<MethodHeaderInfo> _implicit, CustList<MethodHeaderInfo> _implicitId, CustList<MethodHeaderInfo> _implicitFrom, NamedCalledFunctionBlock _m) {
+        if (_m.getKind() == MethodKind.EXPLICIT_CAST) {
+            if (StringUtil.quickEq(_m.getImportedParametersTypes().first(), _m.getImportedReturnType())) {
+                _explicitId.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+            } else if (StringUtil.quickEq(_m.getImportedReturnType(),getGenericString())){
+                _explicit.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+            } else {
+                _explicitFrom.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+            }
+        } else {
+            if (StringUtil.quickEq(_m.getImportedParametersTypes().first(), _m.getImportedReturnType())) {
+                _implicitId.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+            } else if (StringUtil.quickEq(_m.getImportedReturnType(),getGenericString())){
+                _implicit.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+            } else {
+                _implicitFrom.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+            }
+        }
+    }
+
+    private void feedTests(CustList<MethodHeaderInfo> _t, CustList<MethodHeaderInfo> _f, NamedCalledFunctionBlock _m) {
+        if (_m.getKind() == MethodKind.TRUE_OPERATOR) {
+            _t.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+        } else {
+            _f.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+        }
+    }
+
+    private void feedOperators(CustList<MethodHeaderInfo> _unary, CustList<MethodHeaderInfo> _binaryFirst, CustList<MethodHeaderInfo> _binarySecond, CustList<MethodHeaderInfo> _binaryAll, NamedCalledFunctionBlock _m) {
+        if (_m.getId().getKind() != MethodAccessKind.STATIC_CALL) {
+            return;
+        }
+        if (_m.getParametersTypes().size() == 2 && StringExpUtil.isBin(_m.getName())) {
+            if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(_m.getImportedParametersTypes().first()), getGenericString())) {
+                if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(_m.getImportedParametersTypes().last()), getGenericString())) {
+                    _binaryAll.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+                } else {
+                    _binaryFirst.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+                }
+            } else if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(_m.getImportedParametersTypes().last()), getGenericString())) {
+                _binarySecond.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+            }
+        }
+        if (_m.getParametersTypes().size() == 1 && StringExpUtil.isUn(_m.getName()) && StringUtil.quickEq(StringExpUtil.getQuickComponentBase(_m.getImportedParametersTypes().first()), getGenericString())) {
+            _unary.add(new MethodHeaderInfo(this, _m, _m.getId(), getNumberAll(), _m.getNameOverrideNumber(), _m.getImportedReturnType(), _m.getAccess()));
+        }
+    }
+
+    private boolean koFctName(AnalyzedPageEl _page, NamedCalledFunctionBlock _m) {
+        String name_ = _m.getName();
+        TokenErrorMessage mess_ = ManageTokens.partMethod(_page).checkToken(name_, _page);
+        if (mess_.isError()) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.setBuiltError(mess_.getMessage());
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            return true;
+        }
+        return false;
+    }
+    private boolean koAccess(AnalyzedPageEl _page, NamedCalledFunctionBlock _m) {
+        String name_ = _m.getName();
+        if (_m.getAccess() != AccessEnum.PUBLIC) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadAccess(),
+                    name_);
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean koBase(AnalyzedPageEl _page, NamedCalledFunctionBlock _m) {
+        if (_m.getParametersTypes().size() != 1) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
+                    _m.getSignature(_page));
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            return true;
+        }
+        if (!_m.isStaticMethod()) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
+                    _m.getSignature(_page));
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            return true;
+        }
+        if (_m.isVarargs() || _m.getId().isRef()) {
+            int r_ = _m.getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFile(getFile());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadMethodVararg(),
+                    _m.getSignature(_page));
+            _page.addLocError(badMeth_);
+            _m.addNameErrors(badMeth_);
+            return true;
+        }
+        return false;
+    }
+
+    private void checkForRecord(AnalyzedPageEl _page, CustList<AbsBk> _bl) {
         if (this instanceof RecordBlock) {
-            for (AbsBk b: bl_) {
+            for (AbsBk b: _bl) {
                 if (b instanceof ConstructorBlock) {
                     int where_ = b.getOffset();
                     FoundErrorInterpret unexp_ = new FoundErrorInterpret();
@@ -546,492 +1057,24 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
         }
-        CustList<MethodHeaderInfo> unary_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> binaryFirst_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> binarySecond_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> binaryAll_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> explicit_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> explicitId_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> explicitFrom_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> implicit_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> implicitId_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> implicitFrom_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> true_ = new CustList<MethodHeaderInfo>();
-        CustList<MethodHeaderInfo> false_ = new CustList<MethodHeaderInfo>();
-        for (AbsBk b: bl_) {
-            if (!(b instanceof NamedFunctionBlock)) {
+    }
+
+    private void checkMembers(AnalyzedPageEl _page, CustList<AbsBk> _bl) {
+        for (AbsBk b: _bl) {
+            if (b instanceof InfoBlock || b instanceof RootBlock || b instanceof InternOverrideBlock) {
                 continue;
             }
-            NamedFunctionBlock method_ = (NamedFunctionBlock) b;
-            String name_ = method_.getName();
-            if (isOverBlock(method_)) {
-                NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
-                m_.buildImportedTypes(_page);
-                boolean valid_ = true;
-                if (m_.getKind() == MethodKind.OPERATOR) {
-                    if (!StringExpUtil.isOper(m_.getName())) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadOperatorName(),
-                                name_);
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    }
-                    if (m_.getId().getKind() == MethodAccessKind.STATIC_CALL) {
-                        if (m_.getParametersTypes().size() == 2) {
-                            if (StringExpUtil.isBin(m_.getName())) {
-                                if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(m_.getImportedParametersTypes().first()),getGenericString())) {
-                                    if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(m_.getImportedParametersTypes().last()),getGenericString())) {
-                                        binaryAll_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                                    } else {
-                                        binaryFirst_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                                    }
-                                } else if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(m_.getImportedParametersTypes().last()),getGenericString())) {
-                                    binarySecond_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                                }
-                            }
-                        }
-                        if (m_.getParametersTypes().size() == 1) {
-                            if (StringExpUtil.isUn(m_.getName())) {
-                                if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(m_.getImportedParametersTypes().first()),getGenericString())) {
-                                    unary_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                                }
-                            }
-                        }
-                    }
-                    nbOperators++;
-                } else if (m_.getKind() == MethodKind.TRUE_OPERATOR || m_.getKind() == MethodKind.FALSE_OPERATOR) {
-                    if (m_.getParametersTypes().size() != 1) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
-                                m_.getSignature(_page));
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasPrimBoolean())) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                                m_.getSignature(_page),
-                                getGenericString());
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (!StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                                m_.getSignature(_page),
-                                getGenericString());
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (!m_.isStaticMethod()) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
-                                m_.getSignature(_page));
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (m_.isVarargs() || m_.getId().isRef()) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadMethodVararg(),
-                                m_.getSignature(_page));
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else {
-                        if (m_.getKind() == MethodKind.TRUE_OPERATOR) {
-                            true_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                        } else {
-                            false_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                        }
-                    }
-                } else if (m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
-                    if (m_.getParametersTypes().size() != 1) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
-                                m_.getSignature(_page));
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (!StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())&&!StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                                m_.getSignature(_page),
-                                getGenericString());
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (!m_.isStaticMethod()) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
-                                m_.getSignature(_page));
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (m_.isVarargs() || m_.getId().isRef()) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadMethodVararg(),
-                                m_.getSignature(_page));
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else {
-                        if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
-                            if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                                explicitId_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            } else if (StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())){
-                                explicit_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            } else {
-                                explicitFrom_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            }
-                        } else {
-                            if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                                implicitId_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            } else if (StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())){
-                                implicit_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            } else {
-                                implicitFrom_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            }
-                        }
-                    }
-                } else if (m_.getKind() == MethodKind.RAND_CODE) {
-                    if (m_.getParametersTypes().size() != 0) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
-                                m_.getSignature(_page));
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasPrimLong()) || m_.getId().isRef()) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                                name_,
-                                _page.getAliasString());
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (m_.hiddenInstance()) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
-                                m_.getSignature(_page));
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (m_.getAccess() != AccessEnum.PUBLIC) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadAccess(),
-                                name_);
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else {
-                        ToStringMethodHeader t_ = new ToStringMethodHeader(getNumberAll(),m_.getNameOverrideNumber(),m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
-                        _page.getRandCodeMethods().addEntry(getFullName(), t_);
-                    }
-                } else if (m_.getKind() == MethodKind.TO_STRING) {
-                    if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasString())) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                                name_,
-                                _page.getAliasString());
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else if (m_.getAccess() != AccessEnum.PUBLIC) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFile(getFile());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_page.getAnalysisMessages().getBadAccess(),
-                                name_);
-                        _page.addLocError(badMeth_);
-                        m_.addNameErrors(badMeth_);
-                        valid_ = false;
-                    } else {
-                        ToStringMethodHeader t_ = new ToStringMethodHeader(getNumberAll(),m_.getNameOverrideNumber(),m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
-                        _page.getToStringMethods().addEntry(getFullName(), t_);
-                    }
-                } else if (m_.getKind() == MethodKind.STD_METHOD) {
-                    if (!StringUtil.quickEq(name_, keyWords_.getKeyWordToString())) {
-                        TokenErrorMessage mess_ = ManageTokens.partMethod(_page).checkToken(name_, _page);
-                        if (mess_.isError()) {
-                            int r_ = m_.getNameOffset();
-                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                            badMeth_.setFile(getFile());
-                            badMeth_.setIndexFile(r_);
-                            //method name len
-                            badMeth_.setBuiltError(mess_.getMessage());
-                            _page.addLocError(badMeth_);
-                            m_.addNameErrors(badMeth_);
-                            valid_ = false;
-                        }
-                    }
-                } else {
-                    if (m_.hiddenInstance()) {
-                        int where_ = b.getOffset();
-                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                        unexp_.setFile(getFile());
-                        unexp_.setIndexFile(where_);
-                        //key word this len
-                        unexp_.buildError(_page.getAnalysisMessages().getBadIndexerModifier(),
-                                m_.getSignature(_page));
-                        _page.addLocError(unexp_);
-                        m_.addNameErrors(unexp_);
-                        valid_ = false;
-                    }
-                    if (m_.getParametersTypes().isEmpty()) {
-                        int where_ = b.getOffset();
-                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                        unexp_.setFile(getFile());
-                        unexp_.setIndexFile(where_);
-                        //key word this len
-                        unexp_.buildError(_page.getAnalysisMessages().getBadIndexerParams(),
-                                m_.getSignature(_page));
-                        _page.addLocError(unexp_);
-                        m_.addNameErrors(unexp_);
-                        valid_ = false;
-                    }
-                    if (m_.getKind() == MethodKind.GET_INDEX) {
-                        indexersGet_.add(m_);
-                    } else {
-                        indexersSet_.add(m_);
-                    }
-                }
-                if (m_.getKind() == MethodKind.TO_STRING || m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST
-                        || m_.getKind() == MethodKind.TRUE_OPERATOR || m_.getKind() == MethodKind.FALSE_OPERATOR) {
-                    MethodId id_ = m_.getId();
-                    if (ContextUtil.isEnumType(this)) {
-                        String valueOf_ = _page.getAliasEnumPredValueOf();
-                        String values_ = _page.getAliasEnumValues();
-                        String string_ = _page.getAliasString();
-                        if (id_.eq(new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_)))) {
-                            int r_ = m_.getOffset();
-                            FoundErrorInterpret duplicate_;
-                            duplicate_ = new FoundErrorInterpret();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFile(getFile());
-                            //method name len
-                            duplicate_.buildError(_page.getAnalysisMessages().getReservedCustomMethod(),
-                                    id_.getSignature(_page.getDisplayedStrings()));
-                            _page.addLocError(duplicate_);
-                            m_.addNameErrors(duplicate_);
-                            valid_ = false;
-                        }
-                        if (id_.eq(new MethodId(MethodAccessKind.STATIC, values_, new StringList()))) {
-                            int r_ = m_.getOffset();
-                            FoundErrorInterpret duplicate_;
-                            duplicate_ = new FoundErrorInterpret();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFile(getFile());
-                            //method name len
-                            duplicate_.buildError(_page.getAnalysisMessages().getReservedCustomMethod(),
-                                    id_.getSignature(_page.getDisplayedStrings()));
-                            _page.addLocError(duplicate_);
-                            m_.addNameErrors(duplicate_);
-                            valid_ = false;
-                        }
-                    }
-                    for (MethodId m: idMethods_) {
-                        if (m.eq(id_)) {
-                            int r_ = m_.getOffset();
-                            FoundErrorInterpret duplicate_;
-                            duplicate_ = new FoundErrorInterpret();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFile(getFile());
-                            //method name len
-                            duplicate_.buildError(_page.getAnalysisMessages().getDuplicateCustomMethod(),
-                                    id_.getSignature(_page.getDisplayedStrings()));
-                            _page.addLocError(duplicate_);
-                            m_.addNameErrors(duplicate_);
-                            valid_ = false;
-                        }
-                    }
-                    idMethods_.add(id_);
-                } else {
-                    MethodId id_ = m_.getId();
-                    for (MethodId m: idMethods_) {
-                        if (m.eq(id_)) {
-                            int r_ = m_.getOffset();
-                            FoundErrorInterpret duplicate_;
-                            duplicate_ = new FoundErrorInterpret();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFile(getFile());
-                            //method name len
-                            duplicate_.buildError(_page.getAnalysisMessages().getDuplicateIndexer(),
-                                    id_.getSignature(_page.getDisplayedStrings()));
-                            _page.addLocError(duplicate_);
-                            m_.addNameErrors(duplicate_);
-                            valid_ = false;
-                        }
-                    }
-                    idMethods_.add(id_);
-                }
-                if (valid_) {
-                    validMethods.add(m_);
-                }
+            if (!(b instanceof FunctionBlock)) {
+                int where_ = b.getOffset();
+                FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+                unexp_.setFile(getFile());
+                unexp_.setIndexFile(where_);
+                //block len
+                unexp_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
+                _page.addLocError(unexp_);
+                b.addErrorBlock(unexp_.getBuiltError());
             }
-            if (AbsBk.isAnnotBlock(method_)) {
-                NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
-                m_.buildImportedTypes(_page);
-                boolean valid_ = true;
-                if (m_.isKo()) {
-                    int r_ = m_.getNameOffset();
-                    FoundErrorInterpret b_ = new FoundErrorInterpret();
-                    b_.setFile(getFile());
-                    b_.setIndexFile(r_);
-                    //underline index char
-                    b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
-                    _page.addLocError(b_);
-                    m_.addNameErrors(b_);
-                    valid_ = false;
-                }
-                TokenErrorMessage mess_ = ManageTokens.partMethod(_page).checkToken(name_, _page);
-                if (mess_.isError()) {
-                    int r_ = m_.getNameOffset();
-                    FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                    badMeth_.setFile(getFile());
-                    badMeth_.setIndexFile(r_);
-                    //method name len
-                    badMeth_.setBuiltError(mess_.getMessage());
-                    _page.addLocError(badMeth_);
-                    m_.addNameErrors(badMeth_);
-                    valid_ = false;
-                }
-                MethodId id_ = ((NamedCalledFunctionBlock)method_).getId();
-                for (MethodId m: idMethods_) {
-                    if (m.eq(id_)) {
-                        int r_ = method_.getOffset();
-                        FoundErrorInterpret duplicate_;
-                        duplicate_ = new FoundErrorInterpret();
-                        duplicate_.setIndexFile(r_);
-                        duplicate_.setFile(getFile());
-                        String sgn_ = id_.getSignature(_page.getDisplayedStrings());
-                        //method name len
-                        duplicate_.buildError(_page.getAnalysisMessages().getDuplicateCustomMethod(),
-                                sgn_);
-                        _page.addLocError(duplicate_);
-                        method_.addNameErrors(duplicate_);
-                        valid_ = false;
-                    }
-                }
-                if (valid_) {
-                    validMethods.add(m_);
-                }
-                idMethods_.add(id_);
-            }
-            if (method_ instanceof ConstructorBlock) {
-                method_.buildImportedTypes(_page);
-                boolean valid_ = true;
-                String ctorName_ = ((ConstructorBlock) method_).getCtorName();
-                if (StringExpUtil.isTypeLeafPart(ctorName_) && !StringUtil.quickEq(ctorName_, getName())) {
-                    int r_ = method_.getOffset();
-                    FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                    badMeth_.setFile(getFile());
-                    badMeth_.setIndexFile(r_);
-                    //method name len
-                    AnalysisMessages ana_ = _page.getAnalysisMessages();
-                    badMeth_.setBuiltError(FoundErrorInterpret.buildARError(ana_.getBadMethodName(), ctorName_));
-                    _page.addLocError(badMeth_);
-                    method_.addNameErrors(badMeth_);
-                }
-                ConstructorId idCt_ = ((ConstructorBlock)method_).getId();
-                for (ConstructorId m: idConstructors_) {
-                    if (m.eq(idCt_)) {
-                        int r_ = method_.getOffset();
-                        FoundErrorInterpret duplicate_;
-                        duplicate_ = new FoundErrorInterpret();
-                        duplicate_.setIndexFile(r_);
-                        duplicate_.setFile(getFile());
-                        //left par len
-                        duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedCtor(),
-                                idCt_.getSignature(_page.getDisplayedStrings()));
-                        _page.addLocError(duplicate_);
-                        method_.addNameErrors(duplicate_);
-                        valid_ = false;
-                    }
-                }
-                idConstructors_.add(idCt_);
-                if (valid_) {
-                    validCtors.add((ConstructorBlock) method_);
-                }
-            }
-            validateParameters(method_, _page, getFile());
         }
-        buildFieldInfos(bl_, _page);
-        _page.getUnary().addEntry(getFullName(),unary_);
-        _page.getBinaryAll().addEntry(getFullName(),binaryAll_);
-        _page.getBinaryFirst().addEntry(getFullName(),binaryFirst_);
-        _page.getBinarySecond().addEntry(getFullName(),binarySecond_);
-        _page.getExplicitCastMethods().addEntry(getFullName(),explicit_);
-        _page.getExplicitIdCastMethods().addEntry(getFullName(),explicitId_);
-        _page.getExplicitFromCastMethods().addEntry(getFullName(),explicitFrom_);
-        _page.getImplicitCastMethods().addEntry(getFullName(),implicit_);
-        _page.getImplicitIdCastMethods().addEntry(getFullName(),implicitId_);
-        _page.getImplicitFromCastMethods().addEntry(getFullName(),implicitFrom_);
-        _page.getTrues().addEntry(getFullName(),true_);
-        _page.getFalses().addEntry(getFullName(),false_);
-        validateIndexers(indexersGet_, indexersSet_, _page);
     }
 
     public static void validateParameters(NamedFunctionBlock _method, AnalyzedPageEl _page, FileBlock _file) {
@@ -1055,18 +1098,16 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
             if (isOverBlock(_method)) {
                 NamedCalledFunctionBlock i_ = (NamedCalledFunctionBlock) _method;
-                if (i_.getKind() == MethodKind.SET_INDEX) {
-                    if (StringUtil.quickEq(v, keyWordValue_)) {
-                        FoundErrorInterpret b_;
-                        b_ = new FoundErrorInterpret();
-                        b_.setFile(_file);
-                        b_.setIndexFile(_method.getOffset());
-                        //param name len
-                        b_.buildError(_page.getAnalysisMessages().getReservedParamName(),
-                                v);
-                        _page.addLocError(b_);
-                        _method.addParamErrors(j_,b_);
-                    }
+                if (i_.getKind() == MethodKind.SET_INDEX && StringUtil.quickEq(v, keyWordValue_)) {
+                    FoundErrorInterpret b_;
+                    b_ = new FoundErrorInterpret();
+                    b_.setFile(_file);
+                    b_.setIndexFile(_method.getOffset());
+                    //param name len
+                    b_.buildError(_page.getAnalysisMessages().getReservedParamName(),
+                            v);
+                    _page.addLocError(b_);
+                    _method.addParamErrors(j_, b_);
                 }
             }
             if (StringUtil.contains(seen_, v)){
@@ -1162,13 +1203,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                     o_ += p.length() + 1;
                 }
-                String res_;
-                if (ok_) {
-                    res_ = AnaInherits.getRealClassName(allTypes_.first(), j_);
-                } else {
-                    res_ = _page.getAliasObject();
-                }
-                result_ = res_;
+                result_ = tryGetType(_page, ok_, j_, allTypes_);
             } else if (index_ < 0){
                 result_ = value_;
             } else {
@@ -1178,20 +1213,34 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 result_ = resType_.getResult();
                 results.add(resType_);
             }
-            String base_ = StringExpUtil.getIdFromAllTypes(result_);
-            RootBlock r_ = _page.getAnaClassBody(base_);
-            if (this instanceof AnnotationBlock||r_ instanceof InterfaceBlock) {
-                importedDirectSuperInterfaces.add(result_);
-            } else {
-                importedDirectSuperClass = result_;
-            }
-            if (r_ != null&&!wc_) {
-                importedDirectSuperTypes.add(new AnaFormattedRootBlock(r_, result_));
-            }
+            tryAddType(_page, wc_, result_);
         }
         if (importedDirectSuperClass.isEmpty()) {
             importedDirectSuperClass = _page.getAliasObject();
 
+        }
+    }
+
+    private String tryGetType(AnalyzedPageEl _page, boolean _ok, StringList _j, StringList _allTypes) {
+        String res_;
+        if (_ok) {
+            res_ = AnaInherits.getRealClassName(_allTypes.first(), _j);
+        } else {
+            res_ = _page.getAliasObject();
+        }
+        return res_;
+    }
+
+    private void tryAddType(AnalyzedPageEl _page, boolean _wc, String _result) {
+        String base_ = StringExpUtil.getIdFromAllTypes(_result);
+        RootBlock r_ = _page.getAnaClassBody(base_);
+        if (this instanceof AnnotationBlock||r_ instanceof InterfaceBlock) {
+            importedDirectSuperInterfaces.add(_result);
+        } else {
+            importedDirectSuperClass = _result;
+        }
+        if (r_ != null&&!_wc) {
+            importedDirectSuperTypes.add(new AnaFormattedRootBlock(r_, _result));
         }
     }
 
@@ -1257,10 +1306,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return true;
     }
     public final void checkCompatibilityBounds(AnalyzedPageEl _page) {
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypesMapValues()) {
-            vars_.put(t.getName(), t.getConstraints());
-        }
+        StringMap<StringList> vars_ = extractVarTypes();
         String objectClassName_ = _page.getAliasObject();
         for (TypeVar t: getParamTypesMapValues()) {
             CustList<MethodIdAncestors> signatures_;
@@ -1286,33 +1332,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<MethodIdAncestors> er_;
         er_ = RootBlock.areCompatibleIndexer(_fullName, sub_);
         for (MethodIdAncestors e: er_) {
-            StringList retClasses_ = new StringList();
-            StringList types_ = new StringList();
-            for (MethodInfo m: e.getMethodInfos()) {
-                retClasses_.add(m.getReturnType());
-                types_.add(m.getClassName());
-            }
-            retClasses_.removeDuplicates();
-            types_.removeDuplicates();
-            FoundErrorInterpret err_ = new FoundErrorInterpret();
-            err_.setFile(getFile());
-            err_.setIndexFile(rootBlockContent.getIdRowCol());
-            //original id len
-            err_.buildError(_page.getAnalysisMessages().getReturnTypes(),
-                    e.getClassMethodId().getClassMethodId().getSignature(_page.getDisplayedStrings()),
-                    StringUtil.join(types_,ExportCst.JOIN_TYPES),
-                    StringUtil.join(retClasses_,ExportCst.JOIN_TYPES));
-            _page.addLocError(err_);
-            addNameErrors(err_);
+            errorsRetTypes(_page, e, _page.getAnalysisMessages().getReturnTypes());
         }
         er_ = RootBlock.areCompatibleFinalReturn(_fullName, _vars, sub_, _page);
         for (MethodIdAncestors e: er_) {
-            CustList<MethodInfo> fClasses_ = new CustList<MethodInfo>();
-            for (MethodInfo s: e.getMethodInfos()) {
-                if (s.isFinalMethod()) {
-                    fClasses_.add(s);
-                }
-            }
+            CustList<MethodInfo> fClasses_ = finalMethods(e);
             MethodInfo subInt_ = fClasses_.first();
             String subType_ = subInt_.getReturnType();
             for (MethodInfo s: e.getMethodInfos()) {
@@ -1336,24 +1360,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         er_ = RootBlock.areCompatibleMerged(_fullName, _vars, sub_, _page);
         for (MethodIdAncestors e: er_) {
-            StringList retClasses_ = new StringList();
-            StringList types_ = new StringList();
-            for (MethodInfo m: e.getMethodInfos()) {
-                retClasses_.add(m.getReturnType());
-                types_.add(m.getClassName());
-            }
-            retClasses_.removeDuplicates();
-            types_.removeDuplicates();
-            FoundErrorInterpret err_ = new FoundErrorInterpret();
-            err_.setFile(getFile());
-            err_.setIndexFile(rootBlockContent.getIdRowCol());
-            //original id len
-            err_.buildError(_page.getAnalysisMessages().getTwoReturnTypes(),
-                    e.getClassMethodId().getClassMethodId().getSignature(_page.getDisplayedStrings()),
-                    StringUtil.join(types_,ExportCst.JOIN_TYPES),
-                    StringUtil.join(retClasses_,ExportCst.JOIN_TYPES));
-            _page.addLocError(err_);
-            addNameErrors(err_);
+            errorsRetTypes(_page, e, _page.getAnalysisMessages().getTwoReturnTypes());
         }
         er_ = RootBlock.areModifierCompatible(sub_);
         for (MethodIdAncestors e: er_) {
@@ -1369,11 +1376,33 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
 
-    public final void checkCompatibility(AnalyzedPageEl _page) {
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypesMapValues()) {
-            vars_.put(t.getName(), t.getConstraints());
+    private void errorsRetTypes(AnalyzedPageEl _page, MethodIdAncestors _e, String _message) {
+        StringList retClasses_ = new StringList();
+        StringList types_ = new StringList();
+        feedTypes(_e, retClasses_, types_);
+        retClasses_.removeDuplicates();
+        types_.removeDuplicates();
+        FoundErrorInterpret err_ = new FoundErrorInterpret();
+        err_.setFile(getFile());
+        err_.setIndexFile(rootBlockContent.getIdRowCol());
+        //original id len
+        err_.buildError(_message,
+                _e.getClassMethodId().getClassMethodId().getSignature(_page.getDisplayedStrings()),
+                StringUtil.join(types_,ExportCst.JOIN_TYPES),
+                StringUtil.join(retClasses_,ExportCst.JOIN_TYPES));
+        _page.addLocError(err_);
+        addNameErrors(err_);
+    }
+
+    private void feedTypes(MethodIdAncestors _e, StringList _retClasses, StringList _types) {
+        for (MethodInfo m: _e.getMethodInfos()) {
+            _retClasses.add(m.getReturnType());
+            _types.add(m.getClassName());
         }
+    }
+
+    public final void checkCompatibility(AnalyzedPageEl _page) {
+        StringMap<StringList> vars_ = extractVarTypes();
         CustList<MethodIdAncestors> ov_;
         ov_ = new CustList<MethodIdAncestors>();
         CustList<CustList<MethodInfo>> methods_ = OperationNode.fetchParamClassAncMethods(new StringList(getGenericString()), _page);
@@ -1390,25 +1419,19 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
     public final void checkImplements(AnalyzedPageEl _page) {
         boolean concreteClass_ = mustImplement();
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypesMapValues()) {
-            vars_.put(t.getName(), t.getConstraints());
-        }
         for (NamedCalledFunctionBlock b: overridableBlocks) {
-            if (b.isAbstractMethod()) {
-                if (b.getFirstChild() != null) {
-                    FoundErrorInterpret err_;
-                    err_ = new FoundErrorInterpret();
-                    err_.setFile(getFile());
-                    err_.setIndexFile(b.getNameOffset());
-                    //last char (brace) in header
-                    err_.buildError(
-                            _page.getAnalysisMessages().getAbstractMethodBody(),
-                            getFullName(),
-                            b.getSignature(_page));
-                    _page.addLocError(err_);
-                    b.addNameErrors(err_);
-                }
+            if (b.isAbstractMethod() && b.getFirstChild() != null) {
+                FoundErrorInterpret err_;
+                err_ = new FoundErrorInterpret();
+                err_.setFile(getFile());
+                err_.setIndexFile(b.getNameOffset());
+                //last char (brace) in header
+                err_.buildError(
+                        _page.getAnalysisMessages().getAbstractMethodBody(),
+                        getFullName(),
+                        b.getSignature(_page));
+                _page.addLocError(err_);
+                b.addNameErrors(err_);
             }
         }
         if (concreteClass_) {
@@ -1490,38 +1513,44 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<MethodIdAncestors> output_;
         output_ = new CustList<MethodIdAncestors>();
         for (MethodIdAncestors e: _methodIds) {
-            MethodIdAncestor cst_ = e.getClassMethodId();
             CustList<MethodInfo> classes_ = e.getMethodInfos();
             boolean skip_ = skip(_fullName, classes_);
             if (skip_) {
                 continue;
             }
-            CustList<MethodInfo> fClasses_ = new CustList<MethodInfo>();
-            for (MethodInfo s: e.getMethodInfos()) {
-                if (s.isFinalMethod()) {
-                    fClasses_.add(s);
-                }
-            }
-            if (!StringExpUtil.isDollarWord(cst_.getClassMethodId().getName())) {
-                continue;
-            }
-            if (fClasses_.size() == 1) {
-                MethodInfo subInt_ = fClasses_.first();
-                String subType_ = subInt_.getReturnType();
-                boolean err_ = false;
-                for (MethodInfo s: e.getMethodInfos()) {
-                    String formattedSup_ = s.getReturnType();
-                    if (!AnaInherits.isReturnCorrect(formattedSup_, subType_,_vars, _page)) {
-                        err_ = true;
-                        addClass(output_, cst_, s);
-                    }
-                }
-                if (err_) {
-                    addClass(output_, cst_, subInt_);
-                }
-            }
+            lookForFinal(_vars, _page, output_, e);
         }
         return output_;
+    }
+
+    private static void lookForFinal(StringMap<StringList> _vars, AnalyzedPageEl _page, CustList<MethodIdAncestors> _output, MethodIdAncestors _e) {
+        MethodIdAncestor cst_ = _e.getClassMethodId();
+        CustList<MethodInfo> fClasses_ = finalMethods(_e);
+        if (StringExpUtil.isDollarWord(cst_.getClassMethodId().getName()) && fClasses_.size() == 1) {
+            MethodInfo subInt_ = fClasses_.first();
+            String subType_ = subInt_.getReturnType();
+            boolean err_ = false;
+            for (MethodInfo s : _e.getMethodInfos()) {
+                String formattedSup_ = s.getReturnType();
+                if (!AnaInherits.isReturnCorrect(formattedSup_, subType_, _vars, _page)) {
+                    err_ = true;
+                    addClass(_output, cst_, s);
+                }
+            }
+            if (err_) {
+                addClass(_output, cst_, subInt_);
+            }
+        }
+    }
+
+    private static CustList<MethodInfo> finalMethods(MethodIdAncestors _e) {
+        CustList<MethodInfo> fClasses_ = new CustList<MethodInfo>();
+        for (MethodInfo s: _e.getMethodInfos()) {
+            if (s.isFinalMethod()) {
+                fClasses_.add(s);
+            }
+        }
+        return fClasses_;
     }
 
     private static CustList<MethodIdAncestors> areCompatibleMerged(
@@ -1531,52 +1560,55 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<MethodIdAncestors> output_;
         output_ = new CustList<MethodIdAncestors>();
         for (MethodIdAncestors e: _methodIds) {
-            MethodIdAncestor cst_ = e.getClassMethodId();
             CustList<MethodInfo> classes_ = e.getMethodInfos();
             boolean skip_ = skip(_fullName, classes_);
             if (skip_) {
                 continue;
             }
-            CustList<MethodInfo> fClasses_ = new CustList<MethodInfo>();
-            StringList retClasses_ = new StringList();
-            for (MethodInfo s: e.getMethodInfos()) {
-                if (s.isFinalMethod()) {
-                    fClasses_.add(s);
-                }
-                retClasses_.add(s.getReturnType());
+            lookForMerged(_vars, _page, output_, e);
+        }
+        return output_;
+    }
+
+    private static void lookForMerged(StringMap<StringList> _vars, AnalyzedPageEl _page, CustList<MethodIdAncestors> _output, MethodIdAncestors _e) {
+        MethodIdAncestor cst_ = _e.getClassMethodId();
+        CustList<MethodInfo> classes_ = _e.getMethodInfos();
+        CustList<MethodInfo> fClasses_ = new CustList<MethodInfo>();
+        StringList retClasses_ = new StringList();
+        for (MethodInfo s: _e.getMethodInfos()) {
+            if (s.isFinalMethod()) {
+                fClasses_.add(s);
             }
-            if (!StringExpUtil.isDollarWord(cst_.getClassMethodId().getName())) {
-                continue;
-            }
-            if (fClasses_.size() == 1) {
-                continue;
-            }
-            StringList subs_ = new StringList();
-            int len_ = retClasses_.size();
-            for (int i = 0; i < len_; i++) {
-                String cur_ = retClasses_.get(i);
-                boolean sub_ = true;
-                for (int j = 0; j < len_; j++) {
-                    String other_ = retClasses_.get(j);
-                    if (StringUtil.quickEq(cur_, other_)) {
-                        continue;
-                    }
-                    if (!AnaInherits.isReturnCorrect(other_, cur_, _vars, _page)) {
-                        sub_ = false;
-                        break;
-                    }
-                }
-                if (sub_) {
-                    subs_.add(cur_);
-                }
-            }
+            retClasses_.add(s.getReturnType());
+        }
+        if (StringExpUtil.isDollarWord(cst_.getClassMethodId().getName()) && fClasses_.size() != 1) {
+            StringList subs_ = subs(_vars, _page, retClasses_);
             if (!subs_.onlyOneElt()) {
-                for (MethodInfo c: classes_) {
-                    addClass(output_, e.getClassMethodId(), c);
+                for (MethodInfo c : classes_) {
+                    addClass(_output, _e.getClassMethodId(), c);
                 }
             }
         }
-        return output_;
+    }
+
+    private static StringList subs(StringMap<StringList> _vars, AnalyzedPageEl _page, StringList _retClasses) {
+        StringList subs_ = new StringList();
+        int len_ = _retClasses.size();
+        for (int i = 0; i < len_; i++) {
+            String cur_ = _retClasses.get(i);
+            boolean sub_ = true;
+            for (int j = 0; j < len_; j++) {
+                String other_ = _retClasses.get(j);
+                if (!StringUtil.quickEq(cur_, other_) && !AnaInherits.isReturnCorrect(other_, cur_, _vars, _page)) {
+                    sub_ = false;
+                    break;
+                }
+            }
+            if (sub_) {
+                subs_.add(cur_);
+            }
+        }
+        return subs_;
     }
 
     private static boolean skip(String _fullName, CustList<MethodInfo> _classes) {
@@ -1630,12 +1662,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         output_ = new CustList<MethodIdAncestors>();
         for (MethodIdAncestors e: _methodIds) {
             MethodIdAncestor cst_ = e.getClassMethodId();
-            CustList<MethodInfo> fClasses_ = new CustList<MethodInfo>();
-            for (MethodInfo s: e.getMethodInfos()) {
-                if (s.isFinalMethod()) {
-                    fClasses_.add(s);
-                }
-            }
+            CustList<MethodInfo> fClasses_ = finalMethods(e);
             if (fClasses_.size() > 1) {
                 for (MethodInfo c: fClasses_) {
                     addClass(output_, cst_, c);
@@ -1699,37 +1726,45 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             ConstructorId co_ = convert(e.getKey());
             CustList<ConstructorId> cycle_ = new CustList<ConstructorId>();
             while (true) {
-                ConstructorBlock found_ = null;
-                cycle_.add(co_);
-                for (EntryCust<ConstructorId, ConstructorBlock> c: ctorsId_.entryList()) {
-                    if (co_.eq(c.getKey())) {
-                        found_ = c.getValue();
-                        break;
-                    }
-                }
+                ConstructorBlock found_ = exitCycle(_page,f,ctorsId_,co_,cycle_);
                 if (found_ == null) {
-                    break;
-                }
-                if (found_ == f && cycle_.size() > 1) {
-                    FoundErrorInterpret cyclic_ = new FoundErrorInterpret();
-                    StringList c_ = new StringList();
-                    for (ConstructorId c: cycle_) {
-                        c_.add(c.getSignature(_page.getDisplayedStrings()));
-                    }
-                    cyclic_.setFile(getFile());
-                    cyclic_.setIndexFile(getOffset());
-                    //original contructor id len
-                    cyclic_.buildError(_page.getAnalysisMessages().getCyclicCtorCall(),
-                            StringUtil.join(c_,ExportCst.JOIN_TYPES),
-                            getFullName());
-                    _page.addLocError(cyclic_);
-                    found_.addNameErrors(cyclic_);
                     break;
                 }
                 co_ = convert(found_.getConstIdSameClass());
             }
         }
     }
+    private ConstructorBlock exitCycle(AnalyzedPageEl _page, ConstructorBlock _f,IdMap<ConstructorId, ConstructorBlock> _ctorsId, ConstructorId _co, CustList<ConstructorId> _cycle) {
+        ConstructorBlock found_ = null;
+        _cycle.add(_co);
+        for (EntryCust<ConstructorId, ConstructorBlock> c : _ctorsId.entryList()) {
+            if (_co.eq(c.getKey())) {
+                found_ = c.getValue();
+                break;
+            }
+        }
+        if (found_ == null) {
+            return null;
+        }
+        if (found_ == _f && _cycle.size() > 1) {
+            FoundErrorInterpret cyclic_ = new FoundErrorInterpret();
+            StringList c_ = new StringList();
+            for (ConstructorId c: _cycle) {
+                c_.add(c.getSignature(_page.getDisplayedStrings()));
+            }
+            cyclic_.setFile(getFile());
+            cyclic_.setIndexFile(getOffset());
+            //original contructor id len
+            cyclic_.buildError(_page.getAnalysisMessages().getCyclicCtorCall(),
+                    StringUtil.join(c_,ExportCst.JOIN_TYPES),
+                    getFullName());
+            _page.addLocError(cyclic_);
+            found_.addNameErrors(cyclic_);
+            return null;
+        }
+        return found_;
+    }
+
     private static ConstructorId convert(ConstructorId _ctor) {
         if (_ctor == null) {
             return new ConstructorId("",new StringList(),true);
@@ -1776,10 +1811,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public int getNameLength() {
         return nameLength;
-    }
-
-    public CustList<OperationNode> getRoots() {
-        return roots;
     }
 
     public CustList<AnaResultPartType> getPartsStaticInitInterfacesOffset() {
@@ -1847,19 +1878,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public final String getWildCardString() {
-        String pkg_ = getPackageName();
-        StringBuilder generic_ = new StringBuilder();
-        RootBlock.addPkgIfNotEmpty(pkg_, generic_);
+        StringBuilder generic_ = initGeneric();
         CustList<RootBlock> pars_ = getSelfAndParentTypes();
-        RootBlock previous_ = null;
-        for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
-            appendParts(generic_, previous_, r);
-            generic_.append(r.getSuffixedName());
-            previous_ = r;
-        }
+        RootBlock previous_ = beginType(generic_, pars_);
         for (RootBlock r: pars_) {
-            appendParts(generic_, previous_, r);
-            generic_.append(r.getSuffixedName());
+            appendName(generic_, previous_, r);
             if (!r.rootBlockContent.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
                 int count_ = r.rootBlockContent.getParamTypes().size();
@@ -1874,6 +1897,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return generic_.toString();
     }
+
     public final CustList<RootBlock> getAllParentTypesReverse() {
         return getAllParentTypes().getReverse();
     }
@@ -1905,19 +1929,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public final String getGenericString() {
-        String pkg_ = getPackageName();
-        StringBuilder generic_ = new StringBuilder();
-        RootBlock.addPkgIfNotEmpty(pkg_, generic_);
+        StringBuilder generic_ = initGeneric();
         CustList<RootBlock> pars_ = getSelfAndParentTypes();
-        RootBlock previous_ = null;
-        for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
-            appendParts(generic_, previous_, r);
-            generic_.append(r.getSuffixedName());
-            previous_ = r;
-        }
+        RootBlock previous_ = beginType(generic_, pars_);
         for (RootBlock r: pars_) {
-            appendParts(generic_, previous_, r);
-            generic_.append(r.getSuffixedName());
+            appendName(generic_, previous_, r);
             if (!r.rootBlockContent.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t: r.rootBlockContent.getParamTypes()) {
@@ -1931,6 +1947,29 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return generic_.toString();
     }
+
+    private StringBuilder initGeneric() {
+        String pkg_ = getPackageName();
+        StringBuilder generic_ = new StringBuilder();
+        RootBlock.addPkgIfNotEmpty(pkg_, generic_);
+        return generic_;
+    }
+
+    private static void appendName(StringBuilder _generic, RootBlock _previous, RootBlock _r) {
+        appendParts(_generic, _previous, _r);
+        _generic.append(_r.getSuffixedName());
+    }
+
+    private RootBlock beginType(StringBuilder _generic, CustList<RootBlock> _pars) {
+        RootBlock previous_ = null;
+        for (RootBlock r: _pars.first().getAllParentTypesReverse()) {
+            appendParts(_generic, previous_, r);
+            _generic.append(r.getSuffixedName());
+            previous_ = r;
+        }
+        return previous_;
+    }
+
     public StringList getParamTypesValues() {
         StringList l_ = new StringList();
         for (RootBlock r: getSelfAndParentTypes()) {
@@ -1960,10 +1999,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setAccessedBlock(AccessedBlock _accessedBlock) {
         this.accessedBlock = _accessedBlock;
-    }
-
-    public CustList<ResultExpression> getResList() {
-        return resList;
     }
 
     public int getNumberAll() {
@@ -2018,16 +2053,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         this.countsAnonFct = _countsAnonFct;
     }
 
-    public CustList<NamedCalledFunctionBlock> getAnonymousRootFct() {
-        return anonymousRootFct;
-    }
-
-    public CustList<AnonymousTypeBlock> getAnonymousRoot() {
-        return anonymousRoot;
-    }
-
-    public CustList<SwitchMethodBlock> getSwitchMethodRoots() {
-        return switchMethodRoots;
+    public AnonymousElements getElementsType() {
+        return elementsType;
     }
 
     public CustList<NamedCalledFunctionBlock> getOverridableBlocks() {

@@ -208,7 +208,8 @@ public final class SplitExpressionUtil {
                 String value_ = ((ElementBlock) b).buildVirtualCreate(keyWordNew_);
                 ResultExpression resultExpression_ = ((ElementBlock) b).getRes();
                 resultExpression_.setAnalyzedString(value_);
-                resultExpression_.setSumOffset(((ElementBlock) b).getFieldNameOffest()+((ElementBlock) b).retrieveTr(keyWordNew_));
+                ((ElementBlock) b).getElementContent().setTrOffset(((ElementBlock) b).retrieveTr(keyWordNew_));
+                resultExpression_.setSumOffset(((ElementBlock) b).getFieldNameOffset()+((ElementBlock) b).retrieveTr(keyWordNew_));
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 extractAnon(_page, _int, null, _type, resultExpression_);
             }
@@ -219,7 +220,8 @@ public final class SplitExpressionUtil {
                 String value_ = ((InnerElementBlock) b).buildVirtualCreate(keyWordNew_);
                 ResultExpression resultExpression_ = ((InnerElementBlock) b).getRes();
                 resultExpression_.setAnalyzedString(value_);
-                resultExpression_.setSumOffset(((InnerElementBlock) b).getFieldNameOffest()+((InnerElementBlock) b).retrieveTr(keyWordNew_));
+                ((InnerElementBlock) b).getElementContent().setTrOffset(((InnerElementBlock) b).retrieveTr(keyWordNew_));
+                resultExpression_.setSumOffset(((InnerElementBlock) b).getFieldNameOffset()+((InnerElementBlock) b).retrieveTr(keyWordNew_));
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 extractAnon(_page, _int, null, _type, resultExpression_);
             }
@@ -232,17 +234,10 @@ public final class SplitExpressionUtil {
         }
         if (!(_type instanceof InnerElementBlock)) {
             _page.setCurrentBlock(_type);
-            int len_ = _type.getAnnotations().getAnnotations().size();
+            CustList<ResultParsedAnnot> annotations_ = _type.getAnnotations().getAnnotations();
+            int len_ = annotations_.size();
             for (int i = 0; i < len_; i++) {
-                ResultParsedAnnot begin_ = _type.getAnnotations().getAnnotations().get(i);
-                _page.zeroOffset();
-                ResultExpression res_ = new ResultExpression();
-                res_.partsAbsol(begin_.getParts());
-                res_.setAnalyzedString(begin_.getAnnotation().trim());
-                res_.setSumOffset(begin_.getIndex());
-                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, res_);
-                _type.getResList().add(res_);
+                procAnnot(_page, _int,null, _type, annotations_, i);
             }
         }
     }
@@ -250,47 +245,26 @@ public final class SplitExpressionUtil {
     private static void procAnnotMember(AnalyzedPageEl _page, IntermediaryResults _int, RootBlock _type, AbsBk _b) {
         if (_b instanceof FieldBlock) {
             _page.setCurrentBlock(_b);
-            int len_ = ((FieldBlock) _b).getAnnotations().getAnnotations().size();
+            CustList<ResultParsedAnnot> annotations_ = ((FieldBlock) _b).getAnnotations().getAnnotations();
+            int len_ = annotations_.size();
             for (int i = 0; i < len_; i++) {
-                ResultParsedAnnot begin_ = ((FieldBlock) _b).getAnnotations().getAnnotations().get(i);
-                _page.zeroOffset();
-                ResultExpression res_ = new ResultExpression();
-                res_.partsAbsol(begin_.getParts());
-                res_.setAnalyzedString(begin_.getAnnotation().trim());
-                res_.setSumOffset(begin_.getIndex());
-                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, res_);
-                ((FieldBlock) _b).getResList().add(res_);
+                procAnnot(_page, _int,null, _type, annotations_, i);
             }
         }
         if (_b instanceof ElementBlock) {
             _page.setCurrentBlock(_b);
-            int len_ = ((ElementBlock) _b).getAnnotations().getAnnotations().size();
+            CustList<ResultParsedAnnot> annotations_ = ((ElementBlock) _b).getAnnotations().getAnnotations();
+            int len_ = annotations_.size();
             for (int i = 0; i < len_; i++) {
-                ResultParsedAnnot begin_ = ((ElementBlock) _b).getAnnotations().getAnnotations().get(i);
-                _page.zeroOffset();
-                ResultExpression res_ = new ResultExpression();
-                res_.partsAbsol(begin_.getParts());
-                res_.setAnalyzedString(begin_.getAnnotation().trim());
-                res_.setSumOffset(begin_.getIndex());
-                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, res_);
-                ((ElementBlock) _b).getResList().add(res_);
+                procAnnot(_page, _int,null, _type, annotations_, i);
             }
         }
         if (_b instanceof InnerElementBlock) {
             _page.setCurrentBlock(_b);
-            int len_ = ((InnerElementBlock) _b).getAnnotations().getAnnotations().size();
+            CustList<ResultParsedAnnot> annotations_ = ((InnerElementBlock) _b).getAnnotations().getAnnotations();
+            int len_ = annotations_.size();
             for (int i = 0; i < len_; i++) {
-                ResultParsedAnnot begin_ = ((InnerElementBlock) _b).getAnnotations().getAnnotations().get(i);
-                _page.zeroOffset();
-                ResultExpression res_ = new ResultExpression();
-                res_.partsAbsol(begin_.getParts());
-                res_.setAnalyzedString(begin_.getAnnotation().trim());
-                res_.setSumOffset(begin_.getIndex());
-                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, res_);
-                ((InnerElementBlock) _b).getResList().add(res_);
+                procAnnot(_page, _int,null, _type, annotations_, i);
             }
         }
         if (_b instanceof NamedFunctionBlock) {
@@ -300,46 +274,23 @@ public final class SplitExpressionUtil {
 
     private static void processAnnotFct(AnalyzedPageEl _page, IntermediaryResults _int, AbsBk _fct, RootBlock _type) {
         _page.setCurrentBlock(_fct);
-        int len_ = ((NamedFunctionBlock) _fct).getAnnotations().getAnnotations().size();
+        CustList<ResultParsedAnnot> annotations_ = ((NamedFunctionBlock) _fct).getAnnotations().getAnnotations();
+        int len_ = annotations_.size();
         for (int i = 0; i < len_; i++) {
-            ResultParsedAnnot begin_ = ((NamedFunctionBlock) _fct).getAnnotations().getAnnotations().get(i);
-            _page.zeroOffset();
-            ResultExpression res_ = new ResultExpression();
-            res_.setAnalyzedString(begin_.getAnnotation().trim());
-            res_.setSumOffset(begin_.getIndex());
-            res_.partsAbsol(begin_.getParts());
-            _page.setAccessStaticContext(MethodAccessKind.STATIC);
-            extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, res_);
-            ((NamedFunctionBlock) _fct).getResList().add(res_);
+            procAnnot(_page, _int, (NamedFunctionBlock) _fct, _type, annotations_, i);
         }
         for (ResultParsedAnnots l: ((NamedFunctionBlock) _fct).getAnnotationsParams()) {
-            CustList<ResultExpression> resList_ = new CustList<ResultExpression>();
-            len_ = l.getAnnotations().size();
+            CustList<ResultParsedAnnot> annotationsLoc_ = l.getAnnotations();
+            len_ = annotationsLoc_.size();
             for (int i = 0; i < len_; i++) {
-                ResultParsedAnnot begin_ = l.getAnnotations().get(i);
-                _page.zeroOffset();
-                ResultExpression res_ = new ResultExpression();
-                res_.setAnalyzedString(begin_.getAnnotation().trim());
-                res_.setSumOffset(begin_.getIndex());
-                res_.partsAbsol(begin_.getParts());
-                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, res_);
-                resList_.add(res_);
+                procAnnot(_page, _int, (NamedFunctionBlock) _fct, _type, annotationsLoc_, i);
             }
-            ((NamedFunctionBlock) _fct).getResLists().add(resList_);
         }
         if (_fct instanceof NamedCalledFunctionBlock) {
-            int lenSet_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotations().size();
+            CustList<ResultParsedAnnot> annotationsSupp_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotations();
+            int lenSet_ = annotationsSupp_.size();
             for (int i = 0; i < lenSet_; i++) {
-                ResultParsedAnnot begin_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotations().get(i);
-                _page.zeroOffset();
-                ResultExpression res_ = new ResultExpression();
-                res_.setAnalyzedString(begin_.getAnnotation().trim());
-                res_.setSumOffset(begin_.getIndex());
-                res_.partsAbsol(begin_.getParts());
-                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, res_);
-                ((NamedCalledFunctionBlock) _fct).getResListSupp().add(res_);
+                procAnnot(_page, _int, (NamedFunctionBlock) _fct, _type, annotationsSupp_, i);
             }
         }
 
@@ -347,34 +298,30 @@ public final class SplitExpressionUtil {
 
     private static void processAnnotSw(AnalyzedPageEl _page, IntermediaryResults _int, SwitchMethodBlock _fct, RootBlock _type) {
         _page.setCurrentBlock(_fct);
-        int len_ = _fct.getAnnotations().getAnnotations().size();
+        CustList<ResultParsedAnnot> annotations_ = _fct.getAnnotations().getAnnotations();
+        int len_ = annotations_.size();
         for (int i = 0; i < len_; i++) {
-            ResultParsedAnnot begin_ = _fct.getAnnotations().getAnnotations().get(i);
-            _page.zeroOffset();
-            ResultExpression res_ = new ResultExpression();
-            res_.partsAbsol(begin_.getParts());
-            res_.setAnalyzedString(begin_.getAnnotation().trim());
-            res_.setSumOffset(begin_.getIndex());
-            _page.setAccessStaticContext(MethodAccessKind.STATIC);
-            extractAnon(_page, _int, _fct, _type, res_);
-            _fct.getResList().add(res_);
+            procAnnot(_page, _int, _fct, _type, annotations_, i);
         }
         for (ResultParsedAnnots l: _fct.getAnnotationsParams()) {
-            CustList<ResultExpression> resList_ = new CustList<ResultExpression>();
-            len_ = l.getAnnotations().size();
+            CustList<ResultParsedAnnot> annotationsLoc_ = l.getAnnotations();
+            len_ = annotationsLoc_.size();
             for (int i = 0; i < len_; i++) {
-                ResultParsedAnnot begin_ = l.getAnnotations().get(i);
-                _page.zeroOffset();
-                ResultExpression res_ = new ResultExpression();
-                res_.partsAbsol(begin_.getParts());
-                res_.setAnalyzedString(begin_.getAnnotation().trim());
-                res_.setSumOffset(begin_.getIndex());
-                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, _fct, _type, res_);
-                resList_.add(res_);
+                procAnnot(_page, _int, _fct, _type, annotationsLoc_, i);
             }
-            _fct.getResLists().add(resList_);
         }
+    }
+
+    private static void procAnnot(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _fct, RootBlock _type, CustList<ResultParsedAnnot> _annotations, int _i) {
+        ResultParsedAnnot begin_ = _annotations.get(_i);
+        _page.zeroOffset();
+        ResultExpression res_ = new ResultExpression();
+        res_.partsAbsol(begin_.getParts());
+        res_.setAnalyzedString(begin_.getAnnotation().trim());
+        res_.setSumOffset(begin_.getIndex());
+        begin_.setRes(res_);
+        _page.setAccessStaticContext(MethodAccessKind.STATIC);
+        extractAnon(_page, _int, _fct, _type, res_);
     }
 
     private static void processFunction(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type) {

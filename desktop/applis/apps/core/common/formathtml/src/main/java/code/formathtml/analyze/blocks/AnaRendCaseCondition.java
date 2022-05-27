@@ -127,62 +127,44 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         String id_ = StringExpUtil.getIdFromAllTypes(type_);
         AnaGeneType g_ = _page.getAnaClassBody(id_);
         if (g_ instanceof EnumBlock && CaseCondition.allWordsOrEmpty(value)) {
-            int sum_ = 0;
-            EnumBlock e_ = (EnumBlock)g_;
-            for (String s: StringUtil.splitChar(value,',')) {
-                boolean added_ = false;
-                String trimPart_ = s.trim();
-                int k_ = sum_ + StringExpUtil.getOffset(s);
-                if (StringUtil.quickEq(trimPart_,_page.getKeyWords().getKeyWordNull())) {
-                    offsetsEnum.addEntry(k_, trimPart_);
-                    added_ = true;
-                } else {
-                    for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                        if (StringUtil.contains(f.getFieldName(), trimPart_)) {
-                            offsetsEnum.addEntry(k_, trimPart_);
-                            added_ = true;
-                            break;
-                        }
-                    }
-                }
-                if (!added_) {
-                    offsetsEnum.addEntry(k_, trimPart_);
-                }
-                sum_ += s.length() + 1;
-            }
-            for (IndexStrPart v: offsetsEnum.getValues()) {
-                boolean added_ = false;
-                if (StringUtil.quickEq(v.getPart(),_page.getKeyWords().getKeyWordNull())) {
-                    checkDuplicateListedValue(_anaDoc,_page,Argument.createVoid());
-                    stdValues.add(Argument.createVoid());
-                    added_ = true;
-                } else {
-                    for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                        if (StringUtil.contains(f.getFieldName(), v.getPart())) {
-                            ClassField pair_ = new ClassField(f.getImportedClassName(), v.getPart());
-                            checkDuplicateListedEnum(_anaDoc,_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()));
-                            enumValues.add(pair_);
-                            added_ = true;
-                            break;
-                        }
-                    }
-                }
-                if (!added_) {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(valueOffset);
-                    //key word len
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                            _page.getKeyWords().getKeyWordCase(),
-                            value);
-                    AnalyzingDoc.addError(un_, _page);
-                    break;
-                }
-            }
+            enumElements(_page, (EnumBlock) g_);
             return;
         }
         processNumValues(_anaDoc,instance_,resSwitch_, _page);
 //        check(_anaDoc, _page, resSwitch_, instance_);
+    }
+
+    private void enumElements(AnalyzedPageEl _page, EnumBlock _e) {
+        CaseCondition.feedElts(_page, _e,value,offsetsEnum);
+        for (IndexStrPart v: offsetsEnum.getValues()) {
+            boolean added_ = false;
+            if (StringUtil.quickEq(v.getPart(), _page.getKeyWords().getKeyWordNull())) {
+                checkDuplicateListedValue(_page,Argument.createVoid());
+                stdValues.add(Argument.createVoid());
+                added_ = true;
+            } else {
+                for (InnerTypeOrElement f: _e.getEnumBlocks()) {
+                    if (StringUtil.contains(f.getElements().getFieldName(), v.getPart())) {
+                        ClassField pair_ = new ClassField(f.getImportedClassName(), v.getPart());
+                        checkDuplicateListedEnum(_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()));
+                        enumValues.add(pair_);
+                        added_ = true;
+                        break;
+                    }
+                }
+            }
+            if (!added_) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFile(_page.getCurrentFile());
+                un_.setIndexFile(valueOffset);
+                //key word len
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                        _page.getKeyWords().getKeyWordCase(),
+                        value);
+                AnalyzingDoc.addError(un_, _page);
+                break;
+            }
+        }
     }
 
     private void processNumValues(AnalyzingDoc _anaDoc, boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page) {
@@ -198,24 +180,24 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             for (int i = 0; i < len_; i++) {
                 OperationNode ch_ = childrenNodes_.get(i);
                 String value_ = StrTypes.value(children_, i);
-                checkRetrieve(_anaDoc,_instance,_resSwitch,ch_.getResultClass(),_page, ch_, value_);
+                checkRetrieve(_instance,_resSwitch,ch_.getResultClass(),_page, ch_, value_);
             }
         } else {
-            checkRetrieve(_anaDoc,_instance,_resSwitch,root.getResultClass(),_page, root, value);
+            checkRetrieve(_instance,_resSwitch,root.getResultClass(),_page, root, value);
         }
     }
 
-    private void checkRetrieve(AnalyzingDoc _anaDoc, boolean _instance,AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page, OperationNode _ch, String _value) {
+    private void checkRetrieve(boolean _instance, AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page, OperationNode _ch, String _value) {
         ClassField classField_ = ElUtil.tryGetAccess(_ch);
         if (classField_ != null) {
-            checkDuplicateListedEnum(_anaDoc,_page, classField_, StringUtil.concat(classField_.getClassName(), ".", classField_.getFieldName()));
-            checkInh(_anaDoc, _page, _resSwitch, _instance, _resCase, StringUtil.concat(classField_.getClassName(), ".", classField_.getFieldName()));
+            checkDuplicateListedEnum(_page, classField_, StringUtil.concat(classField_.getClassName(), ".", classField_.getFieldName()));
+            checkInh(_page, _resSwitch, _instance, _resCase, StringUtil.concat(classField_.getClassName(), ".", classField_.getFieldName()));
             enumValues.add(classField_);
         } else {
             Argument argument_ = _ch.getArgument();
             if (argument_ != null) {
-                checkDuplicateListedValue(_anaDoc,_page,argument_);
-                checkInh(_anaDoc, _page, _resSwitch, _instance, _resCase, AnaApplyCoreMethodUtil.getString(argument_, _page));
+                checkDuplicateListedValue(_page,argument_);
+                checkInh(_page, _resSwitch, _instance, _resCase, AnaApplyCoreMethodUtil.getString(argument_, _page));
                 stdValues.add(argument_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -230,7 +212,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         }
     }
 
-    private void checkDuplicateListedEnum(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ClassField _classField, String _display) {
+    private void checkDuplicateListedEnum(AnalyzedPageEl _page, ClassField _classField, String _display) {
         AnaRendParentBlock par_ = getParent();
         AnaRendBlock first_ = par_.getFirstChild();
         while (first_ != this) {
@@ -268,7 +250,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             }
         }
     }
-    private void checkDuplicateListedValue(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, Argument _value) {
+    private void checkDuplicateListedValue(AnalyzedPageEl _page, Argument _value) {
         AnaRendParentBlock par_ = getParent();
         AnaRendBlock first_ = par_.getFirstChild();
         while (first_ != this) {
@@ -306,7 +288,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             }
         }
     }
-    private void checkInh(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance, AnaClassArgumentMatching _resCase, String _string) {
+    private void checkInh(AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance, AnaClassArgumentMatching _resCase, String _string) {
         Mapping m_ = new Mapping();
         m_.setArg(_resCase);
         m_.setParam(_resSwitch);

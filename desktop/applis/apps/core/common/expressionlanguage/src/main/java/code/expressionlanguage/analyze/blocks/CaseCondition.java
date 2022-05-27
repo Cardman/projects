@@ -116,53 +116,7 @@ public final class CaseCondition extends SwitchPartBlock {
         _page.setSumOffset(valueOffset);
         _page.zeroOffset();
         if (!variableName.isEmpty()) {
-            if (!instance_) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(getFile());
-                un_.setIndexFile(valueOffset);
-                //key word len
-                un_.buildError(_page.getAnalysisMessages().getCaseTypeVar());
-                _page.addLocError(un_);
-                addErrorBlock(un_.getBuiltError());
-            }
-            instance = true;
-            partOffsets = ResolvingTypes.resolveCorrectType(declaringType, _page);
-            importedType = partOffsets.getResult(_page);
-            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
-            if (!res_.isError()) {
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(importedType);
-                lv_.setRef(variableOffset);
-                lv_.setConstType(ConstType.FIX_VAR);
-                lv_.setFinalVariable(true);
-                _page.getInfosVars().put(variableName, lv_);
-            }
-            if (!condition.isEmpty()) {
-                _page.setSumOffset(res.getSumOffset());
-                _page.zeroOffset();
-                res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(stCtx_), _page));
-                AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
-                if (!resultClass_.isBoolType(_page)) {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(getFile());
-                    un_.setIndexFile(conditionOffset);
-                    //key word len
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(resultClass_.getNames(), ExportCst.JOIN_TYPES));
-                    _page.addLocError(un_);
-                    addErrorBlock(un_.getBuiltError());
-                }
-                resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            }
-            if (res_.isError()) {
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFile(getFile());
-                d_.setIndexFile(variableOffset);
-                //variable name
-                d_.setBuiltError(res_.getMessage());
-                _page.addLocError(d_);
-                nameErrors.add(d_.getBuiltError());
-            }
+            instanceCase(_page, stCtx_, instance_);
             return;
         }
         String id_ = StringExpUtil.getIdFromAllTypes(type_);
@@ -171,28 +125,7 @@ public final class CaseCondition extends SwitchPartBlock {
             EnumBlock e_ = (EnumBlock) g_;
             enumBlock = e_;
             typeEnum = id_;
-            int sum_ = 0;
-            for (String s : StringUtil.splitChar(value, ',')) {
-                boolean added_ = false;
-                String trimPart_ = s.trim();
-                int k_ = sum_ + StringExpUtil.getOffset(s);
-                if (StringUtil.quickEq(trimPart_, _page.getKeyWords().getKeyWordNull())) {
-                    offsetsEnum.addEntry(k_, trimPart_);
-                    added_ = true;
-                } else {
-                    for (InnerTypeOrElement f : e_.getEnumBlocks()) {
-                        if (StringUtil.contains(f.getFieldName(), trimPart_)) {
-                            offsetsEnum.addEntry(k_, trimPart_);
-                            added_ = true;
-                            break;
-                        }
-                    }
-                }
-                if (!added_) {
-                    offsetsEnum.addEntry(k_, trimPart_);
-                }
-                sum_ += s.length() + 1;
-            }
+            feedElts(_page, e_, value, offsetsEnum);
             return;
         }
         _page.setAcceptCommaInstr(true);
@@ -202,6 +135,81 @@ public final class CaseCondition extends SwitchPartBlock {
         String emp_ = _page.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {
             addErrorBlock(emp_);
+        }
+    }
+
+    private void instanceCase(AnalyzedPageEl _page, MethodAccessKind _stCtx, boolean _inst) {
+        if (!_inst) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(getFile());
+            un_.setIndexFile(valueOffset);
+            //key word len
+            un_.buildError(_page.getAnalysisMessages().getCaseTypeVar());
+            _page.addLocError(un_);
+            addErrorBlock(un_.getBuiltError());
+        }
+        instance = true;
+        partOffsets = ResolvingTypes.resolveCorrectType(declaringType, _page);
+        importedType = partOffsets.getResult(_page);
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
+        if (!res_.isError()) {
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(importedType);
+            lv_.setRef(variableOffset);
+            lv_.setConstType(ConstType.FIX_VAR);
+            lv_.setFinalVariable(true);
+            _page.getInfosVars().put(variableName, lv_);
+        }
+        if (!condition.isEmpty()) {
+            _page.setSumOffset(res.getSumOffset());
+            _page.zeroOffset();
+            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(_stCtx), _page));
+            AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
+            if (!resultClass_.isBoolType(_page)) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFile(getFile());
+                un_.setIndexFile(conditionOffset);
+                //key word len
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                        StringUtil.join(resultClass_.getNames(), ExportCst.JOIN_TYPES));
+                _page.addLocError(un_);
+                addErrorBlock(un_.getBuiltError());
+            }
+            resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        }
+        if (res_.isError()) {
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
+            d_.setFile(getFile());
+            d_.setIndexFile(variableOffset);
+            //variable name
+            d_.setBuiltError(res_.getMessage());
+            _page.addLocError(d_);
+            nameErrors.add(d_.getBuiltError());
+        }
+    }
+
+    public static void feedElts(AnalyzedPageEl _page, EnumBlock _e, String _value, StrTypes _offsetsEnum) {
+        int sum_ = 0;
+        for (String s : StringUtil.splitChar(_value, ',')) {
+            boolean added_ = false;
+            String trimPart_ = s.trim();
+            int k_ = sum_ + StringExpUtil.getOffset(s);
+            if (StringUtil.quickEq(trimPart_, _page.getKeyWords().getKeyWordNull())) {
+                _offsetsEnum.addEntry(k_, trimPart_);
+                added_ = true;
+            } else {
+                for (InnerTypeOrElement f : _e.getEnumBlocks()) {
+                    if (StringUtil.contains(f.getElements().getFieldName(), trimPart_)) {
+                        _offsetsEnum.addEntry(k_, trimPart_);
+                        added_ = true;
+                        break;
+                    }
+                }
+            }
+            if (!added_) {
+                _offsetsEnum.addEntry(k_, trimPart_);
+            }
+            sum_ += s.length() + 1;
         }
     }
 

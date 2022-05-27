@@ -362,7 +362,7 @@ public final class ResolvingImportTypes {
                     }
                     int v_ = AnaTypeUtil.getIndex(e,_method);
                     ImportedField value_ = new ImportedField(_import, e.getImportedClassName(), e.isFinalField(), v_,e.getFile().getFileName());
-                    value_.memberId(cust_.getNumberAll(),e.getFieldNumber());
+                    value_.memberId(cust_.getNumberAll(),e.getElements().getFieldNumber());
                     value_.setFieldType(cust_);
                     addImport(_methods,super_, value_);
                 }

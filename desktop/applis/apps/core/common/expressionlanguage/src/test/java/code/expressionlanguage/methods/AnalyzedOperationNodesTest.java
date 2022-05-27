@@ -2549,12 +2549,12 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         AnalyzedPageEl contAna_ = quickValidate(files_);
         RootBlock r_ = contAna_.getAnaClassBody( "pkgtwo.ExClass");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
-        StringList names_ = f_.getFieldName();
+        StringList names_ = f_.getElements().getFieldName();
         assertEq(2, names_.size());
         assertEq("multi", names_.first());
         assertEq("line", names_.last());
         f_ = (FieldBlock)f_.getNextSibling();
-        names_ = f_.getFieldName();
+        names_ = f_.getElements().getFieldName();
         assertEq(1, names_.size());
         assertEq("single", names_.first());
     }
@@ -4632,7 +4632,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         AnalyzedPageEl contAna_ = quickValidate(_files);
         RootBlock r_ = contAna_.getAnaClassBody(_s);
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
-        return f_.getFieldName();
+        return f_.getElements().getFieldName();
     }
 
     private static AnalyzedPageEl quickValidate(StringMap<String> _files) {

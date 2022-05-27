@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.AnaClassContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
@@ -859,20 +860,20 @@ public final class FileResolver {
             typeBlock_ = new EnumBlock(beginDefinition_, baseName_, packageName_,
                     new OffsetAccessInfo(accessOffsetType_+ _input.getOffset(), access_) , tempDef_, superTypes_,  instructionTrimLocation_ + _input.getOffset());
         } else if (StringUtil.quickEq(type_, keyWordClass_)) {
-            typeBlock_ = new ClassBlock(beginDefinition_, baseName_, packageName_,
-                    new OffsetAccessInfo(accessOffsetType_ + _input.getOffset(), access_), tempDef_, superTypes_, finalType_, abstractType_, true,
-                    instructionTrimLocation_ + _input.getOffset());
+            typeBlock_ = new ClassBlock(
+                    new OffsetAccessInfo(accessOffsetType_ + _input.getOffset(), access_), tempDef_, superTypes_,
+                    instructionTrimLocation_ + _input.getOffset(), RootBlock.contentRoot(beginDefinition_, packageName_, baseName_), new AnaClassContent(finalType_, abstractType_, true));
         } else if (StringUtil.quickEq(type_, "@" + keyWordClass_)) {
-            typeBlock_ = new RecordBlock(false, beginDefinition_, baseName_, packageName_,
+            typeBlock_ = new RecordBlock(false,
                     new OffsetAccessInfo(accessOffsetType_ + _input.getOffset(), access_), tempDef_, superTypes_, true,
-                    instructionTrimLocation_ + _input.getOffset());
+                    instructionTrimLocation_ + _input.getOffset(), RootBlock.contentRoot(beginDefinition_, packageName_, baseName_));
         } else if (StringUtil.quickEq(type_, "@" + keyWordInterface_)) {
-            typeBlock_ = new RecordBlock(true, beginDefinition_, baseName_, packageName_,
+            typeBlock_ = new RecordBlock(true,
                     new OffsetAccessInfo(accessOffsetType_ + _input.getOffset(), access_), tempDef_, superTypes_, true,
-                    instructionTrimLocation_ + _input.getOffset());
+                    instructionTrimLocation_ + _input.getOffset(), RootBlock.contentRoot(beginDefinition_, packageName_, baseName_));
         } else if (StringUtil.quickEq(type_, keyWordInterface_)) {
-            typeBlock_ = new InterfaceBlock(beginDefinition_, baseName_, packageName_,
-                    new OffsetAccessInfo(accessOffsetType_ + _input.getOffset(), access_), tempDef_, superTypes_, true, instructionTrimLocation_ + _input.getOffset());
+            typeBlock_ = new InterfaceBlock(
+                    new OffsetAccessInfo(accessOffsetType_ + _input.getOffset(), access_), tempDef_, superTypes_, true, instructionTrimLocation_ + _input.getOffset(), RootBlock.contentRoot(beginDefinition_, packageName_, baseName_));
         } else {
             typeBlock_ = new AnnotationBlock(beginDefinition_, baseName_, packageName_,
                     new OffsetAccessInfo(accessOffsetType_ + _input.getOffset(), access_), tempDef_, superTypes_, instructionTrimLocation_ + _input.getOffset());
@@ -1063,7 +1064,7 @@ public final class FileResolver {
                     new OffsetStringInfo(fieldNameOffest_+ _input.getOffset(), found_),
                      instructionTrimLocation_ + _input.getOffset());
             field_.setAnnotations(annotations_);
-            field_.setFieldNumber(((RootBlock) _currentParent).getFieldsBlocks().size());
+            field_.getElements().setFieldNumber(((RootBlock) _currentParent).getFieldsBlocks().size());
             field_.getRes().partsAbsol(_parsedInstruction.getStringParts());
             ((RootBlock) _currentParent).getFieldsBlocks().add(field_);
             br_ = field_;
@@ -1213,13 +1214,13 @@ public final class FileResolver {
             elt_.getRes().partsAbsol(afterStr_);
             br_ = elt_;
         }
-        ((InfoBlock)br_).setFieldNumber(((RootBlock) currentParent_).getFieldsBlocks().size());
+        ((InfoBlock)br_).getElements().setFieldNumber(((RootBlock) currentParent_).getFieldsBlocks().size());
         ((RootBlock) currentParent_).getFieldsBlocks().add((InfoBlock)br_);
         ((EnumBlock) currentParent_).getEnumBlocks().add((InnerTypeOrElement)br_);
         if (!ok_) {
             br_.getBadIndexes().add(indexBeginCalling_ + 1+ _input.getOffset());
         } else if (!((EnumBlock) currentParent_).isAllow()) {
-            ((InnerTypeOrElement)br_).getLastBadIndexes().add(_parsedInstruction.getIndex()+ _input.getOffset());
+            ((InnerTypeOrElement)br_).getElementContent().getLastBadIndexes().add(_parsedInstruction.getIndex()+ _input.getOffset());
         }
         br_.setBegin(_parsedInstruction.getIndex()+ _input.getOffset());
         br_.setLengthHeader(1);
@@ -1506,21 +1507,21 @@ public final class FileResolver {
                     new OffsetAccessInfo(typeOffset_ - 1+ _offset.getOffset(), accessFct_) , tempDef_, superTypes_,
                    _instructionTrimLocation.instLoc() + _offset.getOffset());
         } else if (StringUtil.quickEq(type_, keyWordClass_)) {
-            typeBlock_ = new ClassBlock(beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(typeOffset_ - 1+ _offset.getOffset(), accessFct_), tempDef_, superTypes_, finalType_, abstractType_, staticType_,
-                     _instructionTrimLocation.instLoc() + _offset.getOffset());
+            typeBlock_ = new ClassBlock(
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset.getOffset(), accessFct_), tempDef_, superTypes_,
+                    _instructionTrimLocation.instLoc() + _offset.getOffset(), RootBlock.contentRoot(beginDefinition_, _pkgName, typeName_), new AnaClassContent(finalType_, abstractType_, staticType_));
         } else if (StringUtil.quickEq(type_, "@"+ keyWordClass_)) {
-            typeBlock_ = new RecordBlock(false,beginDefinition_, typeName_, _pkgName,
+            typeBlock_ = new RecordBlock(false,
                     new OffsetAccessInfo(typeOffset_ - 1+ _offset.getOffset(), accessFct_), tempDef_, superTypes_,staticType_,
-                     _instructionTrimLocation.instLoc() + _offset.getOffset());
+                     _instructionTrimLocation.instLoc() + _offset.getOffset(), RootBlock.contentRoot(beginDefinition_, _pkgName, typeName_));
         } else if (StringUtil.quickEq(type_, "@"+ keyWordInterface_)) {
-            typeBlock_ = new RecordBlock(true,beginDefinition_, typeName_, _pkgName,
+            typeBlock_ = new RecordBlock(true,
                     new OffsetAccessInfo(typeOffset_ - 1+ _offset.getOffset(), accessFct_), tempDef_, superTypes_,staticType_,
-                     _instructionTrimLocation.instLoc() + _offset.getOffset());
+                     _instructionTrimLocation.instLoc() + _offset.getOffset(), RootBlock.contentRoot(beginDefinition_, _pkgName, typeName_));
         } else if (StringUtil.quickEq(type_, keyWordInterface_)) {
-            typeBlock_ = new InterfaceBlock(beginDefinition_, typeName_, _pkgName,
+            typeBlock_ = new InterfaceBlock(
                     new OffsetAccessInfo(typeOffset_ - 1+ _offset.getOffset(), accessFct_) , tempDef_, superTypes_, staticType_,
-                     _instructionTrimLocation.instLoc() + _offset.getOffset());
+                     _instructionTrimLocation.instLoc() + _offset.getOffset(), RootBlock.contentRoot(beginDefinition_, _pkgName, typeName_));
         } else {
             typeBlock_ = new AnnotationBlock(beginDefinition_, typeName_, _pkgName,
                     new OffsetAccessInfo(typeOffset_ - 1+ _offset.getOffset(), accessFct_) , tempDef_, superTypes_,
@@ -1927,7 +1928,7 @@ public final class FileResolver {
                 new OffsetStringInfo(fieldNameOffest_ + _offsetFile, afterType_.trim()),
                 _i.instLoc() + _offsetFile);
         br_.setAnnotations(annotations_);
-        br_.setFieldNumber(_currentParent.getFieldsBlocks().size());
+        br_.getElements().setFieldNumber(_currentParent.getFieldsBlocks().size());
         br_.getRes().partsAbsol(_i.getStringParts());
         _currentParent.getFieldsBlocks().add(br_);
         if (!static_){

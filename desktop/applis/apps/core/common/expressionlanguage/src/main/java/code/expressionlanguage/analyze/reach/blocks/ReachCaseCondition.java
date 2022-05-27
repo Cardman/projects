@@ -27,7 +27,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
     private final CaseCondition meta;
     private final boolean instance;
 
-    protected ReachCaseCondition(CaseCondition _info) {
+    public ReachCaseCondition(CaseCondition _info) {
         super(_info);
         meta = _info;
         root = _info.getRoot();
@@ -47,37 +47,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
         EnumBlock e_ = meta.getEnumBlock();
         if (e_ != null) {
-            CustList<IndexStrPart> values_ = meta.getOffsetsEnum().getValues();
-            for (IndexStrPart v: values_) {
-                boolean added_ = false;
-                if (StringUtil.quickEq(v.getPart(),_page.getKeyWords().getKeyWordNull())) {
-                    checkDuplicateListedValue(_page,Argument.createVoid());
-                    meta.getStdValues().add(Argument.createVoid());
-                    added_ = true;
-                } else {
-                    for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                        if (StringUtil.contains(f.getFieldName(), v.getPart())) {
-                            ClassField pair_ = new ClassField(f.getImportedClassName(), v.getPart());
-                            checkDuplicateListedEnum(_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()));
-                            meta.getEnumValues().add(pair_);
-                            added_ = true;
-                            break;
-                        }
-                    }
-                }
-                if (!added_) {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(getFile());
-                    un_.setIndexFile(valueOffset);
-                    //key word len
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                            _page.getKeyWords().getKeyWordCase(),
-                            value);
-                    _page.addLocError(un_);
-                    addErrorBlock(un_.getBuiltError());
-                    break;
-                }
-            }
+            elementEnum(_page, e_);
             return;
         }
         AnaClassArgumentMatching resSwitch_;
@@ -99,6 +69,40 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
         ReachOperationUtil.tryCalculate(root, _page);
         processNumValues(instance_,resSwitch_, _page);
+    }
+
+    private void elementEnum(AnalyzedPageEl _page, EnumBlock _e) {
+        CustList<IndexStrPart> values_ = meta.getOffsetsEnum().getValues();
+        for (IndexStrPart v: values_) {
+            boolean added_ = false;
+            if (StringUtil.quickEq(v.getPart(), _page.getKeyWords().getKeyWordNull())) {
+                checkDuplicateListedValue(_page,Argument.createVoid());
+                meta.getStdValues().add(Argument.createVoid());
+                added_ = true;
+            } else {
+                for (InnerTypeOrElement f: _e.getEnumBlocks()) {
+                    if (StringUtil.contains(f.getElements().getFieldName(), v.getPart())) {
+                        ClassField pair_ = new ClassField(f.getImportedClassName(), v.getPart());
+                        checkDuplicateListedEnum(_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()));
+                        meta.getEnumValues().add(pair_);
+                        added_ = true;
+                        break;
+                    }
+                }
+            }
+            if (!added_) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFile(getFile());
+                un_.setIndexFile(valueOffset);
+                //key word len
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                        _page.getKeyWords().getKeyWordCase(),
+                        value);
+                _page.addLocError(un_);
+                addErrorBlock(un_.getBuiltError());
+                break;
+            }
+        }
     }
 
     private void processNumValues(boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page) {

@@ -36,10 +36,8 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private final IntTreeMap<Integer> escapedChar;
     private MethodAccessKind accessKind;
     private AnaFormattedRootBlock declClass = AnaFormattedRootBlock.defValue();
-    private final CustList<RootBlock> reserved = new CustList<RootBlock>();
-    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
-    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
+    private final AnonymousElementsFct elements = new AnonymousElementsFct();
+
     public AnaRendDocumentBlock(Element _elt, int _offset, AdvFileEscapedCalc _e, FileBlock _fileBl) {
         super(_offset);
         esc = _fileBl.getFileEscapedCalc();
@@ -107,21 +105,10 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         AnaRendBlock en_ = this;
         StringList labels_ = new StringList();
         while (true) {
-            if (en_ instanceof ImportForEachLoop) {
-                _page.setCurrentAnaBlockForEachLoop((ImportForEachLoop) en_);
-            } else {
-                _page.setCurrentAnaBlockForEachLoop(null);
-            }
-            if (en_ instanceof ImportForEachTable) {
-                _page.setCurrentAnaBlockForEachTable((ImportForEachTable) en_);
-            } else {
-                _page.setCurrentAnaBlockForEachTable(null);
-            }
-            checkBreakable(en_, labels_, _anaDoc, _page);
+            loops(_page, en_);
+            checkBreakable(en_, labels_, _page);
             AnaRendBlock n_ = en_.getFirstChild();
-            if (en_ instanceof AnaRendBuildEl) {
-                ((AnaRendBuildEl)en_).buildExpressionLanguage(this, _anaDoc, _page);
-            }
+            tryBuild(_anaDoc, _page, en_);
             if (n_ != null) {
                 en_ = n_;
                 continue;
@@ -139,11 +126,34 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
                     return;
                 }
                 par_.removeAllVars(_page);
-                if (par_ instanceof AnaRendLocBreakableBlock && !((AnaRendLocBreakableBlock)par_).getRealLabel().isEmpty()) {
-                    labels_.removeLast();
-                }
+                removeLabel(labels_, par_);
                 en_ = par_;
             }
+        }
+    }
+
+    private void removeLabel(StringList _labels, AnaRendParentBlock _par) {
+        if (_par instanceof AnaRendLocBreakableBlock && !((AnaRendLocBreakableBlock) _par).getRealLabel().isEmpty()) {
+            _labels.removeLast();
+        }
+    }
+
+    private void tryBuild(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, AnaRendBlock _en) {
+        if (_en instanceof AnaRendBuildEl) {
+            ((AnaRendBuildEl) _en).buildExpressionLanguage(this, _anaDoc, _page);
+        }
+    }
+
+    private static void loops(AnalyzedPageEl _page, AnaRendBlock _en) {
+        if (_en instanceof ImportForEachLoop) {
+            _page.setCurrentAnaBlockForEachLoop((ImportForEachLoop) _en);
+        } else {
+            _page.setCurrentAnaBlockForEachLoop(null);
+        }
+        if (_en instanceof ImportForEachTable) {
+            _page.setCurrentAnaBlockForEachTable((ImportForEachTable) _en);
+        } else {
+            _page.setCurrentAnaBlockForEachTable(null);
         }
     }
 
@@ -181,23 +191,8 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     @Override
-    public CustList<AnonymousTypeBlock> getAnonymous() {
-        return anonymous;
-    }
-
-    @Override
-    public CustList<RootBlock> getReserved() {
-        return reserved;
-    }
-
-    @Override
-    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
-        return anonymousFct;
-    }
-
-    @Override
-    public CustList<SwitchMethodBlock> getSwitchMethods() {
-        return switchMethods;
+    public AnonymousElementsFct getElements() {
+        return elements;
     }
 
     @Override
@@ -220,16 +215,15 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         this.countsAnonFct = _v;
     }
 
-    private static void checkBreakable(AnaRendBlock _block, StringList _labels, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    private static void checkBreakable(AnaRendBlock _block, StringList _labels, AnalyzedPageEl _page) {
         if (_block instanceof AnaRendLocBreakableBlock) {
             String label_ = ((AnaRendLocBreakableBlock)_block).getRealLabel();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (StringExpUtil.isDollarWordChar(c)) {
-                    continue;
+                if (!StringExpUtil.isDollarWordChar(c)) {
+                    wc_ = false;
+                    break;
                 }
-                wc_ = false;
-                break;
             }
             if (!wc_) {
                 FoundErrorInterpret bad_ = new FoundErrorInterpret();

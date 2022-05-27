@@ -15,11 +15,8 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
-import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -28,23 +25,11 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     private final AnaElementContent elementContent;
 
-    private String importedClassName;
-
     private ResultParsedAnnots annotations = new ResultParsedAnnots();
     private final ResultExpression res = new ResultExpression();
-    private CustList<OperationNode> roots = new CustList<OperationNode>();
-    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
-    private int trOffset;
     private final StringList nameErrors = new StringList();
-    private int fieldNumber;
-    private final StringList fieldList = new StringList();
-    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
-    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
-    private final Ints lastBadIndexes = new Ints();
+    private final AnonymousElementsField elements = new AnonymousElementsField();
 
-    private boolean koTy;
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
                         OffsetStringInfo _value, int _offset) {
@@ -78,39 +63,38 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
-    public StringList getFieldName() {
-        return fieldList;
-    }
-
-    @Override
     public String getUniqueFieldName() {
         return elementContent.getFieldName();
     }
 
     @Override
     public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
+        retrieveElementNames(_fieldNames,_page,this,this);
+    }
+
+    static void retrieveElementNames(StringList _fieldNames, AnalyzedPageEl _page, AbsBk _simple, InnerTypeOrElement _elt) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
-        fields_.add(new PartOffsetAffect(new FieldPartOffset(elementContent.getFieldName(),elementContent.getValueOffest()),true));
-        FieldBlock.checkFieldsNames(this,_fieldNames,fields_,_page);
+        fields_.add(new PartOffsetAffect(new FieldPartOffset(_elt.getElementContent().getFieldName(),_elt.getElementContent().getValueOffest()),true));
+        FieldBlock.checkFieldsNames(_simple,_fieldNames,fields_,_page);
         for (PartOffsetAffect n: fields_) {
-            addNameErrors(n.getErrs());
+            _elt.getNameErrors().addAllElts(n.getErrs());
         }
         for (PartOffsetAffect n: fields_) {
             StringList errs_ = n.getErrs();
             FieldPartOffset p_ = n.getPartOffset();
             String name_ = p_.getName();
             if (errs_.isEmpty()) {
-                fieldList.add(name_);
+                _elt.getElements().getFieldName().add(name_);
             }
         }
-        for (int i: lastBadIndexes) {
+        for (int i: _elt.getElementContent().getLastBadIndexes()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFile(getFile());
+            b_.setFile(_simple.getFile());
             b_.setIndexFile(i);
             //underline index char
             b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
             _page.addLocError(b_);
-            addNameErrors(b_.getBuiltError());
+            _elt.addNameErrors(b_.getBuiltError());
         }
     }
 
@@ -120,37 +104,30 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
-        _page.setSumOffset(elementContent.getTempClassOffset());
+        buildElementType(_page,this,this);
+    }
+    static void buildElementType(AnalyzedPageEl _page, AbsBk _simple, InnerTypeOrElement _elt) {
+        _page.setSumOffset(_elt.getElementContent().getTempClassOffset());
         _page.zeroOffset();
-        _page.setCurrentBlock(this);
+        _page.setCurrentBlock(_simple);
         int i_ = 1;
         StringList j_ = new StringList();
-        EnumBlock parentEnum_ = elementContent.getParentEnum();
+        EnumBlock parentEnum_ = _elt.getElementContent().getParentEnum();
         String fullName_ = parentEnum_.getFullName();
-        for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, elementContent.getTempClass())).mid(1)) {
+        for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, _elt.getElementContent().getTempClass())).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(p);
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(i_ + loc_, p, _page);
             j_.add(result_.getResult(_page));
-            partOffsets.add(result_);
+            _elt.getElementContent().getPartOffsets().add(result_);
             i_ += p.length() + 1;
         }
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         StringList errs_ = new StringList();
-        importedClassName = AnaInherits.check(errs_,parentEnum_,fullName_,j_,varsCt_, _page);
+        _elt.getElements().setImportedClassName(AnaInherits.check(errs_, parentEnum_, fullName_, j_, varsCt_, _page));
         for (String e: errs_) {
-            addNameErrors(e);
-            koTy = true;
+            _elt.addNameErrors(e);
+            _elt.getElementContent().setKoTy(true);
         }
-    }
-
-    @Override
-    public boolean koType() {
-        return koTy;
-    }
-
-    @Override
-    public CustList<AnaResultPartType> getTypePartOffsets() {
-        return partOffsets;
     }
 
     @Override
@@ -165,9 +142,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.zeroOffset();
-        KeyWords keyWords_ = _page.getKeyWords();
-        String newKeyWord_ = keyWords_.getKeyWordNew();
-        trOffset = retrieveTr(newKeyWord_);
         _page.setSumOffset(res.getSumOffset());
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, new Calculation(this, nameErrors), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
@@ -186,16 +160,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
-        int len_ = annotations.getAnnotations().size();
-        roots = new CustList<OperationNode>();
-        for (int i = 0; i < len_; i++) {
-            _page.setSumOffset(resList.get(i).getSumOffset());
-            _page.zeroOffset();
-            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
-            ReachOperationUtil.tryCalculate(r_, _page);
-            roots.add(r_);
-        }
+        annotations.buildAnnotations(_page);
     }
 
 
@@ -207,33 +172,12 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         this.annotations = _a;
     }
 
-    @Override
-    public Ints getLastBadIndexes() {
-        return lastBadIndexes;
-    }
-
     public ResultExpression getRes() {
         return res;
     }
 
-    public CustList<ResultExpression> getResList() {
-        return resList;
-    }
-
     public OperationNode getRoot() {
         return res.getRoot();
-    }
-
-    public CustList<OperationNode> getRoots() {
-        return roots;
-    }
-
-    public int getFieldNameOffest() {
-        return elementContent.getFieldNameOffest();
-    }
-
-    public int getTrOffset() {
-        return trOffset;
     }
 
     @Override
@@ -243,44 +187,22 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     @Override
     public String getRealImportedClassName() {
-        return importedClassName;
+        return elements.getImportedClassName();
     }
 
 
     public void addNameErrors(String _error) {
         nameErrors.add(_error);
     }
-    public void addNameErrors(StringList _error) {
-        nameErrors.addAllElts(_error);
-    }
+
     public StringList getNameErrors() {
         return nameErrors;
     }
 
 
     @Override
-    public int getFieldNumber() {
-        return fieldNumber;
-    }
-
-    @Override
-    public void setFieldNumber(int _fieldNumber) {
-        this.fieldNumber = _fieldNumber;
-    }
-
-    @Override
-    public CustList<AnonymousTypeBlock> getAnonymous() {
-        return anonymous;
-    }
-
-    @Override
-    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
-        return anonymousFct;
-    }
-
-    @Override
-    public CustList<SwitchMethodBlock> getSwitchMethods() {
-        return switchMethods;
+    public AnonymousElementsField getElements() {
+        return elements;
     }
 
     public AnaElementContent getElementContent() {

@@ -197,7 +197,7 @@ public final class ElUtil {
             RootBlock fieldType_ = set_.getFieldType();
             if (fieldType_ instanceof EnumBlock) {
                 for (InnerTypeOrElement f:((EnumBlock)fieldType_).getEnumBlocks()) {
-                    if (StringUtil.contains(f.getFieldName(),set_.getFieldName())) {
+                    if (StringUtil.contains(f.getElements().getFieldName(),set_.getFieldName())) {
                         return new ClassField(set_.getResultClass().getSingleNameOrEmpty(), set_.getFieldName());
                     }
                 }

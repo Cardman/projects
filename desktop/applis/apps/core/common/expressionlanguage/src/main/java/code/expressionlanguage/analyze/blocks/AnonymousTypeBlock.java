@@ -12,7 +12,7 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
     private AnonymousInstancingOperation instancingOperation;
 
     public AnonymousTypeBlock(int _idRowCol, String _packageName, OffsetAccessInfo _access, String _templateDef, IntMap<String> _directSuperTypes, int _offset, String _name) {
-        super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset,_name);
+        super(_access, _templateDef, _directSuperTypes, _offset, contentRoot(_idRowCol, _packageName, _name));
     }
 
     @Override

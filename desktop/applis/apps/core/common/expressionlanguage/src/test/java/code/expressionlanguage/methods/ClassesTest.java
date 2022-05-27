@@ -2720,7 +2720,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.OuterOne<T:String&Number> {\n");
+        xml_.append("$public $class pkg.OuterOne:OuterOne2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.OuterOne2 {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(failValidateInheritingClassesValue(files_));
@@ -2730,9 +2732,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.OuterOne<T:Abs&Number> {\n");
+        xml_.append("$public $class pkg.OuterOne:OuterOne2 {\n");
         xml_.append("}\n");
-        xml_.append("$public $abstract $class pkg.Abs {\n");
+        xml_.append("$public $annotation pkg.OuterOne2 {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(failValidateInheritingClassesValue(files_));
@@ -2742,11 +2744,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.OuterOne<T:Abs&AbsTwo> {\n");
+        xml_.append("$public $class pkg.OuterOne:OuterOne2 {\n");
         xml_.append("}\n");
-        xml_.append("$public $abstract $class pkg.Abs {\n");
-        xml_.append("}\n");
-        xml_.append("$public $abstract $class pkg.AbsTwo {\n");
+        xml_.append("$public @$class pkg.OuterOne2 {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(failValidateInheritingClassesValue(files_));
@@ -2756,7 +2756,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.OuterOne<T:ExEnum&ExFinal> {\n");
+        xml_.append("$public $class pkg.OuterOne<T:ExEnum&ExFinal&N2> {\n");
         xml_.append("}\n");
         xml_.append("$public $enum pkg.ExEnum {;\n");
         xml_.append("}\n");

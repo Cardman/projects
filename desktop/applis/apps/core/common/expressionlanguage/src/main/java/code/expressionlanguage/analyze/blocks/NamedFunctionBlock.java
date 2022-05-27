@@ -3,17 +3,11 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.*;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.Ints;
@@ -57,11 +51,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private final CustList<AnaResultPartType> partOffsetsParams = new CustList<AnaResultPartType>();
     private AnaResultPartType partOffsetsReturn = new AnaResultPartType();
-
-    private CustList<OperationNode> roots = new CustList<OperationNode>();
-    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
-    private CustList<CustList<OperationNode>> rootsList = new CustList<CustList<OperationNode>>();
-    private final CustList<CustList<ResultExpression>> resLists = new CustList<CustList<ResultExpression>>();
 
     private final StringList nameErrors = new StringList();
     private final CustList<StringList> paramErrors = new CustList<StringList>();
@@ -132,35 +121,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return varargs_;
     }
     public void buildAnnotations(AnalyzedPageEl _page) {
-        roots = new CustList<OperationNode>();
-        int len_ = annotations.getAnnotations().size();
-        for (int i = 0; i < len_; i++) {
-            _page.setSumOffset(resList.get(i).getSumOffset());
-            _page.zeroOffset();
-            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
-            ReachOperationUtil.tryCalculate(r_, _page);
-            roots.add(r_);
-        }
+        annotations.buildAnnotations(_page);
     }
 
     @Override
     public void buildAnnotationsParameters(AnalyzedPageEl _page) {
-        int j_ = 0;
-        rootsList = new CustList<CustList<OperationNode>>();
         for (ResultParsedAnnots l: annotationsParams) {
-            CustList<OperationNode> rootList_ = new CustList<OperationNode>();
-            int len_ = l.getAnnotations().size();
-            for (int i = 0; i < len_; i++) {
-                _page.setSumOffset(resLists.get(j_).get(i).getSumOffset());
-                _page.zeroOffset();
-                Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), c_, _page);
-                ReachOperationUtil.tryCalculate(r_, _page);
-                rootList_.add(r_);
-            }
-            rootsList.add(rootList_);
-            j_++;
+            l.buildAnnotations(_page);
         }
     }
 
@@ -317,22 +284,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public AnaResultPartType getPartOffsetsReturn() {
         return partOffsetsReturn;
-    }
-
-    public CustList<ResultExpression> getResList() {
-        return resList;
-    }
-
-    public CustList<CustList<ResultExpression>> getResLists() {
-        return resLists;
-    }
-
-    public CustList<OperationNode> getRoots() {
-        return roots;
-    }
-
-    public CustList<CustList<OperationNode>> getRootsList() {
-        return rootsList;
     }
 
     public void addNameErrors(FoundErrorInterpret _error) {

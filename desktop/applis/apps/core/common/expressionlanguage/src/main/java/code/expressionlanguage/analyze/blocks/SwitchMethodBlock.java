@@ -2,11 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -21,11 +16,6 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     private ResultParsedAnnots annotations = new ResultParsedAnnots();
 
     private final CustList<ResultParsedAnnots> annotationsParams = new CustList<ResultParsedAnnots>();
-
-    private CustList<OperationNode> roots = new CustList<OperationNode>();
-    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
-    private CustList<CustList<OperationNode>> rootsList = new CustList<CustList<OperationNode>>();
-    private final CustList<CustList<ResultExpression>> resLists = new CustList<CustList<ResultExpression>>();
 
     private RootBlock parentType;
     private AccessedBlock accessedBlock;
@@ -156,35 +146,13 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     @Override
     public void buildAnnotations(AnalyzedPageEl _page) {
-        roots = new CustList<OperationNode>();
-        int len_ = annotations.getAnnotations().size();
-        for (int i = 0; i < len_; i++) {
-            _page.setSumOffset(resList.get(i).getSumOffset());
-            _page.zeroOffset();
-            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
-            ReachOperationUtil.tryCalculate(r_, _page);
-            roots.add(r_);
-        }
+        annotations.buildAnnotations(_page);
     }
 
     @Override
     public void buildAnnotationsParameters(AnalyzedPageEl _page) {
-        int j_ = 0;
-        rootsList = new CustList<CustList<OperationNode>>();
         for (ResultParsedAnnots l: annotationsParams) {
-            CustList<OperationNode> rootList_ = new CustList<OperationNode>();
-            int len_ = l.getAnnotations().size();
-            for (int i = 0; i < len_; i++) {
-                _page.setSumOffset(resLists.get(j_).get(i).getSumOffset());
-                _page.zeroOffset();
-                Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), c_, _page);
-                ReachOperationUtil.tryCalculate(r_, _page);
-                rootList_.add(r_);
-            }
-            rootsList.add(rootList_);
-            j_++;
+            l.buildAnnotations(_page);
         }
     }
 
@@ -198,22 +166,6 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     public CustList<ResultParsedAnnots> getAnnotationsParams() {
         return annotationsParams;
-    }
-
-    public CustList<ResultExpression> getResList() {
-        return resList;
-    }
-
-    public CustList<CustList<ResultExpression>> getResLists() {
-        return resLists;
-    }
-
-    public CustList<OperationNode> getRoots() {
-        return roots;
-    }
-
-    public CustList<CustList<OperationNode>> getRootsList() {
-        return rootsList;
     }
 
     public int getCaseCount() {

@@ -7,17 +7,13 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements AccessedFct,FunctionBlock,ReturnableWithSignature,WithContext {
 
     private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
-    private final CustList<RootBlock> reserved = new CustList<RootBlock>();
-    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
-    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
+    private final AnonymousElementsFct elements = new AnonymousElementsFct();
     MemberCallingsBlock(int _offset) {
         super(_offset);
     }
@@ -122,20 +118,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
         return mappings;
     }
 
-    public CustList<RootBlock> getReserved() {
-        return reserved;
-    }
-
-    public CustList<AnonymousTypeBlock> getAnonymous() {
-        return anonymous;
-    }
-
-    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
-        return anonymousFct;
-    }
-
-    public CustList<SwitchMethodBlock> getSwitchMethods() {
-        return switchMethods;
+    @Override
+    public AnonymousElementsFct getElements() {
+        return elements;
     }
 
 }

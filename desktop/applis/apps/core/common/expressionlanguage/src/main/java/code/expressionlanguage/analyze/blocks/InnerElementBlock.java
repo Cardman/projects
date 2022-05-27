@@ -1,47 +1,31 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffsetAffect;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
-import code.expressionlanguage.options.KeyWords;
-import code.util.*;
+import code.util.IntMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement,UniqueRootedBlock {
 
     private final AnaElementContent elementContent;
 
-    private String importedClassName;
-
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
-    private int trOffset;
     private final ResultExpression res = new ResultExpression();
-    private int fieldNumber;
-    private final StringList fieldList = new StringList();
     private int numberInner = -1;
-    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
-    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
+    private final AnonymousElementsField elements = new AnonymousElementsField();
 
-    private final Ints lastBadIndexes = new Ints();
-    private boolean koTy;
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, int _offset) {
-        super(_fieldName.getOffset(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset, _fieldName.getInfo());
+        super(new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset, contentRoot(_fieldName.getOffset(), _pkgName, _fieldName.getInfo()));
         elementContent = new AnaElementContent(_m, _fieldName, _type, _value);
         setupOffsets(_fieldName.getInfo().trim(),_pkgName);
         setParentType(_m);
@@ -85,29 +69,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
-        CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
-        fields_.add(new PartOffsetAffect(new FieldPartOffset(elementContent.getFieldName(),elementContent.getValueOffest()),true));
-        FieldBlock.checkFieldsNames(this,_fieldNames,fields_, _page);
-        for (PartOffsetAffect n: fields_) {
-            getNameErrors().addAllElts(n.getErrs());
-        }
-        for (PartOffsetAffect n: fields_) {
-            StringList errs_ = n.getErrs();
-            FieldPartOffset p_ = n.getPartOffset();
-            String name_ = p_.getName();
-            if (errs_.isEmpty()) {
-                fieldList.add(name_);
-            }
-        }
-        for (int i: lastBadIndexes) {
-            FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFile(getFile());
-            b_.setIndexFile(i);
-            //underline index char
-            b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
-            _page.addLocError(b_);
-            addNameErrors(b_.getBuiltError());
-        }
+        ElementBlock.retrieveElementNames(_fieldNames,_page,this,this);
     }
 
     @Override
@@ -121,9 +83,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.zeroOffset();
-        KeyWords keyWords_ = _page.getKeyWords();
-        String newKeyWord_ = keyWords_.getKeyWordNew();
-        trOffset = retrieveTr(newKeyWord_);
         _page.setSumOffset(res.getSumOffset());
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, new Calculation(this, getNameErrors()), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
@@ -154,46 +113,16 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public String getRealImportedClassName() {
-        return importedClassName;
+        return elements.getImportedClassName();
     }
 
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
-        _page.setSumOffset(elementContent.getTempClassOffset());
-        _page.zeroOffset();
-        _page.setCurrentBlock(this);
-        int i_ = 1;
-        StringList j_ = new StringList();
-        EnumBlock parentEnum_ = elementContent.getParentEnum();
-        String fullName_ = parentEnum_.getFullName();
-        for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, elementContent.getTempClass())).mid(1)) {
-            int loc_ = StringUtil.getFirstPrintableCharIndex(p);
-            AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(i_ + loc_, p, _page);
-            j_.add(result_.getResult(_page));
-            partOffsets.add(result_);
-            i_ += p.length() + 1;
-        }
-        StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
-        StringList errs_ = new StringList();
-        importedClassName = AnaInherits.check(errs_,parentEnum_,fullName_,j_,varsCt_, _page);
-        for (String e: errs_) {
-            addNameErrors(e);
-            koTy = true;
-        }
-    }
-
-    @Override
-    public boolean koType() {
-        return koTy;
+        ElementBlock.buildElementType(_page,this,this);
     }
 
     public ResultExpression getRes() {
         return res;
-    }
-
-    @Override
-    public CustList<AnaResultPartType> getTypePartOffsets() {
-        return partOffsets;
     }
 
     @Override
@@ -207,31 +136,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
 
-    @Override
-    public StringList getFieldName() {
-        return fieldList;
-    }
-
-    public int getFieldNameOffest() {
-        return elementContent.getFieldNameOffest();
-    }
-
-    public int getTrOffset() {
-        return trOffset;
-    }
-
     public OperationNode getRoot() {
         return res.getRoot();
-    }
-
-    @Override
-    public int getFieldNumber() {
-        return fieldNumber;
-    }
-
-    @Override
-    public void setFieldNumber(int _fieldNumber) {
-        this.fieldNumber = _fieldNumber;
     }
 
     public int getNumberInner() {
@@ -243,23 +149,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public Ints getLastBadIndexes() {
-        return lastBadIndexes;
-    }
-
-    @Override
-    public CustList<AnonymousTypeBlock> getAnonymous() {
-        return anonymous;
-    }
-
-    @Override
-    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
-        return anonymousFct;
-    }
-
-    @Override
-    public CustList<SwitchMethodBlock> getSwitchMethods() {
-        return switchMethods;
+    public AnonymousElementsField getElements() {
+        return elements;
     }
 
     public AnaElementContent getElementContent() {

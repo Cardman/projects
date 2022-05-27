@@ -3,32 +3,32 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
-import code.expressionlanguage.analyze.files.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetAccessInfo;
+import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.PartOffsetAffect;
+import code.expressionlanguage.analyze.opers.Calculation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffsetAffect;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.fwd.blocks.AnaFieldContent;
-import code.util.*;
+import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
-
-    private final StringList fieldName = new StringList();
 
     private final AnaFieldContent fieldContent = new AnaFieldContent();
     private final String className;
 
     private final int classNameOffset;
-
-    private String importedClassName;
 
     private final String value;
 
@@ -44,15 +44,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private AnaResultPartType partOffsets = new AnaResultPartType();
     private final StringList assignedDeclaredFields = new StringList();
     private final ResultExpression res = new ResultExpression();
-    private CustList<OperationNode> roots = new CustList<OperationNode>();
-    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private final StringList nameRetErrors = new StringList();
     private final CustList<StringList> nameErrorsFields = new CustList<StringList>();
-    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
-    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
+    private final AnonymousElementsField elements = new AnonymousElementsField();
     private final RootBlock parentType;
-    private int fieldNumber;
     public FieldBlock(RootBlock _parent,OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, int _offset) {
@@ -123,12 +118,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public String getRealImportedClassName() {
-        return importedClassName;
-    }
-
-    @Override
-    public StringList getFieldName() {
-        return fieldName;
+        return elements.getImportedClassName();
     }
 
     public String getValue() {
@@ -145,7 +135,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         _page.zeroOffset();
         _page.setCurrentBlock(this);
         partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
-        importedClassName = partOffsets.getResult(_page);
+        elements.setImportedClassName(partOffsets.getResult(_page));
     }
 
     public AnaResultPartType getTypePartOffsets() {
@@ -176,7 +166,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             }
             StringList errs_ = n.getErrs();
             if (errs_.isEmpty()) {
-                fieldName.add(name_);
+                getElements().getFieldName().add(name_);
                 valuesOffset.add(p_.getOff());
             }
             addNameErrorsFields(new StringList(errs_));
@@ -239,16 +229,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
-        int len_ = annotations.getAnnotations().size();
-        roots = new CustList<OperationNode>();
-        for (int i = 0; i < len_; i++) {
-            _page.setSumOffset(resList.get(i).getSumOffset());
-            _page.zeroOffset();
-            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
-            ReachOperationUtil.tryCalculate(r_, _page);
-            roots.add(r_);
-        }
+        annotations.buildAnnotations(_page);
     }
 
     public ResultParsedAnnots getAnnotations() {
@@ -261,10 +242,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     public OperationNode getRoot() {
         return res.getRoot();
-    }
-
-    public CustList<OperationNode> getRoots() {
-        return roots;
     }
 
     public void addNameErrorsFields(StringList _error) {
@@ -282,37 +259,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return nameRetErrors;
     }
 
-    public CustList<ResultExpression> getResList() {
-        return resList;
-    }
-
     public ResultExpression getRes() {
         return res;
     }
 
     @Override
-    public int getFieldNumber() {
-        return fieldNumber;
-    }
-
-    @Override
-    public void setFieldNumber(int _fieldNumber) {
-        this.fieldNumber = _fieldNumber;
-    }
-
-    @Override
-    public CustList<AnonymousTypeBlock> getAnonymous() {
-        return anonymous;
-    }
-
-    @Override
-    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
-        return anonymousFct;
-    }
-
-    @Override
-    public CustList<SwitchMethodBlock> getSwitchMethods() {
-        return switchMethods;
+    public AnonymousElementsField getElements() {
+        return elements;
     }
 
     public AnaFieldContent getFieldContent() {
