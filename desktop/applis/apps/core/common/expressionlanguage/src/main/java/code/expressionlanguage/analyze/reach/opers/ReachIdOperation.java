@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.reach.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.CustList;
 

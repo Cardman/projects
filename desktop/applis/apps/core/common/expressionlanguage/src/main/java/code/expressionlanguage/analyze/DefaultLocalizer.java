@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
-import code.util.CustList;
 
 public final class DefaultLocalizer {
     private final AnalyzedPageEl context;

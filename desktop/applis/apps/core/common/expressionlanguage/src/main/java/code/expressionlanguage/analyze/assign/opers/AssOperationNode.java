@@ -1,12 +1,9 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.assign.blocks.AssBlock;
-import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 
 public abstract class AssOperationNode {
 
@@ -39,11 +36,9 @@ public abstract class AssOperationNode {
         }
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
-            if (n_.getFct().getFunction() == null) {
-                if (_anaNode instanceof UnaryBooleanOperation) {
-                    UnaryBooleanOperation a_ = (UnaryBooleanOperation) _anaNode;
-                    return new AssUnaryBooleanOperation(a_);
-                }
+            if (n_.getFct().getFunction() == null && _anaNode instanceof UnaryBooleanOperation) {
+                UnaryBooleanOperation a_ = (UnaryBooleanOperation) _anaNode;
+                return new AssUnaryBooleanOperation(a_);
             }
         }
         if (_anaNode instanceof AndOperation) {
@@ -63,6 +58,10 @@ public abstract class AssOperationNode {
         if (_anaNode instanceof ThisOperation||_anaNode instanceof StaticAccessOperation) {
             return new AssAccessorOperation((LeafOperation) _anaNode);
         }
+        return full(_anaNode);
+    }
+
+    private static AssOperationNode full(OperationNode _anaNode) {
         if (_anaNode instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
             if (s_.getSettableFieldContent().getClassField() != null) {
@@ -93,16 +92,15 @@ public abstract class AssOperationNode {
             CompoundAffectationOperation a_ = (CompoundAffectationOperation) _anaNode;
             return new AssCompoundAffectationOperation(a_);
         }
-        if (_anaNode instanceof MethodOperation) {
-            if (((MethodOperation)_anaNode).getChildrenNodes().size() > 1) {
-                return new AssStdMethodOperation(_anaNode);
-            }
+        if (_anaNode instanceof MethodOperation && ((MethodOperation) _anaNode).getChildrenNodes().size() > 1) {
+            return new AssStdMethodOperation(_anaNode);
         }
         if (_anaNode instanceof LeafOperation) {
             return new AssStdLeafOperation(_anaNode);
         }
         return new AssStdUnaryMethodOperation(_anaNode);
     }
+
     public static AssOperationNode createAssSimOperationNode(OperationNode _anaNode) {
         if (_anaNode instanceof IdOperation) {
             IdOperation f_ = (IdOperation) _anaNode;
@@ -136,10 +134,8 @@ public abstract class AssOperationNode {
             CompoundAffectationOperation a_ = (CompoundAffectationOperation) _anaNode;
             return new AssSimReadWriteAffectationOperation(a_);
         }
-        if (_anaNode instanceof MethodOperation) {
-            if (((MethodOperation)_anaNode).getChildrenNodes().size() > 1) {
-                return new AssSimStdMethodOperation(_anaNode);
-            }
+        if (_anaNode instanceof MethodOperation && ((MethodOperation) _anaNode).getChildrenNodes().size() > 1) {
+            return new AssSimStdMethodOperation(_anaNode);
         }
         if (_anaNode instanceof LeafOperation) {
             return new AssSimStdLeafOperation(_anaNode);
@@ -149,10 +145,6 @@ public abstract class AssOperationNode {
     public final void setRelativeOffsetPossibleAnalyzable(AnalyzedPageEl _page) {
         _page.setOffset(indexInEl);
     }
-    public final void tryAnalyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
-        analyzeAssignmentAfter(_ass,_a, _page);
-    }
-    public abstract void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page);
     final boolean isFirstChild() {
         AssMethodOperation par_ = getParent();
         if (par_ == null) {

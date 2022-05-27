@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.reach.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;

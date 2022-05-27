@@ -1,22 +1,22 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.blocks.AssSimDeclareVariable;
 import code.expressionlanguage.analyze.assign.blocks.AssSimForMutableIterativeLoop;
-import code.expressionlanguage.analyze.assign.util.*;
+import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.analyze.opers.VariableOperationUse;
 import code.util.core.BoolVal;
 
-public final class AssSimStdVariableOperation extends AssLeafOperation {
+public final class AssSimStdVariableOperation extends AssLeafOperation  implements AssOperationNodeSim{
 
-    private String variableName;
-    private boolean declare;
-    private boolean finalVariable;
-    private int deep;
-    private OperationNode analyzed;
+    private final String variableName;
+    private final boolean declare;
+    private final boolean finalVariable;
+    private final int deep;
+    private final OperationNode analyzed;
 
     AssSimStdVariableOperation(VariableOperation _ex) {
         super(_ex);
@@ -37,7 +37,7 @@ public final class AssSimStdVariableOperation extends AssLeafOperation {
     }
 
     @Override
-    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+    public void analyzeSimAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssBlock pr_ = _ass.getPreviousSibling();
         if (pr_ instanceof AssSimDeclareVariable) {
             ((AssSimDeclareVariable)pr_).getAssignedVariables().add(variableName);

@@ -21,22 +21,12 @@ public final class ParentInferring {
         m_ = _from.getParent();
         while (m_ != null) {
             if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
-                if (m_ instanceof IdOperation || m_ instanceof FirstOptOperation  || m_ instanceof WrappOperation) {
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
+                if (!(m_ instanceof IdOperation) && !(m_ instanceof FirstOptOperation) && !(m_ instanceof WrappOperation) && (!(m_ instanceof AbstractTernaryOperation) || m_.getFirstChild() == current_)) {
+                    break;
                 }
-                if (m_ instanceof AbstractTernaryOperation) {
-                    if (m_.getFirstChild() == current_) {
-                        break;
-                    }
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                break;
+            } else {
+                nbParentsInfer_++;
             }
-            nbParentsInfer_++;
             current_ = current_.getParent();
             m_ = m_.getParent();
         }

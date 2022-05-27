@@ -1,29 +1,29 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.analyze.opers.VariableOperationUse;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AssStdVariableOperation extends AssLeafOperation {
+public final class AssStdVariableOperation extends AssLeafOperation implements AssOperationNodeFull{
 
     private final String variableName;
     private final boolean declare;
     private final boolean finalVariable;
 
-    AssStdVariableOperation(VariableOperation _ex) {
+    public AssStdVariableOperation(VariableOperation _ex) {
         super(_ex);
         variableName = _ex.getVariableName();
         declare = true;
         finalVariable = _ex.isFinalVariable();
     }
 
-    AssStdVariableOperation(VariableOperationUse _ex) {
+    public AssStdVariableOperation(VariableOperationUse _ex) {
         super(_ex);
         variableName = _ex.getVariableName();
         declare = false;
@@ -59,17 +59,15 @@ public final class AssStdVariableOperation extends AssLeafOperation {
         }
 
         for (EntryCust<String, AssignmentBefore> e: assB_.entryList()) {
-            if (StringUtil.quickEq(e.getKey(), varName_)) {
-                if (!e.getValue().isAssignedBefore()) {
-                    //errors
-                    setRelativeOffsetPossibleAnalyzable(_page);
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(_page);
-                    un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                            varName_);
-                    _page.getLocalizer().addError(un_);
-                }
+            if (StringUtil.quickEq(e.getKey(), varName_) && !e.getValue().isAssignedBefore()) {
+                //errors
+                setRelativeOffsetPossibleAnalyzable(_page);
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFile(_page.getCurrentFile());
+                un_.setIndexFile(_page);
+                un_.buildError(_page.getAnalysisMessages().getFinalField(),
+                        varName_);
+                _page.getLocalizer().addError(un_);
             }
         }
         ass_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assB_));

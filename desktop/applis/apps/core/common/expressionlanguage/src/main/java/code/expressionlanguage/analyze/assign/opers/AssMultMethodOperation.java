@@ -1,17 +1,16 @@
 package code.expressionlanguage.analyze.assign.opers;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.AssignedVariables;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.analyze.assign.util.Assignment;
 import code.expressionlanguage.analyze.assign.util.AssignmentsUtil;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.StringMap;
 
-public abstract class AssMultMethodOperation extends AssMethodOperation {
+public abstract class AssMultMethodOperation extends AssMethodOperation implements AssOperationNodeFull{
 
-    AssMultMethodOperation(OperationNode _ex) {
+    protected AssMultMethodOperation(OperationNode _ex) {
         super(_ex);
     }
 

@@ -41,8 +41,8 @@ public final class AssSimStdMethodBlock extends AssBracedBlock {
     }
 
     private void tryBuildExpressionLanguage(AssBlock _en, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
-        if (_en instanceof AssBuildableElMethod) {
-            ((AssBuildableElMethod)_en).buildExpressionLanguage(_a, _page);
+        if (_en instanceof AssSimBuildableElMethod) {
+            ((AssSimBuildableElMethod)_en).buildExpressionLanguage(_a, _page);
         }
     }
 }

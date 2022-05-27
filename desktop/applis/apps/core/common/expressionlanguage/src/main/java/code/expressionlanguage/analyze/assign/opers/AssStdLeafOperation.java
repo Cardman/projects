@@ -2,9 +2,9 @@ package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.opers.OperationNode;
 
-public final class AssStdLeafOperation extends AssLeafOperation {
+public final class AssStdLeafOperation extends AssLeafOperation implements AssOperationNodeFull{
 
-    AssStdLeafOperation(OperationNode _ex) {
+    public AssStdLeafOperation(OperationNode _ex) {
         super(_ex);
     }
 }

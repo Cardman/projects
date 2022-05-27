@@ -17,16 +17,10 @@ public final class MethodAccessId {
         index = _index;
     }
     public void setupInfosId(int _index,StringList _args, String _kwSt, String _kwStCall) {
-        int i_ = _index;
-        if (_args.size() > i_) {
-            if (StringUtil.quickEq(_args.get(i_).trim(), "~")) {
-                index++;
-                retRef = true;
-                i_++;
-            }
-        }
+        int i_ = retRefLookup(_index, _args);
         setupInfos(i_,_args,_kwSt,_kwStCall);
     }
+
     public void setupInfos(int _index,StringList _args, String _kwSt, String _kwStCall) {
         int i_ = _index;
         if (_args.size() > i_) {
@@ -43,17 +37,21 @@ public final class MethodAccessId {
         setupAncestor(_args, i_);
     }
 
-    public void setupAncestorId(StringList _args, int _i) {
-        int i_ = _i;
-        if (_args.size() > i_) {
-            if (StringUtil.quickEq(_args.get(i_).trim(), "~")) {
-                index++;
-                retRef = true;
-                i_++;
-            }
-        }
+    public void setupAncestorId(StringList _args, int _index) {
+        int i_ = retRefLookup(_index, _args);
         setupAncestor(_args, i_);
     }
+
+    private int retRefLookup(int _index, StringList _args) {
+        int i_ = _index;
+        if (_args.size() > i_ && StringUtil.quickEq(_args.get(i_).trim(), "~")) {
+            index++;
+            retRef = true;
+            i_++;
+        }
+        return i_;
+    }
+
     public void setupAncestor(StringList _args, int _i) {
         if (_args.size() > _i) {
             String trim_ = _args.get(_i).trim();

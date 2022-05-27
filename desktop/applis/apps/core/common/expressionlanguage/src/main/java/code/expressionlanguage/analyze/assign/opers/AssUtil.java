@@ -2,12 +2,12 @@ package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.blocks.AssForMutableIterativeLoop;
 import code.expressionlanguage.analyze.assign.util.*;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -21,10 +21,14 @@ public final class AssUtil {
     }
 
     public static CustList<AssOperationNode> getExecutableNodes(OperationNode _root) {
-        CustList<AssOperationNode> out_ = new CustList<AssOperationNode>();
         if (_root == null) {
-            return out_;
+            return  new CustList<AssOperationNode>();
         }
+        return getExecutableNodesNotNull(_root);
+    }
+
+    private static CustList<AssOperationNode> getExecutableNodesNotNull(OperationNode _root) {
+        CustList<AssOperationNode> out_ = new CustList<AssOperationNode>();
         OperationNode current_ = _root;
         AssOperationNode exp_ = AssOperationNode.createAssOperationNode(current_);
         while (current_ != null) {
@@ -36,7 +40,7 @@ public final class AssUtil {
                 current_ = op_;
                 continue;
             }
-            while (true) {
+            while (current_ != null) {
                 setup(exp_);
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
@@ -51,68 +55,69 @@ public final class AssUtil {
                 op_ = current_.getParent();
                 if (op_ == null) {
                     current_ = null;
-                    break;
-                }
-                AssMethodOperation par_ = exp_.getParent();
-                if (op_ == _root) {
+                } else if (op_ == _root) {
+                    AssMethodOperation par_ = exp_.getParent();
                     setup(par_);
                     out_.add(par_);
                     current_ = null;
-                    break;
+                } else {
+                    current_ = op_;
+                    exp_ = exp_.getParent();
                 }
-                current_ = op_;
-                exp_ = par_;
             }
         }
         return out_;
     }
 
     public static CustList<AssOperationNode> getSimExecutableNodes(OperationNode _root) {
-        CustList<AssOperationNode> out_ = new CustList<AssOperationNode>();
         if (_root == null) {
-            return out_;
+            return new CustList<AssOperationNode>();
         }
-        OperationNode current_ = _root;
-        AssOperationNode exp_ = AssOperationNode.createAssSimOperationNode(current_);
-        while (current_ != null) {
-            OperationNode op_ = current_.getFirstChild();
+        return getSimExecutableNodesNotNull(_root);
+    }
+
+    private static CustList<AssOperationNode> getSimExecutableNodesNotNull(OperationNode _root) {
+        CustList<AssOperationNode> out_ = new CustList<AssOperationNode>();
+        OperationNode currentSim_ = _root;
+        AssOperationNode exp_ = AssOperationNode.createAssSimOperationNode(currentSim_);
+        while (currentSim_ != null) {
+            OperationNode op_ = currentSim_.getFirstChild();
             if (exp_ instanceof AssMethodOperation && op_ != null) {
                 AssOperationNode loc_ = AssOperationNode.createAssSimOperationNode(op_);
                 ((AssMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
-                current_ = op_;
+                currentSim_ = op_;
                 continue;
             }
-            while (true) {
+            while (currentSim_ != null) {
                 setupSim(exp_);
                 out_.add(exp_);
-                op_ = current_.getNextSibling();
+                op_ = currentSim_.getNextSibling();
                 if (op_ != null) {
                     AssOperationNode loc_ = AssOperationNode.createAssSimOperationNode(op_);
                     AssMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     exp_ = loc_;
-                    current_ = op_;
+                    currentSim_ = op_;
                     break;
                 }
-                op_ = current_.getParent();
+                op_ = currentSim_.getParent();
                 if (op_ == null) {
-                    current_ = null;
-                    break;
-                }
-                AssMethodOperation par_ = exp_.getParent();
-                if (op_ == _root) {
+                    currentSim_ = null;
+                } else if (op_ == _root) {
+                    AssMethodOperation par_ = exp_.getParent();
                     setupSim(par_);
                     out_.add(par_);
-                    current_ = null;
-                    break;
+                    currentSim_ = null;
+                } else {
+                    currentSim_ = op_;
+                    exp_ = exp_.getParent();
                 }
-                current_ = op_;
-                exp_ = par_;
             }
         }
         return out_;
     }
+
     private static void setup(AssOperationNode _exp) {
         if (_exp instanceof AssAffectationOperation) {
             ((AssAffectationOperation)_exp).setup();
@@ -164,7 +169,7 @@ public final class AssUtil {
         }
         AssOperationNode current_ = _current;
         while (true) {
-            current_.tryAnalyzeAssignmentAfter(_b,_a, _page);
+            ((AssOperationNodeFull)current_).analyzeAssignmentAfter(_b,_a, _page);
             next_ = current_.getNextSibling();
             AssMethodOperation par_ = current_.getParent();
             if (par_ instanceof AssMultMethodOperation &&next_ != null) {
@@ -172,7 +177,7 @@ public final class AssUtil {
                 return next_;
             }
             if (par_ == _root) {
-                par_.tryAnalyzeAssignmentAfter(_b,_a, _page);
+                ((AssOperationNodeFull)par_).analyzeAssignmentAfter(_b,_a, _page);
                 return null;
             }
             if (par_ == null) {
@@ -191,20 +196,25 @@ public final class AssUtil {
         }
         AssOperationNode current_ = _current;
         while (true) {
-            current_.tryAnalyzeAssignmentAfter(_b,_a, _page);
+            analyze(current_,_b,_a, _page);
             next_ = current_.getNextSibling();
             AssMethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 return next_;
             }
             if (par_ == _root) {
-                par_.tryAnalyzeAssignmentAfter(_b,_a, _page);
+                analyze(par_,_b,_a, _page);
                 return null;
             }
             if (par_ == null) {
                 return null;
             }
             current_ = par_;
+        }
+    }
+    private static void analyze(AssOperationNode _current,AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        if (_current instanceof AssOperationNodeSim) {
+            ((AssOperationNodeSim)_current).analyzeSimAssignmentAfter(_ass, _a, _page);
         }
     }
     public static boolean checkFinalField(AssBlock _as, AssSettableFieldOperation _cst, StringMap<Assignment> _ass, AnalyzedPageEl _page) {
@@ -227,41 +237,43 @@ public final class AssUtil {
         } else if (_page.isAssignedStaticFields()) {
             if (_staticField) {
                 checkFinal_ = true;
-            } else if (!_fromCurClass) {
-                checkFinal_ = true;
             } else {
-                if (_cst.isDeclare()) {
-                    checkFinal_ = false;
-                } else {
-                    checkFinal_ = false;
-                    for (EntryCust<String, BoolVal> e: _ass.entryList()) {
-                        if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
-                            continue;
-                        }
-                        if (e.getValue() == BoolVal.TRUE) {
-                            continue;
-                        }
-                        checkFinal_ = true;
-                    }
-                }
+                checkFinal_ = checkFinal(_cst, _ass, _fromCurClass, _fieldName);
             }
-        } else if (!_fromCurClass) {
+        } else {
+            checkFinal_ = checkFinal(_cst, _ass, _fromCurClass, _fieldName);
+        }
+        return checkFinal_;
+    }
+
+    private static boolean checkFinal(AssSettableFieldOperation _cst, StringMap<BoolVal> _ass, boolean _fromCurClass, String _fieldName) {
+        boolean checkFinal_;
+        if (!_fromCurClass) {
             checkFinal_ = true;
         } else {
-            if (_cst.isDeclare()) {
-                checkFinal_ = false;
-            } else {
-                checkFinal_ = false;
-                for (EntryCust<String, BoolVal> e: _ass.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
-                        continue;
-                    }
-                    if (e.getValue() == BoolVal.TRUE) {
-                        continue;
-                    }
-                    checkFinal_ = true;
-                }
+            checkFinal_ = checkFinal(_cst, _ass, _fieldName);
+        }
+        return checkFinal_;
+    }
+
+    private static boolean checkFinal(AssSettableFieldOperation _cst, StringMap<BoolVal> _ass, String _fieldName) {
+        boolean checkFinal_;
+        if (_cst.isDeclare()) {
+            checkFinal_ = false;
+        } else {
+            checkFinal_ = checkFinal(_ass, _fieldName);
+        }
+        return checkFinal_;
+    }
+
+    private static boolean checkFinal(StringMap<BoolVal> _ass, String _fieldName) {
+        boolean checkFinal_;
+        checkFinal_ = false;
+        for (EntryCust<String, BoolVal> e: _ass.entryList()) {
+            if (!StringUtil.quickEq(e.getKey(), _fieldName) || e.getValue() == BoolVal.TRUE) {
+                continue;
             }
+            checkFinal_ = true;
         }
         return checkFinal_;
     }
@@ -290,34 +302,12 @@ public final class AssUtil {
             //boolean constant assignment
             for (EntryCust<String, AssignmentBefore> e: assB_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
-                BooleanAssignment b_ = new BooleanAssignment();
-                if (BooleanStruct.isTrue(value_.getStruct())) {
-                    b_.setAssignedAfterWhenFalse(true);
-                    b_.setUnassignedAfterWhenFalse(true);
-                    b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
-                    b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
-                } else {
-                    b_.setAssignedAfterWhenTrue(true);
-                    b_.setUnassignedAfterWhenTrue(true);
-                    b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
-                    b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
-                }
+                BooleanAssignment b_ = boolAssignment(value_, bf_);
                 ass_.put(e.getKey(), b_);
             }
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
-                BooleanAssignment b_ = new BooleanAssignment();
-                if (BooleanStruct.isTrue(value_.getStruct())) {
-                    b_.setAssignedAfterWhenFalse(true);
-                    b_.setUnassignedAfterWhenFalse(true);
-                    b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
-                    b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
-                } else {
-                    b_.setAssignedAfterWhenTrue(true);
-                    b_.setUnassignedAfterWhenTrue(true);
-                    b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
-                    b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
-                }
+                BooleanAssignment b_ = boolAssignment(value_, bf_);
                 assA_.put(e.getKey(), b_);
             }
         } else {
@@ -327,6 +317,22 @@ public final class AssUtil {
         }
         vars_.getVariables().put(_current, ass_);
         vars_.getFields().put(_current, assA_);
+    }
+
+    private static BooleanAssignment boolAssignment(Argument _value, AssignmentBefore _bf) {
+        BooleanAssignment b_ = new BooleanAssignment();
+        if (BooleanStruct.isTrue(_value.getStruct())) {
+            b_.setAssignedAfterWhenFalse(true);
+            b_.setUnassignedAfterWhenFalse(true);
+            b_.setAssignedAfterWhenTrue(_bf.isAssignedBefore());
+            b_.setUnassignedAfterWhenTrue(_bf.isUnassignedBefore());
+        } else {
+            b_.setAssignedAfterWhenTrue(true);
+            b_.setUnassignedAfterWhenTrue(true);
+            b_.setAssignedAfterWhenFalse(_bf.isAssignedBefore());
+            b_.setUnassignedAfterWhenFalse(_bf.isUnassignedBefore());
+        }
+        return b_;
     }
 
 }

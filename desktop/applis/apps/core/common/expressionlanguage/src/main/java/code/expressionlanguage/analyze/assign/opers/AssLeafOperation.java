@@ -1,20 +1,19 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.AssignedVariables;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.analyze.assign.util.Assignment;
 import code.expressionlanguage.analyze.assign.util.AssignmentsUtil;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.StringMap;
 
 public abstract class AssLeafOperation extends AssOperationNode {
-    AssLeafOperation(OperationNode _ex) {
+    protected AssLeafOperation(OperationNode _ex) {
         super(_ex);
     }
 
-    @Override
     public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_page);

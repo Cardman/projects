@@ -2,17 +2,19 @@ package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.assign.blocks.AssBlock;
+import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.assign.blocks.AssBlock;
-import code.expressionlanguage.analyze.assign.util.*;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.maths.litteralcom.StrTypes;
-import code.util.*;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
-public final class AssSimAffectationOperation extends AssSimMultMethodOperation {
+public final class AssSimAffectationOperation extends AssSimMultMethodOperation implements AssOperationNodeSim{
     private AssOperationNode settableOp;
     private final AffectationOperation analyzed;
     AssSimAffectationOperation(AffectationOperation _ex) {
@@ -57,9 +59,8 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
         return root_;
     }
     @Override
-    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+    public void analyzeSimAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssOperationNode firstChild_ = settableOp;
-        StrTypes ops_ = analyzed.getOperators();
         if (firstChild_ instanceof AssSimStdVariableOperation) {
             StringMap<BoolVal> variables_ = _a.getVariables();
             String str_ = ((AssSimStdVariableOperation)firstChild_).getVariableName();
@@ -67,36 +68,28 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
             AnaLocalVariable localVar_ = _a.getCache().getLocalVar(str_, deep_);
             if (localVar_ == null) {
                 for (EntryCust<String, BoolVal> e: variables_.entryList()) {
-                    if (StringUtil.quickEq(str_, e.getKey())) {
-                        if (e.getValue() == BoolVal.TRUE) {
-                            if (_a.isFinalLocalVar(str_)) {
-                                //error
-                                analyzed.setRelativeOffsetPossibleAnalyzable(analyzed.getIndexInEl()+ops_.firstKey(), _page);
-                                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                                un_.setFile(_page.getCurrentFile());
-                                un_.setIndexFile(_page);
-                                un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                                        str_);
-                                _page.getLocalizer().addError(un_);
-                                if (analyzed.getPartOffsetsChildren().isEmpty()) {
-                                    analyzed.getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,1));
-                                }
-                            }
-                        }
+                    if (StringUtil.quickEq(str_, e.getKey()) && e.getValue() == BoolVal.TRUE && _a.isFinalLocalVar(str_)) {
+                        //error
+                        errAss(_page, str_);
                     }
                 }
             } else if (localVar_.isFinalVariable()){
-                analyzed.setRelativeOffsetPossibleAnalyzable(analyzed.getIndexInEl()+ops_.firstKey(), _page);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page);
-                un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                        str_);
-                _page.getLocalizer().addError(un_);
-                if (analyzed.getPartOffsetsChildren().isEmpty()) {
-                    analyzed.getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,1));
-                }
+                errAss(_page, str_);
             }
+        }
+    }
+
+    private void errAss(AnalyzedPageEl _page, String _str) {
+        StrTypes ops_ = analyzed.getOperators();
+        this.analyzed.setRelativeOffsetPossibleAnalyzable(this.analyzed.getIndexInEl() + ops_.firstKey(), _page);
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setFile(_page.getCurrentFile());
+        un_.setIndexFile(_page);
+        un_.buildError(_page.getAnalysisMessages().getFinalField(),
+                _str);
+        _page.getLocalizer().addError(un_);
+        if (this.analyzed.getPartOffsetsChildren().isEmpty()) {
+            this.analyzed.getPartOffsetsChildren().add(new InfoErrorDto(un_, _page, 1));
         }
     }
 

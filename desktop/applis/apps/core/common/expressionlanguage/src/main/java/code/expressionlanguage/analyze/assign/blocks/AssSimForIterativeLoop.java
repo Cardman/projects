@@ -1,13 +1,13 @@
 package code.expressionlanguage.analyze.assign.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.ForIterativeLoop;
 import code.expressionlanguage.analyze.assign.opers.AssOperationNode;
 import code.expressionlanguage.analyze.assign.opers.AssUtil;
-import code.expressionlanguage.analyze.assign.util.*;
-import code.util.*;
+import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.analyze.blocks.ForIterativeLoop;
+import code.util.CustList;
 
-public final class AssSimForIterativeLoop extends AssBracedStack implements AssBuildableElMethod {
+public final class AssSimForIterativeLoop extends AssBracedStack implements AssSimBuildableElMethod {
 
     private final int initOffset;
     private final int expressionOffset;
@@ -17,7 +17,7 @@ public final class AssSimForIterativeLoop extends AssBracedStack implements AssB
     private final CustList<AssOperationNode> opExp;
 
     private final CustList<AssOperationNode> opStep;
-    AssSimForIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup, ForIterativeLoop _for) {
+    public AssSimForIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup, ForIterativeLoop _for) {
         super(_completeNormally, _completeNormallyGroup);
         opInit = AssUtil.getSimExecutableNodes(_for.getRootInit());
         opExp = AssUtil.getSimExecutableNodes(_for.getRootExp());

@@ -12,7 +12,7 @@ import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
-public final class AssSimReadWriteAffectationOperation extends AssMethodOperation {
+public final class AssSimReadWriteAffectationOperation extends AssMethodOperation implements AssOperationNodeSim{
     private AssOperationNode settable;
     private final OperationNode analyzed;
     private int indexVar;
@@ -28,7 +28,7 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
         settable = AssSimAffectationOperation.tryGetSettable(this);
     }
     @Override
-    public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+    public void analyzeSimAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssOperationNode firstChild_ = settable;
         if (firstChild_ instanceof AssSimStdVariableOperation) {
             StringMap<BoolVal> variables_ = _a.getVariables();
@@ -37,32 +37,28 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
             AnaLocalVariable localVar_ = _a.getCache().getLocalVar(str_, deep_);
             if (localVar_ == null) {
                 for (EntryCust<String, BoolVal> e: variables_.entryList()) {
-                    if (StringUtil.quickEq(str_, e.getKey())) {
-                        if (_a.isFinalLocalVar(str_)) {
-                            //error
-                            analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _page);
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFile(_page.getCurrentFile());
-                            un_.setIndexFile(_page);
-                            un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                                    str_);
-                            _page.getLocalizer().addError(un_);
-                            analyzed.addErr(un_.getBuiltError());
-                        }
+                    if (StringUtil.quickEq(str_, e.getKey()) && _a.isFinalLocalVar(str_)) {
+                        //error
+                        errAss((AssSimStdVariableOperation) firstChild_, _page);
                     }
                 }
             } else if (localVar_.isFinalVariable()){
-                //error
-                analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _page);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page);
-                un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                        str_);
-                _page.getLocalizer().addError(un_);
-                analyzed.addErr(un_.getBuiltError());
+                errAss((AssSimStdVariableOperation) firstChild_, _page);
             }
         }
+    }
+
+    private void errAss(AssSimStdVariableOperation _ch, AnalyzedPageEl _page) {
+        //error
+        String str_ = _ch.getVariableName();
+        this.analyzed.setRelativeOffsetPossibleAnalyzable(_ch.getAnalyzed().getIndexInEl(), _page);
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setFile(_page.getCurrentFile());
+        un_.setIndexFile(_page);
+        un_.buildError(_page.getAnalysisMessages().getFinalField(),
+                str_);
+        _page.getLocalizer().addError(un_);
+        this.analyzed.addErr(un_.getBuiltError());
     }
 
     public int getIndexVar() {

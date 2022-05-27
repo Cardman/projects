@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 
 public abstract class AssLeaf extends AssBlock {
-    AssLeaf(boolean _completeNormally,boolean _completeNormallyGroup) {
+    protected AssLeaf(boolean _completeNormally,boolean _completeNormallyGroup) {
         super(_completeNormally,_completeNormallyGroup);
     }
 

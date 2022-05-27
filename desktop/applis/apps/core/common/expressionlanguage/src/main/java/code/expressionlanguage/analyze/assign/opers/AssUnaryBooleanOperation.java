@@ -1,16 +1,16 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.AssignedVariables;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.analyze.assign.util.Assignment;
 import code.expressionlanguage.analyze.assign.util.AssignmentsUtil;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.StringMap;
 
-public final class AssUnaryBooleanOperation extends AssMethodOperation {
-    AssUnaryBooleanOperation(OperationNode _ex) {
+public final class AssUnaryBooleanOperation extends AssMethodOperation implements AssOperationNodeFull {
+    public AssUnaryBooleanOperation(OperationNode _ex) {
         super(_ex);
     }
 

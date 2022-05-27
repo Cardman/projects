@@ -2,25 +2,23 @@ package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.opers.DeclaredFieldOperation;
-import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.*;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.opers.DeclaredFieldOperation;
+import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AssSettableFieldOperation extends AssLeafOperation {
+public final class AssSettableFieldOperation extends AssLeafOperation implements AssOperationNodeFull{
     private final AnaSettableOperationContent fieldMetaInfo;
     private final boolean declare;
     private final RootBlock rootBlock;
-    AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {
+    public AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {
         super(_ex);
         fieldMetaInfo = _ex.getSettableFieldContent();
         declare = _ex instanceof DeclaredFieldOperation;
@@ -41,50 +39,19 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_page);
         StringMap<Assignment> ass_ =AssignmentsUtil.assignAfter(isBool_,assB_);
-        boolean procField_ = isFromCurrentClass(_page);
         ClassField cl_ = fieldMetaInfo.getClassField();
-        AssMethodOperation par_ = getParent();
-        if (par_ instanceof AssAffectationOperation && isFirstChildInParent()) {
-            procField_ = false;
-        } else {
-            if (par_ instanceof AssDotOperation) {
-                boolean cancelCheck_ = false;
-                if (par_.getFirstChild() instanceof AssAccessorOperation) {
-                    cancelCheck_ = true;
-                } else if (par_.getFirstChild() instanceof AssDotOperation) {
-                    AssOperationNode op_ = ((AssDotOperation)par_.getFirstChild()).getChildrenNodes().last();
-                    if (op_ instanceof AssAccessorOperation) {
-                        cancelCheck_ = true;
-                    }
-                }
-                if (cancelCheck_) {
-                    if (par_.getParent() instanceof AssAffectationOperation && par_.isFirstChildInParent()) {
-                        procField_ = false;
-                    }
-                }
-            }
-        }
-        if (_page.isAssignedStaticFields()) {
-            if (fieldMetaInfo.isStaticField()) {
-                procField_ = false;
-            }
-        }
-        if (_page.isAssignedFields()) {
-            procField_ = false;
-        }
+        boolean procField_ = procField(_page);
         if (procField_) {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                if (StringUtil.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                    if (fieldMetaInfo.isFinalField() && !declare) {
-                        //error if final field
-                        setRelativeOffsetPossibleAnalyzable(_page);
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFile(_page.getCurrentFile());
-                        un_.setIndexFile(_page);
-                        un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                                cl_.getFieldName());
-                        _page.getLocalizer().addError(un_);
-                    }
+                if (StringUtil.quickEq(e.getKey(), cl_.getFieldName()) && !e.getValue().isAssignedBefore() && fieldMetaInfo.isFinalField() && !declare) {
+                    //error if final field
+                    setRelativeOffsetPossibleAnalyzable(_page);
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFile(_page.getCurrentFile());
+                    un_.setIndexFile(_page);
+                    un_.buildError(_page.getAnalysisMessages().getFinalField(),
+                            cl_.getFieldName());
+                    _page.getLocalizer().addError(un_);
                 }
             }
             if (getParent() == null) {
@@ -95,6 +62,42 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
         vars_.getVariables().put(this, ass_);
         vars_.getFields().put(this, assA_);
     }
+
+    private boolean procField(AnalyzedPageEl _page) {
+        boolean procField_ = isFromCurrentClass(_page);
+        AssMethodOperation par_ = getParent();
+        if (par_ instanceof AssAffectationOperation && isFirstChildInParent()) {
+            procField_ = false;
+        } else {
+            if (par_ instanceof AssDotOperation) {
+                boolean cancelCheck_ = cancelCheck(par_);
+                if (cancelCheck_ && par_.getParent() instanceof AssAffectationOperation && par_.isFirstChildInParent()) {
+                    procField_ = false;
+                }
+            }
+        }
+        if (_page.isAssignedStaticFields() && fieldMetaInfo.isStaticField()) {
+            procField_ = false;
+        }
+        if (_page.isAssignedFields()) {
+            procField_ = false;
+        }
+        return procField_;
+    }
+
+    private boolean cancelCheck(AssMethodOperation _par) {
+        boolean cancelCheck_ = false;
+        if (_par.getFirstChild() instanceof AssAccessorOperation) {
+            cancelCheck_ = true;
+        } else if (_par.getFirstChild() instanceof AssDotOperation) {
+            AssOperationNode op_ = ((AssDotOperation) _par.getFirstChild()).getChildrenNodes().last();
+            if (op_ instanceof AssAccessorOperation) {
+                cancelCheck_ = true;
+            }
+        }
+        return cancelCheck_;
+    }
+
     public boolean isFromCurrentClass(AnalyzedPageEl _page) {
         if (notMatchCurrentType(_page)) {
             return false;

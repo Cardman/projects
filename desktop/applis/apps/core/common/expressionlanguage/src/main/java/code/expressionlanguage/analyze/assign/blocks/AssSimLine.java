@@ -1,17 +1,17 @@
 package code.expressionlanguage.analyze.assign.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.analyze.assign.opers.AssOperationNode;
 import code.expressionlanguage.analyze.assign.opers.AssUtil;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.analyze.blocks.Line;
 import code.util.CustList;
 import code.util.core.BoolVal;
 
-public final class AssSimLine extends AssLeaf implements AssBuildableElMethod {
+public final class AssSimLine extends AssLeaf implements AssSimBuildableElMethod {
     private final int expressionOffset;
     private final CustList<AssOperationNode> opList;
-    AssSimLine(boolean _completeNormally, boolean _completeNormallyGroup, Line _line) {
+    public AssSimLine(boolean _completeNormally, boolean _completeNormallyGroup, Line _line) {
         super(_completeNormally,_completeNormallyGroup);
         opList = AssUtil.getSimExecutableNodes(_line.getRoot());
         expressionOffset = _line.getExpressionOffset();
