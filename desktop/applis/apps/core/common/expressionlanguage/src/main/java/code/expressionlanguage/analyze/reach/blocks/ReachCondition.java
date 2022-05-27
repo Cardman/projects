@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.blocks.ConditionBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
-public abstract class ReachCondition extends ReachBracedBlock implements ReachBuildableElMethod {
+public abstract class ReachCondition extends ReachBracedBlock implements ReachBuildableElMethod,ReachAbruptGroup {
 
     private final ConditionBlock meta;
     private final OperationNode root;

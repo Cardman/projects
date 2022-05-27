@@ -27,7 +27,7 @@ import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class ForEachLoop extends AbstractForLoop implements ImportForEachLoop {
+public final class ForEachLoop extends AbstractForLoop implements ImportForEachLoop,ForEachLoopAbs {
 
     private String importedClassName;
 

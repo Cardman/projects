@@ -19,7 +19,7 @@ import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
-public final class ReachCaseCondition extends ReachSwitchPartBlock {
+public final class ReachCaseCondition extends ReachSwitchPartBlock implements ReachBuildableElMethod{
     private final OperationNode root;
     private final int valueOffset;
     private final String value;
@@ -245,16 +245,15 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
     }
 
-    @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+    public void reachCase(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         ReachBracedBlock par_ = getParent();
         if (!(par_ instanceof ReachSwitchBlock)) {
-            super.reach(_anEl, _page);
+            reachBaseBraced(_anEl);
             return;
         }
         ReachSwitchBlock s_ = (ReachSwitchBlock) par_;
         if (!s_.isInstance()) {
-            super.reach(_anEl, _page);
+            reachBaseBraced(_anEl);
             return;
         }
         if (instance) {

@@ -7,18 +7,12 @@ import code.util.StringList;
 
 public final class ReachCatchEval extends ReachAbstractCatchEval {
     private final CatchEval meta;
-    protected ReachCatchEval(CatchEval _info) {
+    public ReachCatchEval(CatchEval _info) {
         super(_info);
         meta = _info;
     }
 
-    @Override
-    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        //
-    }
-
-    @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+    public void reachCatch(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         StringList classes_ = new StringList();
         ReachBlock p_ = getPreviousSibling();
         while (!(p_ instanceof ReachTryEval)) {

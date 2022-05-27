@@ -1,30 +1,18 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.blocks.AnalyzingEl;
+import code.expressionlanguage.analyze.blocks.FinallyEval;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 
-public final class ReachFinallyEval extends ReachBracedBlock implements ReachEval {
-    private final String label;
+public final class ReachFinallyEval extends ReachBreakableBlockImpl implements ReachBreakableBlock,ReachAbruptGroup {
     public ReachFinallyEval(FinallyEval _info) {
-        super(_info);
-        label = _info.getRealLabelInfo().getInfo();
+        super(_info,_info);
     }
 
     @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
-    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        //
-    }
-
-    @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+    public void reach(AnalyzingEl _anEl) {
         ReachBlock p_ = getPreviousSibling();
         while (!(p_ instanceof ReachTryEval)) {
             if (p_ == null) {

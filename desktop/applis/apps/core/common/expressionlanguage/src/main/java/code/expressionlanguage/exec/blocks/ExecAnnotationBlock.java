@@ -1,9 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 
-public final class ExecAnnotationBlock extends ExecRootBlock implements ExecInterfacable {
+public final class ExecAnnotationBlock extends ExecRootBlock implements GeneType {
 
     public ExecAnnotationBlock(ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
         super(_rootBlockContent, _access);

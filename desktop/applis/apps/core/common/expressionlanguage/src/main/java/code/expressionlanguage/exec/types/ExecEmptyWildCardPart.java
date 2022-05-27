@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.types;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 
 final class ExecEmptyWildCardPart extends ExecLeafPartType {
@@ -8,8 +7,7 @@ final class ExecEmptyWildCardPart extends ExecLeafPartType {
         super(_parent, _index, _type, _previousSeparator, _previousOperator);
     }
 
-    @Override
-    void checkDynExistence(ContextEl _an) {
+    void checkDynExistence() {
         if (!(getParent() instanceof ExecTemplatePartType)) {
             return;
         }

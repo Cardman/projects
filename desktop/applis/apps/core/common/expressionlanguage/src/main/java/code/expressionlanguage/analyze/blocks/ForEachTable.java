@@ -25,7 +25,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class ForEachTable extends AbstractForLoop implements ImportForEachTable {
+public final class ForEachTable extends AbstractForLoop implements ImportForEachTable,ForEachLoopAbs {
 
     private String importedClassNameFirst;
 

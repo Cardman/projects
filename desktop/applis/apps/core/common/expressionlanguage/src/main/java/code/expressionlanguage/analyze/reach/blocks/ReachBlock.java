@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 
 public abstract class ReachBlock {
@@ -52,6 +51,10 @@ public abstract class ReachBlock {
         if (_info instanceof ElseCondition) {
             return new ReachElseCondition((ElseCondition) _info);
         }
+        return tryLoop(_info);
+    }
+
+    private static ReachBracedBlock tryLoop(AbsBk _info) {
         if (_info instanceof TryEval) {
             return new ReachTryEval((TryEval) _info);
         }
@@ -64,6 +67,10 @@ public abstract class ReachBlock {
         if (_info instanceof FinallyEval) {
             return new ReachFinallyEval((FinallyEval) _info);
         }
+        return loop(_info);
+    }
+
+    private static ReachBracedBlock loop(AbsBk _info) {
         if (_info instanceof DoBlock) {
             return new ReachDoBlock((DoBlock) _info);
         }
@@ -90,6 +97,7 @@ public abstract class ReachBlock {
         }
         return new ReachRootBlock(_info);
     }
+
     public static ReachMemberCallingsBlock newReachBlock(MemberCallingsBlock _info) {
         if (_info instanceof ConstructorBlock) {
             return new ReachConstructorBlock((ConstructorBlock) _info);
@@ -102,7 +110,22 @@ public abstract class ReachBlock {
         }
         return new ReachInitFunctionBlock(_info);
     }
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+    public abstract void reach(AnalyzingEl _anEl);
+    public void reachAdv(AnalyzingEl _anEl) {
+        ReachBlock prev_ = getPreviousSibling();
+        ReachBracedBlock br_ = getParent();
+        if (prev_ == null) {
+            if (_anEl.isReachable(br_) && br_.accessibleCondition()) {
+                _anEl.reach(this);
+            } else {
+                _anEl.unreach(this);
+            }
+        } else {
+            reachBase(_anEl);
+        }
+    }
+
+    public void reachBase(AnalyzingEl _anEl) {
         ReachBlock prev_ = getPreviousSibling();
         if (_anEl.canCompleteNormallyGroup(prev_)) {
             _anEl.reach(this);

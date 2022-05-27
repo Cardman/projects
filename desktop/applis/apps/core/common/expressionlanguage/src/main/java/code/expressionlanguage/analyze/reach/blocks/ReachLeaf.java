@@ -1,8 +1,7 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 
 public abstract class ReachLeaf extends ReachBlock {
     protected ReachLeaf(AbsBk _info) {
@@ -10,19 +9,14 @@ public abstract class ReachLeaf extends ReachBlock {
     }
 
     @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        ReachBlock prev_ = getPreviousSibling();
-        ReachBracedBlock br_ = getParent();
-        if (prev_ == null) {
-            if (_anEl.isReachable(br_) && br_.accessibleCondition()) {
-                _anEl.reach(this);
-            } else {
-                _anEl.unreach(this);
-            }
-        } else {
-            super.reach(_anEl, _page);
-        }
+    public void reach(AnalyzingEl _anEl) {
+        reachLeaf(_anEl);
     }
+
+    public void reachLeaf(AnalyzingEl _anEl) {
+        reachAdv(_anEl);
+    }
+
     @Override
     public void abrupt(AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {

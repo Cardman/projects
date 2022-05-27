@@ -1,30 +1,17 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ElseCondition;
 import code.util.CustList;
 
-public final class ReachElseCondition extends ReachBracedBlock implements ReachBlockCondition,ReachBuildableElMethod {
-    private final String label;
+public final class ReachElseCondition extends ReachBreakableBlockImpl implements ReachBreakableBlock,ReachAbruptGroup {
     public ReachElseCondition(ElseCondition _info) {
-        super(_info);
-        label = _info.getRealLabelInfo().getInfo();
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
-    }
-
-    @Override
-    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        //
+        super(_info,_info);
     }
 
 
     @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+    public void reach(AnalyzingEl _anEl) {
         ReachBlock p_ = getPreviousSibling();
         if (_anEl.isReachable(p_) && p_.accessibleForNext()) {
             _anEl.reach(this);

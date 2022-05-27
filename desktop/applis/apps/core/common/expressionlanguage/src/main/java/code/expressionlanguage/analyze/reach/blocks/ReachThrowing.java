@@ -5,10 +5,10 @@ import code.expressionlanguage.analyze.blocks.Throwing;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
-public final class ReachThrowing extends ReachAbruptBlock {
+public final class ReachThrowing extends ReachAbruptBlock implements ReachBuildableElMethod {
     private final Throwing meta;
     private final OperationNode root;
-    protected ReachThrowing(Throwing _info) {
+    public ReachThrowing(Throwing _info) {
         super(_info);
         meta = _info;
         root = _info.getRoot();

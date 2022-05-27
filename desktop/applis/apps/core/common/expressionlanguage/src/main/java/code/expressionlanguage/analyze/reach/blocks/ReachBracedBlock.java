@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -54,10 +53,8 @@ public abstract class ReachBracedBlock extends ReachBlock {
         IdMap<ReachBreakBlock, ReachBreakableBlock> breakables_ = _anEl.getReachBreakables();
         boolean exist_ = false;
         for (EntryCust<ReachBreakBlock, ReachBreakableBlock> b: breakables_.entryList()) {
-            if (b.getValue() == this) {
-                if (_anEl.isReachable(b.getKey())) {
-                    exist_ = true;
-                }
+            if (b.getValue() == this && _anEl.isReachable(b.getKey())) {
+                exist_ = true;
             }
         }
         //parent breakable
@@ -99,9 +96,6 @@ public abstract class ReachBracedBlock extends ReachBlock {
         return group_;
     }
 
-    public void abruptGroup(AnalyzingEl _anEl) {
-    }
-
     @Override
     public final ReachBlock getFirstChild() {
         return firstChild;
@@ -109,18 +103,12 @@ public abstract class ReachBracedBlock extends ReachBlock {
 
 
     @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        ReachBlock prev_ = getPreviousSibling();
-        ReachBracedBlock br_ = getParent();
-        if (prev_ == null) {
-            if (_anEl.isReachable(br_) && br_.accessibleCondition()) {
-                _anEl.reach(this);
-            } else {
-                _anEl.unreach(this);
-            }
-        } else {
-            super.reach(_anEl, _page);
-        }
+    public void reach(AnalyzingEl _anEl) {
+        reachBaseBraced(_anEl);
+    }
+
+    public void reachBaseBraced(AnalyzingEl _anEl) {
+        reachAdv(_anEl);
     }
 
 }

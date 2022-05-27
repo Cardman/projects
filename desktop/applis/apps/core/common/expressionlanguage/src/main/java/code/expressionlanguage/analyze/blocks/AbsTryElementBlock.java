@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 
-public abstract class AbsTryElementBlock extends BracedBlock implements Eval {
+public abstract class AbsTryElementBlock extends BracedBlock implements BreakableBlock {
     protected AbsTryElementBlock(int _offset) {
         super(_offset);
     }

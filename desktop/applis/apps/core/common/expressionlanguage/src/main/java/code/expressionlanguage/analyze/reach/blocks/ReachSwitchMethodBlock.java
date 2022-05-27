@@ -6,12 +6,12 @@ import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 
-public final class ReachSwitchMethodBlock extends ReachMemberCallingsBlock implements ReachAnalyzedSwitch {
+public final class ReachSwitchMethodBlock extends ReachMemberCallingsBlock implements ReachAnalyzedSwitch,ReachMemberCallingsBlockSide {
     private final AnaClassArgumentMatching result;
     private final SwitchMethodBlock meta;
     private final boolean instance;
 
-    protected ReachSwitchMethodBlock(SwitchMethodBlock _info) {
+    public ReachSwitchMethodBlock(SwitchMethodBlock _info) {
         super(_info);
         result = _info.getResult();
         instance = _info.isInstance();

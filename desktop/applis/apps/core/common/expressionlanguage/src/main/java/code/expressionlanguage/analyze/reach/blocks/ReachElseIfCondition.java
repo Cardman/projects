@@ -1,11 +1,10 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.util.CustList;
 
-public final class ReachElseIfCondition extends ReachCondition implements ReachBlockCondition {
+public final class ReachElseIfCondition extends ReachCondition implements ReachBreakableBlock {
     private final String label;
     public ReachElseIfCondition(ElseIfCondition _info) {
         super(_info);
@@ -58,7 +57,7 @@ public final class ReachElseIfCondition extends ReachCondition implements ReachB
     }
 
     @Override
-    public void reach(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+    public void reach(AnalyzingEl _anEl) {
         ReachBlock p_ = getPreviousSibling();
         if (_anEl.isReachable(p_) && p_.accessibleForNext()) {
             _anEl.reach(this);

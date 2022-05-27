@@ -6,43 +6,34 @@ import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
-import code.util.EntryCust;
-import code.util.IdMap;
 
-public final class ReachForMutableIterativeLoop extends ReachBracedBlock implements ReachLoop {
+public final class ReachForMutableIterativeLoop extends ReachForLabelled implements ReachBreakableBlock,ReachBuildableElMethod,ReachAbruptGroup {
 
-    private final ForMutableIterativeLoop meta;
-    private final String label;
-    protected ReachForMutableIterativeLoop(ForMutableIterativeLoop _info) {
-        super(_info);
-        meta = _info;
-        label = _info.getLabel();
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
+    private final ForMutableIterativeLoop mut;
+    public ReachForMutableIterativeLoop(ForMutableIterativeLoop _info) {
+        super(_info,_info.getLabel());
+        mut = _info;
     }
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setSumOffset(meta.getInitOffset());
+        _page.setSumOffset(mut.getInitOffset());
         _page.zeroOffset();
-        OperationNode rInit_ = meta.getRootInit();
+        OperationNode rInit_ = mut.getRootInit();
         if (rInit_ != null) {
             ReachOperationUtil.tryCalculate(rInit_, _page);
         }
-        _page.setSumOffset(meta.getExpressionOffset());
+        _page.setSumOffset(mut.getExpressionOffset());
         _page.zeroOffset();
-        OperationNode rExp_ = meta.getRootExp();
+        OperationNode rExp_ = mut.getRootExp();
         if (rExp_ == null) {
-            meta.setAlwaysTrue(true);
+            mut.setAlwaysTrue(true);
         } else {
-            meta.setArgument(ReachOperationUtil.tryCalculate(rExp_, _page));
+            mut.setArgument(ReachOperationUtil.tryCalculate(rExp_, _page));
         }
-        _page.setSumOffset(meta.getStepOffset());
+        _page.setSumOffset(mut.getStepOffset());
         _page.zeroOffset();
-        OperationNode rStep_ = meta.getRootStep();
+        OperationNode rStep_ = mut.getRootStep();
         if (rStep_ != null) {
             ReachOperationUtil.tryCalculate(rStep_, _page);
         }
@@ -50,36 +41,21 @@ public final class ReachForMutableIterativeLoop extends ReachBracedBlock impleme
 
     @Override
     public boolean accessibleCondition() {
-        if (meta.isAlwaysTrue()) {
+        if (mut.isAlwaysTrue()) {
             return true;
         }
-        Argument arg_ = meta.getArgument();
+        Argument arg_ = mut.getArgument();
         return Argument.isNotFalseValue(arg_);
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
-        boolean abr_ = true;
         boolean proc_ = true;
-        if (!meta.isAlwaysTrue()) {
-            Argument arg_ = meta.getArgument();
+        if (!mut.isAlwaysTrue()) {
+            Argument arg_ = mut.getArgument();
             proc_ = Argument.isTrueValue(arg_);
         }
-        if (_anEl.isReachable(this)) {
-            if (!proc_) {
-                abr_ = false;
-            }
-        }
-        IdMap<ReachBreakBlock, ReachBreakableBlock> breakables_;
-        breakables_ = _anEl.getReachBreakables();
-        for (EntryCust<ReachBreakBlock, ReachBreakableBlock> e: breakables_.entryList()) {
-            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
-                abr_ = false;
-                break;
-            }
-        }
-        if (abr_) {
-            _anEl.completeAbruptGroup(this);
-        }
+
+        ReachWhileCondition.abrWhileMutable(_anEl,proc_,this);
     }
 
 }

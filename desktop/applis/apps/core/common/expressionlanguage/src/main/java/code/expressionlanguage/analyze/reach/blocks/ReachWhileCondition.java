@@ -6,10 +6,10 @@ import code.expressionlanguage.analyze.blocks.WhileCondition;
 import code.util.EntryCust;
 import code.util.IdMap;
 
-public final class ReachWhileCondition extends ReachCondition implements ReachLoop {
+public final class ReachWhileCondition extends ReachCondition implements ReachBreakableBlock {
 
-    private String label;
-    protected ReachWhileCondition(WhileCondition _info) {
+    private final String label;
+    public ReachWhileCondition(WhileCondition _info) {
         super(_info);
         label = _info.getLabel();
     }
@@ -26,24 +26,23 @@ public final class ReachWhileCondition extends ReachCondition implements ReachLo
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
-        boolean abr_ = true;
         Argument arg_ = getArgument();
         boolean proc_ = Argument.isTrueValue(arg_);
-        if (_anEl.isReachable(this)) {
-            if (!proc_) {
-                abr_ = false;
-            }
-        }
+        abrWhileMutable(_anEl, proc_, this);
+    }
+
+    static void abrWhileMutable(AnalyzingEl _anEl, boolean _proc, ReachBracedBlock _reach) {
+        boolean abr_ = !_anEl.isReachable(_reach) || _proc;
         IdMap<ReachBreakBlock, ReachBreakableBlock> breakables_;
         breakables_ = _anEl.getReachBreakables();
         for (EntryCust<ReachBreakBlock, ReachBreakableBlock> e: breakables_.entryList()) {
-            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
+            if (e.getValue() == _reach && _anEl.isReachable(e.getKey())) {
                 abr_ = false;
                 break;
             }
         }
         if (abr_) {
-            _anEl.completeAbruptGroup(this);
+            _anEl.completeAbruptGroup(_reach);
         }
     }
 }

@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.reach.blocks;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 
-public abstract class ReachAbruptBlock extends ReachLeaf implements ReachBuildableElMethod {
+public abstract class ReachAbruptBlock extends ReachLeaf {
     protected ReachAbruptBlock(AbsBk _info) {
         super(_info);
     }

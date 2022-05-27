@@ -4,16 +4,9 @@ import code.expressionlanguage.analyze.blocks.AbstractCatchEval;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.util.CustList;
 
-public abstract class ReachAbstractCatchEval extends ReachBracedBlock implements ReachEval {
-    private final String label;
+public abstract class ReachAbstractCatchEval extends ReachBreakableBlockImpl implements ReachBreakableBlock,ReachAbruptGroup {
     protected ReachAbstractCatchEval(AbstractCatchEval _info) {
-        super(_info);
-        label = _info.getRealLabelInfo().getInfo();
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
+        super(_info,_info);
     }
 
     @Override

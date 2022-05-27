@@ -6,7 +6,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class TryEval extends LabelledOtherBlock implements Eval,BreakableLabelBlock {
+public final class TryEval extends LabelledOtherBlock implements BreakableBlock,BreakableLabelBlock {
 
     public TryEval(OffsetStringInfo _label, int _offset) {
         super(_offset,_label);

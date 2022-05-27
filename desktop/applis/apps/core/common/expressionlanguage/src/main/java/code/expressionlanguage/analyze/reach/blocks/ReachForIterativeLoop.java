@@ -6,18 +6,11 @@ import code.expressionlanguage.analyze.blocks.ForIterativeLoop;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
-public class ReachForIterativeLoop extends ReachBracedBlock implements ReachLoop {
+public final class ReachForIterativeLoop extends ReachForLabelled implements ReachBreakableBlock,ReachBuildableElMethod,ReachAbruptGroup {
     private final ForIterativeLoop meta;
-    private final String label;
-    protected ReachForIterativeLoop(ForIterativeLoop _info) {
-        super(_info);
+    public ReachForIterativeLoop(ForIterativeLoop _info) {
+        super(_info,_info.getLabel());
         meta = _info;
-        label = _info.getLabel();
-    }
-
-    @Override
-    public String getRealLabel() {
-        return label;
     }
 
     @Override

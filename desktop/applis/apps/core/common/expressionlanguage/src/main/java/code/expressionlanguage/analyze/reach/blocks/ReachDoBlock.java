@@ -1,12 +1,11 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.DoBlock;
 
-public final class ReachDoBlock extends ReachBracedBlock implements ReachLoop {
+public final class ReachDoBlock extends ReachBracedBlock implements ReachBreakableBlock {
     private final String label;
-    protected ReachDoBlock(DoBlock _info) {
+    public ReachDoBlock(DoBlock _info) {
         super(_info);
         label = _info.getLabel();
     }
@@ -16,8 +15,4 @@ public final class ReachDoBlock extends ReachBracedBlock implements ReachLoop {
         return label;
     }
 
-    @Override
-    public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        //
-    }
 }

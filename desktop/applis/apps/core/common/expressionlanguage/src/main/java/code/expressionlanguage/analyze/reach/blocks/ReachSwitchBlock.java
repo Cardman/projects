@@ -16,7 +16,7 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
     private final OperationNode root;
     private final boolean instance;
 
-    protected ReachSwitchBlock(SwitchBlock _info) {
+    public ReachSwitchBlock(SwitchBlock _info) {
         super(_info);
         label = _info.getLabel();
         result = _info.getResult();
@@ -91,13 +91,7 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
             for (ReachBlock b: getDirectChildren(_braced)) {
                 group_.add(b);
             }
-            boolean canCmpNormally_ = false;
-            for (ReachBlock b: group_) {
-                if (_anEl.canCompleteNormally(b)) {
-                    canCmpNormally_ = true;
-                    break;
-                }
-            }
+            boolean canCmpNormally_ = canCmpNormally(_anEl, group_);
             if (canCmpNormally_) {
                 abrupt_ = false;
             }
@@ -111,6 +105,18 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
         }
         return abrupt_;
     }
+
+    private static boolean canCmpNormally(AnalyzingEl _anEl, CustList<ReachBlock> _group) {
+        boolean canCmpNormally_ = false;
+        for (ReachBlock b: _group) {
+            if (_anEl.canCompleteNormally(b)) {
+                canCmpNormally_ = true;
+                break;
+            }
+        }
+        return canCmpNormally_;
+    }
+
     private static boolean hasDefaultCase(ReachBracedBlock _braced) {
         ReachBlock ch_ = _braced.getFirstChild();
         boolean def_ = false;

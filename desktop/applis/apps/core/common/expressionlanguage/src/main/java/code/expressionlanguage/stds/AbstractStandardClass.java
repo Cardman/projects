@@ -1,12 +1,12 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.common.GeneClass;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class AbstractStandardClass extends StandardType implements GeneClass {
+public abstract class AbstractStandardClass extends StandardType implements GeneType {
 
     private final StringList allSuperTypes = new StringList();
 

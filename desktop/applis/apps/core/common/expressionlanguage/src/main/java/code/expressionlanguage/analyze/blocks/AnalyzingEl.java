@@ -15,7 +15,7 @@ public final class AnalyzingEl {
     private final BlocksFlags reachable = new BlocksFlags();
     private final BlocksLabels labelsMapping = new BlocksLabels();
     private final IdMap<ReachBreakBlock, ReachBreakableBlock> reachBreakables = new IdMap<ReachBreakBlock, ReachBreakableBlock>();
-    private final IdMap<ReachContinueBlock, ReachLoop> reachContinuables = new IdMap<ReachContinueBlock, ReachLoop>();
+    private final IdMap<ReachContinueBlock, ReachBreakableBlock> reachContinuables = new IdMap<ReachContinueBlock, ReachBreakableBlock>();
     private final StringList labels = new StringList();
     private final Mapping mapping;
     private boolean variableIssue;
@@ -133,7 +133,7 @@ public final class AnalyzingEl {
         return reachBreakables;
     }
 
-    public IdMap<ReachContinueBlock, ReachLoop> getReachContinuables() {
+    public IdMap<ReachContinueBlock, ReachBreakableBlock> getReachContinuables() {
         return reachContinuables;
     }
 

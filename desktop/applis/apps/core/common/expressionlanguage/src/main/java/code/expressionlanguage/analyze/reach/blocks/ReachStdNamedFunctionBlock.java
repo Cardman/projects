@@ -8,7 +8,7 @@ import code.util.core.StringUtil;
 public final class ReachStdNamedFunctionBlock extends ReachNamedFunctionBlock {
     private final NamedFunctionBlock meta;
     private boolean abstractMethod;
-    protected ReachStdNamedFunctionBlock(NamedFunctionBlock _info) {
+    public ReachStdNamedFunctionBlock(NamedFunctionBlock _info) {
         super(_info);
         meta = _info;
         if (AbsBk.isOverBlock(_info)) {
@@ -21,20 +21,18 @@ public final class ReachStdNamedFunctionBlock extends ReachNamedFunctionBlock {
     }
 
     private void checkReturnFct(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        if (!StringUtil.quickEq(meta.getImportedReturnType(), _page.getAliasVoid())) {
-            if (!abstractMethod&&_anEl.canCompleteNormally(this)) {
-                //error
-                FoundErrorInterpret miss_ = new FoundErrorInterpret();
-                miss_.setIndexFile(getOffset());
-                miss_.setFile(getFile());
-                //return type len
-                miss_.buildError(_page.getAnalysisMessages().getMissingAbrupt(),
-                        _page.getKeyWords().getKeyWordThrow(),
-                        _page.getKeyWords().getKeyWordReturn(),
-                        getPseudoSignature(_page));
-                _page.addLocError(miss_);
-                meta.addNameErrors(miss_);
-            }
+        if (!StringUtil.quickEq(meta.getImportedReturnType(), _page.getAliasVoid()) && !abstractMethod && _anEl.canCompleteNormally(this)) {
+            //error
+            FoundErrorInterpret miss_ = new FoundErrorInterpret();
+            miss_.setIndexFile(getOffset());
+            miss_.setFile(getFile());
+            //return type len
+            miss_.buildError(_page.getAnalysisMessages().getMissingAbrupt(),
+                    _page.getKeyWords().getKeyWordThrow(),
+                    _page.getKeyWords().getKeyWordReturn(),
+                    getPseudoSignature(_page));
+            _page.addLocError(miss_);
+            meta.addNameErrors(miss_);
         }
     }
 }

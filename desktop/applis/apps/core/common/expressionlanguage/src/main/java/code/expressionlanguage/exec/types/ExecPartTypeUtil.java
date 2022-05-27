@@ -255,7 +255,12 @@ public final class ExecPartTypeUtil {
 
     private static boolean koAnalyzeTree(StringBuilder _build,ContextEl _an, ExecPartType _current) {
         if (_current instanceof ExecLeafPartType) {
-            ((ExecLeafPartType)_current).checkDynExistence(_an);
+            if (_current instanceof ExecEmptyWildCardPart) {
+                ((ExecEmptyWildCardPart)_current).checkDynExistence();
+            }
+            if (_current instanceof ExecNamePartType) {
+                ((ExecNamePartType)_current).checkDynExistence(_an);
+            }
             String t_ = ((ExecLeafPartType)_current).exportHeader();
             if (t_.trim().isEmpty()) {
                 return true;

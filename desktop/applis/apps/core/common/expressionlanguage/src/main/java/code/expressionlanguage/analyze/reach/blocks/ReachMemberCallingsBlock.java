@@ -15,33 +15,33 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
             return m_;
         }
         AbsBk c_ = _list;
-        ReachBlock ac_ = m_;
+        ReachBlock reach_ = m_;
         while (c_ != null) {
             AbsBk f_ = c_.getFirstChild();
-            if (!(c_ instanceof RootBlock)&&ac_ instanceof ReachBracedBlock&&f_ != null) {
+            if (!(c_ instanceof RootBlock)&&reach_ instanceof ReachBracedBlock&&f_ != null) {
                 ReachBlock af_ = ReachBlock.newReachBlock(f_);
-                ((ReachBracedBlock)ac_).appendChild(af_);
-                ac_ = af_;
+                ((ReachBracedBlock)reach_).appendChild(af_);
+                reach_ = af_;
                 c_ = f_;
                 continue;
             }
-            while (true) {
+            while (c_ != null) {
                 AbsBk n_ = c_.getNextSibling();
                 if (n_ != null) {
                     ReachBlock af_ = ReachBlock.newReachBlock(n_);
-                    ReachBracedBlock par_ = ac_.getParent();
+                    ReachBracedBlock par_ = reach_.getParent();
                     par_.appendChild(af_);
-                    ac_ = af_;
+                    reach_ = af_;
                     c_ = n_;
                     break;
                 }
                 BracedBlock p_ = c_.getParent();
                 if (p_ == _list) {
                     c_ = null;
-                    break;
+                } else {
+                    c_ = p_;
+                    reach_ = reach_.getParent();
                 }
-                c_ = p_;
-                ac_ = ac_.getParent();
             }
         }
         return m_;
@@ -57,25 +57,18 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
         if (firstChild_ == null) {
             _anEl.reach(this);
             abrupt(_anEl);
-            setAssignmentAfterCallReadOnly(_anEl, _page);
+            after(_page, _anEl, this);
             _page.getInfosVars().clear();
             return;
         }
         while (true) {
             _page.setCurrentBlock(en_.getInfo());
             _anEl.putLabel(this);
-            if (en_ == this) {
-                _anEl.reach(this);
-            } else {
-                en_.reach(_anEl, _page);
-            }
+            reachProcess(_page, _anEl, en_);
             processUnreachable(_anEl, en_, _page);
             ReachBlock n_ = en_.getFirstChild();
             addParent(_anEl, en_, n_);
-            boolean visit_ = true;
-            if (en_ != this) {
-                visit_ = tryBuildExpressionLanguageReadOnly(en_, _page);
-            }
+            boolean visit_ = visit(_page, en_);
             if (visit_ && n_ != null) {
                 en_ = n_;
                 continue;
@@ -94,9 +87,9 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
                 par_ = en_.getParent();
                 _page.setCurrentBlock(par_.getInfo());
                 par_.abrupt(_anEl);
-                par_.abruptGroup(_anEl);
+                abrupGroup(_anEl,par_);
                 if (par_ == this) {
-                    setAssignmentAfterCallReadOnly(_anEl, _page);
+                    after(_page, _anEl, this);
                     _page.getInfosVars().clear();
                     return;
                 }
@@ -105,32 +98,56 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
         }
     }
 
-    public abstract void setAssignmentAfterCallReadOnly(AnalyzingEl _anEl, AnalyzedPageEl _page);
-
-    protected static boolean tryBuildExpressionLanguageReadOnly(ReachBlock _block, AnalyzedPageEl _page) {
-        if (_block instanceof ReachBuildableElMethod) {
-            ((ReachBuildableElMethod)_block).buildExpressionLanguageReadOnly(_page);
-            return true;
+    private boolean visit(AnalyzedPageEl _page, ReachBlock _en) {
+        boolean visit_ = true;
+        if (_en != this) {
+            visit_ = tryBuildExpressionLanguageReadOnly(_en, _page);
         }
-        return processOther(_block);
+        return visit_;
     }
 
-    private static boolean processOther(ReachBlock _block) {
-        return _block instanceof ReachUnclassedBracedBlock;
+    private void reachProcess(AnalyzedPageEl _page, AnalyzingEl _anEl, ReachBlock _en) {
+        if (_en == this) {
+            _anEl.reach(this);
+        } else if (_en instanceof ReachCaseCondition){
+            ((ReachCaseCondition) _en).reachCase(_anEl, _page);
+        } else if (_en instanceof ReachCatchEval){
+            ((ReachCatchEval) _en).reachCatch(_anEl, _page);
+        } else {
+            _en.reach(_anEl);
+        }
+    }
+
+    private void after(AnalyzedPageEl _page, AnalyzingEl _anEl, ReachMemberCallingsBlock _current) {
+        if (_current instanceof ReachMemberCallingsBlockSide) {
+            ((ReachMemberCallingsBlockSide)_current).setAssignmentAfterCallReadOnly(_anEl, _page);
+        }
+
+    }
+
+    protected static boolean tryBuildExpressionLanguageReadOnly(ReachBlock _block, AnalyzedPageEl _page) {
+        if (isVisitable(_block)) {
+            if (_block instanceof ReachBuildableElMethod) {
+                ((ReachBuildableElMethod)_block).buildExpressionLanguageReadOnly(_page);
+            }
+            return true;
+        }
+        return false;
+    }
+    public static boolean isVisitable(ReachBlock _block) {
+        return _block instanceof ReachBreakBlock|| _block instanceof ReachContinueBlock|| _block instanceof ReachDeclareVariable||_block instanceof ReachElseCondition||_block instanceof ReachEmptyInstruction||_block instanceof ReachTryEval||_block instanceof ReachAbstractCatchEval||_block instanceof ReachFinallyEval||_block instanceof ReachDoBlock||_block instanceof ReachDefaultCondition||_block instanceof ReachBuildableElMethod || _block instanceof ReachUnclassedBracedBlock;
     }
 
     private static void abrupGroup(AnalyzingEl _anEl, ReachBlock _en) {
-        if (_en instanceof ReachBracedBlock) {
-            ((ReachBracedBlock) _en).abruptGroup(_anEl);
+        if (_en instanceof ReachAbruptGroup) {
+            ((ReachAbruptGroup) _en).abruptGroup(_anEl);
         }
     }
 
     private static void addParent(AnalyzingEl _anEl, ReachBlock _en,
                                   ReachBlock _n) {
-        if (_en instanceof ReachBracedBlock && _n != null) {
-            if (_en instanceof ReachBreakableBlock) {
-                _anEl.putLabel(_en,((ReachBreakableBlock)_en).getRealLabel());
-            }
+        if (_en instanceof ReachBracedBlock && _n != null && _en instanceof ReachBreakableBlock) {
+            _anEl.putLabel(_en, ((ReachBreakableBlock) _en).getRealLabel());
         }
     }
 

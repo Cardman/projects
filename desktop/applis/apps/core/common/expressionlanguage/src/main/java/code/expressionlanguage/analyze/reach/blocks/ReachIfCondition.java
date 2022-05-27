@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ConditionBlock;
 
-public final class ReachIfCondition extends ReachCondition implements ReachBlockCondition {
+public final class ReachIfCondition extends ReachCondition implements ReachBreakableBlock {
     private final String label;
     public ReachIfCondition(ConditionBlock _info) {
         super(_info);

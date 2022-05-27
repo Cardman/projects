@@ -5,11 +5,11 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
-public final class ReachReturnMethod extends ReachAbruptBlock {
+public final class ReachReturnMethod extends ReachAbruptBlock implements ReachBuildableElMethod {
     private final OperationNode root;
     private final int expressionOffset;
 
-    protected ReachReturnMethod(ReturnMethod _info) {
+    public ReachReturnMethod(ReturnMethod _info) {
         super(_info);
         expressionOffset = _info.getExpressionOffset();
         root = _info.getRoot();
