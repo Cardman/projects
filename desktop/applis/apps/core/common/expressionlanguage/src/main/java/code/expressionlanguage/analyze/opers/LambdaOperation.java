@@ -547,7 +547,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private static void tryFilterAddCtor(CustList<ConstructorInfo> _list, AnalyzedPageEl _page, AnaGeneType _h, CustList<ConstrustorIdVarArg> _ctors, StringList _argsTypes, String _stCall, String _retType) {
-        Parametrable constructorInfo_ = tryGetFilterSignaturesInfer(_list, _h, _page, _argsTypes,_stCall,_retType);
+        Parametrable constructorInfo_ = tryGetFilterSignaturesInfer(_list, _page, _argsTypes,_stCall,_retType);
         if (constructorInfo_ instanceof ConstructorInfo) {
             _ctors.add(buildCtorInfo(constructorInfo_.getClassName(), _h, (ConstructorInfo) constructorInfo_));
         }

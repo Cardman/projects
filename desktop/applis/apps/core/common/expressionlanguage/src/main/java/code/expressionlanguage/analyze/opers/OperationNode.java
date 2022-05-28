@@ -792,13 +792,13 @@ public abstract class OperationNode {
     private static void feedCustCtor(AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, String _clCurName, int _varargOnly, CustList<ConstructorInfo> _ctors) {
         if (_type instanceof RootBlock){
             if (((RootBlock)_type).getConstructorBlocks().isEmpty()){
-                _ctors.add(initCtorInfo((AbsBk) _type, _clCurName));
+                _ctors.add(initCtorInfo((RootBlock) _type, _clCurName));
             } else {
                 for (ConstructorBlock b: ((RootBlock) _type).getValidCtors()) {
                     if (excludeCust((RootBlock) _type, _uniqueId, _varargOnly, b, _page)) {
                         continue;
                     }
-                    _ctors.add(initCtorInfo((AbsBk) _type, _clCurName, b));
+                    _ctors.add(initCtorInfo((RootBlock) _type, _clCurName, b));
                 }
             }
         }
@@ -815,25 +815,27 @@ public abstract class OperationNode {
         }
     }
 
-    protected static ConstructorInfo initCtorInfo(AbsBk _type, String _clCurName, ConstructorBlock _b) {
+    protected static ConstructorInfo initCtorInfo(RootBlock _type, String _clCurName, ConstructorBlock _b) {
         ConstructorId ctor_ = _b.getId().copy(StringExpUtil.getIdFromAllTypes(_clCurName));
         ConstructorInfo mloc_ = new ConstructorInfo();
+        mloc_.setOriginalReturnType(_type.getGenericString());
         mloc_.setCustomCtor(_b);
         mloc_.setFileName(_type.getFile().getFileName());
-        mloc_.memberId(((RootBlock) _type).getNumberAll(), _b.getCtorNumber());
+        mloc_.memberId(_type.getNumberAll(), _b.getCtorNumber());
         mloc_.setParametersNames(_b.getParametersNames());
         mloc_.constructorId(_clCurName, ctor_);
-        mloc_.pair((RootBlock) _type, _b);
+        mloc_.pair(_type, _b);
         return mloc_;
     }
 
-    protected static ConstructorInfo initCtorInfo(AbsBk _type, String _clCurName) {
+    protected static ConstructorInfo initCtorInfo(RootBlock _type, String _clCurName) {
         ConstructorId ctor_ = new ConstructorId("", new StringList(), false).copy(StringExpUtil.getIdFromAllTypes(_clCurName));
         ConstructorInfo mloc_ = new ConstructorInfo();
+        mloc_.setOriginalReturnType(_type.getGenericString());
         mloc_.setFileName(_type.getFile().getFileName());
-        mloc_.memberId(((RootBlock) _type).getNumberAll(), -1);
+        mloc_.memberId(_type.getNumberAll(), -1);
         mloc_.constructorId(_clCurName, ctor_);
-        mloc_.pair((RootBlock) _type, null);
+        mloc_.pair(_type, null);
         mloc_.setSynthetic(true);
         return mloc_;
     }
@@ -841,6 +843,7 @@ public abstract class OperationNode {
     protected static ConstructorInfo initCtorInfo(StandardType _type, String _clCurName, StandardConstructor _s) {
         ConstructorId ctor_ = _s.getId().copy(StringExpUtil.getIdFromAllTypes(_clCurName));
         ConstructorInfo mloc_ = new ConstructorInfo();
+        mloc_.setOriginalReturnType(_type.getGenericString());
         mloc_.setStandardType(_type);
         mloc_.setConstructor(_s);
         mloc_.setParametersNames(_s.getParametersNames());
@@ -948,14 +951,14 @@ public abstract class OperationNode {
     private static void feedCustCtorLambda(String _class, AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args, int _varargOnly, CustList<ConstructorInfo> _signatures) {
         if (_type instanceof RootBlock){
             if (((RootBlock)_type).getConstructorBlocks().isEmpty()){
-                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _class);
+                ConstructorInfo mloc_ = initCtorInfo((RootBlock) _type, _class);
                 filterCtor(_page, _args, _signatures, mloc_);
             } else {
                 for (ConstructorBlock b : ((RootBlock) _type).getValidCtors()) {
                     if (excludeCust((RootBlock) _type, _uniqueId, _varargOnly, b, _page)) {
                         continue;
                     }
-                    ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _class, b);
+                    ConstructorInfo mloc_ = initCtorInfo((RootBlock) _type, _class, b);
                     filterCtor(_page, _args, _signatures, mloc_);
                 }
             }
@@ -981,10 +984,10 @@ public abstract class OperationNode {
         }
     }
 
-    protected static Parametrable tryGetFilterSignaturesInfer(CustList<ConstructorInfo> _list, AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType) {
+    protected static Parametrable tryGetFilterSignaturesInfer(CustList<ConstructorInfo> _list, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType) {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (ConstructorInfo c: _list) {
-            ConstructorInfo res_ = filter(_type, _page, _args, _stCall, _retType, c);
+            ConstructorInfo res_ = filter(_page, _args, _stCall, _retType, c);
             if (res_ != null) {
                 signatures_.add(res_);
             }
@@ -1007,14 +1010,14 @@ public abstract class OperationNode {
         }
         if (_type instanceof RootBlock){
             if (((RootBlock)_type).getConstructorBlocks().isEmpty()){
-                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _clCurName);
+                ConstructorInfo mloc_ = initCtorInfo((RootBlock) _type, _clCurName);
                 endSgn(mloc_, _stCall, _page, signatures_);
             } else {
                 for (ConstructorBlock b : ((RootBlock) _type).getValidCtors()) {
                     if (excludeQuick((RootBlock) _type, b, _page)) {
                         continue;
                     }
-                    ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _clCurName, b);
+                    ConstructorInfo mloc_ = initCtorInfo((RootBlock) _type, _clCurName, b);
                     endSgn(mloc_, _stCall, _page, signatures_);
                 }
             }
@@ -1028,14 +1031,14 @@ public abstract class OperationNode {
         _signatures.add(_mloc);
     }
 
-    private static ConstructorInfo filter(AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType, ConstructorInfo _mloc) {
+    private static ConstructorInfo filter(AnalyzedPageEl _page, StringList _args, String _stCall, String _retType, ConstructorInfo _mloc) {
         if (_args != null && !_stCall.isEmpty()) {
             CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
             for (String o: _args) {
                 args_.add(new AnaClassArgumentMatching(o));
             }
             String result_ = AnaTemplates.tryInferMethod(-1, _mloc.getClassName(), ConstructorId.to(_mloc.getConstraints()), _stCall,
-                    _page.getCurrentConstraints().getCurrentConstraints(), args_, _type.getGenericString(), _retType, _page);
+                    _page.getCurrentConstraints().getCurrentConstraints(), args_, _mloc.getOriginalReturnType(), _retType, _page);
             if (result_.isEmpty()) {
                 return null;
             }

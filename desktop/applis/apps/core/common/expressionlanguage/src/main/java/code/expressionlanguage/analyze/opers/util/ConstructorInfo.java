@@ -34,6 +34,7 @@ public final class ConstructorInfo implements Parametrable {
     private StandardConstructor constructor;
     private String fileName = "";
     private final CustList<CustList<ClassMethodIdReturn>> implicits = new CustList<CustList<ClassMethodIdReturn>>();
+    private String originalReturnType = "";
     private StringList parametersNames = new StringList();
     private NamedFunctionBlock customCtor;
     private final Ints nameParametersFilterIndexes = new Ints();
@@ -210,5 +211,13 @@ public final class ConstructorInfo implements Parametrable {
 
     public void setSynthetic(boolean _s) {
         this.synthetic = _s;
+    }
+
+    public String getOriginalReturnType() {
+        return originalReturnType;
+    }
+
+    public void setOriginalReturnType(String _or) {
+        this.originalReturnType = _or;
     }
 }
