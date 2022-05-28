@@ -39,6 +39,7 @@ public final class ConstructorInfo implements Parametrable {
     private final Ints nameParametersFilterIndexes = new Ints();
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
     private String stCall = "";
+    private boolean synthetic;
 
     public ConstructorId getConstraints() {
         return constraints;
@@ -201,5 +202,13 @@ public final class ConstructorInfo implements Parametrable {
 
     public void setStCall(String _stCall) {
         this.stCall = _stCall;
+    }
+
+    public boolean isSynthetic() {
+        return synthetic;
+    }
+
+    public void setSynthetic(boolean _s) {
+        this.synthetic = _s;
     }
 }

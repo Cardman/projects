@@ -267,12 +267,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             MethodOperation call_ = n_.getParent();
             if (call_ instanceof RetrieveMethod) {
                 NameParametersFilter filter_ = buildQuickFilter(_page,call_);
-                if (StringUtil.quickEq(filter_.getStaticCall(),"<>")) {
-                    diamondIndirect(_page,n_, filter_);
-                } else {
-                    nonDiamondIndirect(_page,n_, filter_);
-                }
-
+                diamondIndirect(_page,n_, filter_);
             }
             return;
         }
@@ -280,23 +275,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             NameParametersFilter filter_ = buildQuickFilter(_page,m_);
             RetrieveMethod f_ = (RetrieveMethod) m_;
             CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
-            if (StringUtil.quickEq(filter_.getStaticCall(),"<>")) {
-                diamondDirect(_page, filter_, methodInfos_);
-            } else {
-                nonDiamondDirect(_page, filter_, methodInfos_);
-            }
-
-        }
-    }
-
-    private static void nonDiamondDirect(AnalyzedPageEl _page, NameParametersFilter _filter, CustList<CustList<MethodInfo>> _methodInfos) {
-        int len_ = _methodInfos.size();
-        for (int i = 0; i < len_; i++) {
-            int gr_ = _methodInfos.get(i).size();
-            for (int j = 0; j < gr_; j++) {
-                MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
-                tryRef(_page, methodInfo_, _filter.getStaticCall(), _filter);
-            }
+            diamondDirect(_page, filter_, methodInfos_);
         }
     }
 
@@ -306,25 +285,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             int gr_ = _methodInfos.get(i).size();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
-                tryRef(_page, methodInfo_, methodInfo_.getClassName(), _filter);
-            }
-        }
-    }
-
-    private static void nonDiamondIndirect(AnalyzedPageEl _page, NamedArgumentOperation _n, NameParametersFilter _filter) {
-        String name_ = _n.getName();
-        MethodOperation call_ = _n.getParent();
-        RetrieveMethod f_ = (RetrieveMethod) call_;
-        CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
-        int len_ = methodInfos_.size();
-        for (int i = 0; i < len_; i++) {
-            int gr_ = methodInfos_.get(i).size();
-            for (int j = 0; j < gr_; j++) {
-                MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                if (!isValidNameIndex(_filter,methodInfo_, name_)) {
-                    continue;
-                }
-                tryRef(_page, methodInfo_, _filter.getStaticCall(), _filter);
+                tryRef(_page, methodInfo_, _filter);
             }
         }
     }
@@ -342,15 +303,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (!isValidNameIndex(_filter,methodInfo_, name_)) {
                     continue;
                 }
-                tryRef(_page, methodInfo_, methodInfo_.getClassName(), _filter);
+                tryRef(_page, methodInfo_, _filter);
             }
         }
     }
 
-    private static void tryRef(AnalyzedPageEl _page, MethodInfo _methodInfo, String _staticCall, NameParametersFilter _filter) {
+    private static void tryRef(AnalyzedPageEl _page, MethodInfo _methodInfo, NameParametersFilter _filter) {
         if (_methodInfo.getConstraints().getKind() != MethodAccessKind.STATIC_CALL) {
             return;
         }
+        String stCall_ = _filter.getStaticCall(_methodInfo.getClassName());
         CustList<OperationNode> positional_ = _filter.getPositional();
         int posSize_ = positional_.size();
 
@@ -361,7 +323,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         for (int c = 0; c < posSize_; c++) {
             cts_.addAllElts(
                     AnaTemplates.tryInferMethodByOneArgList(_methodInfo.getClassName(), c, _methodInfo.getConstraints(),
-                            _staticCall,
+                            stCall_,
                             _page.getCurrentConstraints().getCurrentConstraints(),
                             positional_.get(c).getResultClass(), _methodInfo.getOriginalReturnType(), returnType_, _page)
             );
@@ -372,12 +334,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             int indLoc_ = StringUtil.indexOf(_methodInfo.getParametersNames(), namePr_);
             cts_.addAllElts(
                     AnaTemplates.tryInferMethodByOneArgList(_methodInfo.getClassName(), indLoc_, _methodInfo.getConstraints(),
-                            _staticCall,
+                            stCall_,
                             _page.getCurrentConstraints().getCurrentConstraints(),
                             calcName_.getFirstChild().getResultClass(), _methodInfo.getOriginalReturnType(), returnType_, _page)
             );
         }
-        String infer_ = AnaTemplates.tryInferMethodByOneArg(cts_, _staticCall,
+        String infer_ = AnaTemplates.tryInferMethodByOneArg(cts_, stCall_,
                 _page.getCurrentConstraints().getCurrentConstraints(), _page);
         tryReformat(_page, _methodInfo, infer_);
     }

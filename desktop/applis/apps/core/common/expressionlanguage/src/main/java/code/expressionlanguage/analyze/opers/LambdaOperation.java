@@ -425,13 +425,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String prev_ = previousResultClass.getSingleNameOrEmpty();
         StringList allTypes_ = StringExpUtil.getAllTypes(_s);
         if (allTypes_.size() == 1) {
-            if (noCtor(_h)) {
-                if (!_stCall.getStCall().isEmpty()) {
-                    return;
-                }
-                _ctors.add(noCtorFound(prev_, _h));
-                return;
-            }
             tryFilterAddCtor(_sgns, _page, _h, _ctors, null, _stCall.getStCall(), "");
             return;
         }
@@ -447,18 +440,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (!_h.withoutInstance()) {
                 argsTypes_.remove(0);
             }
-        }
-        if (!noCtor(_h)) {
-            tryFilterAddCtor(_sgns, _page, _h, _ctors, argsTypes_, _stCall.getStCall(), ret_);
-            return;
-        }
-        String real_ = tryInf(_page, _stCall, prev_, _h, ret_);
-        if (real_.isEmpty()) {
-            return;
-        }
-        if (argsTypes_.isEmpty()) {
-            _ctors.add(noCtorFound(real_, _h));
-            return;
         }
         tryFilterAddCtor(_sgns, _page, _h, _ctors, argsTypes_, _stCall.getStCall(), ret_);
     }
@@ -556,18 +537,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 ((StaticCallAccessOperation)firstChild_).check(_page);
             }
         }
-    }
-
-    private static String tryInf(AnalyzedPageEl _page, StaticCallAccessOperation _stCall, String _prev, AnaGeneType _h, String _ret) {
-        String real_;
-        if (_stCall.getStCall().isEmpty()) {
-            real_ = _prev;
-        } else {
-            real_ = AnaTemplates.tryInferMethod(-1, _prev, ConstructorId.to(new ConstructorId(_prev, new StringList(), false)),
-                    _stCall.getStCall(), _page.getCurrentConstraints().getCurrentConstraints(),
-                    new CustList<AnaClassArgumentMatching>(), _h.getGenericString(), _ret, _page);
-        }
-        return real_;
     }
 
     private static void tryAddMeth(CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page, String _name, CustList<ClassMethodIdReturn> _resList, StringList _argsTypes, String _ret, String _stCall) {

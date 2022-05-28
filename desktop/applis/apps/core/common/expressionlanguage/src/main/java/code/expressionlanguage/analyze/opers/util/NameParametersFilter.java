@@ -28,13 +28,6 @@ public final class NameParametersFilter {
 //        return ok;
 //    }
 
-//    public void setOk(boolean _ok) {
-//        this.ok = _ok;
-//    }
-    public boolean isEmptyArg() {
-        return positional.size() + parameterFilter.size() == 0;
-    }
-
     public CustList<OperationNode> getAllOps() {
         return allOps;
     }
