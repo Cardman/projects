@@ -510,7 +510,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private void errPart(FoundErrorInterpret _err, AnalyzedPageEl _page, int _begin, int _length) {
-        partOffsetsErrEnd = new InfoErrorDto(_err.getBuiltError(),_page, _begin, _length);
+        partOffsetsErrEnd = new InfoErrorDto(_err,_page, _begin, _length);
     }
 
     private void initIdMethod(ClassMethodIdReturn _id) {
@@ -2296,7 +2296,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     new MethodId(MethodAccessKind.STATIC, "", _methodTypes).getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(undefined_);
             int k_ = _sum +1;
-            partOffsetsErrMiddle = new InfoErrorDto(undefined_.getBuiltError(), _page,k_,Math.max(1, _operator.length()));
+            partOffsetsErrMiddle = new InfoErrorDto(undefined_, _page,k_,Math.max(1, _operator.length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }

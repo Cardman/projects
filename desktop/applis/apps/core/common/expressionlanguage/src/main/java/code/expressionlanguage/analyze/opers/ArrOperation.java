@@ -121,7 +121,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     "[]"
             );
             _page.getLocalizer().addError(badNb_);
-            getPartOffsetsChildren().add(new InfoErrorDto(badNb_.getBuiltError(),_page,operators_.getKey(1),1));
+            getPartOffsetsChildren().add(new InfoErrorDto(badNb_,_page,operators_.getKey(1),1));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }

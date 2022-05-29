@@ -212,7 +212,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
             _page.getLocalizer().addError(varg_);
             CustList<AnaResultPartType> typesAna_ = types(i_, args_, cl_, className, _page);
-            InfoErrorDto info_ = new InfoErrorDto(varg_.getBuiltError(), _page, fu_, 3);
+            InfoErrorDto info_ = new InfoErrorDto(varg_, _page, fu_, 3);
             partOffsets.addAllElts(typesAna_);
             partOffsetsErr = info_;
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -278,7 +278,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         //three dots
         varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
         _page.getLocalizer().addError(varg_);
-        InfoErrorDto info_ = new InfoErrorDto(varg_.getBuiltError(), _page, _fu2, 3);
+        InfoErrorDto info_ = new InfoErrorDto(varg_, _page, _fu2, 3);
         partOffsetsSet.addAllElts(_typesAnaSet);
         partOffsetsErrSet = info_;
     }
@@ -351,7 +351,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
     public static ResolvedId unsolvedId(int _from, String _fromType, StringList _params, String _className, AnalyzedPageEl _page, FoundErrorInterpret _varg) {
         int fu_ = off(false,_from, _params, _className);
         CustList<AnaResultPartType> typesAna_ = types(_from, _params, _fromType, _className, _page);
-        return new ResolvedId(null, new InfoErrorDto(_varg.getBuiltError(), _page, fu_, 3), typesAna_);
+        return new ResolvedId(null, new InfoErrorDto(_varg, _page, fu_, 3), typesAna_);
     }
 
 

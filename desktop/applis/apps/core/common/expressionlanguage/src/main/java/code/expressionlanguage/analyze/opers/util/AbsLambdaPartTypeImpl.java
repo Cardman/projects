@@ -84,7 +84,7 @@ public abstract class AbsLambdaPartTypeImpl {
     }
 
     private void errPart(FoundErrorInterpret _err, AnalyzedPageEl _page, int _begin) {
-        partOffsetsErrEnd = new InfoErrorDto(_err.getBuiltError(),_page, _begin, 3);
+        partOffsetsErrEnd = new InfoErrorDto(_err,_page, _begin, 3);
     }
 
     public InfoErrorDto getPartOffsetsErrEnd() {

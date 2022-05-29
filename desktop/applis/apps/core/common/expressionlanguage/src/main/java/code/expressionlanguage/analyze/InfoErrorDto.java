@@ -16,6 +16,9 @@ public final class InfoErrorDto {
     public InfoErrorDto(String _message, AnalyzedPageEl _begin, int _length){
         this(_message, _begin,0, _length);
     }
+    public InfoErrorDto(FoundErrorInterpret _message, AnalyzedPageEl _begin, int _off, int _length){
+        this(_message.getBuiltError(), _begin, _off, _length);
+    }
     public InfoErrorDto(String _message, AnalyzedPageEl _begin, int _off, int _length){
         this(_message, _begin.getIndex()+_off, _length, false);
     }
