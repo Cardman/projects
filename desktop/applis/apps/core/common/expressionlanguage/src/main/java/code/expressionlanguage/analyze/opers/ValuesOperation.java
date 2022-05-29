@@ -35,14 +35,21 @@ public final class ValuesOperation extends LeafOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ valuesContent.getArgOffset(), _page);
-        String glClass_ = _page.getGlobalClass();
         int leftPar_ = className.indexOf('(')+1;
         String sub_ = className.substring(leftPar_,className.lastIndexOf(')'));
         leftPar_ += StringUtil.getFirstPrintableCharIndex(sub_);
-        String clName_;
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(leftPar_, sub_.trim(), _page);
-        clName_ = resolvedIdType_.getFullName();
-        partOffsets.add(resolvedIdType_.getDels());
+        RootBlock r_ = checkType(_page, this, resolvedIdType_, partOffsets, valuesContent);
+        if (r_ == null) {
+            return;
+        }
+        String ret_ = StringExpUtil.getPrettyArrayType(r_.getWildCardElement());
+        setResultClass(new AnaClassArgumentMatching(ret_));
+    }
+    static RootBlock checkType(AnalyzedPageEl _page,OperationNode _current,ResolvedIdType _resolved,CustList<AnaResultPartType> _parts,AnaValuesContent _content){
+        String glClass_ = _page.getGlobalClass();
+        String clName_ = _resolved.getFullName();
+        _parts.add(_resolved.getDels());
         RootBlock r_ = _page.getAnaClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -52,12 +59,12 @@ public final class ValuesOperation extends LeafOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     clName_);
             _page.getLocalizer().addError(un_);
-            addErr(un_.getBuiltError());
+            _current.addErr(un_.getBuiltError());
             String argClName_ = _page.getAliasObject();
-            setResultClass(new AnaClassArgumentMatching(argClName_));
-            return;
+            _current.setResultClass(new AnaClassArgumentMatching(argClName_));
+            return null;
         }
-        valuesContent.setNumberEnum(r_.getNumberAll());
+        _content.setNumberEnum(r_.getNumberAll());
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentType(), r_);
         if (!ContextUtil.canAccessType(curClassBase_, a_, _page)) {
@@ -69,10 +76,9 @@ public final class ValuesOperation extends LeafOperation {
                     clName_,
                     curClassBase_);
             _page.getLocalizer().addError(badAccess_);
-            addErr(badAccess_.getBuiltError());
+            _current.addErr(badAccess_.getBuiltError());
         }
-        String ret_ = StringExpUtil.getPrettyArrayType(r_.getWildCardElement());
-        setResultClass(new AnaClassArgumentMatching(ret_));
+        return r_;
     }
 
     public CustList<AnaResultPartType> getPartOffsets() {

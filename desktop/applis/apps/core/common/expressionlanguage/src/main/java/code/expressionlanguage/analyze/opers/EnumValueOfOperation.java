@@ -1,17 +1,13 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.accessing.Accessed;
-import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
@@ -39,38 +35,10 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ valuesContent.getArgOffset(), _page);
         CustList<AnaClassArgumentMatching> firstArgs_ = new CustList<AnaClassArgumentMatching>();
         firstArgs_.add(getFirstChild().getResultClass());
-        String glClass_ = _page.getGlobalClass();
-        String clName_;
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, className, _page);
-        clName_ = resolvedIdType_.getFullName();
-        partOffsets.add(resolvedIdType_.getDels());
-        RootBlock r_ = _page.getAnaClassBody(clName_);
-        if (!(r_ instanceof EnumBlock)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page);
-            //className len
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    clName_);
-            _page.getLocalizer().addError(un_);
-            addErr(un_.getBuiltError());
-            String argClName_ = _page.getAliasObject();
-            setResultClass(new AnaClassArgumentMatching(argClName_));
+        RootBlock r_ = ValuesOperation.checkType(_page,this,resolvedIdType_,partOffsets,valuesContent);
+        if (r_ == null) {
             return;
-        }
-        valuesContent.setNumberEnum(r_.getNumberAll());
-        String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-        Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentType(), r_);
-        if (!ContextUtil.canAccessType(curClassBase_,a_, _page)) {
-            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page);
-            badAccess_.setFile(_page.getCurrentFile());
-            //className len
-            badAccess_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
-                    clName_,
-                    curClassBase_);
-            _page.getLocalizer().addError(badAccess_);
-            addErr(badAccess_.getBuiltError());
         }
         AnaClassArgumentMatching argCl_ = firstArgs_.first();
         String stringType_ = _page.getAliasString();

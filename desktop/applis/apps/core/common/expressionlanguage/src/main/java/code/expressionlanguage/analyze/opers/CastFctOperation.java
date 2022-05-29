@@ -69,7 +69,6 @@ public abstract class CastFctOperation extends AbstractUnaryOperation{
         if (types_.size() == 2 && StringUtil.quickEq(types_.last(), _page.getKeyWords().getKeyWordId())) {
             return;
         }
-        ClassMethodIdAncestor uniq_;
         String exp_;
         StringMap<CustList<MethodHeaderInfo>> castMethods_;
         StringMap<CustList<MethodHeaderInfo>> idCastMethods_;
@@ -111,7 +110,7 @@ public abstract class CastFctOperation extends AbstractUnaryOperation{
             AnaResultPartType resolvedLast_ = ResolvingTypes.resolveCorrectAccessibleType(lc_ +types_.get(1).length()+1 + StringExpUtil.getOffset(arg_),arg_.trim(), explicitContent.getClassName(), _page);
             partOffsets.add(resolvedLast_);
             String lastType_ = resolvedLast_.getResult(_page);
-            uniq_ = new ClassMethodIdAncestor(geneType_,new ClassMethodId(explicitContent.getClassName(),new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_))),0);
+            ClassMethodIdAncestor uniq_ = new ClassMethodIdAncestor(geneType_, new ClassMethodId(explicitContent.getClassName(), new MethodId(MethodAccessKind.STATIC, exp_, new StringList(midType_, lastType_))), 0);
             AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
             AnaClassArgumentMatching virtual_ = new AnaClassArgumentMatching(AnaInherits.quickFormat(geneType_, explicitContent.getClassName(), midType_), _page.getPrimitiveTypes());
             CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(virtual_);
@@ -142,7 +141,6 @@ public abstract class CastFctOperation extends AbstractUnaryOperation{
     }
 
     private void twoParts(AnalyzedPageEl _page, StringList _types, int _leftPar, String _exp, StringMap<CustList<MethodHeaderInfo>> _castMethods, StringMap<CustList<MethodHeaderInfo>> _idCastMethods, StringMap<CustList<MethodHeaderInfo>> _fromCastMethods) {
-        ClassMethodIdAncestor uniq_;
         //add a type for full id
         String arg_ = _types.last();
         AnaResultPartType resolved_ = ResolvingTypes.resolveCorrectAccessibleType(_leftPar + _types.first().length() + 2 + StringExpUtil.getOffset(arg_), arg_.trim(), explicitContent.getClassName(), _page);
@@ -161,7 +159,7 @@ public abstract class CastFctOperation extends AbstractUnaryOperation{
             return;
         }
         String gene_ = geneType_.getGenericString();
-        uniq_ = new ClassMethodIdAncestor(geneType_,new ClassMethodId(explicitContent.getClassName(),new MethodId(MethodAccessKind.STATIC, _exp,new StringList(gene_,lastType_))),0);
+        ClassMethodIdAncestor uniq_ = new ClassMethodIdAncestor(geneType_, new ClassMethodId(explicitContent.getClassName(), new MethodId(MethodAccessKind.STATIC, _exp, new StringList(gene_, lastType_))), 0);
         AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(new AnaClassArgumentMatching(explicitContent.getClassName(), _page.getPrimitiveTypes()));
         args_.add(resultClass_);
