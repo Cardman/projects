@@ -61,28 +61,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             length = keyWordThisaccess_.length();
             kw_ = keyWordThisaccess_;
-            String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
-            int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
-            className_ = className_.substring(lenPref_);
-            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-            partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
-            classType = partOffsets.getResult(_page);
-            Mapping map_ = new Mapping();
-            map_.setParam(classType);
-            map_.setArg(getResultClass());
-            StringMap<StringList> mapping_ = _page.getCurrentConstraints().getCurrentConstraints();
-            map_.setMapping(mapping_);
-            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setIndexFile(_page);
-                cast_.setFile(_page.getCurrentFile());
-                //type len
-                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                        classType);
-                _page.getLocalizer().addError(cast_);
-                addErr(cast_.getBuiltError());
-            }
+            resolveAndCheck(_page, trimMeth_);
             accessSuperTypes = false;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordClasschoice_)) {
             length = keyWordClasschoice_.length();
@@ -99,42 +78,43 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         } else {
             length = keyWords_.getKeyWordSuperaccess().length();
             kw_ = keyWords_.getKeyWordSuperaccess();
-            String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
-            int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
-            className_ = className_.substring(lenPref_);
-            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-            partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
-            className_ = partOffsets.getResult(_page);
-            classType = className_;
-            Mapping map_ = new Mapping();
-            map_.setParam(classType);
-            map_.setArg(getResultClass());
-            StringMap<StringList> mapping_ = _page.getCurrentConstraints().getCurrentConstraints();
-            map_.setMapping(mapping_);
-            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setIndexFile(_page);
-                cast_.setFile(_page.getCurrentFile());
-                //type len
-                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(getResultClass().getNames(), ExportCst.JOIN_TYPES),
-                        classType);
-                _page.getLocalizer().addError(cast_);
-                addErr(cast_.getBuiltError());
-            }
+            resolveAndCheck(_page, trimMeth_);
             staticChoiceMethod = true;
         }
-        if (!isIntermediateDottedOperation()) {
-            if (_page.getStaticContext() != MethodAccessKind.INSTANCE) {
-                FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFile(_page.getCurrentFile());
-                static_.setIndexFile(_page);
-                //kw_ len
-                static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
-                        kw_);
-                _page.getLocalizer().addError(static_);
-                addErr(static_.getBuiltError());
-            }
+        if (!isIntermediateDottedOperation() && _page.getStaticContext() != MethodAccessKind.INSTANCE) {
+            FoundErrorInterpret static_ = new FoundErrorInterpret();
+            static_.setFile(_page.getCurrentFile());
+            static_.setIndexFile(_page);
+            //kw_ len
+            static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
+                    kw_);
+            _page.getLocalizer().addError(static_);
+            addErr(static_.getBuiltError());
+        }
+    }
+
+    private void resolveAndCheck(AnalyzedPageEl _page, String _tr) {
+        String className_ = _tr.substring(0, _tr.lastIndexOf(PAR_RIGHT));
+        int lenPref_ = _tr.indexOf(PAR_LEFT) + 1;
+        className_ = className_.substring(lenPref_);
+        int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
+        partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+        classType = partOffsets.getResult(_page);
+        Mapping map_ = new Mapping();
+        map_.setParam(classType);
+        map_.setArg(getResultClass());
+        StringMap<StringList> mapping_ = _page.getCurrentConstraints().getCurrentConstraints();
+        map_.setMapping(mapping_);
+        if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+            cast_.setIndexFile(_page);
+            cast_.setFile(_page.getCurrentFile());
+            //type len
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                    StringUtil.join(getResultClass().getNames(), ExportCst.JOIN_TYPES),
+                    classType);
+            _page.getLocalizer().addError(cast_);
+            addErr(cast_.getBuiltError());
         }
     }
 
@@ -144,7 +124,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     }
     @Override
     public boolean isIntermediateDottedOperation() {
-        return intermediate;
+        return isIntermediate();
     }
 
     @Override

@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -28,120 +27,97 @@ public final class IdOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         CustList<OperationNode> children_ = getChildrenNodes();
-        if (children_.size() > 1) {
-            standard = false;
-            MethodOperation par_ = getParent();
-            getPartOffsetsChildren().add(new InfoErrorDto(""));
-            if (!(par_ instanceof CastOperation)) {
-                StrTypes operators_ = getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page);
-                //first comma
-                un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                        Long.toString(1),
-                        Long.toString(children_.size()));
-                _page.getLocalizer().addError(un_);
-                getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,1));
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
-            }
-            String base_ = ((CastOperation) par_).getClassName();
-            String id_ = StringExpUtil.getIdFromAllTypes(base_);
-            RootBlock rBase_ = _page.getAnaClassBody(id_);
-            if (!(rBase_ instanceof InterfaceBlock)) {
-                StrTypes operators_ = getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page);
-                //first comma
-                un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                        Long.toString(1),
-                        Long.toString(children_.size()));
-                _page.getLocalizer().addError(un_);
-                getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,1));
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
-            }
-            int len_ = children_.size();
-            StringList previousInts_ = new StringList();
-            boolean existAll_ = true;
-            for (int i = 1; i < len_; i++) {
-                int index_ = getPartOffsetsChildren().size();
-                StrTypes operators_ = getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
-                OperationNode op_ = children_.get(i);
-                if (!(op_ instanceof InterfaceFctConstructor)){
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(_page);
-                    //i comma
-                    un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                            Long.toString(1),
-                            Long.toString(children_.size()));
-                    _page.getLocalizer().addError(un_);
-                    setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                    getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,1));
-                    return;
-                }
-                ConstructorId cid_ = ((InterfaceFctConstructor) op_).getConstId();
-                String cl_ = "";
-                if (cid_ != null) {
-                    cl_ = cid_.getName();
-                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                } else {
-                    existAll_ = false;
-                }
-                checkInherits(op_,previousInts_, cl_, _page);
-                previousInts_.add(cl_);
-                getPartOffsetsChildren().add(new InfoErrorDto(""));
-            }
-            if (!existAll_) {
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
-            }
-            StringList all_ = new StringList(rBase_.getAllSuperTypes());
-            all_.add(id_);
-            all_.removeAllString(_page.getAliasObject());
-            if (!StringUtil.equalsSet(all_,previousInts_)) {
-                StrTypes operators_ = getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _page);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page);
-                //i comma
-                un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                        Long.toString(1),
-                        Long.toString(children_.size()));
-                _page.getLocalizer().addError(un_);
-                setPartOffsetsEnd(new InfoErrorDto(un_,_page,1));
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
-            }
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
         if (children_.isEmpty()) {
             standard = false;
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page);
-            //left par
-            un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                    Long.toString(1),
-                    Long.toString(0));
-            _page.getLocalizer().addError(un_);
-            addErr(un_.getBuiltError());
+            addErr(error(_page, children_, -1).getMessage());
+            return;
+        }
+        if (children_.size() <= 1) {
+            setResultClass(AnaClassArgumentMatching.copy(children_.first().getResultClass(), _page.getPrimitiveTypes()));
+            return;
+        }
+        standard = false;
+        MethodOperation par_ = getParent();
+        getPartOffsetsChildren().add(new InfoErrorDto(""));
+        if (!(par_ instanceof CastOperation)) {
+            getPartOffsetsChildren().add(error(_page, children_, 1));
+            return;
+        }
+        String base_ = ((CastOperation) par_).getClassName();
+        String id_ = StringExpUtil.getIdFromAllTypes(base_);
+        RootBlock rBase_ = _page.getAnaClassBody(id_);
+        if (!(rBase_ instanceof InterfaceBlock)) {
+            getPartOffsetsChildren().add(error(_page, children_, 1));
+            return;
+        }
+        int len_ = children_.size();
+        StringList previousInts_ = new StringList();
+        boolean existAll_ = true;
+        for (int i = 1; i < len_; i++) {
+            int index_ = getPartOffsetsChildren().size();
+            OperationNode op_ = children_.get(i);
+            if (!(op_ instanceof InterfaceFctConstructor)) {
+                getPartOffsetsChildren().add(error(_page, children_, index_));
+                return;
+            }
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl() + getOperators().getKey(index_), _page);
+            ConstructorId cid_ = ((InterfaceFctConstructor) op_).getConstId();
+            String cl_ = feed(op_,_page,previousInts_,cid_);
+            if (cl_.isEmpty()) {
+                existAll_ = false;
+            }
+            getPartOffsetsChildren().add(new InfoErrorDto(""));
+        }
+        if (!existAll_) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        setResultClass(AnaClassArgumentMatching.copy(children_.first().getResultClass(), _page.getPrimitiveTypes()));
+        StringList all_ = new StringList(rBase_.getAllSuperTypes());
+        all_.add(id_);
+        all_.removeAllString(_page.getAliasObject());
+        if (!StringUtil.equalsSet(all_, previousInts_)) {
+            setPartOffsetsEnd(error(_page, children_, getOperators().size() - 1));
+            return;
+        }
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
-    private static void checkInherits(OperationNode _op, StringList _previousInts, String _cl, AnalyzedPageEl _page) {
+    private InfoErrorDto error(AnalyzedPageEl _page, CustList<OperationNode> _ch, int _index) {
+        if (_index >= 0) {
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl() + getOperators().getKey(_index), _page);
+        } else {
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+        }
+        FoundErrorInterpret un_ = buildErrorAndAdd(_page, _ch.size());
+        return new InfoErrorDto(un_, _page, 1);
+    }
+
+    private FoundErrorInterpret buildErrorAndAdd(AnalyzedPageEl _page, int _ch) {
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setFile(_page.getCurrentFile());
+        un_.setIndexFile(_page);
+        //first comma
+        un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
+                Long.toString(1),
+                Long.toString(_ch));
+        _page.getLocalizer().addError(un_);
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+        return un_;
+    }
+
+    static String feed(OperationNode _current,AnalyzedPageEl _page, StringList _previousInts, ConstructorId _cid) {
+        if (_cid != null) {
+            String cl_ = _cid.getName();
+            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+            IdOperation.checkInherits(_current, _previousInts, cl_, _page);
+            _previousInts.add(cl_);
+            return cl_;
+        }
+        _previousInts.add("");
+        return "";
+    }
+
+    static void checkInherits(OperationNode _op, StringList _previousInts, String _cl, AnalyzedPageEl _page) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
             RootBlock supType_ = _page.getAnaClassBody(sup_);
