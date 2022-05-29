@@ -88,15 +88,10 @@ public final class DimensionArrayInstancing extends
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        String m_ = getMethodName();
-        int off_ = StringUtil.getFirstPrintableCharIndex(m_);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        setClassName(_page.getAliasObject());
-        KeyWords keyWords_ = _page.getKeyWords();
-        String new_ = keyWords_.getKeyWordNew();
-        String className_ = m_.trim().substring(new_.length());
+        String className_ = initAnalyze(_page);
         if (typeInfer.isEmpty()) {
             int local_ = StringUtil.getFirstPrintableCharIndex(className_);
+            String new_ = _page.getKeyWords().getKeyWordNew();
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(new_.length() + local_, className_, _page);
             className_ = result_.getResult(_page);
             resolvedInstance = new ResolvedInstance(result_);
