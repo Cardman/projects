@@ -25,6 +25,9 @@ public abstract class Parametrable {
     private InvocationMethod invocation;
     private StringList formattedParams;
     private final FormattedFilter formattedFilter = new FormattedFilter();
+    protected Parametrable() {
+        parametrableContent.setPair(new AnaTypeFct());
+    }
 
     public AnaFormattedRootBlock buildFormatted() {
         return new AnaFormattedRootBlock(getParametrableContent().getPair().getType(), getClassName());

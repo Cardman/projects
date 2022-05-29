@@ -4,7 +4,7 @@ public final class ParametrableContent {
     private boolean varArgToCall;
     private String fileName;
     private MemberId memberId = new MemberId();
-    private AnaTypeFct pair = new AnaTypeFct();
+    private AnaTypeFct pair;
 
     public String getFileName() {
         return fileName;
