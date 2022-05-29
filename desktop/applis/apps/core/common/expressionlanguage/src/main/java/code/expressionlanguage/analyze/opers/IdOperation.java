@@ -52,7 +52,6 @@ public final class IdOperation extends AbstractUnaryOperation {
         }
         int len_ = children_.size();
         StringList previousInts_ = new StringList();
-        boolean existAll_ = true;
         for (int i = 1; i < len_; i++) {
             int index_ = getPartOffsetsChildren().size();
             OperationNode op_ = children_.get(i);
@@ -62,13 +61,10 @@ public final class IdOperation extends AbstractUnaryOperation {
             }
             setRelativeOffsetPossibleAnalyzable(getIndexInEl() + getOperators().getKey(index_), _page);
             ConstructorId cid_ = ((InterfaceFctConstructor) op_).getConstId();
-            String cl_ = feed(op_,_page,previousInts_,cid_);
-            if (cl_.isEmpty()) {
-                existAll_ = false;
-            }
+            feed(op_,_page,previousInts_,cid_);
             getPartOffsetsChildren().add(new InfoErrorDto(""));
         }
-        if (!existAll_) {
+        if (StringUtil.contains(previousInts_,"")) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -105,16 +101,15 @@ public final class IdOperation extends AbstractUnaryOperation {
         return un_;
     }
 
-    static String feed(OperationNode _current,AnalyzedPageEl _page, StringList _previousInts, ConstructorId _cid) {
+    static void feed(OperationNode _current, AnalyzedPageEl _page, StringList _previousInts, ConstructorId _cid) {
         if (_cid != null) {
             String cl_ = _cid.getName();
             cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             IdOperation.checkInherits(_current, _previousInts, cl_, _page);
             _previousInts.add(cl_);
-            return cl_;
+            return;
         }
         _previousInts.add("");
-        return "";
     }
 
     static void checkInherits(OperationNode _op, StringList _previousInts, String _cl, AnalyzedPageEl _page) {
