@@ -2,19 +2,17 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -49,52 +47,62 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         MethodOperation call_ = n_.getParent();
         if (call_ instanceof RetrieveMethod) {
             RetrieveMethod f_ = (RetrieveMethod) call_;
-            CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
-            int len_ = methodInfos_.size();
-            StringList candidates_ = new StringList();
-            for (int i = 0; i < len_; i++) {
-                int gr_ = methodInfos_.get(i).size();
-                CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
-                for (int j = 0; j < gr_; j++) {
-                    MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = tryParamVarargFormat(methodInfo_, name_);
-                    if (format_ == null) {
-                        continue;
-                    }
-                    candidates_.add(format_);
-                    newList_.add(methodInfo_);
-                }
-                methodInfos_.set(i,newList_);
-            }
-            if (candidates_.onlyOneElt()) {
-                String infer_ = candidates_.first();
-                typeInfer = infer_;
-                setClassName(StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(infer_)));
-            }
+            StringList candidates_ = candidates(name_, f_);
+            tryRetrieve(candidates_);
         }
         if (call_ instanceof RetrieveConstructor) {
             RetrieveConstructor f_ = (RetrieveConstructor) call_;
-            CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
-            int len_ = methodInfos_.size();
-            StringList candidates_ = new StringList();
-            CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
-            for (int i = 0; i < len_; i++) {
-                ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = tryParamVarargFormat(methodInfo_, name_);
+            StringList candidates_ = candidates(name_, f_);
+            tryRetrieve(candidates_);
+        }
+    }
+
+    private void tryRetrieve(StringList _candidates) {
+        if (_candidates.onlyOneElt()) {
+            String infer_ = _candidates.first();
+            typeInfer = infer_;
+            setClassName(StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(infer_)));
+        }
+    }
+
+    private StringList candidates(String _name, RetrieveConstructor _f) {
+        CustList<ConstructorInfo> methodInfos_ = _f.getCtors();
+        int len_ = methodInfos_.size();
+        StringList candidates_ = new StringList();
+        CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+        for (int i = 0; i < len_; i++) {
+            ConstructorInfo methodInfo_ = methodInfos_.get(i);
+            String format_ = tryParamVarargFormat(methodInfo_, _name);
+            if (format_ == null) {
+                continue;
+            }
+            candidates_.add(format_);
+            newList_.add(methodInfo_);
+        }
+        methodInfos_.clear();
+        methodInfos_.addAllElts(newList_);
+        return candidates_;
+    }
+
+    private StringList candidates(String _name, RetrieveMethod _f) {
+        CustList<CustList<MethodInfo>> methodInfos_ = _f.getMethodInfos();
+        int len_ = methodInfos_.size();
+        StringList candidates_ = new StringList();
+        for (int i = 0; i < len_; i++) {
+            int gr_ = methodInfos_.get(i).size();
+            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                String format_ = tryParamVarargFormat(methodInfo_, _name);
                 if (format_ == null) {
                     continue;
                 }
                 candidates_.add(format_);
                 newList_.add(methodInfo_);
             }
-            methodInfos_.clear();
-            methodInfos_.addAllElts(newList_);
-            if (candidates_.onlyOneElt()) {
-                String infer_ = candidates_.first();
-                typeInfer = infer_;
-                setClassName(StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(infer_)));
-            }
+            methodInfos_.set(i,newList_);
         }
+        return candidates_;
     }
 
     @Override
@@ -104,21 +112,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         setClassName(_page.getAliasObject());
 
         ParentInferring par_ = ParentInferring.getParentInferring(this);
-        OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String type_;
         if (!typeInfer.isEmpty()) {
             type_ = typeInfer;
-        } else if (m_ == null && _page.getCurrentBlock() instanceof ReturnMethod) {
-            type_ = tryGetRetType(_page);
-        } else if (m_ == null && _page.getCurrentAnaBlockForEachLoop() != null) {
-            ImportForEachLoop i_ = _page.getCurrentAnaBlockForEachLoop();
-            type_ = i_.getImportedClassName();
-            if (!type_.isEmpty()) {
-                type_ = StringExpUtil.getPrettyArrayType(type_);
-            }
         } else {
-            type_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
+            type_ = ElementArrayInstancing.typeAff(_page,par_);
         }
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -132,7 +131,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),_page,offFirstOp_,1);
+            partOffsetsErr=new InfoErrorDto(un_,_page,offFirstOp_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -148,7 +147,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     n_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),_page,offFirstOp_,1);
+            partOffsetsErr=new InfoErrorDto(un_,_page,offFirstOp_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -163,7 +162,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     cp_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),_page,offFirstOp_,1);
+            partOffsetsErr=new InfoErrorDto(un_,_page,offFirstOp_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }

@@ -41,22 +41,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String new_ = keyWords_.getKeyWordNew();
         String className_ = me_.trim().substring(new_.length());
         int local_ = StringUtil.getFirstPrintableCharIndex(className_);
-        String type_;
         ParentInferring par_ = ParentInferring.getParentInferring(this);
-        OperationNode m_ = par_.getOperation();
-        int nbParentsInfer_ = par_.getNbParentsInfer();
-        String typeAff_;
-        if (m_ == null && _page.getCurrentBlock() instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_page);
-        } else if (m_ == null && _page.getCurrentAnaBlockForEachLoop() != null) {
-            ImportForEachLoop i_ = _page.getCurrentAnaBlockForEachLoop();
-            typeAff_ = i_.getImportedClassName();
-            if (!typeAff_.isEmpty()) {
-                typeAff_ = StringExpUtil.getPrettyArrayType(typeAff_);
-            }
-        } else {
-            typeAff_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
-        }
         DimComp dim_ = AnaInherits.getComponentForm(className_);
         String inferForm_ = AnaTemplates.getInferForm(dim_.getComponent());
         if (inferForm_ == null) {
@@ -73,178 +58,27 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             }
             return;
         }
-        AnaResultPartType result_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(new_.length() + local_, inferForm_, _page);
-        type_ = result_.getResult();
-        if (type_.isEmpty()) {
-            return;
-        }
-        resolvedInstance = new ResolvedInstance(result_);
+        EltInferringDiamondType elt_ = new EltInferringDiamondType(inferForm_,dim_.getDim(),this,local_,className_);
+        elt_.infer(_page,par_,new StringMap<String>());
+        resolvedInstance = elt_.getResolvedInstance();
+        typeInfer = elt_.getTypeInfer();
+    }
 
-        int dimArr_ = dim_.getDim();
-        if (dimArr_ == 0) {
-            return;
-        }
-        StringMap<String> vars_ = new StringMap<String>();
-        boolean list_ = false;
-        if (m_ instanceof ArgumentListInstancing){
-            list_ = true;
-            m_ = m_.getParent().getParent();
-        }
-        if (m_ instanceof NamedArgumentOperation){
-            NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
-            String inferRecord_ = n_.infer();
-            if (!inferRecord_.isEmpty()) {
-                String format_ = tryFormatArrRec(inferRecord_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
-                if (format_ != null) {
-                    String infer_ = StringExpUtil.getPrettyArrayType(format_, dimArr_);
-                    int begin_ = new_.length()+local_+className_.indexOf('<');
-                    int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
-                    typeInfer = infer_;
-                    setClassName(StringExpUtil.getQuickComponentType(infer_));
-                }
-                return;
+    static String typeAff(AnalyzedPageEl _page, ParentInferring _par) {
+        OperationNode m_ = _par.getOperation();
+        String typeAff_;
+        if (m_ == null && _page.getCurrentBlock() instanceof ReturnMethod) {
+            typeAff_ = tryGetRetType(_page);
+        } else if (m_ == null && _page.getCurrentAnaBlockForEachLoop() != null) {
+            ImportForEachLoop i_ = _page.getCurrentAnaBlockForEachLoop();
+            typeAff_ = i_.getImportedClassName();
+            if (!typeAff_.isEmpty()) {
+                typeAff_ = StringExpUtil.getPrettyArrayType(typeAff_);
             }
-            String name_ = n_.getName();
-            MethodOperation call_ = n_.getParent();
-            if (call_ instanceof RetrieveMethod) {
-                RetrieveMethod f_ = (RetrieveMethod) call_;
-                NameParametersFilter filter_ = buildQuickFilter(_page,call_);
-                CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
-                int len_ = methodInfos_.size();
-                StringList candidates_ = new StringList();
-                for (int i = 0; i < len_; i++) {
-                    int gr_ = methodInfos_.get(i).size();
-                    CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
-                    for (int j = 0; j < gr_; j++) {
-                        MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        String format_ = tryParamFormatArr(filter_,methodInfo_, name_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
-                        if (format_ == null) {
-                            continue;
-                        }
-                        candidates_.add(format_);
-                        newList_.add(methodInfo_);
-                    }
-                    methodInfos_.set(i,newList_);
-                }
-                if (candidates_.onlyOneElt()) {
-                    String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
-                    int begin_ = new_.length()+local_+className_.indexOf('<');
-                    int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
-                    typeInfer = infer_;
-                    setClassName(StringExpUtil.getQuickComponentType(infer_));
-                }
-            }
-            if (call_ instanceof RetrieveConstructor) {
-                RetrieveConstructor f_ = (RetrieveConstructor) call_;
-                NameParametersFilter filter_ = buildQuickFilter(_page,call_);
-                CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
-                int len_ = methodInfos_.size();
-                StringList candidates_ = new StringList();
-                CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
-                for (int i = 0; i < len_; i++) {
-                    ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                    String format_ = tryParamFormatArr(filter_,methodInfo_, name_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
-                    if (format_ == null) {
-                        continue;
-                    }
-                    candidates_.add(format_);
-                    newList_.add(methodInfo_);
-                }
-                methodInfos_.clear();
-                methodInfos_.addAllElts(newList_);
-                if (candidates_.onlyOneElt()) {
-                    String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
-                    int begin_ = new_.length()+local_+className_.indexOf('<');
-                    int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
-                    typeInfer = infer_;
-                    setClassName(StringExpUtil.getQuickComponentType(infer_));
-                }
-            }
-            return;
+        } else {
+            typeAff_ = tryGetTypeAff(m_, _par.getOperationChild().getIndexChild());
         }
-        if (m_ instanceof RetrieveMethod){
-            RetrieveMethod f_ = (RetrieveMethod) m_;
-            OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = getDeltaCount(list_,firstChild_);
-            int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
-            CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
-            int len_ = methodInfos_.size();
-            StringList candidates_ = new StringList();
-            for (int i = 0; i < len_; i++) {
-                int gr_ = methodInfos_.get(i).size();
-                CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
-                for (int j = 0; j < gr_; j++) {
-                    MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = tryFormatArr(methodInfo_, indexChild_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
-                    if (format_ == null) {
-                        continue;
-                    }
-                    candidates_.add(format_);
-                    newList_.add(methodInfo_);
-                }
-                methodInfos_.set(i,newList_);
-            }
-            if (candidates_.onlyOneElt()) {
-                String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
-                int begin_ = new_.length()+local_+className_.indexOf('<');
-                int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
-                typeInfer = infer_;
-                setClassName(StringExpUtil.getQuickComponentType(infer_));
-            }
-            return;
-        }
-        if (m_ instanceof RetrieveConstructor){
-            RetrieveConstructor f_ = (RetrieveConstructor) m_;
-            OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = getDeltaCount(list_,firstChild_);
-            int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
-            CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
-            int len_ = methodInfos_.size();
-            StringList candidates_ = new StringList();
-            CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
-            for (int i = 0; i < len_; i++) {
-                ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = tryFormatArr(methodInfo_, indexChild_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
-                if (format_ == null) {
-                    continue;
-                }
-                candidates_.add(format_);
-                newList_.add(methodInfo_);
-            }
-            methodInfos_.clear();
-            methodInfos_.addAllElts(newList_);
-            if (candidates_.onlyOneElt()) {
-                String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
-                int begin_ = new_.length()+local_+className_.indexOf('<');
-                int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
-                typeInfer = infer_;
-                setClassName(StringExpUtil.getQuickComponentType(infer_));
-            }
-            return;
-        }
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (isUndefined(typeAff_, keyWordVar_)) {
-            return;
-        }
-        String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_+ dimArr_);
-        if (isNotCorrectDim(cp_)) {
-            return;
-        }
-        String infer_ = tryInferOrImplicitArr(type_,vars_, _page, cp_);
-        if (infer_ == null) {
-            return;
-        }
-        String arr_ = StringExpUtil.getPrettyArrayType(infer_, dimArr_);
-        int begin_ = new_.length()+local_+className_.indexOf('<');
-        int end_ = new_.length()+local_+className_.indexOf('>')+1;
-        resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,arr_);
-        typeInfer = arr_;
-        setClassName(StringExpUtil.getQuickComponentType(arr_));
+        return typeAff_;
     }
 
     @Override
