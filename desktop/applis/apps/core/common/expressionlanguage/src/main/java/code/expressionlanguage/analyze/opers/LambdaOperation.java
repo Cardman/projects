@@ -549,7 +549,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private static void tryFilterAddCtor(CustList<ConstructorInfo> _list, AnalyzedPageEl _page, AnaGeneType _h, CustList<ConstrustorIdVarArg> _ctors, StringList _argsTypes, String _stCall, String _retType) {
         Parametrable constructorInfo_ = tryGetFilterSignaturesInfer(_list, _page, _argsTypes,_stCall,_retType);
         if (constructorInfo_ instanceof ConstructorInfo) {
-            _ctors.add(buildCtorInfo(constructorInfo_.getClassName(), _h, (ConstructorInfo) constructorInfo_));
+            _ctors.add(buildCtorInfo(_h, (ConstructorInfo) constructorInfo_));
         }
     }
 
@@ -1763,12 +1763,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private void initIdCtor(ConstrustorIdVarArg _ctorRes) {
         realId = _ctorRes.getRealId();
         lambdaCommonContent.setFoundFormatted(_ctorRes.getFormattedType());
-        function = _ctorRes.getPair();
+        function = _ctorRes.getParametrableContent().getPair();
         setupFct();
         standardType = _ctorRes.getStandardType();
         standardConstructor = _ctorRes.getConstructor();
-        lambdaCommonContent.setFileName(_ctorRes.getFileName());
-        lambdaMemberNumberContentId = _ctorRes.getMemberId();
+        lambdaCommonContent.setFileName(_ctorRes.getParametrableContent().getFileName());
+        lambdaMemberNumberContentId = _ctorRes.getParametrableContent().getMemberId();
     }
 
     private void processCtor(boolean _notint, StringList _methodTypes, int _vararg, ConstructorId _feed, String _cl, AnalyzedPageEl _page) {
@@ -2331,14 +2331,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private void initId(ClassMethodIdReturn _id) {
         standardMethod = _id.getStandardMethod();
-        lambdaMemberNumberContentId = _id.getMemberId();
-        function = _id.getPair();
+        lambdaMemberNumberContentId = _id.getParametrableContent().getMemberId();
+        function = _id.getParametrableContent().getPair();
         String foundClass_ = _id.getRealClass();
         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         MethodId idCt_ = _id.getRealId();
         method = new ClassMethodId(foundClass_, idCt_);
         lambdaCommonContent.setReturnFieldType(_id.getOriginalReturnType());
-        lambdaCommonContent.setFileName(_id.getFileName());
+        lambdaCommonContent.setFileName(_id.getParametrableContent().getFileName());
         lambdaCommonContent.setFoundFormatted(_id.getFormattedType());
         lambdaCommonContent.setAncestor(_id.getAncestor());
         lambdaMethodContent.setAbstractMethod(_id.isAbstractMethod());
@@ -2449,7 +2449,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         MethodId constraints_ = _id.getId().getConstraints();
         IdentifiableUtil.appendLeftPart(0, paramsReturn_, constraints_);
 
-        appendRightPart(_id.getPair().getFunction(),paramsReturn_, _page, _id.getRealClass());
+        appendRightPart(_id.getParametrableContent().getPair().getFunction(),paramsReturn_, _page, _id.getRealClass());
         appRe(retType_, constraints_, paramsReturn_);
         String fctBase_ = _page.getAliasFct();
         String result_ = StringUtil.concat(fctBase_, StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);

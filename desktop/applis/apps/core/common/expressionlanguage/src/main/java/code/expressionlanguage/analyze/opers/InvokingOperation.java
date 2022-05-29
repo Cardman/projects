@@ -709,7 +709,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         Identifiable id_ = _res.ident();
         int natvarag_ = -1;
         String lastType_ = "";
-        if (_res.isVarArgToCall()) {
+        if (_res.getParametrableContent().isVarArgToCall()) {
             natvarag_ = id_.getParametersTypesLength() - 1;
             lastType_ = id_.getParametersType(natvarag_);
         }

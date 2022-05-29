@@ -786,7 +786,7 @@ public abstract class OperationNode {
             }
             signatures_.add(c);
         }
-        return getConstrustorId(clCurName_,_type,_filter, _page, signatures_);
+        return getConstrustorId(_type,_filter, _page, signatures_);
     }
 
     private static void feedCustCtor(AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, String _clCurName, int _varargOnly, CustList<ConstructorInfo> _ctors) {
@@ -819,8 +819,8 @@ public abstract class OperationNode {
         ConstructorId ctor_ = _b.getId().copy(StringExpUtil.getIdFromAllTypes(_clCurName));
         ConstructorInfo mloc_ = new ConstructorInfo();
         mloc_.setOriginalReturnType(_type.getGenericString());
-        mloc_.setCustomCtor(_b);
-        mloc_.setFileName(_type.getFile().getFileName());
+        mloc_.setCust(_b);
+        mloc_.getParametrableContent().setFileName(_type.getFile().getFileName());
         mloc_.memberId(_type.getNumberAll(), _b.getCtorNumber());
         mloc_.setParametersNames(_b.getParametersNames());
         mloc_.constructorId(_clCurName, ctor_);
@@ -832,7 +832,7 @@ public abstract class OperationNode {
         ConstructorId ctor_ = new ConstructorId("", new StringList(), false).copy(StringExpUtil.getIdFromAllTypes(_clCurName));
         ConstructorInfo mloc_ = new ConstructorInfo();
         mloc_.setOriginalReturnType(_type.getGenericString());
-        mloc_.setFileName(_type.getFile().getFileName());
+        mloc_.getParametrableContent().setFileName(_type.getFile().getFileName());
         mloc_.memberId(_type.getNumberAll(), -1);
         mloc_.constructorId(_clCurName, ctor_);
         mloc_.pair(_type, null);
@@ -867,7 +867,7 @@ public abstract class OperationNode {
         return varargOnly_;
     }
 
-    private static ConstrustorIdVarArg getConstrustorId(String _curClassName,AnaGeneType _type,NameParametersFilter _filter, AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
+    private static ConstrustorIdVarArg getConstrustorId(AnaGeneType _type, NameParametersFilter _filter, AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
         StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
         Parametrable cInfo_ = sortCtors(_signatures, gr_);
@@ -878,29 +878,31 @@ public abstract class OperationNode {
         CustList<OperationNode> allOps_ = cInfo_.getAllOps();
         feedImplicitsInfos(implicits_, allOps_);
         Ints nameParametersFilterIndexes_ = cInfo_.getNameParametersFilterIndexes();
-        NamedFunctionBlock custMethod_ = ((ConstructorInfo)cInfo_).getCustomCtor();
+        NamedFunctionBlock custMethod_ = cInfo_.getCust();
         feedNamedParams(nameParametersFilterIndexes_, custMethod_, _filter.getParameterFilter());
-        ConstrustorIdVarArg res_ = buildCtorInfo(_curClassName, _type, (ConstructorInfo) cInfo_);
+        ConstrustorIdVarArg res_ = buildCtorInfo(_type, (ConstructorInfo) cInfo_);
         InvokingOperation.unwrapArgsFct(res_,allOps_,_page);
         return res_;
     }
 
-    protected static ConstrustorIdVarArg buildCtorInfo(String _curClassName, AnaGeneType _type, ConstructorInfo _cInfo) {
+    protected static ConstrustorIdVarArg buildCtorInfo(AnaGeneType _type, ConstructorInfo _cInfo) {
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
-        if (_cInfo.isVarArgWrap()) {
-            out_.setVarArgToCall(true);
+        if (_cInfo.getParametrableContent().isVarArgToCall()) {
+            out_.getParametrableContent().setVarArgToCall(true);
         }
-        setupContainer(_type, _curClassName, out_);
+        setupContainer(_cInfo,_type, out_);
         out_.setRealId(_cInfo.getConstraints());
         if (!_cInfo.isSynthetic()) {
-            out_.setPair(_cInfo.getPair());
+            out_.getParametrableContent().setPair(_cInfo.getParametrableContent().getPair());
+        } else {
+            out_.getParametrableContent().setPair(null);
         }
         out_.setConstId(_cInfo.getFormatted());
-        out_.setFileName(_cInfo.getFileName());
+        out_.getParametrableContent().setFileName(_cInfo.getParametrableContent().getFileName());
         out_.setStandardType(_cInfo.getStandardType());
         out_.setConstructor(_cInfo.getConstructor());
-        out_.setMemberId(_cInfo.getMemberId());
+        out_.getParametrableContent().setMemberId(_cInfo.getParametrableContent().getMemberId());
         return out_;
     }
 
@@ -945,7 +947,7 @@ public abstract class OperationNode {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         feedStdCtorLambda(_class, _type, _uniqueId, _page, _args, varargOnly_, signatures_);
         feedCustCtorLambda(_class, _type, _uniqueId, _page, _args, varargOnly_, signatures_);
-        return getConstrustorIdLambda(_class,_type,_page, signatures_);
+        return getConstrustorIdLambda(_type,_page, signatures_);
     }
 
     private static void feedCustCtorLambda(String _class, AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args, int _varargOnly, CustList<ConstructorInfo> _signatures) {
@@ -1037,7 +1039,7 @@ public abstract class OperationNode {
             for (String o: _args) {
                 args_.add(new AnaClassArgumentMatching(o));
             }
-            String result_ = AnaTemplates.tryInferMethod(-1, _mloc.getClassName(), ConstructorId.to(_mloc.getConstraints()), _stCall,
+            String result_ = AnaTemplates.tryInferMethod(-1, _mloc.getClassName(), _mloc.toId(), _stCall,
                     _page.getCurrentConstraints().getCurrentConstraints(), args_, _mloc.getOriginalReturnType(), _retType, _page);
             if (result_.isEmpty()) {
                 return null;
@@ -1053,25 +1055,25 @@ public abstract class OperationNode {
         return _mloc;
     }
 
-    private static ConstrustorIdVarArg getConstrustorIdLambda(String _curClassName,AnaGeneType _type,AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
+    private static ConstrustorIdVarArg getConstrustorIdLambda(AnaGeneType _type, AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
         StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
         Parametrable cInfo_ = sortCtors(_signatures, gr_);
         if (!(cInfo_ instanceof ConstructorInfo)) {
             return null;
         }
-        return buildCtorInfo(_curClassName, _type, (ConstructorInfo) cInfo_);
+        return buildCtorInfo(_type, (ConstructorInfo) cInfo_);
     }
 
-    protected static void setupContainer(AnaGeneType _type,String _className, ConstrustorIdVarArg _out) {
+    protected static void setupContainer(ConstructorInfo _cInfo, AnaGeneType _type, ConstrustorIdVarArg _out) {
         if (_type instanceof RootBlock) {
-            _out.setFileName(((AbsBk)_type).getFile().getFileName());
-            _out.getMemberId().setRootNumber(((RootBlock)_type).getNumberAll());
-            _out.setFormattedType(new AnaFormattedRootBlock((RootBlock)_type,_className));
+            _out.getParametrableContent().setFileName(((AbsBk)_type).getFile().getFileName());
+            _out.getParametrableContent().getMemberId().setRootNumber(((RootBlock)_type).getNumberAll());
+            _out.setFormattedType(_cInfo.buildFormatted());
         }
         if (_type instanceof StandardType) {
             _out.setStandardType((StandardType)_type);
-            _out.setFormattedType(new AnaFormattedRootBlock((RootBlock) null,_className));
+            _out.setFormattedType(_cInfo.buildFormatted());
         }
     }
 
@@ -1660,7 +1662,7 @@ public abstract class OperationNode {
                 mloc_.setReturnType(ret_);
                 mloc_.setOriginalReturnType(ret_);
                 mloc_.memberId(e);
-                mloc_.setFileName(e.getFile().getFileName());
+                mloc_.getParametrableContent().setFileName(e.getFile().getFileName());
                 mloc_.format(true, _page);
                 methods_.add(mloc_);
             }
@@ -2200,7 +2202,7 @@ public abstract class OperationNode {
         RootBlock r_ = f_.getRootBlock();
         String formattedClass_ = f_.getFormatted();
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.setFileName(_m.getFile().getFileName());
+        mloc_.getParametrableContent().setFileName(_m.getFile().getFileName());
         mloc_.setParametersNames(_m.getParametersNames());
         mloc_.pairMemberId(formattedClass_,_page,_m.getImportedReturnType(),r_,_m,_id);
         mloc_.setAncestor(_scType.getAnc());
@@ -2261,7 +2263,7 @@ public abstract class OperationNode {
         MethodId realId_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setOwner(_r);
-        mloc_.setFileName(_r.getFile().getFileName());
+        mloc_.getParametrableContent().setFileName(_r.getFile().getFileName());
         mloc_.classMethodId(idClass_,realId_);
         mloc_.format(true, _page);
         mloc_.setReturnType(returnType_);
@@ -2273,7 +2275,7 @@ public abstract class OperationNode {
         realId_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
         mloc_ = new MethodInfo();
         mloc_.setOwner(_r);
-        mloc_.setFileName(_r.getFile().getFileName());
+        mloc_.getParametrableContent().setFileName(_r.getFile().getFileName());
         mloc_.classMethodId(idClass_,realId_);
         mloc_.format(true, _page);
         returnType_ = StringExpUtil.getPrettyArrayType(returnType_);
@@ -2408,7 +2410,7 @@ public abstract class OperationNode {
                     m_.add(e);
                     continue;
                 }
-                String result_ = AnaTemplates.tryInferMethod(-1, e.getClassName(), e.getConstraints(), _stCall,
+                String result_ = AnaTemplates.tryInferMethod(-1, e.getClassName(), e.toId(), _stCall,
                         _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _retType, _page);
                 if (!result_.isEmpty()) {
                     e.reformat(result_, _page);
@@ -2472,7 +2474,7 @@ public abstract class OperationNode {
         CustList<OperationNode> allOps_ = _found.getAllOps();
         feedImplicitsInfos(implicits_, allOps_);
         Ints nameParametersFilterIndexes_ = _found.getNameParametersFilterIndexes();
-        NamedFunctionBlock custMethod_ = _found.getCustMethod();
+        NamedFunctionBlock custMethod_ = _found.getCust();
         feedNamedParams(nameParametersFilterIndexes_, custMethod_, _filter.getParameterFilter());
         MethodId id_ = _found.getFormatted();
         ClassMethodIdReturn res_ = buildResult(_found, id_);
@@ -2538,7 +2540,7 @@ public abstract class OperationNode {
                 for (OperationNode o : allOps_) {
                     args_.add(o.getResultClass());
                 }
-                String result_ = AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.getConstraints(), _filter.getStaticCall(e.getClassName()),
+                String result_ = AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.toId(), _filter.getStaticCall(e.getClassName()),
                         _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page);
                 if (!result_.isEmpty()) {
                     e.reformat(result_, _page);
@@ -2803,7 +2805,7 @@ public abstract class OperationNode {
             if (vararg_) {
                 //paramLen_ -1 == allOps_.size()
                 //startOpt_ == allOps_.size()
-                _id.setVarArgWrap(true);
+                _id.getParametrableContent().setVarArgToCall(true);
             }
             setWideInvoke(_id, vararg_, allNotBoxUnbox_, implicit_);
             return true;
@@ -2907,7 +2909,7 @@ public abstract class OperationNode {
             }
         }
         setVarargOrImplicit(_id, implicit_);
-        _id.setVarArgWrap(true);
+        _id.getParametrableContent().setVarArgToCall(true);
         return true;
     }
 
@@ -2949,7 +2951,7 @@ public abstract class OperationNode {
                 map_.setParam(wc_);
                 if (AnaInherits.isCorrectOrNumbers(map_, _page)) {
                     setVarargOrImplicit(_id, _implicit);
-                    _id.setVarArgWrap(true);
+                    _id.getParametrableContent().setVarArgToCall(true);
                 }
             }
             return true;
@@ -2957,13 +2959,13 @@ public abstract class OperationNode {
         map_.setParam(wc_);
         if (AnaInherits.isCorrectOrNumbers(map_, _page)) {
             setVarargOrImplicit(_id, _implicit);
-            _id.setVarArgWrap(true);
+            _id.getParametrableContent().setVarArgToCall(true);
             return true;
         }
         ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(wc_, arg_, _page);
         if (res_ != null) {
             _id.setInvocation(InvocationMethod.ALL);
-            _id.setVarArgWrap(true);
+            _id.getParametrableContent().setVarArgToCall(true);
             l_.add(res_);
             return true;
         }
@@ -3035,8 +3037,8 @@ public abstract class OperationNode {
 
     public static ClassMethodIdReturn buildResult(MethodInfo _m, MethodId _id) {
         ClassMethodIdReturn res_ = new ClassMethodIdReturn();
-        if (_m.isVarArgWrap()) {
-            res_.setVarArgToCall(true);
+        if (_m.getParametrableContent().isVarArgToCall()) {
+            res_.getParametrableContent().setVarArgToCall(true);
         }
         res_.setIndexesParams(_m.getNameParametersFilterIndexes());
         MethodId constraints_ = _m.getConstraints();
@@ -3046,11 +3048,11 @@ public abstract class OperationNode {
         res_.setRealClass(baseClassName_);
         res_.setReturnType(_m.getReturnType());
         res_.setOriginalReturnType(_m.getOriginalReturnType());
-        res_.setFileName(_m.getFileName());
+        res_.getParametrableContent().setFileName(_m.getParametrableContent().getFileName());
         res_.setStandardMethod(_m.getStandardMethod());
-        res_.setPair(_m.getPair());
+        res_.getParametrableContent().setPair(_m.getParametrableContent().getPair());
         res_.setFormattedType(_m.buildFormatted());
-        res_.setMemberId(_m.getMemberId());
+        res_.getParametrableContent().setMemberId(_m.getParametrableContent().getMemberId());
         res_.setAncestor(_m.getAncestor());
         res_.setAbstractMethod(_m.isAbstractMethod());
         return res_;
@@ -3274,7 +3276,7 @@ public abstract class OperationNode {
     private static CustList<MethodInfo> nonAbs(CustList<MethodInfo> _allMaxInst) {
         CustList<MethodInfo> nonAbs_ = new CustList<MethodInfo>();
         for (MethodInfo p: _allMaxInst) {
-            if (p.isAbstractMethod() || p.getPair().getType() instanceof InterfaceBlock) {
+            if (p.isAbstractMethod() || p.getParametrableContent().getPair().getType() instanceof InterfaceBlock) {
                 continue;
             }
             nonAbs_.add(p);

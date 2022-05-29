@@ -180,12 +180,12 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
             if (res_ != null) {
                 exp_.implicitInfosCore(res_);
-                functionImpl = res_.getPair();
+                functionImpl = res_.getParametrableContent().getPair();
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
                 if (trueOp_ != null) {
                     exp_.implicitInfosTest(trueOp_);
-                    function = trueOp_.getPair();
+                    function = trueOp_.getParametrableContent().getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFile(getFile());

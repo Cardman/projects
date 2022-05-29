@@ -7,7 +7,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
-import code.util.core.IndexConstants;
 
 public final class FinalVariableOperation extends LeafOperation {
 

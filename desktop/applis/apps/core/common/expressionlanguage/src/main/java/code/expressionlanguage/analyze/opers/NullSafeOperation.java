@@ -28,23 +28,7 @@ public final class NullSafeOperation extends MethodOperation {
         AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        OperationNode current_ = this;
-        MethodOperation m_ = getParent();
-        while (m_ != null) {
-            if (!(m_ instanceof AbstractTernaryOperation)) {
-                if (m_ instanceof IdOperation) {
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                break;
-            }
-            if (m_.getFirstChild() == current_) {
-                break;
-            }
-            current_ = current_.getParent();
-            m_ = m_.getParent();
-        }
+        MethodOperation m_ = AbstractTernaryOperation.retrieveAncestor(this);
         String type_ = EMPTY_STRING;
         if (m_ instanceof CastOperation) {
             CastOperation c_ = (CastOperation) m_;

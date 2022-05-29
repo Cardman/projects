@@ -385,7 +385,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         ClassMethodIdReturn foundTest_ = _cl.getTest();
         if (foundTest_ != null){
             clMatchLeft_.implicitInfosTest(foundTest_);
-            functionTest = foundTest_.getPair();
+            functionTest = foundTest_.getParametrableContent().getPair();
         }
         fct.infos(_cl, _page);
         tryImplicit(this,_page, getSettableResClass(), conv);

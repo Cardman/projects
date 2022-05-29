@@ -96,10 +96,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
 
     abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);
     private void postAnalysis(ConstrustorIdVarArg _res) {
-        constructor = _res.getPair();
-        memberId = _res.getMemberId();
+        constructor = _res.getParametrableContent().getPair();
+        memberId = _res.getParametrableContent().getMemberId();
         constId = _res.getRealId();
-        if (_res.isVarArgToCall()) {
+        if (_res.getParametrableContent().isVarArgToCall()) {
             int nbParams_ = constId.getParametersTypesLength();
             invokingConstructorContent.setNaturalVararg(nbParams_ - 1);
             invokingConstructorContent.setLastType(constId.getParametersType(nbParams_ - 1));

@@ -68,14 +68,14 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
             String fullName_ = e.getKey().getFullName();
-            toStringMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchOvTypeFunction(resDyn_.getMemberId(), _forwards));
+            toStringMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchOvTypeFunction(resDyn_.getParametrableContent().getMemberId(), _forwards));
             coverage_.putToStringOwner(fullName_);
         }
         StringMap<ExecTypeFunction> randCodeMethodsToCallBodies_ = classes_.getRandCodeMethodsToCallBodies();
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getRandCodes().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
             String fullName_ = e.getKey().getFullName();
-            randCodeMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchOvTypeFunction(resDyn_.getMemberId(), _forwards));
+            randCodeMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchOvTypeFunction(resDyn_.getParametrableContent().getMemberId(), _forwards));
             coverage_.putRandCodeOwner(fullName_);
         }
         feedRedirs(_page, _forwards);

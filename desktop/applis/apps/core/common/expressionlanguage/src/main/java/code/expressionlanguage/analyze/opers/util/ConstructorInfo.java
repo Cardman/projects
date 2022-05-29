@@ -4,71 +4,41 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
-import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 
-public final class ConstructorInfo implements Parametrable {
+public final class ConstructorInfo extends Parametrable {
 
     private ConstructorId constraints;
     private ConstructorId formatted;
-    private StringList formattedParams;
-    private final AnaTypeFct pair = new AnaTypeFct();
-
-    private String className;
-
-    private final ParametersGroup parameters = new ParametersGroup();
-
-    private boolean varArgWrap;
-    private InvocationMethod invocation;
-    private final MemberId memberId = new MemberId();
 
     private StandardType standardType;
     private StandardConstructor constructor;
-    private String fileName = "";
-    private final CustList<CustList<ClassMethodIdReturn>> implicits = new CustList<CustList<ClassMethodIdReturn>>();
-    private String originalReturnType = "";
-    private StringList parametersNames = new StringList();
-    private NamedFunctionBlock customCtor;
-    private final Ints nameParametersFilterIndexes = new Ints();
-    private final CustList<OperationNode> allOps = new CustList<OperationNode>();
-    private String stCall = "";
     private boolean synthetic;
+
+    @Override
+    public MethodId toId() {
+        return ConstructorId.to(getConstraints());
+    }
 
     public ConstructorId getConstraints() {
         return constraints;
     }
 
     public void constructorId(String _className,ConstructorId _constraints) {
-        className = _className;
+        setClassName(_className);
         constraints = _constraints;
     }
 
-    public AnaTypeFct getPair() {
-        return pair;
-    }
     public void pair(RootBlock _root, NamedFunctionBlock _fct) {
-        pair.setType(_root);
-        pair.setFunction(_fct);
+        getParametrableContent().getPair().setType(_root);
+        getParametrableContent().getPair().setFunction(_fct);
     }
-
-    @Override
-    public ParametersGroup getParameters() {
-        return parameters;
-    }
-
-    @Override
-    public String getClassName() {
-        return className;
-    }
-
     @Override
     public String getReturnType() {
         return constraints.getName();
@@ -89,38 +59,25 @@ public final class ConstructorInfo implements Parametrable {
         return getConstraints();
     }
 
-    @Override
-    public boolean isVarArgWrap() {
-        return varArgWrap;
-    }
-
-    @Override
-    public void setVarArgWrap(boolean _v) {
-        varArgWrap = _v;
-    }
-
     public void format(AnalyzedPageEl _page) {
-        if (!stCall.isEmpty()) {
+        if (!getFormattedFilter().getStCall().isEmpty()) {
             StringList params_ = IdentifiableUtil.incomplete(constraints);
-            formatted = ConstructorId.to(className, params_, constraints);
-            formattedParams = params_;
+            formatted = ConstructorId.to(getClassName(), params_, constraints);
+            setFormattedParams(params_);
             return;
         }
-        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints, _page);
-        formatted = ConstructorId.to(className, params_, constraints);
-        formattedParams = params_;
+        StringList params_ = AnaInherits.wildCardFormatParams(getClassName(), constraints, _page);
+        formatted = ConstructorId.to(getClassName(), params_, constraints);
+        setFormattedParams(params_);
     }
 
     public void reformat(String _foundType,AnalyzedPageEl _page) {
-        className = AnaInherits.getOverridingFullTypeByBases(_foundType,className,_page);
-        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints, _page);
-        formatted = ConstructorId.to(className, params_, constraints);
-        formattedParams = params_;
+        setClassName(AnaInherits.getOverridingFullTypeByBases(_foundType, getClassName(), _page));
+        StringList params_ = AnaInherits.wildCardFormatParams(getClassName(), constraints, _page);
+        formatted = ConstructorId.to(getClassName(), params_, constraints);
+        setFormattedParams(params_);
     }
 
-    public StringList getFormattedParams() {
-        return formattedParams;
-    }
     @Override
     public Identifiable getGeneFormatted() {
         return getFormatted();
@@ -128,29 +85,6 @@ public final class ConstructorInfo implements Parametrable {
 
     public ConstructorId getFormatted() {
         return formatted;
-    }
-
-    @Override
-    public InvocationMethod getInvocation() {
-        return invocation;
-    }
-
-    @Override
-    public void setInvocation(InvocationMethod _invocation) {
-        invocation = _invocation;
-    }
-
-    @Override
-    public CustList<CustList<ClassMethodIdReturn>> getImplicits() {
-        return implicits;
-    }
-
-    public MemberId getMemberId() {
-        return memberId;
-    }
-    public void memberId(int _rootNumber,int _memberNumber) {
-        memberId.setRootNumber(_rootNumber);
-        memberId.setMemberNumber(_memberNumber);
     }
 
     public StandardType getStandardType() {
@@ -169,40 +103,8 @@ public final class ConstructorInfo implements Parametrable {
         this.constructor = _constructor;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String _fileName) {
-        fileName = _fileName;
-    }
-
-    public StringList getParametersNames() {
-        return parametersNames;
-    }
-
-    public void setParametersNames(StringList _parametersNames) {
-        this.parametersNames = _parametersNames;
-    }
-
-    public NamedFunctionBlock getCustomCtor() {
-        return customCtor;
-    }
-
-    public void setCustomCtor(NamedFunctionBlock _customCtor) {
-        this.customCtor = _customCtor;
-    }
-
-    public Ints getNameParametersFilterIndexes() {
-        return nameParametersFilterIndexes;
-    }
-
-    public CustList<OperationNode> getAllOps() {
-        return allOps;
-    }
-
     public void setStCall(String _stCall) {
-        this.stCall = _stCall;
+        getFormattedFilter().setStCall(_stCall);
     }
 
     public boolean isSynthetic() {
@@ -211,13 +113,5 @@ public final class ConstructorInfo implements Parametrable {
 
     public void setSynthetic(boolean _s) {
         this.synthetic = _s;
-    }
-
-    public String getOriginalReturnType() {
-        return originalReturnType;
-    }
-
-    public void setOriginalReturnType(String _or) {
-        this.originalReturnType = _or;
     }
 }

@@ -1,97 +1,33 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.InfoErrorDto;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.stds.PrimitiveTypes;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
-public abstract class AbstractTernaryOperation extends MethodOperation {
+public abstract class AbstractTernaryOperation extends AbstractComTernaryOperation {
 
-    private int offsetLocal;
-    private AnaTypeFct implFct;
-    private AnaTypeFct testFct;
 
     protected AbstractTernaryOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
-    public final void setOffsetLocal(int _offsetLocal) {
-        offsetLocal = _offsetLocal;
-    }
-
-    public final int getOffsetLocal() {
-        return offsetLocal;
-    }
-
     @Override
     public final void analyze(AnalyzedPageEl _page) {
+        analyzeTernary(_page);
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);
-        OperationNode opOne_ = chidren_.first();
-        AnaClassArgumentMatching clMatch_ = opOne_.getResultClass();
-        if (!clMatch_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), clMatch_, _page);
-            if (res_ != null) {
-                clMatch_.implicitInfosCore(res_);
-                implFct = res_.getPair();
-            } else {
-                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(clMatch_, _page);
-                if (trueOp_ != null) {
-                    clMatch_.implicitInfosTest(trueOp_);
-                    testFct = trueOp_.getPair();
-                } else {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setIndexFile(_page);
-                    un_.setFile(_page.getCurrentFile());
-                    //after first arg separator len
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(clMatch_.getNames(),ExportCst.JOIN_TYPES));
-                    _page.getLocalizer().addError(un_);
-                    addErr(un_.getBuiltError());
-                }
-            }
-        }
-        StringList deep_ = getErrs();
-        if (!deep_.isEmpty()) {
-            getPartOffsetsChildren().add(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,1));
-        }
-        opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        opOne_.getResultClass().setCheckOnlyNullPe(true);
         OperationNode opTwo_ = chidren_.get(IndexConstants.SECOND_INDEX);
         OperationNode opThree_ = chidren_.last();
         AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        OperationNode current_ = this;
-        MethodOperation m_ = getParent();
-        while (m_ != null) {
-            if (!(m_ instanceof AbstractTernaryOperation)) {
-                if (m_ instanceof IdOperation) {
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                break;
-            }
-            if (m_.getFirstChild() == current_) {
-                break;
-            }
-            current_ = current_.getParent();
-            m_ = m_.getParent();
-        }
+        MethodOperation m_ = retrieveAncestor(this);
         String type_ = EMPTY_STRING;
         if (m_ instanceof CastOperation) {
             CastOperation c_ = (CastOperation) m_;
@@ -117,12 +53,17 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
     }
 
-    public AnaTypeFct getImplFct() {
-        return implFct;
-    }
-
-    public AnaTypeFct getTestFct() {
-        return testFct;
+    static MethodOperation retrieveAncestor(OperationNode _current) {
+        OperationNode current_ = _current;
+        MethodOperation m_ = _current.getParent();
+        while (m_ != null) {
+            if (!(m_ instanceof AbstractTernaryOperation) && !(m_ instanceof IdOperation) || m_ instanceof AbstractTernaryOperation && m_.getFirstChild() == current_) {
+                break;
+            }
+            current_ = current_.getParent();
+            m_ = m_.getParent();
+        }
+        return m_;
     }
 
 }

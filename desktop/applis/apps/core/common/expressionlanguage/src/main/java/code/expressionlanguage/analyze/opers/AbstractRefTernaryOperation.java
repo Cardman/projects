@@ -1,25 +1,18 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class AbstractRefTernaryOperation extends MethodOperation implements SettableElResult {
+public abstract class AbstractRefTernaryOperation extends AbstractComTernaryOperation implements SettableElResult {
 
-    private int offsetLocal;
-    private AnaTypeFct implFct;
-    private AnaTypeFct testFct;
     private final StringList childrenErrors = new StringList();
     private final AnaArrContent arrContent;
 
@@ -29,14 +22,6 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         arrContent = new AnaArrContent();
     }
 
-    public final void setOffsetLocal(int _offsetLocal) {
-        offsetLocal = _offsetLocal;
-    }
-
-    public final int getOffsetLocal() {
-        return offsetLocal;
-    }
-
     @Override
     public void setVariable(boolean _variable) {
         arrContent.setVariable(_variable);
@@ -44,38 +29,8 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
 
     @Override
     public final void analyze(AnalyzedPageEl _page) {
+        analyzeTernary(_page);
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);
-        OperationNode opOne_ = chidren_.first();
-        AnaClassArgumentMatching clMatch_ = opOne_.getResultClass();
-        if (!clMatch_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), clMatch_, _page);
-            if (res_ != null) {
-                clMatch_.implicitInfosCore(res_);
-                implFct = res_.getPair();
-            } else {
-                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(clMatch_, _page);
-                if (trueOp_ != null) {
-                    clMatch_.implicitInfosTest(trueOp_);
-                    testFct = trueOp_.getPair();
-                } else {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setIndexFile(_page);
-                    un_.setFile(_page.getCurrentFile());
-                    //after first arg separator len
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(clMatch_.getNames(),ExportCst.JOIN_TYPES));
-                    _page.getLocalizer().addError(un_);
-                    addErr(un_.getBuiltError());
-                }
-            }
-        }
-        StringList deep_ = getErrs();
-        if (!deep_.isEmpty()) {
-            getPartOffsetsChildren().add(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,1));
-        }
-        opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        opOne_.getResultClass().setCheckOnlyNullPe(true);
         OperationNode opTwo_ = chidren_.get(IndexConstants.SECOND_INDEX);
         OperationNode opThree_ = chidren_.last();
         if (!(opTwo_ instanceof WrappOperation)) {
@@ -112,14 +67,6 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
             childrenErrors.add(cast_.getBuiltError());
         }
         setResultClass(AnaClassArgumentMatching.copy(clMatchTwo_,_page.getPrimitiveTypes()));
-    }
-
-    public AnaTypeFct getImplFct() {
-        return implFct;
-    }
-
-    public AnaTypeFct getTestFct() {
-        return testFct;
     }
 
     public StringList getChildrenErrors() {

@@ -194,9 +194,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             ClassMethodIdAncestor feedSet_ = getId(trimMethSet_);
             ClassMethodIdReturn clMethSet_ = tryGet(varargOnly_, trimMethSet_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMethSet_, false, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalClass())));
             if (clMethSet_ != null) {
-                functionSet = clMethSet_.getPair();
+                functionSet = clMethSet_.getParametrableContent().getPair();
                 returnSet = MethodInfo.retIndexSet(clMethSet_,_page);
-                memberIdSet = clMethSet_.getMemberId();
+                memberIdSet = clMethSet_.getParametrableContent().getMemberId();
                 ancSet = clMethSet_.getAncestor();
                 callFctContentSet.update(clMethSet_);
                 setResultClass(new AnaClassArgumentMatching(returnSet, _page.getPrimitiveTypes()));
@@ -221,16 +221,16 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
             resErrSet = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
             anc = clMeth_.getAncestor();
-            functionGet = clMeth_.getPair();
-            memberIdGet = clMeth_.getMemberId();
+            functionGet = clMeth_.getParametrableContent().getPair();
+            memberIdGet = clMeth_.getParametrableContent().getMemberId();
             callFctContent.update(clMeth_);
             setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()));
             return;
         }
         ClassMethodIdReturn clMeth2_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass())));
         if (clMeth2_ != null) {
-            functionGet = clMeth2_.getPair();
-            memberIdGet = clMeth2_.getMemberId();
+            functionGet = clMeth2_.getParametrableContent().getPair();
+            memberIdGet = clMeth2_.getParametrableContent().getMemberId();
         }
         errIndexer(_page, clMeth2_);
     }
@@ -280,8 +280,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             errIndexer(_page, resErrSet);
             return;
         }
-        functionSet = resMemoSet.getPair();
-        memberIdSet = resMemoSet.getMemberId();
+        functionSet = resMemoSet.getParametrableContent().getPair();
+        memberIdSet = resMemoSet.getParametrableContent().getMemberId();
         callFctContentSet.update(resMemoSet);
         feedNamedParamsMethod(resMemoGet.getIndexesParams(),functionSet.getFunction(),resMemoGet.getFilter());
     }

@@ -2,8 +2,6 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.util.*;
 
 public abstract class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {
 

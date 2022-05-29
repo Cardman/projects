@@ -62,12 +62,12 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), resultClass_, _page);
             if (res_ != null) {
                 resultClass_.implicitInfosCore(res_);
-                functionImpl = res_.getPair();
+                functionImpl = res_.getParametrableContent().getPair();
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(resultClass_, _page);
                 if (trueOp_ != null) {
                     resultClass_.implicitInfosTest(trueOp_);
-                    function = trueOp_.getPair();
+                    function = trueOp_.getParametrableContent().getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFile(getFile());

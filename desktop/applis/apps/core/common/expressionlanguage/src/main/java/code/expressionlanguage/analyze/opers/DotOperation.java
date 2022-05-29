@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.util.CustList;
 
 public final class DotOperation extends AbstractDotOperation {
 

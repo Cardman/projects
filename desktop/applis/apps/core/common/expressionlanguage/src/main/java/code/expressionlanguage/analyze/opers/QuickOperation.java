@@ -56,7 +56,7 @@ public abstract class QuickOperation extends MethodOperation {
             if (foundTest_ == null) {
                 return;
             }
-            functionTest = foundTest_.getPair();
+            functionTest = foundTest_.getParametrableContent().getPair();
             leftRes_.implicitInfosTest(foundTest_);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());

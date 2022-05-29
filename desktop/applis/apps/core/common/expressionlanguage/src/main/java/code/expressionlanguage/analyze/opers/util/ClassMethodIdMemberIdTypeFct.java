@@ -12,8 +12,8 @@ public final class ClassMethodIdMemberIdTypeFct {
 
     public void infos(ClassMethodIdReturn _id) {
         implicit = _id.getFormattedType();
-        memberId = _id.getMemberId();
-        function = _id.getPair();
+        memberId = _id.getParametrableContent().getMemberId();
+        function = _id.getParametrableContent().getPair();
     }
 
     public void infos(OperatorConverter _id, AnalyzedPageEl _page) {

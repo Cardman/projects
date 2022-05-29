@@ -31,10 +31,10 @@ public final class AnaCallFctContent {
         String foundClass_ = _res.getRealClass();
         MethodId realId_ = _res.getRealId();
         formattedType = _res.getFormattedType();
-        memberId = _res.getMemberId();
+        memberId = _res.getParametrableContent().getMemberId();
         setClassMethodId(new ClassMethodId(foundClass_, realId_));
-        function = _res.getPair();
-        if (_res.isVarArgToCall()) {
+        function = _res.getParametrableContent().getPair();
+        if (_res.getParametrableContent().isVarArgToCall()) {
             naturalVararg = realId_.getParametersTypesLength() - 1;
             lastType = realId_.getParametersType(naturalVararg);
         }

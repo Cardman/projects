@@ -170,16 +170,16 @@ public final class AnaClassArgumentMatching {
 
     public void implicitInfos(ClassMethodIdReturn _info) {
         implicitInfosCore(_info);
-        setFunction(_info.getPair());
+        setFunction(_info.getParametrableContent().getPair());
     }
 
     public void implicitInfosCore(ClassMethodIdReturn _info) {
         getImplicits().add(_info.getFormattedType());
-        setMemberId(_info.getMemberId());
+        setMemberId(_info.getParametrableContent().getMemberId());
     }
     public void implicitInfosTest(ClassMethodIdReturn _info) {
         getImplicitsTest().add(_info.getFormattedType());
-        setMemberIdTest(_info.getMemberId());
+        setMemberIdTest(_info.getParametrableContent().getMemberId());
     }
     public byte getUnwrapObjectNb() {
         return unwrapObjectNb;

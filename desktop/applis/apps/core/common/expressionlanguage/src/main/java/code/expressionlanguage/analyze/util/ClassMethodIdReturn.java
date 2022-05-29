@@ -3,8 +3,6 @@ package code.expressionlanguage.analyze.util;
 
 import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.analyze.opers.util.AbsPossibleVarArg;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
@@ -12,7 +10,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.Ints;
 
-public final class ClassMethodIdReturn implements AbsPossibleVarArg {
+public final class ClassMethodIdReturn extends AbsPossibleVarArg {
 
     private ClassMethodId id;
     private MethodId realId;
@@ -23,13 +21,8 @@ public final class ClassMethodIdReturn implements AbsPossibleVarArg {
 
     private boolean abstractMethod;
 
-    private boolean varArgToCall;
     private int ancestor;
-    private String fileName;
-    private MemberId memberId = new MemberId();
     private StandardMethod standardMethod;
-    private AnaTypeFct pair;
-    private AnaFormattedRootBlock formattedType;
     private CustList<NamedArgumentOperation> filter;
     private Ints indexesParams;
 
@@ -78,28 +71,12 @@ public final class ClassMethodIdReturn implements AbsPossibleVarArg {
         this.originalReturnType = _originalReturnType;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String _fileName) {
-        this.fileName = _fileName;
-    }
-
     public boolean isAbstractMethod() {
         return abstractMethod;
     }
 
     public void setAbstractMethod(boolean _abstractMethod) {
         abstractMethod = _abstractMethod;
-    }
-
-    public boolean isVarArgToCall() {
-        return varArgToCall;
-    }
-
-    public void setVarArgToCall(boolean _varArgToCall) {
-        varArgToCall = _varArgToCall;
     }
 
     public int getAncestor() {
@@ -110,36 +87,12 @@ public final class ClassMethodIdReturn implements AbsPossibleVarArg {
         ancestor = _ancestor;
     }
 
-    public MemberId getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(MemberId _memberId) {
-        this.memberId = _memberId;
-    }
-
     public StandardMethod getStandardMethod() {
         return standardMethod;
     }
 
     public void setStandardMethod(StandardMethod _standardMethod) {
         this.standardMethod = _standardMethod;
-    }
-
-    public AnaTypeFct getPair() {
-        return pair;
-    }
-
-    public void setPair(AnaTypeFct _pair) {
-        this.pair = _pair;
-    }
-
-    public AnaFormattedRootBlock getFormattedType() {
-        return formattedType;
-    }
-
-    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
-        this.formattedType = _formattedType;
     }
 
     public CustList<NamedArgumentOperation> getFilter() {

@@ -5,60 +5,34 @@ import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 import code.util.core.BoolVal;
 
-public final class MethodInfo implements Parametrable {
+public final class MethodInfo extends Parametrable {
 
     private MethodId constraints;
-    private final AnaTypeFct pair = new AnaTypeFct();
     private MethodId formatted;
 
-    private final ParametersGroup parameters = new ParametersGroup();
-
-    private String className = "";
-
     private String returnType = "";
-    private String originalReturnType = "";
-    private String fileName = "";
-    private final MemberId memberId = new MemberId();
-    private StringList formattedParams;
 
     private boolean finalMethod;
 
     private int ancestor;
 
-    private boolean varArgWrap;
     private boolean abstractMethod;
-    private InvocationMethod invocation;
     private StandardMethod standardMethod;
-    private NamedFunctionBlock custMethod;
-    private final CustList<CustList<ClassMethodIdReturn>> implicits = new CustList<CustList<ClassMethodIdReturn>>();
-    private StringList parametersNames = new StringList();
-    private final Ints nameParametersFilterIndexes = new Ints();
-    private final CustList<OperationNode> allOps = new CustList<OperationNode>();
-    private final FormattedFilter formattedFilter = new FormattedFilter();
     private AnaGeneType owner;
 
     public MethodId getConstraints() {
         return constraints;
     }
 
-    public AnaFormattedRootBlock buildFormatted() {
-        return new AnaFormattedRootBlock(pair.getType(),className);
-    }
-    public AnaTypeFct getPair() {
-        return pair;
-    }
     public void classMethodId(ImportedMethod _e) {
         ClassMethodId m_ = _e.getId();
         classMethodId(m_.getClassName(),m_.getConstraints());
@@ -68,12 +42,12 @@ public final class MethodInfo implements Parametrable {
         setOwner(_m.getOwner());
         MemberId memberId_ = _m.getMemberId();
         memberId(memberId_.getRootNumber(),memberId_.getMemberNumber());
-        setFileName(_m.getFileName());
+        getParametrableContent().setFileName(_m.getFileName());
         setReturnType(_m.getReturnType());
         setOriginalReturnType(_m.getReturnType());
         trySetParamNames(this, _m);
         setStandardMethod(_m.getStandardMethod());
-        setCustMethod(_m.getCustMethod());
+        setCust(_m.getCustMethod());
     }
     public void pairMemberId(String _formattedClass, AnalyzedPageEl _page,MethodHeaderInfo _m) {
         pairInfos(_formattedClass, _page, _m.getImportedReturnType(), _m.getRoot(), _m.getFunction(), _m.getId());
@@ -82,18 +56,18 @@ public final class MethodInfo implements Parametrable {
     public void pairMemberId(String _formattedClass, AnalyzedPageEl _page,String _importedReturnType, RootBlock _root, NamedCalledFunctionBlock _function, MethodId _id) {
         pairInfos(_formattedClass, _page, _importedReturnType,_root, _function, _id);
         memberId(_root,_function);
-        setCustMethod(_function);
+        setCust(_function);
     }
 
     private void pairInfos(String _formattedClass, AnalyzedPageEl _page, String _importedReturnType, RootBlock _root, NamedFunctionBlock _function, MethodId _id) {
         types(_formattedClass, _page, _importedReturnType);
         classMethodId(_formattedClass, _id);
-        setFileName(_root.getFile().getFileName());
+        getParametrableContent().setFileName(_root.getFile().getFileName());
         pair(_root, _function);
     }
 
     public void classMethodId(String _className, MethodId _id) {
-        className = _className;
+        setClassName(_className);
         constraints = _id;
     }
     private static void trySetParamNames(MethodInfo _mloc, ImportedMethod _custMethod) {
@@ -106,19 +80,19 @@ public final class MethodInfo implements Parametrable {
     }
     public void pair(RootBlock _root, NamedFunctionBlock _fct) {
         owner = _root;
-        pair.setType(_root);
-        pair.setFunction(_fct);
+        getParametrableContent().getPair().setType(_root);
+        getParametrableContent().getPair().setFunction(_fct);
     }
 
     public void types(String _formattedClass, AnalyzedPageEl _page, String _originalReturnType) {
         String ret_ = _originalReturnType;
         ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
-        originalReturnType = _originalReturnType;
+        setOriginalReturnType(_originalReturnType);
         returnType = ret_;
     }
 
     public static String retIndexSet(ClassMethodIdReturn _id, AnalyzedPageEl _page) {
-        return AnaInherits.wildCardFormatReturn(_id.getFormattedType().getFormatted(),((NamedCalledFunctionBlock)_id.getPair().getFunction()).getReturnTypeGet(),_page);
+        return AnaInherits.wildCardFormatReturn(_id.getFormattedType().getFormatted(),((NamedCalledFunctionBlock) _id.getParametrableContent().getPair().getFunction()).getReturnTypeGet(),_page);
     }
     @Override
     public String getReturnType() {
@@ -127,32 +101,6 @@ public final class MethodInfo implements Parametrable {
 
     public void setReturnType(String _returnType) {
         returnType = _returnType;
-    }
-
-    public String getOriginalReturnType() {
-        return originalReturnType;
-    }
-
-    public void setOriginalReturnType(String _originalReturnType) {
-        this.originalReturnType = _originalReturnType;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String _fileName) {
-        this.fileName = _fileName;
-    }
-
-    @Override
-    public ParametersGroup getParameters() {
-        return parameters;
-    }
-
-    @Override
-    public String getClassName() {
-        return className;
     }
 
     @Override
@@ -167,6 +115,11 @@ public final class MethodInfo implements Parametrable {
 
     @Override
     public Identifiable getPartialId() {
+        return toId();
+    }
+
+    @Override
+    public MethodId toId() {
         return getConstraints();
     }
 
@@ -178,38 +131,28 @@ public final class MethodInfo implements Parametrable {
         ancestor = _ancestor;
     }
 
-    @Override
-    public boolean isVarArgWrap() {
-        return varArgWrap;
-    }
-
-    @Override
-    public void setVarArgWrap(boolean _v) {
-        varArgWrap = _v;
-    }
-
     public void reformat(String _foundType,AnalyzedPageEl _page) {
-        className = AnaInherits.getOverridingFullTypeByBases(_foundType,className,_page);
-        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints, _page);
-        formattedParams = params_;
+        setClassName(AnaInherits.getOverridingFullTypeByBases(_foundType, getClassName(), _page));
+        StringList params_ = AnaInherits.wildCardFormatParams(getClassName(), constraints, _page);
+        setFormattedParams(params_);
         formatted = buildFormatted(MethodId.getKind(false), params_, constraints);
-        returnType = AnaInherits.wildCardFormatReturn(className,originalReturnType,_page);
+        returnType = AnaInherits.wildCardFormatReturn(getClassName(), getOriginalReturnType(),_page);
     }
 
     public void format(boolean _keepParams, AnalyzedPageEl _page) {
-        if (!formattedFilter.getStCall().isEmpty()) {
+        if (!getFormattedFilter().getStCall().isEmpty()) {
             StringList params_ = IdentifiableUtil.incomplete(constraints);
-            formattedParams = params_;
+            setFormattedParams(params_);
             formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
             return;
         }
-        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints, _page);
-        formattedParams = params_;
+        StringList params_ = AnaInherits.wildCardFormatParams(getClassName(), constraints, _page);
+        setFormattedParams(params_);
         formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
     }
 
     public void format(boolean _retRef, String _name, StringList _classNames, CustList<BoolVal> _refParam) {
-        formattedParams = _classNames;
+        setFormattedParams(_classNames);
         formatted = buildFormatted(MethodAccessKind.INSTANCE, _classNames, new MethodId(_retRef, MethodAccessKind.INSTANCE,
                 _name,_classNames,_refParam,false));
     }
@@ -219,8 +162,8 @@ public final class MethodInfo implements Parametrable {
     }
 
     public void formatWithoutParams() {
-        formattedParams = new StringList();
-        formatted = new MethodId(MethodId.getKind(false), constraints.getName(), formattedParams);
+        setFormattedParams(new StringList());
+        formatted = new MethodId(MethodId.getKind(false), constraints.getName(), getFormattedParams());
     }
 
     @Override
@@ -230,10 +173,6 @@ public final class MethodInfo implements Parametrable {
 
     public MethodId getFormatted() {
         return formatted;
-    }
-
-    public StringList getFormattedParams() {
-        return formattedParams;
     }
 
     public boolean same(MethodId _id) {
@@ -253,25 +192,6 @@ public final class MethodInfo implements Parametrable {
 
     public void setFinalMethod(boolean _finalMethod) {
         finalMethod = _finalMethod;
-    }
-
-    @Override
-    public InvocationMethod getInvocation() {
-        return invocation;
-    }
-
-    @Override
-    public void setInvocation(InvocationMethod _invocation) {
-        invocation = _invocation;
-    }
-
-    @Override
-    public CustList<CustList<ClassMethodIdReturn>> getImplicits() {
-        return implicits;
-    }
-
-    public MemberId getMemberId() {
-        return memberId;
     }
 
     public void memberId(RootBlock _type) {
@@ -294,11 +214,6 @@ public final class MethodInfo implements Parametrable {
         memberId(_toString.getNumberRoot(),_toString.getNumberAll());
     }
 
-    public void memberId(int _rootNumber, int _memberNumber) {
-        memberId.setRootNumber(_rootNumber);
-        memberId.setMemberNumber(_memberNumber);
-    }
-
     public StandardMethod getStandardMethod() {
         return standardMethod;
     }
@@ -307,33 +222,9 @@ public final class MethodInfo implements Parametrable {
         this.standardMethod = _standardMethod;
     }
 
-    public NamedFunctionBlock getCustMethod() {
-        return custMethod;
-    }
-
-    public void setCustMethod(NamedFunctionBlock _custMethod) {
-        this.custMethod = _custMethod;
-    }
-
-    public StringList getParametersNames() {
-        return parametersNames;
-    }
-
-    public void setParametersNames(StringList _parametersNames) {
-        this.parametersNames = _parametersNames;
-    }
-
-    public Ints getNameParametersFilterIndexes() {
-        return nameParametersFilterIndexes;
-    }
-
-    public CustList<OperationNode> getAllOps() {
-        return allOps;
-    }
-
     public void setFormattedFilter(FormattedFilter _formattedFilter) {
-        formattedFilter.setStCall(_formattedFilter.getStCall());
-        formattedFilter.setReturnType(_formattedFilter.getReturnType());
+        getFormattedFilter().setStCall(_formattedFilter.getStCall());
+        getFormattedFilter().setReturnType(_formattedFilter.getReturnType());
     }
 
     public AnaGeneType getOwner() {

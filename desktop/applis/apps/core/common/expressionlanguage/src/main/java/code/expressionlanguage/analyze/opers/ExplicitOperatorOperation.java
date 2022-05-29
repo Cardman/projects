@@ -372,7 +372,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (test_ != null){
             foundChild = _next;
             _next.getResultClass().implicitInfosTest(test_);
-            functionTest = test_.getPair();
+            functionTest = test_.getParametrableContent().getPair();
         } else {
             syntheticOperator = "";
         }
