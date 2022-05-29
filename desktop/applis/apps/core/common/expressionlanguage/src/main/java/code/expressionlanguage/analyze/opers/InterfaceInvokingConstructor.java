@@ -2,23 +2,16 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvedIdType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class InterfaceInvokingConstructor extends AbstractInvokingConstructor {
 
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
     public InterfaceInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -26,37 +19,12 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
 
     @Override
     AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
-        String cl_ = getMethodName();
-        int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
-        cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
-        ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(leftPar_, cl_, _page);
-        cl_ = resolvedIdType_.getFullName();
-        partOffsets.add(resolvedIdType_.getDels());
-        RootBlock candidate_ = _page.getAnaClassBody(cl_);
-        if (!(candidate_ instanceof InterfaceBlock)) {
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page);
-            //type len
-            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _page.getLocalizer().addError(call_);
-            addErr(call_.getBuiltError());
+        InterfaceBlock candidate_ = tryGetAsInterface(_page);
+        if (candidate_ == null) {
             return null;
         }
         AnaFormattedRootBlock clCurType_ = _page.getGlobalType();
-        AnaFormattedRootBlock superClass_ = AnaInherits.getFormattedOverridingFullTypeByBases(clCurType_, candidate_);
-        if (superClass_ == null) {
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page);
-            //type len
-            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _page.getLocalizer().addError(call_);
-            addErr(call_.getBuiltError());
-            return null;
-        }
-        setType(superClass_);
-        return new AnaClassArgumentMatching(superClass_.getFormatted());
+        return superType(_page, candidate_, clCurType_);
     }
 
     @Override
@@ -78,61 +46,48 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             StringList previousInts_ = new StringList();
             if (f_ instanceof Line){
                 ConstructorId cid_ = ((Line)f_).getCallInts();
-                if (cid_ != null) {
-                    String cl_ = cid_.getName();
-                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                    previousInts_.add(cl_);
-                } else {
-                    previousInts_.add("");
-                }
+                feed(_page,previousInts_,f_,cid_);
             }
             while (true) {
                 AbsBk n_ = f_.getNextSibling();
                 if (n_ == curBlock_) {
-                    if (!(f_ instanceof Line)) {
-                        //error
-                        FoundErrorInterpret call_ = new FoundErrorInterpret();
-                        call_.setFile(curLine_.getFile());
-                        call_.setIndexFile(_page);
-                        //key word len
-                        call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
-                        _page.getLocalizer().addError(call_);
-                        addErr(call_.getBuiltError());
-                    } else {
-                        if (!((Line)f_).isCallFromCtorToCtor()|| ((Line)f_).isCallThis()) {
-                            //error
-                            FoundErrorInterpret call_ = new FoundErrorInterpret();
-                            call_.setFile(curLine_.getFile());
-                            call_.setIndexFile(_page);
-                            //key word len
-                            call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
-                            _page.getLocalizer().addError(call_);
-                            addErr(call_.getBuiltError());
-                        }
-                    }
+                    possibleErrPos(_page, curLine_, f_);
+                    ConstructorId cid_ = getConstId();
+                    feed(_page,previousInts_, n_, cid_);
                     break;
                 }
                 if (n_ instanceof Line){
                     ConstructorId cid_ = ((Line)n_).getCallInts();
-                    if (cid_ != null) {
-                        String cl_ = cid_.getName();
-                        cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                        checkInherits(previousInts_, n_, cl_, _page);
-                        previousInts_.add(cl_);
-                    } else {
-                        previousInts_.add("");
-                    }
+                    feed(_page, previousInts_, n_, cid_);
                 }
                 f_ = n_;
             }
-            ConstructorId cid_ = getConstId();
-            if (cid_ != null) {
-                String cl_ = cid_.getName();
-                cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                checkInherits(previousInts_, curBlock_, cl_, _page);
-            }
         }
     
+    }
+
+    private void feed(AnalyzedPageEl _page, StringList _previousInts, AbsBk _bk, ConstructorId _cid) {
+        if (_cid != null) {
+            String cl_ = _cid.getName();
+            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+            checkInherits(_previousInts, _bk, cl_, _page);
+            _previousInts.add(cl_);
+        } else {
+            _previousInts.add("");
+        }
+    }
+
+    private void possibleErrPos(AnalyzedPageEl _page, Line _curLine, AbsBk _f) {
+        if (!(_f instanceof Line)||!((Line) _f).isCallFromCtorToCtor() || ((Line) _f).isCallThis()) {
+            //error
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFile(_curLine.getFile());
+            call_.setIndexFile(_page);
+            //key word len
+            call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
+            _page.getLocalizer().addError(call_);
+            addErr(call_.getBuiltError());
+        }
     }
 
     private void checkInherits(StringList _previousInts, AbsBk _n, String _cl, AnalyzedPageEl _page) {
@@ -155,7 +110,4 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         }
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
-        return partOffsets;
-    }
 }

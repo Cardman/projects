@@ -3,21 +3,14 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvedIdType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.util.CustList;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.common.StringExpUtil;
 
 public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
     private String className = EMPTY_STRING;
-
-    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
     public InterfaceFctConstructor(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -28,21 +21,8 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         if (index_ <= 0) {
             return null;
         }
-        String cl_ = getMethodName();
-        int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
-        cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
-        ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(leftPar_, cl_, _page);
-        cl_ = resolvedIdType_.getFullName();
-        partOffsets.add(resolvedIdType_.getDels());
-        RootBlock candidate_ = _page.getAnaClassBody(cl_);
-        if (!(candidate_ instanceof InterfaceBlock)) {
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page);
-            //type len
-            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _page.getLocalizer().addError(call_);
-            addErr(call_.getBuiltError());
+        InterfaceBlock candidate_ = tryGetAsInterface(_page);
+        if (candidate_ == null) {
             return null;
         }
         OperationNode par_ = getParent();
@@ -73,19 +53,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             addErr(call_.getBuiltError());
             return null;
         }
-        AnaFormattedRootBlock superClass_ = AnaInherits.getFormattedOverridingFullTypeByBases(subType_, candidate_);
-        if (superClass_ == null) {
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page);
-            //type len
-            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _page.getLocalizer().addError(call_);
-            addErr(call_.getBuiltError());
-            return null;
-        }
-        setType(superClass_);
-        return new AnaClassArgumentMatching(superClass_.getFormatted());
+        return superType(_page,candidate_,subType_);
     }
 
     @Override
@@ -106,7 +74,4 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         return className;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
-        return partOffsets;
-    }
 }

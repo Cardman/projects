@@ -1,13 +1,15 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.blocks.ConstructorBlock;
-import code.expressionlanguage.analyze.blocks.Line;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.ResolvedIdType;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -18,6 +20,7 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 public abstract class AbstractInvokingConstructor extends InvokingOperation implements PreAnalyzableOperation,RetrieveConstructor {
+    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
 
     private final String methodName;
     private ConstructorId constId;
@@ -95,6 +98,44 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     }
 
     abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);
+
+    protected InterfaceBlock tryGetAsInterface(AnalyzedPageEl _page) {
+        String cl_ = getMethodName();
+        int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
+        cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
+        ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(leftPar_, cl_, _page);
+        cl_ = resolvedIdType_.getFullName();
+        partOffsets.add(resolvedIdType_.getDels());
+        RootBlock candidate_ = _page.getAnaClassBody(cl_);
+        if (!(candidate_ instanceof InterfaceBlock)) {
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFile(_page.getCurrentFile());
+            call_.setIndexFile(_page);
+            //type len
+            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _page.getLocalizer().addError(call_);
+            addErr(call_.getBuiltError());
+            return null;
+        }
+        return (InterfaceBlock) candidate_;
+    }
+
+    protected AnaClassArgumentMatching superType(AnalyzedPageEl _page, InterfaceBlock _candidate, AnaFormattedRootBlock _cur) {
+        AnaFormattedRootBlock superClass_ = AnaInherits.getFormattedOverridingFullTypeByBases(_cur, _candidate);
+        if (superClass_ == null) {
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFile(_page.getCurrentFile());
+            call_.setIndexFile(_page);
+            //type len
+            call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _page.getLocalizer().addError(call_);
+            addErr(call_.getBuiltError());
+            return null;
+        }
+        setType(superClass_);
+        return new AnaClassArgumentMatching(superClass_.getFormatted());
+    }
+
     private void postAnalysis(ConstrustorIdVarArg _res) {
         constructor = _res.getParametrableContent().getPair();
         memberId = _res.getParametrableContent().getMemberId();
@@ -154,6 +195,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         }
     }
 
+    public CustList<AnaResultPartType> getPartOffsets() {
+        return partOffsets;
+    }
     public AnaTypeFct getConstructor() {
         return constructor;
     }
