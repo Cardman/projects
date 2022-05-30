@@ -95,125 +95,96 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
         }
 
         RootBlock g_ = _page.getAnaClassBody(instancingAnnotContent.getClassName());
-        StringMap<AnnotationFieldInfo> fields_ = new StringMap<AnnotationFieldInfo>();
-        for (AbsBk b: ClassesUtil.getDirectChildren(g_)) {
-            if (!AbsBk.isAnnotBlock(b)) {
-                continue;
-            }
-            NamedCalledFunctionBlock a_ = (NamedCalledFunctionBlock) b;
-            fields_.put(a_.getName(), new AnnotationFieldInfo(a_.getImportedReturnType(),!a_.getDefaultValue().isEmpty()));
-        }
-        CustList<AssocationOperation> suppliedFields_ = new CustList<AssocationOperation>();
-        for (OperationNode o: filter_) {
-            if (!(o instanceof AssocationOperation)) {
-                continue;
-            }
-            AssocationOperation a_ = (AssocationOperation) o;
-            suppliedFields_.add(a_);
-        }
+        StringMap<AnnotationFieldInfo> fields_ = fields(g_);
+        CustList<AssocationOperation> suppliedFields_ = suppliedFields(filter_);
         if (filter_.size() == 1 && suppliedFields_.isEmpty()) {
-            if (fields_.size() == 1) {
-                //guess the unique field
-                AnaClassArgumentMatching arg_ = filter_.first().getResultClass();
-                String paramName_ = fields_.getValue(0).getType();
-                AnaClassArgumentMatching param_ = new AnaClassArgumentMatching(paramName_);
-                Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-                mapping_.setArg(arg_);
-                mapping_.setParam(param_);
-                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                    if (param_.isArray()) {
-                        mapping_.setParam(AnaTypeUtil.getQuickComponentType(param_));
-                        if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                            AnnotationTypeInfo i_ = new AnnotationTypeInfo();
-                            i_.setType(paramName_);
-                            i_.setWrap(true);
-                            instancingAnnotContent.getFieldNames().put(fields_.getKey(0), i_);
-                            setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
-                            return;
-                        }
-                    }
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(_page.getCurrentFile());
-                    StrTypes operators_ = getOperators();
-                    int k_ = operators_.firstKey();
-                    cast_.setIndexFile(_page,k_);
-                    //first parenthese
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(arg_.getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(param_.getNames(),ExportCst.JOIN_TYPES));
-                    _page.getLocalizer().addError(cast_);
-                    addErr(cast_.getBuiltError());
-                    StringList deep_ = getErrs();
-                    setPartOffsetsErrPar(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,k_,1));
-                }
-                AnnotationTypeInfo i_ = new AnnotationTypeInfo();
-                i_.setType(paramName_);
-                instancingAnnotContent.getFieldNames().put(fields_.getKey(0),i_);
+            if (fields_.size() != 1) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFile(_page.getCurrentFile());
+                StrTypes operators_ = getOperators();
+                int k_ = operators_.lastKey();
+                cast_.setIndexFile(_page, k_);
+                //last parenthese
+                cast_.buildError(_page.getAnalysisMessages().getAnnotFieldNotUniq());
+                _page.getLocalizer().addError(cast_);
+                addErr(cast_.getBuiltError());
+                StringList deep_ = getErrs();
+                setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_, ExportCst.JOIN_ERR), _page, k_, 1));
                 setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
                 return;
             }
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFile(_page.getCurrentFile());
-            StrTypes operators_ = getOperators();
-            int k_ = operators_.lastKey();
-            cast_.setIndexFile(_page,k_);
-            //last parenthese
-            cast_.buildError(_page.getAnalysisMessages().getAnnotFieldNotUniq());
-            _page.getLocalizer().addError(cast_);
-            addErr(cast_.getBuiltError());
-            StringList deep_ = getErrs();
-            setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,k_,1));
-            setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
+            guessUnique(_page, filter_, fields_);
             return;
         }
-        if (filter_.size() != suppliedFields_.size()) {
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFile(_page.getCurrentFile());
-            StrTypes operators_ = getOperators();
-            int k_ = operators_.lastKey();
-            cast_.setIndexFile(_page,k_);
-            //last parenthese
-            cast_.buildError(_page.getAnalysisMessages().getAnnotFieldNotUniq());
-            _page.getLocalizer().addError(cast_);
-            addErr(cast_.getBuiltError());
+        checkDuplicates(_page, filter_, suppliedFields_);
+        feedNames(suppliedFields_);
+        checkFieldExistence(_page, fields_, suppliedFields_);
+        mergePossibleErrors(_page);
+        for (AssocationOperation e: suppliedFields_) {
+            String suppliedKey_ = e.getFieldName();
+            for (EntryCust<String, AnnotationFieldInfo> f: fields_.entryList()) {
+                crossCheck(_page, e, suppliedKey_, f);
+            }
         }
-        IdMap<AssocationOperation,Integer> counts_ = new IdMap<AssocationOperation,Integer>();
-        for (AssocationOperation s: suppliedFields_) {
-            counts_.put(s,0);
+        setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
+    }
+
+    private void crossCheck(AnalyzedPageEl _page, AssocationOperation _supplied, String _suppliedKey, EntryCust<String, AnnotationFieldInfo> _field) {
+        if (!StringUtil.quickEq(_suppliedKey, _field.getKey())) {
+            return;
         }
-        for (AssocationOperation s: suppliedFields_) {
-            int c_ = 0;
-            for (AssocationOperation t: suppliedFields_) {
-                if (StringUtil.quickEq(s.getFieldName(), t.getFieldName())) {
-                    c_++;
+        String paramName_ = _field.getValue().getType();
+        AnaClassArgumentMatching param_ = new AnaClassArgumentMatching(paramName_);
+        AnaClassArgumentMatching arg_ = _supplied.getResultClass();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+        mapping_.setArg(arg_);
+        mapping_.setParam(param_);
+        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+            if (param_.isArray()) {
+                mapping_.setParam(AnaTypeUtil.getQuickComponentType(param_));
+                if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                    AnnotationTypeInfo i_ = instancingAnnotContent.getFieldNames().getVal(_suppliedKey);
+                    i_.setType(paramName_);
+                    i_.setWrap(true);
+                    return;
                 }
             }
-            counts_.put(s, c_);
+            //ERROR
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+            cast_.setFile(_page.getCurrentFile());
+            cast_.setIndexFile(_page);
+            //equal char
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                    StringUtil.join(arg_.getNames(),ExportCst.JOIN_TYPES),
+                    StringUtil.join(param_.getNames(),ExportCst.JOIN_TYPES));
+            _page.getLocalizer().addError(cast_);
+            _supplied.setErrAff(cast_.getBuiltError());
         }
-        for (EntryCust<AssocationOperation,Integer> e: counts_.entryList()) {
-            if (e.getValue() > 1) {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFile(_page.getCurrentFile());
-                cast_.setIndexFile(_page);
-                //key len at operation
-                cast_.buildError(_page.getAnalysisMessages().getDupSuppliedAnnotField(),
-                        e.getKey().getFieldName()
-                );
-                _page.getLocalizer().addError(cast_);
-                e.getKey().addErr(cast_.getBuiltError());
+        AnnotationTypeInfo i_ = instancingAnnotContent.getFieldNames().getVal(_suppliedKey);
+        i_.setType(paramName_);
+    }
+
+    private void mergePossibleErrors(AnalyzedPageEl _page) {
+        StringList deep_ = getErrs();
+        if (!deep_.isEmpty()) {
+            StrTypes operators_ = getOperators();
+            if (!operators_.isEmpty()) {
+                int k_ = operators_.lastKey();
+                setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR), _page,k_,1));
+            } else {
+                setPartOffsetsErr(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR), _page,1));
             }
         }
-        for (AssocationOperation f: suppliedFields_) {
-            AnnotationTypeInfo i_ = new AnnotationTypeInfo();
-            instancingAnnotContent.getFieldNames().put(f.getFieldName(),i_);
-        }
-        for (EntryCust<String, AnnotationFieldInfo> e: fields_.entryList()) {
+    }
+
+    private void checkFieldExistence(AnalyzedPageEl _page, StringMap<AnnotationFieldInfo> _fields, CustList<AssocationOperation> _suppliedFields) {
+        for (EntryCust<String, AnnotationFieldInfo> e: _fields.entryList()) {
             if (e.getValue().isOptional()) {
                 continue;
             }
             boolean found_ = false;
-            for (AssocationOperation f: suppliedFields_) {
+            for (AssocationOperation f: _suppliedFields) {
                 if (StringUtil.quickEq(e.getKey(),f.getFieldName())) {
                     found_ = true;
                     break;
@@ -236,55 +207,118 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                 addErr(cast_.getBuiltError());
             }
         }
-        StringList deep_ = getErrs();
-        if (!deep_.isEmpty()) {
+    }
+
+    private void feedNames(CustList<AssocationOperation> _suppliedFields) {
+        for (AssocationOperation f: _suppliedFields) {
+            AnnotationTypeInfo i_ = new AnnotationTypeInfo();
+            instancingAnnotContent.getFieldNames().put(f.getFieldName(),i_);
+        }
+    }
+
+    private void checkDuplicates(AnalyzedPageEl _page, CustList<OperationNode> _filter, CustList<AssocationOperation> _suppliedFields) {
+        if (_filter.size() != _suppliedFields.size()) {
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+            cast_.setFile(_page.getCurrentFile());
             StrTypes operators_ = getOperators();
-            if (!operators_.isEmpty()) {
-                int k_ = operators_.lastKey();
-                setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,k_,1));
-            } else {
-                setPartOffsetsErr(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,1));
+            int k_ = operators_.lastKey();
+            cast_.setIndexFile(_page,k_);
+            //last parenthese
+            cast_.buildError(_page.getAnalysisMessages().getAnnotFieldNotUniq());
+            _page.getLocalizer().addError(cast_);
+            addErr(cast_.getBuiltError());
+        }
+        IdMap<AssocationOperation,Integer> counts_ = new IdMap<AssocationOperation,Integer>();
+        for (AssocationOperation s: _suppliedFields) {
+            counts_.put(s,0);
+        }
+        for (AssocationOperation s: _suppliedFields) {
+            int c_ = 0;
+            for (AssocationOperation t: _suppliedFields) {
+                if (StringUtil.quickEq(s.getFieldName(), t.getFieldName())) {
+                    c_++;
+                }
+            }
+            counts_.put(s, c_);
+        }
+        for (EntryCust<AssocationOperation,Integer> e: counts_.entryList()) {
+            if (e.getValue() > 1) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFile(_page.getCurrentFile());
+                cast_.setIndexFile(_page);
+                //key len at operation
+                cast_.buildError(_page.getAnalysisMessages().getDupSuppliedAnnotField(),
+                        e.getKey().getFieldName()
+                );
+                _page.getLocalizer().addError(cast_);
+                e.getKey().addErr(cast_.getBuiltError());
             }
         }
-        for (AssocationOperation e: suppliedFields_) {
-            String suppliedKey_ = e.getFieldName();
-            for (EntryCust<String, AnnotationFieldInfo> f: fields_.entryList()) {
-                if (!StringUtil.quickEq(suppliedKey_, f.getKey())) {
-                    continue;
+    }
+
+    private void guessUnique(AnalyzedPageEl _page, CustList<OperationNode> _filter, StringMap<AnnotationFieldInfo> _fields) {
+        //guess the unique field
+        AnaClassArgumentMatching arg_ = _filter.first().getResultClass();
+        String paramName_ = _fields.getValue(0).getType();
+        AnaClassArgumentMatching param_ = new AnaClassArgumentMatching(paramName_);
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+        mapping_.setArg(arg_);
+        mapping_.setParam(param_);
+        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+            if (param_.isArray()) {
+                mapping_.setParam(AnaTypeUtil.getQuickComponentType(param_));
+                if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                    AnnotationTypeInfo i_ = new AnnotationTypeInfo();
+                    i_.setType(paramName_);
+                    i_.setWrap(true);
+                    instancingAnnotContent.getFieldNames().put(_fields.getKey(0), i_);
+                    setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
+                    return;
                 }
-                String paramName_ = f.getValue().getType();
-                AnaClassArgumentMatching param_ = new AnaClassArgumentMatching(paramName_);
-                AnaClassArgumentMatching arg_ = e.getResultClass();
-                Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-                mapping_.setArg(arg_);
-                mapping_.setParam(param_);
-                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                    if (param_.isArray()) {
-                        mapping_.setParam(AnaTypeUtil.getQuickComponentType(param_));
-                        if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                            AnnotationTypeInfo i_ = instancingAnnotContent.getFieldNames().getVal(suppliedKey_);
-                            i_.setType(paramName_);
-                            i_.setWrap(true);
-                            continue;
-                        }
-                    }
-                    //ERROR
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page);
-                    //equal char
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(arg_.getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(param_.getNames(),ExportCst.JOIN_TYPES));
-                    _page.getLocalizer().addError(cast_);
-                    e.setErrAff(cast_.getBuiltError());
-                }
-                AnnotationTypeInfo i_ = instancingAnnotContent.getFieldNames().getVal(suppliedKey_);
-                i_.setType(paramName_);
             }
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+            cast_.setFile(_page.getCurrentFile());
+            StrTypes operators_ = getOperators();
+            int k_ = operators_.firstKey();
+            cast_.setIndexFile(_page, k_);
+            //first parenthese
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                    StringUtil.join(arg_.getNames(), ExportCst.JOIN_TYPES),
+                    StringUtil.join(param_.getNames(), ExportCst.JOIN_TYPES));
+            _page.getLocalizer().addError(cast_);
+            addErr(cast_.getBuiltError());
+            StringList deep_ = getErrs();
+            setPartOffsetsErrPar(new InfoErrorDto(StringUtil.join(deep_, ExportCst.JOIN_ERR), _page, k_, 1));
         }
+        AnnotationTypeInfo i_ = new AnnotationTypeInfo();
+        i_.setType(paramName_);
+        instancingAnnotContent.getFieldNames().put(_fields.getKey(0), i_);
         setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
+    }
+
+    private CustList<AssocationOperation> suppliedFields(CustList<OperationNode> _filter) {
+        CustList<AssocationOperation> suppliedFields_ = new CustList<AssocationOperation>();
+        for (OperationNode o: _filter) {
+            if (!(o instanceof AssocationOperation)) {
+                continue;
+            }
+            AssocationOperation a_ = (AssocationOperation) o;
+            suppliedFields_.add(a_);
+        }
+        return suppliedFields_;
+    }
+
+    private StringMap<AnnotationFieldInfo> fields(RootBlock _g) {
+        StringMap<AnnotationFieldInfo> fields_ = new StringMap<AnnotationFieldInfo>();
+        for (AbsBk b: ClassesUtil.getDirectChildren(_g)) {
+            if (!AbsBk.isAnnotBlock(b)) {
+                continue;
+            }
+            NamedCalledFunctionBlock a_ = (NamedCalledFunctionBlock) b;
+            fields_.put(a_.getName(), new AnnotationFieldInfo(a_.getImportedReturnType(),!a_.getDefaultValue().isEmpty()));
+        }
+        return fields_;
     }
 
     public AnaInstancingAnnotContent getInstancingAnnotContent() {

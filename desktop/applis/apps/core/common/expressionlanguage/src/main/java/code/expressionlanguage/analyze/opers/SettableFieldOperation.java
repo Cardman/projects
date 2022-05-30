@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
@@ -11,13 +10,12 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.linkage.ExportCst;
-import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class SettableFieldOperation extends
         SettableAbstractFieldOperation {
 
-    private AnaSettableAbstractFieldOperation interf;
+    private final AnaSettableAbstractFieldOperation interf;
 
     public SettableFieldOperation(int _indexInEl, int _indexChild,
                                   MethodOperation _m, OperationsSequence _op, AnaSettableAbstractFieldOperation _interf) {
@@ -42,22 +40,7 @@ public final class SettableFieldOperation extends
         }
         boolean baseAccess_ = interf.isBaseAccess();
         boolean superAccess_ = interf.isSuperAccess();
-        boolean affect_ = false;
-        if (getParent() instanceof AbstractDotOperation && isIntermediateDottedOperation()) {
-            if (getParent().getParent() instanceof AffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
-                affect_ = true;
-            } else if (getParent().getParent() instanceof CompoundAffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
-                affect_ = true;
-            } else if (getParent().getParent() instanceof SemiAffectationOperation) {
-                affect_ = true;
-            }
-        } else if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
-            affect_ = true;
-        } else if (getParent() instanceof CompoundAffectationOperation && getParent().getFirstChild() == this) {
-            affect_ = true;
-        } else if (getParent() instanceof SemiAffectationOperation) {
-            affect_ = true;
-        }
+        boolean affect_ = aff();
         ScopeFilter scope_ = new ScopeFilter(null, baseAccess_, superAccess_, false, _page.getGlobalClass());
         FieldResult r_ = resolveDeclaredCustField(isStaticAccess() != MethodAccessKind.INSTANCE, cl_, fieldName_, import_, affect_, _page, scope_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
@@ -82,6 +65,18 @@ public final class SettableFieldOperation extends
         getSettableFieldContent().setRealType(r_.getContent().getRealType());
         String c_ = r_.getType();
         setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));
+    }
+
+    private boolean aff() {
+        boolean affect_ = false;
+        if (getParent() instanceof AbstractDotOperation && isIntermediateDottedOperation()) {
+            if (getParent().getParent() instanceof AffectationOperation && getParent().getParent().getFirstChild() == getParent() || getParent().getParent() instanceof CompoundAffectationOperation && getParent().getParent().getFirstChild() == getParent() || getParent().getParent() instanceof SemiAffectationOperation) {
+                affect_ = true;
+            }
+        } else if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this || getParent() instanceof CompoundAffectationOperation && getParent().getFirstChild() == this || getParent() instanceof SemiAffectationOperation) {
+            affect_ = true;
+        }
+        return affect_;
     }
 
     public AnaResultPartType getPartOffsets() {

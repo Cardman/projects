@@ -44,16 +44,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
                 arrayInstancingContent.setClassName(_page.getAliasObject());
                 return;
             }
-            String type_ = EMPTY_STRING;
-            CustList<NamedCalledFunctionBlock> list_ = ClassesUtil.getMethodAnnotationBodiesById(typeInfo_, fieldName_);
-            if (!list_.isEmpty()) {
-                type_ = list_.first().getImportedReturnType();
-            }
-            if (!type_.isEmpty()) {
-                arrayInstancingContent.setClassName(type_);
-            } else {
-                arrayInstancingContent.setClassName(_page.getAliasObject());
-            }
+            association(_page, fieldName_, typeInfo_);
         } else if (mOp_ instanceof AnnotationInstanceOperation) {
             if (!(mOp_ instanceof AnnotationInstanceArobaseOperation)) {
                 arrayInstancingContent.setClassName(_page.getAliasObject());
@@ -66,22 +57,39 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
                     arrayInstancingContent.setClassName(_page.getAliasObject());
                     return;
                 }
-                CustList<AbsBk> bls_ = ClassesUtil.getDirectChildren(type_);
-                CustList<NamedCalledFunctionBlock> blsAnn_ = new CustList<NamedCalledFunctionBlock>();
-                for (AbsBk b: bls_) {
-                    if (!AbsBk.isAnnotBlock(b)) {
-                        continue;
-                    }
-                    NamedCalledFunctionBlock a_ = (NamedCalledFunctionBlock) b;
-                    blsAnn_.add(a_);
-                }
-                if (blsAnn_.size() != 1) {
-                    arrayInstancingContent.setClassName(_page.getAliasObject());
-                } else {
-                    NamedCalledFunctionBlock a_ =blsAnn_.first();
-                    arrayInstancingContent.setClassName(a_.getImportedReturnType());
-                }
+                arobaseParent(_page, type_);
             }
+        }
+    }
+
+    private void arobaseParent(AnalyzedPageEl _page, RootBlock _type) {
+        CustList<AbsBk> bls_ = ClassesUtil.getDirectChildren(_type);
+        CustList<NamedCalledFunctionBlock> blsAnn_ = new CustList<NamedCalledFunctionBlock>();
+        for (AbsBk b: bls_) {
+            if (!AbsBk.isAnnotBlock(b)) {
+                continue;
+            }
+            NamedCalledFunctionBlock a_ = (NamedCalledFunctionBlock) b;
+            blsAnn_.add(a_);
+        }
+        if (blsAnn_.size() != 1) {
+            arrayInstancingContent.setClassName(_page.getAliasObject());
+        } else {
+            NamedCalledFunctionBlock a_ =blsAnn_.first();
+            arrayInstancingContent.setClassName(a_.getImportedReturnType());
+        }
+    }
+
+    private void association(AnalyzedPageEl _page, String _fieldName, RootBlock _typeInfo) {
+        String type_ = EMPTY_STRING;
+        CustList<NamedCalledFunctionBlock> list_ = ClassesUtil.getMethodAnnotationBodiesById(_typeInfo, _fieldName);
+        if (!list_.isEmpty()) {
+            type_ = list_.first().getImportedReturnType();
+        }
+        if (!type_.isEmpty()) {
+            arrayInstancingContent.setClassName(type_);
+        } else {
+            arrayInstancingContent.setClassName(_page.getAliasObject());
         }
     }
 

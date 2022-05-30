@@ -29,14 +29,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
         if (isUnexpected(_page)) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page);
-            //key word len
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                    _page.getKeyWords().getKeyWordThat());
-            _page.getLocalizer().addError(varg_);
-            addErr(varg_.getBuiltError());
+            errorUnexpected(_page);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -59,14 +52,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             return;
         }
         //key word len
-        FoundErrorInterpret varg_ = new FoundErrorInterpret();
-        varg_.setFile(_page.getCurrentFile());
-        varg_.setIndexFile(_page);
-        //key word len
-        varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                _page.getKeyWords().getKeyWordThat());
-        _page.getLocalizer().addError(varg_);
-        addErr(varg_.getBuiltError());
+        errorUnexpected(_page);
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
@@ -110,28 +96,25 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
     private void procField(AnalyzedPageEl _page, SettableAbstractFieldOperation _last) {
         AnaSettableOperationContent settableFieldContent_ = _last.getSettableFieldContent();
         if (settableFieldContent_.isFinalField()) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page);
-            //key word len
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                    _page.getKeyWords().getKeyWordThat());
-            _page.getLocalizer().addError(varg_);
-            addErr(varg_.getBuiltError());
+            errorUnexpected(_page);
         }
     }
 
     public void processErrorVar(AnalyzedPageEl _page, VariableOperationUse _var) {
         if (_var.isFinalVariable()) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page);
-            //key word len
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                    _page.getKeyWords().getKeyWordThat());
-            _page.getLocalizer().addError(varg_);
-            addErr(varg_.getBuiltError());
+            errorUnexpected(_page);
         }
+    }
+
+    private void errorUnexpected(AnalyzedPageEl _page) {
+        FoundErrorInterpret varg_ = new FoundErrorInterpret();
+        varg_.setFile(_page.getCurrentFile());
+        varg_.setIndexFile(_page);
+        //key word len
+        varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                _page.getKeyWords().getKeyWordThat());
+        _page.getLocalizer().addError(varg_);
+        addErr(varg_.getBuiltError());
     }
 
 }

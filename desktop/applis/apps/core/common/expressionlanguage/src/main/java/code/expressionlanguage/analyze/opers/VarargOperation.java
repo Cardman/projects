@@ -31,7 +31,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
     public void analyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         MethodOperation m_ = getParent();
-        if (isNotChildOfCallDyn(m_)) {
+        if (isNotChildOfCallDyn(m_)||!isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page);
@@ -40,23 +40,6 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
                     _page.getKeyWords().getKeyWordVararg());
             _page.getLocalizer().addError(varg_);
             partOffsetsErr = new InfoErrorDto(varg_,_page,_page.getKeyWords().getKeyWordVararg().length());
-//            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-//            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            setSimpleArgument(new Argument());
-            return;
-        }
-        if (!isFirstChildInParent()) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page);
-            //key word len
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                    _page.getKeyWords().getKeyWordVararg());
-            _page.getLocalizer().addError(varg_);
-            partOffsetsErr = new InfoErrorDto(varg_,_page,_page.getKeyWords().getKeyWordVararg().length());
-//            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-//            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -71,37 +54,45 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
         className = str_;
         if (m_ instanceof RetrieveMethod) {
             RetrieveMethod f_ = (RetrieveMethod) m_;
-            CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
-            int len_ = methodInfos_.size();
-            for (int i = 0; i < len_; i++) {
-                int gr_ = methodInfos_.get(i).size();
-                CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
-                for (int j = 0; j < gr_; j++) {
-                    MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    if (exclude(methodInfo_)) {
-                        continue;
-                    }
-                    newList_.add(methodInfo_);
-                }
-                methodInfos_.set(i,newList_);
-            }
+            methods(f_);
         }
         if (m_ instanceof RetrieveConstructor) {
             RetrieveConstructor f_ = (RetrieveConstructor) m_;
-            CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
-            int len_ = methodInfos_.size();
-            CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
-            for (int i = 0; i < len_; i++) {
-                ConstructorInfo methodInfo_ = methodInfos_.get(i);
+            ctors(f_);
+        }
+        setSimpleArgument(new Argument());
+    }
+
+    private void ctors(RetrieveConstructor _f) {
+        CustList<ConstructorInfo> methodInfos_ = _f.getCtors();
+        int len_ = methodInfos_.size();
+        CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+        for (int i = 0; i < len_; i++) {
+            ConstructorInfo methodInfo_ = methodInfos_.get(i);
+            if (exclude(methodInfo_)) {
+                continue;
+            }
+            newList_.add(methodInfo_);
+        }
+        methodInfos_.clear();
+        methodInfos_.addAllElts(newList_);
+    }
+
+    private void methods(RetrieveMethod _f) {
+        CustList<CustList<MethodInfo>> methodInfos_ = _f.getMethodInfos();
+        int len_ = methodInfos_.size();
+        for (int i = 0; i < len_; i++) {
+            int gr_ = methodInfos_.get(i).size();
+            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
                 if (exclude(methodInfo_)) {
                     continue;
                 }
                 newList_.add(methodInfo_);
             }
-            methodInfos_.clear();
-            methodInfos_.addAllElts(newList_);
+            methodInfos_.set(i,newList_);
         }
-        setSimpleArgument(new Argument());
     }
 
     private boolean exclude(Parametrable _methodInfo) {

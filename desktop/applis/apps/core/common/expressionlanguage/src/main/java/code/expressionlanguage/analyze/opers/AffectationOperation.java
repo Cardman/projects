@@ -47,14 +47,7 @@ public final class AffectationOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = tryGetSettable(this);
-        AnaClassArgumentMatching clMatchLeftPoss_;
-        if (elt_ != null) {
-            setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getPrimitiveTypes()));
-            elt_.setVariable(true);
-            clMatchLeftPoss_ = elt_.getResultClass();
-        } else {
-            clMatchLeftPoss_ = new AnaClassArgumentMatching("");
-        }
+        AnaClassArgumentMatching clMatchLeftPoss_ = leftType(_page, elt_);
         if (!isLeftValue(elt_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
@@ -78,34 +71,9 @@ public final class AffectationOperation extends MethodOperation {
             decl_ = v_.getLineDeclarator();
         }
         if (decl_ != null) {
-            if (StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
-                AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-                String type_ = clMatchRight_.getSingleNameOrEmpty();
-                if (!type_.isEmpty()) {
-                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getPrimitiveTypes());
-                    AnaLocalVariable lv_ = _page.getInfosVars().getVal(inf_);
-                    lv_.setClassName(type_);
-                    _page.getVariablesNamesToInfer().removeString(inf_);
-                    decl_.setImportedClassName(type_);
-                    _page.setCurrentVarSetting(type_);
-                    settableOp.setResultClass(n_);
-                    clMatchLeftPoss_ = n_;
-                    setResultClass(AnaClassArgumentMatching.copy(n_, _page.getPrimitiveTypes()));
-                }
-            }
+            clMatchLeftPoss_ = revolveVariable(_page, clMatchLeftPoss_, decl_, inf_);
             if (t_ == ConstType.REF_LOC_VAR) {
-                AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-                if (!clMatchLeftPoss_.matchClass(clMatchRight_)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page);
-                    //oper
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(clMatchLeftPoss_.getNames(),ExportCst.JOIN_TYPES));
-                    _page.getLocalizer().addError(cast_);
-                    getPartOffsetsChildren().add(new InfoErrorDto(cast_,_page,1));
-                }
+                checkRefVar(_page, clMatchLeftPoss_);
                 return;
             }
         }
@@ -151,6 +119,57 @@ public final class AffectationOperation extends MethodOperation {
         if (AnaTypeUtil.isPrimitive(clMatchLeft_, _page)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getPrimitiveTypes());
         }
+    }
+
+    private AnaClassArgumentMatching leftType(AnalyzedPageEl _page, SettableElResult _elt) {
+        AnaClassArgumentMatching clMatchLeftPoss_;
+        if (_elt != null) {
+            setResultClass(AnaClassArgumentMatching.copy(_elt.getResultClass(), _page.getPrimitiveTypes()));
+            _elt.setVariable(true);
+            clMatchLeftPoss_ = _elt.getResultClass();
+        } else {
+            clMatchLeftPoss_ = new AnaClassArgumentMatching("");
+        }
+        return clMatchLeftPoss_;
+    }
+
+    private void checkRefVar(AnalyzedPageEl _page, AnaClassArgumentMatching _clMatchLeftPoss) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode right_ = chidren_.last();
+        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
+        if (!_clMatchLeftPoss.matchClass(clMatchRight_)) {
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+            cast_.setFile(_page.getCurrentFile());
+            cast_.setIndexFile(_page);
+            //oper
+            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                    StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                    StringUtil.join(_clMatchLeftPoss.getNames(),ExportCst.JOIN_TYPES));
+            _page.getLocalizer().addError(cast_);
+            getPartOffsetsChildren().add(new InfoErrorDto(cast_, _page,1));
+        }
+    }
+
+    private AnaClassArgumentMatching revolveVariable(AnalyzedPageEl _page, AnaClassArgumentMatching _clMatchLeftPoss, AbsLineDeclarator _decl, String _inf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode right_ = chidren_.last();
+        AnaClassArgumentMatching clMatchLeftPoss_ = _clMatchLeftPoss;
+        if (StringUtil.contains(_page.getVariablesNamesToInfer(), _inf)) {
+            AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
+            String type_ = clMatchRight_.getSingleNameOrEmpty();
+            if (!type_.isEmpty()) {
+                AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getPrimitiveTypes());
+                AnaLocalVariable lv_ = _page.getInfosVars().getVal(_inf);
+                lv_.setClassName(type_);
+                _page.getVariablesNamesToInfer().removeString(_inf);
+                _decl.setImportedClassName(type_);
+                _page.setCurrentVarSetting(type_);
+                settableOp.setResultClass(n_);
+                clMatchLeftPoss_ = n_;
+                setResultClass(AnaClassArgumentMatching.copy(n_, _page.getPrimitiveTypes()));
+            }
+        }
+        return clMatchLeftPoss_;
     }
 
     public static String processInfer(String _import, AnalyzedPageEl _page) {
