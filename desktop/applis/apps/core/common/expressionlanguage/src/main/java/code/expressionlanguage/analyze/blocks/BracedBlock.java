@@ -52,10 +52,6 @@ public abstract class BracedBlock extends AbsBk {
     }
 
     @Override
-    public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-    }
-
-    @Override
     public final AbsBk getFirstChild() {
         return firstChild;
     }

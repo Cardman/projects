@@ -1,5 +1,4 @@
 package code.expressionlanguage.analyze.blocks;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 
 public abstract class Leaf extends AbsBk {
 
@@ -12,7 +11,4 @@ public abstract class Leaf extends AbsBk {
         return null;
     }
 
-    @Override
-    public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-    }
 }

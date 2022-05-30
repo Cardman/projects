@@ -61,39 +61,35 @@ public final class ReturnMethod extends AbruptBlock {
             addErrorBlock(_page.getCurrentEmptyPartErr());
         }
         returnType = retType_;
-        if (f_ instanceof NamedFunctionBlock) {
-            if (((NamedFunctionBlock)f_).isRetRef()) {
-                AnaClassArgumentMatching ret_ = res.getRoot().getResultClass();
-                if (!(res.getRoot() instanceof WrappOperation)||!ret_.matchClass(retType_)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(getFile());
-                    cast_.setIndexFile(expressionOffset);
-                    //original type
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(ret_.getNames(), ExportCst.JOIN_TYPES),
-                            retType_);
-                    _page.addLocError(cast_);
-                    addErrorBlock(cast_.getBuiltError());
-                }
-                return;
+        if (f_ instanceof NamedFunctionBlock && ((NamedFunctionBlock) f_).isRetRef()) {
+            AnaClassArgumentMatching ret_ = res.getRoot().getResultClass();
+            if (!(res.getRoot() instanceof WrappOperation) || !ret_.matchClass(retType_)) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFile(getFile());
+                cast_.setIndexFile(expressionOffset);
+                //original type
+                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                        StringUtil.join(ret_.getNames(), ExportCst.JOIN_TYPES),
+                        retType_);
+                _page.addLocError(cast_);
+                addErrorBlock(cast_.getBuiltError());
             }
+            return;
         }
-        if (f_ instanceof SwitchMethodBlock) {
-            if (((SwitchMethodBlock)f_).isRetRef()) {
-                AnaClassArgumentMatching ret_ = res.getRoot().getResultClass();
-                if (!(res.getRoot() instanceof WrappOperation)||!ret_.matchClass(retType_)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(getFile());
-                    cast_.setIndexFile(expressionOffset);
-                    //original type
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(ret_.getNames(), ExportCst.JOIN_TYPES),
-                            retType_);
-                    _page.addLocError(cast_);
-                    addErrorBlock(cast_.getBuiltError());
-                }
-                return;
+        if (f_ instanceof SwitchMethodBlock && ((SwitchMethodBlock) f_).isRetRef()) {
+            AnaClassArgumentMatching ret_ = res.getRoot().getResultClass();
+            if (!(res.getRoot() instanceof WrappOperation) || !ret_.matchClass(retType_)) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFile(getFile());
+                cast_.setIndexFile(expressionOffset);
+                //original type
+                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                        StringUtil.join(ret_.getNames(), ExportCst.JOIN_TYPES),
+                        retType_);
+                _page.addLocError(cast_);
+                addErrorBlock(cast_.getBuiltError());
             }
+            return;
         }
         checkTypes(retType_, res.getRoot(), _page);
     }
@@ -106,20 +102,19 @@ public final class ReturnMethod extends AbruptBlock {
                 NamedFunctionBlock meth_;
                 meth_ = (NamedFunctionBlock) par_;
                 retType_ = meth_.getImportedReturnType();
-                break;
             }
             if (par_ instanceof SwitchMethodBlock) {
                 SwitchMethodBlock meth_;
                 meth_ = (SwitchMethodBlock) par_;
                 retType_ = meth_.getRetType();
+            }
+            if (par_ instanceof NamedFunctionBlock || par_ instanceof SwitchMethodBlock) {
                 break;
             }
             par_ = par_.getParent();
         }
-        if (StringUtil.quickEq(retType_, _page.getAliasVoid())) {
-            if (isEmpty()) {
-                return EMPTY_STRING;
-            }
+        if (StringUtil.quickEq(retType_, _page.getAliasVoid()) && isEmpty()) {
+            return EMPTY_STRING;
         }
         return retType_;
     }

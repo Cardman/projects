@@ -5908,7 +5908,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         ElRetrieverAnonymous.commonCheckQuick(_i,analyzing_,_res);
         analyzing_.setCurrentParts(_res.getParts());
         analyzing_.setCurrentNumbers(_res.getNumbers());
-        return ElResolver.checkSyntaxDelimiters(_res.getAnalyzedString(), _i, analyzing_);
+        return ElResolver.checkSyntaxDelimiters(_res, _i, analyzing_);
     }
 
     private static Argument processDelimiters(String _s, int _i) {

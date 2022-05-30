@@ -58,7 +58,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
                 en_ = n_;
                 continue;
             }
-            en_.checkTree(anEl_, _page);
+            checkTree(en_, anEl_, _page);
             removeLabel(en_, labels_);
             while (true) {
                 n_ = en_.getNextSibling();
@@ -75,11 +75,17 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
                     ReachMemberCallingsBlock.newReachBlocks(this).buildFctInstructionsReadOnly(_page,anEl_);
                     return;
                 }
-                par_.checkTree(anEl_, _page);
+                checkTree(par_, anEl_, _page);
                 par_.removeAllVars(_page);
                 removeLabel(par_, labels_);
                 en_ = par_;
             }
+        }
+    }
+
+    private static void checkTree(AbsBk _en, AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        if (_en instanceof CheckableTree) {
+            ((CheckableTree)_en).checkTree(_anEl, _page);
         }
     }
 

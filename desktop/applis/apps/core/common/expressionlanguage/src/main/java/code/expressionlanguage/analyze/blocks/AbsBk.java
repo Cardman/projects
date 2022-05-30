@@ -7,16 +7,12 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public abstract class AbsBk {
-    public static final String OR_EQ = "|=";
-    public static final String AND_EQ = "&=";
     public static final String OR_LOG_EQ = "||=";
     public static final String OR_LOG_EQ_SHORT = "|||=";
     public static final String AND_LOG_EQ = "&&=";
     public static final String AND_LOG_EQ_SHORT = "&&&=";
     public static final String NULL_EQ = "??=";
     public static final String NULL_EQ_SHORT = "???=";
-    public static final String XOR_EQ = "^=";
-    public static final String PLUS_EQ = "+=";
 
     protected static final String VARARG = "...";
 
@@ -107,8 +103,6 @@ public abstract class AbsBk {
             }
         }
     }
-
-    public abstract void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page);
 
     protected static boolean tryBuildExpressionLanguageReadOnly(AbsBk _block, AnalyzedPageEl _page) {
         if (isVisitableBlock(_block)) {

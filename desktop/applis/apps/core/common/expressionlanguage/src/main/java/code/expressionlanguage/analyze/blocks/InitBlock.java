@@ -8,7 +8,7 @@ public abstract class InitBlock extends MemberCallingsBlock {
 
     private int number;
 
-    public InitBlock(int _offset) {
+    protected InitBlock(int _offset) {
         super(_offset);
     }
 

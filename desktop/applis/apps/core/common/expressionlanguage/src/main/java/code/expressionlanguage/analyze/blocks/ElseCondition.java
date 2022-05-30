@@ -6,7 +6,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ElseCondition extends BracedBlock implements BlockCondition {
+public final class ElseCondition extends BracedBlock implements BreakableBlock, CheckableTree {
 
     public ElseCondition(int _offset) {
         super(_offset);

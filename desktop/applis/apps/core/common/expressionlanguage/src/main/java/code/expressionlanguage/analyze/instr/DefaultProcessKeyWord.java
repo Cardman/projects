@@ -79,11 +79,12 @@ public final class DefaultProcessKeyWord {
     }
 
     private static int incr(int _j, Ints _dels) {
-        int k2_ = _j;
-        if (_dels.indexOf(_j) >= 0) {
-            k2_ = _dels.get(_dels.indexOf(_j)+1);
-        }
-        return k2_;
+        return _dels.get(_dels.indexOf(_j)+1);
+//        int k2_ = _j;
+//        if (_dels.indexOf(_j) >= 0) {
+//            k2_ = _dels.get(_dels.indexOf(_j)+1);
+//        }
+//        return k2_;
     }
 
     public static int extractPrefix(String _exp, Delimiters _d, ResultAfterInstKeyWord _out, int _fr) {

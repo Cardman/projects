@@ -40,7 +40,7 @@ public final class ContinueBlock extends AbruptBlock {
         boolean childOfLoop_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {
-            if (b_ instanceof Loop && exitLoop((BreakableBlock) b_)) {
+            if (BreakBlock.isLoop(b_) && exitLoop((BreakableBlock) b_)) {
                 childOfLoop_ = true;
                 break;
             }

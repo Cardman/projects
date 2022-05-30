@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.files.SegmentStringType;
 import code.expressionlanguage.analyze.opers.MethodOperation;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -105,35 +106,40 @@ public final class ElResolver {
     private ElResolver() {
     }
 
-    public static Delimiters checkSyntaxDelimiters(String _string, int _minIndex, AnalyzedPageEl _page) {
+    public static Delimiters checkSyntaxDelimiters(ResultExpression _res, int _minIndex, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setPartOfString(true);
-        FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _page, _minIndex);
-        return commonCheck(_string, _minIndex, ret_, d_, _page);
+        FullFieldRetriever ret_ = new FullFieldRetriever(d_, _res.getAnalyzedString(), _page, _minIndex);
+        return commonCheck(_res, _minIndex, ret_, d_, _page);
     }
 
-    public static Delimiters checkSyntax(String _string, int _elOffest, AnalyzedPageEl _page) {
+    public static Delimiters checkSyntax(ResultExpression _res, int _elOffest, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
-        FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _page, _elOffest);
-        return commonCheck(_string, _elOffest, ret_, d_, _page);
+        FullFieldRetriever ret_ = new FullFieldRetriever(d_, _res.getAnalyzedString(), _page, _elOffest);
+        return commonCheck(_res, _elOffest, ret_, d_, _page);
     }
 
-    static Delimiters checkSyntaxQuick(String _string, AnalyzedPageEl _page) {
+    static Delimiters checkSyntaxQuick(ResultExpression _res, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         QuickFieldRetriever ret_ = new QuickFieldRetriever(d_);
-        return commonCheck(_string, 0, ret_, d_, _page);
+        return commonCheck(_res, 0, ret_, d_, _page);
     }
-    private static Delimiters commonCheck(String _string, int _minIndex, FieldRetriever _ret, Delimiters _d, AnalyzedPageEl _page) {
+    private static Delimiters commonCheck(ResultExpression _res, int _minIndex, FieldRetriever _ret, Delimiters _d, AnalyzedPageEl _page) {
         boolean partOfString_ = _d.isPartOfString();
-
+        String string_ = _res.getAnalyzedString();
+        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
+        _page.setCurrentParts(_res.getParts());
+        _page.setCurrentNumbers(_res.getNumbers());
+        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
+        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         StackOperators parsBrackets_;
         parsBrackets_ = new StackOperators();
         ResultAfterOperators resOpers_ = new ResultAfterOperators();
         resOpers_.setParsBrackets(parsBrackets_);
         resOpers_.setPartOfString(partOfString_);
 
-        int len_ = _string.length();
-        int i_ = DefaultProcessKeyWord.skipWhiteSpace(_string,_minIndex);
+        int len_ = string_.length();
+        int i_ = DefaultProcessKeyWord.skipWhiteSpace(string_,_minIndex);
         int beginIndex_ = i_;
         if (i_ >= len_) {
             _d.setBadOffset(i_);
@@ -145,17 +151,17 @@ public final class ElResolver {
         resOpers_.setDoubleDotted(resKeyWords_);
         while (i_ < len_) {
 
-            int until_ = next(_string,i_,resOpers_,_d,_page);
+            int until_ = next(string_,i_,resOpers_,_d,_page);
             if (until_ > i_) {
                 i_ = until_;
                 continue;
             }
-            char curChar_ = _string.charAt(i_);
+            char curChar_ = string_.charAt(i_);
             resOpers_.getDoubleDotted().setNextIndex(i_);
             if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                procWord(resOpers_, _string, _ret, _d, _page);
+                procWord(resOpers_, string_, _ret, _d, _page);
             } else {
-                processOperators(beginIndex_, _string, _d, _ret,resOpers_, _page);
+                processOperators(beginIndex_, string_, _d, _ret,resOpers_, _page);
             }
             if (_d.getBadOffset() >= 0) {
                 return _d;

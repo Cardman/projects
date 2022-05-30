@@ -76,7 +76,7 @@ public final class Line extends Leaf implements BuildableElMethod {
     }
 
     public static void checkOpers(OperationNode _root, AnalyzedPageEl _page) {
-        if (!(_root instanceof DeclaringOperation)&&!(_root instanceof AffectationOperation)&&!(_root instanceof ErrorPartOperation)) {
+        if (!(_root instanceof DeclaringOperation)&&!(_root instanceof AffectationOperation)&&!(_root instanceof ErrorPartOperation)||_root instanceof AffectationOperation&&!(((AffectationOperation) _root).getChildrenNodes().last() instanceof WrappOperation)) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(_page.getCurrentFile());
             b_.setIndexFile(_page);
@@ -86,15 +86,7 @@ public final class Line extends Leaf implements BuildableElMethod {
             _root.addErr(b_.getBuiltError());
         } else if (_root instanceof DeclaringOperation) {
             for (OperationNode c: ((DeclaringOperation) _root).getChildrenNodes()) {
-                if (!(c instanceof AffectationOperation)) {
-                    FoundErrorInterpret b_ = new FoundErrorInterpret();
-                    b_.setFile(_page.getCurrentFile());
-                    b_.setIndexFile(_page);
-                    //variable name len
-                    b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
-                    _page.getLocalizer().addError(b_);
-                    c.addErr(b_.getBuiltError());
-                } else if (!(((AffectationOperation) c).getChildrenNodes().last() instanceof WrappOperation)) {
+                if (!(c instanceof AffectationOperation)||!(((AffectationOperation) c).getChildrenNodes().last() instanceof WrappOperation)) {
                     FoundErrorInterpret b_ = new FoundErrorInterpret();
                     b_.setFile(_page.getCurrentFile());
                     b_.setIndexFile(_page);
@@ -104,14 +96,6 @@ public final class Line extends Leaf implements BuildableElMethod {
                     c.addErr(b_.getBuiltError());
                 }
             }
-        } else if (_root instanceof AffectationOperation&&!(((AffectationOperation) _root).getChildrenNodes().last() instanceof WrappOperation)) {
-            FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFile(_page.getCurrentFile());
-            b_.setIndexFile(_page);
-            //variable name len
-            b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
-            _page.getLocalizer().addError(b_);
-            _root.addErr(b_.getBuiltError());
         }
     }
 

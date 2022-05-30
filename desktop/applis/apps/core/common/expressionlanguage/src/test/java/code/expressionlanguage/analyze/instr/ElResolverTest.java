@@ -4299,7 +4299,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ElRetrieverAnonymous.commonCheckQuick(0,analyzing_,res_);
         analyzing_.setCurrentParts(res_.getParts());
         analyzing_.setCurrentNumbers(res_.getNumbers());
-        return ElResolver.checkSyntax(res_.getAnalyzedString(), 0, analyzing_);
+        return ElResolver.checkSyntax(res_, 0, analyzing_);
     }
 
     private static Delimiters checkSyntaxDelimiters(AnalyzedPageEl _conf, String _el, int _minIndex) {
@@ -4313,7 +4313,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ElRetrieverAnonymous.commonCheckQuick(_minIndex,analyzing_,res_);
         analyzing_.setCurrentParts(res_.getParts());
         analyzing_.setCurrentNumbers(res_.getNumbers());
-        return ElResolver.checkSyntaxDelimiters(res_.getAnalyzedString(), _minIndex, analyzing_);
+        return ElResolver.checkSyntaxDelimiters(res_, _minIndex, analyzing_);
     }
 
     private static void setGlobalType(AnalyzedPageEl _conf, String _globalClass) {

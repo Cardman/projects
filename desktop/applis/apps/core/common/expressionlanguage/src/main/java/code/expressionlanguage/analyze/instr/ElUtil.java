@@ -24,12 +24,7 @@ public final class ElUtil {
     public static CustList<PartOffsetAffect> getFieldNames(ResultExpression _res, int _valueOffset, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
-        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
-        _page.setCurrentParts(_res.getParts());
-        _page.setCurrentNumbers(_res.getNumbers());
-        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
-        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
-        Delimiters d_ = ElResolver.checkSyntaxQuick(_res.getAnalyzedString(), _page);
+        Delimiters d_ = ElResolver.checkSyntaxQuick(_res, _page);
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
         if (d_.getBadOffset() >= 0) {
             return names_;
@@ -57,12 +52,7 @@ public final class ElUtil {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentEmptyPartErr("");
-        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
-        _page.setCurrentParts(_res.getParts());
-        _page.setCurrentNumbers(_res.getNumbers());
-        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
-        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
-        Delimiters d_ = ElResolver.checkSyntax(_res.getAnalyzedString(), IndexConstants.FIRST_INDEX, _page);
+        Delimiters d_ = ElResolver.checkSyntax(_res, IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
         if (_res.getAnalyzedString().trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -99,12 +89,7 @@ public final class ElUtil {
     public static CustList<OperationNode> getAnalyzedOperationsQucikly(ResultExpression _res, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
-        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
-        _page.setCurrentParts(_res.getParts());
-        _page.setCurrentNumbers(_res.getNumbers());
-        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
-        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
-        Delimiters d_ = ElResolver.checkSyntax(_res.getAnalyzedString(), IndexConstants.FIRST_INDEX, _page);
+        Delimiters d_ = ElResolver.checkSyntax(_res, IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
         if (_res.getAnalyzedString().trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -344,11 +329,15 @@ public final class ElUtil {
             return true;
         }
         if (_page.isAssignedStaticFields()) {
-            if (_staticField || !_fromCurClass) {
+            if (_staticField) {
                 return true;
             }
-            return chFinal(_ass, _fieldName);
+            return chFinal(_ass, _fromCurClass, _fieldName);
         }
+        return chFinal(_ass, _fromCurClass, _fieldName);
+    }
+
+    private static boolean chFinal(StringMap<BoolVal> _ass, boolean _fromCurClass, String _fieldName) {
         if (!_fromCurClass) {
             return true;
         }

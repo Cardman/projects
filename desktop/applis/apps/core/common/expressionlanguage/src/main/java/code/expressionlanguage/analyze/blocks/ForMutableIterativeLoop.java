@@ -24,7 +24,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ForMutableIterativeLoop extends AbstractForLoop implements
-        Loop,WithConditionPart,AbsLoopDeclarator {
+        WithConditionPart,AbsLoopDeclarator {
 
     private String importedClassName = EMPTY_STRING;
 

@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 
-public abstract class AbstractForLoop extends LabelledOtherBlock implements Loop,BuildableElMethod{
+public abstract class AbstractForLoop extends LabelledOtherBlock implements BreakableBlock,BuildableElMethod{
     private int conditionNb;
 
     protected AbstractForLoop(int _offset, OffsetStringInfo _lab) {

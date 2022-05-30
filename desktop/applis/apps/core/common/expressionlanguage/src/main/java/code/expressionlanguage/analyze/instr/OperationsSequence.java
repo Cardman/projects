@@ -135,7 +135,7 @@ public final class OperationsSequence {
             initArrayDim_ = true;
         }
         if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
-            errOpers(_string, afterLastPar_);
+            errOpers(afterLastPar_);
             return;
         }
         if (initArrayDim_) {
@@ -179,14 +179,14 @@ public final class OperationsSequence {
         countArrays/=2;
     }
 
-    private void errOpers(String _string, int _afterLastPar) {
-        if (!instance) {
+    private void errOpers(int _afterLastPar) {
+//        if (!instance) {
             operators.clear();
             operators.addEntry(_afterLastPar, "");
-            return;
-        }
-        values.addEntry(IndexConstants.FIRST_INDEX, _string);
-        constType = ConstType.ERROR;
+//            return;
+//        }
+//        values.addEntry(IndexConstants.FIRST_INDEX, _string);
+//        constType = ConstType.ERROR;
     }
 
     private void braceArr(String _string) {

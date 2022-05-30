@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 
-public final class DoWhileCondition extends ConditionBlock {
+public final class DoWhileCondition extends ConditionBlock implements CheckableTree {
 
     public DoWhileCondition(OffsetStringInfo _condition, int _offset) {
         super(_condition, _offset);

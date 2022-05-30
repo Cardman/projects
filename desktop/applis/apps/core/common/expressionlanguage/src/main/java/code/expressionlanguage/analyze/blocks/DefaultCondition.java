@@ -43,72 +43,72 @@ public final class DefaultCondition extends SwitchPartBlock {
                     _page.getKeyWords().getKeyWordSwitch());
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
-        } else {
-            boolean instance_;
-            String instanceTest_;
-            if (b_ instanceof SwitchBlock) {
-                SwitchBlock s_ = (SwitchBlock) b_;
-                setSwitchParent(s_);
-                instanceTest_ = s_.getInstanceTest();
-                instance_ = s_.isInstance();
-            } else {
-                SwitchMethodBlock s_ = (SwitchMethodBlock) b_;
-                setSwitchMethod(s_);
-                instanceTest_ = s_.getInstanceTest();
-                instance_ = s_.isInstance();
-            }
-            if (!instance_) {
-                AbsBk first_ = b_.getFirstChild();
-                while (first_ != this) {
-                    if (first_ instanceof DefaultCondition) {
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFile(getFile());
-                        un_.setIndexFile(getOffset());
-                        //key word len
-                        un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
-                                _page.getKeyWords().getKeyWordDefault(),
-                                _page.getKeyWords().getKeyWordSwitch());
-                        _page.addLocError(un_);
-                        addErrorBlock(un_.getBuiltError());
-                        break;
-                    }
-                    first_ = first_.getNextSibling();
-                }
-                return;
-            }
-            instanceTest = instanceTest_;
-            if (getNextSibling() != null){
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(getFile());
-                un_.setIndexFile(getOffset());
-                //key word len
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
-                        _page.getKeyWords().getKeyWordDefault(),
-                        _page.getKeyWords().getKeyWordSwitch());
-                _page.addLocError(un_);
-                addErrorBlock(un_.getBuiltError());
-            }
-            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
-            if (res_.isError()) {
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFile(getFile());
-                d_.setIndexFile(variableOffset);
-                //variable name
-                d_.setBuiltError(res_.getMessage());
-                _page.addLocError(d_);
-                nameErrors.add(d_.getBuiltError());
-                if (variableName.trim().isEmpty()) {
-                    addErrorBlock(d_.getBuiltError());
-                }
-                return;
-            }
-            AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(instanceTest_);
-            lv_.setRef(variableOffset);
-            lv_.setConstType(ConstType.FIX_VAR);
-            lv_.setFinalVariable(true);
-            _page.getInfosVars().put(variableName, lv_);
+            return;
         }
+        boolean instance_;
+        String instanceTest_;
+        if (b_ instanceof SwitchBlock) {
+            SwitchBlock s_ = (SwitchBlock) b_;
+            setSwitchParent(s_);
+            instanceTest_ = s_.getInstanceTest();
+            instance_ = s_.isInstance();
+        } else {
+            SwitchMethodBlock s_ = (SwitchMethodBlock) b_;
+            setSwitchMethod(s_);
+            instanceTest_ = s_.getInstanceTest();
+            instance_ = s_.isInstance();
+        }
+        if (!instance_) {
+            AbsBk first_ = b_.getFirstChild();
+            while (first_ != this) {
+                if (first_ instanceof DefaultCondition) {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFile(getFile());
+                    un_.setIndexFile(getOffset());
+                    //key word len
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
+                            _page.getKeyWords().getKeyWordDefault(),
+                            _page.getKeyWords().getKeyWordSwitch());
+                    _page.addLocError(un_);
+                    addErrorBlock(un_.getBuiltError());
+                    break;
+                }
+                first_ = first_.getNextSibling();
+            }
+            return;
+        }
+        instanceTest = instanceTest_;
+        if (getNextSibling() != null){
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(getFile());
+            un_.setIndexFile(getOffset());
+            //key word len
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
+                    _page.getKeyWords().getKeyWordDefault(),
+                    _page.getKeyWords().getKeyWordSwitch());
+            _page.addLocError(un_);
+            addErrorBlock(un_.getBuiltError());
+        }
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
+        if (res_.isError()) {
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
+            d_.setFile(getFile());
+            d_.setIndexFile(variableOffset);
+            //variable name
+            d_.setBuiltError(res_.getMessage());
+            _page.addLocError(d_);
+            nameErrors.add(d_.getBuiltError());
+            if (variableName.trim().isEmpty()) {
+                addErrorBlock(d_.getBuiltError());
+            }
+            return;
+        }
+        AnaLocalVariable lv_ = new AnaLocalVariable();
+        lv_.setClassName(instanceTest_);
+        lv_.setRef(variableOffset);
+        lv_.setConstType(ConstType.FIX_VAR);
+        lv_.setFinalVariable(true);
+        _page.getInfosVars().put(variableName, lv_);
     }
 
     @Override

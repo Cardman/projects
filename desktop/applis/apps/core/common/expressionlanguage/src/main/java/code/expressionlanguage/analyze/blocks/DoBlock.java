@@ -6,7 +6,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class DoBlock extends LabelledOtherBlock implements Loop {
+public final class DoBlock extends LabelledOtherBlock implements BreakableBlock,CheckableTree {
 
     public DoBlock(OffsetStringInfo _label, int _offset) {
         super(_offset,_label);

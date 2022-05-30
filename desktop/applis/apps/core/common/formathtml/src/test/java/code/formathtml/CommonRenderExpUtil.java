@@ -133,7 +133,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         ElRetrieverAnonymous.commonCheckQuick(0,analyzing_,res_);
         analyzing_.setCurrentParts(res_.getParts());
         analyzing_.setCurrentNumbers(res_.getNumbers());
-        return ElResolver.checkSyntax(res_.getAnalyzedString(), 0, analyzing_);
+        return ElResolver.checkSyntax(res_, 0, analyzing_);
     }
 
     protected static OperationNode getOperationNode(int _ind, byte _ch, MethodOperation _par, OperationsSequence _opTwo, DualNavigationContext _ctx) {

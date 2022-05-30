@@ -98,13 +98,16 @@ public final class BreakBlock extends AbruptBlock {
     }
     private boolean exitLoop(BreakableBlock _b) {
         if (label.isEmpty()) {
-            return _b instanceof Loop || _b instanceof SwitchBlock;
+            return isLoop((AbsBk) _b) || _b instanceof SwitchBlock;
         }
         if (StringUtil.quickEq(label, _b.getRealLabelInfo().getInfo())){
             labelOffsetRef = _b.getRealLabelInfo().getOffset();
             return true;
         }
         return false;
+    }
+    public static boolean isLoop(AbsBk _b) {
+        return _b instanceof AbstractForLoop || _b instanceof DoBlock || _b instanceof WhileCondition;
     }
 
     public int getLabelOffsetRef() {
