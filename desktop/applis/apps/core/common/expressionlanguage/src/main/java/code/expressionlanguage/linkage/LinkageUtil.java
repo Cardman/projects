@@ -3030,38 +3030,18 @@ public final class LinkageUtil {
     }
 
     private static void processNamedFct(VariablesOffsets _vars, int _sum, OperationNode _val) {
-        if (_val instanceof FctOperation||_val instanceof ChoiceFctOperation ||_val instanceof SuperFctOperation) {
-            if (_val instanceof FctOperation) {
-                _vars.addParts(export(((FctOperation)_val).getPartOffsets()));
-                int delta_ = ((FctOperation) _val).getDelta();
-                int l_ = ((FctOperation) _val).getLengthMethod();
-                int begFct_ = _sum + delta_ + _val.getIndexInEl();
-                if (((FctOperation)_val).isClonedMethod()&&_val.getErrs().isEmpty()) {
-                    _vars.addPart(new PartOffset(ExportCst.HEAD_BOLD, begFct_));
-                    _vars.addPart(new PartOffset(ExportCst.END_BOLD, begFct_ +l_));
-                } else {
-                    AnaTypeFct function_ = ((FctOperation) _val).getCallFctContent().getFunction();
-                    addParts(_vars, function_,
-                            begFct_, l_,
-                            _val.getErrs(),_val.getErrs());
-                }
-            }
-            if (_val instanceof ChoiceFctOperation) {
-                _vars.addParts(export(((ChoiceFctOperation)_val).getPartOffsets()));
-                int delta_ = ((ChoiceFctOperation) _val).getDelta();
-                int l_ = ((ChoiceFctOperation) _val).getLengthMethod();
-                AnaTypeFct function_ = ((ChoiceFctOperation) _val).getCallFctContent().getFunction();
+        if (_val instanceof AbsFctOperation) {
+            _vars.addParts(export(((AbsFctOperation)_val).getPartOffsets()));
+            int delta_ = ((AbsFctOperation) _val).getDelta();
+            int l_ = ((AbsFctOperation) _val).getLengthMethod();
+            int begFct_ = _sum + delta_ + _val.getIndexInEl();
+            if (((AbsFctOperation)_val).isClonedMethod()&&_val.getErrs().isEmpty()) {
+                _vars.addPart(new PartOffset(ExportCst.HEAD_BOLD, begFct_));
+                _vars.addPart(new PartOffset(ExportCst.END_BOLD, begFct_ +l_));
+            } else {
+                AnaTypeFct function_ = ((AbsFctOperation) _val).getCallFctContent().getFunction();
                 addParts(_vars, function_,
-                        _sum +delta_+ _val.getIndexInEl(),l_,
-                        _val.getErrs(),_val.getErrs());
-            }
-            if (_val instanceof SuperFctOperation) {
-                _vars.addParts(export(((SuperFctOperation)_val).getPartOffsets()));
-                int delta_ = ((SuperFctOperation) _val).getDelta();
-                int l_ = ((SuperFctOperation) _val).getLengthMethod();
-                AnaTypeFct function_ = ((SuperFctOperation) _val).getCallFctContent().getFunction();
-                addParts(_vars, function_,
-                        _sum +delta_+ _val.getIndexInEl(),l_,
+                        begFct_, l_,
                         _val.getErrs(),_val.getErrs());
             }
         }
