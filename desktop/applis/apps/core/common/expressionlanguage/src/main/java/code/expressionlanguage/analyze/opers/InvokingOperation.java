@@ -322,10 +322,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         CustList<Matching> cts_ = new CustList<Matching>();
         for (int c = 0; c < posSize_; c++) {
             cts_.addAllElts(
-                    AnaTemplates.tryInferMethodByOneArgList(_methodInfo.getClassName(), c, _methodInfo.getConstraints(),
+                    AnaTemplates.tryInferMethodByOneArgList(_methodInfo, c,
                             stCall_,
-                            _page.getCurrentConstraints().getCurrentConstraints(),
-                            positional_.get(c).getResultClass(), _methodInfo.getOriginalReturnType(), returnType_, _page)
+                            positional_.get(c).getResultClass(), returnType_, _page)
             );
         }
         for (int c = 0; c < nbNames_; c++) {
@@ -333,10 +332,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String namePr_ = calcName_.getName();
             int indLoc_ = StringUtil.indexOf(_methodInfo.getParametersNames(), namePr_);
             cts_.addAllElts(
-                    AnaTemplates.tryInferMethodByOneArgList(_methodInfo.getClassName(), indLoc_, _methodInfo.getConstraints(),
+                    AnaTemplates.tryInferMethodByOneArgList(_methodInfo, indLoc_,
                             stCall_,
-                            _page.getCurrentConstraints().getCurrentConstraints(),
-                            calcName_.getFirstChild().getResultClass(), _methodInfo.getOriginalReturnType(), returnType_, _page)
+                            calcName_.getFirstChild().getResultClass(), returnType_, _page)
             );
         }
         String infer_ = AnaTemplates.tryInferMethodByOneArg(cts_, stCall_,
@@ -638,10 +636,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     private static boolean excludeCandidateByReturnType(String _stCall, String _typeAff, AnalyzedPageEl _page, Mapping _mapping, MethodInfo _methodInfo) {
         boolean filter_ = true;
         if (_methodInfo.getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
-            CustList<Matching> cts_ = AnaTemplates.tryInferMethodByOneArgList(_methodInfo.getClassName(), -1, _methodInfo.getConstraints(),
+            CustList<Matching> cts_ = AnaTemplates.tryInferMethodByOneArgList(_methodInfo, -1,
                     _stCall,
-                    _page.getCurrentConstraints().getCurrentConstraints(),
-                    new AnaClassArgumentMatching(""), _methodInfo.getOriginalReturnType(), _typeAff, _page);
+                    new AnaClassArgumentMatching(""), _typeAff, _page);
             String infer_ = AnaTemplates.tryInferMethodByOneArg(cts_,
                     _stCall,
                     _page.getCurrentConstraints().getCurrentConstraints(),

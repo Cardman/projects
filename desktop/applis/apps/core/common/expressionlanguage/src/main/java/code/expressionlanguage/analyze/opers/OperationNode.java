@@ -1039,8 +1039,8 @@ public abstract class OperationNode {
             for (String o: _args) {
                 args_.add(new AnaClassArgumentMatching(o));
             }
-            String result_ = AnaTemplates.tryInferMethod(-1, _mloc.getClassName(), _mloc.toId(), _stCall,
-                    _page.getCurrentConstraints().getCurrentConstraints(), args_, _mloc.getOriginalReturnType(), _retType, _page);
+            String result_ = AnaTemplates.tryInferMethod(-1,_mloc, _stCall,
+                    args_, _retType, _page);
             if (result_.isEmpty()) {
                 return null;
             }
@@ -2410,8 +2410,8 @@ public abstract class OperationNode {
                     m_.add(e);
                     continue;
                 }
-                String result_ = AnaTemplates.tryInferMethod(-1, e.getClassName(), e.toId(), _stCall,
-                        _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _retType, _page);
+                String result_ = AnaTemplates.tryInferMethod(-1, e, _stCall,
+                        args_, _retType, _page);
                 if (!result_.isEmpty()) {
                     e.reformat(result_, _page);
                     m_.add(e);
@@ -2540,8 +2540,8 @@ public abstract class OperationNode {
                 for (OperationNode o : allOps_) {
                     args_.add(o.getResultClass());
                 }
-                String result_ = AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.toId(), _filter.getStaticCall(e.getClassName()),
-                        _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page);
+                String result_ = AnaTemplates.tryInferMethod(_varargOnly, e, _filter.getStaticCall(e.getClassName()),
+                        args_, _filter.getReturnType(), _page);
                 if (!result_.isEmpty()) {
                     e.reformat(result_, _page);
                     m_.add(e);

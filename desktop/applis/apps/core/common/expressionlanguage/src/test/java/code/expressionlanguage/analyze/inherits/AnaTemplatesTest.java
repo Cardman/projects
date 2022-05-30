@@ -4,11 +4,15 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.TokenCheckerContext;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.Matching;
 import code.expressionlanguage.common.MatchingEnum;
@@ -3837,16 +3841,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam<pkg.Ex>", -1, "pkg.ExParam", "pkg.ExParam", new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE), false, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3860,16 +3855,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExSuper<S>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam<pkg.Ex>", -1, "pkg.ExSuper", "pkg.ExParam", new StringList("pkg.ExParam<#S>"), new CustList<BoolVal>(BoolVal.FALSE), false, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3883,16 +3869,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExSuper<S>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExSuper<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam<pkg.Ex>", -1, "pkg.ExSuper", "pkg.ExParam", new StringList("pkg.ExSuper<#S>"), new CustList<BoolVal>(BoolVal.FALSE), false, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3908,16 +3885,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExSuper2<S2>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam2<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExSuper2<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam2<pkg.Ex>", -1, "pkg.ExSuper", "pkg.ExParam", new StringList("pkg.ExSuper2<#S>"), new CustList<BoolVal>(BoolVal.FALSE), false, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3930,16 +3898,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam<pkg.Ex>", -1, "pkg.ExParam", "pkg.ExParam", new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE), false, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3952,17 +3911,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        args_.add(new AnaClassArgumentMatching(""));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>",cont_.getAliasObject()), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod2("", -1, "pkg.ExParam", new StringList("pkg.ExParam<#T>", cont_.getAliasObject()), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), false, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3975,16 +3924,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam<pkg.Ex>", -1, "pkg.ExParam", "pkg.ExParam", new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE), true, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3997,16 +3937,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("[pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("[pkg.ExParam<pkg.Ex>", -1, "pkg.ExParam", "pkg.ExParam", new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE), true, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4020,16 +3951,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("[pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("[pkg.ExParam<pkg.Ex>", -1, "pkg.ExParam", "pkg.ExParam", new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE), true, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4042,17 +3964,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod2("pkg.ExParam<pkg.Ex>", -1, "pkg.ExParam", new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE), true, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4065,16 +3977,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam<pkg.Ex>", -1, "pkg.ExParam", "pkg.ExParam", new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4087,16 +3990,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam<pkg.Ex>", 0, "pkg.ExParam", "pkg.ExParam", new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4109,16 +4003,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1("pkg.ExParam<pkg.Ex>", 0, "pkg.ExParam", "pkg.ExParam", new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4131,17 +4016,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod2("pkg.ExParam<pkg.Ex>", -1, "pkg.ExParam", new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE), false, cont_);
         assertEq("",inf_);
     }
 
@@ -4154,15 +4029,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod3("pkg.ExParam", false, new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, "", "", cont_);
         assertEq("",inf_);
     }
 
@@ -4175,17 +4042,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(2, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod2("pkg.ExParam<pkg.Ex>", 2, "pkg.ExParam", new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4198,17 +4055,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod2("pkg.ExParam<pkg.Ex>", 1, "pkg.ExParam", new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, cont_);
         assertEq("",inf_);
     }
 
@@ -4221,17 +4068,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(1, "",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod2("pkg.ExParam<pkg.Ex>", 1, "", new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, cont_);
         assertEq("",inf_);
     }
 
@@ -4244,17 +4081,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod2("pkg.ExParam<pkg.Ex>", 1, "pkg.ExParam", new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, cont_);
         assertEq("",inf_);
     }
 
@@ -4267,17 +4094,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
-        String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
-                        true),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod2("pkg.ExParam<pkg.Ex>", 0, "pkg.ExParam", new StringList("pkg.ExParam<#T>", "pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE, BoolVal.FALSE), true, cont_);
         assertEq("",inf_);
     }
 
@@ -4294,18 +4111,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExCont<A>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching("pkg.ExParam2<#A>"));
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        vars_.addEntry("A",new StringList(cont_.getAliasObject()));
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExSuper2<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
-                        false),
-                "pkg.ExParam",
-                vars_,
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod4(cont_);
         assertEq("pkg.ExParam<#A>",inf_);
     }
 
@@ -4313,17 +4119,21 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void tryInferMethod22() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        args_.add(new AnaClassArgumentMatching(cont_.getAliasString()));
-        String inf_ = AnaTemplates.tryInferMethod(-1, cont_.getAliasString(),
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(cont_.getAliasString()), new CustList<BoolVal>(BoolVal.FALSE),
-                        false),
-                cont_.getAliasString(),
-                new StringMap<StringList>(),
-                args_,
-                "", "", cont_);
+        String inf_ = tryInferMethod1(cont_.getAliasString(), -1, cont_.getAliasString(), cont_.getAliasString(), new StringList(cont_.getAliasString()), new CustList<BoolVal>(BoolVal.FALSE), false, cont_);
         assertEq(cont_.getAliasString(),inf_);
+    }
+
+    @Test
+    public void tryInferMethod23() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = tryInferMethod5(cont_);
+        assertEq("",inf_);
     }
 
     @Test
@@ -4335,15 +4145,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<BoolVal>(),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_);
+        String inf_ = tryInferMethod3("pkg.ExParam", false, new StringList(), new CustList<BoolVal>(), false, "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4357,15 +4159,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExSuper<S>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<BoolVal>(),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "pkg.ExParam<#T>", "pkg.ExSuper<pkg.Ex>", cont_);
+        String inf_ = tryInferMethod3("pkg.ExParam", false, new StringList(), new CustList<BoolVal>(), false, "pkg.ExParam<#T>", "pkg.ExSuper<pkg.Ex>", cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4379,15 +4173,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExSuper<S>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<BoolVal>(),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "pkg.ExParam<#S>", "pkg.ExSuper<pkg.Ex>", cont_);
+        String inf_ = tryInferMethod3("pkg.ExSuper", false, new StringList(), new CustList<BoolVal>(), false, "pkg.ExParam<#S>", "pkg.ExSuper<pkg.Ex>", cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4403,15 +4189,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExSuper2<S2>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<BoolVal>(),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "pkg.ExParam2<#S>", "pkg.ExSuper2<pkg.Ex>", cont_);
+        String inf_ = tryInferMethod3("pkg.ExSuper", false, new StringList(), new CustList<BoolVal>(), false, "pkg.ExParam2<#S>", "pkg.ExSuper2<pkg.Ex>", cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4424,15 +4202,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<BoolVal>(),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "pkg.ExParam<#T>", "", cont_);
+        String inf_ = tryInferMethod3("pkg.ExParam", false, new StringList(), new CustList<BoolVal>(), false, "pkg.ExParam<#T>", "", cont_);
         assertEq("",inf_);
     }
 
@@ -4445,15 +4215,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
-        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
-                new MethodId(true, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<BoolVal>(),
-                        false),
-                "pkg.ExParam",
-                new StringMap<StringList>(),
-                args_,
-                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_);
+        String inf_ = tryInferMethod3("pkg.ExParam", true, new StringList(), new CustList<BoolVal>(), false, "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_);
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -4467,7 +4229,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
@@ -4486,7 +4248,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",-1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("$int"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
@@ -4505,7 +4267,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",1,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("$int"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
@@ -4524,7 +4286,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
                         false),
@@ -4543,7 +4305,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.Ex"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
@@ -4562,7 +4324,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(true, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.Ex"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
@@ -4581,7 +4343,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
                         false),
@@ -4600,7 +4362,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
@@ -4619,7 +4381,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
@@ -4638,7 +4400,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
                         true),
@@ -4657,7 +4419,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",1,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
@@ -4676,7 +4438,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
@@ -4695,7 +4457,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.TRUE,BoolVal.FALSE),
                         true),
@@ -4714,7 +4476,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
@@ -4733,7 +4495,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",-1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
@@ -4752,7 +4514,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("",-1,
+        String inf_ = tryInferMethodByOneArg("",-1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
@@ -4771,7 +4533,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T>{}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
+        String inf_ = tryInferMethodByOneArg("pkg.ExParam",-1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
                         new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
@@ -10786,6 +10548,124 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void isOkQualFields11() {
         assertTrue(!isOkQualFields("_._+_._"));
+    }
+
+    private String tryInferMethod1(String _className, int _varargOnly, String _owner, String _owner1, StringList _classNames, CustList<BoolVal> _refs, boolean _vararg, AnalyzedPageEl _cont) {
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching(_className));
+        _cont.getAvailableVariables().clear();
+        MethodInfo info_= new MethodInfo();
+         /*
+        AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.toId(),  ,
+                        _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page)*/
+        info_.setClassName(_owner);
+        info_.classMethodId(_owner,new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                _classNames, _refs,
+                _vararg));
+        info_.setOriginalReturnType("");
+        return AnaTemplates.tryInferMethod(_varargOnly,info_,
+                _owner1,
+                args_,
+                "", _cont);
+    }
+
+    private String tryInferMethod2(String _className, int _varargOnly, String _owner, StringList _ls, CustList<BoolVal> _refs, boolean _vararg, AnalyzedPageEl _cont) {
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching(_className));
+        _cont.getAvailableVariables().clear();
+        MethodInfo info_= new MethodInfo();
+         /*
+        AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.toId(),  ,
+                        _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page)*/
+        info_.setClassName(_owner);
+        info_.classMethodId(_owner,new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                _ls, _refs,
+                _vararg));
+        info_.setOriginalReturnType("");
+        return AnaTemplates.tryInferMethod(_varargOnly,info_,
+                _owner,
+                args_,
+                "", _cont);
+    }
+
+    private String tryInferMethod3(String _owner, boolean _retRef, StringList _classNames, CustList<BoolVal> _refs, boolean _vararg, String _returnCandidate, String _returnCandidate1, AnalyzedPageEl _cont) {
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        _cont.getAvailableVariables().clear();
+        MethodInfo info_= new MethodInfo();
+         /*
+        AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.toId(),  ,
+                        _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page)*/
+        info_.setClassName(_owner);
+        info_.classMethodId(_owner,new MethodId(_retRef, MethodAccessKind.STATIC_CALL, "",
+                _classNames, _refs,
+                _vararg));
+        info_.setOriginalReturnType(_returnCandidate);
+        return AnaTemplates.tryInferMethod(-1,info_,
+                "pkg.ExParam",
+                args_,
+                _returnCandidate1, _cont);
+    }
+
+    private String tryInferMethod4(AnalyzedPageEl _cont) {
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam2<#A>"));
+        _cont.getAvailableVariables().clear();
+        _cont.getAvailableVariables().addEntry("A",0);
+        MethodInfo info_= new MethodInfo();
+         /*
+        AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.toId(),  ,
+                        _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page)*/
+        info_.setClassName("pkg.ExSuper");
+        info_.classMethodId("pkg.ExSuper",new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                new StringList("pkg.ExSuper2<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
+                false));
+        info_.setOriginalReturnType("");
+        return AnaTemplates.tryInferMethod(-1,info_,
+                "pkg.ExParam",
+                args_,
+                "", _cont);
+    }
+
+    private String tryInferMethod5(AnalyzedPageEl _cont) {
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam2<#A>"));
+        _cont.getAvailableVariables().clear();
+        _cont.getAvailableVariables().addEntry("A",0);
+        MethodInfo info_= new MethodInfo();
+         /*
+        AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.toId(),  ,
+                        _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page)*/
+        info_.setClassName("");
+        info_.classMethodId("",new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                new StringList("pkg.ExSuper2<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
+                false));
+        info_.setOriginalReturnType("");
+        return AnaTemplates.tryInferMethod(-1,info_,
+                "pkg.ExParam",
+                args_,
+                "", _cont);
+    }
+
+    public static String tryInferMethodByOneArg(String _owner,
+                                                int _index, MethodId _candidate, String _staticCall, StringMap<StringList> _vars,
+                                                AnaClassArgumentMatching _arg,
+                                                String _returnCandidate, String _returnType,
+                                                AnalyzedPageEl _page) {
+        AnaGeneType sub_ = _page.getAnaGeneType(_staticCall);
+        CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(sub_);
+        int sizeVar_ = varTypes_.size();
+        assertTrue(_vars.isEmpty());
+        MethodInfo info_= new MethodInfo();
+         /*
+        AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.toId(),  ,
+                        _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page)*/
+        info_.setClassName(_owner);
+        info_.classMethodId(_owner,_candidate);
+        info_.setOriginalReturnType(_returnCandidate);
+        String genericString_ = AnaTemplates.getGeneNb(sub_);
+        CustList<Matching> all_ = AnaTemplates.tryInferMethodByOneArgList(info_, _index, _staticCall, _arg, _returnType, _page);
+        return AnaTemplates.processConstraints(genericString_,all_, sizeVar_,_vars,_page);
     }
 
     private static AnalyzedPageEl unfullValidateOverridingMethods(StringMap<String> _files) {

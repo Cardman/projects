@@ -158,7 +158,6 @@ public final class AnaInherits {
     }
 
     public static boolean isCorrectOrNumbers(Mapping _m, AnalyzedPageEl _page) {
-        AnaClassArgumentMatching a_ = _m.getArg();
         AnaClassArgumentMatching p_ = _m.getParam();
         if (_m.getParam().isVariable()) {
             return false;
@@ -166,14 +165,19 @@ public final class AnaInherits {
         if (_m.getArg().isVariable()) {
             return !AnaTypeUtil.isPrimitive(p_, _page);
         }
+        return isCorrect(transform(_m,_page), _page);
+    }
+    static Mapping transform(Mapping _m, AnalyzedPageEl _page) {
+        AnaClassArgumentMatching p_ = _m.getParam();
         if (AnaTypeUtil.isPrimitive(p_, _page)) {
             Mapping m_ = new Mapping();
+            AnaClassArgumentMatching a_ = _m.getArg();
             m_.setArg(AnaTypeUtil.toPrimitive(a_, _page.getPrimitiveTypes()));
             m_.setParam(p_);
             m_.setMapping(_m.getMapping());
-            return isCorrect(m_, _page);
+            return m_;
         }
-        return isCorrect(_m, _page);
+        return _m;
     }
 
     public static boolean isCorrect(Mapping _m, AnalyzedPageEl _page) {
