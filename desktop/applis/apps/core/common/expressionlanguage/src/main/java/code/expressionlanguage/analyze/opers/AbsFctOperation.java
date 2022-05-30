@@ -150,6 +150,21 @@ public abstract class AbsFctOperation extends InvokingOperation implements PreAn
         return tr_;
     }
 
+    protected void lookup(AnalyzedPageEl _page, String _methodName, StringList _bounds, boolean _superClass) {
+        String trimMeth_ = delta(_methodName);
+        ClassMethodIdAncestor feed_ = id(trimMeth_);
+        NameParametersFilter name_ = buildFilter(_page);
+        if (!name_.getParameterFilterErr().isEmpty()) {
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
+        if (isTrueFalseKeyWord(trimMeth_, _page)) {
+            trueFalse(_page,trimMeth_,true,feed_, _bounds,name_);
+            return;
+        }
+        std(_page,trimMeth_, _bounds,name_, new ScopeFilter(feed_, true, _superClass, isLvalue(), true, _page.getGlobalClass()));
+    }
+
     protected void trueFalse(AnalyzedPageEl _page, String _trMethod, boolean _staticChoiceMethod, ClassMethodIdAncestor _feedBase, StringList _bounds, NameParametersFilter _name) {
         errLeftValue = true;
         ClassMethodIdAncestor f_ = getTrueFalse(idBase(_feedBase), _page);
