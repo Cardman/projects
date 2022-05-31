@@ -983,8 +983,8 @@ public final class KeyWords {
     public String getKeyWordElse() {
         return keyWordElse;
     }
-    public void setKeyWordElse(String _keyWordElse) {
-        keyWordElse = _keyWordElse;
+    public void setKeyWordElse(String _k) {
+        keyWordElse = _k;
     }
     public String getKeyWordElseif() {
         return keyWordElseif;
@@ -1001,8 +1001,8 @@ public final class KeyWords {
     public String getKeyWordFinally() {
         return keyWordFinally;
     }
-    public void setKeyWordFinally(String _keyWordFinally) {
-        keyWordFinally = _keyWordFinally;
+    public void setKeyWordFinally(String _k) {
+        keyWordFinally = _k;
     }
     public String getKeyWordCatch() {
         return keyWordCatch;
