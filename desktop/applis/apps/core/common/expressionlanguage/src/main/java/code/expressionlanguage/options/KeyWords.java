@@ -102,6 +102,8 @@ public final class KeyWords {
     private static final String PROTECTED = "Protected";
     private static final String DEFAULT = "Default";
     private static final String PARENT = "Parent";
+    private static final String KW_IF = "$if";
+    private static final String KW_TRY = "$try";
     private String keyWordValue = "$value";
     private String keyWordVar = "$var";
     private String keyWordInterfaces = "$interfaces";
@@ -125,11 +127,11 @@ public final class KeyWords {
     private String keyWordWhile = "$while";
     private String keyWordDo = "$do";
 
-    private String keyWordIf = "$if";
+    private String keyWordIf = KW_IF;
     private String keyWordElse = "$else";
     private String keyWordElseif = "$elseif";
 
-    private String keyWordTry = "$try";
+    private String keyWordTry = KW_TRY;
     private String keyWordFinally = "$finally";
 
     private String keyWordCatch = "$catch";
@@ -204,31 +206,41 @@ public final class KeyWords {
     private String keyWordFalse = "$false";
     private String keyWordParent = "$parent";
     public void validateKeyWordContents(StringMap<String> _list, AnalyzedPageEl _page) {
-        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
-            String key_ = e.getKey();
-            String keyWordValue_ = e.getValue();
-            if (keyWordValue_.isEmpty()) {
+            checkKeyWord(_page, e);
+        }
+    }
+
+    private void checkKeyWord(AnalyzedPageEl _page, EntryCust<String, String> _e) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
+        String key_ = _e.getKey();
+        String keyWordValue_ = _e.getValue();
+        if (keyWordValue_.isEmpty()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
+            _page.addStdError(err_);
+            return;
+        }
+        checkKeyWordChars(_page, keyWordValue_);
+        if (StringExpUtil.isDigit(keyWordValue_.charAt(0))) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
+            _page.addStdError(err_);
+        }
+    }
+
+    private void checkKeyWordChars(AnalyzedPageEl _page, String _keyWordValue) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
+        for (char c: _keyWordValue.toCharArray()) {
+            if (!StringExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(), _keyWordValue,Character.toString(c)));
                 _page.addStdError(err_);
-                continue;
-            }
-            for (char c: keyWordValue_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
-                    _page.addStdError(err_);
-                    break;
-                }
-            }
-            if (StringExpUtil.isDigit(keyWordValue_.charAt(0))) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
-                _page.addStdError(err_);
+                break;
             }
         }
     }
+
     public void validateKeyWordDuplicates(StringMap<String> _list, AnalyzedPageEl _page) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
@@ -272,11 +284,31 @@ public final class KeyWords {
                 _page.addStdError(err_);
             }
         }
-        int size_ = keyWords_.size();
+        validateStarts(_page, keyWords_);
+        if (keyWordEscUnicode.isEmpty()) {
+           //already error
+           return;
+        }
+        char firstUnicode_ = keyWordEscUnicode.charAt(0);
+        for (String k: _list.values()) {
+            if (StringUtil.quickEq(k, keyWordEscUnicode) || k.isEmpty()) {
+                continue;
+            }
+            if (firstUnicode_ == k.charAt(0)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateStartingUni(),k,Character.toString(firstUnicode_)));
+                _page.addStdError(err_);
+            }
+        }
+    }
+
+    private void validateStarts(AnalyzedPageEl _page, StringList _keyWords) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
+        int size_ = _keyWords.size();
         for (int i = 0; i < size_; i++) {
-           String first_ = keyWords_.get(i);
+           String first_ = _keyWords.get(i);
            for (int j = 0; j < size_; j++) {
-               String second_ = keyWords_.get(j);
+               String second_ = _keyWords.get(j);
                if (StringUtil.quickEq(first_,second_)) {
                    //already error or i == j
                    continue;
@@ -293,26 +325,8 @@ public final class KeyWords {
                }
             }
         }
-        if (keyWordEscUnicode.isEmpty()) {
-           //already error
-           return;
-        }
-        char firstUnicode_ = keyWordEscUnicode.charAt(0);
-        for (String k: _list.values()) {
-            if (StringUtil.quickEq(k, keyWordEscUnicode)) {
-                continue;
-            }
-            if (k.isEmpty()) {
-               //already error
-               continue;
-            }
-            if (firstUnicode_ == k.charAt(0)) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateStartingUni(),k,Character.toString(firstUnicode_)));
-                _page.addStdError(err_);
-            }
-        }
     }
+
     public void validateNbWordContents(StringMap<String> _list, AnalyzedPageEl _page) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
@@ -951,8 +965,8 @@ public final class KeyWords {
     public String getKeyWordWhile() {
         return keyWordWhile;
     }
-    public void setKeyWordWhile(String _keyWordWhile) {
-        keyWordWhile = _keyWordWhile;
+    public void setKeyWordWhile(String _k) {
+        keyWordWhile = _k;
     }
     public String getKeyWordDo() {
         return keyWordDo;
@@ -963,8 +977,8 @@ public final class KeyWords {
     public String getKeyWordIf() {
         return keyWordIf;
     }
-    public void setKeyWordIf(String _keyWordIf) {
-        keyWordIf = _keyWordIf;
+    public void setKeyWordIf(String _k) {
+        keyWordIf = _k;
     }
     public String getKeyWordElse() {
         return keyWordElse;
@@ -981,8 +995,8 @@ public final class KeyWords {
     public String getKeyWordTry() {
         return keyWordTry;
     }
-    public void setKeyWordTry(String _keyWordTry) {
-        keyWordTry = _keyWordTry;
+    public void setKeyWordTry(String _k) {
+        keyWordTry = _k;
     }
     public String getKeyWordFinally() {
         return keyWordFinally;
@@ -999,8 +1013,8 @@ public final class KeyWords {
     public String getKeyWordSwitch() {
         return keyWordSwitch;
     }
-    public void setKeyWordSwitch(String _keyWordSwitch) {
-        keyWordSwitch = _keyWordSwitch;
+    public void setKeyWordSwitch(String _k) {
+        keyWordSwitch = _k;
     }
     public String getKeyWordCase() {
         return keyWordCase;
@@ -1026,8 +1040,8 @@ public final class KeyWords {
     public String getKeyWordReturn() {
         return keyWordReturn;
     }
-    public void setKeyWordReturn(String _keyWordReturn) {
-        keyWordReturn = _keyWordReturn;
+    public void setKeyWordReturn(String _k) {
+        keyWordReturn = _k;
     }
     public String getKeyWordThrow() {
         return keyWordThrow;
@@ -1038,8 +1052,8 @@ public final class KeyWords {
     public String getKeyWordBreak() {
         return keyWordBreak;
     }
-    public void setKeyWordBreak(String _keyWordBreak) {
-        keyWordBreak = _keyWordBreak;
+    public void setKeyWordBreak(String _k) {
+        keyWordBreak = _k;
     }
     public String getKeyWordContinue() {
         return keyWordContinue;

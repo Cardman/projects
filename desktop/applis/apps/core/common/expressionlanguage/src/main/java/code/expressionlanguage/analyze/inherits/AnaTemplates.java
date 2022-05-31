@@ -123,22 +123,19 @@ public final class AnaTemplates {
         int len_ = candidateId_.getParametersTypesLength();
         if (!candidateId_.isVararg() || _index <= -1) {
             if (_index > -1 && _index < len_) {
-                String wc_ = candidateId_.getParametersType(_index);
-                wc_ = AnaInherits.quickFormat(cType_, candidate_, wc_);
+                String wc_ = formatArg(_index, cType_, candidate_, candidateId_);
                 return getMatchingsArg(_index, _arg, _page, inh_, candidateId_, all_, wc_);
             }
             return all_;
         }
         if (_index < len_ - 1) {
-            String wc_ = candidateId_.getParametersType(_index);
-            wc_ = AnaInherits.quickFormat(cType_, candidate_, wc_);
+            String wc_ = formatArg(_index, cType_, candidate_, candidateId_);
             return getMatchingsArg(_index, _arg, _page, inh_, candidateId_, all_, wc_);
         }
         if (_index < len_) {
             int last_ = len_ - 1;
             Mapping map_ = new Mapping();
-            String wc_ = candidateId_.getParametersType(last_);
-            wc_ = AnaInherits.quickFormat(cType_, candidate_, wc_);
+            String wc_ = formatArg(last_, cType_, candidate_, candidateId_);
             if (candidateId_.getParametersRef(last_) == BoolVal.TRUE) {
                 map_.setArg(_arg);
                 map_.getMapping().putAllMap(inh_);
@@ -172,8 +169,7 @@ public final class AnaTemplates {
         Mapping map_ = new Mapping();
         map_.getMapping().putAllMap(inh_);
         map_.getMapping().putAllMap(_page.getCurrentConstraints().getCurrentConstraints());
-        String wc_ = candidateId_.getParametersType(last_);
-        wc_ = AnaInherits.quickFormat(cType_, candidate_, wc_);
+        String wc_ = formatArg(last_, cType_, candidate_, candidateId_);
         map_.setParam(wc_);
         map_.setArg(_arg);
         CustList<Matching> cts_ = inferOrImplicit(_arg, wc_, MatchingEnum.SUB, map_.getMapping(), _page);
@@ -250,8 +246,7 @@ public final class AnaTemplates {
         }
         CustList<Matching> all_ = retValue(_parame, _returnType, _page, inh_, cType_, candidate_, candidateId_);
         for (int i = IndexConstants.FIRST_INDEX; i < startOpt_; i++) {
-            String wc_ = candidateId_.getParametersType(i);
-            wc_ = AnaInherits.quickFormat(cType_,candidate_,wc_);
+            String wc_ = formatArg(i, cType_, candidate_, candidateId_);
             addConstraintsArg(_args, _page, inh_, candidateId_, all_, i, wc_);
         }
         if (checkOnlyDem_) {
@@ -259,8 +254,7 @@ public final class AnaTemplates {
         }
         int last_ = paramLen_ - 1;
         if (paramLen_ == allArgsLen_) {
-            String wc_ = candidateId_.getParametersType(last_);
-            wc_ = AnaInherits.quickFormat(cType_,candidate_,wc_);
+            String wc_ = formatArg(last_, cType_, candidate_, candidateId_);
             AnaClassArgumentMatching resArg_ = _args.last();
             Mapping map_ = new Mapping();
             if (candidateId_.getParametersRef(last_) == BoolVal.TRUE) {
@@ -295,12 +289,17 @@ public final class AnaTemplates {
         Mapping map_ = new Mapping();
         map_.getMapping().putAllMap(inh_);
         map_.getMapping().putAllMap(_page.getCurrentConstraints().getCurrentConstraints());
-        String wc_ = candidateId_.getParametersType(last_);
-        wc_ = AnaInherits.quickFormat(cType_,candidate_,wc_);
+        String wc_ = formatArg(last_, cType_, candidate_, candidateId_);
         strictArrVararg(_args, _page, startOpt_, all_, map_, wc_);
         //try infer here
         return processConstraints(genericString_, all_, sizeVar_,_page.getCurrentConstraints().getCurrentConstraints(), _page);
     }
+
+    private static String formatArg(int _index, AnaGeneType _cType, String _candidate, MethodId _candidateId) {
+        String wc_ = _candidateId.getParametersType(_index);
+        return AnaInherits.quickFormat(_cType, _candidate, wc_);
+    }
+
     private static boolean koInferNbArgs(int _varargOnly, Parametrable _parame,
                                          CustList<AnaClassArgumentMatching> _args) {
         int startOpt_ = _args.size();

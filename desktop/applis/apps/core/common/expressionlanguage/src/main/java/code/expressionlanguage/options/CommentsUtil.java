@@ -10,51 +10,7 @@ public final class CommentsUtil {
     }
     public static void checkAndUpdateComments(CustList<CommentDelimiters> _user,
                                               CustList<CommentDelimiters> _default) {
-        boolean ok_ = true;
-        for (CommentDelimiters c: _user) {
-            String begin_ = c.getBegin();
-            String tr_ = begin_.trim();
-            if (tr_.isEmpty()) {
-                ok_ = false;
-                break;
-            }
-            boolean spaces_ = containsSpace(begin_);
-            if (spaces_) {
-                ok_ = false;
-                break;
-            }
-            if (tr_.charAt(0) != '\\') {
-                ok_ = false;
-                break;
-            }
-        }
-        if (!ok_) {
-            _user.clear();
-            _user.addAllElts(_default);
-            return;
-        }
-        for (CommentDelimiters c: _user) {
-            String beginFirst_ = c.getBegin();
-            for (CommentDelimiters d: _user) {
-                String beginSecond_ = d.getBegin();
-                if (c == d) {
-                    //same comment
-                    continue;
-                }
-                if (beginFirst_.startsWith(beginSecond_)) {
-                    ok_ = false;
-                    break;
-                }
-                if (beginSecond_.startsWith(beginFirst_)) {
-                    ok_ = false;
-                    break;
-                }
-            }
-            if (!ok_) {
-                break;
-            }
-        }
-        if (!ok_) {
+        if (!okChars(_user) || !okStart(_user)) {
             _user.clear();
             _user.addAllElts(_default);
             return;
@@ -73,6 +29,37 @@ public final class CommentsUtil {
                 ends_.add("\n");
             }
         }
+    }
+
+    private static boolean okStart(CustList<CommentDelimiters> _user) {
+        boolean ok_ = true;
+        for (CommentDelimiters c: _user) {
+            String beginFirst_ = c.getBegin();
+            for (CommentDelimiters d: _user) {
+                String beginSecond_ = d.getBegin();
+                if (c != d && (beginFirst_.startsWith(beginSecond_) || beginSecond_.startsWith(beginFirst_))) {
+                    ok_ = false;
+                    break;
+                }
+            }
+            if (!ok_) {
+                break;
+            }
+        }
+        return ok_;
+    }
+
+    private static boolean okChars(CustList<CommentDelimiters> _user) {
+        boolean ok_ = true;
+        for (CommentDelimiters c: _user) {
+            String begin_ = c.getBegin();
+            String tr_ = begin_.trim();
+            if (tr_.isEmpty() || containsSpace(begin_) || tr_.charAt(0) != '\\') {
+                ok_ = false;
+                break;
+            }
+        }
+        return ok_;
     }
 
     private static boolean containsSpace(String _begin) {

@@ -34,22 +34,18 @@ public final class DefaultNameValidating implements AbstractNameValidating {
                 contained_ = true;
                 containedPrint_ = true;
                 endedById_ = true;
-                continue;
-            }
-            if (c == '.') {
+            } else if (c == '.') {
                 endedById_ = false;
                 containedPrint_ = true;
-                continue;
-            }
-            if (c == ' ' || c == 160) {
+            } else if (c == ' ' || c == 160) {
                 if (!containedPrint_) {
                     return false;
                 }
                 endedById_ = false;
-                continue;
+            } else {
+                hasForbbidenChars_ = true;
+                break;
             }
-            hasForbbidenChars_ = true;
-            break;
         }
         if (hasForbbidenChars_) {
             return false;
