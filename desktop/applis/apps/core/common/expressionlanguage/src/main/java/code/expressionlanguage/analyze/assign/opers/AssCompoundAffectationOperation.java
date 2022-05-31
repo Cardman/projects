@@ -43,12 +43,7 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
                 if (StringUtil.quickEq(str_, e.getKey()) && !e.getValue().isUnassignedAfter() && _a.isFinalLocalVar(str_)) {
                     //error
                     firstChild_.setRelativeOffsetPossibleAnalyzable(_page);
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(_page);
-                    un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                            str_);
-                    _page.getLocalizer().addError(un_);
+                    err(_page, str_);
                 }
                 variablesAfter_.put(e.getKey(), Assignment.assign(str_, e.getKey(),isBool_, e.getValue()));
             }
@@ -57,6 +52,15 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
         }
         vars_.getVariables().put(this, variablesAfter_);
         extracted(_ass, _page, vars_, firstChild_, lastChild_, fieldsAfter_, isBool_);
+    }
+
+    private void err(AnalyzedPageEl _page, String _str) {
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setFile(_page.getCurrentFile());
+        un_.setIndexFile(_page);
+        un_.buildError(_page.getAnalysisMessages().getFinalField(),
+                _str);
+        _page.getLocalizer().addError(un_);
     }
 
     private void extracted(AssBlock _ass, AnalyzedPageEl _page, AssignedVariables _varComp, AssOperationNode _chComp, AssOperationNode _lastComp, StringMap<Assignment> _lastFieldsComp, boolean _isBoolComp) {
@@ -69,12 +73,7 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
                 //error if final field
                 ClassField cl_ = cst_.getFieldId();
                 _chComp.setRelativeOffsetPossibleAnalyzable(_page);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page);
-                un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                        cl_.getFieldName());
-                _page.getLocalizer().addError(un_);
+                err(_page, cl_.getFieldName());
             }
         }
         if (fromCurClass_) {

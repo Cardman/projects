@@ -101,28 +101,28 @@ public final class AssForEach extends AssBracedStack implements AssBreakableBloc
         StringMap<AssignmentBefore> list_;
         list_ = first_.makeHypothesisVars(_anEl);
         int contLen_ = continues_.size();
-        CustList<StringMap<AssignmentBefore>> breakAss_;
-        breakAss_ = new CustList<StringMap<AssignmentBefore>>();
+        CustList<StringMap<AssignmentBefore>> breakAssFo_;
+        breakAssFo_ = new CustList<StringMap<AssignmentBefore>>();
         for (int j = 0; j < contLen_; j++) {
             AssContinueBlock br_ = continues_.get(j);
             AssignedVariables ass_ = idForEach_.getVal(br_);
             StringMap<AssignmentBefore> vars_ = ass_.getVariablesRootBefore();
-            breakAss_.add(vars_);
+            breakAssFo_.add(vars_);
         }
         if (last_.isCompleteNormallyGroup()) {
             AssignedVariables ass_ = idForEach_.getVal(last_);
             StringMap<SimpleAssignment> v_ = ass_.getVariablesRoot();
-            return(invalidateHypothesis(list_, v_, breakAss_));
+            return(invalidateHypothesis(list_, v_, breakAssFo_));
         } else {
-            return(invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_));
+            return(invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAssFo_));
         }
     }
 
     private static StringMap<AssignmentBefore> invalidateHypothesis(StringMap<AssignmentBefore> _loop, StringMap<SimpleAssignment> _last,
-                                                                    CustList<StringMap<AssignmentBefore>> _continuable) {
+                                                                    CustList<StringMap<AssignmentBefore>> _continuableFor) {
         StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
         for (EntryCust<String,AssignmentBefore> e: _loop.entryList()) {
-            extracted(_last, _continuable, out_, e);
+            extracted(_last, _continuableFor, out_, e);
         }
         return out_;
     }
