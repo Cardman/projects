@@ -49,32 +49,28 @@ public final class AssDoWhileCondition extends AssCondition {
         varsWhile_.getVariablesRoot().putAllMap(varsAfter_);
     }
 
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(AssignedVariablesBlock _anEl) {
+    public StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         AssDoBlock dBlock_ = (AssDoBlock) getPreviousSibling();
-        StringMap<AssignmentBefore> list_;
-        list_ = dBlock_.makeHypothesisFields(_anEl);
+        StringMap<AssignmentBefore> listSec_;
+        listSec_ = dBlock_.makeHypothesisFields(_anEl);
         StringMap<BooleanAssignment> end_;
         end_ = ((AssignedBooleanVariables) id_.getVal(this)).getFieldsRootAfter();
-        return invalidateHypothesis(list_, end_);
+        return invalidateHypothesis(listSec_, end_);
     }
-    protected StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(AssignedVariablesBlock _anEl) {
+    public StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
-        StringMap<AssignmentBefore> varsList_;
-        varsList_ = new StringMap<AssignmentBefore>();
         AssDoBlock dBlock_ = (AssDoBlock) getPreviousSibling();
-        StringMap<AssignmentBefore> list_;
-        list_ = dBlock_.makeHypothesisVars(_anEl);
-        int loopLen_ = list_.size();
+        StringMap<AssignmentBefore> listElt_;
+        listElt_ = dBlock_.makeHypothesisVars(_anEl);
 
         StringMap<BooleanAssignment> end_;
         end_ = ((AssignedBooleanVariables) id_.getVal(this)).getVariablesRootAfter();
-        StringMap<AssignmentBefore> cond_ = list_;
-        varsList_=invalidateHypothesis(cond_, end_);
+        StringMap<AssignmentBefore> cond_ = listElt_;
 
-        return varsList_;
+        return invalidateHypothesis(cond_, end_);
     }
 
     private static StringMap<AssignmentBefore> invalidateHypothesis(StringMap<AssignmentBefore> _loop, StringMap<BooleanAssignment> _last) {

@@ -25,7 +25,7 @@ public final class AssBlockUtil {
                 c_ = f_;
                 continue;
             }
-            while (true) {
+            while (c_ != null) {
                 AbsBk n_ = c_.getNextSibling();
                 if (n_ != null) {
                     AssBlock af_ = createAssBlock(_normal, _group, _lab, n_);
@@ -38,10 +38,10 @@ public final class AssBlockUtil {
                 BracedBlock p_ = c_.getParent();
                 if (p_ == _list) {
                     c_ = null;
-                    break;
+                } else {
+                    c_ = p_;
+                    ac_ = ac_.getParent();
                 }
-                c_ = p_;
-                ac_ = ac_.getParent();
             }
         }
         return m_;
@@ -63,23 +63,23 @@ public final class AssBlockUtil {
                 c_ = f_;
                 continue;
             }
-            while (true) {
+            while (c_ != null) {
                 AbsBk n_ = c_.getNextSibling();
                 if (n_ != null) {
                     AssBlock af_ = createAssSimBlock(_normal, _group, n_);
-                    AssBracedBlock par_ = ac_.getParent();
-                    par_.appendChild(af_);
+                    AssBracedBlock parSim_ = ac_.getParent();
+                    parSim_.appendChild(af_);
                     ac_ = af_;
                     c_ = n_;
                     break;
                 }
-                BracedBlock p_ = c_.getParent();
-                if (p_ == _list) {
+                BracedBlock pSim_ = c_.getParent();
+                if (pSim_ == _list) {
                     c_ = null;
-                    break;
+                } else {
+                    c_ = pSim_;
+                    ac_ = ac_.getParent();
                 }
-                c_ = p_;
-                ac_ = ac_.getParent();
             }
         }
         return m_;
@@ -127,6 +127,10 @@ public final class AssBlockUtil {
         if (_anaNode instanceof Throwing) {
             return new AssThrowing(get(_normal,_anaNode), get(_group,_anaNode), (Throwing) _anaNode);
         }
+        return getAssBlock(_normal, _group, _lab, _anaNode);
+    }
+
+    private static AssBlock getAssBlock(BlocksFlags _normal, BlocksFlags _group, BlocksLabels _lab, AbsBk _anaNode) {
         if (_anaNode instanceof DeclareVariable) {
             return new AssDeclareVariable(get(_normal,_anaNode), get(_group,_anaNode));
         }

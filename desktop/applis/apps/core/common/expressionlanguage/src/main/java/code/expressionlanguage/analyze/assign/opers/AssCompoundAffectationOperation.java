@@ -36,61 +36,58 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
         StringMap<Assignment> variablesAfter_ = new StringMap<Assignment>();
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_page);
+        StringMap<Assignment> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
         if (firstChild_ instanceof AssStdVariableOperation) {
-            StringMap<Assignment> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
             String str_ = ((AssStdVariableOperation)firstChild_).getVariableName();
             for (EntryCust<String, Assignment> e: variablesAfterLast_.entryList()) {
-                if (StringUtil.quickEq(str_, e.getKey())) {
-                    if (!e.getValue().isUnassignedAfter()) {
-                        if (_a.isFinalLocalVar(str_)) {
-                            //error
-                            firstChild_.setRelativeOffsetPossibleAnalyzable(_page);
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFile(_page.getCurrentFile());
-                            un_.setIndexFile(_page);
-                            un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                                    str_);
-                            _page.getLocalizer().addError(un_);
-                        }
-                    }
-                }
-                variablesAfter_.put(e.getKey(), Assignment.assign(str_, e.getKey(),isBool_, e.getValue()));
-            }
-        } else {
-            StringMap<Assignment> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
-            variablesAfter_.putAllMap(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
-        }
-        vars_.getVariables().put(this, variablesAfter_);
-        boolean fromCurClass_ = false;
-        if (firstChild_ instanceof AssSettableFieldOperation) {
-            AssSettableFieldOperation cst_ = (AssSettableFieldOperation)firstChild_;
-            fromCurClass_ = cst_.isFromCurrentClass(_page);
-            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            if (AssUtil.checkFinalField(_ass,cst_, fieldsAfterLast_, _page)) {
-                ClassField cl_ = cst_.getFieldId();
-                if (cst_.getFieldMetaInfo().isFinalField()) {
-                    //error if final field
+                if (StringUtil.quickEq(str_, e.getKey()) && !e.getValue().isUnassignedAfter() && _a.isFinalLocalVar(str_)) {
+                    //error
                     firstChild_.setRelativeOffsetPossibleAnalyzable(_page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(_page);
                     un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                            cl_.getFieldName());
+                            str_);
                     _page.getLocalizer().addError(un_);
                 }
+                variablesAfter_.put(e.getKey(), Assignment.assign(str_, e.getKey(),isBool_, e.getValue()));
+            }
+        } else {
+            variablesAfter_.putAllMap(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
+        }
+        vars_.getVariables().put(this, variablesAfter_);
+        extracted(_ass, _page, vars_, firstChild_, lastChild_, fieldsAfter_, isBool_);
+    }
+
+    private void extracted(AssBlock _ass, AnalyzedPageEl _page, AssignedVariables _varComp, AssOperationNode _chComp, AssOperationNode _lastComp, StringMap<Assignment> _lastFieldsComp, boolean _isBoolComp) {
+        boolean fromCurClass_ = false;
+        if (_chComp instanceof AssSettableFieldOperation) {
+            AssSettableFieldOperation cst_ = (AssSettableFieldOperation) _chComp;
+            fromCurClass_ = cst_.isFromCurrentClass(_page);
+            StringMap<Assignment> fieldsAfterLast_ = _varComp.getFields().getVal(_lastComp);
+            if (AssUtil.checkFinalField(_ass, cst_, fieldsAfterLast_, _page) && cst_.getFieldMetaInfo().isFinalField()) {
+                //error if final field
+                ClassField cl_ = cst_.getFieldId();
+                _chComp.setRelativeOffsetPossibleAnalyzable(_page);
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFile(_page.getCurrentFile());
+                un_.setIndexFile(_page);
+                un_.buildError(_page.getAnalysisMessages().getFinalField(),
+                        cl_.getFieldName());
+                _page.getLocalizer().addError(un_);
             }
         }
         if (fromCurClass_) {
-            AssSettableFieldOperation cst_ = (AssSettableFieldOperation)firstChild_;
+            AssSettableFieldOperation cst_ = (AssSettableFieldOperation) _chComp;
             ClassField cl_ = cst_.getFieldId();
-            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
+            StringMap<Assignment> fieldsAfterLast_ = _varComp.getFields().getVal(_lastComp);
             for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-                fieldsAfter_.put(e.getKey(), Assignment.assign(cl_.getFieldName(), e.getKey(),isBool_, e.getValue()));
+                _lastFieldsComp.put(e.getKey(), Assignment.assign(cl_.getFieldName(), e.getKey(), _isBoolComp, e.getValue()));
             }
         } else {
-            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            fieldsAfter_.putAllMap(AssignmentsUtil.assignGene(isBool_,fieldsAfterLast_));
+            StringMap<Assignment> fieldsAfterLast_ = _varComp.getFields().getVal(_lastComp);
+            _lastFieldsComp.putAllMap(AssignmentsUtil.assignGene(_isBoolComp,fieldsAfterLast_));
         }
-        vars_.getFields().put(this, fieldsAfter_);
+        _varComp.getFields().put(this, _lastFieldsComp);
     }
 }

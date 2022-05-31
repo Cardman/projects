@@ -15,9 +15,9 @@ import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class AssForEach extends AssBracedStack implements AssLoop, AssBuildableElMethod {
-    private String label;
-    private CustList<AssOperationNode> opList;
+public final class AssForEach extends AssBracedStack implements AssBreakableBlock, AssBuildableElMethod {
+    private final String label;
+    private final CustList<AssOperationNode> opList;
     AssForEach(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ForEachLoop _for) {
         super(_completeNormally, _completeNormallyGroup);
         label = _label;
@@ -42,35 +42,35 @@ public final class AssForEach extends AssBracedStack implements AssLoop, AssBuil
 
     @Override
     public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
-        AssignedVariablesDesc ass_ = new AssignedVariablesDesc(this,_anEl);
-        AssignedVariables varsWhile_ = ass_.getVarsWhile();
-        IdMap<AssBlock, AssignedVariables> allDesc_ = ass_.getAllDesc();
+        AssignedVariablesDesc assForEach_ = new AssignedVariablesDesc(this,_anEl);
+        AssignedVariables varsWhileForEach_ = assForEach_.getVarsWhile();
+        IdMap<AssBlock, AssignedVariables> allDesc_ = assForEach_.getAllDesc();
         StringMap<AssignmentBefore> fieldsHypot_;
         StringMap<AssignmentBefore> varsHypot_;
         fieldsHypot_ = buildAssListFieldAfterInvalHypot(_anEl);
-        varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
+        varsWhileForEach_.getFieldsRootBefore().putAllMap(fieldsHypot_);
         varsHypot_ = buildAssListLocVarInvalHypot(_anEl);
-        varsWhile_.getVariablesRootBefore().clear();
-        varsWhile_.getVariablesRootBefore().putAllMap(varsHypot_);
-        processFinalFields(allDesc_, varsWhile_, fieldsHypot_, _page);
-        processFinalVars(_anEl, allDesc_, varsWhile_, varsHypot_, _page);
+        varsWhileForEach_.getVariablesRootBefore().clear();
+        varsWhileForEach_.getVariablesRootBefore().putAllMap(varsHypot_);
+        processFinalFields(allDesc_, varsWhileForEach_, fieldsHypot_, _page);
+        processFinalVars(_anEl, allDesc_, varsWhileForEach_, varsHypot_, _page);
         StringMap<SimpleAssignment> fieldsAfter_;
         StringMap<SimpleAssignment> varsAfter_;
         fieldsAfter_= buildAssListFieldAfterLoop(_anEl);
-        varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
+        varsWhileForEach_.getFieldsRoot().putAllMap(fieldsAfter_);
         varsAfter_ = buildAssListLocVarAfterLoop(_anEl);
-        varsWhile_.getVariablesRoot().clear();
-        varsWhile_.getVariablesRoot().putAllMap(varsAfter_);
+        varsWhileForEach_.getVariablesRoot().clear();
+        varsWhileForEach_.getVariablesRoot().putAllMap(varsAfter_);
     }
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(AssignedVariablesBlock _anEl) {
+    public StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(AssignedVariablesBlock _anEl) {
         AssBlock first_ = getFirstChild();
         AssBlock last_ = first_;
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
         CustList<AssContinueBlock> continues_ = getContinuables();
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
+        IdMap<AssBlock, AssignedVariables> idForEach2_;
+        idForEach2_ = _anEl.getFinalVariables();
         StringMap<AssignmentBefore> list_;
         list_ = first_.makeHypothesisFields(_anEl);
         int contLen_ = continues_.size();
@@ -78,26 +78,26 @@ public final class AssForEach extends AssBracedStack implements AssLoop, AssBuil
         breakAss_ = new CustList<StringMap<AssignmentBefore>>();
         for (int j = 0; j < contLen_; j++) {
             AssContinueBlock br_ = continues_.get(j);
-            AssignedVariables ass_ = id_.getVal(br_);
-            StringMap<AssignmentBefore> vars_ = ass_.getFieldsRootBefore();
+            AssignedVariables assForEach_ = idForEach2_.getVal(br_);
+            StringMap<AssignmentBefore> vars_ = assForEach_.getFieldsRootBefore();
             breakAss_.add(vars_);
         }
         if (last_.isCompleteNormallyGroup()) {
-            AssignedVariables ass_ = id_.getVal(last_);
-            StringMap<SimpleAssignment> v_ = ass_.getFieldsRoot();
-            return invalidateHypothesis(list_, v_, breakAss_);
+            AssignedVariables ass_ = idForEach2_.getVal(last_);
+            StringMap<SimpleAssignment> vForEach_ = ass_.getFieldsRoot();
+            return invalidateHypothesis(list_, vForEach_, breakAss_);
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(AssignedVariablesBlock _anEl) {
+    public StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(AssignedVariablesBlock _anEl) {
         AssBlock first_ = getFirstChild();
         AssBlock last_ = first_;
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
         CustList<AssContinueBlock> continues_ = getContinuables();
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
+        IdMap<AssBlock, AssignedVariables> idForEach_;
+        idForEach_ = _anEl.getFinalVariables();
         StringMap<AssignmentBefore> list_;
         list_ = first_.makeHypothesisVars(_anEl);
         int contLen_ = continues_.size();
@@ -105,12 +105,12 @@ public final class AssForEach extends AssBracedStack implements AssLoop, AssBuil
         breakAss_ = new CustList<StringMap<AssignmentBefore>>();
         for (int j = 0; j < contLen_; j++) {
             AssContinueBlock br_ = continues_.get(j);
-            AssignedVariables ass_ = id_.getVal(br_);
+            AssignedVariables ass_ = idForEach_.getVal(br_);
             StringMap<AssignmentBefore> vars_ = ass_.getVariablesRootBefore();
             breakAss_.add(vars_);
         }
         if (last_.isCompleteNormallyGroup()) {
-            AssignedVariables ass_ = id_.getVal(last_);
+            AssignedVariables ass_ = idForEach_.getVal(last_);
             StringMap<SimpleAssignment> v_ = ass_.getVariablesRoot();
             return(invalidateHypothesis(list_, v_, breakAss_));
         } else {
@@ -122,27 +122,30 @@ public final class AssForEach extends AssBracedStack implements AssLoop, AssBuil
                                                                     CustList<StringMap<AssignmentBefore>> _continuable) {
         StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
         for (EntryCust<String,AssignmentBefore> e: _loop.entryList()) {
-            String key_ = e.getKey();
-            AssignmentBefore ass_ = e.getValue().copy();
-            for (StringMap<AssignmentBefore> c: _continuable) {
-                for (EntryCust<String,AssignmentBefore> f:c.entryList()) {
-                    if (!StringUtil.quickEq(f.getKey(), key_)) {
-                        continue;
-                    }
-                    if (!f.getValue().isUnassignedBefore()) {
-                        ass_.setUnassignedBefore(false);
-                    }
-                }
-            }
-            if (_last.contains(key_)) {
-                if (!_last.getVal(key_).isUnassignedAfter()) {
-                    ass_.setUnassignedBefore(false);
-                }
-            }
-            out_.put(key_, ass_);
+            extracted(_last, _continuable, out_, e);
         }
         return out_;
     }
+
+    private static void extracted(StringMap<SimpleAssignment> _last, CustList<StringMap<AssignmentBefore>> _continuable, StringMap<AssignmentBefore> _out, EntryCust<String, AssignmentBefore> _e) {
+        String keyForEach_ = _e.getKey();
+        AssignmentBefore assForEach2_ = _e.getValue().copy();
+        for (StringMap<AssignmentBefore> c: _continuable) {
+            for (EntryCust<String,AssignmentBefore> f:c.entryList()) {
+                if (!StringUtil.quickEq(f.getKey(), keyForEach_)) {
+                    continue;
+                }
+                if (!f.getValue().isUnassignedBefore()) {
+                    assForEach2_.setUnassignedBefore(false);
+                }
+            }
+        }
+        if (_last.contains(keyForEach_) && !_last.getVal(keyForEach_).isUnassignedAfter()) {
+            assForEach2_.setUnassignedBefore(false);
+        }
+        _out.put(keyForEach_, assForEach2_);
+    }
+
     @Override
     protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();

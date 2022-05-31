@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.blocks.ContinueBlock;
 import code.util.core.StringUtil;
 
 public final class AssContinueBlock extends AssAbruptBlock {
-    private String label;
+    private final String label;
     AssContinueBlock(boolean _completeNormally, boolean _completeNormallyGroup, ContinueBlock _c) {
         super(_completeNormally,_completeNormallyGroup);
         label = _c.getLabel();
@@ -13,15 +13,9 @@ public final class AssContinueBlock extends AssAbruptBlock {
         AssBracedBlock b_ = getParent();
         boolean childOfLoop_ = false;
         while (b_ != null) {
-            if (b_ instanceof AssLoop) {
-                if (label.isEmpty()) {
-                    childOfLoop_ = true;
-                    break;
-                }
-                if (StringUtil.quickEq(label, ((AssBreakableBlock)b_).getRealLabel())){
-                    childOfLoop_ = true;
-                    break;
-                }
+            if (isLoop(b_) && (label.isEmpty() || StringUtil.quickEq(label, ((AssBreakableBlock) b_).getRealLabel()))) {
+                childOfLoop_ = true;
+                break;
             }
             b_ = b_.getParent();
         }
@@ -29,5 +23,8 @@ public final class AssContinueBlock extends AssAbruptBlock {
             return null;
         }
         return b_;
+    }
+    static boolean isLoop(AssBracedBlock _b) {
+        return _b instanceof AssDoBlock||_b instanceof AssForEach||_b instanceof AssForIterativeLoop||_b instanceof AssForMutableIterativeLoop||_b instanceof AssWhileCondition;
     }
 }

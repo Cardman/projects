@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public abstract class AssBracedBlock extends AssBlock {
+public abstract class AssBracedBlock extends AssBlock implements AssBracedBlockInt {
 
     private AssBlock firstChild;
 

@@ -4,8 +4,8 @@ import code.expressionlanguage.analyze.assign.util.AssignedVariables;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.util.IdMap;
 
-public final class AssDoBlock extends AssBracedStack implements AssLoop {
-    private String label;
+public final class AssDoBlock extends AssBracedStack implements AssBreakableBlock {
+    private final String label;
     AssDoBlock(boolean _completeNormally, boolean _completeNormallyGroup, String _do) {
         super(_completeNormally, _completeNormallyGroup);
         label = _do;

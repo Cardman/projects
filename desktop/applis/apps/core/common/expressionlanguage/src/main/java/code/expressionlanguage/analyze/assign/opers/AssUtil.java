@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.assign.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
+import code.expressionlanguage.analyze.assign.blocks.AssForIterativeLoop;
 import code.expressionlanguage.analyze.assign.blocks.AssForMutableIterativeLoop;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
@@ -142,11 +143,24 @@ public final class AssUtil {
         getSortedDescNodes(_a,_root,_b, false, _page);
     }
     public static void getSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, boolean _callingThis, AnalyzedPageEl _page) {
-        _b.defaultAssignmentBefore(_a,_root, _page);
+        if (_b instanceof AssForIterativeLoop) {
+            ((AssForIterativeLoop)_b).defaultAssignmentBefore2(_a,_root);
+        } else if (_b instanceof AssForMutableIterativeLoop){
+            ((AssForMutableIterativeLoop)_b).defaultAssignmentBefore2(_a,_root, _page);
+        } else {
+            _b.defaultAssignmentBefore(_a,_root);
+        }
+
         AssOperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
-                _b.defaultAssignmentAfter(_a,_callingThis, _page);
+                if (_b instanceof AssForIterativeLoop) {
+                    ((AssForIterativeLoop)_b).defaultAssignmentAfter(_a);
+                } else if (_b instanceof AssForMutableIterativeLoop){
+                    ((AssForMutableIterativeLoop)_b).defaultAssignmentAfter(_a, _page);
+                } else {
+                    _b.defaultAssignmentAfter(_a,_callingThis);
+                }
                 break;
             }
             c_ = getAnalyzedNext(_a,_b,c_, _root, _page);

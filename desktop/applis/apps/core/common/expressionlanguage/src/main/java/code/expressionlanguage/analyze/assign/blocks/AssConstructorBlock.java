@@ -20,20 +20,19 @@ public final class AssConstructorBlock extends AssNamedFunctionBlock {
     @Override
     public void setAssignmentAfterCall(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
         setAssignmentAfter(_anEl, _page);
-        IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
+        IdMap<AssBlock, AssignedVariables> idCtor_ = _anEl.getFinalVariables();
         for (EntryCust<AssReturnMethod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
-                checkAssignments(f,false, _page);
+                checkAssignmentsCtor(f,false, _page);
             }
         }
+        AssignedVariables assTarCtor_ = idCtor_.getVal(this);
         if (isCompleteNormally()) {
-            AssignedVariables assTar_ = id_.getVal(this);
-            for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
-                checkAssignments(f,true, _page);
+            for (EntryCust<String, SimpleAssignment> f: assTarCtor_.getFieldsRoot().entryList()) {
+                checkAssignmentsCtor(f,true, _page);
             }
         } else {
-            AssignedVariables assTar_ = id_.getVal(this);
-            for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
+            for (EntryCust<String, SimpleAssignment> f: assTarCtor_.getFieldsRoot().entryList()) {
                 String name_ = f.getKey();
                 SimpleAssignment a_ = f.getValue();
                 if (a_.isAssignedAfter()) {
@@ -43,7 +42,7 @@ public final class AssConstructorBlock extends AssNamedFunctionBlock {
         }
     }
 
-    private void checkAssignments(EntryCust<String, SimpleAssignment> _pair, boolean _add, AnalyzedPageEl _page) {
+    private void checkAssignmentsCtor(EntryCust<String, SimpleAssignment> _pair, boolean _add, AnalyzedPageEl _page) {
         String cl_ = StringExpUtil.getIdFromAllTypes(_page.getGlobalClass());
         String name_ = _pair.getKey();
         ClassField key_ = new ClassField(cl_, name_);

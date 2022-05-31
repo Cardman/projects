@@ -17,11 +17,7 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
             return;
         }
         while (true) {
-            if (en_ == this) {
-                setAssignmentBeforeCall(_prev, _a);
-            } else {
-                en_.setAssignmentBefore(_a);
-            }
+            begin(_prev, _a, en_);
             AssBlock n_ = en_.getFirstChild();
             if (en_ != this) {
                 tryBuildExpressionLanguage(en_, _a, _page);
@@ -30,7 +26,7 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
                 en_ = n_;
                 continue;
             }
-            en_.setAssignmentAfter(_a, _page);
+            setAssignmentAfter(en_, _a, _page);
             while (true) {
                 n_ = en_.getNextSibling();
                 if (n_ != null) {
@@ -43,22 +39,39 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
                     setAssignmentAfterCall(_a, _page);
                     return;
                 }
-                if (par_ instanceof AssForMutableIterativeLoop) {
-                    ((AssForMutableIterativeLoop)par_).buildIncrementPart(_a, _page);
-                }
-                par_.setAssignmentAfter(_a, _page);
+                mutable(_a, _page, par_);
+                setAssignmentAfter(par_, _a, _page);
                 en_ = par_;
             }
         }
     }
 
-    private boolean tryBuildExpressionLanguage(AssBlock _en, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+    private void mutable(AssignedVariablesBlock _a, AnalyzedPageEl _page, AssBracedBlock _par) {
+        if (_par instanceof AssForMutableIterativeLoop) {
+            ((AssForMutableIterativeLoop) _par).buildIncrementPart(_a, _page);
+        }
+    }
+
+    private void begin(AssBlock _prev, AssignedVariablesBlock _a, AssBlock _en) {
+        if (_en == this) {
+            setAssignmentBeforeCall(_prev, _a);
+        } else {
+            _en.setAssignmentBefore(_a);
+        }
+    }
+
+    private static void setAssignmentAfter(AssBlock _en, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        if (_en instanceof AssBracedBlockInt) {
+            ((AssBracedBlockInt)_en).setAssignmentAfter(_a, _page);
+        }
+    }
+
+    private void tryBuildExpressionLanguage(AssBlock _en, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         if (_en instanceof AssBuildableElMethod) {
             ((AssBuildableElMethod)_en).buildExpressionLanguage(_a, _page);
         } else {
             _en.buildEmptyEl(_a);
         }
-        return true;
     }
     public abstract void setAssignmentBeforeCall(AssBlock _prev, AssignedVariablesBlock _anEl);
     public abstract void setAssignmentAfterCall(AssignedVariablesBlock _anEl, AnalyzedPageEl _page);

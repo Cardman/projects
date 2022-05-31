@@ -9,7 +9,7 @@ import code.util.IdMap;
 import code.util.StringMap;
 
 public final class AssElseCondition extends AssBracedStack implements AssBreakableBlock {
-    private String label;
+    private final String label;
     AssElseCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label) {
         super(_completeNormally, _completeNormallyGroup);
         label = _label;
@@ -24,27 +24,27 @@ public final class AssElseCondition extends AssBracedStack implements AssBreakab
     public void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page) {
         super.setAssignmentAfter(_anEl, _page);
         AssBlock pBlock_ = getPreviousSibling();
-        CustList<AssBlock> prev_ = new CustList<AssBlock>();
-        prev_.add(this);
+        CustList<AssBlock> prevElse_ = new CustList<AssBlock>();
+        prevElse_.add(this);
         while (!(pBlock_ instanceof AssIfCondition)) {
             if (pBlock_ == null) {
                 break;
             }
             if (pBlock_ instanceof AssElseIfCondition) {
-                prev_.add(pBlock_);
+                prevElse_.add(pBlock_);
             }
             pBlock_ = pBlock_.getPreviousSibling();
         }
         if (pBlock_ != null) {
-            prev_.add(pBlock_);
+            prevElse_.add(pBlock_);
         }
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         StringMap<SimpleAssignment> afterVars_;
-        after_ = buildAssFieldsAfterIf(false, prev_, _anEl);
+        after_ = buildAssFieldsAfterIf(false, prevElse_, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterIf(false, prev_, _anEl);
+        afterVars_ = buildAssVariablesAfterIf(false, prevElse_, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().putAllMap(afterVars_);
     }

@@ -22,15 +22,15 @@ public final class AssOrOperation extends AssMultMethodOperation {
 
     @Override
     public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
-        AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
-        CustList<AssOperationNode> children_ = getChildrenNodes();
-        AssOperationNode last_ = children_.last();
-        AssOperationNode prev_ = children_.get(children_.size() - 2);
-        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
-        StringMap<Assignment> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        StringMap<Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(prev_);
-        StringMap<Assignment> variablesAfterBefLast_ = vars_.getVariables().getVal(prev_);
-        vars_.getFields().put(this, AssignmentsUtil.or(fieldsAfterLast_,fieldsAfterBefLast_));
-        vars_.getVariables().put(this, AssignmentsUtil.or(variablesAfterLast_,variablesAfterBefLast_));
+        AssignedVariables varsOr_ = _a.getFinalVariables().getVal(_ass);
+        CustList<AssOperationNode> childrenOr_ = getChildrenNodes();
+        AssOperationNode last_ = childrenOr_.last();
+        AssOperationNode prev_ = childrenOr_.get(childrenOr_.size() - 2);
+        StringMap<Assignment> fieldsAfterLast_ = varsOr_.getFields().getVal(last_);
+        StringMap<Assignment> variablesAfterLast_ = varsOr_.getVariables().getVal(last_);
+        StringMap<Assignment> fieldsAfterBefLast_ = varsOr_.getFields().getVal(prev_);
+        StringMap<Assignment> variablesAfterBefLast_ = varsOr_.getVariables().getVal(prev_);
+        varsOr_.getFields().put(this, AssignmentsUtil.or(fieldsAfterLast_,fieldsAfterBefLast_));
+        varsOr_.getVariables().put(this, AssignmentsUtil.or(variablesAfterLast_,variablesAfterBefLast_));
     }
 }

@@ -10,8 +10,8 @@ import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class AssWhileCondition extends AssCondition implements AssLoop {
-    private String label;
+public final class AssWhileCondition extends AssCondition implements AssBreakableBlock {
+    private final String label;
     AssWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label,WhileCondition _c) {
         super(_completeNormally, _completeNormallyGroup, _c);
         label = _label;
@@ -45,7 +45,7 @@ public final class AssWhileCondition extends AssCondition implements AssLoop {
         varsWhile_.getVariablesRoot().putAllMap(varsAfter_);
     }
 
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(AssignedVariablesBlock _anEl) {
+    public StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -71,7 +71,7 @@ public final class AssWhileCondition extends AssCondition implements AssLoop {
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(AssignedVariablesBlock _anEl) {
+    public StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -106,27 +106,30 @@ public final class AssWhileCondition extends AssCondition implements AssLoop {
                                                                     CustList<StringMap<AssignmentBefore>> _continuable) {
         StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
         for (EntryCust<String,AssignmentBefore> e: _loop.entryList()) {
-            String key_ = e.getKey();
-            AssignmentBefore ass_ = e.getValue().copy();
-            for (StringMap<AssignmentBefore> c: _continuable) {
-                for (EntryCust<String,AssignmentBefore> f: c.entryList()) {
-                    if (!StringUtil.quickEq(f.getKey(),key_)) {
-                        continue;
-                    }
-                    if (!f.getValue().isUnassignedBefore()) {
-                        ass_.setUnassignedBefore(false);
-                    }
-                }
-            }
-            if (_last.contains(key_)) {
-                if (!_last.getVal(key_).isUnassignedAfter()) {
-                    ass_.setUnassignedBefore(false);
-                }
-            }
-            out_.put(key_, ass_);
+            extracted(_last, _continuable, out_, e);
         }
         return out_;
     }
+
+    private static void extracted(StringMap<SimpleAssignment> _last, CustList<StringMap<AssignmentBefore>> _continuable, StringMap<AssignmentBefore> _out, EntryCust<String, AssignmentBefore> _e) {
+        String key_ = _e.getKey();
+        AssignmentBefore ass_ = _e.getValue().copy();
+        for (StringMap<AssignmentBefore> c: _continuable) {
+            for (EntryCust<String,AssignmentBefore> f: c.entryList()) {
+                if (!StringUtil.quickEq(f.getKey(),key_)) {
+                    continue;
+                }
+                if (!f.getValue().isUnassignedBefore()) {
+                    ass_.setUnassignedBefore(false);
+                }
+            }
+        }
+        if (_last.contains(key_) && !_last.getVal(key_).isUnassignedAfter()) {
+            ass_.setUnassignedBefore(false);
+        }
+        _out.put(key_, ass_);
+    }
+
     @Override
     public String getRealLabel() {
         return label;

@@ -1,15 +1,11 @@
 package code.expressionlanguage.analyze.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.assign.opers.AssOperationNode;
-import code.expressionlanguage.analyze.assign.util.AssignedVariables;
-import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.analyze.assign.util.Assignment;
-import code.expressionlanguage.analyze.assign.util.AssignmentBefore;
-import code.expressionlanguage.analyze.assign.util.AssignmentsUtil;
-import code.expressionlanguage.analyze.assign.util.SimpleAssignment;
-import code.util.*;
+import code.expressionlanguage.analyze.assign.util.*;
+import code.util.EntryCust;
+import code.util.IdList;
+import code.util.IdMap;
+import code.util.StringMap;
 
 public abstract class AssBlock {
     private AssBracedBlock parent;
@@ -17,8 +13,8 @@ public abstract class AssBlock {
     private AssBlock nextSibling;
 
     private AssBlock previousSibling;
-    private boolean completeNormally;
-    private boolean completeNormallyGroup;
+    private final boolean completeNormally;
+    private final boolean completeNormallyGroup;
     AssBlock(boolean _completeNormally,boolean _completeNormallyGroup) {
         completeNormally = _completeNormally;
         completeNormallyGroup = _completeNormallyGroup;
@@ -35,12 +31,12 @@ public abstract class AssBlock {
         ass_.getFieldsRoot().putAllMap(AssignmentsUtil.assignAfterClassic(ass_.getFieldsRootBefore()));
         ass_.getVariablesRoot().putAllMap(AssignmentsUtil.assignAfterClassic(ass_.getVariablesRootBefore()));
     }
-    public void defaultAssignmentBefore(AssignedVariablesBlock _a, AssOperationNode _root, AnalyzedPageEl _page) {
+    public void defaultAssignmentBefore(AssignedVariablesBlock _a, AssOperationNode _root) {
         AssignedVariables vars_ =_a.getFinalVariables().getVal(this);
         vars_.getFieldsBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
         vars_.getVariablesBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
     }
-    public void defaultAssignmentAfter(AssignedVariablesBlock _a, boolean _callingThis, AnalyzedPageEl _page) {
+    public void defaultAssignmentAfter(AssignedVariablesBlock _a, boolean _callingThis) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         vars_.getFieldsRoot().putAllMap(AssignmentsUtil.assignClassic(res_));
@@ -73,7 +69,6 @@ public abstract class AssBlock {
             prev_.setAssignmentBeforeNextSibling(_a);
         }
     }
-    public abstract void setAssignmentAfter(AssignedVariablesBlock _anEl, AnalyzedPageEl _page);
     protected StringMap<AssignmentBefore> makeHypothesisFields(AssignedVariablesBlock _a) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         return AssignmentsUtil.getHypoAssignmentBefore(vars_.getFieldsRootBefore());

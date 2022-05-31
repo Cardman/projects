@@ -14,8 +14,8 @@ import code.util.IdMap;
 import code.util.StringMap;
 
 public final class AssElementBlock extends AssLeaf implements AssInfoBlock {
-    private String fieldName;
-    private CustList<AssOperationNode> opList;
+    private final String fieldName;
+    private final CustList<AssOperationNode> opList;
 
     public AssElementBlock(InnerTypeOrElement _e) {
         super(true, true);
@@ -25,18 +25,18 @@ public final class AssElementBlock extends AssLeaf implements AssInfoBlock {
 
     @Override
     public void setAssignmentBeforeAsLeaf(AssignedVariablesBlock _a, AssBlock _b) {
-        AssignedVariables ass_;
+        AssignedVariables assElt_;
         if (_b == null) {
-            ass_ = _a.getFinalVariablesGlobal();
-            IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
-            id_.put(this, ass_);
+            assElt_ = _a.getFinalVariablesGlobal();
+            IdMap<AssBlock, AssignedVariables> idElt_ = _a.getFinalVariables();
+            idElt_.put(this, assElt_);
         } else {
             IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
-            AssignedVariables parAss_ = id_.getVal(_b);
-            AssignedVariables assBl_ = buildNewAssignedVariable();
-            assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
-            assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
-            id_.put(this, assBl_);
+            AssignedVariables parAssElt_ = id_.getVal(_b);
+            AssignedVariables assBlElt_ = buildNewAssignedVariable();
+            assBlElt_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAssElt_.getFieldsRoot()));
+            assBlElt_.getFieldsRoot().putAllMap(parAssElt_.getFieldsRoot());
+            id_.put(this, assBlElt_);
         }
     }
 
