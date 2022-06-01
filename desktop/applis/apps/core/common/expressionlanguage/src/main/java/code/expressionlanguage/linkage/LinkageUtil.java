@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFctPair;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
@@ -778,21 +779,7 @@ public final class LinkageUtil {
         if (_vars.goesToProcess()) {
             return;
         }
-        AnaTypeFct function_ = _cond.getFunction();
-        if (function_ != null) {
-            StringList list_ = new StringList();
-            addParts(_vars, function_,_cond.getTestOffset(),1, list_,list_);
-        }
-        if (_vars.isImplicit()) {
-            function_ = _cond.getFunctionImpl();
-            int off_ = _cond.getTestOffset();
-            if (function_ != null) {
-                StringList list_ = new StringList();
-                addParts(_vars, function_,off_,1, list_,list_);
-            }
-        }
-
-
+        processTestCondition(_vars, _cond.getFunctions());
     }
     private static void processForMutableIterativeLoopReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, Coverage _cov) {
         OperationNode rootExp_ = _cond.getRootExp();
@@ -834,7 +821,7 @@ public final class LinkageUtil {
         }
         _vars.getLastStackElt().setIndexLoop(0);
         refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());
-        processTestCondition(_vars,_cond);
+        processTestCondition(_vars, _cond.getFunctions());
     }
 
     private static void headForMutableReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, Coverage _cov, OperationNode _rootExp) {
@@ -884,7 +871,7 @@ public final class LinkageUtil {
         }
         _vars.getLastStackElt().setIndexLoop(0);
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
-        processTestCondition(_vars,_cond);
+        processTestCondition(_vars, _cond.getFunctions());
     }
 
     private static void headForMutableError(VariablesOffsets _vars, ForMutableIterativeLoop _cond) {
@@ -893,16 +880,16 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processTestCondition(VariablesOffsets _vars, ForMutableIterativeLoop _cond) {
-        AnaTypeFct function_ = _cond.getFunction();
+    private static void processTestCondition(VariablesOffsets _vars, AnaTypeFctPair _functions) {
+        AnaTypeFct function_ = _functions.getFunction();
         if (function_ != null) {
             StringList list_ = new StringList();
-            addParts(_vars, function_,_cond.getTestOffset(),1, list_,list_);
+            addParts(_vars, function_, _functions.getTestOffset(),1, list_,list_);
         }
-        function_ = _cond.getFunctionImpl();
+        function_ = _functions.getFunctionImpl();
         if (_vars.isImplicit()&&function_ != null) {
             StringList list_ = new StringList();
-            addParts(_vars, function_,_cond.getTestOffset(),1, list_,list_);
+            addParts(_vars, function_, _functions.getTestOffset(),1, list_,list_);
         }
     }
     private static void appendVars(VariablesOffsets _vars, ForMutableIterativeLoop _cond) {

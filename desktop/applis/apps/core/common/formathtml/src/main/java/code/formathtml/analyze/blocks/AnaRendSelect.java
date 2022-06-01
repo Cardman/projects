@@ -26,7 +26,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBuildEl {
+public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBuildEl,AnaRendInputInt {
     private OperationNode rootRead;
     private OperationNode rootValue;
     private final ResultExpression resultExpressionMap = new ResultExpression();
@@ -88,32 +88,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverter = classMethodIdReturn_;
-            String check_ = ResultText.check(_page, offConvValue_, classMethodIdReturn_);
-            StringList names_ = resultInput.getOpsValueRoot().getResultClass().getNames();
-            if (!resultInput.getOpsValueRoot().getResultClass().isVariable()) {
-                IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(names_,_page);
-                StringList candidates_ = it_.getClassName();
-                if (!candidates_.onlyOneElt()) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(offConvValue_);
-                    badEl_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(candidates_,AND_ERR));
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
-                Mapping m_ = new Mapping();
-                m_.setArg(check_);
-                m_.setParam(resultInput.getOpsReadRoot().getResultClass());
-                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(getOffset());
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            check_,
-                            StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
-            }
+            checkMultiple(_anaDoc,_page, classMethodIdReturn_);
         } else if (rootRead != null){
             Mapping m_ = new Mapping();
             m_.setArg(resultInput.getOpsReadRoot().getResultClass());
@@ -127,43 +102,9 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                             _anaDoc.getRendKeyWords().getAttrConvertValue());
                     AnalyzingDoc.addError(badEl_, _page);
                 }
-                String string_ = _page.getAliasString();
-                int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
-                _page.setSumOffset(offConvValue_);
-                _page.zeroOffset();
-                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
-                rootConverter = classMethodIdReturn_;
-                String check_ = ResultText.check(_page, offConvValue_, classMethodIdReturn_);
-                m_.setArg(check_);
-                m_.setParam(resultInput.getOpsReadRoot().getResultClass());
-                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(offConvValue_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            check_,
-                            StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
+                checkConverter(_anaDoc, _page, converterValue_, m_);
             } else if (StringExpUtil.isDollarWord(converterValue_.trim())) {
-                String string_ = _page.getAliasString();
-                int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
-                _page.setSumOffset(offConvValue_);
-                _page.zeroOffset();
-                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
-                rootConverter = classMethodIdReturn_;
-                String check_ = ResultText.check(_page, offConvValue_, classMethodIdReturn_);
-                m_.setArg(check_);
-                m_.setParam(resultInput.getOpsReadRoot().getResultClass());
-                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(offConvValue_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            check_,
-                            StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
+                checkConverter(_anaDoc, _page, converterValue_, m_);
             }
         }
         String converterField_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrConvertField());
@@ -174,19 +115,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverterField = classMethodIdReturn_;
-            String check_ = ResultText.check(_page, offConvValue_, classMethodIdReturn_);
-            Mapping m_ = new Mapping();
-            m_.setArg(check_);
-            m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFile(_page.getCurrentFile());
-                badEl_.setIndexFile(offConvValue_);
-                badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        check_,
-                        _anaDoc.getAliasCharSequence());
-                AnalyzingDoc.addError(badEl_, _page);
-            }
+            checkCharSeq(_anaDoc,_page,offConvValue_,classMethodIdReturn_);
         }
         String converterFieldValue_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrConvertFieldValue());
         if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
@@ -196,20 +125,47 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterFieldValue_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverterFieldValue = classMethodIdReturn_;
-            String check_ = ResultText.check(_page, offConvValue_, classMethodIdReturn_);
-            Mapping m_ = new Mapping();
-            m_.setArg(check_);
-            m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
+            checkCharSeq(_anaDoc,_page,offConvValue_,classMethodIdReturn_);
+        }
+        defValue(_anaDoc, _page);
+        for (EntryCust<String,ResultExpression> e: attributes.entryList()) {
+            _page.setSumOffset(e.getValue().getSumOffset());
+            _page.zeroOffset();
+            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
+        }
+    }
+
+    private void checkMultiple(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ClassMethodIdReturn _id) {
+        int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
+        String check_ = ResultText.check(_page, offConvValue_, _id);
+        StringList names_ = resultInput.getOpsValueRoot().getResultClass().getNames();
+        if (!resultInput.getOpsValueRoot().getResultClass().isVariable()) {
+            IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(names_, _page);
+            StringList candidates_ = it_.getClassName();
+            if (!candidates_.onlyOneElt()) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(offConvValue_);
+                badEl_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                        StringUtil.join(candidates_,AND_ERR));
+                AnalyzingDoc.addError(badEl_, _page);
+            }
+            Mapping m_ = new Mapping();
+            m_.setArg(check_);
+            m_.setParam(resultInput.getOpsReadRoot().getResultClass());
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                badEl_.setFile(_page.getCurrentFile());
+                badEl_.setIndexFile(getOffset());
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         check_,
-                        _anaDoc.getAliasCharSequence());
+                        StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
                 AnalyzingDoc.addError(badEl_, _page);
             }
         }
+    }
+
+    private void defValue(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String default_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrDefault());
         if (!default_.isEmpty()) {
             String mName_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrConvert());
@@ -248,7 +204,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                     AnalyzingDoc.addError(badEl_, _page);
                 }
             } else {
-                IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(rootDefault.getResultClass().getNames(),_page);
+                IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(rootDefault.getResultClass().getNames(), _page);
                 StringList candidates_ = it_.getClassName();
                 if (!candidates_.onlyOneElt()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -260,12 +216,29 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                 }
             }
         }
-        for (EntryCust<String,ResultExpression> e: attributes.entryList()) {
-            _page.setSumOffset(e.getValue().getSumOffset());
-            _page.zeroOffset();
-            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
+    }
+
+    private void checkConverter(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, String _conValue, Mapping _m) {
+        String string_ = _page.getAliasString();
+        int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertValue());
+        _page.setSumOffset(offConvValue_);
+        _page.zeroOffset();
+        ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), _conValue.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+        rootConverter = classMethodIdReturn_;
+        String check_ = ResultText.check(_page, offConvValue_, classMethodIdReturn_);
+        _m.setArg(check_);
+        _m.setParam(resultInput.getOpsReadRoot().getResultClass());
+        if (!AnaInherits.isCorrectOrNumbers(_m, _page)) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFile(_page.getCurrentFile());
+            badEl_.setIndexFile(offConvValue_);
+            badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                    check_,
+                    StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
+            AnalyzingDoc.addError(badEl_, _page);
         }
     }
+
     private static String def(String _value) {
         int len_ = _value.length();
         StringBuilder str_ = new StringBuilder();

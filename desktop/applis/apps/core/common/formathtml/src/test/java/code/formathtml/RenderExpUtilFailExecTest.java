@@ -2160,7 +2160,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 //        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
 //        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         _analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext().getProperties(), _cont.getDualAnalyzedContext().getContext().getMessagesFolder());
-        setupAnalyzing(_cont, _analyzingDoc, _localVariables, _vars);
+        setupAnalyzing(_cont, _localVariables, _vars);
 //        Argument argGl_ = _cont.getArgument();
         boolean static_ = true;
         _cont.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));

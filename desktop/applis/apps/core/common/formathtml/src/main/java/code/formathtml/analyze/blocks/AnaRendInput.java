@@ -12,12 +12,11 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.ResultInput;
-import code.formathtml.analyze.ResultText;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class AnaRendInput extends AnaRendElement {
+public abstract class AnaRendInput extends AnaRendElement implements AnaRendInputInt {
     private OperationNode rootRead;
     private OperationNode rootValue;
 
@@ -51,18 +50,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                 _page.zeroOffset();
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 rootConverter = classMethodIdReturn_;
-                String check_ = ResultText.check(_page, attr_, classMethodIdReturn_);
-                m_.setArg(check_);
-                m_.setParam(resultInput.getOpsReadRoot().getResultClass());
-                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            check_,
-                            StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
+                checkRead(_page,attr_,classMethodIdReturn_,resultInput);
             }
         } else {
             String clName_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
@@ -77,17 +65,15 @@ public abstract class AnaRendInput extends AnaRendElement {
                             clName_);
                     AnalyzingDoc.addError(badEl_, _page);
                 }
-            } else if (rootRead != null) {
-                if (isNotConvertible(_page, resultInput.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
-                    int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR),
-                            clName_);
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
+            } else if (rootRead != null && isNotConvertible(_page, resultInput.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
+                int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                badEl_.setFile(_page.getCurrentFile());
+                badEl_.setIndexFile(attr_);
+                badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                        StringUtil.join(rootRead.getResultClass().getNames(), AND_ERR),
+                        clName_);
+                AnalyzingDoc.addError(badEl_, _page);
             }
         }
         String converterField_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
@@ -98,21 +84,15 @@ public abstract class AnaRendInput extends AnaRendElement {
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverterField = classMethodIdReturn_;
-            String check_ = ResultText.check(_page, attr_, classMethodIdReturn_);
-            Mapping m_ = new Mapping();
-            m_.setArg(check_);
-            m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFile(_page.getCurrentFile());
-                badEl_.setIndexFile(attr_);
-                badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        check_,
-                        _anaDoc.getAliasCharSequence());
-                AnalyzingDoc.addError(badEl_, _page);
-            }
+            checkCharSeq(_anaDoc, _page, attr_, classMethodIdReturn_);
         }
     }
+
+    @Override
+    public Element getElt() {
+        return getRead();
+    }
+
     private static boolean isNotConvertible(AnalyzedPageEl _lgNames, String _className) {
         if (StringUtil.quickEq(_className, _lgNames.getAliasString())) {
             return false;

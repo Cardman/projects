@@ -9,7 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendSpan extends AnaRendElement {
+public final class AnaRendSpan extends AnaRendElement implements AnaRendElementAttr {
     private StringMap<String> formatted=new StringMap<String>();
 
     private OperationNode rootFor;
@@ -22,7 +22,7 @@ public final class AnaRendSpan extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         offFor = resultExpressionFor.getSumOffset();
         _page.setSumOffset(resultExpressionFor.getSumOffset());
         _page.zeroOffset();
@@ -30,7 +30,7 @@ public final class AnaRendSpan extends AnaRendElement {
         for (String l: _anaDoc.getLanguages()) {
             formatted.addEntry(l,EMPTY_STRING);
         }
-        String valueMessage_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
+        String valueMessage_ = getRead().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
         if (!valueMessage_.isEmpty()) {
             int offMessage_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
             formatted = getPre(valueMessage_,offMessage_, _anaDoc, _page);

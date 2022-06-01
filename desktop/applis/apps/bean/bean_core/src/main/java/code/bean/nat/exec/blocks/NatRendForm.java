@@ -5,7 +5,7 @@ import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendFormInt;
+import code.formathtml.exec.blocks.RendElem;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -14,7 +14,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class NatRendForm extends NatRendElement implements RendFormInt {
+public final class NatRendForm extends NatRendElement implements RendElem {
     private final CustList<NatExecOperationNode> opForm;
 
     private final StringList varNames;

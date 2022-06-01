@@ -41,7 +41,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext().getProperties(), _conf.getDualAnalyzedContext().getContext().getMessagesFolder());
         StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
         StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
-        setupAnalyzing(_conf, _analyzingDoc, localVariables_, vars_);
+        setupAnalyzing(_conf, localVariables_, vars_);
 //        Argument argGl_ = _conf.getArgument();
         boolean static_ = true;
         _conf.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
@@ -59,10 +59,10 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         return a_;
     }
 
-    protected static void setupAnalyzing(DualNavigationContext _analyzing, AnalyzingDoc _analyzingDoc, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
+    protected static void setupAnalyzing(DualNavigationContext _analyzing, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
 
         String globalClass_ = _analyzing.getDualAnalyzedContext().getAnalyzed().getGlobalClass();
-        setupAna(_analyzingDoc, _analyzing.getDualAnalyzedContext().getAnalyzed());
+        setupAna(_analyzing.getDualAnalyzedContext().getAnalyzed());
         _analyzing.getDualAnalyzedContext().getAnalyzed().setGlobalType(new AnaFormattedRootBlock(_analyzing.getDualAnalyzedContext().getAnalyzed(),globalClass_));
         for (EntryCust<String, LocalVariable> e: _localVariables.entryList()) {
             AnaLocalVariable a_ = new AnaLocalVariable();
@@ -93,8 +93,8 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         _localVariables.addAllEntries(_localVars);
     }
 
-    protected static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
-        AnalyzingDoc.setupInts(_page, _analyzingDoc);
+    protected static void setupAna(AnalyzedPageEl _page) {
+        AnalyzingDoc.setupInts(_page);
     }
 
     protected static ContextEl getGenerate(DualNavigationContext _an) {

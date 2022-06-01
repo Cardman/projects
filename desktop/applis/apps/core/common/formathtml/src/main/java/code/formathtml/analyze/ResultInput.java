@@ -79,45 +79,53 @@ public final class ResultInput {
                 idName = clField_.getFieldName();
             }
         } else if (settable_ instanceof ArrOperation) {
-            AnaClassArgumentMatching pr_ = ((ArrOperation) settable_).getPreviousResultClass();
-            ClassMethodId classMethodId_ = ((ArrOperation) settable_).getCallFctContent().getClassMethodId();
-            if (classMethodId_ == null) {
-                CustList<OperationNode> childrenNodes_ = ((ArrOperation) settable_).getChildrenNodes();
-                idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
-                StringList typeNames_ = new StringList();
-                int s_ = childrenNodes_.size();
-                for (int i = 0; i < s_; i++) {
-                    String cl_ = NumParsers.getSingleNameOrEmpty(childrenNodes_.get(i).getResultClass().getNames());
-                    typeNames_.add(cl_);
-                }
-                idName = StringUtil.concat("[](", StringUtil.join(typeNames_,","),")");
-            } else {
-                ((ArrOperation) settable_).applySet(_page);
-                idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
-                MethodId constraints_ = classMethodId_.getConstraints();
-                String sgn_ = constraints_.getSignature(_page.getDisplayedStrings());
-                idName = StringUtil.concat("[]", sgn_);
-            }
-        } else if (settable_ instanceof AbstractCallFctOperation){
-            ClassMethodId classMethodId_ = ((AbstractCallFctOperation)settable_).getClassMethodId();
-            AnaClassArgumentMatching pr_ = ((InvokingOperation) settable_).getPreviousResultClass();
-            if (classMethodId_ == null || !classMethodId_.getConstraints().isRetRef()) {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFile(_page.getCurrentFile());
-                badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
-                badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
-                AnalyzingDoc.addError(badEl_, _page);
-            } else {
-                idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
-                MethodId constraints_ = classMethodId_.getConstraints();
-                idName = constraints_.getSignature(_page.getDisplayedStrings());
-            }
+            arr(_page, (ArrOperation) settable_);
+        } else if (settable_ instanceof AbsFctOperation){
+            call(_bl, _anaDoc, _page, (AbsFctOperation) settable_);
         } else {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
             badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
             AnalyzingDoc.addError(badEl_, _page);
+        }
+    }
+
+    private void arr(AnalyzedPageEl _page, ArrOperation _set) {
+        AnaClassArgumentMatching pr_ = _set.getPreviousResultClass();
+        ClassMethodId classMethodId_ = _set.getCallFctContent().getClassMethodId();
+        if (classMethodId_ == null) {
+            CustList<OperationNode> childrenNodes_ = _set.getChildrenNodes();
+            idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
+            StringList typeNames_ = new StringList();
+            int s_ = childrenNodes_.size();
+            for (int i = 0; i < s_; i++) {
+                String cl_ = NumParsers.getSingleNameOrEmpty(childrenNodes_.get(i).getResultClass().getNames());
+                typeNames_.add(cl_);
+            }
+            idName = StringUtil.concat("[](", StringUtil.join(typeNames_,","),")");
+        } else {
+            _set.applySet(_page);
+            idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
+            MethodId constraints_ = classMethodId_.getConstraints();
+            String sgn_ = constraints_.getSignature(_page.getDisplayedStrings());
+            idName = StringUtil.concat("[]", sgn_);
+        }
+    }
+
+    private void call(AnaRendBlock _bl, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, AbsFctOperation _set) {
+        ClassMethodId classMethodId_ = _set.getClassMethodId();
+        AnaClassArgumentMatching pr_ = _set.getPreviousResultClass();
+        if (classMethodId_ == null || !classMethodId_.getConstraints().isRetRef()) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFile(_page.getCurrentFile());
+            badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
+            badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
+            AnalyzingDoc.addError(badEl_, _page);
+        } else {
+            idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
+            MethodId constraints_ = classMethodId_.getConstraints();
+            idName = constraints_.getSignature(_page.getDisplayedStrings());
         }
     }
 

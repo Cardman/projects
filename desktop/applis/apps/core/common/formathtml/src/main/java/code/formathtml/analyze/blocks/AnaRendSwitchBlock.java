@@ -78,18 +78,14 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                 instanceTest = type_;
             }
         }
+        checkChildren(_page);
+    }
+
+    private void checkChildren(AnalyzedPageEl _page) {
         AnaRendBlock first_ = getFirstChild();
         while (first_ != null) {
             AnaRendBlock elt_ = first_;
-            if (elt_ instanceof  AnaRendCaseCondition) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            if (isPossibleEmpty(elt_)) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            if (elt_ instanceof  AnaRendDefaultCondition) {
+            if (elt_ instanceof AnaRendCaseCondition || isPossibleEmpty(elt_) || elt_ instanceof AnaRendDefaultCondition) {
                 first_ = first_.getNextSibling();
                 continue;
             }

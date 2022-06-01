@@ -5,19 +5,21 @@ import code.util.IdMap;
 
 public final class FindNextElement {
 
-    private StringBuilder line = new StringBuilder();
-    private CustList<MetaSearchableLabel> labels = new CustList<MetaSearchableLabel>();
+    private final StringBuilder line = new StringBuilder();
+    private final CustList<MetaSearchableLabel> labels = new CustList<MetaSearchableLabel>();
     private int index;
     private MetaSearchableLabel label;
-    private MetaDocument document;
+    private final MetaDocument document;
     private boolean setup;
     private int row;
     private int group;
-    private IdMap<MetaSearchableLabel, CustList<SegmentPart>> segments = new IdMap<MetaSearchableLabel, CustList<SegmentPart>>();
+    private IntComponent cur;
+    private final IdMap<MetaSearchableLabel, CustList<SegmentPart>> segments = new IdMap<MetaSearchableLabel, CustList<SegmentPart>>();
 
     public FindNextElement(MetaDocument _document) {
         document = _document;
     }
+    /**
     public void next(String _text) {
         row = 0;
         group = 0;
@@ -35,37 +37,71 @@ public final class FindNextElement {
                 reset();
                 return;
             }
-            fetchedGroupRow(next_);
             cur_ = next_;
         }
         while (true) {
-            boolean keep_ = true;
-            while (true) {
-                if (cur_ instanceof MetaSearchableLabel) {
-                    MetaSearchableLabel l_ = (MetaSearchableLabel) cur_;
-                    labels.add(l_);
-                    line.append(l_.getText());
-                    setResults(l_, _text);
-                    if (setup) {
-                        return;
-                    }
+            if (cur_ instanceof MetaSearchableLabel) {
+                MetaSearchableLabel l_ = (MetaSearchableLabel) cur_;
+                labels.add(l_);
+                line.append(l_.getText());
+                setResults(l_, _text);
+                if (setup) {
+                    return;
                 }
-                IntComponent next_ = getNextElement(cur_);
-                if (next_ == null) {
-                    keep_ = false;
-                    break;
-                }
-                if (fetchedGroupRow(next_)) {
-                    break;
-                }
-                cur_ = next_;
             }
-            if (!keep_) {
+            IntComponent next_ = getNextElement(cur_);
+            if (next_ == null) {
                 label = null;
                 reset();
-                break;
+                return;
+            }
+            if (!fetchedGroupRow(next_)) {
+                cur_ = next_;
             }
         }
+    }*/
+    public void next(String _text) {
+        row = 0;
+        group = 0;
+        cur = document.getRoot();
+        if (label != null) {
+            row = label.getRowGroup();
+            group = label.getPartGroup();
+            setResults(label, _text);
+            if (setup) {
+                return;
+            }
+            IntComponent next_ = getNextElement(label);
+            if (exit(next_)) {
+                return;
+            }
+        }
+        while (true) {
+            if (cur instanceof MetaSearchableLabel) {
+                MetaSearchableLabel l_ = (MetaSearchableLabel) cur;
+                labels.add(l_);
+                line.append(l_.getText());
+                setResults(l_, _text);
+                if (setup) {
+                    return;
+                }
+            }
+            IntComponent next_ = getNextElement(cur);
+            if (exit(next_)) {
+                return;
+            }
+        }
+    }
+    private boolean exit(IntComponent _next) {
+        if (_next == null) {
+            label = null;
+            reset();
+            return true;
+        }
+        if (!fetchedGroupRow(_next)) {
+            cur = _next;
+        }
+        return false;
     }
     private boolean fetchedGroupRow(IntComponent _meta) {
         if (_meta instanceof MetaSearchableLabel) {
@@ -75,7 +111,8 @@ public final class FindNextElement {
                 row = l_.getRowGroup();
                 reset();
                 return true;
-            } else if (l_.getRowGroup() != row) {
+            }
+            if (l_.getRowGroup() != row) {
                 row = l_.getRowGroup();
                 reset();
                 return true;

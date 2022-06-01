@@ -36,25 +36,29 @@ public abstract class AnaRendCondition extends AnaRendParentBlock implements Ana
         _page.setSumOffset(resultExpression.getSumOffset());
         root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
         AnaClassArgumentMatching exp_ = root.getResultClass();
-        if (!exp_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
+        tryConvert(_page, exp_, conditionOffset);
+        exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+    }
+
+    static void tryConvert(AnalyzedPageEl _page, AnaClassArgumentMatching _exp, int _off) {
+        if (!_exp.isBoolType(_page)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), _exp, _page);
             if (res_ != null) {
-                exp_.implicitInfosCore(res_);
+                _exp.implicitInfosCore(res_);
             } else {
-                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
+                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_exp, _page);
                 if (trueOp_ != null) {
-                    exp_.implicitInfosTest(trueOp_);
+                    _exp.implicitInfosTest(trueOp_);
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(conditionOffset);
+                    un_.setIndexFile(_off);
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(exp_.getNames(),AND_ERR));
+                            StringUtil.join(_exp.getNames(),AND_ERR));
                     AnalyzingDoc.addError(un_, _page);
                 }
             }
         }
-        exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
     }
 
     public String getCondition() {

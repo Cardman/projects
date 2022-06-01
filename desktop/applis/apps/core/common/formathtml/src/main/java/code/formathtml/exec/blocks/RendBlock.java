@@ -74,22 +74,7 @@ public abstract class RendBlock {
         rw_.setDocument(doc_);
         ip_.setRendReadWrite(rw_);
         while (true) {
-            ImportingPage p_ = _rendStackCall.getLastPage();
-            DefRendReadWrite rendReadWrite_ = p_.getRendReadWrite();
-            RendBlock read_ = null;
-            if (rendReadWrite_ != null) {
-                read_ = rendReadWrite_.getRead();
-            }
-            if (read_ == null) {
-                _rendStackCall.removeLastPage();
-                if (_rendStackCall.getImporting().isEmpty()) {
-                    break;
-                }
-                continue;
-            }
-            processTags(_conf, _stds, _ctx, read_, _rendStackCall);
-            processGeneException(_ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            if (exitRender(_conf, _stds, _ctx, _rendStackCall)) {
                 break;
             }
         }
@@ -103,6 +88,21 @@ public abstract class RendBlock {
         _rendStackCall.setDocument(doc_);
         _rendStackCall.clearPages();
         return doc_.export();
+    }
+    private static boolean exitRender(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
+        ImportingPage p_ = _rendStackCall.getLastPage();
+        DefRendReadWrite rendReadWrite_ = p_.getRendReadWrite();
+        RendBlock read_ = null;
+        if (rendReadWrite_ != null) {
+            read_ = rendReadWrite_.getRead();
+        }
+        if (read_ == null) {
+            _rendStackCall.removeLastPage();
+            return _rendStackCall.getImporting().isEmpty();
+        }
+        processTags(_conf, _stds, _ctx, read_, _rendStackCall);
+        processGeneException(_ctx, _rendStackCall);
+        return _ctx.callsOrException(_rendStackCall.getStackCall());
     }
 
     private static void processTags(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendBlock _read, RendStackCall _rendStackCall) {
@@ -486,54 +486,59 @@ public abstract class RendBlock {
             return;
         }
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
-        if (name_.isEmpty()) {
+        if (name_.isEmpty() || _ops.isEmpty()) {
             return;
         }
-        if (_ops.isEmpty()) {
+        if (StringUtil.quickEq(_read.getTagName(), _cont.getRendKeyWords().getKeyWordInput()) && exitInput(_cont, _read, _write, _ops, _opsConv, _ctx, _rendStackCall)) {
             return;
         }
-        if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordInput())) {
-            Argument o_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_ops, _ctx, _rendStackCall).lastValue().getArgument());
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                return;
-            }
-            if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()),_cont.getRendKeyWords().getValueCheckbox())) {
-                if (Argument.isTrueValue(o_)) {
-                    _write.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
-                } else {
-                    _write.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
-                }
-            } else {
-                o_ = convertField(o_, _opsConv, _ctx, _rendStackCall);
-                if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                    return;
-                }
-                String value_ = BeanCustLgNames.processStr(o_, _ctx, _rendStackCall);
-                if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                    return;
-                }
-                _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
-            }
-        }
-        if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordTextarea())) {
-            Argument o_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_ops, _ctx, _rendStackCall).lastValue().getArgument());
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                return;
-            }
-            o_ = convertField(o_, _opsConv, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                return;
-            }
-            Document doc_ = _write.getOwnerDocument();
-            String value_ = BeanCustLgNames.processStr(o_, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                return;
-            }
-            Text text_ = doc_.createTextNode(value_);
-            _write.appendChild(text_);
+        if (StringUtil.quickEq(_read.getTagName(), _cont.getRendKeyWords().getKeyWordTextarea()) && exitTextArea(_write, _ops, _opsConv, _ctx, _rendStackCall)) {
+            return;
         }
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
     }
+    private static boolean exitInput(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
+        Argument o_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_ops, _ctx, _rendStackCall).lastValue().getArgument());
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return true;
+        }
+        if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()),_cont.getRendKeyWords().getValueCheckbox())) {
+            if (Argument.isTrueValue(o_)) {
+                _write.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
+            } else {
+                _write.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
+            }
+        } else {
+            o_ = convertField(o_, _opsConv, _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+                return true;
+            }
+            String value_ = BeanCustLgNames.processStr(o_, _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+                return true;
+            }
+            _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
+        }
+        return false;
+    }
+    private static boolean exitTextArea(Element _write, CustList<RendDynOperationNode> _ops, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
+        Argument o_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_ops, _ctx, _rendStackCall).lastValue().getArgument());
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return true;
+        }
+        o_ = convertField(o_, _opsConv, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return true;
+        }
+        String value_ = BeanCustLgNames.processStr(o_, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return true;
+        }
+        Text text_ = _write.getOwnerDocument().createTextNode(value_);
+        _write.appendChild(text_);
+        return false;
+    }
+
     private static Argument convertField(Argument _o, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
         Struct o_ = _o.getStruct();
         if (!_opsConv.isEmpty()) {

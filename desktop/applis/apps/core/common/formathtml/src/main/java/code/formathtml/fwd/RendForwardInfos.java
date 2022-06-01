@@ -32,6 +32,7 @@ import code.formathtml.exec.blocks.*;
 import code.formathtml.exec.opers.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
+import code.formathtml.util.RendSelectOperators;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -328,9 +329,9 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendSelect(opRead_,opValue_, opMap_,opDefault_,opConverter_,opConverterField_,opConverterFieldValue_
-            ,partText_,part_, f_.getIdClass(),f_.getIdName(),f_.getElt(),f_.isMultiple(),
-                    f_.getClassName(),f_.isArrayConverter());
+            return new RendSelect(
+                    partText_,part_, f_.getElt(),f_.isMultiple(),
+                    RendSelect.initElts(opRead_, opConverter_, f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.isArrayConverter()), new RendSelectOperators(opValue_, opMap_, opDefault_, opConverterField_, opConverterFieldValue_));
         }
         if (_current instanceof AnaRendRadio){
             AnaRendRadio f_ = (AnaRendRadio) _current;
@@ -365,8 +366,8 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendTextArea(opRead_,opValue_, opConverter_,opConverterField_
-                    ,partText_,part_, f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getElt());
+            return new RendTextArea(opValue_, opConverterField_
+                    ,partText_,part_, f_.getElt(), RendTextArea.initElts(opRead_, opConverter_, f_.getIdClass(), f_.getIdName(), f_.getClassName()));
         }
         if (_current instanceof AnaRendSpan){
             AnaRendSpan f_ = (AnaRendSpan) _current;

@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -10,16 +9,12 @@ import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.ErrorPartOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFctPair;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -32,9 +27,8 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
     private Argument argument;
 
     private final ManyLoopExpressionsContent manyLoopExpressionsContent;
-    private AnaTypeFct functionImpl;
-    private AnaTypeFct function;
-    private int testOffset;
+    private final AnaTypeFctPair functions = new AnaTypeFctPair();
+
     private AnaResultPartType partOffsets = new AnaResultPartType();
     private String errInf = EMPTY_STRING;
 
@@ -175,31 +169,9 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
         }
     }
     private void checkBoolCondition(OperationNode _root, AnalyzedPageEl _page) {
-        AnaClassArgumentMatching exp_ = _root.getResultClass();
-        if (!exp_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
-            if (res_ != null) {
-                exp_.implicitInfosCore(res_);
-                functionImpl = res_.getParametrableContent().getPair();
-            } else {
-                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
-                if (trueOp_ != null) {
-                    exp_.implicitInfosTest(trueOp_);
-                    function = trueOp_.getParametrableContent().getPair();
-                } else {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(getFile());
-                    un_.setIndexFile(manyLoopExpressionsContent.getExpressionOffset());
-                    //second ; char
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(exp_.getNames(), ExportCst.JOIN_TYPES));
-                    _page.addLocError(un_);
-                    addErrorBlock(un_.getBuiltError());
-                }
-            }
-        }
-        exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-//        ElUtil.setImplicits(_exp, _page, _root);
+        AnaTypeFctPair fcts_ = ConditionBlock.processBoolean(this, _root, _page, manyLoopExpressionsContent.getExpressionOffset());
+        functions.setFunction(fcts_.getFunction());
+        functions.setFunctionImpl(fcts_.getFunctionImpl());
     }
 
     @Override
@@ -260,20 +232,12 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
         return partOffsets;
     }
 
-    public int getTestOffset() {
-        return testOffset;
-    }
-
     public void setTestOffset(int _testOffset) {
-        testOffset = _testOffset;
+        functions.setTestOffset(_testOffset);
     }
 
-    public AnaTypeFct getFunctionImpl() {
-        return functionImpl;
-    }
-
-    public AnaTypeFct getFunction() {
-        return function;
+    public AnaTypeFctPair getFunctions() {
+        return functions;
     }
 
     public void setArgument(Argument _arg) {

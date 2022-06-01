@@ -4,13 +4,11 @@ import code.util.Ints;
 
 public final class MetaNumberedLabel extends MetaLabel {
 
-    private String number;
-    private MetaNumberBase base;
+    private final String number;
 
     public MetaNumberedLabel(MetaContainer _parent, int _number, MetaNumberBase _base) {
         super(_parent);
         number = convert(_number,_base);
-        base = _base;
     }
     static String convert(int _number, MetaNumberBase _base) {
         if (_base == MetaNumberBase.NUMBER) {
@@ -25,6 +23,10 @@ public final class MetaNumberedLabel extends MetaLabel {
             }
             return str(_number,firstLetter_);
         }
+        return roman(_number, _base);
+    }
+
+    private static String roman(int _number, MetaNumberBase _base) {
         char firstUnit_ = 'i';
         char firstDemi_ = 'v';
         char secondUnit_ = 'x';
@@ -32,13 +34,7 @@ public final class MetaNumberedLabel extends MetaLabel {
         char thirdUnit_ = 'c';
         char thirdDemi_ = 'd';
         char fourthUnit_ = 'm';
-        char fourthDemi_ = 'q';
-        Ints parts_ = new Ints();
-        int current_ = _number;
-        while (current_ > 0) {
-            parts_.add(current_ % 10000);
-            current_ /= 10000;
-        }
+        Ints parts_ = initParts(_number);
         StringBuilder str_ = new StringBuilder(parts_.size() * 4);
         for (int i: parts_.getReverse()) {
             if (i < 10) {
@@ -51,20 +47,7 @@ public final class MetaNumberedLabel extends MetaLabel {
                 str_.append(getLatinString(i / 10 % 10, secondUnit_, secondDemi_, thirdUnit_));
                 str_.append(getLatinString(i % 10, firstUnit_, firstDemi_, secondUnit_));
             } else {
-                int d_ = i/1000-1;
-                if (d_ < 3) {
-                    for (int j = 0; j <= d_; j++) {
-                        str_.append(fourthUnit_);
-                    }
-                } else if (d_ == 3){
-                    str_.append(fourthUnit_);
-                    str_.append(fourthDemi_);
-                } else {
-                    str_.append(fourthDemi_);
-                    for (int j = 0; j < d_- 4; j++) {
-                        str_.append(fourthUnit_);
-                    }
-                }
+                bigNb(str_, i);
                 str_.append(getLatinString(i  / 100 % 10, thirdUnit_, thirdDemi_, fourthUnit_));
                 str_.append(getLatinString(i / 10 % 10, secondUnit_, secondDemi_, thirdUnit_));
                 str_.append(getLatinString(i % 10, firstUnit_, firstDemi_, secondUnit_));
@@ -77,6 +60,36 @@ public final class MetaNumberedLabel extends MetaLabel {
         }
         return str_.toString();
     }
+
+    private static void bigNb(StringBuilder _str, int _i) {
+        char fourthUnit_ = 'm';
+        char fourthDemi_ = 'q';
+        int d_ = _i /1000-1;
+        if (d_ < 3) {
+            for (int j = 0; j <= d_; j++) {
+                _str.append(fourthUnit_);
+            }
+        } else if (d_ == 3){
+            _str.append(fourthUnit_);
+            _str.append(fourthDemi_);
+        } else {
+            _str.append(fourthDemi_);
+            for (int j = 0; j < d_- 4; j++) {
+                _str.append(fourthUnit_);
+            }
+        }
+    }
+
+    private static Ints initParts(int _number) {
+        Ints parts_ = new Ints();
+        int current_ = _number;
+        while (current_ > 0) {
+            parts_.add(current_ % 10000);
+            current_ /= 10000;
+        }
+        return parts_;
+    }
+
     private static String str(int _nb, char _firstLetter) {
         int n_ = 1;
         long s_ = 0;

@@ -29,16 +29,17 @@ public final class RendSpan extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage last_ = _rendStack.getLastPage();
         last_.setOffset(rendExp.getOffset());
         IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(rendExp.getList(), _ctx, _rendStack);
         String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             ((Element)_nextWrite).removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
-            return;
+            return true;
         }
         setupTxt(_cont, _nextWrite, txt_, formatted, _rendStack.getFormParts());
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
     public static void setupTxt(Configuration _cont, Node _nextWrite, String _txt, StringMap<String> _formatted, FormParts _formParts) {

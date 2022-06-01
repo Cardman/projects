@@ -1,9 +1,6 @@
 package code.bean.nat.exec;
 
-import code.bean.nat.exec.blocks.NatBlock;
-import code.bean.nat.exec.blocks.NatParentBlock;
-import code.bean.nat.exec.blocks.NatRendAbstractForEachLoop;
-import code.bean.nat.exec.blocks.NatRendForEachTable;
+import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -11,7 +8,6 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.AbsImportingPage;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendElem;
-import code.formathtml.exec.blocks.RendFormInt;
 import code.util.*;
 
 public final class NatImportingPage extends AbsImportingPage {
@@ -81,7 +77,7 @@ public final class NatImportingPage extends AbsImportingPage {
             if (((NatIfStack)last_).getBlock() instanceof RendElem) {
                 rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
             }
-            if (((NatIfStack)last_).getBlock() instanceof RendFormInt) {
+            if (((NatIfStack)last_).getBlock() instanceof NatRendForm) {
                 CustList<LongTreeMap<NatNodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
                 Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
                 long nb_ = formsNb_.last();

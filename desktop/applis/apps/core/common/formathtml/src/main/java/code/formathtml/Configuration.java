@@ -113,7 +113,7 @@ public final class Configuration {
     public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, DualConfigurationContext _dual, FileBlock _confFile) {
         setFiles(_files);
         _analyzingDoc.setup(this, _dual.getProperties(), _dual.getMessagesFolder());
-        AnalyzingDoc.setupInts(_page, _analyzingDoc);
+        AnalyzingDoc.setupInts(_page);
 
 
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();

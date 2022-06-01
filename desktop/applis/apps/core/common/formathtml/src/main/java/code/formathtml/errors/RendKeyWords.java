@@ -494,24 +494,8 @@ public final class RendKeyWords {
         setKeyWordHThree(LgNamesContent.get(_util, _cust, TAG_H3));
     }
     public void validateTagContents(StringMap<String> _list, AnalyzedPageEl _page) {
-        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
-            String key_ = e.getKey();
-            String keyWordValue_ = e.getValue();
-            if (keyWordValue_.isEmpty()) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
-                _page.addStdError(err_);
-                continue;
-            }
-            for (char c: keyWordValue_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
-                    _page.addStdError(err_);
-                    break;
-                }
-            }
+            validateTag(e, _page);
         }
     }
     public void validateDuplicates(StringMap<String> _list, AnalyzedPageEl _page) {
@@ -572,21 +556,9 @@ public final class RendKeyWords {
     public void validateStyleUnitContents(StringMap<String> _list, AnalyzedPageEl _page) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
-            String key_ = e.getKey();
-            String keyWordValue_ = e.getValue();
+            String keyWordValue_ = validateTag(e, _page);
             if (keyWordValue_.isEmpty()) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
-                _page.addStdError(err_);
                 continue;
-            }
-            for (char c: keyWordValue_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
-                    _page.addStdError(err_);
-                    break;
-                }
             }
             if (StringExpUtil.isDigit(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
@@ -595,6 +567,28 @@ public final class RendKeyWords {
             }
         }
     }
+
+    private String validateTag(EntryCust<String, String> _e, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
+        String key_ = _e.getKey();
+        String keyWordValue_ = _e.getValue();
+        if (keyWordValue_.isEmpty()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
+            _page.addStdError(err_);
+            return "";
+        }
+        for (char c: keyWordValue_.toCharArray()) {
+            if (!StringExpUtil.isDollarWordChar(c)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
+                _page.addStdError(err_);
+                break;
+            }
+        }
+        return keyWordValue_;
+    }
+
     public StringMap<String> allTags() {
         StringMap<String> keyWords_ = new StringMap<String>();
         keyWords_.addEntry(TAG_SELECT,keyWordSelect);

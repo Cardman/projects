@@ -44,11 +44,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
             return;
         }
         RendDocumentBlock val_ = ((BeanCustLgNames)_stds).getRendExecutingBlocks().getRenders().getVal(pageName_);
-        if (val_ == null) {
-            processBlock(_cont, _stds, _ctx, _rendStack);
-            return;
-        }
-        if (val_.getBodies().size() != 1) {
+        if (val_ == null || val_.getBodies().size() != 1) {
             processBlock(_cont, _stds, _ctx, _rendStack);
             return;
         }
@@ -61,41 +57,29 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
             return;
         }
         if (newBean_ != null) {
-            String className_ = newBean_.getClassName(_ctx);
             for (RendBlock p: getDirectChildren(this)) {
                 for (RendBlock c: getDirectChildren(p)) {
-                    if (!(c instanceof RendClass)) {
-                        continue;
-                    }
-                    RendClass cl_ = (RendClass) c;
-                    if (!ExecInherits.isCorrectExecute(className_,cl_.getFullName(), _ctx)) {
-                        continue;
-                    }
-                    for (RendBlock f: getDirectChildren(c)) {
-                        if (f instanceof RendField) {
-                            ip_.setOffset(((RendField) f).getPrepareOffset());
-                            ip_.setOpOffset(0);
-                            CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
-                            ip_.setInternGlobal(newBean_);
-                            RenderExpUtil.getAllArgs(exps_, _ctx, _rendStack).lastValue();
-                            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                                return;
-                            }
-                            ip_.setInternGlobal(null);
-                        }
+                    if (exitInitFields(_ctx,_rendStack,newBean_,c)) {
+                        return;
                     }
                 }
             }
         }
+        endImp((BeanCustLgNames) _stds, _ctx, _rendStack, val_, newBean_);
+    }
+
+    private void endImp(BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, RendDocumentBlock _val, Struct _newBean) {
+        ImportingPage ip_ = _rendStack.getLastPage();
         ip_.setOffset(rendExp.getOffset());
         ip_.setOpOffset(0);
-        befDisp((BeanCustLgNames) _stds, _ctx, _rendStack, newBean_);
+        befDisp(_stds, _ctx, _rendStack, _newBean);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        ImportingPage newIp_ = newImportingPage(ip_, val_, beanName_, _rendStack.getFormParts());
-        if (newBean_ != null) {
-            newIp_.setGlobalArgumentStruct(newBean_,_ctx);
+        String beanName_ = _val.getBeanName();
+        ImportingPage newIp_ = newImportingPage(ip_, _val, beanName_, _rendStack.getFormParts());
+        if (_newBean != null) {
+            newIp_.setGlobalArgumentStruct(_newBean,_ctx);
         }
         RendIfStack if_ = new RendIfStack();
         if_.setLabel("");
@@ -105,6 +89,32 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         ip_.addBlock(if_);
         if_.setEntered(true);
         _rendStack.addPage(newIp_);
+    }
+
+    private boolean exitInitFields(ContextEl _ctx, RendStackCall _rendStack,Struct _newBean,RendBlock _c) {
+        ImportingPage ip_ = _rendStack.getLastPage();
+        if (!(_c instanceof RendClass)) {
+            return false;
+        }
+        RendClass cl_ = (RendClass) _c;
+        String className_ = _newBean.getClassName(_ctx);
+        if (!ExecInherits.isCorrectExecute(className_,cl_.getFullName(), _ctx)) {
+            return false;
+        }
+        for (RendBlock f: getDirectChildren(_c)) {
+            if (f instanceof RendField) {
+                ip_.setOffset(((RendField) f).getPrepareOffset());
+                ip_.setOpOffset(0);
+                CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
+                ip_.setInternGlobal(_newBean);
+                RenderExpUtil.getAllArgs(exps_, _ctx, _rendStack).lastValue();
+                if (_ctx.callsOrException(_rendStack.getStackCall())) {
+                    return true;
+                }
+                ip_.setInternGlobal(null);
+            }
+        }
+        return false;
     }
 
     public static void befDisp(BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, Struct _newBean) {

@@ -11,7 +11,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"1\">{k} - {([k])}<br/></c:for></body></html>";
+        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"1\">{k} - {([k])}<br/><c:continue/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body>0 - 0<br/>1 - 1<br/>2 - 2<br/></body></html>", getRes(html_, new StringMap<String>()));

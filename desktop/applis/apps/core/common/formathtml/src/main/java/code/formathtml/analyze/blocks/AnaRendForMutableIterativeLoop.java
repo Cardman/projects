@@ -13,15 +13,14 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.RenderAnalysis;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock implements AnaRendLoop, AbsLoopDeclarator {
+public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock implements AnaRendLocBreakableBlock, AbsLoopDeclarator {
 
     private final String label;
     private final int labelOffset;
@@ -96,24 +95,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     private void implicit(AnalyzedPageEl _page) {
         if (getRootExp() != null) {
             AnaClassArgumentMatching exp_ = getRootExp().getResultClass();
-            if (!exp_.isBoolType(_page)) {
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
-                if (res_ != null) {
-                    exp_.implicitInfosCore(res_);
-                } else {
-                    ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
-                    if (trueOp_ != null) {
-                        exp_.implicitInfosTest(trueOp_);
-                    } else {
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFile(_page.getCurrentFile());
-                        un_.setIndexFile(manyLoopExpressionsContent.getExpressionOffset());
-                        un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                                StringUtil.join(exp_.getNames(),AND_ERR));
-                        AnalyzingDoc.addError(un_, _page);
-                    }
-                }
-            }
+            AnaRendCondition.tryConvert(_page,exp_,manyLoopExpressionsContent.getExpressionOffset());
             exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         }
     }

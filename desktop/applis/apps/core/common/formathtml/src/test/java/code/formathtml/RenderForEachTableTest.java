@@ -25,7 +25,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$var\" value=\"v\" varClassName=\"$var\" map=\"inst\">");
-        xml_.append("<tr><td>{k}</td><td>{v}</td></tr>");
+        xml_.append("<tr><td>{k}</td><td>{v}</td></tr><c:continue/>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();

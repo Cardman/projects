@@ -4,13 +4,13 @@ import code.util.CustList;
 
 public abstract class MetaContainer extends MetaComponent {
 
-    private CustList<MetaComponent> children = new CustList<MetaComponent>();
+    private final CustList<MetaComponent> children = new CustList<MetaComponent>();
 
     private final MetaLayout layout;
 
     private boolean addEmpty;
 
-    public MetaContainer(MetaContainer _parent, MetaLayout _layout) {
+    protected MetaContainer(MetaContainer _parent, MetaLayout _layout) {
         super(_parent);
         layout = _layout;
     }

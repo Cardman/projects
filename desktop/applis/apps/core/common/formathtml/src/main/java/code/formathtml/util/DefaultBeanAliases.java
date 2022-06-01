@@ -68,10 +68,37 @@ public final class DefaultBeanAliases {
     private static final String DOCUMENT_BEAN_VALUE="DocumentBeanValue";
     private static final String DOCUMENT_VALIDATOR_ARRAY="DocumentValidatorArray";
     private static final String DOCUMENT_VALIDATOR_VALUE="DocumentValidatorValue";
+    private static final char END_LINE = ';';
+    private static final char SPACE = ' ';
+    private static final char LEFT_BRACE = '{';
+    private static final char LEFT_PAR = '(';
+    private static final char RIGHT_PAR = ')';
+    private static final String EMPTY_PARAMS_SGN = ""+LEFT_PAR+RIGHT_PAR+LEFT_BRACE;
+    private static final char RIGHT_BRACE = '}';
+    private static final char DOT = '.';
+    private static final char AFFECT = '=';
+    private static final String ARR_SPACE = "[] ";
+    private static final String ACCESS_ZERO = "[0]";
+    private static final char LEFT_BRACKET = '[';
+    private static final char RIGHT_BRACKET = ']';
+    private static final char COMMA = ',';
+    private static final char ZERO = '0';
+    private static final String LT = "<";
+    private static final String INCR = "++";
+    private static final String ADD_ONE = "+1";
+    private static final String AFFECT_ZERO = "="+ZERO;
+    private static final String MINUS_ONE = "-1";
+    private static final String EQ = "==";
+    private static final String DIFF = "!=";
+    private static final String I_LOOP = "i";
+    private static final String INDEX = "index";
+    private static final String VALUES = "values";
+    private static final String KEYS = "keys";
+    private static final String LEN = "len";
 
     private String aliasBean = "code.bean.Bean";
-    private String aliasMapKeys = "keys";
-    private String aliasMapValues = "values";
+    private String aliasMapKeys = KEYS;
+    private String aliasMapValues = VALUES;
     private String aliasMapIndexOfEntry = "indexOfEntry";
     private String aliasMapAddEntry = "addEntry";
     private String aliasMapGetValue = "getValue";
@@ -137,10 +164,8 @@ public final class DefaultBeanAliases {
         String null_ = _keyWords.getKeyWordNull();
         String new_ = _keyWords.getKeyWordNew();
         String int_ = _content.getPrimTypes().getAliasPrimInteger();
-        String endLine_ = Character.toString(';');
-        String suffixParam_ = "";
         StringBuilder file_ = new StringBuilder();
-        file_.append(public_).append(" ").append(class_).append(" ").append(getAliasBean()).append("{");
+        file_.append(public_).append(SPACE).append(class_).append(SPACE).append(getAliasBean()).append(LEFT_BRACE);
         String string_ = _content.getCharSeq().getAliasString();
         String language_ = getAliasLanguage();
         String scope_ = getAliasScope();
@@ -150,57 +175,57 @@ public final class DefaultBeanAliases {
         String forms_ = getAliasForms();
         String boolean_ = _content.getPrimTypes().getAliasPrimBoolean();
         String length_ = _content.getCoreNames().getAliasArrayLength();
-        file_.append(" ").append(private_).append(" ").append(string_).append(" ")
-                .append(language_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(string_).append(" ")
-                .append(scope_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(object_).append(" ")
-                .append(dataBase_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(getAliasStringMapObject()).append(" ")
-                .append(forms_).append(endLine_);
+        file_.append(SPACE).append(private_).append(SPACE).append(string_).append(SPACE)
+                .append(language_).append(END_LINE);
+        file_.append(SPACE).append(private_).append(SPACE).append(string_).append(SPACE)
+                .append(scope_).append(END_LINE);
+        file_.append(SPACE).append(private_).append(SPACE).append(object_).append(SPACE)
+                .append(dataBase_).append(END_LINE);
+        file_.append(SPACE).append(private_).append(SPACE).append(getAliasStringMapObject()).append(SPACE)
+                .append(forms_).append(END_LINE);
         String void_ = coreNames_.getAliasVoid();
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasBeforeDisplaying()).append("(){");
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(string_).append(" ")
-                .append(getAliasGetLanguage()).append("(){");
-        file_.append("  ").append(return_).append(" ").append(language_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasSetLanguage()).append("(").append(string_).append(" ").append(beanAliasParameters.getAliasBean0SetLanguage0()).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(language_).append("=")
-                .append(beanAliasParameters.getAliasBean0SetLanguage0()).append(suffixParam_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(string_).append(" ")
-                .append(getAliasGetScope()).append("(){");
-        file_.append("  ").append(return_).append(" ").append(scope_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasSetScope()).append("(").append(string_).append(" ").append(beanAliasParameters.getAliasBean0SetScope0()).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(scope_).append("=")
-                .append(beanAliasParameters.getAliasBean0SetScope0()).append(suffixParam_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(object_).append(" ")
-                .append(getAliasGetDataBase()).append("(){");
-        file_.append("  ").append(return_).append(" ").append(dataBase_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasSetDataBase()).append("(").append(object_).append(" ")
-                .append(beanAliasParameters.getAliasBean0SetDataBase0()).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(dataBase_).append("=")
-                .append(beanAliasParameters.getAliasBean0SetDataBase0()).append(suffixParam_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(getAliasStringMapObject())
-                .append(" ").append(getAliasGetForms()).append("(){");
-        file_.append("  ").append(return_).append(" ").append(forms_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
-                .append(getAliasSetForms()).append("(").append(getAliasStringMapObject())
-                .append(" ").append(beanAliasParameters.getAliasBean0SetForms0()).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(forms_).append("=")
-                .append(beanAliasParameters.getAliasBean0SetForms0()).append(suffixParam_).append(endLine_);
-        file_.append(" ").append("}");
-        file_.append("}");
+        file_.append(SPACE).append(public_).append(SPACE).append(void_).append(SPACE)
+                .append(getAliasBeforeDisplaying()).append(EMPTY_PARAMS_SGN);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(SPACE).append(public_).append(SPACE).append(string_).append(SPACE)
+                .append(getAliasGetLanguage()).append(EMPTY_PARAMS_SGN);
+        file_.append(SPACE).append(return_).append(SPACE).append(language_).append(END_LINE);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(SPACE).append(public_).append(SPACE).append(void_).append(SPACE)
+                .append(getAliasSetLanguage()).append(LEFT_PAR).append(string_).append(SPACE).append(beanAliasParameters.getAliasBean0SetLanguage0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(SPACE).append(this_).append(DOT).append(language_).append(AFFECT)
+                .append(beanAliasParameters.getAliasBean0SetLanguage0()).append(END_LINE);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(SPACE).append(public_).append(SPACE).append(string_).append(SPACE)
+                .append(getAliasGetScope()).append(EMPTY_PARAMS_SGN);
+        file_.append(SPACE).append(return_).append(SPACE).append(scope_).append(END_LINE);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(SPACE).append(public_).append(SPACE).append(void_).append(SPACE)
+                .append(getAliasSetScope()).append(LEFT_PAR).append(string_).append(SPACE).append(beanAliasParameters.getAliasBean0SetScope0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(SPACE).append(this_).append(DOT).append(scope_).append(AFFECT)
+                .append(beanAliasParameters.getAliasBean0SetScope0()).append(END_LINE);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(SPACE).append(public_).append(SPACE).append(object_).append(SPACE)
+                .append(getAliasGetDataBase()).append(EMPTY_PARAMS_SGN);
+        file_.append(SPACE).append(return_).append(SPACE).append(dataBase_).append(END_LINE);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(SPACE).append(public_).append(SPACE).append(void_).append(SPACE)
+                .append(getAliasSetDataBase()).append(LEFT_PAR).append(object_).append(SPACE)
+                .append(beanAliasParameters.getAliasBean0SetDataBase0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(SPACE).append(this_).append(DOT).append(dataBase_).append(AFFECT)
+                .append(beanAliasParameters.getAliasBean0SetDataBase0()).append(END_LINE);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(SPACE).append(public_).append(SPACE).append(getAliasStringMapObject())
+                .append(SPACE).append(getAliasGetForms()).append(EMPTY_PARAMS_SGN);
+        file_.append(SPACE).append(return_).append(SPACE).append(forms_).append(END_LINE);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(SPACE).append(public_).append(SPACE).append(void_).append(SPACE)
+                .append(getAliasSetForms()).append(LEFT_PAR).append(getAliasStringMapObject())
+                .append(SPACE).append(beanAliasParameters.getAliasBean0SetForms0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(SPACE).append(this_).append(DOT).append(forms_).append(AFFECT)
+                .append(beanAliasParameters.getAliasBean0SetForms0()).append(END_LINE);
+        file_.append(SPACE).append(RIGHT_BRACE);
+        file_.append(RIGHT_BRACE);
         files_.put(getAliasBean(), file_.toString());
         file_ = new StringBuilder();
         String keys_ = getAliasMapKeys();
@@ -215,246 +240,246 @@ public final class DefaultBeanAliases {
         String removeKey_ = getAliasMapRemoveKey();
         String getKey_ = getAliasMapGetKey();
         String setKey_ = getAliasMapSetKey();
-        file_.append(public_).append(" ").append(class_).append(" ").append(getAliasStringMapObject())
-                .append("{");
-        file_.append(private_).append(" ").append(string_).append("[] ").append(keys_)
-                .append("=").append(new_).append(" ").append(string_).append("[0]").append(endLine_);
-        file_.append(private_).append(" ").append(object_).append("[] ").append(values_)
-                .append("=").append(new_).append(" ").append(object_).append("[0]").append(endLine_);
-        file_.append(public_).append(" ").append(string_).append("[] ").append(keys_).append("(){");
-        file_.append(return_).append(" ").append(keys_).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(string_).append(" ").append(aliasMapFirstKey).append("(){");
-        file_.append(return_).append(" ").append(keys_).append("[0]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(string_).append(" ").append(aliasMapLastKey).append("(){");
-        file_.append(return_).append(" ").append(keys_).append("[").append(keys_).append(".")
-                .append(length_).append("-1]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append("[] ").append(values_).append("(){");
-        file_.append(return_).append(" ").append(values_).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(aliasMapFirstValue).append("(){");
-        file_.append(return_).append(" ").append(values_).append("[0]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(aliasMapLastValue).append("(){");
-        file_.append(return_).append(" ").append(values_).append("[").append(values_)
-                .append(".").append(length_).append("-1]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(setKey_).append("(")
-                .append(int_).append(" ").append(beanAliasParameters.getAliasStringMapObject0SetKey0()).append(",").append(string_)
-                .append(" ").append(beanAliasParameters.getAliasStringMapObject0SetKey1()).append("){");
-        file_.append(this_).append(".").append(keys_).append("[").append(beanAliasParameters.getAliasStringMapObject0SetKey0())
-                .append("]=").append(beanAliasParameters.getAliasStringMapObject0SetKey1()).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(string_).append(" ").append(getKey_)
-                .append("(").append(int_).append(" ").append(beanAliasParameters.getAliasStringMapObject0GetKey0()).append("){");
-        file_.append(return_).append(" ").append(this_).append(".").append(keys_).append("[")
-                .append(beanAliasParameters.getAliasStringMapObject0GetKey0()).append("]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(setValue_)
-                .append("(").append(int_).append(" ").append(beanAliasParameters.getAliasStringMapObject0SetValue0())
-                .append(",").append(object_).append(" ").append(beanAliasParameters.getAliasStringMapObject0SetValue1()).append("){");
-        file_.append(this_).append(".").append(values_).append("[").append(beanAliasParameters.getAliasStringMapObject0SetValue0())
-                .append("]=").append(beanAliasParameters.getAliasStringMapObject0SetValue1()).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(getValue_).append("(")
-                .append(int_).append(" ").append(beanAliasParameters.getAliasStringMapObject0GetValue0()).append("){");
-        file_.append(return_).append(" ").append(this_).append(".").append(values_)
-                .append("[").append(beanAliasParameters.getAliasStringMapObject0GetValue0()).append("]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(aliasMapClear).append("(){");
-        file_.append(keys_).append("=").append(new_).append(" ").append(string_)
-                .append("[0]").append(endLine_);
-        file_.append(values_).append("=").append(new_).append(" ").append(object_)
-                .append("[0]").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(boolean_).append(" ").append(aliasMapIsEmpty).append("(){");
-        file_.append(return_).append(" ").append(keys_).append(".").append(length_)
-                .append("==0").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(int_).append(" ").append(aliasMapSize).append("(){");
-        file_.append(return_).append(" ").append(keys_).append(".").append(length_).append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ")
-                .append(put_).append("(").append(string_).append(" ")
-                .append(beanAliasParameters.getAliasStringMapObject0Put0()).append(",").append(object_)
-                .append(" ").append(beanAliasParameters.getAliasStringMapObject0Put1()).append("){");
-        String indexPut_ = tr("index", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0Put0(),beanAliasParameters.getAliasStringMapObject0Put1());
-        file_.append(int_).append(" ").append(indexPut_).append("=")
-                .append(indexOfEntry_).append("(").append(beanAliasParameters.getAliasStringMapObject0Put0()).append(")")
-                .append(endLine_);
-        file_.append(if_).append("(").append(indexPut_).append("==-1){");
-        file_.append(addEntry_).append("(").append(beanAliasParameters.getAliasStringMapObject0Put0()).append(", ")
-                .append(beanAliasParameters.getAliasStringMapObject0Put1()).append(")").append(endLine_);
-        file_.append(return_).append(endLine_);
-        file_.append("}");
-        file_.append(setValue_).append("(").append(indexPut_).append(", ")
-                .append(beanAliasParameters.getAliasStringMapObject0Put1()).append(")").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(boolean_).append(" ").append(aliasMapContains)
-                .append("(").append(string_).append(" ").append(beanAliasParameters.getAliasStringMapObject0Contains0()).append("){");
-        file_.append(return_).append(" ").append(indexOfEntry_).append("(")
-                .append(beanAliasParameters.getAliasStringMapObject0Contains0()).append(") != -1").append(endLine_);
-        file_.append("}");
-        String indexGetVal_ = tr("index", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0GetVal0());
-        file_.append(public_).append(" ").append(object_).append(" ").append(getVal_).append("(")
-                .append(string_).append(" ").append(beanAliasParameters.getAliasStringMapObject0GetVal0()).append("){");
-        file_.append(int_).append(" ").append(indexGetVal_).append("=").append(indexOfEntry_)
-                .append("(").append(beanAliasParameters.getAliasStringMapObject0GetVal0()).append(")").append(endLine_);
-        file_.append(if_).append("(").append(indexGetVal_).append("==-1){");
-        file_.append(return_).append(" ").append(null_).append(endLine_);
-        file_.append("}");
-        file_.append(return_).append(" ").append(getValue_).append("(").append(indexGetVal_)
-                .append(")").append(endLine_);
-        file_.append("}");
+        file_.append(public_).append(SPACE).append(class_).append(SPACE).append(getAliasStringMapObject())
+                .append(LEFT_BRACE);
+        file_.append(private_).append(SPACE).append(string_).append(ARR_SPACE).append(keys_)
+                .append(AFFECT).append(new_).append(SPACE).append(string_).append(ACCESS_ZERO).append(END_LINE);
+        file_.append(private_).append(SPACE).append(object_).append(ARR_SPACE).append(values_)
+                .append(AFFECT).append(new_).append(SPACE).append(object_).append(ACCESS_ZERO).append(END_LINE);
+        file_.append(public_).append(SPACE).append(string_).append(ARR_SPACE).append(keys_).append(EMPTY_PARAMS_SGN);
+        file_.append(return_).append(SPACE).append(keys_).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(string_).append(SPACE).append(aliasMapFirstKey).append(EMPTY_PARAMS_SGN);
+        file_.append(return_).append(SPACE).append(keys_).append(ACCESS_ZERO).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(string_).append(SPACE).append(aliasMapLastKey).append(EMPTY_PARAMS_SGN);
+        file_.append(return_).append(SPACE).append(keys_).append(LEFT_BRACKET).append(keys_).append(DOT)
+                .append(length_).append(MINUS_ONE).append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(object_).append(ARR_SPACE).append(values_).append(EMPTY_PARAMS_SGN);
+        file_.append(return_).append(SPACE).append(values_).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(object_).append(SPACE).append(aliasMapFirstValue).append(EMPTY_PARAMS_SGN);
+        file_.append(return_).append(SPACE).append(values_).append(ACCESS_ZERO).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(object_).append(SPACE).append(aliasMapLastValue).append(EMPTY_PARAMS_SGN);
+        file_.append(return_).append(SPACE).append(values_).append(LEFT_BRACKET).append(values_)
+                .append(DOT).append(length_).append(MINUS_ONE).append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(void_).append(SPACE).append(setKey_).append(LEFT_PAR)
+                .append(int_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0SetKey0()).append(COMMA).append(string_)
+                .append(SPACE).append(beanAliasParameters.getAliasStringMapObject0SetKey1()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(this_).append(DOT).append(keys_).append(LEFT_BRACKET).append(beanAliasParameters.getAliasStringMapObject0SetKey0())
+                .append(RIGHT_BRACKET).append(AFFECT).append(beanAliasParameters.getAliasStringMapObject0SetKey1()).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(string_).append(SPACE).append(getKey_)
+                .append(LEFT_PAR).append(int_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0GetKey0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(return_).append(SPACE).append(this_).append(DOT).append(keys_).append(LEFT_BRACKET)
+                .append(beanAliasParameters.getAliasStringMapObject0GetKey0()).append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(void_).append(SPACE).append(setValue_)
+                .append(LEFT_PAR).append(int_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0SetValue0())
+                .append(COMMA).append(object_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0SetValue1()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(this_).append(DOT).append(values_).append(LEFT_BRACKET).append(beanAliasParameters.getAliasStringMapObject0SetValue0())
+                .append(RIGHT_BRACKET).append(AFFECT).append(beanAliasParameters.getAliasStringMapObject0SetValue1()).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(object_).append(SPACE).append(getValue_).append(LEFT_PAR)
+                .append(int_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0GetValue0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(return_).append(SPACE).append(this_).append(DOT).append(values_)
+                .append(LEFT_BRACKET).append(beanAliasParameters.getAliasStringMapObject0GetValue0()).append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(void_).append(SPACE).append(aliasMapClear).append(EMPTY_PARAMS_SGN);
+        file_.append(keys_).append(AFFECT).append(new_).append(SPACE).append(string_)
+                .append(ACCESS_ZERO).append(END_LINE);
+        file_.append(values_).append(AFFECT).append(new_).append(SPACE).append(object_)
+                .append(ACCESS_ZERO).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(boolean_).append(SPACE).append(aliasMapIsEmpty).append(EMPTY_PARAMS_SGN);
+        file_.append(return_).append(SPACE).append(keys_).append(DOT).append(length_)
+                .append(EQ).append(ZERO).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(int_).append(SPACE).append(aliasMapSize).append(EMPTY_PARAMS_SGN);
+        file_.append(return_).append(SPACE).append(keys_).append(DOT).append(length_).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(void_).append(SPACE)
+                .append(put_).append(LEFT_PAR).append(string_).append(SPACE)
+                .append(beanAliasParameters.getAliasStringMapObject0Put0()).append(COMMA).append(object_)
+                .append(SPACE).append(beanAliasParameters.getAliasStringMapObject0Put1()).append(RIGHT_PAR).append(LEFT_BRACE);
+        String indexPut_ = tr(INDEX, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0Put0(),beanAliasParameters.getAliasStringMapObject0Put1());
+        file_.append(int_).append(SPACE).append(indexPut_).append(AFFECT)
+                .append(indexOfEntry_).append(LEFT_PAR).append(beanAliasParameters.getAliasStringMapObject0Put0()).append(RIGHT_PAR)
+                .append(END_LINE);
+        file_.append(if_).append(LEFT_PAR).append(indexPut_).append(EQ).append(MINUS_ONE).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(addEntry_).append(LEFT_PAR).append(beanAliasParameters.getAliasStringMapObject0Put0()).append(COMMA)
+                .append(beanAliasParameters.getAliasStringMapObject0Put1()).append(RIGHT_PAR).append(END_LINE);
+        file_.append(return_).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(setValue_).append(LEFT_PAR).append(indexPut_).append(COMMA)
+                .append(beanAliasParameters.getAliasStringMapObject0Put1()).append(RIGHT_PAR).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(boolean_).append(SPACE).append(aliasMapContains)
+                .append(LEFT_PAR).append(string_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0Contains0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(return_).append(SPACE).append(indexOfEntry_).append(LEFT_PAR)
+                .append(beanAliasParameters.getAliasStringMapObject0Contains0()).append(RIGHT_PAR).append(DIFF).append(MINUS_ONE).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        String indexGetVal_ = tr(INDEX, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0GetVal0());
+        file_.append(public_).append(SPACE).append(object_).append(SPACE).append(getVal_).append(LEFT_PAR)
+                .append(string_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0GetVal0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(int_).append(SPACE).append(indexGetVal_).append(AFFECT).append(indexOfEntry_)
+                .append(LEFT_PAR).append(beanAliasParameters.getAliasStringMapObject0GetVal0()).append(RIGHT_PAR).append(END_LINE);
+        file_.append(if_).append(LEFT_PAR).append(indexGetVal_).append(EQ).append(MINUS_ONE).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(return_).append(SPACE).append(null_).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(return_).append(SPACE).append(getValue_).append(LEFT_PAR).append(indexGetVal_)
+                .append(RIGHT_PAR).append(END_LINE);
+        file_.append(RIGHT_BRACE);
 
-        file_.append(public_).append(" ").append(void_).append(" ")
-                .append(addEntry_).append("(").append(string_).append(" ")
-                .append(beanAliasParameters.getAliasStringMapObject0AddEntry0()).append(",").append(object_)
-                .append(" ").append(beanAliasParameters.getAliasStringMapObject0AddEntry1()).append("){");
-        String keysLoc_ = tr("keys", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0AddEntry0(),beanAliasParameters.getAliasStringMapObject0AddEntry1());
-        String valuesLoc_ = tr("values", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0AddEntry0(),beanAliasParameters.getAliasStringMapObject0AddEntry1());
-        file_.append(string_).append("[] ").append(keysLoc_).append("=").append(new_)
-                .append(" ").append(string_).append("[").append(this_)
-                .append(".").append(keys_).append(".").append(length_)
-                .append("+1]").append(endLine_);
-        String iAddEntry_ = tr("i", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0AddEntry0(),beanAliasParameters.getAliasStringMapObject0AddEntry1());
-        file_.append(for_).append("(").append(int_).append(" ").append(iAddEntry_)
-                .append("=0").append(endLine_).append(iAddEntry_).append("<")
-                .append(this_).append(".")
-                .append(keys_).append(".").append(length_).append(endLine_)
-                .append(iAddEntry_).append("++){");
-        file_.append(keysLoc_).append("[").append(iAddEntry_)
-                .append("]=").append(this_).append(".").append(keys_).append("[")
-                .append(iAddEntry_).append("]").append(endLine_);
-        file_.append("}");
-        file_.append(keysLoc_).append("[").append(this_).append(".").append(keys_)
-                .append(".").append(length_).append("]=").append(beanAliasParameters.getAliasStringMapObject0AddEntry0()).append(endLine_);
-        file_.append(this_).append(".").append(keys_).append("=").append(keysLoc_).append(endLine_);
-        file_.append(object_).append("[] ").append(valuesLoc_).append("=").append(new_).append(" ")
-                .append(object_).append("[").append(this_).append(".").append(values_).append(".")
-                .append(length_).append("+1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(iAddEntry_)
-                .append("=0").append(endLine_).append(iAddEntry_).append("<")
-                .append(this_).append(".").append(values_).append(".").append(length_).append(endLine_)
-                .append(iAddEntry_).append("++){");
-        file_.append(valuesLoc_).append("[").append(iAddEntry_)
-                .append("]=").append(this_).append(".").append(values_).append("[")
-                .append(iAddEntry_).append("]").append(endLine_);
-        file_.append("}");
-        file_.append(valuesLoc_).append("[").append(this_).append(".").append(values_)
-                .append(".").append(length_).append("]=").append(beanAliasParameters.getAliasStringMapObject0AddEntry1()).append(endLine_);
-        file_.append(this_).append(".").append(values_).append("=").append(valuesLoc_)
-                .append(endLine_);
-        file_.append("}");
+        file_.append(public_).append(SPACE).append(void_).append(SPACE)
+                .append(addEntry_).append(LEFT_PAR).append(string_).append(SPACE)
+                .append(beanAliasParameters.getAliasStringMapObject0AddEntry0()).append(COMMA).append(object_)
+                .append(SPACE).append(beanAliasParameters.getAliasStringMapObject0AddEntry1()).append(RIGHT_PAR).append(LEFT_BRACE);
+        String keysLoc_ = tr(KEYS, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0AddEntry0(),beanAliasParameters.getAliasStringMapObject0AddEntry1());
+        String valuesLoc_ = tr(VALUES, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0AddEntry0(),beanAliasParameters.getAliasStringMapObject0AddEntry1());
+        file_.append(string_).append(ARR_SPACE).append(keysLoc_).append(AFFECT).append(new_)
+                .append(SPACE).append(string_).append(LEFT_BRACKET).append(this_)
+                .append(DOT).append(keys_).append(DOT).append(length_)
+                .append(ADD_ONE).append(RIGHT_BRACKET).append(END_LINE);
+        String iAddEntry_ = tr(I_LOOP, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0AddEntry0(),beanAliasParameters.getAliasStringMapObject0AddEntry1());
+        file_.append(for_).append(LEFT_PAR).append(int_).append(SPACE).append(iAddEntry_)
+                .append(AFFECT_ZERO).append(END_LINE).append(iAddEntry_).append(LT)
+                .append(this_).append(DOT)
+                .append(keys_).append(DOT).append(length_).append(END_LINE)
+                .append(iAddEntry_).append(INCR).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(keysLoc_).append(LEFT_BRACKET).append(iAddEntry_)
+                .append(RIGHT_BRACKET).append(AFFECT).append(this_).append(DOT).append(keys_).append(LEFT_BRACKET)
+                .append(iAddEntry_).append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(keysLoc_).append(LEFT_BRACKET).append(this_).append(DOT).append(keys_)
+                .append(DOT).append(length_).append(RIGHT_BRACKET).append(AFFECT).append(beanAliasParameters.getAliasStringMapObject0AddEntry0()).append(END_LINE);
+        file_.append(this_).append(DOT).append(keys_).append(AFFECT).append(keysLoc_).append(END_LINE);
+        file_.append(object_).append(ARR_SPACE).append(valuesLoc_).append(AFFECT).append(new_).append(SPACE)
+                .append(object_).append(LEFT_BRACKET).append(this_).append(DOT).append(values_).append(DOT)
+                .append(length_).append(ADD_ONE).append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(for_).append(LEFT_PAR).append(int_).append(SPACE).append(iAddEntry_)
+                .append(AFFECT_ZERO).append(END_LINE).append(iAddEntry_).append(LT)
+                .append(this_).append(DOT).append(values_).append(DOT).append(length_).append(END_LINE)
+                .append(iAddEntry_).append(INCR).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(valuesLoc_).append(LEFT_BRACKET).append(iAddEntry_)
+                .append(RIGHT_BRACKET).append(AFFECT).append(this_).append(DOT).append(values_).append(LEFT_BRACKET)
+                .append(iAddEntry_).append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(valuesLoc_).append(LEFT_BRACKET).append(this_).append(DOT).append(values_)
+                .append(DOT).append(length_).append(RIGHT_BRACKET).append(AFFECT).append(beanAliasParameters.getAliasStringMapObject0AddEntry1()).append(END_LINE);
+        file_.append(this_).append(DOT).append(values_).append(AFFECT).append(valuesLoc_)
+                .append(END_LINE);
+        file_.append(RIGHT_BRACE);
 
-        file_.append(public_).append(" ").append(int_).append(" ").append(indexOfEntry_)
-                .append("(").append(string_).append(" ").append(beanAliasParameters.getAliasStringMapObject0IndexOfEntry0()).append("){");
-        String iIndexOfEntry_ = tr("i", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0IndexOfEntry0());
-        file_.append(for_).append("(").append(int_)
-                .append(" ").append(iIndexOfEntry_).append("=0")
-                .append(endLine_).append(iIndexOfEntry_).append("<").append(this_)
-                .append(".").append(keys_).append(".").append(length_).append(endLine_)
-                .append(iIndexOfEntry_).append("++){");
-        file_.append(if_).append("(").append(this_).append(".").append(keys_).append("[").append(iIndexOfEntry_).append("]==").append(beanAliasParameters.getAliasStringMapObject0IndexOfEntry0()).append("){");
-        file_.append(return_).append(" ").append(iIndexOfEntry_).append(endLine_);
-        file_.append("}");
-        file_.append("}");
-        file_.append(return_).append(" -1").append(endLine_);
-        file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(putAll_).append("(")
-                .append(getAliasStringMapObject()).append(" ").append(beanAliasParameters.getAliasStringMapObject0PutAll0()).append("){");
-        String lenPutAll_ = tr("len", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0PutAll0());
-        file_.append(int_).append(" ").append(lenPutAll_).append("=").append("(")
-                .append(beanAliasParameters.getAliasStringMapObject0PutAll0()).append(").").append(keys_).append(".")
-                .append(length_).append(endLine_);
-        String iPutAll_ = tr("i", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0PutAll0());
-        file_.append(for_).append("(").append(int_).append(" ").append(iPutAll_)
-                .append("=0").append(endLine_).append(iPutAll_).append("<")
-                .append(lenPutAll_).append(endLine_).append(iPutAll_).append("++){");
-        file_.append(" ").append(put_).append("(").append("(")
-                .append(beanAliasParameters.getAliasStringMapObject0PutAll0()).append(").")
-                .append(keys_).append("[").append(iPutAll_)
-                .append("], ").append("(").append(beanAliasParameters.getAliasStringMapObject0PutAll0())
-                .append(").").append(values_).append("[").append(iPutAll_)
-                .append("])").append(endLine_);
-        file_.append("}");
-        file_.append("}");
-        keysLoc_ = tr("keys", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
-        valuesLoc_ = tr("values", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
-        file_.append(public_).append(" ").append(void_).append(" ").append(removeKey_)
-                .append("(").append(string_).append(" ").append(beanAliasParameters.getAliasStringMapObject0RemoveKey0()).append("){");
-        String indexRemoveKey_ = tr("index", _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
-        file_.append(int_).append(" ").append(indexRemoveKey_)
-                .append("=").append(indexOfEntry_).append("(").append(beanAliasParameters.getAliasStringMapObject0RemoveKey0())
-                .append(")").append(endLine_);
-        file_.append(if_).append("(").append(indexRemoveKey_).append("==-1){");
-        file_.append(return_).append(endLine_);
-        file_.append("}");
-        file_.append(string_).append("[] ").append(keysLoc_).append("=").append(new_)
-                .append(" ").append(string_).append("[").append(this_).append(".").append(keys_)
-                .append(".").append(length_).append("-1]").append(endLine_);
-        String iRemoveKey_ = tr("i", _keyWords, primitiveTypes_, coreNames_);
-        file_.append(for_).append("(").append(int_).append(" ").append(iRemoveKey_).append("=0")
-                .append(endLine_).append(iRemoveKey_)
-                .append("<").append(indexRemoveKey_)
-                .append(endLine_).append(iRemoveKey_)
-                .append("++){");
-        file_.append(keysLoc_).append("[").append(iRemoveKey_).append("]=")
-                .append(this_).append(".").append(keys_).append("[").append(iRemoveKey_)
-                .append("]").append(endLine_);
-        file_.append("}");
-        file_.append(for_).append("(").append(int_).append(" ").append(iRemoveKey_)
-                .append("=").append(indexRemoveKey_).append("+1").append(endLine_)
-                .append(iRemoveKey_).append("<").append(this_).append(".")
-                .append(keys_).append(".").append(length_).append(endLine_)
-                .append(iRemoveKey_).append("++){");
-        file_.append(keysLoc_).append("[").append(iRemoveKey_).append("-1]=").append(this_)
-                .append(".").append(keys_).append("[").append(iRemoveKey_).append("]")
-                .append(endLine_);
-        file_.append("}");
-        file_.append(this_).append(".").append(keys_).append("=").append(keysLoc_).append(endLine_);
+        file_.append(public_).append(SPACE).append(int_).append(SPACE).append(indexOfEntry_)
+                .append(LEFT_PAR).append(string_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0IndexOfEntry0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        String iIndexOfEntry_ = tr(I_LOOP, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0IndexOfEntry0());
+        file_.append(for_).append(LEFT_PAR).append(int_)
+                .append(SPACE).append(iIndexOfEntry_).append(AFFECT_ZERO)
+                .append(END_LINE).append(iIndexOfEntry_).append(LT).append(this_)
+                .append(DOT).append(keys_).append(DOT).append(length_).append(END_LINE)
+                .append(iIndexOfEntry_).append(INCR).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(if_).append(LEFT_PAR).append(this_).append(DOT).append(keys_).append(LEFT_BRACKET).append(iIndexOfEntry_).append(RIGHT_BRACKET).append(EQ).append(beanAliasParameters.getAliasStringMapObject0IndexOfEntry0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(return_).append(SPACE).append(iIndexOfEntry_).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(RIGHT_BRACE);
+        file_.append(return_).append(MINUS_ONE).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(public_).append(SPACE).append(void_).append(SPACE).append(putAll_).append(LEFT_PAR)
+                .append(getAliasStringMapObject()).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0PutAll0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        String lenPutAll_ = tr(LEN, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0PutAll0());
+        file_.append(int_).append(SPACE).append(lenPutAll_).append(AFFECT).append(LEFT_PAR)
+                .append(beanAliasParameters.getAliasStringMapObject0PutAll0()).append(RIGHT_PAR).append(DOT).append(keys_).append(DOT)
+                .append(length_).append(END_LINE);
+        String iPutAll_ = tr(I_LOOP, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0PutAll0());
+        file_.append(for_).append(LEFT_PAR).append(int_).append(SPACE).append(iPutAll_)
+                .append(AFFECT_ZERO).append(END_LINE).append(iPutAll_).append(LT)
+                .append(lenPutAll_).append(END_LINE).append(iPutAll_).append(INCR).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(SPACE).append(put_).append(LEFT_PAR).append(LEFT_PAR)
+                .append(beanAliasParameters.getAliasStringMapObject0PutAll0()).append(RIGHT_PAR).append(DOT)
+                .append(keys_).append(LEFT_BRACKET).append(iPutAll_)
+                .append(RIGHT_BRACKET).append(COMMA).append(LEFT_PAR).append(beanAliasParameters.getAliasStringMapObject0PutAll0())
+                .append(RIGHT_PAR).append(DOT).append(values_).append(LEFT_BRACKET).append(iPutAll_)
+                .append(RIGHT_BRACKET).append(RIGHT_PAR).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(RIGHT_BRACE);
+        keysLoc_ = tr(KEYS, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
+        valuesLoc_ = tr(VALUES, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
+        file_.append(public_).append(SPACE).append(void_).append(SPACE).append(removeKey_)
+                .append(LEFT_PAR).append(string_).append(SPACE).append(beanAliasParameters.getAliasStringMapObject0RemoveKey0()).append(RIGHT_PAR).append(LEFT_BRACE);
+        String indexRemoveKey_ = tr(INDEX, _keyWords, primitiveTypes_, coreNames_,beanAliasParameters.getAliasStringMapObject0RemoveKey0());
+        file_.append(int_).append(SPACE).append(indexRemoveKey_)
+                .append(AFFECT).append(indexOfEntry_).append(LEFT_PAR).append(beanAliasParameters.getAliasStringMapObject0RemoveKey0())
+                .append(RIGHT_PAR).append(END_LINE);
+        file_.append(if_).append(LEFT_PAR).append(indexRemoveKey_).append(EQ).append(MINUS_ONE).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(return_).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(string_).append(ARR_SPACE).append(keysLoc_).append(AFFECT).append(new_)
+                .append(SPACE).append(string_).append(LEFT_BRACKET).append(this_).append(DOT).append(keys_)
+                .append(DOT).append(length_).append(MINUS_ONE).append(RIGHT_BRACKET).append(END_LINE);
+        String iRemoveKey_ = tr(I_LOOP, _keyWords, primitiveTypes_, coreNames_);
+        file_.append(for_).append(LEFT_PAR).append(int_).append(SPACE).append(iRemoveKey_).append(AFFECT_ZERO)
+                .append(END_LINE).append(iRemoveKey_)
+                .append(LT).append(indexRemoveKey_)
+                .append(END_LINE).append(iRemoveKey_)
+                .append(INCR).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(keysLoc_).append(LEFT_BRACKET).append(iRemoveKey_).append(RIGHT_BRACKET).append(AFFECT)
+                .append(this_).append(DOT).append(keys_).append(LEFT_BRACKET).append(iRemoveKey_)
+                .append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(for_).append(LEFT_PAR).append(int_).append(SPACE).append(iRemoveKey_)
+                .append(AFFECT).append(indexRemoveKey_).append(ADD_ONE).append(END_LINE)
+                .append(iRemoveKey_).append(LT).append(this_).append(DOT)
+                .append(keys_).append(DOT).append(length_).append(END_LINE)
+                .append(iRemoveKey_).append(INCR).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(keysLoc_).append(LEFT_BRACKET).append(iRemoveKey_).append(MINUS_ONE).append(RIGHT_BRACKET).append(AFFECT).append(this_)
+                .append(DOT).append(keys_).append(LEFT_BRACKET).append(iRemoveKey_).append(RIGHT_BRACKET)
+                .append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(this_).append(DOT).append(keys_).append(AFFECT).append(keysLoc_).append(END_LINE);
 
-        file_.append(object_).append("[] ").append(valuesLoc_).append("=").append(new_).append(" ")
-                .append(object_).append("[").append(this_).append(".")
-                .append(values_).append(".").append(length_).append("-1]")
-                .append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(iRemoveKey_).append("=0")
-                .append(endLine_).append(iRemoveKey_)
-                .append("<").append(indexRemoveKey_)
-                .append(endLine_).append(iRemoveKey_)
-                .append("++){");
-        file_.append(valuesLoc_).append("[").append(iRemoveKey_).append("]=")
-                .append(this_).append(".").append(values_).append("[").append(iRemoveKey_)
-                .append("]").append(endLine_);
-        file_.append("}");
-        file_.append(for_).append("(").append(int_).append(" ").append(iRemoveKey_)
-                .append("=").append(indexRemoveKey_).append("+1").append(endLine_)
-                .append(iRemoveKey_).append("<").append(this_).append(".").append(values_)
-                .append(".").append(length_).append(endLine_).append(iRemoveKey_).append("++){");
-        file_.append(valuesLoc_).append("[").append(iRemoveKey_).append("-1]=")
-                .append(this_).append(".").append(values_).append("[").append(iRemoveKey_)
-                .append("]").append(endLine_);
-        file_.append("}");
-        file_.append(this_).append(".").append(values_).append("=").append(valuesLoc_).append(endLine_);
-        file_.append("}");
-        file_.append("}");
+        file_.append(object_).append(ARR_SPACE).append(valuesLoc_).append(AFFECT).append(new_).append(SPACE)
+                .append(object_).append(LEFT_BRACKET).append(this_).append(DOT)
+                .append(values_).append(DOT).append(length_).append(MINUS_ONE).append(RIGHT_BRACKET)
+                .append(END_LINE);
+        file_.append(for_).append(LEFT_PAR).append(int_).append(SPACE).append(iRemoveKey_).append(AFFECT_ZERO)
+                .append(END_LINE).append(iRemoveKey_)
+                .append(LT).append(indexRemoveKey_)
+                .append(END_LINE).append(iRemoveKey_)
+                .append(INCR).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(valuesLoc_).append(LEFT_BRACKET).append(iRemoveKey_).append(RIGHT_BRACKET).append(AFFECT)
+                .append(this_).append(DOT).append(values_).append(LEFT_BRACKET).append(iRemoveKey_)
+                .append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(for_).append(LEFT_PAR).append(int_).append(SPACE).append(iRemoveKey_)
+                .append(AFFECT).append(indexRemoveKey_).append(ADD_ONE).append(END_LINE)
+                .append(iRemoveKey_).append(LT).append(this_).append(DOT).append(values_)
+                .append(DOT).append(length_).append(END_LINE).append(iRemoveKey_).append(INCR).append(RIGHT_PAR).append(LEFT_BRACE);
+        file_.append(valuesLoc_).append(LEFT_BRACKET).append(iRemoveKey_).append(MINUS_ONE).append(RIGHT_BRACKET).append(AFFECT)
+                .append(this_).append(DOT).append(values_).append(LEFT_BRACKET).append(iRemoveKey_)
+                .append(RIGHT_BRACKET).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(this_).append(DOT).append(values_).append(AFFECT).append(valuesLoc_).append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        file_.append(RIGHT_BRACE);
         files_.put(getAliasStringMapObject(), file_.toString());
         file_ = new StringBuilder();
-        file_.append(public_).append(" ").append(interface_).append(" ")
-                .append(aliasValidator).append("{");
-        file_.append(public_).append(" ").append(getAliasMessage()).append(" ")
-                .append(aliasValidate).append("(");
-        file_.append(object_).append(" ").append(beanAliasParameters.getAliasValidator0Validate0()).append(",");
-        file_.append(object_).append(" ").append(beanAliasParameters.getAliasValidator0Validate1()).append(",");
-        file_.append(object_).append(" ").append(beanAliasParameters.getAliasValidator0Validate2()).append(",");
-        file_.append(object_).append("[] ").append(beanAliasParameters.getAliasValidator0Validate3()).append(",");
-        file_.append(string_).append(" ").append(beanAliasParameters.getAliasValidator0Validate4()).append(",");
-        file_.append(string_).append(" ").append(beanAliasParameters.getAliasValidator0Validate5());
-        file_.append(")");
-        file_.append(endLine_);
-        file_.append("}");
+        file_.append(public_).append(SPACE).append(interface_).append(SPACE)
+                .append(aliasValidator).append(LEFT_BRACE);
+        file_.append(public_).append(SPACE).append(getAliasMessage()).append(SPACE)
+                .append(aliasValidate).append(LEFT_PAR);
+        file_.append(object_).append(SPACE).append(beanAliasParameters.getAliasValidator0Validate0()).append(COMMA);
+        file_.append(object_).append(SPACE).append(beanAliasParameters.getAliasValidator0Validate1()).append(COMMA);
+        file_.append(object_).append(SPACE).append(beanAliasParameters.getAliasValidator0Validate2()).append(COMMA);
+        file_.append(object_).append(ARR_SPACE).append(beanAliasParameters.getAliasValidator0Validate3()).append(COMMA);
+        file_.append(string_).append(SPACE).append(beanAliasParameters.getAliasValidator0Validate4()).append(COMMA);
+        file_.append(string_).append(SPACE).append(beanAliasParameters.getAliasValidator0Validate5());
+        file_.append(RIGHT_PAR);
+        file_.append(END_LINE);
+        file_.append(RIGHT_BRACE);
         files_.put(aliasValidator, file_.toString());
         return files_;
     }

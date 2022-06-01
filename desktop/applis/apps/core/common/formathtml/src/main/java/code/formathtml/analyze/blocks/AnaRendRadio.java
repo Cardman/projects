@@ -1,9 +1,6 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -12,12 +9,11 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.analyze.ResultText;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class AnaRendRadio extends AnaRendInput {
+public final class AnaRendRadio extends AnaRendInput implements AnaRendElementAttr {
 
     private ClassMethodIdReturn rootConverterFieldValue;
     private final ResultExpression expRad = new ResultExpression();
@@ -28,15 +24,15 @@ public final class AnaRendRadio extends AnaRendInput {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String varValue_ = getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrNr());
         if (!varValue_.trim().isEmpty()) {
             _page.setSumOffset(expRad.getSumOffset());
             _page.zeroOffset();
             rootRadio = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,expRad);
         }
-        processAnaInput(_read, _anaDoc, _page);
-        String converterFieldValue_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
+        processAnaInput(getRead(), _anaDoc, _page);
+        String converterFieldValue_ = getRead().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
         if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
             String object_ = _page.getAliasObject();
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
@@ -44,19 +40,7 @@ public final class AnaRendRadio extends AnaRendInput {
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterFieldValue_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverterFieldValue = classMethodIdReturn_;
-            String check_ = ResultText.check(_page, attr_, classMethodIdReturn_);
-            Mapping m_ = new Mapping();
-            m_.setArg(check_);
-            m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFile(_page.getCurrentFile());
-                badEl_.setIndexFile(attr_);
-                badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        check_,
-                        _anaDoc.getAliasCharSequence());
-                AnalyzingDoc.addError(badEl_, _page);
-            }
+            checkCharSeq(_anaDoc, _page, attr_, classMethodIdReturn_);
         }
     }
     @Override

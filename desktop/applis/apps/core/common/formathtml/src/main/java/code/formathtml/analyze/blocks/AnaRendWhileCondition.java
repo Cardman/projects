@@ -2,7 +2,7 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 
-public final class AnaRendWhileCondition extends AnaRendCondition implements AnaRendLoop {
+public final class AnaRendWhileCondition extends AnaRendCondition implements AnaRendLocBreakableBlock {
 
     private final String label;
     private final int labelOffset;

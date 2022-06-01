@@ -5979,7 +5979,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     private static void setupAnalyzing(DualNavigationContext _context, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc _analyzingDoc) {
         _analyzingDoc.setup(_context.getNavigation().getSession(), _context.getDualAnalyzedContext().getContext().getProperties(), _context.getDualAnalyzedContext().getContext().getMessagesFolder());
-        setupAnalyzing(_context, _analyzingDoc, _localVariables, _vars);
+        setupAnalyzing(_context, _localVariables, _vars);
     }
 
 
@@ -5993,10 +5993,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //        _context.setArgumentClass(_s);
 //    }
 
-    private static void setupAnalyzingOneVar(AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc, String _type, String _varName) {
+    private static void setupAnalyzingOneVar(AnalyzedPageEl _analyzing, String _type, String _varName) {
 
         String globalClass_ = _analyzing.getGlobalClass();
-        setupAna(_analyzingDoc, _analyzing);
+        setupAna(_analyzing);
         _analyzing.setGlobalType(new AnaFormattedRootBlock(_analyzing,globalClass_));
         AnaLocalVariable a_ = new AnaLocalVariable();
         a_.setClassName(_type);
@@ -6006,7 +6006,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     private static CustList<RendDynOperationNode> getQuickAnalyzedFwd(String _el, DualNavigationContext _conf, AnalyzingDoc _analyzingDoc, String _type, String _varName, boolean _static) {
         _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext().getProperties(), _conf.getDualAnalyzedContext().getContext().getMessagesFolder());
-        setupAnalyzingOneVar(_conf.getDualAnalyzedContext().getAnalyzed(), _analyzingDoc, _type, _varName);
+        setupAnalyzingOneVar(_conf.getDualAnalyzedContext().getAnalyzed(), _type, _varName);
         _conf.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(_static));
         Delimiters d_ = checkSyntax(_conf, _el);
         OperationsSequence opTwo_ = rendOpSeq(_conf, d_, _el, 0, _analyzingDoc);

@@ -33,7 +33,7 @@ public final class RendTitledAnchor extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
@@ -48,13 +48,14 @@ public final class RendTitledAnchor extends RendElement {
             String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
             objects_.add(txt_);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
+                return true;
             }
             curWr_.removeAttribute(e.getKey());
         }
         curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
         processLink(_cont,curWr_,_read, textPart, opExpAnch, _ctx, _rendStack);
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
 }

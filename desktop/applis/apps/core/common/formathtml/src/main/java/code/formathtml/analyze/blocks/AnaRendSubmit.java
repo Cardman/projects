@@ -12,7 +12,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class AnaRendSubmit extends AnaRendElement {
+public final class AnaRendSubmit extends AnaRendElement implements AnaRendElementAttr {
 
     private final StringMap<ResultExpression> opExp = new StringMap<ResultExpression>();
 
@@ -22,15 +22,15 @@ public final class AnaRendSubmit extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String value_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrMessage());
+    public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        String value_ = getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrMessage());
         int offMessage_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrMessage());
         preformatted = getPre(value_,offMessage_, _anaDoc, _page);
         if (preformatted.isEmpty()) {
             return;
         }
         for (EntryCust<String,String> e: preformatted.entryList()) {
-            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscapedAmp())));
+            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscapedAmp())));
         }
         for (EntryCust<String,ResultExpression> e: opExp.entryList()) {
             _page.setSumOffset(e.getValue().getSumOffset());
@@ -44,13 +44,7 @@ public final class AnaRendSubmit extends AnaRendElement {
         if (href_.isEmpty()) {
             return new StringList();
         }
-        StringList list_ = new StringList();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (getRead().hasAttribute(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
-            list_.add(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-            i_++;
-        }
-        return list_;
+        return AnaRendLink.paramsList(_anaDoc,getRead());
     }
 
     @Override

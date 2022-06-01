@@ -25,7 +25,7 @@ public final class RendLink extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         String fileContent_ = content;
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
@@ -36,7 +36,7 @@ public final class RendLink extends RendElement {
                 String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
                 objects_.add(txt_);
                 if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                    return;
+                    return true;
                 }
                 curWr_.removeAttribute(e.getKey());
             }
@@ -46,6 +46,7 @@ public final class RendLink extends RendElement {
         DefRendReadWrite rw_ = ip_.getRendReadWrite();
         simpleAppendChild(ownerDocument_, rw_, _nextWrite);
         procLink(_cont, fileContent_, ownerDocument_);
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
     public static void procLink(Configuration _cont, String _fileContent, Document _ownerDocument) {

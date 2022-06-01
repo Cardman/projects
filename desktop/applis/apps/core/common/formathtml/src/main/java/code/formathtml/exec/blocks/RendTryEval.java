@@ -5,7 +5,7 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 
-public final class RendTryEval extends RendParentBlock implements RendEval {
+public final class RendTryEval extends RendParentBlock implements RendWithEl {
 
     private final String label;
 

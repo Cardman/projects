@@ -321,7 +321,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
         _analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext().getProperties(), _cont.getDualAnalyzedContext().getContext().getMessagesFolder());
-        AnalyzingDoc.setupInts(page_, _analyzingDoc);
+        AnalyzingDoc.setupInts(page_);
         page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
         AnaLocalVariable a_ = new AnaLocalVariable();
         a_.setClassName(_local.getClassName());
@@ -342,7 +342,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
         _analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext().getProperties(), _cont.getDualAnalyzedContext().getContext().getMessagesFolder());
-        AnalyzingDoc.setupInts(page_, _analyzingDoc);
+        AnalyzingDoc.setupInts(page_);
         page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
         page_.setAcceptCommaInstr(accept_);
         page_.setCurrentVarSetting(currentVarSetting_);

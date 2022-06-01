@@ -14,7 +14,10 @@ import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class RendMessage extends RendParentBlock implements RendWithEl {
@@ -22,14 +25,14 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
     private final CustList<CustList<RendDynOperationNode>> opExp;
 
     private final StringMap<String> preformatted;
-    private CustList<Boolean> quoted = new CustList<Boolean>();
-    private CustList<Boolean> escaped = new CustList<Boolean>();
-    private StringMap<CustList<CustList<RendDynOperationNode>>> callsExps = new StringMap<CustList<CustList<RendDynOperationNode>>>();
-    private StringList args = new StringList();
-    private StringMap<Document> locDoc = new StringMap<Document>();
+    private final CustList<BoolVal> quoted;
+    private final CustList<BoolVal> escaped;
+    private final StringMap<CustList<CustList<RendDynOperationNode>>> callsExps;
+    private final StringList args;
+    private final StringMap<Document> locDoc;
 
 
-    public RendMessage(CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted, CustList<Boolean> _quoted, CustList<Boolean> _escaped,
+    public RendMessage(CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted, CustList<BoolVal> _quoted, CustList<BoolVal> _escaped,
                        StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _args, StringMap<Document> _locDoc) {
         this.opExp = _opExp;
         this.preformatted = _preformatted;
@@ -46,7 +49,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
         for (int i = 0; i< l_; i++) {
-            if (quoted.get(i)) {
+            if (quoted.get(i) == BoolVal.TRUE) {
                 objects_.add(args.get(i));
                 anchorArg_.add(args.get(i));
                 continue;
@@ -56,7 +59,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 return;
             }
             String res_;
-            if (escaped.get(i)) {
+            if (escaped.get(i) == BoolVal.TRUE) {
                 res_ = escapeParam(arg_, _ctx, _rendStack);
             } else {
                 res_ = BeanCustLgNames.processStr(arg_, _ctx, _rendStack);
@@ -102,7 +105,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
         Node root_ = _docLoc.getDocumentElement();
         Node read_ = root_.getFirstChild();
         Document ownerDocument_ = _rendReadWrite.getDocument();
-        while (true) {
+        while (read_ != null) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
                 Element created_ = appendedChild(ownerDocument_, write_, eltRead_);
@@ -119,25 +122,29 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 Text t_ = ownerDocument_.createTextNode(txt_.getTextContent());
                 simpleAppendChild(ownerDocument_,write_,t_);
             }
-            boolean stop_ = false;
-            while (true) {
+            while (read_ != null) {
                 Node nextSibling_ = read_.getNextSibling();
                 if (nextSibling_ != null) {
                     read_ = nextSibling_;
                     break;
                 }
                 Element parentNode_ = read_.getParentNode();
-                if (parentNode_ == root_) {
-                    stop_ = true;
-                    break;
+                if (parentNode_ != root_) {
+                    write_ = getParentNode(write_);
                 }
-                write_ = getParentNode(write_);
-                read_ = parentNode_;
-            }
-            if (stop_) {
-                break;
+                read_ = getNode(root_, parentNode_);
             }
         }
+    }
+
+    private static Node getNode(Node _r, Element _par) {
+        Node read_;
+        if (_par == _r) {
+            read_ = null;
+        } else {
+            read_ = _par;
+        }
+        return read_;
     }
 
     private static void processImportedNode(Configuration _conf,

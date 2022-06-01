@@ -1,6 +1,7 @@
 package code.formathtml.analyze.blocks;
 
-public abstract class AnaRendAbstractCatchEval extends AnaRendParentBlock implements AnaRendEval {
+
+public abstract class AnaRendAbstractCatchEval extends AnaRendParentBlock implements AnaRendBreakableBlock {
     AnaRendAbstractCatchEval(int _offset) {
         super(_offset);
     }

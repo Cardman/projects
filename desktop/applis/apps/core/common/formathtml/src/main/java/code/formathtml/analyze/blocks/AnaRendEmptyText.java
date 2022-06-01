@@ -16,19 +16,7 @@ public final class AnaRendEmptyText extends AnaRendLeaf implements AnaRendBuildE
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        if (getNextSibling() instanceof AnaRendElseIfCondition) {
-            add = false;
-        } else if (getNextSibling() instanceof AnaRendElseCondition) {
-            add = false;
-        } else if (getNextSibling() instanceof AnaRendDoWhileCondition){
-            add = false;
-        } else if (getNextSibling() instanceof AnaRendAbstractCatchEval) {
-            add = false;
-        } else if (getNextSibling() instanceof AnaRendFinallyEval) {
-            add = false;
-        } else if (getNextSibling() instanceof AnaRendCaseCondition) {
-            add = false;
-        } else if (getNextSibling() instanceof AnaRendDefaultCondition) {
+        if (getNextSibling() instanceof AnaRendElseIfCondition || getNextSibling() instanceof AnaRendElseCondition || getNextSibling() instanceof AnaRendDoWhileCondition || getNextSibling() instanceof AnaRendAbstractCatchEval || getNextSibling() instanceof AnaRendFinallyEval || getNextSibling() instanceof AnaRendCaseCondition || getNextSibling() instanceof AnaRendDefaultCondition) {
             add = false;
         }
     }

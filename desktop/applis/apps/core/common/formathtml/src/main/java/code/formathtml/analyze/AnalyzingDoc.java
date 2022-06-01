@@ -22,8 +22,8 @@ public final class AnalyzingDoc {
     private RendKeyWords rendKeyWords = new RendKeyWords();
 
     private int nextIndex;
-    private IdMap<OperationNode, BeanInfo> beansInfos = new IdMap<OperationNode, BeanInfo>();
-    private IdMap<OperationNode, ValidatorInfo> lateValidators = new IdMap<OperationNode, ValidatorInfo>();
+    private final IdMap<OperationNode, BeanInfo> beansInfos = new IdMap<OperationNode, BeanInfo>();
+    private final IdMap<OperationNode, ValidatorInfo> lateValidators = new IdMap<OperationNode, ValidatorInfo>();
     private LgNamesContent content;
     private String prefix = "";
 
@@ -67,7 +67,7 @@ public final class AnalyzingDoc {
         this.messagesFolder = _m;
     }
 
-    public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
+    public static void setupInts(AnalyzedPageEl _page) {
         _page.getMappingLocal().clear();
         _page.setCurrentBlock(null);
         _page.setCurrentAnaBlockForEachLoop(null);

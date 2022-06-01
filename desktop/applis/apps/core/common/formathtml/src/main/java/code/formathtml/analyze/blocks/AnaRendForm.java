@@ -18,7 +18,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class AnaRendForm extends AnaRendElement {
+public final class AnaRendForm extends AnaRendElement implements AnaRendElementAttr{
     private String sgn = "";
 
 
@@ -29,8 +29,8 @@ public final class AnaRendForm extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+    public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        String href_ = getRead().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
@@ -48,7 +48,7 @@ public final class AnaRendForm extends AnaRendElement {
                 res.setResultAnc(classMethodIdReturn_);
                 ResultText.check(_page, rowsGrId_, classMethodIdReturn_);
                 sgn = AnaRendBlock.toSgn(classMethodIdReturn_,_page);
-                _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),getSgn());
+                getRead().setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),getSgn());
                 return;
             }
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();

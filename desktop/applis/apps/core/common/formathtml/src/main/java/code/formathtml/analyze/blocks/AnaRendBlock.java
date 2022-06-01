@@ -511,13 +511,8 @@ public abstract class AnaRendBlock {
         }
         StringMap<String> pres_ = new StringMap<String>();
         for (String l: _analyzingDoc.getLanguages()) {
-            StringMap<String> files_ = _analyzingDoc.getFiles();
-            String content_ = tryGetContent(l, fileName_, files_, _analyzingDoc);
+            String content_ = tryGetContent(l, fileName_, _analyzingDoc);
             int index_ = indexCorrectMessages(content_);
-            String cont_ = content_;
-            if (cont_ == null) {
-                cont_ = EMPTY_STRING;
-            }
             if (index_ >= 0) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(_page.getCurrentFile());
@@ -525,11 +520,11 @@ public abstract class AnaRendBlock {
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         " ",
                         Long.toString(index_),
-                        cont_);
+                        StringUtil.nullToEmpty(content_));
                 AnalyzingDoc.addError(badEl_, _page);
                 return new StringMap<String>();
             }
-            StringMap<String> messages_ = getMessages(cont_);
+            StringMap<String> messages_ = getMessages(StringUtil.nullToEmpty(content_));
             String key_ = elts_.last();
             String format_ = getQuickFormat(messages_, key_);
             if (format_ == null) {
@@ -555,17 +550,11 @@ public abstract class AnaRendBlock {
         }
         StringMap<String> pres_ = new StringMap<String>();
         for (String l: _analyzingDoc.getLanguages()) {
-            StringMap<String> files_ = _analyzingDoc.getFiles();
-            String content_ = tryGetContent(l, fileName_, files_, _analyzingDoc);
-            int index_ = indexCorrectMessages(content_);
-            String cont_ = content_;
-            if (cont_ == null) {
-                cont_ = EMPTY_STRING;
-            }
-            if (index_ >= 0) {
+            String content_ = tryGetContent(l, fileName_, _analyzingDoc);
+            if (indexCorrectMessages(content_) >= 0) {
                 return new StringMap<String>();
             }
-            StringMap<String> messages_ = getMessages(cont_);
+            StringMap<String> messages_ = getMessages(StringUtil.nullToEmpty(content_));
             String key_ = elts_.last();
             String format_ = getQuickFormat(messages_, key_);
             if (format_ == null) {
@@ -599,10 +588,11 @@ public abstract class AnaRendBlock {
         return _messages.getVal(_key);
     }
 
-    public static String tryGetContent(String _loc, String _relative, StringMap<String> _files, AnalyzingDoc _anaDoc) {
+    public static String tryGetContent(String _loc, String _relative, AnalyzingDoc _anaDoc) {
+        StringMap<String> files_ = _anaDoc.getFiles();
         String folder_ = _anaDoc.getMessagesFolder();
         String fileName_ = folder_+'/'+_loc+'/'+_relative;
-        return getContentFile(_files, fileName_);
+        return getContentFile(files_, fileName_);
     }
 
     public static int indexCorrectMessages(String _content) {

@@ -21,7 +21,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.util.core.StringUtil;
 
-public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements AnaRendLoop {
+public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements AnaRendLocBreakableBlock {
 
     private final String label;
     private final int labelOffset;

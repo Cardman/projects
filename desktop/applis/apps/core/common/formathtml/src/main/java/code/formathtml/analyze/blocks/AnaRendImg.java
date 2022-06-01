@@ -7,7 +7,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 
-public final class AnaRendImg extends AnaRendElement {
+public final class AnaRendImg extends AnaRendElement implements AnaRendElementAttr{
     private OperationNode rootSrc;
 
     private final ResultExpression resultExpressionSrc = new ResultExpression();
@@ -17,7 +17,7 @@ public final class AnaRendImg extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         offSrc = resultExpressionSrc.getSumOffset();
         _page.setSumOffset(resultExpressionSrc.getSumOffset());
         _page.zeroOffset();

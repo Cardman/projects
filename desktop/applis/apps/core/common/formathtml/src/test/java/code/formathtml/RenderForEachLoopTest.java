@@ -14,7 +14,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
+        String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li><c:continue/></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));

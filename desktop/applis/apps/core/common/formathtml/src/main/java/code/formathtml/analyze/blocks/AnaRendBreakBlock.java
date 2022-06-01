@@ -22,18 +22,9 @@ public final class AnaRendBreakBlock extends AnaRendLeaf implements AnaRendBuild
         boolean childOfBreakable_ = false;
         AnaRendParentBlock b_ = getParent();
         while (b_ != null) {
-            if (b_ instanceof AnaRendBreakableBlock) {
-                if (label.isEmpty()) {
-                    if (b_ instanceof AnaRendLoop || b_ instanceof AnaRendSwitchBlock) {
-                        childOfBreakable_ = true;
-                        break;
-                    }
-                } else {
-                    if (StringUtil.quickEq(label, ((AnaRendBreakableBlock)b_).getRealLabel())){
-                        childOfBreakable_ = true;
-                        break;
-                    }
-                }
+            if (exit(b_)) {
+                childOfBreakable_ = true;
+                break;
             }
             b_ = b_.getParent();
         }
@@ -78,7 +69,19 @@ public final class AnaRendBreakBlock extends AnaRendLeaf implements AnaRendBuild
             AnalyzingDoc.addError(un_, _page);
         }
     }
+    private boolean exit(AnaRendParentBlock _b) {
+        if (_b instanceof AnaRendBreakableBlock) {
+            if (label.isEmpty()) {
+                return isLoop(_b) || _b instanceof AnaRendSwitchBlock;
+            }
+            return StringUtil.quickEq(label, ((AnaRendBreakableBlock) _b).getRealLabel());
+        }
+        return false;
+    }
 
+    public static boolean isLoop(AnaRendBlock _bl) {
+        return _bl instanceof AnaRendDoBlock||_bl instanceof AnaRendForEachLoop||_bl instanceof AnaRendForEachTable||_bl instanceof AnaRendForIterativeLoop||_bl instanceof AnaRendForMutableIterativeLoop||_bl instanceof AnaRendWhileCondition;
+    }
     public String getLabel() {
         return label;
     }

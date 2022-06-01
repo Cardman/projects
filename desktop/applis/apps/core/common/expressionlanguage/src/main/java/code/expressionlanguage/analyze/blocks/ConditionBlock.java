@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFctPair;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -19,7 +19,6 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
     private final String condition;
 
     private final int conditionOffset;
-    private int testOffset;
 
     private Argument argument;
 
@@ -27,8 +26,7 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
 
     private String err = "";
 
-    private AnaTypeFct function;
-    private AnaTypeFct functionImpl;
+    private final AnaTypeFctPair functions = new AnaTypeFctPair();
 
     private int conditionNb;
 
@@ -53,46 +51,42 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
         _page.zeroOffset();
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(f_.getStaticContext()), _page));
         err = _page.getCurrentEmptyPartErr();
-        processBoolean(res.getRoot(), _page);
+        AnaTypeFctPair fcts_ = processBoolean(this, res.getRoot(), _page, conditionOffset);
+        functions.setFunction(fcts_.getFunction());
+        functions.setFunctionImpl(fcts_.getFunctionImpl());
     }
 
-    private void processBoolean(OperationNode _root, AnalyzedPageEl _page) {
+    static AnaTypeFctPair processBoolean(AbsBk _abs, OperationNode _root, AnalyzedPageEl _page, int _off) {
+        AnaTypeFctPair pair_ = new AnaTypeFctPair();
         AnaClassArgumentMatching resultClass_ = _root.getResultClass();
         if (!resultClass_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), resultClass_, _page);
             if (res_ != null) {
                 resultClass_.implicitInfosCore(res_);
-                functionImpl = res_.getParametrableContent().getPair();
+                pair_.setFunctionImpl(res_.getParametrableContent().getPair());
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(resultClass_, _page);
                 if (trueOp_ != null) {
                     resultClass_.implicitInfosTest(trueOp_);
-                    function = trueOp_.getParametrableContent().getPair();
+                    pair_.setFunction(trueOp_.getParametrableContent().getPair());
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(getFile());
-                    un_.setIndexFile(conditionOffset);
+                    un_.setFile(_abs.getFile());
+                    un_.setIndexFile(_off);
                     //key word len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(resultClass_.getNames(), ExportCst.JOIN_TYPES));
                     _page.addLocError(un_);
-                    addErrorBlock(un_.getBuiltError());
+                    _abs.addErrorBlock(un_.getBuiltError());
                 }
             }
         }
         resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        return pair_;
     }
 
     public ResultExpression getRes() {
         return res;
-    }
-
-    public AnaTypeFct getFunctionImpl() {
-        return functionImpl;
-    }
-
-    public AnaTypeFct getFunction() {
-        return function;
     }
 
     public Argument getArgument() {
@@ -116,12 +110,12 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
         return err;
     }
 
-    public int getTestOffset() {
-        return testOffset;
+    public AnaTypeFctPair getFunctions() {
+        return functions;
     }
 
     public void setTestOffset(int _testOffset) {
-        testOffset = _testOffset;
+        functions.setTestOffset(_testOffset);
     }
 
     public int getConditionNb() {

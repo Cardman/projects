@@ -26,8 +26,9 @@ public final class RendAnchor extends RendElement {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         processLink(_cont, (Element) _nextWrite, _read, textPart,opExpAnch, _ctx, _rendStack);
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
 }

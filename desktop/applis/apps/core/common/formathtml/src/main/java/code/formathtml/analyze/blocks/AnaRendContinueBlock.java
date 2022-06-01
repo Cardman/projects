@@ -21,15 +21,9 @@ public final class AnaRendContinueBlock extends AnaRendLeaf implements AnaRendBu
         boolean childOfLoop_ = false;
         AnaRendParentBlock b_ = getParent();
         while (b_ != null) {
-            if (b_ instanceof AnaRendLoop) {
-                if (label.isEmpty()) {
-                    childOfLoop_ = true;
-                    break;
-                }
-                if (StringUtil.quickEq(label, ((AnaRendBreakableBlock)b_).getRealLabel())){
-                    childOfLoop_ = true;
-                    break;
-                }
+            if (exit(b_)) {
+                childOfLoop_ = true;
+                break;
             }
             b_ = b_.getParent();
         }
@@ -65,6 +59,15 @@ public final class AnaRendContinueBlock extends AnaRendLeaf implements AnaRendBu
             }
             AnalyzingDoc.addError(un_, _page);
         }
+    }
+    private boolean exit(AnaRendParentBlock _b) {
+        if (AnaRendBreakBlock.isLoop(_b)) {
+            if (label.isEmpty()) {
+                return true;
+            }
+            return StringUtil.quickEq(label, ((AnaRendBreakableBlock) _b).getRealLabel());
+        }
+        return false;
     }
 
     public String getLabel() {

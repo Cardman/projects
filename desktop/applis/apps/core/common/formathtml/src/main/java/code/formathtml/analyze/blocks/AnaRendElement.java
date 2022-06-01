@@ -29,7 +29,6 @@ public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRe
             _page.setSumOffset(e.getValue().getSumOffset());
             RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
         }
-        processAttributes(_doc,read, _anaDoc, _page);
         for (EntryCust<String,ResultExpression> e: attributes.entryList()) {
             _page.zeroOffset();
             _page.setSumOffset(e.getValue().getSumOffset());
@@ -71,7 +70,6 @@ public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRe
     }
 
     public abstract StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
-    protected abstract void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
 
     public final Element getRead() {
         return read;

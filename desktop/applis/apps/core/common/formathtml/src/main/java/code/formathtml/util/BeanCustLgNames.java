@@ -66,6 +66,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private static final String SESSION = "session";
 
     private static final String RETURN_LINE = "\n";
+    private static final String SIMPLE_WILD_CARD = "<?>";
+    private static final String DOUBLE_WILD_CARD = "<?,?>";
 
     private final DefaultBeanAliases beanAliases = new DefaultBeanAliases();
 
@@ -168,21 +170,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String locName_ = tr(l_);
         iteratorVar = locName_;
         String simpleIterator_ = getContent().getPredefTypes().getAliasIterator();
-        expsIterator= newCall(iteratorVar, StringUtil.concat(getContent().getPredefTypes().getAliasIterable(),"<?>"),
+        expsIterator= newCall(iteratorVar, StringUtil.concat(getContent().getPredefTypes().getAliasIterable(), SIMPLE_WILD_CARD),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,simpleIterator_,new StringList(
                 ))),
-                StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"), args_, _classes);
+                StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(), SIMPLE_WILD_CARD), args_, _classes);
         locName_ = tr(l_);
         hasNextVar = locName_;
         String hasNext_ = getContent().getPredefTypes().getAliasHasNext();
-        expsHasNext= newCall(hasNextVar, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+        expsHasNext= newCall(hasNextVar, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(), SIMPLE_WILD_CARD),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_,new StringList(
                 ))),
                 getAliasPrimBoolean(), args_, _classes);
         locName_ = tr(l_);
         nextVar = locName_;
         String next_ = getContent().getPredefTypes().getAliasNext();
-        expsNext= newCall(nextVar, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+        expsNext= newCall(nextVar, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorType(), SIMPLE_WILD_CARD),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
@@ -191,33 +193,33 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String hasNextPair_ = getContent().getPredefTypes().getAliasHasNextPair();
         iteratorTableVarCust= locName_;
         String iteratorTable_ = getContent().getPredefTypes().getAliasIteratorTable();
-        expsIteratorTableCust= newCall(iteratorTableVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIterableTable(),"<?,?>"),
+        expsIteratorTableCust= newCall(iteratorTableVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIterableTable(), DOUBLE_WILD_CARD),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_,new StringList(
                 ))),
-                StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"), args_, _classes);
+                StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(), DOUBLE_WILD_CARD), args_, _classes);
         locName_ = tr(l_);
         hasNextPairVarCust= locName_;
-        expsHasNextPairCust= newCall(hasNextPairVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+        expsHasNextPairCust= newCall(hasNextPairVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(), DOUBLE_WILD_CARD),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_,new StringList(
                 ))),
                 getAliasPrimBoolean(), args_, _classes);
         locName_ = tr(l_);
         nextPairVarCust= locName_;
-        expsNextPairCust= newCall(nextPairVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+        expsNextPairCust= newCall(nextPairVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasIteratorTableType(), DOUBLE_WILD_CARD),
                 new ClassMethodId(getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_,new StringList(
                 ))),
-                StringUtil.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"), args_, _classes);
+                StringUtil.concat(getContent().getPredefTypes().getAliasPairType(), DOUBLE_WILD_CARD), args_, _classes);
         locName_ = tr(l_);
         firstVarCust= locName_;
         String first_ = getContent().getPredefTypes().getAliasGetFirst();
-        expsFirstCust= newCall(firstVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+        expsFirstCust= newCall(firstVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasPairType(), DOUBLE_WILD_CARD),
                 new ClassMethodId(getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
         locName_ = tr(l_);
         secondVarCust= locName_;
         String second_ = getContent().getPredefTypes().getAliasGetSecond();
-        expsSecondCust= newCall(secondVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+        expsSecondCust= newCall(secondVarCust, StringUtil.concat(getContent().getPredefTypes().getAliasPairType(), DOUBLE_WILD_CARD),
                 new ClassMethodId(getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_,new StringList(
                 ))),
                 getAliasObject(), args_, _classes);
@@ -631,9 +633,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     private void proc(Navigation _nav, ContextEl _ctx, RendStackCall _rendStack, String _actionCommand, Struct _bean, String _currentBeanName) {
         _rendStack.clearPages();
-        Configuration session_ = _nav.getSession();
-        String lg_ = _nav.getLanguage();
-        String res_ = processAfterInvoke(session_, _actionCommand, _currentBeanName, _bean, lg_, _ctx, _rendStack);
+        String res_ = processAfterInvoke(_nav, _actionCommand, _currentBeanName, _bean, _ctx, _rendStack);
         setup(res_, _rendStack, _actionCommand);
         if (!_nav.setupText(res_, this, _rendStack.getDocument())) {
             return;
@@ -648,7 +648,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         setCurrentBeanName(_rendStack.getBeanName());
         setCurrentUrl(_dest);
     }
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack) {
+    public String processAfterInvoke(Navigation _nav, String _dest, String _beanName, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
         String curl_ = getCurrentUrl();
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
@@ -659,7 +659,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return "";
         }
-        processInitBeans(_conf,_dest,_beanName, curl_, _language, _ctx, _rendStack);
+        processInitBeans(_nav, _dest,_beanName, curl_, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return "";
         }
@@ -678,7 +678,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return "";
         }
         _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack);
+        return getRes(rendDocumentBlock_,_nav.getSession(), this, _ctx, _rendStack);
     }
 
     public void setGlobalArgumentStruct(Struct _obj, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -738,25 +738,33 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return getStructToBeValidatedPrim(_values, _className, _ctx, _stack);
     }
 
-    private void processInitBeans(Configuration _conf, String _dest, String _beanName, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private void processInitBeans(Navigation _nav, String _dest, String _beanName, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
         int s_ = getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
-            String key_ = getBuiltBeans().getKey(i);
-            boolean reinit_ = reinitRendBean(_dest, _beanName, key_, _currentUrl, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                break;
+            if (exitInit(_nav, _dest,_beanName,_currentUrl, _ctx,_rendStackCall,i)) {
+                return;
             }
-            if (!reinit_) {
-                continue;
-            }
-            Struct bean_ = getBuiltBeans().getValue(i);
-            BeanInfo info_ = _conf.getBeansInfos().getValue(i);
-            bean_ = newBean(_language, bean_,info_, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                break;
-            }
-            getBuiltBeans().setValue(i,bean_);
         }
+    }
+    private boolean exitInit(Navigation _nav, String _dest, String _beanName, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall, int _i) {
+        Configuration session_ = _nav.getSession();
+        String lg_ = _nav.getLanguage();
+        String key_ = getBuiltBeans().getKey(_i);
+        boolean reinit_ = reinitRendBean(_dest, _beanName, key_, _currentUrl, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return true;
+        }
+        if (!reinit_) {
+            return false;
+        }
+        Struct bean_ = getBuiltBeans().getValue(_i);
+        BeanInfo info_ = session_.getBeansInfos().getValue(_i);
+        bean_ = newBean(lg_, bean_,info_, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return true;
+        }
+        getBuiltBeans().setValue(_i,bean_);
+        return false;
     }
     private boolean reinitRendBean(String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (!StringUtil.quickEq(_currentBean,_beanName)) {

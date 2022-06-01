@@ -22,7 +22,7 @@ import code.sml.Node;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class RendForm extends RendElement implements RendFormInt {
+public final class RendForm extends RendElement implements RendElem {
     private final RendGeneLinkTypes opForm;
 
     private final StringMap<CustList<RendDynOperationNode>> textPart;
@@ -34,7 +34,7 @@ public final class RendForm extends RendElement implements RendFormInt {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         DefFormParts formParts_ = _rendStack.getFormParts();
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
@@ -43,14 +43,14 @@ public final class RendForm extends RendElement implements RendFormInt {
             formParts_.getCallsFormExps().add(new AnchorCall(opForm.getGeneLink(),new CustList<AbstractWrapper>()));
             incrForm(formParts_);
             procCstRef(_cont, elt_, _rendStack.getFormParts());
-            return;
+            return _ctx.callsOrException(_rendStack.getStackCall());
         }
         CustList<AbstractWrapper> values_ = new CustList<AbstractWrapper>();
         int f_ = 0;
         for (EntryCust<String, CustList<RendDynOperationNode>> e: textPart.entryList()) {
             IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
+                return true;
             }
             Struct ar_ = Argument.getNullableValue(args_.lastValue().getArgument()).getStruct();
             LocalVariable locVar_ = LocalVariable.newLocalVariable(ar_, _rendStack.formatVarType(opForm.getTypes().get(f_)));
@@ -67,6 +67,7 @@ public final class RendForm extends RendElement implements RendFormInt {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         long currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
     public static void incrForm(FormParts _formParts) {

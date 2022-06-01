@@ -28,7 +28,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendForEachTable extends AnaRendParentBlock implements AnaRendLoop,ImportForEachTable {
+public final class AnaRendForEachTable extends AnaRendParentBlock implements AnaRendLocBreakableBlock,ImportForEachTable {
 
     private String importedClassNameFirst;
 

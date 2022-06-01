@@ -142,6 +142,9 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         if (_en instanceof AnaRendBuildEl) {
             ((AnaRendBuildEl) _en).buildExpressionLanguage(this, _anaDoc, _page);
         }
+        if (_en instanceof AnaRendElementAttr) {
+            ((AnaRendElementAttr)_en).processAttributes(this, _anaDoc, _page);
+        }
     }
 
     private static void loops(AnalyzedPageEl _page, AnaRendBlock _en) {

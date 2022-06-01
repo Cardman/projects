@@ -10,14 +10,14 @@ import code.sml.Node;
 import code.util.CustList;
 import code.util.StringMap;
 
-public final class RendStdElement extends RendElement implements RendStdEl {
+public final class RendStdElement extends RendElement implements RendElem {
 
     public RendStdElement(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText) {
         super(_read, _execAttributes, _execAttributesText);
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        //
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 }

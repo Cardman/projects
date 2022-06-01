@@ -30,7 +30,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaRendLoop,ImportForEachLoop {
+public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaRendLocBreakableBlock,ImportForEachLoop {
 
     private final String label;
     private final int labelOffset;

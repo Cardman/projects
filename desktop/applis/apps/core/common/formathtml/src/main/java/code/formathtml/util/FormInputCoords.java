@@ -1,21 +1,16 @@
 package code.formathtml.util;
-import code.util.ints.Equallable;
 
-public final class FormInputCoords implements Equallable<FormInputCoords> {
+public final class FormInputCoords {
 
     private long form;
 
     private long input;
 
-    @Override
     public boolean eq(FormInputCoords _obj) {
         if (_obj.form != form) {
             return false;
         }
-        if (_obj.input != input) {
-            return false;
-        }
-        return true;
+        return _obj.input == input;
     }
 
     public long getForm() {

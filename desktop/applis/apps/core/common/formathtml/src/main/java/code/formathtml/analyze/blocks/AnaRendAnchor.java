@@ -11,7 +11,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class AnaRendAnchor extends AnaRendElement {
+public final class AnaRendAnchor extends AnaRendElement implements AnaRendElementAttr {
 
     private final ResultText res = new ResultText();
     private StringMap<ResultExpression> results = new StringMap<ResultExpression>();
@@ -22,8 +22,8 @@ public final class AnaRendAnchor extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        ResultText.buildAnchor(this, _read, _anaDoc, _page,res);
+    public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        ResultText.buildAnchor(this, getRead(), _anaDoc, _page,res);
         results = res.getResults();
         resultAnc = res.getResultAnc();
     }

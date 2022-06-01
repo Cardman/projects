@@ -11,7 +11,7 @@ public final class RenderDoWhileTest extends CommonRender {
     public void process1Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do><c:while condition='i&lt;=2'/></body></html>";
+        String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/><c:continue/></c:do><c:while condition='i&lt;=2'/></body></html>";
         assertEq("<html><body>0<br/>1<br/>2<br/></body></html>", getRes(html_, new StringMap<String>()));
     }
 

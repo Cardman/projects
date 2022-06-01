@@ -65,8 +65,7 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
             }
             created_.setAttribute(e.getKey(),txt_);
         }
-        processExecAttr(_cont,created_,read, _stds, _ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (processExecAttr(_cont,created_,read, _stds, _ctx, _rendStack)) {
             return;
         }
         if (!after) {
@@ -87,6 +86,6 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
         _rw.setWrite(_created);
     }
 
-    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);
+    protected abstract boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);
 
 }

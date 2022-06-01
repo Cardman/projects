@@ -16,38 +16,19 @@ public final class AnaRendElseIfCondition extends AnaRendCondition implements An
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         buildConditions(_anaDoc, _page);
         AnaRendBlock pBlock_ = getPreviousSibling();
-        if (!(pBlock_ instanceof AnaRendIfCondition)) {
-            if (!(pBlock_ instanceof AnaRendElseIfCondition)) {
-                if (!isPossibleEmpty(pBlock_)) {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(getOffset());
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                            _page.getKeyWords().getKeyWordElseif(),
-                            StringUtil.join(
-                                    new StringList(
-                                            _page.getKeyWords().getKeyWordIf(),
-                                            _page.getKeyWords().getKeyWordElseif()
-                                    ),
-                                    OR_ERR));
-                    AnalyzingDoc.addError(un_, _page);
-                } else if (!(pBlock_.getPreviousSibling() instanceof AnaRendIfCondition)){
-                    if (!(pBlock_.getPreviousSibling() instanceof AnaRendElseIfCondition)){
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFile(_page.getCurrentFile());
-                        un_.setIndexFile(getOffset());
-                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                                _page.getKeyWords().getKeyWordElseif(),
-                                StringUtil.join(
-                                        new StringList(
-                                                _page.getKeyWords().getKeyWordIf(),
-                                                _page.getKeyWords().getKeyWordElseif()
-                                        ),
-                                        OR_ERR));
-                        AnalyzingDoc.addError(un_, _page);
-                    }
-                }
-            }
+        if (!(pBlock_ instanceof AnaRendIfCondition) && !(pBlock_ instanceof AnaRendElseIfCondition) && (!isPossibleEmpty(pBlock_) || !(pBlock_.getPreviousSibling() instanceof AnaRendIfCondition) && !(pBlock_.getPreviousSibling() instanceof AnaRendElseIfCondition))) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(_page.getCurrentFile());
+            un_.setIndexFile(getOffset());
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                    _page.getKeyWords().getKeyWordElseif(),
+                    StringUtil.join(
+                            new StringList(
+                                    _page.getKeyWords().getKeyWordIf(),
+                                    _page.getKeyWords().getKeyWordElseif()
+                            ),
+                            OR_ERR));
+            AnalyzingDoc.addError(un_, _page);
         }
     }
 

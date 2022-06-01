@@ -19,6 +19,10 @@ import code.util.core.StringUtil;
 
 public final class ReadConfiguration {
 
+    private static final String FIELD = "field";
+    private static final String VALUE = "value";
+    private static final String KEY = "key";
+
     private ReadConfiguration(){
     }
 
@@ -63,7 +67,7 @@ public final class ReadConfiguration {
         Options opt_ = _context.getOptions();
         opt_.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
+            String fieldName_ = c.getAttribute(FIELD);
             if (StringUtil.quickEq(fieldName_, "options")) {
                 loadOptions(c, opt_);
             }
@@ -71,13 +75,13 @@ public final class ReadConfiguration {
         int stack_ = -1;
         int tab_ = 4;
         for (Element c: _elt.getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
+            String fieldName_ = c.getAttribute(FIELD);
             if (StringUtil.quickEq(fieldName_, "stackOverFlow")) {
-                stack_=(NumberUtil.parseInt(c.getAttribute("value")));
+                stack_=(NumberUtil.parseInt(c.getAttribute(VALUE)));
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "tabWidth")) {
-                tab_=(NumberUtil.parseInt(c.getAttribute("value")));
+                tab_=(NumberUtil.parseInt(c.getAttribute(VALUE)));
             }
         }
         opt_.setStack(stack_);
@@ -88,9 +92,9 @@ public final class ReadConfiguration {
     private static void loadOptions(Element _elt, Options _opt) {
         _opt.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
+            String fieldName_ = c.getAttribute(FIELD);
             if (StringUtil.quickEq(fieldName_, "classes")) {
-                _opt.getTypesInit().add(c.getAttribute("value"));
+                _opt.getTypesInit().add(c.getAttribute(VALUE));
             }
         }
     }
@@ -99,8 +103,8 @@ public final class ReadConfiguration {
         StringList keys_ = new StringList();
         CustList<BeanInfo> values_ = new CustList<BeanInfo>();
         for (Element c: _elt.getChildElements()) {
-            if (c.hasAttribute("key")) {
-                keys_.add(c.getAttribute("value"));
+            if (c.hasAttribute(KEY)) {
+                keys_.add(c.getAttribute(VALUE));
             } else {
                 values_.add(loadBean(c));
             }
@@ -114,13 +118,13 @@ public final class ReadConfiguration {
     private static BeanInfo loadBean(Element _elt) {
         BeanInfo bean_ = new BeanInfo();
         for (Element c: _elt.getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
+            String fieldName_ = c.getAttribute(FIELD);
             if (StringUtil.quickEq(fieldName_, "scope")) {
-                bean_.setScope(c.getAttribute("value"));
+                bean_.setScope(c.getAttribute(VALUE));
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "className")) {
-                bean_.setClassName(c.getAttribute("value"));
+                bean_.setClassName(c.getAttribute(VALUE));
             }
         }
         return bean_;
@@ -132,8 +136,8 @@ public final class ReadConfiguration {
         StringList keys_ = new StringList();
         CustList<StringMap<String>> values_ = new CustList<StringMap<String>>();
         for (Element c: _elt.getChildElements()) {
-            if (c.hasAttribute("key")) {
-                keys_.add(c.getAttribute("value"));
+            if (c.hasAttribute(KEY)) {
+                keys_.add(c.getAttribute(VALUE));
             } else {
                 values_.add(loadStringMapString(c));
             }
@@ -149,10 +153,10 @@ public final class ReadConfiguration {
         StringList keys_ = new StringList();
         StringList values_ = new StringList();
         for (Element c: _elt.getChildElements()) {
-            if (c.hasAttribute("key")) {
-                keys_.add(c.getAttribute("value"));
+            if (c.hasAttribute(KEY)) {
+                keys_.add(c.getAttribute(VALUE));
             } else {
-                values_.add(c.getAttribute("value"));
+                values_.add(c.getAttribute(VALUE));
             }
         }
         int len_ = keys_.size();
@@ -172,6 +176,6 @@ public final class ReadConfiguration {
         return list_;
     }
     public static String getString(Element _elt) {
-        return _elt.getAttribute("value");
+        return _elt.getAttribute(VALUE);
     }
 }

@@ -11,7 +11,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class AnaRendLink extends AnaRendElement {
+public final class AnaRendLink extends AnaRendElement implements AnaRendElementAttr {
     private String content;
     private final StringMap<ResultExpression> opExpTitle = new StringMap<ResultExpression>();
     AnaRendLink(Element _elt, int _offset) {
@@ -19,8 +19,8 @@ public final class AnaRendLink extends AnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String href_ = getCssHref(_read, _anaDoc.getRendKeyWords());
+    public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        String href_ = getCssHref(getRead(), _anaDoc.getRendKeyWords());
         if (href_ != null) {
             StringMap<String> files_ = _anaDoc.getFiles();
             content = files_.getVal(href_);
@@ -36,14 +36,19 @@ public final class AnaRendLink extends AnaRendElement {
         if (href_ == null) {
             return new StringList();
         }
+        return paramsList(_anaDoc, getRead());
+    }
+
+    static StringList paramsList(AnalyzingDoc _anaDoc, Element _read) {
         StringList list_ = new StringList();
         int i_ = IndexConstants.FIRST_INDEX;
-        while (getRead().hasAttribute(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+        while (_read.hasAttribute(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
             list_.add(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             i_++;
         }
         return list_;
     }
+
     @Override
     public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         StringList list_ = attrList(_anaDoc);

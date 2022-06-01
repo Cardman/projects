@@ -14,7 +14,7 @@ public final class AnaRendIfCondition extends AnaRendCondition implements AnaRen
 
     @Override
     public String getRealLabel() {
-        return label;
+        return getLabel();
     }
 
     public String getLabel() {

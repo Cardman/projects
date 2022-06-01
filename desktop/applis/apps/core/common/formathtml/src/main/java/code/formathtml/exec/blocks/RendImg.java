@@ -25,17 +25,18 @@ public final class RendImg extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage last_ = _rendStack.getLastPage();
         last_.setOffset(rendExp.getOffset());
         IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(rendExp.getList(), _ctx, _rendStack);
         String pageName_ = RendInput.idRad(args_,_ctx,_rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
+            return true;
         }
         if (!prImg(_cont, (Element) _nextWrite, pageName_)){
             ((Element) _nextWrite).setAttribute(_cont.getRendKeyWords().getAttrSrc(),"");
         }
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
     public static boolean prImg(Configuration _cont, Element _nextWrite, String _link) {

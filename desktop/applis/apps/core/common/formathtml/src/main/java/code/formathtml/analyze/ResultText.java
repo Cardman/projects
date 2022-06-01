@@ -16,10 +16,10 @@ import code.util.core.StringUtil;
 
 public final class ResultText {
 
+    public static final char ESCAPED = '\\';
+    public static final char RIGHT_EL = '}';
+    public static final char LEFT_EL = '{';
     private static final String CALL_METHOD = "$";
-    private static final char ESCAPED = '\\';
-    private static final char RIGHT_EL = '}';
-    private static final char LEFT_EL = '{';
     private CustList<OperationNode> opExpRoot;
     private ClassMethodIdReturn resultAnc;
 
@@ -53,21 +53,9 @@ public final class ResultText {
         while (i_ < length_) {
             char cur_ = exp_.charAt(i_);
             if (escaped_) {
-                if (cur_ == ESCAPED) {
+                if (isDel(cur_)) {
                     escaped_ = false;
-                    str_.append(ESCAPED);
-                    i_++;
-                    continue;
-                }
-                if (cur_ == LEFT_EL) {
-                    escaped_ = false;
-                    str_.append(LEFT_EL);
-                    i_++;
-                    continue;
-                }
-                if (cur_ == RIGHT_EL) {
-                    escaped_ = false;
-                    str_.append(RIGHT_EL);
+                    str_.append(cur_);
                     i_++;
                     continue;
                 }
@@ -84,13 +72,11 @@ public final class ResultText {
             if (cur_ == ESCAPED) {
                 escaped_ = true;
                 i_++;
-                continue;
-            }
-            if (cur_ == LEFT_EL) {
+            } else if (cur_ == LEFT_EL) {
                 texts.add(str_.toString());
                 str_.delete(0,str_.length());
                 i_++;
-                if (i_ >= length_ || exp_.charAt(i_) == RIGHT_EL) {
+                if (isRightBoundOrFar(exp_, i_)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(_begin);
@@ -105,9 +91,7 @@ public final class ResultText {
                 OperationNode opsLoc_ = RenderAnalysis.getRootAnalyzedOperationsDel(i_, _anaDoc, _page,resultExpression);
                 opExpRoot.add(opsLoc_);
                 i_ = _anaDoc.getNextIndex();
-                continue;
-            }
-            if (cur_ == RIGHT_EL){
+            } else if (cur_ == RIGHT_EL){
 //                _conf.getLastPage().setOffset(i_);
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(_page.getCurrentFile());
@@ -118,11 +102,21 @@ public final class ResultText {
                         exp_);
                 AnalyzingDoc.addError(badEl_, _page);
                 return;
+            } else {
+                str_.append(cur_);
+                i_++;
             }
-            str_.append(cur_);
-            i_++;
         }
         texts.add(str_.toString());
+    }
+
+    public static boolean isRightBoundOrFar(String _exp, int _index) {
+        int length_ = _exp.length();
+        return _index >= length_ || _exp.charAt(_index) == RIGHT_EL;
+    }
+
+    public static boolean isDel(char _cur) {
+        return _cur == ESCAPED || _cur == LEFT_EL || _cur == RIGHT_EL;
     }
 
     public static void buildAnchor(AnaRendBlock _r, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultText _res) {

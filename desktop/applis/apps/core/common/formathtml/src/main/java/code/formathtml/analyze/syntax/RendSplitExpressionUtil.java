@@ -19,9 +19,6 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class RendSplitExpressionUtil {
-    private static final char ESCAPED = '\\';
-    private static final char RIGHT_EL = '}';
-    private static final char LEFT_EL = '{';
     private RendSplitExpressionUtil(){
     }
     public static CustList<IntermediaryResults> getNextResults(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, CustList<AnaRendDocumentBlock> _docs) {
@@ -54,9 +51,9 @@ public final class RendSplitExpressionUtil {
                 AnaRendParentBlock parent_ = current_.getParent();
                 if (parent_ == _method) {
                     current_ = null;
-                    continue;
+                } else {
+                    current_ = parent_;
                 }
-                current_ = parent_;
             }
         }
     }
@@ -243,35 +240,9 @@ public final class RendSplitExpressionUtil {
         if (_current instanceof AnaRendTextArea) {
             AnaRendTextArea s_ = (AnaRendTextArea) _current;
             String vVarVal_ = StringUtil.concat(_analyzingDoc.getPrefix(), _analyzingDoc.getRendKeyWords().getAttrVarValue());
-            String varValue_ = s_.getElt().getAttribute(vVarVal_);
-            int offVarValue_ = s_.getAttributeDelimiter(vVarVal_);
-            _page.zeroOffset();
-            ResultExpression resultValue_ = s_.getResultInput().getResultExpressionValue();
-            resultValue_.partsAbsol(s_.getStringPartsElt(vVarVal_));
-            resultValue_.setAnalyzedString(varValue_);
-            resultValue_.setSumOffset(offVarValue_);
-            extractAnon(_page, _int, _method, _type, resultValue_);
-            String vName_ = _analyzingDoc.getRendKeyWords().getAttrName();
-            String name_ = s_.getElt().getAttribute(vName_);
-            int offName_ = s_.getAttributeDelimiter(vName_);
-            _page.zeroOffset();
-            ResultExpression resultName_ = s_.getResultInput().getResultExpressionRead();
-            resultName_.partsAbsol(s_.getStringPartsElt(vName_));
-            resultName_.setAnalyzedString(name_);
-            resultName_.setSumOffset(offName_);
-            extractAnon(_page, _int, _method, _type, resultName_);
-            String vId_ = _analyzingDoc.getRendKeyWords().getAttrId();
-            String id_ = s_.getElt().getAttribute(vId_);
-            if (!id_.isEmpty()) {
-                ResultExpression rId_ = new ResultExpression();
-                int off_ = s_.getAttributeDelimiter(vId_);
-                s_.getAttributesText().put(vId_,rId_);
-                _page.zeroOffset();
-                rId_.partsAbsol(s_.getStringPartsElt(vId_));
-                rId_.setAnalyzedString(id_);
-                rId_.setSumOffset(off_);
-                radGene(_page,_int,_method,_type,rId_,id_,off_);
-            }
+            value(_page, _int, _method, _type, s_, vVarVal_);
+            read(_analyzingDoc, _page, _int, _method, _type, s_);
+            id(_analyzingDoc, _page, _int, _method, _type, s_);
             String prefixWrite_ = _analyzingDoc.getPrefix();
             String prefGr_ = StringUtil.concat(prefixWrite_, _analyzingDoc.getRendKeyWords().getAttrGroupId());
             String groupId_ = s_.getElt().getAttribute(prefGr_);
@@ -325,35 +296,9 @@ public final class RendSplitExpressionUtil {
             resultExpression_.setSumOffset(offMap_);
             extractAnon(_page, _int, _method, _type, resultExpression_);
             String vVarVal_ = _analyzingDoc.getRendKeyWords().getAttrVarValue();
-            String varValue_ = s_.getElt().getAttribute(vVarVal_);
-            int offVarValue_ = s_.getAttributeDelimiter(vVarVal_);
-            _page.zeroOffset();
-            ResultExpression resultValue_ = s_.getResultInput().getResultExpressionValue();
-            resultValue_.partsAbsol(s_.getStringPartsElt(vVarVal_));
-            resultValue_.setAnalyzedString(varValue_);
-            resultValue_.setSumOffset(offVarValue_);
-            extractAnon(_page, _int, _method, _type, resultValue_);
-            String vName_ = _analyzingDoc.getRendKeyWords().getAttrName();
-            String name_ = s_.getElt().getAttribute(vName_);
-            int offName_ = s_.getAttributeDelimiter(vName_);
-            _page.zeroOffset();
-            ResultExpression resultName_ = s_.getResultInput().getResultExpressionRead();
-            resultName_.partsAbsol(s_.getStringPartsElt(vName_));
-            resultName_.setAnalyzedString(name_);
-            resultName_.setSumOffset(offName_);
-            extractAnon(_page, _int, _method, _type, resultName_);
-            String vId_ = _analyzingDoc.getRendKeyWords().getAttrId();
-            String id_ = s_.getElt().getAttribute(vId_);
-            if (!id_.isEmpty()) {
-                ResultExpression rId_ = new ResultExpression();
-                int off_ = s_.getAttributeDelimiter(vId_);
-                s_.getAttributesText().put(vId_,rId_);
-                _page.zeroOffset();
-                rId_.partsAbsol(s_.getStringPartsElt(vId_));
-                rId_.setAnalyzedString(id_);
-                rId_.setSumOffset(off_);
-                radGene(_page, _int, _method, _type, rId_, id_, off_);
-            }
+            value(_page, _int, _method, _type, s_, vVarVal_);
+            read(_analyzingDoc, _page, _int, _method, _type, s_);
+            id(_analyzingDoc, _page, _int, _method, _type, s_);
             String prefixWrite_ = _analyzingDoc.getPrefix();
             String prefGr_ = StringUtil.concat(prefixWrite_, _analyzingDoc.getRendKeyWords().getAttrGroupId());
             String groupId_ = s_.getElt().getAttribute(prefGr_);
@@ -379,6 +324,44 @@ public final class RendSplitExpressionUtil {
                 rId_.setSumOffset(rowsGrId_);
                 radGene(_page, _int, _method, _type, rId_, rows_, rowsGrId_);
             }
+        }
+    }
+
+    private static void value(AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, AnaRendInputInt _i, String _vVarVal) {
+        String varValue_ = _i.getElt().getAttribute(_vVarVal);
+        int offVarValue_ = _i.getAttributeDelimiter(_vVarVal);
+        _page.zeroOffset();
+        ResultExpression resultValue_ = _i.getResultInput().getResultExpressionValue();
+        resultValue_.partsAbsol(_i.getStringPartsElt(_vVarVal));
+        resultValue_.setAnalyzedString(varValue_);
+        resultValue_.setSumOffset(offVarValue_);
+        extractAnon(_page, _int, _method, _type, resultValue_);
+    }
+
+    private static void read(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, AnaRendInputInt _i) {
+        String vName_ = _analyzingDoc.getRendKeyWords().getAttrName();
+        String name_ = _i.getElt().getAttribute(vName_);
+        int offName_ = _i.getAttributeDelimiter(vName_);
+        _page.zeroOffset();
+        ResultExpression resultName_ = _i.getResultInput().getResultExpressionRead();
+        resultName_.partsAbsol(_i.getStringPartsElt(vName_));
+        resultName_.setAnalyzedString(name_);
+        resultName_.setSumOffset(offName_);
+        extractAnon(_page, _int, _method, _type, resultName_);
+    }
+
+    private static void id(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, AnaRendInputInt _i) {
+        String vId_ = _analyzingDoc.getRendKeyWords().getAttrId();
+        String id_ = _i.getElt().getAttribute(vId_);
+        if (!id_.isEmpty()) {
+            ResultExpression rId_ = new ResultExpression();
+            int off_ = _i.getAttributeDelimiter(vId_);
+            _i.getAttributesText().put(vId_,rId_);
+            _page.zeroOffset();
+            rId_.partsAbsol(_i.getStringPartsElt(vId_));
+            rId_.setAnalyzedString(id_);
+            rId_.setSumOffset(off_);
+            radGene(_page, _int, _method, _type, rId_, id_, off_);
         }
     }
 
@@ -414,15 +397,7 @@ public final class RendSplitExpressionUtil {
             resultValue_.setAnalyzedString(varValue_);
             resultValue_.setSumOffset(offVarValue_);
             extractAnon(_page,_int,_method,_type, resultValue_);
-            String vName_ = _analyzingDoc.getRendKeyWords().getAttrName();
-            String name_ = s_.getRead().getAttribute(vName_);
-            int offName_ = s_.getAttributeDelimiter(vName_);
-            _page.zeroOffset();
-            ResultExpression resultName_ = s_.getResultInput().getResultExpressionRead();
-            resultName_.partsAbsol(s_.getStringPartsElt(vName_));
-            resultName_.setAnalyzedString(name_);
-            resultName_.setSumOffset(offName_);
-            extractAnon(_page,_int,_method,_type, resultName_);
+            read(_analyzingDoc,_page,_int,_method,_type,s_);
         }
         if (_current instanceof AnaRendImg) {
             AnaRendImg i_ = (AnaRendImg) _current;
@@ -527,49 +502,51 @@ public final class RendSplitExpressionUtil {
         while (i_ < length_) {
             char cur_ = _expression.charAt(i_);
             if (escaped_) {
-                if (cur_ == ESCAPED || cur_ == LEFT_EL || cur_ == RIGHT_EL) {
+                if (ResultText.isDel(cur_)) {
                     escaped_ = false;
                     i_++;
                     continue;
                 }
                 return strIt_;
             }
-            if (cur_ == ESCAPED) {
+            if (cur_ == ResultText.ESCAPED) {
                 escaped_ = true;
                 i_++;
-                continue;
-            }
-            if (cur_ == LEFT_EL) {
+            } else if (cur_ == ResultText.LEFT_EL) {
                 i_++;
-                if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
+                if (ResultText.isRightBoundOrFar(_expression,i_)) {
                     return strIt_;
                 }
                 strIt_.setIndex(i_);
-                int count_ = 0;
-                while(strIt_.getIndex() < length_) {
-                    char inner_ = _expression.charAt(strIt_.getIndex());
-                    if (strIt_.code(_expression,_page.getComments(),str_)) {
-                        if (inner_ == LEFT_EL) {
-                            count_++;
-                        }
-                        if (inner_ == RIGHT_EL) {
-                            if (count_ == 0) {
-                                break;
-                            }
-                            count_--;
-                        }
-                        strIt_.appendCode(_expression,str_);
-                    }
-                }
+                appendChars(_expression, _page, strIt_, str_);
                 i_ = strIt_.getIndex()+1;
-                continue;
-            }
-            if (cur_ == RIGHT_EL){
+            } else if (cur_ == ResultText.RIGHT_EL){
                 return strIt_;
+            } else {
+                i_++;
             }
-            i_++;
         }
         return strIt_;
+    }
+
+    private static void appendChars(String _expression, AnalyzedPageEl _page, StringCommentIteration _t, StringBuilder _str) {
+        int length_ = _expression.length();
+        int count_ = 0;
+        while(_t.getIndex() < length_) {
+            char inner_ = _expression.charAt(_t.getIndex());
+            if (_t.code(_expression, _page.getComments(), _str)) {
+                if (inner_ == ResultText.LEFT_EL) {
+                    count_++;
+                }
+                if (inner_ == ResultText.RIGHT_EL) {
+                    if (count_ == 0) {
+                        break;
+                    }
+                    count_--;
+                }
+                _t.appendCode(_expression, _str);
+            }
+        }
     }
 
     public static void buildIdAna(String _expression, AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, ResultText _exp) {
@@ -580,42 +557,29 @@ public final class RendSplitExpressionUtil {
         while (i_ < length_) {
             char cur_ = _expression.charAt(i_);
             if (escaped_) {
-                if (cur_ == ESCAPED) {
-                    escaped_ = false;
-                    i_++;
-                    continue;
-                }
-                if (cur_ == LEFT_EL) {
-                    escaped_ = false;
-                    i_++;
-                    continue;
-                }
-                if (cur_ == RIGHT_EL) {
+                if (ResultText.isDel(cur_)) {
                     escaped_ = false;
                     i_++;
                     continue;
                 }
                 return;
             }
-            if (cur_ == ESCAPED) {
+            if (cur_ == ResultText.ESCAPED) {
                 escaped_ = true;
                 i_++;
-                continue;
-            }
-            if (cur_ == LEFT_EL) {
+            } else if (cur_ == ResultText.LEFT_EL) {
                 i_++;
-                if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
+                if (ResultText.isRightBoundOrFar(_expression,i_)) {
                     return;
                 }
                 int next_ = ElRetrieverAnonymous.commonCheckQuick(i_, _page, _exp.getResultExpression());
                 SplitExpressionUtil.feed(_exp.getResultExpression(),_int, _type, _method);
                 i_ = next_+1;
-                continue;
-            }
-            if (cur_ == RIGHT_EL){
+            } else if (cur_ == ResultText.RIGHT_EL){
                 return;
+            } else {
+                i_++;
             }
-            i_++;
         }
     }
 

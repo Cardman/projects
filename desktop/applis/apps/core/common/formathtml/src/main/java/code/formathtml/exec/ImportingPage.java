@@ -138,20 +138,20 @@ public final class ImportingPage extends AbsImportingPage {
         rendReadWrite = _rendReadWrite;
     }
 
-    protected CustList<RendAbstractStask> getRendBlockStacks() {
+    public CustList<RendAbstractStask> getRendBlockStacks() {
         return rendBlockStacks;
     }
 
     public void addBlock(RendAbstractStask _b) {
         rendBlockStacks.add(_b);
     }
-    protected void removeRendLastBlockSt() {
+    public void removeRendLastBlockSt() {
         RendAbstractStask last_ = rendBlockStacks.last();
         if (last_ instanceof RendIfStack) {
             if (((RendIfStack)last_).getBlock() instanceof RendElem) {
                 rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
             }
-            if (((RendIfStack)last_).getBlock() instanceof RendFormInt) {
+            if (((RendIfStack)last_).getBlock() instanceof RendForm) {
                 CustList<LongTreeMap<DefNodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
                 Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
                 long nb_ = formsNb_.last();

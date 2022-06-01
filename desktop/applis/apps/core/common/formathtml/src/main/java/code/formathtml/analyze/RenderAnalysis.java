@@ -26,19 +26,7 @@ public final class RenderAnalysis {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_res, _minIndex, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFile(_page.getCurrentFile());
-            badEl_.setIndexFile(badOffset_);
-            badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
-                    " ",
-                    Long.toString(badOffset_),
-                    _res.getAnalyzedString());
-            AnalyzingDoc.addError(badEl_, _page);
-            OperationsSequence tmpOp_ = new OperationsSequence();
-            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _page.getAliasObject();
-            e_.setResultClass(new AnaClassArgumentMatching(argClName_));
-            e_.setOrder(0);
+            ErrorPartOperation e_ = errorPart(_page, badOffset_, _res);
             _anaDoc.setNextIndex(_res.getAnalyzedString().length());
             return e_;
         }
@@ -51,6 +39,23 @@ public final class RenderAnalysis {
         return op_;
     }
 
+    private static ErrorPartOperation errorPart(AnalyzedPageEl _page, int _off, ResultExpression _res) {
+        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+        badEl_.setFile(_page.getCurrentFile());
+        badEl_.setIndexFile(_off);
+        badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
+                " ",
+                Long.toString(_off),
+                _res.getAnalyzedString());
+        AnalyzingDoc.addError(badEl_, _page);
+        OperationsSequence tmpOp_ = new OperationsSequence();
+        ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+        String argClName_ = _page.getAliasObject();
+        e_.setResultClass(new AnaClassArgumentMatching(argClName_));
+        e_.setOrder(0);
+        return e_;
+    }
+
     public static OperationNode getRootAnalyzedOperations(int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
         OperationNode root_ = getRootAnalyzedOperations(_res, _index, _anaDoc, _page);
         _res.setRoot(root_);
@@ -61,20 +66,7 @@ public final class RenderAnalysis {
         Delimiters d_ = ElResolver.checkSyntax(_res, _index, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFile(_page.getCurrentFile());
-            badEl_.setIndexFile(badOffset_);
-            badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
-                    " ",
-                    Long.toString(badOffset_),
-                    _res.getAnalyzedString());
-            AnalyzingDoc.addError(badEl_, _page);
-            OperationsSequence tmpOp_ = new OperationsSequence();
-            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _page.getAliasObject();
-            e_.setResultClass(new AnaClassArgumentMatching(argClName_));
-            e_.setOrder(0);
-            return e_;
+            return errorPart(_page, badOffset_, _res);
         }
         String el_ = _res.getAnalyzedString().substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc, _page, null);
@@ -118,14 +110,12 @@ public final class RenderAnalysis {
             next_ = create(_anaDoc, _page, current_.getIndexChild() + 1, current_.getParent(),_d);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
-                if (par_ instanceof AbstractDotOperation) {
-                    if (next_ instanceof PossibleIntermediateDotted) {
-                        PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
-                        ElUtil.check(current_, possible_, _page);
-                        MethodAccessKind static_ = MethodId.getKind(current_ instanceof StaticAccessOperation);
-                        possible_.setIntermediateDotted();
-                        possible_.setPreviousResultClass(current_.getResultClass(), static_);
-                    }
+                if (par_ instanceof AbstractDotOperation && next_ instanceof PossibleIntermediateDotted) {
+                    PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
+                    ElUtil.check(current_, possible_, _page);
+                    MethodAccessKind static_ = MethodId.getKind(current_ instanceof StaticAccessOperation);
+                    possible_.setIntermediateDotted();
+                    possible_.setPreviousResultClass(current_.getResultClass(), static_);
                 }
                 par_.appendChild(next_);
                 return next_;
@@ -153,42 +143,32 @@ public final class RenderAnalysis {
             ElUtil.analyzeInfer(_current, _page);
             return;
         }
-        if (!(_current instanceof AbstractInvokingConstructor)&&!(_current instanceof AnnotationInstanceArobaseOperation)) {
-            if (_current instanceof ThisOperation) {
-                if (((ThisOperation)_current).isIntermediateDottedOperation()) {
-                    FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-                    badNb_.setFile(_page.getCurrentFile());
-                    badNb_.setIndexFile(_page);
-                    badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
-                    AnalyzingDoc.addError(badNb_, _page);
-                    return;
-                }
-            }
-            ElUtil.analyzeInfer(_current, _page);
-            if (_current instanceof AffectationOperation) {
-                OperationNode settable_ = ((AffectationOperation) _current).getSettableOp();
-                if (settable_ instanceof SettableAbstractFieldOperation) {
-                    SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) settable_;
-                    if (field_.getSettableFieldContent().isFinalField()) {
-                        FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-                        badNb_.setFile(_page.getCurrentFile());
-                        badNb_.setIndexFile(_page);
-                        StringBuilder id_ = new StringBuilder();
-                        id_.append(field_.getSettableFieldContent().getClassField().getClassName());
-                        id_.append(";");
-                        id_.append(field_.getSettableFieldContent().getClassField().getFieldName());
-                        badNb_.buildError(_page.getAnalysisMessages().getFinalField(),
-                                id_.toString());
-                        AnalyzingDoc.addError(badNb_, _page);
-                    }
-                }
-            }
-        } else {
+        if (_current instanceof AbstractInvokingConstructor || _current instanceof AnnotationInstanceArobaseOperation || _current instanceof ThisOperation && ((ThisOperation) _current).isIntermediateDottedOperation()) {
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());
             badNb_.setIndexFile(_page);
             badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
             AnalyzingDoc.addError(badNb_, _page);
+            return;
+        }
+        ElUtil.analyzeInfer(_current, _page);
+        if (_current instanceof AffectationOperation) {
+            OperationNode settable_ = ((AffectationOperation) _current).getSettableOp();
+            if (settable_ instanceof SettableAbstractFieldOperation) {
+                SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) settable_;
+                if (field_.getSettableFieldContent().isFinalField()) {
+                    FoundErrorInterpret badNb_ = new FoundErrorInterpret();
+                    badNb_.setFile(_page.getCurrentFile());
+                    badNb_.setIndexFile(_page);
+                    StringBuilder id_ = new StringBuilder();
+                    id_.append(field_.getSettableFieldContent().getClassField().getClassName());
+                    id_.append(";");
+                    id_.append(field_.getSettableFieldContent().getClassField().getFieldName());
+                    badNb_.buildError(_page.getAnalysisMessages().getFinalField(),
+                            id_.toString());
+                    AnalyzingDoc.addError(badNb_, _page);
+                }
+            }
         }
     }
 
