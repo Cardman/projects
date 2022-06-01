@@ -52,7 +52,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
-        Element docElementSelect_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordTextarea());
+        Element docElementArea_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordTextarea());
 
         for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
             IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
@@ -60,15 +60,15 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
-            docElementSelect_.setAttribute(e.getKey(),txt_);
+            docElementArea_.setAttribute(e.getKey(),txt_);
         }
         if (elt.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()))) {
-            docElementSelect_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
+            docElementArea_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
                     elt.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
         }
-        DefFetchedObjs def_ = fetchName(_cont, elt, _ctx, _rendStack, "", defFieldUpdates.getOpsRead());
-        look(_cont,docElementSelect_,def_,_rendStack);
-        fetchValue(_cont,elt,docElementSelect_,opsValue, opsConverterField, _ctx, _rendStack);
+        DefFetchedObjs defArea_ = fetchName(_cont, elt, _ctx, _rendStack, "", defFieldUpdates.getOpsRead());
+        look(_cont,docElementArea_,defArea_,_rendStack);
+        fetchValue(_cont,elt,docElementArea_,opsValue, opsConverterField, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -78,10 +78,10 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
-            docElementSelect_.setAttribute(e.getKey(),txt_);
+            docElementArea_.setAttribute(e.getKey(),txt_);
         }
-        prStack(_cont,docElementSelect_,defFieldUpdates,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
-        simpleAppendChild(doc_, rw_, docElementSelect_);
+        prStack(_cont,docElementArea_,defFieldUpdates,defArea_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        simpleAppendChild(doc_, rw_, docElementArea_);
         processBlock(_cont, _stds, _ctx, _rendStack);
     }
 }

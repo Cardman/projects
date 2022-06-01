@@ -94,6 +94,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         }
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
         DefFetchedObjs def_ = processIndexes(_cont, elt, docElementSelect_, _ctx, _rendStack);
+        end(_cont, _stds, _ctx, _rendStack, docElementSelect_, def_);
+    }
+
+    private void end(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, Element _docSelect, DefFetchedObjs _def) {
+        RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
+        Document doc_ = rw_.getDocument();
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -103,11 +109,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
-            docElementSelect_.setAttribute(e.getKey(),txt_);
+            _docSelect.setAttribute(e.getKey(),txt_);
         }
 
-        prStack(_cont,docElementSelect_,defFieldUpdates,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
-        simpleAppendChild(doc_, rw_, docElementSelect_);
+        prStack(_cont,_docSelect,defFieldUpdates,_def,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        simpleAppendChild(doc_, rw_, _docSelect);
         processBlock(_cont, _stds, _ctx, _rendStack);
     }
 
