@@ -1,40 +1,32 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
 import code.sml.Document;
 import code.sml.Element;
+import code.sml.Node;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class RendTextArea extends RendParentBlock implements RendWithEl {
+public final class RendTextArea extends RendElement {
     private final CustList<RendDynOperationNode> opsValue;
     private final CustList<RendDynOperationNode> opsConverterField;
-    private final StringMap<CustList<RendDynOperationNode>> execAttributesText;
-    private final StringMap<CustList<RendDynOperationNode>> execAttributes;
 
-    private final Element elt;
     private final DefFieldUpdates defFieldUpdates;
 
     public RendTextArea(CustList<RendDynOperationNode> _opsValue,
                         CustList<RendDynOperationNode> _opsConverterField,
                         StringMap<CustList<RendDynOperationNode>> _execAttributesText, StringMap<CustList<RendDynOperationNode>> _execAttributes,
                         Element _elt, DefFieldUpdates _txt) {
+        super(_elt,_execAttributes,_execAttributesText);
         this.opsValue = _opsValue;
         this.opsConverterField = _opsConverterField;
-        this.execAttributesText = _execAttributesText;
-        this.execAttributes = _execAttributes;
-        this.elt = _elt;
         defFieldUpdates = _txt;
     }
 
@@ -49,39 +41,24 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
-        Element docElementArea_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordTextarea());
-
-        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
-            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
-            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
-            }
-            docElementArea_.setAttribute(e.getKey(),txt_);
-        }
-        if (elt.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()))) {
+        doc_.renameNode(_nextWrite,_cont.getRendKeyWords().getKeyWordTextarea());
+        Element docElementArea_ = (Element) _nextWrite;
+        if (getRead().hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()))) {
             docElementArea_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
-                    elt.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
+                    getRead().getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
         }
-        DefFetchedObjs defArea_ = fetchName(_cont, elt, _ctx, _rendStack, "", defFieldUpdates.getOpsRead());
+        DefFetchedObjs defArea_ = fetchName(_cont, getRead(), _ctx, _rendStack, "", defFieldUpdates.getOpsRead());
         look(_cont,docElementArea_,defArea_,_rendStack);
-        fetchValue(_cont,elt,docElementArea_,opsValue, opsConverterField, _ctx, _rendStack);
+        fetchValue(_cont,getRead(),docElementArea_,opsValue, opsConverterField, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
+            return true;
         }
-        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributes.entryList()) {
-            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
-            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
-            }
-            docElementArea_.setAttribute(e.getKey(),txt_);
-        }
+        docElementArea_.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
+        docElementArea_.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         prStack(_cont,docElementArea_,defFieldUpdates,defArea_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
-        simpleAppendChild(doc_, rw_, docElementArea_);
-        processBlock(_cont, _stds, _ctx, _rendStack);
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 }

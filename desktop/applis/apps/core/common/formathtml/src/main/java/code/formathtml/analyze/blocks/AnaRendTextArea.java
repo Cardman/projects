@@ -6,49 +6,41 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.sml.Element;
-import code.util.EntryCust;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRendBuildEl,AnaRendInputInt {
+public final class AnaRendTextArea extends AnaRendElement implements AnaRendBuildEl,AnaRendInputInt,AnaRendElementAttr {
     private OperationNode rootRead;
     private OperationNode rootValue;
 
     private ClassMethodIdReturn rootConverter;
     private ClassMethodIdReturn rootConverterField;
-    private final StringMap<ResultExpression> attributesText = new StringMap<ResultExpression>();
-    private final StringMap<ResultExpression> attributes = new StringMap<ResultExpression>();
 
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    private final Element elt;
     private final ResultInput resultInput;
 
     public AnaRendTextArea(Element _elt, int _offset) {
-        super(_offset);
-        elt = _elt;
+        super(_elt,_offset);
         resultInput = new ResultInput();
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        resultInput.build(this, elt, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
+    public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        resultInput.build(this, getElt(), StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
         rootRead = resultInput.getOpsReadRoot();
         rootValue = resultInput.getOpsValueRoot();
         idClass = resultInput.getIdClass();
         idName = resultInput.getIdName();
         className = resultInput.getClassName();
-        String converterValue_ = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
+        String converterValue_ = getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
         if (rootRead != null){
             Mapping m_ = new Mapping();
             m_.setArg(resultInput.getOpsReadRoot().getResultClass());
@@ -71,7 +63,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
                 checkRead(_page, attr_, classMethodIdReturn_, resultInput);
             }
         }
-        String converterField_ = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
+        String converterField_ = getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
         if (StringExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
@@ -81,20 +73,21 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
             rootConverterField = classMethodIdReturn_;
             checkCharSeq(_anaDoc, _page, attr_, classMethodIdReturn_);
         }
-        for (EntryCust<String,ResultExpression> e: attributesText.entryList()) {
-            _page.setSumOffset(e.getValue().getSumOffset());
-            _page.zeroOffset();
-            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
-        }
-        for (EntryCust<String,ResultExpression> e: attributes.entryList()) {
-            _page.setSumOffset(e.getValue().getSumOffset());
-            _page.zeroOffset();
-            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
-        }
     }
 
+    @Override
+    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        StringList list_ = attrList(_anaDoc);
+        list_.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
+        list_.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
+        return list_;
+    }
     public Element getElt() {
-        return elt;
+        return getRead();
     }
 
     public String getClassName() {
@@ -123,14 +116,6 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
 
     public OperationNode getRootValue() {
         return rootValue;
-    }
-
-    public StringMap<ResultExpression> getAttributes() {
-        return attributes;
-    }
-
-    public StringMap<ResultExpression> getAttributesText() {
-        return attributesText;
     }
 
     public ResultInput getResultInput() {

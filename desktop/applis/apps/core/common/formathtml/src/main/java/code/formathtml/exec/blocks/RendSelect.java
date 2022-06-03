@@ -2,7 +2,6 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -19,24 +18,22 @@ import code.formathtml.util.DefFieldUpdates;
 import code.formathtml.util.RendSelectOperators;
 import code.sml.Document;
 import code.sml.Element;
-import code.util.*;
+import code.sml.Node;
+import code.util.CustList;
+import code.util.IdList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class RendSelect extends RendParentBlock implements RendWithEl {
+public final class RendSelect extends RendElement {
     private final RendSelectOperators opers;
-    private final StringMap<CustList<RendDynOperationNode>> execAttributesText;
-    private final StringMap<CustList<RendDynOperationNode>> execAttributes;
-    private final Element elt;
     private final boolean multiple;
     private final DefFieldUpdates defFieldUpdates;
 
     public RendSelect(StringMap<CustList<RendDynOperationNode>> _execAttributesText, StringMap<CustList<RendDynOperationNode>> _execAttributes,
                       Element _elt, boolean _multiple,
                       DefFieldUpdates _def, RendSelectOperators _ops) {
+        super(_elt,_execAttributes,_execAttributesText);
         opers = _ops;
-        this.execAttributesText = _execAttributesText;
-        this.execAttributes = _execAttributes;
-        this.elt = _elt;
         this.multiple = _multiple;
         defFieldUpdates = _def;
     }
@@ -53,23 +50,23 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Argument value_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opers.getOpsValue(), _ctx, _rendStack).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
+            return true;
         }
         Argument map_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opers.getOpsMap(), _ctx, _rendStack).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
+            return true;
         }
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
-        Element docElementSelect_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordSelect());
+        doc_.renameNode(_nextWrite,_cont.getRendKeyWords().getKeyWordSelect());
+        Element docElementSelect_ = (Element) _nextWrite;
         if (multiple) {
             docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrMultiple(), _cont.getRendKeyWords().getAttrMultiple());
         }
-        String name_ = elt.getAttribute(_cont.getRendKeyWords().getAttrName());
-        String default_ = elt.getAttribute(_cont.getRendKeyWords().getAttrDefault());
+        String default_ = getRead().getAttribute(_cont.getRendKeyWords().getAttrDefault());
         if (default_.isEmpty()) {
             processOptionsMapEnumName(_cont, map_.getStruct(),
                     docElementSelect_,
@@ -78,43 +75,24 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             processOptionsMapEnum(_cont, map_.getStruct(),
                     docElementSelect_, _stds, _ctx, _rendStack);
         }
-        boolean id_ = false;
-        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
-            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
-            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
-            }
-            id_ = true;
-            docElementSelect_.setAttribute(e.getKey(),txt_);
-        }
-        if (id_ && !elt.getAttribute(_cont.getRendKeyWords().getAttrValidator()).trim().isEmpty()) {
+        if (!getRead().getAttribute(_cont.getRendKeyWords().getAttrValidator()).trim().isEmpty()) {
             docElementSelect_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
-                    elt.getAttribute(_cont.getRendKeyWords().getAttrValidator()));
+                    getRead().getAttribute(_cont.getRendKeyWords().getAttrValidator()));
         }
-        docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
-        DefFetchedObjs def_ = processIndexes(_cont, elt, docElementSelect_, _ctx, _rendStack);
-        end(_cont, _stds, _ctx, _rendStack, docElementSelect_, def_);
-    }
-
-    private void end(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, Element _docSelect, DefFetchedObjs _def) {
-        RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
-        Document doc_ = rw_.getDocument();
+        DefFetchedObjs def_ = processIndexes(_cont, getRead(), docElementSelect_, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
+            return true;
         }
-        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributes.entryList()) {
-            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
-            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
-            }
-            _docSelect.setAttribute(e.getKey(),txt_);
-        }
-
-        prStack(_cont,_docSelect,defFieldUpdates,_def,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
-        simpleAppendChild(doc_, rw_, _docSelect);
-        processBlock(_cont, _stds, _ctx, _rendStack);
+        docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrDefault());
+        docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrVarValue());
+        docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrMap());
+        docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrConvert());
+        docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrConvertField());
+        docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrConvertFieldValue());
+        docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrConvertValue());
+        docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrValidator());
+        prStack(_cont,docElementSelect_,defFieldUpdates,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
     private void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
