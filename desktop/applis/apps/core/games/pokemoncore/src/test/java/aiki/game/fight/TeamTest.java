@@ -940,7 +940,9 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
+        team_.getMembers().getVal((byte) 1).setGroundPlaceSubst((byte) 0);
         team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
+        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
         Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, true);
         assertEq(1, positions_.size());
@@ -1019,7 +1021,9 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
+        team_.getMembers().getVal((byte) 1).setGroundPlaceSubst((byte) 0);
         team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
+        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
         Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, false);
         assertEq(1, positions_.size());
@@ -1105,10 +1109,10 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 1).setGroundPlaceSubst(Fighter.BACK);
         team_.getMembers().getVal((byte) 2).setGroundPlaceSubst((byte) 0);
-        assertEq(1, team_.substituteAtIndex((short) 0));
-        assertEq(3, team_.substituteAtIndex((short) 1));
-        assertEq(Fighter.BACK, team_.substituteAtIndex((short) 2));
-        assertEq(Fighter.BACK, team_.substituteAtIndex(Fighter.BACK));
+        assertEq(1, team_.substituteAtIndex((short) 0).first());
+        assertEq(3, team_.substituteAtIndex((short) 1).first());
+        assertEq(0, team_.substituteAtIndex((short) 2).size());
+        assertEq(0, team_.substituteAtIndex(Fighter.BACK).size());
     }
 
     @Test

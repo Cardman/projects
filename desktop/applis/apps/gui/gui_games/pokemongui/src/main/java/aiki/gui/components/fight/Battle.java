@@ -8,12 +8,10 @@ package aiki.gui.components.fight;
 
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
+import aiki.game.fight.*;
 import aiki.gui.threads.*;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.BallNumberRate;
-import aiki.game.fight.ChosenMoveInfos;
-import aiki.game.fight.Fighter;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
@@ -1368,9 +1366,9 @@ public class Battle extends ChildFrame {
             } else {
                 targetsPanel.removeAll();
             }
-            IdList<BoolVal> chosablePlayer_ = facade.getFight().getChosablePlayerTargets();
-            IdList<BoolVal> chosableFoe_ = facade.getFight().getChosableFoeTargets();
-            if (chosablePlayer_.indexesOfObj(BoolVal.TRUE).size() + chosableFoe_.indexesOfObj(BoolVal.TRUE).size() > DataBase.ONE_POSSIBLE_CHOICE) {
+            CustList<ChosableTargetName> chosablePlayer_ = facade.getFight().getChosablePlayerTargets();
+            CustList<ChosableTargetName> chosableFoe_ = facade.getFight().getChosableFoeTargets();
+            if (FightFacade.indexes(chosablePlayer_).size() + FightFacade.indexes(chosableFoe_).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
@@ -1398,9 +1396,9 @@ public class Battle extends ChildFrame {
             } else {
                 targetsPanel.removeAll();
             }
-            IdList<BoolVal> foeTargets_ = facade.getFight().getChosableFoeTargets();
-            IdList<BoolVal> plTargets_ = facade.getFight().getChosablePlayerTargets();
-            if (foeTargets_.indexesOfObj(BoolVal.TRUE).size() + plTargets_.indexesOfObj(BoolVal.TRUE).size() > DataBase.ONE_POSSIBLE_CHOICE) {
+            CustList<ChosableTargetName> foeTargets_ = facade.getFight().getChosableFoeTargets();
+            CustList<ChosableTargetName> plTargets_ = facade.getFight().getChosablePlayerTargets();
+            if (FightFacade.indexes(foeTargets_).size() + FightFacade.indexes(plTargets_).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);

@@ -1,6 +1,7 @@
 package aiki.game;
 
 import aiki.db.DataBase;
+import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -8,10 +9,6 @@ import code.util.core.StringUtil;
 import org.junit.Test;
 
 import aiki.db.ImageHeroKey;
-import aiki.game.fight.BallNumberRate;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
@@ -365,6 +362,10 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(POKEMON_FOE_TARGET_ZERO, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, game_.getFight().getChosableFoeTargets().size());
+        assertEq(PIKACHU,getName(game_.getFight().getChosableFoeTargets(), 0));
+        assertEq(0,getKey(game_.getFight().getChosableFoeTargets(), 0));
+        assertEq(PIKACHU,getName(game_.getFight().getChosableFoeTargets(), 1));
+        assertEq(1,getKey(game_.getFight().getChosableFoeTargets(), 1));
         assertTrue(getBoolVal(game_.getFight().getChosableFoeTargets(), 0));
         assertTrue(getBoolVal(game_.getFight().getChosableFoeTargets(), 1));
         assertEq(2, game_.getFight().getChosablePlayerTargets().size());
@@ -372,8 +373,16 @@ public class GameFightTest extends InitializationDataBase {
         assertTrue(getBoolVal(game_.getFight().getChosablePlayerTargets(), 1));
     }
 
-    private boolean getBoolVal(IdList<BoolVal> _chosablePlayerTargets, int _i) {
-        return _chosablePlayerTargets.get(_i) == BoolVal.TRUE;
+    private String getName(CustList<ChosableTargetName> _chosablePlayerTargets, int _i) {
+        return _chosablePlayerTargets.get(_i).getName();
+    }
+
+    private byte getKey(CustList<ChosableTargetName> _chosablePlayerTargets, int _i) {
+        return _chosablePlayerTargets.get(_i).getKey();
+    }
+
+    private boolean getBoolVal(CustList<ChosableTargetName> _chosablePlayerTargets, int _i) {
+        return _chosablePlayerTargets.get(_i).getChosable() == BoolVal.TRUE;
     }
 
     @Test
@@ -738,10 +747,10 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        ByteTreeMap< Fighter> team_ = game_.getPlayerTeam();
+        CustList< Fighter> team_ = game_.getPlayerTeam();
         assertEq(2, team_.size());
-        assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(team_.getVal((byte) 1), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 1), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
     @Test
     public void getFoeFrontTeam1(){
@@ -814,9 +823,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        ByteTreeMap< Fighter> team_ = game_.getPlayerFrontTeam();
+        CustList< Fighter> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerBackTeam1(){
@@ -839,9 +848,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        ByteTreeMap< Fighter> team_ = game_.getPlayerBackTeam();
+        CustList< Fighter> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
     @Test
     public void getPlayerFrontTeamForSubstituting1(){
@@ -868,9 +877,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        ByteTreeMap< Fighter> team_ = game_.getPlayerFrontTeamForSubstituting();
+        CustList< Fighter> team_ = game_.getPlayerFrontTeamForSubstituting();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerBackTeamForSubstituting1(){
@@ -897,9 +906,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        ByteTreeMap< Fighter> team_ = game_.getPlayerBackTeamForSubstituting();
+        CustList< Fighter> team_ = game_.getPlayerBackTeamForSubstituting();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
     @Test
     public void isChosableForLearningAndEvolving1Test(){

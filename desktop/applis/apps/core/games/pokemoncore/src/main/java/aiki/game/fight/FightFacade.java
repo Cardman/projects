@@ -770,39 +770,41 @@ public final class FightFacade {
         _fight.getPossibleActionsCurFighter().clear();
         if (_fight.getState() == FightState.SWITCH_PROPOSE) {
             Team equipe_=_fight.getUserTeam();
-            byte substitute_ = Fighter.BACK;
-            Bytes listAll_ = new Bytes(equipe_.getMembers().getKeys());
-            listAll_.sort();
-            int i_ = IndexConstants.FIRST_INDEX;
-            for (byte b: listAll_) {
-                Fighter fighter_ = equipe_.getMembers().getVal(b);
-                if (NumberUtil.eq(fighter_.getGroundPlaceSubst(), Fighter.BACK)) {
-                    continue;
-                }
-                if (!fighter_.isBelongingToPlayer()) {
-                    continue;
-                }
-                if (i_ == _place) {
-                    substitute_ = b;
-                    break;
-                }
-                i_++;
-            }
-            if (substitute_ == Fighter.BACK) {
+            Bytes fighters_ = equipe_.fightersAtCurrentPlaceIndex(_place, true);
+//            byte substitute_ = Fighter.BACK;
+//            Bytes listAll_ = new Bytes(equipe_.getMembers().getKeys());
+//            listAll_.sort();
+//            int i_ = IndexConstants.FIRST_INDEX;
+//            for (byte b: listAll_) {
+//                Fighter fighter_ = equipe_.getMembers().getVal(b);
+//                if (NumberUtil.eq(fighter_.getGroundPlaceSubst(), Fighter.BACK)) {
+//                    continue;
+//                }
+//                if (!fighter_.isBelongingToPlayer()) {
+//                    continue;
+//                }
+//                if (i_ == _place) {
+//                    substitute_ = b;
+//                    break;
+//                }
+//                i_++;
+//            }
+            if (fighters_.isEmpty()) {
                 _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
                 _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
                 _fight.setSelectedActionCurFighter(ActionType.NOTHING);
-                _fight.setChosableFoeTargets(new IdList<BoolVal>());
-                _fight.setChosablePlayerTargets(new IdList<BoolVal>());
+                _fight.setChosableFoeTargets(new CustList<ChosableTargetName>());
+                _fight.setChosablePlayerTargets(new CustList<ChosableTargetName>());
                 _fight.setChosenIndexFront(Fighter.BACK);
                 _fight.setChosenSubstitute(Fighter.BACK);
-                _fight.setChosenFoeTarget(Fighter.BACK);
-                _fight.setChosenPlayerTarget(Fighter.BACK);
+//                _fight.setChosenFoeTarget(Fighter.BACK);
+//                _fight.setChosenPlayerTarget(Fighter.BACK);
                 _fight.setChosenMoveFront(DataBase.EMPTY_STRING);
                 _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
                 return;
             }
-            _fight.setChosenSubstitute(_fight.getFirstPositPlayerFighters().getVal(substitute_));
+//            assert substitute_ == fighters_.first();
+            _fight.setChosenSubstitute(_fight.getFirstPositPlayerFighters().getVal(fighters_.first()));
             return;
         }
         _fight.getPossibleActionsCurFighter().add(ActionType.MOVE);
@@ -817,10 +819,10 @@ public final class FightFacade {
             _fight.setSelectedActionCurFighter(ActionType.NOTHING);
             _fight.setChosenIndexFront(Fighter.BACK);
             _fight.setChosenSubstitute(Fighter.BACK);
-            _fight.setChosenFoeTarget(Fighter.BACK);
-            _fight.setChosenPlayerTarget(Fighter.BACK);
-            _fight.setChosableFoeTargets(new IdList<BoolVal>());
-            _fight.setChosablePlayerTargets(new IdList<BoolVal>());
+//            _fight.setChosenFoeTarget(Fighter.BACK);
+//            _fight.setChosenPlayerTarget(Fighter.BACK);
+            _fight.setChosableFoeTargets(new CustList<ChosableTargetName>());
+            _fight.setChosablePlayerTargets(new CustList<ChosableTargetName>());
             _fight.getPossibleActionsCurFighter().clear();
             _fight.setChosenMoveFront(DataBase.EMPTY_STRING);
             _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
@@ -833,15 +835,15 @@ public final class FightFacade {
             _fight.setSelectedActionCurFighter(ActionType.MOVE);
             ActionMove actionMove_ = (ActionMove) action_;
             initChosableTargets(_fight, _place, actionMove_.getFirstChosenMove(), _diff, _import);
-            if (!actionMove_.getChosenTargets().isEmpty()) {
-                if (NumberUtil.eq(actionMove_.getChosenTargets().first().getTeam(), Fight.CST_PLAYER)) {
-                    _fight.setChosenPlayerTarget((byte) actionMove_.getChosenTargets().first().getPosition());
-                    _fight.setChosenFoeTarget(Fighter.BACK);
-                } else {
-                    _fight.setChosenFoeTarget((byte) actionMove_.getChosenTargets().first().getPosition());
-                    _fight.setChosenPlayerTarget(Fighter.BACK);
-                }
-            }
+//            if (!actionMove_.getChosenTargets().isEmpty()) {
+//                if (NumberUtil.eq(actionMove_.getChosenTargets().first().getTeam(), Fight.CST_PLAYER)) {
+//                    _fight.setChosenPlayerTarget((byte) actionMove_.getChosenTargets().first().getPosition());
+//                    _fight.setChosenFoeTarget(Fighter.BACK);
+//                } else {
+//                    _fight.setChosenFoeTarget((byte) actionMove_.getChosenTargets().first().getPosition());
+//                    _fight.setChosenPlayerTarget(Fighter.BACK);
+//                }
+//            }
             return;
         }
         if (action_ instanceof ActionSwitch) {
@@ -873,43 +875,44 @@ public final class FightFacade {
         if (_fight.getState() == FightState.SWITCH_PROPOSE) {
             _fight.setChosenIndexFront(Fighter.BACK);
             Team equipe_=_fight.getUserTeam();
-            byte substitute_ = Fighter.BACK;
-            byte i_ = IndexConstants.FIRST_INDEX;
-            Bytes list_ = new Bytes(equipe_.getMembers().getKeys());
+//            byte substitute_ = Fighter.BACK;
+//            byte i_ = IndexConstants.FIRST_INDEX;
+//            Bytes list_ = new Bytes(equipe_.getMembers().getKeys());
+            Bytes fighters_ = equipe_.substituteAtIndex(_place);
 //            list_.sort(new NaturalComparator<Byte>() {
 //                @Override
 //                public int compare(Byte _o1, Byte _o2) {
 //                    return _o1.compareTo(_o2);
 //                }
 //            });
-            list_.sort();
-            for (byte b: list_) {
-                Fighter fighter_ = equipe_.getMembers().getVal(b);
-                if (!NumberUtil.eq(fighter_.getGroundPlaceSubst(), Fighter.BACK)) {
-                    continue;
-                }
-                if (i_ == _place) {
-                    substitute_ = b;
-                    break;
-                }
-                i_++;
-            }
-            if (NumberUtil.eq(substitute_, Fighter.BACK)) {
+//            list_.sort();
+//            for (byte b: list_) {
+//                Fighter fighter_ = equipe_.getMembers().getVal(b);
+//                if (!NumberUtil.eq(fighter_.getGroundPlaceSubst(), Fighter.BACK)) {
+//                    continue;
+//                }
+//                if (i_ == _place) {
+//                    substitute_ = b;
+//                    break;
+//                }
+//                i_++;
+//            }
+            if (fighters_.isEmpty()) {
                 _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
                 _fight.setSelectedActionCurFighter(ActionType.NOTHING);
-                _fight.setChosableFoeTargets(new IdList<BoolVal>());
-                _fight.setChosablePlayerTargets(new IdList<BoolVal>());
+                _fight.setChosableFoeTargets(new CustList<ChosableTargetName>());
+                _fight.setChosablePlayerTargets(new CustList<ChosableTargetName>());
                 _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
                 _fight.setChosenIndexBack(Fighter.BACK);
                 _fight.setChosenSubstitute(Fighter.BACK);
-                _fight.setChosenFoeTarget(Fighter.BACK);
-                _fight.setChosenPlayerTarget(Fighter.BACK);
+//                _fight.setChosenFoeTarget(Fighter.BACK);
+//                _fight.setChosenPlayerTarget(Fighter.BACK);
                 _fight.setChosenMoveFront(DataBase.EMPTY_STRING);
                 _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
                 return;
             }
             _fight.setChosenIndexBack(_place);
-            _fight.setChosenSubstitute(_fight.getFirstPositPlayerFighters().getVal(substitute_));
+            _fight.setChosenSubstitute(_fight.getFirstPositPlayerFighters().getVal(fighters_.first()));
             return;
         }
         if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
@@ -939,22 +942,22 @@ public final class FightFacade {
         _fight.setSelectedActionCurFighter(ActionType.NOTHING);
         _fight.getCurrentFighterMoves().clear();
         Team playerTeam_ = _fight.getUserTeam();
-        byte sub_ = playerTeam_.substituteAtIndex(_place);
-        if (sub_ == Fighter.BACK) {
+        Bytes sub_ = playerTeam_.substituteAtIndex(_place);
+        if (sub_.isEmpty()) {
             _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
             _fight.setSelectedActionCurFighter(ActionType.NOTHING);
-            _fight.setChosableFoeTargets(new IdList<BoolVal>());
-            _fight.setChosablePlayerTargets(new IdList<BoolVal>());
+            _fight.setChosableFoeTargets(new CustList<ChosableTargetName>());
+            _fight.setChosablePlayerTargets(new CustList<ChosableTargetName>());
             _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
             _fight.setChosenIndexBack(Fighter.BACK);
             _fight.setChosenSubstitute(Fighter.BACK);
-            _fight.setChosenFoeTarget(Fighter.BACK);
-            _fight.setChosenPlayerTarget(Fighter.BACK);
+//            _fight.setChosenFoeTarget(Fighter.BACK);
+//            _fight.setChosenPlayerTarget(Fighter.BACK);
             _fight.setChosenMoveFront(DataBase.EMPTY_STRING);
             _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
             return;
         }
-        AbstractAction action_ = playerTeam_.getMembers().getVal(sub_).getAction();
+        AbstractAction action_ = playerTeam_.getMembers().getVal(sub_.first()).getAction();
         if (action_ instanceof ActionHeal) {
             _fight.setSelectedActionCurFighter(ActionType.HEALING);
             ActionHeal actionHeal_ = (ActionHeal) action_;
@@ -989,19 +992,18 @@ public final class FightFacade {
             _fight.setCurrentFighterMoves(frontFighterMoves(_fight, index_, _import));
             return;
         }
+        Team equipe_=_fight.getUserTeam();
         byte index_ = _fight.getChosenIndexFront();
-        if (!NumberUtil.eq(index_, Fighter.BACK)) {
-            Team equipe_=_fight.getUserTeam();
+        Bytes list_ = equipe_.fightersAtCurrentPlaceIndex(index_, true);
+        if (!list_.isEmpty()) {
 //            CustList<Byte> list_ = equipe_.fightersAtCurrentPlace(index_);
-            Bytes list_ = equipe_.fightersAtCurrentPlaceIndex(index_, true);
             Fighter creature_=equipe_.refPartMembres(list_.first());
             creature_.cancelActions();
         } else {
             index_ = _fight.getChosenIndexBack();
-            if (!NumberUtil.eq(index_, Fighter.BACK)) {
-                Team equipe_=_fight.getUserTeam();
-                byte substitute_ = equipe_.substituteAtIndex(index_);
-                Fighter creature_=equipe_.refPartMembres(substitute_);
+            Bytes substitute_ = equipe_.substituteAtIndex(index_);
+            if (!substitute_.isEmpty()) {
+                Fighter creature_=equipe_.refPartMembres(substitute_.first());
                 creature_.cancelActions();
             }
         }
@@ -1021,11 +1023,11 @@ public final class FightFacade {
 
     static NatStringTreeMap<ChosenMoveInfos> backFighterMoves(Fight _fight, byte _place, DataBase _import) {
         Team playerTeam_ = _fight.getUserTeam();
-        byte substitute_ = playerTeam_.substituteAtIndex(_place);
-        if (NumberUtil.eq(substitute_, Fighter.BACK)) {
+        Bytes substitute_ = playerTeam_.substituteAtIndex(_place);
+        if (substitute_.isEmpty()) {
             return new NatStringTreeMap<ChosenMoveInfos>();
         }
-        TeamPosition f_ = Fight.toUserFighter(substitute_);
+        TeamPosition f_ = Fight.toUserFighter(substitute_.first());
         return fighterMoves(_fight, f_, _import);
     }
 
@@ -1088,11 +1090,9 @@ public final class FightFacade {
         if (fighters_.isEmpty()) {
             return;
         }
-        IdList<BoolVal> playerTargets_;
-        IdList<BoolVal> foeTargets_;
         initChosableTargets(_fight, index_, _move, _diff, _import);
-        playerTargets_ = _fight.getChosablePlayerTargets();
-        foeTargets_ = _fight.getChosableFoeTargets();
+        CustList<ChosableTargetName> playerTargets_ = _fight.getChosablePlayerTargets();
+        CustList<ChosableTargetName> foeTargets_ = _fight.getChosableFoeTargets();
         if (foeTargets_.isEmpty()) {
             //playerTargets_.size() == foeTargets_.size()
             // ==> playerTargets_.isEmpty()
@@ -1100,9 +1100,9 @@ public final class FightFacade {
             return;
         }
         Ints possiblePlayerChoices_;
-        possiblePlayerChoices_ = playerTargets_.indexesOfObj(BoolVal.TRUE);
+        possiblePlayerChoices_ = indexes(playerTargets_);
         Ints possibleFoeChoices_;
-        possibleFoeChoices_ = foeTargets_.indexesOfObj(BoolVal.TRUE);
+        possibleFoeChoices_ = indexes(foeTargets_);
         _fight.setChosenMoveFront(_move);
         if (possiblePlayerChoices_.isEmpty() && possibleFoeChoices_.isEmpty()) {
             setFirstChosenMove(_fight, index_, _move);
@@ -1130,14 +1130,24 @@ public final class FightFacade {
             playerTargets_.clear();
         }
     }
+    public static Ints indexes(CustList<ChosableTargetName> _list) {
+        int len_ = _list.size();
+        Ints inds_ = new Ints();
+        for (int i = 0; i < len_; i++) {
+            if (_list.get(i).getChosable() == BoolVal.TRUE) {
+                inds_.add(i);
+            }
+        }
+        return inds_;
+    }
 
     static void initChosableTargets(Fight _fight, byte _index, String _move, Difficulty _diff, DataBase _import) {
         MoveData move_ = _import.getMove(_move);
         if (!move_.getTargetChoice().isWithChoice()) {
-            IdList<BoolVal> playerTargets_;
-            playerTargets_ = new IdList<BoolVal>();
-            IdList<BoolVal> foeTargets_;
-            foeTargets_ = new IdList<BoolVal>();
+            CustList<ChosableTargetName> playerTargets_;
+            playerTargets_ = new CustList<ChosableTargetName>();
+            CustList<ChosableTargetName> foeTargets_;
+            foeTargets_ = new CustList<ChosableTargetName>();
             _fight.setChosenMoveFront(_move);
             _fight.setChosableFoeTargets(foeTargets_);
             _fight.setChosablePlayerTargets(playerTargets_);
@@ -1147,10 +1157,10 @@ public final class FightFacade {
         Bytes fighters_ = _fight.getUserTeam().fightersAtCurrentPlaceIndex(_index, true);
         TeamPosition f_ = Fight.toUserFighter(fighters_.first());
         byte groundPlace_ = _fight.getFighter(f_).getGroundPlace();
-        IdList<BoolVal> playerTargets_;
-        playerTargets_ = new IdList<BoolVal>();
-        IdList<BoolVal> foeTargets_;
-        foeTargets_ = new IdList<BoolVal>();
+        CustList<ChosableTargetName> playerTargets_;
+        playerTargets_ = new CustList<ChosableTargetName>();
+        CustList<ChosableTargetName> foeTargets_;
+        foeTargets_ = new CustList<ChosableTargetName>();
         Bytes playerFightersTakenPlace_;
         playerFightersTakenPlace_ = new Bytes();
         ByteMap<Boolean> playerFightersPlace_;
@@ -1161,8 +1171,11 @@ public final class FightFacade {
             Bytes fightersKeys_ = _fight.getUserTeam().fightersAtCurrentPlaceIndex(b, false);
             boolean used_ = !fightersKeys_.isEmpty();
             playerFightersPlace_.put(b, used_);
-            playerTargets_.add(BoolVal.FALSE);
+            ChosableTargetName pl_ = new ChosableTargetName();
+            playerTargets_.add(pl_);
             if (used_) {
+                pl_.setName(_fight.getUserTeam().refPartMembres(fightersKeys_.first()).getName());
+                pl_.setKey(fightersKeys_.first());
                 playerFightersTakenPlace_.add(b);
             }
         }
@@ -1175,8 +1188,11 @@ public final class FightFacade {
             Bytes fightersKeys_ = _fight.getFoeTeam().fightersAtCurrentPlaceIndex(b, false);
             boolean used_ = !fightersKeys_.isEmpty();
             foeFightersPlace_.put(b, used_);
-            foeTargets_.add(BoolVal.FALSE);
+            ChosableTargetName fo_ = new ChosableTargetName();
+            foeTargets_.add(fo_);
             if (used_) {
+                fo_.setName(_fight.getFoeTeam().refPartMembres(fightersKeys_.first()).getName());
+                fo_.setKey(fightersKeys_.first());
                 foeFightersTakenPlace_.add(b);
             }
         }
@@ -1184,7 +1200,7 @@ public final class FightFacade {
 //            for (byte k: playerFightersPlace_.getKeys(true))
             for (byte k: playerFightersTakenPlace_) {
 //                playerTargets_.set(k,!Numbers.eq(k, _index));
-                playerTargets_.set(k, wrap(!NumberUtil.eq(k, groundPlace_)));
+                playerTargets_.get(k).setChosable(wrap(!NumberUtil.eq(k, groundPlace_)));
             }
         } else if (move_.getTargetChoice() == TargetChoice.ADJ_UNIQ) {
             EqList<TeamPosition> list_;
@@ -1192,38 +1208,42 @@ public final class FightFacade {
             for (TeamPosition f: list_) {
                 Fighter partner_ = _fight.getFighter(f);
                 byte place_ = partner_.getGroundPlace();
-                playerTargets_.set(place_, BoolVal.TRUE);
+                playerTargets_.get(place_).setChosable(BoolVal.TRUE);
+                playerTargets_.get(place_).setName(partner_.getName());
+                playerTargets_.get(place_).setKey(f.getPosition());
             }
             list_ = FightOrder.closestFigthersFoeTeam(_fight, f_, _diff);
             for (TeamPosition f: list_) {
                 Fighter partner_ = _fight.getFighter(f);
                 byte place_ = partner_.getGroundPlace();
-                foeTargets_.set(place_, BoolVal.TRUE);
+                foeTargets_.get(place_).setChosable(BoolVal.TRUE);
+                foeTargets_.get(place_).setName(partner_.getName());
+                foeTargets_.get(place_).setKey(f.getPosition());
             }
         } else if (move_.getTargetChoice() == TargetChoice.UNIQUE_IMPORTE) {
 //            for (byte k: playerFightersPlace_.getKeys(true))
             for (byte k: playerFightersTakenPlace_) {
-                playerTargets_.set(k, BoolVal.TRUE);
+                playerTargets_.get(k).setChosable(BoolVal.TRUE);
             }
 //            for (byte k: foeFightersPlace_.getKeys(true))
             for (byte k: foeFightersTakenPlace_) {
-                foeTargets_.set(k, BoolVal.TRUE);
+                foeTargets_.get(k).setChosable(BoolVal.TRUE);
             }
         } else if (move_.getTargetChoice() == TargetChoice.AUTRE_UNIQ) {
 //            for (byte k: playerFightersPlace_.getKeys(true))
             for (byte k: playerFightersTakenPlace_) {
 //                playerTargets_.set(k,!Numbers.eq(k, _index));
-                playerTargets_.set(k, wrap(!NumberUtil.eq(k, groundPlace_)));
+                playerTargets_.get(k).setChosable(wrap(!NumberUtil.eq(k, groundPlace_)));
             }
 //            for (byte k: foeFightersPlace_.getKeys(true))
             for (byte k: foeFightersTakenPlace_) {
-                foeTargets_.set(k, BoolVal.TRUE);
+                foeTargets_.get(k).setChosable(BoolVal.TRUE);
             }
         } else {
             //ANY_FOE
 //            for (byte k: foeFightersPlace_.getKeys(true))
             for (byte k: foeFightersTakenPlace_) {
-                foeTargets_.set(k, BoolVal.TRUE);
+                foeTargets_.get(k).setChosable(BoolVal.TRUE);
             }
         }
         _fight.setChosenMoveFront(_move);
@@ -1507,7 +1527,7 @@ public final class FightFacade {
         return moves_;
     }
 
-    public static ByteTreeMap<Fighter> getPlayerTeam(Fight _fight) {
+    public static CustList<Fighter> getPlayerTeam(Fight _fight) {
         Team team_ = _fight.getUserTeam();
         ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
         ByteTreeMap<Byte> keys_ = new ByteTreeMap<Byte>();
@@ -1526,7 +1546,7 @@ public final class FightFacade {
             tree_.put(index_, f_);
             index_++;
         }
-        return tree_;
+        return tree_.values();
     }
 
     public static ByteTreeMap<Fighter> getFoeFrontTeam(Fight _fight) {
@@ -1555,93 +1575,104 @@ public final class FightFacade {
         return tree_;
     }
 
-    public static ByteTreeMap<Fighter> getPlayerFrontTeam(Fight _fight) {
+    public static CustList<Fighter> getPlayerFrontTeam(Fight _fight) {
         Team team_ = _fight.getUserTeam();
-        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
-        for (byte k: team_.getMembers().getKeys()) {
-            Fighter f_ = team_.getMembers().getVal(k);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            if (NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
-                continue;
-            }
-//            if (f_.estArriere()) {
+        return convertFront(team_.getFrontTeam());
+//        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
+//        for (byte k: team_.getMembers().getKeys()) {
+//            Fighter f_ = team_.getMembers().getVal(k);
+//            if (!f_.isBelongingToPlayer()) {
 //                continue;
 //            }
-//            tree_.put(f_.getGroundPlace(), f_);
-            tree_.put(f_.getGroundPlaceSubst(), f_);
-        }
-        return tree_;
-    }
-
-    public static ByteTreeMap<Fighter> getPlayerBackTeam(Fight _fight) {
-        Team team_ = _fight.getUserTeam();
-        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
-        ByteTreeMap<Byte> keys_ = new ByteTreeMap<Byte>();
-        byte index_ = IndexConstants.FIRST_INDEX;
-        for (byte k: team_.getMembers().getKeys()) {
-            Fighter f_ = team_.getMembers().getVal(k);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            if (!NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
-                continue;
-            }
-//            if (!f_.estArriere()) {
+//            if (NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
 //                continue;
 //            }
-            keys_.put(index_,k);
-            index_++;
-        }
-        index_ = IndexConstants.FIRST_INDEX;
-        for (byte k: keys_.values()) {
-            Fighter f_ = team_.getMembers().getVal(k);
-            tree_.put(index_, f_);
-            index_++;
+////            if (f_.estArriere()) {
+////                continue;
+////            }
+////            tree_.put(f_.getGroundPlace(), f_);
+//            tree_.put(f_.getGroundPlaceSubst(), f_);
+//        }
+//        return tree_;
+    }
+
+    public static CustList<Fighter> getPlayerBackTeam(Fight _fight) {
+        Team team_ = _fight.getUserTeam();
+//        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
+//        ByteTreeMap<Byte> keys_ = new ByteTreeMap<Byte>();
+//        byte index_ = IndexConstants.FIRST_INDEX;
+//        for (byte k: team_.getMembers().getKeys()) {
+//            Fighter f_ = team_.getMembers().getVal(k);
+//            if (!f_.isBelongingToPlayer()) {
+//                continue;
+//            }
+//            if (!NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
+//                continue;
+//            }
+////            if (!f_.estArriere()) {
+////                continue;
+////            }
+//            keys_.put(index_,k);
+//            index_++;
+//        }
+//        index_ = IndexConstants.FIRST_INDEX;
+//        for (byte k: keys_.values()) {
+//            Fighter f_ = team_.getMembers().getVal(k);
+//            tree_.put(index_, f_);
+//            index_++;
+//        }
+        return team_.getBackTeam().values();
+    }
+
+    public static CustList<Fighter> getPlayerFrontTeamForSubstituting(Fight _fight) {
+        Team team_ = _fight.getUserTeam();
+        return convertFront(team_.getFrontTeam());
+//        Team team_ = _fight.getUserTeam();
+//        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
+//        for (byte k: team_.getMembers().getKeys()) {
+//            Fighter f_ = team_.getMembers().getVal(k);
+//            if (!f_.isBelongingToPlayer()) {
+//                continue;
+//            }
+//            if (NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
+//                continue;
+//            }
+//            tree_.put(f_.getGroundPlaceSubst(), f_);
+//        }
+//        return tree_;
+    }
+
+    private static CustList<Fighter> convertFront(ByteTreeMap<EntryCust<Byte,Fighter>> _in) {
+        CustList<Fighter> tree_ = new CustList<Fighter>();
+        for (EntryCust<Byte,EntryCust<Byte,Fighter>> e: _in.entryList()) {
+            tree_.add(e.getValue().getValue());
         }
         return tree_;
     }
-
-    public static ByteTreeMap<Fighter> getPlayerFrontTeamForSubstituting(Fight _fight) {
+    public static CustList<Fighter> getPlayerBackTeamForSubstituting(Fight _fight) {
         Team team_ = _fight.getUserTeam();
-        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
-        for (byte k: team_.getMembers().getKeys()) {
-            Fighter f_ = team_.getMembers().getVal(k);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            if (NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
-                continue;
-            }
-            tree_.put(f_.getGroundPlaceSubst(), f_);
-        }
-        return tree_;
-    }
-
-    public static ByteTreeMap<Fighter> getPlayerBackTeamForSubstituting(Fight _fight) {
-        Team team_ = _fight.getUserTeam();
-        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
-        ByteTreeMap<Byte> keys_ = new ByteTreeMap<Byte>();
-        byte index_ = IndexConstants.FIRST_INDEX;
-        for (byte k: team_.getMembers().getKeys()) {
-            Fighter f_ = team_.getMembers().getVal(k);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            if (!NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
-                continue;
-            }
-            keys_.put(index_,k);
-            index_++;
-        }
-        index_ = IndexConstants.FIRST_INDEX;
-        for (byte k: keys_.values()) {
-            Fighter f_ = team_.getMembers().getVal(k);
-            tree_.put(index_, f_);
-            index_++;
-        }
-        return tree_;
+//        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
+//        ByteTreeMap<Byte> keys_ = new ByteTreeMap<Byte>();
+//        byte index_ = IndexConstants.FIRST_INDEX;
+//        for (byte k: team_.getMembers().getKeys()) {
+//            Fighter f_ = team_.getMembers().getVal(k);
+//            if (!f_.isBelongingToPlayer()) {
+//                continue;
+//            }
+//            if (!NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
+//                continue;
+//            }
+//            keys_.put(index_,k);
+//            index_++;
+//        }
+//        index_ = IndexConstants.FIRST_INDEX;
+//        for (byte k: keys_.values()) {
+//            Fighter f_ = team_.getMembers().getVal(k);
+//            tree_.put(index_, f_);
+//            index_++;
+//        }
+//        return tree_.values();
+        return team_.getBackTeam().values();
     }
 
     public static ByteTreeMap<Fighter> getAllyFrontTeam(Fight _fight) {
@@ -2101,22 +2132,23 @@ public final class FightFacade {
         Team equipe_=_fight.getUserTeam();
 //        CustList<Byte> list_ = new CustList<>();
         //MOD
-        byte substitute_ = Fighter.BACK;
-        Bytes listAll_ = new Bytes(equipe_.getMembers().getKeys());
-        listAll_.sort();
-        int i_ = IndexConstants.FIRST_INDEX;
-        for (byte b: listAll_) {
-            Fighter fighter_ = equipe_.getMembers().getVal(b);
-            if (NumberUtil.eq(fighter_.getGroundPlaceSubst(), Fighter.BACK)) {
-                continue;
-            }
-            if (i_ == sub_) {
-                substitute_ = b;
-                break;
-            }
-            i_++;
-        }
-        if (substitute_ == Fighter.BACK) {
+        Bytes fighters_ = equipe_.fightersAtCurrentPlaceIndex(sub_, true);
+//        byte substitute_ = Fighter.BACK;
+//        Bytes listAll_ = new Bytes(equipe_.getMembers().getKeys());
+//        listAll_.sort();
+//        int i_ = IndexConstants.FIRST_INDEX;
+//        for (byte b: listAll_) {
+//            Fighter fighter_ = equipe_.getMembers().getVal(b);
+//            if (NumberUtil.eq(fighter_.getGroundPlaceSubst(), Fighter.BACK)) {
+//                continue;
+//            }
+//            if (i_ == sub_) {
+//                substitute_ = b;
+//                break;
+//            }
+//            i_++;
+//        }
+        if (fighters_.isEmpty()) {
             return;
         }
 //        for (Byte b: equipe_.getMembers().getKeys()) {
@@ -2129,37 +2161,38 @@ public final class FightFacade {
 //        if (list_.isEmpty()) {
 //            return;
 //        }
-        _fight.getFirstPositPlayerFighters().put(substitute_, _newPlace);
+        _fight.getFirstPositPlayerFighters().put(fighters_.first(), _newPlace);
     }
 
     static void setSubstituteBack(Fight _fight,byte _newPlace){
         byte sub_ = _fight.getChosenIndexBack();
         Team equipe_=_fight.getUserTeam();
-        byte substitute_ = Fighter.BACK;
-        byte i_ = IndexConstants.FIRST_INDEX;
-        Bytes list_ = new Bytes(equipe_.getMembers().getKeys());
+        Bytes bytes_ = equipe_.substituteAtIndex(sub_);
+//        byte substitute_ = Fighter.BACK;
+//        byte i_ = IndexConstants.FIRST_INDEX;
+//        Bytes list_ = new Bytes(equipe_.getMembers().getKeys());
 //        list_.sort(new NaturalComparator<Byte>() {
 //            @Override
 //            public int compare(Byte _o1, Byte _o2) {
 //                return _o1.compareTo(_o2);
 //            }
 //        });
-        list_.sort();
-        for (byte b: list_) {
-            Fighter fighter_ = equipe_.getMembers().getVal(b);
-            if (!NumberUtil.eq(fighter_.getGroundPlaceSubst(), Fighter.BACK)) {
-                continue;
-            }
-            if (i_ == sub_) {
-                substitute_ = b;
-                break;
-            }
-            i_++;
-        }
-        if (substitute_ == Fighter.BACK) {
+//        list_.sort();
+//        for (byte b: list_) {
+//            Fighter fighter_ = equipe_.getMembers().getVal(b);
+//            if (!NumberUtil.eq(fighter_.getGroundPlaceSubst(), Fighter.BACK)) {
+//                continue;
+//            }
+//            if (i_ == sub_) {
+//                substitute_ = b;
+//                break;
+//            }
+//            i_++;
+//        }
+        if (bytes_.isEmpty()) {
             return;
         }
-        _fight.getFirstPositPlayerFighters().put(substitute_, _newPlace);
+        _fight.getFirstPositPlayerFighters().put(bytes_.first(), _newPlace);
     }
 
     static void setSubstituteSwitch(Fight _fight,byte _remplacant){
@@ -2173,22 +2206,22 @@ public final class FightFacade {
             return;
         }
         Fighter creature_=equipe_.refPartMembres(list_.first());
-        byte substitute_ = equipe_.substituteAtIndex(_remplacant);
-        if (substitute_ == Fighter.BACK) {
+        Bytes substitute_ = equipe_.substituteAtIndex(_remplacant);
+        if (substitute_.isEmpty()) {
             return;
         }
-        creature_.setSubstitute(substitute_);
+        creature_.setSubstitute(substitute_.first());
     }
 
     static void chooseBackFighterWhileRound(Fight _fight,byte _substitute, DataBase _data) {
         Team team_ = _fight.getUserTeam();
         _fight.setError(false);
-        byte substitute_ = team_.substituteAtIndex(_substitute);
-        if (NumberUtil.eq(substitute_, Fighter.BACK)) {
+        Bytes substitute_ = team_.substituteAtIndex(_substitute);
+        if (substitute_.isEmpty()) {
             cancelChooseBackFighterWhileRound(_fight);
             return;
         }
-        Fighter fighter_ = team_.getMembers().getVal(substitute_);
+        Fighter fighter_ = team_.getMembers().getVal(substitute_.first());
         if (fighter_.estKo()) {
             String name_ = _data.translatePokemon(fighter_.getName());
             _fight.addMessage(_data,Fight.ERR_KO_SUBSTITUTE, name_);
@@ -2197,22 +2230,22 @@ public final class FightFacade {
         }
         fighter_ = _fight.getFighter(_fight.getCurrentUser());
         byte index_ = fighter_.getGroundPlace();
-        setSubstituteForMove(_fight, index_, _substitute);
+        setSubstituteForMove(_fight, index_, substitute_.first());
     }
 
     static void chooseBackFighterAddon(Fight _fight,byte _substitute, DataBase _data) {
         Team team_ = _fight.getUserTeam();
         _fight.setError(false);
-        byte substitute_ = team_.substituteAtIndex(_substitute);
+        Bytes substitute_ = team_.substituteAtIndex(_substitute);
         byte index_ = _fight.getChosenIndexFront();
         Team equipe_=_fight.getUserTeam();
         Bytes list_ = equipe_.fightersAtCurrentPlaceIndex(index_, true);
         Fighter creature_=equipe_.refPartMembres(list_.first());
-        if (NumberUtil.eq(substitute_, Fighter.BACK)) {
+        if (substitute_.isEmpty()) {
             creature_.setSubstituteForMove(Fighter.BACK);
             return;
         }
-        Fighter fighter_ = team_.getMembers().getVal(substitute_);
+        Fighter fighter_ = team_.getMembers().getVal(substitute_.first());
         if (fighter_.estKo()) {
             String name_ = _data.translatePokemon(fighter_.getName());
             _fight.addMessage(_data,Fight.ERR_KO_SUBSTITUTE, name_);
@@ -2220,20 +2253,19 @@ public final class FightFacade {
             return;
         }
         //the window does not give the possibility to choose an ally pokemon
-        if (!fighter_.isBelongingToPlayer()) {
-            _fight.setError(true);
-            return;
-        }
-        setSubstituteForMove(_fight, index_, _substitute);
+//        if (!fighter_.isBelongingToPlayer()) {
+//            _fight.setError(true);
+//            return;
+//        }
+        setSubstituteForMove(_fight, index_, substitute_.first());
     }
 
-    static void setSubstituteForMove(Fight _fight,byte _index, byte _substitute) {
+    static void setSubstituteForMove(Fight _fight, byte _index, byte _substitute) {
         Team team_=_fight.getUserTeam();
-        byte substitute_ = team_.substituteAtIndex(_substitute);
 //        CustList<Byte> list_ = team_.fightersAtCurrentPlace(_index);
         Bytes list_ = team_.fightersAtCurrentPlaceIndex(_index, true);
         Fighter creature_=team_.refPartMembres(list_.first());
-        creature_.setSubstituteForMove(substitute_);
+        creature_.setSubstituteForMove(_substitute);
     }
 
     public static void cancelChooseBackFighterWhileRound(Fight _fight) {
@@ -2288,8 +2320,8 @@ public final class FightFacade {
     static void setChosenHealingItemBack(Fight _fight,String _objet,DataBase _import){
         byte index_ = _fight.getChosenIndexBack();
         Team equipe_=_fight.getUserTeam();
-        byte substitute_ = equipe_.substituteAtIndex(index_);
-        if (substitute_ == Fighter.BACK) {
+        Bytes substitute_ = equipe_.substituteAtIndex(index_);
+        if (substitute_.isEmpty()) {
             return;
         }
         Item obj_ = _import.getItem(_objet);
@@ -2316,7 +2348,7 @@ public final class FightFacade {
             _fight.setCurrentFighterMoves(backFighterMoves(_fight, index_, _import));
             return;
         }
-        Fighter creature_=equipe_.refPartMembres(substitute_);
+        Fighter creature_=equipe_.refPartMembres(substitute_.first());
         creature_.setChosenHealingObject(_objet,_import);
     }
 
@@ -2330,8 +2362,8 @@ public final class FightFacade {
         } else {
             index_ = _fight.getChosenIndexBack();
             Team equipe_=_fight.getUserTeam();
-            byte substitute_ = equipe_.substituteAtIndex(index_);
-            Fighter creature_=equipe_.refPartMembres(substitute_);
+            Bytes substitute_ = equipe_.substituteAtIndex(index_);
+            Fighter creature_=equipe_.refPartMembres(substitute_.first());
             creature_.setChosenHealingObjectMove(_fight.getChosenHealingMove(),_move);
         }
     }
@@ -2578,10 +2610,10 @@ public final class FightFacade {
         _fight.setDamageKo(Rate.zero());
         _fight.setOrderedFighters(new EqList<TeamPosition>());
         _fight.setRemainingFighters(new EqList<TeamPosition>());
-        _fight.setChosablePlayerTargets(new IdList<BoolVal>());
-        _fight.setChosableFoeTargets(new IdList<BoolVal>());
-        _fight.setChosenFoeTarget(Fighter.BACK);
-        _fight.setChosenPlayerTarget(Fighter.BACK);
+        _fight.setChosablePlayerTargets(new CustList<ChosableTargetName>());
+        _fight.setChosableFoeTargets(new CustList<ChosableTargetName>());
+//        _fight.setChosenFoeTarget(Fighter.BACK);
+//        _fight.setChosenPlayerTarget(Fighter.BACK);
         _fight.setChosenIndexBack(Fighter.BACK);
         _fight.setChosenIndexFront(Fighter.BACK);
         _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());

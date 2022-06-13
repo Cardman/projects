@@ -1,17 +1,18 @@
 package aiki.gui.components.fight;
 
 
-
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.gui.WindowAiki;
 import aiki.gui.listeners.BackFighterSelection;
 import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
-import code.gui.*;
+import code.gui.AbsGraphicList;
+import code.gui.AbsPanel;
+import code.gui.AbsPlainLabel;
+import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbstractProgramInfos;
-import code.util.*;
+import code.util.CustList;
 
 public final class FighterPanel {
 
@@ -23,7 +24,7 @@ public final class FighterPanel {
 
     private final AbsPanel container;
 
-    public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters) {
+    public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, CustList<Fighter> _fighters) {
         liste = _window.getAikiFactory().getGeneFighter().createSimple(_window.getImageFactory(),new FighterRenderer(_window.getFrames().getImageFactory(),_facade));
         facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
@@ -38,9 +39,9 @@ public final class FighterPanel {
         container.setPreferredSize(new MetaDimension(150,64*_nb));
     }
 
-    public void initFighters(ByteTreeMap<Fighter> _fighters) {
+    public void initFighters(CustList<Fighter> _fighters) {
         liste.clear();
-        for (Fighter f: _fighters.values()) {
+        for (Fighter f: _fighters) {
             liste.add(f);
         }
     }
@@ -63,13 +64,13 @@ public final class FighterPanel {
 //        }
 //    }
 
-    public void initFighters() {
-        liste.clear();
-        ByteTreeMap<Fighter> fronts_ = facade.getPlayerTeam();
-        for (Fighter f: fronts_.values()) {
-            liste.add(f);
-        }
-    }
+//    public void initFighters() {
+//        liste.clear();
+//        CustList<Fighter> fronts_ = facade.getPlayerTeam();
+//        for (Fighter f: fronts_) {
+//            liste.add(f);
+//        }
+//    }
 
     public void addListener(Battle _battle, boolean _front) {
         if (_front) {

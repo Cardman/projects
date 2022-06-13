@@ -2,21 +2,20 @@ package aiki.gui.components.fight;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.Fighter;
+import aiki.game.fight.ChosableTargetName;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
 import code.gui.AbsPanel;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
-import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public class TargetsPanel {
 
-    private CustList<MiniTargetLabel> foeTargets = new CustList<MiniTargetLabel>();
+    private final CustList<MiniTargetLabel> foeTargets = new CustList<MiniTargetLabel>();
 
-    private CustList<MiniTargetLabel> playerTargets = new CustList<MiniTargetLabel>();
+    private final CustList<MiniTargetLabel> playerTargets = new CustList<MiniTargetLabel>();
 
     private AbsPanel container;
     private final AbsCompoFactory compoFactory;
@@ -29,19 +28,19 @@ public class TargetsPanel {
         byte mult_ = _facade.getFight().getMult();
         foeTargets.clear();
         playerTargets.clear();
-        ByteTreeMap<Fighter> teamPl_ = new ByteTreeMap< Fighter>();
+//        ByteTreeMap<Fighter> teamPl_ = new ByteTreeMap< Fighter>();
 //        teamPl_.putAllMap(_facade.getPlayerFrontTeam());
 //        teamPl_.putAllMap(_facade.getAllyFrontTeam());
-        teamPl_.putAllMap(_facade.getUnionFrontTeam());
+//        teamPl_.putAllMap(_facade.getUnionFrontTeam());
         int i_;
         i_ = IndexConstants.FIRST_INDEX;
-        IdList<BoolVal> chosablePl_ = _facade.getFight().getChosablePlayerTargets();
-        for (byte k: teamPl_.getKeys()) {
+        CustList<ChosableTargetName> chosablePl_ = _facade.getFight().getChosablePlayerTargets();
+        for (ChosableTargetName k: chosablePl_) {
             MiniTargetLabel target_ = new MiniTargetLabel(compoFactory);
-            target_.set(_facade,_battle, teamPl_.getVal(k).getName(), i_);
-            boolean match_ = chosablePl_.get(k) == BoolVal.TRUE;
+            target_.set(_facade,_battle, k.getName(), i_);
+            boolean match_ = k.getChosable() == BoolVal.TRUE;
             if (match_) {
-                target_.addMouseListener(new SelectPlayerTarget(_battle, k, i_));
+                target_.addMouseListener(new SelectPlayerTarget(_battle, k.getKey(), i_));
             }
             target_.setSelectable(match_);
             playerTargets.add(target_);
@@ -49,14 +48,14 @@ public class TargetsPanel {
         }
         //TreeMap<Byte,Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         i_ = IndexConstants.FIRST_INDEX;
-        ByteTreeMap<Fighter> teamFoe_ = _facade.getFoeFrontTeam();
-        IdList<BoolVal> chosableFoe_ = _facade.getFight().getChosableFoeTargets();
-        for (byte k: teamFoe_.getKeys()) {
+//        ByteTreeMap<Fighter> teamFoe_ = _facade.getFoeFrontTeam();
+        CustList<ChosableTargetName> chosableFoe_ = _facade.getFight().getChosableFoeTargets();
+        for (ChosableTargetName k: chosableFoe_) {
             MiniTargetLabel target_ = new MiniTargetLabel(compoFactory);
-            target_.set(_facade,_battle, teamFoe_.getVal(k).getName(), i_);
-            boolean match_ = chosableFoe_.get(k) == BoolVal.TRUE;
+            target_.set(_facade,_battle, k.getName(), i_);
+            boolean match_ = k.getChosable() == BoolVal.TRUE;
             if (match_) {
-                target_.addMouseListener(new SelectFoeTarget(_battle, k, i_));
+                target_.addMouseListener(new SelectFoeTarget(_battle, k.getKey(), i_));
             }
             target_.setSelectable(match_);
             foeTargets.add(target_);

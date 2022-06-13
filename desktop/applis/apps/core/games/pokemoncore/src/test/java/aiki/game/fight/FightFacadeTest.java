@@ -1574,12 +1574,12 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(getLast(fight_.getChosablePlayerTargets()));
     }
 
-    private boolean getLast(IdList<BoolVal> _chosableFoeTargets) {
-        return _chosableFoeTargets.last() == BoolVal.TRUE;
+    private boolean getLast(CustList<ChosableTargetName> _chosableFoeTargets) {
+        return _chosableFoeTargets.last().getChosable() == BoolVal.TRUE;
     }
 
-    private boolean getFirst(IdList<BoolVal> _chosableFoeTargets) {
-        return _chosableFoeTargets.first() == BoolVal.TRUE;
+    private boolean getFirst(CustList<ChosableTargetName> _chosableFoeTargets) {
+        return _chosableFoeTargets.first().getChosable() == BoolVal.TRUE;
     }
 
     @Test
@@ -2028,8 +2028,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(15, infos_.getUses().getMax());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2076,8 +2076,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(0, fight_.getChosenSubstitute());
@@ -2184,8 +2184,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, fight_.getChosablePlayerTargets().size());
         assertTrue(!getFirst(fight_.getChosablePlayerTargets()));
         assertTrue(getLast(fight_.getChosablePlayerTargets()));
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(0, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(0, fight_.getChosenFoeTarget());
         assertEq(PISTOLET_A_O, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2292,8 +2292,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, fight_.getChosablePlayerTargets().size());
         assertTrue(!getFirst(fight_.getChosablePlayerTargets()));
         assertTrue(getLast(fight_.getChosablePlayerTargets()));
-        assertEq(1, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(1, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(PISTOLET_A_O, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2376,8 +2376,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(10, infos_.getUses().getMax());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(SEISME, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2452,8 +2452,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(0, fight_.getChosenSubstitute());
@@ -2529,8 +2529,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(EAU_FRAICHE, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2633,8 +2633,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(15, infos_.getUses().getMax());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(ECUME, fight_.getChosenMoveFront());
         assertEq(HUILE, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2703,8 +2703,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2772,8 +2772,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2841,8 +2841,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2911,8 +2911,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -2982,8 +2982,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
@@ -3341,7 +3341,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         fight_.getFighter(userOne_).setFirstChosenMove(RELAIS);
-        FightFacade.setSubstituteForMove(fight_, (byte) 1, (byte) 0);
+        FightFacade.setSubstituteForMove(fight_, (byte) 1, fight_.getUserTeam().substituteAtIndex((byte) 0).first());
         assertTrue(!fight_.isError());
         Fighter fighter_ = fight_.getFighter(userOne_);
         AbstractAction action_ = fighter_.getAction();
@@ -3570,7 +3570,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         fight_.setChosenIndexFront((byte) 1);
         FightFacade.chooseBackFighterAddon(fight_, (byte) 2, data_);
-        assertTrue(fight_.isError());
+        assertTrue(!fight_.isError());
     }
 
     @Test
@@ -3851,8 +3851,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(0, fight_.getCurrentFighterMoves().size());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
@@ -3912,8 +3912,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, fighter_.getSubstistute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(0, fight_.getCurrentFighterMoves().size());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
@@ -3981,8 +3981,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(0, fight_.getCurrentFighterMoves().size());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
@@ -4029,8 +4029,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(0, fight_.getCurrentFighterMoves().size());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
@@ -4105,8 +4105,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
     }
 
     @Test
@@ -4207,8 +4207,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
     }
 
     @Test
@@ -4505,8 +4505,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(0, fight_.getCurrentFighterMoves().size());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
@@ -4574,8 +4574,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
         assertEq(0, fight_.getCurrentFighterMoves().size());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
         assertEq(NULL_REF, fight_.getChosenMoveFront());
@@ -4649,8 +4649,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
-        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
-        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
+//        assertEq(Fighter.BACK, fight_.getChosenFoeTarget());
     }
 
     @Test
@@ -6351,8 +6351,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(!getLast(fight_.getChosablePlayerTargets()));
     }
 
-    private boolean getBoolVal(IdList<BoolVal> _chosableFoeTargets) {
-        return _chosableFoeTargets.get(1) == BoolVal.TRUE;
+    private boolean getBoolVal(CustList<ChosableTargetName> _chosableFoeTargets) {
+        return _chosableFoeTargets.get(1).getChosable() == BoolVal.TRUE;
     }
 
     @Test
@@ -7493,7 +7493,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, data_);
+        FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.setSubstituteFront(fight_, Fighter.BACK);
 //        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
@@ -7549,7 +7549,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
+        FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, data_);
         FightFacade.setSubstituteFront(fight_, Fighter.BACK);
 //        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
@@ -7605,7 +7605,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
+        FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, data_);
         FightFacade.setSubstituteFront(fight_, (byte) 1);
         assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
 //        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
@@ -8515,10 +8515,10 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -8564,9 +8564,9 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -8703,10 +8703,10 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -8749,10 +8749,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setSubstituteSwitch(fight_,(byte) 0);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
         assertTrue(!fight_.isError());
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -8793,10 +8793,10 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -8842,11 +8842,11 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setSubstituteSwitch(fight_,(byte) 0);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
         assertTrue(!fight_.isError());
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerTeam(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerTeam(fight_);
         assertEq(3, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.getVal((byte) 2), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 2), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -8983,9 +8983,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -9026,9 +9026,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -9069,10 +9069,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
 
     @Test
@@ -9113,10 +9113,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
 
     @Test
@@ -9160,9 +9160,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -9206,10 +9206,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -9250,9 +9250,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -9296,10 +9296,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -9340,9 +9340,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test

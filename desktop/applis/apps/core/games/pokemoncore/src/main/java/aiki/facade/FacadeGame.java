@@ -2363,7 +2363,7 @@ public class FacadeGame {
     // %%%%end%%%% fight before round or before proponed switch
 
     // %%%%begin%%%% fight player side team
-    public ByteTreeMap< Fighter> getPlayerTeam() {
+    public CustList< Fighter> getPlayerTeam() {
         return game.getPlayerTeam();
     }
 
@@ -2375,19 +2375,19 @@ public class FacadeGame {
         return game.getUnionFrontTeam();
     }
 
-    public ByteTreeMap< Fighter> getPlayerFrontTeam() {
+    public CustList< Fighter> getPlayerFrontTeam() {
         return game.getPlayerFrontTeam();
     }
 
-    public ByteTreeMap< Fighter> getPlayerBackTeam() {
+    public CustList< Fighter> getPlayerBackTeam() {
         return game.getPlayerBackTeam();
     }
 
-    public ByteTreeMap< Fighter> getPlayerFrontTeamForSubstituting() {
+    public CustList< Fighter> getPlayerFrontTeamForSubstituting() {
         return game.getPlayerFrontTeamForSubstituting();
     }
 
-    public ByteTreeMap< Fighter> getPlayerBackTeamForSubstituting() {
+    public CustList< Fighter> getPlayerBackTeamForSubstituting() {
         return game.getPlayerBackTeamForSubstituting();
     }
 

@@ -477,16 +477,16 @@ public final class Fight {
     private EqList<TeamPosition> remainingFighters = new EqList<TeamPosition>();
 
     /***/
-    private IdList<BoolVal> chosablePlayerTargets = new IdList<BoolVal>();
+    private CustList<ChosableTargetName> chosablePlayerTargets = new CustList<ChosableTargetName>();
 
     /***/
-    private IdList<BoolVal> chosableFoeTargets = new IdList<BoolVal>();
+    private CustList<ChosableTargetName> chosableFoeTargets = new CustList<ChosableTargetName>();
 
     /***/
-    private byte chosenPlayerTarget = Fighter.BACK;
+//    private byte chosenPlayerTarget = Fighter.BACK;
 
     /***/
-    private byte chosenFoeTarget = Fighter.BACK;
+//    private byte chosenFoeTarget = Fighter.BACK;
 
     /***/
     private byte chosenIndexFront = Fighter.BACK;
@@ -985,37 +985,37 @@ public final class Fight {
         orderedFighters = _orderedFighters;
     }
 
-    public IdList<BoolVal> getChosablePlayerTargets() {
+    public CustList<ChosableTargetName> getChosablePlayerTargets() {
         return chosablePlayerTargets;
     }
 
-    void setChosablePlayerTargets(IdList<BoolVal> _chosablePlayerTargets) {
+    void setChosablePlayerTargets(CustList<ChosableTargetName> _chosablePlayerTargets) {
         chosablePlayerTargets = _chosablePlayerTargets;
     }
 
-    public IdList<BoolVal> getChosableFoeTargets() {
+    public CustList<ChosableTargetName> getChosableFoeTargets() {
         return chosableFoeTargets;
     }
 
-    void setChosableFoeTargets(IdList<BoolVal> _chosableFoeTargets) {
+    void setChosableFoeTargets(CustList<ChosableTargetName> _chosableFoeTargets) {
         chosableFoeTargets = _chosableFoeTargets;
     }
 
-    public byte getChosenPlayerTarget() {
-        return chosenPlayerTarget;
-    }
-
-    void setChosenPlayerTarget(byte _chosenPlayerTarget) {
-        chosenPlayerTarget = _chosenPlayerTarget;
-    }
-
-    public byte getChosenFoeTarget() {
-        return chosenFoeTarget;
-    }
-
-    void setChosenFoeTarget(byte _chosenFoeTarget) {
-        chosenFoeTarget = _chosenFoeTarget;
-    }
+//    public byte getChosenPlayerTarget() {
+//        return chosenPlayerTarget;
+//    }
+//
+//    void setChosenPlayerTarget(byte _chosenPlayerTarget) {
+//        chosenPlayerTarget = _chosenPlayerTarget;
+//    }
+//
+//    public byte getChosenFoeTarget() {
+//        return chosenFoeTarget;
+//    }
+//
+//    void setChosenFoeTarget(byte _chosenFoeTarget) {
+//        chosenFoeTarget = _chosenFoeTarget;
+//    }
 
     public byte getChosenIndexFront() {
         return chosenIndexFront;

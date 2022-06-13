@@ -1656,7 +1656,7 @@ public final class Game {
         }
     }
 
-    public ByteTreeMap<Fighter> getPlayerTeam() {
+    public CustList<Fighter> getPlayerTeam() {
         return FightFacade.getPlayerTeam(fight);
     }
 
@@ -1668,19 +1668,19 @@ public final class Game {
         return FightFacade.getUnionFrontTeam(fight);
     }
 
-    public ByteTreeMap<Fighter> getPlayerFrontTeam() {
+    public CustList<Fighter> getPlayerFrontTeam() {
         return FightFacade.getPlayerFrontTeam(fight);
     }
 
-    public ByteTreeMap<Fighter> getPlayerBackTeam() {
+    public CustList<Fighter> getPlayerBackTeam() {
         return FightFacade.getPlayerBackTeam(fight);
     }
 
-    public ByteTreeMap<Fighter> getPlayerFrontTeamForSubstituting() {
+    public CustList<Fighter> getPlayerFrontTeamForSubstituting() {
         return FightFacade.getPlayerFrontTeamForSubstituting(fight);
     }
 
-    public ByteTreeMap<Fighter> getPlayerBackTeamForSubstituting() {
+    public CustList<Fighter> getPlayerBackTeamForSubstituting() {
         return FightFacade.getPlayerBackTeamForSubstituting(fight);
     }
 

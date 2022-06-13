@@ -618,45 +618,102 @@ public final class Team {
     }
 
     Bytes fightersAtCurrentPlaceIndex(short _index, boolean _belongToPlayer){
+        if (_belongToPlayer) {
+            ByteTreeMap<EntryCust<Byte, Fighter>> cbts_ = getFrontTeam();
+            Bytes res_ = new Bytes();
+            if (cbts_.isValidIndex(_index)) {
+                res_.add(cbts_.getValue(_index).getKey());
+            }
+            return res_;
+        }
         ByteTreeMap<Byte> cbts_ = new ByteTreeMap<Byte>();
         for(byte c:members.getKeys()){
             Fighter membre_=members.getVal(c);
             if (membre_.estArriere()) {
                 continue;
             }
-            if (_belongToPlayer) {
-                if (!membre_.isBelongingToPlayer()) {
-                    continue;
-                }
-            }
             cbts_.put(membre_.getGroundPlace(), c);
         }
         Bytes res_ = new Bytes();
-        if (cbts_.getKeys().isValidIndex(_index)) {
+        if (cbts_.isValidIndex(_index)) {
             res_.add(cbts_.getValue(_index));
         }
         return res_;
     }
 
-    byte substituteAtIndex(short _index) {
-        byte substitute_ = Fighter.BACK;
-        byte i_ = IndexConstants.FIRST_INDEX;
+    Bytes substituteAtIndex(short _index) {
+//        byte substitute_ = Fighter.BACK;
+//        byte i_ = IndexConstants.FIRST_INDEX;
+//        Bytes list_ = new Bytes(members.getKeys());
+//        list_.sort();
+//        for (byte k: list_) {
+//            Fighter fighter_ = members.getVal(k);
+//            if (!fighter_.estArriere()) {
+//                continue;
+//            }
+//            if (NumberUtil.eq(i_, _index)) {
+//                substitute_ = k;
+//                break;
+//            }
+//            i_++;
+//        }
+        ByteMap<Fighter> backTeam_ = getBackTeam();
+        if (backTeam_.isValidIndex(_index)) {
+            Byte key_ = backTeam_.getKey(_index);
+            Bytes bs_ = new Bytes();
+            bs_.add(key_);
+            return bs_;
+        }
+        return new Bytes();
+    }
+
+//    Bytes substituteAtIndexSw(short _index) {
+//        ByteMap<Fighter> backTeam_ = getBackTeamSubs();
+//        if (backTeam_.isValidIndex(_index)) {
+//            Byte key_ = backTeam_.getKey(_index);
+//            Bytes bs_ = new Bytes();
+//            bs_.add(key_);
+//            return bs_;
+//        }
+//        return new Bytes();
+//    }
+    public ByteTreeMap<EntryCust<Byte,Fighter>> getFrontTeam() {
+        ByteTreeMap<EntryCust<Byte,Fighter>> tree_ = new ByteTreeMap<EntryCust<Byte,Fighter>>();
+        for (EntryCust<Byte,Fighter> k: members.entryList()) {
+            Fighter f_ = k.getValue();
+            if (!f_.isBelongingToPlayer() || NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
+                continue;
+            }
+            tree_.put(f_.getGroundPlaceSubst(), k);
+        }
+        return tree_;
+    }
+//    public ByteMap<Fighter> getBackTeamSubs() {
+//        ByteMap<Fighter> fs_ = new ByteMap<Fighter>();
+//        Bytes list_ = new Bytes(members.getKeys());
+//        list_.sort();
+//        for (byte k: list_) {
+//            Fighter f_ = members.getVal(k);
+//            if (!f_.isBelongingToPlayer() || !NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
+//                continue;
+//            }
+//            fs_.addEntry(k,f_);
+//        }
+//        return fs_;
+//    }
+    public ByteMap<Fighter> getBackTeam() {
+        ByteMap<Fighter> fs_ = new ByteMap<Fighter>();
         Bytes list_ = new Bytes(members.getKeys());
         list_.sort();
         for (byte k: list_) {
-            Fighter fighter_ = members.getVal(k);
-            if (!fighter_.estArriere()) {
+            Fighter f_ = members.getVal(k);
+            if (!f_.isBelongingToPlayer() || !NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
                 continue;
             }
-            if (NumberUtil.eq(i_, _index)) {
-                substitute_ = k;
-                break;
-            }
-            i_++;
+            fs_.addEntry(k,f_);
         }
-        return substitute_;
+        return fs_;
     }
-
     int indexOfSubstitute(byte _sub) {
         Bytes list_ = new Bytes(members.getKeys());
         list_.sort();
