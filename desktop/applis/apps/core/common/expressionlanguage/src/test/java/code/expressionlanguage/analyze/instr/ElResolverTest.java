@@ -4321,12 +4321,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private static RootBlock getAnaClassBody(AnalyzedPageEl _classes, String _className) {
-        for (RootBlock r: _classes.getFoundTypes()) {
-            if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
-                return r;
-            }
-        }
-        return null;
+        return _classes.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_className));
     }
 
     private static String getVal(StrTypes _opers, int _i) {

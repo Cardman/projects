@@ -594,7 +594,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         v_.setStruct(new IntStruct(11));
         args_.add(v_);
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormalParam("pkg.Ex", id_, args_, cont_);
         assertEq(39916800, getNumber(ret_));
     }
 
@@ -977,7 +977,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         Argument v_ = new Argument();
         v_.setStruct(new IntStruct(2));
         args_.add(v_);
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormalParam("pkg.Ex", id_, args_, cont_);
         assertEq(-2, getNumber(ret_));
     }
     @Test

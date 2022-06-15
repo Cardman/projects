@@ -592,7 +592,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -645,7 +645,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -701,7 +701,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -756,7 +756,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -811,7 +811,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -866,7 +866,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -922,7 +922,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -982,7 +982,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1041,7 +1041,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;

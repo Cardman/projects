@@ -1,14 +1,8 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.DefTypePairHash;
 import code.expressionlanguage.common.Matching;
@@ -18,12 +12,12 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
-import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 
@@ -1178,7 +1172,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         Options opt_ = newOptions();
         addTypesInit(opt_);
         LgNames lgName_ = getLgNames();
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);

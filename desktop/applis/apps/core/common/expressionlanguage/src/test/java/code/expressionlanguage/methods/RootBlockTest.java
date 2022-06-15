@@ -1,14 +1,8 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
-import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -19,11 +13,8 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -1800,25 +1791,15 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static CustList<OverridingMethodDto> getAllOverridingMethods(AnalyzedPageEl _cont, String _className) {
-        CustList<OverridingMethodDto> out_ = new CustList<OverridingMethodDto>();
-        for (OverridingMethodDto o: getClassBody(_cont, _className).getAllOverridingMethods()) {
-            out_.add(o);
-        }
-        return out_;
+        return getClassBody(_cont, _className).getAllOverridingMethods();
     }
 
     private static RootBlock getClassBody(AnalyzedPageEl _cont, String _className) {
-        for (RootBlock r: _cont.getFoundTypes()) {
-            if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
-                return r;
-            }
-        }
-        return null;
+        return _cont.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_className));
     }
 
     private static StringMap<ClassMethodId> getConcreteMethodsToCall(AnalyzedPageEl _cont, MethodId _id, RootBlock _r) {
-        AnalyzedPageEl page_ = _cont;
-        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(_r, _id, page_);
+        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(_r, _id, _cont);
         StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
         for (EntryCust<String,GeneStringOverridable> e: conc_.entryList()) {
             GeneStringOverridable value_ = e.getValue();

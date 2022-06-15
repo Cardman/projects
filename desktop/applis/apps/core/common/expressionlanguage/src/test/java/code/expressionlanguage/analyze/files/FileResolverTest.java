@@ -9839,15 +9839,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Options opt_ = newOptions();
         addTypesInit(opt_);
         LgNames lgName_ = getLgNames();
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         getForwards(opt_,lgName_,kwl_,page_);
-        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            parseFile(page_,name_, true, content_);
-        }
+        parsePredefFiles(page_);
         return page_;
     }
     private static AnalyzedPageEl simpleContextEnDefaultComment() {
@@ -9858,15 +9854,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
 
 
         LgNames lgName_ = getLgNames();
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         getForwards(opt_,lgName_,kwl_,page_);
-        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            parseFile(page_,name_,  true, content_);
-        }
+        parsePredefFiles(page_);
         return page_;
     }
     private static AnalyzedPageEl simpleContextFrDefault() {
@@ -9874,15 +9866,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Options opt_ = newOptions();
         addTypesInit(opt_);
         LgNames lgName_ = getLgNames();
-        KeyWords kwl_ = getKeyWords("fr",lgName_);
+        KeyWords kwl_ = fr(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         getForwards(opt_,lgName_,kwl_,page_);
-        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            parseFile(page_, name_, true, content_);
-        }
+        parsePredefFiles(page_);
         return page_;
     }
 
@@ -9934,12 +9922,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
 
     private static RootBlock getClassBody(AnalyzedPageEl _cont, String _className) {
-        for (RootBlock r: _cont.getFoundTypes()) {
-            if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
-                return r;
-            }
-        }
-        return null;
+        return _cont.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_className));
     }
 
 
@@ -10000,21 +9983,13 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
 
     private StringList getAnnotations(NamedFunctionBlock _m) {
-        StringList txts_ = new StringList();
-        for (ResultParsedAnnot a: _m.getAnnotations().getAnnotations()) {
-            txts_.add(a.getAnnotation());
-        }
-        return txts_;
+        return getAnnotations(_m.getAnnotations());
     }
 
     private CustList<StringList> getAnnotationsParams(NamedFunctionBlock _m) {
         CustList<StringList> ls_ = new CustList<StringList>();
         for (ResultParsedAnnots r: _m.getAnnotationsParams()) {
-            StringList txts_ = new StringList();
-            for (ResultParsedAnnot a: r.getAnnotations()) {
-                txts_.add(a.getAnnotation());
-            }
-            ls_.add(txts_);
+            ls_.add(getAnnotations(r));
         }
         return ls_;
     }
@@ -10028,19 +10003,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
 
     private StringList getAnnotations(InfoBlock _m) {
-        StringList txts_ = new StringList();
-        for (ResultParsedAnnot a: _m.getAnnotations().getAnnotations()) {
-            txts_.add(a.getAnnotation());
-        }
-        return txts_;
+        return getAnnotations(_m.getAnnotations());
     }
 
     private StringList getAnnotations(RootBlock _m) {
-        StringList txts_ = new StringList();
-        for (ResultParsedAnnot a: _m.getAnnotations().getAnnotations()) {
-            txts_.add(a.getAnnotation());
-        }
-        return txts_;
+        return getAnnotations(_m.getAnnotations());
     }
 
     private Ints getAnnotationsIndexes(NamedFunctionBlock _m) {
@@ -10055,6 +10022,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         return getAnnotationsIndexes(_m.getAnnotations());
     }
 
+
+    private StringList getAnnotations(ResultParsedAnnots _p) {
+        StringList ls_ = new StringList();
+        for (ResultParsedAnnot i: _p.getAnnotations()) {
+            ls_.add(i.getAnnotation());
+        }
+        return ls_;
+    }
 
     private Ints getAnnotationsIndexes(ResultParsedAnnots _p) {
         Ints ls_ = new Ints();

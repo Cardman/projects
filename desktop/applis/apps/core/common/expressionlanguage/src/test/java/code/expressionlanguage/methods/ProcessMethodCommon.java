@@ -18,7 +18,10 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -41,7 +44,6 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public abstract class ProcessMethodCommon extends EquallableElUtil {
 
@@ -65,7 +67,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        feedParams(_args, _cont, method_, p_);
+        assertTrue(_args.isEmpty());
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
         ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
         CustomFoundExc excState_ = (CustomFoundExc) stackCall_.getCallingState();
@@ -79,7 +81,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        feedParams(_args, _cont, method_, p_);
+        assertTrue(_args.isEmpty());
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
         ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
         return ProcessMethod.error(_cont,stackCall_);
@@ -90,7 +92,20 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        feedParams(_args, _cont, method_, p_);
+        assertTrue(_args.isEmpty());
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        Argument arg_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
+        return arg_;
+    }
+
+    protected static Argument calculateNormalParam(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+        ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
+        Argument argGlLoc_ = new Argument();
+        Parameters p_ = new Parameters();
+        LocalVariable lv_ = LocalVariable.newLocalVariable(_args.first().getStruct(), _cont);
+        p_.getRefParameters().addEntry(method_.getParametersName(0), new VariableWrapper(lv_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
         Argument arg_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
@@ -107,73 +122,59 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static Argument instanceError(String _class, Argument _global, ConstructorId _id, ContextEl _cont) {
+        assertEq(0, _id.getParametersTypesLength());
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecConstructorBlock ctor_ = tryGet(type_, _id);
-        assertNull(ctor_);
         Parameters p_ = new Parameters();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(type_,_class), new ExecTypeFunction(type_,ctor_), _global, p_), _cont, stackCall_);
+        ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(type_,_class), type_.getEmptyCtorPair(), _global, p_), _cont, stackCall_);
         CustomFoundExc excState_ = (CustomFoundExc) stackCall_.getCallingState();
         Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
         return new Argument(exc_);
     }
     protected static Argument instanceNormal(String _class, Argument _global, ConstructorId _id, ContextEl _cont) {
+        assertEq(0, _id.getParametersTypesLength());
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecConstructorBlock ctor_ = tryGet(type_, _id);
-        assertNull(ctor_);
         Parameters p_ = new Parameters();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), _global, p_), _cont, stackCall_).getValue();
+        Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(type_, _class), type_.getEmptyCtorPair(), _global, p_), _cont, stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
     protected static Argument instanceNormalCtor(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+        assertEq(0, _id.getParametersTypesLength());
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecConstructorBlock ctor_ = get(type_, _id);
+        ExecNamedFunctionBlock ctor_ = (ExecNamedFunctionBlock) type_.getAllFct().first();
         Parameters p_ = new Parameters();
-        feedParams(_args, _cont, ctor_, p_);
+        assertTrue(_args.isEmpty());
+//        feedParams(_args, _cont, ctor_, p_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
         Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), _global, p_), _cont, stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
-
-    private static void feedParams(CustList<Argument> _args, ContextEl _cont, ExecNamedFunctionBlock _ctor, Parameters _p) {
-        int i_ = IndexConstants.FIRST_INDEX;
-        for (Argument a : _args) {
-            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), _cont);
-            _p.getRefParameters().addEntry(_ctor.getParametersName(i_), new VariableWrapper(lv_));
-            i_++;
-        }
+    protected static Argument instanceNormalCtorParam(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+        assertEq(1, _id.getParametersTypesLength());
+        ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock ctor_ = (ExecNamedFunctionBlock) type_.getAllFct().first();
+        Parameters p_ = new Parameters();
+        LocalVariable lv_ = LocalVariable.newLocalVariable(_args.first().getStruct(), _cont);
+        p_.getRefParameters().addEntry(ctor_.getParametersName(0), new VariableWrapper(lv_));
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), _global, p_), _cont, stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
+        return arg_;
     }
-
-    private static ExecConstructorBlock tryGet(ExecRootBlock _root, ConstructorId _id) {
-        for (ExecBlock b: _root.getChildrenOthers()) {
-            if (!(b instanceof ExecConstructorBlock)) {
-                continue;
-            }
-            ExecConstructorBlock method_ = (ExecConstructorBlock) b;
-            if (!method_.getId().eq(_id)) {
-                continue;
-            }
-            return method_;
-        }
-        return null;
-    }
-    private static ExecConstructorBlock get(ExecRootBlock _root, ConstructorId _id) {
-        CustList<ExecConstructorBlock> list_ = new CustList<ExecConstructorBlock>();
-        for (ExecBlock b: _root.getChildrenOthers()) {
-            if (!(b instanceof ExecConstructorBlock)) {
-                continue;
-            }
-            ExecConstructorBlock method_ = (ExecConstructorBlock) b;
-            if (!method_.getId().eq(_id)) {
-                continue;
-            }
-            list_.add(method_);
-        }
-        return list_.first();
+    protected static Argument instanceNormalCtor(String _class, Argument _global, int _id, CustList<Argument> _args, ContextEl _cont) {
+        ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock ctor_ = (ExecNamedFunctionBlock) type_.getAllFct().get(_id);
+        Parameters p_ = new Parameters();
+        assertTrue(_args.isEmpty());
+//        feedParams(_args, _cont, ctor_, p_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), _global, p_), _cont, stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
+        return arg_;
     }
 
     protected static ConstructorId getConstructorId(String _name, String..._classNames) {
@@ -260,7 +261,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setGettingErrors(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return repErrs(_files, opt_, lgName_, kwl_);
     }
@@ -275,7 +276,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setGettingErrors(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -291,7 +292,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setDisplayImplicit(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return repErrs(_files, opt_, lgName_, kwl_);
     }
@@ -303,7 +304,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setEncodeHeader(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return repErrs(_files, opt_, lgName_, kwl_);
     }
@@ -317,7 +318,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setCovering(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return cov(_files, opt_, lgName_, kwl_);
     }
@@ -329,7 +330,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setDisplayImplicit(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return cov(_files, opt_, lgName_, kwl_);
     }
@@ -342,7 +343,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setDisplayImplicit(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return cov(_files, opt_, lgName_, kwl_);
     }
@@ -352,7 +353,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setCovering(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return cov(_files, opt_, lgName_, kwl_);
     }
@@ -362,7 +363,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setCovering(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return getContextEl(_files, opt_, lgName_, kwl_);
     }
@@ -515,11 +516,12 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static ContextEl ctxLgOk(String _lg,StringMap<String> _files, String... _types) {
+        assertEq("en",_lg);
         Options opt_ = newOptions();
         addTypesInit(opt_, _types);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords(_lg, lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return getContextEl(_files, opt_, lgName_, kwl_);
     }
@@ -584,8 +586,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
         LgNames lgName_ = getLgNames();
-
-        KeyWords kwl_ = getKeyWords(_lg, lgName_);
+        assertEq("en",_lg);
+        KeyWords kwl_ = en(lgName_);
 
         return getContextEl(_files, opt_, lgName_, kwl_);
     }
@@ -595,8 +597,18 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         addTypesInit(opt_);
         LgNames lgName_ = getLgNames();
+        assertEq("en",_lg);
+        KeyWords kwl_ = en(lgName_);
 
-        KeyWords kwl_ = getKeyWords(_lg, lgName_);
+        return inval(_files,opt_,lgName_,kwl_);
+    }
+
+    protected static boolean hasErrLgReadOnlyFr(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        addTypesInit(opt_);
+        LgNames lgName_ = getLgNames();
+        KeyWords kwl_ = fr(lgName_);
 
         return inval(_files,opt_,lgName_,kwl_);
     }
@@ -770,7 +782,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setCovering(true);
         LgNames lgName_ = getLgNames();
 
-        KeyWords kwl_ = getKeyWords("en",lgName_);
+        KeyWords kwl_ = en(lgName_);
 
         return cov(_files, opt_, lgName_, kwl_);
     }
@@ -874,8 +886,17 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         addTypesInit(opt_);
         LgNames lgName_ = getLgNames();
+        assertEq("en",_lg);
+        KeyWords kwl_ = en(lgName_);
 
-        KeyWords kwl_ = getKeyWords(_lg, lgName_);
+        return inval(_files,opt_,lgName_,kwl_);
+    }
+
+    protected static boolean hasErrLgFr(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = getLgNames();
+        KeyWords kwl_ = fr(lgName_);
 
         return inval(_files,opt_,lgName_,kwl_);
     }
@@ -966,16 +987,14 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         _opt.setStack(_i);
     }
 
-    protected static KeyWords getKeyWords(String _lg, LgNames _lgName) {
-        KeyWords kwl_;
-        if (StringUtil.quickEq(_lg, "en")) {
-            kwl_ = KeyWordsMap.en();
-            KeyWordsMap.initEnStds(_lgName);
-        } else {
-            kwl_ = KeyWordsMap.fr();
-            KeyWordsMap.initFrStds(_lgName);
-        }
-        return kwl_;
+    protected static KeyWords fr(LgNames _lgName) {
+        KeyWordsMap.initFrStds(_lgName);
+        return KeyWordsMap.fr();
+    }
+
+    protected static KeyWords en(LgNames _lgName) {
+        KeyWordsMap.initEnStds(_lgName);
+        return KeyWordsMap.en();
     }
 
 }

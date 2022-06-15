@@ -31,7 +31,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         v_.setStruct(new IntStruct(5));
         args_.add(v_);
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormalParam("pkg.Ex", id_, args_, cont_);
         assertEq(120, getNumber(ret_));
     }
 

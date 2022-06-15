@@ -430,7 +430,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" public Objet inst3=0y;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "fr"));
+        assertTrue(hasErrLgFr(files_));
     }
 
     @Test
@@ -441,7 +441,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" public Objet inst3=0y;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLgReadOnly("fr", files_));
+        assertTrue(hasErrLgReadOnlyFr(files_));
     }
 
     @Test
