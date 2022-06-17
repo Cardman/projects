@@ -7,7 +7,7 @@ import code.util.ints.Listable;
 public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
 
     public E editNumber(LgInt _lgInt,AbstractGenerator _gene) {
-        return editNumber(_lgInt, _gene, new CustomSeedGene());
+        return editNumber(_lgInt, _gene, _gene.seed());
     }
     public E editNumber(LgInt _lgInt,AbstractGenerator _gene, CustomSeedGene _cust) {
         Listable<E> cles_ = events();

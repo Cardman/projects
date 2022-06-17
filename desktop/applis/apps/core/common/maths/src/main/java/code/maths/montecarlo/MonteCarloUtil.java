@@ -44,7 +44,7 @@ public final class MonteCarloUtil {
     }
 
     public static LgInt randomLgInt(LgInt _excludeMax, AbstractGenerator _gene) {
-        return randomLgInt(_excludeMax, _gene, new CustomSeedGene());
+        return randomLgInt(_excludeMax, _gene, _gene.seed());
     }
 
     public static LgInt randomLgInt(LgInt _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust) {
@@ -62,7 +62,7 @@ public final class MonteCarloUtil {
     /**@param _excludeMax the maximum of possible returned values
     @return an long from 0 inclusive to the argument excluded*/
     public static long randomLong(long _excludeMax, AbstractGenerator _gene) {
-        return randomLong(_excludeMax, _gene, new CustomSeedGene());
+        return randomLong(_excludeMax, _gene, _gene.seed());
     }
     public static long randomLong(long _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust) {
         return randomLong(_excludeMax, _cust.pick(_gene));
