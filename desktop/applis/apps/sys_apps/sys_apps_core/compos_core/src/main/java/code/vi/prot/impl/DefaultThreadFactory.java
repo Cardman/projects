@@ -47,6 +47,11 @@ public final class DefaultThreadFactory implements AbstractThreadFactory {
     }
 
     @Override
+    public AbstractThread newThread(Runnable _runnable, boolean _immediate) {
+        return new DefaultThread(_runnable);
+    }
+
+    @Override
     public AbstractThread newThread() {
         return new DefaultThread();
     }
