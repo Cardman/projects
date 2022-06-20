@@ -73,7 +73,7 @@ public final class FrameUtil {
         }
     }
 
-    public static void showDialogError(AbsGroupFrame _group, int _errorMessage) {
+    public static void showDialogError(GroupFrame _group, int _errorMessage) {
         StringMap<String> messages_ = _group.getCommonFrame().getFrames().getFrames().first().getMessages();
         ConfirmDialog.showMessage(_group, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _group.getCommonFrame().getFrames().getFrames().first().getCommonFrame().getLanguageKey(), _errorMessage);
     }

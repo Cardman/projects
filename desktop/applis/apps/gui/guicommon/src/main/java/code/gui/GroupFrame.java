@@ -2,11 +2,9 @@ package code.gui;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
-import code.gui.events.AbsWindowListener;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.MetaFont;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -14,12 +12,11 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
-import code.util.CustList;
 import code.util.StringMap;
 
 
 
-public abstract class GroupFrame implements AbsGroupFrame {
+public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 
     private final AbsCommonFrame commonFrame;
     private StringMap<String> messages;
@@ -50,11 +47,11 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     public final void setByFirst(AbsGroupFrame _first) {
-        fileOpenDialog = _first.getFileOpenDialog();
-        fileSaveDialog = _first.getFileSaveDialog();
-        folderOpenDialog = _first.getFolderOpenDialog();
-        confirmDialog = _first.getConfirmDialog();
-        languageDialog = _first.getLanguageDialog();
+        fileOpenDialog = ((WithDialogs)_first).getFileOpenDialog();
+        fileSaveDialog = ((WithDialogs)_first).getFileSaveDialog();
+        folderOpenDialog = ((WithDialogs)_first).getFolderOpenDialog();
+        confirmDialog = ((WithDialogs)_first).getConfirmDialog();
+        languageDialog = ((WithDialogs)_first).getLanguageDialog();
     }
 
     public void setImageIconFrame(AbstractImage _imageIconFrame) {

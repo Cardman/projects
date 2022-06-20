@@ -33,9 +33,5 @@ public interface AbsGroupFrame extends ChangeableTitle {
     TechStreams getStreams();
     AbstractFileCoreStream getFileCoreStream();
     AbstractNameValidating getValidator();
-    FileOpenDialog getFileOpenDialog();
-    FileSaveDialog getFileSaveDialog();
-    FolderOpenDialog getFolderOpenDialog();
-    ConfirmDialog getConfirmDialog();
-    LanguageDialog getLanguageDialog();
+
 }
