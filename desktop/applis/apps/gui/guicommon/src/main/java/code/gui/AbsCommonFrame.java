@@ -22,9 +22,9 @@ public interface AbsCommonFrame extends ChangeableTitle {
     int getHeight();
     void setFocusableWindowState(boolean _focusableWindowState);
     void setFocusable(boolean _focusable);
-    void addWindowListener(AbsWindowListenerClosing _l);
+    AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l);
 
-    void removeWindowListener(AbsWindowListenerClosing _l);
+    AbsWindowListenerClosing removeWindowListener(AbsWindowListenerClosing _l);
 
     CustList<AbsWindowListenerClosing> getWindowListenersDef();
     void dispatchExit();

@@ -99,17 +99,19 @@ public final class CommonFrame implements AbsCommonFrame {
     }
 
     @Override
-    public void addWindowListener(AbsWindowListenerClosing _l) {
+    public AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l) {
         WrWindowListenerClos wr_ = new WrWindowListenerClos(_l);
         frame.addWindowListener(wr_);
         mapWindowDef.addEntry(_l,wr_);
+        return _l;
     }
 
     @Override
-    public void removeWindowListener(AbsWindowListenerClosing _l) {
+    public AbsWindowListenerClosing removeWindowListener(AbsWindowListenerClosing _l) {
         WrWindowListenerClos wr_ = mapWindowDef.getVal(_l);
         frame.removeWindowListener(wr_);
         mapWindowDef.removeKey(_l);
+        return _l;
     }
 
     @Override
