@@ -7,7 +7,7 @@ import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 
 
-public abstract class AbsMetaLabelCom {
+public abstract class AbsMetaLabelCom implements AbsMetaLabelComInt {
 
     public void repaintLabel(AbstractImageFactory _fact){
         getPaintableLabel().repaintLabel(_fact);
@@ -28,7 +28,6 @@ public abstract class AbsMetaLabelCom {
     public void setHorizontalAlignment(int _alignment){
         getPaintableLabel().setHorizontalAlignment(_alignment);
     }
-    public abstract AbsPaintableLabel getPaintableLabel();
     public int getWidth(){
         return getPaintableLabel().getWidth();
     }

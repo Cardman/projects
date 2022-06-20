@@ -68,13 +68,10 @@ public final class Panel extends CustComponent implements AbsPanel {
         this.add(_comp.getComponent());
     }
 
-    public void add(AbsMetaLabel _comp) {
+    public void add(AbsMetaLabelComInt _comp) {
         add(_comp.getPaintableLabel());
     }
 
-    public void add(AbsMetaLabelNo _comp) {
-        add(_comp.getPaintableLabel());
-    }
     public void add(AbsCustComponent _comp) {
         FrameUtil.addOne(this,_comp);
     }
@@ -84,7 +81,7 @@ public final class Panel extends CustComponent implements AbsPanel {
         innAdd(_comp);
     }
 
-    public void add(AbsMetaLabel _comp, int _index) {
+    public void add(AbsMetaLabelComInt _comp, int _index) {
         add(_comp.getPaintableLabel(),_index);
     }
     public void add(AbsCustComponent _comp, int _index) {
@@ -97,7 +94,7 @@ public final class Panel extends CustComponent implements AbsPanel {
         pa.add(((CustComponent) _comp).getNatComponent(), _index);
     }
 
-    public void add(AbsMetaLabel _comp, String _constraints) {
+    public void add(AbsMetaLabelComInt _comp, String _constraints) {
         add(_comp.getPaintableLabel(),_constraints);
     }
     public void add(AbsCustComponent _comp, String _constraints) {

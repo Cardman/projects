@@ -8,7 +8,7 @@ public interface AbsCompoFactory {
 
     AbstractMutableTreeNode newMutableTreeNode(String _name);
 
-    AbsPaintableLabel newAbsPaintableLabel(AbsMetaLabel _absMetaLabel);
+    AbsPaintableLabel newAbsPaintableLabel(AbsMetaLabelInt _absMetaLabel);
     AbsPaintableLabel newAbsPaintableLabel();
     AbsPreparedLabel newPreparedLabel(AbstractImage _icon);
     AbsPreparedLabel newPreparedLabel(String _key);
@@ -22,7 +22,7 @@ public interface AbsCompoFactory {
     AbsPanel newLineBox();
     AbsScrollPane newAbsScrollPane();
     AbsScrollPane newAbsScrollPane(AbsCustComponent _center);
-    AbsScrollPane newAbsScrollPane(AbsMetaLabel _center);
+    AbsScrollPane newAbsScrollPane(AbsMetaLabelComInt _center);
     AbsTabbedPane newAbsTabbedPane();
 
     AbsSplitPane newVerticalSplitPane(AbsCustComponent _left, AbsCustComponent _right);

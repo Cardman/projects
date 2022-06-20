@@ -19,7 +19,7 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsPaintableLabel newAbsPaintableLabel(AbsMetaLabel _absMetaLabel) {
+    public AbsPaintableLabel newAbsPaintableLabel(AbsMetaLabelInt _absMetaLabel) {
         return new PaintableLabel(_absMetaLabel);
     }
 
@@ -84,7 +84,7 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsScrollPane newAbsScrollPane(AbsMetaLabel _center) {
+    public AbsScrollPane newAbsScrollPane(AbsMetaLabelComInt _center) {
         return new ScrollPane(_center);
     }
 

@@ -1,9 +1,6 @@
 package code.vi.prot.impl;
 
-import code.gui.AbsCustComponent;
-import code.gui.AbsMetaLabel;
-import code.gui.AbsPreparedLabel;
-import code.gui.GuiConstants;
+import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaFont;
@@ -133,7 +130,7 @@ public final class DefImage implements AbstractImage {
     }
 
     @Override
-    public void setFont(AbsMetaLabel _font) {
+    public void setFont(AbsMetaLabelComInt _font) {
         graphics.setFont(((CustComponent)_font.getPaintableLabel()).getFont());
     }
 

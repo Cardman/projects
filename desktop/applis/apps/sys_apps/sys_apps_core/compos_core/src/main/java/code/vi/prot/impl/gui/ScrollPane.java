@@ -1,9 +1,6 @@
 package code.vi.prot.impl.gui;
 
-import code.gui.AbsCustComponent;
-import code.gui.AbsMetaLabel;
-import code.gui.AbsScrollPane;
-import code.gui.FrameUtil;
+import code.gui.*;
 import code.gui.images.MetaRect;
 
 import javax.swing.*;
@@ -19,7 +16,7 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
         getChildren().add(_center);
     }
 
-    public ScrollPane(AbsMetaLabel _center) {
+    public ScrollPane(AbsMetaLabelComInt _center) {
         this(_center.getPaintableLabel());
     }
     public ScrollPane(JScrollPane _scroll) {

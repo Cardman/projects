@@ -1,13 +1,13 @@
 package code.vi.prot.impl.gui;
 
-import code.gui.AbsMetaLabel;
+import code.gui.AbsMetaLabelInt;
 import code.gui.FrameUtil;
 import code.gui.images.AbstractImageFactory;
 
 public final class PaintableLabel extends PaintableLabelAbs {
 
-    private final AbsMetaLabel metaLabel;
-    public PaintableLabel(AbsMetaLabel _meta) {
+    private final AbsMetaLabelInt metaLabel;
+    public PaintableLabel(AbsMetaLabelInt _meta) {
         metaLabel = _meta;
     }
 

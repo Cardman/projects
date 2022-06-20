@@ -138,7 +138,7 @@ public final class FrameUtil {
         }
         return -1;
     }
-    public static void repaint(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel, AbsMetaLabel _metaLabel) {
+    public static void repaint(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel, AbsMetaLabelInt _metaLabel) {
         int w_ = _paintableLabel.getWidth();
         int h_ = _paintableLabel.getHeight();
         if (w_ <= 0 || h_ <= 0) {

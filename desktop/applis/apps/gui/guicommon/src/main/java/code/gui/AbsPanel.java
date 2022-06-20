@@ -6,14 +6,13 @@ public interface AbsPanel extends AbsCustComponent {
     int getComponentCount();
     AbsCustComponent getComponent(int _n);
     void add(Clock _comp);
-    void add(AbsMetaLabel _comp);
-    void add(AbsMetaLabelNo _comp);
+    void add(AbsMetaLabelComInt _comp);
     void add(AbsCustComponent _comp);
     void innerAdd(AbsCustComponent _comp);
-    void add(AbsMetaLabel _comp, int _index);
+    void add(AbsMetaLabelComInt _comp, int _index);
     void add(AbsCustComponent _comp, int _index);
     void innerAdd(AbsCustComponent _comp, int _index);
-    void add(AbsMetaLabel _comp, String _constraints);
+    void add(AbsMetaLabelComInt _comp, String _constraints);
     void add(AbsCustComponent _comp, String _constraints);
     void innerAdd(AbsCustComponent _comp, String _constraints);
     void remove(int _index);
