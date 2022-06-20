@@ -1,6 +1,6 @@
 package code.gui;
 
-public interface EnabledMenu {
+public interface EnabledMenu extends AbsCustComponent{
 
     void setEnabledMenu(boolean _b);
     boolean isEnabled();

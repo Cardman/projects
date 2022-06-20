@@ -10,10 +10,10 @@ import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
 
-public class CheckBoxMenuItem implements AbsCheckBoxMenuItem {
+public class CheckBoxMenuItem extends CustComponent implements AbsCheckBoxMenuItem {
 
     private AbsMenu parentMenu;
-    private JCheckBoxMenuItem menu;
+    private final JCheckBoxMenuItem menu;
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     private final IdMap<AbsAdvActionListener, WrAdvActionListener> mapAdvAction = new IdMap<AbsAdvActionListener, WrAdvActionListener>();
 
@@ -40,6 +40,12 @@ public class CheckBoxMenuItem implements AbsCheckBoxMenuItem {
 //    public CheckBoxMenuItem(String _text, AbstractImage _icon, boolean _b) {
 //        menu = new JCheckBoxMenuItem(_text, new ImageIcon(_icon.data()), _b);
 //    }
+
+
+    @Override
+    public JComponent getNatComponent() {
+        return menu;
+    }
 
     JCheckBoxMenuItem getMenu() {
         return menu;

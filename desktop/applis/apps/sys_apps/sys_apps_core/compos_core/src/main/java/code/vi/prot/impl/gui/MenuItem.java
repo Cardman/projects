@@ -10,13 +10,13 @@ import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
 
-public final class MenuItem implements AbsMenuItem {
+public final class MenuItem extends CustComponent implements AbsMenuItem {
 
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     private final IdMap<AbsAdvActionListener, WrAdvActionListener> mapAdvAction = new IdMap<AbsAdvActionListener, WrAdvActionListener>();
     private AbsMenu parentMenu;
 
-    private JMenuItem menu;
+    private final JMenuItem menu;
 
     public MenuItem() {
         menu =new JMenuItem();
@@ -36,6 +36,11 @@ public final class MenuItem implements AbsMenuItem {
 
     public MenuItem(String _text) {
         menu =new JMenuItem(_text);
+    }
+
+    @Override
+    public JComponent getNatComponent() {
+        return menu;
     }
 
     JMenuItem getMenu() {

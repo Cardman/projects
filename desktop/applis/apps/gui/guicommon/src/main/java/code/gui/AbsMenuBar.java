@@ -1,6 +1,6 @@
 package code.gui;
 
-public interface AbsMenuBar {
+public interface AbsMenuBar extends AbsCustComponent {
     int getMenuCount();
 
     void add(AbsMenu _file);

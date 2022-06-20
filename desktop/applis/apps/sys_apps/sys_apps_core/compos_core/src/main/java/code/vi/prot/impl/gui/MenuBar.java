@@ -3,14 +3,20 @@ import code.gui.AbsMenu;
 import code.gui.AbsMenuBar;
 import code.util.CustList;
 
-import javax.swing.JMenuBar;
-public final class MenuBar implements AbsMenuBar {
+import javax.swing.*;
+
+public final class MenuBar extends CustComponent implements AbsMenuBar {
 
     private final JMenuBar meBar = new JMenuBar();
     private final CustList<AbsMenu> menus = new CustList<AbsMenu>();
 
     public JMenuBar getMeBar() {
         return meBar;
+    }
+
+    @Override
+    public JComponent getNatComponent() {
+        return getMeBar();
     }
 
     public void add(AbsMenu _c) {

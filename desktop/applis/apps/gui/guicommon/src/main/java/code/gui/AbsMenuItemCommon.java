@@ -1,11 +1,6 @@
 package code.gui;
 
-import code.gui.events.AbsActionListener;
-import code.gui.events.AbsAdvActionListener;
-
-public interface AbsMenuItemCommon extends EnabledMenu {
-    void addActionListener(AbsActionListener _showDataFightEvent);
-    void addActionListener(AbsAdvActionListener _showDataFightEvent);
+public interface AbsMenuItemCommon extends EnabledMenu,AbsPlainButton {
 
     void setAccelerator(char _a);
 

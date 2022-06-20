@@ -2,9 +2,9 @@ package code.vi.prot.impl.gui;
 import code.gui.*;
 import code.util.IdList;
 
-import javax.swing.JMenu;
+import javax.swing.*;
 
-public final class Menu implements AbsMenu {
+public final class Menu extends CustComponent implements AbsMenu {
 
     private AbsMenu parentMenu;
     private final IdList<EnabledMenu> subs = new IdList<EnabledMenu>();
@@ -21,6 +21,11 @@ public final class Menu implements AbsMenu {
 
     public Menu(String _s) {
         meCo = new JMenu(_s);
+    }
+
+    @Override
+    public JComponent getNatComponent() {
+        return meCo;
     }
 
     @Override
