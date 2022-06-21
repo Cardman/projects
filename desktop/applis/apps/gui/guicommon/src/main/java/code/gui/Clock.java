@@ -8,7 +8,7 @@ import code.threads.AbstractDateFactory;
 import code.threads.AbstractScheduledExecutorService;
 import code.threads.AbstractThreadFactory;
 
-public class Clock {
+public class Clock implements AbsClock{
 
     private static final String ARIAL = "Arial";
     private static final String SEPARATOR_DATE_TIME = " ";
