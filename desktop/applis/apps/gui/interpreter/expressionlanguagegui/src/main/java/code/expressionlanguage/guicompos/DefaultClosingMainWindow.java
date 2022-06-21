@@ -4,7 +4,7 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.gui.events.AbsWindowListenerClosing;
 
-public final class DefaultClosingMainWindow extends AbsWindowListenerClosing {
+public final class DefaultClosingMainWindow implements AbsWindowListenerClosing {
 
     private final GuiExecutingBlocks executingBlocks;
     private final GuiContextEl context;

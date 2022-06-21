@@ -1,6 +1,6 @@
 package code.gui.events;
 
-public abstract class AbsWindowListenerClosing {
+public interface AbsWindowListenerClosing {
 
-    public abstract void windowClosing();
+    void windowClosing();
 }

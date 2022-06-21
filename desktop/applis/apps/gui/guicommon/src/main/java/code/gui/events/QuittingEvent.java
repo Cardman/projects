@@ -2,9 +2,9 @@ package code.gui.events;
 
 import code.gui.GroupFrame;
 
-public class QuittingEvent extends AbsWindowListenerClosing {
+public class QuittingEvent implements AbsWindowListenerClosing {
 
-    private GroupFrame frame;
+    private final GroupFrame frame;
 
     public QuittingEvent(GroupFrame _frame) {
         frame = _frame;

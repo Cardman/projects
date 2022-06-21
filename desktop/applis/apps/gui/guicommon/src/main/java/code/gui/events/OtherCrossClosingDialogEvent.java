@@ -2,9 +2,9 @@ package code.gui.events;
 
 import code.gui.OtherConfirmDialog;
 
-public class OtherCrossClosingDialogEvent extends AbsWindowListenerClosing {
+public class OtherCrossClosingDialogEvent implements AbsWindowListenerClosing {
 
-    private OtherConfirmDialog dialog;
+    private final OtherConfirmDialog dialog;
 
     public OtherCrossClosingDialogEvent(OtherConfirmDialog _dialog) {
         dialog = _dialog;
