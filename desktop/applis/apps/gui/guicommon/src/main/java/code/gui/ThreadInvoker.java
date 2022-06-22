@@ -21,7 +21,7 @@ public final class ThreadInvoker implements Runnable {
      * @param _infos*/
     public static void invokeNow(AbstractThreadFactory _facto, Runnable _thread, AbstractProgramInfos _infos) {
         ThreadInvoker thread_ = new ThreadInvoker(_thread,_infos);
-        _facto.newStartedThread(thread_);
+        _facto.newStartedThread(thread_,true);
     }
 
     @Override

@@ -8,6 +8,7 @@ public interface AbstractThreadFactory {
 //    void yieldThread();
     boolean sleep(long _time);
     void newStartedThread(Runnable _runnable);
+    void newStartedThread(Runnable _runnable, boolean _immediate);
     AbstractThread newThread(Runnable _runnable);
     AbstractThread newThread(Runnable _runnable, boolean _immediate);
     AbstractThread newThread();
