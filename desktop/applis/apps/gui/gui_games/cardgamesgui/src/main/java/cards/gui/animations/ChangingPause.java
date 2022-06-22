@@ -1,5 +1,6 @@
 package cards.gui.animations;
 import cards.gui.containers.ContainerGame;
+import code.gui.MenuItemUtils;
 
 /**Thread safe class*/
 public final class ChangingPause implements Runnable {
@@ -15,6 +16,6 @@ public final class ChangingPause implements Runnable {
 
     @Override
     public void run() {
-        container.getPause().setEnabledMenu(enabled);
+        MenuItemUtils.setEnabledMenu(container.getPause(),enabled);
     }
 }

@@ -1,6 +1,7 @@
 package cards.gui.animations;
 import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
+import code.gui.MenuItemUtils;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -17,7 +18,7 @@ public final class AfterAnimationCardBelote implements Runnable {
     public void run() {
         GameBelote currentGame_=container.partieBelote();
         //Desactiver le menu Partie/Pause
-        container.getPause().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(container.getPause(),false);
         if(currentGame_.keepPlayingCurrentTrick()) {
             container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurBelote(currentGame_.premierTour());

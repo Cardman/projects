@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.*;
 import code.gui.EnabledMenu;
+import code.gui.MenuItemUtils;
 
 public abstract class AbsMenuStruct extends WithoutParentIdStruct implements Struct {
     private Struct parentMenu = NullStruct.NULL_VALUE;
@@ -23,7 +24,7 @@ public abstract class AbsMenuStruct extends WithoutParentIdStruct implements Str
     }
 
     public void setDeepEnabled(Struct _str) {
-        getMenu().setEnabledMenu(BooleanStruct.isTrue(_str));
+        MenuItemUtils.setEnabledMenu(getMenu(),BooleanStruct.isTrue(_str));
     }
     public Struct getText() {
         String txt_ = getMenu().getText();

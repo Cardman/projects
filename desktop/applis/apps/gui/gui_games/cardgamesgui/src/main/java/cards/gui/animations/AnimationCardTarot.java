@@ -4,6 +4,7 @@ import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import code.gui.FrameUtil;
+import code.gui.MenuItemUtils;
 import code.threads.ThreadUtil;
 import code.util.StringList;
 
@@ -31,7 +32,7 @@ public final class AnimationCardTarot implements Runnable {
             container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(), lg_, partie_.getNombreDeJoueurs());
         }
         //Activer le menu Partie/Pause
-        container.getPause().setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         loopTrick(container);
 //        if(partie_.keepPlayingCurrentTrick())
 //        {

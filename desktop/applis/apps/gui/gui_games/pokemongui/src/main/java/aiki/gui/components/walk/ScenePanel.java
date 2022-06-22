@@ -737,10 +737,10 @@ public class ScenePanel {
 
     //called while connection to a server succeeds.
     public void setNetworkPanel() {
-        window.getFolderLoad().setEnabledMenu(false);
-        window.getZipLoad().setEnabledMenu(false);
-        window.getGameLoad().setEnabledMenu(false);
-        window.getNewGame().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(window.getFolderLoad(),false);
+        MenuItemUtils.setEnabledMenu(window.getZipLoad(),false);
+        MenuItemUtils.setEnabledMenu(window.getGameLoad(),false);
+        MenuItemUtils.setEnabledMenu(window.getNewGame(),false);
         facade.openMenu();
         panelMenu.setVisible(false);
         disableFishing();

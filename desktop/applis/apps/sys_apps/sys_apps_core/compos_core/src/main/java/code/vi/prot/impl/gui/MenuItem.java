@@ -1,7 +1,6 @@
 package code.vi.prot.impl.gui;
 import code.gui.AbsMenu;
 import code.gui.AbsMenuItem;
-import code.gui.MenuItemUtils;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
 import code.vi.prot.impl.gui.events.WrActionListener;
@@ -59,7 +58,6 @@ public final class MenuItem extends CustComponent implements AbsMenuItem {
 
     public void setEnabledMenu(boolean _b) {
         setEnabled(_b);
-        MenuItemUtils.setEnabled(_b, this);
     }
 
     @Override

@@ -92,10 +92,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
-        getMultiStop().setEnabledMenu(true);
-        getTricksHands().setEnabledMenu(true);
-        getTeams().setEnabledMenu(true);
-        getLoad().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getMultiStop(),true);
+        MenuItemUtils.setEnabledMenu(getTricksHands(),true);
+        MenuItemUtils.setEnabledMenu(getTeams(),true);
+        MenuItemUtils.setEnabledMenu(getLoad(),false);
         rulesPresidentMulti = _players.getRulesPresident();
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
@@ -334,8 +334,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getNoPlay().setVisible(true);
         //        getPanneauBoutonsJeu().add(getNoPlay());
         getPanneauBoutonsJeu().validate();
-        getOwner().getTricksHands().setEnabledMenu(true);
-        getOwner().getTeams().setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
+        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         pack();
     }
 
@@ -401,8 +401,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), _card.isReversed());
         getPanneauBoutonsJeu().removeAll();
         setCanPlay(false);
-        getOwner().getTricksHands().setEnabledMenu(false);
-        getOwner().getTeams().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
+        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         /* On place les cartes de l'utilisateur */
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, _card.isReversed());
         pack();
@@ -472,7 +472,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
-        getMultiStop().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
         String lg_ = getOwner().getLanguageKey();
@@ -632,10 +632,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void endGame(ResultsPresident _res) {
         /*Descativer aide au jeu*/
-        getMultiStop().setEnabledMenu(true);
-        getHelpGame().setEnabledMenu(false);
-        getOwner().getTricksHands().setEnabledMenu(false);
-        getOwner().getTeams().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getMultiStop(),true);
+        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
+        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
 
         /*Le nombre de parties jouees depuis le lancement du logiciel*/

@@ -559,12 +559,12 @@ public final class WindowCards extends NetGroupFrame {
         if(parametres.getLancement().isEmpty()) {
             menuPrincipal();
         } else {
-            getTricksHands().setEnabledMenu(false);
-            getTeams().setEnabledMenu(false);
-            getMultiStop().setEnabledMenu(false);
-            getLoad().setEnabledMenu(true);
-            getEdit().setEnabledMenu(true);
-            getTraining().setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(getTricksHands(),false);
+            MenuItemUtils.setEnabledMenu(getTeams(),false);
+            MenuItemUtils.setEnabledMenu(getMultiStop(),false);
+            MenuItemUtils.setEnabledMenu(getLoad(),true);
+            MenuItemUtils.setEnabledMenu(getEdit(),true);
+            MenuItemUtils.setEnabledMenu(getTraining(),true);
             if(parametres.getLancement().first()==GameEnum.BELOTE) {
                 containerGame = new ContainerSingleBelote(this);
             } else if(parametres.getLancement().first()==GameEnum.PRESIDENT) {
@@ -572,7 +572,7 @@ public final class WindowCards extends NetGroupFrame {
             } else {
                 containerGame = new ContainerSingleTarot(this);
             }
-            change.setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(change,true);
             ((ContainerSingle)containerGame).modify();
         }
         setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
@@ -1056,19 +1056,19 @@ public final class WindowCards extends NetGroupFrame {
     }
     public void menuMultiGames() {
         containerGame = new ContainerNoGame(this);
-        change.setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
-        getDemo().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getDemo(),false);
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         //desactiver le menu Partie/conseil
-        getConsulting().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabledMenu(false);
-        getEdit().setEnabledMenu(false);
-        getTraining().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getPause(),false);
+        MenuItemUtils.setEnabledMenu(getEdit(),false);
+        MenuItemUtils.setEnabledMenu(getTraining(),false);
         for (AbsMenuItem m: getRulesGames().values()) {
-            m.setEnabledMenu(false);
+            MenuItemUtils.setEnabledMenu(m,false);
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
@@ -1088,9 +1088,9 @@ public final class WindowCards extends NetGroupFrame {
             goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
         }
         container_.add(goHelpMenu);
-        getLoad().setEnabledMenu(false);
-        getSave().setEnabledMenu(false);
-        getChange().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getLoad(),false);
+        MenuItemUtils.setEnabledMenu(getSave(),false);
+        MenuItemUtils.setEnabledMenu(getChange(),false);
         container_.add(clock);
         container_.add(lastSavedGameDate);
         setContentPane(container_);
@@ -1098,15 +1098,15 @@ public final class WindowCards extends NetGroupFrame {
     }
     public void menuSoloGames() {
         containerGame = new ContainerNoGame(this);
-        change.setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
-        getDemo().setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(getDemo(),true);
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         //desactiver le menu Partie/conseil
-        getConsulting().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getPause(),false);
         containerGame.setChangerPileFin(false);
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
@@ -1126,8 +1126,8 @@ public final class WindowCards extends NetGroupFrame {
             goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
         }
         container_.add(goHelpMenu);
-        getSave().setEnabledMenu(false);
-        getChange().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getSave(),false);
+        MenuItemUtils.setEnabledMenu(getChange(),false);
         container_.add(clock);
         container_.add(lastSavedGameDate);
         setContentPane(container_);
@@ -1135,24 +1135,24 @@ public final class WindowCards extends NetGroupFrame {
     }
 
     public void menuPrincipal() {
-        getMultiStop().setEnabledMenu(false);
-        getTricksHands().setEnabledMenu(false);
-        getTeams().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
+        MenuItemUtils.setEnabledMenu(getTricksHands(),false);
+        MenuItemUtils.setEnabledMenu(getTeams(),false);
         containerGame = new ContainerNoGame(this);
-        change.setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
-        getDemo().setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(getDemo(),true);
         //desactiver le menu Partie/aide au jeu
-        getHelpGame().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         //desactiver le menu Partie/conseil
-        getConsulting().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
         //Desactiver le menu Partie/Pause
-        getPause().setEnabledMenu(false);
-        getLoad().setEnabledMenu(true);
-        getEdit().setEnabledMenu(true);
-        getTraining().setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(getPause(),false);
+        MenuItemUtils.setEnabledMenu(getLoad(),true);
+        MenuItemUtils.setEnabledMenu(getEdit(),true);
+        MenuItemUtils.setEnabledMenu(getTraining(),true);
         for (AbsMenuItem m: getRulesGames().values()) {
-            m.setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(m,true);
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
@@ -1175,8 +1175,8 @@ public final class WindowCards extends NetGroupFrame {
         pane_.add(clock);
         pane_.add(lastSavedGameDate);
         setContentPane(pane_);
-        getSave().setEnabledMenu(false);
-        getChange().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getSave(),false);
+        MenuItemUtils.setEnabledMenu(getChange(),false);
     }
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
@@ -1203,7 +1203,7 @@ public final class WindowCards extends NetGroupFrame {
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
         on y revient lorsque c'est accessible*/
         change=getCompoFactory().newMenuItem(getMessages().getVal(CST_CHANGE));
-        change.setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(change,false);
         change.addActionListener(new ChangeGameEvent(this));
         change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(change);
@@ -1268,7 +1268,7 @@ public final class WindowCards extends NetGroupFrame {
             containerGame_.load();
             partieSauvegardee=false;
             containerGame = containerGame_;
-            change.setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
         if (StringUtil.quickEq(tagName_, "GamePresident")) {
@@ -1283,7 +1283,7 @@ public final class WindowCards extends NetGroupFrame {
             containerGame_.load();
             partieSauvegardee=false;
             containerGame = containerGame_;
-            change.setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
         if (StringUtil.quickEq(tagName_, "GameTarot")) {
@@ -1298,7 +1298,7 @@ public final class WindowCards extends NetGroupFrame {
             containerGame_.load();
             partieSauvegardee=false;
             containerGame = containerGame_;
-            change.setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
         erreurDeChargement(_nomFichier);
@@ -1546,19 +1546,19 @@ public final class WindowCards extends NetGroupFrame {
                                 containerGame.saveCurrentGame(fichier_);
                                 containerGame = new ContainerSingleBelote(this);
                                 ((ContainerSingleBelote)containerGame).editerBelote(partie_);
-                                change.setEnabledMenu(true);
+                                MenuItemUtils.setEnabledMenu(change,true);
                             }
                         } else {
                             containerGame = new ContainerSingleBelote(this);
                             ((ContainerSingleBelote)containerGame).editerBelote(partie_);
-                            change.setEnabledMenu(true);
+                            MenuItemUtils.setEnabledMenu(change,true);
                         }
                     }
                 }
             } else {
                 containerGame = new ContainerSingleBelote(this);
                 ((ContainerSingleBelote)containerGame).editerBelote(partie_);
-                change.setEnabledMenu(true);
+                MenuItemUtils.setEnabledMenu(change,true);
             }
         } else if (_game == GameEnum.PRESIDENT) {
             if (!edit.isEnabled()) {
@@ -1584,19 +1584,19 @@ public final class WindowCards extends NetGroupFrame {
 
                                 containerGame = new ContainerSinglePresident(this);
                                 ((ContainerSinglePresident) containerGame).editerPresident(partie_);
-                                change.setEnabledMenu(true);
+                                MenuItemUtils.setEnabledMenu(change,true);
                             }
                         } else {
                             containerGame = new ContainerSinglePresident(this);
                             ((ContainerSinglePresident) containerGame).editerPresident(partie_);
-                            change.setEnabledMenu(true);
+                            MenuItemUtils.setEnabledMenu(change,true);
                         }
                     }
                 }
             } else {
                 containerGame = new ContainerSinglePresident(this);
                 ((ContainerSinglePresident) containerGame).editerPresident(partie_);
-                change.setEnabledMenu(true);
+                MenuItemUtils.setEnabledMenu(change,true);
             }
         } else if (_game == GameEnum.TAROT) {
             if (!edit.isEnabled()) {
@@ -1622,19 +1622,19 @@ public final class WindowCards extends NetGroupFrame {
 
                                 containerGame = new ContainerSingleTarot(this);
                                 ((ContainerSingleTarot) containerGame).editerTarot(partie_);
-                                change.setEnabledMenu(true);
+                                MenuItemUtils.setEnabledMenu(change,true);
                             }
                         } else {
                             containerGame = new ContainerSingleTarot(this);
                             ((ContainerSingleTarot) containerGame).editerTarot(partie_);
-                            change.setEnabledMenu(true);
+                            MenuItemUtils.setEnabledMenu(change,true);
                         }
                     }
                 }
             } else {
                 containerGame = new ContainerSingleTarot(this);
                 ((ContainerSingleTarot) containerGame).editerTarot(partie_);
-                change.setEnabledMenu(true);
+                MenuItemUtils.setEnabledMenu(change,true);
             }
         }
     }
@@ -1681,12 +1681,12 @@ public final class WindowCards extends NetGroupFrame {
                     }
                 }
                 containerGame = new ContainerSingleTarot(this);
-                change.setEnabledMenu(true);
+                MenuItemUtils.setEnabledMenu(change,true);
                 ((ContainerSingleTarot) containerGame).jouerDonneEntrainement(_ct);
             }
         } else {
             containerGame = new ContainerSingleTarot(this);
-            change.setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(change,true);
             ((ContainerSingleTarot) containerGame).jouerDonneEntrainement(_ct);
         }
     }
@@ -1846,7 +1846,7 @@ public final class WindowCards extends NetGroupFrame {
         help=getCompoFactory().newMenu(getMessages().getVal(CST_HELP));
         /* Aide/Aide generale Explication du fonctionnement du logiciel et des regles utilisables*/
         generalHelp=getCompoFactory().newMenuItem(getMessages().getVal(CST_GENERAL_HELP));
-        generalHelp.setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(generalHelp,false);
         generalHelp.addActionListener(new DisplayHelpEvent(this));
         generalHelp.setAccelerator(F_THREE);
         help.addMenuItem(generalHelp);
@@ -1939,7 +1939,7 @@ public final class WindowCards extends NetGroupFrame {
             } else if(_jeuBouton==GameEnum.TAROT) {
                 containerGame = new ContainerSingleTarot(this);
             }
-            change.setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(change,true);
             ((ContainerSingle)containerGame).modify();
             return;
         }

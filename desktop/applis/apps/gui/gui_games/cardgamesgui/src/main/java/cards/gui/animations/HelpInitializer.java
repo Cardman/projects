@@ -7,6 +7,7 @@ import code.bean.nat.NatDualConfigurationContext;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.gui.AbsMenuItem;
+import code.gui.MenuItemUtils;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
 import code.scripts.confs.HelpScriptPagesImgs;
@@ -119,7 +120,7 @@ public final class HelpInitializer implements Runnable {
             }
             trees.addEntry(l,tree_);
         }
-        generalHelp.setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(generalHelp,true);
     }
 
     public StringMap<ObjectMap<HelpIndexes, ElementHelp>> getTrees() {

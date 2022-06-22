@@ -15,6 +15,10 @@ public final class MenuItemUtils {
         }
         return null;
     }
+    public static void setEnabledMenu(EnabledMenu _subMenu,boolean _b) {
+        _subMenu.setEnabledMenu(_b);
+        setEnabled(_b,_subMenu);
+    }
     public static void setEnabled(boolean _b, EnabledMenu _subMenu) {
         AbsMenu mPar_ = _subMenu.getParentMenu();
         while (mPar_ != null) {

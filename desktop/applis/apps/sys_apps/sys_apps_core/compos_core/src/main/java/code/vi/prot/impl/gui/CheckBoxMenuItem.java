@@ -1,7 +1,6 @@
 package code.vi.prot.impl.gui;
 import code.gui.AbsCheckBoxMenuItem;
 import code.gui.AbsMenu;
-import code.gui.MenuItemUtils;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
 import code.vi.prot.impl.gui.events.WrActionListener;
@@ -63,7 +62,6 @@ public class CheckBoxMenuItem extends CustComponent implements AbsCheckBoxMenuIt
 
     public void setEnabledMenu(boolean _b) {
         setEnabled(_b);
-        MenuItemUtils.setEnabled(_b, this);
     }
 
     @Override

@@ -200,10 +200,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     @Override
     public void updateFirst(PlayersNamePresent _players) {
-        getMultiStop().setEnabledMenu(true);
-        getTricksHands().setEnabledMenu(true);
-        getTeams().setEnabledMenu(true);
-        getLoad().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getMultiStop(),true);
+        MenuItemUtils.setEnabledMenu(getTricksHands(),true);
+        MenuItemUtils.setEnabledMenu(getTeams(),true);
+        MenuItemUtils.setEnabledMenu(getLoad(),false);
         nbChoosenPlayers = _players.getNbPlayers();
         rulesTarotMulti = _players.getRulesTarot();
         AbsPanel container_=getOwner().getCompoFactory().newPageBox();
@@ -523,8 +523,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         canPlayLabel.setText(getMessages().getVal(WindowCards.CAN_PLAY));
         String lg_ = getOwner().getLanguageKey();
         setCanPlay(true);
-        getOwner().getTricksHands().setEnabledMenu(true);
-        getOwner().getTeams().setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
+        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         if (!_declaration.isFirstRoundPlaying()) {
             setChoosenHandful(Handfuls.NO);
             for (Miseres m: getSelectedMiseres().getKeys()) {
@@ -647,8 +647,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollDeclaringHandful().setVisible(false);
         setCanPlay(false);
         canPlayLabel.setText(EMPTY_STRING);
-        getOwner().getTricksHands().setEnabledMenu(false);
-        getOwner().getTeams().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
+        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         /*On place les cartes de l'utilisateur*/
         updateCardsInPanelTarotJeuMulti(getPanelHand(), playerHand);
         pack();
@@ -739,7 +739,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return hasCreatedServer;
     }
     private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
-        getMultiStop().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
         String lg_ = getOwner().getLanguageKey();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
@@ -1059,10 +1059,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void endGame(ResultsTarot _res) {
 
         /*Descativer aide au jeu*/
-        getMultiStop().setEnabledMenu(true);
-        getHelpGame().setEnabledMenu(false);
-        getOwner().getTricksHands().setEnabledMenu(false);
-        getOwner().getTeams().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(getMultiStop(),true);
+        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
+        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         AbsScrollPane ascenseur_;
         /*Le nombre de parties jouees depuis le lancement du logiciel*/

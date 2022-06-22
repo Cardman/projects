@@ -9,6 +9,7 @@ import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CallingCard;
 import cards.tarot.enumerations.PlayingDog;
+import code.gui.MenuItemUtils;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -28,12 +29,12 @@ public final class AfterAnimationBidTarot implements Runnable {
         StringList pseudosTarot_ = container.pseudosTarot();
         GameTarot gameTarot_=container.partieTarot();
         //Desactiver le menu Partie/Pause
-        container.getPause().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(container.getPause(),false);
         container.getPanneauBoutonsJeu().removeAll();
         String lg_ = container.getOwner().getLanguageKey();
         if(gameTarot_.keepBidding()) {
             //Activer les conseils
-            container.getConsulting().setEnabledMenu(true);
+            MenuItemUtils.setEnabledMenu(container.getConsulting(),true);
             container.setCanBid(true);
             for(BidTarot b:gameTarot_.allowedBids()) {
                 container.ajouterBoutonContratTarot(Games.toString(b,lg_),b,b.estDemandable(gameTarot_.getContrat()));

@@ -106,11 +106,11 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     void prepareGui() {
         container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
-        container.getHelpGame().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(container.getHelpGame(),false);
         //desactiver le menu Partie/Demo
-        container.getDemo().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(container.getDemo(),false);
         //Activer le menu Partie/Pause
-        container.getPause().setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         GameBelote partie_=partieBeloteSimulee();
         String lg_ = container.getOwner().getLanguageKey();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();

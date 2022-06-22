@@ -87,11 +87,11 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     void prepareGui() {
         container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
-        container.getHelpGame().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(container.getHelpGame(),false);
         //desactiver le menu Partie/Demo
-        container.getDemo().setEnabledMenu(false);
+        MenuItemUtils.setEnabledMenu(container.getDemo(),false);
         //Activer le menu Partie/Pause
-        container.getPause().setEnabledMenu(true);
+        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         GamePresident partie_ = partiePresidentSimulee();
         RulesPresident rules_ = partie_.getRegles();
         String lg_ = container.getOwner().getLanguageKey();

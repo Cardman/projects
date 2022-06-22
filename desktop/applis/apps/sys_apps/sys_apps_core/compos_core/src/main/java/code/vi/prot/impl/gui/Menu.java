@@ -40,7 +40,6 @@ public final class Menu extends CustComponent implements AbsMenu {
 
     public void setEnabledMenu(boolean _b) {
         setEnabled(_b);
-        MenuItemUtils.setEnabled(_b, this);
     }
 
     public void addMenuItem(AbsCheckBoxMenuItem _menuItem) {
