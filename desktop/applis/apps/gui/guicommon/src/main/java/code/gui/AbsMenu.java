@@ -1,9 +1,10 @@
 package code.gui;
 
-public interface AbsMenu extends EnabledMenu {
-    int getSubCount();
+import code.util.CustList;
 
-    EnabledMenu getItem(int _i);
+public interface AbsMenu extends EnabledMenu {
+
+    CustList<EnabledMenu> getItems();
 
     void addMenuItem(AbsMenuItem _quit);
 

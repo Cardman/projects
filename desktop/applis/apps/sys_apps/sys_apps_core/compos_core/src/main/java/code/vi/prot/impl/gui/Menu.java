@@ -1,5 +1,6 @@
 package code.vi.prot.impl.gui;
 import code.gui.*;
+import code.util.CustList;
 import code.util.IdList;
 
 import javax.swing.*;
@@ -98,12 +99,9 @@ public final class Menu extends CustComponent implements AbsMenu {
         meCo.addSeparator();
     }
 
-    public EnabledMenu getItem(int _i) {
-        return MenuItemUtils.get(subs,_i);
-    }
-
-    public int getSubCount() {
-        return subs.size();
+    @Override
+    public CustList<EnabledMenu> getItems() {
+        return subs;
     }
 
     public int getItemCount() {
