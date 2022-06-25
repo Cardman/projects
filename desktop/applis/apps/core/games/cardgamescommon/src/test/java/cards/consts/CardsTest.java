@@ -36,6 +36,8 @@ public class CardsTest extends EquallableCardsUtil {
     @Test
     public void eqSuitTest() {
         assertEq(4, Suit.couleursOrdinaires().size());
+        assertEq(5, Suit.couleursDefinies().size());
+        assertEq(6, Suit.toutesCouleurs().size());
         EnumList<Suit> one_ = new EnumList<Suit>();
         EnumList<Suit> two_ = new EnumList<Suit>();
         assertTrue(Suit.equalsSuits(one_,two_));

@@ -41,7 +41,7 @@ public final class DocumentReaderCardsCommonUtil {
     }
 
     public static Suit getSuit(Element _elt) {
-        for (Suit e: Suit.values()) {
+        for (Suit e: Suit.toutesCouleurs()) {
             if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }

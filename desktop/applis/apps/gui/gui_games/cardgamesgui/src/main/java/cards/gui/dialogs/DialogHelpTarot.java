@@ -49,7 +49,7 @@ public final class DialogHelpTarot {
         AbsPanel panneau3_;
         AbsTextArea zone_;
         HandTarot tout_ = HandTarot.pileBase();
-        EnumList<Suit> suits_ = new EnumList<Suit>(Suit.values());
+        EnumList<Suit> suits_ = new EnumList<Suit>(Suit.toutesCouleurs());
         panneau3_=compo.newLineBox();
 //        Suit couleur_;
 //        Suit couleurMemo_=null;

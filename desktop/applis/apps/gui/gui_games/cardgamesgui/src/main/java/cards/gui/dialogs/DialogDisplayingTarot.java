@@ -83,7 +83,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
-        Listable<Suit> ls_ = new EnumList<Suit>(Suit.values());
+        Listable<Suit> ls_ = new EnumList<Suit>(Suit.toutesCouleurs());
         String lg_ = _window.getLanguageKey();
         for (Suit couleur_:ls_) {
             if (couleur_ == Suit.UNDEFINED) {

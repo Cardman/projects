@@ -6,15 +6,10 @@ import code.util.EnumList;
 public final class DisplayingTarot {
 
     private boolean clockwise;
-    private EnumList<Suit> suits=new EnumList<Suit>();
+    private EnumList<Suit> suits;
     private boolean decreasing=true;
     public DisplayingTarot() {
-        for(Suit c:Suit.values()){
-            if(c == Suit.UNDEFINED){
-                continue;
-            }
-            suits.add(c);
-        }
+        suits = Suit.couleursDefinies();
     }
     public DisplayingTarot(DisplayingTarot _displayingTarot) {
         clockwise = _displayingTarot.clockwise;
@@ -22,14 +17,10 @@ public final class DisplayingTarot {
         decreasing = _displayingTarot.decreasing;
     }
     public void validate() {
-        EnumList<Suit> s_ = new EnumList<Suit>(Suit.values());
-        s_.removeObj(Suit.UNDEFINED);
+        EnumList<Suit> s_ = new EnumList<Suit>(Suit.couleursDefinies());
         if (!Suit.equalsSuits(suits, s_)) {
             suits.clear();
-            for(Suit c:Suit.values()){
-                if(c == Suit.UNDEFINED){
-                    continue;
-                }
+            for(Suit c:Suit.couleursDefinies()){
                 suits.add(c);
             }
         }
