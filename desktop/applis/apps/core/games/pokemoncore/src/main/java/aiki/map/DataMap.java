@@ -660,6 +660,7 @@ public final class DataMap {
         }
         if (_d.getMiniMap(getUnlockedCity()).length == 0) {
             error = true;
+            _d.setError(true);
         }
         boolean firstCities_ = false;
         for (Coords c : cities) {
