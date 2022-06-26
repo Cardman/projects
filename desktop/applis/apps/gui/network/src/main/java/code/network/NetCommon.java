@@ -3,12 +3,13 @@ package code.network;
 import code.gui.initialize.AbstractSocket;
 import code.util.IntMap;
 import code.util.IntTreeMap;
+import code.util.core.BoolVal;
 
 public final class NetCommon {
 
     private final IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
     private final IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
-    private final IntMap<Boolean> readyPlayers = new IntMap<Boolean>();
+    private final IntMap<BoolVal> readyPlayers = new IntMap<BoolVal>();
 
     private final IntMap<String> nicknames =new IntMap<String>();
 
@@ -18,7 +19,7 @@ public final class NetCommon {
         return sockets;
     }
 
-    public IntMap<Boolean> getReadyPlayers() {
+    public IntMap<BoolVal> getReadyPlayers() {
         return readyPlayers;
     }
 

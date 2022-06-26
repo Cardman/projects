@@ -40,6 +40,7 @@ import code.network.NetGroupFrame;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class Net {
 
@@ -85,8 +86,8 @@ public final class Net {
      * @param sockets */
     public static boolean allReady(NetCommon _common) {
         boolean allReady_ = true;
-        for (boolean r: _common.getReadyPlayers().values()) {
-            if (r) {
+        for (BoolVal r: _common.getReadyPlayers().values()) {
+            if (r == BoolVal.TRUE) {
                 continue;
             }
             allReady_ = false;
@@ -224,8 +225,8 @@ public final class Net {
         }
     }
     static void initAllReady(NetCommon _common) {
-        for (EntryCust<Integer,Boolean> e: _common.getReadyPlayers().entryList()) {
-            e.setValue(false);
+        for (EntryCust<Integer,BoolVal> e: _common.getReadyPlayers().entryList()) {
+            e.setValue(BoolVal.FALSE);
         }
     }
     /**server

@@ -89,6 +89,7 @@ import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -777,7 +778,7 @@ public final class WindowCards extends NetGroupFrame {
         getSockets().getConnectionsServer().put(nb_ ,sendReceiveServer_);
         IndexOfArrivingCards index_ = new IndexOfArrivingCards();
         index_.setIndex(nb_);
-        getSockets().getReadyPlayers().put(nb_ ,false);
+        getSockets().getReadyPlayers().put(nb_ , BoolVal.FALSE);
         getSockets().getPlacesPlayers().put(nb_ ,(byte)(nb_));
         Net.sendObject(_newSocket,index_);
     }

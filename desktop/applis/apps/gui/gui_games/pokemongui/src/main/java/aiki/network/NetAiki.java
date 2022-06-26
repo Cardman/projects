@@ -7,6 +7,7 @@ import code.gui.initialize.AbstractSocket;
 import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class NetAiki {
 
@@ -41,8 +42,8 @@ public final class NetAiki {
          * @param _common */
     public static boolean allReady(NetCommon _common) {
         boolean allReady_ = true;
-        for (boolean r: _common.getReadyPlayers().values()) {
-            if (r) {
+        for (BoolVal r: _common.getReadyPlayers().values()) {
+            if (r == BoolVal.TRUE) {
                 continue;
             }
             allReady_ = false;

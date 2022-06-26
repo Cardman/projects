@@ -53,6 +53,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -151,7 +152,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
                     _players.getPlacesPlayers().getVal(i).toString());
         }
         for (int i : _players.getReadyPlayers().getKeys()) {
-            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i));
+            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
         }
         if (hasCreatedServer) {
             AbsPlainButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowCards.SELECT_RULES));
@@ -206,7 +207,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
                     _players.getPlacesPlayers().getVal(i).toString());
         }
         for (int i : _players.getReadyPlayers().getKeys()) {
-            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i));
+            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
         }
     }
 

@@ -12,6 +12,8 @@ import code.sml.Document;
 import code.sml.Element;
 import code.threads.AbstractBaseExecutorService;
 import code.util.ByteTreeMap;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -129,7 +131,7 @@ public final class SendReceiveServerAiki extends BasicServer {
         }
         if (playerActionBeforeGame_ instanceof ReadyAiki) {
             int noClient_ = playerActionBeforeGame_.getIndex();
-            _common.getReadyPlayers().put(noClient_, ((ReadyAiki)playerActionBeforeGame_).isReady());
+            _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of(((ReadyAiki)playerActionBeforeGame_).isReady()));
             return;
         }
         if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_OK,tagName_)) {
@@ -138,7 +140,7 @@ public final class SendReceiveServerAiki extends BasicServer {
                     NetAiki.sendText(so_,_input);
                 }
                 for (int i: _common.getReadyPlayers().getKeys()) {
-                    _common.getReadyPlayers().put(i, false);
+                    _common.getReadyPlayers().put(i, BoolVal.FALSE);
                 }
             }
             return;

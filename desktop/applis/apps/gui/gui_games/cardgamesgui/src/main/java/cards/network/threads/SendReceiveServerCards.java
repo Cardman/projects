@@ -56,7 +56,9 @@ import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
 import code.util.consts.Constants;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -152,7 +154,7 @@ public final class SendReceiveServerCards extends BasicServer {
             pl_.setNbPlayers(Net.getNbPlayers(_instance));
             pl_.setPseudos(new IntMap<String>(_common.getNicknames()));
             pl_.setPlacesPlayers(_common.getPlacesPlayers());
-            pl_.setReadyPlayers(new IntMap<Boolean>(_common.getReadyPlayers()));
+            pl_.setReadyPlayers(new IntMap<BoolVal>(_common.getReadyPlayers()));
             for (int p:_common.getSockets().getKeys()) {
                 pl_.setFirst(p == newPlayer_.getIndex());
                 Net.sendObject(_common.getSockets().getVal(p),pl_);
@@ -171,14 +173,14 @@ public final class SendReceiveServerCards extends BasicServer {
         if (playerActionBeforeGame_ instanceof Ready) {
             if (Net.getGames(_instance).enCoursDePartie()) {
                 int noClient_ = playerActionBeforeGame_.getIndex();
-                _common.getReadyPlayers().put(noClient_, (( Ready)playerActionBeforeGame_).isReady());
+                _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of((( Ready)playerActionBeforeGame_).isReady()));
                 if (Net.allReady(_common)) {
                     Net.sendOkToQuit(_instance, _common);
                 }
                 return;
             }
             int noClient_ = playerActionBeforeGame_.getIndex();
-            _common.getReadyPlayers().put(noClient_, (( Ready)playerActionBeforeGame_).isReady());
+            _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of((( Ready)playerActionBeforeGame_).isReady()));
             for(AbstractSocket so_:_common.getSockets().values()) {
                 Net.sendText(so_,_input);
             }

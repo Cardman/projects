@@ -386,18 +386,18 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static IntMap<Boolean> getMapIntegerBoolean(Element _elt) {
+    public static IntMap<BoolVal> getMapIntegerBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        IntMap<Boolean> map_ = new IntMap<Boolean>(cap_);
+        IntMap<BoolVal> map_ = new IntMap<BoolVal>(cap_);
         Ints keys_ = new Ints(cap_);
-        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getInteger(c));
             } else {
-                values_.add(getBoolean(c));
+                values_.add(getBoolVal(c));
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());

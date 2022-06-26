@@ -1,9 +1,11 @@
 package cards.network.common.before;
+
 import cards.belote.RulesBelote;
 import cards.president.RulesPresident;
 import cards.tarot.RulesTarot;
-import code.util.*;
-import code.util.*;
+import code.util.IntMap;
+import code.util.IntTreeMap;
+import code.util.core.BoolVal;
 
 
 public final class PlayersNamePresent {
@@ -12,7 +14,7 @@ public final class PlayersNamePresent {
 
     private IntTreeMap< Byte> placesPlayers;
 
-    private IntMap<Boolean> readyPlayers;
+    private IntMap<BoolVal> readyPlayers;
 
     private int nbPlayers;
 
@@ -40,11 +42,11 @@ public final class PlayersNamePresent {
         placesPlayers = _placesPlayers;
     }
 
-    public IntMap<Boolean> getReadyPlayers() {
+    public IntMap<BoolVal> getReadyPlayers() {
         return readyPlayers;
     }
 
-    public void setReadyPlayers(IntMap<Boolean> _readyPlayers) {
+    public void setReadyPlayers(IntMap<BoolVal> _readyPlayers) {
         readyPlayers = _readyPlayers;
     }
 

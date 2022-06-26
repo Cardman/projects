@@ -62,6 +62,7 @@ import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -257,7 +258,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             playersPlaces.get(i).setText(_players.getPlacesPlayers().getVal(i).toString());
         }
         for (int i:_players.getReadyPlayers().getKeys()) {
-            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i));
+            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
         }
 
         if (hasCreatedServer) {
@@ -298,7 +299,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             playersPlaces.get(i).setText(_players.getPlacesPlayers().getVal(i).toString());
         }
         for (int i:_players.getReadyPlayers().getKeys()) {
-            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i));
+            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
         }
     }
     public void updateRules(RulesTarot _rules) {

@@ -61,6 +61,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -1151,7 +1152,7 @@ public final class WindowAiki extends NetGroupFrame {
         getSockets().getConnectionsServer().put(getSockets().getSockets().size()-1,sendReceiveServer_);
         IndexOfArrivingAiki index_ = new IndexOfArrivingAiki();
         index_.setIndex(getSockets().getSockets().size()-1);
-        getSockets().getReadyPlayers().put(getSockets().getSockets().size()-1,false);
+        getSockets().getReadyPlayers().put(getSockets().getSockets().size()-1, BoolVal.FALSE);
         getSockets().getPlacesPlayers().put(getSockets().getSockets().size()-1,(byte)(getSockets().getSockets().size()-1));
         NetAiki.sendObject(_newSocket,index_);
     }
