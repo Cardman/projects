@@ -14,7 +14,19 @@ public final class NetCommon {
     private final IntMap<String> nicknames =new IntMap<String>();
 
     private final IntMap<BasicServer> connectionsServer =new IntMap<BasicServer>();
-
+    /**server
+     @return true &hArr; the players are ready to begin a deal
+      * @param _common */
+    public boolean allReady() {
+        boolean allReady_ = true;
+        for (BoolVal r: getReadyPlayers().values()) {
+            if (r != BoolVal.TRUE) {
+                allReady_ = false;
+                break;
+            }
+        }
+        return allReady_;
+    }
     public IntMap<AbstractSocket> getSockets() {
         return sockets;
     }

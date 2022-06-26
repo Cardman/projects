@@ -72,29 +72,6 @@ public final class Net {
         return CARDS;
     }
 
-    /**
-    Method allowing a client to send text by its socket
-    @param _socket The used socket (client) which is used for sending
-    @param _text the text to be sent
-    */
-    static void sendText(AbstractSocket _socket, String _text) {
-        NetGroupFrame.trySendString(_text,_socket);
-    }
-    /**server
-    only clicks can call directly this method
-    @return true &hArr; the players are ready to begin a deal
-     * @param sockets */
-    public static boolean allReady(NetCommon _common) {
-        boolean allReady_ = true;
-        for (BoolVal r: _common.getReadyPlayers().values()) {
-            if (r == BoolVal.TRUE) {
-                continue;
-            }
-            allReady_ = false;
-            break;
-        }
-        return allReady_;
-    }
     /**server
     @return true &hArr; the players are correctly placed around the "table"
      * @param _instance
@@ -114,106 +91,106 @@ public final class Net {
 
     /**server and client*/
     public static void sendObject(AbstractSocket _socket, PlayerActionBeforeGameCards _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, DelegateServer _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.delegateServer(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.delegateServer(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ByeCards _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.bye(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.bye(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ResultsBelote _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.resultsBelote(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.resultsBelote(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ResultsPresident _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.resultsPresident(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.resultsPresident(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ResultsTarot _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.resultsTarot(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.resultsTarot(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, PlayersNamePresent _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.playersNamePresent(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playersNamePresent(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, AllowPlayingBelote _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.allowPlayingBelote(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowPlayingBelote(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, AllowPlayingPresident _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.allowPlayingPresident(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowPlayingPresident(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, AllowPlayingTarot _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.allowPlayingTarot(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowPlayingTarot(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, PlayerActionGame _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.playerActionGame(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, DealtHandBelote _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.dealtHandBelote(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.dealtHandBelote(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, DealtHandPresident _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.dealtHandPresident(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.dealtHandPresident(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, DealtHandTarot _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.dealtHandTarot(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.dealtHandTarot(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, Dog _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.dog(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.dog(_serializable), _socket);
     }
     public static void sendObjectDisplaySlamButton(AbstractSocket _socket) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.displaySlamButton());
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.displaySlamButton(), _socket);
     }
     public static void sendObject(AbstractSocket _socket, CallableCards _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.callableCards(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.callableCards(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, AllowBiddingTarot _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.allowBiddingTarot(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowBiddingTarot(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, AllowBiddingBelote _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.allowBiddingBelote(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowBiddingBelote(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ErrorBidding _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.errorBidding(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorBidding(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ErrorBiddingBelote _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.errorBiddingBelote(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorBiddingBelote(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ErrorPlayingBelote _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.errorPlayingBelote(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlayingBelote(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ErrorPlayingPresident _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.errorPlayingPresident(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlayingPresident(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ErrorPlaying _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.errorPlaying(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlaying(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ErrorHandful _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.errorHandful(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorHandful(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ErrorDiscarding _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.errorDiscarding(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorDiscarding(_serializable), _socket);
     }
     public static void sendObjectPause(AbstractSocket _socket) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.pause());
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.pause(), _socket);
     }
     public static void sendObject(AbstractSocket _socket, TricksHandsBelote _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.tricksHandsBelote(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.tricksHandsBelote(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, TricksHandsPresident _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.tricksHandsPresident(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.tricksHandsPresident(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, TricksHandsTarot _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.tricksHandsTarot(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.tricksHandsTarot(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, TeamsPlayers _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.teamsPlayers(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.teamsPlayers(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, DiscardedTrumps _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.discardedTrumps(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedTrumps(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, AllowDiscarding _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.allowDiscarding(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowDiscarding(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ReceivedGivenCards _serializable) {
-        Net.sendText(_socket,DocumentWriterCardsMultiUtil.receivedGivenCards(_serializable));
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.receivedGivenCards(_serializable), _socket);
     }
     /**server
      * @param _instance
@@ -408,7 +385,7 @@ public final class Net {
 
     public static void sendOkToQuit(Net _instance, NetCommon _common) {
         for (byte p: Net.activePlayers(_instance, _common)) {
-            sendText(Net.getSocketByPlace(p, _common),"<"+ DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+"/>");
+            NetGroupFrame.trySendString("<"+ DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+"/>", Net.getSocketByPlace(p, _common));
         }
     }
     /**server*/

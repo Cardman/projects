@@ -174,7 +174,7 @@ public final class SendReceiveServerCards extends BasicServer {
             if (Net.getGames(_instance).enCoursDePartie()) {
                 int noClient_ = playerActionBeforeGame_.getIndex();
                 _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of((( Ready)playerActionBeforeGame_).isReady()));
-                if (Net.allReady(_common)) {
+                if (_common.allReady()) {
                     Net.sendOkToQuit(_instance, _common);
                 }
                 return;
@@ -182,7 +182,7 @@ public final class SendReceiveServerCards extends BasicServer {
             int noClient_ = playerActionBeforeGame_.getIndex();
             _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of((( Ready)playerActionBeforeGame_).isReady()));
             for(AbstractSocket so_:_common.getSockets().values()) {
-                Net.sendText(so_,_input);
+                NetGroupFrame.trySendString(_input, so_);
             }
             return;
         }
@@ -191,7 +191,7 @@ public final class SendReceiveServerCards extends BasicServer {
         ||StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_PRESIDENT, tag_)
                 ||StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_TAROT, tag_)) {
             for(AbstractSocket so_:_common.getSockets().values()) {
-                Net.sendText(so_,_input);
+                NetGroupFrame.trySendString(_input, so_);
             }
             return;
         }
@@ -327,7 +327,7 @@ public final class SendReceiveServerCards extends BasicServer {
             game_.ajouterContrat(b_, bid_.getPlace());
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
-                Net.sendText(Net.getSocketByPlace(p, _common), _input);
+                NetGroupFrame.trySendString(_input, Net.getSocketByPlace(p, _common));
             }
             return;
         }
@@ -341,7 +341,7 @@ public final class SendReceiveServerCards extends BasicServer {
             if (!discarded_.isInHand()) {
                 game_.retirerUneCarteDuChien(discarded_.getCard());
                 game_.addCard(discarded_.getPlace(),discarded_.getCard());
-                Net.sendText(Net.getSocketByPlace(discarded_.getPlace(), _common), _input);
+                NetGroupFrame.trySendString(_input, Net.getSocketByPlace(discarded_.getPlace(), _common));
                 return;
             }
             ReasonDiscard reason_ = game_.autoriseEcartDe(discarded_.getCard());
@@ -353,7 +353,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 return;
             }
             game_.ajouterUneCarteDansPliEnCours(discarded_.getPlace(),discarded_.getCard());
-            Net.sendText(Net.getSocketByPlace(discarded_.getPlace(), _common), _input);
+            NetGroupFrame.trySendString(_input, Net.getSocketByPlace(discarded_.getPlace(), _common));
             return;
         }
         if (actionType_ == PlayerActionGameType.CALLED_CARD_KNOWN) {
@@ -441,7 +441,7 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
-                Net.sendText(Net.getSocketByPlace(p, _common), _input);
+                NetGroupFrame.trySendString(_input, Net.getSocketByPlace(p, _common));
             }
             return;
         }
@@ -1020,7 +1020,7 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
-                Net.sendText(Net.getSocketByPlace(p, _common), _input);
+                NetGroupFrame.trySendString(_input, Net.getSocketByPlace(p, _common));
             }
             return;
         }

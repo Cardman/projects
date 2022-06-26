@@ -95,7 +95,11 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     public AbstractSocketFactory getSocketFactory() {
         return getFrames().getSocketFactory();
     }
-
+    /**
+     Method allowing a client to send text by its socket
+     @param _socket The used socket (client) which is used for sending
+     @param _str the text to be sent
+     */
     public static boolean trySendString(String _str, AbstractSocket _socket) {
         if (_socket == null || _socket.isKo()) {
             return false;

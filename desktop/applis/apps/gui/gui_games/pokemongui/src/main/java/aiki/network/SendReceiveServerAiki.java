@@ -135,9 +135,9 @@ public final class SendReceiveServerAiki extends BasicServer {
             return;
         }
         if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_OK,tagName_)) {
-            if (NetAiki.allReady(_common)) {
+            if (_common.allReady()) {
                 for(AbstractSocket so_: _common.getSockets().values()){
-                    NetAiki.sendText(so_,_input);
+                    NetGroupFrame.trySendString(_input, so_);
                 }
                 for (int i: _common.getReadyPlayers().getKeys()) {
                     _common.getReadyPlayers().put(i, BoolVal.FALSE);

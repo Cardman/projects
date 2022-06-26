@@ -688,7 +688,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void dealNext() {
-        boolean allReady_ = Net.allReady(getOwner().getSockets());
+        boolean allReady_ = getOwner().getSockets().allReady();
         if (!allReady_) {
             return;
         }
@@ -750,7 +750,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void dealFirst() {
-        boolean allReady_ = Net.allReady(getOwner().getSockets());
+        boolean allReady_ = getOwner().getSockets().allReady();
         if (!allReady_) {
             return;
         }
