@@ -174,13 +174,9 @@ public enum CardBelote {
         return strength(Suit.UNDEFINED, getId().getCouleur());
     }
 
-    private byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
-        return (byte) (_couleurs.indexOfObj(getId().getCouleur())+1);
-    }
-
     public boolean vientAvant(CardBelote _c,boolean _decroissant,Order _ordre,EnumList<Suit> _couleurs) {
-        byte forceCouleur1_=forceCouleurDansUnTri(_couleurs);
-        byte forceCouleur2_=_c.forceCouleurDansUnTri(_couleurs);
+        byte forceCouleur1_= getId().forceCouleurDansUnTri(_couleurs);
+        byte forceCouleur2_= _c.getId().forceCouleurDansUnTri(_couleurs);
         byte forceValeur_=forceValeurDansUnTri(_decroissant,_ordre);
         byte forceValeur2_=_c.forceValeurDansUnTri(_decroissant,_ordre);
         return CouleurValeur.vientAvant(forceCouleur1_,forceValeur_,forceCouleur2_,forceValeur2_);

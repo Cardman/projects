@@ -1,5 +1,7 @@
 package cards.consts;
 
+import code.util.EnumList;
+
 public final class CouleurValeur {
     public static final int EXCUSE = 0;
     public static final int TRUMP_21 = 1;
@@ -159,6 +161,10 @@ public final class CouleurValeur {
 
     public int getNo() {
         return no;
+    }
+
+    public byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
+        return (byte) (_couleurs.indexOfObj(getCouleur())+1);
     }
 
     public Suit getCouleur() {

@@ -405,6 +405,12 @@ public final class CouleurValeurTest extends EquallableCardsUtil {
     }
 
     @Test
+    public void forceCouleurDansUnTri() {
+        CouleurValeur couleurValeur_ = new CouleurValeur(Suit.TRUMP, (byte) 21, CardChar.UNDEFINED, true);
+        assertEq(2, couleurValeur_.forceCouleurDansUnTri(Suit.toutesCouleurs()));
+    }
+
+    @Test
     public void vientAvant1() {
         assertTrue(CouleurValeur.vientAvant(1,0,2,0));
     }

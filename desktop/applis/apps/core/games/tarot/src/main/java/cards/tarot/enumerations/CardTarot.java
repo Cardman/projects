@@ -199,17 +199,13 @@ public enum CardTarot {
         return forceTri();
     }
 
-    private byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
-        return (byte) (_couleurs.indexOfObj(getId().getCouleur())+1);
-    }
-
     public CouleurValeur getId() {
         return id;
     }
 
     public boolean vientAvant(CardTarot _c, boolean _decroissant, EnumList<Suit> _couleurs) {
-        byte forceCouleur_=forceCouleurDansUnTri(_couleurs);
-        byte forceCouleur2_=_c.forceCouleurDansUnTri(_couleurs);
+        byte forceCouleur_= getId().forceCouleurDansUnTri(_couleurs);
+        byte forceCouleur2_= _c.getId().forceCouleurDansUnTri(_couleurs);
         byte forceValeur_=forceValeurDansUnTri(_decroissant);
         byte forceValeur2_=_c.forceValeurDansUnTri(_decroissant);
         return CouleurValeur.vientAvant(forceCouleur_,forceValeur_,forceCouleur2_,forceValeur2_);
