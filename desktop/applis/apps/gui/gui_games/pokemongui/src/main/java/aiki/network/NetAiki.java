@@ -19,8 +19,6 @@ public final class NetAiki {
 
     private IntMap<CheckCompatibility> checkCompatibility = new IntMap<CheckCompatibility>();
 
-    private IntMap<SendReceiveServerAiki> connectionsServer =new IntMap<SendReceiveServerAiki>();
-
     public static int getPort() {
         return PORT;
     }
@@ -80,13 +78,6 @@ public final class NetAiki {
     public static void sendObject(AbstractSocket _socket, CheckCompatibility _serializable) {
         NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.checkCompatibility(_serializable));
     }
-
-    /**server
-     * @param _instance*/
-    public static IntMap<SendReceiveServerAiki> getConnectionsServer(NetAiki _instance) {
-        return _instance.connectionsServer;
-    }
-
     /**server
      * @param _instance*/
     public static IntMap<CheckCompatibility> getCheckCompatibility(NetAiki _instance) {

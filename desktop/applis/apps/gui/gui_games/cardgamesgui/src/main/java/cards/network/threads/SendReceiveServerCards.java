@@ -91,7 +91,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 forcedBye_.setBusy(true);
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _instance, _common);
+                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
@@ -107,7 +107,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 ByeCards forcedBye_ = new ByeCards();
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _instance, _common);
+                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
@@ -120,7 +120,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 ByeCards forcedBye_ = new ByeCards();
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _instance, _common);
+                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
@@ -213,7 +213,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 Net.getGames(_instance).finirParties();
                 _common.getPlacesPlayers().clear();
                 _common.getSockets().clear();
-                Net.getConnectionsServer(_instance).clear();
+                _common.getConnectionsServer().clear();
                 _common.getReadyPlayers().clear();
                 return;
             }
@@ -224,7 +224,7 @@ public final class SendReceiveServerCards extends BasicServer {
             forcedBye_.setClosing(q_.isClosing());
             Ints placesPlayersByValue_ = Net.getPlacesPlayersByValue(q_.getPlace(), _common);
             if (!placesPlayersByValue_.isEmpty()) {
-                Net.removePlayer(placesPlayersByValue_.first(), forcedBye_, _instance, _common);
+                Net.removePlayer(placesPlayersByValue_.first(), forcedBye_, _common);
             }
 //            quitProcess((Quit) playerActionGame_, _instance,_fct);
             return;

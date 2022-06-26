@@ -12,6 +12,8 @@ public final class NetCommon {
 
     private final IntMap<String> nicknames =new IntMap<String>();
 
+    private final IntMap<BasicServer> connectionsServer =new IntMap<BasicServer>();
+
     public IntMap<AbstractSocket> getSockets() {
         return sockets;
     }
@@ -26,5 +28,9 @@ public final class NetCommon {
 
     public IntTreeMap<Byte> getPlacesPlayers() {
         return placesPlayers;
+    }
+
+    public IntMap<BasicServer> getConnectionsServer() {
+        return connectionsServer;
     }
 }

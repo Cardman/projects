@@ -1148,7 +1148,7 @@ public final class WindowAiki extends NetGroupFrame {
         getSockets().getSockets().put(getSockets().getSockets().size(), _newSocket);
         SendReceiveServerAiki sendReceiveServer_=new SendReceiveServerAiki(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
-        NetAiki.getConnectionsServer(getNet()).put(getSockets().getSockets().size()-1,sendReceiveServer_);
+        getSockets().getConnectionsServer().put(getSockets().getSockets().size()-1,sendReceiveServer_);
         IndexOfArrivingAiki index_ = new IndexOfArrivingAiki();
         index_.setIndex(getSockets().getSockets().size()-1);
         getSockets().getReadyPlayers().put(getSockets().getSockets().size()-1,false);

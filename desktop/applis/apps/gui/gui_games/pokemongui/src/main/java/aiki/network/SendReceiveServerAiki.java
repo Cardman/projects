@@ -52,7 +52,7 @@ public final class SendReceiveServerAiki extends BasicServer {
 //                Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
 //                Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
 //                Net.sendObject(socket_,forcedBye_);
-                removePlayer(newPlayer_.getIndex(), forcedBye_, _instance, _common);
+                removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
                 return;
             }
         }
@@ -69,7 +69,7 @@ public final class SendReceiveServerAiki extends BasicServer {
 //                Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
 //                Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
 //                Net.sendObject(socket_,forcedBye_);
-                removePlayer(newPlayer_.getIndex(), forcedBye_, _instance, _common);
+                removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
                 return;
             }
             if (newPlayer_.getIndex() == IndexConstants.SECOND_INDEX) {
@@ -105,7 +105,7 @@ public final class SendReceiveServerAiki extends BasicServer {
 //                    Net.getReadyPlayers().removeKey(CustList.SECOND_INDEX);
 //                    Net.getPlacesPlayers().removeKey(CustList.SECOND_INDEX);
 //                    Net.sendObject(socket_,forcedBye_);
-                    removePlayer(IndexConstants.SECOND_INDEX, forcedBye_, _instance, _common);
+                    removePlayer(IndexConstants.SECOND_INDEX, forcedBye_, _common);
                     return;
                 }
                 NetPokemon net_ = new NetPokemon();
@@ -152,7 +152,7 @@ public final class SendReceiveServerAiki extends BasicServer {
             forcedBye_.setTooManyPlayers(false);
             AbstractSocket socket_;
             socket_ = _common.getSockets().getVal((int) IndexConstants.FIRST_INDEX);
-            NetAiki.getConnectionsServer(_instance).removeKey((int) IndexConstants.FIRST_INDEX);
+            _common.getConnectionsServer().removeKey((int) IndexConstants.FIRST_INDEX);
             _common.getReadyPlayers().removeKey((int) IndexConstants.FIRST_INDEX);
             _common.getPlacesPlayers().removeKey((int) IndexConstants.FIRST_INDEX);
             if (bye_.getPlace() == IndexConstants.FIRST_INDEX) {
@@ -164,7 +164,7 @@ public final class SendReceiveServerAiki extends BasicServer {
                 NetAiki.sendObject(socket_,forcedBye_);
             }
             socket_ = _common.getSockets().getVal((int) IndexConstants.SECOND_INDEX);
-            NetAiki.getConnectionsServer(_instance).removeKey((int) IndexConstants.SECOND_INDEX);
+            _common.getConnectionsServer().removeKey((int) IndexConstants.SECOND_INDEX);
             _common.getReadyPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
             _common.getPlacesPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
             if (bye_.getPlace() == IndexConstants.SECOND_INDEX) {
@@ -179,10 +179,10 @@ public final class SendReceiveServerAiki extends BasicServer {
         }
     }
 
-    static void removePlayer(int _player, ByeAiki _bye, NetAiki _instance, NetCommon _common) {
+    static void removePlayer(int _player, ByeAiki _bye, NetCommon _common) {
         AbstractSocket socket_ = _common.getSockets().getVal(_player);
         _common.getSockets().removeKey(_player);
-        NetAiki.getConnectionsServer(_instance).removeKey(_player);
+        _common.getConnectionsServer().removeKey(_player);
         _common.getReadyPlayers().removeKey(_player);
         _common.getPlacesPlayers().removeKey(_player);
         NetAiki.sendObject(socket_,_bye);

@@ -774,7 +774,7 @@ public final class WindowCards extends NetGroupFrame {
         getSockets().getSockets().put(nb_, _newSocket);
         SendReceiveServerCards sendReceiveServer_=new SendReceiveServerCards(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
-        Net.getConnectionsServer(getNet()).put(nb_ ,sendReceiveServer_);
+        getSockets().getConnectionsServer().put(nb_ ,sendReceiveServer_);
         IndexOfArrivingCards index_ = new IndexOfArrivingCards();
         index_.setIndex(nb_);
         getSockets().getReadyPlayers().put(nb_ ,false);

@@ -26,6 +26,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private AbstractScheduledExecutorService server;
     private AbstractFuture task;
     private final NetCommon sockets = new NetCommon();
+    private BasicClient basicClient;
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -81,9 +82,14 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         if (_socket.isKo()) {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
         }
-        getThreadFactory().newStartedThread(new BasicClient(_socket, this));
+        basicClient = new BasicClient(_socket, this);
+        getThreadFactory().newStartedThread(getBasicClient());
         socket =  initIndexInGame(_first,_socket);
         return new SocketResults(_socket);
+    }
+
+    public BasicClient getBasicClient() {
+        return basicClient;
     }
 
     public AbstractSocketFactory getSocketFactory() {

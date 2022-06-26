@@ -56,8 +56,6 @@ public final class Net {
 
     private Games games = new Games();
 
-    private IntMap<SendReceiveServerCards> connectionsServer =new IntMap<SendReceiveServerCards>();
-
     private IntMap<String> playersLocales = new IntMap<String>();
 
     private CustList<Longs> scores = new CustList<Longs>();
@@ -376,19 +374,13 @@ public final class Net {
 //        return false;
 //    }
 
-    static void removePlayer(int _player, ByeCards _bye, Net _instance, NetCommon _common) {
+    static void removePlayer(int _player, ByeCards _bye, NetCommon _common) {
         AbstractSocket socket_ = _common.getSockets().getVal(_player);
         _common.getSockets().removeKey(_player);
-        Net.getConnectionsServer(_instance).removeKey(_player);
+        _common.getConnectionsServer().removeKey(_player);
         _common.getReadyPlayers().removeKey(_player);
         _common.getPlacesPlayers().removeKey(_player);
         Net.sendObject(socket_,_bye);
-    }
-
-    /**server
-     * @param _instance*/
-    public static IntMap<SendReceiveServerCards> getConnectionsServer(Net _instance) {
-        return _instance.connectionsServer;
     }
 
     /**server
