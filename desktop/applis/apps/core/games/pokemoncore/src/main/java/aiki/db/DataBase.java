@@ -562,6 +562,9 @@ public class DataBase {
                     Statistic.SPECIAL_ATTACK), false);
         }
         for (EntryCust<String, MoveData> m : getMoves().entryList()) {
+            if (StringUtil.quickEq(m.getKey(),getDefaultMove())) {
+                continue;
+            }
             MoveData move_ = m.getValue();
             int primaryEffect_ = move_.indexOfPrimaryEffect();
             if (!(move_ instanceof DamagingMoveData)) {

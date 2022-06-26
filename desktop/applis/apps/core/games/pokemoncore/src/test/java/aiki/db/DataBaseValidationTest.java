@@ -23,9 +23,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Place;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsList;
-import aiki.map.util.TileMiniMap;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.DefaultGenerator;
@@ -1148,6 +1146,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("50");
@@ -1165,6 +1171,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("50");
@@ -1183,6 +1197,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("30");
@@ -1211,6 +1233,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("50");
@@ -1239,6 +1269,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("50");
@@ -1268,6 +1306,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("50");
@@ -1285,6 +1331,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1302,6 +1356,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1321,6 +1383,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1340,6 +1410,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1359,6 +1437,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1381,6 +1467,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1399,6 +1493,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1417,6 +1519,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1436,6 +1546,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1455,6 +1573,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1474,6 +1600,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1493,6 +1627,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
@@ -1512,6 +1654,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
         StatusMoveData move_ = Instances.newStatusMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
