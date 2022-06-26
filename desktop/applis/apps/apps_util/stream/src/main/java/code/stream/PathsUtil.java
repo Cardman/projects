@@ -1,17 +1,21 @@
 package code.stream;
 
 
+import code.util.core.StringUtil;
+
 public final class PathsUtil {
     private PathsUtil() {
     }
-    public static FileListInfo abs(AbstractFileCoreStream _fac,String _parent,String[] _children) {
-        if (_children == null) {
+    public static FileListInfo abs(AbstractFile _current, AbstractFileCoreStream _fac) {
+        String[] list_ = _current.list();
+        if (list_ == null) {
             return new FileListInfo(null);
         }
-        int length_ = _children.length;
+        String parent_ = StringUtil.replaceBackSlashDot(_current.getAbsolutePath());
+        int length_ = list_.length;
         AbstractFile[] res_ = new AbstractFile[length_];
         for (int i = 0; i < length_; i++) {
-            set(res_,i,_fac.newFile(_parent+_children[i]));
+            set(res_,i,_fac.newFile(parent_+list_[i]));
         }
         return new FileListInfo(res_);
     }

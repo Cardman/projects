@@ -3,8 +3,7 @@ package code.stream;
 public interface AbstractFile {
     String getName();
     String getAbsolutePath();
-
-    FileListInfo listAbsolute(AbstractFileCoreStream _fac);
+    String[] list();
 
     boolean isDirectory();
 

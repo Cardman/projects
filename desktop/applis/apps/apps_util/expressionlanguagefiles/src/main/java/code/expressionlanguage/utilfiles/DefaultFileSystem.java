@@ -197,7 +197,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     public StringList getFiles(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
         AbstractFile info_ = fileCoreStream.newFile(file_);
-        FileListInfo files_ = info_.listAbsolute(fileCoreStream);
+        FileListInfo files_ = PathsUtil.abs(info_,fileCoreStream);
         if (files_.isNul()) {
             return null;
         }
@@ -219,7 +219,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     public StringList getFolders(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
         AbstractFile info_ = fileCoreStream.newFile(file_);
-        FileListInfo files_ = info_.listAbsolute(fileCoreStream);
+        FileListInfo files_ = PathsUtil.abs(info_,fileCoreStream);
         if (files_.isNul()) {
             return null;
         }

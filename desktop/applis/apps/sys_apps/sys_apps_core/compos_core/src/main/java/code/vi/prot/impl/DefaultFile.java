@@ -1,9 +1,6 @@
 package code.vi.prot.impl;
 
 import code.stream.AbstractFile;
-import code.stream.AbstractFileCoreStream;
-import code.stream.FileListInfo;
-import code.stream.PathsUtil;
 import code.util.core.StringUtil;
 
 import java.io.File;
@@ -30,8 +27,8 @@ public final class DefaultFile implements AbstractFile {
     }
 
     @Override
-    public FileListInfo listAbsolute(AbstractFileCoreStream _fac) {
-        return PathsUtil.abs(_fac,StringUtil.replaceBackSlashDot(file.getAbsolutePath()), file.list());
+    public String[] list() {
+        return file.list();
     }
 
     @Override

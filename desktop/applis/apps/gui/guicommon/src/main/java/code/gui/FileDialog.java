@@ -13,10 +13,7 @@ import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
-import code.stream.AbstractFile;
-import code.stream.FileListInfo;
-import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
+import code.stream.*;
 import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
 import code.util.StringList;
@@ -179,7 +176,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
         if (currentFolderRoot) {
             AbstractMutableTreeNode default_ = superFrame.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
-            FileListInfo files_ = superFrame.getFileCoreStream().newFile(currentFolder).listAbsolute(superFrame.getFileCoreStream());
+            FileListInfo files_ = PathsUtil.abs(superFrame.getFileCoreStream().newFile(currentFolder),superFrame.getFileCoreStream());
             CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(files_.getNames());
             currentFiles_.sortElts(new FileNameComparator());
             CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
@@ -238,7 +235,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
             return;
         }
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
-        FileListInfo filesArray_ = currentFolder_.listAbsolute(superFrame.getFileCoreStream());
+        FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,superFrame.getFileCoreStream());
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
         for (AbstractFile l: currentFiles_) {
@@ -266,7 +263,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         }
         folderSystem.removeAllChildren();
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
-        FileListInfo filesArray_ = currentFolder_.listAbsolute(superFrame.getFileCoreStream());
+        FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,superFrame.getFileCoreStream());
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
         refreshList(files_, currentFiles_);

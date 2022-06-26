@@ -17,7 +17,7 @@ public final class FileInfo {
 
     public FileInfo(AbstractFile _info,AbstractFileCoreStream _fact) {
         info = _info;
-        FileListInfo files_ = info.listAbsolute(_fact);
+        FileListInfo files_ = PathsUtil.abs(info,_fact);
         if (!files_.isNul()) {
             children = new CustList<AbstractFile>(files_.getNames());
             children.sortElts(new FileNameComparator());

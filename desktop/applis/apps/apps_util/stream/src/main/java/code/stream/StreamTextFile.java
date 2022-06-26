@@ -80,7 +80,7 @@ public final class StreamTextFile {
         while (true) {
             StringList new_ = new StringList();
             for (String c : current_) {
-                FileListInfo filesFolder_ = _fact.newFile(c).listAbsolute(_fact);
+                FileListInfo filesFolder_ = PathsUtil.abs(_fact.newFile(c),_fact);
                 for (AbstractFile f : filesFolder_.getNames()) {
                     new_.add(f.getAbsolutePath());
                     files_.add(f.getAbsolutePath());

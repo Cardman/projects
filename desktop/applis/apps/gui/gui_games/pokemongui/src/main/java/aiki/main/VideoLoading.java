@@ -10,10 +10,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.scripts.messages.gui.MessPkVideoGr;
-import code.stream.AbstractFile;
-import code.stream.AbstractFileCoreStream;
-import code.stream.FileListInfo;
-import code.stream.StreamBinaryFile;
+import code.stream.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.core.IndexConstants;
@@ -33,11 +30,11 @@ public final class VideoLoading {
         if (!initialized) {
             String path_ = VIDEO;
             AbstractFile file_ = _list.newFile(path_);
-            FileListInfo filesLists_ = file_.listAbsolute(_list);
+            FileListInfo filesLists_ = PathsUtil.abs(file_,_list);
             if (!filesLists_.isNul()) {
                 for (AbstractFile folder_: filesLists_.getNames()) {
                     CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
-                    FileListInfo files_ = folder_.listAbsolute(_list);
+                    FileListInfo files_ = PathsUtil.abs(folder_,_list);
                     if (files_.isNul()) {
                         continue;
                     }

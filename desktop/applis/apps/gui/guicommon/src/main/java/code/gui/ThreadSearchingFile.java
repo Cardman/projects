@@ -1,6 +1,7 @@
 package code.gui;
 
 import code.stream.AbstractFile;
+import code.stream.PathsUtil;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -50,7 +51,7 @@ public final class ThreadSearchingFile implements Runnable {
     }
     boolean keep(CustList<AbstractFile> _current,CustList<AbstractFile> _next, FileCount _fc) {
         for (AbstractFile d: _current) {
-            for (AbstractFile f: d.listAbsolute(dialog.getSuperFrame().getFileCoreStream()).getNames()) {
+            for (AbstractFile f: PathsUtil.abs(d,dialog.getSuperFrame().getFileCoreStream()).getNames()) {
                 if (!dialog.isKeepSearching()) {
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, false, results_));
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, false, results_, backup_));
