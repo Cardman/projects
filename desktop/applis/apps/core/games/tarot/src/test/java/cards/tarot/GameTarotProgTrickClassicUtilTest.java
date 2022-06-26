@@ -4,7 +4,6 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 import org.junit.Test;
 
@@ -1665,12 +1664,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         assertSame(CardTarot.EXCUSE,GameTarotProgTrickClassic.tryPlayExcuse(false,hand_));
     }
     private static void addCard(EnumMap<Suit, CustList<HandTarot>> _poss, int _p, CardTarot _c) {
-        HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
+        HandTarot h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
         if (h_.contient(_c)) {
             return;
         }
         h_.ajouter(_c);
-        h_.trierParForceEnCours(_c.couleur());
+        h_.trierParForceEnCours(_c.getId().getCouleur());
     }
     private static EnumMap<Suit,CustList<HandTarot>> generate(int _nbPlayer) {
         EnumMap<Suit,CustList<HandTarot>> e_ = new EnumMap<Suit,CustList<HandTarot>>();

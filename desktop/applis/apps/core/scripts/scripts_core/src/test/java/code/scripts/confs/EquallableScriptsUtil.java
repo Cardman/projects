@@ -5,10 +5,6 @@ import org.junit.Assert;
 
 public abstract class EquallableScriptsUtil {
 
-    public static void assertNotNullStr(StringMap<StringMap<String>> _value) {
-        Assert.assertNotNull(_value);
-    }
-
     public static void assertNotNull(StringMap<String> _value) {
         Assert.assertNotNull(_value);
     }

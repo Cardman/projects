@@ -211,7 +211,7 @@ public final class Games {
             if (!main_.estVide()) {
                 total_ += main_.total();
                 for (CardTarot c: main_) {
-                    if (c.getNomFigure() == CardChar.KING) {
+                    if (c.getId().getNomFigure() == CardChar.KING) {
                         rois_++;
                     }
                 }
@@ -224,10 +224,10 @@ public final class Games {
             if(_c.estUnBout()) {
                 m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
             }
-            if(_c.couleur() == Suit.TRUMP && !_c.estUnBout()) {
+            if(_c.getId().getCouleur() == Suit.TRUMP && !_c.estUnBout()) {
                 m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
             }
-            if(_c.getNomFigure() == CardChar.KING) {
+            if(_c.getId().getNomFigure() == CardChar.KING) {
                 m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
             }
             return m_;
@@ -235,10 +235,10 @@ public final class Games {
             if(_c.estUnBout()) {
                 m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
             }
-            if(_c.couleur() == Suit.TRUMP) {
+            if(_c.getId().getCouleur() == Suit.TRUMP) {
                 m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
             }
-            if(_c.getNomFigure() == CardChar.KING) {
+            if(_c.getId().getNomFigure() == CardChar.KING) {
                 m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
             }
         }
@@ -442,23 +442,23 @@ public final class Games {
         return StringUtil.join(retString_, SEPARATOR);
     }
     public static String getSymbol(CardTarot _c,String _loc) {
-        if (_c.getNomFigure() != CardChar.UNDEFINED) {
-            return getSymbol(_c.getNomFigure(),_loc);
+        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
+            return getSymbol(_c.getId().getNomFigure(),_loc);
         }
         return Long.toString(_c.getForce());
     }
 
     public static String getSymbol(CardBelote _c, String _loc) {
-        if (_c.getNomFigure() != CardChar.UNDEFINED) {
-            return getSymbol(_c.getNomFigure(),_loc);
+        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
+            return getSymbol(_c.getId().getNomFigure(),_loc);
         }
-        return Long.toString(_c.valeur());
+        return Long.toString(_c.getId().getValeur());
     }
     public static String getSymbol(CardPresident _c, String _loc) {
-        if (_c.getNomFigure() != CardChar.UNDEFINED) {
-            return getSymbol(_c.getNomFigure(),_loc);
+        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
+            return getSymbol(_c.getId().getNomFigure(),_loc);
         }
-        return Long.toString(_c.valeur());
+        return Long.toString(_c.getId().getValeur());
     }
     public static String getSymbol(CardChar _c,String _loc) {
         return getConstanteLangue(symbolChars(_loc), CoreResourcesAccess.CHARS, _c.name());

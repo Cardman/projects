@@ -349,7 +349,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setSuit(deal_.derniereMain().premiereCarte().couleur());
+        bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         bid_.setEnchere(BidBelote.SUIT);
         game_.ajouterContrat(bid_, (byte) first_);
         assertTrue(!game_.completedDeal());

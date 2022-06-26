@@ -9,7 +9,6 @@ import cards.tarot.enumerations.Miseres;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import org.junit.Test;
 
 public final class GameTarotTrickInfoTest extends CommonGameTarot {
@@ -5700,7 +5699,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
     private static EnumMap<Suit,CustList<HandTarot>> fact(GameTarotTrickInfo _info, HandTarot _current) {
         EnumMap<Suit,CustList<HandTarot>> m = new EnumMap<Suit,CustList<HandTarot>>();
         CustList<HandTarot> possibleExcuse_ = _info.excusePossibleRegles(_current);
-        m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
+        m.put(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
         m.put(Suit.TRUMP,_info.atoutsPossiblesRegles(
                 _current));
         for (Suit couleur_ : Suit.couleursOrdinaires()) {

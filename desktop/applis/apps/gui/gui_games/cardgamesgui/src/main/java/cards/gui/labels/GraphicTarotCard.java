@@ -35,7 +35,7 @@ public final class GraphicTarotCard extends AbsMetaLabel {
         peindreCarte=true;
         card=_pc;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
+                StringUtil.concatNb(card.getId().getNo(), FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
@@ -74,7 +74,7 @@ public final class GraphicTarotCard extends AbsMetaLabel {
         peinte=false;
         peindreCarte=true;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
+                StringUtil.concatNb(card.getId().getNo(), FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);

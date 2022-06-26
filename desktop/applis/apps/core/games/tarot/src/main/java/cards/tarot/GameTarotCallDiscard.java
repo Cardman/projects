@@ -193,7 +193,7 @@ public final class GameTarotCallDiscard {
         HandTarot cartesPseudosMaitres_ = new HandTarot();
         EnumList<Suit> couleursAppelees_ = new EnumList<Suit>();
         for(CardTarot c: _carteAppelee) {
-            couleursAppelees_.add(c.couleur());
+            couleursAppelees_.add(c.getId().getCouleur());
         }
         couleursAppelees_.removeDuplicates();
         HandTarot carteAppelee_ = new HandTarot();
@@ -411,7 +411,7 @@ public final class GameTarotCallDiscard {
             if (!main_.estVide()) {
                 total_ += main_.total();
                 for (CardTarot c: main_) {
-                    if (c.getNomFigure() == CardChar.KING) {
+                    if (c.getId().getNomFigure() == CardChar.KING) {
                         rois_++;
                         continue;
                     }
@@ -482,7 +482,7 @@ public final class GameTarotCallDiscard {
             HandTarot couleurTotale_ = HandTarot.couleurComplete(couleur_);
             couleurTotale_.trierParForceEnCours(couleur_);
             if (!_carteAppelee.estVide()) {
-                if (_carteAppelee.premiereCarte().couleur() == couleur_) {
+                if (_carteAppelee.premiereCarte().getId().getCouleur() == couleur_) {
                     for (CardTarot carte_ : GameTarotCommon.inter(couleurTotale_,_curHand)) {
                         if (!_cartesPseudosMaitres.contient(carte_)) {
                             cartesNonMaitresses_.ajouter(carte_);

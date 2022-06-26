@@ -30,14 +30,14 @@ public final class GameStrengthGreatHandBeloteComparator implements Comparing<Su
         for (int k = IndexConstants.FIRST_INDEX; k < min_; k++) {
             CardBelote carte1_ = main1_.carte(k);
             CardBelote carte2_ = main2_.carte(k);
-            if (carte1_.strength(carte1_.couleur(),bid) < carte2_
-                    .strength(carte2_.couleur(),bid)) {
+            if (carte1_.strength(carte1_.getId().getCouleur(),bid) < carte2_
+                    .strength(carte2_.getId().getCouleur(),bid)) {
                 permuter_ = true;
                 aussiHaut_ = false;
                 break;
             }
-            if (carte1_.strength(carte1_.couleur(),bid) > carte2_
-                    .strength(carte2_.couleur(),bid)) {
+            if (carte1_.strength(carte1_.getId().getCouleur(),bid) > carte2_
+                    .strength(carte2_.getId().getCouleur(),bid)) {
                 aussiHaut_ = false;
             }
         }

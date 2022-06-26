@@ -34,7 +34,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         BidBeloteSuit b_ = new BidBeloteSuit();
-        b_.setSuit(deal_.derniereMain().premiereCarte().couleur());
+        b_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         b_.setEnchere(BidBelote.SUIT);
         game_.setContrat(b_);
         game_.bidSimulate(game_.playerHavingToBid(),s_);
@@ -113,7 +113,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
-        bid_.setSuit(deal_.derniereMain().premiereCarte().couleur());
+        bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
         Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         boolean en_ = game_.bidRoundSimulate(players_, s_);
@@ -151,7 +151,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
-        bid_.setSuit(deal_.derniereMain().premiereCarte().couleur());
+        bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
@@ -188,7 +188,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
-        bid_.setSuit(deal_.derniereMain().premiereCarte().couleur());
+        bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
         game_.simuPlayCards(s_);
         assertTrue(!game_.isEnded());

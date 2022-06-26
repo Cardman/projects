@@ -83,7 +83,7 @@ public final class CheckerGameBeloteWithRules {
             }
         }
         for (CardBelote e : cards_) {
-            if (!e.isPlayable()) {
+            if (!e.getId().isJouable()) {
                 _loadedGame.setError(BAD_CARD);
                 return;
             }

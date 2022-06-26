@@ -34,7 +34,7 @@ public final class HandPresident implements Iterable<CardPresident> {
     public static HandPresident pileBase() {
         HandPresident liste_ = new HandPresident();
         for(CardPresident carte_: CardPresident.values()) {
-            if(!carte_.isPlayable()) {
+            if(!carte_.getId().isJouable()) {
                 continue;
             }
             liste_.ajouter(carte_);

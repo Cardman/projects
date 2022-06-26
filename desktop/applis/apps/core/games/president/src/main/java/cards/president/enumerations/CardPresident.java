@@ -1,8 +1,8 @@
 package cards.president.enumerations;
 import cards.consts.CardChar;
+import cards.consts.CouleurValeur;
 import cards.consts.Suit;
 import code.util.EnumList;
-import code.util.core.StringUtil;
 
 public enum CardPresident {
     WHITE,
@@ -59,42 +59,28 @@ public enum CardPresident {
     CLUB_4(4,Suit.CLUB, 2),
     CLUB_3(3,Suit.CLUB, 1);
 
-    /**Numero de couleur de la carte (0: Excuse Tarot,1: Atout Tarot,2: Coeur,3: Pique,4: Carreau,5: Tr&egrave;fle)*/
-    private final Suit suit;
-    /**Numero de valeur de la carte (Numeros pour les atouts du tarot, et pour les cartes chiffrees, position pour les figures avec Roi, Dame, Cavalier, Valet)*/
-    private final byte valeur;
-    private final CardChar nomFigure;
     private final byte force;
-    private final boolean jouable;
+    private final CouleurValeur id;
 
     CardPresident() {
-        suit = Suit.UNDEFINED;
-        valeur = 0;
-        nomFigure = CardChar.UNDEFINED;
-        jouable = false;
         force = 0;
+        id = new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.UNDEFINED,false);
     }
 
     CardPresident(int _value, Suit _suit, int _strength) {
-        suit = _suit;
-        valeur = (byte) _value;
-        nomFigure = CardChar.UNDEFINED;
-        jouable = true;
         force = (byte) _strength;
+        id = new CouleurValeur(_suit,(byte)_value,CardChar.UNDEFINED,true);
     }
 
     CardPresident(CardChar _char, Suit _suit, int _strength) {
-        suit = _suit;
-        valeur = 0;
-        nomFigure = _char;
-        jouable = true;
         force = (byte) _strength;
+        id = new CouleurValeur(_suit,(byte)0,_char,true);
     }
 
     public static byte getMaxStrength(boolean _reverse) {
         byte max_ = 0;
         for (CardPresident c: values()) {
-            if (!c.jouable) {
+            if (!c.id.isJouable()) {
                 continue;
             }
             byte s_ = c.strength(_reverse);
@@ -110,17 +96,11 @@ public enum CardPresident {
         byte forceCouleur2_=_c.forceCouleurDansUnTri(_couleurs);
         byte forceValeur_=forceValeurDansUnTri(_decroissant);
         byte forceValeur2_=_c.forceValeurDansUnTri(_decroissant);
-        if(forceValeur_<forceValeur2_) {
-            return true;
-        }
-        if(forceValeur_==forceValeur2_) {
-            return forceCouleur1_<forceCouleur2_;
-        }
-        return false;
+        return CouleurValeur.vientAvant(forceCouleur1_,forceValeur_,forceCouleur2_,forceValeur2_);
     }
 
     private byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
-        return (byte) (_couleurs.indexOfObj(couleur())+1);
+        return (byte) (_couleurs.indexOfObj(getId().getCouleur())+1);
     }
 
     public byte forceValeurDansUnTri(boolean _decroissant) {
@@ -140,22 +120,9 @@ public enum CardPresident {
         }
         return (byte) (14 - force);
     }
-    public boolean isPlayable() {
-        return jouable;
-    }
-    public CardChar getNomFigure() {
-        return nomFigure;
-    }
 
-    public Suit couleur() {
-        return suit;
-    }
-    public byte valeur() {
-        return valeur;
-    }
-
-    public String getImageFileName(String _ext) {
-        return StringUtil.concat(name(),_ext);
+    public CouleurValeur getId() {
+        return id;
     }
 
 }

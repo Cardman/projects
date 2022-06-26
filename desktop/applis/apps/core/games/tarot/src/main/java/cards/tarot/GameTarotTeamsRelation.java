@@ -175,7 +175,7 @@ public final class GameTarotTeamsRelation {
         for(CardTarot c: _calledCards) {
             boolean trouve_ = false;
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
-                if (_cartesCertaines.getVal(c.couleur())
+                if (_cartesCertaines.getVal(c.getId().getCouleur())
                         .get(joueur_).contient(c)) {
                     trouve_ = true;
                     break;

@@ -35,10 +35,10 @@ public final class GameStrengthCardTarotComparator implements Comparing<CardTaro
             mult_ = -1;
         }
         if(demandedSuit == Suit.UNDEFINED) {
-            if(_o1.strength(_o1.couleur()) > _o2.strength(_o2.couleur())){
+            if(_o1.strength(_o1.getId().getCouleur()) > _o2.strength(_o2.getId().getCouleur())){
                 return mult_;
             }
-            if(_o1.strength(_o1.couleur()) < _o2.strength(_o2.couleur())){
+            if(_o1.strength(_o1.getId().getCouleur()) < _o2.strength(_o2.getId().getCouleur())){
                 return -mult_;
             }
             return SortConstants.EQ_CMP;

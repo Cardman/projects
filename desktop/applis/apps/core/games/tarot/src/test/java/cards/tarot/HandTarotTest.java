@@ -1,5 +1,6 @@
 package cards.tarot;
 import code.util.CustList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import cards.consts.Suit;
@@ -19,7 +20,7 @@ public class HandTarotTest extends EquallableTarotUtil {
         assertNotNull(Handfuls.getConfigurationParDefautAnnoncePoignee(Handfuls.NO));
         assertNotNull(Handfuls.getNonDeclarableHandFuls());
         assertNotNull(Handfuls.getDeclarableHandFuls());
-        assertNotNull(CardTarot.EXCUSE.getImageFileName(""));
+        assertNotNull(StringUtil.concatNb(CardTarot.EXCUSE.getId().getNo(), ""));
         EnumList<CardTarot> one_ = new EnumList<CardTarot>();
         one_.add(CardTarot.EXCUSE);
         EnumList<CardTarot> two_ = new EnumList<CardTarot>();
@@ -471,7 +472,7 @@ public class HandTarotTest extends EquallableTarotUtil {
         assertEq(hash_.getVal(Suit.SPADE), res_.getVal(Suit.SPADE));
         assertEq(hash_.getVal(Suit.CLUB), res_.getVal(Suit.CLUB));
         assertEq(hash_.getVal(Suit.TRUMP), res_.getVal(Suit.TRUMP));
-        assertEq(hash_.getVal(CardTarot.EXCUSE.couleur()), res_.getVal(CardTarot.EXCUSE.couleur()));
+        assertEq(hash_.getVal(CardTarot.EXCUSE.getId().getCouleur()), res_.getVal(CardTarot.EXCUSE.getId().getCouleur()));
     }
     @Test
     public void eclaterDebutPartie1(){

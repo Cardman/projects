@@ -168,6 +168,11 @@
 !/desktop/applis/apps/core/pom.xml
 !/desktop/applis/apps/core/scripts/
 !/desktop/applis/apps/core/scripts/pom.xml
+!/desktop/applis/apps/core/scripts/scripts_cards/
+!/desktop/applis/apps/core/scripts/scripts_cards/pom.xml
+!/desktop/applis/apps/core/scripts/scripts_cards/src/
+!/desktop/applis/apps/core/scripts/scripts_cards/src/**/
+!/desktop/applis/apps/core/scripts/scripts_cards/src/**/*.java
 !/desktop/applis/apps/core/scripts/scripts_core/
 !/desktop/applis/apps/core/scripts/scripts_core/pom.xml
 !/desktop/applis/apps/core/scripts/scripts_core/src/

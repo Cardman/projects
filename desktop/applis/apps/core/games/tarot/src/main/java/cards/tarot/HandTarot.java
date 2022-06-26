@@ -28,7 +28,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public static HandTarot pileBase() {
         HandTarot liste_ = new HandTarot();
         for(CardTarot carte_: CardTarot.values()) {
-            if(!carte_.isPlayable()) {
+            if(!carte_.getId().isJouable()) {
                 continue;
             }
             liste_.ajouter(carte_);
@@ -38,7 +38,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public static HandTarot atoutsSansExcuse() {
         HandTarot liste_ = new HandTarot();
         for(CardTarot carte_: pileBase()) {
-            if(carte_.couleur() != Suit.TRUMP) {
+            if(carte_.getId().getCouleur() != Suit.TRUMP) {
                 continue;
             }
             liste_.ajouter(carte_);
@@ -55,7 +55,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public static HandTarot couleurComplete(Suit _couleur) {
         HandTarot liste_ = new HandTarot();
         for(CardTarot carte_: pileBase()) {
-            if(carte_.couleur() != _couleur) {
+            if(carte_.getId().getCouleur() != _couleur) {
                 continue;
             }
             liste_.ajouter(carte_);
@@ -76,7 +76,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     static HandTarot cartesCouleurs() {
         HandTarot liste_ = new HandTarot();
         for(CardTarot carte_: pileBase()) {
-            if(carte_.couleur() == Suit.TRUMP) {
+            if(carte_.getId().getCouleur() == Suit.TRUMP) {
                 continue;
             }
             if(CardTarot.eq(carte_, CardTarot.excuse())) {
@@ -90,7 +90,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     static HandTarot charCards(CardChar _figure) {
         HandTarot main_ = new HandTarot();
         for (CardTarot carte_ : pileBase()) {
-            if(carte_.getNomFigure() != _figure) {
+            if(carte_.getId().getNomFigure() != _figure) {
                 continue;
             }
             main_.ajouter(carte_);
@@ -101,7 +101,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     static HandTarot figuresMain(EnumMap<Suit,HandTarot> _repartition, CardChar _figure) {
         HandTarot main_ = new HandTarot();
         for (CardTarot carte_ : charCards(_figure)) {
-            if (_repartition.getVal(carte_.couleur()).contient(carte_)) {
+            if (_repartition.getVal(carte_.getId().getCouleur()).contient(carte_)) {
                 main_.ajouter(carte_);
             }
         }
@@ -111,7 +111,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     static HandTarot figureCouleur(Suit _couleur, CardChar _figure) {
         HandTarot main_ = new HandTarot();
         for(CardTarot carte_: couleurComplete(_couleur)) {
-            if(carte_.getNomFigure() != _figure) {
+            if(carte_.getId().getNomFigure() != _figure) {
                 continue;
             }
             main_.ajouter(carte_);
@@ -120,7 +120,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     }
 
     static HandTarot atoutsAuDessusDe(CardTarot _carte) {
-        Suit couleur_ = _carte.couleur();
+        Suit couleur_ = _carte.getId().getCouleur();
         HandTarot main_ = new HandTarot();
         for(CardTarot carte_: atoutsSansExcuse()) {
             if(carte_.strength(couleur_) < _carte.strength(couleur_)) {
@@ -133,7 +133,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     }
 
     static HandTarot cartesCouleursAuDessusDe(CardTarot _carte) {
-        Suit couleur_ = _carte.couleur();
+        Suit couleur_ = _carte.getId().getCouleur();
         HandTarot main_ = new HandTarot();
         for(CardTarot carte_: couleurComplete(couleur_)) {
             if(carte_.strength(couleur_) < _carte.strength(couleur_)) {
@@ -264,7 +264,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public int tailleCouleur(Suit _couleur) {
         int taille_=0;
         for(CardTarot c:cards) {
-            if(c.couleur()==_couleur) {
+            if(c.getId().getCouleur() ==_couleur) {
                 taille_++;
             }
         }
@@ -285,7 +285,7 @@ public final class HandTarot implements Iterable<CardTarot> {
         for(Suit couleur_: _couleurs) {
             HandTarot mainCouleur_ = new HandTarot();
             for(CardTarot carte_: cards) {
-                if(carte_.couleur() == couleur_) {
+                if(carte_.getId().getCouleur() == couleur_) {
                     mainCouleur_.ajouter(carte_);
                 }
             }
@@ -341,7 +341,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public int tailleRois() {
         int taille_=0;
         for(CardTarot c:cards) {
-            if(c.getNomFigure() == CardChar.KING) {
+            if(c.getId().getNomFigure() == CardChar.KING) {
                 taille_++;
             }
         }
@@ -350,7 +350,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public int tailleDames() {
         int taille_=0;
         for(CardTarot c:cards) {
-            if(c.getNomFigure() == CardChar.QUEEN) {
+            if(c.getId().getNomFigure() == CardChar.QUEEN) {
                 taille_++;
             }
         }
@@ -359,7 +359,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public int tailleCavaliers() {
         int taille_=0;
         for(CardTarot c:cards) {
-            if(c.getNomFigure() == CardChar.KNIGHT) {
+            if(c.getId().getNomFigure() == CardChar.KNIGHT) {
                 taille_++;
             }
         }
@@ -368,7 +368,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public int tailleValets() {
         int taille_=0;
         for(CardTarot c:cards) {
-            if(c.getNomFigure() == CardChar.JACK) {
+            if(c.getId().getNomFigure() == CardChar.JACK) {
                 taille_++;
             }
         }
@@ -378,7 +378,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public int nombreDeFigures(Suit _couleur) {
         int nb_= IndexConstants.SIZE_EMPTY;
         for(CardTarot c: cards) {
-            if(c.isCharacter()&&c.couleur()==_couleur) {
+            if(c.isCharacter()&& c.getId().getCouleur() ==_couleur) {
                 nb_++;
             }
         }
@@ -388,13 +388,13 @@ public final class HandTarot implements Iterable<CardTarot> {
         if(estVide()) {
             return new CustList<HandTarot>();
         }
-        return eclaterEnCours(new HandTarot().couleurs(), premiereCarte().couleur());
+        return eclaterEnCours(new HandTarot().couleurs(), premiereCarte().getId().getCouleur());
     }
     public EnumMap<Suit,CustList<HandTarot>> eclaterToutEnCours(EnumMap<Suit, HandTarot> _cartesJouees) {
         EnumMap<Suit,CustList<HandTarot>> suitesTouteCouleur_ = new EnumMap<Suit,CustList<HandTarot>>();
         EnumMap<Suit,HandTarot> repartition_ = couleurs();
-        suitesTouteCouleur_.put(CardTarot.EXCUSE.couleur(),repartition_.getVal(CardTarot.excuse().couleur()).eclaterEnCours(
-                _cartesJouees, CardTarot.EXCUSE.couleur()));
+        suitesTouteCouleur_.put(CardTarot.EXCUSE.getId().getCouleur(),repartition_.getVal(CardTarot.excuse().getId().getCouleur()).eclaterEnCours(
+                _cartesJouees, CardTarot.EXCUSE.getId().getCouleur()));
         suitesTouteCouleur_.put(Suit.TRUMP,repartition_.getVal(Suit.TRUMP).eclaterEnCours(
                 _cartesJouees, Suit.TRUMP));
         for (Suit i : Suit.couleursOrdinaires()) {
@@ -411,9 +411,9 @@ public final class HandTarot implements Iterable<CardTarot> {
             return new CustList<HandTarot>();
         }
         CustList<HandTarot> suites_=new CustList<HandTarot>();
-        Suit couleur_=premiereCarte().couleur();
+        Suit couleur_= premiereCarte().getId().getCouleur();
         boolean ajouterVec_ = true;
-        if(couleur_ == CardTarot.excuse().couleur()) {
+        if(couleur_ == CardTarot.excuse().getId().getCouleur()) {
             suites_.add(new HandTarot());
             suites_.last().ajouter(CardTarot.excuse());
         }else if(couleur_ == Suit.TRUMP) {
@@ -504,7 +504,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public HandTarot charCardsBySuit(Suit _couleur) {
         HandTarot m=new HandTarot();
         for(CardTarot carte_:cards) {
-            if(carte_.couleur()==_couleur&&carte_.isCharacter()) {
+            if(carte_.getId().getCouleur() ==_couleur&&carte_.isCharacter()) {
                 m.ajouter(carte_);
             }
         }
@@ -513,7 +513,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public HandTarot cartesBasses(Suit _couleur) {
         HandTarot m=new HandTarot();
         for(CardTarot carte_:cards) {
-            if(carte_.couleur()==_couleur&&!carte_.isCharacter()) {
+            if(carte_.getId().getCouleur() ==_couleur&&!carte_.isCharacter()) {
                 m.ajouter(carte_);
             }
         }
@@ -526,7 +526,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     public HandTarot couleur(Suit _couleur) {
         HandTarot m=new HandTarot();
         for(CardTarot c:cards) {
-            if(c.couleur()==_couleur) {
+            if(c.getId().getCouleur() ==_couleur) {
                 m.ajouter(c);
             }
         }
@@ -538,7 +538,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     @return un vecteur de mains ordonnee par numero de couleur croissant*/
     public EnumMap<Suit,HandTarot> couleurs() {
         EnumMap<Suit,HandTarot> mains_=new EnumMap<Suit,HandTarot>();
-        mains_.put(CardTarot.EXCUSE.couleur(),couleur(CardTarot.excuse().couleur()));
+        mains_.put(CardTarot.EXCUSE.getId().getCouleur(),couleur(CardTarot.excuse().getId().getCouleur()));
         mains_.put(Suit.TRUMP,couleur(Suit.TRUMP));
         for(Suit b: Suit.couleursOrdinaires()) {
             mains_.put(b,couleur(b));

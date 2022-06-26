@@ -2,7 +2,6 @@ package cards.tarot;
 
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -101,7 +100,7 @@ public final class CheckerGameTarotWithRules {
             cards_.ajouter(c);
         }
         for (CardTarot c : cards_) {
-            if (!c.isPlayable()) {
+            if (!c.getId().isJouable()) {
                 _loadedGame.setError(BAD_CARD);
                 return;
             }

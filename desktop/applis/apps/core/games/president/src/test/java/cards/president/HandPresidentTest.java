@@ -3,6 +3,7 @@ package cards.president;
 import cards.consts.CardChar;
 import cards.consts.Suit;
 import code.util.EnumList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import cards.president.enumerations.CardPresident;
@@ -413,9 +414,9 @@ public class HandPresidentTest extends EquallablePresidentUtil {
     }
     @Test
     public void simpleTest() {
-        assertSame(CardChar.KING,CardPresident.SPADE_KING.getNomFigure());
-        assertEq(0,CardPresident.SPADE_KING.valeur());
-        assertTrue(!CardPresident.SPADE_KING.getImageFileName("").isEmpty());
+        assertSame(CardChar.KING, CardPresident.SPADE_KING.getId().getNomFigure());
+        assertEq(0, CardPresident.SPADE_KING.getId().getValeur());
+        assertTrue(!StringUtil.concatNb(CardPresident.SPADE_KING.getId().getNo(), "").isEmpty());
         assertTrue(HandPresident.pileBase().validStack(1));
         assertTrue(!HandPresident.pileBase().validStack(2));
     }

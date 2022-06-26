@@ -84,7 +84,7 @@ public final class GameTarotTrickInfo {
     public EnumMap<Suit,CustList<HandTarot>> cartesPossibles(HandTarot _cartesJoueur) {
         EnumMap<Suit,CustList<HandTarot>> m = new EnumMap<Suit,CustList<HandTarot>>();
         CustList<HandTarot> possibleExcuse_ = excusePossibleRegles(_cartesJoueur);
-        m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
+        m.put(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
         m.put(Suit.TRUMP,atoutsPossibles(
                 _cartesJoueur));
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
@@ -126,7 +126,7 @@ public final class GameTarotTrickInfo {
         copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
         if (!copy_.estVide()) {
             CardTarot calledCard_ = copy_.premiereCarte();
-            Suit couleur_ = calledCard_.couleur();
+            Suit couleur_ = calledCard_.getId().getCouleur();
 
             if (tricks.size() == 1) {
                 if (progressingTrick.couleurDemandee() == couleur_) {
@@ -297,7 +297,7 @@ public final class GameTarotTrickInfo {
         copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
         if (!copy_.estVide()) {
             CardTarot calledCard_ = copy_.premiereCarte();
-            Suit couleur_ = calledCard_.couleur();
+            Suit couleur_ = calledCard_.getId().getCouleur();
 
             if (tricks.size() == 1) {
                 if (progressingTrick.couleurDemandee() == couleur_) {
@@ -354,7 +354,7 @@ public final class GameTarotTrickInfo {
             }
             Suit couleurDemande_=pli_.couleurDemandee();
             for(CardTarot c: pli_) {
-                if (c.couleur() != Suit.TRUMP) {
+                if (c.getId().getCouleur() != Suit.TRUMP) {
                     continue;
                 }
                 byte joueur_ = pli_.joueurAyantJouePliEnCours(c,nbPlayers);
@@ -401,7 +401,7 @@ public final class GameTarotTrickInfo {
                     // Les atouts du chien (si il est vu) ne peuvent possedes
                     // que par le preneur
                     for (CardTarot carte_ : lastSeenHand) {
-                        if (!Suit.couleursOrdinaires().containsObj(carte_.couleur())) {
+                        if (!Suit.couleursOrdinaires().containsObj(carte_.getId().getCouleur())) {
                             m.get(joueur_).removeCardIfPresent(carte_);
                         }
                     }
@@ -412,7 +412,7 @@ public final class GameTarotTrickInfo {
                 suivants
                 */
                 for (CardTarot carte_ : tricks.first()) {
-                    if (carte_.couleur() == Suit.TRUMP) {
+                    if (carte_.getId().getCouleur() == Suit.TRUMP) {
                         m.get(joueur_).removeCardIfPresent(carte_);
                     }
                 }
@@ -444,8 +444,8 @@ public final class GameTarotTrickInfo {
             CardTarot carteDuJoueur_ = progressingTrick.carteDuJoueur(
                     joueur_, nbPlayers);
             Suit couleurDemandee_ = progressingTrick.couleurDemandee();
-            if (Suit.couleursOrdinaires().containsObj(carteDuJoueur_.couleur())
-                    && couleurDemandee_ != carteDuJoueur_.couleur()) {
+            if (Suit.couleursOrdinaires().containsObj(carteDuJoueur_.getId().getCouleur())
+                    && couleurDemandee_ != carteDuJoueur_.getId().getCouleur()) {
                 /*
                     Si le
                     joueur
@@ -497,8 +497,7 @@ public final class GameTarotTrickInfo {
             if (couleurLoc_.estVide()) {
                 continue;
             }
-            Suit noCouleur_ = couleurLoc_.premiereCarte()
-                    .couleur();
+            Suit noCouleur_ = couleurLoc_.premiereCarte().getId().getCouleur();
             //filtre sur le jeu d'une carte couleur ordinaire apres un adversaire ramasseur
             HandTarot atoutsFiltres_ = joueCarteBasseTarot(next_,_curHand,
                     i, noCouleur_, couleurLoc_, tricks);
@@ -513,8 +512,7 @@ public final class GameTarotTrickInfo {
                 if (couleurLoc_.estVide()) {
                     continue;
                 }
-                Suit noCouleur_ = couleurLoc_.premiereCarte()
-                        .couleur();
+                Suit noCouleur_ = couleurLoc_.premiereCarte().getId().getCouleur();
                 HandTarot filteredCharacters_ = playCharacterCardTarot(
                         i, noCouleur_, couleurLoc_, tricks);
                 m.set(i, filteredCharacters_);
@@ -571,7 +569,7 @@ public final class GameTarotTrickInfo {
         copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
         if (!copy_.estVide()) {
             CardTarot calledCard_ = copy_.premiereCarte();
-            Suit couleur_ = calledCard_.couleur();
+            Suit couleur_ = calledCard_.getId().getCouleur();
 
             if (tricks.size() == 1) {
                 if (progressingTrick.couleurDemandee() == couleur_) {
@@ -626,7 +624,7 @@ public final class GameTarotTrickInfo {
                         tricks.first().getCartes().couleur(_couleur));
             } else {
                 for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
-                    if (carte_.getNomFigure() == CardChar.KING) {
+                    if (carte_.getId().getNomFigure() == CardChar.KING) {
                         continue;
                     }
                     if (!playedCards_.contient(carte_)
@@ -643,7 +641,7 @@ public final class GameTarotTrickInfo {
                     // Les cartes d'une couleur du chien (si il est vu) ne
                     // peuvent possedes que par le preneur ou etre ecartees
                     for (CardTarot carte_ : lastSeenHand) {
-                        if (carte_.couleur() == _couleur) {
+                        if (carte_.getId().getCouleur() == _couleur) {
                             m.get(joueur_).removeCardIfPresent(carte_);
                         }
                     }
@@ -656,7 +654,7 @@ public final class GameTarotTrickInfo {
                     ne peuvent pas etre
                     possedees par le preneur*/
                     for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
-                        if (carte_.getNomFigure() == CardChar.KING) {
+                        if (carte_.getId().getNomFigure() == CardChar.KING) {
                             continue;
                         }
                         m.get(taker).removeCardIfPresent(carte_);
@@ -674,7 +672,7 @@ public final class GameTarotTrickInfo {
                 }
                 CardTarot carteJouee_ = progressingTrick.carteDuJoueur(
                         joueur_, nbPlayers);
-                if (carteJouee_.couleur() != _couleur
+                if (carteJouee_.getId().getCouleur() != _couleur
                         && carteJouee_ != CardTarot.EXCUSE) {
                     /*
                         Si un joueur a joue
@@ -722,7 +720,7 @@ public final class GameTarotTrickInfo {
         cartes possibles ou apparait la carte
         */
         EnumList<Suit> toutesCouleurs_ = new EnumList<Suit>();
-        toutesCouleurs_.add(CardTarot.EXCUSE.couleur());
+        toutesCouleurs_.add(CardTarot.EXCUSE.getId().getCouleur());
         toutesCouleurs_.add(Suit.TRUMP);
         toutesCouleurs_.addAllElts(Suit.couleursOrdinaires());
         for(Suit couleur_: toutesCouleurs_) {
@@ -857,7 +855,7 @@ public final class GameTarotTrickInfo {
                 continue;
             }
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if (carteObservee_.couleur() != _couleur) {
+            if (carteObservee_.getId().getCouleur() != _couleur) {
                 continue;
             }
             if (!carteObservee_.isCharacter()) {
@@ -911,7 +909,7 @@ public final class GameTarotTrickInfo {
                 continue;
             }
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if (carteObservee_.couleur() != _couleur) {
+            if (carteObservee_.getId().getCouleur() != _couleur) {
                 continue;
             }
             if (carteObservee_.isCharacter()) {
@@ -964,7 +962,7 @@ public final class GameTarotTrickInfo {
                 continue;
             }
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if (carteObservee_.couleur() != Suit.TRUMP) {
+            if (carteObservee_.getId().getCouleur() != Suit.TRUMP) {
                 continue;
             }
             boolean sousCoupe_ = false;
@@ -1039,7 +1037,7 @@ public final class GameTarotTrickInfo {
                 continue;
             }
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if (carteObservee_.couleur() != Suit.TRUMP) {
+            if (carteObservee_.getId().getCouleur() != Suit.TRUMP) {
                 key_++;
                 continue;
             }
@@ -1050,7 +1048,7 @@ public final class GameTarotTrickInfo {
             for(byte j: pli_.joueursAyantJoueAvant(_numero, rules.getDealing())) {
                 CardTarot carteJouee_ = pli_.carteDuJoueur(j);
                 if(carteJouee_.strength(couleurDemandee_) < force_) {
-                    if(carteJouee_.couleur() == Suit.TRUMP) {
+                    if(carteJouee_.getId().getCouleur() == Suit.TRUMP) {
                         atoutsJouesAvant_.ajouter(carteJouee_);
                     }
                     continue;
@@ -1220,7 +1218,7 @@ public final class GameTarotTrickInfo {
             if (_couleurDonnee != couleurDemandee_) {
                 continue;
             }
-            Suit couleurCarte_ = pli_.carteDuJoueur(_numero).couleur();
+            Suit couleurCarte_ = pli_.carteDuJoueur(_numero).getId().getCouleur();
             if (couleurCarte_ == couleurDemandee_) {
                 continue;
             }
@@ -1258,8 +1256,7 @@ public final class GameTarotTrickInfo {
                 }
                 // On ne cherche que les plis dont la couleur demande
                 // est couleur
-                if (pli_.carteDuJoueur(_numero)
-                        .couleur() != Suit.TRUMP) {
+                if (pli_.carteDuJoueur(_numero).getId().getCouleur() != Suit.TRUMP) {
                     continue;
                 }
                 return true;
@@ -1277,7 +1274,7 @@ public final class GameTarotTrickInfo {
             }
 
             Suit couleurDemandee_ = pli_.couleurDemandee();
-            Suit couleurJoueur_ = pli_.carteDuJoueur(_numero).couleur();
+            Suit couleurJoueur_ = pli_.carteDuJoueur(_numero).getId().getCouleur();
             if (!Suit.couleursOrdinaires().containsObj(couleurJoueur_)) {
                 continue;
             }

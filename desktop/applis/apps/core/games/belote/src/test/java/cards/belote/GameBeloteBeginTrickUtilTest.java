@@ -122,7 +122,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         assertTrue(GameBeloteBeginTrick.playedLeading(b_,(byte)3,b_.getCouleur(),pr_,sure_, Order.TRUMP));
     }
     private static void addCard(EnumMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
-        HandBelote h_ = _poss.getVal(_c.couleur()).get(_p);
+        HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
         if (h_.contient(_c)) {
             return;
         }

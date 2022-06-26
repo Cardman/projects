@@ -17,7 +17,6 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.BaseSixtyFourUtil;
 import code.scripts.imgs.cards.CardsInit;
-import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
 
 public final class GraphicBeloteCard extends AbsMetaLabel {
@@ -35,7 +34,7 @@ public final class GraphicBeloteCard extends AbsMetaLabel {
         peindreCarte = true;
         card=_pc;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
+                StringUtil.concatNb(card.getId().getNo(), FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
@@ -74,7 +73,7 @@ public final class GraphicBeloteCard extends AbsMetaLabel {
         peinte=false;
         peindreCarte=true;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
+                StringUtil.concatNb(card.getId().getNo(), FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);

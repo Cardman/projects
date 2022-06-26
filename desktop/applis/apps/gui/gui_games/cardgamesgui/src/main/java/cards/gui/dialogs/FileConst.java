@@ -1,4 +1,7 @@
 package cards.gui.dialogs;
+
+import code.scripts.imgs.cards.CardsInit;
+
 /**
     */
 
@@ -33,7 +36,7 @@ public final class FileConst {
     public static final String LANGUAGE="langue.xml";
     public static final String PLAYERS="joueurs.xml";
     public static final String FOLDER_MESSAGES_GUI = "resources_cards/gui/messages";
-    public static final String RESOURCES_IMAGES = "resources_cards/images";
+    public static final String RESOURCES_IMAGES = CardsInit.FOLDER;
     public static final String RESOURCES_HELP = "resources_cards/help";
 //    public static final String RESOURCES_HELP_TMP = "resources_cards/help_tmp";
 //    public static final String RESOURCES_HTML_FOLDER = "resources_cards";

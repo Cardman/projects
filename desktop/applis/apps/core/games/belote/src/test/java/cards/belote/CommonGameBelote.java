@@ -342,7 +342,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
     }
     protected static void addSureCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
         int nbPl_ = _info.getNbPlayers();
-        Suit s_ = _c.couleur();
+        Suit s_ = _c.getId().getCouleur();
         HandBelote hc_ = _info.getCartesPossibles().getVal(s_).get(_p);
         if (!hc_.contient(_c)) {
             return;
@@ -371,7 +371,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         }
     }
     protected static void addPossibleCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        Suit s_ = _c.couleur();
+        Suit s_ = _c.getId().getCouleur();
         HandBelote h_ = _info.getCartesPossibles().getVal(s_).get(_p);
         if (h_.contient(_c)) {
             return;
@@ -393,14 +393,14 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
 
 
     protected static void removePossibleCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        if (_info.getCartesCertaines().getVal(_c.couleur()).get(_p).contient(_c)) {
+        if (_info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p).contient(_c)) {
             return;
         }
-        HandBelote h_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
+        HandBelote h_ = _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p);
         h_.removeCardIfPresent(_c);
     }
     protected static void removeSureCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        HandBelote h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
+        HandBelote h_ = _info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p);
         h_.removeCardIfPresent(_c);
     }
     protected static HandBelote create(CardBelote... _cards) {

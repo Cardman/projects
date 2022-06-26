@@ -88,7 +88,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     }
 
     public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return getImage(MessCardVideoGr.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES, StreamTextFile.SEPARATEUR, FileConst.SUITS_TXT)), _fact);
+        return getImage(MessCardVideoGr.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT)), _fact);
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {

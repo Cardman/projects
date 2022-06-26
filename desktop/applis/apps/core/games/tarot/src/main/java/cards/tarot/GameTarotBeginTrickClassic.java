@@ -254,7 +254,7 @@ public final class GameTarotBeginTrickClassic {
     CardTarot playWithAtMostOneSuitCard(TarotInfoPliEnCours _info) {
         EnumMap<Suit,HandTarot> repartitionJouable_ = playableCards.couleurs();
         HandTarot atouts_ = repartitionJouable_.getVal(Suit.TRUMP);
-        if(currentHand.total() == atouts_ .total() + repartitionJouable_.getVal(CardTarot.excuse().couleur()).total()) {
+        if(currentHand.total() == atouts_ .total() + repartitionJouable_.getVal(CardTarot.excuse().getId().getCouleur()).total()) {
             //il n'y a que de l'atout (ev excuse)
             CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
             boolean contientExcuse_ = _info.isContientExcuse();
@@ -263,7 +263,7 @@ public final class GameTarotBeginTrickClassic {
             if (!contientExcuse_) {
                 return jeuAtoutOffensif(currentHand, cartesJouees_);
             }
-            if(atouts_.total() + repartitionJouable_.getVal(CardTarot.excuse().couleur()).total() == 2) {
+            if(atouts_.total() + repartitionJouable_.getVal(CardTarot.excuse().getId().getCouleur()).total() == 2) {
                 if(!playExc(teamsRelation.getNombreDeJoueurs(),_info.getCurrentPlayer(),plisFaits_,carteAppeleeJouee_)) {
                     return atouts_.premiereCarte();
                 }
@@ -325,7 +325,7 @@ public final class GameTarotBeginTrickClassic {
             atoutsMaitres_.trierParForceEnCours(Suit.TRUMP);
             return atoutsMaitres_.premiereCarte();
         }
-        if (GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_, carteCouleur_.couleur(), notConfidentPlayersNotPlay).isEmpty()) {
+        if (GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_, carteCouleur_.getId().getCouleur(), notConfidentPlayersNotPlay).isEmpty()) {
             return carteCouleur_;
         }
         return CardTarot.WHITE;

@@ -41,7 +41,7 @@ final class GameTarotTrickHypothesis {
                         if (joueur_ == _teamReal.getTaker()) {
                             continue;
                         }
-                        if (!_cartesCertaines.getVal(c.couleur())
+                        if (!_cartesCertaines.getVal(c.getId().getCouleur())
                                 .get(joueur_).contient(c)) {
                             possibleAlly_.add(joueur_);
                         }
@@ -50,7 +50,7 @@ final class GameTarotTrickHypothesis {
             } else {
                 for(CardTarot c: _calledCards) {
                     for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                        if (_cartesCertaines.getVal(c.couleur())
+                        if (_cartesCertaines.getVal(c.getId().getCouleur())
                                 .get(joueur_).contient(c)) {
                             possibleAlly_.add(joueur_);
                         }
@@ -70,7 +70,7 @@ final class GameTarotTrickHypothesis {
             byte ramasseur_ = -1;
             for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
                 CardTarot carte_ = p.carteDuJoueur(j, nombreJoueurs_);
-                if(carte_.couleur() != Suit.TRUMP) {
+                if(carte_.getId().getCouleur() != Suit.TRUMP) {
                     continue;
                 }
                 //arret de la boucle sur les plis des que le joueur a joue un atout
@@ -147,7 +147,7 @@ final class GameTarotTrickHypothesis {
                         break;
                     }
                 }
-                if(carte_.couleur() != Suit.TRUMP) {
+                if(carte_.getId().getCouleur() != Suit.TRUMP) {
                     continue;
                 }
                 if(p.couleurDemandee() != Suit.TRUMP) {
@@ -199,7 +199,7 @@ final class GameTarotTrickHypothesis {
                     }
                     CardTarot carteJouee_ = p.carteDuJoueur(j,nombreJoueurs_);
                     //Premier tour a la couleur demandee c
-                    if(carteJouee_.couleur() != c) {
+                    if(carteJouee_.getId().getCouleur() != c) {
                         break;
                     }
                     //carteJouee est une carte de la couleur demandee au premier tour
@@ -246,7 +246,7 @@ final class GameTarotTrickHypothesis {
                     }
                     CardTarot carteJouee_ = p.carteDuJoueur(j,nombreJoueurs_);
                     //Premier tour d'atout
-                    if(carteJouee_.couleur() != c) {
+                    if(carteJouee_.getId().getCouleur() != c) {
                         continue;
                     }
                     //carteJouee est une carte defaussee de la couleur c
@@ -275,7 +275,7 @@ final class GameTarotTrickHypothesis {
                     if (joueur_ == _teamReal.getTaker()) {
                         continue;
                     }
-                    if (_cartesPossibles.getVal(c.couleur())
+                    if (_cartesPossibles.getVal(c.getId().getCouleur())
                             .get(joueur_).estVide()) {
                         possibleAlly_.add(joueur_);
                     }
@@ -284,7 +284,7 @@ final class GameTarotTrickHypothesis {
         } else {
             for(CardTarot c: _calledCards) {
                 for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                    if (_cartesPossibles.getVal(c.couleur())
+                    if (_cartesPossibles.getVal(c.getId().getCouleur())
                             .get(joueur_).estVide()) {
                         joueursNonConfiancePresqueSure_.add(joueur_);
                     }
@@ -325,7 +325,7 @@ final class GameTarotTrickHypothesis {
         CardTarot premiereFigureJouee_ = _played.premiereCarte();
         for(TrickTarot p: filter(_full,_nbPl,_cur)) {
             CardTarot carteJouee_ = p.carteDuJoueur(_cur,_nbPl);
-            if(carteJouee_.couleur() != premiereFigureJouee_.couleur()) {
+            if(carteJouee_.getId().getCouleur() != premiereFigureJouee_.getId().getCouleur()) {
                 continue;
             }
             if(carteJouee_ == premiereFigureJouee_) {
@@ -428,7 +428,7 @@ final class GameTarotTrickHypothesis {
         byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
         byte nbPlayers_ = _info.getNbPlayers();
         CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nbPlayers_);
-        if (card_.couleur() == Suit.TRUMP) {
+        if (card_.getId().getCouleur() == Suit.TRUMP) {
             return getPossibleTrickWinnerTrumpSuit(_info);
         }
         return getPossibleTrickWinnerNoTrump(_info);

@@ -29,7 +29,7 @@ public final class GameTarotBid {
     public BidTarot strategieContrat() {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         EnumMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
-        int atouts_ = couleurs_.getVal(CardTarot.excuse().couleur()).total() + couleurs_.getVal(Suit.TRUMP).total();
+        int atouts_ = couleurs_.getVal(CardTarot.excuse().getId().getCouleur()).total() + couleurs_.getVal(Suit.TRUMP).total();
         boolean chelem_ = estUnJeuDeChelem(couleurs_, new HandTarot().couleurs(), rules, cartesAppeler());
         EnumList<BidTarot> bidTarotRule_ = allowedBids();
         if (chelem_) {
@@ -46,15 +46,15 @@ public final class GameTarotBid {
         int nbAtoutsMajeursConsecutifs_ = 0;
         HandTarot bouts_ = getOulderInHand(couleurs_);
         for (HandTarot main_ : suitesAtouts_) {
-            if (main_.total() > 1 && main_.premiereCarte().valeur() > 14) {
+            if (main_.total() > 1 && main_.premiereCarte().getId().getValeur() > 14) {
                 nbAtoutsMajeursConsecutifs_ += main_.total();
             }
         }
         int nbTrumps_ = trumps_.total();
         for (int indiceCarte_ = IndexConstants.FIRST_INDEX; indiceCarte_ < nbTrumps_; indiceCarte_++) {
-            if (trumps_.carte(indiceCarte_).valeur() > 14) {
+            if (trumps_.carte(indiceCarte_).getId().getValeur() > 14) {
                 nbAtoutsQuinzeAuVingtEtUn_++;
-            } else if (trumps_.carte(indiceCarte_).valeur() > 6) {
+            } else if (trumps_.carte(indiceCarte_).getId().getValeur() > 6) {
                 boolean continuer_ = incr(trumps_.carte(
                         indiceCarte_),suitesAtouts_,14);
                 if (continuer_) {
@@ -357,7 +357,7 @@ public final class GameTarotBid {
     static boolean incr(CardTarot _c, CustList<HandTarot> _l, int _lim) {
         boolean continuer_ = false;
         for (HandTarot main_ : _l) {
-            if (main_.premiereCarte().valeur() <= _lim) {
+            if (main_.premiereCarte().getId().getValeur() <= _lim) {
                 break;
             }
             if (main_.contient(_c)) {
@@ -397,7 +397,7 @@ public final class GameTarotBid {
     }
     static boolean maitreAtoutPourChelem(EnumMap<Suit,HandTarot> _couleurs,
                                          byte _joueurs) {
-        byte atouts_ = (byte) (_couleurs.getVal(CardTarot.excuse().couleur()).total() + _couleurs.getVal(Suit.TRUMP).total());
+        byte atouts_ = (byte) (_couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total() + _couleurs.getVal(Suit.TRUMP).total());
         byte atoutsMaitres_ = nbAtoutsMaitres(_couleurs);
         int fr_ = 1;
         int to_ = 6;
@@ -462,7 +462,7 @@ public final class GameTarotBid {
     static HandTarot getOulderInHand(EnumMap<Suit, HandTarot> _couleurs) {
         HandTarot trumps_ = _couleurs.getVal(Suit.TRUMP);
         HandTarot bouts_ = new HandTarot();
-        if (!_couleurs.getVal(CardTarot.EXCUSE.couleur()).estVide()) {
+        if (!_couleurs.getVal(CardTarot.EXCUSE.getId().getCouleur()).estVide()) {
             bouts_.ajouter(CardTarot.excuse());
         }
         if (trumps_.contient(CardTarot.vingtEtUn())) {
@@ -486,7 +486,7 @@ public final class GameTarotBid {
 
     static boolean estUnJeuDeChelemSur(EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _cartesJouees) {
         int nbTr_ = nbAtoutsMaitres(_couleurs) + _cartesJouees.getVal(Suit.TRUMP).total() + _couleurs.getVal(Suit.TRUMP).total();
-        int nbFullTr_ = HandTarot.atoutsSansExcuse().total() + _couleurs.getVal(CardTarot.excuse().couleur()).total();
+        int nbFullTr_ = HandTarot.atoutsSansExcuse().total() + _couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total();
         if (nbTr_ >= nbFullTr_) {
             return nbCouleursMaitresses(_couleurs, _cartesJouees) == Suit.couleursOrdinaires().size();
         }

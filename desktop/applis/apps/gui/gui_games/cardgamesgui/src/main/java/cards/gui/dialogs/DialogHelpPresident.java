@@ -53,9 +53,9 @@ public final class DialogHelpPresident {
         panelCards_.add(compo.newPlainLabel(messages.getVal(NB_PLAYED)));
         panelCards_.add(compo.newPlainLabel(messages.getVal(NB_REM)));
         for (CardPresident c: _playedCards.getKeys()) {
-            CardChar char_ = c.getNomFigure();
+            CardChar char_ = c.getId().getNomFigure();
             if (char_ == CardChar.UNDEFINED) {
-                panelCards_.add(compo.newPlainLabel(Long.toString(c.valeur())));
+                panelCards_.add(compo.newPlainLabel(Long.toString(c.getId().getValeur())));
             } else {
                 panelCards_.add(compo.newPlainLabel(Games.toString(char_,_lg)));
             }

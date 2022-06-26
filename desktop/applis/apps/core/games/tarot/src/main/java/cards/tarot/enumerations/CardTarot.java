@@ -1,8 +1,8 @@
 package cards.tarot.enumerations;
 import cards.consts.CardChar;
+import cards.consts.CouleurValeur;
 import cards.consts.Suit;
 import code.util.EnumList;
-import code.util.core.StringUtil;
 
 /**
     */
@@ -88,54 +88,34 @@ public enum CardTarot {
     CLUB_2(2,Suit.CLUB, 1),
     CLUB_1(1,Suit.CLUB, 1);
 
-    /**Numero de couleur de la carte (0: Excuse Tarot,1: Atout Tarot,2: Coeur,3: Pique,4: Carreau,5: Tr&egrave;fle)*/
-    private final Suit couleur;
-    /**Numero de valeur de la carte (Numeros pour les atouts du tarot, et pour les cartes chiffrees, position pour les figures avec Roi, Dame, Cavalier, Valet)*/
-    private final byte valeur;
-    private final CardChar nomFigure;
     private final byte force;
-    private final boolean jouable;
+    private final CouleurValeur id;
     private final byte points;
 
     CardTarot() {
-        jouable = false;
-        couleur = Suit.UNDEFINED;
-        nomFigure = CardChar.UNDEFINED;
-        valeur = 0;
         force = 0;
         points = 0;
+        id = new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.UNDEFINED,false);
     }
     CardTarot(CardChar _figure, int _points) {
-        jouable = true;
-        nomFigure = _figure;
-        valeur = 0;
         force = 0;
-        couleur = Suit.UNDEFINED;
         points = (byte) _points;
+        id = new CouleurValeur(Suit.UNDEFINED,(byte)0,_figure,true);
     }
     CardTarot(int _pvaleur, int _points) {
-        jouable = true;
-        couleur = Suit.TRUMP;
-        nomFigure = CardChar.UNDEFINED;
-        valeur = (byte) _pvaleur;
         force = (byte) _pvaleur;
         points = (byte) _points;
+        id = new CouleurValeur(Suit.TRUMP,(byte) _pvaleur,CardChar.UNDEFINED,true);
     }
     CardTarot(CardChar _figure, Suit _pcouleur, int _pordre, int _points) {
-        jouable = true;
-        nomFigure = _figure;
-        valeur = 0;
-        couleur=_pcouleur;
         force = (byte) _pordre;
         points = (byte) _points;
+        id = new CouleurValeur(_pcouleur,(byte)0,_figure,true);
     }
     CardTarot(int _pvaleur, Suit _pcouleur, int _points) {
-        jouable = true;
-        valeur=(byte) _pvaleur;
-        nomFigure = CardChar.UNDEFINED;
-        couleur=_pcouleur;
         force = (byte) _pvaleur;
         points = (byte) _points;
+        id = new CouleurValeur(_pcouleur,(byte) _pvaleur,CardChar.UNDEFINED,true);
     }
     public static boolean eq(CardTarot _one, CardTarot _two) {
         return _one == _two;
@@ -172,11 +152,11 @@ public enum CardTarot {
         if(eq(this, excuse())) {
             return 0;
         }
-        if(couleur == Suit.TRUMP) {
+        if(id.getCouleur() == Suit.TRUMP) {
             //L'atout_ est_ plus_ fort_ que_ n'importe_ quelle_ couleur
             byte maxForceDemandee_ = 0;
             for(CardTarot c: CardTarot.values()) {
-                if(c.couleur != _couleurDemande) {
+                if(c.id.getCouleur() != _couleurDemande) {
                     continue;
                 }
                 if(c.force <= maxForceDemandee_) {
@@ -187,7 +167,7 @@ public enum CardTarot {
             return (byte)(force+maxForceDemandee_);
         }
         /*Maintenant on_ traite_ le_ cas_ d'une_ Excuse et_ des_ cartes_ de_ couleur*/
-        if(_couleurDemande==couleur) {
+        if(_couleurDemande==id.getCouleur()) {
             //Une carte_ de_ la_ meme_ couleur que_ celle_ de_ la_ carte_ entamee_ et_ autre_ que_ l'Excuse
             return force;
         }
@@ -203,53 +183,36 @@ public enum CardTarot {
         return points;
     }
     public boolean isCharacter() {
-        return nomFigure != CardChar.UNDEFINED && nomFigure != CardChar.EXCUSE;
+        return id.getNomFigure() != CardChar.UNDEFINED && id.getNomFigure() != CardChar.EXCUSE;
     }
-    public boolean isPlayable() {
-        return jouable;
-    }
+
     public boolean estUnBout() {
         return eq(this, excuse())||eq(this,petit())||eq(this,vingtEtUn());
     }
     public byte forceValeurDansUnTri(boolean _decroissant) {
         if(_decroissant) {
-            if(couleur==Suit.TRUMP) {
+            if(id.getCouleur()==Suit.TRUMP) {
                 return (byte)(23-forceTri());
             }
             return (byte)(15-forceTri());
         }
         return forceTri();
     }
-    public CardChar getNomFigure() {
-        return nomFigure;
-    }
-
-    public Suit couleur() {
-        return couleur;
-    }
-    public byte valeur() {
-        return valeur;
-    }
 
     private byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
-        return (byte) (_couleurs.indexOfObj(couleur)+1);
+        return (byte) (_couleurs.indexOfObj(getId().getCouleur())+1);
     }
 
-    public String getImageFileName(String _ext) {
-        return StringUtil.concat(name(),_ext);
+    public CouleurValeur getId() {
+        return id;
     }
-    public boolean vientAvant(CardTarot _c,boolean _decroissant,EnumList<Suit> _couleurs) {
+
+    public boolean vientAvant(CardTarot _c, boolean _decroissant, EnumList<Suit> _couleurs) {
         byte forceCouleur_=forceCouleurDansUnTri(_couleurs);
         byte forceCouleur2_=_c.forceCouleurDansUnTri(_couleurs);
         byte forceValeur_=forceValeurDansUnTri(_decroissant);
         byte forceValeur2_=_c.forceValeurDansUnTri(_decroissant);
-        if(forceCouleur_<forceCouleur2_) {
-            return true;
-        }
-        if(forceCouleur_==forceCouleur2_) {
-            return forceValeur_<forceValeur2_;
-        }
-        return false;
+        return CouleurValeur.vientAvant(forceCouleur_,forceValeur_,forceCouleur2_,forceValeur2_);
     }
 
     public byte getForce() {

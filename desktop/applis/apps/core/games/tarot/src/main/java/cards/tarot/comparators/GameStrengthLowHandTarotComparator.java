@@ -24,14 +24,14 @@ public final class GameStrengthLowHandTarotComparator implements Comparing<Suit>
         for (int k = IndexConstants.FIRST_INDEX; k < min_; k++) {
             CardTarot carte1_ = main1_.carte(k);
             CardTarot carte2_ = main2_.carte(k);
-            if (carte1_.strength(carte1_.couleur()) > carte2_
-                    .strength(carte2_.couleur())) {
+            if (carte1_.strength(carte1_.getId().getCouleur()) > carte2_
+                    .strength(carte2_.getId().getCouleur())) {
                 permuter_ = true;
                 aussiHaut_ = false;
                 break;
             }
-            if (carte1_.strength(carte1_.couleur()) < carte2_
-                    .strength(carte2_.couleur())) {
+            if (carte1_.strength(carte1_.getId().getCouleur()) < carte2_
+                    .strength(carte2_.getId().getCouleur())) {
                 aussiHaut_ = false;
             }
         }

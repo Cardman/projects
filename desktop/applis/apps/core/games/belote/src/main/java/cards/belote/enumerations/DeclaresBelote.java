@@ -94,19 +94,19 @@ public enum DeclaresBelote {
         }
         if(estUneFigure()){
             for(CardBelote c:CardBelote.values()){
-                if(!c.isPlayable()){
+                if(!c.getId().isJouable()){
                     continue;
                 }
-                if(c.getNomFigure() == figure){
+                if(c.getId().getNomFigure() == figure){
                     nb_++;
                 }
             }
         }else{
             for(CardBelote c:CardBelote.values()){
-                if(!c.isPlayable()){
+                if(!c.getId().isJouable()){
                     continue;
                 }
-                if(c.valeur() == valeur){
+                if(c.getId().getValeur() == valeur){
                     nb_++;
                 }
             }

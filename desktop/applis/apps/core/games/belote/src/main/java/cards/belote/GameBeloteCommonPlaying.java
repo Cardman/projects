@@ -421,10 +421,10 @@ public final class GameBeloteCommonPlaying {
     static HandBelote cartesBeloteRebelote(BidBeloteSuit _bid) {
         HandBelote cartes_ = new HandBelote();
         for(CardBelote c: GameBeloteCommonPlaying.cartesAtouts(_bid.getCouleur())) {
-            if(c.getNomFigure() == CardChar.KING) {
+            if(c.getId().getNomFigure() == CardChar.KING) {
                 cartes_.ajouter(c);
             }
-            if(c.getNomFigure() == CardChar.QUEEN) {
+            if(c.getId().getNomFigure() == CardChar.QUEEN) {
                 cartes_.ajouter(c);
             }
         }

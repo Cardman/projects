@@ -18,8 +18,8 @@ public final class CalledSuitComparator implements Comparing<CardTarot> {
     }
     @Override
     public int compare(CardTarot _arg0, CardTarot _arg1) {
-        Suit sOne_ = _arg0.couleur();
-        Suit sTwo_ = _arg1.couleur();
+        Suit sOne_ = _arg0.getId().getCouleur();
+        Suit sTwo_ = _arg1.getId().getCouleur();
         if(appelImpossible(_arg0)) {
             if(appelImpossible(_arg1)) {
                 return 0;
@@ -158,7 +158,7 @@ public final class CalledSuitComparator implements Comparing<CardTarot> {
     @return
     */
     private boolean appelImpossible(CardTarot _arg0) {
-        Suit s_ = _arg0.couleur();
+        Suit s_ = _arg0.getId().getCouleur();
         return couleur(s_).contient(_arg0);
     }
 

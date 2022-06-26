@@ -135,7 +135,7 @@ public final class GameBeloteBeginTrick {
         }
         if (!lastSeenHand.estVide()) {
             CardBelote carteDessus_=lastSeenHand.premiereCarte();
-            Suit couleurDessus_=carteDessus_.couleur();
+            Suit couleurDessus_= carteDessus_.getId().getCouleur();
 
             if(couleurDessus_!=couleurAtout_
                     &&!GameBeloteCommon.hand(cartesCertaines_,couleurDessus_,taker).estVide()) {
@@ -357,7 +357,7 @@ public final class GameBeloteBeginTrick {
         EnumList<Suit> couleursNonAtouts_=GameBeloteCommon.couleurs();
         EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
         if (!lastSeenHand.estVide()) {
-            Suit couleurDessus_=lastSeenHand.premiereCarte().couleur();
+            Suit couleurDessus_= lastSeenHand.premiereCarte().getId().getCouleur();
             if(!GameBeloteCommon.hand(cartesCertaines_,couleurDessus_,taker).estVide()) {
                 Order or_ = bid.getOrdre();
                 boolean cartesMaitressesJouees_ = playedLeading(bid, taker, couleurDessus_, repartitionCartesJouees_, cartesCertaines_, or_);

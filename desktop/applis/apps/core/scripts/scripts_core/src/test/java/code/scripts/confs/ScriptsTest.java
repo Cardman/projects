@@ -3,7 +3,6 @@ package code.scripts.confs;
 import code.scripts.messages.aiki.*;
 import code.scripts.messages.cards.*;
 import code.scripts.messages.gui.*;
-import code.scripts.imgs.cards.*;
 import org.junit.Test;
 
 public final class ScriptsTest extends EquallableScriptsUtil {
@@ -28,7 +27,6 @@ public final class ScriptsTest extends EquallableScriptsUtil {
     }
     @Test
     public void cards(){
-        assertNotNullStr(CardsInit.ms());
         assertNotNull(MessagesCommonCommon.ms());
         assertNotNull(MessagesSymbolSymbolCards.ms());
         assertNotNull(MessagesGamesGames.ms());

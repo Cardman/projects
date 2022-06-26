@@ -41,8 +41,8 @@ public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
             _g.setColor(GuiConstants.BLUE);
         }
         _g.fillRect(0,0,50,10);
-        Suit couleur_=card.couleur();
-        if(couleur_ == Suit.TRUMP || couleur_ == CardTarot.EXCUSE.couleur()) {
+        Suit couleur_= card.getId().getCouleur();
+        if(couleur_ == Suit.TRUMP || couleur_ == CardTarot.EXCUSE.getId().getCouleur()) {
             if(!selectionne) {
                 _g.setColor(GuiConstants.BLUE);
             } else {

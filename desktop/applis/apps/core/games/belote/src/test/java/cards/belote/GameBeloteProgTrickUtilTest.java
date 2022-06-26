@@ -1395,12 +1395,12 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         assertSame(CardBelote.DIAMOND_QUEEN,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
     }
     private static void addCard(EnumMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _bid) {
-        HandBelote h_ = _poss.getVal(_c.couleur()).get(_p);
+        HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
         if (h_.contient(_c)) {
             return;
         }
         if (_bid.getCouleurDominante()) {
-            if (_c.couleur() == _bid.getCouleur()) {
+            if (_c.getId().getCouleur() == _bid.getCouleur()) {
                 h_.setOrdre(Order.TRUMP);
             } else {
                 h_.setOrdre(Order.SUIT);

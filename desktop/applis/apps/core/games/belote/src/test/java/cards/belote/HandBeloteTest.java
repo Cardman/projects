@@ -1,6 +1,7 @@
 package cards.belote;
 
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import cards.belote.enumerations.BidBelote;
@@ -20,7 +21,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_ = HandBelote.pileBase();
         assertEq(CardBelote.values().length-1, main_.total());
         assertTrue(!main_.contient(CardBelote.WHITE));
-        assertNotNull(CardBelote.WHITE.getImageFileName(""));
+        assertNotNull(StringUtil.concatNb(CardBelote.WHITE.getId().getNo(), ""));
         EnumList<CardBelote> one_ = new EnumList<CardBelote>();
         one_.add(CardBelote.DIAMOND_1);
         EnumList<CardBelote> two_ = new EnumList<CardBelote>();

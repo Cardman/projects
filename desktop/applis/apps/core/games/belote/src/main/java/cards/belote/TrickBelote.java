@@ -128,7 +128,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
         if(estVide()) {
             return Suit.UNDEFINED;
         }
-        return premiereCarte().couleur();
+        return premiereCarte().getId().getCouleur();
     }
     /**Retourne l'ensemble des joueurs qui coupent ce pli<br>
     <ol><li>si la couleur demandee est de l'atout alors on cherche l'ensemble des joueurs n'ayant pas joue de l'atout(Excuse incluse)</li>
@@ -137,7 +137,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
     Bytes joueursCoupes(Suit _couleurAtout) {
         Bytes coupes_=new Bytes();
         for(CardBelote c: cards) {
-            if(c.couleur()==_couleurAtout) {
+            if(c.getId().getCouleur() ==_couleurAtout) {
                 coupes_.add(joueurAyantJoue(c));
             }
         }
@@ -148,7 +148,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
         Suit couleur_;
         couleur_=couleurDemandee();
         for(CardBelote c: cards) {
-            if(c.couleur()!=_couleurAtout&&c.couleur()!=couleur_) {
+            if(c.getId().getCouleur() !=_couleurAtout&& c.getId().getCouleur() !=couleur_) {
                 coupes_.add(joueurAyantJoue(c));
             }
         }

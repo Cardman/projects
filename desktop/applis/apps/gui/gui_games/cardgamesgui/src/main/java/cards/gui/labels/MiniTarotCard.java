@@ -43,7 +43,7 @@ public final class MiniTarotCard extends AbsMetaLabel {
     }
 
     private void dessinerGrandSymbole(AbstractImage _g,int _x,int _y) {
-        Suit couleur_=card.couleur();
+        Suit couleur_= card.getId().getCouleur();
         if(couleur_ == Suit.TRUMP) {
             _g.setColor(GuiConstants.BLUE);
             _g.drawLine(_x,_y,_x+10,_y+10);

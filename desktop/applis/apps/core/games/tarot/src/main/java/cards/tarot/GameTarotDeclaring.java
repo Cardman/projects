@@ -90,7 +90,7 @@ public final class GameTarotDeclaring {
                 //atouts_.total() > max_ because of strategieAnnoncesPoignees
                 while (poignee_.total() < max_) {
                     CardTarot card_ = atouts_.carte(trumpIndex_);
-                    if (card_.couleur() == Suit.TRUMP) {
+                    if (card_.getId().getCouleur() == Suit.TRUMP) {
                         poignee_.ajouter(card_);
                     }
                     trumpIndex_++;

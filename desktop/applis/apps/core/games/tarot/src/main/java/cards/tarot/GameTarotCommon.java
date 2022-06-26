@@ -300,7 +300,7 @@ public final class GameTarotCommon {
         return suits_;
     }
     public static int atoutsAvecExcuse(EnumMap<Suit, HandTarot> _couleurs) {
-        return _couleurs.getVal(CardTarot.excuse().couleur()).total() + _couleurs.getVal(Suit.TRUMP).total();
+        return _couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total() + _couleurs.getVal(Suit.TRUMP).total();
     }
 
 }

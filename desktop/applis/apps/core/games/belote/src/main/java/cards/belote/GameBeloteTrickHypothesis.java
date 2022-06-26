@@ -4,7 +4,6 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Suit;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 
 public final class GameBeloteTrickHypothesis {
@@ -35,7 +34,7 @@ public final class GameBeloteTrickHypothesis {
         BidBeloteSuit bid_ = _info.getContrat();
         byte strength_ = carteForte_.strength(couleurDemandee_, bid_);
         if (couleurDemandee_!=couleurAtout_) {
-            if(carteForte_.couleur() == couleurAtout_) {
+            if(carteForte_.getId().getCouleur() == couleurAtout_) {
                 /*Le pli est coupe*/
                 if(!GameBeloteCommon.hand(cartesCertaines_,couleurDemandee_,next_).estVide()||GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).estVide()||
                         GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).premiereCarte().strength(couleurDemandee_, bid_)

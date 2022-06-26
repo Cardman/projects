@@ -21,7 +21,13 @@ public abstract class EquallableCardsUtil {
     public static void assertEq(long _expected, long _result) {
         Assert.assertTrue(StringUtil.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
+    public static void assertSame(Suit _expected, Suit _result) {
+        Assert.assertSame(_expected, _result);
+    }
 
+    public static void assertSame(CardChar _expected, CardChar _result) {
+        Assert.assertSame(_expected, _result);
+    }
     private static boolean sameValue(long _expected, long _result) {
         return _expected == _result;
     }

@@ -186,14 +186,14 @@ public final class TrickTarot implements Iterable<CardTarot> {
             return Suit.UNDEFINED;
         }
         if(premiereCarte() != CardTarot.EXCUSE) {
-            return premiereCarte().couleur();
+            return premiereCarte().getId().getCouleur();
         }
         if (total() == 1) {
             //L'Excuse est_ la_ premiere_ carte_ du_ pli_
             //donc_ la_ couleur_ demandee_ n'est_ pas_ encore_ definie_
             return Suit.UNDEFINED;
         }
-        return carte(1).couleur();
+        return carte(1).getId().getCouleur();
     }
     Bytes joueursCoupes() {
         return joueursCoupes((byte) total());
@@ -208,13 +208,13 @@ public final class TrickTarot implements Iterable<CardTarot> {
         couleur_=couleurDemandee();
         if(couleur_==Suit.TRUMP) {
             for(CardTarot c: cards) {
-                if(c.couleur()!=Suit.TRUMP) {
+                if(c.getId().getCouleur() !=Suit.TRUMP) {
                     coupes_.add(joueurAyantJouePliEnCours(c,_nombreDeJoueurs));
                 }
             }
         } else {
             for(CardTarot c: cards) {
-                if(c.couleur()==Suit.TRUMP) {
+                if(c.getId().getCouleur() ==Suit.TRUMP) {
                     coupes_.add(joueurAyantJouePliEnCours(c,_nombreDeJoueurs));
                 }
             }
@@ -231,13 +231,13 @@ public final class TrickTarot implements Iterable<CardTarot> {
         couleur_=couleurDemandee();
         if(couleur_==Suit.TRUMP) {
             for(CardTarot c: cards) {
-                if(c.couleur()!=Suit.TRUMP) {
+                if(c.getId().getCouleur() !=Suit.TRUMP) {
                     coupes_.add(joueurAyantJouePliEnCours(c,_nbPlayers));
                 }
             }
         } else {
             for(CardTarot c: cards) {
-                if(c.couleur()!=Suit.TRUMP&&c.couleur()!=couleur_) {
+                if(c.getId().getCouleur() !=Suit.TRUMP&& c.getId().getCouleur() !=couleur_) {
                     coupes_.add(joueurAyantJouePliEnCours(c,_nbPlayers));
                 }
             }

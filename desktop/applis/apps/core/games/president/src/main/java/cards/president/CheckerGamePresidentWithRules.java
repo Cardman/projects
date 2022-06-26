@@ -58,7 +58,7 @@ public final class CheckerGamePresidentWithRules {
             cards_.ajouterCartes(s);
         }
         for (CardPresident e : cards_) {
-            if (!e.isPlayable()) {
+            if (!e.getId().isJouable()) {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return;
             }

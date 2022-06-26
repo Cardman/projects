@@ -504,7 +504,7 @@ public final class GameTarotProgTrickClassic {
                 return carteLaPlusPetite(suites_);
             }
             if (joueurConfianceRamasseur_) {
-                if (carteForte_.couleur() == Suit.TRUMP) {
+                if (carteForte_.getId().getCouleur() == Suit.TRUMP) {
                     /*
                     L'espoir fait
                     vivre
@@ -839,7 +839,7 @@ public final class GameTarotProgTrickClassic {
             couleur
             demandee
             */
-                if (carteForte_.couleur() == Suit.TRUMP) {
+                if (carteForte_.getId().getCouleur() == Suit.TRUMP) {
                     if (joueursNonConfiance_.contains(virtLead_)) {
                         return atoutLePlusPetit(suites_);
                     }
@@ -982,7 +982,7 @@ public final class GameTarotProgTrickClassic {
             n'ayant pas joue coupe le pli
             */
             byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
-            if (carteForte_.couleur() == Suit.TRUMP) {
+            if (carteForte_.getId().getCouleur() == Suit.TRUMP) {
                 /*
             Si le pli est deja
             coupe

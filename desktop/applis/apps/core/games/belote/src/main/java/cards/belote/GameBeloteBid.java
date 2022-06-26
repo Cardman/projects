@@ -71,7 +71,7 @@ public final class GameBeloteBid {
             }
             return encheres_;
         }
-        Suit s_ = lastSeenHand.premiereCarte().couleur();
+        Suit s_ = lastSeenHand.premiereCarte().getId().getCouleur();
         for(BidBelote e: rules.getEncheresAutorisees().getKeys()) {
             if(!rules.getEncheresAutorisees().getVal(e)) {
                 continue;
@@ -185,10 +185,10 @@ public final class GameBeloteBid {
             long pts_ = HandBelote.pointsTotauxDixDeDer();
             HandBelote cartes_ = new HandBelote();
             for(CardBelote t: GameBeloteCommonPlaying.cartesAtouts(c)) {
-                if(t.getNomFigure() == CardChar.KING) {
+                if(t.getId().getNomFigure() == CardChar.KING) {
                     cartes_.ajouter(t);
                 }
-                if(t.getNomFigure() == CardChar.QUEEN) {
+                if(t.getId().getNomFigure() == CardChar.QUEEN) {
                     cartes_.ajouter(t);
                 }
             }

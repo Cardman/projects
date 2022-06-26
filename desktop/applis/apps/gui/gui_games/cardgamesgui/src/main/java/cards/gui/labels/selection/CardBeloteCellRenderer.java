@@ -41,7 +41,7 @@ public class CardBeloteCellRenderer extends CustCellRender<CardBelote>{
             _g.setColor(GuiConstants.BLUE);
         }
         _g.fillRect(0,0,50,10);
-        Suit suit_=card.couleur();
+        Suit suit_= card.getId().getCouleur();
         if(suit_ == Suit.HEART) {
             _g.setColor(GuiConstants.RED);
             _g.fillOval(0,0,5,5);

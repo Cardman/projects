@@ -1810,7 +1810,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         return GameBeloteCommon.couleurs();
     }
     private static void addCard(EnumMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
-        HandBelote h_ = _poss.getVal(_c.couleur()).get(_p);
+        HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
         if (h_.contient(_c)) {
             return;
         }

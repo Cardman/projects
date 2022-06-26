@@ -4,7 +4,7 @@ import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
-public class CardsTest extends EquallableCardsUtil {
+public final class CardsTest extends EquallableCardsUtil {
     @Test
     public void test() {
         ResultsGame r_ = new ResultsGame();

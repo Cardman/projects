@@ -225,7 +225,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         info_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,CustList<HandTarot>>();
         CustList<HandTarot> possibleExcuse_ = info_.excusePossibleRegles(_currentHand);
-        cartesPossibles_.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
+        cartesPossibles_.put(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
         cartesPossibles_.put(Suit.TRUMP,info_.atoutsPossiblesRegles(
                 _currentHand));
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
@@ -412,41 +412,41 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     }
     protected static void addSureCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
         int nbPl_ = _info.getNbPlayers();
-        HandTarot hc_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
+        HandTarot hc_ = _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p);
         if (!hc_.contient(_c)) {
             return;
         }
         for (int i = 0; i < nbPl_; i++) {
             if (i == _p) {
-                HandTarot h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
+                HandTarot h_ = _info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p);
                 if (!h_.contient(_c)) {
                     h_.ajouter(_c);
-                    h_.trierParForceEnCours(_c.couleur());
+                    h_.trierParForceEnCours(_c.getId().getCouleur());
                 }
             } else {
-                _info.getCartesPossibles().getVal(_c.couleur()).get(i).removeCardIfPresent(_c);
+                _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(i).removeCardIfPresent(_c);
             }
         }
     }
     protected static void addPossibleCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
-        HandTarot h_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
+        HandTarot h_ = _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p);
         if (h_.contient(_c)) {
             return;
         }
         h_.ajouter(_c);
-        h_.trierParForceEnCours(_c.couleur());
+        h_.trierParForceEnCours(_c.getId().getCouleur());
     }
 
 
     protected static void removePossibleCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
-        if (_info.getCartesCertaines().getVal(_c.couleur()).get(_p).contient(_c)) {
+        if (_info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p).contient(_c)) {
             return;
         }
-        HandTarot h_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
+        HandTarot h_ = _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p);
         h_.removeCardIfPresent(_c);
     }
     protected static void removeSureCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
-        HandTarot h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
+        HandTarot h_ = _info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p);
         h_.removeCardIfPresent(_c);
     }
     protected static HandTarot create(CardTarot... _cards) {
