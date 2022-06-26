@@ -4,6 +4,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
 import code.gui.initialize.AbstractSocket;
+import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.util.*;
 
@@ -16,13 +17,8 @@ public final class NetAiki {
 
     private static final String POKEMON = "POKEMON";
 
-    private IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
-    private IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
-    private IntMap<Boolean> readyPlayers = new IntMap<Boolean>();
-
     private IntMap<CheckCompatibility> checkCompatibility = new IntMap<CheckCompatibility>();
 
-    private IntMap<String> nicknames =new IntMap<String>();
     private IntMap<SendReceiveServerAiki> connectionsServer =new IntMap<SendReceiveServerAiki>();
 
     public static int getPort() {
@@ -44,10 +40,10 @@ public final class NetAiki {
 
     /**server
         @return true &hArr; the players are ready to begin a deal
-         * @param _instance*/
-    public static boolean allReady(NetAiki _instance) {
+         * @param _common */
+    public static boolean allReady(NetCommon _common) {
         boolean allReady_ = true;
-        for (boolean r: NetAiki.getReadyPlayers(_instance).values()) {
+        for (boolean r: _common.getReadyPlayers().values()) {
             if (r) {
                 continue;
             }
@@ -93,32 +89,8 @@ public final class NetAiki {
 
     /**server
      * @param _instance*/
-    public static IntMap<Boolean> getReadyPlayers(NetAiki _instance) {
-        return _instance.readyPlayers;
-    }
-
-    /**server
-     * @param _instance*/
-    public static IntMap<AbstractSocket> getSockets(NetAiki _instance) {
-        return _instance.sockets;
-    }
-
-    /**server
-     * @param _instance*/
-    public static IntTreeMap< Byte> getPlacesPlayers(NetAiki _instance) {
-        return _instance.placesPlayers;
-    }
-
-    /**server
-     * @param _instance*/
     public static IntMap<CheckCompatibility> getCheckCompatibility(NetAiki _instance) {
         return _instance.checkCompatibility;
-    }
-
-    /**server
-     * @param _instance*/
-    public static IntMap<String> getNicknames(NetAiki _instance) {
-        return _instance.nicknames;
     }
 
 }

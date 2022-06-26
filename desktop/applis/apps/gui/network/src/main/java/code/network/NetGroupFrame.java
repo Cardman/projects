@@ -25,6 +25,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private final AbstractBaseExecutorService lock;
     private AbstractScheduledExecutorService server;
     private AbstractFuture task;
+    private final NetCommon sockets = new NetCommon();
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -121,4 +122,8 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
 
     //_first if the connected player is the first player
     public abstract AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket);
+
+    public NetCommon getSockets() {
+        return sockets;
+    }
 }

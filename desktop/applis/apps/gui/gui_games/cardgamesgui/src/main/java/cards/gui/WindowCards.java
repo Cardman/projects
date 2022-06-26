@@ -770,15 +770,15 @@ public final class WindowCards extends NetGroupFrame {
 
     @Override
     public void gearClient(AbstractSocket _newSocket) {
-        int nb_ = Net.getSockets(getNet()).size();
-        Net.getSockets(getNet()).put(nb_, _newSocket);
+        int nb_ = getSockets().getSockets().size();
+        getSockets().getSockets().put(nb_, _newSocket);
         SendReceiveServerCards sendReceiveServer_=new SendReceiveServerCards(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
         Net.getConnectionsServer(getNet()).put(nb_ ,sendReceiveServer_);
         IndexOfArrivingCards index_ = new IndexOfArrivingCards();
         index_.setIndex(nb_);
-        Net.getReadyPlayers(getNet()).put(nb_ ,false);
-        Net.getPlacesPlayers(getNet()).put(nb_ ,(byte)(nb_));
+        getSockets().getReadyPlayers().put(nb_ ,false);
+        getSockets().getPlacesPlayers().put(nb_ ,(byte)(nb_));
         Net.sendObject(_newSocket,index_);
     }
 

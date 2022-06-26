@@ -49,7 +49,6 @@ import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
-import code.scripts.imgs.cards.CardsInit;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -688,11 +687,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void dealNext() {
-        boolean allReady_ = Net.allReady(getOwner().getNet());
+        boolean allReady_ = Net.allReady(getOwner().getSockets());
         if (!allReady_) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces(getOwner().getNet());
+        boolean distinct_ = Net.distinctPlaces(getOwner().getNet(), getOwner().getSockets());
         if (!distinct_) {
             return;
         }
@@ -750,11 +749,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void dealFirst() {
-        boolean allReady_ = Net.allReady(getOwner().getNet());
+        boolean allReady_ = Net.allReady(getOwner().getSockets());
         if (!allReady_) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces(getOwner().getNet());
+        boolean distinct_ = Net.distinctPlaces(getOwner().getNet(), getOwner().getSockets());
         if (!distinct_) {
             return;
         }

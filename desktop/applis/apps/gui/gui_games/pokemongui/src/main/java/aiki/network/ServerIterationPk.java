@@ -1,21 +1,20 @@
 package aiki.network;
 
+import code.network.NetCommon;
+import code.network.ServerIteration;
 import code.sml.Document;
 
-public final class ServerIterationPk implements Runnable {
+public final class ServerIterationPk extends ServerIteration {
 
     private final NetAiki instance;
-    private final String input;
-    private final Document object;
 
-    public ServerIterationPk(NetAiki _ins, String _in, Document _o) {
+    public ServerIterationPk(NetAiki _ins, String _in, Document _o, NetCommon _common) {
+        super(_in,_o,_common);
         this.instance = _ins;
-        this.input = _in;
-        this.object = _o;
     }
 
     @Override
     public void run() {
-        SendReceiveServerAiki.loop(input,object,instance);
+        SendReceiveServerAiki.loop(getInput(), getObject(),instance, getCom());
     }
 }

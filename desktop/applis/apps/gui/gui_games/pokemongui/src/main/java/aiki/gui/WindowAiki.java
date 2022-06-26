@@ -1145,14 +1145,14 @@ public final class WindowAiki extends NetGroupFrame {
 
     @Override
     public void gearClient(AbstractSocket _newSocket) {
-        NetAiki.getSockets(getNet()).put(NetAiki.getSockets(getNet()).size(), _newSocket);
+        getSockets().getSockets().put(getSockets().getSockets().size(), _newSocket);
         SendReceiveServerAiki sendReceiveServer_=new SendReceiveServerAiki(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
-        NetAiki.getConnectionsServer(getNet()).put(NetAiki.getSockets(getNet()).size()-1,sendReceiveServer_);
+        NetAiki.getConnectionsServer(getNet()).put(getSockets().getSockets().size()-1,sendReceiveServer_);
         IndexOfArrivingAiki index_ = new IndexOfArrivingAiki();
-        index_.setIndex(NetAiki.getSockets(getNet()).size()-1);
-        NetAiki.getReadyPlayers(getNet()).put(NetAiki.getSockets(getNet()).size()-1,false);
-        NetAiki.getPlacesPlayers(getNet()).put(NetAiki.getSockets(getNet()).size()-1,(byte)(NetAiki.getSockets(getNet()).size()-1));
+        index_.setIndex(getSockets().getSockets().size()-1);
+        getSockets().getReadyPlayers().put(getSockets().getSockets().size()-1,false);
+        getSockets().getPlacesPlayers().put(getSockets().getSockets().size()-1,(byte)(getSockets().getSockets().size()-1));
         NetAiki.sendObject(_newSocket,index_);
     }
     @Override

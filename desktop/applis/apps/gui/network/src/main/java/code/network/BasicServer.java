@@ -8,9 +8,10 @@ import code.threads.Locking;
 
 /**Thread safe class*/
 public abstract class BasicServer extends SendReceive implements Locking {
-
+    private final NetCommon sockets;
     protected BasicServer(AbstractSocket _socket, NetGroupFrame _net) {
         super(_socket,_net);
+        sockets = _net.getSockets();
     }
 
     @Override
@@ -45,5 +46,9 @@ public abstract class BasicServer extends SendReceive implements Locking {
     @Override
     public boolean isCurrentThreadEnded() {
         return false;
+    }
+
+    public NetCommon getSockets() {
+        return sockets;
     }
 }
