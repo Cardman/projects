@@ -302,9 +302,9 @@ public class CarpetTarot {
     Met a jour la carte a jouer d'un joueur donne en fonction du nombre de
     joueurs
     */
-    public void setCarteTarot(AbstractImageFactory _fact,String _lg,byte _joueur, CardTarot _m) {
+    public void setCarteTarot(AbstractImageFactory _fact, String _lg, byte _joueur, CardTarot _m, StringMap<StringMap<String>> _images) {
         GraphicTarotCard place_ = cards.getVal((int) _joueur);
-        place_.setCarteEnJeu(_fact,_lg,_m);
+        place_.setCarteEnJeu(_fact,_lg,_m, _images);
         place_.repaintLabel(_fact);
     }
 

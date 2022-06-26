@@ -34,8 +34,11 @@ public final class HelpInitializer implements Runnable {
 
     private final StringMap<ObjectMap<HelpIndexes,ElementHelp>> trees = new StringMap<ObjectMap<HelpIndexes, ElementHelp>>();
     private final AbsMenuItem generalHelp;
+    private final StringMap<StringMap<String>> images;
+
     public HelpInitializer(AbsMenuItem _generalHelp) {
         generalHelp = _generalHelp;
+        images = CardsInit.ms();
     }
     @Override
     public void run() {
@@ -44,7 +47,6 @@ public final class HelpInitializer implements Runnable {
         StringMap<Document> built_ = HelpCards.build();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         AnaRendBlock.adjustMap(builtMs_);
-        StringMap<StringMap<String>> ms_ = CardsInit.ms();
         for (String l:Constants.getAvailableLanguages()) {
             ObjectMap<HelpIndexes,ElementHelp> tree_ = new ObjectMap<HelpIndexes,ElementHelp>();
             Document doc_ = HelpScriptConfPages.infoLg().getVal(l);
@@ -66,7 +68,7 @@ public final class HelpInitializer implements Runnable {
             String first_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), ".html");
             StringMap<String> un_ = new StringMap<String>();
-            un_.addAllEntries(ms_.getVal(l));
+            un_.addAllEntries(images.getVal(l));
             un_.addAllEntries(builtMs_.getVal(l));
             PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat_), ct_.getVal(concat_), first_);
             prep_.run();
@@ -125,5 +127,9 @@ public final class HelpInitializer implements Runnable {
 
     public StringMap<ObjectMap<HelpIndexes, ElementHelp>> getTrees() {
         return trees;
+    }
+
+    public StringMap<StringMap<String>> getImages() {
+        return images;
     }
 }

@@ -299,7 +299,7 @@ public class CarpetBelote {
 
     public void setTalonBelote(WindowCards _fact, String _lg, HandBelote _m) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        GraphicBeloteCard cg_=new GraphicBeloteCard(imageFactory_,_lg,_m.premiereCarte(),GuiConstants.RIGHT,true, _fact.getCompoFactory());
+        GraphicBeloteCard cg_=new GraphicBeloteCard(imageFactory_,_lg,_m.premiereCarte(),GuiConstants.RIGHT,true, _fact.getCompoFactory(), _fact.getImages());
         cg_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
         centerDeck.add(cg_);
     }
@@ -314,9 +314,9 @@ public class CarpetBelote {
     }
     /**Met a jour la carte a jouer d'un joueur
     donne en fonction du nombre de joueurs*/
-    public void setCarteBelote(AbstractImageFactory _fact, String _lg, byte _joueur, CardBelote _m) {
+    public void setCarteBelote(AbstractImageFactory _fact, String _lg, byte _joueur, CardBelote _m, StringMap<StringMap<String>> _images) {
         GraphicBeloteCard place_= cards.getVal((int) _joueur);
-        place_.setCarteEnJeu(_fact,_lg, _m);
+        place_.setCarteEnJeu(_fact,_lg, _m, _images);
         place_.repaintLabel(_fact);
     }
 

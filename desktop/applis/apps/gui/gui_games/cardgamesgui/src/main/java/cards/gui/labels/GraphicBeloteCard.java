@@ -16,7 +16,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.BaseSixtyFourUtil;
-import code.scripts.imgs.cards.CardsInit;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class GraphicBeloteCard extends AbsMetaLabel {
@@ -24,16 +24,15 @@ public final class GraphicBeloteCard extends AbsMetaLabel {
 
     private CardBelote card;
     private final boolean fullCard;
-    private boolean peinte;
     private boolean peindreCarte=true;
     private AbstractImage bufferedImage;
     private String lg;
 
-    public GraphicBeloteCard(AbstractImageFactory _fact, String _lg, CardBelote _pc, int _i, boolean _fullCard, AbsCompoFactory _compoFactory) {
+    public GraphicBeloteCard(AbstractImageFactory _fact, String _lg, CardBelote _pc, int _i, boolean _fullCard, AbsCompoFactory _compoFactory, StringMap<StringMap<String>> _images) {
         this(_lg,_i,_fullCard, _compoFactory);
         peindreCarte = true;
         card=_pc;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(_images.getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
                 StringUtil.concatNb(card.getId().getNo(), FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
@@ -67,12 +66,11 @@ public final class GraphicBeloteCard extends AbsMetaLabel {
     public static MetaDimension getDimensionForSeveralCards(int _number) {
         return new MetaDimension(100 + 25 * (_number - 1), 150);
     }
-    void setCarte(AbstractImageFactory _fact, String _lg, CardBelote _pc) {
+    void setCarte(AbstractImageFactory _fact, String _lg, CardBelote _pc, StringMap<StringMap<String>> _images) {
         lg = _lg;
         card=_pc;
-        peinte=false;
         peindreCarte=true;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(_images.getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
                 StringUtil.concatNb(card.getId().getNo(), FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
@@ -81,10 +79,10 @@ public final class GraphicBeloteCard extends AbsMetaLabel {
     public CardBelote getCard() {
         return card;
     }
-    public void setCarteEnJeu(AbstractImageFactory _fact, String _lg, CardBelote _carte) {
+    public void setCarteEnJeu(AbstractImageFactory _fact, String _lg, CardBelote _carte, StringMap<StringMap<String>> _images) {
         peindreCarte=true;
         lg = _lg;
-        setCarte(_fact,_lg,  _carte);
+        setCarte(_fact,_lg,  _carte, _images);
     }
     public void setJeu(String _lg) {
         lg = _lg;

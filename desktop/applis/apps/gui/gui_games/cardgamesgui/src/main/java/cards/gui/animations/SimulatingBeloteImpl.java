@@ -21,6 +21,7 @@ import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.scripts.imgs.cards.CardsInit;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
 import code.util.StringList;
@@ -276,7 +277,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     @Override
     public void played(byte _joueur, CardBelote _playedCard) {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisBelote().setCarteBelote(container.getWindow().getImageFactory(), lg_,_joueur,_playedCard);
+        container.tapisBelote().setCarteBelote(container.getWindow().getImageFactory(), lg_,_joueur,_playedCard, container.getWindow().getImages());
     }
 
     @Override

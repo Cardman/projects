@@ -67,6 +67,7 @@ import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.scripts.imgs.cards.CardsInit;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -483,7 +484,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         PlayingCardBelote card_ = _card;
         byte relative_ = relative(card_.getPlace());
         String lg_ = getOwner().getLanguageKey();
-        tapisBelote().setCarteBelote(getWindow().getImageFactory(), lg_, relative_, card_.getPlayedCard());
+        tapisBelote().setCarteBelote(getWindow().getImageFactory(), lg_, relative_, card_.getPlayedCard(), getWindow().getImages());
 
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isDeclaringBeloteRebelote()) {

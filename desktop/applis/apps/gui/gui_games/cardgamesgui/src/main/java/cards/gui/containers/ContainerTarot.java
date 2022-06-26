@@ -18,6 +18,7 @@ import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.cards.MessagesTarotTarot;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
@@ -101,7 +102,7 @@ public abstract class ContainerTarot extends ContainerGame{
         list_ = new CustList<GraphicTarotCard>();
         boolean entered_ = false;
         for(CardTarot c: _hand) {
-            GraphicTarotCard carte_=new GraphicTarotCard(imageFactory_,_lg, c,GuiConstants.RIGHT,!entered_, _fact.getCompoFactory());
+            GraphicTarotCard carte_=new GraphicTarotCard(imageFactory_,_lg, c,GuiConstants.RIGHT,!entered_, _fact.getCompoFactory(), _fact.getImages());
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;

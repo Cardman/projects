@@ -57,6 +57,7 @@ import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.scripts.imgs.cards.CardsInit;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
@@ -579,7 +580,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         PlayingCardTarot card_ = _card;
         byte relative_ = relative(card_.getPlace());
         String lg_ = getOwner().getLanguageKey();
-        tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,relative_, card_.getPlayedCard());
+        tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,relative_, card_.getPlayedCard(), getWindow().getImages());
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isCalledCard()) {
             getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, relative_);

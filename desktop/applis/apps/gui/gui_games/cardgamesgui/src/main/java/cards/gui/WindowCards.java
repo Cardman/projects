@@ -483,7 +483,7 @@ public final class WindowCards extends NetGroupFrame {
     private final DialogSoft dialogSoft;
     private final DialogServerCards dialogServer;
     private final CardFactories cardFactories;
-
+    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     public WindowCards(String _lg, AbstractProgramInfos _list,
                        StringMap<StringMap<PreparedPagesCards>> _belote,
                        StringMap<StringMap<PreparedPagesCards>> _president,
@@ -2319,5 +2319,13 @@ public final class WindowCards extends NetGroupFrame {
 
     public CardFactories getCardFactories() {
         return cardFactories;
+    }
+
+    public StringMap<StringMap<String>> getImages() {
+        return images;
+    }
+
+    public void setImages(StringMap<StringMap<String>> _i) {
+        this.images = _i;
     }
 }

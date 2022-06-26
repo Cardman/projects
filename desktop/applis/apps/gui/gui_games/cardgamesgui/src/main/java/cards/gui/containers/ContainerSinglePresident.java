@@ -50,6 +50,7 @@ import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
+import code.scripts.imgs.cards.CardsInit;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
@@ -155,7 +156,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.getNextPlayer());
 //            tapisPresident().repaintValidate();
             if (!partie_.getProgressingTrick().estVide()) {
-                tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards());
+                tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards(), getWindow().getImages());
 //                tapisPresident().repaintValidate();
             }
             placerBoutonsAvantJeuUtilisateurPresident();
@@ -510,7 +511,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
         afficherMainUtilisateurPresident(false);
-        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getPlayedCards());
+        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getPlayedCards(), getWindow().getImages());
 //        tapisPresident().repaintValidate();
         tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.getNextPlayer());
 //        tapisPresident().repaintValidate();

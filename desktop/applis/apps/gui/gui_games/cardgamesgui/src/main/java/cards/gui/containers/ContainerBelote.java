@@ -25,6 +25,7 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.cards.MessagesBeloteBelote;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
@@ -109,7 +110,7 @@ public abstract class ContainerBelote extends ContainerGame {
         list_ = new CustList<GraphicBeloteCard>();
         boolean entered_ = false;
         for(CardBelote c: _hand) {
-            GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, compoFactory_);
+            GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, compoFactory_, _fact.getImages());
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;

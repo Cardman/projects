@@ -19,6 +19,7 @@ import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.scripts.imgs.cards.CardsInit;
 import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -364,7 +365,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     @Override
     public void played(byte _joueur, CardTarot _playedCard) {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisTarot().setCarteTarot(container.getWindow().getImageFactory(),lg_,_joueur,_playedCard);
+        container.tapisTarot().setCarteTarot(container.getWindow().getImageFactory(),lg_,_joueur,_playedCard, container.getWindow().getImages());
     }
 
     @Override

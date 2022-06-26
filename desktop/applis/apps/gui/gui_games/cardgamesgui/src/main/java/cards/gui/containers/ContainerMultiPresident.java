@@ -49,6 +49,7 @@ import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.scripts.imgs.cards.CardsInit;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -361,7 +362,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         for (byte p: _card.getStatus().getKeys()) {
             status_.put(relative(p), _card.getStatus().getVal(p));
         }
-        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,_card.getPlayedHand());
+        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,_card.getPlayedHand(), getWindow().getImages());
 //        tapisPresident().repaintValidate();
         tapisPresident().setStatus(getWindow().getImageFactory(),lg_,status_, relative_);
 //        tapisPresident().repaintValidate();
