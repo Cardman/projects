@@ -693,9 +693,8 @@ final class FightOrder {
         EqList<TeamPosition> cbtsProches_ = new EqList<TeamPosition>();
         for(byte c:_liste){
             Fighter membre_=membresEquipeAdv_.getVal(c);
-            byte posCbtAdv_=membre_.getGroundPlace();
-            if (Math.abs(posCbtAdv_ - posCbt_) == diff_) {
-                cbtsProches_.add(new TeamPosition(noEquipeAdv_,c));
+            if (!membre_.estArriere() && Math.abs(membre_.getGroundPlace() - posCbt_) == diff_) {
+                cbtsProches_.add(new TeamPosition(noEquipeAdv_, c));
             }
         }
         return cbtsProches_;
