@@ -92,11 +92,7 @@ public enum CardPresident {
     }
 
     public boolean vientAvant(CardPresident _c,boolean _decroissant,EnumList<Suit> _couleurs) {
-        byte forceCouleur1_= getId().forceCouleurDansUnTri(_couleurs);
-        byte forceCouleur2_= _c.getId().forceCouleurDansUnTri(_couleurs);
-        byte forceValeur_=forceValeurDansUnTri(_decroissant);
-        byte forceValeur2_=_c.forceValeurDansUnTri(_decroissant);
-        return CouleurValeur.vientAvant(forceCouleur1_,forceValeur_,forceCouleur2_,forceValeur2_);
+        return CouleurValeur.vientAvant(getId().forceCouleurDansUnTri(_couleurs),forceValeurDansUnTri(_decroissant),_c.getId().forceCouleurDansUnTri(_couleurs),_c.forceValeurDansUnTri(_decroissant));
     }
 
     public byte forceValeurDansUnTri(boolean _decroissant) {
