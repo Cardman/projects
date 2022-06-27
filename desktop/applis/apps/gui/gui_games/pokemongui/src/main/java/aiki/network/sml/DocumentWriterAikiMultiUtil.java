@@ -3,6 +3,7 @@ import aiki.db.ExchangedData;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.*;
 import aiki.sml.DocumentWriterAikiCoreUtil;
+import code.network.Exiting;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
@@ -101,7 +102,7 @@ public final class DocumentWriterAikiMultiUtil {
         return doc_.export();
     }
 
-    public static String bye(ByeAiki _object) {
+    public static String bye(Exiting _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(setBye(_object, "", doc_));
         return doc_.export();
@@ -128,14 +129,14 @@ public final class DocumentWriterAikiMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndexTeam(),FIELD_INDEX_TEAM,_document));
     }
 
-    private static Element setBye(ByeAiki _object, String _fieldName, Document _document) {
+    private static Element setBye(Exiting _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_BYE);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setBye(_object,element_,_document);
         return element_;
     }
 
-    private static void setBye(ByeAiki _object, Element _element, Document _document) {
+    private static void setBye(Exiting _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isForced(),FIELD_FORCED,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClosing(),FIELD_CLOSING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isServer(),FIELD_SERVER,_document));

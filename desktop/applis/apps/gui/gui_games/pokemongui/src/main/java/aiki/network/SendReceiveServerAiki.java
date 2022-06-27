@@ -4,10 +4,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
 import aiki.network.stream.*;
 import code.gui.initialize.AbstractSocket;
-import code.network.AddingPlayer;
-import code.network.BasicServer;
-import code.network.NetCommon;
-import code.network.NetGroupFrame;
+import code.network.*;
 import code.sml.Document;
 import code.sml.Element;
 import code.threads.AbstractBaseExecutorService;
@@ -43,7 +40,7 @@ public final class SendReceiveServerAiki extends BasicServer {
         if (playerActionBeforeGame_ instanceof AddingPlayer) {
             AddingPlayer newPlayer_ = (AddingPlayer)playerActionBeforeGame_;
             if (!newPlayer_.isAcceptable()) {
-                ByeAiki forcedBye_ = new ByeAiki();
+                Exiting forcedBye_ = new Exiting();
                 forcedBye_.setBusy(true);
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
@@ -61,7 +58,7 @@ public final class SendReceiveServerAiki extends BasicServer {
         if (playerActionBeforeGame_ instanceof NewPlayerAiki) {
             NewPlayerAiki newPlayer_ = (NewPlayerAiki)playerActionBeforeGame_;
             if (_common.getNicknames().size() == NetAiki.NB_PLAYERS) {
-                ByeAiki forcedBye_ = new ByeAiki();
+                Exiting forcedBye_ = new Exiting();
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
                 forcedBye_.setTooManyPlayers(true);
@@ -97,7 +94,7 @@ public final class SendReceiveServerAiki extends BasicServer {
                 ByteTreeMap< PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
                 ByteTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
                 if (pkFirst_.isEmpty() || pkSecond_.isEmpty()) {
-                    ByeAiki forcedBye_ = new ByeAiki();
+                    Exiting forcedBye_ = new Exiting();
                     forcedBye_.setForced(true);
                     forcedBye_.setClosing(false);
                     forcedBye_.setTooManyPlayers(false);
@@ -148,7 +145,7 @@ public final class SendReceiveServerAiki extends BasicServer {
         PlayerActionGameAiki playerActionGame_ = DocumentReaderAikiMultiUtil.getPlayerActionGame(elt_);
         if (playerActionGame_ instanceof QuitAiki) {
             QuitAiki bye_ = (QuitAiki)playerActionGame_;
-            ByeAiki forcedBye_ = new ByeAiki();
+            Exiting forcedBye_ = new Exiting();
             forcedBye_.setForced(false);
             forcedBye_.setServer(true);
             forcedBye_.setTooManyPlayers(false);
@@ -181,7 +178,7 @@ public final class SendReceiveServerAiki extends BasicServer {
         }
     }
 
-    static void removePlayer(int _player, ByeAiki _bye, NetCommon _common) {
+    static void removePlayer(int _player, Exiting _bye, NetCommon _common) {
         AbstractSocket socket_ = _common.getSockets().getVal(_player);
         _common.getSockets().removeKey(_player);
         _common.getConnectionsServer().removeKey(_player);

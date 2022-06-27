@@ -107,16 +107,16 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    public static ByeAiki getBye(Element _element) {
+    public static Exiting getBye(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        ByeAiki object_ = new ByeAiki();
+        Exiting object_ = new Exiting();
         for (Element c: childElements_) {
             getBye(object_,c.getAttribute(ATTR_FIELD),c);
         }
         return object_;
     }
 
-    private static void getBye(ByeAiki _object, String _fieldName, Element _element) {
+    private static void getBye(Exiting _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_FORCED)) {
             _object.setForced(DocumentReaderCoreUtil.getBoolean(_element));
             return;

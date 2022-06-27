@@ -4,6 +4,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
 import code.gui.initialize.AbstractSocket;
+import code.network.Exiting;
 import code.network.NetGroupFrame;
 import code.util.*;
 
@@ -38,7 +39,7 @@ public final class NetAiki {
         NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.pokemonPlayer(_serializable), _socket);
     }
 
-    public static void sendObject(AbstractSocket _socket, ByeAiki _serializable) {
+    public static void sendObject(AbstractSocket _socket, Exiting _serializable) {
         NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.bye(_serializable), _socket);
     }
 

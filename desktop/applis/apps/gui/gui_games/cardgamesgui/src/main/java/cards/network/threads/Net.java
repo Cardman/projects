@@ -8,7 +8,6 @@ import cards.network.belote.displaying.errors.ErrorBiddingBelote;
 import cards.network.belote.displaying.errors.ErrorPlayingBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.ByeCards;
 import cards.network.common.DelegateServer;
 import cards.network.common.PlayerActionGame;
 import cards.network.common.before.*;
@@ -35,6 +34,7 @@ import cards.president.TricksHandsPresident;
 import cards.tarot.ResultsTarot;
 import cards.tarot.TricksHandsTarot;
 import code.gui.initialize.AbstractSocket;
+import code.network.Exiting;
 import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.util.CustList;
@@ -96,7 +96,7 @@ public final class Net {
     public static void sendObject(AbstractSocket _socket, DelegateServer _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.delegateServer(_serializable), _socket);
     }
-    public static void sendObject(AbstractSocket _socket, ByeCards _serializable) {
+    public static void sendObject(AbstractSocket _socket, Exiting _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.bye(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ResultsBelote _serializable) {
@@ -352,7 +352,7 @@ public final class Net {
 //        return false;
 //    }
 
-    static void removePlayer(int _player, ByeCards _bye, NetCommon _common) {
+    static void removePlayer(int _player, Exiting _bye, NetCommon _common) {
         AbstractSocket socket_ = _common.getSockets().getVal(_player);
         _common.getSockets().removeKey(_player);
         _common.getConnectionsServer().removeKey(_player);

@@ -44,6 +44,7 @@ import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.ResultsTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
+import code.network.Exiting;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
@@ -355,7 +356,7 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String bye(ByeCards _object) {
+    public static String bye(Exiting _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(setBye(_object, "", doc_));
         return doc_.export();
@@ -526,14 +527,14 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
     }
 
-    private static Element setBye(ByeCards _object, String _fieldName, Document _document) {
+    private static Element setBye(Exiting _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_BYE);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setBye(_object,element_,_document);
         return element_;
     }
 
-    private static void setBye(ByeCards _object, Element _element, Document _document) {
+    private static void setBye(Exiting _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isForced(),FIELD_FORCED,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClosing(),FIELD_CLOSING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isServer(),FIELD_SERVER,_document));

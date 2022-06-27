@@ -468,16 +468,16 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static ByeCards getBye(Element _element) {
+    private static Exiting getBye(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        ByeCards object_ = new ByeCards();
+        Exiting object_ = new Exiting();
         for (Element c: childElements_) {
             getBye(object_,c.getAttribute(ATTR_FIELD),c);
         }
         return object_;
     }
 
-    private static void getBye(ByeCards _object, String _fieldName, Element _element) {
+    private static void getBye(Exiting _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_FORCED)) {
             _object.setForced(DocumentReaderCoreUtil.getBoolean(_element));
             return;

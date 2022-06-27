@@ -46,10 +46,7 @@ import cards.president.enumerations.CardPresident;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.gui.initialize.AbstractSocket;
-import code.network.AddingPlayer;
-import code.network.BasicServer;
-import code.network.NetCommon;
-import code.network.NetGroupFrame;
+import code.network.*;
 import code.sml.Document;
 import code.sml.Element;
 import code.threads.AbstractBaseExecutorService;
@@ -89,7 +86,7 @@ public final class SendReceiveServerCards extends BasicServer {
         if (playerActionBeforeGame_ instanceof AddingPlayer) {
             AddingPlayer newPlayer_ = (AddingPlayer)playerActionBeforeGame_;
             if (!newPlayer_.isAcceptable()) {
-                ByeCards forcedBye_ = new ByeCards();
+                Exiting forcedBye_ = new Exiting();
                 forcedBye_.setBusy(true);
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
@@ -106,7 +103,7 @@ public final class SendReceiveServerCards extends BasicServer {
         if (playerActionBeforeGame_ instanceof NewPlayerCards) {
             NewPlayerCards newPlayer_ = (NewPlayerCards)playerActionBeforeGame_;
             if (Net.getNbPlayers(_instance) == _common.getNicknames().size()) {
-                ByeCards forcedBye_ = new ByeCards();
+                Exiting forcedBye_ = new Exiting();
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
                 Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
@@ -119,7 +116,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 return;
             }
             if (Net.isProgressingGame(_instance)) {
-                ByeCards forcedBye_ = new ByeCards();
+                Exiting forcedBye_ = new Exiting();
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
                 Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
@@ -202,7 +199,7 @@ public final class SendReceiveServerCards extends BasicServer {
 
                 Bytes pls_ = Net.activePlayers(_instance, _common);
                 for (byte p: pls_) {
-                    ByeCards forcedBye_ = new ByeCards();
+                    Exiting forcedBye_ = new Exiting();
                     forcedBye_.setForced(true);
                     forcedBye_.setClosing(false);
                     forcedBye_.setServer(true);
@@ -220,7 +217,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 return;
             }
             Net.quit(q_.getPlace(), _instance);
-            ByeCards forcedBye_ = new ByeCards();
+            Exiting forcedBye_ = new Exiting();
             forcedBye_.setForced(false);
             forcedBye_.setServer(false);
             forcedBye_.setClosing(q_.isClosing());
