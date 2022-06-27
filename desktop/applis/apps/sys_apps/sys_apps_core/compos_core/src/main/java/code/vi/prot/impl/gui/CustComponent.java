@@ -196,7 +196,11 @@ public abstract class CustComponent implements AbsCustComponent {
     @Override
     public MetaFont getMetaFont() {
         Font font_ = getFont();
-        return new MetaFont(font_.getFamily(), GuiConstants.fontStyle(font_.isBold(),font_.isItalic()),font_.getSize());
+        try {
+            return new MetaFont(font_.getFamily(), GuiConstants.fontStyle(font_.isBold(), font_.isItalic()), font_.getSize());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Font getFont() {

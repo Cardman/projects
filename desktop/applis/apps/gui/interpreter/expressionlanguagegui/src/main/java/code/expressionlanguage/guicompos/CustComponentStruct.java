@@ -2,8 +2,8 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsCustComponent;
 import code.gui.FrameUtil;
 import code.gui.events.AbsKeyListener;
@@ -13,7 +13,6 @@ import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractLightProgramInfos;
-import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
 
@@ -153,8 +152,12 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         return new ColorStruct(getVisibleComponent().getForegroundValue());
     }
 
-    public FontStruct getFont() {
-        return new FontStruct(getComponent().getMetaFont());
+    public Struct getFont() {
+        MetaFont metaFont_ = getComponent().getMetaFont();
+        if (metaFont_ == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new FontStruct(metaFont_);
     }
     public void setFont(Struct _font) {
         if (!(_font instanceof FontStruct)) {
