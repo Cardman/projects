@@ -357,8 +357,8 @@ public final class OtherConfirmDialog {
         return typedText;
     }
 
-    private WrappedLabel wrapped(String _message) {
-        return new WrappedLabel(infos.getImageFactory(), _message, infos.getCompoFactory());
+    private AbsPaintableLabel wrapped(String _message) {
+        return new WrappedLabel(infos.getImageFactory(), _message, infos.getCompoFactory()).getPaintableLabel();
     }
 
 }

@@ -1,10 +1,8 @@
 package code.gui;
 
 
-
 import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.consts.Constants;
 
@@ -14,11 +12,19 @@ public final class LanguageDialog implements SetterLanguage {
     private static final String NO_TITLE = " ";
     private final AbsDialog absDialog;
 
-    private CustButtonGroup groupe = new CustButtonGroup();
+    private final CustButtonGroup groupe = new CustButtonGroup();
     private String langue;
 
     public LanguageDialog(AbstractProgramInfos _frameFactory) {
         absDialog = _frameFactory.getFrameFactory().newDialog();
+    }
+    public static void changeLanguage(String _lg, AbstractProgramInfos _infos, String _folder){
+        if(_lg == null || _lg.isEmpty()) {
+            return;
+        }
+        FrameUtil.changeStaticLanguage(_lg, _infos);
+        SoftApplicationCore.saveLanguage(_folder, _lg,_infos.getStreams());
+
     }
 
     public static void setLanguageDialog(GroupFrame _owner) {

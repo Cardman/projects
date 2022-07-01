@@ -5,5 +5,10 @@ public interface WithDialogs {
     FileSaveDialog getFileSaveDialog();
     FolderOpenDialog getFolderOpenDialog();
     ConfirmDialog getConfirmDialog();
+    ConfirmDialogTextAbs getConfirmDialogText();
+    ConfirmDialogAnsAbs getConfirmDialogAns();
     LanguageDialog getLanguageDialog();
+    FolderOpenDialogAbs getFolderOpenDialogInt();
+    FileOpenDialogAbs getFileOpenDialogInt();
+    FileSaveDialogAbs getFileSaveDialogInt();
 }

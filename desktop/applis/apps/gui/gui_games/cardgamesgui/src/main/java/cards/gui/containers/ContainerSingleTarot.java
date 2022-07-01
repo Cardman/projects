@@ -740,7 +740,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getScrollCallableCards().setVisible(false);
         String lg_ = getOwner().getLanguageKey();
         if(!partie_.chelemAnnonce()) {
-            int choix_=ConfirmDialog.getAnswer(getOwner(),getMessages().getVal(WindowCards.ASK_SLAM),getMessages().getVal(WindowCards.ASK_SLAM_TITLE), lg_,GuiConstants.YES_NO_OPTION);
+            int choix_=getOwner().getConfirmDialogAns().input(getOwner(),getMessages().getVal(WindowCards.ASK_SLAM),getMessages().getVal(WindowCards.ASK_SLAM_TITLE), lg_,GuiConstants.YES_NO_OPTION);
             if(choix_!=GuiConstants.YES_OPTION) {
                 getScrollCallableCards().setVisible(true);
                 return;

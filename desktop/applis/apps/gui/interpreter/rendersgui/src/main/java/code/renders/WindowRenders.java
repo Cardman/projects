@@ -97,8 +97,7 @@ public final class WindowRenders extends GroupFrame {
             loadRenderConf(path.getText().trim());
             return;
         }
-        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath());
-        String fichier_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
+        String fichier_=getFileOpenDialogInt().input(this,getLanguageKey(),true, "", getFrames().getHomePath());
         if (fichier_ == null) {
             fichier_ = "";
         }

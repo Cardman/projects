@@ -3,7 +3,7 @@ package code.vi.sys.impl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
-import code.gui.AbsGroupFrame;
+import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
@@ -62,6 +62,11 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     private final AbsFrameFactory frameFactory;
     private final AbsLightFrameFactory lightFrameFactory;
     private final StringList excludedFolders;
+    private final ConfirmDialogTextAbs confirmDialogText = new DefConfirmDialogTextAbs();
+    private final ConfirmDialogAnsAbs confirmDialogAns = new DefConfirmDialogAnsAbs();
+    private final FolderOpenDialogAbs folderOpenDialogInt = new DefFolderOpenDialogAbs();
+    private final FileOpenDialogAbs fileOpenDialogInt = new DefFileOpenDialogAbs();
+    private final FileSaveDialogAbs fileSaveDialogInt = new DefFileSaveDialogAbs();
 
     protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator,AbstractAdvGraphicListGenerator _graphicListGenerator) {
         threadFactory = new DefaultThreadFactory();
@@ -295,5 +300,30 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     public int getScreenWidth() {
         GraphicsDevice gd_ = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         return gd_.getDisplayMode().getWidth();
+    }
+
+    @Override
+    public ConfirmDialogTextAbs getConfirmDialogText() {
+        return confirmDialogText;
+    }
+
+    @Override
+    public ConfirmDialogAnsAbs getConfirmDialogAns() {
+        return confirmDialogAns;
+    }
+
+    @Override
+    public FileOpenDialogAbs getFileOpenDialogInt() {
+        return fileOpenDialogInt;
+    }
+
+    @Override
+    public FileSaveDialogAbs getFileSaveDialogInt() {
+        return fileSaveDialogInt;
+    }
+
+    @Override
+    public FolderOpenDialogAbs getFolderOpenDialogInt() {
+        return folderOpenDialogInt;
     }
 }

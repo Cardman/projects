@@ -1,20 +1,13 @@
 package cards.gui.dialogs;
 
 
-
-
-
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.enums.SaveDealMode;
-import cards.gui.dialogs.events.BackToRulesEvent;
-import cards.gui.dialogs.events.ListenerClickCardsList;
-import cards.gui.dialogs.events.MoveCardsEvent;
-import cards.gui.dialogs.events.SavingDealEvent;
-import cards.gui.dialogs.events.ValidateRulesDealEvent;
+import cards.gui.dialogs.events.*;
 import cards.gui.panels.CardsScrollableList;
 import cards.gui.panels.PresidentCardsScrollableList;
 import cards.president.DealPresident;
@@ -27,8 +20,10 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
+import code.util.Bytes;
 import code.util.CustList;
-import code.util.*;
+import code.util.IntTreeMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
@@ -296,16 +291,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     private String validerEgalite() {
-        String lg_ = window.getLanguageKey();
-        if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(window,getCardDialog(), lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window);
-        } else {
-            FileSaveDialog.setFileSaveDialog(window,getCardDialog(), lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window);
-        }
-        String fichier_=FileSaveDialog.getStaticSelectedPath(window.getFileSaveDialog());
-        if (fichier_ == null) {
-            fichier_ = EMPTY_STRING;
-        }
+        String fichier_=window.save(getCardDialog());
         if(!fichier_.isEmpty()) {
             validerSauvegarde(fichier_);
         }

@@ -28,6 +28,11 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     private FolderOpenDialog folderOpenDialog;
     private ConfirmDialog confirmDialog;
     private LanguageDialog languageDialog;
+    private ConfirmDialogTextAbs confirmDialogText;
+    private ConfirmDialogAnsAbs confirmDialogAns;
+    private FolderOpenDialogAbs folderOpenDialogInt;
+    private FileOpenDialogAbs fileOpenDialogInt;
+    private FileSaveDialogAbs fileSaveDialogInt;
 
     protected GroupFrame(String _lg, AbstractProgramInfos _list) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
@@ -39,6 +44,11 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     public final void init(AbstractProgramInfos _list) {
+        confirmDialogText = _list.getConfirmDialogText();
+        confirmDialogAns = _list.getConfirmDialogAns();
+        folderOpenDialogInt = _list.getFolderOpenDialogInt();
+        fileOpenDialogInt = _list.getFileOpenDialogInt();
+        fileSaveDialogInt = _list.getFileSaveDialogInt();
         fileOpenDialog = new FileOpenDialog(_list.getThreadFactory().newAtomicBoolean(), _list.getThreadFactory().newAtomicBoolean(), _list);
         fileSaveDialog = new FileSaveDialog(_list);
         folderOpenDialog = new FolderOpenDialog(_list);
@@ -47,6 +57,11 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     public final void setByFirst(AbsGroupFrame _first) {
+        confirmDialogText = ((WithDialogs)_first).getConfirmDialogText();
+        confirmDialogAns = ((WithDialogs)_first).getConfirmDialogAns();
+        folderOpenDialogInt = ((WithDialogs)_first).getFolderOpenDialogInt();
+        fileOpenDialogInt = ((WithDialogs)_first).getFileOpenDialogInt();
+        fileSaveDialogInt = ((WithDialogs)_first).getFileSaveDialogInt();
         fileOpenDialog = ((WithDialogs)_first).getFileOpenDialog();
         fileSaveDialog = ((WithDialogs)_first).getFileSaveDialog();
         folderOpenDialog = ((WithDialogs)_first).getFolderOpenDialog();
@@ -349,5 +364,30 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 
     public LanguageDialog getLanguageDialog() {
         return languageDialog;
+    }
+
+    @Override
+    public FolderOpenDialogAbs getFolderOpenDialogInt() {
+        return folderOpenDialogInt;
+    }
+
+    @Override
+    public FileOpenDialogAbs getFileOpenDialogInt() {
+        return fileOpenDialogInt;
+    }
+
+    @Override
+    public FileSaveDialogAbs getFileSaveDialogInt() {
+        return fileSaveDialogInt;
+    }
+
+    @Override
+    public ConfirmDialogTextAbs getConfirmDialogText() {
+        return confirmDialogText;
+    }
+
+    @Override
+    public ConfirmDialogAnsAbs getConfirmDialogAns() {
+        return confirmDialogAns;
     }
 }

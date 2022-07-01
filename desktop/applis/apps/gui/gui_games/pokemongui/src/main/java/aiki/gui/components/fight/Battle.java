@@ -953,11 +953,11 @@ public class Battle extends ChildFrame {
             return;
         }
 //        ConfirmDialog dial_ = new ConfirmDialog(window, typedNickname, _messages_.getVal(NICKNAME), _messages_.getVal(NICKNAME), Constants.getLanguage());
-        ConfirmDialog.showTextField(window, typedNickname, messages.getVal(NICKNAME_CST), messages.getVal(NICKNAME_CST), window.getLanguageKey());
-        if (ConfirmDialog.getStaticAnswer(window.getConfirmDialog()) != GuiConstants.YES_OPTION) {
+        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window, typedNickname, messages.getVal(NICKNAME_CST), messages.getVal(NICKNAME_CST), window.getLanguageKey());
+        if (confirmDialog_.getAnswer() != GuiConstants.YES_OPTION) {
             return;
         }
-        typedNickname = ConfirmDialog.getStaticText(window.getConfirmDialog());
+        typedNickname = confirmDialog_.getTypedText();
         nickname.setText(typedNickname);
     }
 

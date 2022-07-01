@@ -1332,11 +1332,11 @@ public class ScenePanel {
 
     public void changeNickname() {
         String lg_ = window.getLanguageKey();
-        ConfirmDialog.showTextField(window, DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME), lg_);
-        if (ConfirmDialog.getStaticAnswer(window.getConfirmDialog()) != GuiConstants.YES_OPTION) {
+        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window, DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME), lg_);
+        if (confirmDialog_.getAnswer() != GuiConstants.YES_OPTION) {
             return;
         }
-        facade.validateNickname(ConfirmDialog.getStaticText(window.getConfirmDialog()));
+        facade.validateNickname(confirmDialog_.getTypedText());
     }
 
     public void selectPokemonMoveTutor() {

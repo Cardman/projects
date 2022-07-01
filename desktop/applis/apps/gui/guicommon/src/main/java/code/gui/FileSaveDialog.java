@@ -16,8 +16,6 @@ import code.util.core.StringUtil;
 public final class FileSaveDialog extends FileDialog implements SingleFileSelection {
     private static final String DIALOG_ACCESS = "gui.filesavedialog";
 
-    private static final String EMPTY_STRING = "";
-
     private static final String CANCEL = "cancel";
 
     private static final String TITLE_CONF = "titleConf";
@@ -57,10 +55,10 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         _w.getFileSaveDialog().initSaveDialog(_w, _homePath);
     }
 
-    public static void setFileSaveDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, GroupFrame _dialog) {
-        _dialog.getFileSaveDialog().dialog = _dialog.getConfirmDialog();
-        _dialog.getFileSaveDialog().setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder);
-        _dialog.getFileSaveDialog().initSaveDialog(_c, _homePath);
+    public static void setFileSaveDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath) {
+        _c.getFileSaveDialog().dialog = _c.getConfirmDialog();
+        _c.getFileSaveDialog().setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder);
+        _c.getFileSaveDialog().initSaveDialog(_c, _homePath);
     }
 
     private void initSaveDialog(GroupFrame _c, String _homePath) {
@@ -147,12 +145,11 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 //                    mes_, messages.getVal(TITLE_CONF),
 //                    getLang(),
 //                    JOptionPane.YES_NO_OPTION);
-            ConfirmDialog conf_ = ConfirmDialog.showMiniDialog(
-                    getAbsDialog(),
-                mes_, messages.getVal(TITLE_CONF),
-                getLang(),
-                    GuiConstants.YES_NO_OPTION, dialog);
-            int answer_ = conf_.getAnswer();
+            int answer_ = frame.getConfirmDialogAns().input(
+                    getAbsDialog(),frame,
+                    mes_, messages.getVal(TITLE_CONF),
+                    getLang(),
+                    GuiConstants.YES_NO_OPTION);
             if (answer_ == GuiConstants.NO_OPTION) {
                 return;
             }

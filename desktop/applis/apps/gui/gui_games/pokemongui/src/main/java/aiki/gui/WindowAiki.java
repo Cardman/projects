@@ -807,8 +807,7 @@ public final class WindowAiki extends NetGroupFrame {
         }
         String fileName_;
         if (_folder) {
-            FolderOpenDialog.setFolderOpenDialog(this, getLanguageKey(), false);
-            fileName_ = FolderOpenDialog.getStaticSelectedPath(getFolderOpenDialog());
+            fileName_ = getFolderOpenDialogInt().input(this, getLanguageKey(), false);
         } else {
             fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         }
@@ -909,11 +908,7 @@ public final class WindowAiki extends NetGroupFrame {
         }
         LanguageDialog.setLanguageDialog(this, messages.getVal(CST_LANGUAGE));
         String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
-        if(langue_ == null || langue_.isEmpty()) {
-            return;
-        }
-        FrameUtil.changeStaticLanguage(langue_, getFrames());
-        SoftApplicationCore.saveLanguage(LaunchingPokemon.getTempFolder(getFrames()), langue_,getStreams());
+        LanguageDialog.changeLanguage(langue_,getFrames(),LaunchingPokemon.getTempFolder(getFrames()));
     }
 
     public void manageParams() {
@@ -1257,19 +1252,19 @@ public final class WindowAiki extends NetGroupFrame {
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return ConfirmDialog.getAnswer(this,_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
+        return getConfirmDialogAns().input(this,_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
     }
 
     /**Sauvegarder une partie dans un fichier*/
     private String fileDialogSave() {
+        String path_;
         boolean saveConfig_ = false;
         if (loadingConf.isSaveHomeFolder()) {
             saveConfig_ = true;
-            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath(), getFrames().getHomePath());
+            path_=getFileSaveDialogInt().input(this, getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath());
         } else {
-            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, getFrames().getHomePath());
+            path_=getFileSaveDialogInt().input(this, getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
         }
-        String path_ = FileSaveDialog.getStaticSelectedPath(getFileSaveDialog());
         if (path_ == null) {
             path_ = DataBase.EMPTY_STRING;
         } else if (saveConfig_) {
@@ -1285,21 +1280,21 @@ public final class WindowAiki extends NetGroupFrame {
 
     /**Sauvegarder une partie dans un fichier*/
     private String fileDialogLoad(String _ext, boolean _zipFile) {
+        String path_;
         if (_zipFile) {
             if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
+                path_=getFileOpenDialogInt().input(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
             } else {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
+                path_=getFileOpenDialogInt().input(this,getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
             }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {
             if (loadingConf.isSaveHomeFolder()) {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
+                path_=getFileOpenDialogInt().input(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
             } else {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
+                path_=getFileOpenDialogInt().input(this,getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
             }
         }
-        String path_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (path_ == null) {
             path_ = DataBase.EMPTY_STRING;
         }

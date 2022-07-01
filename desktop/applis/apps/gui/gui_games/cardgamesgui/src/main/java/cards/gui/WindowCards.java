@@ -1816,11 +1816,7 @@ public final class WindowCards extends NetGroupFrame {
         }
         LanguageDialog.setLanguageDialog(this, getMessages().getVal(CST_LANGUAGE));
         String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
-        if(langue_ == null || langue_.isEmpty()) {
-            return;
-        }
-        FrameUtil.changeStaticLanguage(langue_, getFrames());
-        SoftApplicationCore.saveLanguage(LaunchingCards.getTempFolder(getFrames()), langue_,getStreams());
+        LanguageDialog.changeLanguage(langue_,getFrames(),LaunchingCards.getTempFolder(getFrames()));
     }
     public void displayingGame(GameEnum _game) {
         String lg_ = getLanguageKey();
@@ -1883,16 +1879,16 @@ public final class WindowCards extends NetGroupFrame {
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return ConfirmDialog.getAnswer(this,_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
+        return getConfirmDialogAns().input(this,_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
     }
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierSauvegarde() {
+        String fichier_;
         if (isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, FileConst.GAME_EXT, getFrames().getHomePath(), getFrames().getHomePath());
+            fichier_=getFileSaveDialogInt().input(this, getLanguageKey(), true, FileConst.GAME_EXT, getFrames().getHomePath());
         } else {
-            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, FileConst.GAME_EXT, EMPTY_STRING, getFrames().getHomePath());
+            fichier_=getFileSaveDialogInt().input(this, getLanguageKey(), true, FileConst.GAME_EXT, EMPTY_STRING);
         }
-        String fichier_=FileSaveDialog.getStaticSelectedPath(getFileSaveDialog());
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
         }
@@ -1900,12 +1896,12 @@ public final class WindowCards extends NetGroupFrame {
     }
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierChargement() {
+        String fichier_;
         if (isSaveHomeFolder()) {
-            FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, FileConst.GAME_EXT, getFrames().getHomePath());
+            fichier_=getFileOpenDialogInt().input(this,getLanguageKey(),true, FileConst.GAME_EXT, getFrames().getHomePath());
         } else {
-            FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING);
+            fichier_=getFileOpenDialogInt().input(this,getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING);
         }
-        String fichier_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
         }
@@ -2081,6 +2077,19 @@ public final class WindowCards extends NetGroupFrame {
 
     public boolean isSaveHomeFolder() {
         return parametres.isSaveHomeFolder();
+    }
+    public String save(AbsDialog _d) {
+        String lg_ = getLanguageKey();
+        String fichier_;
+        if (isSaveHomeFolder()) {
+            fichier_=getFileSaveDialogInt().input(this,_d, lg_, true, FileConst.GAME_EXT, getFrames().getHomePath());
+        } else {
+            fichier_=getFileSaveDialogInt().input(this,_d, lg_, true, FileConst.GAME_EXT, EMPTY_STRING);
+        }
+        if (fichier_ == null) {
+            fichier_ = EMPTY_STRING;
+        }
+        return fichier_;
     }
 
     public void setSingle(boolean _single) {
