@@ -1,19 +1,19 @@
 package code.vi.prot.impl.gui;
 
+import code.gui.AbsCustButtonGroup;
 import code.gui.AbsRadioButton;
-import code.gui.CustButtonGroup;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsChangeListener;
+import code.util.IdMap;
 import code.vi.prot.impl.gui.events.WrActionListener;
 import code.vi.prot.impl.gui.events.WrChangeListener;
-import code.util.IdMap;
 
 import javax.swing.*;
 
 public final class RadioButton extends CustComponent implements AbsRadioButton {
     private final JRadioButton radio;
     private final IdMap<AbsActionListener, WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
-    private CustButtonGroup buttonGroup;
+    private AbsCustButtonGroup buttonGroup;
     public RadioButton() {
         radio = new JRadioButton();
     }
@@ -59,11 +59,11 @@ public final class RadioButton extends CustComponent implements AbsRadioButton {
         radio.setEnabled(_b);
     }
 
-    public CustButtonGroup getButtonGroup() {
+    public AbsCustButtonGroup getButtonGroup() {
         return buttonGroup;
     }
 
-    public void setButtonGroup(CustButtonGroup _buttonGroup) {
+    public void setButtonGroup(AbsCustButtonGroup _buttonGroup) {
         buttonGroup = _buttonGroup;
     }
 

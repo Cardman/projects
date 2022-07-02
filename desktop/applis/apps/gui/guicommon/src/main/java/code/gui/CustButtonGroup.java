@@ -5,10 +5,10 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class CustButtonGroup {
+public final class CustButtonGroup implements AbsCustButtonGroup {
 
-    private CustList<AbsRadioButton> group = new CustList<AbsRadioButton>();
-    private StringList values = new StringList();
+    private final CustList<AbsRadioButton> group = new CustList<AbsRadioButton>();
+    private final StringList values = new StringList();
 
     private AbsRadioButton selected;
 

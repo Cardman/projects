@@ -5,7 +5,7 @@ import code.gui.images.AbstractImageFactory;
 public interface AbsPanel extends AbsCustComponent {
     int getComponentCount();
     AbsCustComponent getComponent(int _n);
-    void add(Clock _comp);
+    void add(AbsClock _comp);
     void add(AbsMetaLabelComInt _comp);
     void add(AbsCustComponent _comp);
     void innerAdd(AbsCustComponent _comp);

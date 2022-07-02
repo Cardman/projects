@@ -64,7 +64,7 @@ public final class Panel extends CustComponent implements AbsPanel {
         return getChildren().get(_n);
     }
 
-    public void add(Clock _comp) {
+    public void add(AbsClock _comp) {
         this.add(_comp.getComponent());
     }
 
