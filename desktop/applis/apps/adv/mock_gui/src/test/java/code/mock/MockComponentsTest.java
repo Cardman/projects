@@ -292,6 +292,10 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         AbsFrameFactory frFact_ = pr_.getFrameFactory();
         AbsDialog base_ = frFact_.newDialog();
         AbsDialog adv_ = frFact_.newDialog(base_);
+        AbsDialog intDial_ = frFact_.newDialog();
+        AbsDialog after_ = frFact_.newDialog(intDial_);
+        after_.closeWindow();
+        after_.closeWindow();
         adv_.pack();
         adv_.setDialogIcon(pr_.getImageFactory(),base_);
         adv_.setResizable(true);

@@ -16,7 +16,7 @@ public final class MockFrameFactorySample extends MockAbsFrameFactory{
 
     @Override
     public AbsDialog newDialog(AbsCloseableDialog _closeable) {
-        return new MockDialogSample(getProgramInfos());
+        return new MockDialogSample(_closeable,getProgramInfos());
     }
 
     @Override
