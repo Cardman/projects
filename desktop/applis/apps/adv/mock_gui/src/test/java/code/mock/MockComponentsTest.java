@@ -286,6 +286,9 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertEq("",ig_.getMetaFont().getFontFamily());
         pr_.getLightFrameFactory().newOtherFrame();
         pr_.getLightFrameFactory().newOtherDialog();
+        pr_.getMessageDialogAbs().input((AbsDialog) null,"","","",0);
+        pr_.getMessageDialogAbs().input((AbsCommonFrame) null,"","","",0);
+        pr_.getMessageDialogAbs().input(null,(AbsCustComponent) null,"","",0);
         AbsFrameFactory frFact_ = pr_.getFrameFactory();
         AbsDialog base_ = frFact_.newDialog();
         AbsDialog adv_ = frFact_.newDialog(base_);
