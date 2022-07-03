@@ -22,7 +22,7 @@ public final class DialogTricksBelote extends DialogCards {
     }
     public static void setDialogTricksBelote(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogTricksBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogTricksBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogTricksBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogTricksBelote().getCardDialog().setTitle(_titre);
         _fenetre.getDialogTricksBelote().getCardDialog().setResizable(true);

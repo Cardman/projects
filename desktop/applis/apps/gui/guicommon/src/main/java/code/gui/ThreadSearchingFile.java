@@ -51,11 +51,11 @@ public final class ThreadSearchingFile implements Runnable {
     }
     boolean keep(CustList<AbstractFile> _current,CustList<AbstractFile> _next, FileCount _fc) {
         for (AbstractFile d: _current) {
-            for (AbstractFile f: PathsUtil.abs(d,dialog.getSuperFrame().getFileCoreStream()).getNames()) {
+            for (AbstractFile f: PathsUtil.abs(d,dialog.getProgramInfos().getFileCoreStream()).getNames()) {
                 if (!dialog.isKeepSearching()) {
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, false, results_));
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, false, results_, backup_));
-                    FrameUtil.invokeLater(new AfterSearchingFile(dialog, backup), dialog.getSuperFrame().getFrames());
+                    FrameUtil.invokeLater(new AfterSearchingFile(dialog, backup), dialog.getProgramInfos());
                     return false;
                 }
                 processSearch(_next, _fc, f);
@@ -66,7 +66,7 @@ public final class ThreadSearchingFile implements Runnable {
 
     private void processSearch(CustList<AbstractFile> _next, FileCount _fc, AbstractFile _f) {
         _fc.incrSearch();
-        FrameUtil.invokeLater(new SettingInformation(dialog, _fc.getSearch(), _fc.getFound()), dialog.getSuperFrame().getFrames());
+        FrameUtil.invokeLater(new SettingInformation(dialog, _fc.getSearch(), _fc.getFound()), dialog.getProgramInfos());
         if (_f.isDirectory()) {
             if (StringUtil.contains(dialog.getExcludedFolders(), StringUtil.replaceBackSlash(_f.getAbsolutePath()))) {
                 return;
@@ -84,7 +84,7 @@ public final class ThreadSearchingFile implements Runnable {
                 return;
             }
             _fc.incrFound();
-            FrameUtil.invokeLater(new SearchingFile(dialog, _f), dialog.getSuperFrame().getFrames());
+            FrameUtil.invokeLater(new SearchingFile(dialog, _f), dialog.getProgramInfos());
 //                        if (StringList.match(f.getName(), dialog.getTypedString())) {
 //                            if (f.getName().endsWith(dialog.getExtension())) {
 //                                results_.add(f);

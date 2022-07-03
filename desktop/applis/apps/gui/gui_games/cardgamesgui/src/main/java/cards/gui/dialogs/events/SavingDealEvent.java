@@ -36,7 +36,7 @@ public class SavingDealEvent implements AbsActionListener {
                     dialog.cancelDeal();
                 }
             } else {
-                ConfirmDialog.showMessage((AbsDialog) dialog,dialog.getErrorSaveMessage(),dialog.getErrorSaveTitle(), window.getLanguageKey(), GuiConstants.ERROR_MESSAGE, window.getConfirmDialog());
+                window.getFrames().getMessageDialogAbs().input((AbsDialog) dialog,dialog.getErrorSaveMessage(),dialog.getErrorSaveTitle(), window.getLanguageKey(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(this,getMessages().getVal(ERROR_SAVE_FILE),getMessages().getVal(ERROR_SAVE_FILE_TITLE),JOptionPane.ERROR_MESSAGE);
             }
         } else if (mode == SaveDealMode.SAVE_THEN_PLAY) {

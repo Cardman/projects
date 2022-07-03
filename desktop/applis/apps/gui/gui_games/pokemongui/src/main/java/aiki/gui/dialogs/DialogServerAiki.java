@@ -44,7 +44,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         _fenetre.getDialogServer().init(_fenetre);
     }
     private void init(WindowAiki _fenetre) {
-        absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         join = false;
         create = false;
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _fenetre.getLanguageKey(), absDialog.getAccessFile());

@@ -64,7 +64,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        setDialogIcon(_parent);
+        setDialogIcon(_parent.getCommonFrame());
         setLocationRelativeTo(_parent);
         setTitle(_title);
         setFocusableWindowState(true);

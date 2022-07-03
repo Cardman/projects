@@ -33,7 +33,7 @@ public final class FrameHtmlData extends ChildFrame {
         super(_parent.getLanguageKey(),_parent);
         setAccessFile(DIALOG_ACCESS);
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
-        setDialogIcon(_parent);
+        setDialogIcon(_parent.getCommonFrame());
         setLocationRelativeTo(_parent);
         setTitle(_title);
         dialog = new ProgressingWebDialog(_parent.getFrames());

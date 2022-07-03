@@ -1,6 +1,6 @@
 package code.mock;
 
-import code.gui.AbsGroupFrame;
+import code.gui.AbsCommonFrame;
 import code.gui.ConfirmDialogTextAbs;
 import code.gui.TextAnswerValue;
 
@@ -13,7 +13,7 @@ public final class MockConfirmDialogTextAbs implements ConfirmDialogTextAbs {
     }
 
     @Override
-    public TextAnswerValue input(AbsGroupFrame _frame, String _value, String _message, String _title, String _language) {
+    public TextAnswerValue input(AbsCommonFrame _frame, String _value, String _message, String _title, String _language) {
         return answers.incr(new TextAnswerValue(0,""));
     }
 }

@@ -359,7 +359,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CANT_BID), Games.toString(_error.getBid(),lg_));
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
-        ConfirmDialog.showMessage(getOwner(),mes_,
+        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mes_,
                 getMessages().getVal(WindowCards.CANT_BID_TITLE),
                 lg_, GuiConstants.ERROR_MESSAGE);
     }
@@ -459,7 +459,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String mesCard_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CANT_DISCARD), Games.toString(_error.getCard(),lg_));
         String mesReason_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.REASON), _error.getErrorMessage());
 //        JOptionPane.showMessageDialog(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_, getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
-        ConfirmDialog.showMessage(getOwner(), StringUtil.concat(mesCard_,RETURN_LINE,mesReason_),
+        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), StringUtil.concat(mesCard_,RETURN_LINE,mesReason_),
                 getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE),
                 lg_, GuiConstants.ERROR_MESSAGE);
     }
@@ -624,7 +624,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //                getOwner(),
 //                mes_ + RETURN_LINE_CHAR + _error.getError(),
 //                getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), JOptionPane.ERROR_MESSAGE);
-        ConfirmDialog.showMessage(getOwner(),
+        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),
                 StringUtil.concat(mes_, RETURN_LINE, _error.getError()),
                 getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE),
                 lg_, GuiConstants.ERROR_MESSAGE);
@@ -635,7 +635,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String lg_ = getOwner().getLanguageKey();
         String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
         String mesReason_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.REASON), _error.getReason());
-        ConfirmDialog.showMessage(getOwner(),
+        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),
                 StringUtil.concat(mes_, RETURN_LINE, mesReason_),
                 getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE),
                 lg_, GuiConstants.ERROR_MESSAGE);

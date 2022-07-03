@@ -36,7 +36,7 @@ public final class DialogHelpTarot {
     }
 
     public static void setTitleDialog(WindowCards _fenetre, String _title) {
-        _fenetre.getDialogHelpTarot().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogHelpTarot().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogHelpTarot().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogHelpTarot().absDialog.setTitle(_title);
     }

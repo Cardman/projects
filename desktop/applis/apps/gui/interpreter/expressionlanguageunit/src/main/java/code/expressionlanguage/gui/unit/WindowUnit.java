@@ -210,7 +210,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     }
 
     public String selectedFile() {
-        String fichier_= getFileOpenDialogInt().input(this,getLanguageKey(),true, "", getFrames().getHomePath());
+        String fichier_= getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath());
         if (fichier_ == null) {
             fichier_ = "";
         }

@@ -48,7 +48,7 @@ public final class SelectItem extends SelectDialog {
     }
 
     private void init(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
-        getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent);
+        getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
         getSelectDial().setTitle(messages.getVal(TITLE));
         facade = _facade;

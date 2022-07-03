@@ -807,7 +807,7 @@ public final class WindowAiki extends NetGroupFrame {
         }
         String fileName_;
         if (_folder) {
-            fileName_ = getFolderOpenDialogInt().input(this, getLanguageKey(), false);
+            fileName_ = getFolderOpenDialogInt().input(getCommonFrame(), getLanguageKey(), false);
         } else {
             fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         }
@@ -1236,10 +1236,10 @@ public final class WindowAiki extends NetGroupFrame {
         pack();
         if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             if (_exit.isTooManyPlayers()) {
-                ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getTooManyString(), MainWindow.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
             } else {
-                ConfirmDialog.showMessage(this, getNoTradeString(), getNoTradeString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), getNoTradeString(), getNoTradeString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getNoTradeString(), MainWindow.getNoTradeString(), JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -1252,7 +1252,7 @@ public final class WindowAiki extends NetGroupFrame {
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return getConfirmDialogAns().input(this,_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
+        return getConfirmDialogAns().input(getCommonFrame(),_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
     }
 
     /**Sauvegarder une partie dans un fichier*/
@@ -1261,9 +1261,9 @@ public final class WindowAiki extends NetGroupFrame {
         boolean saveConfig_ = false;
         if (loadingConf.isSaveHomeFolder()) {
             saveConfig_ = true;
-            path_=getFileSaveDialogInt().input(this, getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath());
+            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath());
         } else {
-            path_=getFileSaveDialogInt().input(this, getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
+            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
         }
         if (path_ == null) {
             path_ = DataBase.EMPTY_STRING;
@@ -1283,16 +1283,16 @@ public final class WindowAiki extends NetGroupFrame {
         String path_;
         if (_zipFile) {
             if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
-                path_=getFileOpenDialogInt().input(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
+                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
             } else {
-                path_=getFileOpenDialogInt().input(this,getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
+                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
             }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {
             if (loadingConf.isSaveHomeFolder()) {
-                path_=getFileOpenDialogInt().input(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
+                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
             } else {
-                path_=getFileOpenDialogInt().input(this,getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
+                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
             }
         }
         if (path_ == null) {
@@ -1453,12 +1453,12 @@ public final class WindowAiki extends NetGroupFrame {
         if (_fileName.isEmpty()) {
             return false;
         }
-        ConfirmDialog.showMessage(this, _fileName, messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
         return true;
     }
 
     public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
-        ConfirmDialog.showMessage(this, _fileName, messages.getVal(SUCCESSFUL_LOADING), getLanguageKey(), GuiConstants.INFORMATION_MESSAGE);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(SUCCESSFUL_LOADING), getLanguageKey(), GuiConstants.INFORMATION_MESSAGE);
         availableHelps.setText(messages.getVal(AVAILAIBLE_HELPS));
         helpInfo.setText(messages.getVal(HELP_INFO));
         pack();

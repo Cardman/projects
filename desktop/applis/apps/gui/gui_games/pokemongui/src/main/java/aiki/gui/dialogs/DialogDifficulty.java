@@ -42,7 +42,7 @@ public final class DialogDifficulty implements AbsCloseableDialog {
     }
 
     private void init(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
-        absDialog.setDialogIcon(_window.getImageFactory(),_window);
+        absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
         facade = _facade;
         window = _window;
         //super(_window, true);

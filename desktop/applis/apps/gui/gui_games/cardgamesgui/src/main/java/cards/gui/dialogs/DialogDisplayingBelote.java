@@ -50,7 +50,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     }
     public static void setDialogDisplayingBelote(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogDisplayingBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingBelote().setMain(_fenetre);
         _fenetre.getDialogDisplayingBelote().getJt().removeAll();
         _fenetre.getDialogDisplayingBelote().getCardDialog().setTitle(_titre);
@@ -163,7 +163,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<4) {
-            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingBelote.setClockwise(checkClockwise.isSelected());

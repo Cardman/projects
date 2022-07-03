@@ -23,10 +23,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 
     private boolean opened;
 
-    private FileOpenDialog fileOpenDialog;
-    private FileSaveDialog fileSaveDialog;
-    private FolderOpenDialog folderOpenDialog;
-    private ConfirmDialog confirmDialog;
     private LanguageDialog languageDialog;
     private ConfirmDialogTextAbs confirmDialogText;
     private ConfirmDialogAnsAbs confirmDialogAns;
@@ -49,10 +45,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
-        fileOpenDialog = new FileOpenDialog(_list.getThreadFactory().newAtomicBoolean(), _list.getThreadFactory().newAtomicBoolean(), _list);
-        fileSaveDialog = new FileSaveDialog(_list);
-        folderOpenDialog = new FolderOpenDialog(_list);
-        confirmDialog = new ConfirmDialog(_list);
         languageDialog = new LanguageDialog(_list);
     }
 
@@ -62,10 +54,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         folderOpenDialogInt = ((WithDialogs)_first).getFolderOpenDialogInt();
         fileOpenDialogInt = ((WithDialogs)_first).getFileOpenDialogInt();
         fileSaveDialogInt = ((WithDialogs)_first).getFileSaveDialogInt();
-        fileOpenDialog = ((WithDialogs)_first).getFileOpenDialog();
-        fileSaveDialog = ((WithDialogs)_first).getFileSaveDialog();
-        folderOpenDialog = ((WithDialogs)_first).getFolderOpenDialog();
-        confirmDialog = ((WithDialogs)_first).getConfirmDialog();
         languageDialog = ((WithDialogs)_first).getLanguageDialog();
     }
 
@@ -89,7 +77,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         commonFrame.setLanguageKey(_language);
     }
 
-    @Override
     public AbstractImage getImageIconFrame() {
         return commonFrame.getImageIconFrame();
     }
@@ -159,12 +146,10 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         commonFrame.setLocationRelativeToNull();
     }
 
-    @Override
     public void setOwner(Ownable _owner) {
         commonFrame.setOwner(_owner);
     }
 
-    @Override
     public void setTitle(String _title) {
         commonFrame.setTitle(_title);
     }
@@ -194,22 +179,18 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         return commonFrame.getAccessFile();
     }
 
-    @Override
     public Ownable getOwner() {
         return commonFrame.getOwner();
     }
 
-    @Override
     public MetaPoint getLocationOnScreen() {
         return commonFrame.getLocationOnScreen();
     }
 
-    @Override
     public String getTitle() {
         return commonFrame.getTitle();
     }
 
-    @Override
     public boolean isVisible() {
         return commonFrame.isVisible();
     }
@@ -228,7 +209,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         commonFrame.requestFocus();
     }
 
-    @Override
     public void pack() {
         commonFrame.pack();
     }
@@ -344,22 +324,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 
     public AbstractNameValidating getValidator() {
         return getFrames().getValidator();
-    }
-
-    public FileOpenDialog getFileOpenDialog() {
-        return fileOpenDialog;
-    }
-
-    public FileSaveDialog getFileSaveDialog() {
-        return fileSaveDialog;
-    }
-
-    public FolderOpenDialog getFolderOpenDialog() {
-        return folderOpenDialog;
-    }
-
-    public ConfirmDialog getConfirmDialog() {
-        return confirmDialog;
     }
 
     public LanguageDialog getLanguageDialog() {

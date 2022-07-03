@@ -50,7 +50,7 @@ public class ListenerCardTarotMultiHandful extends AbstractListenerCardTarot {
         }else{
             String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
-            ConfirmDialog.showMessage(container.getOwner(), finalMessage_,title_, lg_, GuiConstants.ERROR_MESSAGE);
+            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_,title_, lg_, GuiConstants.ERROR_MESSAGE);
         }
     }
 

@@ -740,7 +740,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getScrollCallableCards().setVisible(false);
         String lg_ = getOwner().getLanguageKey();
         if(!partie_.chelemAnnonce()) {
-            int choix_=getOwner().getConfirmDialogAns().input(getOwner(),getMessages().getVal(WindowCards.ASK_SLAM),getMessages().getVal(WindowCards.ASK_SLAM_TITLE), lg_,GuiConstants.YES_NO_OPTION);
+            int choix_=getOwner().getConfirmDialogAns().input(getOwner().getCommonFrame(),getMessages().getVal(WindowCards.ASK_SLAM),getMessages().getVal(WindowCards.ASK_SLAM_TITLE), lg_,GuiConstants.YES_NO_OPTION);
             if(choix_!=GuiConstants.YES_OPTION) {
                 getScrollCallableCards().setVisible(true);
                 return;
@@ -1016,7 +1016,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingTarot(), game_.getNombreDeJoueurs());
         WindowCards ow_ = getOwner();
-        AbsScrollPane panelCards_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(ow_,tricksHands_,
+        AbsScrollPane panelCards_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(ow_.getCommonFrame(),tricksHands_,
                 nombreJoueurs_,
                 pseudosTarot(),
                 getDisplayingTarot(),ow_).getContainer());
@@ -1301,7 +1301,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         String lg_ = getOwner().getLanguageKey();
         if(partie_.keepBidding()) {
             String message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_TAROT_BID), Games.toString(partie_.strategieContrat(),lg_));
-            ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+            getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else if(partie_.isCallingState()) {
             if (!partie_.getRegles().getDiscardAfterCall()) {
@@ -1310,7 +1310,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     String message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_TAROT_CALL),
                             Games.toString(cartesAppeler_.getCarteAppelee().premiereCarte(),lg_),RETURN_LINE);
                     message_ = StringUtil.concat(message_, StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_TAROT_DISCARD), Games.toString(cartesAppeler_.getEcartAFaire(),lg_)));
-                    ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+                    getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
                     //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     HandTarot cartesAppeler_ = partie_.strategieAppel();
@@ -1318,7 +1318,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                         return;
                     }
                     String message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_TAROT_CALL), Games.toString(cartesAppeler_.premiereCarte(),lg_));
-                    ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+                    getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
                     //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
@@ -1327,20 +1327,20 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     return;
                 }
                 String message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_TAROT_CALL), Games.toString(cartesAppeler_.premiereCarte(),lg_));
-                ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+                getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             }
         } else if(partie_.getPliEnCours().estVide() && !partie_.getPliEnCours().getVuParToutJoueur()) {
             String message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_TAROT_DISCARD), Games.toString(partie_.strategieEcart(),lg_));
-            ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+            getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else if(partie_.getContrat()!=BidTarot.SLAM && (partie_.unionPlis().isEmpty() || !partie_.getPliEnCours().getVuParToutJoueur())) {
             partie_.annoncerUnChelem(DealTarot.NUMERO_UTILISATEUR);
-            ConfirmDialog.showMessage(getWindow(),EMPTY_STRING,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+            getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),EMPTY_STRING,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else {
             String message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_TAROT_PLAYER), Games.toString(partie_.strategieJeuCarteUnique(),lg_));
-            ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+            getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         }
 

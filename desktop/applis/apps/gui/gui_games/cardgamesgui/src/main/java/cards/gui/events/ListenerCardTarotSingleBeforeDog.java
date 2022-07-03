@@ -41,7 +41,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                     int remove_ = partie_.getDistribution().derniereMain().total();
                     remove_ -= partie_.getPliEnCours().total();
                     String mesCard_ = StringUtil.simpleNumberFormat(container.getMessages().getVal(WindowCards.HAS_TO_DISCARD), remove_);
-                    ConfirmDialog.showMessage(container.getOwner(), mesCard_, container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
+                    container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), mesCard_, container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
                     return;
                 }
             } else {

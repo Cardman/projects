@@ -56,7 +56,7 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
     }
 
     public void init(GroupFrame _window, CustList<AbstractImage> _images, boolean _setVisibility) {
-        absDialog.setDialogIcon(_window.getImageFactory(),_window);
+        absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
         window = _window;
         perCent = PER_CENT;
         absDialog.setLocationRelativeTo(_window.getCommonFrame());

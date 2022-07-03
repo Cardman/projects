@@ -49,7 +49,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     }
     public static void setDialogDisplayingPresident(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogDisplayingPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingPresident().setMain(_fenetre);
         _fenetre.getDialogDisplayingPresident().getJt().removeAll();
         _fenetre.getDialogDisplayingPresident().getCardDialog().setTitle(_titre);
@@ -163,7 +163,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<4) {
-            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingPresident.setClockwise(checkClockwise.isSelected());

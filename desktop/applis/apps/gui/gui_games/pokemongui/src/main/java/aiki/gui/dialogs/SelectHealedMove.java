@@ -47,7 +47,7 @@ public final class SelectHealedMove {
     }
 
     private void init(WindowAiki _parent, FacadeGame _facade) {
-        absDialog.setDialogIcon(_parent.getImageFactory(),_parent);
+        absDialog.setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), absDialog.getAccessFile());
         absDialog.setTitle(messages.getVal(TITLE));
         facade = _facade;

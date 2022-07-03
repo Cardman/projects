@@ -416,7 +416,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CANT_BID), Games.toString(_error.getBid(),lg_));
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
-        ConfirmDialog.showMessage(getOwner(), mes_, getMessages().getVal(WindowCards.CANT_BID_TITLE),
+        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), mes_, getMessages().getVal(WindowCards.CANT_BID_TITLE),
                 lg_, GuiConstants.ERROR_MESSAGE);
     }
 
@@ -536,7 +536,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_.getCards())) {
                 panneau_.add(c);
             }
-            ConfirmDialog.showComponent(getOwner(), panneau_,
+            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), panneau_,
                     getMessages().getVal(WindowCards.HAVE_TO_PLAY),
                     lg_, GuiConstants.ERROR_MESSAGE);
 
@@ -544,7 +544,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
         String mesReason_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.REASON), _error.getReason());
-        ConfirmDialog.showMessage(getOwner(),
+        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),
                 StringUtil.concat(mes_, RETURN_LINE, mesReason_),
                 getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE),
                 lg_, GuiConstants.ERROR_MESSAGE);

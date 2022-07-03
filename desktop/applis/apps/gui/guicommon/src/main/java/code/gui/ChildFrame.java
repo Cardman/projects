@@ -192,7 +192,7 @@ public abstract class ChildFrame implements AbsChildFrame {
         absCommonFrame.pack();
     }
 
-    public void setDialogIcon(AbsGroupFrame _group) {
+    public void setDialogIcon(AbsCommonFrame _group) {
         setIconImage(_group.getImageIconFrame());
         setImageIconFrame(_group.getImageIconFrame());
     }

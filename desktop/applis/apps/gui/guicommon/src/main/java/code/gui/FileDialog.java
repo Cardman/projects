@@ -31,7 +31,6 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     private static final String FILES = "files";
 
     private static final int NB_COLS = 32;
-    private final AbsCompoFactory compoFactory;
     private AbsPanel buttons;
     private AbsTextField fileName;
     private AutoCompleteDocument auto;
@@ -49,14 +48,14 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     private String folder = EMPTY_STRING;
     private StringList excludedFolders = new StringList();
 
-    private GroupFrame superFrame;
     private StringMap<String> messages;
     private final AbsDialog absDialog;
+    private final AbstractProgramInfos programInfos;
 
     protected FileDialog(AbstractProgramInfos _frameFact){
-        compoFactory = _frameFact.getCompoFactory();
-        fileName = compoFactory.newTextField(NB_COLS);
-        buttons = compoFactory.newLineBox();
+        programInfos = _frameFact;
+        fileName = _frameFact.getCompoFactory().newTextField(NB_COLS);
+        buttons = _frameFact.getCompoFactory().newLineBox();
         absDialog = _frameFact.getFrameFactory().newDialog(this);
     }
 
@@ -99,32 +98,30 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         absDialog.setOwner(_owner);
     }
 
-    protected void setFileDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder) {
-        initByFrame(_w,_language,_currentFolderRoot, true, _extension, _folder);
+    protected void setFileDialogByFrame(String _language, boolean _currentFolderRoot, String _extension, String _folder, AbsCommonFrame _c) {
+        initByFrame(_language,_currentFolderRoot, true, _extension, _folder, _c);
     }
 
-    protected void initByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder) {
+    protected void initByFrame(String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, AbsCommonFrame _commonFrame) {
         //super(_w,true);
-        absDialog.setDialogIcon(_w.getImageFactory(),_w);
+        absDialog.setDialogIcon(programInfos.getImageFactory(), _commonFrame);
         absDialog.setModal(true);
-        absDialog.setLocationRelativeTo(_w.getCommonFrame());
+        absDialog.setLocationRelativeTo(_commonFrame);
         extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;
-        superFrame = _w;
         initDialog(_language, _currentFolderRoot);
     }
 
-    protected void setFileDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder) {
-        initByDialog(_c, _w,_language,_currentFolderRoot, true, _extension, _folder);
+    protected void setFileDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder) {
+        initByDialog(_w,_language,_currentFolderRoot, true, _extension, _folder);
     }
 
-    protected void initByDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder) {
+    protected void initByDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder) {
         //super(_w,true);
-        absDialog.setDialogIcon(_c.getImageFactory(),_w);
+        absDialog.setDialogIcon(programInfos.getImageFactory(),_w);
         absDialog.setModal(true);
         absDialog.setLocationRelativeTo(_w);
-        superFrame = _c;
         extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;
@@ -132,8 +129,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     }
 
     private void initDialog(String _language, boolean _currentFolderRoot) {
-        String lg_ = superFrame.getLanguageKey();
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, lg_, DIALOG_ACCESS);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, DIALOG_ACCESS);
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         lang = _language;
@@ -142,15 +138,15 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         selectedAbsolutePath = EMPTY_STRING;
         excludedFolders = new StringList();
         if (currentFolderRoot) {
-            String root_ = StringUtil.replaceBackSlash(superFrame.getFileCoreStream().newFile(folder).getAbsolutePath());
+            String root_ = StringUtil.replaceBackSlash(programInfos.getFileCoreStream().newFile(folder).getAbsolutePath());
             currentFolder = StringUtil.concat(root_,StreamTextFile.SEPARATEUR);
-            if (StringUtil.quickEq(currentFolder, StreamFolderFile.getCurrentPath(superFrame.getFileCoreStream()))) {
-                for (String f: superFrame.getFrames().getExcludedFolders()) {
+            if (StringUtil.quickEq(currentFolder, StreamFolderFile.getCurrentPath(programInfos.getFileCoreStream()))) {
+                for (String f: programInfos.getExcludedFolders()) {
                     excludedFolders.add(StringUtil.concat(currentFolder,f));
                 }
             }
         }
-        fileModel = new FileTable(lg_,superFrame.getThreadFactory(),superFrame.getCompoFactory());
+        fileModel = new FileTable(_language,programInfos.getThreadFactory(),programInfos.getCompoFactory());
         currentTitle = messages.getVal(FILES);
         if (currentFolderRoot) {
             currentTitle = StringUtil.concat(currentTitle, SPACE, currentFolder);
@@ -161,36 +157,36 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         fileTable.addHeaderListener(new ClickHeaderEvent(this));
         fileTable.setMultiSelect(false);
         fileTable.addListSelectionListener(new ClickRowEvent(this));
-        AbsPanel openSaveFile_ = compoFactory.newPageBox();
-        fileName = compoFactory.newTextField(NB_COLS);
-        auto = new AutoCompleteDocument(fileName,new StringList(), superFrame.getFrames());
+        AbsPanel openSaveFile_ = programInfos.getCompoFactory().newPageBox();
+        fileName = programInfos.getCompoFactory().newTextField(NB_COLS);
+        auto = new AutoCompleteDocument(fileName,new StringList(), programInfos);
         if (addTypingFileName) {
-            AbsPanel fieldFile_ = compoFactory.newLineBox();
-            fieldFile_.add(compoFactory.newPlainLabel(messages.getVal(NAME)));
+            AbsPanel fieldFile_ = programInfos.getCompoFactory().newLineBox();
+            fieldFile_.add(programInfos.getCompoFactory().newPlainLabel(messages.getVal(NAME)));
             fieldFile_.add(fileName);
             openSaveFile_.add(fieldFile_);
         }
-        buttons = compoFactory.newLineBox();
+        buttons = programInfos.getCompoFactory().newLineBox();
         openSaveFile_.add(buttons);
-        AbsPanel contentPane_ = compoFactory.newBorder();
+        AbsPanel contentPane_ = programInfos.getCompoFactory().newBorder();
         contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
         if (currentFolderRoot) {
-            AbstractMutableTreeNode default_ = superFrame.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
-            FileListInfo files_ = PathsUtil.abs(superFrame.getFileCoreStream().newFile(currentFolder),superFrame.getFileCoreStream());
+            AbstractMutableTreeNode default_ = programInfos.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
+            FileListInfo files_ = PathsUtil.abs(programInfos.getFileCoreStream().newFile(currentFolder),programInfos.getFileCoreStream());
             CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(files_.getNames());
             currentFiles_.sortElts(new FileNameComparator());
             CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
-            folderSystem = superFrame.getCompoFactory().newTreeGui(default_);
+            folderSystem = programInfos.getCompoFactory().newTreeGui(default_);
             refreshList(filesList_, currentFiles_);
         } else {
-            AbstractMutableTreeNode default_ = superFrame.getCompoFactory().newMutableTreeNode(EMPTY_STRING);
-            for (String f: StreamFolderFile.listRootsAbPath(superFrame.getFileCoreStream())) {
+            AbstractMutableTreeNode default_ = programInfos.getCompoFactory().newMutableTreeNode(EMPTY_STRING);
+            for (String f: StreamFolderFile.listRootsAbPath(programInfos.getFileCoreStream())) {
                 default_.add(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING));
             }
-            folderSystem = superFrame.getCompoFactory().newTreeGui(default_);
+            folderSystem = programInfos.getCompoFactory().newTreeGui(default_);
             folderSystem.setRootVisible(false);
         }
-        AbsSplitPane fileSelector_ = getSuperFrame().getCompoFactory().newHorizontalSplitPane(compoFactory.newAbsScrollPane(folderSystem.getTree()),compoFactory.newAbsScrollPane(fileTable));
+        AbsSplitPane fileSelector_ = programInfos.getCompoFactory().newHorizontalSplitPane(programInfos.getCompoFactory().newAbsScrollPane(folderSystem.getTree()),programInfos.getCompoFactory().newAbsScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
         contentPane_.add(fileSelector_, GuiConstants.BORDER_LAYOUT_CENTER);
         contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -230,12 +226,12 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         currentFolder = str_;
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
-        AbstractFile currentFolder_ = superFrame.getFileCoreStream().newFile(str_);
+        AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);
         if (!currentFolder_.exists()) {
             return;
         }
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
-        FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,superFrame.getFileCoreStream());
+        FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,programInfos.getFileCoreStream());
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
         for (AbstractFile l: currentFiles_) {
@@ -256,14 +252,14 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         currentFolder = str_.toString();
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
-        AbstractFile currentFolder_ = superFrame.getFileCoreStream().newFile(str_.toString());
+        AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_.toString());
         if (!currentFolder_.exists()) {
             folderSystem.removeFromParent();
             return;
         }
         folderSystem.removeAllChildren();
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
-        FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,superFrame.getFileCoreStream());
+        FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,programInfos.getFileCoreStream());
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
         refreshList(files_, currentFiles_);
@@ -344,10 +340,6 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         return currentFolderRoot;
     }
 
-    public GroupFrame getSuperFrame() {
-        return superFrame;
-    }
-
     public void setSelectedPath(String _selectedPath) {
         selectedPath = _selectedPath;
     }
@@ -385,7 +377,11 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     }
 
     public AbsCompoFactory getCompoFactory() {
-        return compoFactory;
+        return programInfos.getCompoFactory();
+    }
+
+    public AbstractProgramInfos getProgramInfos() {
+        return programInfos;
     }
 
     public void closeWindow() {

@@ -39,7 +39,7 @@ public final class DialogHelpPresident {
         absDialog.setVisible(true);
     }
     public static void setTitleDialog(WindowCards _fenetre, String _title) {
-        _fenetre.getDialogHelpPresident().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogHelpPresident().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogHelpPresident().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogHelpPresident().absDialog.setTitle(_title);
         _fenetre.getDialogHelpPresident().initMessageName(_fenetre);

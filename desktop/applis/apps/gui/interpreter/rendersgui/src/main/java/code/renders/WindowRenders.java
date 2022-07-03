@@ -58,7 +58,7 @@ public final class WindowRenders extends GroupFrame {
         session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _list);
         session.initNav();
         session.setLanguage(_lg);
-        session.setFrame(this);
+        session.setFrame(getCommonFrame());
         AbsTextField field_;
         AbsPlainButton search_ = getCompoFactory().newPlainButton("search");
         field_ = getCompoFactory().newTextField(20);
@@ -97,7 +97,7 @@ public final class WindowRenders extends GroupFrame {
             loadRenderConf(path.getText().trim());
             return;
         }
-        String fichier_=getFileOpenDialogInt().input(this,getLanguageKey(),true, "", getFrames().getHomePath());
+        String fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath());
         if (fichier_ == null) {
             fichier_ = "";
         }

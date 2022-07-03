@@ -50,7 +50,7 @@ public final class ConsultHosts {
     }
 
     private void init(WindowAiki _frame, FacadeGame _facade) {
-        absDialog.setDialogIcon(_frame.getImageFactory(),_frame);
+        absDialog.setDialogIcon(_frame.getImageFactory(),_frame.getCommonFrame());
         window = _frame;
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), absDialog.getAccessFile());
         //super(_frame, true);

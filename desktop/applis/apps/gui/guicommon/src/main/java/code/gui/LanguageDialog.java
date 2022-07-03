@@ -40,7 +40,7 @@ public final class LanguageDialog implements SetterLanguage {
     }
 
     private void init(GroupFrame _owner, String _title) {
-        absDialog.setDialogIcon(_owner.getImageFactory(),_owner);
+        absDialog.setDialogIcon(_owner.getImageFactory(),_owner.getCommonFrame());
         absDialog.setLocationRelativeTo(_owner.getCommonFrame());
         absDialog.setTitle(_title);
         AbsPanel panneau_ = _owner.getCompoFactory().newGrid(0,1);

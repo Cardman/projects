@@ -30,7 +30,7 @@ public final class FrameUtil {
     public static boolean tryToReopen(String _applicationName, AbstractProgramInfos _list) {
         for (AbsGroupFrame g: _list.getFrames()) {
             if (StringUtil.quickEq(g.getApplicationName(), _applicationName)) {
-                g.pack();
+                g.getCommonFrame().pack();
                 g.getCommonFrame().setVisible(true);
                 return true;
             }
@@ -55,13 +55,13 @@ public final class FrameUtil {
         }
     }
 
-    public static void tryExit(AbsGroupFrame _groupFrame) {
+    public static void tryExit(GroupFrame _groupFrame) {
         if(!_groupFrame.getCommonFrame().getFrames().getFrames().first().isOpened()) {
             _groupFrame.exit();
         }
     }
 
-    public static void choose(String _lg, AbstractProgramInfos _list, AbsGroupFrame _this) {
+    public static void choose(String _lg, AbstractProgramInfos _list, GroupFrame _this) {
         _list.getFrames().add(_this);
         AbsGroupFrame first_ = _list.getFrames().first();
         if (_list.getFrames().size() == 1) {
@@ -74,7 +74,7 @@ public final class FrameUtil {
 
     public static void showDialogError(GroupFrame _group, int _errorMessage) {
         StringMap<String> messages_ = _group.getCommonFrame().getFrames().getFrames().first().getMessages();
-        ConfirmDialog.showMessage(_group, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _group.getCommonFrame().getFrames().getFrames().first().getCommonFrame().getLanguageKey(), _errorMessage);
+        _group.getCommonFrame().getFrames().getMessageDialogAbs().input(_group.getCommonFrame(), messages_.getVal(MESSAGE), messages_.getVal(TITLE), _group.getCommonFrame().getFrames().getFrames().first().getCommonFrame().getLanguageKey(), _errorMessage);
     }
 
     public static void setLocationRelativeToWin(Iconifiable _i, AbsDialog _to) {

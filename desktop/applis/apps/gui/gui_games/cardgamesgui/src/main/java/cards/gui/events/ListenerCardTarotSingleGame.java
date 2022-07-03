@@ -47,7 +47,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                     String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_DECLARE_DETAIL), Games.toString(container.getChoosenHandful(),lg_));
                     String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
                     String title_ = container.getMessages().getVal(WindowCards.CANT_DECLARE_TITLE);
-                    ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,lg_, GuiConstants.ERROR_MESSAGE);
+                    container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_,lg_, GuiConstants.ERROR_MESSAGE);
                     return;
                 }
                 String pseudo_=container.pseudo();
@@ -88,12 +88,12 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
                 String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseTarot(partie_, lg_));
                 String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
-                ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,lg_,GuiConstants.ERROR_MESSAGE);
+                container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_,lg_,GuiConstants.ERROR_MESSAGE);
             }
         }else{
             String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
-            ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_, lg_,GuiConstants.ERROR_MESSAGE);
+            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_, lg_,GuiConstants.ERROR_MESSAGE);
         }
     }
 }

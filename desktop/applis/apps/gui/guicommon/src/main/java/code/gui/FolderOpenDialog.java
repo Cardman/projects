@@ -25,21 +25,21 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
         super(_frameFact);
         getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void setFolderOpenDialog(GroupFrame _w, String _language,
-            boolean _currentFolderRoot) {
-        _w.getFolderOpenDialog().initFolderOpenDialog(_w, _language, _currentFolderRoot);
+    public static void setFolderOpenDialog(String _language,
+                                           boolean _currentFolderRoot, FolderOpenDialog _folder, AbsCommonFrame _fr) {
+        _folder.initFolderOpenDialog(_language, _currentFolderRoot, _fr);
     }
     /**
-    @param _w
-    @param _language
+     @param _language
     @param _currentFolderRoot
+     * @param _commonFrame
     */
-    private void initFolderOpenDialog(GroupFrame _w, String _language,
-            boolean _currentFolderRoot) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAbsDialog().getAccessFile());
+    private void initFolderOpenDialog(String _language,
+                                      boolean _currentFolderRoot, AbsCommonFrame _commonFrame) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, getAbsDialog().getAccessFile());
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        initByFrame(_w, _language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING);
+        initByFrame(_language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING, _commonFrame);
         AbsPlainButton action_ = getCompoFactory().newPlainButton(messages.getVal(OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);

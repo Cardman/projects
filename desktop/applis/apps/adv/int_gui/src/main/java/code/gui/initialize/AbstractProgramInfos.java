@@ -32,7 +32,7 @@ public interface AbstractProgramInfos extends AbstractLightProgramInfos {
     FileSaveDialogAbs getFileSaveDialogInt();
 
     FolderOpenDialogAbs getFolderOpenDialogInt();
-
+    MessageDialogAbs getMessageDialogAbs();
     int getScreenWidth();
     int getScreenHeight();
 

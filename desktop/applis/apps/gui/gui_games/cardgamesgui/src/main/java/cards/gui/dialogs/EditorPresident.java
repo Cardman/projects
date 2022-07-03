@@ -74,7 +74,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     public static void initEditorPresident(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         _fenetre.getEditorPresident().setMain(_fenetre);
-        _fenetre.getEditorPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getEditorPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getEditorPresident().getCardDialog().setTitle(GameEnum.PRESIDENT.toString(lg_));
         _fenetre.getEditorPresident().setReglesPresident(_fenetre.getReglesPresident());
         _fenetre.getEditorPresident().partie = null;
@@ -259,7 +259,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
+        getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
 
@@ -327,7 +327,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
         }
     }
 

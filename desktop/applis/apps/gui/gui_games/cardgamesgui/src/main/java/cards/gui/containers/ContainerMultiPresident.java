@@ -345,12 +345,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setCanPlay(true);
         if (_readObject.isPassIssue()) {
             String title_ = getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
-            ConfirmDialog.showMessage(getOwner(), _readObject.getReason(), title_, lg_, GuiConstants.ERROR_MESSAGE);
+            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), _readObject.getReason(), title_, lg_, GuiConstants.ERROR_MESSAGE);
         } else {
             String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
             String finalMessage_ = StringUtil.concat(mes_,RETURN_LINE,_readObject.getReason());
             String title_ = getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
-            ConfirmDialog.showMessage(getOwner(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
         }
     }
 

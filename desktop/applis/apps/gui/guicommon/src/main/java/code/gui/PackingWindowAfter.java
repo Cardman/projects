@@ -8,7 +8,7 @@ public final class PackingWindowAfter {
     }
 
     public static void pack(GroupFrame _frame) {
-        FrameUtil.invokeLater(new PackThread(_frame), _frame.getFrames());
+        FrameUtil.invokeLater(new PackThread(_frame.getCommonFrame()), _frame.getFrames());
     }
 
 }

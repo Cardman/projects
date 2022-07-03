@@ -58,7 +58,7 @@ public final class FrameGeneralHelp extends ChildFrame {
     public FrameGeneralHelp(String _titre, WindowCards _fenetre) {
         super(_fenetre.getLanguageKey(),_fenetre);
         setAccessFile(DIALOG_ACCESS);
-        setDialogIcon(_fenetre);
+        setDialogIcon(_fenetre.getCommonFrame());
         setTitle(_titre);
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);

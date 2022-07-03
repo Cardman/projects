@@ -761,7 +761,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
         WindowCards ow_ = getOwner();
-        ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_, tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
+        ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
         ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
@@ -856,7 +856,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 } else {
                     mesBid_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_BELOTE_BID_SUIT), Games.toString(enchereCouleur_.getCouleur(),lg_));
                 }
-                ConfirmDialog.showMessage(getOwner(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+                getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             } else {
                 BidBeloteSuit enchereCouleur_=partie_.strategieContrat();
@@ -876,14 +876,14 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                             getMessages().getVal(WindowCards.CONSULT_BELOTE_BID_SUIT_POINTS),
                             Games.toString(enchereCouleur_.getCouleur(),lg_), Long.toString(enchereCouleur_.getPoints()));
                 }
-                ConfirmDialog.showMessage(getOwner(),mesBid_,
+                getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_,
                         getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
             }
         } else {
             String message_ = StringUtil.simpleStringsFormat(
                     getMessages().getVal(WindowCards.CONSULT_BELOTE_PLAYER),
                     Games.toString(partie_.strategieJeuCarteUnique(),lg_));
-            ConfirmDialog.showMessage(getOwner(),message_,
+            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_,
                     getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
         }
 

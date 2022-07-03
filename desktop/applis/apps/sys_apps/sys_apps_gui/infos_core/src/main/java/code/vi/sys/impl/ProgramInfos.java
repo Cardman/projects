@@ -62,11 +62,12 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     private final AbsFrameFactory frameFactory;
     private final AbsLightFrameFactory lightFrameFactory;
     private final StringList excludedFolders;
-    private final ConfirmDialogTextAbs confirmDialogText = new DefConfirmDialogTextAbs();
-    private final ConfirmDialogAnsAbs confirmDialogAns = new DefConfirmDialogAnsAbs();
-    private final FolderOpenDialogAbs folderOpenDialogInt = new DefFolderOpenDialogAbs();
-    private final FileOpenDialogAbs fileOpenDialogInt = new DefFileOpenDialogAbs();
-    private final FileSaveDialogAbs fileSaveDialogInt = new DefFileSaveDialogAbs();
+    private final ConfirmDialogTextAbs confirmDialogText;
+    private final MessageDialogAbs messageDialogAbs;
+    private final ConfirmDialogAnsAbs confirmDialogAns;
+    private final FolderOpenDialogAbs folderOpenDialogInt;
+    private final FileOpenDialogAbs fileOpenDialogInt;
+    private final FileSaveDialogAbs fileSaveDialogInt;
 
     protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator,AbstractAdvGraphicListGenerator _graphicListGenerator) {
         threadFactory = new DefaultThreadFactory();
@@ -89,6 +90,13 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
         excludedFolders = new StringList();
+        ConfirmDialog conf_ = new ConfirmDialog(this);
+        confirmDialogAns = new DefConfirmDialogAnsAbs(conf_);
+        confirmDialogText = new DefConfirmDialogTextAbs(conf_);
+        messageDialogAbs = new DefMessageDialogAbs(conf_);
+        folderOpenDialogInt = new DefFolderOpenDialogAbs(this);
+        fileOpenDialogInt = new DefFileOpenDialogAbs(this);
+        fileSaveDialogInt = new DefFileSaveDialogAbs(this);
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
 
@@ -325,5 +333,10 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     @Override
     public FolderOpenDialogAbs getFolderOpenDialogInt() {
         return folderOpenDialogInt;
+    }
+
+    @Override
+    public MessageDialogAbs getMessageDialogAbs() {
+        return messageDialogAbs;
     }
 }

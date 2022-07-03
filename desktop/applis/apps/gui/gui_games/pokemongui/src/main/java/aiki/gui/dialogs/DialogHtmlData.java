@@ -61,7 +61,7 @@ public final class DialogHtmlData {
 //    }
     public static void setDialogHtmlData(WindowAiki _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
-        _parent.getDialogHtmlData().absDialog.setDialogIcon(_parent.getImageFactory(),_parent);
+        _parent.getDialogHtmlData().absDialog.setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
         _parent.getDialogHtmlData().absDialog.setTitle(_title);
         _parent.getDialogHtmlData().init(_parent, _parent, _session);
         _parent.getDialogHtmlData().initSession(_dataBase,_pre,_lg);

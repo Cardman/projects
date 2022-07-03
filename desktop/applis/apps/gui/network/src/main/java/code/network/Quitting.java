@@ -52,7 +52,7 @@ public final class Quitting implements Runnable {
             String title_ = messages.getVal(USED_PORT_TITLE);
             String message_ = messages.getVal(USED_PORT);
             message_ = StringUtil.simpleNumberFormat(message_, window.getPort());
-            ConfirmDialog.showMessage(window, message_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), message_, title_, lg_, GuiConstants.ERROR_MESSAGE);
         }
         window.quitNetwork(bye, socket);
     }

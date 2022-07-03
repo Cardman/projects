@@ -20,7 +20,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesPresident(String _titre, WindowCards _fenetre, RulesPresident _rulesPresident) {
-        _fenetre.getDialogRulesPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogRulesPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogRulesPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
         _fenetre.getDialogRulesPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());

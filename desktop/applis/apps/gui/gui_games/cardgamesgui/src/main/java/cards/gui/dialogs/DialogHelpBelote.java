@@ -42,7 +42,7 @@ public final class DialogHelpBelote {
         absDialog.setVisible(true);
     }
     public static void setTitleDialog(WindowCards _fenetre, String _title) {
-        _fenetre.getDialogHelpBelote().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogHelpBelote().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogHelpBelote().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogHelpBelote().absDialog.setTitle(_title);
     }

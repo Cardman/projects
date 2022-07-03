@@ -21,7 +21,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     }
     public static void initDialogRulesBelote(String _titre, WindowCards _fenetre, RulesBelote _rulesBelote) {
         _fenetre.getDialogRulesBelote().setMain(_fenetre);
-        _fenetre.getDialogRulesBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogRulesBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogRulesBelote().getCardDialog().setTitle(_titre);
         _fenetre.getDialogRulesBelote().setReglesBelote(_rulesBelote);
         _fenetre.getDialogRulesBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());

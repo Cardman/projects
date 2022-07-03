@@ -40,7 +40,7 @@ public final class DialogNicknames extends DialogCards {
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogNicknames(String _titre, WindowCards _fenetre) {
-        _fenetre.getDialogNicknames().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogNicknames().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogNicknames().getCardDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogNicknames().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getCardDialog().getAccessFile());
@@ -118,10 +118,10 @@ public final class DialogNicknames extends DialogCards {
     public void validateNicknames() {
         String lg_ = getMain().getLanguageKey();
         if(unChampVidePresent()) {
-            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else if(tabulationPresente()) {
-            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else {
             pseudos.setPseudo(nickname.getText());

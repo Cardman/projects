@@ -48,7 +48,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
     }
 
     private void initDialogServer(WindowCards _fenetre, GameEnum _game) {
-        getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         create = false;
         join = false;
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());

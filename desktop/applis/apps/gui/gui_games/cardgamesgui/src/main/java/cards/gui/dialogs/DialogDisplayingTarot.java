@@ -47,7 +47,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     }
     public static void setDialogDisplayingTarot(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogDisplayingTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingTarot().setMain(_fenetre);
         _fenetre.getDialogDisplayingTarot().getJt().removeAll();
         _fenetre.getDialogDisplayingTarot().getCardDialog().setTitle(_titre);
@@ -156,7 +156,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<5) {
-            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingTarot.setClockwise(checkClockwise.isSelected());

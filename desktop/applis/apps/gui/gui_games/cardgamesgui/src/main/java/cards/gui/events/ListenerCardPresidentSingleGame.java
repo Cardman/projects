@@ -48,7 +48,7 @@ public class ListenerCardPresidentSingleGame extends
                 mes_.append(Games.autorisePresident(game_,DealPresident.NUMERO_UTILISATEUR, getCarteVerif(), getIndexVerif(), lg_));
                 String finalMessage_ = mes_.toString();
                 String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
-                ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+                container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
             } else {
                 container.setaJoueCarte(true);
                 container.finPliPresident(getCarteVerif(), getIndexVerif());
@@ -56,7 +56,7 @@ public class ListenerCardPresidentSingleGame extends
         }else{
             String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
-            ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
         }
     }
 }

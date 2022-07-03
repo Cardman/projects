@@ -56,47 +56,44 @@ public final class ConfirmDialog {
         return _dialog;
     }
 
-    public static void showTextField(GroupFrame _frame, String _value, String _message, String _title, String _language) {
-        _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(), _frame);
-        _frame.getConfirmDialog().absDialog.setModal(true);
-        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame.getCommonFrame());
-        _frame.getConfirmDialog().init(_message, _value, _title, _language);
+    public static void showTextField(String _value, String _message, String _title, String _language, ConfirmDialog _conf, AbsCommonFrame _fr) {
+        _conf.absDialog.setDialogIcon(_conf.list.getImageFactory(), _fr);
+        _conf.absDialog.setModal(true);
+        _conf.absDialog.setLocationRelativeTo(_fr);
+        _conf.init(_message, _value, _title, _language);
     }
 
-    public static void showComponent(GroupFrame _frame, AbsCustComponent _message, String _title, String _language, int _option) {
+    public static void showComponent(AbsCustComponent _message, String _title, String _language, int _option, ConfirmDialog _conf, AbsCommonFrame _fr) {
 //      ConfirmDialog conf_;
 //      conf_ = new ConfirmDialog(_frame);
-        _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(), _frame);
-        _frame.getConfirmDialog().absDialog.setModal(true);
-        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame.getCommonFrame());
-        _frame.getConfirmDialog().initComponentSingleButton(_message, _title, _language, _option);
+        _conf.absDialog.setDialogIcon(_conf.list.getImageFactory(), _fr);
+        _conf.absDialog.setModal(true);
+        _conf.absDialog.setLocationRelativeTo(_fr);
+        _conf.initComponentSingleButton(_message, _title, _language, _option);
   }
 
-    public static void showMessage(GroupFrame _frame, String _message, String _title, String _language, int _option) {
+    public static void showMessage(String _message, String _title, String _language, int _option, ConfirmDialog _conf, AbsCommonFrame _fr) {
 //        ConfirmDialog conf_;
 //        conf_ = new ConfirmDialog(_frame);
-        _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(),_frame);
-        _frame.getConfirmDialog().absDialog.setModal(true);
-        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame.getCommonFrame());
-        _frame.getConfirmDialog().initComponentSingleButton(build(_frame.getConfirmDialog(), _message), _title, _language, _option);
+        showComponent(build(_conf, _message), _title, _language, _option, _conf, _fr);
     }
 
     public static AbsCustComponent build(ConfirmDialog _frame, String _message) {
         return new WrappedLabel(_frame.list.getImageFactory(), _message, _frame.list.getCompoFactory()).getPaintableLabel();
     }
 
-    public static int getAnswer(GroupFrame _frame, String _message, String _title, String _language, int _option) {
-        return showMiniDialog(_frame, _message, _title, _language, _option).getAnswer();
+    public static int getAnswer(String _message, String _title, String _language, int _option, ConfirmDialog _conf, AbsCommonFrame _fr) {
+        return showMiniDialog(_message, _title, _language, _option, _conf, _fr).getAnswer();
     }
 
-    public static ConfirmDialog showMiniDialog(GroupFrame _frame, String _message, String _title, String _language, int _option) {
+    public static ConfirmDialog showMiniDialog(String _message, String _title, String _language, int _option, ConfirmDialog _conf, AbsCommonFrame _fr) {
 //        ConfirmDialog conf_;
 //        conf_ = new ConfirmDialog(_frame, _message, _title, _language, _option);
-        _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(), _frame);
-        _frame.getConfirmDialog().absDialog.setModal(true);
-        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame.getCommonFrame());
-        _frame.getConfirmDialog().init(_message, _title, _language, _option);
-        return _frame.getConfirmDialog();
+        _conf.absDialog.setDialogIcon(_conf.list.getImageFactory(), _fr);
+        _conf.absDialog.setModal(true);
+        _conf.absDialog.setLocationRelativeTo(_fr);
+        _conf.init(_message, _title, _language, _option);
+        return _conf;
     }
 
     private void buttons(int _option, StringMap<String> _messages, AbsPanel _content) {

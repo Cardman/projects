@@ -38,7 +38,7 @@ public final class DialogGameProgess {
 
     private void init(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
         //super(_window, true);
-        absDialog.setDialogIcon(_window.getImageFactory(),_window);
+        absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
         absDialog.setModal(true);
         absDialog.setTitle(_title);

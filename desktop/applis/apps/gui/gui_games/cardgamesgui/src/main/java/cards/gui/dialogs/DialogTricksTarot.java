@@ -21,7 +21,7 @@ public final class DialogTricksTarot extends DialogCards {
         super(_frameFactory);
     }
     public static void setDialogTricksTarot(String _titre, WindowCards _fenetre) {
-        _fenetre.getDialogTricksTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogTricksTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogTricksTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogTricksTarot().getCardDialog().setTitle(_titre);
         _fenetre.getDialogTricksTarot().getCardDialog().setResizable(true);

@@ -65,7 +65,7 @@ public final class WindowFull extends GroupFrame {
         addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {
-        String fichier_=getFileOpenDialogInt().input(this,getLanguageKey(),true, "", getFrames().getHomePath());
+        String fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath());
         if (fichier_ == null) {
             fichier_ = "";
         }

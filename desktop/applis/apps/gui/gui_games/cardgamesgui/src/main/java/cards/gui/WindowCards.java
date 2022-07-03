@@ -1047,7 +1047,7 @@ public final class WindowCards extends NetGroupFrame {
         }
         pack();
         if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
-            ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+            getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -1879,15 +1879,15 @@ public final class WindowCards extends NetGroupFrame {
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return getConfirmDialogAns().input(this,_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
+        return getConfirmDialogAns().input(getCommonFrame(),_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
     }
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierSauvegarde() {
         String fichier_;
         if (isSaveHomeFolder()) {
-            fichier_=getFileSaveDialogInt().input(this, getLanguageKey(), true, FileConst.GAME_EXT, getFrames().getHomePath());
+            fichier_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, FileConst.GAME_EXT, getFrames().getHomePath());
         } else {
-            fichier_=getFileSaveDialogInt().input(this, getLanguageKey(), true, FileConst.GAME_EXT, EMPTY_STRING);
+            fichier_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, FileConst.GAME_EXT, EMPTY_STRING);
         }
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
@@ -1898,9 +1898,9 @@ public final class WindowCards extends NetGroupFrame {
     private String dialogueFichierChargement() {
         String fichier_;
         if (isSaveHomeFolder()) {
-            fichier_=getFileOpenDialogInt().input(this,getLanguageKey(),true, FileConst.GAME_EXT, getFrames().getHomePath());
+            fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, FileConst.GAME_EXT, getFrames().getHomePath());
         } else {
-            fichier_=getFileOpenDialogInt().input(this,getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING);
+            fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING);
         }
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
@@ -1923,7 +1923,7 @@ public final class WindowCards extends NetGroupFrame {
         //The issue of quality of game are caught here
         String lg_ = getLanguageKey();
         String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(CST_FILE_NOT_LOADED), _fichier);
-        ConfirmDialog.showMessage(this,mes_, getMessages().getVal(CST_FILE_NOT_LOADED_TILE),lg_, GuiConstants.ERROR_MESSAGE);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(),mes_, getMessages().getVal(CST_FILE_NOT_LOADED_TILE),lg_, GuiConstants.ERROR_MESSAGE);
     }
 
     /**On ecoute les boutons du menu principal et des menus jeux*/
@@ -1974,10 +1974,10 @@ public final class WindowCards extends NetGroupFrame {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = getMessages().getVal(UNKNOWN_HOST);
                 formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
-                ConfirmDialog.showMessage(this, getMessages().getVal(BUG), formatted_, getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), formatted_, getLanguageKey(), GuiConstants.ERROR_MESSAGE);
                 return;
             }
-            ConfirmDialog.showMessage(this, getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+            getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             return;
         }
     }
@@ -2082,9 +2082,9 @@ public final class WindowCards extends NetGroupFrame {
         String lg_ = getLanguageKey();
         String fichier_;
         if (isSaveHomeFolder()) {
-            fichier_=getFileSaveDialogInt().input(this,_d, lg_, true, FileConst.GAME_EXT, getFrames().getHomePath());
+            fichier_=getFileSaveDialogInt().input(getCommonFrame(),_d, lg_, true, FileConst.GAME_EXT, getFrames().getHomePath());
         } else {
-            fichier_=getFileSaveDialogInt().input(this,_d, lg_, true, FileConst.GAME_EXT, EMPTY_STRING);
+            fichier_=getFileSaveDialogInt().input(getCommonFrame(),_d, lg_, true, FileConst.GAME_EXT, EMPTY_STRING);
         }
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;

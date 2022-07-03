@@ -674,10 +674,10 @@ public class ScenePanel {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = messages.getVal(UNKNOWN_HOST);
                 formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
-                ConfirmDialog.showMessage(window, messages.getVal(BUG), formatted_,lg_,GuiConstants.ERROR_MESSAGE);
+                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), formatted_,lg_,GuiConstants.ERROR_MESSAGE);
                 return;
             }
-            ConfirmDialog.showMessage(window, messages.getVal(BUG), messages.getVal(NOT_CONNECTED), lg_,GuiConstants.ERROR_MESSAGE);
+            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), messages.getVal(NOT_CONNECTED), lg_,GuiConstants.ERROR_MESSAGE);
             return;
         }
         window.setIndexInGame(IndexConstants.SECOND_INDEX);
@@ -773,7 +773,7 @@ public class ScenePanel {
         AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
         receivedPk = new RenderedPage(scrollSession_, window.getFrames());
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
-        receivedPk.setFrame(window);
+        receivedPk.setFrame(window.getCommonFrame());
 //        receivedPk.prepare();
         scrollSession_.setPreferredSize(new MetaDimension(400, 300));
         group_.add(scrollSession_, GuiConstants.BORDER_LAYOUT_CENTER);
@@ -1332,7 +1332,7 @@ public class ScenePanel {
 
     public void changeNickname() {
         String lg_ = window.getLanguageKey();
-        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window, DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME), lg_);
+        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window.getCommonFrame(), DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME), lg_);
         if (confirmDialog_.getAnswer() != GuiConstants.YES_OPTION) {
             return;
         }
@@ -1736,7 +1736,7 @@ public class ScenePanel {
         AbsWrappedTextArea commentsWalking_ = window.getCompoFactory().newWrappedTextArea(4, 32);
         commentsWalking_.setEditable(false);
         commentsWalking_.setText(_text);
-        ConfirmDialog.showComponent(window, compoFactory.newAbsScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), lg_, _messageType);
+        window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), compoFactory.newAbsScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), lg_, _messageType);
     }
 
     public Scene getScene() {

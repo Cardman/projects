@@ -38,6 +38,7 @@ public abstract class MockAbsProgramInfos implements AbstractProgramInfos {
     private final AbsCompoFactory compoFactory = new MockCompoFactory();
     private final AbstractSocketFactory socketFactory = new MockSocketFactory();
     private final MockFileFolerDialog mockFileFolerDialog;
+    private final MessageDialogAbs messageDialogAbs = new MockMessageDialogAbs();
     private final MockConfirmDialogTextAbs mockConfirmDialogTextAbs;
     private final MockConfirmDialogAnsAbs mockConfirmDialogAnsAbs;
     private int screenWidth;
@@ -299,5 +300,10 @@ public abstract class MockAbsProgramInfos implements AbstractProgramInfos {
     @Override
     public ConfirmDialogAnsAbs getConfirmDialogAns() {
         return mockConfirmDialogAnsAbs;
+    }
+
+    @Override
+    public MessageDialogAbs getMessageDialogAbs() {
+        return messageDialogAbs;
     }
 }

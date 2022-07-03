@@ -1,9 +1,10 @@
 package code.gui;
 
 
-
-
-import code.gui.events.*;
+import code.gui.events.CancelSelectFileEvent;
+import code.gui.events.CreateFolderEvent;
+import code.gui.events.SubmitKeyEvent;
+import code.gui.events.SubmitMouseEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -35,33 +36,30 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private static final String CREATE = "+";
 
     private static final int NB_COLS = 24;
-    private ConfirmDialog dialog;
 
     private final AbsTextField typedString = getCompoFactory().newTextField(NB_COLS);
 
     private final AbsPanel searchingPanel = getCompoFactory().newLineBox();
 
     private StringMap<String> messages;
-    private GroupFrame frame;
+    private AbsCommonFrame frame;
 
     public FileSaveDialog(AbstractProgramInfos _frameFact) {
         super(_frameFact);
         getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setFileSaveDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath) {
-        _w.getFileSaveDialog().dialog = _w.getConfirmDialog();
-        _w.getFileSaveDialog().setFileDialogByFrame(_w,_language,_currentFolderRoot,_extension, _folder);
-        _w.getFileSaveDialog().initSaveDialog(_w, _homePath);
+    public static void setFileSaveDialogByFrame(AbsCommonFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, FileSaveDialog _fileSave) {
+        _fileSave.setFileDialogByFrame(_language,_currentFolderRoot,_extension, _folder, _w);
+        _fileSave.initSaveDialog(_w, _w.getFrames().getHomePath());
     }
 
-    public static void setFileSaveDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath) {
-        _c.getFileSaveDialog().dialog = _c.getConfirmDialog();
-        _c.getFileSaveDialog().setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder);
-        _c.getFileSaveDialog().initSaveDialog(_c, _homePath);
+    public static void setFileSaveDialog(AbsCommonFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, FileSaveDialog _fileSave) {
+        _fileSave.setFileDialog(_w,_language,_currentFolderRoot,_extension, _folder);
+        _fileSave.initSaveDialog(_c, _c.getFrames().getHomePath());
     }
 
-    private void initSaveDialog(GroupFrame _c, String _homePath) {
+    private void initSaveDialog(AbsCommonFrame _c, String _homePath) {
         frame =_c;
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAbsDialog().getAccessFile());
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
@@ -95,18 +93,18 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         if (path_ != null) {
             StringBuilder str_ = buildPath(path_);
             str_.append(typedString.getText());
-            if (!frame.getValidator().okPath(str_.toString(),'/','\\')) {
+            if (!getProgramInfos().getValidator().okPath(str_.toString(),'/','\\')) {
                 return;
             }
-            if (!StreamFolderFile.makeParent(str_.toString(), getSuperFrame().getFileCoreStream())) {
+            if (!StreamFolderFile.makeParent(str_.toString(), getProgramInfos().getFileCoreStream())) {
                 return;
             }
             applyTreeChangeSelected();
         } else {
-            if (!frame.getValidator().okPath(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()),'/','\\')) {
+            if (!getProgramInfos().getValidator().okPath(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()),'/','\\')) {
                 return;
             }
-            if (!StreamFolderFile.makeParent(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()), getSuperFrame().getFileCoreStream())) {
+            if (!StreamFolderFile.makeParent(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()), getProgramInfos().getFileCoreStream())) {
                 return;
             }
             applyTreeChange();
@@ -123,21 +121,21 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     public void submit() {
         String errorTitle_ = messages.getVal(FORBIDDEN);
-        String lg_ = frame.getLanguageKey();
+        String lg_ = getLang();
         String text_ = getFileName().getText();
         if (text_.trim().isEmpty()) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPACES);
-            ConfirmDialog.showMessage(getAbsDialog(), errorContent_, errorTitle_,lg_, GuiConstants.ERROR_MESSAGE, dialog);
+            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), errorContent_, errorTitle_,lg_, GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!frame.getValidator().okPath(text_,'/','\\')) {
+        if (!getProgramInfos().getValidator().okPath(text_,'/','\\')) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPECIAL_CHARS);
-            ConfirmDialog.showMessage(getAbsDialog(), errorContent_, errorTitle_, lg_, GuiConstants.ERROR_MESSAGE, dialog);
+            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), errorContent_, errorTitle_, lg_, GuiConstants.ERROR_MESSAGE);
             return;
         }
         //get selected row first table
-        AbstractFile file_ = getSuperFrame().getFileCoreStream().newFile(StringUtil.concat(getCurrentFolder(), text_,getExtension()));
+        AbstractFile file_ = getProgramInfos().getFileCoreStream().newFile(StringUtil.concat(getCurrentFolder(), text_,getExtension()));
         if (file_.exists()) {
             String mes_ = StringUtil.simpleStringsFormat(messages.getVal(BODY_CONF), StringUtil.concat(getCurrentFolder(), text_));
 //            ConfirmDialog conf_ = new ConfirmDialog(
@@ -145,7 +143,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 //                    mes_, messages.getVal(TITLE_CONF),
 //                    getLang(),
 //                    JOptionPane.YES_NO_OPTION);
-            int answer_ = frame.getConfirmDialogAns().input(
+            int answer_ = getProgramInfos().getConfirmDialogAns().input(
                     getAbsDialog(),frame,
                     mes_, messages.getVal(TITLE_CONF),
                     getLang(),

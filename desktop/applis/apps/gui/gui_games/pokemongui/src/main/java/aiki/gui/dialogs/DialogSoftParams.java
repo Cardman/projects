@@ -57,7 +57,7 @@ public final class DialogSoftParams {
     }
 
     private void init(WindowAiki _window, LoadingGame _loading) {
-        absDialog.setDialogIcon(_window.getImageFactory(),_window);
+        absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
         ok = false;
         absDialog.setTitle(messages.getVal(TITLE));

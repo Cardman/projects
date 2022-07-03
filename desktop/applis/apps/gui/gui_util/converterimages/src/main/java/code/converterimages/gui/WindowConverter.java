@@ -69,7 +69,7 @@ public final class WindowConverter extends GroupFrame {
     }
 
     public void read() {
-        String folderPathRead_ = getFolderOpenDialogInt().input(this, Constants.getDefaultLanguage(), false);
+        String folderPathRead_ = getFolderOpenDialogInt().input(getCommonFrame(), Constants.getDefaultLanguage(), false);
         if (folderPathRead_.isEmpty()) {
             return;
         }

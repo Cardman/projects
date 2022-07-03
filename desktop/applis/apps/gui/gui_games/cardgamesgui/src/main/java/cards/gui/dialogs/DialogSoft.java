@@ -48,7 +48,7 @@ public final class DialogSoft extends DialogCards {
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogSoft(String _titre, WindowCards _fenetre) {
-        _fenetre.getDialogSoft().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogSoft().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogSoft().getCardDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogSoft().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogSoft().getCardDialog().getAccessFile());
