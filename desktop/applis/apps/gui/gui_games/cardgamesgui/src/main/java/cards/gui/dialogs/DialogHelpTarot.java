@@ -37,7 +37,7 @@ public final class DialogHelpTarot {
 
     public static void setTitleDialog(WindowCards _fenetre, String _title) {
         _fenetre.getDialogHelpTarot().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getDialogHelpTarot().absDialog.setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogHelpTarot().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogHelpTarot().absDialog.setTitle(_title);
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/

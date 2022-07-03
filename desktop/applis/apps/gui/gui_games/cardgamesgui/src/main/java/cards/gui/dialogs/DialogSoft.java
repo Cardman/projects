@@ -53,7 +53,7 @@ public final class DialogSoft extends DialogCards {
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogSoft().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogSoft().getCardDialog().getAccessFile());
         _fenetre.getDialogSoft().parametres = _fenetre.getParametresLogiciel();
-        _fenetre.getDialogSoft().getCardDialog().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogSoft().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static SoftParams getParametres(DialogSoft _dialog) {

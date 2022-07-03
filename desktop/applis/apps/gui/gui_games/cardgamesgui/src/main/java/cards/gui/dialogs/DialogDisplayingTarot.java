@@ -52,7 +52,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         _fenetre.getDialogDisplayingTarot().getJt().removeAll();
         _fenetre.getDialogDisplayingTarot().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingTarot().displayingTarot = _fenetre.getDisplayingTarot();
-        _fenetre.getDialogDisplayingTarot().getCardDialog().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogDisplayingTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingTarot().setDialogue(_fenetre);
     }

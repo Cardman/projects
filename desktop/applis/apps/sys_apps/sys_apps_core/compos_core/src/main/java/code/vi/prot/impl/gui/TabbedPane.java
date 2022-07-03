@@ -37,8 +37,12 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
         component.add(_title, ((CustComponent) _component).getNatComponent());
     }
 
-    public void setTab(int _index,AbsCustComponent _component) {
-        FrameUtil.setTab(_index, _component,this);
+    public boolean setTab(int _index,AbsCustComponent _component) {
+        try {
+            return FrameUtil.setTab(_index, _component,this);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void setTabComponentAt(int _index, AbsCustComponent _component) {
@@ -49,15 +53,24 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
     }
 
     public String getTitle(int _index) {
-        return FrameUtil.title(_index, this);
+        try {
+            return getTitleAt(_index);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public String getTitleAt(int _index) {
         return component.getTitleAt(_index);
     }
 
-    public void setTitle(int _index,String _title) {
-        FrameUtil.title(_index, _title, this);
+    public boolean setTitle(int _index,String _title) {
+        try {
+            setTitleAt(_index, _title);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void setTitleAt(int _index, String _title) {

@@ -13,6 +13,7 @@
 	<modules>
 		<module>core</module>
 		<module>bean</module>
+		<module>adv</module>
 		<module>apps_util</module>
 		<module>apps_sml</module>
 		<module>files</module>

@@ -82,7 +82,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         _fenetre.getEditorBelote().nombreCartesSelectionnees = 0;
         _fenetre.getEditorBelote().partieSauvegardee = false;
         _fenetre.getEditorBelote().window = _fenetre;
-        _fenetre.getEditorBelote().getCardDialog().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorBelote().nickNames = _fenetre.getPseudosJoueurs();
         _fenetre.getEditorBelote().displayingBelote = _fenetre.getDisplayingBelote();
         _fenetre.getEditorBelote().setDialogue(_fenetre);

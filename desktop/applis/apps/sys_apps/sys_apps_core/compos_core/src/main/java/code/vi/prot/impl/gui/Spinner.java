@@ -1,7 +1,6 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsSpinner;
-import code.gui.FrameUtil;
 import code.gui.events.AbsChangeListener;
 import code.vi.prot.impl.gui.events.WrChangeListener;
 
@@ -20,11 +19,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
         max = _max;
         step = _step;
         sp = new JSpinner();
-        model(_value, _min, _max, _step);
-    }
-
-    private void model(int _value, int _min, int _max, int _step) {
-        FrameUtil.initModel(this, _value, _min, _max, _step);
+        mod(_value, _min, _max, _step);
     }
 
     public void defValues() {
@@ -34,8 +29,12 @@ public final class Spinner extends CustComponent implements AbsSpinner {
     }
 
     public void mod(int _value, int _min, int _max, int _step) {
-        SpinnerNumberModel model_ = new SpinnerNumberModel(_value, _min, _max, _step);
-        sp.setModel(model_);
+        try {
+            SpinnerNumberModel model_ = new SpinnerNumberModel(_value, _min, _max, _step);
+            sp.setModel(model_);
+        } catch (Exception e) {
+            defValues();
+        }
     }
 
     public int getValue() {
@@ -60,7 +59,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
     }
 
     public void setRange(int _min, int _max) {
-        FrameUtil.rg(this,_min, _max);
+        range(_min, _max);
     }
 
     public void range(int _min, int _max) {
@@ -70,7 +69,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
     }
 
     public void setRangeValue(int _value,int _min, int _max) {
-        FrameUtil.rgValue(this,_value, _min, _max);
+        rangeValue(_value, _min, _max);
     }
 
     public void rangeValue(int _value, int _min, int _max) {
@@ -83,7 +82,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
         return min;
     }
     public void setMin(int _min) {
-        FrameUtil.mn(this,_min);
+        min(_min);
     }
 
     public void min(int _min) {
@@ -95,7 +94,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
         return max;
     }
     public void setMax(int _max) {
-        FrameUtil.mx(this,_max);
+        max(_max);
     }
 
     public void max(int _max) {
@@ -108,7 +107,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
     }
 
     public void value(int _value) {
-        FrameUtil.vl(this,_value);
+        updateModel(_value);
     }
 
     public int getStep() {

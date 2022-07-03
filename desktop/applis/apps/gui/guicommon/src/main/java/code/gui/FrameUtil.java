@@ -1,7 +1,6 @@
 package code.gui;
 
 import code.expressionlanguage.structs.Struct;
-import code.gui.events.AbsWindowListener;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -80,64 +79,12 @@ public final class FrameUtil {
 
     public static void setLocationRelativeToWin(Iconifiable _i, AbsDialog _to) {
         if (_i instanceof AbsGroupFrame) {
-            _to.setLocationRelativeTo((AbsGroupFrame) _i);
+            _to.setLocationRelativeTo(((AbsGroupFrame) _i).getCommonFrame());
         } else if (_i instanceof AbsDialog) {
             _to.setLocationRelativeTo((AbsDialog) _i);
         }
     }
 
-    public static void recalculate(AbsCustComponent _compo) {
-        _compo.setSize(_compo.getPreferredSizeValue());
-        AbsCustComponent curr_ = _compo;
-        while (curr_ != null) {
-            curr_.recalculate();
-            if (curr_ instanceof AbsScrollPane) {
-                ((AbsScrollPane)curr_).recalculateViewport();
-            }
-            AbsCustComponent child_ = childAt(curr_, 0);
-            if (child_ != null) {
-                curr_ = child_;
-                continue;
-            }
-            while (curr_ != null) {
-                AbsCustComponent par_ = curr_.getParent();
-                int index_ = indexOf(par_,curr_);
-                AbsCustComponent next_ = childAt(par_, index_ + 1);
-                if (next_ != null) {
-                    curr_ = next_;
-                    break;
-                }
-                curr_ = par_;
-
-            }
-        }
-    }
-    private static AbsCustComponent childAt(AbsCustComponent _elt, int _index) {
-        if (_elt == null) {
-            return null;
-        }
-        CustList<AbsCustComponent> children_ = _elt.getChildren();
-        if (!children_.isValidIndex(_index)) {
-            return null;
-        }
-        return children_.get(_index);
-    }
-    private static int indexOf(AbsCustComponent _par,AbsCustComponent _elt) {
-        if (_par == null) {
-            return -1;
-        }
-        return indexOf(_par.getChildren(), _elt);
-    }
-    public static int indexOf(CustList<AbsCustComponent> _list,AbsCustComponent _elt) {
-        int index_ = 0;
-        for (AbsCustComponent c: _list) {
-            if (c == _elt) {
-                return index_;
-            }
-            index_++;
-        }
-        return -1;
-    }
     public static void repaint(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel, AbsMetaLabelInt _metaLabel) {
         int w_ = _paintableLabel.getWidth();
         int h_ = _paintableLabel.getHeight();
@@ -706,28 +653,12 @@ public final class FrameUtil {
         _tabbedPane.addIntTab(_title, _component);
     }
 
-    public static void setTab(int _index, AbsCustComponent _component, AbsTabbedPane _curr) {
-        if (!_curr.getChildren().isValidIndex(_index)) {
-            return;
-        }
+    public static boolean setTab(int _index, AbsCustComponent _component, AbsTabbedPane _curr) {
         if (_component.getParent() != null) {
-            return;
+            return false;
         }
         _curr.setTabComponentAt(_index, _component);
-    }
-
-    public static String title(int _index, AbsTabbedPane _curr) {
-        if (!_curr.getChildren().isValidIndex(_index)) {
-            return "";
-        }
-        return _curr.getTitleAt(_index);
-    }
-
-    public static void title(int _index, String _title, AbsTabbedPane _curr) {
-        if (!_curr.getChildren().isValidIndex(_index)) {
-            return;
-        }
-        _curr.setTitleAt(_index, _title);
+        return true;
     }
 
     public static void left(AbsCustComponent _scroll, AbsSplitPane _curr) {
@@ -742,56 +673,6 @@ public final class FrameUtil {
             return;
         }
         _curr.innerRight(_scroll);
-    }
-
-    public static boolean invalidSpinner(int _value, int _min, int _max) {
-        if (_value < _min) {
-            return true;
-        }
-        return _value > _max;
-    }
-
-    public static void initModel(AbsSpinner _curr, int _value, int _min, int _max, int _step) {
-        if (invalidSpinner(_value, _min, _max)) {
-            _curr.defValues();
-        } else {
-            _curr.mod(_value, _min, _max, _step);
-        }
-    }
-
-    public static void rg(AbsSpinner _curr, int _min, int _max) {
-        if (invalidSpinner(_curr.getValue(), _min, _max)) {
-            return;
-        }
-        _curr.range(_min, _max);
-    }
-
-    public static void rgValue(AbsSpinner _curr, int _value, int _min, int _max) {
-        if (invalidSpinner(_value, _min, _max)) {
-            return;
-        }
-        _curr.rangeValue(_value, _min, _max);
-    }
-
-    public static void mn(AbsSpinner _curr, int _min) {
-        if (invalidSpinner(_curr.getValue(), _min, _curr.getMax())) {
-            return;
-        }
-        _curr.min(_min);
-    }
-
-    public static void mx(AbsSpinner _curr, int _max) {
-        if (invalidSpinner(_curr.getValue(), _curr.getMin(), _max)) {
-            return;
-        }
-        _curr.max(_max);
-    }
-
-    public static void vl(AbsSpinner _curr, int _value) {
-        if (invalidSpinner(_value, _curr.getMin(), _curr.getMax())) {
-            return;
-        }
-        _curr.updateModel(_value);
     }
 
     public static void ins(AbsTextArea _curr, String _str, int _pos) {

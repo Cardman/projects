@@ -28,7 +28,7 @@ public final class DialogTeamsPlayers extends DialogCards {
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogTeamsPlayers().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getCardDialog().getAccessFile());
         _fenetre.getDialogTeamsPlayers().getCardDialog().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(TITLE));
-        _fenetre.getDialogTeamsPlayers().getCardDialog().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogTeamsPlayers().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static void setDialogTeamsPlayers(StringList _pseudos, TeamsPlayers _teamsPlayers, DialogTeamsPlayers _dialog, AbsCompoFactory _compo) {

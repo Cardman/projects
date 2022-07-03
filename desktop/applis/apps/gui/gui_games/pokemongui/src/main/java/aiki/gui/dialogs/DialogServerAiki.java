@@ -56,7 +56,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         for (IpType i: IpType.values()) {
             messagesIpEnum.put(i, i.toString(_fenetre.getLanguageKey()));
         }
-        absDialog.setLocationRelativeTo(_fenetre);
+        absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         absDialog.setResizable(false);
         absDialog.setTitle(messages.getVal(TITLE));
         ipOrHostName = _fenetre.getCompoFactory().newTextField();

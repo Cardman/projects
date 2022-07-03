@@ -2,11 +2,12 @@ package code.vi.prot.impl.gui;
 
 import code.gui.AbsCustButtonGroup;
 import code.gui.AbsRadioButton;
+import code.gui.CustButtonGroup;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsChangeListener;
-import code.util.IdMap;
 import code.vi.prot.impl.gui.events.WrActionListener;
 import code.vi.prot.impl.gui.events.WrChangeListener;
+import code.util.IdMap;
 
 import javax.swing.*;
 

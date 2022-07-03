@@ -145,7 +145,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     //@Override
-    public void setLocationRelativeTo(AbsGroupFrame _c) {
+    public void setLocationRelativeTo(AbsCommonFrame _c) {
         commonFrame.setLocationRelativeTo(_c);
     }
 

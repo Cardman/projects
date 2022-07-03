@@ -83,7 +83,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         _fenetre.getEditorPresident().nombreCartesSelectionnees = 0;
         _fenetre.getEditorPresident().partieSauvegardee = false;
         _fenetre.getEditorPresident().window = _fenetre;
-        _fenetre.getEditorPresident().getCardDialog().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorPresident().nickNames = _fenetre.getPseudosJoueurs();
         _fenetre.getEditorPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getEditorPresident().setDialogue(true, 0, _fenetre);

@@ -41,7 +41,7 @@ public final class LanguageDialog implements SetterLanguage {
 
     private void init(GroupFrame _owner, String _title) {
         absDialog.setDialogIcon(_owner.getImageFactory(),_owner);
-        absDialog.setLocationRelativeTo(_owner);
+        absDialog.setLocationRelativeTo(_owner.getCommonFrame());
         absDialog.setTitle(_title);
         AbsPanel panneau_ = _owner.getCompoFactory().newGrid(0,1);
         for (String l: Constants.getAvailableLanguages()) {

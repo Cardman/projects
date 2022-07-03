@@ -61,7 +61,7 @@ public final class DialogSoftParams {
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
         ok = false;
         absDialog.setTitle(messages.getVal(TITLE));
-        absDialog.setLocationRelativeTo(_window);
+        absDialog.setLocationRelativeTo(_window.getCommonFrame());
         AbsPanel panel_ = _window.getCompoFactory().newGrid(0,1);
 //        loadLastRom = _loading.isLoadLastRom();
 //        loadLastGame = _loading.isLoadLastGame();

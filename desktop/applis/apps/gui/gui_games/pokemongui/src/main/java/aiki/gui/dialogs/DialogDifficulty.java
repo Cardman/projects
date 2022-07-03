@@ -49,7 +49,7 @@ public final class DialogDifficulty implements AbsCloseableDialog {
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
         absDialog.setModal(true);
         absDialog.setTitle(_title);
-        absDialog.setLocationRelativeTo(_window);
+        absDialog.setLocationRelativeTo(_window.getCommonFrame());
         AbsScrollPane scrollSession_ = _window.getCompoFactory().newAbsScrollPane();
         session = new RenderedPage(scrollSession_, window.getFrames());
         session.setFrame(absDialog);

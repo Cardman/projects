@@ -46,7 +46,7 @@ public final class DialogNicknames extends DialogCards {
         _fenetre.getDialogNicknames().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getCardDialog().getAccessFile());
         _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
         _fenetre.getDialogNicknames().setMain(_fenetre);
-        _fenetre.getDialogNicknames().getCardDialog().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogNicknames().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogNicknames().setDialogue(_fenetre);
     }
 

@@ -107,7 +107,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         //super(_w,true);
         absDialog.setDialogIcon(_w.getImageFactory(),_w);
         absDialog.setModal(true);
-        absDialog.setLocationRelativeTo(_w);
+        absDialog.setLocationRelativeTo(_w.getCommonFrame());
         extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;

@@ -105,7 +105,7 @@ public abstract class ChildFrame implements AbsChildFrame {
 
     //@Override
     public void setLocationRelativeTo(AbsGroupFrame _c) {
-        absCommonFrame.setLocationRelativeTo(_c);
+        absCommonFrame.setLocationRelativeTo(_c.getCommonFrame());
     }
 
     //@Override

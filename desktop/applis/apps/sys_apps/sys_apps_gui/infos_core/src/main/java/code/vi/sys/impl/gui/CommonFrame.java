@@ -183,8 +183,8 @@ public final class CommonFrame implements AbsCommonFrame {
     }
 
     @Override
-    public void setLocationRelativeTo(AbsGroupFrame _c) {
-        frame.setLocationRelativeTo(((CommonFrame)_c.getCommonFrame()).frame);
+    public void setLocationRelativeTo(AbsCommonFrame _c) {
+        frame.setLocationRelativeTo(((CommonFrame)_c).frame);
     }
 
     public void setLocationRelativeToNull() {

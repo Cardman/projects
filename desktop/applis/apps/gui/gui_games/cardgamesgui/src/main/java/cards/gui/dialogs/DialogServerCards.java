@@ -58,7 +58,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
             messagesIpEnum.put(i, i.toString(_fenetre.getLanguageKey()));
         }
         getCardDialog().setTitle(messages.getVal(TITLE));
-        getCardDialog().setLocationRelativeTo(_fenetre);
+        getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         ipOrHostName = getCompoFactory().newTextField();
         AbsPanel pane_ = _fenetre.getCompoFactory().newGrid(0, 1);
         AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);

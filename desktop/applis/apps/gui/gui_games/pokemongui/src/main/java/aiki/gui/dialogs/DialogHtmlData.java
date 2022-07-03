@@ -75,7 +75,7 @@ public final class DialogHtmlData {
 
     private void init(WindowAiki _window, WindowAiki _parent, RenderedPage _session) {
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
-        absDialog.setLocationRelativeTo(_parent);
+        absDialog.setLocationRelativeTo(_parent.getCommonFrame());
         initSession(_session);
     }
 

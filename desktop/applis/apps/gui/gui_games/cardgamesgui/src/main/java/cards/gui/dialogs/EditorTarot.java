@@ -81,7 +81,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         _fenetre.getEditorTarot().nombreCartesSelectionnees = 0;
         _fenetre.getEditorTarot().partieSauvegardee = false;
         _fenetre.getEditorTarot().window = _fenetre;
-        _fenetre.getEditorTarot().getCardDialog().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorTarot().nickNames = _fenetre.getPseudosJoueurs();
         _fenetre.getEditorTarot().displayingTarot = _fenetre.getDisplayingTarot();
         _fenetre.getEditorTarot().setDialogue(true, 0, _fenetre);

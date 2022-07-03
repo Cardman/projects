@@ -34,7 +34,7 @@ public final class SpinnerStruct extends InputStruct {
     }
 
     public void setRange(Struct _min, Struct _max) {
-        spinner.setRange(((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct());
+        spinner.range(((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct());
     }
 
     public void setRangeValue(Struct _value, Struct _min, Struct _max) {

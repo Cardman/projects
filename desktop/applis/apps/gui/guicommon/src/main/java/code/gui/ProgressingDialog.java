@@ -59,7 +59,7 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
         absDialog.setDialogIcon(_window.getImageFactory(),_window);
         window = _window;
         perCent = PER_CENT;
-        absDialog.setLocationRelativeTo(_window);
+        absDialog.setLocationRelativeTo(_window.getCommonFrame());
         AbsPanel contentPane_ = _window.getCompoFactory().newPageBox();
         AbsPanel label_ = _window.getCompoFactory().newLineBox();
         AbsPreparedLabel anim_;

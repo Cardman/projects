@@ -16,7 +16,7 @@ public class DefServerSocket implements AbstractServerSocket {
             serverSocket = new ServerSocket();
             serverSocket.bind(new InetSocketAddress(_ip, _port));
             serverSocket.close();
-            ok = true;
+            setOk(true);
         } catch (Exception e) {
             serverSocket = null;
         }
@@ -34,6 +34,11 @@ public class DefServerSocket implements AbstractServerSocket {
     @Override
     public boolean isOk() {
         return ok;
+    }
+
+    @Override
+    public void setOk(boolean _o) {
+        this.ok = _o;
     }
 
     @Override

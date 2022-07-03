@@ -59,7 +59,7 @@ public final class ConfirmDialog {
     public static void showTextField(GroupFrame _frame, String _value, String _message, String _title, String _language) {
         _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(), _frame);
         _frame.getConfirmDialog().absDialog.setModal(true);
-        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame);
+        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame.getCommonFrame());
         _frame.getConfirmDialog().init(_message, _value, _title, _language);
     }
 
@@ -68,7 +68,7 @@ public final class ConfirmDialog {
 //      conf_ = new ConfirmDialog(_frame);
         _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(), _frame);
         _frame.getConfirmDialog().absDialog.setModal(true);
-        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame);
+        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame.getCommonFrame());
         _frame.getConfirmDialog().initComponentSingleButton(_message, _title, _language, _option);
   }
 
@@ -77,7 +77,7 @@ public final class ConfirmDialog {
 //        conf_ = new ConfirmDialog(_frame);
         _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(),_frame);
         _frame.getConfirmDialog().absDialog.setModal(true);
-        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame);
+        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame.getCommonFrame());
         _frame.getConfirmDialog().initComponentSingleButton(build(_frame.getConfirmDialog(), _message), _title, _language, _option);
     }
 
@@ -94,7 +94,7 @@ public final class ConfirmDialog {
 //        conf_ = new ConfirmDialog(_frame, _message, _title, _language, _option);
         _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(), _frame);
         _frame.getConfirmDialog().absDialog.setModal(true);
-        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame);
+        _frame.getConfirmDialog().absDialog.setLocationRelativeTo(_frame.getCommonFrame());
         _frame.getConfirmDialog().init(_message, _title, _language, _option);
         return _frame.getConfirmDialog();
     }

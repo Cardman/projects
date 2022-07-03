@@ -45,8 +45,8 @@ public final class Dialog implements AbsDialog {
     }
 
     @Override
-    public void setLocationRelativeTo(AbsGroupFrame _onwer) {
-        dial.setLocationRelativeTo(((CommonFrame)_onwer.getCommonFrame()).getFrame());
+    public void setLocationRelativeTo(AbsCommonFrame _onwer) {
+        dial.setLocationRelativeTo(((CommonFrame)_onwer).getFrame());
     }
 
     public void setLocationRelativeTo(AbsDialog _onwer) {
