@@ -4,18 +4,16 @@ import code.gui.*;
 import code.util.CustList;
 import code.util.IdList;
 
-public final class MockMenu extends MockInput implements AbsMenu {
+public final class MockMenu extends MockEnabledMenu implements AbsMenu {
 
-    private AbsMenu parentMenu;
     private final IdList<EnabledMenu> subs = new IdList<EnabledMenu>();
-    private String text;
 
     public MockMenu() {
         this("");
     }
 
     public MockMenu(String _s) {
-        text = _s;
+        super(_s);
     }
 
     public int getSubCount() {
@@ -73,28 +71,4 @@ public final class MockMenu extends MockInput implements AbsMenu {
         return getSubCount();
     }
 
-    @Override
-    public void setEnabledMenu(boolean _b) {
-        setEnabled(_b);
-    }
-
-    @Override
-    public String getText() {
-        return text;
-    }
-
-    @Override
-    public void setText(String _s) {
-        text = _s;
-    }
-
-    @Override
-    public AbsMenu getParentMenu() {
-        return parentMenu;
-    }
-
-    @Override
-    public void setParentMenu(AbsMenu _par) {
-        parentMenu = _par;
-    }
 }

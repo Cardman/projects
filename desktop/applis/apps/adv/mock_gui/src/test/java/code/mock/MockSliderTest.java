@@ -2,7 +2,7 @@ package code.mock;
 
 import org.junit.Test;
 
-public class MockSliderTest extends EquallableMockGuiUtil{
+public final class MockSliderTest extends EquallableMockGuiUtil{
     @Test
     public void s1() {
         MockWithChangeListenerSample fr_ = new MockWithChangeListenerSample(init(), "");
