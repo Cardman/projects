@@ -54,6 +54,7 @@ public abstract class MockAbsDialog extends MockWindow implements AbsDialog, Abs
             event.closeWindow();
             return;
         }
+        setCalled(false);
         setVisible(false);
         getContentPane().removeAll();
     }

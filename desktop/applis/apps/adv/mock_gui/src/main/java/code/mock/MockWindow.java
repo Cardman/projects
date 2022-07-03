@@ -42,7 +42,7 @@ public abstract class MockWindow implements WithListener{
     }
 
     public CustList<AbsWindowListener> getWindowListeners() {
-        return windowListeners;
+        return new CustList<AbsWindowListener>(windowListeners);
     }
 
     public AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l) {
@@ -55,7 +55,7 @@ public abstract class MockWindow implements WithListener{
         return _l;
     }
     public CustList<AbsWindowListenerClosing> getWindowListenersDef() {
-        return windowClosListeners;
+        return new CustList<AbsWindowListenerClosing>(windowClosListeners);
     }
 
     public AbstractProgramInfos getFrames() {
