@@ -6,6 +6,18 @@ import org.junit.Test;
 
 public class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
+    public void init() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt","inner",false);
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialogByFrame(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),"en",true,"","/tmp",saver_);
+        assertTrue(saver_.isVisible());
+        assertTrue(((MockCustComponent)saver_.getFileName()).isAccessible());
+        assertTrue(((MockCustComponent) saver_.getButtons().getComponent(0)).isAccessible());
+    }
+    @Test
     public void input1() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
