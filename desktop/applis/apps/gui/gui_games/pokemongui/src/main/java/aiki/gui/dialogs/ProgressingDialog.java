@@ -1,16 +1,20 @@
-package code.gui;
+package aiki.gui.dialogs;
 
 
 
+import aiki.db.LoadFlag;
+import aiki.gui.dialogs.events.ClosingProgressingDialog;
+import aiki.gui.threads.LoadFlagImpl;
+import code.gui.*;
 import code.gui.animations.AnimatedImage;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.CustList;
 
-public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDialog {
+public final class ProgressingDialog implements ProgressDialog {
 
     private static final int HEIGTH_ANIM = 100;
 
@@ -35,10 +39,11 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
 
     private AnimatedImage animation;
     private GroupFrame window;
+    private LoadFlag loadFlag;
 
-    protected ProgressingDialog(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog(this);
-
+    public ProgressingDialog(AbstractProgramInfos _frameFactory) {
+        absDialog = _frameFactory.getFrameFactory().newDialog(new ClosingProgressingDialog(this));
+        loadFlag = new LoadFlagImpl(_frameFactory.getThreadFactory().newAtomicBoolean());
     }
 
     public AbsDialog getAbsDialog() {
@@ -55,7 +60,8 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
         return absDialog.getTitle();
     }
 
-    public void init(GroupFrame _window, CustList<AbstractImage> _images, boolean _setVisibility) {
+    public void init(LoadFlag _load, GroupFrame _window, CustList<AbstractImage> _images, boolean _setVisibility) {
+        loadFlag = _load;
         absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
         window = _window;
         perCent = PER_CENT;
@@ -92,11 +98,16 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
         }
     }
 
-    @Override
-    public void closeWindow() {
-        absDialog.closeWindow();
-        absDialog.getPane().removeAll();
+//    @Override
+//    public void closeWindow() {
+//        absDialog.closeWindow();
+//        absDialog.getPane().removeAll();
+//        st();
+//    }
+
+    public void st() {
         stopTimer();
+        loadFlag.set(false);
     }
 
     public void startAnimation() {

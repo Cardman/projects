@@ -14,7 +14,7 @@ public final class LoadGame implements Runnable {
     public LoadGame(WindowAiki _frame, PerCent _p) {
         frame = _frame;
         VideoLoading video_ = frame.getVideoLoading();
-        frame.getDialog().init(frame, video_.getVideo(frame.getGenerator(),frame.getFileCoreStream(), frame.getFrames()), false);
+        frame.getDialog().init(frame.getLoadFlag(),frame, video_.getVideo(frame.getGenerator(),frame.getFileCoreStream(), frame.getFrames()), false);
         perCent = _p;
     }
 

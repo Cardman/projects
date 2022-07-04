@@ -5,13 +5,13 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.comboboxes.ComboBoxEnumCards;
+import cards.gui.dialogs.events.ClosingEditorCards;
 import cards.gui.dialogs.events.ListenerEqualityPlaying;
 import cards.gui.dialogs.events.ListenerPlayers;
 import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.gui.*;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -56,8 +56,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private AbsSpinner nbJoueurs;
     private AbsSpinner nbStacks;
 
-    protected DialogPresident(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+    protected DialogPresident(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
+        super(_frameFactory, _ch);
     }
 
     public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window);

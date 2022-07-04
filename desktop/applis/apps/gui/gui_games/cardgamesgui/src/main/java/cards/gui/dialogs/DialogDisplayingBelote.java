@@ -45,7 +45,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingBelote(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void setDialogDisplayingBelote(String _titre, WindowCards _fenetre) {

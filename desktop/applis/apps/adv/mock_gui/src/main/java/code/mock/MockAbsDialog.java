@@ -12,7 +12,6 @@ public abstract class MockAbsDialog extends MockWindow implements AbsDialog, Abs
     private boolean modal;
     private boolean resizable;
     private AbsCloseableDialog event;
-    private boolean called;
 
     protected MockAbsDialog(AbstractProgramInfos _fr) {
         super(_fr);
@@ -49,17 +48,11 @@ public abstract class MockAbsDialog extends MockWindow implements AbsDialog, Abs
 
     @Override
     public void closeWindow() {
-        if (!called && event != null) {
-            setCalled(true);
+        if (event != null) {
             event.closeWindow();
-            return;
         }
-        setCalled(false);
         setVisible(false);
         getContentPane().removeAll();
     }
 
-    public void setCalled(boolean _c) {
-        this.called = _c;
-    }
 }

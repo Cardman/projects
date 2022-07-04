@@ -16,7 +16,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     private boolean validated;
 
     public DialogRulesBelote(AbstractProgramInfos _frameFactory){
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesBelote(String _titre, WindowCards _fenetre, RulesBelote _rulesBelote) {

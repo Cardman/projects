@@ -3,6 +3,7 @@ package aiki.gui.dialogs;
 
 
 
+import aiki.gui.dialogs.events.ClosingSelectItem;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
@@ -26,8 +27,6 @@ public final class SelectItem extends SelectDialog {
 
 //    private static final String SET_FIELDS = "setFields";
 
-    private FacadeGame facade;
-
 //    private boolean ok;
 
 //    private boolean give;
@@ -43,6 +42,11 @@ public final class SelectItem extends SelectDialog {
         compo = _infos.getCompoFactory();
     }
 
+    @Override
+    protected AbsCloseableDialog build() {
+        return new ClosingSelectItem(this);
+    }
+
     public static void setSelectItem(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
         _parent.getSelectItem().init(_parent, _facade, _buy, _sell);
     }
@@ -51,7 +55,7 @@ public final class SelectItem extends SelectDialog {
         getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
         getSelectDial().setTitle(messages.getVal(TITLE));
-        facade = _facade;
+        setFacade(_facade);
         initOk();
 //        ok = false;
         AbsPanel contentPane_ = compo.newBorder();
@@ -72,7 +76,7 @@ public final class SelectItem extends SelectDialog {
         ok_.addActionListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
         AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingDialogEvent(this));
+        cancel_.addActionListener(new ClosingDialogEvent(getBuilt()));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
@@ -80,15 +84,15 @@ public final class SelectItem extends SelectDialog {
         getSelectDial().pack();
     }
 
-    @Override
+//    @Override
     public void closeWindow() {
-        facade.clearFiltersItem();
+        getFacade().clearFiltersItem();
         getSelectDial().closeWindow();
     }
 
     public static boolean isSelectedIndex(SelectItem _dialog) {
         _dialog.getSelectDial().setVisible(true);
-        return _dialog.facade.getLineItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
+        return _dialog.getFacade().getLineItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public static boolean isOk(SelectItem _dialog) {

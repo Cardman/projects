@@ -136,7 +136,7 @@ public final class WindowAiki extends NetGroupFrame {
     //private static final boolean COMPILE = false;
 
     private StringMap<String> messages = new StringMap<String>();
-    private final ProgressingDialogPokemon dialog = new ProgressingDialogPokemon(this);
+    private final ProgressingDialog dialog = new ProgressingDialog(getFrames());
     
 //    private Timer timer;
 
@@ -1538,7 +1538,7 @@ public final class WindowAiki extends NetGroupFrame {
         MenuItemUtils.setEnabledMenu(gameLoad,_b);
     }
 
-    public ProgressingDialogPokemon getDialog() {
+    public ProgressingDialog getDialog() {
         return dialog;
     }
 

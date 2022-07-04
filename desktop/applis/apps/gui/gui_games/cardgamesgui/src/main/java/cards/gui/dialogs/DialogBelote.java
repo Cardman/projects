@@ -9,8 +9,8 @@ import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.comboboxes.ComboBoxEnumCards;
+import cards.gui.dialogs.events.ClosingEditorCards;
 import code.gui.*;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.ints.Listable;
@@ -46,8 +46,8 @@ public abstract class DialogBelote extends DialogCards {
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
     private AbsCustCheckBox classic;
 
-    protected DialogBelote(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+    protected DialogBelote(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
+        super(_frameFactory, _ch);
     }
 //    public DialogBelote(String _titre, MainWindow _fenetre, RulesBelote _rulesBelote) {
 //        super(_titre, _fenetre, true);

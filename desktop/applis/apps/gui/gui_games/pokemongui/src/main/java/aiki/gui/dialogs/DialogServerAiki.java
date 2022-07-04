@@ -15,7 +15,7 @@ import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class DialogServerAiki implements AbstractDialogServer, AbsCloseableDialog{
+public final class DialogServerAiki implements AbstractDialogServer{
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialogserver";
 
     private static final String TITLE = "title";
@@ -81,7 +81,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         button_.addActionListener(new JoinServerEvent(this));
         panel_.add(button_);
         button_ = _fenetre.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        button_.addActionListener(new ClosingDialogEvent(this));
+        button_.addActionListener(new ClosingDialogEvent(absDialog));
         panel_.add(button_);
         pane_.add(panel_);
         absDialog.setContentPane(pane_);
@@ -103,7 +103,6 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         closeWindow();
     }
 
-    @Override
     public void closeWindow() {
         absDialog.closeWindow();
     }

@@ -44,7 +44,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingPresident(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void setDialogDisplayingPresident(String _titre, WindowCards _fenetre) {

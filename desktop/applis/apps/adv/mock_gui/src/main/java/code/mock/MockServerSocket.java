@@ -7,6 +7,10 @@ public final class MockServerSocket implements AbstractServerSocket {
     private boolean ok;
     private boolean closed;
 
+    public MockServerSocket(boolean _o) {
+        ok = _o;
+    }
+
     @Override
     public boolean close() {
         closed = true;

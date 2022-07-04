@@ -11,14 +11,13 @@ import code.gui.AbsScrollPane;
 
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
 public final class DialogTricksPresident extends DialogCards {
 
     public DialogTricksPresident(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
     }
     public static void setDialogTricksPresident(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);

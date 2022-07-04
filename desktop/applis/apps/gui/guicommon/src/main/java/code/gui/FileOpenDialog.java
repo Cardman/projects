@@ -239,15 +239,15 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     }
 
 //    @Override
-    public void closeWindow() {
-//        if (thread != null) {
-//            while (thread.isAlive()) {
-//                continue;
-//            }
-//        }
-        setKeepSearching(false);
-        super.closeWindow();
-    }
+//    public void closeWindow() {
+////        if (thread != null) {
+////            while (thread.isAlive()) {
+////                continue;
+////            }
+////        }
+//        setKeepSearching(false);
+//        super.closeWindow();
+//    }
 
     public static String getStaticSelectedPath(FileOpenDialog _dialog) {
         return _dialog.getSelectedPath();

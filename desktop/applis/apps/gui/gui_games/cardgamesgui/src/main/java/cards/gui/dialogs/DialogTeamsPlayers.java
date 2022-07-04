@@ -20,7 +20,7 @@ public final class DialogTeamsPlayers extends DialogCards {
     private StringMap<String> messages;
 
     public DialogTeamsPlayers(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogTeamsPlayers(WindowCards _fenetre) {

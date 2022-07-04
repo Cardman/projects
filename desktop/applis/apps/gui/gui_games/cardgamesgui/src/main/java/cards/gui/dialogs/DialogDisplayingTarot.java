@@ -42,7 +42,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingTarot(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void setDialogDisplayingTarot(String _titre, WindowCards _fenetre) {

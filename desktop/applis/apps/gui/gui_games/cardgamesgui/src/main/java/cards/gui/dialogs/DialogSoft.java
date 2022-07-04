@@ -44,7 +44,7 @@ public final class DialogSoft extends DialogCards {
     private AbsCustCheckBox clickCard;
 
     public DialogSoft(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogSoft(String _titre, WindowCards _fenetre) {

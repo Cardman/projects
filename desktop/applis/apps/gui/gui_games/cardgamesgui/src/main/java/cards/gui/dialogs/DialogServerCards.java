@@ -39,7 +39,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
 //    private JComboBox<DealingTarot> repTarot;
 
     public DialogServerCards(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
 
@@ -120,7 +120,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         button_.addActionListener(new JoinServerEvent(this));
         panel_.add(button_);
         button_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        button_.addActionListener(new ClosingDialogEvent(this));
+        button_.addActionListener(new ClosingDialogEvent(getCardDialog()));
         panel_.add(button_);
         pane_.add(panel_);
         getCardDialog().setContentPane(pane_);

@@ -21,7 +21,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
+public abstract class FileDialog implements ChangeableTitle {
     private static final String DIALOG_ACCESS = "gui.filedialog";
 
     private static final String FILES_PARAM = "filesParam";
@@ -56,7 +56,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         programInfos = _frameFact;
         fileName = _frameFact.getCompoFactory().newTextField(NB_COLS);
         buttons = _frameFact.getCompoFactory().newLineBox();
-        absDialog = _frameFact.getFrameFactory().newDialog(this);
+        absDialog = _frameFact.getFrameFactory().newDialog(new FileCloseableDialog(this));
     }
 
     @Override

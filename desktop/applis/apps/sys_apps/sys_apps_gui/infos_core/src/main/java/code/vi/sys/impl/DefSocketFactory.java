@@ -29,4 +29,9 @@ public final class DefSocketFactory implements AbstractSocketFactory {
     public AbstractAddressList newAddr(String _host) {
         return new DefAddressList(_host);
     }
+
+    @Override
+    public boolean setOkServer(boolean _ok) {
+        return _ok;
+    }
 }

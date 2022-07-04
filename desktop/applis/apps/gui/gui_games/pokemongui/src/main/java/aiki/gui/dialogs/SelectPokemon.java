@@ -1,6 +1,7 @@
 package aiki.gui.dialogs;
 
 
+import aiki.gui.dialogs.events.ClosingSelectPokemon;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -28,8 +29,6 @@ public final class SelectPokemon extends SelectDialog {
 
     private static final String DETAIL = "detail";
 
-    private FacadeGame facade;
-
 //    private MainWindow window;
 
     private boolean storage;
@@ -46,6 +45,11 @@ public final class SelectPokemon extends SelectDialog {
         compo = _infos.getCompoFactory();
     }
 
+    @Override
+    protected AbsCloseableDialog build() {
+        return new ClosingSelectPokemon(this);
+    }
+
     public static void setSelectPokemon(WindowAiki _parent, FacadeGame _facade, boolean _storage, SelectPokemon _dialog) {
         _dialog.init(_parent, _facade, _storage);
     }
@@ -57,7 +61,7 @@ public final class SelectPokemon extends SelectDialog {
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
 //        window = _parent;
         getSelectDial().setTitle(messages.getVal(TITLE));
-        facade = _facade;
+        setFacade(_facade);
         storage = _storage;
         initOk();
 //        ok = false;
@@ -72,7 +76,7 @@ public final class SelectPokemon extends SelectDialog {
         ok_.addActionListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
         AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingDialogEvent(this));
+        cancel_.addActionListener(new ClosingDialogEvent(getBuilt()));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
@@ -86,32 +90,32 @@ public final class SelectPokemon extends SelectDialog {
         if (thread_ == null || thread_.isAlive() || task_ == null) {
             return;
         }
-        UsablePokemon p_ = facade.getSelectedPokemonFirstBox();
+        UsablePokemon p_ = getFacade().getSelectedPokemonFirstBox();
         if (p_ == null) {
             return;
         }
         RenderedPage session_;
         session_ = new RenderedPage(compo.newAbsScrollPane(), window.getFrames());
-        showHtmlDialog(session_,facade,task_,facade.getLanguage());
+        showHtmlDialog(session_, getFacade(),task_, getFacade().getLanguage());
     }
 
     @Override
     public void validateChoice() {
         if (!storage) {
-            facade.clearFoundResultsStoragePokemon();
+            getFacade().clearFoundResultsStoragePokemon();
         }
         super.validateChoice();
     }
 
-    @Override
+//    @Override
     public void closeWindow() {
-        facade.clearFiltersFirstBox();
+        getFacade().clearFiltersFirstBox();
         getSelectDial().closeWindow();
     }
 
     public static boolean isSelectedIndex(SelectPokemon _dialog) {
         setVisible(_dialog);
-        return _dialog.facade.getSelectedPokemonFirstBox() != null;
+        return _dialog.getFacade().getSelectedPokemonFirstBox() != null;
     }
 
     private boolean isOk() {

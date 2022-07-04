@@ -50,7 +50,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private static final String SAVE_WITHOUT_CLOSING = "saveWithoutClosing";
     private static final String SELECTED_CARDS = "selectedCards";
     private static final String USER_HAND = "userHand";
-    private static final String EMPTY_STRING = "";
     private boolean partieSauvegardee;
     private GamePresident partie;
     private int nombreCartesSelectionnees;
@@ -67,7 +66,8 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private boolean setToNullGame;
 
     public EditorPresident(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, new ClosingEditorCards());
+        getClos().setEditor(this);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
 
@@ -89,12 +89,16 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         _fenetre.getEditorPresident().setDialogue(true, 0, _fenetre);
     }
 
-    @Override
-    public void closeWindow() {
-        super.closeWindow();
-        if (setToNullGame) {
-            partie = null;
-        }
+//    @Override
+//    public void closeWindow() {
+//        super.closeWindow();
+//        if (setToNullGame) {
+//            partie = null;
+//        }
+//    }
+
+    public boolean isSetToNullGame() {
+        return setToNullGame;
     }
 
     @Override

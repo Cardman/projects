@@ -2,8 +2,8 @@ package code.vi.sys.impl.gui;
 
 import code.gui.*;
 import code.gui.events.CrossClosingDialogEvent;
+import code.gui.events.CrossClosingDialogListEvent;
 import code.vi.prot.impl.gui.Panel;
-import code.vi.prot.impl.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaPoint;
@@ -32,7 +32,7 @@ public final class Dialog implements AbsDialog {
     public Dialog(AbsCloseableDialog _clos) {
         dial.setModal(true);
         dial.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        dial.addWindowListener(new WrWindowListenerClos(new CrossClosingDialogEvent(_clos)));
+        dial.addWindowListener(new WrWindowListenerClos(new CrossClosingDialogListEvent(this,_clos)));
     }
 
 

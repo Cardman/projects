@@ -4,6 +4,7 @@ package aiki.gui.dialogs;
 
 
 import aiki.beans.PokemonStandards;
+import aiki.gui.dialogs.events.ClosingDialogDifficulty;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -12,11 +13,10 @@ import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
-public final class DialogDifficulty implements AbsCloseableDialog {
+public final class DialogDifficulty {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialogdifficulty";
 
     private static final String TEXT = "0";
@@ -33,7 +33,7 @@ public final class DialogDifficulty implements AbsCloseableDialog {
     private FacadeGame facade;
 
     public DialogDifficulty(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newDialog(this);
+        absDialog = _frameFactory.getFrameFactory().newDialog(new ClosingDialogDifficulty(this));
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
@@ -83,9 +83,13 @@ public final class DialogDifficulty implements AbsCloseableDialog {
         absDialog.setVisible(true);
     }
 
-    public void closeWindow() {
-        absDialog.closeWindow();
-//        session.clearSession();
+//    public void closeWindow() {
+//        absDialog.closeWindow();
+////        session.clearSession();
+//        closeDial();
+//    }
+
+    public void closeDial() {
         facade.initIv();
         FrameUtil.invokeLater(new AfterSettingDifficutyThread(window, facade), window.getFrames());
     }

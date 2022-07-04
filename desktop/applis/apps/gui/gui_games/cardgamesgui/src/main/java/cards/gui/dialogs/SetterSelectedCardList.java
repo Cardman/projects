@@ -20,6 +20,7 @@ public interface SetterSelectedCardList {
     void backToRules(WindowCards _parent);
     void deplacerCartes();
     void cancelDeal();
+    boolean isSetToNullGame();
     void setPartie();
     String sauvegarder();
     void releverErreurs();

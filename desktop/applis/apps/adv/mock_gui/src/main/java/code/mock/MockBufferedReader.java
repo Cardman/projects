@@ -5,7 +5,13 @@ import code.util.StringList;
 
 public final class MockBufferedReader implements AbstractBufferedReader {
     private int index;
-    private final StringList instrs = new StringList();
+    private final StringList instrs;
+    public MockBufferedReader() {
+        this(new StringList());
+    }
+    public MockBufferedReader(StringList _is) {
+        instrs = _is;
+    }
     @Override
     public String readLine() {
         if (instrs.isValidIndex(index)) {

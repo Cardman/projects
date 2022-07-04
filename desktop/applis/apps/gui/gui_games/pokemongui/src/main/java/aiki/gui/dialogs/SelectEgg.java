@@ -3,6 +3,7 @@ package aiki.gui.dialogs;
 
 
 
+import aiki.gui.dialogs.events.ClosingSelectEgg;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
@@ -22,8 +23,6 @@ public final class SelectEgg extends SelectDialog {
 
     private static final String CANCEL = "cancel";
 
-    private FacadeGame facade;
-
 //    private boolean ok;
 
     private StringMap<String> messages;
@@ -35,6 +34,11 @@ public final class SelectEgg extends SelectDialog {
         compo = _infos.getCompoFactory();
     }
 
+    @Override
+    protected AbsCloseableDialog build() {
+        return new ClosingSelectEgg(this);
+    }
+
     public static void setSelectEgg(WindowAiki _parent, FacadeGame _facade, SelectEgg _dialog) {
         _dialog.init(_parent, _facade);
     }
@@ -43,7 +47,7 @@ public final class SelectEgg extends SelectDialog {
         getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
         getSelectDial().setTitle(messages.getVal(TITLE));
-        facade = _facade;
+        setFacade(_facade);
         initOk();
 //        ok = false;
         AbsPanel contentPane_ = compo.newBorder();
@@ -54,7 +58,7 @@ public final class SelectEgg extends SelectDialog {
         ok_.addActionListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
         AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingDialogEvent(this));
+        cancel_.addActionListener(new ClosingDialogEvent(getBuilt()));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
@@ -62,9 +66,9 @@ public final class SelectEgg extends SelectDialog {
         getSelectDial().pack();
     }
 
-    @Override
+//    @Override
     public void closeWindow() {
-        facade.clearFiltersEgg();
+        getFacade().clearFiltersEgg();
         getSelectDial().closeWindow();
     }
 
@@ -74,7 +78,7 @@ public final class SelectEgg extends SelectDialog {
 
     public static boolean isSelectedIndex(SelectEgg _dialog) {
         setVisible(_dialog);
-        return _dialog.facade.getLineEgg() != IndexConstants.INDEX_NOT_FOUND_ELT;
+        return _dialog.getFacade().getLineEgg() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public static boolean isOk(SelectEgg _dialog) {

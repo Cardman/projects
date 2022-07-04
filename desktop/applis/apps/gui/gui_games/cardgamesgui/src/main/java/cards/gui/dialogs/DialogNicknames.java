@@ -36,7 +36,7 @@ public final class DialogNicknames extends DialogCards {
     private final CustList<AbsTextField> nicknamesPresident = new CustList<AbsTextField>();
 
     public DialogNicknames(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogNicknames(String _titre, WindowCards _fenetre) {

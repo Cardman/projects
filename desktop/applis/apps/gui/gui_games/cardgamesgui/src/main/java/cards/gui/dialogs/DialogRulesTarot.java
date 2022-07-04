@@ -16,7 +16,7 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     private boolean validated;
 
     public DialogRulesTarot(AbstractProgramInfos _frameFactory){
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesTarot(String _titre, WindowCards _fenetre, RulesTarot _rulesTarot) {

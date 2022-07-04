@@ -48,7 +48,6 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private static final String SAVE_WITHOUT_CLOSING = "saveWithoutClosing";
     private static final String SELECTED_CARDS = "selectedCards";
     private static final String USER_HAND = "userHand";
-    private static final String EMPTY_STRING = "";
     private boolean partieSauvegardee;
     private GameTarot partie;
     private AbsPanel panelsCards;
@@ -66,7 +65,8 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private DisplayingTarot displayingTarot = new DisplayingTarot();
     private WindowCards window;
     public EditorTarot(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, new ClosingEditorCards());
+        getClos().setEditor(this);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorTarot(WindowCards _fenetre) {
@@ -95,12 +95,16 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //        });
     }
 
-    @Override
-    public void closeWindow() {
-        super.closeWindow();
-        if (setToNullGame) {
-            partie = null;
-        }
+//    @Override
+//    public void closeWindow() {
+//        super.closeWindow();
+//        if (setToNullGame) {
+//            partie = null;
+//        }
+//    }
+
+    public boolean isSetToNullGame() {
+        return setToNullGame;
     }
 
     @Override

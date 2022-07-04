@@ -136,4 +136,8 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     public NetCommon getSockets() {
         return sockets;
     }
+
+    public ConnectionToServer getConnection() {
+        return connection;
+    }
 }

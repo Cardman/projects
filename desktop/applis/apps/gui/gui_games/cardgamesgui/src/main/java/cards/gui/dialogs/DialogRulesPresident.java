@@ -16,7 +16,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     private boolean validated;
 
     public DialogRulesPresident(AbstractProgramInfos _frameFactory){
-        super(_frameFactory);
+        super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesPresident(String _titre, WindowCards _fenetre, RulesPresident _rulesPresident) {

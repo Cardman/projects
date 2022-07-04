@@ -14,6 +14,7 @@ public final class MockNetworkTest extends EquallableMockGuiUtil {
         AbstractServerSocket server_ = s_.newServerSocket("", 0);
         server_.setOk(false);
         assertFalse(server_.isOk());
+        assertFalse(s_.setOkServer(false));
     }
     @Test
     public void n2() {

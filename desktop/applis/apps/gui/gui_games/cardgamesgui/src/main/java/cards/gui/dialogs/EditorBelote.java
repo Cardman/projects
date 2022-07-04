@@ -48,7 +48,6 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private static final String SAVE_WITHOUT_CLOSING = "saveWithoutClosing";
     private static final String SELECTED_CARDS = "selectedCards";
     private static final String USER_HAND = "userHand";
-    private static final String EMPTY_STRING = "";
     private boolean partieSauvegardee;
     private GameBelote partie;
     private int nombreCartesSelectionnees;
@@ -66,7 +65,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private boolean setToNullGame;
 
     public EditorBelote(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, new ClosingEditorCards());
+        getClos().setEditor(this);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorBelote(WindowCards _fenetre) {
@@ -95,13 +95,18 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            }
 //        });
     }
-    @Override
-    public void closeWindow() {
-        super.closeWindow();
-        if (setToNullGame) {
-            partie = null;
-        }
+//    @Override
+//    public void closeWindow() {
+//        super.closeWindow();
+//        if (setToNullGame) {
+//            partie = null;
+//        }
+//    }
+
+    public boolean isSetToNullGame() {
+        return setToNullGame;
     }
+
     @Override
     public String sauvegarder() {
         if(stack.taille()==0) {

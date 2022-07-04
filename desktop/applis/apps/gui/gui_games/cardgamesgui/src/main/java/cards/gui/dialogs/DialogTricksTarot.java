@@ -11,14 +11,13 @@ import code.gui.AbsScrollPane;
 
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
 public final class DialogTricksTarot extends DialogCards {
 
     public DialogTricksTarot(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+        super(_frameFactory, null);
     }
     public static void setDialogTricksTarot(String _titre, WindowCards _fenetre) {
         _fenetre.getDialogTricksTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());

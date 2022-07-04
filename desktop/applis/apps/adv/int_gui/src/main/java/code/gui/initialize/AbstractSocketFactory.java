@@ -5,4 +5,5 @@ public interface AbstractSocketFactory {
     AbstractServerSocket newServerSocket(String _ip, int _port);
     AbstractNetworkInterfaceList newList();
     AbstractAddressList newAddr(String _host);
+    boolean setOkServer(boolean _ok);
 }

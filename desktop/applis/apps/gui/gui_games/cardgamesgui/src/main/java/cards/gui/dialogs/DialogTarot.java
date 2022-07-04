@@ -4,10 +4,7 @@ import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.comboboxes.ComboBoxEnumCards;
-import cards.gui.dialogs.events.ListenerDealing;
-import cards.gui.dialogs.events.ListenerHandful;
-import cards.gui.dialogs.events.ListenerHandfulName;
-import cards.gui.dialogs.events.ListenerPlayers;
+import cards.gui.dialogs.events.*;
 import cards.tarot.HandTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.AllowedBiddingTarot;
@@ -61,8 +58,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private AbsSpinner nbJoueurs;
     private EnumMap<Handfuls,Integer> poigneesAutorisees = new EnumMap<Handfuls,Integer>();
 
-    protected DialogTarot(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory);
+    protected DialogTarot(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
+        super(_frameFactory, _ch);
     }
 //    public DialogTarot(String _titre, MainWindow _fenetre, RulesTarot _rules) {
 //        super(_titre, _fenetre, true);
