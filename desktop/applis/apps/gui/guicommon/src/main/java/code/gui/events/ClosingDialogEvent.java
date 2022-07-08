@@ -2,7 +2,7 @@ package code.gui.events;
 
 import code.gui.*;
 
-public class ClosingDialogEvent extends AbstractClosingDialogListEvent implements AbsActionListener {
+public final class ClosingDialogEvent extends AbstractClosingDialogListEvent implements AbsActionListener {
 
     public ClosingDialogEvent(AbsDialog _current) {
         this(_current, null);
