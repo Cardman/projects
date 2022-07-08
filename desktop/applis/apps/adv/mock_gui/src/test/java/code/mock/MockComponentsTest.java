@@ -69,7 +69,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         init_.setScreenHeight(128);
         init_.setScreenWidth(1024);
         MockDialogSample fr_ = new MockDialogSample(init_);
-        MockDialogSample fr2_ = new MockDialogSample(fr_,init_);
+        MockDialogSample fr2_ = new MockDialogSample(new MockCloseableDialog(fr_),init_);
         fr2_.closeWindow();
         assertFalse(fr2_.isVisible());
     }
@@ -291,9 +291,9 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         pr_.getMessageDialogAbs().input(null,(AbsCustComponent) null,"","",0);
         AbsFrameFactory frFact_ = pr_.getFrameFactory();
         AbsDialog base_ = frFact_.newDialog();
-        AbsDialog adv_ = frFact_.newDialog(base_);
+        AbsDialog adv_ = frFact_.newDialog(new MockCloseableDialog(base_));
         AbsDialog intDial_ = frFact_.newDialog();
-        AbsDialog after_ = frFact_.newDialog(intDial_);
+        AbsDialog after_ = frFact_.newDialog(new MockCloseableDialog(intDial_));
         after_.closeWindow();
         after_.closeWindow();
         adv_.pack();

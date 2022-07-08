@@ -2,7 +2,7 @@ package code.gui;
 
 import code.gui.images.AbstractImageFactory;
 
-public interface AbsDialog extends ChangeableTitle, AbsCloseableDialog {
+public interface AbsDialog extends ChangeableTitle {
     void setDefaultCloseOperation(int _operation);
     void setResizable(boolean _resizable);
     void setLocationRelativeTo(AbsCommonFrame _onwer);
@@ -16,4 +16,5 @@ public interface AbsDialog extends ChangeableTitle, AbsCloseableDialog {
     AbsPanel getPane();
     void setModal(boolean _modal);
     void setVisible(boolean _b);
+    void closeWindow();
 }

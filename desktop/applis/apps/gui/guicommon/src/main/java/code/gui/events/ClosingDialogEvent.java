@@ -2,16 +2,18 @@ package code.gui.events;
 
 import code.gui.*;
 
-public class ClosingDialogEvent implements AbsActionListener {
+public class ClosingDialogEvent extends AbstractClosingDialogListEvent implements AbsActionListener {
 
-    private AbsCloseableDialog dialog;
+    public ClosingDialogEvent(AbsDialog _current) {
+        this(_current, null);
+    }
 
-    public ClosingDialogEvent(AbsCloseableDialog _dialog) {
-        dialog = _dialog;
+    public ClosingDialogEvent(AbsDialog _current, AbsCloseableDialog _dia) {
+        super(_current, _dia);
     }
 
     @Override
     public void action() {
-        dialog.closeWindow();
+        close();
     }
 }

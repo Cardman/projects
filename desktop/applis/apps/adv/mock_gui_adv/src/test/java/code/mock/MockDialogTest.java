@@ -8,7 +8,7 @@ public class MockDialogTest extends EquallableMockGuiAdvUtil{
     public void ft() {
         MockProgramInfos pr_ = init();
         AbsDialog f_ = pr_.getMockFrameFactory().newDialog();
-        AbsDialog g_ = pr_.getMockFrameFactory().newDialog(f_);
+        AbsDialog g_ = pr_.getMockFrameFactory().newDialog(new MockCloseableDialog(f_));
         g_.pack();
         assertTrue(((MockCustComponent)g_.getPane()).isAccessible());
         pr_.getMockFrameFactory().newOtherDialog();

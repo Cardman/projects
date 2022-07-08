@@ -3,19 +3,14 @@ package code.gui.events;
 import code.gui.AbsCloseableDialog;
 import code.gui.AbsDialog;
 
-public class CrossClosingDialogListEvent implements AbsWindowListenerClosing {
-
-    private final AbsDialog cur;
-    private final AbsCloseableDialog dialog;
+public final class CrossClosingDialogListEvent extends AbstractClosingDialogListEvent implements AbsWindowListenerClosing {
 
     public CrossClosingDialogListEvent(AbsDialog _current, AbsCloseableDialog _dia) {
-        cur = _current;
-        dialog = _dia;
+        super(_current, _dia);
     }
 
     @Override
     public void windowClosing() {
-        cur.closeWindow();
-        dialog.closeWindow();
+        close();
     }
 }
