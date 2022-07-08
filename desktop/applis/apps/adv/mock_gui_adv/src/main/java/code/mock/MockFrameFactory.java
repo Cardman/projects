@@ -22,7 +22,7 @@ public final class MockFrameFactory extends MockAbsFrameFactory {
 
     @Override
     public AbsDialog newDialog() {
-        return new MockDialog(getProgramInfos());
+        return newDialog(null);
     }
 
     @Override

@@ -24,7 +24,7 @@ public final class DefFrameFactory implements AbsFrameFactory, AbsLightFrameFact
 
     @Override
     public AbsDialog newDialog() {
-        return new Dialog();
+        return newDialog(null);
     }
 
     @Override
