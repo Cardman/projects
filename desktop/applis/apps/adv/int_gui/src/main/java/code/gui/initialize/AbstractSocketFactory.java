@@ -6,4 +6,5 @@ public interface AbstractSocketFactory {
     AbstractNetworkInterfaceList newList();
     AbstractAddressList newAddr(String _host);
     boolean setOkServer(boolean _ok);
+    boolean setKoSocket(boolean _ok);
 }

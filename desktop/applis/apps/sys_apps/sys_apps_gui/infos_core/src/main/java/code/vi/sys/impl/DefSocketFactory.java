@@ -34,4 +34,9 @@ public final class DefSocketFactory implements AbstractSocketFactory {
     public boolean setOkServer(boolean _ok) {
         return _ok;
     }
+
+    @Override
+    public boolean setKoSocket(boolean _ko) {
+        return _ko;
+    }
 }
