@@ -22,6 +22,7 @@ public class TargetsPanel {
 
     public TargetsPanel(AbsCompoFactory _compoFactory) {
         compoFactory = _compoFactory;
+        container = _compoFactory.newLineBox();
     }
     public void setTargets(FacadeGame _facade, Battle _battle) {
         container = compoFactory.newLineBox();
