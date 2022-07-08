@@ -236,4 +236,12 @@ public class TargetsPanel {
     public AbsPanel getContainer() {
         return container;
     }
+
+    public CustList<MiniTargetLabel> getFoeTargets() {
+        return foeTargets;
+    }
+
+    public CustList<MiniTargetLabel> getPlayerTargets() {
+        return playerTargets;
+    }
 }
