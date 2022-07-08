@@ -1,10 +1,11 @@
 package code.gui;
 
+import code.gui.events.CrossClosingDialogListEvent;
 import code.mock.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-public class FileSaveDialogTest extends EquallableGuiCommonUtil {
+public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void init() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
@@ -33,7 +34,7 @@ public class FileSaveDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void input2() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[0], new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{0}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -88,5 +89,14 @@ public class FileSaveDialogTest extends EquallableGuiCommonUtil {
         MockPlainButton c_ = (MockPlainButton) saver_.getButtons().getComponent(0);
         c_.getActionListeners().first().action();
         assertTrue(saver_.isVisible());
+    }
+    @Test
+    public void close() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialogByFrame(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),"en",true,"","/tmp",saver_);
+        assertTrue(saver_.isVisible());
+        new CrossClosingDialogListEvent(saver_.getAbsDialog(), new FileCloseableDialog(saver_)).close();
+        assertFalse(saver_.isVisible());
     }
 }

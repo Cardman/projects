@@ -102,7 +102,7 @@ public final class ConfirmDialog {
             buttons_.add(this.list.getCompoFactory().newPreparedLabel(ConfirmDialog.INFORMATION_ICON));
         } else if (_option == GuiConstants.ERROR_MESSAGE) {
             buttons_.add(this.list.getCompoFactory().newPreparedLabel(ConfirmDialog.ERROR_ICON));
-        } else if (_option == GuiConstants.WARNING_MESSAGE) {
+        } else {
             buttons_.add(this.list.getCompoFactory().newPreparedLabel(ConfirmDialog.WARNING_ICON));
         }
         AbsPlainButton button_ = this.list.getCompoFactory().newPlainButton(_messages.getVal(ConfirmDialog.OK));
@@ -207,11 +207,7 @@ public final class ConfirmDialog {
 
     public void closeWindowText(int _answer) {
         answer = _answer;
-        if (field != null) {
-            typedText = field.getText();
-        } else {
-            typedText = EMPTY_STRING;
-        }
+        typedText = field.getText();
         if (answer == GuiConstants.NO_OPTION) {
             typedText = EMPTY_STRING;
         }
@@ -230,4 +226,7 @@ public final class ConfirmDialog {
         return answer;
     }
 
+    public AbsDialog getAbsDialog() {
+        return absDialog;
+    }
 }
