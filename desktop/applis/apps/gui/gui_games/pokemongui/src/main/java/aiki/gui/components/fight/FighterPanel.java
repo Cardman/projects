@@ -95,4 +95,8 @@ public final class FighterPanel {
     public AbsPanel getContainer() {
         return container;
     }
+
+    public AbsGraphicList<Fighter> getListe() {
+        return liste;
+    }
 }

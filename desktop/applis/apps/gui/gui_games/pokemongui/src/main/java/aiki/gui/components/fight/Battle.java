@@ -48,7 +48,6 @@ import code.scripts.messages.aiki.MessPkGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractThread;
 import code.util.*;
-import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -1554,5 +1553,21 @@ public class Battle extends ChildFrame {
 
     public WindowAiki getWindow() {
         return window;
+    }
+
+    public FighterPanel getFighterBackPanel() {
+        return fighterBackPanel;
+    }
+
+    public FighterPanel getFighterPanel() {
+        return fighterPanel;
+    }
+
+    public FighterPanel getFighterFrontPanel() {
+        return fighterFrontPanel;
+    }
+
+    public CustList<PlaceLabel> getPlacesLabels() {
+        return placesLabels;
     }
 }

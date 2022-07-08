@@ -1735,4 +1735,8 @@ public final class WindowAiki extends NetGroupFrame {
     public AikiFactory getAikiFactory() {
         return aikiFactory;
     }
+
+    public FrontBattle getBattle() {
+        return battle;
+    }
 }

@@ -635,4 +635,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     public String getApplicationName() {
         return LaunchingPlayer.getMainWindowClass();
     }
+
+    public AbsClipStream getClipStream() {
+        return clipStream;
+    }
 }

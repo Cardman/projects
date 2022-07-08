@@ -45,4 +45,8 @@ public final class PlaceLabel extends AbsMetaLabel {
     public void setText(String _val) {
         text = _val;
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
 }
