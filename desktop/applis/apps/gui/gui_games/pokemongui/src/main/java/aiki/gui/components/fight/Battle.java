@@ -1570,4 +1570,12 @@ public class Battle extends ChildFrame {
     public CustList<PlaceLabel> getPlacesLabels() {
         return placesLabels;
     }
+
+    public CustList<MoveLabel> getMovesLabels() {
+        return movesLabels;
+    }
+
+    public TargetsPanel getTargets() {
+        return targets;
+    }
 }
