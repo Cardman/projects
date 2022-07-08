@@ -45,15 +45,18 @@ public final class MockCompoFactory implements AbsCompoFactory {
 
     @Override
     public void invokeLater(Runnable _runnable) {
-        later.add(_runnable);
+        getLater().add(_runnable);
     }
 
     public void invoke() {
-        for (Runnable r: later) {
+        for (Runnable r: new CustList<Runnable>(getLater())) {
             r.run();
         }
     }
 
+    public CustList<Runnable> getLater() {
+        return later;
+    }
 
     @Override
     public AbsPanel newAbsolute() {
