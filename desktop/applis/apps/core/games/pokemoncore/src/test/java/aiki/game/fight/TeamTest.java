@@ -944,13 +944,13 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, true);
+        CustList<FighterPosition> positions_ = team_.playerFighterAtIndex((short) 0);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 1));
-        positions_ = team_.fightersAtCurrentPlaceIndex((short) 1, true);
+        assertEq(1, positions_.get(0).getFirstPosit());
+        positions_ = team_.playerFighterAtIndex((short) 1);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 0));
-        positions_ = team_.fightersAtCurrentPlaceIndex(Fighter.BACK, true);
+        assertEq(0, positions_.get(0).getFirstPosit());
+        positions_ = team_.playerFighterAtIndex(Fighter.BACK);
         assertEq(0, positions_.size());
     }
 
@@ -987,12 +987,12 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 5).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 5).setGroundPlaceSubst((byte) 0);
-        Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, true);
+        CustList<FighterPosition> positions_ = team_.playerFighterAtIndex((short) 0);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 0));
-        positions_ = team_.fightersAtCurrentPlaceIndex((short) 1, true);
+        assertEq(0, positions_.get(0).getFirstPosit());
+        positions_ = team_.playerFighterAtIndex((short) 1);
         assertEq(0, positions_.size());
-        positions_ = team_.fightersAtCurrentPlaceIndex(Fighter.BACK, true);
+        positions_ = team_.playerFighterAtIndex(Fighter.BACK);
         assertEq(0, positions_.size());
     }
 
@@ -1025,13 +1025,13 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, false);
+        Bytes positions_ = team_.otherFighterAtIndex((short) 0);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 1));
-        positions_ = team_.fightersAtCurrentPlaceIndex((short) 1, false);
+        positions_ = team_.otherFighterAtIndex((short) 1);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 0));
-        positions_ = team_.fightersAtCurrentPlaceIndex(Fighter.BACK, false);
+        positions_ = team_.otherFighterAtIndex(Fighter.BACK);
         assertEq(0, positions_.size());
     }
 
@@ -1068,13 +1068,13 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 5).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 5).setGroundPlaceSubst((byte) 0);
-        Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, false);
+        Bytes positions_ = team_.otherFighterAtIndex((short) 0);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 5));
-        positions_ = team_.fightersAtCurrentPlaceIndex((short) 1, false);
+        positions_ = team_.otherFighterAtIndex((short) 1);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 0));
-        positions_ = team_.fightersAtCurrentPlaceIndex(Fighter.BACK, false);
+        positions_ = team_.otherFighterAtIndex(Fighter.BACK);
         assertEq(0, positions_.size());
     }
 
@@ -1109,8 +1109,8 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 1).setGroundPlaceSubst(Fighter.BACK);
         team_.getMembers().getVal((byte) 2).setGroundPlaceSubst((byte) 0);
-        assertEq(1, team_.substituteAtIndex((short) 0).first());
-        assertEq(3, team_.substituteAtIndex((short) 1).first());
+        assertEq(1, team_.substituteAtIndex((short) 0).first().getFirstPosit());
+        assertEq(3, team_.substituteAtIndex((short) 1).first().getFirstPosit());
         assertEq(0, team_.substituteAtIndex((short) 2).size());
         assertEq(0, team_.substituteAtIndex(Fighter.BACK).size());
     }

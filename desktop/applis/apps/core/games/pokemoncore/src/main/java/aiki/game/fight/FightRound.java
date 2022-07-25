@@ -1475,8 +1475,8 @@ final class FightRound {
     static StringMap<String> calculateCatchingVariables(Fight _fight,boolean _dejaCapture,DataBase _import) {
         Fighter creatureSauvage_=_fight.wildPokemon();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Bytes cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(IndexConstants.FIRST_INDEX, true);
-        Fighter creatureUt_=_fight.getUserTeam().refPartMembres(cbts_.first());
+        CustList<FighterPosition> cbts_=_fight.getUserTeam().playerFighterAtIndex(IndexConstants.FIRST_INDEX);
+        Fighter creatureUt_=cbts_.first().getFighter();
         StringMap<String> variables_=new StringMap<String>();
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
@@ -1489,7 +1489,7 @@ final class FightRound {
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_GENRE),creatureUt_.getGender().name());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_MASSE),creatureUt_.getWeight().toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_NIVEAU),Long.toString(creatureUt_.getLevel()));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(cbts_.first()),_import).toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(cbts_.first().getFirstPosit()),_import).toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_GENRE),creatureSauvage_.getGender().name());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_MASSE),creatureSauvage_.getWeight().toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Long.toString(creatureSauvage_.getLevel()));
@@ -1548,8 +1548,8 @@ final class FightRound {
     static StringMap<String> calculateFleeingVariable(Fight _fight, DataBase _import){
         Fighter creatureSauvage_=_fight.wildPokemon();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Bytes cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(IndexConstants.FIRST_INDEX, true);
-        Fighter creatureUt_=_fight.getUserTeam().refPartMembres(cbts_.first());
+        CustList<FighterPosition> cbts_=_fight.getUserTeam().playerFighterAtIndex(IndexConstants.FIRST_INDEX);
+        Fighter creatureUt_=cbts_.first().getFighter();
         StringMap<String> variables_=new StringMap<String>();
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_FLEES),Long.toString(_fight.getNbFleeAttempt()));
@@ -1558,7 +1558,7 @@ final class FightRound {
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_GENRE),creatureUt_.getGender().name());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_MASSE),creatureUt_.getWeight().toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_NIVEAU),Long.toString(creatureUt_.getLevel()));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(cbts_.first()),_import).toNumberString());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(cbts_.first().getFirstPosit()),_import).toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_GENRE),creatureSauvage_.getGender().name());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_MASSE),creatureSauvage_.getWeight().toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Long.toString(creatureSauvage_.getLevel()));

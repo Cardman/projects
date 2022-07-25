@@ -3341,7 +3341,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         fight_.getFighter(userOne_).setFirstChosenMove(RELAIS);
-        FightFacade.setSubstituteForMove(fight_, (byte) 1, fight_.getUserTeam().substituteAtIndex((byte) 0).first());
+        FightFacade.setSubstituteForMove(fight_, (byte) 1, fight_.getUserTeam().substituteAtIndex((byte) 0).first().getFirstPosit());
         assertTrue(!fight_.isError());
         Fighter fighter_ = fight_.getFighter(userOne_);
         AbstractAction action_ = fighter_.getAction();
