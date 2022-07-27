@@ -967,6 +967,7 @@ final class FightEndRound {
 
     static void effectEndRoundPositionTargetRelation(Fight _fight,TeamPosition _combattant,String _attaque,Difficulty _diff,DataBase _import){
         Team equipeLanceur_=_fight.getTeams().getVal(_combattant.getTeam());
+        Fighter creatureLanceur_ = equipeLanceur_.refPartMembres(_combattant.getPosition());
         for(byte c:equipeLanceur_.getMovesAnticipationSet(_attaque)){
             Anticipation attaqueAnticipe_=equipeLanceur_.getMovesAnticipationVal(_attaque, c);
             if(NumberUtil.eq(attaqueAnticipe_.getTargetPosition().getPosition(),Fighter.BACK)){
@@ -984,8 +985,8 @@ final class FightEndRound {
                 AnimationEffect animation_;
                 animation_ = new AnimationEffect();
                 animation_.setIndex(_fight.getEffects().size());
-                animation_.setFromFighter(new TargetCoords(_combattant.getTeam(), c));
-                animation_.setToFighter(target_);
+                animation_.setFromFighter(new TargetCoords(_combattant.getTeam(), creatureLanceur_.getGroundPlaceSubst()));
+                animation_.setToFighter(new TargetCoords(target_.getTeam(),creatureCible_.getGroundPlaceSubst()));
                 if(creatureCible_.getClone().isZero()){
                     if(Rate.greaterEq(attaqueAnticipe_.getDamage(),creatureCible_.getRemainingHp())){
                         animation_.setKoToFighter(true);
@@ -1316,7 +1317,6 @@ final class FightEndRound {
             }else{
                 varPv_=prod_;
             }
-            byte groundPlaceTarget_ = creature_.getGroundPlace();
             if(Rate.eq(varPv_,creature_.getRemainingHp())){
                 FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
                 if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
@@ -1335,8 +1335,8 @@ final class FightEndRound {
             AnimationEffect animation_;
             animation_ = new AnimationEffect(EffectKind.ABSORB);
             animation_.setIndex(_fight.getEffects().size());
-            animation_.setFromFighter(new TargetCoords(_cible.getTeam(), groundPlaceTarget_));
-            animation_.setToFighter(new TargetCoords(_lanceur.getTeam(), creatureLanceur_.getGroundPlace()));
+            animation_.setFromFighter(new TargetCoords(_cible.getTeam(), creature_.getGroundPlaceSubst()));
+            animation_.setToFighter(new TargetCoords(_lanceur.getTeam(), creatureLanceur_.getGroundPlaceSubst()));
             if(tauxAbs_.isZeroOrGt()){
                 //target hp absorbed to user hp
                 animation_.setKoFromFighter(creature_.estKo());

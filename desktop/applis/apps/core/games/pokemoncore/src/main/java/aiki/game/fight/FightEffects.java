@@ -2212,7 +2212,7 @@ final class FightEffects {
         AnimationSwitch animation_;
         animation_ = new AnimationSwitch();
         animation_.setIndex(_fight.getEffects().size());
-        animation_.setSubstituted(new TargetCoords(_user.getTeam(), placeTerrain_));
+        animation_.setSubstituted(new TargetCoords(_user.getTeam(), placeTerrainPourRemplacement_));
         animation_.setSubstituteName(partenaire_.getName());
         animation_.setKo(partenaire_.estKo());
         animation_.setLevel(partenaire_.getLevel());
@@ -2390,7 +2390,7 @@ final class FightEffects {
             AnimationSwitch animation_;
             animation_ = new AnimationSwitch();
             animation_.setIndex(_fight.getEffects().size());
-            animation_.setSubstituted(new TargetCoords(_lanceur.getTeam(), place_));
+            animation_.setSubstituted(new TargetCoords(_lanceur.getTeam(), placeSub_));
             animation_.setSubstituteName(creatureCbtRemplacant_.getName());
             animation_.setLevel(creatureCbtRemplacant_.getLevel());
             animation_.setRateRemainHp(creatureCbtRemplacant_.rateRemainHp());
@@ -2513,7 +2513,7 @@ final class FightEffects {
                 AnimationHealing animationHeal_;
                 animationHeal_ = new AnimationHealing();
                 animationHeal_.setIndex(_fight.getEffects().size());
-                animationHeal_.setHealed(new TargetCoords(_cible.getTeam(), creatureCible_.getGroundPlace()));
+                animationHeal_.setHealed(new TargetCoords(_cible.getTeam(), creatureCible_.getGroundPlaceSubst()));
                 _fight.getEffects().add(animationHeal_);
             }
         }else if(Rate.greaterEq(varPv_.absNb(),creatureCible_.getRemainingHp())){
@@ -2568,7 +2568,7 @@ final class FightEffects {
             AnimationHealing animationHeal_;
             animationHeal_ = new AnimationHealing();
             animationHeal_.setIndex(_fight.getEffects().size());
-            animationHeal_.setHealed(new TargetCoords(_target.getTeam(), creatureLanceur_.getGroundPlace()));
+            animationHeal_.setHealed(new TargetCoords(_target.getTeam(), creatureLanceur_.getGroundPlaceSubst()));
             _fight.getEffects().add(animationHeal_);
         }else if(Rate.greaterEq(varPv_.absNb(),creatureLanceur_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_target,_diff,_import);

@@ -1183,7 +1183,7 @@ final class FightRound {
                     AnimationSwitch animation_;
                     animation_ = new AnimationSwitch();
                     animation_.setIndex(_fight.getEffects().size());
-                    animation_.setSubstituted(new TargetCoords(_lanceur.getTeam(), pl_));
+                    animation_.setSubstituted(new TargetCoords(pkPlayers_.first().getTeam(), pl_));
                     animation_.setSubstituteName(fighter_.getName());
                     animation_.setLevel(fighter_.getLevel());
                     animation_.setRateRemainHp(fighter_.rateRemainHp());
@@ -1299,12 +1299,12 @@ final class FightRound {
         AnimationSwitch animation_;
         animation_ = new AnimationSwitch();
         animation_.setIndex(_fight.getEffects().size());
-        animation_.setSubstituted(new TargetCoords(_lanceur.getTeam(), placeTerrain_));
+        byte placeTerrainPourRemplacement_=creature_.getGroundPlaceSubst();
+        animation_.setSubstituted(new TargetCoords(_lanceur.getTeam(), placeTerrainPourRemplacement_));
         animation_.setSubstituteName(partenaire_.getName());
         animation_.setLevel(partenaire_.getLevel());
         animation_.setRateRemainHp(partenaire_.rateRemainHp());
         animation_.setWonExpRate(partenaire_.wonExpRate(_import));
-        byte placeTerrainPourRemplacement_=creature_.getGroundPlaceSubst();
         partenaire_.setGroundPlace(placeTerrain_);
         partenaire_.setGroundPlaceSubst(placeTerrainPourRemplacement_);
         creature_.exitFrontBattle();
