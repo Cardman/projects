@@ -1282,11 +1282,19 @@ final class FightRound {
                 }
             }
         }
+        healEffect(_fight, _lanceur, creatureLanceur_);
+    }
+
+    private static void healEffect(Fight _fight, TeamPosition _lanceur, Fighter _creatureLanceur) {
         //the user may be back even if not ko then no real animation if back
         AnimationHealing animationHeal_;
         animationHeal_ = new AnimationHealing();
         animationHeal_.setIndex(_fight.getEffects().size());
-        animationHeal_.setHealed(new TargetCoords(_lanceur.getTeam(), creatureLanceur_.getGroundPlace()));
+        if (!_creatureLanceur.estArriere()) {
+            animationHeal_.setHealed(new TargetCoords(_lanceur.getTeam(), _creatureLanceur.getGroundPlaceSubst()));
+        } else {
+            animationHeal_.setHealed(new TargetCoords(_lanceur.getTeam(), Fighter.BACK));
+        }
         _fight.getEffects().add(animationHeal_);
     }
 
