@@ -1676,13 +1676,13 @@ public final class Game {
         return FightFacade.getPlayerBackTeam(fight);
     }
 
-    public CustList<Fighter> getPlayerFrontTeamForSubstituting() {
-        return FightFacade.getPlayerFrontTeamForSubstituting(fight);
-    }
+//    public CustList<Fighter> getPlayerFrontTeamForSubstituting() {
+//        return FightFacade.getPlayerFrontTeam(fight);
+//    }
 
-    public CustList<Fighter> getPlayerBackTeamForSubstituting() {
-        return FightFacade.getPlayerBackTeamForSubstituting(fight);
-    }
+//    public CustList<Fighter> getPlayerBackTeamForSubstituting() {
+//        return FightFacade.getPlayerBackTeam(fight);
+//    }
 
     public boolean isChosableForLearningAndEvolving(byte _key) {
         return FightFacade.isChosableForLearningAndEvolving(fight, _key);

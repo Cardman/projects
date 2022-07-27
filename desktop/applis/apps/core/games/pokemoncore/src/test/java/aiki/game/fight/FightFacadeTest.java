@@ -8983,7 +8983,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -9026,7 +9026,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -9069,7 +9069,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
         assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
@@ -9113,7 +9113,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
         assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
@@ -9160,7 +9160,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -9206,7 +9206,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
         assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
@@ -9250,7 +9250,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
@@ -9296,7 +9296,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
         assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
@@ -9340,7 +9340,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }

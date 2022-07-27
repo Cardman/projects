@@ -472,9 +472,9 @@ public class Battle extends ChildFrame {
         } else if (facade.getFight().getState() == FightState.SWITCH_PROPOSE) {
             forms.removeAll();
             team.removeAll();
-            fighterFrontPanel.initFighters(facade.getPlayerFrontTeamForSubstituting());
+            fighterFrontPanel.initFighters(facade.getPlayerFrontTeam());
             team.add(fighterFrontPanel.getContainer());
-            fighterBackPanel.initFighters(facade.getPlayerBackTeamForSubstituting());
+            fighterBackPanel.initFighters(facade.getPlayerBackTeam());
             team.add(fighterBackPanel.getContainer());
             forms.add(team);
             panelPlaces.removeAll();

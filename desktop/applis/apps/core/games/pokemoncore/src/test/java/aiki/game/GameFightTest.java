@@ -877,7 +877,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        CustList< Fighter> team_ = game_.getPlayerFrontTeamForSubstituting();
+        CustList< Fighter> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
         assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -906,7 +906,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        CustList< Fighter> team_ = game_.getPlayerBackTeamForSubstituting();
+        CustList< Fighter> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
         assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }

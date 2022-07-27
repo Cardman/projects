@@ -85,8 +85,8 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         assertEq(1, facadeGame_.getUnionFrontTeam().size());
         assertEq(1, facadeGame_.getPlayerBackTeam().size());
         assertEq(1, facadeGame_.getPlayerFrontTeam().size());
-        assertEq(1, facadeGame_.getPlayerBackTeamForSubstituting().size());
-        assertEq(1, facadeGame_.getPlayerFrontTeamForSubstituting().size());
+        assertEq(1, facadeGame_.getPlayerBackTeam().size());
+        assertEq(1, facadeGame_.getPlayerFrontTeam().size());
         assertEq(1, facadeGame_.getFoeFrontTeam().size());
         facadeGame_.sendSubstitutes();
         assertEq(FightState.ATTAQUES, facadeGame_.getFight().getState());

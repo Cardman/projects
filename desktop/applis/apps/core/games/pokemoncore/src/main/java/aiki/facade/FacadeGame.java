@@ -2383,13 +2383,13 @@ public class FacadeGame {
         return game.getPlayerBackTeam();
     }
 
-    public CustList< Fighter> getPlayerFrontTeamForSubstituting() {
-        return game.getPlayerFrontTeamForSubstituting();
-    }
+//    public CustList< Fighter> getPlayerFrontTeamForSubstituting() {
+//        return game.getPlayerFrontTeam();
+//    }
 
-    public CustList< Fighter> getPlayerBackTeamForSubstituting() {
-        return game.getPlayerBackTeamForSubstituting();
-    }
+//    public CustList< Fighter> getPlayerBackTeamForSubstituting() {
+//        return game.getPlayerBackTeamForSubstituting();
+//    }
 
     // public TreeMap<Byte,Fighter> getAllyFrontTeam() {
     // return game.getAllyFrontTeam();
