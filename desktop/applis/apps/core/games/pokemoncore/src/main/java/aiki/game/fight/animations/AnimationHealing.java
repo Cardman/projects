@@ -4,19 +4,9 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.TargetCoords;
 import code.util.core.NumberUtil;
 
-public class AnimationHealing implements AnimationInt {
-
-    private int index;
+public class AnimationHealing extends AnimationInt {
 
     private TargetCoords healed;
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int _index) {
-        index = _index+getIndex();
-    }
 
     public TargetCoords getHealed() {
         return healed;

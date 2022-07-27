@@ -1492,6 +1492,9 @@ public class Battle extends ChildFrame {
 //        frontBattle.initRoundAnimation();
 //    }
 
+    public void setCountAnim(int _c) {
+        frontBattle.setCountAnim(_c);
+    }
     public void drawAnimationInstantInitial(AnimationInt _animation) {
         frontBattle.drawAnimationInstantInitial(_animation);
     }

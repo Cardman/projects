@@ -3,9 +3,7 @@ import aiki.game.fight.Fight;
 import aiki.game.fight.TargetCoords;
 import code.util.core.NumberUtil;
 
-public final class AnimationAutoEffect implements AnimationInt {
-
-    private int index;
+public final class AnimationAutoEffect extends AnimationInt {
 
     private final AutoEffectKind autoEffectKind;
 
@@ -15,14 +13,6 @@ public final class AnimationAutoEffect implements AnimationInt {
 
     public AnimationAutoEffect(AutoEffectKind _autoEffectKind) {
         autoEffectKind = _autoEffectKind;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int _index) {
-        index = _index+getIndex();
     }
 
     public boolean isPlayer() {

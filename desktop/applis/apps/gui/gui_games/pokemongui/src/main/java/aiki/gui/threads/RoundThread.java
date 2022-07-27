@@ -3,6 +3,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.gui.components.fight.Battle;
 import code.threads.ThreadUtil;
+import code.util.CustList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -35,7 +36,9 @@ public abstract class RoundThread implements Runnable {
     }
 
     protected void animate() {
-        for (AnimationInt a: facade.getFight().getEffects()) {
+        CustList<AnimationInt> effects_ = facade.getFight().getEffects();
+        battle.setCountAnim(effects_.size());
+        for (AnimationInt a: effects_) {
 //            ThreadInvoker.invokeNow(new DrawingAnimation(battle, a, true));
             battle.drawAnimationInstantInitial(a);
             while (battle.isKeepAnimation()) {

@@ -4,9 +4,7 @@ import aiki.game.fight.TargetCoords;
 import code.maths.LgInt;
 import code.util.core.NumberUtil;
 
-public class AnimationSwitch implements AnimationInt {
-
-    private int index;
+public class AnimationSwitch extends AnimationInt {
 
     private TargetCoords substituted;
 
@@ -22,14 +20,6 @@ public class AnimationSwitch implements AnimationInt {
 
     public boolean isPlayer() {
         return NumberUtil.eq(substituted.getTeam(), Fight.CST_PLAYER);
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int _index) {
-        index = _index+getIndex();
     }
 
     public TargetCoords getSubstituted() {

@@ -3336,6 +3336,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
+        assertEq(0, anim_.getIndex());
     }
 
     @Test

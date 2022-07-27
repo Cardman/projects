@@ -3,9 +3,7 @@ import aiki.game.fight.Fight;
 import aiki.game.fight.TargetCoords;
 import code.util.core.NumberUtil;
 
-public class AnimationEffect implements AnimationInt {
-
-    private int index;
+public class AnimationEffect extends AnimationInt {
 
     private final EffectKind effectKind;
 
@@ -23,14 +21,6 @@ public class AnimationEffect implements AnimationInt {
 
     public AnimationEffect(EffectKind _effectKind) {
         effectKind = _effectKind;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int _index) {
-        index = _index+getIndex();
     }
 
     public EffectKind getEffectKind() {

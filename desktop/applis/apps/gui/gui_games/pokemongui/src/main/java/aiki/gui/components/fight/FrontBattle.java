@@ -96,6 +96,9 @@ public final class FrontBattle extends AbsMetaLabel {
 
     private Battle battle;
 
+    private int index;
+    private int countAnim;
+
     public FrontBattle(WindowAiki _window, FacadeGame _facade) {
         super(_window.getCompoFactory());
         facade = _facade;
@@ -460,6 +463,11 @@ public final class FrontBattle extends AbsMetaLabel {
 //        koPlayerTargets.clear();
 //    }
 
+
+    void setCountAnim(int _c) {
+        this.countAnim = _c;
+    }
+
     void drawAnimationInstantInitial(AnimationInt _animation) {
         wild = false;
         keepAnimation = true;
@@ -470,6 +478,7 @@ public final class FrontBattle extends AbsMetaLabel {
         damage = DataBase.EMPTY_STRING;
         if (_animation instanceof AnimationEffect) {
             AnimationEffect animation_ = (AnimationEffect) _animation;
+            index = animation_.getIndex();
             if (animation_.getEffectKind() == EffectKind.CHANGED_PLACE) {
                 if (animation_.isPlayerFromFighter()) {
                     TargetLabel user_ = playerTargets.getVal((byte) animation_.getFromFighter().getPosition());
@@ -539,6 +548,7 @@ public final class FrontBattle extends AbsMetaLabel {
             }
         } else if (_animation instanceof AnimationSwitch) {
             AnimationSwitch animation_ = (AnimationSwitch) _animation;
+            index = animation_.getIndex();
             if (animation_.isPlayer()) {
                 TargetLabel tar_ = playerTargets.getVal((byte) animation_.getSubstituted().getPosition());
                 xIni = tar_.getxPoint();
@@ -571,6 +581,7 @@ public final class FrontBattle extends AbsMetaLabel {
 //                yIni = yCoordsFoe.getVal((byte) animation_.getHealed().getPosition());
             }
         } else if (_animation instanceof AnimationAutoEffect) {
+            index = _animation.getIndex();
             recoil = ((AnimationAutoEffect) _animation).getAutoEffectKind() == AutoEffectKind.RECOIL;
             AnimationAutoEffect animation_ = (AnimationAutoEffect) _animation;
             if (animation_.isPlayer()) {
@@ -586,6 +597,8 @@ public final class FrontBattle extends AbsMetaLabel {
 //                xIni = xCoordsFoe.getVal((byte) animation_.getUser().getPosition());
 //                yIni = yCoordsFoe.getVal((byte) animation_.getUser().getPosition());
             }
+        } else {
+            index = 0;
         }
         imageNumber = 0;
         xIni += maxWidth / 2;
@@ -1156,6 +1169,9 @@ public final class FrontBattle extends AbsMetaLabel {
     public void paintComponent(AbstractImage _g) {
         _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
+        _g.setColor(GuiConstants.BLACK);
+        _g.drawString(index+"/"+countAnim,0,16);
+        _g.setColor(GuiConstants.WHITE);
         if (drawImage) {
             if (paintDefaultEffect) {
                 _g.setColor(GuiConstants.WHITE);
