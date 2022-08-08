@@ -303,35 +303,17 @@ public final class CheckerGamePresidentWithRules {
             }
             int nbCardsPerPlayerTrick_ = trick_.getNombreDeCartesParJoueur();
             int nbHands_ = trick_.total();
-            if (nbCardsPerPlayerTrick_ == 0) {
-                for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
-                    byte player_ = trick_.getPlayer(i, nbPlayers_);
-                    HandPresident curHand_ = trick_.carte(i);
-                    loadedGameCopy_.checkPlayerHand(player_,MESSAGE_ERROR);
-                    loadedGameCopy_.getProgressingTrick().ajouter(curHand_,
-                            player_);
+            for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
+                byte player_ = trick_.getPlayer(i, nbPlayers_);
+                HandPresident curHand_ = trick_.carte(i);
+                if (!sameStrength(loadedGameCopy_, curHand_)) {
+                    _loadedGame.setError(MESSAGE_ERROR);
+                    return;
                 }
-                loadedGameCopy_.unionPlis().add(
-                        loadedGameCopy_.getProgressingTrick());
-                loadedGameCopy_.initializeTrick(trick_.getPlayer(
-                        trick_.total(), nbPlayers_));
-            } else {
-                for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
-                    byte player_ = trick_.getPlayer(i, nbPlayers_);
-                    HandPresident curHand_ = trick_.carte(i);
-                    Bytes str_ = new Bytes();
-                    for (CardPresident c : curHand_) {
-                        str_.add(c.strength(loadedGameCopy_.isReversed()));
-                    }
-                    if (!str_.isEmpty()) {
-                        boolean same_ = NumberUtil.eq(str_.getMinimum((byte) 0),
-                                str_.getMaximum((byte) 0));
-                        if (!same_ || str_.size() != nbCardsPerPlayerTrick_) {
-                            _loadedGame.setError(MESSAGE_ERROR);
-                            return;
-                        }
-                    }
-                    if (curHand_.estVide()) {
+                int count_ = curHand_.total();
+                if (curHand_.estVide()) {
+                    if (nbCardsPerPlayerTrick_ != 0) {
+                        count_ = nbCardsPerPlayerTrick_;
                         if (loadedGameCopy_.getProgressingTrick().getCartes().estVide()) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;
@@ -346,23 +328,36 @@ public final class CheckerGamePresidentWithRules {
                         }
                         loadedGameCopy_.addEmptyHandToCurrentTrick(player_);
                     } else {
-                        if (!loadedGameCopy_.allowPlaying(player_, curHand_)) {
-                            _loadedGame.setError(MESSAGE_ERROR);
-                            return;
-                        }
-                        loadedGameCopy_.addCardsToCurrentTrick(player_,
-                                curHand_);
-                        if (loadedGameCopy_.getDistribution().hand(player_)
-                                .estVide()) {
-                            loadedGameCopy_.getPassOrFinish()
-                                    .set(player_, true);
-                        }
+                        loadedGameCopy_.getProgressingTrick().ajouter(curHand_,
+                                player_);
                     }
-                    if (loadedGameCopy_.getProgressingTrick().estVide() && i + 1 < nbHands_ && !trick_.carte(i + 1).estVide()) {
+                } else {
+                    if (!loadedGameCopy_.allowPlaying(player_, curHand_)) {
                         _loadedGame.setError(MESSAGE_ERROR);
                         return;
                     }
+                    loadedGameCopy_.addCardsToCurrentTrick(player_,
+                            curHand_);
+                    if (loadedGameCopy_.getDistribution().hand(player_)
+                            .estVide()) {
+                        loadedGameCopy_.getPassOrFinish()
+                                .set(player_, true);
+                    }
                 }
+                if (count_ != nbCardsPerPlayerTrick_) {
+                    _loadedGame.setError(MESSAGE_ERROR);
+                    return;
+                }
+                if (loadedGameCopy_.getProgressingTrick().estVide() && i + 1 < nbHands_ && !trick_.carte(i + 1).estVide()) {
+                    _loadedGame.setError(MESSAGE_ERROR);
+                    return;
+                }
+            }
+            if (nbCardsPerPlayerTrick_ == 0) {
+                loadedGameCopy_.unionPlis().add(
+                        loadedGameCopy_.getProgressingTrick());
+                loadedGameCopy_.initializeTrick(trick_.getPlayer(
+                        trick_.total(), nbPlayers_));
             }
             for (byte p = IndexConstants.FIRST_INDEX; p < nbPlayers_; p++) {
                 loadedGameCopy_.getPassOrFinish().set(p,
@@ -376,5 +371,17 @@ public final class CheckerGamePresidentWithRules {
                 break;
             }
         }
+    }
+
+    private static boolean sameStrength(GamePresident _loadedGameCopy, HandPresident _curHand) {
+        if (_curHand.estVide()) {
+            return true;
+        }
+        Bytes str_ = new Bytes();
+        for (CardPresident c : _curHand) {
+            str_.add(c.strength(_loadedGameCopy.isReversed()));
+        }
+        return NumberUtil.eq(str_.getMinimum((byte) 0),
+                str_.getMaximum((byte) 0));
     }
 }

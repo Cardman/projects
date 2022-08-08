@@ -5007,7 +5007,6 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
-        g_.checkPlayerHand((byte)2,"");
     }
 
     @Test
