@@ -1070,7 +1070,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setThreadAnime(false);
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         String lg_ = getOwner().getLanguageKey();
-        setScores(_res.getScores());
+        setScores(_res.getRes().getScores());
         _res.getRes().setGeneral(readCoreResource());
         _res.getRes().setSpecific(readResource());
         AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();

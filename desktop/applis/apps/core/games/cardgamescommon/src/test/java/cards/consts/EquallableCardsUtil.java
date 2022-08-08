@@ -1,5 +1,7 @@
 package cards.consts;
 
+import code.maths.Rate;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -7,7 +9,39 @@ public abstract class EquallableCardsUtil {
 
     private static final String DIFF = " != ";
 
-    public static void assertNotNull(Object _value) {
+    public static void assertNotNull(StringMap<String> _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(Role[] _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(PossibleTrickWinner[] _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(Order[] _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(MixCardsChoice[] _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(Hypothesis[] _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(EndGameState[] _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(CardChar[] _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(String _value) {
         Assert.assertNotNull(_value);
     }
 
@@ -20,6 +54,10 @@ public abstract class EquallableCardsUtil {
 
     public static void assertEq(long _expected, long _result) {
         Assert.assertTrue(StringUtil.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(Rate _expected, Rate _result) {
+        Assert.assertTrue(StringUtil.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), Rate.eq(_expected, _result));
     }
     public static void assertSame(Suit _expected, Suit _result) {
         Assert.assertSame(_expected, _result);

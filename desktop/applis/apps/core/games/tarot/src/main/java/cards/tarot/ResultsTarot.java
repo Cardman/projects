@@ -1,12 +1,12 @@
 package cards.tarot;
+
 import cards.consts.EndGameState;
 import cards.consts.GameType;
-import cards.consts.Role;
 import cards.consts.ResultsGame;
+import cards.consts.Role;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -14,16 +14,9 @@ import code.util.core.IndexConstants;
 
 public final class ResultsTarot {
 
-    private static final int FACTOR = 3;
     private final ResultsGame res = new ResultsGame();
 
     private GameTarot game;
-
-    private StringList nicknames;
-
-    private byte user;
-
-    private String loc;
 
     private EndGameState endTarotGame = EndGameState.EQUALLITY;
 
@@ -43,7 +36,7 @@ public final class ResultsTarot {
     public void initialize(StringList _pseudos,
             CustList<Longs> _scores) {
         getRes().setScores(_scores);
-        nicknames = _pseudos;
+        res.setNicknames(_pseudos);
         Shorts scoresDeal_ = new Shorts();
         short basePoints_;
         short doubledScoreTaker_;
@@ -73,7 +66,7 @@ public final class ResultsTarot {
                 differenceScoreTaker_=(short) (scorePreneurPlis_-needlyScoresTaker_);
                 playerSmallBound= end_.joueurPetitAuBout(_pseudos);
                 scoreSmallBound = end_.scoreSmallBound();
-                endTarotGame = end_.getUserState(differenceScoreTaker_,user);
+                endTarotGame = end_.getUserState(differenceScoreTaker_, res.getUser());
                 basePoints_=end_.base(doubledScoreTaker_,differenceScoreTaker_);
                 scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker_,basePoints_);
                 handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
@@ -124,7 +117,7 @@ public final class ResultsTarot {
                     game.setScores(end_.calculerScoresJoueurs(coefficients,maxDoubledDifference_));
                     scoresDeal_=game.getScores();
                 }
-                finalUserPosition = positionsFour.get(user);
+                finalUserPosition = positionsFour.get(res.getUser());
             }
         } else {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
@@ -138,43 +131,7 @@ public final class ResultsTarot {
     }
 
     void calculateScores(Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
-        if(hasToCalculateScores(_type, _number, _nbDeals)) {
-            int nbPl_ = _scoresDeal.size();
-            long variance9_=0;
-            long esperance_=0;
-            res.getScores().add(new Longs());
-            if(res.getScores().size()==1) {
-                for(short score_: _scoresDeal) {
-                    res.getScores().last().add((long) score_);
-                }
-            } else {
-                byte indice_=0;
-                for(short score_: _scoresDeal) {
-                    res.getScores().last().add(score_+res.getScores().get(res.getScores().size()-2).get(indice_));
-                    indice_++;
-                }
-            }
-            for(long score_:res.getScores().last()) {
-                esperance_+=score_;
-            }
-            /*Somme des_ scores*/
-            variance9_+=FACTOR*esperance_;
-            /*Somme des_ scores fois_ trois_*/
-            variance9_*=variance9_;
-            /*Carre de_ la_ somme_ des_ scores fois_ trois_ (Le carre_ comprend_ le_ fois_ trois_)*/
-            variance9_=-variance9_;
-            /*Oppose du_ carre_ de_ la_ somme_ des_ scores fois_ trois_*/
-            for(long score_:res.getScores().last()) {
-                variance9_+=score_*score_*9* nbPl_;
-            }
-            /*variance9_ vaut_ neuf_ fois_ la_ variance_ des_ scores fois_ le_ carre_ du_ nombre_ de_ joueurs_*/
-            res.getSigmas().add(new Rate(variance9_, nbPl_ * nbPl_).rootAbs(new LgInt(2)));
-            res.getSums().add(esperance_);
-        }
-    }
-
-    static boolean hasToCalculateScores(GameType _type, long _number, int _nbDeals) {
-        return _type ==GameType.RANDOM&& _number ==0|| _type == GameType.EDIT && _number <= _nbDeals;
+        res.calculateScores(_scoresDeal,_type,_number,_nbDeals);
     }
 
     public GameTarot getGame() {
@@ -183,75 +140,6 @@ public final class ResultsTarot {
 
     public void setGame(GameTarot _game) {
         game = _game;
-    }
-
-    public StringList getNicknames() {
-        return nicknames;
-    }
-    public byte getUser() {
-        return user;
-    }
-    public void setUser(byte _user) {
-        user = _user;
-    }
-    public String getLoc() {
-        return loc;
-    }
-
-    public void setNicknames(StringList _nicknames) {
-        nicknames = _nicknames;
-    }
-
-    public void setLoc(String _loc) {
-        loc = _loc;
-    }
-
-    public String getGlobalResultsPageTitle() {
-        return res.getGlobalResultsPageTitle();
-    }
-
-    public void setGlobalResultsPageTitle(String _globalResultsPageTitle) {
-        res.setGlobalResultsPageTitle(_globalResultsPageTitle);
-    }
-
-    public String getDetailResultsTitle() {
-        return res.getDetailResultsTitle();
-    }
-
-    public void setDetailResultsTitle(String _detailResultsTitle) {
-        res.setDetailResultsTitle(_detailResultsTitle);
-    }
-
-    public StringMap<String> getRenderedPages() {
-        return res.getRenderedPages();
-    }
-
-    public CustList<Rate> getSigmas() {
-        return res.getSigmas();
-    }
-
-    public Longs getSums() {
-        return res.getSums();
-    }
-
-    public CustList<Longs> getScores() {
-        return res.getScores();
-    }
-
-    public void setScores(CustList<Longs> _scores) {
-        res.setScores(_scores);
-    }
-
-    public void setRenderedPages(StringMap<String> _renderedPages) {
-        res.setRenderedPages(_renderedPages);
-    }
-
-    public void setSigmas(CustList<Rate> _sigmas) {
-        res.setSigmas(_sigmas);
-    }
-
-    public void setSums(Longs _sums) {
-        res.setSums(_sums);
     }
 
     public EndGameState getEndTarotGame() {

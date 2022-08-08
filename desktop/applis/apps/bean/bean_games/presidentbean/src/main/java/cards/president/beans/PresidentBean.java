@@ -34,10 +34,10 @@ public final class PresidentBean extends Bean {
     public void beforeDisplaying() {
         ResultsPresident res_ = getResults();
         setGame(res_.getGame());
-        setNicknames(res_.getNicknames());
-        setScores(res_.getScores());
-        setUser(res_.getUser());
-        setLoc(res_.getLoc());
+        setNicknames(res_.getRes().getNicknames());
+        setScores(res_.getRes().getScores());
+        setUser(res_.getRes().getUser());
+        setLoc(res_.getRes().getLoc());
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         linesDeal = new CustList<PresidentLineDeal>();
         int nbDeals_ = getScores().size();

@@ -9,43 +9,27 @@ import org.junit.Test;
 
 public final class ResultsTarotTest extends CommonGameTarot {
     @Test
-    public void hasToCalculateScores1Test() {
-        assertTrue(ResultsTarot.hasToCalculateScores(GameType.EDIT,0,0));
-    }
-    @Test
-    public void hasToCalculateScores2Test() {
-        assertTrue(!ResultsTarot.hasToCalculateScores(GameType.EDIT,1,0));
-    }
-    @Test
-    public void hasToCalculateScores3Test() {
-        assertTrue(ResultsTarot.hasToCalculateScores(GameType.RANDOM,0,0));
-    }
-    @Test
-    public void hasToCalculateScores4Test() {
-        assertTrue(!ResultsTarot.hasToCalculateScores(GameType.RANDOM,1,0));
-    }
-    @Test
     public void calculateScoresTest() {
         ResultsTarot res_ = new ResultsTarot();
-        res_.setUser((byte) 0);
-        res_.setScores(new CustList<Longs>());
-        res_.setGlobalResultsPageTitle("");
-        res_.setDetailResultsTitle("");
-        res_.setSigmas(new CustList<Rate>());
-        res_.setSums(new Longs());
-        res_.setNicknames(new StringList());
-        res_.setRenderedPages(new StringMap<String>());
-        res_.setLoc("");
+        res_.getRes().setUser((byte) 0);
+        res_.getRes().setScores(new CustList<Longs>());
+        res_.getRes().setGlobalResultsPageTitle("");
+        res_.getRes().setDetailResultsTitle("");
+        res_.getRes().setSigmas(new CustList<Rate>());
+        res_.getRes().setSums(new Longs());
+        res_.getRes().setNicknames(new StringList());
+        res_.getRes().setRenderedPages(new StringMap<String>());
+        res_.getRes().setLoc("");
         res_.calculateScores(new Shorts(),GameType.RANDOM,1,0);
-        assertEq(0,res_.getScores().size());
-        assertEq(0,res_.getSums().size());
-        assertEq(0,res_.getSigmas().size());
-        assertEq(0,res_.getNicknames().size());
-        assertEq(0,res_.getRenderedPages().size());
-        assertEq(0,res_.getUser());
-        assertEq("",res_.getLoc());
-        assertEq("",res_.getGlobalResultsPageTitle());
-        assertEq("",res_.getDetailResultsTitle());
+        assertEq(0, res_.getRes().getScores().size());
+        assertEq(0, res_.getRes().getSums().size());
+        assertEq(0, res_.getRes().getSigmas().size());
+        assertEq(0, res_.getRes().getNicknames().size());
+        assertEq(0, res_.getRes().getRenderedPages().size());
+        assertEq(0, res_.getRes().getUser());
+        assertEq("", res_.getRes().getLoc());
+        assertEq("", res_.getRes().getGlobalResultsPageTitle());
+        assertEq("", res_.getRes().getDetailResultsTitle());
     }
     @Test
     public void initialize1Test() {
@@ -215,7 +199,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         res_.initialize(new StringList("1","2","3"),new CustList<Longs>());
         assertSame(EndGameState.WIN,res_.getEndTarotGame());
         assertEq("",res_.getPlayerSmallBound());
@@ -385,7 +369,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         res_.initialize(new StringList("1","2","3"),new CustList<Longs>());
         assertEq(1,res_.getFinalUserPosition());
         assertEq(1,res_.getPositionsDiff().get(0));
@@ -559,7 +543,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         res_.initialize(new StringList("1","2","3"),new CustList<Longs>());
         assertEq(3,res_.getFinalUserPosition());
     }
@@ -569,11 +553,11 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = new GameTarot(GameType.RANDOM,GameTarotPlayingOneTest.initializeHands((byte) 0),regles_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         res_.initialize(new StringList("1","2","3","4","5"),new CustList<Longs>());
-        assertEq(1,res_.getScores().size());
-        assertEq(5,res_.getScores().first().size());
-        assertEq(0,res_.getScores().first().first());
+        assertEq(1, res_.getRes().getScores().size());
+        assertEq(5, res_.getRes().getScores().first().size());
+        assertEq(0, res_.getRes().getScores().first().first());
     }
     @Test
     public void initialize5Test() {
@@ -743,7 +727,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         Longs sc_ = new Longs();
         sc_.add(0L);
         sc_.add(0L);

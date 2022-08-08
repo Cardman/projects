@@ -63,7 +63,6 @@ import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
-import code.scripts.imgs.cards.CardsInit;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumList;
@@ -933,10 +932,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(partie_);
-        res_.setUser(DealTarot.NUMERO_UTILISATEUR);
+        res_.getRes().setUser(DealTarot.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(pseudos_), getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
-        setScores(res_.getScores());
+        setScores(res_.getRes().getScores());
         res_.getRes().setGeneral(readCoreResource());
         res_.getRes().setSpecific(readResource());
 
@@ -980,13 +979,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if(nombreJoueurs_>9) {
                 couleurs_.add(GuiConstants.newColor(128,0,255));
             }
-            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new CustList<Rate>(res_.getSigmas()),couleurs_, getOwner().getCompoFactory());
-            Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
+            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getRes().getSums()),new CustList<Rate>(res_.getRes().getSigmas()),couleurs_, getOwner().getCompoFactory());
+            Rate derniereMoyenne_=new Rate(res_.getRes().getSums().last(),nombreJoueurs_);
             CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scoresCentresMoyenne_.add(Rate.minus(new Rate(getScores().last().get(joueur_)), derniereMoyenne_));
             }
-            scoresCentresMoyenne_.add(Rate.multiply(new Rate(3), res_.getSigmas().last()));
+            scoresCentresMoyenne_.add(Rate.multiply(new Rate(3), res_.getRes().getSigmas().last()));
             Rate max_ = Rate.zero();
             for(Rate maximum_:scoresCentresMoyenne_) {
                 if (Rate.strGreater(maximum_.absNb(), max_)) {

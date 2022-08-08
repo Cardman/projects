@@ -955,6 +955,15 @@ public class NumbersTest extends EquallableExUtil {
     }
 
     @Test
+    public void toArrShort() {
+        Shorts nbs_ = Shorts.newList((byte)5,(byte)1);
+        short[] bytes_ = nbs_.toArrShort();
+        assertEq(2, bytes_.length);
+        assertEq(5, bytes_[0]);
+        assertEq(1, bytes_[1]);
+    }
+
+    @Test
     public void nonIterableBytes() {
         NonIterableBytes n_ = new NonIterableBytes();
         n_.getArray();

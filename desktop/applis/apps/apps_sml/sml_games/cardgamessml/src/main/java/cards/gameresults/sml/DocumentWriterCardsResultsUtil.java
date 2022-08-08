@@ -6,6 +6,7 @@ import code.sml.maths.DocumentWriterMathUtil;
 import code.sml.Document;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
+
 public final class DocumentWriterCardsResultsUtil {
 
     private static final String FIELD_DETAIL_RESULTS_TITLE = "detailResultsTitle";
@@ -16,29 +17,29 @@ public final class DocumentWriterCardsResultsUtil {
     private static final String FIELD_SUMS = "sums";
 
     public static void setResultsGame(ResultsBelote _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getGlobalResultsPageTitle(),FIELD_GLOBAL_RESULTS_PAGE_TITLE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getDetailResultsTitle(),FIELD_DETAIL_RESULTS_TITLE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getRenderedPages(),FIELD_RENDERED_PAGES,_document));
-        _element.appendChild(DocumentWriterMathUtil.setListRate(_object.getSigmas(),FIELD_SIGMAS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListLong(_object.getSums(),FIELD_SUMS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListListLong(_object.getScores(),FIELD_SCORES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getGlobalResultsPageTitle(),FIELD_GLOBAL_RESULTS_PAGE_TITLE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getDetailResultsTitle(),FIELD_DETAIL_RESULTS_TITLE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getRes().getRenderedPages(),FIELD_RENDERED_PAGES,_document));
+        _element.appendChild(DocumentWriterMathUtil.setListRate(_object.getRes().getSigmas(),FIELD_SIGMAS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListLong(_object.getRes().getSums(),FIELD_SUMS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListListLong(_object.getRes().getScores(),FIELD_SCORES,_document));
     }
 
     public static void setResultsGame(ResultsPresident _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getGlobalResultsPageTitle(),FIELD_GLOBAL_RESULTS_PAGE_TITLE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getDetailResultsTitle(),FIELD_DETAIL_RESULTS_TITLE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getRenderedPages(),FIELD_RENDERED_PAGES,_document));
-        _element.appendChild(DocumentWriterMathUtil.setListRate(_object.getSigmas(),FIELD_SIGMAS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListLong(_object.getSums(),FIELD_SUMS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListListLong(_object.getScores(),FIELD_SCORES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getGlobalResultsPageTitle(),FIELD_GLOBAL_RESULTS_PAGE_TITLE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getDetailResultsTitle(),FIELD_DETAIL_RESULTS_TITLE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getRes().getRenderedPages(),FIELD_RENDERED_PAGES,_document));
+        _element.appendChild(DocumentWriterMathUtil.setListRate(_object.getRes().getSigmas(),FIELD_SIGMAS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListLong(_object.getRes().getSums(),FIELD_SUMS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListListLong(_object.getRes().getScores(),FIELD_SCORES,_document));
     }
 
     public static void setResultsGame(ResultsTarot _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getGlobalResultsPageTitle(),FIELD_GLOBAL_RESULTS_PAGE_TITLE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getDetailResultsTitle(),FIELD_DETAIL_RESULTS_TITLE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getRenderedPages(),FIELD_RENDERED_PAGES,_document));
-        _element.appendChild(DocumentWriterMathUtil.setListRate(_object.getSigmas(),FIELD_SIGMAS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListLong(_object.getSums(),FIELD_SUMS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListListLong(_object.getScores(),FIELD_SCORES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getGlobalResultsPageTitle(),FIELD_GLOBAL_RESULTS_PAGE_TITLE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getDetailResultsTitle(),FIELD_DETAIL_RESULTS_TITLE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getRes().getRenderedPages(),FIELD_RENDERED_PAGES,_document));
+        _element.appendChild(DocumentWriterMathUtil.setListRate(_object.getRes().getSigmas(),FIELD_SIGMAS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListLong(_object.getRes().getSums(),FIELD_SUMS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListListLong(_object.getRes().getScores(),FIELD_SCORES,_document));
     }
 }

@@ -8,43 +8,27 @@ import org.junit.Test;
 
 public final class ResultsPresidentTest extends EquallablePresidentUtil {
     @Test
-    public void hasToCalculateScores1Test() {
-        assertTrue(ResultsPresident.hasToCalculateScores(GameType.EDIT,0,0));
-    }
-    @Test
-    public void hasToCalculateScores2Test() {
-        assertTrue(!ResultsPresident.hasToCalculateScores(GameType.EDIT,1,0));
-    }
-    @Test
-    public void hasToCalculateScores3Test() {
-        assertTrue(ResultsPresident.hasToCalculateScores(GameType.RANDOM,0,0));
-    }
-    @Test
-    public void hasToCalculateScores4Test() {
-        assertTrue(!ResultsPresident.hasToCalculateScores(GameType.RANDOM,1,0));
-    }
-    @Test
     public void calculateScoresTest() {
         ResultsPresident res_ = new ResultsPresident();
-        res_.setUser((byte) 0);
-        res_.setScores(new CustList<Longs>());
-        res_.setGlobalResultsPageTitle("");
-        res_.setDetailResultsTitle("");
-        res_.setSigmas(new CustList<Rate>());
-        res_.setSums(new Longs());
-        res_.setNicknames(new StringList());
-        res_.setRenderedPages(new StringMap<String>());
-        res_.setLoc("");
+        res_.getRes().setUser((byte) 0);
+        res_.getRes().setScores(new CustList<Longs>());
+        res_.getRes().setGlobalResultsPageTitle("");
+        res_.getRes().setDetailResultsTitle("");
+        res_.getRes().setSigmas(new CustList<Rate>());
+        res_.getRes().setSums(new Longs());
+        res_.getRes().setNicknames(new StringList());
+        res_.getRes().setRenderedPages(new StringMap<String>());
+        res_.getRes().setLoc("");
         res_.calculateScores(new Shorts(),GameType.RANDOM,1,0);
-        assertEq(0,res_.getScores().size());
-        assertEq(0,res_.getSums().size());
-        assertEq(0,res_.getSigmas().size());
-        assertEq(0,res_.getNicknames().size());
-        assertEq(0,res_.getRenderedPages().size());
-        assertEq(0,res_.getUser());
-        assertEq("",res_.getLoc());
-        assertEq("",res_.getGlobalResultsPageTitle());
-        assertEq("",res_.getDetailResultsTitle());
+        assertEq(0, res_.getRes().getScores().size());
+        assertEq(0, res_.getRes().getSums().size());
+        assertEq(0, res_.getRes().getSigmas().size());
+        assertEq(0, res_.getRes().getNicknames().size());
+        assertEq(0, res_.getRes().getRenderedPages().size());
+        assertEq(0, res_.getRes().getUser());
+        assertEq("", res_.getRes().getLoc());
+        assertEq("", res_.getRes().getGlobalResultsPageTitle());
+        assertEq("", res_.getRes().getDetailResultsTitle());
     }
 
     @Test
@@ -52,9 +36,9 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         GamePresident g_ = getSimpleDeal();
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(g_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>());
-        assertEq(4, res_.getScores().get(0).size());
+        assertEq(4, res_.getRes().getScores().get(0).size());
         assertSame(g_, res_.getGame());
     }
 
@@ -63,9 +47,9 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         GamePresident g_ = getSimpleDeal();
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(g_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>(), g_.getNewRanks());
-        assertEq(4, res_.getScores().get(0).size());
+        assertEq(4, res_.getRes().getScores().get(0).size());
     }
 
     @Test

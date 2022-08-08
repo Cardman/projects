@@ -51,10 +51,10 @@ public final class ResultsTarotBean extends TarotBean {
     public void beforeDisplaying() {
         ResultsTarot res_ = getResults();
         setGame(res_.getGame());
-        setNicknames(res_.getNicknames());
-        setScores(res_.getScores());
-        setUser(res_.getUser());
-        setLoc(res_.getLoc());
+        setNicknames(res_.getRes().getNicknames());
+        setScores(res_.getRes().getScores());
+        setUser(res_.getRes().getUser());
+        setLoc(res_.getRes().getLoc());
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
         short doubledScoreTaker_;
@@ -98,7 +98,7 @@ public final class ResultsTarotBean extends TarotBean {
                         maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
                     }
                     maxDifference=res_.getMaxDifference();
-                    initialUserPosition=res_.getPositionsDiff().get(res_.getUser());
+                    initialUserPosition=res_.getPositionsDiff().get(res_.getRes().getUser());
                 } else {
                     for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                         doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
@@ -107,7 +107,7 @@ public final class ResultsTarotBean extends TarotBean {
                         maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
                     }
                     maxDifference=res_.getMaxDifference();
-                    initialUserPosition=res_.getPositionsDiff().get(res_.getUser());
+                    initialUserPosition=res_.getPositionsDiff().get(res_.getRes().getUser());
                 }
                 finalUserPosition = res_.getFinalUserPosition();
             }

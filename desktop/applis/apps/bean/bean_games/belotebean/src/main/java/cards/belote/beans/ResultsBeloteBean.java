@@ -41,10 +41,10 @@ public final class ResultsBeloteBean extends BeloteBean {
     public void beforeDisplaying() {
         ResultsBelote res_ = getResults();
         setGame(res_.getGame());
-        setNicknames(res_.getNicknames());
-        setScores(res_.getScores());
-        setUser(res_.getUser());
-        setLoc(res_.getLoc());
+        setNicknames(res_.getRes().getNicknames());
+        setScores(res_.getRes().getScores());
+        setUser(res_.getRes().getUser());
+        setLoc(res_.getRes().getLoc());
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
         EndBeloteGame end_ = getGame().getEndBeloteGame();

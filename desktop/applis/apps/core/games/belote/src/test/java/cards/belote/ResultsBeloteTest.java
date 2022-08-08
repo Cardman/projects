@@ -11,43 +11,27 @@ import org.junit.Test;
 
 public final class ResultsBeloteTest extends CommonGameBelote {
     @Test
-    public void hasToCalculateScores1Test() {
-        assertTrue(ResultsBelote.hasToCalculateScores(GameType.EDIT,0,0));
-    }
-    @Test
-    public void hasToCalculateScores2Test() {
-        assertTrue(!ResultsBelote.hasToCalculateScores(GameType.EDIT,1,0));
-    }
-    @Test
-    public void hasToCalculateScores3Test() {
-        assertTrue(ResultsBelote.hasToCalculateScores(GameType.RANDOM,0,0));
-    }
-    @Test
-    public void hasToCalculateScores4Test() {
-        assertTrue(!ResultsBelote.hasToCalculateScores(GameType.RANDOM,1,0));
-    }
-    @Test
     public void calculateScoresTest() {
         ResultsBelote res_ = new ResultsBelote();
-        res_.setUser((byte) 0);
-        res_.setScores(new CustList<Longs>());
-        res_.setGlobalResultsPageTitle("");
-        res_.setDetailResultsTitle("");
-        res_.setSigmas(new CustList<Rate>());
-        res_.setSums(new Longs());
-        res_.setNicknames(new StringList());
-        res_.setRenderedPages(new StringMap<String>());
-        res_.setLoc("");
+        res_.getRes().setUser((byte) 0);
+        res_.getRes().setScores(new CustList<Longs>());
+        res_.getRes().setGlobalResultsPageTitle("");
+        res_.getRes().setDetailResultsTitle("");
+        res_.getRes().setSigmas(new CustList<Rate>());
+        res_.getRes().setSums(new Longs());
+        res_.getRes().setNicknames(new StringList());
+        res_.getRes().setRenderedPages(new StringMap<String>());
+        res_.getRes().setLoc("");
         res_.calculateScores(new Shorts(),GameType.RANDOM,1,0);
-        assertEq(0,res_.getScores().size());
-        assertEq(0,res_.getSums().size());
-        assertEq(0,res_.getSigmas().size());
-        assertEq(0,res_.getNicknames().size());
-        assertEq(0,res_.getRenderedPages().size());
-        assertEq(0,res_.getUser());
-        assertEq("",res_.getLoc());
-        assertEq("",res_.getGlobalResultsPageTitle());
-        assertEq("",res_.getDetailResultsTitle());
+        assertEq(0, res_.getRes().getScores().size());
+        assertEq(0, res_.getRes().getSums().size());
+        assertEq(0, res_.getRes().getSigmas().size());
+        assertEq(0, res_.getRes().getNicknames().size());
+        assertEq(0, res_.getRes().getRenderedPages().size());
+        assertEq(0, res_.getRes().getUser());
+        assertEq("", res_.getRes().getLoc());
+        assertEq("", res_.getRes().getGlobalResultsPageTitle());
+        assertEq("", res_.getRes().getDetailResultsTitle());
     }
 
     @Test
@@ -55,9 +39,9 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         GameBelote game_ = getSimpleSlamDeal();
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(game_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>());
-        assertEq(4, res_.getScores().get(0).size());
+        assertEq(4, res_.getRes().getScores().get(0).size());
     }
 
     @Test
@@ -76,9 +60,9 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(game_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>());
-        assertEq(4, res_.getScores().get(0).size());
+        assertEq(4, res_.getRes().getScores().get(0).size());
     }
 
     @Test
@@ -86,7 +70,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         GameBelote game_ = getSimpleSlamDeal();
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(game_);
-        res_.setUser((byte) 0);
+        res_.getRes().setUser((byte) 0);
         CustList<Longs> scores_ = new CustList<Longs>();
         Longs pr_ = new Longs();
         pr_.add(0L);
@@ -95,7 +79,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         pr_.add(0L);
         scores_.add(pr_);
         res_.initialize(new StringList("1","2","3","4"), scores_);
-        assertEq(4, res_.getScores().get(0).size());
+        assertEq(4, res_.getRes().getScores().get(0).size());
         assertSame(game_, res_.getGame());
         assertSame(EndGameState.WIN, res_.getEndBeloteGame());
         assertEq(262, res_.getDifferenceScoreTaker());

@@ -20,10 +20,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.*;
 
 public final class DocumentWriterBeloteUtil {
 
@@ -190,9 +187,9 @@ public final class DocumentWriterBeloteUtil {
 
     public static void setResultsBelote(ResultsBelote _object, Element _element, Document _document) {
         _element.appendChild(setGameBelote(_object.getGame(),FIELD_GAME,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getNicknames(),FIELD_NICKNAMES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getUser(),FIELD_USER,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLoc(),FIELD_LOC,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getRes().getNicknames(),FIELD_NICKNAMES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getRes().getUser(),FIELD_USER,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getLoc(),FIELD_LOC,_document));
         DocumentWriterCardsResultsUtil.setResultsGame(_object, _element, _document);
     }
 

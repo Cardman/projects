@@ -21,7 +21,6 @@ import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
-import code.scripts.imgs.cards.CardsInit;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
 import code.util.StringList;
@@ -207,7 +206,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         GameBelote currentGame_=partieBeloteSimulee();
         res_.setGame(currentGame_);
         StringList nicknames_=pseudosSimuleeBelote();
-        res_.setUser(DealBelote.NUMERO_UTILISATEUR);
+        res_.getRes().setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         AbsScrollPane scroll_=container.getOwner().getCompoFactory().newAbsScrollPane();

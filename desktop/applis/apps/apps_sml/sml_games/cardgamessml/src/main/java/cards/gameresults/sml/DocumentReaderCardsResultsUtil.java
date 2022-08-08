@@ -30,111 +30,111 @@ public final class DocumentReaderCardsResultsUtil {
 
 
     public static void setMessages(ResultsBelote _r, String _loc) {
-        _r.setLoc(_loc);
+        _r.getRes().setLoc(_loc);
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
         String loadedResourcesMessages_ = MessBeloteGr.ms().getVal(fileName_);
         StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
-        _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
-        _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
+        _r.getRes().setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
+        _r.getRes().setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
 
     public static void setMessages(ResultsPresident _r, String _loc) {
-        _r.setLoc(_loc);
+        _r.getRes().setLoc(_loc);
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
         String loadedResourcesMessages_ = MessPresidentGr.ms().getVal(fileName_);
         StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
-        _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
-        _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
+        _r.getRes().setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
+        _r.getRes().setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
 
     public static void setMessages(ResultsTarot _r, String _loc) {
-        _r.setLoc(_loc);
+        _r.getRes().setLoc(_loc);
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
         String loadedResourcesMessages_ = MessTarotGr.ms().getVal(fileName_);
         StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
-        _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
-        _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
+        _r.getRes().setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
+        _r.getRes().setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
 
     public static void getResultsGame(ResultsBelote _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
-            _object.setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
+            _object.getRes().setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
-            _object.setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
+            _object.getRes().setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
-            _object.setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
+            _object.getRes().setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SIGMAS)) {
-            _object.setSigmas(DocumentReaderMathUtil.getListRate(_element));
+            _object.getRes().setSigmas(DocumentReaderMathUtil.getListRate(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SUMS)) {
-            _object.setSums(DocumentReaderCoreUtil.getListLong(_element));
+            _object.getRes().setSums(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
-            _object.setScores(DocumentReaderCoreUtil.getListListLong(_element));
+            _object.getRes().setScores(DocumentReaderCoreUtil.getListListLong(_element));
             return;
         }
     }
 
     public static void getResultsGame(ResultsPresident _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
-            _object.setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
+            _object.getRes().setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
-            _object.setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
+            _object.getRes().setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
-            _object.setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
+            _object.getRes().setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SIGMAS)) {
-            _object.setSigmas(DocumentReaderMathUtil.getListRate(_element));
+            _object.getRes().setSigmas(DocumentReaderMathUtil.getListRate(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SUMS)) {
-            _object.setSums(DocumentReaderCoreUtil.getListLong(_element));
+            _object.getRes().setSums(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
-            _object.setScores(DocumentReaderCoreUtil.getListListLong(_element));
+            _object.getRes().setScores(DocumentReaderCoreUtil.getListListLong(_element));
             return;
         }
     }
     public static void getResultsGame(ResultsTarot _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
-            _object.setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
+            _object.getRes().setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_DETAIL_RESULTS_TITLE)) {
-            _object.setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
+            _object.getRes().setDetailResultsTitle(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_RENDERED_PAGES)) {
-            _object.setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
+            _object.getRes().setRenderedPages(DocumentReaderCoreUtil.getStringMapString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SIGMAS)) {
-            _object.setSigmas(DocumentReaderMathUtil.getListRate(_element));
+            _object.getRes().setSigmas(DocumentReaderMathUtil.getListRate(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SUMS)) {
-            _object.setSums(DocumentReaderCoreUtil.getListLong(_element));
+            _object.getRes().setSums(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SCORES)) {
-            _object.setScores(DocumentReaderCoreUtil.getListListLong(_element));
+            _object.getRes().setScores(DocumentReaderCoreUtil.getListListLong(_element));
             return;
         }
     }

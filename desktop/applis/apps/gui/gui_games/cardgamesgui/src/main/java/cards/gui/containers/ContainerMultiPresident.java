@@ -644,7 +644,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         String lg_ = getOwner().getLanguageKey();
-        setScores(_res.getScores());
+        setScores(_res.getRes().getScores());
 
         AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());

@@ -831,7 +831,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setThreadAnime(false);
 
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
-        setScores(_res.getScores());
+        setScores(_res.getRes().getScores());
         _res.getRes().setGeneral(readCoreResource());
         _res.getRes().setSpecific(readResource());
         String lg_ = getOwner().getLanguageKey();

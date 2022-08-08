@@ -242,7 +242,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         res_.setGame(currentGame_);
         StringList nicknames_=pseudosSimuleePresident();
         res_.initialize(new StringList(nicknames_), container.getScores(), currentGame_.getNewRanks());
-        res_.setUser(DealPresident.NUMERO_UTILISATEUR);
+        res_.getRes().setUser(DealPresident.NUMERO_UTILISATEUR);
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         AbsScrollPane scroll_=container.getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());

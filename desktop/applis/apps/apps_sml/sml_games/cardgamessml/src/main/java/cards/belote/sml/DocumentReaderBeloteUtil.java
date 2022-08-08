@@ -21,10 +21,7 @@ import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.CollCapacity;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -270,15 +267,15 @@ public final class DocumentReaderBeloteUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_NICKNAMES)) {
-            _object.setNicknames(DocumentReaderCoreUtil.getStringList(_element));
+            _object.getRes().setNicknames(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_USER)) {
-            _object.setUser(DocumentReaderCoreUtil.getByte(_element));
+            _object.getRes().setUser(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_LOC)) {
-            _object.setLoc(DocumentReaderCoreUtil.getString(_element));
+            _object.getRes().setLoc(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         DocumentReaderCardsResultsUtil.getResultsGame(_object, _fieldName, _element);

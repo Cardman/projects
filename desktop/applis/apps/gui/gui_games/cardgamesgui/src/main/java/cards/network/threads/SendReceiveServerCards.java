@@ -1655,7 +1655,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 list_.add(new Longs(v));
             }
             res_.setGame(Net.getGames(_instance).partieBelote());
-            res_.setUser(p);
+            res_.getRes().setUser(p);
             res_.initialize(new StringList(players_), list_);
             String loc_ = Net.getLanguageByPlace(p, _instance,_common);
             DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
@@ -1683,7 +1683,7 @@ public final class SendReceiveServerCards extends BasicServer {
         for (byte p: Net.activePlayers(_instance, _common)) {
             String loc_ = Net.getLanguageByPlace(p, _instance, _common);
             DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
-            res_.setUser(p);
+            res_.getRes().setUser(p);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }
     }
@@ -1707,7 +1707,7 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             String loc_ = Net.getLanguageByPlace(p, _instance, _common);
             DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
-            res_.setUser(p);
+            res_.getRes().setUser(p);
             res_.initialize(new StringList(players_), list_);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }

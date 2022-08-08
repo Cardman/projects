@@ -52,10 +52,10 @@ public final class DetailsResultsTarotBean extends TarotBean {
         ResultsTarot res_ = getResults();
         GameTarot game_ = res_.getGame();
         setGame(game_);
-        setNicknames(res_.getNicknames());
-        setScores(res_.getScores());
-        setUser(res_.getUser());
-        String loc_ = res_.getLoc();
+        setNicknames(res_.getRes().getNicknames());
+        setScores(res_.getRes().getScores());
+        setUser(res_.getRes().getUser());
+        String loc_ = res_.getRes().getLoc();
         setLoc(loc_);
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
