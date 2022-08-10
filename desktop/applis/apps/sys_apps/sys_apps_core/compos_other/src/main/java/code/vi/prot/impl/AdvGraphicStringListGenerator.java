@@ -20,11 +20,10 @@ public final class AdvGraphicStringListGenerator implements AbstractGraphicStrin
     }
 
     @Override
-    public Input createMultStrList(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
+    public AbsGraphicList<String> createMultStrList(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
         CustGrList<String> gr_ = new CustGrList<>(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION, new DefaultCellRender(_fact, Panel.newPageBox()));
-        GrMultList l_ = new GrMultList(gr_);
-        FrameUtil.feed(l_,_objects);
+        FrameUtil.feed(gr_,_objects);
         gr_.setSelectedIndexes(_selectedIndexes);
-        return l_;
+        return gr_;
     }
 }

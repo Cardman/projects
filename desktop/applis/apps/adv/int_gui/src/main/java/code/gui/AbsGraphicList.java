@@ -3,7 +3,7 @@ package code.gui;
 import code.util.CustList;
 import code.util.Ints;
 
-public interface AbsGraphicList<T> {
+public interface AbsGraphicList<T> extends Input {
     void add(T _elt);
     void add(int _index, AbsPreparedLabel _lab, T _elt);
     void add(int _index, T _elt);

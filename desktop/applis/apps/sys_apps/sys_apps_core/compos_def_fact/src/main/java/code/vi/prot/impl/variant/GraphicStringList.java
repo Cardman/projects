@@ -85,9 +85,5 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
         getScroll().setPreferredSize(new Dimension(width_ + 24, 2+heightList * Math.min(c_, getVisibleRowCount())));
         getScroll().revalidate();
     }
-    @Override
-    public AbsCustComponent getGlobal() {
-        return getScroll();
-    }
 
 }

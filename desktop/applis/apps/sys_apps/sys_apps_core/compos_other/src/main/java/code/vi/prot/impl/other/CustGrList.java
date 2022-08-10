@@ -165,6 +165,11 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,Ab
     }
 
     @Override
+    public AbsCustComponent getGlobal() {
+        return scroll();
+    }
+
+    @Override
     public JComponent getNatComponent() {
         return custScroll.getNatComponent();
     }

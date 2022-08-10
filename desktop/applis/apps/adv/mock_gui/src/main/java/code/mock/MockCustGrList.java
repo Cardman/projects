@@ -139,6 +139,11 @@ public class MockCustGrList<T> extends MockInput implements AbsGraphicList<T>, A
     }
 
     @Override
+    public AbsCustComponent getGlobal() {
+        return scroll();
+    }
+
+    @Override
     public AbsCustComponent visible() {
         return this;
     }

@@ -434,6 +434,11 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         return panel;
     }
 
+    @Override
+    public AbsCustComponent getGlobal() {
+        return scroll();
+    }
+
     public ScrollPane getScroll() {
         return scroll;
     }

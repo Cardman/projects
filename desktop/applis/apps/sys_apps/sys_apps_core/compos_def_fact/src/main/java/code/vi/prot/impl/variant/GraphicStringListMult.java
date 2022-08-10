@@ -28,9 +28,5 @@ public final class GraphicStringListMult extends GraphicList<String> implements 
         getScroll().setPreferredSize(new Dimension(width_ + 24, 2+panel_.heightFont() * Math.min(c_, getVisibleRowCount())));
         getScroll().revalidate();
     }
-    @Override
-    public AbsCustComponent getGlobal() {
-        return getScroll();
-    }
 
 }

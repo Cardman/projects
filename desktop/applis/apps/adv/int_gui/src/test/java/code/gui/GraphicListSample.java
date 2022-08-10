@@ -120,6 +120,11 @@ public class GraphicListSample implements AbsGraphicList<String>{
     }
 
     @Override
+    public AbsCustComponent getGlobal() {
+        return null;
+    }
+
+    @Override
     public AbsCustComponent visible() {
         return null;
     }

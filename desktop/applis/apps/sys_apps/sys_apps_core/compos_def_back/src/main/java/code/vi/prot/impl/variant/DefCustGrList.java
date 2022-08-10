@@ -176,6 +176,11 @@ public class DefCustGrList<T> extends CustComponent implements AbsGraphicList<T>
     }
 
     @Override
+    public AbsCustComponent getGlobal() {
+        return scroll();
+    }
+
+    @Override
     public AbsCustComponent scroll() {
         return custScrollDef;
     }

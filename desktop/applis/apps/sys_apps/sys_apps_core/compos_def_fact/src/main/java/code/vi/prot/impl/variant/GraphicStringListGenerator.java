@@ -1,7 +1,6 @@
 package code.vi.prot.impl.variant;
 
 import code.gui.AbsGraphicList;
-import code.gui.Input;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractGraphicStringListGenerator;
@@ -15,7 +14,7 @@ public final class GraphicStringListGenerator implements AbstractGraphicStringLi
     }
 
     @Override
-    public Input createMultStrList(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
+    public AbsGraphicList<String> createMultStrList(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
         return new GraphicStringListMult(_fact,_objects, _selectedIndexes, _visibleRows);
     }
 }
