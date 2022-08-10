@@ -1,6 +1,7 @@
 package code.mock;
 
 import code.gui.AbsGraphicList;
+import code.gui.GrMultList;
 import code.gui.Input;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -18,8 +19,10 @@ public final class MockGraphicStringListGenerator implements AbstractGraphicStri
 
     @Override
     public Input createMultStrList(AbstractImageFactory _i, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
-        MockCustGrMultList l_ = new MockCustGrMultList();
+        MockCustGrList<String> gr_ = new MockCustGrList<String>();
+        GrMultList l_ = new GrMultList(gr_);
         feed(_objects,l_);
+        gr_.setSelectedIndexes(_selectedIndexes);
         return l_;
     }
 

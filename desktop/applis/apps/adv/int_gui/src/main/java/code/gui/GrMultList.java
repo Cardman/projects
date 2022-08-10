@@ -1,12 +1,14 @@
-package code.mock;
+package code.gui;
 
-import code.gui.*;
 import code.util.CustList;
 import code.util.Ints;
 
-public final class MockCustGrMultList extends MockInput implements Input, AbsGraphicList<String> {
+public final class GrMultList implements Input, AbsGraphicList<String> {
+    private final AbsGraphicList<String> compo;
 
-    private final MockCustGrList<String> compo = new MockCustGrList<String>();
+    public GrMultList(AbsGraphicList<String> _c) {
+        this.compo = _c;
+    }
 
     @Override
     public void add(String _s) {

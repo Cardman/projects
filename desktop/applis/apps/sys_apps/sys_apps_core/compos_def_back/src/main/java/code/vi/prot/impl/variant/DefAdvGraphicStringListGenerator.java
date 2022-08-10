@@ -1,9 +1,6 @@
 package code.vi.prot.impl.variant;
 
-import code.gui.AbsGraphicList;
-import code.gui.DefaultCellRender;
-import code.gui.FrameUtil;
-import code.gui.Input;
+import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractGraphicStringListGenerator;
@@ -23,8 +20,10 @@ public final class DefAdvGraphicStringListGenerator implements AbstractGraphicSt
 
     @Override
     public Input createMultStrList(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
-        DefCustGrMultList l_ = new DefCustGrMultList(_fact);
+        DefCustGrList<String> gr_ = new DefCustGrList<String>(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION, new DefaultCellRender(_fact, Panel.newPageBox()));
+        GrMultList l_ = new GrMultList(gr_);
         FrameUtil.feed(l_,_objects);
+        gr_.setSelectedIndexes(_selectedIndexes);
         return l_;
     }
 }

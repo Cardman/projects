@@ -3,6 +3,7 @@ package code.mock;
 import code.expressionlanguage.structs.NullStruct;
 import code.gui.AbsGraphicList;
 import code.gui.AbsGraphicListDef;
+import code.gui.GrMultList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 import org.junit.Test;
@@ -172,7 +173,7 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m21() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        MockCustGrMultList graphicListString_ = f_.getInput();
+        GrMultList graphicListString_ = f_.getInput();
         graphicListString_.setSelectedIndice(2);
         assertEq("2",f_.getText());
         Ints inds_ = graphicListString_.getSelectedIndexes();
@@ -252,7 +253,7 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
     @Test
     public void m31() {
         MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        MockCustGrMultList graphicListString_ = f_.getInput();
+        GrMultList graphicListString_ = f_.getInput();
         graphicListString_.setVisibleRowCount(4);
         assertSame(graphicListString_.scroll(), graphicListString_.visible());
         assertSame(graphicListString_.self(), graphicListString_.getGlobal());

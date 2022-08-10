@@ -10,7 +10,7 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
 
     private final GraphicComboGrInt graphicComboGrInt;
     private final AbsGraphicList<String> graphicListString;
-    private final MockCustGrMultList input;
+    private final GrMultList input;
     private final AbsGraphicListStr multList;
     private final AbsTextField textField;
 
@@ -22,9 +22,9 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
         graphicListString = _f.getGeneGraphicList().createStrList(_f.getImageFactory(),new StringList("4","5","6","7"), _f.getCompoFactory());
         graphicListString.setListener(new MockListSelection(1, this));
         getContentPane().add(graphicListString.scroll());
-        input = (MockCustGrMultList) _f.getGeneGraphicList().createMultStrList(_f.getImageFactory(),new StringList("8","9","10","11"),new Ints(),2);
+        input = (GrMultList) _f.getGeneGraphicList().createMultStrList(_f.getImageFactory(),new StringList("8","9","10","11"),new Ints(),2);
         input.setListener(new MockListSelection(2, this));
-        getContentPane().add(input);
+        getContentPane().add(input.getGlobal());
         multList=_f.getGeneStrCompo().createMult(null,null);
         multList.addListener(new MockListSelection(3,this));
         getContentPane().add(multList.scroll());
@@ -77,7 +77,7 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
         return graphicListString;
     }
 
-    public MockCustGrMultList getInput() {
+    public GrMultList getInput() {
         return input;
     }
 
