@@ -4,14 +4,7 @@ package cards.gui.containers;
 
 
 
-import cards.belote.BidBeloteSuit;
-import cards.belote.DealBelote;
-import cards.belote.DeclareHandBelote;
-import cards.belote.GameBelote;
-import cards.belote.HandBelote;
-import cards.belote.ResultsBelote;
-import cards.belote.RulesBelote;
-import cards.belote.TricksHandsBelote;
+import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
@@ -358,8 +351,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         placerIhmBeloteMulti(_hand.getDeck(), _hand.getDealer());
 
         playerHandBelote = _hand.getCards();
-        playerHandBelote.trier(getDisplayingBelote().getSuits(),
-                getDisplayingBelote().isDecreasing(),
+        playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+                getDisplayingBelote().getDisplaying().isDecreasing(),
                 getDisplayingBelote().getOrderBeforeBids());
         setCarteEntree(false);
         setCarteSortie(false);
@@ -494,14 +487,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
             if (bidMax.getCouleurDominante()) {
                 _card.getDeclare()
                         .getHand()
-                        .trier(getDisplayingBelote().getSuits(),
-                                getDisplayingBelote().isDecreasing(),
+                        .trier(getDisplayingBelote().getDisplaying().getSuits(),
+                                getDisplayingBelote().getDisplaying().isDecreasing(),
                                 bidMax.getCouleur());
             } else {
                 _card.getDeclare()
                         .getHand()
-                        .trier(getDisplayingBelote().getSuits(),
-                                getDisplayingBelote().isDecreasing(),
+                        .trier(getDisplayingBelote().getDisplaying().getSuits(),
+                                getDisplayingBelote().getDisplaying().isDecreasing(),
                                 bidMax.getOrdre());
             }
             ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getDeclare(),lg_),
@@ -554,11 +547,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
         playerHandBelote.supprimerCartes();
         playerHandBelote.ajouterCartes(_cards.getRefreshedHand());
         if (bidMax.getCouleurDominante()) {
-            playerHandBelote.trier(getDisplayingBelote().getSuits(),
-                    getDisplayingBelote().isDecreasing(), bidMax.getCouleur());
+            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getCouleur());
         } else {
-            playerHandBelote.trier(getDisplayingBelote().getSuits(),
-                    getDisplayingBelote().isDecreasing(), bidMax.getOrdre());
+            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
         }
 
         setCarteEntree(false);
@@ -580,11 +573,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void refreshHand(RefreshHandPlayingBelote _card) {
         playerHandBelote.jouer(_card.getCard());
         if (bidMax.getCouleurDominante()) {
-            playerHandBelote.trier(getDisplayingBelote().getSuits(),
-                    getDisplayingBelote().isDecreasing(), bidMax.getCouleur());
+            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getCouleur());
         } else {
-            playerHandBelote.trier(getDisplayingBelote().getSuits(),
-                    getDisplayingBelote().isDecreasing(), bidMax.getOrdre());
+            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
         }
         getPanneauBoutonsJeu().removeAll();
         setCanPlay(false);
@@ -699,8 +692,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         String lg_ = getOwner().getLanguageKey();
         StringList list_ = new StringList(pseudos_.values());
-        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().isClockwise(), list_, getOwner().getCompoFactory()));
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().isClockwise(),
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(),
                 list_, 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);

@@ -101,9 +101,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
             }
             if (partie_.getContrat().getCouleurDominante()) {
-                usDecl_.getHand().trier(getDisplayingBelote().getSuits(), getDisplayingBelote().isDecreasing(), partie_.getContrat().getCouleur());
+                usDecl_.getHand().trier(getDisplayingBelote().getDisplaying().getSuits(), getDisplayingBelote().getDisplaying().isDecreasing(), partie_.getContrat().getCouleur());
             } else {
-                usDecl_.getHand().trier(getDisplayingBelote().getSuits(), getDisplayingBelote().isDecreasing(), partie_.getContrat().getOrdre());
+                usDecl_.getHand().trier(getDisplayingBelote().getDisplaying().getSuits(), getDisplayingBelote().getDisplaying().isDecreasing(), partie_.getContrat().getOrdre());
             }
 
             AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
@@ -433,7 +433,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
         String lg_ = getOwner().getLanguageKey();
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().isClockwise(), pseudos_, 1, getOwner().getCompoFactory());
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(), pseudos_, 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;
@@ -445,7 +445,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
-        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_, getOwner().getCompoFactory()));
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(),pseudos_, getOwner().getCompoFactory()));
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());

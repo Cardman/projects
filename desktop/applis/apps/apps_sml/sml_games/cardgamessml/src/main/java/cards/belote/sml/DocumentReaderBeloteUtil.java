@@ -160,15 +160,15 @@ public final class DocumentReaderBeloteUtil {
 
     private static void getDisplayingBelote(DisplayingBelote _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_CLOCKWISE)) {
-            _object.setClockwise(DocumentReaderCoreUtil.getBoolean(_element));
+            _object.getDisplaying().setClockwise(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SUITS)) {
-            _object.setSuits(DocumentReaderCardsCommonUtil.getListSuit(_element));
+            _object.getDisplaying().setSuits(DocumentReaderCardsCommonUtil.getListSuit(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_DECREASING)) {
-            _object.setDecreasing(DocumentReaderCoreUtil.getBoolean(_element));
+            _object.getDisplaying().setDecreasing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_ORDER_BEFORE_BIDS)) {

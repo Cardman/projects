@@ -25,7 +25,7 @@ public final class TricksHandsPresident {
     public void sortHands(DisplayingPresident _displaying,
             byte _nombreJoueurs) {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_, _displaying.isDecreasing(), reversed);
+            trier(joueur_, _displaying.getDisplaying().isDecreasing(), reversed);
         }
     }
 
@@ -48,7 +48,7 @@ public final class TricksHandsPresident {
             index_++;
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.isDecreasing(),reversed);
+            trier(joueur_, _displaying.getDisplaying().isDecreasing(),reversed);
         }
     }
 
@@ -86,7 +86,7 @@ public final class TricksHandsPresident {
             key_++;
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.isDecreasing(),reversed);
+            trier(joueur_, _displaying.getDisplaying().isDecreasing(),reversed);
         }
     }
 
@@ -111,7 +111,7 @@ public final class TricksHandsPresident {
             indice_++;
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.isDecreasing(),reversed);
+            trier(joueur_, _displaying.getDisplaying().isDecreasing(),reversed);
         }
     }
 
@@ -145,7 +145,7 @@ public final class TricksHandsPresident {
             key_++;
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.isDecreasing(),reversed);
+            trier(joueur_, _displaying.getDisplaying().isDecreasing(),reversed);
         }
     }
     private void supprimerCartes(byte _joueur) {

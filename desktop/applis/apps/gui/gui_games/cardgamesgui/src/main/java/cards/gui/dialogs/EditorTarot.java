@@ -165,9 +165,9 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         liste.addItem(getMessages().getVal(RANDOM));
         panneau_.add(liste.self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
-        pile_.trier(displayingTarot.getSuits(), displayingTarot.isDecreasing());
+        pile_.trier(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
         TarotCardsScrollableList plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
-        plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
+        plc_.setTriTarot(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
         plc_.iniPileTarot(pile_);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards=_parent.getCompoFactory().newLineBox();
@@ -175,7 +175,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         panelsCards.add(plc_.getContainer());
         plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
+        plc_.setTriTarot(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
         panelsCards.add(plc_.getContainer());
         hands.clear();
         hands.add(plc_);
@@ -191,14 +191,14 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             message_ = StringUtil.simpleStringsFormat(message_, n);
             plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,message_);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-            plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
+            plc_.setTriTarot(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
             panelsCards.add(plc_.getContainer());
             hands.add(plc_);
 //            i_++;
         }
         plc_=new TarotCardsScrollableList(_parent, nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING));
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
+        plc_.setTriTarot(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
         panelsCards.add(plc_.getContainer());
         dog = plc_;
         panneau_=_parent.getCompoFactory().newBorder();
@@ -284,7 +284,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            plc_=(TarotCardsScrollableList)panelsCards.getComponent(i);
             HandTarot m=new HandTarot();
             m.ajouterCartes(((TarotCardsScrollableList) l).valMainTarot());
-            m.trier(displayingTarot.getSuits(), displayingTarot.isDecreasing());
+            m.trier(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
             mains_.add(m);
         }
 //        nombreDeJoueurs_=nombreDeMains_-1;

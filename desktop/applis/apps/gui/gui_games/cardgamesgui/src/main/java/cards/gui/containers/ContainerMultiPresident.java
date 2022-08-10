@@ -36,12 +36,7 @@ import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.threads.Net;
-import cards.president.DealPresident;
-import cards.president.GamePresident;
-import cards.president.HandPresident;
-import cards.president.ResultsPresident;
-import cards.president.RulesPresident;
-import cards.president.TricksHandsPresident;
+import cards.president.*;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
@@ -222,7 +217,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         placerIhmPresidentMulti(_hand.getStatus(), _hand.getMaxCards());
 
         playerHandPresident = _hand.getCards();
-        playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), false);
+        playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), false);
         setCarteEntree(false);
         setCarteSortie(false);
         setCanDiscard(false);
@@ -288,7 +283,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getGivingCardsOk().setVisible(false);
         setCanPlay(false);
         playerHandPresident.supprimerCartes(getGivenCards());
-        playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), false);
+        playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), false);
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
         getNoPlay().setVisible(true);
         pack();
@@ -302,7 +297,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void refreshLoserHand(ReceivedGivenCards _readObject) {
         playerHandPresident = _readObject.getNewHand();
-        playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), false);
+        playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), false);
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
         getReceivedCards().supprimerCartes();
         getReceivedCards().ajouterCartes(_readObject.getReceived());
@@ -399,7 +394,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //            playerHandPresident.supprimerCartes(_card.getPlayedHand());
 //        }
         playerHandPresident.supprimerCartes(_card.getPlayedHand());
-        playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), _card.isReversed());
+        playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), _card.isReversed());
         getPanneauBoutonsJeu().removeAll();
         setCanPlay(false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);

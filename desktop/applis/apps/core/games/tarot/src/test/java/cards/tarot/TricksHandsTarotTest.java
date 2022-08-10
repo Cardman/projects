@@ -16,12 +16,12 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setTricks(game_.getTricks());
         DisplayingTarot displaying_ = new DisplayingTarot();
-        displaying_.setClockwise(true);
-        assertTrue(displaying_.isClockwise());
-        displaying_.setClockwise(false);
-        assertTrue(!displaying_.isClockwise());
-        displaying_.setDecreasing(true);
-        displaying_.setSuits(new EnumList<Suit>());
+        displaying_.getDisplaying().setClockwise(true);
+        assertTrue(displaying_.getDisplaying().isClockwise());
+        displaying_.getDisplaying().setClockwise(false);
+        assertTrue(!displaying_.getDisplaying().isClockwise());
+        displaying_.getDisplaying().setDecreasing(true);
+        displaying_.getDisplaying().setSuits(new EnumList<Suit>());
         assertEq(25, tricksHands_.getTricks().size());
         assertEq(game_.getPreneur(), tricksHands_.getPreneur());
     }
@@ -34,7 +34,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
         DisplayingTarot displaying_ = new DisplayingTarot();
         displaying_.validate();
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_ = new DisplayingTarot(displaying_);
         displaying_.validate();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());

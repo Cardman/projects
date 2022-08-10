@@ -135,9 +135,9 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static void setDisplayingBelote(DisplayingBelote _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClockwise(),FIELD_CLOCKWISE,_document));
-        _element.appendChild(DocumentWriterCardsCommonUtil.setListSuit(_object.getSuits(),FIELD_SUITS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDecreasing(),FIELD_DECREASING,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getDisplaying().isClockwise(),FIELD_CLOCKWISE,_document));
+        _element.appendChild(DocumentWriterCardsCommonUtil.setListSuit(_object.getDisplaying().getSuits(),FIELD_SUITS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getDisplaying().isDecreasing(),FIELD_DECREASING,_document));
         _element.appendChild(DocumentWriterCardsCommonUtil.setOrder(_object.getOrderBeforeBids(),FIELD_ORDER_BEFORE_BIDS,_document));
     }
 

@@ -4,7 +4,6 @@ import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -360,7 +359,7 @@ public final class GameTarot {
                     HandTarot curHandAdd_ = new HandTarot();
                     curHandAdd_.ajouterCartes(curHand_);
                     curHandAdd_.ajouterCartes(last_);
-                    curHandAdd_.trier(displaying_.getSuits(),displaying_.isDecreasing());
+                    curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
                     _simu.mergeDog(taker,curHandAdd_,last_);
                     ecarter(true);
                     HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
@@ -379,7 +378,7 @@ public final class GameTarot {
                     HandTarot curHandAdd_ = new HandTarot();
                     curHandAdd_.ajouterCartes(curHand_);
                     curHandAdd_.ajouterCartes(last_);
-                    curHandAdd_.trier(displaying_.getSuits(),displaying_.isDecreasing());
+                    curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
                     _simu.mergeDog(taker,curHandAdd_, last_);
                     appelApresEcart();
                     HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
@@ -429,7 +428,7 @@ public final class GameTarot {
     public HandTarot mainUtilisateurTriee(DisplayingTarot _regles) {
         HandTarot main_ = new HandTarot();
         main_.ajouterCartes(getDistribution().hand());
-        main_.trier(_regles.getSuits(),_regles.isDecreasing());
+        main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing());
         return main_;
     }
 

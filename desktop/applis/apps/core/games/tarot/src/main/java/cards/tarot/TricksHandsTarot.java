@@ -19,8 +19,8 @@ public final class TricksHandsTarot {
     public void sortHands(DisplayingTarot _displaying,
             byte _nombreJoueurs) {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getSuits(),
-                    _displaying.isDecreasing());
+            trier(joueur_, _displaying.getDisplaying().getSuits(),
+                    _displaying.getDisplaying().isDecreasing());
         }
     }
     public void restoreHandsAtSelectedNumberedTrick(DisplayingTarot _displaying,
@@ -48,8 +48,8 @@ public final class TricksHandsTarot {
             key_++;
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getSuits(),
-                    _displaying.isDecreasing());
+            trier(joueur_, _displaying.getDisplaying().getSuits(),
+                    _displaying.getDisplaying().isDecreasing());
         }
     }
 
@@ -89,8 +89,8 @@ public final class TricksHandsTarot {
             key_++;
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getSuits(),
-                    _displaying.isDecreasing());
+            trier(joueur_, _displaying.getDisplaying().getSuits(),
+                    _displaying.getDisplaying().isDecreasing());
         }
     }
     private void supprimerCartes(byte _joueur) {

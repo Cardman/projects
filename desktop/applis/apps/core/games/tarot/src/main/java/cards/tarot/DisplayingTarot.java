@@ -1,46 +1,24 @@
 package cards.tarot;
+import cards.consts.DisplayingCommon;
 import cards.consts.Suit;
-import code.util.EnumList;
 
 
 public final class DisplayingTarot {
 
-    private boolean clockwise;
-    private EnumList<Suit> suits;
-    private boolean decreasing=true;
+    private final DisplayingCommon displaying;
     public DisplayingTarot() {
-        suits = Suit.couleursDefinies();
+        displaying = new DisplayingCommon();
+        displaying.setSuits(Suit.couleursDefinies());
     }
     public DisplayingTarot(DisplayingTarot _displayingTarot) {
-        clockwise = _displayingTarot.clockwise;
-        suits = new EnumList<Suit>(_displayingTarot.suits);
-        decreasing = _displayingTarot.decreasing;
+        displaying = new DisplayingCommon(_displayingTarot.displaying);
     }
     public void validate() {
-        EnumList<Suit> s_ = new EnumList<Suit>(Suit.couleursDefinies());
-        if (!Suit.equalsSuits(suits, s_)) {
-            suits.clear();
-            for(Suit c:Suit.couleursDefinies()){
-                suits.add(c);
-            }
-        }
+        displaying.validate(Suit.couleursDefinies());
     }
-    public boolean isClockwise() {
-        return clockwise;
+
+    public DisplayingCommon getDisplaying() {
+        return displaying;
     }
-    public void setClockwise(boolean _clockwise) {
-        clockwise = _clockwise;
-    }
-    public EnumList<Suit> getSuits() {
-        return suits;
-    }
-    public void setSuits(EnumList<Suit> _suits) {
-        suits = _suits;
-    }
-    public boolean isDecreasing() {
-        return decreasing;
-    }
-    public void setDecreasing(boolean _decreasing) {
-        decreasing = _decreasing;
-    }
+
 }

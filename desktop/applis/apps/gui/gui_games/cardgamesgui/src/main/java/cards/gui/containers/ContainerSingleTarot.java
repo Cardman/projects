@@ -105,7 +105,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_=partieTarot();
         StringList pseudos_ = pseudosTarot();
         String lg_ = getOwner().getLanguageKey();
-        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total(), getOwner().getCompoFactory());
+        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), getOwner().getCompoFactory());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         setPanelHand(getOwner().getCompoFactory().newLineBox());
@@ -121,7 +121,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
-        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingTarot().isClockwise(),pseudos_, getOwner().getCompoFactory()));
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), getDisplayingTarot().getDisplaying().isClockwise(),pseudos_, getOwner().getCompoFactory()));
         panneau2_.add(getMiniPanel());
         setIncludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollIncl_ = getOwner().getCompoFactory().newAbsScrollPane(getIncludedTrumpsForHandful());
@@ -790,7 +790,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if(!poignee_.estVide()) {
                 getHandfuls().getVal(_joueur).setText(Games.toString(partie_.getAnnoncesPoignees(_joueur).first(),lg_));
             }
-            poignee_.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
+            poignee_.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
             AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
             panelToSet_.removeAll();
             for(CardTarot c: poignee_) {
@@ -827,7 +827,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)), getOwner().getFrames());
 //                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
             }
-            poignee_.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
+            poignee_.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
             AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
             ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new HandfulThread(poignee_, panelToSet_, getWindow()), getOwner().getFrames());
 //                panelToSet_.removeAll();
@@ -1216,8 +1216,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (getCurrentIncludedTrumps().estVide() && getCurrentExcludedTrumps().estVide()) {
             setCurrentIncludedTrumps(_trumps);
         }
-        getCurrentIncludedTrumps().trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
-        getCurrentExcludedTrumps().trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
+        getCurrentIncludedTrumps().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+        getCurrentExcludedTrumps().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         updateCardsInPanelTarotHandful(getIncludedTrumpsForHandful(), getCurrentIncludedTrumps(), true);
         updateCardsInPanelTarotHandful(getExcludedTrumpsForHandful(), getCurrentExcludedTrumps(), false);
         //pack();

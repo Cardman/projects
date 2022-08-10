@@ -23,12 +23,12 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setProgressingTrick(game_.getProgressingTrick());
         tricksHands_.setRanks(game_.getNewRanks());
         DisplayingPresident displaying_ = new DisplayingPresident();
-        displaying_.setClockwise(true);
-        assertTrue(displaying_.isClockwise());
-        displaying_.setClockwise(false);
-        assertTrue(!displaying_.isClockwise());
-        displaying_.setDecreasing(true);
-        displaying_.setSuits(new EnumList<Suit>());
+        displaying_.getDisplaying().setClockwise(true);
+        assertTrue(displaying_.getDisplaying().isClockwise());
+        displaying_.getDisplaying().setClockwise(false);
+        assertTrue(!displaying_.getDisplaying().isClockwise());
+        displaying_.getDisplaying().setDecreasing(true);
+        displaying_.getDisplaying().setSuits(new EnumList<Suit>());
         assertEq(18, tricksHands_.getTricks().size());
         assertEq(1,displaying_.getNbDeals());
         assertSame(game_.getProgressingTrick(),tricksHands_.getProgressingTrick());
@@ -48,7 +48,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -100,7 +100,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -136,7 +136,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -172,7 +172,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -214,7 +214,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -237,7 +237,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -260,7 +260,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -283,7 +283,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -319,7 +319,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -342,7 +342,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -378,7 +378,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();
@@ -401,7 +401,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         DisplayingPresident displaying_ = new DisplayingPresident();
         displaying_.setNbDeals(0);
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_.validate();
         displaying_ = new DisplayingPresident(displaying_);
         displaying_.validate();

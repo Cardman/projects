@@ -20,10 +20,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
-import code.util.Bytes;
-import code.util.CustList;
-import code.util.IntTreeMap;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
@@ -172,9 +169,9 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         liste.addItem(getMessages().getVal(RANDOM));
         panneau_.add(liste.self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
-        pile_.sortCards(displayingPresident.isDecreasing(), false);
+        pile_.sortCards(displayingPresident.getDisplaying().isDecreasing(), false);
         PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
-        plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
+        plc_.setTriPresident(displayingPresident.getDisplaying().getSuits(), displayingPresident.getDisplaying().isDecreasing());
         plc_.iniPilePresident(pile_);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards=_parent.getCompoFactory().newLineBox();
@@ -182,7 +179,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         panelsCards.add(plc_.getContainer());
         plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
+        plc_.setTriPresident(displayingPresident.getDisplaying().getSuits(), displayingPresident.getDisplaying().isDecreasing());
         panelsCards.add(plc_.getContainer());
         hands.clear();
         hands.add(plc_);
@@ -199,7 +196,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             message_ = StringUtil.simpleStringsFormat(message_, n);
             plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,message_);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-            plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
+            plc_.setTriPresident(displayingPresident.getDisplaying().getSuits(), displayingPresident.getDisplaying().isDecreasing());
             panelsCards.add(plc_.getContainer());
             hands.add(plc_);
 //            i_++;
@@ -281,7 +278,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         for(CardsScrollableList l: hands_) {
             HandPresident m=new HandPresident();
             m.ajouterCartes(((PresidentCardsScrollableList) l).valMainPresident());
-            m.sortCards(displayingPresident.isDecreasing(), false);
+            m.sortCards(displayingPresident.getDisplaying().isDecreasing(), false);
             mains_.add(m);
         }
         nombreDeJoueurs_=hands_.size();

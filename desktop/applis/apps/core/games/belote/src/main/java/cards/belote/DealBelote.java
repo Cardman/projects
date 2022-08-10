@@ -135,7 +135,7 @@ public final class DealBelote implements Iterable<HandBelote> {
             deal.last().ajouter(m.premiereCarte());
         }
         for (int i = IndexConstants.FIRST_INDEX; i < nbJoueurs_; i++) {
-            deal.get(i).trier(_displaying.getSuits(), _displaying.isDecreasing(), _displaying.getOrderBeforeBids());
+            deal.get(i).trier(_displaying.getDisplaying().getSuits(), _displaying.getDisplaying().isDecreasing(), _displaying.getOrderBeforeBids());
         }
 
     }

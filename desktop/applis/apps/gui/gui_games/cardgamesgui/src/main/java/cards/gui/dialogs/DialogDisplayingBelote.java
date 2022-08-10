@@ -78,7 +78,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         panneau_.add(getCompoFactory().newPlainLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
-        checkClockwise.setSelected(displayingBelote.isClockwise());
+        checkClockwise.setSelected(displayingBelote.getDisplaying().isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
@@ -104,10 +104,10 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         bouton_.addActionListener(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
         sortByDecreasing=getCompoFactory().newCustCheckBox(messages.getVal(SORT_DECREASING));
-        sortByDecreasing.setSelected(displayingBelote.isDecreasing());
+        sortByDecreasing.setSelected(displayingBelote.getDisplaying().isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         panneau_.add(sousPanneauTwo_);
-        for (Suit chaine_:displayingBelote.getSuits()) {
+        for (Suit chaine_: displayingBelote.getDisplaying().getSuits()) {
             liste_.add(chaine_);
         }
         orderedSuits=new SuitsScrollableList(liste_,4, _window);
@@ -166,9 +166,9 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
             getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
-            displayingBelote.setClockwise(checkClockwise.isSelected());
-            displayingBelote.setSuits(new EnumList<Suit>(orderedSuits.getCouleurs()));
-            displayingBelote.setDecreasing(sortByDecreasing.isSelected());
+            displayingBelote.getDisplaying().setClockwise(checkClockwise.isSelected());
+            displayingBelote.getDisplaying().setSuits(new EnumList<Suit>(orderedSuits.getCouleurs()));
+            displayingBelote.getDisplaying().setDecreasing(sortByDecreasing.isSelected());
             if(sortByTrump.isSelected()) {
                 displayingBelote.setOrderBeforeBids(Order.TRUMP);
             } else {

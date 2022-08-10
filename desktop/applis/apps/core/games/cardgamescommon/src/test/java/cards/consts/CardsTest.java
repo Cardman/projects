@@ -119,4 +119,67 @@ public final class CardsTest extends EquallableCardsUtil {
         r_.calculateScores(Shorts.newList((short)1,(short) 2),GameType.TRAINING,0,1);
         assertEq(0, r_.getScores().size());
     }
+    @Test
+    public void validate1(){
+        DisplayingCommon displayingCommon_ = new DisplayingCommon(new DisplayingCommon());
+        displayingCommon_.setClockwise(true);
+        displayingCommon_.setDecreasing(true);
+        displayingCommon_.setSuits(Suit.couleursDefinies());
+        displayingCommon_.validate(Suit.couleursDefinies());
+        assertEq(5,displayingCommon_.getSuits().size());
+        assertSame(Suit.TRUMP,displayingCommon_.getSuits().get(0));
+        assertSame(Suit.HEART,displayingCommon_.getSuits().get(1));
+        assertSame(Suit.SPADE,displayingCommon_.getSuits().get(2));
+        assertSame(Suit.DIAMOND,displayingCommon_.getSuits().get(3));
+        assertSame(Suit.CLUB,displayingCommon_.getSuits().get(4));
+        assertTrue(displayingCommon_.isClockwise());
+        assertTrue(displayingCommon_.isDecreasing());
+    }
+    @Test
+    public void validate2(){
+        DisplayingCommon displayingCommon_ = new DisplayingCommon(new DisplayingCommon());
+        displayingCommon_.setClockwise(true);
+        displayingCommon_.setDecreasing(true);
+        displayingCommon_.setSuits(Suit.couleursDefinies());
+        displayingCommon_.validate(Suit.couleursOrdinaires());
+        assertEq(4,displayingCommon_.getSuits().size());
+        assertSame(Suit.HEART,displayingCommon_.getSuits().get(0));
+        assertSame(Suit.SPADE,displayingCommon_.getSuits().get(1));
+        assertSame(Suit.DIAMOND,displayingCommon_.getSuits().get(2));
+        assertSame(Suit.CLUB,displayingCommon_.getSuits().get(3));
+        assertTrue(displayingCommon_.isClockwise());
+        assertTrue(displayingCommon_.isDecreasing());
+    }
+    @Test
+    public void validate3(){
+        DisplayingCommon displayingCommon_ = new DisplayingCommon(new DisplayingCommon());
+        displayingCommon_.setClockwise(true);
+        displayingCommon_.setDecreasing(true);
+        displayingCommon_.setSuits(Suit.couleursDefinies());
+        displayingCommon_.validate(new EnumList<Suit>(Suit.couleursDefinies().getReverse()));
+        assertEq(5,displayingCommon_.getSuits().size());
+        assertSame(Suit.TRUMP,displayingCommon_.getSuits().get(0));
+        assertSame(Suit.HEART,displayingCommon_.getSuits().get(1));
+        assertSame(Suit.SPADE,displayingCommon_.getSuits().get(2));
+        assertSame(Suit.DIAMOND,displayingCommon_.getSuits().get(3));
+        assertSame(Suit.CLUB,displayingCommon_.getSuits().get(4));
+        assertTrue(displayingCommon_.isClockwise());
+        assertTrue(displayingCommon_.isDecreasing());
+    }
+    @Test
+    public void validate4(){
+        DisplayingCommon displayingCommon_ = new DisplayingCommon(new DisplayingCommon());
+        displayingCommon_.setClockwise(true);
+        displayingCommon_.setDecreasing(true);
+        displayingCommon_.setSuits(new EnumList<Suit>(Suit.couleursDefinies().getReverse()));
+        displayingCommon_.validate(Suit.couleursDefinies());
+        assertEq(5,displayingCommon_.getSuits().size());
+        assertSame(Suit.CLUB,displayingCommon_.getSuits().get(0));
+        assertSame(Suit.DIAMOND,displayingCommon_.getSuits().get(1));
+        assertSame(Suit.SPADE,displayingCommon_.getSuits().get(2));
+        assertSame(Suit.HEART,displayingCommon_.getSuits().get(3));
+        assertSame(Suit.TRUMP,displayingCommon_.getSuits().get(4));
+        assertTrue(displayingCommon_.isClockwise());
+        assertTrue(displayingCommon_.isDecreasing());
+    }
 }

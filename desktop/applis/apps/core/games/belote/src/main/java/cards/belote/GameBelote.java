@@ -5,7 +5,6 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.consts.GameType;
 import cards.consts.Suit;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
@@ -361,12 +360,12 @@ public final class GameBelote {
         main_.ajouterCartes(getDistribution().hand());
         if(!getContrat().getEnchere().jouerDonne()) {
             main_.setOrdre(_regles.getOrderBeforeBids());
-            main_.trier(_regles.getSuits(),_regles.isDecreasing(),_regles.getOrderBeforeBids());
+            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),_regles.getOrderBeforeBids());
         } else if(getContrat().getEnchere().getCouleurDominante()) {
-            main_.trier(_regles.getSuits(),_regles.isDecreasing(),couleurAtout());
+            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),couleurAtout());
         } else {
             main_.setOrdre(getContrat().getEnchere().getOrdre());
-            main_.trier(_regles.getSuits(),_regles.isDecreasing(),_regles.getOrderBeforeBids());
+            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),_regles.getOrderBeforeBids());
         }
         return main_;
     }

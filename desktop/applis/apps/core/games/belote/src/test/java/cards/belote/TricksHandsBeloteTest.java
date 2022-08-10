@@ -21,12 +21,12 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setRules(game_.getRules());
         tricksHands_.setBid(game_.getBid());
         DisplayingBelote displaying_ = new DisplayingBelote();
-        displaying_.setClockwise(true);
-        assertTrue(displaying_.isClockwise());
-        displaying_.setClockwise(false);
-        assertTrue(!displaying_.isClockwise());
-        displaying_.setDecreasing(true);
-        displaying_.setSuits(new EnumList<Suit>());
+        displaying_.getDisplaying().setClockwise(true);
+        assertTrue(displaying_.getDisplaying().isClockwise());
+        displaying_.getDisplaying().setClockwise(false);
+        assertTrue(!displaying_.getDisplaying().isClockwise());
+        displaying_.getDisplaying().setDecreasing(true);
+        displaying_.getDisplaying().setSuits(new EnumList<Suit>());
         assertEq(8, tricksHands_.getTricks().size());
         assertEq(game_.getPreneur(), tricksHands_.getPreneur());
         assertSame(game_.getRules(),tricksHands_.getRules());
@@ -44,7 +44,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_ = new DisplayingBelote(displaying_);
         displaying_.validate();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -70,7 +70,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_ = new DisplayingBelote(displaying_);
         displaying_.validate();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -96,7 +96,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_ = new DisplayingBelote(displaying_);
         displaying_.validate();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -122,7 +122,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
-        displaying_.getSuits().clear();
+        displaying_.getDisplaying().getSuits().clear();
         displaying_ = new DisplayingBelote(displaying_);
         displaying_.validate();
         BidBeloteSuit b_ = new BidBeloteSuit();

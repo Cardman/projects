@@ -79,15 +79,15 @@ public final class TricksHandsBelote {
     void sortHands(DisplayingBelote _displaying, byte _nombreJoueurs, BidBeloteSuit _bid) {
         if(_bid.getCouleurDominante()) {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getSuits(),_displaying.isDecreasing(), _bid.getCouleur());
+                getDistribution().trier(joueur_, _displaying.getDisplaying().getSuits(), _displaying.getDisplaying().isDecreasing(), _bid.getCouleur());
             }
         } else if(_bid.ordreCouleur()) {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getSuits(),_displaying.isDecreasing(),Order.SUIT);
+                getDistribution().trier(joueur_, _displaying.getDisplaying().getSuits(), _displaying.getDisplaying().isDecreasing(),Order.SUIT);
             }
         } else if(_bid.ordreAtout()) {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getSuits(),_displaying.isDecreasing(),Order.TRUMP);
+                getDistribution().trier(joueur_, _displaying.getDisplaying().getSuits(), _displaying.getDisplaying().isDecreasing(),Order.TRUMP);
             }
         }
     }

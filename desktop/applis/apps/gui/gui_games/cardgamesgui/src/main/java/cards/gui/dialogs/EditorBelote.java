@@ -174,10 +174,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panneau_=_parent.getCompoFactory().newBorder();
         panelsCards=_parent.getCompoFactory().newLineBox();
         HandBelote pile_=HandBelote.pileBase();
-        pile_.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
+        pile_.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());
         BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent, 12,pile_.total(),getMessages().getVal(DEALING_STACK));
 
-        plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
+        plc_.setTriBelote(displayingBelote.getDisplaying().getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.getDisplaying().isDecreasing());
         plc_.iniPileBelote(pile_);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         stack = plc_;
@@ -188,7 +188,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,getMessages().getVal(USER_HAND));
 
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
+        plc_.setTriBelote(displayingBelote.getDisplaying().getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.getDisplaying().isDecreasing());
         panelsCards.add(plc_.getContainer());
         hands.clear();
         hands.add(plc_);
@@ -206,7 +206,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,message_);
 
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-            plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
+            plc_.setTriBelote(displayingBelote.getDisplaying().getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.getDisplaying().isDecreasing());
             panelsCards.add(plc_.getContainer());
             hands.add(plc_);
 //            i_++;
@@ -280,7 +280,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             HandBelote m=new HandBelote();
             m.ajouterCartes(l.valMainBelote());
             m.setOrdre(displayingBelote.getOrderBeforeBids());
-            m.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
+            m.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());
             mains_.add(m);
         }
         HandBelote m=new HandBelote();

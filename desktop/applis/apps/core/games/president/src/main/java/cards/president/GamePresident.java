@@ -6,7 +6,6 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import code.maths.montecarlo.AbstractGenerator;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -973,14 +972,14 @@ public final class GamePresident {
     public HandPresident mainUtilisateurTriee(DisplayingPresident _regles) {
         HandPresident main_ = new HandPresident();
         main_.ajouterCartes(getDistribution().hand());
-        main_.sortCards(_regles.isDecreasing(), reversed);
+        main_.sortCards(_regles.getDisplaying().isDecreasing(), reversed);
         return main_;
     }
 
     public HandPresident mainUtilisateurTriee(HandPresident _hand,DisplayingPresident _regles) {
         HandPresident main_ = new HandPresident();
         main_.ajouterCartes(_hand);
-        main_.sortCards(_regles.isDecreasing(), reversed);
+        main_.sortCards(_regles.getDisplaying().isDecreasing(), reversed);
         return main_;
     }
 
