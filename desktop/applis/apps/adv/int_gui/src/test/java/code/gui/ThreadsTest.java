@@ -2,6 +2,7 @@ package code.gui;
 
 import code.stream.AbstractFile;
 import code.stream.FileListInfo;
+import code.stream.core.ComZipStreamIn;
 import code.stream.core.ContentTime;
 import code.stream.core.TechStreams;
 import code.threads.FileStruct;
@@ -55,6 +56,18 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         ContentTime t_ = new ContentTime(new byte[0],0);
         assertEq(0, t_.getLastModifTime());
         assertEq(0, t_.getContent().length);
+    }
+    @Test
+    public void ls5() {
+        ComZipStreamIn t_ = new ComZipStreamIn();
+        t_.setDirectory(true);
+        t_.setName("_");
+        t_.setSize(2);
+        t_.setTime(3);
+        assertEq(2, t_.getSize());
+        assertEq(3, t_.getTime());
+        assertEq("_", t_.getName());
+        assertTrue(t_.isDirectory());
     }
     @Test
     public void isZip1(){

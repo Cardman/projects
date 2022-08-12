@@ -23,6 +23,6 @@ public interface WithListener {
 
     boolean isVisible();
     void pack();
-
+    void setJMenuBar(AbsMenuBar _menuBar);
     void dispose();
 }

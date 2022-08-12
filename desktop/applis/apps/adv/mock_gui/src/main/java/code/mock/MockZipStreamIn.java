@@ -1,17 +1,14 @@
 package code.mock;
 
 import code.stream.core.AbstractZipStreamIn;
+import code.stream.core.ComZipStreamIn;
 import code.stream.core.ContentTime;
 import code.util.StringMap;
 
-public final class MockZipStreamIn implements AbstractZipStreamIn {
+public final class MockZipStreamIn extends ComZipStreamIn implements AbstractZipStreamIn {
     private final StringMap<ContentTime> content;
     private int index;
     private int indexCh;
-    private String name = "";
-    private long time;
-    private long size;
-    private boolean directory;
     private byte[] out = new byte[0];
     private byte[] reader = new byte[0];
     public MockZipStreamIn(byte[] _bytes) {
@@ -20,16 +17,16 @@ public final class MockZipStreamIn implements AbstractZipStreamIn {
     @Override
     public boolean hasNextEntry() {
         if (index < content.size()) {
-            name = content.getKey(index);
+            setName(content.getKey(index));
             ContentTime value_ = content.getValue(index);
-            time = value_.getLastModifTime();
+            setTime(value_.getLastModifTime());
             byte[] content_ = value_.getContent();
             reader = content_;
             if (content_ != null) {
-                size = content_.length;
-                directory = false;
+                setSize(content_.length);
+                setDirectory(false);
             } else {
-                directory = true;
+                setDirectory(true);
             }
             index++;
             indexCh = 0;
@@ -47,26 +44,6 @@ public final class MockZipStreamIn implements AbstractZipStreamIn {
     @Override
     public void close() {
         closeEntry();
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public long getSize() {
-        return size;
-    }
-
-    @Override
-    public long getTime() {
-        return time;
-    }
-
-    @Override
-    public boolean isDirectory() {
-        return directory;
     }
 
     @Override

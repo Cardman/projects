@@ -1,18 +1,15 @@
 package code.vi.prot.impl;
 
 import code.stream.core.AbstractZipStreamIn;
+import code.stream.core.ComZipStreamIn;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public final class DefZipStreamIn implements AbstractZipStreamIn {
+public final class DefZipStreamIn extends ComZipStreamIn implements AbstractZipStreamIn {
     private final ZipInputStream zipIn;
-    private String name = "";
-    private long time;
-    private long size;
-    private boolean directory;
     private final ByteArrayOutputStream out;
     public DefZipStreamIn(byte[] _bytes) {
         ByteArrayInputStream bais_ = new ByteArrayInputStream(_bytes);
@@ -26,10 +23,10 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
 
     private boolean has(ZipEntry _current) {
         try {
-            name = name(_current);
-            time = time(_current);
-            size = size(_current);
-            directory = directory(_current);
+            setName(name(_current));
+            setTime(time(_current));
+            setSize(size(_current));
+            setDirectory(directory(_current));
             out.reset();
             return true;
         } catch (Exception e) {
@@ -58,26 +55,6 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
     @Override
     public void close() {
         StreamCoreUtil.close(zipIn);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public long getSize() {
-        return size;
-    }
-
-    @Override
-    public long getTime() {
-        return time;
-    }
-
-    @Override
-    public boolean isDirectory() {
-        return directory;
     }
 
     @Override
