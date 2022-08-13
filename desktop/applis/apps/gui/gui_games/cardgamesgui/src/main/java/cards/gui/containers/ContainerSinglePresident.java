@@ -310,7 +310,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         GamePresident partie_=partiePresident();
-        RulesPresident rules_ = partie_.getRegles();
+        RulesPresident rules_ = partie_.getRules();
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosPresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
@@ -430,9 +430,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
             GamePresident partie_=partiePresident();
             Bytes newRanks_ = partie_.getNewRanks();
             donne_=new DealPresident(nb_,partie_.empiler());
-            donne_.donneurSuivant(partie_.getDistribution().getDonneur(),partie_.getRegles());
-            donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
-            getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_,partie_.getRegles(), newRanks_));
+            donne_.donneurSuivant(partie_.getDeal().getDealer(), partie_.getRules());
+            donne_.initDonne(partie_.getRules(),getOwner().getGenerator());
+            getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_, partie_.getRules(), newRanks_));
         }
         mettreEnPlaceIhmPresident();
     }
@@ -539,7 +539,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             GamePresident partie_=partiePresident();
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                     StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
-                    Long.toString(partie_.getRegles().getNbStacks()),FileConst.DECK_EXT),
+                    Long.toString(partie_.getRules().getNbStacks()),FileConst.DECK_EXT),
                     DocumentWriterPresidentUtil.setHandPresident(partie_.empiler()), getWindow().getStreams());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
@@ -551,7 +551,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
             if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDistribution().getNombreDeParties(), getOwner().getFrames());
+                changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDeal().getNbDeals(), getOwner().getFrames());
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
@@ -627,7 +627,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         GamePresident game_=partiePresident();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -646,8 +646,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         GameType type_;
         long nombreParties_;
         type_=partie_.getType();
-        nombreParties_=partie_.getNombre();
-        int nombreTotalParties_=partie_.getRegles().getNbDeals();
+        nombreParties_= partie_.getNumber();
+        int nombreTotalParties_= partie_.getRules().getNbDeals();
         if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
             addButtonKeepPlayingEditedDealPresident(buttons_, getMessages().getVal(WindowCards.KEEP_PLAYING_EDITED_DEAL));
         } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
@@ -731,7 +731,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
         tricksHands_.setReversed(game_.isReversed());
 //        tricksHands_.setRules(getReglesPresident());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
 //        tricksHands_.setPreneur(game_.getPreneur());
 //        tricksHands_.setBid(game_.getContrat());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
@@ -772,7 +772,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         DialogHelpPresident.setTitleDialog(getOwner(), StringUtil.concat(getMessages().getVal(WindowCards.HELP_GAME),SPACE,GameEnum.PRESIDENT.toString(lg_)));
         TreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
         boolean reversed_ = g_.isReversed();
-        int nbStacks_ = g_.getRegles().getNbStacks();
+        int nbStacks_ = g_.getRules().getNbStacks();
         getOwner().getDialogHelpPresident().setDialoguePresident(played_, reversed_, nbStacks_, lg_);
     }
 
@@ -802,9 +802,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
         HandPresident main_=partie_.empiler();
         Bytes newRanks_ = partie_.getNewRanks();
         DealPresident donne_=new DealPresident(0L,main_);
-        donne_.donneurSuivant(partie_.getDistribution().getDonneur(),partie_.getRegles());
-        donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
-        getPar().jouerPresident(new GamePresident(GameType.EDIT,donne_,partie_.getRegles(),newRanks_));
+        donne_.donneurSuivant(partie_.getDeal().getDealer(), partie_.getRules());
+        donne_.initDonne(partie_.getRules(),getOwner().getGenerator());
+        getPar().jouerPresident(new GamePresident(GameType.EDIT,donne_, partie_.getRules(),newRanks_));
         mettreEnPlaceIhmPresident();
     }
 

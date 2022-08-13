@@ -127,20 +127,9 @@ public final class TricksHandsPresident {
                 continue;
             }
             if(key_ == _numeroPli) {
-                byte indice_ = 0;
-                for (HandPresident carte_ : pli_) {
-                    if (indice_ <= _numeroCarte) {
-                        supprimerCartes(pli_.getPlayer(indice_, _nombreJoueurs),carte_);
-                    }
-                    indice_++;
-                }
-                key_++;
-                continue;
-            }
-            int index_ = 0;
-            for (HandPresident carte_ : pli_) {
-                supprimerCartes(pli_.getPlayer(index_, _nombreJoueurs),carte_);
-                index_++;
+                currentTrick(_nombreJoueurs, _numeroCarte, pli_);
+            } else {
+                previousTrick(_nombreJoueurs, pli_);
             }
             key_++;
         }
@@ -148,6 +137,25 @@ public final class TricksHandsPresident {
             trier(joueur_, _displaying.getDisplaying().isDecreasing(),reversed);
         }
     }
+
+    private void currentTrick(byte _nombreJoueurs, byte _numeroCarte, TrickPresident _pli) {
+        byte indice_ = 0;
+        for (HandPresident carte_ : _pli) {
+            if (indice_ <= _numeroCarte) {
+                supprimerCartes(_pli.getPlayer(indice_, _nombreJoueurs),carte_);
+            }
+            indice_++;
+        }
+    }
+
+    private void previousTrick(byte _nombreJoueurs, TrickPresident _pli) {
+        int index_ = 0;
+        for (HandPresident carte_ : _pli) {
+            supprimerCartes(_pli.getPlayer(index_, _nombreJoueurs),carte_);
+            index_++;
+        }
+    }
+
     private void supprimerCartes(byte _joueur) {
         distribution.supprimerCartes(_joueur);
     }

@@ -14,7 +14,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         GamePresident game_ = getSimpleDeal();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
         tricksHands_.setCardsHandsAtInitialState(new CustList<HandPresident>());
-        tricksHands_.setDistribution(game_.getDistribution());
+        tricksHands_.setDistribution(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -41,7 +41,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
     public void sortHands1Test() {
         GamePresident game_ = getSimpleDeal();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -93,7 +93,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.HEART_3);
         game_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -129,7 +129,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.HEART_3);
         game_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -165,7 +165,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.HEART_3);
         game_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -207,7 +207,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.HEART_3);
         game_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -230,7 +230,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
     public void restoreHandsAtSelectedNumberedTrick4Test() {
         GamePresident game_ = getSimpleDeal();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -253,7 +253,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
     public void restoreHandsAtSelectedNumberedTrick5Test() {
         GamePresident game_ = getSimpleDeal();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -276,7 +276,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
     public void restoreHandsAtSelectedNumberedTrick6Test() {
         GamePresident game_ = getSimpleDeal();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -312,7 +312,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.HEART_3);
         game_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -335,7 +335,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard2Test() {
         GamePresident game_ = getSimpleDeal();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -371,7 +371,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.HEART_3);
         game_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -394,7 +394,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard4Test() {
         GamePresident game_ = getSimpleDeal();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
+        tricksHands_.setDistributionCopy(game_.getDeal());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());

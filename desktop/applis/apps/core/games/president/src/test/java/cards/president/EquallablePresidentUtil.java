@@ -1,4 +1,5 @@
 package cards.president;
+import code.util.core.BoolVal;
 import org.junit.Assert;
 
 import cards.president.enumerations.CardPresident;
@@ -46,6 +47,10 @@ public abstract class EquallablePresidentUtil {
     }
 
     public static void assertEq(Playing _expected, Playing _result) {
+        Assert.assertSame(_expected, _result);
+    }
+
+    public static void assertEq(BoolVal _expected, BoolVal _result) {
         Assert.assertSame(_expected, _result);
     }
 

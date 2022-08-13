@@ -47,14 +47,6 @@ public final class DealPresident implements Iterable<HandPresident> {
         nbDeals = _deal.nbDeals;
     }
 
-    public long getNombreDeParties() {
-        return nbDeals;
-    }
-
-    public byte getDonneur() {
-        return dealer;
-    }
-
     /** Initialise de maniere aleatoire le premier donneur */
     public void setRandomDealer(RulesPresident _regles, AbstractGenerator _gene) {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_

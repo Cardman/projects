@@ -247,11 +247,11 @@ public final class SendReceiveServerCards extends BasicServer {
             } else if (Net.getGames(_instance).enCoursDePartiePresident()) {
                 Net.setProgressingGame(true, _instance);
                 int nbSuits_ = Suit.couleursOrdinaires().size();
-                RulesPresident rules_ = Net.getGames(_instance).partiePresident().getRegles();
+                RulesPresident rules_ = Net.getGames(_instance).partiePresident().getRules();
                 int nbStacks_ = rules_.getNbStacks();
-                DealPresident deal_ = Net.getGames(_instance).partiePresident().getDistribution();
+                DealPresident deal_ = Net.getGames(_instance).partiePresident().getDeal();
                 DealtHandPresident hand_ = new DealtHandPresident();
-                hand_.setDealer(Net.getGames(_instance).partiePresident().getDistribution().getDonneur());
+                hand_.setDealer(Net.getGames(_instance).partiePresident().getDeal().getDealer());
                 hand_.setMaxCards(Math.min(nbSuits_ * nbStacks_, rules_.getNbMaxCardsPerPlayer()));
                 hand_.setStatus(Net.getGames(_instance).partiePresident().getLastStatus());
                 for (byte i:Net.activePlayers(_instance, _common)) {
@@ -1223,7 +1223,7 @@ public final class SendReceiveServerCards extends BasicServer {
                             byte w_ = g_.getMatchingWinner(p);
                             dis_.setReceived(g_.getSwitchedCards().get(w_));
                             dis_.setGiven(g_.getSwitchedCards().get(p));
-                            dis_.setNewHand(g_.getDistribution().hand(w_));
+                            dis_.setNewHand(g_.getDeal().hand(w_));
                             Net.sendObject(Net.getSocketByPlace(p, _common), dis_);
                         }
                         return;
@@ -1260,7 +1260,7 @@ public final class SendReceiveServerCards extends BasicServer {
                     byte w_ = g_.getMatchingWinner(p);
                     disAfter_.setReceived(g_.getSwitchedCards().get(w_));
                     disAfter_.setGiven(g_.getSwitchedCards().get(p));
-                    disAfter_.setNewHand(g_.getDistribution().hand(w_));
+                    disAfter_.setNewHand(g_.getDeal().hand(w_));
                     Net.sendObject(Net.getSocketByPlace(p, _common), disAfter_);
                 }
                 return;
@@ -1385,12 +1385,12 @@ public final class SendReceiveServerCards extends BasicServer {
             TricksHandsPresident tricksHands_ = new TricksHandsPresident();
             GamePresident game_ = Net.getGames(_instance).partiePresident();
             tricksHands_.setReversed(game_.isReversed());
-            tricksHands_.setDistributionCopy(game_.getDistribution());
+            tricksHands_.setDistributionCopy(game_.getDeal());
             tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
             tricksHands_.setRanks(game_.getRanks());
             tricksHands_.setSwitchedCards(game_.getSwitchedCards());
             tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
-            tricksHands_.setDistributionCopy(game_.getDistribution());
+            tricksHands_.setDistributionCopy(game_.getDeal());
             Net.sendObject(Net.getSocketByPlace(place_, _common), tricksHands_);
             return;
         }

@@ -7,8 +7,8 @@ public final class GameStrengthCardPresidentComparator implements Comparing<Card
 
     public static final byte CARD_AVG_STRENGTH = 7;
 
-    private boolean reverseGame;
-    private boolean decreasing;
+    private final boolean reverseGame;
+    private final boolean decreasing;
 
     public GameStrengthCardPresidentComparator(
             boolean _reverseGame,

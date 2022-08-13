@@ -40,8 +40,8 @@ public final class ResultsPresident {
             scoresDeal_.add((short) rk_.get(i));
         }
         GameType type_ = game.getType();
-        long number_ = game.getNombre();
-        int nbDeals_ = game.getRegles().getNbDeals();
+        long number_ = game.getNumber();
+        int nbDeals_ = game.getRules().getNbDeals();
         calculateScores(scoresDeal_, type_, number_, nbDeals_);
     }
 

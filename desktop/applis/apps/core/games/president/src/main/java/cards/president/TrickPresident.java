@@ -58,10 +58,9 @@ public final class TrickPresident implements Iterable<HandPresident> {
                 break;
             }
             HandPresident h_ = cards.get(i);
-            if (h_.estVide()) {
-                continue;
+            if (!h_.estVide()) {
+                l_.add(i);
             }
-            l_.add(i);
         }
         return l_;
     }

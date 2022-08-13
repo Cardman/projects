@@ -44,32 +44,13 @@ final class GamePresidentCommon {
         int maxStack_ = _rules.getNbStacks() * NB_SUITS;
         for (int i = IndexConstants.SECOND_INDEX; i <= maxStack_; i++) {
             HandPresident repLoc_ = new HandPresident(rep_.get(i-1));
-            for (HandPresident h: c_.getCardsByStrength(_reversed).values()) {
-                if (h.estVide()) {
-                    continue;
-                }
-                if (h.total() == i) {
-                    continue;
-                }
-                if (dominantGroup(_reversed, _rules, h, 1, _playedCards, gl_)) {
-                    repLoc_.ajouterCartes(h);
-                }
-            }
+            completeRepLoc(_reversed, _rules, _playedCards, c_, gl_, i, repLoc_);
             for (HandPresident h: repLoc_.getCardsByStrength(_reversed).values()) {
                 if (h.estVide()) {
                     continue;
                 }
                 if (dominantGroup(_reversed, _rules, h, i, _playedCards, gl_)) {
-                    int nbGroup_ = h.total() / i;
-                    int index_ = IndexConstants.FIRST_INDEX;
-                    for (int j = IndexConstants.FIRST_INDEX; j < nbGroup_; j++) {
-                        HandPresident hBestCards_ = new HandPresident();
-                        for (int k = IndexConstants.FIRST_INDEX; k < i; k++) {
-                            hBestCards_.ajouter(h.carte(index_));
-                            index_++;
-                        }
-                        hBest_.add(hBestCards_);
-                    }
+                    feedBest(hBest_, i, h);
                 } else if (h.premiereCarte().strength(_reversed) < GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
                     hWorst_.add(h);
                 }
@@ -77,25 +58,23 @@ final class GamePresidentCommon {
             if (hWorst_.size() > hBest_.size() + 1) {
                 return new HandPresident();
             }
-            int m_ = Math.min(hWorst_.size(), hBest_.size());
-            for (int j = IndexConstants.FIRST_INDEX; j < m_; j++) {
-                c_.supprimerCartes(hBest_.get(j));
-                c_.supprimerCartes(hWorst_.get(j));
-            }
-            if (c_.estVide()) {
-                if (!hWorst_.isEmpty()) {
-                    return hWorst_.first();
-                }
+            delBounds(c_, hWorst_, hBest_);
+            if (c_.estVide() && !hWorst_.isEmpty()) {
+                return hWorst_.first();
             }
             hBest_.clear();
             hWorst_.clear();
             rep_ = getCardsSortedByLengthSortedByStrengthReduce(_reversed, _rules, c_);
         }
-        if (c_.estVide()) {
-            return c_;
+        return lookForDominant(_reversed, c_);
+    }
+
+    private static HandPresident lookForDominant(boolean _reversed, HandPresident _c) {
+        if (_c.estVide()) {
+            return _c;
         }
         CustList<HandPresident> cardsLists_ = new CustList<HandPresident>();
-        for (HandPresident h: c_.getCardsByStrength(_reversed).values()) {
+        for (HandPresident h: _c.getCardsByStrength(_reversed).values()) {
             if (h.estVide()) {
                 continue;
             }
@@ -109,8 +88,41 @@ final class GamePresidentCommon {
         if (cardsLists_.size() == IndexConstants.ONE_ELEMENT) {
             return cardsLists_.last();
         }
-        return c_.getCardsByStrength(_reversed).values().first();
+        return _c.getCardsByStrength(_reversed).values().first();
     }
+
+    private static void delBounds(HandPresident _cc, CustList<HandPresident> _hWorst, CustList<HandPresident> _hBest) {
+        int m_ = Math.min(_hWorst.size(), _hBest.size());
+        for (int j = IndexConstants.FIRST_INDEX; j < m_; j++) {
+            _cc.supprimerCartes(_hBest.get(j));
+            _cc.supprimerCartes(_hWorst.get(j));
+        }
+    }
+
+    private static void completeRepLoc(boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _playedCards, HandPresident _c, ByteTreeMap<HandPresident> _gl, int _i, HandPresident _repLoc) {
+        for (HandPresident h: _c.getCardsByStrength(_reversed).values()) {
+            if (h.estVide() || h.total() == _i) {
+                continue;
+            }
+            if (dominantGroup(_reversed, _rules, h, 1, _playedCards, _gl)) {
+                _repLoc.ajouterCartes(h);
+            }
+        }
+    }
+
+    private static void feedBest(CustList<HandPresident> _hBest, int _i, HandPresident _h) {
+        int nbGroup_ = _h.total() / _i;
+        int index_ = IndexConstants.FIRST_INDEX;
+        for (int j = IndexConstants.FIRST_INDEX; j < nbGroup_; j++) {
+            HandPresident hBestCards_ = new HandPresident();
+            for (int k = IndexConstants.FIRST_INDEX; k < _i; k++) {
+                hBestCards_.ajouter(_h.carte(index_));
+                index_++;
+            }
+            _hBest.add(hBestCards_);
+        }
+    }
+
     static TreeMap<CardPresident, Byte> getNotFullPlayedCardsByStrength(boolean _reversed, CustList<TrickPresident> _tricks, TrickPresident _progressingTrick, int _max) {
         TreeMap<CardPresident,Byte> tree_;
         tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(_reversed, true));
@@ -156,19 +168,24 @@ final class GamePresidentCommon {
             }
         }
         for (CardPresident c: HandPresident.pileBase()) {
-            boolean eqStrPres_ = false;
-            for (CardPresident s: tree_.getKeys()) {
-                byte str_ = s.strength(_reversed);
-                if (str_ == c.strength(_reversed)) {
-                    eqStrPres_ = true;
-                    break;
-                }
-            }
+            boolean eqStrPres_ = foundEqStrength(_reversed, tree_, c);
             if (!eqStrPres_) {
                 tree_.put(c, IndexConstants.SIZE_EMPTY);
             }
         }
         return tree_;
+    }
+
+    private static boolean foundEqStrength(boolean _reversed, TreeMap<CardPresident, Byte> _tree, CardPresident _c) {
+        boolean eqStrPres_ = false;
+        for (CardPresident s: _tree.getKeys()) {
+            byte str_ = s.strength(_reversed);
+            if (str_ == _c.strength(_reversed)) {
+                eqStrPres_ = true;
+                break;
+            }
+        }
+        return eqStrPres_;
     }
 
     static boolean dominantGroup(boolean _reversed, RulesPresident _rules, HandPresident _h, int _nb, TreeMap<CardPresident, Byte> _playedCards, ByteTreeMap<HandPresident> _rep) {
@@ -238,32 +255,11 @@ final class GamePresidentCommon {
         HandPresident l_ = _progressingTrick.getBestCards();
         byte str_ = l_.premiereCarte().strength(_reversed);
         if (_playing == Playing.HAS_TO_EQUAL) {
-            ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
-            for (byte s: cards_.getKeys()) {
-                HandPresident h_ = cards_.getVal(s);
-                if (s != str_) {
-                    continue;
-                }
-                filtered_.put(s, h_);
-            }
+            sameStrength(_hand, _reversed, filtered_, str_);
         } else if (_rules.getEqualty() == EqualtyPlaying.FORBIDDEN) {
-            ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
-            for (byte s: cards_.getKeys()) {
-                HandPresident h_ = cards_.getVal(s);
-                if (s <= str_) {
-                    continue;
-                }
-                filtered_.put(s, h_);
-            }
+            strictGreater(_hand, _reversed, filtered_, str_);
         } else {
-            ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
-            for (byte s: cards_.getKeys()) {
-                HandPresident h_ = cards_.getVal(s);
-                if (s < str_) {
-                    continue;
-                }
-                filtered_.put(s, h_);
-            }
+            greaterEqual(_hand, _reversed, filtered_, str_);
         }
         HandPresident plCards_ = new HandPresident();
         for (byte s: filtered_.getKeys()) {
@@ -274,6 +270,39 @@ final class GamePresidentCommon {
             plCards_.ajouterCartes(h_);
         }
         return plCards_;
+    }
+
+    private static void greaterEqual(HandPresident _hand, boolean _reversed, ByteTreeMap<HandPresident> _filtered, byte _str) {
+        ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
+        for (byte s: cards_.getKeys()) {
+            HandPresident h_ = cards_.getVal(s);
+            if (s < _str) {
+                continue;
+            }
+            _filtered.put(s, h_);
+        }
+    }
+
+    private static void strictGreater(HandPresident _hand, boolean _reversed, ByteTreeMap<HandPresident> _filtered, byte _str) {
+        ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
+        for (byte s: cards_.getKeys()) {
+            HandPresident h_ = cards_.getVal(s);
+            if (s <= _str) {
+                continue;
+            }
+            _filtered.put(s, h_);
+        }
+    }
+
+    private static void sameStrength(HandPresident _hand, boolean _reversed, ByteTreeMap<HandPresident> _filtered, byte _str) {
+        ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
+        for (byte s: cards_.getKeys()) {
+            HandPresident h_ = cards_.getVal(s);
+            if (s != _str) {
+                continue;
+            }
+            _filtered.put(s, h_);
+        }
     }
 
     static CustList<HandPresident> getNotEmpty(ByteTreeMap<HandPresident> _m) {

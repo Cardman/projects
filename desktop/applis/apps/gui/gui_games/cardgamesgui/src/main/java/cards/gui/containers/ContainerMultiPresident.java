@@ -695,9 +695,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         GamePresident game_=Net.getGames(getOwner().getNet()).partiePresident();
         Bytes rk_ = game_.getNewRanks();
         DealPresident deal_=new DealPresident(nb_,game_.empiler());
-        deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getRegles());
-        deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
-        Net.getGames(getOwner().getNet()).jouerPresident(new GamePresident(GameType.RANDOM,deal_,game_.getRegles(), rk_));
+        deal_.donneurSuivant(game_.getDeal().getDealer(), game_.getRules());
+        deal_.initDonne(game_.getRules(),getOwner().getGenerator());
+        Net.getGames(getOwner().getNet()).jouerPresident(new GamePresident(GameType.RANDOM,deal_, game_.getRules(), rk_));
         getOwner().sendObjectPlayGame();
     }
 

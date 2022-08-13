@@ -93,7 +93,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         //Activer le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),true);
         GamePresident partie_ = partiePresidentSimulee();
-        RulesPresident rules_ = partie_.getRegles();
+        RulesPresident rules_ = partie_.getRules();
         String lg_ = container.getOwner().getLanguageKey();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
