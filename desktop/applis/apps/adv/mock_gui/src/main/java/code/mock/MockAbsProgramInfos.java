@@ -1,41 +1,20 @@
 package code.mock;
 
-import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.filenames.DefaultNameValidating;
-import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.*;
-import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.*;
-import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
-import code.stream.core.AbstractZipFact;
 import code.stream.core.TechStreams;
-import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
-import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.NumberUtil;
 
-public abstract class MockAbsProgramInfos implements AbstractProgramInfos {
-    private final CustList<AbsGroupFrame> frames = new CustList<AbsGroupFrame>();
-    private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
-    private final AbstractGraphicStringListGenerator graphicStringListGenerator;
-    private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
-    private final AbstractAdvGraphicListGenerator geneStrCompo;
-    private final DefaultNameValidating validator;
-    private final String homePath;
-    private final String tmpUserFolder;
+public abstract class MockAbsProgramInfos extends ProgramInfosBase implements AbstractProgramInfos {
     private final MockFileSet mockFileSet;
-    private final AbstractInterceptor mockInterceptor = new MockInterceptor();
-    private final AbstractGenerator generator;
-    private final AbstractImageFactory imageFactory = new MockImageFactory();
     private final TechStreams techStreams;
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
-    private final AbsCompoFactory compoFactory = new MockCompoFactory();
     private final AbstractSocketFactory socketFactory = new MockSocketFactory();
     private final MockFileFolerDialog mockFileFolerDialog;
     private final MessageDialogAbs messageDialogAbs = new MockMessageDialogAbs();
@@ -45,17 +24,12 @@ public abstract class MockAbsProgramInfos implements AbstractProgramInfos {
     private int screenHeight;
 
     protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, boolean _cust, MockFileSet _set) {
-        this.homePath = _h;
-        tmpUserFolder = _t;
-        generator = new MockGenerator(_se.getSe());
-        graphicStringListGenerator = new MockGraphicStringListGenerator();
-        graphicComboBoxGenerator = new MockGraphicComboBoxGenerator();
-        geneStrCompo = new MockAdvGraphicListGenerator(_cust);
+        super(_h,_t,new MockGenerator(_se.getSe()),new MockGraphicStringListGenerator(),new MockGraphicComboBoxGenerator(),new MockAdvGraphicListGenerator(_cust),
+                new CompoundedInitParts(new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory(),new MockInterceptor()));
         mockFileSet = _set;
-        validator = mockFileSet.getValidating();
         fileCoreStream = new MockFileCoreStream(mockFileSet);
-        threadFactory = new MockThreadFactory(generator, mockFileSet);
-        MockBinFact mockBinFact_ = new MockBinFact(generator, mockFileSet);
+        threadFactory = new MockThreadFactory(getGenerator(), mockFileSet);
+        MockBinFact mockBinFact_ = new MockBinFact(getGenerator(), mockFileSet);
         techStreams = new TechStreams(mockBinFact_,new MockTextFact(mockBinFact_), new MockZipFact());
         mockFileFolerDialog = new MockFileFolerDialog(_se.getFiles());
         mockConfirmDialogTextAbs = new MockConfirmDialogTextAbs(_se.getText());
@@ -67,30 +41,9 @@ public abstract class MockAbsProgramInfos implements AbstractProgramInfos {
     }
 
     @Override
-    public String getHomePath() {
-        return homePath;
-    }
-
-    @Override
-    public String getTmpUserFolder() {
-        return tmpUserFolder;
-    }
-
-    @Override
-    public CustList<AbsGroupFrame> getFrames() {
-        return frames;
-    }
-
-    @Override
     public AbsFrameFactory getFrameFactory() {
         return getMockFrameFactory();
     }
-
-    @Override
-    public StringMap<AbstractAtomicInteger> getCounts() {
-        return counts;
-    }
-
     @Override
     public TechStreams getStreams() {
         return techStreams;
@@ -111,7 +64,7 @@ public abstract class MockAbsProgramInfos implements AbstractProgramInfos {
         if (ml_ == null) {
             return null;
         }
-        return new MockClipStream(generator, NumberUtil.parseLongZero(ml_.toString()),true);
+        return new MockClipStream(getGenerator(), NumberUtil.parseLongZero(ml_.toString()),true);
     }
 
     @Override
@@ -129,7 +82,7 @@ public abstract class MockAbsProgramInfos implements AbstractProgramInfos {
         if (ml_ == null) {
             return null;
         }
-        return new MockClipStream(generator,NumberUtil.parseLongZero(ml_.toString()),false);
+        return new MockClipStream(getGenerator(),NumberUtil.parseLongZero(ml_.toString()),false);
     }
 
     @Override
@@ -173,53 +126,8 @@ public abstract class MockAbsProgramInfos implements AbstractProgramInfos {
     public abstract MockAbsFrameFactory getMockFrameFactory();
 
     @Override
-    public AbstractGenerator getGenerator() {
-        return generator;
-    }
-
-    @Override
     public AbstractThreadFactory getThreadFactory() {
         return threadFactory;
-    }
-
-    @Override
-    public AbstractZipFact getZipFact() {
-        return getStreams().getZipFact();
-    }
-
-    @Override
-    public AbstractNameValidating getValidator() {
-        return validator;
-    }
-
-    @Override
-    public AbstractGraphicStringListGenerator getGeneGraphicList() {
-        return graphicStringListGenerator;
-    }
-
-    @Override
-    public AbsCompoFactory getCompoFactory() {
-        return compoFactory;
-    }
-
-    @Override
-    public AbstractImageFactory getImageFactory() {
-        return imageFactory;
-    }
-
-    @Override
-    public AbstractGraphicComboBoxGenerator getGeneComboBox() {
-        return graphicComboBoxGenerator;
-    }
-
-    @Override
-    public AbstractAdvGraphicListGenerator getGeneStrCompo() {
-        return geneStrCompo;
-    }
-
-    @Override
-    public AbstractInterceptor getInterceptor() {
-        return mockInterceptor;
     }
 
     public MockFileSet getMockFileSet() {

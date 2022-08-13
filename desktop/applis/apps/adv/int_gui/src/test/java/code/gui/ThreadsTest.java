@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.initialize.CompoundedInitParts;
+import code.gui.initialize.ProgramInfosBase;
 import code.stream.AbstractFile;
 import code.stream.FileListInfo;
 import code.stream.core.ComZipStreamIn;
@@ -68,6 +70,23 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertEq(3, t_.getTime());
         assertEq("_", t_.getName());
         assertTrue(t_.isDirectory());
+    }
+    @Test
+    public void ls6() {
+        ProgramInfosBase t_ = new ProgramInfosBase("","",null,null,null,null,new CompoundedInitParts(null,null,null,null,null));
+        assertNull(t_.getCompoFactory());
+        assertNull(t_.getGenerator());
+        assertNull(t_.getGeneComboBox());
+        assertNull(t_.getGeneGraphicList());
+        assertNull(t_.getGeneStrCompo());
+        assertNull(t_.getValidator());
+        assertNull(t_.getZipFact());
+        assertNull(t_.getImageFactory());
+        assertNull(t_.getInterceptor());
+        assertEq("",t_.getHomePath());
+        assertEq("",t_.getTmpUserFolder());
+        assertEq(0, t_.getCounts().size());
+        assertEq(0, t_.getFrames().size());
     }
     @Test
     public void isZip1(){

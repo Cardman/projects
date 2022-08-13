@@ -1,21 +1,17 @@
 package code.vi.sys.impl;
 
-import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
-import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.*;
-import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.*;
-import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
-import code.stream.core.*;
-import code.threads.AbstractAtomicInteger;
+import code.stream.core.DefBinFact;
+import code.stream.core.DefTextFact;
+import code.stream.core.DefZipFact;
+import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
-import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 import code.vi.maths.random.AdvancedGenerator;
 import code.vi.prot.impl.*;
@@ -27,7 +23,7 @@ import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 
-public abstract class ProgramInfos implements AbstractProgramInfos {
+public abstract class ProgramInfos extends ProgramInfosBase implements AbstractProgramInfos {
 
     private static final String SEPARATEUR = "/";
 
@@ -43,21 +39,9 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
 
 //    private static final String RELATIVE_VIRTUAL_STORE = "AppData/Local/VirtualStore/";
 
-    private final CustList<AbsGroupFrame> frames = new CustList<AbsGroupFrame>();
-    private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
-    private final AbstractGenerator generator;
-    private final String tmpUserFolder;
-    private final String homePath;
-    private final DefaultNameValidating validator;
-    private final AbstractGraphicStringListGenerator graphicStringListGenerator;
-    private final AbsCompoFactory compoFactory;
-    private final AbstractImageFactory imageFactory;
-    private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
-    private final AbstractAdvGraphicListGenerator geneStrCompo;
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
     private final TechStreams streams;
-    private final AbstractInterceptor interceptor;
     private final AbstractSocketFactory socketFactory;
     private final AbsFrameFactory frameFactory;
     private final AbsLightFrameFactory lightFrameFactory;
@@ -70,23 +54,15 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     private final FileSaveDialogAbs fileSaveDialogInt;
 
     protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator,AbstractAdvGraphicListGenerator _graphicListGenerator) {
+        super(StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME)),StringUtil.concat(initialize(),SEPARATEUR),new AdvancedGenerator(),_graphicStringListGenerator,_graphicComboBoxGenerator,_graphicListGenerator,
+                new CompoundedInitParts(new DefZipFact(new DefZipFactory()),new DefaultNameValidating(new StringList()),new DefCompoFactory(),new DefImageFactory(),new DefInterceptor(new DefErrGenerator())));
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = new DefaultFileCoreStream();
         DefFrameFactory frameFactory_ = new DefFrameFactory();
         this.frameFactory = frameFactory_;
         this.lightFrameFactory = frameFactory_;
-        streams = new TechStreams(new DefBinFact(new DefBinFactory(new DefaultInputStreamBuilder())),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
-        interceptor = new DefInterceptor(new DefErrGenerator());
+        streams = new TechStreams(new DefBinFact(new DefBinFactory(new DefaultInputStreamBuilder())),new DefTextFact(new DefTextFactory()),getZipFact());
         socketFactory = new DefSocketFactory();
-        compoFactory = new DefCompoFactory();
-        imageFactory = new DefImageFactory();
-        graphicStringListGenerator = _graphicStringListGenerator;
-        graphicComboBoxGenerator = _graphicComboBoxGenerator;
-        geneStrCompo = _graphicListGenerator;
-        homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
-        tmpUserFolder = StringUtil.concat(initialize(),SEPARATEUR);
-        generator = new AdvancedGenerator();
-        validator = new DefaultNameValidating(new StringList());
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
         excludedFolders = new StringList();
@@ -104,8 +80,8 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         return excludedFolders;
     }
 
-    private String initialize() {
-        String init_ = StringUtil.replaceBackSlashDot(fileCoreStream.newFile(DOT).getAbsolutePath());
+    private static String initialize() {
+        String init_ = StringUtil.replaceBackSlashDot(DefaultFile.newFile(DOT).getAbsolutePath());
         return init_.substring(0, init_.length() - 1);
 
 //        String javaPath_ = StringUtil.replaceBackSlash(System.getProperty("java.class.path"));
@@ -202,26 +178,6 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         return lightFrameFactory;
     }
 
-    public String getHomePath() {
-        return homePath;
-    }
-
-    public String getTmpUserFolder() {
-        return tmpUserFolder;
-    }
-
-    public CustList<AbsGroupFrame> getFrames() {
-        return frames;
-    }
-
-    public StringMap<AbstractAtomicInteger> getCounts() {
-        return counts;
-    }
-
-    public AbstractGenerator getGenerator() {
-        return generator;
-    }
-
     public AbstractThreadFactory getThreadFactory() {
         return threadFactory;
     }
@@ -231,43 +187,8 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         return fileCoreStream;
     }
 
-    @Override
-    public AbstractZipFact getZipFact() {
-        return streams.getZipFact();
-    }
-
     public TechStreams getStreams() {
         return streams;
-    }
-
-    @Override
-    public AbstractNameValidating getValidator() {
-        return validator;
-    }
-
-    @Override
-    public AbstractGraphicStringListGenerator getGeneGraphicList() {
-        return graphicStringListGenerator;
-    }
-
-    @Override
-    public AbsCompoFactory getCompoFactory() {
-        return compoFactory;
-    }
-
-    @Override
-    public AbstractImageFactory getImageFactory() {
-        return imageFactory;
-    }
-
-    @Override
-    public AbstractGraphicComboBoxGenerator getGeneComboBox() {
-        return graphicComboBoxGenerator;
-    }
-
-    @Override
-    public AbstractAdvGraphicListGenerator getGeneStrCompo() {
-        return geneStrCompo;
     }
 
     @Override
@@ -286,11 +207,6 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbsSoundRecord newSoundPattern() {
         return new SoundRecord(getStreams());
-    }
-
-    @Override
-    public AbstractInterceptor getInterceptor() {
-        return interceptor;
     }
 
     @Override
