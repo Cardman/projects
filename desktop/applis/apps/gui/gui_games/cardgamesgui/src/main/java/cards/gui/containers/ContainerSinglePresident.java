@@ -54,7 +54,6 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
-import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -770,7 +769,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         GamePresident g_ = partiePresident();
         DialogHelpPresident.setTitleDialog(getOwner(), StringUtil.concat(getMessages().getVal(WindowCards.HELP_GAME),SPACE,GameEnum.PRESIDENT.toString(lg_)));
-        TreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
+        AbsBasicTreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
         boolean reversed_ = g_.isReversed();
         int nbStacks_ = g_.getRules().getNbStacks();
         getOwner().getDialogHelpPresident().setDialoguePresident(played_, reversed_, nbStacks_, lg_);

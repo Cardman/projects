@@ -6,10 +6,7 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import code.maths.montecarlo.AbstractGenerator;
-import code.util.CustList;
 import code.util.*;
-import code.util.Ints;
-import code.util.TreeMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -981,7 +978,7 @@ public final class GamePresident {
         return g_.progressTrick();
     }
 
-    public TreeMap<CardPresident,Byte> getPlayedCardsByStrength() {
+    public AbsBasicTreeMap<CardPresident,Byte> getPlayedCardsByStrength() {
         int nbMaxLen_ = rules.getNbStacks() * GamePresidentCommon.NB_SUITS;
         return GamePresidentCommon.getNotFullPlayedCardsByStrength(reversed, tricks, progressingTrick,nbMaxLen_);
     }
