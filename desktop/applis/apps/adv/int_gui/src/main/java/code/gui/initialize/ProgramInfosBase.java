@@ -7,6 +7,7 @@ import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractAtomicInteger;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -62,6 +63,9 @@ public class ProgramInfosBase {
 
     public AbstractGraphicStringListGenerator getGeneGraphicList() {
         return geneGraphicList;
+    }
+    public AbstractThreadFactory getThreadFactory() {
+        return compoundedInitParts.getThreadFactory();
     }
 
     public AbsCompoFactory getCompoFactory() {

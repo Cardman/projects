@@ -10,7 +10,6 @@ import code.stream.core.DefBinFact;
 import code.stream.core.DefTextFact;
 import code.stream.core.DefZipFact;
 import code.stream.core.TechStreams;
-import code.threads.AbstractThreadFactory;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.vi.maths.random.AdvancedGenerator;
@@ -39,7 +38,6 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
 
 //    private static final String RELATIVE_VIRTUAL_STORE = "AppData/Local/VirtualStore/";
 
-    private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
     private final TechStreams streams;
     private final AbstractSocketFactory socketFactory;
@@ -55,8 +53,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
 
     protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator,AbstractAdvGraphicListGenerator _graphicListGenerator) {
         super(StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME)),StringUtil.concat(initialize(),SEPARATEUR),new AdvancedGenerator(),_graphicStringListGenerator,_graphicComboBoxGenerator,_graphicListGenerator,
-                new CompoundedInitParts(new DefZipFact(new DefZipFactory()),new DefaultNameValidating(new StringList()),new DefCompoFactory(),new DefImageFactory(),new DefInterceptor(new DefErrGenerator())));
-        threadFactory = new DefaultThreadFactory();
+                new CompoundedInitParts(new DefaultThreadFactory(),new DefZipFact(new DefZipFactory()),new DefaultNameValidating(new StringList()),new DefCompoFactory(),new DefImageFactory(),new DefInterceptor(new DefErrGenerator())));
         fileCoreStream = new DefaultFileCoreStream();
         DefFrameFactory frameFactory_ = new DefFrameFactory();
         this.frameFactory = frameFactory_;
@@ -176,10 +173,6 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     @Override
     public AbsLightFrameFactory getLightFrameFactory() {
         return lightFrameFactory;
-    }
-
-    public AbstractThreadFactory getThreadFactory() {
-        return threadFactory;
     }
 
     @Override

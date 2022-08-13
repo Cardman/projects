@@ -6,14 +6,12 @@ import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
-import code.threads.AbstractThreadFactory;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 
 public abstract class MockAbsProgramInfos extends ProgramInfosBase implements AbstractProgramInfos {
     private final MockFileSet mockFileSet;
     private final TechStreams techStreams;
-    private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
     private final AbstractSocketFactory socketFactory = new MockSocketFactory();
     private final MockFileFolerDialog mockFileFolerDialog;
@@ -24,12 +22,14 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     private int screenHeight;
 
     protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, boolean _cust, MockFileSet _set) {
-        super(_h,_t,new MockGenerator(_se.getSe()),new MockGraphicStringListGenerator(),new MockGraphicComboBoxGenerator(),new MockAdvGraphicListGenerator(_cust),
-                new CompoundedInitParts(new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory(),new MockInterceptor()));
+        this(_h,_t,new MockGenerator(_se.getSe()),_se,_cust,_set);
+    }
+    private MockAbsProgramInfos(String _h, String _t, MockGenerator _gene, MockEventListIncr _se, boolean _cust, MockFileSet _set) {
+        super(_h,_t,_gene,new MockGraphicStringListGenerator(),new MockGraphicComboBoxGenerator(),new MockAdvGraphicListGenerator(_cust),
+                new CompoundedInitParts(new MockThreadFactory(_gene, _set),new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory(),new MockInterceptor()));
         mockFileSet = _set;
-        fileCoreStream = new MockFileCoreStream(mockFileSet);
-        threadFactory = new MockThreadFactory(getGenerator(), mockFileSet);
-        MockBinFact mockBinFact_ = new MockBinFact(getGenerator(), mockFileSet);
+        fileCoreStream = new MockFileCoreStream(_set);
+        MockBinFact mockBinFact_ = new MockBinFact(getGenerator(), _set);
         techStreams = new TechStreams(mockBinFact_,new MockTextFact(mockBinFact_), new MockZipFact());
         mockFileFolerDialog = new MockFileFolerDialog(_se.getFiles());
         mockConfirmDialogTextAbs = new MockConfirmDialogTextAbs(_se.getText());
@@ -124,11 +124,6 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     }
 
     public abstract MockAbsFrameFactory getMockFrameFactory();
-
-    @Override
-    public AbstractThreadFactory getThreadFactory() {
-        return threadFactory;
-    }
 
     public MockFileSet getMockFileSet() {
         return mockFileSet;

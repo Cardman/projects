@@ -11,10 +11,14 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.AbstractBinFact;
 import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
+import code.threads.AbstractThreadFactory;
 import code.threads.ThState;
 import org.junit.Assert;
 
 public abstract class EquallableIntGuiUtil {
+    public static void assertNull(AbstractThreadFactory _expected) {
+        Assert.assertNull(_expected);
+    }
     public static void assertNull(AbstractInterceptor _expected) {
         Assert.assertNull(_expected);
     }

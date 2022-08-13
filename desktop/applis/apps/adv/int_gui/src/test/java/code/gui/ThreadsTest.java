@@ -73,7 +73,8 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     }
     @Test
     public void ls6() {
-        ProgramInfosBase t_ = new ProgramInfosBase("","",null,null,null,null,new CompoundedInitParts(null,null,null,null,null));
+        ProgramInfosBase t_ = new ProgramInfosBase("","",null,null,null,null,new CompoundedInitParts(null,null,null,null,null,null));
+        assertNull(t_.getThreadFactory());
         assertNull(t_.getCompoFactory());
         assertNull(t_.getGenerator());
         assertNull(t_.getGeneComboBox());
