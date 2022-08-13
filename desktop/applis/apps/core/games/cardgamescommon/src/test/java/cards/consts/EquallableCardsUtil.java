@@ -13,31 +13,11 @@ public abstract class EquallableCardsUtil {
         Assert.assertNotNull(_value);
     }
 
-    public static void assertNotNull(Role[] _value) {
-        Assert.assertNotNull(_value);
-    }
-
-    public static void assertNotNull(PossibleTrickWinner[] _value) {
-        Assert.assertNotNull(_value);
-    }
-
     public static void assertNotNull(Order[] _value) {
         Assert.assertNotNull(_value);
     }
 
     public static void assertNotNull(MixCardsChoice[] _value) {
-        Assert.assertNotNull(_value);
-    }
-
-    public static void assertNotNull(Hypothesis[] _value) {
-        Assert.assertNotNull(_value);
-    }
-
-    public static void assertNotNull(EndGameState[] _value) {
-        Assert.assertNotNull(_value);
-    }
-
-    public static void assertNotNull(CardChar[] _value) {
         Assert.assertNotNull(_value);
     }
 
@@ -47,6 +27,10 @@ public abstract class EquallableCardsUtil {
 
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
+    }
+
+    public static void assertFalse(boolean _value) {
+        Assert.assertFalse(_value);
     }
     public static void assertTrue(String _mess,boolean _value) {
         Assert.assertTrue(_mess,_value);
@@ -58,6 +42,15 @@ public abstract class EquallableCardsUtil {
 
     public static void assertEq(Rate _expected, Rate _result) {
         Assert.assertTrue(StringUtil.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), Rate.eq(_expected, _result));
+    }
+    public static void assertSame(EndGameState _expected, EndGameState _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Role _expected, Role _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(PossibleTrickWinner _expected, PossibleTrickWinner _result) {
+        Assert.assertSame(_expected, _result);
     }
     public static void assertSame(Suit _expected, Suit _result) {
         Assert.assertSame(_expected, _result);

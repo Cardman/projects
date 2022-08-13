@@ -1,4 +1,5 @@
 package cards.president;
+import cards.consts.CardChar;
 import code.util.core.BoolVal;
 import org.junit.Assert;
 
@@ -7,13 +8,6 @@ import cards.president.enumerations.Playing;
 
 public abstract class EquallablePresidentUtil {
 
-
-    public static void assertNotNull(Object _value) {
-        Assert.assertNotNull(_value);
-    }
-    public static void assertNull(Object _value) {
-        Assert.assertNull(_value);
-    }
 
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
@@ -24,10 +18,19 @@ public abstract class EquallablePresidentUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(Object _expected, Object _result) {
+    public static void assertSame(TrickPresident _expected, TrickPresident _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertNotSame(Object _expected, Object _result) {
+    public static void assertSame(GamePresident _expected, GamePresident _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(CardPresident _expected, CardPresident _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(CardChar _expected, CardChar _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertNotSame(RulesPresident _expected, RulesPresident _result) {
         Assert.assertNotSame(_expected, _result);
     }
 

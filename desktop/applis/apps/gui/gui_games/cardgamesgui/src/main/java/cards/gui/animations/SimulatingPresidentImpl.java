@@ -29,27 +29,19 @@ import code.util.core.StringUtil;
 
 
 
-public final class SimulatingPresidentImpl implements SimulatingPresident {
+public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     private final ContainerSimuPresident container;
-    private final Games partieSimulee;
-    private final DisplayingPresident displayingPresident;
     private final StopEvent stopEvent;
 
     public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, StopEvent _stopEvent) {
+        super(_displayingPresident, _partieSimulee.partiePresident());
         container = _container;
-        partieSimulee = _partieSimulee;
-        displayingPresident = _displayingPresident;
         stopEvent = _stopEvent;
     }
 
     @Override
     public void displayUserHand(HandPresident _hand) {
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandPresident(container, new HandPresident(_hand)), container.getOwner().getFrames());
-    }
-
-    @Override
-    public DisplayingPresident getDisplaying() {
-        return displayingPresident;
     }
 
     @Override
@@ -260,10 +252,6 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         panneau_.add(container.getOwner().getLastSavedGameDate());
         container.setContentPane(panneau_);
         container.pack();
-    }
-
-    private GamePresident partiePresidentSimulee() {
-        return partieSimulee.partiePresident();
     }
 
     private StringList pseudosSimuleePresident() {

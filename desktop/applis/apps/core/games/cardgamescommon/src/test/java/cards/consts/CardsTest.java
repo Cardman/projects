@@ -27,13 +27,19 @@ public final class CardsTest extends EquallableCardsUtil {
         r_.setNicknames(new StringList());
         assertEq(0, r_.getNicknames().size());
         assertNotNull(r_.getRenderedPages());
-        assertNotNull(Role.values());
-        assertNotNull(PossibleTrickWinner.values());
+        assertSame(Role.TAKER,EnumCardsRetrieverUtil.toRole("TAKER"));
+        assertSame(Role.CALLED_PLAYER,EnumCardsRetrieverUtil.toRole("CALLED_PLAYER"));
+        assertSame(Role.DEFENDER,EnumCardsRetrieverUtil.toRole("DEFENDER"));
+        assertSame(PossibleTrickWinner.TEAM,EnumCardsRetrieverUtil.toPossibleTrickWinner("TEAM"));
+        assertSame(PossibleTrickWinner.FOE_TEAM,EnumCardsRetrieverUtil.toPossibleTrickWinner("FOE_TEAM"));
+        assertSame(PossibleTrickWinner.UNKNOWN,EnumCardsRetrieverUtil.toPossibleTrickWinner("UNKNOWN"));
+        assertSame(EndGameState.WIN,EnumCardsRetrieverUtil.toEndGameState("WIN"));
+        assertSame(EndGameState.EQUALLITY,EnumCardsRetrieverUtil.toEndGameState("EQUALLITY"));
+        assertSame(EndGameState.LOOSE,EnumCardsRetrieverUtil.toEndGameState("LOOSE"));
+        assertTrue(EnumCardsRetrieverUtil.toBool(Hypothesis.SURE));
+        assertFalse(EnumCardsRetrieverUtil.toBool(Hypothesis.POSSIBLE));
         assertNotNull(Order.values());
         assertNotNull(MixCardsChoice.values());
-        assertNotNull(Hypothesis.values());
-        assertNotNull(EndGameState.values());
-        assertNotNull(CardChar.values());
     }
     @Test
     public void eqSuitTest() {
