@@ -233,7 +233,7 @@ public final class GameTarot {
             trickWinner = progressingTrick.getEntameur();
             retrieveCalledPlayers(progressingTrick);
             if (progressingTrick.total() == getNombreDeJoueurs()) {
-                ajouterPliEnCours();
+                ajouterPetitAuBoutPliEnCours();
                 setPliEnCours(true);
             }
         } else if (!avecContrat()) {
