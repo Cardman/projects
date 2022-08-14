@@ -109,12 +109,14 @@ public final class GameBelote {
             }
             bid = bid_;
         }
-        if (!tricks.isEmpty()) {
+        if (!tricks.isEmpty() || !progressingTrick.estVide()) {
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
-        } else if (!progressingTrick.estVide()) {
-            starter = progressingTrick.getEntameur();
-            trickWinner = progressingTrick.getEntameur();
+            if (progressingTrick.total() == getNombreDeJoueurs()) {
+                ajouterPliEnCours();
+                setEntameur();
+                setPliEnCours();
+            }
         } else if (keepBidding()) {
             starter = playerAfter(deal.getDealer());
             trickWinner = starter;
