@@ -438,7 +438,7 @@ public final class CheckerGameTarotWithRules {
         loadedGameCopy_.setPliEnCours(true);
         while (true) {
             if (passe_) {
-                loadedGameCopy_.ajouterPliEnCours();
+                loadedGameCopy_.ajouterPetitAuBoutPliEnCours();
                 loadedGameCopy_.setPliEnCours(true);
             }
             TrickTarot trick_;
@@ -565,8 +565,6 @@ public final class CheckerGameTarotWithRules {
                 loadedGameCopy_.ajouterPetitAuBoutPliEnCours();
                 break;
             }
-            loadedGameCopy_.ajouterPliEnCours();
-            loadedGameCopy_.ajouterPetitAuBout();
         }
     }
 }
