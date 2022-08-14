@@ -36,10 +36,28 @@ public final class CardsTest extends EquallableCardsUtil {
         assertSame(EndGameState.WIN,EnumCardsRetrieverUtil.toEndGameState("WIN"));
         assertSame(EndGameState.EQUALLITY,EnumCardsRetrieverUtil.toEndGameState("EQUALLITY"));
         assertSame(EndGameState.LOOSE,EnumCardsRetrieverUtil.toEndGameState("LOOSE"));
+        assertSame(MixCardsChoice.EACH_DEAL,EnumCardsRetrieverUtil.toMixCardsChoice("EACH_DEAL"));
+        assertSame(MixCardsChoice.ONCE_ONLY,EnumCardsRetrieverUtil.toMixCardsChoice("ONCE_ONLY"));
+        assertSame(MixCardsChoice.EACH_LAUNCHING,EnumCardsRetrieverUtil.toMixCardsChoice("EACH_LAUNCHING"));
+        assertSame(MixCardsChoice.NEVER,EnumCardsRetrieverUtil.toMixCardsChoice("NEVER"));
+        assertSame(MixCardsChoice.NEVER,EnumCardsRetrieverUtil.toMixCardsChoice(""));
+        assertSame(Order.TRUMP,EnumCardsRetrieverUtil.toOrder("TRUMP"));
+        assertSame(Order.SUIT,EnumCardsRetrieverUtil.toOrder("SUIT"));
+        assertSame(Order.NOTHING,EnumCardsRetrieverUtil.toOrder("NOTHING"));
+        assertSame(Order.NOTHING,EnumCardsRetrieverUtil.toOrder(""));
+        assertSame(GameType.EDIT,EnumCardsRetrieverUtil.toGameType("EDIT"));
+        assertSame(GameType.TRAINING,EnumCardsRetrieverUtil.toGameType("TRAINING"));
+        assertSame(GameType.RANDOM,EnumCardsRetrieverUtil.toGameType("RANDOM"));
+        assertSame(GameType.RANDOM,EnumCardsRetrieverUtil.toGameType(""));
+        assertSame(Suit.TRUMP,EnumCardsRetrieverUtil.toSuit("TRUMP"));
+        assertSame(Suit.HEART,EnumCardsRetrieverUtil.toSuit("HEART"));
+        assertSame(Suit.SPADE,EnumCardsRetrieverUtil.toSuit("SPADE"));
+        assertSame(Suit.DIAMOND,EnumCardsRetrieverUtil.toSuit("DIAMOND"));
+        assertSame(Suit.CLUB,EnumCardsRetrieverUtil.toSuit("CLUB"));
+        assertSame(Suit.UNDEFINED,EnumCardsRetrieverUtil.toSuit("UNDEFINED"));
+        assertSame(Suit.UNDEFINED,EnumCardsRetrieverUtil.toSuit(""));
         assertTrue(EnumCardsRetrieverUtil.toBool(Hypothesis.SURE));
         assertFalse(EnumCardsRetrieverUtil.toBool(Hypothesis.POSSIBLE));
-        assertNotNull(Order.values());
-        assertNotNull(MixCardsChoice.values());
     }
     @Test
     public void eqSuitTest() {

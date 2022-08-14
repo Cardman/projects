@@ -13,14 +13,6 @@ public abstract class EquallableCardsUtil {
         Assert.assertNotNull(_value);
     }
 
-    public static void assertNotNull(Order[] _value) {
-        Assert.assertNotNull(_value);
-    }
-
-    public static void assertNotNull(MixCardsChoice[] _value) {
-        Assert.assertNotNull(_value);
-    }
-
     public static void assertNotNull(String _value) {
         Assert.assertNotNull(_value);
     }
@@ -50,6 +42,15 @@ public abstract class EquallableCardsUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(PossibleTrickWinner _expected, PossibleTrickWinner _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(MixCardsChoice _expected, MixCardsChoice _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(GameType _expected, GameType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Order _expected, Order _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(Suit _expected, Suit _result) {

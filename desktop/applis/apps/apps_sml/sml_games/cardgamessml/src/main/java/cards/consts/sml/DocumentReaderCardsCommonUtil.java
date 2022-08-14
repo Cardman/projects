@@ -1,52 +1,31 @@
 package cards.consts.sml;
-import cards.consts.GameType;
-import cards.consts.MixCardsChoice;
-import cards.consts.Order;
-import cards.consts.Suit;
+import cards.consts.*;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.CollCapacity;
 import code.util.EnumList;
-import code.util.core.StringUtil;
 
 public final class DocumentReaderCardsCommonUtil {
 
     private static final String ATTR_VALUE = "value";
 
+    private DocumentReaderCardsCommonUtil() {
+    }
+
     public static GameType getGameType(Element _elt) {
-        for (GameType e: GameType.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return GameType.RANDOM;
+        return EnumCardsRetrieverUtil.toGameType(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static MixCardsChoice getMixCardsChoice(Element _elt) {
-        for (MixCardsChoice e: MixCardsChoice.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return MixCardsChoice.NEVER;
+        return EnumCardsRetrieverUtil.toMixCardsChoice(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static Order getOrder(Element _elt) {
-        for (Order e: Order.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return Order.NOTHING;
+        return EnumCardsRetrieverUtil.toOrder(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static Suit getSuit(Element _elt) {
-        for (Suit e: Suit.toutesCouleurs()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return Suit.UNDEFINED;
+        return EnumCardsRetrieverUtil.toSuit(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static EnumList<Suit> getListSuit(Element _elt) {
