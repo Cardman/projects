@@ -56,6 +56,26 @@ public final class CardsTest extends EquallableCardsUtil {
         assertSame(Suit.CLUB,EnumCardsRetrieverUtil.toSuit("CLUB"));
         assertSame(Suit.UNDEFINED,EnumCardsRetrieverUtil.toSuit("UNDEFINED"));
         assertSame(Suit.UNDEFINED,EnumCardsRetrieverUtil.toSuit(""));
+        assertEq("EACH_DEAL",EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.EACH_DEAL));
+        assertEq("ONCE_ONLY",EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.ONCE_ONLY));
+        assertEq("EACH_LAUNCHING",EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.EACH_LAUNCHING));
+        assertEq("NEVER",EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.NEVER));
+        assertEq("NEVER",EnumCardsExporterUtil.fromMixCardsChoice(null));
+        assertEq("TRUMP",EnumCardsExporterUtil.fromOrder(Order.TRUMP));
+        assertEq("SUIT",EnumCardsExporterUtil.fromOrder(Order.SUIT));
+        assertEq("NOTHING",EnumCardsExporterUtil.fromOrder(Order.NOTHING));
+        assertEq("NOTHING",EnumCardsExporterUtil.fromOrder(null));
+        assertEq("EDIT",EnumCardsExporterUtil.fromGameType(GameType.EDIT));
+        assertEq("TRAINING",EnumCardsExporterUtil.fromGameType(GameType.TRAINING));
+        assertEq("RANDOM",EnumCardsExporterUtil.fromGameType(GameType.RANDOM));
+        assertEq("RANDOM",EnumCardsExporterUtil.fromGameType(null));
+        assertEq("TRUMP",EnumCardsExporterUtil.fromSuit(Suit.TRUMP));
+        assertEq("HEART",EnumCardsExporterUtil.fromSuit(Suit.HEART));
+        assertEq("SPADE",EnumCardsExporterUtil.fromSuit(Suit.SPADE));
+        assertEq("DIAMOND",EnumCardsExporterUtil.fromSuit(Suit.DIAMOND));
+        assertEq("CLUB",EnumCardsExporterUtil.fromSuit(Suit.CLUB));
+        assertEq("UNDEFINED",EnumCardsExporterUtil.fromSuit(Suit.UNDEFINED));
+        assertEq("UNDEFINED",EnumCardsExporterUtil.fromSuit(null));
         assertTrue(EnumCardsRetrieverUtil.toBool(Hypothesis.SURE));
         assertFalse(EnumCardsRetrieverUtil.toBool(Hypothesis.POSSIBLE));
     }

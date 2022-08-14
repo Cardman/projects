@@ -1,8 +1,5 @@
 package cards.consts.sml;
-import cards.consts.GameType;
-import cards.consts.MixCardsChoice;
-import cards.consts.Order;
-import cards.consts.Suit;
+import cards.consts.*;
 import code.sml.Document;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
@@ -16,32 +13,34 @@ public final class DocumentWriterCardsCommonUtil {
     private static final String TYPE_MIX_CARDS_CHOICE = "MixCardsChoice";
     private static final String TYPE_ORDER = "Order";
     private static final String TYPE_SUIT = "Suit";
+    private DocumentWriterCardsCommonUtil(){
+    }
 
     public static Element setGameType(GameType _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_GAME_TYPE);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,EnumCardsExporterUtil.fromGameType(_object));
         return elt_;
     }
 
     public static Element setMixCardsChoice(MixCardsChoice _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MIX_CARDS_CHOICE);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,EnumCardsExporterUtil.fromMixCardsChoice(_object));
         return elt_;
     }
 
     public static Element setOrder(Order _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_ORDER);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,EnumCardsExporterUtil.fromOrder(_object));
         return elt_;
     }
 
     public static Element setSuit(Suit _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_SUIT);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,EnumCardsExporterUtil.fromSuit(_object));
         return elt_;
     }
 

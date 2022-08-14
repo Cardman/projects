@@ -28,6 +28,11 @@ public abstract class EquallableCardsUtil {
         Assert.assertTrue(_mess,_value);
     }
 
+    public static void assertEq(String _expected, String _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertEquals(_expected, _result);
+    }
+
     public static void assertEq(long _expected, long _result) {
         Assert.assertTrue(StringUtil.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
