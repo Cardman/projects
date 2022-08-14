@@ -232,6 +232,10 @@ public final class GameTarot {
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
             retrieveCalledPlayers(progressingTrick);
+            if (progressingTrick.total() == getNombreDeJoueurs()) {
+                ajouterPliEnCours();
+                setPliEnCours(true);
+            }
         } else if (!avecContrat()) {
             starter = playerAfter(deal.getDealer());
             trickWinner = starter;
