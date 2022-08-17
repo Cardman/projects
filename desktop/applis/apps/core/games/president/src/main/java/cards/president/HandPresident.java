@@ -33,12 +33,58 @@ public final class HandPresident implements Iterable<CardPresident> {
 
     public static HandPresident pileBase() {
         HandPresident liste_ = new HandPresident();
-        for(CardPresident carte_: CardPresident.values()) {
-            if(!carte_.getId().isJouable()) {
-                continue;
-            }
-            liste_.ajouter(carte_);
-        }
+        liste_.ajouter(CardPresident.HEART_2);
+        liste_.ajouter(CardPresident.HEART_1);
+        liste_.ajouter(CardPresident.HEART_KING);
+        liste_.ajouter(CardPresident.HEART_QUEEN);
+        liste_.ajouter(CardPresident.HEART_JACK);
+        liste_.ajouter(CardPresident.HEART_10);
+        liste_.ajouter(CardPresident.HEART_9);
+        liste_.ajouter(CardPresident.HEART_8);
+        liste_.ajouter(CardPresident.HEART_7);
+        liste_.ajouter(CardPresident.HEART_6);
+        liste_.ajouter(CardPresident.HEART_5);
+        liste_.ajouter(CardPresident.HEART_4);
+        liste_.ajouter(CardPresident.HEART_3);
+        liste_.ajouter(CardPresident.SPADE_2);
+        liste_.ajouter(CardPresident.SPADE_1);
+        liste_.ajouter(CardPresident.SPADE_KING);
+        liste_.ajouter(CardPresident.SPADE_QUEEN);
+        liste_.ajouter(CardPresident.SPADE_JACK);
+        liste_.ajouter(CardPresident.SPADE_10);
+        liste_.ajouter(CardPresident.SPADE_9);
+        liste_.ajouter(CardPresident.SPADE_8);
+        liste_.ajouter(CardPresident.SPADE_7);
+        liste_.ajouter(CardPresident.SPADE_6);
+        liste_.ajouter(CardPresident.SPADE_5);
+        liste_.ajouter(CardPresident.SPADE_4);
+        liste_.ajouter(CardPresident.SPADE_3);
+        liste_.ajouter(CardPresident.DIAMOND_2);
+        liste_.ajouter(CardPresident.DIAMOND_1);
+        liste_.ajouter(CardPresident.DIAMOND_KING);
+        liste_.ajouter(CardPresident.DIAMOND_QUEEN);
+        liste_.ajouter(CardPresident.DIAMOND_JACK);
+        liste_.ajouter(CardPresident.DIAMOND_10);
+        liste_.ajouter(CardPresident.DIAMOND_9);
+        liste_.ajouter(CardPresident.DIAMOND_8);
+        liste_.ajouter(CardPresident.DIAMOND_7);
+        liste_.ajouter(CardPresident.DIAMOND_6);
+        liste_.ajouter(CardPresident.DIAMOND_5);
+        liste_.ajouter(CardPresident.DIAMOND_4);
+        liste_.ajouter(CardPresident.DIAMOND_3);
+        liste_.ajouter(CardPresident.CLUB_2);
+        liste_.ajouter(CardPresident.CLUB_1);
+        liste_.ajouter(CardPresident.CLUB_KING);
+        liste_.ajouter(CardPresident.CLUB_QUEEN);
+        liste_.ajouter(CardPresident.CLUB_JACK);
+        liste_.ajouter(CardPresident.CLUB_10);
+        liste_.ajouter(CardPresident.CLUB_9);
+        liste_.ajouter(CardPresident.CLUB_8);
+        liste_.ajouter(CardPresident.CLUB_7);
+        liste_.ajouter(CardPresident.CLUB_6);
+        liste_.ajouter(CardPresident.CLUB_5);
+        liste_.ajouter(CardPresident.CLUB_4);
+        liste_.ajouter(CardPresident.CLUB_3);
         return liste_;
     }
 
