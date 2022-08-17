@@ -399,7 +399,7 @@ public final class GamePresident {
 
     //single mode
     public boolean readyToPlay() {
-        return readyToPlayMulti(new Bytes(DealPresident.NUMERO_UTILISATEUR));
+        return readyToPlayMulti(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
     }
 
     //Case empty human winners:
@@ -1145,7 +1145,7 @@ public final class GamePresident {
             if (tricksPlayers_.contains(noTrick_)) {
                 tricksPlayers_.getVal(noTrick_).add(p);
             } else {
-                tricksPlayers_.put(noTrick_, new Bytes(p));
+                tricksPlayers_.put(noTrick_, Bytes.newList(p));
             }
         }
         Bytes tricksCardsPlayers_;

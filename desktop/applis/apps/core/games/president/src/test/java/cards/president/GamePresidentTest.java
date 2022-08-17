@@ -15,7 +15,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void getWinners1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -27,7 +27,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void getWinners2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         rk_.add((byte) 4);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -40,7 +40,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(2, ws_.size());
         assertEq(1, ws_.get(0));
         assertEq(3, ws_.get(1));
-        ws_ = g_.getWinners(new Bytes((byte)3));
+        ws_ = g_.getWinners(Bytes.newList((byte)3));
         assertEq(1, ws_.size());
         assertEq(3, ws_.get(0));
         assertEq(1,g_.numberGivenCards((byte) 3));
@@ -51,7 +51,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void getLoosers1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -62,7 +62,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void getLoosers2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         rk_.add((byte) 4);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -75,7 +75,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(2, ws_.size());
         assertEq(0, ws_.get(0));
         assertEq(2, ws_.get(1));
-        ws_ = g_.getLoosers(new Bytes((byte)2));
+        ws_ = g_.getLoosers(Bytes.newList((byte)2));
         assertEq(1, ws_.size());
         assertEq(2, ws_.get(0));
     }
@@ -83,7 +83,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void giveWorstCards1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         rk_.add((byte) 4);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -95,13 +95,13 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.donnerMeilleuresCartes();
         HandPresident hand_ = new HandPresident();
         hand_.ajouter(CardPresident.DIAMOND_3);
-        assertTrue(g_.giveWorstCards(new Bytes((byte)0,(byte)3), (byte) 3, hand_));
+        assertTrue(g_.giveWorstCards(Bytes.newList((byte)0,(byte)3), (byte) 3, hand_));
     }
 
     @Test
     public void giveWorstCards2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         rk_.add((byte) 4);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -112,13 +112,13 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
         HandPresident hand_ = new HandPresident();
-        assertTrue(!g_.giveWorstCards(new Bytes((byte)0,(byte)3), (byte) 3, hand_));
+        assertTrue(!g_.giveWorstCards(Bytes.newList((byte)0,(byte)3), (byte) 3, hand_));
     }
 
     @Test
     public void giveWorstCards3Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         rk_.add((byte) 4);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -129,13 +129,13 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
         HandPresident hand_ = new HandPresident();
-        assertTrue(g_.giveWorstCards(new Bytes((byte)0,(byte)2), (byte)3 , hand_));
+        assertTrue(g_.giveWorstCards(Bytes.newList((byte)0,(byte)2), (byte)3 , hand_));
     }
     @Test
     public void getStatus1Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -154,7 +154,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus2Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -173,7 +173,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus3Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -201,7 +201,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus4Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -231,7 +231,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus5Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -261,7 +261,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus6Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -292,7 +292,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus7Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -323,7 +323,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus8Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -353,7 +353,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus9Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -383,7 +383,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus10Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -401,7 +401,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus11Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -419,7 +419,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus12Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -440,7 +440,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getStatus13Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -460,7 +460,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void cartesJouables1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -474,7 +474,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void cartesJouables2Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.FORBIDDEN);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -500,7 +500,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void cartesJouables3Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -527,7 +527,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void cartesJouables4Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -554,7 +554,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void cartesJouables5Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -576,7 +576,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void cartesJouables6Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -599,7 +599,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void cartesJouables7Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -633,7 +633,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void cartesJouables8Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -667,7 +667,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void cartesJouables9Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -700,7 +700,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void allowPlaying1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -712,7 +712,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void allowPlaying2Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.FORBIDDEN);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -727,7 +727,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void canPass1Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(false);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -744,7 +744,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void canPass2Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -761,7 +761,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void canPass3Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 2);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -780,7 +780,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -954,7 +954,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
         r_.setLoosingIfFinishByBestCards(false);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1128,7 +1128,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1306,7 +1306,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1317,7 +1317,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1332,7 +1332,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick3Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1350,7 +1350,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick4Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1371,7 +1371,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick5Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1395,7 +1395,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick6Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1419,7 +1419,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick7Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1446,7 +1446,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick8Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1475,7 +1475,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void keepPlayingCurrentTrick9Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1508,7 +1508,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void addCardsToCurrentTrick1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1527,7 +1527,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void addCardsToCurrentTrick2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1553,7 +1553,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void addCardsToCurrentTrick3Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1578,7 +1578,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrick4Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1608,7 +1608,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrick5Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1641,7 +1641,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(false);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal2();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1671,7 +1671,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal2();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1701,7 +1701,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
         r_.setPossibleReversing(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1732,7 +1732,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1765,7 +1765,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1807,7 +1807,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1833,7 +1833,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1863,7 +1863,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1899,7 +1899,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2002,7 +2002,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void addCardsToCurrentTrickAndLoop1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2025,7 +2025,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void addCardsToCurrentTrickAndLoop2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2057,7 +2057,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     @Test
     public void addCardsToCurrentTrickAndLoop3Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2086,7 +2086,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickAndLoop4Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2122,7 +2122,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickAndLoop5Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2161,7 +2161,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(false);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal2();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2197,7 +2197,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal2();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2233,7 +2233,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
         r_.setPossibleReversing(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2270,7 +2270,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2309,7 +2309,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2357,7 +2357,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2386,7 +2386,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2418,7 +2418,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2457,7 +2457,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setPossibleReversing(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2540,7 +2540,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
         r_.setPossibleReversing(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2578,7 +2578,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickAndLoop16Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2612,7 +2612,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickAndLoop17Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2643,7 +2643,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickAndLoop18Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2688,7 +2688,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickAndLoop19Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2799,7 +2799,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickAndLoop20Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2926,7 +2926,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickAndLoop21Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.NO_SKIP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2959,7 +2959,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getNewRanks1Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3118,7 +3118,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getNewRanks2Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(false);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3277,7 +3277,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getNewRanks3Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3438,7 +3438,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         r_.setPossibleReversing(true);
         r_.setLoosingIfFinishByBestCards(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3620,7 +3620,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         r_.setPossibleReversing(true);
         r_.setLoosingIfFinishByBestCards(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3785,7 +3785,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getNewRanks6Test() {
         RulesPresident r_ = new RulesPresident(13);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal5();
         DealPresident d_ = new DealPresident(hs_, (byte) 12);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3893,7 +3893,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getNewRanks7Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.HEART_2);
@@ -4158,7 +4158,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void playedCards1Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4174,7 +4174,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void playedCards2Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4194,7 +4194,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void addCardsToCurrentTrickPlayedCards1Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4210,7 +4210,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void currentPlayerHasPlayed1Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4223,7 +4223,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void currentPlayerHasPlayed2Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4241,7 +4241,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     public void getPlayedCardsByStrengthTest() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = new Bytes();
+        Bytes rk_ = Bytes.newList();
         CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4270,7 +4270,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.setDeal(d_);
         g_.setRules(rules_);
         g_.setScores(new Shorts());
-        g_.setRanks(new Bytes());
+        g_.setRanks(Bytes.newList());
         g_.setSwitchedCards(new CustList<HandPresident>());
         g_.getSwitchedCards().add(new HandPresident());
         g_.getSwitchedCards().add(new HandPresident());
@@ -4288,7 +4288,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         h_ = HandPresident.pileBase();
         assertTrue(h_.validStack(1));
         g_.giveWorstCards(new HandPresident());
-        g_.setRanks(new Bytes((byte)4,(byte)3,(byte)2,(byte)1));
+        g_.setRanks(Bytes.newList((byte)4,(byte)3,(byte)2,(byte)1));
         assertEq(3,g_.getMatchingWinner((byte) 0));
         assertEq(0,g_.mainUtilisateurTriee(new DisplayingPresident()).total());
     }
