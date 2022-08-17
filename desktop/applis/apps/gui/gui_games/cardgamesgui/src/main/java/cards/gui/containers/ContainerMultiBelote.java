@@ -261,8 +261,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane();
         editor = new RenderedPage(scroll_, getOwner().getFrames());
-        rulesBeloteMulti.setGeneral(readCoreResource());
-        rulesBeloteMulti.setSpecific(readResource());
+        rulesBeloteMulti.getCommon().setGeneral(readCoreResource());
+        rulesBeloteMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
         editor.initialize(stds_);
@@ -339,8 +339,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void updateRules(RulesBelote _rules) {
         rulesBeloteMulti = _rules;
-        rulesBeloteMulti.setGeneral(readCoreResource());
-        rulesBeloteMulti.setSpecific(readResource());
+        rulesBeloteMulti.getCommon().setGeneral(readCoreResource());
+        rulesBeloteMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
         editor.initialize(stds_);
@@ -956,8 +956,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             pile_ = HandBelote.pileBase();
         }
         DealBelote deal_ = new DealBelote(0, pile_);
-        deal_.setRandomDealer(rulesBeloteMulti.getRepartition()
-                .getNombreJoueurs(),getOwner().getGenerator());
+        deal_.setRandomDealer(rulesBeloteMulti.getRepartition().getId().getNombreJoueurs(),getOwner().getGenerator());
         deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerBelote(new GameBelote(
                 GameType.RANDOM, deal_, rulesBeloteMulti));

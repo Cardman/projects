@@ -4,6 +4,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class CheckerGameBeloteWithRules {
@@ -29,7 +30,7 @@ public final class CheckerGameBeloteWithRules {
     public static void check(GameBelote _loadedGame) {
         RulesBelote rules_ = _loadedGame.getRegles();
         int nombreJoueurs_ = rules_
-                .getRepartition().getNombreJoueurs();
+                .getRepartition().getId().getNombreJoueurs();
         if (_loadedGame.getDistribution().nombreDeMains() != nombreJoueurs_ + 1) {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return;
@@ -280,8 +281,8 @@ public final class CheckerGameBeloteWithRules {
                 BidBeloteSuit bid_;
                 bid_ = _loadedGame.contrat(i_);
                 if (bid_.jouerDonne()) {
-                    if (!_loadedGame.getRegles().getEncheresAutorisees()
-                            .getVal(bid_.getEnchere())) {
+                    if (_loadedGame.getRegles().getAllowedBids()
+                            .getVal(bid_.getEnchere()) != BoolVal.TRUE) {
                         _loadedGame.setError(BIDDING_LOWER);
                         return;
                     }

@@ -96,9 +96,9 @@ public class RulesPresidentTest extends EquallablePresidentUtil {
     public void copyTest() {
         RulesPresident rules_ = new RulesPresident();
         RulesPresident rulesTwo_ = new RulesPresident(rules_);
-        rulesTwo_.setNbDeals(4);
-        rulesTwo_.setMixedCards(rules_.getMixedCards());
-        assertEq(0,rules_.getNbDeals());
+        rulesTwo_.getCommon().setNbDeals(4);
+        rulesTwo_.getCommon().setMixedCards(rules_.getCommon().getMixedCards());
+        assertEq(0, rules_.getCommon().getNbDeals());
         assertEq(1,RulesPresident.getNbMinStacks(4));
         assertEq(2,RulesPresident.getNbMaxStacks(4));
         assertEq(19,RulesPresident.getNbMaxStacksPlayers());

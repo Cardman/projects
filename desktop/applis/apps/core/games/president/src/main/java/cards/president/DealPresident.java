@@ -71,10 +71,10 @@ public final class DealPresident implements Iterable<HandPresident> {
     distribution, on ne tient pas compte du sens de distribution
     */
     public void initDonne(RulesPresident _regles,AbstractGenerator _gene) {
-        if (_regles.getMixedCards() == MixCardsChoice.EACH_DEAL) {
+        if (_regles.getCommon().getMixedCards() == MixCardsChoice.EACH_DEAL) {
             donnerEnBattant(_regles,_gene);
-        } else if (_regles.getMixedCards() == MixCardsChoice.EACH_LAUNCHING
-                || _regles.getMixedCards() == MixCardsChoice.ONCE_ONLY) {
+        } else if (_regles.getCommon().getMixedCards() == MixCardsChoice.EACH_LAUNCHING
+                || _regles.getCommon().getMixedCards() == MixCardsChoice.ONCE_ONLY) {
             if (nbDeals == 0) {
                 donnerEnBattant(_regles,_gene);
             } else {

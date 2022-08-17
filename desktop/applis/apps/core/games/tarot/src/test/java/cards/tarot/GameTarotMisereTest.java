@@ -39,7 +39,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -99,7 +99,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -172,7 +172,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -245,7 +245,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -305,7 +305,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -365,7 +365,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -424,7 +424,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -483,7 +483,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -542,7 +542,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -601,7 +601,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -648,7 +648,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.TRUMP_21);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
@@ -797,7 +797,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.HEART_1);
         pr_.ajouter(CardTarot.HEART_2);
         pr_.ajouter(CardTarot.HEART_4);
@@ -853,7 +853,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.HEART_1);
         pr_.ajouter(CardTarot.TRUMP_21);
         pr_.ajouter(CardTarot.HEART_2);
@@ -909,7 +909,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.HEART_1);
         pr_.ajouter(CardTarot.HEART_KING);
         pr_.ajouter(CardTarot.HEART_2);
@@ -965,7 +965,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.HEART_1);
         pr_.ajouter(CardTarot.HEART_3);
         pr_.ajouter(CardTarot.HEART_2);
@@ -1019,7 +1019,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1089,7 +1089,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1159,7 +1159,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1229,7 +1229,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1299,7 +1299,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1369,7 +1369,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1439,7 +1439,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1509,7 +1509,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1579,7 +1579,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1649,7 +1649,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1719,7 +1719,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1789,7 +1789,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1859,7 +1859,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1929,7 +1929,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -1999,7 +1999,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -2069,7 +2069,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -2139,7 +2139,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -2209,7 +2209,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -2277,7 +2277,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);
@@ -2345,7 +2345,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_3);
         t_.ajouter(CardTarot.HEART_2);

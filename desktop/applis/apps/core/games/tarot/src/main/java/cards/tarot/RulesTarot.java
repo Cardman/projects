@@ -1,5 +1,5 @@
 package cards.tarot;
-import cards.consts.MixCardsChoice;
+import cards.consts.RulesCommon;
 import cards.tarot.enumerations.AllowedBiddingTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CallingCard;
@@ -13,19 +13,15 @@ import code.util.*;
 
 public final class RulesTarot {
 
-    private MixCardsChoice mixedCards=MixCardsChoice.EACH_LAUNCHING;
+    private RulesCommon common = new RulesCommon();
     private EnumList<Miseres> miseres=new EnumList<Miseres>();
     private EnumMap<BidTarot,Boolean> allowedBids=new EnumMap<BidTarot,Boolean>();
     private ModeTarot mode=ModeTarot.NORMAL;
     private DealingTarot dealing=DealingTarot.DEAL_2_VS_3_CALL_KING;
     private EnumMap<Handfuls,Integer> allowedHandfuls = new EnumMap<Handfuls,Integer>();
     private EndDealTarot endDealTarot=EndDealTarot.ATTACK_LOOSE;
-    private int nbDeals;
     private boolean discardAfterCall = true;
     private boolean allowPlayCalledSuit = true;
-
-    private String general="";
-    private String specific="";
 
     public RulesTarot() {
         this(DealingTarot.DEAL_2_VS_3_CALL_KING);
@@ -55,7 +51,7 @@ public final class RulesTarot {
         }
         boolean found_ = false;
         for (DealingTarot r: DealingTarot.getRepartitionsValides()) {
-            if (r.getNombreJoueurs() == _nbPlayers && !found_) {
+            if (r.getId().getNombreJoueurs() == _nbPlayers && !found_) {
                 dealing = r;
                 int nbCartesParJoueurs_ = r.getNombreCartesParJoueur();
                 for (Handfuls p : Handfuls.getPoigneesValidesParDefaut()) {
@@ -67,17 +63,15 @@ public final class RulesTarot {
         }
     }
     public RulesTarot(RulesTarot _reglesTarot){
-        mixedCards = _reglesTarot.mixedCards;
+        common = new RulesCommon(_reglesTarot.common);
         miseres = new EnumList<Miseres>(_reglesTarot.miseres);
         allowedBids = new EnumMap<BidTarot,Boolean>(_reglesTarot.allowedBids);
         mode = _reglesTarot.mode;
         dealing = _reglesTarot.dealing;
         allowedHandfuls = new EnumMap<Handfuls,Integer>(_reglesTarot.allowedHandfuls);
         endDealTarot = _reglesTarot.endDealTarot;
-        nbDeals = _reglesTarot.nbDeals;
         discardAfterCall = _reglesTarot.discardAfterCall;
-        setSpecific(_reglesTarot.getSpecific());
-        setGeneral(_reglesTarot.getGeneral());
+        allowPlayCalledSuit = _reglesTarot.allowPlayCalledSuit;
     }
     public boolean isValidRules() {
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
@@ -125,12 +119,6 @@ public final class RulesTarot {
         allowedHandfuls = s_;
     }
 
-    public MixCardsChoice getCartesBattues() {
-        return mixedCards;
-    }
-    public void setCartesBattues(MixCardsChoice _cartesBattues) {
-        mixedCards = _cartesBattues;
-    }
     public EnumList<Handfuls> getCurrentAllowedHandfuls() {
         EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>();
         for (Handfuls h: allowedHandfuls.getKeys()) {
@@ -210,12 +198,8 @@ public final class RulesTarot {
         this.allowPlayCalledSuit = _allowPlayCalledSuit;
     }
 
-    public MixCardsChoice getMixedCards() {
-        return mixedCards;
-    }
-
-    public void setMixedCards(MixCardsChoice _mixedCards) {
-        mixedCards = _mixedCards;
+    public RulesCommon getCommon() {
+        return common;
     }
 
     public EnumMap<BidTarot, Boolean> getAllowedBids() {
@@ -250,27 +234,4 @@ public final class RulesTarot {
         endDealTarot = _endDealTarot;
     }
 
-    public int getNbDeals() {
-        return nbDeals;
-    }
-
-    public void setNbDeals(int _nbDeals) {
-        nbDeals = _nbDeals;
-    }
-
-    public String getGeneral() {
-        return general;
-    }
-
-    public void setGeneral(String _general) {
-        this.general = _general;
-    }
-
-    public String getSpecific() {
-        return specific;
-    }
-
-    public void setSpecific(String _specific) {
-        this.specific = _specific;
-    }
 }

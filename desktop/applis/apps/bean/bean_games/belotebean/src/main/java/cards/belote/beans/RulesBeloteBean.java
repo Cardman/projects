@@ -26,18 +26,18 @@ public final class RulesBeloteBean extends BeloteBean {
     public void beforeDisplaying() {
         RulesBelote rules_ = db();
         dealAll = rules_.dealAll();
-        cartesBattues=toString(rules_.getCartesBattues(), rules_.getGeneral());
+        cartesBattues=toString(rules_.getCommon().getMixedCards(), rules_.getCommon().getGeneral());
         annoncesAutorisees=new StringList();
         for (DeclaresBelote m: rules_.getListeAnnoncesAutorisees()) {
-            annoncesAutorisees.add(toString(m, rules_.getSpecific()));
+            annoncesAutorisees.add(toString(m, rules_.getCommon().getSpecific()));
         }
         sousCoupeAdv = rules_.getSousCoupeAdv();
-        gestionCoupePartenaire=toString(rules_.getGestionCoupePartenaire(), rules_.getSpecific());
+        gestionCoupePartenaire=toString(rules_.getGestionCoupePartenaire(), rules_.getCommon().getSpecific());
         encheresAutorisees=new StringList();
         for (BidBelote m: rules_.getListeEncheresAutorisees()) {
-            encheresAutorisees.add(toString(m, rules_.getSpecific()));
+            encheresAutorisees.add(toString(m, rules_.getCommon().getSpecific()));
         }
-        repartition = toString(rules_.getRepartition(), rules_.getSpecific());
+        repartition = toString(rules_.getRepartition(), rules_.getCommon().getSpecific());
         comptePointsClassique = rules_.getComptePointsClassique();
     }
 

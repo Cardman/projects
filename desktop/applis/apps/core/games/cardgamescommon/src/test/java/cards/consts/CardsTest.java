@@ -25,6 +25,15 @@ public final class CardsTest extends EquallableCardsUtil {
         r_.setUser((byte) 0);
         assertEq(0, r_.getUser());
         r_.setNicknames(new StringList());
+        RulesCommon rc_ = new RulesCommon(new RulesCommon());
+        rc_.setSpecific("_");
+        rc_.setGeneral("_");
+        rc_.setNbDeals(1);
+        rc_.setMixedCards(MixCardsChoice.NEVER);
+        assertEq("_", rc_.getGeneral());
+        assertEq("_", rc_.getSpecific());
+        assertEq(1, rc_.getNbDeals());
+        assertSame(MixCardsChoice.NEVER,rc_.getMixedCards());
         assertEq(0, r_.getNicknames().size());
         assertNotNull(r_.getRenderedPages());
         assertSame(Role.TAKER,EnumCardsRetrieverUtil.toRole("TAKER"));
@@ -78,6 +87,24 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq("UNDEFINED",EnumCardsExporterUtil.fromSuit(null));
         assertTrue(EnumCardsRetrieverUtil.toBool(Hypothesis.SURE));
         assertFalse(EnumCardsRetrieverUtil.toBool(Hypothesis.POSSIBLE));
+    }
+    @Test
+    public void getSortedPlayers() {
+        Bytes sorted_ = new SortedPlayers(4).getSortedPlayers(2);
+        assertEq(4, sorted_.size());
+        assertEq(2, sorted_.get(0));
+        assertEq(3, sorted_.get(1));
+        assertEq(0, sorted_.get(2));
+        assertEq(1, sorted_.get(3));
+    }
+    @Test
+    public void getSortedPlayersAfter() {
+        Bytes sorted_ = new SortedPlayers(4).getSortedPlayersAfter(2);
+        assertEq(4, sorted_.size());
+        assertEq(3, sorted_.get(0));
+        assertEq(0, sorted_.get(1));
+        assertEq(1, sorted_.get(2));
+        assertEq(2, sorted_.get(3));
     }
     @Test
     public void eqSuitTest() {

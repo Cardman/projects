@@ -62,7 +62,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playableCards_WhileOverTrumpingOnFoe1Test() {
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
 
@@ -96,7 +96,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playableCards_WhileFreeOverTrumpingOnFoe2Test() {
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
 
@@ -132,7 +132,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
     public void playableCards_WhileUnderTrumpingOnFoe3Test() {
         RulesBelote regles_=new RulesBelote();
         regles_.setSousCoupeAdv(true);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
 
@@ -168,7 +168,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
     public void playableCards_WhileDiscardInsteadOfUnderTrumpingOnFoe4Test() {
         RulesBelote regles_=new RulesBelote();
         regles_.setSousCoupeAdv(false);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
 
@@ -203,7 +203,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
     public void playableCards_WhileFollowingTrumpSuitGreaterOnFoe5Test() {
         RulesBelote regles_=new RulesBelote();
         regles_.setSousCoupeAdv(false);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
 
@@ -228,7 +228,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
     public void playableCards_WhileFollowingTrumpSuitAnyOverOnFoe6Test() {
         RulesBelote regles_=new RulesBelote();
         regles_.setSousCoupeAdv(false);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
 
@@ -255,7 +255,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
     public void playableCards_WhileFollowingTrumpSuitAnyUnderOnFoe7Test() {
         RulesBelote regles_=new RulesBelote();
         regles_.setSousCoupeAdv(false);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
 

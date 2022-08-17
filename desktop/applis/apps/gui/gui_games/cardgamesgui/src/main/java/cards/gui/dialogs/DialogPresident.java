@@ -84,7 +84,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
 //            listeChoix.addItem(choix_);
 //        }
-        listeChoix.setSelectedItem(getReglesPresident().getMixedCards());
+        listeChoix.setSelectedItem(getReglesPresident().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
         if (getNbGames() != null) {
             dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_DEALS)));
@@ -207,7 +207,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     protected void validateRules() {
 //        getReglesPresident().setMixedCards((MixCardsChoice)listeChoix.getSelectedItem());
-        getReglesPresident().setMixedCards(listeChoix.getCurrent());
+        getReglesPresident().getCommon().setMixedCards(listeChoix.getCurrent());
         getReglesPresident().setEqualty(equality.getCurrentElement());
         getReglesPresident().setHasToPlay(!canPass.isSelected());
         getReglesPresident().setPossibleReversing(possibleReversing.isSelected());

@@ -10,10 +10,7 @@ import cards.gui.dialogs.enums.SaveDealMode;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.CardsScrollableList;
 import cards.gui.panels.TarotCardsScrollableList;
-import cards.tarot.DealTarot;
-import cards.tarot.DisplayingTarot;
-import cards.tarot.GameTarot;
-import cards.tarot.HandTarot;
+import cards.tarot.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -138,7 +135,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     @Override
     public void validateRulesDeal(WindowCards _parent) {
         validateRules();
-        getReglesTarot().setNbDeals(getNbGames().getValue());
+        getReglesTarot().getCommon().setNbDeals(getNbGames().getValue());
         distribuer(_parent);
     }
     private void distribuer(WindowCards _parent) {
@@ -155,7 +152,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
-        int nbPlayers_ = getReglesTarot().getRepartition().getNombreJoueurs();
+        int nbPlayers_ = getReglesTarot().getRepartition().getId().getNombreJoueurs();
         for(String n: nickNames.getPseudosTarot()) {
             if (liste.getItemCount() == nbPlayers_) {
                 break;
@@ -211,7 +208,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosTarot()) {
-            if (listeTwo.getItemCount() == getReglesTarot().getRepartition().getNombreJoueurs() + 1) {
+            if (listeTwo.getItemCount() == getReglesTarot().getRepartition().getId().getNombreJoueurs() + 1) {
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);

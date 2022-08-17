@@ -47,7 +47,7 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         main_.ajouter(CardBelote.HEART_7);
         DealBelote donne_ = new DealBelote(0, main_);
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         donne_.setDealer((byte) 3);
         initDonneLoc(donne_, regles_);
         assertTrue(donne_.hand().contient(CardBelote.DIAMOND_QUEEN));
@@ -121,7 +121,7 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         main_.ajouter(CardBelote.HEART_7);
         DealBelote donne_ = new DealBelote(0, main_);
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.EACH_LAUNCHING);
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         donne_.setDealer((byte) 3);
         initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
@@ -164,7 +164,7 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         main_.ajouter(CardBelote.HEART_7);
         DealBelote donne_ = new DealBelote(0, main_);
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
         donne_.setDealer((byte) 3);
         initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
@@ -206,7 +206,7 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         main_.ajouter(CardBelote.HEART_7);
         DealBelote donne_ = new DealBelote(0, main_);
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.ONCE_ONLY);
+        regles_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         donne_.setDealer((byte) 3);
         initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
@@ -249,7 +249,7 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         main_.ajouter(CardBelote.HEART_7);
         DealBelote donne_ = new DealBelote(1, main_);
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.ONCE_ONLY);
+        regles_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         donne_.setDealer((byte) 3);
         initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
@@ -292,7 +292,7 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         main_.ajouter(CardBelote.HEART_7);
         DealBelote donne_ = new DealBelote(1, main_);
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.EACH_LAUNCHING);
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         donne_.setDealer((byte) 3);
         initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
@@ -334,7 +334,7 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         main_.ajouter(CardBelote.HEART_7);
         DealBelote donne_ = new DealBelote(0, new HandBelote(main_));
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         donne_.setDealer((byte) 3);
         initDonneLoc(donne_, regles_);
         donne_.completerDonne((byte) 0,regles_);

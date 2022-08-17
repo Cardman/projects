@@ -5,6 +5,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Suit;
 import code.util.*;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
@@ -387,7 +388,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
     @Test
     public void ramasseurBatSsCprAdv7Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
         bid_.setEnchere(BidBelote.NO_TRUMP);
@@ -410,7 +411,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
     @Test
     public void ramasseurBatSsCprAdv8Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
         bid_.setEnchere(BidBelote.NO_TRUMP);

@@ -13,6 +13,8 @@ import cards.gui.dialogs.events.ClosingEditorCards;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.ints.Listable;
 
 public abstract class DialogBelote extends DialogCards {
@@ -72,7 +74,7 @@ public abstract class DialogBelote extends DialogCards {
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
 //            listeChoix.addItem(choix_);
 //        }
-        listeChoix.setSelectedItem(getReglesBelote().getCartesBattues());
+        listeChoix.setSelectedItem(getReglesBelote().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
         dealAll = getCompoFactory().newCustCheckBox(getMessages().getVal(DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
@@ -92,7 +94,7 @@ public abstract class DialogBelote extends DialogCards {
         bidding=_window.getCompoFactory().newGrid(1,0);
         for (BidBelote enchere_:BidBelote.values()) {
             AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,_lg));
-            caseCroix_.setSelected(getReglesBelote().getEncheresAutorisees().getVal(enchere_));
+            caseCroix_.setSelected(getReglesBelote().getAllowedBids().getVal(enchere_) == BoolVal.TRUE);
             caseCroix_.setEnabled(!enchere_.getToujoursPossibleAnnoncer());
             bidding.add(caseCroix_);
             bids.add(caseCroix_);
@@ -162,13 +164,13 @@ public abstract class DialogBelote extends DialogCards {
 
 
 //        getReglesBelote().setCartesBattues((MixCardsChoice)listeChoix.getSelectedItem());
-        getReglesBelote().setCartesBattues(listeChoix.getCurrent());
-        EnumMap<BidBelote,Boolean> contrats_ = new EnumMap<BidBelote,Boolean>();
+        getReglesBelote().getCommon().setMixedCards(listeChoix.getCurrent());
+        EnumMap<BidBelote,BoolVal> contrats_ = new EnumMap<BidBelote,BoolVal>();
         for (BidBelote enchere_: BidBelote.values()) {
             AbsCustCheckBox jcb_= bids.get(enchere_.ordinal());
-            contrats_.put(enchere_, jcb_.isSelected());
+            contrats_.put(enchere_, ComparatorBoolean.of(jcb_.isSelected()));
         }
-        getReglesBelote().setEncheresAutorisees(contrats_);
+        getReglesBelote().setAllowedBids(contrats_);
 
         EnumMap<DeclaresBelote,Boolean> annonces_ = new EnumMap<DeclaresBelote,Boolean>();
         for (DeclaresBelote enchere_: indicesAnnoncesValides.getKeys()) {

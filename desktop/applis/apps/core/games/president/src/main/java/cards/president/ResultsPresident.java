@@ -41,7 +41,7 @@ public final class ResultsPresident {
         }
         GameType type_ = game.getType();
         long number_ = game.getNumber();
-        int nbDeals_ = game.getRules().getNbDeals();
+        int nbDeals_ = game.getRules().getCommon().getNbDeals();
         calculateScores(scoresDeal_, type_, number_, nbDeals_);
     }
 

@@ -5,6 +5,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
@@ -450,7 +451,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleursEgales1Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -481,7 +482,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleursEgales2Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -511,7 +512,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleursEgales3Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -540,7 +541,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleursEgales4Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -567,7 +568,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleursEgales5Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -652,7 +653,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleurDominante3Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
@@ -681,7 +682,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleurDominante4Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
@@ -709,7 +710,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleurDominante5Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
@@ -738,7 +739,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseCouleurDemandeeSurPartenaireCouleurDominante6Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
@@ -765,7 +766,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleursEgales1Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -796,7 +797,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleursEgales2Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -826,7 +827,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleursEgales3Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -855,7 +856,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleursEgales4Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -882,7 +883,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleursEgales5Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -912,7 +913,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleursEgales6Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
@@ -999,7 +1000,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleurDominante3Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
@@ -1028,7 +1029,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleurDominante4Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
@@ -1056,7 +1057,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleurDominante5Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
@@ -1085,7 +1086,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void defausseAtoutSurPartenaireCouleurDominante6Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);

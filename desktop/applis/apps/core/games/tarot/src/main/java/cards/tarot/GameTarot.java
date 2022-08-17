@@ -466,7 +466,7 @@ public final class GameTarot {
 
     /** Renvoie le nombre de joueurs jouant a la partie */
     public byte getNombreDeJoueurs() {
-        return (byte) rules.getRepartition().getNombreJoueurs();
+        return (byte) rules.getRepartition().getId().getNombreJoueurs();
     }
 
     public RulesTarot getRegles() {
@@ -1250,7 +1250,7 @@ public final class GameTarot {
 
 
     public Bytes orderedPlayers(byte _leader) {
-        return rules.getRepartition().getSortedPlayers(_leader);
+        return rules.getRepartition().getId().getSortedPlayers(_leader);
     }
 
     public byte playerHavingToBid() {
@@ -1266,7 +1266,7 @@ public final class GameTarot {
         return getPliEnCours().getNextPlayer(getNombreDeJoueurs());
     }
     public byte playerAfter(byte _player) {
-        return rules.getRepartition().getNextPlayer(_player);
+        return rules.getRepartition().getId().getNextPlayer(_player);
     }
 
 

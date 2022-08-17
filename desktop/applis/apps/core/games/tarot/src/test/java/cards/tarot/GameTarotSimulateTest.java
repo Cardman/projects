@@ -14,7 +14,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
     @Test
     public void bidSimulate1Test() {
         RulesTarot rules_ = new RulesTarot();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -31,7 +31,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
     @Test
     public void bidSimulate2Test() {
         RulesTarot rules_ = new RulesTarot();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);

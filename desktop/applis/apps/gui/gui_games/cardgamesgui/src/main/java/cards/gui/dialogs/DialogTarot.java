@@ -85,7 +85,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
 //            listeChoix.addItem(choix_);
 //        }
-        listeChoix.setSelectedItem(getReglesTarot().getCartesBattues());
+        listeChoix.setSelectedItem(getReglesTarot().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
         if (getNbGames() != null) {
             dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_DEALS)));
@@ -194,21 +194,21 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(REPARTITION_PLAYERS)));
 
         EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
-        int minJoueurs_=repValides_.get(0).getNombreJoueurs();
-        int maxJoueurs_=repValides_.get(0).getNombreJoueurs();
+        int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
+        int maxJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
         for(DealingTarot r: repValides_) {
-            if(minJoueurs_>r.getNombreJoueurs()) {
-                minJoueurs_=r.getNombreJoueurs();
+            if(minJoueurs_> r.getId().getNombreJoueurs()) {
+                minJoueurs_= r.getId().getNombreJoueurs();
             }
-            if(maxJoueurs_<r.getNombreJoueurs()) {
-                maxJoueurs_=r.getNombreJoueurs();
+            if(maxJoueurs_< r.getId().getNombreJoueurs()) {
+                maxJoueurs_= r.getId().getNombreJoueurs();
             }
         }
         int value_;
         if (_nbPlayers != 0) {
             value_ = _nbPlayers;
         } else {
-            value_ = getReglesTarot().getRepartition().getNombreJoueurs();
+            value_ = getReglesTarot().getRepartition().getId().getNombreJoueurs();
         }
         nbJoueurs=getCompoFactory().newSpinner(value_,minJoueurs_,maxJoueurs_,1);
         if (_enabledChangingNbPlayers) {
@@ -223,7 +223,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         index_ = 0;
         i_ = -1;
         for(DealingTarot r:DealingTarot.values()) {
-            if(r.getNombreJoueurs()!=valeur_) {
+            if(r.getId().getNombreJoueurs() !=valeur_) {
                 continue;
             }
             if (r == curThree_) {
@@ -262,7 +262,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         listeChoixFour.removeAllItems();
         EnumList<DealingTarot> repartitions_ = new EnumList<DealingTarot>();
         for(DealingTarot r:DealingTarot.getRepartitionsValides()) {
-            if(r.getNombreJoueurs()!=nombreJoueursSel_) {
+            if(r.getId().getNombreJoueurs() !=nombreJoueursSel_) {
                 continue;
             }
             repartitions_.add(r);
@@ -271,7 +271,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         int index_ = 0;
         int i_ = -1;
         for(DealingTarot r:DealingTarot.getRepartitionsValides()) {
-            if(r.getNombreJoueurs()!=nombreJoueursSel_) {
+            if(r.getId().getNombreJoueurs() !=nombreJoueursSel_) {
                 continue;
             }
             if (r == curThree_) {
@@ -317,7 +317,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     protected void validateRules() {
 //        getReglesTarot().setCartesBattues((MixCardsChoice)listeChoix.getSelectedItem());
-        getReglesTarot().setCartesBattues(listeChoix.getCurrent());
+        getReglesTarot().getCommon().setMixedCards(listeChoix.getCurrent());
         getReglesTarot().setPoigneesAutorisees(poigneesAutorisees);
         EnumList<Miseres> miseres_=new EnumList<Miseres>();
         for (Miseres misere_: Miseres.values()) {

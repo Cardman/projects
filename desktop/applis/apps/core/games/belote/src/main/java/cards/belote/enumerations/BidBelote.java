@@ -4,37 +4,33 @@ import code.util.EnumList;
 
 public enum BidBelote {
     FOLD(0,true),
-    SUIT(1,2,true,true),
-    OTHER_SUIT(1,1,true,true),
-    NO_TRUMP(3,1,Order.SUIT,false),
-    ALL_TRUMP(4,1,Order.TRUMP,false);
+    SUIT(1, true,true),
+    OTHER_SUIT(1, true,true),
+    NO_TRUMP(3, Order.SUIT,false),
+    ALL_TRUMP(4, Order.TRUMP,false);
     private final int force;
-    private final int priorite;
     private final boolean couleurDominante;
     private final boolean toujoursPossibleAnnoncer;
     private final Order ordre;
     BidBelote(int _force,
             boolean _toujoursPossibleAnnoncer){
         force = _force;
-        priorite = 0;
         ordre = Order.NOTHING;
         couleurDominante = false;
         toujoursPossibleAnnoncer = _toujoursPossibleAnnoncer;
     }
-    BidBelote(int _force,int _priorite,
-            boolean _couleurDominante,
-            boolean _toujoursPossibleAnnoncer){
+    BidBelote(int _force,
+              boolean _couleurDominante,
+              boolean _toujoursPossibleAnnoncer){
         force = _force;
-        priorite = _priorite;
         ordre = Order.NOTHING;
         couleurDominante = _couleurDominante;
         toujoursPossibleAnnoncer = _toujoursPossibleAnnoncer;
     }
-    BidBelote(int _force,int _priorite,
-            Order _ordre,
-            boolean _toujoursPossibleAnnoncer){
+    BidBelote(int _force,
+              Order _ordre,
+              boolean _toujoursPossibleAnnoncer){
         force = _force;
-        priorite = _priorite;
         ordre = _ordre;
         couleurDominante = false;
         toujoursPossibleAnnoncer = _toujoursPossibleAnnoncer;
@@ -50,22 +46,7 @@ public enum BidBelote {
     public Order getOrdre() {
         return ordre;
     }
-    //portee projet
-    public boolean estPrioritaire(BidBelote _enchere, boolean _premierTour){
-        if(force != _enchere.force){
-            return false;
-        }
-        if(_premierTour){
-            if(priorite > _enchere.priorite){
-                return true;
-            }
-        }else{
-            if(priorite < _enchere.priorite){
-                return true;
-            }
-        }
-        return false;
-    }
+
     public boolean ordreCouleur(){
         if(couleurDominante){
             return false;

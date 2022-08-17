@@ -102,7 +102,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         DealTarot donne_ = new DealTarot(0, main_);
         RulesTarot regles_ = new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         donne_.setDealer((byte) 1);
         initDonneLoc(donne_, regles_);
         assertTrue(donne_.hand().contient(CardTarot.SPADE_8));
@@ -195,7 +195,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         DealTarot donne_ = new DealTarot(1, main_);
         RulesTarot regles_ = new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
-        regles_.setCartesBattues(MixCardsChoice.ONCE_ONLY);
+        regles_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         donne_.setDealer((byte) 1);
         initDonneLoc(donne_, regles_);
         assertEq(24, donne_.hand().total());
@@ -207,7 +207,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         DealTarot donne_ = new DealTarot(0, main_);
         RulesTarot regles_ = new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
-        regles_.setCartesBattues(MixCardsChoice.ONCE_ONLY);
+        regles_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         donne_.setDealer((byte) 1);
         initDonneLoc(donne_, regles_);
         assertEq(24, donne_.hand().total());
@@ -219,7 +219,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         DealTarot donne_ = new DealTarot(1, main_);
         RulesTarot regles_ = new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
-        regles_.setCartesBattues(MixCardsChoice.EACH_LAUNCHING);
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         donne_.setDealer((byte) 1);
         initDonneLoc(donne_, regles_);
         assertEq(24, donne_.hand().total());
@@ -231,7 +231,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         DealTarot donne_ = new DealTarot(0, main_);
         RulesTarot regles_ = new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
-        regles_.setCartesBattues(MixCardsChoice.EACH_LAUNCHING);
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         donne_.setDealer((byte) 1);
         initDonneLoc(donne_, regles_);
         assertEq(24, donne_.hand().total());
@@ -243,7 +243,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         DealTarot donne_ = new DealTarot(0, main_);
         RulesTarot regles_ = new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
-        regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
         donne_.setDealer((byte) 1);
         initDonneLoc(donne_, regles_);
         assertEq(24, donne_.hand().total());

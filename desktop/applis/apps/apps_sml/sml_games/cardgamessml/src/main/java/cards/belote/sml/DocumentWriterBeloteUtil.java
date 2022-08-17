@@ -21,6 +21,7 @@ import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class DocumentWriterBeloteUtil {
 
@@ -207,14 +208,14 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static void setRulesBelote(RulesBelote _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCardsCommonUtil.setMixCardsChoice(_object.getMixedCards(),FIELD_MIXED_CARDS,_document));
+        _element.appendChild(DocumentWriterCardsCommonUtil.setMixCardsChoice(_object.getCommon().getMixedCards(),FIELD_MIXED_CARDS,_document));
         _element.appendChild(setMapDeclaresBeloteBoolean(_object.getAllowedDeclares(),FIELD_ALLOWED_DECLARES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isUnderTrumpFoe(),FIELD_UNDER_TRUMP_FOE,_document));
         _element.appendChild(setBeloteTrumpPartner(_object.getTrumpPartner(),FIELD_TRUMP_PARTNER,_document));
         _element.appendChild(setMapBidBeloteBoolean(_object.getAllowedBids(),FIELD_ALLOWED_BIDS,_document));
         _element.appendChild(setDealingBelote(_object.getDealing(),FIELD_DEALING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClassicCountPoints(),FIELD_CLASSIC_COUNT_POINTS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbDeals(),FIELD_NB_DEALS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getCommon().getNbDeals(),FIELD_NB_DEALS,_document));
     }
 
     private static Element setTrickBelote(TrickBelote _object, String _fieldName, Document _document) {
@@ -304,10 +305,10 @@ public final class DocumentWriterBeloteUtil {
         return elt_;
     }
 
-    private static Element setMapBidBeloteBoolean(EnumMap<BidBelote,Boolean> _object, String _fieldName, Document _document) {
+    private static Element setMapBidBeloteBoolean(EnumMap<BidBelote, BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<BidBelote, Boolean> s: _object.entryList()) {
+        for (EntryCust<BidBelote, BoolVal> s: _object.entryList()) {
             Element sub_ = setBidBelote(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

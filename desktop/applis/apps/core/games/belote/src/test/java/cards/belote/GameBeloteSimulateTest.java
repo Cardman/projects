@@ -7,13 +7,14 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.Bytes;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void bidSimulate1Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         DisplayingBelote display_ = new DisplayingBelote();
@@ -27,7 +28,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void bidSimulate2Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -48,7 +49,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void bidRoundSimulate1Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -60,7 +61,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void bidRoundSimulate2Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -72,7 +73,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void secRoundSimulate1Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -85,7 +86,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void secRoundSimulate2Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -102,7 +103,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void secRoundSimulate3Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -122,7 +123,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuPlayCards1Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
@@ -143,7 +144,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuPlayCards2Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -159,7 +160,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuPlayCards3Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
@@ -180,7 +181,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuPlayCards4Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -196,7 +197,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuPlayCards5Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
@@ -213,7 +214,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuPlayCards6Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -234,8 +235,8 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuPlayCards7Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
-        rules_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -251,8 +252,8 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuPlayCards8Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
-        rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -268,7 +269,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuler1Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -280,7 +281,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuler2Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
@@ -293,7 +294,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuler3Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -305,7 +306,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void simuler4Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setMixedCards(MixCardsChoice.NEVER);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);

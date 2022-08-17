@@ -5216,7 +5216,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         } else if (mode_ == ModeTarot.NORMAL_WITH_MISERE) {
             b_ = true;
         }
-        byte nbPl_ = (byte) _r.getRepartition().getNombreJoueurs();
+        byte nbPl_ = (byte) _r.getRepartition().getId().getNombreJoueurs();
         for (int i = 0; i< nbPl_; i++) {
             CustList<Boolean> c_ = new CustList<Boolean>();
             for (int j = 0; j< nbPl_; j++) {
@@ -5280,7 +5280,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
                                                CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
-        byte nbPl_ = (byte) _r.getRepartition().getNombreJoueurs();
+        byte nbPl_ = (byte) _r.getRepartition().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             deal_.add(new HandTarot());
         }
@@ -5290,7 +5290,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
                                                CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>(_deal);
-        byte nbPl_ = (byte) _r.getRepartition().getNombreJoueurs();
+        byte nbPl_ = (byte) _r.getRepartition().getId().getNombreJoueurs();
         deal_.add(_lastHand);
         TrickTarot last_ = _trs.last();
         GameTarot g_ = new GameTarot(GameType.RANDOM,new DealTarot(deal_, (byte) _dealer),_r);

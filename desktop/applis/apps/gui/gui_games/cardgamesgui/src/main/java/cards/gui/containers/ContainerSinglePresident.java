@@ -646,7 +646,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         long nombreParties_;
         type_=partie_.getType();
         nombreParties_= partie_.getNumber();
-        int nombreTotalParties_= partie_.getRules().getNbDeals();
+        int nombreTotalParties_= partie_.getRules().getCommon().getNbDeals();
         if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
             addButtonKeepPlayingEditedDealPresident(buttons_, getMessages().getVal(WindowCards.KEEP_PLAYING_EDITED_DEAL));
         } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {

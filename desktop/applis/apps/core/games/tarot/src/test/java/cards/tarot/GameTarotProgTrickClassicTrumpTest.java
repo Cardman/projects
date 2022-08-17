@@ -43,7 +43,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -101,7 +101,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -159,7 +159,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -233,7 +233,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -291,7 +291,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -349,7 +349,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.TRUMP_11);
@@ -406,7 +406,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.TRUMP_11);
@@ -461,7 +461,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_1);
         t_.ajouter(CardTarot.DIAMOND_2);
         t_.ajouter(CardTarot.TRUMP_11);
@@ -529,7 +529,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_1);
         t_.ajouter(CardTarot.DIAMOND_2);
         t_.ajouter(CardTarot.TRUMP_11);
@@ -599,7 +599,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.TRUMP_11);
@@ -656,7 +656,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.TRUMP_11);
@@ -713,7 +713,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -770,7 +770,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -827,7 +827,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -885,7 +885,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -943,7 +943,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -1001,7 +1001,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.TRUMP_1);
@@ -1059,7 +1059,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -1117,7 +1117,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1175,7 +1175,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_QUEEN);
@@ -1232,7 +1232,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1290,7 +1290,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.TRUMP_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1348,7 +1348,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.TRUMP_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1406,7 +1406,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1465,7 +1465,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1526,7 +1526,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1584,7 +1584,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1641,7 +1641,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.DIAMOND_3);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1698,7 +1698,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_10);
         t_.ajouter(CardTarot.DIAMOND_3);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1755,7 +1755,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_10);
         t_.ajouter(CardTarot.DIAMOND_3);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1812,7 +1812,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -1867,7 +1867,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_10);
         t_.ajouter(CardTarot.DIAMOND_3);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_1);
         t_.ajouter(CardTarot.DIAMOND_2);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -1936,7 +1936,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_10);
         t_.ajouter(CardTarot.DIAMOND_3);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_1);
         t_.ajouter(CardTarot.DIAMOND_2);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2007,7 +2007,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_KING);
@@ -2062,7 +2062,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2132,7 +2132,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2202,7 +2202,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2272,7 +2272,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2342,7 +2342,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2412,7 +2412,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2482,7 +2482,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2552,7 +2552,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2622,7 +2622,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2693,7 +2693,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2764,7 +2764,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -2834,7 +2834,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -2904,7 +2904,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -2974,7 +2974,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -3044,7 +3044,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -3114,7 +3114,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -3185,7 +3185,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -3257,7 +3257,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -3331,7 +3331,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -3401,7 +3401,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);
@@ -3480,7 +3480,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_2);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.TRUMP_15);
@@ -3552,7 +3552,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_2);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         t_.ajouter(CardTarot.DIAMOND_JACK);
@@ -3631,7 +3631,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_2);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_5);
         t_.ajouter(CardTarot.TRUMP_15);
@@ -3697,7 +3697,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -3754,7 +3754,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -3811,7 +3811,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.TRUMP_11);
@@ -3867,7 +3867,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -3921,7 +3921,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_KING);
@@ -3990,7 +3990,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.DIAMOND_4);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         t_.ajouter(CardTarot.DIAMOND_5);

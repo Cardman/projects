@@ -64,14 +64,14 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);
         if (_game == GameEnum.TAROT) {
             EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
-            int minJoueurs_=repValides_.get(0).getNombreJoueurs();
-            int maxJoueurs_=repValides_.get(0).getNombreJoueurs();
+            int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
+            int maxJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
             for(DealingTarot r: repValides_){
-                if(minJoueurs_>r.getNombreJoueurs()){
-                    minJoueurs_=r.getNombreJoueurs();
+                if(minJoueurs_> r.getId().getNombreJoueurs()){
+                    minJoueurs_= r.getId().getNombreJoueurs();
                 }
-                if(maxJoueurs_<r.getNombreJoueurs()){
-                    maxJoueurs_=r.getNombreJoueurs();
+                if(maxJoueurs_< r.getId().getNombreJoueurs()){
+                    maxJoueurs_= r.getId().getNombreJoueurs();
                 }
             }
             nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
@@ -85,14 +85,14 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
             panel_.add(nbPlayers);
         } else {
             EnumList<DealingBelote> repValides_ = new EnumList<DealingBelote>(DealingBelote.getRepartitionsValides());
-            int minJoueurs_=repValides_.get(0).getNombreJoueurs();
-            int maxJoueurs_=repValides_.get(0).getNombreJoueurs();
+            int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
+            int maxJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
             for(DealingBelote r: repValides_){
-                if(minJoueurs_>r.getNombreJoueurs()){
-                    minJoueurs_=r.getNombreJoueurs();
+                if(minJoueurs_> r.getId().getNombreJoueurs()){
+                    minJoueurs_= r.getId().getNombreJoueurs();
                 }
-                if(maxJoueurs_<r.getNombreJoueurs()){
-                    maxJoueurs_=r.getNombreJoueurs();
+                if(maxJoueurs_< r.getId().getNombreJoueurs()){
+                    maxJoueurs_= r.getId().getNombreJoueurs();
                 }
             }
             nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);

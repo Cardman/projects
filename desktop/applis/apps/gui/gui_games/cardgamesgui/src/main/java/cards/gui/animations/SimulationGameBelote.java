@@ -18,8 +18,8 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         HandBelote pile_=HandBelote.pileBase();
         DealBelote donne_=new DealBelote(0L,pile_);
         RulesBelote regles_ = container.getWindow().getReglesBelote();
-        donne_.setRandomDealer(regles_.getRepartition().getNombreJoueurs(),container.getWindow().getGenerator());
-        regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
+        donne_.setRandomDealer(regles_.getRepartition().getId().getNombreJoueurs(),container.getWindow().getGenerator());
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_,container.getDisplayingBelote(),container.getWindow().getGenerator());
         GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerBelote(gb_);

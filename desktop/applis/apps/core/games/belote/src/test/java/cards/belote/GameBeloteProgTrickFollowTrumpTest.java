@@ -30,7 +30,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_10);
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.HEART_8);
@@ -70,7 +70,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_QUEEN);
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.HEART_8);
@@ -110,7 +110,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_QUEEN);
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.DIAMOND_7);
@@ -149,7 +149,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.DIAMOND_7);
         DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);
@@ -187,7 +187,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.DIAMOND_7);
         DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);
@@ -225,7 +225,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_7);
         pr_.ajouter(CardBelote.DIAMOND_7);
         DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);
@@ -263,7 +263,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_7);
         pr_.ajouter(CardBelote.DIAMOND_7);
         DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);
@@ -301,7 +301,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.HEART_10);
         pr_.ajouter(CardBelote.HEART_8);
@@ -340,7 +340,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_10);
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.HEART_8);
@@ -378,7 +378,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_7);
         pr_.ajouter(CardBelote.DIAMOND_7);
         DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);

@@ -16,7 +16,6 @@ import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -970,7 +969,7 @@ public final class EndTarotGame {
     }
 
     static Shorts coefficients(Shorts _positions, DealingTarot _repartition) {
-        byte nombreJoueurs_ = (byte) _repartition.getNombreJoueurs();
+        byte nombreJoueurs_ = (byte) _repartition.getId().getNombreJoueurs();
         byte maxPosition_ = 0;
         byte nombreLitiges_;
         Shorts coefficients_ = new Shorts();
@@ -1198,7 +1197,7 @@ public final class EndTarotGame {
     }
 
     static Shorts coefficientsMisere(Shorts _positions, DealingTarot _repartition) {
-        byte nombreJoueurs_ = (byte) _repartition.getNombreJoueurs();
+        byte nombreJoueurs_ = (byte) _repartition.getId().getNombreJoueurs();
         byte nombreLitiges_ = 0;
         Shorts coefficients_ = new Shorts();
         for (short position_ : _positions) {

@@ -29,7 +29,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_4);
@@ -80,7 +80,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_4);
@@ -130,7 +130,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_4);
@@ -192,7 +192,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_4);
@@ -256,7 +256,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_4);
@@ -317,7 +317,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_4);

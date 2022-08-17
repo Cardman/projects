@@ -358,7 +358,7 @@ public final class GameTarotCommonPlaying {
         return couleurs_;
     }
     byte playerAfter(byte _player) {
-        return teamsRelation.getRules().getRepartition().getNextPlayer(_player);
+        return teamsRelation.getRules().getRepartition().getId().getNextPlayer(_player);
     }
     /**
      Retourne vrai si et seulement si le joueur peut ramasser tous les atouts

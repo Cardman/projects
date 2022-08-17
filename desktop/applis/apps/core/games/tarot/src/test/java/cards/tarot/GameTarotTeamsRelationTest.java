@@ -98,7 +98,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) 1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
-        byte nbPl_ = (byte) rules_.getRepartition().getNombreJoueurs();
+        byte nbPl_ = (byte) rules_.getRepartition().getId().getNombreJoueurs();
         for (byte p = 0; p < nbPl_; p++) {
             g_.determinerConfiance(p,nbPl_);
         }
@@ -130,7 +130,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) taker_);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
-        byte nbPl_ = (byte) rules_.getRepartition().getNombreJoueurs();
+        byte nbPl_ = (byte) rules_.getRepartition().getId().getNombreJoueurs();
         for (byte p = 0; p < nbPl_; p++) {
             g_.determinerConfiance(p,nbPl_);
         }
@@ -248,7 +248,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         } else if (mode_ == ModeTarot.NORMAL_WITH_MISERE) {
             b_ = true;
         }
-        byte nbPl_ = (byte) _r.getRepartition().getNombreJoueurs();
+        byte nbPl_ = (byte) _r.getRepartition().getId().getNombreJoueurs();
         for (int i = 0; i< nbPl_; i++) {
             CustList<Boolean> c_ = new CustList<Boolean>();
             for (int j = 0; j< nbPl_; j++) {

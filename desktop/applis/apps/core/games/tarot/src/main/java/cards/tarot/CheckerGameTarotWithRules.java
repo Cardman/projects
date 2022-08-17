@@ -67,7 +67,7 @@ public final class CheckerGameTarotWithRules {
             return;
         }
         if (_loadedGame.getDistribution().nombreDeMains() != rules_
-                .getRepartition().getNombreJoueurs() + 1) {
+                .getRepartition().getId().getNombreJoueurs() + 1) {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return;
         }

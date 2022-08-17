@@ -4,6 +4,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.consts.Suit;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameBeloteBidTest extends EquallableBeloteUtil {
@@ -47,7 +48,7 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     @Test
     public void contrat3Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -66,7 +67,7 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     @Test
     public void contrat4Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -103,7 +104,7 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     @Test
     public void contrat6Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -140,7 +141,7 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     @Test
     public void contrat8Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_8);
@@ -159,8 +160,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     @Test
     public void contrat9Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -274,7 +275,7 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     public void contrat15Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_8);
@@ -318,7 +319,7 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     @Test
     public void contrat17Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
@@ -342,7 +343,7 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     public void contrat18Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
         bid_.setPoints(120);
@@ -393,8 +394,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     public void contrat20Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -417,8 +418,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     public void contrat21Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_KING);
@@ -441,8 +442,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     public void contrat22Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_KING);
@@ -465,8 +466,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     public void strategieContrat1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.ALL_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
@@ -491,8 +492,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     public void strategieContrat2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_KING);
@@ -532,8 +533,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
     @Test
     public void strategieContrat4Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
-        r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
+        r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.ALL_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);

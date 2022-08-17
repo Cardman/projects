@@ -126,7 +126,7 @@ public final class ResultsTarot {
         }
         GameType type_ = game.getType();
         long number_ = game.getNumber();
-        int nbDeals_ = game.getRegles().getNbDeals();
+        int nbDeals_ = game.getRegles().getCommon().getNbDeals();
         calculateScores(scoresDeal_, type_, number_, nbDeals_);
     }
 

@@ -113,7 +113,7 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
     static RulesTarot initializeRulesWithBids() {
         RulesTarot regles_=new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_2_VS_4_CALL_KING);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot b: regles_.getContrats().getKeys()) {
             contrats_.put(b,true);

@@ -264,7 +264,7 @@ public final class DocumentReaderTarotUtil {
 
     private static void getRulesTarot(RulesTarot _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_MIXED_CARDS)) {
-            _object.setMixedCards(DocumentReaderCardsCommonUtil.getMixCardsChoice(_element));
+            _object.getCommon().setMixedCards(DocumentReaderCardsCommonUtil.getMixCardsChoice(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_MISERES)) {
@@ -292,7 +292,7 @@ public final class DocumentReaderTarotUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_NB_DEALS)) {
-            _object.setNbDeals(DocumentReaderCoreUtil.getInteger(_element));
+            _object.getCommon().setNbDeals(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_DISCARD_AFTER_CALL)) {

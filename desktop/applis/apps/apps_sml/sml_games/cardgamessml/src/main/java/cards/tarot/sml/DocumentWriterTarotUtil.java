@@ -185,14 +185,14 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static void setRulesTarot(RulesTarot _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCardsCommonUtil.setMixCardsChoice(_object.getMixedCards(),FIELD_MIXED_CARDS,_document));
+        _element.appendChild(DocumentWriterCardsCommonUtil.setMixCardsChoice(_object.getCommon().getMixedCards(),FIELD_MIXED_CARDS,_document));
         _element.appendChild(setListMiseres(_object.getMiseres(),FIELD_MISERES,_document));
         _element.appendChild(setMapBidTarotBoolean(_object.getAllowedBids(),FIELD_ALLOWED_BIDS,_document));
         _element.appendChild(setModeTarot(_object.getMode(),FIELD_MODE,_document));
         _element.appendChild(setDealingTarot(_object.getDealing(),FIELD_DEALING,_document));
         _element.appendChild(setMapHandfulsInteger(_object.getAllowedHandfuls(),FIELD_ALLOWED_HANDFULS,_document));
         _element.appendChild(setEndDealTarot(_object.getEndDealTarot(),FIELD_END_DEAL_TAROT,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbDeals(),FIELD_NB_DEALS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getCommon().getNbDeals(),FIELD_NB_DEALS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getDiscardAfterCall(),FIELD_DISCARD_AFTER_CALL,_document));
     }
 

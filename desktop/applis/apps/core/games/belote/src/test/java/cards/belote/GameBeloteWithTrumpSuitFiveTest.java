@@ -61,7 +61,7 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
     }    @Test
     public void playableCards_WhileDiscardingInsteadOfTrumpingOnPartner1Test(){
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.setGestionCoupePartenaire(BeloteTrumpPartner.OVERTRUMP_ONLY);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
@@ -89,7 +89,7 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playableCards_WhileDiscardingInsteadOfTrumpingOnPartner2Test(){
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.setGestionCoupePartenaire(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();

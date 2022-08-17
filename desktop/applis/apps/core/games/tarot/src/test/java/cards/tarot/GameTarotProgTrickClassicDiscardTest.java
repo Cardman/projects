@@ -44,7 +44,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.TRUMP_3);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -102,7 +102,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.TRUMP_3);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -160,7 +160,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.TRUMP_11);
         pr_.ajouter(CardTarot.DIAMOND_2);
         HandTarot calledCards_ = new HandTarot();
@@ -216,7 +216,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.TRUMP_11);
         pr_.ajouter(CardTarot.DIAMOND_2);
         HandTarot calledCards_ = new HandTarot();
@@ -272,7 +272,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.TRUMP_3);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -329,7 +329,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.TRUMP_3);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -386,7 +386,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.TRUMP_11);
         pr_.ajouter(CardTarot.DIAMOND_2);
         HandTarot calledCards_ = new HandTarot();
@@ -441,7 +441,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -499,7 +499,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -557,7 +557,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         HandTarot calledCards_ = new HandTarot();
@@ -613,7 +613,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         HandTarot calledCards_ = new HandTarot();
@@ -669,7 +669,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -726,7 +726,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         pr_.ajouter(CardTarot.DIAMOND_3);
@@ -783,7 +783,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         pr_.ajouter(CardTarot.DIAMOND_1);
         pr_.ajouter(CardTarot.DIAMOND_2);
         HandTarot calledCards_ = new HandTarot();

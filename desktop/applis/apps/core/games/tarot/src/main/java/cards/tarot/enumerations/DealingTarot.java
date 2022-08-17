@@ -1,4 +1,5 @@
 package cards.tarot.enumerations;
+import cards.consts.SortedPlayers;
 import code.util.EnumList;
 import code.util.*;
 import code.util.Ints;
@@ -16,53 +17,30 @@ public enum DealingTarot {
     DEAL_2_VS_4_WITHOUT_CALL(6,CallingCard.DEFINED,6,1),
     DEAL_2_VS_4_CALL_KING(6,CallingCard.KING,6,1),
     DEAL_2_VS_4_CALL_CHAR(6,CallingCard.CHARACTER_CARD,6,1);
-    private final int nombreJoueurs;
+    private final SortedPlayers id;
     private final CallingCard appel;
     private final int nombreCartesChien;
     private final int nbAppeles;
     DealingTarot(int _nombreJoueurs,CallingCard _appel,
             int _nombreCartesChien,
             int _nbAppeles){
-        nombreJoueurs = _nombreJoueurs;
+        id = new SortedPlayers(_nombreJoueurs);
         appel = _appel;
         nombreCartesChien = _nombreCartesChien;
         nbAppeles = _nbAppeles;
     }
-    public int getNombreJoueurs() {
-        return nombreJoueurs;
+
+    public SortedPlayers getId() {
+        return id;
     }
+
     public CallingCard getAppel() {
         return appel;
     }
     public int getNbAppeles() {
         return nbAppeles;
     }
-    public byte getNextPlayer(int _player) {
-        int next_ = _player;
-        next_++;
-        return (byte) (next_%nombreJoueurs);
-    }
-    public Bytes getSortedPlayers(int _player) {
-        Bytes players_ = new Bytes();
-        int next_ = _player;
-        next_ = (byte) (next_%nombreJoueurs);
-        while (players_.size() < nombreJoueurs) {
-            players_.add((byte) next_);
-            next_ = getNextPlayer(next_);
-        }
-        return players_;
-    }
-    public Bytes getSortedPlayersAfter(int _player) {
-        Bytes players_ = new Bytes();
-        int next_ = _player;
-        next_++;
-        next_ = (byte) (next_%nombreJoueurs);
-        while (players_.size() < nombreJoueurs) {
-            players_.add((byte) next_);
-            next_ = getNextPlayer(next_);
-        }
-        return players_;
-    }
+
     public Ints getDistribution(){
         Ints distribution_ = new Ints();
         for(int i: valDistribution()){
@@ -83,7 +61,7 @@ public enum DealingTarot {
 
     public IntMap<Integer> getDistributionAuChien(){
         IntMap<Integer> indices_ = new IntMap<Integer>();
-        int nbToursTot_ = valDistribution().length * nombreJoueurs;
+        int nbToursTot_ = valDistribution().length * getId().getNombreJoueurs();
         for(int i=1;i<=nombreCartesChien;i++) {
             indices_.put((nbToursTot_*i)/(nombreCartesChien+1)-1,1);
         }
@@ -97,13 +75,13 @@ public enum DealingTarot {
         return nombreCartesParJoueur_;
     }
     private int[] valDistribution(){
-        if (nombreJoueurs == 3) {
+        if (getId().getNombreJoueurs() == 3) {
             return NumberUtil.wrapIntArray(3,3,3,3,3,3,3,3);
         }
-        if (nombreJoueurs == 4) {
+        if (getId().getNombreJoueurs() == 4) {
             return NumberUtil.wrapIntArray(3,3,3,3,3,3);
         }
-        if (nombreJoueurs == 6) {
+        if (getId().getNombreJoueurs() == 6) {
             return NumberUtil.wrapIntArray(2,2,2,2,2,2);
         }
         if (this == DEAL_1_VS_4) {
@@ -116,9 +94,10 @@ public enum DealingTarot {
             return new Bytes();
         }
         Bytes appeles_ = new Bytes();
-        int delta_ = nombreJoueurs/(nbAppeles+1);
+        int nombreJoueurs_ = getId().getNombreJoueurs();
+        int delta_ = nombreJoueurs_ /(nbAppeles+1);
         for(int i=0;i<nbAppeles;i++) {
-            appeles_.add((byte) ((_preneur+(i+1)*delta_)%nombreJoueurs));
+            appeles_.add((byte) ((_preneur+(i+1)*delta_)% nombreJoueurs_));
         }
         return appeles_;
     }

@@ -128,8 +128,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane();
         editor = new RenderedPage(scroll_, getOwner().getFrames());
-        rulesPresidentMulti.setGeneral(readCoreResource());
-        rulesPresidentMulti.setSpecific(readResource());
+        rulesPresidentMulti.getCommon().setGeneral(readCoreResource());
+        rulesPresidentMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         editor.initialize(stds_);

@@ -241,8 +241,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane();
         editor = new RenderedPage(scroll_, getOwner().getFrames());
 
-        rulesTarotMulti.setGeneral(readCoreResource());
-        rulesTarotMulti.setSpecific(readResource());
+        rulesTarotMulti.getCommon().setGeneral(readCoreResource());
+        rulesTarotMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
         editor.initialize(stds_);
@@ -304,8 +304,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void updateRules(RulesTarot _rules) {
         rulesTarotMulti = _rules;
-        rulesTarotMulti.setGeneral(readCoreResource());
-        rulesTarotMulti.setSpecific(readResource());
+        rulesTarotMulti.getCommon().setGeneral(readCoreResource());
+        rulesTarotMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
         editor.initialize(stds_);

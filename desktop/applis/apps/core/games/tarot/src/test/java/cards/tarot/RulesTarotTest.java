@@ -132,10 +132,10 @@ public class RulesTarotTest extends EquallableTarotUtil {
         rulesTwo_.setAllowedBids(new EnumMap<BidTarot, Boolean>());
         rulesTwo_.setPoigneesAutorisees(new EnumMap<Handfuls, Integer>());
         rulesTwo_.setEndDealTarot(rules_.getEndDealTarot());
-        rulesTwo_.setNbDeals(4);
-        rulesTwo_.setMixedCards(rules_.getMixedCards());
+        rulesTwo_.getCommon().setNbDeals(4);
+        rulesTwo_.getCommon().setMixedCards(rules_.getCommon().getMixedCards());
         rulesTwo_.setAllowedHandfuls(rules_.getAllowedHandfuls());
-        assertEq(0,rules_.getNbDeals());
+        assertEq(0, rules_.getCommon().getNbDeals());
         assertNotSame(rules_,rulesTwo_);
     }
 }

@@ -21,7 +21,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         HandPresident pile_=HandPresident.stack(regles_.getNbStacks());
         DealPresident donne_=new DealPresident(0L,pile_);
         donne_.setRandomDealer(regles_,container.getWindow().getGenerator());
-        regles_.setMixedCards(MixCardsChoice.EACH_DEAL);
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_,container.getWindow().getGenerator());
         GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
         partieSimulee.jouerPresident(gp_);

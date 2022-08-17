@@ -133,7 +133,7 @@ public final class GameTarotTrickInfo {
                     CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
                     if (applyFilter(calledCard_, cardTarot_)) {
                         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getNombreJoueurs());
+                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getId().getNombreJoueurs());
                             if (pl_ != joueur_) {
                                 continue;
                             }
@@ -304,7 +304,7 @@ public final class GameTarotTrickInfo {
                     CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
                     if (applyFilter(calledCard_, cardTarot_)) {
                         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getNombreJoueurs());
+                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getId().getNombreJoueurs());
                             if (pl_ != joueur_) {
                                 continue;
                             }
@@ -576,7 +576,7 @@ public final class GameTarotTrickInfo {
                     CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
                     if (applyFilter(calledCard_, cardTarot_)) {
                         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getNombreJoueurs());
+                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getId().getNombreJoueurs());
                             if (pl_ != joueur_) {
                                 continue;
                             }

@@ -88,7 +88,6 @@ import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.*;
-import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -750,13 +749,13 @@ public final class WindowCards extends NetGroupFrame {
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
 
-        if(reglesPresident.getMixedCards()==MixCardsChoice.EACH_LAUNCHING) {
+        if(reglesPresident.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
             vl_.set(GameEnum.PRESIDENT.ordinal(), "0");
         }
-        if(reglesBelote.getCartesBattues()==MixCardsChoice.EACH_LAUNCHING) {
+        if(reglesBelote.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
             vl_.set(GameEnum.BELOTE.ordinal(), "0");
         }
-        if(reglesTarot.getCartesBattues()==MixCardsChoice.EACH_LAUNCHING) {
+        if(reglesTarot.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
             vl_.set(GameEnum.TAROT.ordinal(), "0");
         }
         StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),getStreams());

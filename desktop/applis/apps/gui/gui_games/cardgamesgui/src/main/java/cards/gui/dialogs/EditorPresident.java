@@ -10,10 +10,7 @@ import cards.gui.dialogs.enums.SaveDealMode;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.CardsScrollableList;
 import cards.gui.panels.PresidentCardsScrollableList;
-import cards.president.DealPresident;
-import cards.president.DisplayingPresident;
-import cards.president.GamePresident;
-import cards.president.HandPresident;
+import cards.president.*;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -131,7 +128,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     @Override
     public void validateRulesDeal(WindowCards _parent) {
         validateRules();
-        getReglesPresident().setNbDeals(getNbGames().getValue());
+        getReglesPresident().getCommon().setNbDeals(getNbGames().getValue());
         distribuer(_parent);
     }
 

@@ -28,25 +28,24 @@ public final class RulesTarotBean extends TarotBean {
     @Override
     public void beforeDisplaying() {
         RulesTarot rules_ = db();
-        String lg_ = getLanguage();
-        cartesBattues=toString(rules_.getCartesBattues(), rules_.getGeneral());
+        cartesBattues=toString(rules_.getCommon().getMixedCards(), rules_.getCommon().getGeneral());
         miseres=new StringList();
         for (Miseres m: rules_.getMiseres()) {
-            miseres.add(toString(m, rules_.getSpecific()));
+            miseres.add(toString(m, rules_.getCommon().getSpecific()));
         }
         contrats=new StringList();
         for (BidTarot m: rules_.getContratsAutorises()) {
-            contrats.add(toString(m, rules_.getSpecific()));
+            contrats.add(toString(m, rules_.getCommon().getSpecific()));
         }
-        mode = toString(rules_.getMode(), rules_.getSpecific());
-        repartition = toString(rules_.getRepartition(), rules_.getSpecific());
+        mode = toString(rules_.getMode(), rules_.getCommon().getSpecific());
+        repartition = toString(rules_.getRepartition(), rules_.getCommon().getSpecific());
         StringMap<Integer> str_ = new StringMap<Integer>();
         for (EntryCust<Handfuls,Integer> e: rules_.getPoigneesAutorisees().entryList()) {
             Handfuls h_ = e.getKey();
-            str_.addEntry(toString(h_, rules_.getSpecific()), e.getValue());
+            str_.addEntry(toString(h_, rules_.getCommon().getSpecific()), e.getValue());
         }
         poigneesAutorisees = str_;
-        finPartieTarot = toString(rules_.getEndDealTarot(), rules_.getSpecific());
+        finPartieTarot = toString(rules_.getEndDealTarot(), rules_.getCommon().getSpecific());
         discardAfterCall = rules_.getDiscardAfterCall();
     }
 

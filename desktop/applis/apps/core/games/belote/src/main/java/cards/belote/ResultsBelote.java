@@ -41,7 +41,7 @@ public final class ResultsBelote {
         }
         GameType type_ = game.getType();
         long number_ = game.getNombre();
-        int nbDeals_ = game.getRegles().getNombreParties();
+        int nbDeals_ = game.getRegles().getCommon().getNbDeals();
         calculateScores(scoresDeal_, type_, number_, nbDeals_);
     }
 

@@ -1,46 +1,20 @@
 package cards.belote.enumerations;
+import cards.consts.SortedPlayers;
 import code.util.EnumList;
-import code.util.*;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 
 public enum DealingBelote {
     CLASSIC_2_VS_2(4),
     COINCHE_2_VS_2(4);
-    private final int nombreJoueurs;
+    private final SortedPlayers id;
+
     DealingBelote(int _nombreJoueurs){
-        nombreJoueurs = _nombreJoueurs;
-    }
-    public int getNombreJoueurs() {
-        return nombreJoueurs;
-    }
-    public byte getNextPlayer(int _player) {
-        int next_ = _player;
-        next_++;
-        return (byte) (next_%nombreJoueurs);
+        id = new SortedPlayers(_nombreJoueurs);
     }
 
-    public Bytes getSortedPlayers(int _player) {
-        Bytes players_ = new Bytes();
-        int next_ = _player;
-        next_ = (byte) (next_%nombreJoueurs);
-        while (players_.size() < nombreJoueurs) {
-            players_.add((byte) next_);
-            next_ = getNextPlayer(next_);
-        }
-        return players_;
-    }
-
-    public Bytes getSortedPlayersAfter(int _player) {
-        Bytes players_ = new Bytes();
-        int next_ = _player;
-        next_++;
-        next_ = (byte) (next_%nombreJoueurs);
-        while (players_.size() < nombreJoueurs) {
-            players_.add((byte) next_);
-            next_ = getNextPlayer(next_);
-        }
-        return players_;
+    public SortedPlayers getId() {
+        return id;
     }
 
     public Ints getDistributionDebut() {
@@ -68,7 +42,7 @@ public enum DealingBelote {
     public int getRemainingCards() {
         int remainingCards_ = 0;
         for(int i: valDistributionFin()) {
-            remainingCards_ += i * nombreJoueurs;
+            remainingCards_ += i * getId().getNombreJoueurs();
         }
         return remainingCards_;
     }

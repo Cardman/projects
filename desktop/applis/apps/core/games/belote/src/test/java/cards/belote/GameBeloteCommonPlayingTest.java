@@ -1700,7 +1700,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         b_.setBid(BidBelote.SUIT);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         byte d_ = 2;
-        TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getNextPlayer(d_));
+        TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.SPADE_1);
         t_.ajouter(CardBelote.SPADE_10);
@@ -1724,7 +1724,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         b_.setBid(BidBelote.SUIT);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         byte d_ = 2;
-        TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getNextPlayer(d_));
+        TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.SPADE_1);
         t_.ajouter(CardBelote.SPADE_10);
@@ -1754,7 +1754,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         byte d_ = 2;
-        TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getNextPlayer(d_));
+        TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.SPADE_1);
         t_.ajouter(CardBelote.SPADE_10);
@@ -1777,7 +1777,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         b_.setBid(BidBelote.SUIT);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         byte d_ = 2;
-        TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getNextPlayer(d_));
+        TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.SPADE_1);
         t_.ajouter(CardBelote.SPADE_10);

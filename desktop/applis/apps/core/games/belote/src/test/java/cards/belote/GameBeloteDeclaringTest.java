@@ -28,7 +28,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.CLUB_10);
         pr_.ajouter(CardBelote.CLUB_7);
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
@@ -65,7 +65,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.CLUB_10);
         pr_.ajouter(CardBelote.CLUB_7);
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
@@ -99,7 +99,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.CLUB_10);
         pr_.ajouter(CardBelote.CLUB_7);
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
@@ -133,7 +133,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.CLUB_10);
         pr_.ajouter(CardBelote.CLUB_7);
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
@@ -164,7 +164,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.CLUB_10);
         pr_.ajouter(CardBelote.CLUB_7);
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
@@ -201,7 +201,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.CLUB_10);
         pr_.ajouter(CardBelote.CLUB_7);
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
@@ -239,7 +239,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.CLUB_10);
         pr_.ajouter(CardBelote.CLUB_7);
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
@@ -279,7 +279,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.CLUB_10);
         pr_.ajouter(CardBelote.CLUB_7);
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);

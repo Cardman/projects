@@ -287,10 +287,10 @@ public final class GameTarotBid {
         }
         int petite_;
         int garde_;
-        if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
+        if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
             petite_ = 90;
             garde_ = 140;
-        } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
+        } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getId().getNombreJoueurs()) {
             if (rules.getRepartition().getAppel() == CallingCard.WITHOUT) {
                 petite_ = 90;
                 garde_ = 160;
@@ -301,7 +301,7 @@ public final class GameTarotBid {
                 petite_ = 60;
                 garde_ = 110;
             }
-        } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreJoueurs()) {
+        } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getId().getNombreJoueurs()) {
             if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
                 petite_ = 50;
                 garde_ = 90;
@@ -321,11 +321,11 @@ public final class GameTarotBid {
         boolean sansAppel_ = rules.getRepartition().getAppel() == CallingCard.DEFINED
                 || rules.getRepartition().getAppel() == CallingCard.WITHOUT;
         int limTr_;
-        if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
+        if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
             limTr_ = 12;
-        } else  if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
+        } else  if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getId().getNombreJoueurs()) {
             limTr_ = 9;
-        } else  if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_3_CALL_KING.getNombreJoueurs()) {
+        } else  if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_3_CALL_KING.getId().getNombreJoueurs()) {
             limTr_ = 7;
         } else {
             limTr_ = 6;
@@ -373,13 +373,13 @@ public final class GameTarotBid {
         if (estUnJeuDeChelemSur(_couleurs,_cartesJouees)) {
             return true;
         }
-        byte nbPlayers_ = (byte) _infos.getRepartition().getNombreJoueurs();
+        byte nbPlayers_ = (byte) _infos.getRepartition().getId().getNombreJoueurs();
         if (!maitreAtoutPourChelem(_couleurs,nbPlayers_)) {
             return false;
         }
         byte nombreCouleursLargMait_ = nbCouleursLargementMaitresses(
                 _couleurs, nbPlayers_);
-        if (nbPlayers_ == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
+        if (nbPlayers_ == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
             return nombreCouleursLargMait_ == Suit.couleursOrdinaires().size();
         }
         byte nombreCouleursPseuMait_ = nbCouleursPseudoMaitresses(_couleurs,
@@ -402,13 +402,13 @@ public final class GameTarotBid {
         int fr_ = 1;
         int to_ = 6;
         int nb_ = 14;
-        if (_joueurs == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
+        if (_joueurs == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
             fr_ = 0;
             to_ = 7;
             nb_ = 20;
-        } else if (_joueurs == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreJoueurs()) {
+        } else if (_joueurs == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getId().getNombreJoueurs()) {
             fr_ = 2;
-        } else if (_joueurs == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
+        } else if (_joueurs == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getId().getNombreJoueurs()) {
             nb_ = 17;
         }
         for (int i = fr_; i < to_; i++) {
@@ -687,7 +687,7 @@ public final class GameTarotBid {
         return rules.getContrats().getVal(_enchere);
     }
     byte getNombreDeJoueurs() {
-        return (byte) rules.getRepartition().getNombreJoueurs();
+        return (byte) rules.getRepartition().getId().getNombreJoueurs();
     }
 
     HandTarot getCurrentHand() {

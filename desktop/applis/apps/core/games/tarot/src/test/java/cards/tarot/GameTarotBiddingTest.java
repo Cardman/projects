@@ -203,7 +203,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     static RulesTarot initializeRulesWithBids(EnumList<BidTarot> _bids) {
         RulesTarot regles_=new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot b: regles_.getContrats().getKeys()) {
             if (b.getPossibiliteAnnonce() != AllowedBiddingTarot.ALWAYS) {
@@ -221,7 +221,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     static RulesTarot initializeRulesWithBidsForSixPlayers(EnumList<BidTarot> _bids) {
         RulesTarot regles_=new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot b: regles_.getContrats().getKeys()) {
             if (b.getPossibiliteAnnonce() != AllowedBiddingTarot.ALWAYS) {

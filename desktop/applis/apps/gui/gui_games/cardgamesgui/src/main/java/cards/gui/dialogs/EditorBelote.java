@@ -1,10 +1,7 @@
 package cards.gui.dialogs;
 
 
-import cards.belote.DealBelote;
-import cards.belote.DisplayingBelote;
-import cards.belote.GameBelote;
-import cards.belote.HandBelote;
+import cards.belote.*;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
@@ -139,7 +136,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     @Override
     public void validateRulesDeal(WindowCards _parent) {
         validateRules();
-        getReglesBelote().setNombreParties(getNbGames().getValue());
+        getReglesBelote().getCommon().setNbDeals(getNbGames().getValue());
         distribuer(_parent);
     }
     private String validerEgalite() {
@@ -161,7 +158,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
-        int nbPlayers_ = getReglesBelote().getRepartition().getNombreJoueurs();
+        int nbPlayers_ = getReglesBelote().getRepartition().getId().getNombreJoueurs();
         for(String n: nickNames.getPseudosBelote()) {
             if (liste.getItemCount() == nbPlayers_) {
                 break;
@@ -225,7 +222,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosBelote()) {
-            if (listeTwo.getItemCount() == getReglesBelote().getRepartition().getNombreJoueurs() + 1) {
+            if (listeTwo.getItemCount() == getReglesBelote().getRepartition().getId().getNombreJoueurs() + 1) {
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);

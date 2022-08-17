@@ -29,7 +29,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -103,7 +103,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -177,7 +177,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -251,7 +251,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -325,7 +325,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -399,7 +399,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -482,7 +482,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -559,7 +559,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -642,7 +642,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -722,7 +722,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -802,7 +802,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -876,7 +876,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -950,7 +950,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -1024,7 +1024,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -1098,7 +1098,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -1172,7 +1172,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -1246,7 +1246,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -1320,7 +1320,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -1394,7 +1394,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -1474,7 +1474,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -1554,7 +1554,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -1634,7 +1634,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -1708,7 +1708,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -1782,7 +1782,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -1856,7 +1856,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -1936,7 +1936,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);
@@ -2016,7 +2016,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -2087,7 +2087,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -2159,7 +2159,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -2231,7 +2231,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.SPADE_7);
         t_.ajouter(CardTarot.SPADE_5);
         t_.ajouter(CardTarot.SPADE_6);
@@ -2303,7 +2303,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -2377,7 +2377,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.SPADE_9);
         t_.ajouter(CardTarot.TRUMP_13);
         t_.ajouter(CardTarot.SPADE_8);
@@ -2451,7 +2451,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.SPADE_9);
         t_.ajouter(CardTarot.SPADE_8);
         t_.ajouter(CardTarot.TRUMP_13);
@@ -2525,7 +2525,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.SPADE_9);
         t_.ajouter(CardTarot.SPADE_8);
         t_.ajouter(CardTarot.TRUMP_13);
@@ -2599,7 +2599,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_KING);
@@ -2673,7 +2673,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.TRUMP_15);
@@ -2747,7 +2747,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.SPADE_7);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.SPADE_8);
@@ -2821,7 +2821,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_7);
         t_.ajouter(CardTarot.TRUMP_8);
         trs_.add(t_);
-        t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
         t_.ajouter(CardTarot.TRUMP_2);
         t_.ajouter(CardTarot.TRUMP_3);
         t_.ajouter(CardTarot.TRUMP_21);

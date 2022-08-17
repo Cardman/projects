@@ -4,7 +4,6 @@ import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.EndGameState;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -196,6 +195,6 @@ public final class EndBeloteGame {
     }
 
     byte getNombreDeJoueurs() {
-        return (byte) relations.getRules().getRepartition().getNombreJoueurs();
+        return (byte) relations.getRules().getRepartition().getId().getNombreJoueurs();
     }
 }

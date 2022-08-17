@@ -110,7 +110,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     static RulesTarot initializeRulesWithBids(boolean _discardAfterCall) {
         RulesTarot regles_=new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot b: regles_.getContrats().getKeys()) {
             contrats_.put(b,true);
@@ -122,7 +122,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     static RulesTarot initializeRulesWithBids2(boolean _discardAfterCall) {
         RulesTarot regles_=new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         regles_.setRepartition(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot b: regles_.getContrats().getKeys()) {
             contrats_.put(b,true);
@@ -134,7 +134,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     static RulesTarot initializeRulesWithBids3(boolean _discardAfterCall) {
         RulesTarot regles_=new RulesTarot(DealingTarot.DEAL_1_VS_3);
         regles_.setRepartition(DealingTarot.DEAL_1_VS_3);
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot b: regles_.getContrats().getKeys()) {
             contrats_.put(b,true);

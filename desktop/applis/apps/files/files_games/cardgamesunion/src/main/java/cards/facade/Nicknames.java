@@ -31,10 +31,10 @@ public final class Nicknames {
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESSOURCES_CLASSES, _loc, NICKNAMES);
         pseudo = messages_.getVal(USER);
         String player_ = messages_.getVal(NICKNAME);
-        int maxJoueurs_=DealingBelote.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
+        int maxJoueurs_= DealingBelote.values()[IndexConstants.FIRST_INDEX].getId().getNombreJoueurs();
         for(DealingBelote r:DealingBelote.values()){
-            if(maxJoueurs_<r.getNombreJoueurs()){
-                maxJoueurs_=r.getNombreJoueurs();
+            if(maxJoueurs_< r.getId().getNombreJoueurs()){
+                maxJoueurs_= r.getId().getNombreJoueurs();
             }
         }
         int nBots_ = maxJoueurs_;
@@ -42,10 +42,10 @@ public final class Nicknames {
         for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
             pseudosBelote.add(StringUtil.simpleNumberFormat(player_, b));
         }
-        maxJoueurs_=DealingTarot.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
+        maxJoueurs_= DealingTarot.values()[IndexConstants.FIRST_INDEX].getId().getNombreJoueurs();
         for(DealingTarot r:DealingTarot.values()){
-            if(maxJoueurs_<r.getNombreJoueurs()){
-                maxJoueurs_=r.getNombreJoueurs();
+            if(maxJoueurs_< r.getId().getNombreJoueurs()){
+                maxJoueurs_= r.getId().getNombreJoueurs();
             }
         }
         nBots_ = maxJoueurs_;
@@ -74,10 +74,10 @@ public final class Nicknames {
         return m;
     }
     public boolean isValidNicknames() {
-        int maxJoueurs_=DealingBelote.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
+        int maxJoueurs_= DealingBelote.values()[IndexConstants.FIRST_INDEX].getId().getNombreJoueurs();
         for(DealingBelote r:DealingBelote.values()){
-            if(maxJoueurs_<r.getNombreJoueurs()){
-                maxJoueurs_=r.getNombreJoueurs();
+            if(maxJoueurs_< r.getId().getNombreJoueurs()){
+                maxJoueurs_= r.getId().getNombreJoueurs();
             }
         }
         int nBots_ = maxJoueurs_;
@@ -85,10 +85,10 @@ public final class Nicknames {
         if (pseudosBelote.size() < nBots_) {
             return false;
         }
-        maxJoueurs_=DealingTarot.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
+        maxJoueurs_= DealingTarot.values()[IndexConstants.FIRST_INDEX].getId().getNombreJoueurs();
         for(DealingTarot r:DealingTarot.values()){
-            if(maxJoueurs_<r.getNombreJoueurs()){
-                maxJoueurs_=r.getNombreJoueurs();
+            if(maxJoueurs_< r.getId().getNombreJoueurs()){
+                maxJoueurs_= r.getId().getNombreJoueurs();
             }
         }
         nBots_ = maxJoueurs_;

@@ -1,5 +1,5 @@
 package cards.president;
-import cards.consts.MixCardsChoice;
+import cards.consts.RulesCommon;
 import cards.president.enumerations.EqualtyPlaying;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -11,18 +11,15 @@ public final class RulesPresident {
     private static final int NB_MAX_CARDS = 32;
     private static final int NB_MIN_PLAYERS = 3;
     private static final int NB_MAX_PLAYERS = 32;
-    private MixCardsChoice mixedCards=MixCardsChoice.EACH_LAUNCHING;
+    private RulesCommon common = new RulesCommon();
     private int nbPlayers = 4;
     private int nbStacks = 1;
     private EqualtyPlaying equalty = EqualtyPlaying.SKIP_DIFF_NEXT_STOP;
-    private int nbDeals;
     private boolean possibleReversing;
     private boolean hasToPlay;
     private boolean loosingIfFinishByBestCards = true;
     private boolean switchCards = true;
     private boolean looserStartsFirst = true;
-    private String general="";
-    private String specific="";
 
     public RulesPresident() {
     }
@@ -33,18 +30,15 @@ public final class RulesPresident {
     }
 
     public RulesPresident(RulesPresident _rules) {
-        mixedCards = _rules.mixedCards;
+        common = new RulesCommon(_rules.common);
         nbPlayers = _rules.nbPlayers;
         nbStacks = _rules.nbStacks;
         equalty = _rules.equalty;
-        nbDeals = _rules.nbDeals;
         possibleReversing = _rules.possibleReversing;
         hasToPlay = _rules.hasToPlay;
         loosingIfFinishByBestCards = _rules.loosingIfFinishByBestCards;
         switchCards = _rules.switchCards;
         looserStartsFirst = _rules.looserStartsFirst;
-        setSpecific(_rules.getSpecific());
-        setGeneral(_rules.getGeneral());
     }
 
     public boolean isValidRules() {
@@ -90,12 +84,8 @@ public final class RulesPresident {
         return NB_MIN_PLAYERS;
     }
 
-    public MixCardsChoice getMixedCards() {
-        return mixedCards;
-    }
-
-    public void setMixedCards(MixCardsChoice _mixedCards) {
-        mixedCards = _mixedCards;
+    public RulesCommon getCommon() {
+        return common;
     }
 
     public int getNbPlayers() {
@@ -120,14 +110,6 @@ public final class RulesPresident {
 
     public void setEqualty(EqualtyPlaying _equalty) {
         equalty = _equalty;
-    }
-
-    public int getNbDeals() {
-        return nbDeals;
-    }
-
-    public void setNbDeals(int _nbDeals) {
-        nbDeals = _nbDeals;
     }
 
     public boolean isPossibleReversing() {
@@ -216,19 +198,4 @@ public final class RulesPresident {
         return NB_MAX_PLAYERS * NB_MAX_CARDS / base_.total();
     }
 
-    public String getGeneral() {
-        return general;
-    }
-
-    public void setGeneral(String _general) {
-        this.general = _general;
-    }
-
-    public String getSpecific() {
-        return specific;
-    }
-
-    public void setSpecific(String _specific) {
-        this.specific = _specific;
-    }
 }

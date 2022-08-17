@@ -166,11 +166,11 @@ public final class DocumentWriterPresidentUtil {
     }
 
     private static void setRulesPresident(RulesPresident _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCardsCommonUtil.setMixCardsChoice(_object.getMixedCards(),FIELD_MIXED_CARDS,_document));
+        _element.appendChild(DocumentWriterCardsCommonUtil.setMixCardsChoice(_object.getCommon().getMixedCards(),FIELD_MIXED_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbPlayers(),FIELD_NB_PLAYERS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbStacks(),FIELD_NB_STACKS,_document));
         _element.appendChild(setEqualtyPlaying(_object.getEqualty(),FIELD_EQUALTY,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbDeals(),FIELD_NB_DEALS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getCommon().getNbDeals(),FIELD_NB_DEALS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPossibleReversing(),FIELD_POSSIBLE_REVERSING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isHasToPlay(),FIELD_HAS_TO_PLAY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isLoosingIfFinishByBestCards(),FIELD_LOOSING_IF_FINISH_BY_BEST_CARDS,_document));

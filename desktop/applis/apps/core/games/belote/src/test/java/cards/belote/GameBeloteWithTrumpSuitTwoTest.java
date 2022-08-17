@@ -58,7 +58,7 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
         mains_.add(main_);
         DealBelote donne_ = new DealBelote(mains_,(byte)3);
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return new GameBelote(GameType.RANDOM,donne_,regles_);
     }
 

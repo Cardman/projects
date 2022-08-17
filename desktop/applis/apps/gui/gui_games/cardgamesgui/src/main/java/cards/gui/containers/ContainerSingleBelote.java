@@ -7,10 +7,7 @@ package cards.gui.containers;
 
 import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DeclaresBelote;
-import cards.belote.enumerations.DeclaresBeloteRebelote;
+import cards.belote.enumerations.*;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
@@ -63,6 +60,7 @@ import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -259,7 +257,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if (b.getCouleurDominante()) {
                 continue;
             }
-            if (!_partie.getRegles().getEncheresAutorisees().getVal(b)) {
+            if (_partie.getRegles().getAllowedBids().getVal(b) != BoolVal.TRUE) {
                 continue;
             }
             SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
@@ -519,7 +517,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(nb_==0||!getPar().enCoursDePartie()) {
             setChangerPileFin(true);
             donne_=new DealBelote(nb_,pile_);
-            donne_.setRandomDealer(getReglesBelote().getRepartition().getNombreJoueurs(),getOwner().getGenerator());
+            donne_.setRandomDealer(getReglesBelote().getRepartition().getId().getNombreJoueurs(),getOwner().getGenerator());
             donne_.initDonne(getReglesBelote(),getDisplayingBelote(),getOwner().getGenerator());
             getPar().jouerBelote(new GameBelote(GameType.RANDOM,donne_,getReglesBelote()));
         } else {
@@ -770,7 +768,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         long nombreParties_;
         type_=partie_.getType();
         nombreParties_=partie_.getNombre();
-        int nombreTotalParties_=partie_.getRegles().getNombreParties();
+        int nombreTotalParties_= partie_.getRegles().getCommon().getNbDeals();
         if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
             addButtonKeepPlayingEditedDealBelote(buttons_, getMessages().getVal(WindowCards.KEEP_PLAYING_EDITED_DEAL));
         } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {

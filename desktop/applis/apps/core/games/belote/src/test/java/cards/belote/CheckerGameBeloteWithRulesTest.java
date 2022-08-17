@@ -2,6 +2,7 @@ package cards.belote;
 
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import cards.belote.enumerations.BidBelote;
@@ -323,7 +324,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check11Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -359,7 +360,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check12Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -395,7 +396,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check13Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -428,7 +429,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check14Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1163,7 +1164,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check31Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
-        rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -1498,7 +1499,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check7FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -1521,8 +1522,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check8FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
-        rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -1546,7 +1547,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check9FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
@@ -1581,8 +1582,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check10FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
-        rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);

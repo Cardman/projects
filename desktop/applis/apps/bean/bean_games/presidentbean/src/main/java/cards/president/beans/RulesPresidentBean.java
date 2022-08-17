@@ -44,10 +44,10 @@ public final class RulesPresidentBean extends Bean {
     @Override
     public void beforeDisplaying() {
         RulesPresident rules_ = db();
-        cartesBattues=toString(rules_.getMixedCards(), rules_.getGeneral());
+        cartesBattues=toString(rules_.getCommon().getMixedCards(), rules_.getCommon().getGeneral());
         nbPlayers = rules_.getNbPlayers();
         nbStacks = rules_.getNbStacks();
-        equalty = toString(rules_.getEqualty(), rules_.getSpecific());
+        equalty = toString(rules_.getEqualty(), rules_.getCommon().getSpecific());
         possibleReversing = rules_.isPossibleReversing();
         hasToPlay = rules_.isHasToPlay();
         loosingIfFinishByBestCards = rules_.isLoosingIfFinishByBestCards();

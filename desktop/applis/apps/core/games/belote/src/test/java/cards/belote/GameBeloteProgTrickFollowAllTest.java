@@ -4,13 +4,14 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
     @Test
     public void fournirAtoutToutAtout1Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         byte d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -29,7 +30,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.HEART_10);
         pr_.ajouter(CardBelote.HEART_8);
@@ -49,7 +50,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
     @Test
     public void fournirAtoutToutAtout2Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
         byte d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
@@ -69,7 +70,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_10);
         pr_.ajouter(CardBelote.HEART_JACK);
         pr_.ajouter(CardBelote.HEART_8);
@@ -89,7 +90,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
     @Test
     public void fournirAtoutToutAtout3Test() {
         RulesBelote r_ = new RulesBelote();
-        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
+        r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         byte d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -108,7 +109,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        TrickBelote pr_ = new TrickBelote(r_.getRepartition().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_7);
         pr_.ajouter(CardBelote.DIAMOND_7);
         DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);

@@ -3,52 +3,44 @@ import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
-import cards.consts.MixCardsChoice;
+import cards.consts.RulesCommon;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.Ints;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 
 
 public final class RulesBelote {
 
     public static final int DIVISIONS = 10;
 
-    private MixCardsChoice mixedCards=MixCardsChoice.EACH_LAUNCHING;
+    private RulesCommon common = new RulesCommon();
     private EnumMap<DeclaresBelote,Boolean> allowedDeclares = new EnumMap<DeclaresBelote,Boolean>();
     private boolean underTrumpFoe;
     private BeloteTrumpPartner trumpPartner=BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP;
-    private EnumMap<BidBelote,Boolean> allowedBids = new EnumMap<BidBelote,Boolean>();
+    private EnumMap<BidBelote,BoolVal> allowedBids = new EnumMap<BidBelote,BoolVal>();
     private DealingBelote dealing = DealingBelote.CLASSIC_2_VS_2;
     private boolean classicCountPoints=true;
-    private int nbDeals;
-    private String general="";
-    private String specific="";
 
     public RulesBelote() {
         for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
             allowedDeclares.put(a, false);
         }
         for(BidBelote e:BidBelote.values()){
-            if(e.getToujoursPossibleAnnoncer()){
-                allowedBids.put(e, true);
-            }else{
-                allowedBids.put(e, false);
-            }
+            allowedBids.put(e, ComparatorBoolean.of(e.getToujoursPossibleAnnoncer()));
         }
     }
 
     public RulesBelote(RulesBelote _reglesBelote) {
-        mixedCards = _reglesBelote.mixedCards;
+        common = new RulesCommon(_reglesBelote.common);
         allowedDeclares = new EnumMap<DeclaresBelote,Boolean>(_reglesBelote.allowedDeclares);
         underTrumpFoe = _reglesBelote.underTrumpFoe;
         trumpPartner = _reglesBelote.trumpPartner;
-        allowedBids = new EnumMap<BidBelote,Boolean>(_reglesBelote.allowedBids);
+        allowedBids = new EnumMap<BidBelote,BoolVal>(_reglesBelote.allowedBids);
         dealing = _reglesBelote.dealing;
         classicCountPoints = _reglesBelote.classicCountPoints;
-        nbDeals = _reglesBelote.nbDeals;
-        setSpecific(_reglesBelote.getSpecific());
-        setGeneral(_reglesBelote.getGeneral());
     }
     public boolean isValidRules() {
         for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
@@ -81,12 +73,6 @@ public final class RulesBelote {
         return list_;
     }
 
-    public MixCardsChoice getCartesBattues() {
-        return mixedCards;
-    }
-    public void setCartesBattues(MixCardsChoice _distribution) {
-        mixedCards = _distribution;
-    }
     public EnumList<DeclaresBelote> getListeAnnoncesAutorisees() {
         EnumList<DeclaresBelote> l_;
         l_ = new EnumList<DeclaresBelote>();
@@ -119,20 +105,12 @@ public final class RulesBelote {
     public EnumList<BidBelote> getListeEncheresAutorisees() {
         EnumList<BidBelote> l_;
         l_ = new EnumList<BidBelote>();
-        for (EntryCust<BidBelote,Boolean> e: allowedBids.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<BidBelote,BoolVal> e: allowedBids.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());
             }
         }
         return l_;
-    }
-
-    public EnumMap<BidBelote,Boolean> getEncheresAutorisees() {
-        return allowedBids;
-    }
-
-    public void setEncheresAutorisees(EnumMap<BidBelote,Boolean> _encheresAutorisees) {
-        allowedBids = _encheresAutorisees;
     }
 
 
@@ -151,19 +129,8 @@ public final class RulesBelote {
         setClassicCountPoints(_comptePointsClassique);
     }
 
-    public int getNombreParties() {
-        return nbDeals;
-    }
-    public void setNombreParties(int _nombreParties) {
-        nbDeals = _nombreParties;
-    }
-
-    public MixCardsChoice getMixedCards() {
-        return mixedCards;
-    }
-
-    public void setMixedCards(MixCardsChoice _mixedCards) {
-        mixedCards = _mixedCards;
+    public RulesCommon getCommon() {
+        return common;
     }
 
     public EnumMap<DeclaresBelote, Boolean> getAllowedDeclares() {
@@ -190,11 +157,11 @@ public final class RulesBelote {
         trumpPartner = _trumpPartner;
     }
 
-    public EnumMap<BidBelote, Boolean> getAllowedBids() {
+    public EnumMap<BidBelote, BoolVal> getAllowedBids() {
         return allowedBids;
     }
 
-    public void setAllowedBids(EnumMap<BidBelote, Boolean> _allowedBids) {
+    public void setAllowedBids(EnumMap<BidBelote, BoolVal> _allowedBids) {
         allowedBids = _allowedBids;
     }
 
@@ -214,27 +181,4 @@ public final class RulesBelote {
         classicCountPoints = _classicCountPoints;
     }
 
-    public int getNbDeals() {
-        return nbDeals;
-    }
-
-    public void setNbDeals(int _nbDeals) {
-        nbDeals = _nbDeals;
-    }
-
-    public String getGeneral() {
-        return general;
-    }
-
-    public void setGeneral(String _general) {
-        this.general = _general;
-    }
-
-    public String getSpecific() {
-        return specific;
-    }
-
-    public void setSpecific(String _specific) {
-        this.specific = _specific;
-    }
 }

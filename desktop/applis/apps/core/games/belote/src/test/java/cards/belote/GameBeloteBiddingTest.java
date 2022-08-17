@@ -1,5 +1,7 @@
 package cards.belote;
 
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -67,61 +69,61 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
 
     static RulesBelote initializeDefaultRules() {
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
-        EnumMap<BidBelote,Boolean> contrats_ = new EnumMap<BidBelote,Boolean>();
-        for (BidBelote b: regles_.getEncheresAutorisees().getKeys()) {
-            contrats_.put(b, b.getToujoursPossibleAnnoncer());
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        EnumMap<BidBelote,BoolVal> contrats_ = new EnumMap<BidBelote,BoolVal>();
+        for (BidBelote b: regles_.getAllowedBids().getKeys()) {
+            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
         }
         if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.NO_TRUMP, false);
+            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
         }
         if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.ALL_TRUMP, false);
+            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
         }
-        regles_.setEncheresAutorisees(contrats_);
+        regles_.setAllowedBids(contrats_);
         return regles_;
     }
 
     static RulesBelote initializeRulesWithBids(EnumList<BidBelote> _bids) {
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
-        EnumMap<BidBelote,Boolean> contrats_ = new EnumMap<BidBelote,Boolean>();
-        for (BidBelote b: regles_.getEncheresAutorisees().getKeys()) {
-            contrats_.put(b, b.getToujoursPossibleAnnoncer());
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        EnumMap<BidBelote,BoolVal> contrats_ = new EnumMap<BidBelote,BoolVal>();
+        for (BidBelote b: regles_.getAllowedBids().getKeys()) {
+            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
         }
         if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.NO_TRUMP, false);
+            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
         }
         if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.ALL_TRUMP, false);
+            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
         }
         for (BidBelote b: _bids) {
-            contrats_.put(b,true);
+            contrats_.put(b,BoolVal.TRUE);
         }
-        regles_.setEncheresAutorisees(contrats_);
+        regles_.setAllowedBids(contrats_);
         return regles_;
     }
 
     static RulesBelote initializeRulesWithBidPoints(boolean _addOverBid) {
         RulesBelote regles_=new RulesBelote();
-        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.setRepartition(DealingBelote.COINCHE_2_VS_2);
-        EnumMap<BidBelote,Boolean> contrats_ = new EnumMap<BidBelote,Boolean>();
-        for (BidBelote b: regles_.getEncheresAutorisees().getKeys()) {
-            contrats_.put(b, b.getToujoursPossibleAnnoncer());
+        EnumMap<BidBelote,BoolVal> contrats_ = new EnumMap<BidBelote,BoolVal>();
+        for (BidBelote b: regles_.getAllowedBids().getKeys()) {
+            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
         }
         if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.NO_TRUMP, false);
+            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
         }
         if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.ALL_TRUMP, false);
+            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
         }
         if (_addOverBid) {
-            for (BidBelote b: regles_.getEncheresAutorisees().getKeys()) {
-                contrats_.put(b,true);
+            for (BidBelote b: regles_.getAllowedBids().getKeys()) {
+                contrats_.put(b,BoolVal.TRUE);
             }
         }
-        regles_.setEncheresAutorisees(contrats_);
+        regles_.setAllowedBids(contrats_);
         return regles_;
     }
     @Test
@@ -1371,7 +1373,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     @Test
     public void allowedBids1(){
         RulesBelote regles_=initializeRulesWithBidPoints(false);
-        regles_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        regles_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         CustList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
@@ -1632,7 +1634,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     @Test
     public void allowedBids2(){
         RulesBelote regles_=initializeRulesWithBidPoints(false);
-        regles_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
+        regles_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.SUIT);
