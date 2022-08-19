@@ -220,52 +220,54 @@ public final class GameBeloteCommon {
             EnumMap<Suit,HandBelote> _couleurs,
             EnumMap<Suit,HandBelote> _cartesJouees,
             BidBeloteSuit _contrat) {
-        Suit couleurAtout_ = _contrat.getCouleur();
         EnumMap<Suit,HandBelote> suits_=new EnumMap<Suit,HandBelote>();
         for (Suit couleur_: couleurs()) {
-            Order ordre_;
-            if(!_contrat.getCouleurDominante()) {
-                ordre_ = _contrat.getOrdre();
-            } else if(couleur_ == couleurAtout_) {
-                ordre_ = Order.TRUMP;
-            } else {
-                ordre_ = Order.SUIT;
-            }
-            HandBelote couleurTotale_ = HandBelote.couleurComplete(couleur_, ordre_);
-            HandBelote cartes_= hand(_couleurs,couleur_);
-            HandBelote cartesJoueesOuPossedees_=new HandBelote(ordre_);
-            cartesJoueesOuPossedees_.ajouterCartes(hand(_cartesJouees,couleur_));
-            //C'est la reunion des cartes jouees dans le jeu et de celles du joueur
-            cartesJoueesOuPossedees_.ajouterCartes(cartes_);
-            cartesJoueesOuPossedees_.trierUnicolore(true);
-
-
-            HandBelote cartesMaitresses_ = new HandBelote(ordre_);
-            int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
-            for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
-                if (!CardBelote.eq(cartesJoueesOuPossedees_.carte(c),
-                        couleurTotale_.carte(c))) {
-                    break;
-                }
-                if (!cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
-                    continue;
-                }
-                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
-            }
-            int nbLeadingCards_ = cartesMaitresses_.total();
-            if (nbLeadingCards_ + nbLeadingCards_ + _cartesJouees.getVal(couleur_).total() >= couleurTotale_
-                    .total()) {
-                for (CardBelote carte_ : cartes_) {
-                    if (!cartesMaitresses_.contient(carte_)) {
-                        cartesMaitresses_.ajouter(carte_);
-                    }
-                }
-            }
-            cartesMaitresses_.trierUnicolore(true);
+            HandBelote cartesMaitresses_ = cartesMaitresses(_couleurs, _cartesJouees, _contrat, couleur_);
             suits_.put(couleur_,cartesMaitresses_);
         }
         return suits_;
     }
+
+    private static HandBelote cartesMaitresses(EnumMap<Suit, HandBelote> _couleurs, EnumMap<Suit, HandBelote> _cartesJouees, BidBeloteSuit _contrat, Suit _couleur) {
+        Suit couleurAtout_ = _contrat.getCouleur();
+        Order ordre_ = order(_contrat, couleurAtout_, _couleur);
+        HandBelote couleurTotale_ = HandBelote.couleurComplete(_couleur, ordre_);
+        HandBelote cartes_= hand(_couleurs, _couleur);
+        HandBelote cartesJoueesOuPossedees_=new HandBelote(ordre_);
+        cartesJoueesOuPossedees_.ajouterCartes(hand(_cartesJouees, _couleur));
+        //C'est la reunion des cartes jouees dans le jeu et de celles du joueur
+        cartesJoueesOuPossedees_.ajouterCartes(cartes_);
+        cartesJoueesOuPossedees_.trierUnicolore(true);
+
+
+        HandBelote cartesMaitresses_ = new HandBelote(ordre_);
+        int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
+        for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
+            if (!CardBelote.eq(cartesJoueesOuPossedees_.carte(c),
+                    couleurTotale_.carte(c))) {
+                break;
+            }
+            if (cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
+                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
+            }
+        }
+        int nbLeadingCards_ = cartesMaitresses_.total();
+        if (nbLeadingCards_ + nbLeadingCards_ + _cartesJouees.getVal(_couleur).total() >= couleurTotale_
+                .total()) {
+            for (CardBelote carte_ : cartes_) {
+                if (!cartesMaitresses_.contient(carte_)) {
+                    cartesMaitresses_.ajouter(carte_);
+                }
+            }
+        }
+        cartesMaitresses_.trierUnicolore(true);
+        return cartesMaitresses_;
+    }
+
+    private static Order order(BidBeloteSuit _contrat, Suit _couleurAtout, Suit _couleur) {
+        return HandBelote.order(_contrat, _couleurAtout, _couleur);
+    }
+
     public static HandBelote hand(EnumMap<Suit, HandBelote> _mains, Suit _couleur) {
         return _mains.getVal(_couleur);
     }
