@@ -104,15 +104,11 @@ public enum CardBelote {
         if(_contrat.getCouleurDominante()) {
             return strength(_contrat.getCouleur(),_dem);
         }
-        if(_contrat.ordreCouleur()) {
-            if(id.getCouleur() == _dem) {
-                return forceCouleur;
-            }
+        if (_contrat.ordreCouleur() && id.getCouleur() == _dem) {
+            return forceCouleur;
         }
-        if(_contrat.ordreAtout()) {
-            if(id.getCouleur() == _dem) {
-                return forceAtout;
-            }
+        if (_contrat.ordreAtout() && id.getCouleur() == _dem) {
+            return forceAtout;
         }
         return 0;
     }
@@ -123,17 +119,7 @@ public enum CardBelote {
             }
         } else {
             if(getId().getCouleur() ==_atout) {
-                byte maxForceDemandee_ = 0;
-                for(CardBelote c: CardBelote.values()) {
-                    if(c.getId().getCouleur() != _dem) {
-                        continue;
-                    }
-                    if(c.forceCouleur <= maxForceDemandee_) {
-                        continue;
-                    }
-                    maxForceDemandee_ = c.forceCouleur;
-                }
-                return (byte) (forceAtout + maxForceDemandee_);
+                return (byte) (forceAtout + 8);
             }
             if(getId().getCouleur() ==_dem) {
                 return forceCouleur;
