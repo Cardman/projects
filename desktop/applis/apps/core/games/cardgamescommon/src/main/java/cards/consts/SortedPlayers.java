@@ -5,8 +5,8 @@ import code.util.Bytes;
 public final class SortedPlayers {
     private final int nombreJoueurs;
 
-    public SortedPlayers(int nombreJoueurs) {
-        this.nombreJoueurs = nombreJoueurs;
+    public SortedPlayers(int _nb) {
+        this.nombreJoueurs = _nb;
     }
     public int getNombreJoueurs() {
         return nombreJoueurs;

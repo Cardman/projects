@@ -318,10 +318,10 @@ public final class DocumentWriterBeloteUtil {
         return elt_;
     }
 
-    private static Element setMapDeclaresBeloteBoolean(EnumMap<DeclaresBelote,Boolean> _object, String _fieldName, Document _document) {
+    private static Element setMapDeclaresBeloteBoolean(EnumMap<DeclaresBelote,BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<DeclaresBelote, Boolean> s: _object.entryList()) {
+        for (EntryCust<DeclaresBelote, BoolVal> s: _object.entryList()) {
             Element sub_ = setDeclaresBelote(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

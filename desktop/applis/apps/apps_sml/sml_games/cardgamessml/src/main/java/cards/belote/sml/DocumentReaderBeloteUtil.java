@@ -477,18 +477,18 @@ public final class DocumentReaderBeloteUtil {
         }
         return map_;
     }
-    private static EnumMap<DeclaresBelote,Boolean> getMapDeclaresBeloteBoolean(Element _elt) {
+    private static EnumMap<DeclaresBelote,BoolVal> getMapDeclaresBeloteBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<DeclaresBelote,Boolean> map_ = new EnumMap<DeclaresBelote,Boolean>(cap_);
+        EnumMap<DeclaresBelote,BoolVal> map_ = new EnumMap<DeclaresBelote,BoolVal>(cap_);
         CustList<DeclaresBelote> keys_ = new CustList<DeclaresBelote>(cap_);
-        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getDeclaresBelote(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getBoolean(c));
+                values_.add(DocumentReaderCoreUtil.getBoolVal(c));
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());

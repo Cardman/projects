@@ -110,7 +110,7 @@ public abstract class DialogBelote extends DialogCards {
         for (DeclaresBelote enchere_:DeclaresBelote.annoncesValides()) {
             indicesAnnoncesValides.put(enchere_, indice_);
             AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,_lg));
-            caseCroix_.setSelected(getReglesBelote().getAnnoncesAutorisees().getVal(enchere_));
+            caseCroix_.setSelected(getReglesBelote().getAllowedDeclares().getVal(enchere_) == BoolVal.TRUE);
             declaresFirstRound.add(caseCroix_);
             declares.add(caseCroix_);
             indice_++;
@@ -172,12 +172,12 @@ public abstract class DialogBelote extends DialogCards {
         }
         getReglesBelote().setAllowedBids(contrats_);
 
-        EnumMap<DeclaresBelote,Boolean> annonces_ = new EnumMap<DeclaresBelote,Boolean>();
+        EnumMap<DeclaresBelote,BoolVal> annonces_ = new EnumMap<DeclaresBelote,BoolVal>();
         for (DeclaresBelote enchere_: indicesAnnoncesValides.getKeys()) {
             AbsCustCheckBox jcb_= declares.get(indicesAnnoncesValides.getVal(enchere_));
-            annonces_.put(enchere_, jcb_.isSelected());
+            annonces_.put(enchere_,ComparatorBoolean.of(jcb_.isSelected()));
         }
-        getReglesBelote().setAnnoncesAutorisees(annonces_);
+        getReglesBelote().setAllowedDeclares(annonces_);
 
         BeloteTrumpPartner gestionCoupe_= listChoiceTwo.getCurrentElement();
         getReglesBelote().setGestionCoupePartenaire(gestionCoupe_);

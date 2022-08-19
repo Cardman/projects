@@ -17,7 +17,7 @@ public final class RulesBelote {
     public static final int DIVISIONS = 10;
 
     private RulesCommon common = new RulesCommon();
-    private EnumMap<DeclaresBelote,Boolean> allowedDeclares = new EnumMap<DeclaresBelote,Boolean>();
+    private EnumMap<DeclaresBelote,BoolVal> allowedDeclares = new EnumMap<DeclaresBelote,BoolVal>();
     private boolean underTrumpFoe;
     private BeloteTrumpPartner trumpPartner=BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP;
     private EnumMap<BidBelote,BoolVal> allowedBids = new EnumMap<BidBelote,BoolVal>();
@@ -26,7 +26,7 @@ public final class RulesBelote {
 
     public RulesBelote() {
         for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
-            allowedDeclares.put(a, false);
+            allowedDeclares.put(a, BoolVal.FALSE);
         }
         for(BidBelote e:BidBelote.values()){
             allowedBids.put(e, ComparatorBoolean.of(e.getToujoursPossibleAnnoncer()));
@@ -35,7 +35,7 @@ public final class RulesBelote {
 
     public RulesBelote(RulesBelote _reglesBelote) {
         common = new RulesCommon(_reglesBelote.common);
-        allowedDeclares = new EnumMap<DeclaresBelote,Boolean>(_reglesBelote.allowedDeclares);
+        allowedDeclares = new EnumMap<DeclaresBelote,BoolVal>(_reglesBelote.allowedDeclares);
         underTrumpFoe = _reglesBelote.underTrumpFoe;
         trumpPartner = _reglesBelote.trumpPartner;
         allowedBids = new EnumMap<BidBelote,BoolVal>(_reglesBelote.allowedBids);
@@ -76,19 +76,14 @@ public final class RulesBelote {
     public EnumList<DeclaresBelote> getListeAnnoncesAutorisees() {
         EnumList<DeclaresBelote> l_;
         l_ = new EnumList<DeclaresBelote>();
-        for (EntryCust<DeclaresBelote,Boolean> e: allowedDeclares.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<DeclaresBelote,BoolVal> e: allowedDeclares.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());
             }
         }
         return l_;
     }
-    public EnumMap<DeclaresBelote,Boolean> getAnnoncesAutorisees() {
-        return allowedDeclares;
-    }
-    public void setAnnoncesAutorisees(EnumMap<DeclaresBelote,Boolean> _annoncesAutorisees) {
-        allowedDeclares = _annoncesAutorisees;
-    }
+
     public boolean getSousCoupeAdv() {
         return isUnderTrumpFoe();
     }
@@ -133,11 +128,11 @@ public final class RulesBelote {
         return common;
     }
 
-    public EnumMap<DeclaresBelote, Boolean> getAllowedDeclares() {
+    public EnumMap<DeclaresBelote, BoolVal> getAllowedDeclares() {
         return allowedDeclares;
     }
 
-    public void setAllowedDeclares(EnumMap<DeclaresBelote, Boolean> _allowedDeclares) {
+    public void setAllowedDeclares(EnumMap<DeclaresBelote, BoolVal> _allowedDeclares) {
         allowedDeclares = _allowedDeclares;
     }
 

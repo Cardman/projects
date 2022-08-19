@@ -223,7 +223,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void tryDeclareBeloteRebelote3Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -242,7 +242,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void currentPlayerHasPlayed1Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -272,7 +272,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void currentPlayerHasPlayed2Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -289,7 +289,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playerHasAlreadyBidded1Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -299,7 +299,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playerHasAlreadyBidded2Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -345,7 +345,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void completedDeal1Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
