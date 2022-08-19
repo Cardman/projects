@@ -13,7 +13,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     public void cartePlusPetitePoints1Test() {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_7);
         h_.ajouter(CardBelote.HEART_JACK);
@@ -28,7 +28,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     public void cartePlusPetitePoints2Test() {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
         h_.ajouter(CardBelote.HEART_9);
@@ -42,7 +42,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     public void cartePlusPetitePoints3Test() {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
         h_.ajouter(CardBelote.HEART_10);
@@ -54,7 +54,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     public void cartePlusPetitePoints4Test() {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_7);
         h_.ajouter(CardBelote.HEART_JACK);
@@ -69,7 +69,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     public void cartePlusPetitePoints5Test() {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
         h_.ajouter(CardBelote.HEART_9);
@@ -83,7 +83,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     public void cartePlusPetitePoints6Test() {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
         h_.ajouter(CardBelote.HEART_10);
@@ -97,7 +97,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -130,7 +130,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -165,7 +165,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -199,7 +199,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -232,7 +232,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -267,7 +267,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -301,7 +301,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -333,7 +333,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -366,7 +366,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -403,7 +403,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_10);
@@ -429,7 +429,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_9);
@@ -455,7 +455,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.NO_TRUMP);
+        bid_.setBid(BidBelote.NO_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -486,7 +486,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.NO_TRUMP);
+        bid_.setBid(BidBelote.NO_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -516,7 +516,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.NO_TRUMP);
+        bid_.setBid(BidBelote.NO_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -545,7 +545,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.NO_TRUMP);
+        bid_.setBid(BidBelote.NO_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_10);
@@ -572,7 +572,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.NO_TRUMP);
+        bid_.setBid(BidBelote.NO_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_1);
@@ -601,7 +601,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -629,7 +629,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -657,7 +657,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -686,7 +686,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_10);
@@ -714,7 +714,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.SPADE_7);
@@ -743,7 +743,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -770,7 +770,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.ALL_TRUMP);
+        bid_.setBid(BidBelote.ALL_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -801,7 +801,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.ALL_TRUMP);
+        bid_.setBid(BidBelote.ALL_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -831,7 +831,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.ALL_TRUMP);
+        bid_.setBid(BidBelote.ALL_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -860,7 +860,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.ALL_TRUMP);
+        bid_.setBid(BidBelote.ALL_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_9);
@@ -887,7 +887,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.ALL_TRUMP);
+        bid_.setBid(BidBelote.ALL_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.HEART_JACK);
@@ -917,7 +917,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.ALL_TRUMP);
+        bid_.setBid(BidBelote.ALL_TRUMP);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.SPADE_8);
@@ -944,7 +944,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -974,7 +974,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1004,7 +1004,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1033,7 +1033,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_10);
@@ -1061,7 +1061,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.SPADE_7);
@@ -1090,7 +1090,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1116,7 +1116,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1145,7 +1145,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1170,7 +1170,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1195,7 +1195,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1224,7 +1224,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1254,7 +1254,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_10);
@@ -1283,7 +1283,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_10);
@@ -1312,7 +1312,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1342,7 +1342,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_1);
@@ -1372,7 +1372,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bids_.add(bid_);
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.DIAMOND_KING);
@@ -1401,7 +1401,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
             return;
         }
         if (_bid.getCouleurDominante()) {
-            if (_c.getId().getCouleur() == _bid.getCouleur()) {
+            if (_c.getId().getCouleur() == _bid.getSuit()) {
                 h_.setOrdre(Order.TRUMP);
             } else {
                 h_.setOrdre(Order.SUIT);

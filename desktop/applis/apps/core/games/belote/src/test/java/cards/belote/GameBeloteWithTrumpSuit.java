@@ -10,16 +10,16 @@ public class GameBeloteWithTrumpSuit extends EquallableBeloteUtil {
         if (_bid == BidBelote.OTHER_SUIT) {
             for (byte p: _game.orderedPlayers(playerAfterDealer_)) {
                 BidBeloteSuit contratTmp_ = new BidBeloteSuit();
-                contratTmp_.setEnchere(BidBelote.FOLD);
+                contratTmp_.setBid(BidBelote.FOLD);
                 _game.ajouterContrat(contratTmp_,p);
             }
             _game.finEncherePremierTour();
         }
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
-        contratTmp_.setEnchere(_bid);
-        contratTmp_.setCouleur(_suit);
+        contratTmp_.setBid(_bid);
+        contratTmp_.setSuit(_suit);
         _game.ajouterContrat(contratTmp_,playerAfterDealer_);
         _game.completerDonne();
-        assertTrue(_game.getContrat().getCouleurDominante());
+        assertTrue(_game.getBid().getCouleurDominante());
     }
 }

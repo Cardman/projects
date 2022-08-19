@@ -16,7 +16,7 @@ public final class GameBeloteTeamsRelation {
         rules = _rules;
     }
     byte playerAfter(byte _player) {
-        return rules.getRepartition().getId().getNextPlayer(_player);
+        return rules.getDealing().getId().getNextPlayer(_player);
     }
     Bytes adversaires(byte _numero) {
         Bytes adversaires_ = new Bytes();
@@ -81,7 +81,7 @@ public final class GameBeloteTeamsRelation {
         return SortedPlayers.autresJoueurs(_joueurs, _nombreJoueurs);
     }
     byte getNombreDeJoueurs() {
-        return (byte) rules.getRepartition().getId().getNombreJoueurs();
+        return (byte) rules.getDealing().getId().getNombreJoueurs();
     }
     RulesBelote getRules() {
         return rules;

@@ -67,7 +67,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         bidding(game_,BidBelote.NO_TRUMP);
         game_.setPliEnCours();
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(), playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
@@ -78,7 +78,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         bidding(game_,BidBelote.ALL_TRUMP);
         game_.setPliEnCours();
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(), playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
@@ -95,7 +95,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertTrue(playableCards_.contient(CardBelote.SPADE_JACK));
         assertEq(1, playableCards_.total());
@@ -113,7 +113,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_JACK);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         HandBelote expectedAllowedCards_ = new HandBelote();
         expectedAllowedCards_.ajouter(CardBelote.CLUB_9);
@@ -133,7 +133,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_KING);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         HandBelote expectedAllowedCards_ = new HandBelote();
         expectedAllowedCards_.ajouter(CardBelote.CLUB_9);
@@ -152,7 +152,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_7);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         HandBelote expectedAllowedCards_ = new HandBelote();
         expectedAllowedCards_.ajouter(CardBelote.HEART_1);
@@ -173,7 +173,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertTrue(suits_.getVal(game_.getPliEnCours().couleurDemandee()).estVide());
         assertEq(hand_.total(), playableCards_.total());
@@ -191,7 +191,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertTrue(suits_.getVal(game_.getPliEnCours().couleurDemandee()).estVide());
         assertEq(hand_.total(), playableCards_.total());

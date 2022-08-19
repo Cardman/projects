@@ -25,7 +25,6 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.cards.MessagesBeloteBelote;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
@@ -88,11 +87,11 @@ public abstract class ContainerBelote extends ContainerGame {
     }
 
     public void setBid(BidBeloteSuit _suit) {
-        setSuit(_suit.getCouleur());
-        setBidType(_suit.getEnchere());
+        setSuit(_suit.getSuit());
+        setBidType(_suit.getBid());
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(suit);
-        bid_.setEnchere(bidType);
+        bid_.setSuit(suit);
+        bid_.setBid(bidType);
         for (SuitLabel l: bidsButtons) {
             l.setSelected(_suit);
         }

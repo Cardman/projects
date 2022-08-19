@@ -47,15 +47,15 @@ public final class GameBeloteBid {
             }
             if (!e.getCouleurDominante()) {
                 BidBeloteSuit e_ = new BidBeloteSuit();
-                e_.setEnchere(e);
+                e_.setBid(e);
                 encheres_.add(e_);
             }
         }
         if (!endBidsFirstRound) {
             /*First round of bidding*/
             BidBeloteSuit e_ = new BidBeloteSuit();
-            e_.setEnchere(BidBelote.SUIT);
-            e_.setCouleur(s_);
+            e_.setBid(BidBelote.SUIT);
+            e_.setSuit(s_);
             encheres_.add(e_);
         } else {
             /*Second round of bidding*/
@@ -64,8 +64,8 @@ public final class GameBeloteBid {
                     continue;
                 }
                 BidBeloteSuit e_ = new BidBeloteSuit();
-                e_.setEnchere(BidBelote.OTHER_SUIT);
-                e_.setCouleur(s);
+                e_.setBid(BidBelote.OTHER_SUIT);
+                e_.setSuit(s);
                 encheres_.add(e_);
             }
         }
@@ -82,8 +82,8 @@ public final class GameBeloteBid {
                 }
                 BidBeloteSuit bid_;
                 bid_ = new BidBeloteSuit();
-                bid_.setCouleur(s);
-                bid_.setEnchere(BidBelote.SUIT);
+                bid_.setSuit(s);
+                bid_.setBid(BidBelote.SUIT);
                 bid_.setPoints(p);
                 encheres_.add(bid_);
             }
@@ -98,8 +98,8 @@ public final class GameBeloteBid {
                 }
                 BidBeloteSuit bid_;
                 bid_ = new BidBeloteSuit();
-                bid_.setCouleur(Suit.UNDEFINED);
-                bid_.setEnchere(b);
+                bid_.setSuit(Suit.UNDEFINED);
+                bid_.setBid(b);
                 bid_.setPoints(p);
                 encheres_.add(bid_);
             }
@@ -117,9 +117,9 @@ public final class GameBeloteBid {
             if(!e.getCouleurDominante()) {
                 continue;
             }
-            enchereCouleurDominante_ = e.getEnchere();
-            if (!suits_.containsObj(e.getCouleur())) {
-                suits_.add(e.getCouleur());
+            enchereCouleurDominante_ = e.getBid();
+            if (!suits_.containsObj(e.getSuit())) {
+                suits_.add(e.getSuit());
             }
         }
         if (!rules.dealAll()) {
@@ -132,8 +132,8 @@ public final class GameBeloteBid {
         EnumList<Suit> s_ = new EnumList<Suit>();
         for(Suit c: GameBeloteCommon.couleurs()) {
             BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
-            enchereBeloteLoc_.setCouleur(c);
-            enchereBeloteLoc_.setEnchere(BidBelote.SUIT);
+            enchereBeloteLoc_.setSuit(c);
+            enchereBeloteLoc_.setBid(BidBelote.SUIT);
             EnumMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
             EnumMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
             if (repartition_.getVal(c).estVide()) {
@@ -146,8 +146,8 @@ public final class GameBeloteBid {
         }
         if (!s_.isEmpty()) {
             BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-            enchereCouleur_.setEnchere(_enchereCouleurDominante);
-            enchereCouleur_.setCouleur(s_.first());
+            enchereCouleur_.setBid(_enchereCouleurDominante);
+            enchereCouleur_.setSuit(s_.first());
             enchereCouleur_.setPoints(HandBelote.pointsTotauxDixDeDer());
             return enchereCouleur_;
         }
@@ -157,8 +157,8 @@ public final class GameBeloteBid {
                 continue;
             }
             BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
-            enchereBeloteLoc_.setCouleur(Suit.UNDEFINED);
-            enchereBeloteLoc_.setEnchere(e);
+            enchereBeloteLoc_.setSuit(Suit.UNDEFINED);
+            enchereBeloteLoc_.setBid(e);
             EnumMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
             EnumMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
             EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(repartition_, played_, enchereBeloteLoc_);
@@ -219,8 +219,8 @@ public final class GameBeloteBid {
             pts_ *= RulesBelote.DIVISIONS;
             if (pts_ > Math.max(minPointsMinusOne_, bid.getPoints())) {
                 BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-                enchereCouleur_.setEnchere(_enchereCouleurDominante);
-                enchereCouleur_.setCouleur(_couleurMax);
+                enchereCouleur_.setBid(_enchereCouleurDominante);
+                enchereCouleur_.setSuit(_couleurMax);
                 enchereCouleur_.setPoints((int) pts_);
                 return enchereCouleur_;
             }
@@ -232,7 +232,7 @@ public final class GameBeloteBid {
             pts_ *= RulesBelote.DIVISIONS;
             if (pts_ > Math.max(minPointsMinusOne_, bid.getPoints())) {
                 BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-                enchereCouleur_.setEnchere(_e);
+                enchereCouleur_.setBid(_e);
                 enchereCouleur_.setPoints((int) pts_);
                 return enchereCouleur_;
             }
@@ -243,13 +243,13 @@ public final class GameBeloteBid {
     private BidBeloteSuit notAllBidChoice(BidBelote _enchereCouleurDominante, Suit _couleurMax, long _max, long _max2, BidBelote _e) {
         if(_couleurMax != Suit.UNDEFINED && _max == _max2) {
             BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-            enchereCouleur_.setEnchere(_enchereCouleurDominante);
-            enchereCouleur_.setCouleur(_couleurMax);
+            enchereCouleur_.setBid(_enchereCouleurDominante);
+            enchereCouleur_.setSuit(_couleurMax);
             return enchereCouleur_;
         }
         if(_e != BidBelote.FOLD) {
             BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-            enchereCouleur_.setEnchere(_e);
+            enchereCouleur_.setBid(_e);
             return enchereCouleur_;
         }
         return new BidBeloteSuit();
@@ -257,8 +257,8 @@ public final class GameBeloteBid {
 
     private int suitWithLeadingCards(HandBelote _reunion, BidBelote _e) {
         BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
-        enchereBeloteLoc_.setCouleur(Suit.UNDEFINED);
-        enchereBeloteLoc_.setEnchere(_e);
+        enchereBeloteLoc_.setSuit(Suit.UNDEFINED);
+        enchereBeloteLoc_.setBid(_e);
         EnumMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
         EnumMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
         EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(repartition_, played_, enchereBeloteLoc_);
@@ -272,8 +272,8 @@ public final class GameBeloteBid {
     }
 
     private EnumMap<Suit, Long> couleursCandidates(HandBelote _reunion, EnumList<Suit> _suits, EnumMap<BidBelote, Long> _couleurPointsFictifsContrats, EnumMap<BidBelote, Long> _couleurPointsFictifsContratsRequis) {
-        int nbPlayers_ = rules.getRepartition().getId().getNombreJoueurs();
-        int nbCartesFinales_ = rules.getRepartition().getNombreCartesParJoueur();
+        int nbPlayers_ = rules.getDealing().getId().getNombreJoueurs();
+        int nbCartesFinales_ = rules.getDealing().getNombreCartesParJoueur();
         EnumMap<Suit,Long> couleurPointsFictifs_ = _reunion.pointsAvg(nbPlayers_,nbCartesFinales_);
         EnumMap<Suit, Long> couleurPointsFictifsRequis_ = couleurPointsFictifsRequis(_reunion);
         for(BidBelote e: rules.getAllowedBids().getKeys()) {

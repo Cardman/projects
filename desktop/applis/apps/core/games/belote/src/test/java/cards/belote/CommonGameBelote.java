@@ -75,7 +75,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                 }
                 player_ = g_.playerAfter(player_);
             }
-            g_.setContrat(bid_);
+            g_.setBid(bid_);
         } else {
             g_.setEndBidsFirstRound(_bids.size() >= _nombreDeJoueurs);
             for (BidBeloteSuit b: _bids) {
@@ -84,7 +84,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                 }
                 player_ = g_.playerAfter(player_);
             }
-            g_.setContrat(bid_);
+            g_.setBid(bid_);
         }
         byte starter_;
         byte trickWinner_;
@@ -151,8 +151,8 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
     }
     private static void check(GameBelote _g,HandBelote _currentHand) {
         Ints handLengths_ = new Ints();
-        int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
-        int nbPl_ = _g.getRegles().getRepartition().getId().getNombreJoueurs();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
@@ -164,7 +164,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
             handLengths_.set(i, handLengths_.get(i)-1);
         }
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
-        BidBeloteSuit bid_ = _g.getContrat();
+        BidBeloteSuit bid_ = _g.getBid();
         GameBeloteTrickInfo info_ = new GameBeloteTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclares(),
                 _g.getDeclaresBeloteRebelote(), bid_,
@@ -173,7 +173,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         EnumMap<Suit,CustList<HandBelote>> cartesPossibles_ = new EnumMap<Suit,CustList<HandBelote>>();
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             //On fait une boucle sur les couleurs autres que l'atout
-            if(bid_.getCouleur()!=couleur_&&!bid_.ordreAtout()) {
+            if(bid_.getSuit() !=couleur_&&!bid_.ordreAtout()) {
                 cartesPossibles_.put(couleur_,info_.cartesPossiblesRegles(couleur_, _currentHand));
             } else {
                 cartesPossibles_.put(couleur_,info_.atoutsPossiblesRegles(couleur_,_currentHand));
@@ -249,7 +249,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
             CardBelote card_ = _g.getDistribution().derniereMain().premiereCarte();
             l_.ajouter(card_);
             byte taker_ = _g.getPreneur();
-            for (int i : _g.getRules().getRepartition().getDistributionFin()) {
+            for (int i : _g.getRules().getDealing().getDistributionFin()) {
                 int f_ = i - 1;
                 for (byte j : _g.orderedPlayers(_g
                         .playerAfter(_g.getDistribution().getDealer()))) {
@@ -285,7 +285,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         assertTrue("Error",_g.getError().isEmpty());
     }
     protected static int getTaker(RulesBelote _g, int _dealer, CustList<BidBeloteSuit> _bids) {
-        byte player_ = _g.getRepartition().getId().getNextPlayer(_dealer);
+        byte player_ = _g.getDealing().getId().getNextPlayer(_dealer);
         int taker_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         BidBeloteSuit bid_ = new BidBeloteSuit();
         for (BidBeloteSuit b: _bids) {
@@ -293,15 +293,15 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                 taker_ = player_;
                 bid_ = b;
             }
-            player_ = _g.getRepartition().getId().getNextPlayer(player_);
+            player_ = _g.getDealing().getId().getNextPlayer(player_);
         }
         return taker_;
     }
     protected static GameBeloteTrickInfo newGameBeloteTrickInfo(GameBelote _g, HandBelote _currentHand) {
         check(_g,_currentHand);
         Ints handLengths_ = new Ints();
-        int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
-        int nbPl_ = _g.getRegles().getRepartition().getId().getNombreJoueurs();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
@@ -314,15 +314,15 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         }
         GameBeloteTrickInfo gameBeloteTrickInfo_ = new GameBeloteTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclares(),
-                _g.getDeclaresBeloteRebelote(), _g.getContrat(),
+                _g.getDeclaresBeloteRebelote(), _g.getBid(),
                 handLengths_);
         gameBeloteTrickInfo_.addSeenDeck(_g.getDistribution().derniereMain(),_g.getTeamsRelation());
         return gameBeloteTrickInfo_;
     }
     protected static GameBeloteTrickInfo newGameBeloteTrickInfo(GameBelote _g) {
         Ints handLengths_ = new Ints();
-        int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
-        int nbPl_ = _g.getRegles().getRepartition().getId().getNombreJoueurs();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
@@ -335,7 +335,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         }
         GameBeloteTrickInfo gameBeloteTrickInfo_ = new GameBeloteTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclares(),
-                _g.getDeclaresBeloteRebelote(), _g.getContrat(),
+                _g.getDeclaresBeloteRebelote(), _g.getBid(),
                 handLengths_);
         gameBeloteTrickInfo_.addSeenDeck(_g.getDistribution().derniereMain(),_g.getTeamsRelation());
         return gameBeloteTrickInfo_;

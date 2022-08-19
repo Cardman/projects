@@ -132,8 +132,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         for (Suit s: Suit.couleursOrdinaires()) {
             SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
             BidBeloteSuit bid_ = new BidBeloteSuit();
-            bid_.setCouleur(s);
-            bid_.setEnchere(BidBelote.SUIT);
+            bid_.setSuit(s);
+            bid_.setBid(BidBelote.SUIT);
             suitLabel_.setSuit(bid_, lg_);
 
             suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
@@ -149,7 +149,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             }
             boolean present_ = false;
             for (BidBeloteSuit allowedBid_: _bids) {
-                if (allowedBid_.getEnchere() == b) {
+                if (allowedBid_.getBid() == b) {
                     present_ = true;
                     break;
                 }
@@ -159,7 +159,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             }
             SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
             BidBeloteSuit bid_ = new BidBeloteSuit();
-            bid_.setEnchere(b);
+            bid_.setBid(b);
             suitLabel_.setSuit(bid_, lg_);
             suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
 
@@ -183,8 +183,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         setCanBid(false);
         BidBeloteSuit bidLoc_ = new BidBeloteSuit();
-        bidLoc_.setCouleur(getSuit());
-        bidLoc_.setEnchere(getBidType());
+        bidLoc_.setSuit(getSuit());
+        bidLoc_.setBid(getBidType());
         bidLoc_.setPoints(getPts());
         BiddingBelote bid_ = new BiddingBelote();
         bid_.setPlace(indexInGame);
@@ -489,7 +489,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
                         .getHand()
                         .trier(getDisplayingBelote().getDisplaying().getSuits(),
                                 getDisplayingBelote().getDisplaying().isDecreasing(),
-                                bidMax.getCouleur());
+                                bidMax.getSuit());
             } else {
                 _card.getDeclare()
                         .getHand()
@@ -548,7 +548,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         playerHandBelote.ajouterCartes(_cards.getRefreshedHand());
         if (bidMax.getCouleurDominante()) {
             playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
-                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getCouleur());
+                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getSuit());
         } else {
             playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
                     getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
@@ -574,7 +574,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         playerHandBelote.jouer(_card.getCard());
         if (bidMax.getCouleurDominante()) {
             playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
-                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getCouleur());
+                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getSuit());
         } else {
             playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
                     getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
@@ -956,7 +956,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             pile_ = HandBelote.pileBase();
         }
         DealBelote deal_ = new DealBelote(0, pile_);
-        deal_.setRandomDealer(rulesBeloteMulti.getRepartition().getId().getNombreJoueurs(),getOwner().getGenerator());
+        deal_.setRandomDealer(rulesBeloteMulti.getDealing().getId().getNombreJoueurs(),getOwner().getGenerator());
         deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerBelote(new GameBelote(
                 GameType.RANDOM, deal_, rulesBeloteMulti));

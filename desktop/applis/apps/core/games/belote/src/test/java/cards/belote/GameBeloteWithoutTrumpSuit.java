@@ -7,9 +7,9 @@ public class GameBeloteWithoutTrumpSuit extends EquallableBeloteUtil {
         assertTrue("Bad bid arg",!_bid.getCouleurDominante());
         byte playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDealer());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
-        contratTmp_.setEnchere(_bid);
+        contratTmp_.setBid(_bid);
         _game.ajouterContrat(contratTmp_,playerAfterDealer_);
         _game.completerDonne();
-        assertTrue(!_game.getContrat().getCouleurDominante());
+        assertTrue(!_game.getBid().getCouleurDominante());
     }
 }

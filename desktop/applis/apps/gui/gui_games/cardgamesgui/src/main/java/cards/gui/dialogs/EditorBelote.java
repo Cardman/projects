@@ -158,7 +158,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
-        int nbPlayers_ = getReglesBelote().getRepartition().getId().getNombreJoueurs();
+        int nbPlayers_ = getReglesBelote().getDealing().getId().getNombreJoueurs();
         for(String n: nickNames.getPseudosBelote()) {
             if (liste.getItemCount() == nbPlayers_) {
                 break;
@@ -180,8 +180,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         stack = plc_;
         panelsCards.add(plc_.getContainer());
 //        hands.add(plc_);
-        int firstCards_ = getReglesBelote().getRepartition().getFirstCards();
-        int lastCards_ = getReglesBelote().getRepartition().getRemainingCards();
+        int firstCards_ = getReglesBelote().getDealing().getFirstCards();
+        int lastCards_ = getReglesBelote().getDealing().getRemainingCards();
         plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,getMessages().getVal(USER_HAND));
 
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
@@ -222,7 +222,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosBelote()) {
-            if (listeTwo.getItemCount() == getReglesBelote().getRepartition().getId().getNombreJoueurs() + 1) {
+            if (listeTwo.getItemCount() == getReglesBelote().getDealing().getId().getNombreJoueurs() + 1) {
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);

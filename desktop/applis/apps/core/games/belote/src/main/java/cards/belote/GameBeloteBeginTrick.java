@@ -54,11 +54,11 @@ public final class GameBeloteBeginTrick {
         if(_info.isMaitreJeu()) {
             return playBestCardsDom(_info);
         }
-        if(GameBeloteCommon.hand(currentHand.couleurs(bid),bid.getCouleur()).total()==currentHand.total()) {
+        if(GameBeloteCommon.hand(currentHand.couleurs(bid), bid.getSuit()).total()==currentHand.total()) {
             return playWhenOnlyTrumps(_info);
 
         }
-        if(GameBeloteCommon.hand(currentHand.couleurs(bid),bid.getCouleur()).total()+1==currentHand.total()) {
+        if(GameBeloteCommon.hand(currentHand.couleurs(bid), bid.getSuit()).total()+1==currentHand.total()) {
             return playWhenAtMostOneNormalSuit(_info);
 
         }
@@ -78,12 +78,12 @@ public final class GameBeloteBeginTrick {
         return jeuMainMaitresseCouleurDominante(suites_,
                 currentHand.couleurs(bid),
                 couleursMaitres_,
-                bid.getCouleur());
+                bid.getSuit());
     }
 
     CardBelote playAsDefenderDom(BeloteInfoPliEnCours _info) {
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
-        Suit couleurAtout_=bid.getCouleur();
+        Suit couleurAtout_= bid.getSuit();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
         EnumMap<Suit,HandBelote> repartitionCartesJouees_= _info.getRepartitionCartesJouees();
         CustList<TrickBelote> plisFaits_= _info.getPlisFaits();
@@ -113,7 +113,7 @@ public final class GameBeloteBeginTrick {
 
     CardBelote playAsCalledPlayerDom(BeloteInfoPliEnCours _info) {
         EnumList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
-        Suit couleurAtout_=bid.getCouleur();
+        Suit couleurAtout_= bid.getSuit();
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
         CustList<TrickBelote> plisFaits_=_info.getPlisFaits();
@@ -196,7 +196,7 @@ public final class GameBeloteBeginTrick {
     }
 
     CardBelote playAsTakerDom(BeloteInfoPliEnCours _info) {
-        Suit couleurAtout_=bid.getCouleur();
+        Suit couleurAtout_= bid.getSuit();
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         HandBelote cartesJouees_=_info.getCartesJouees();
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
@@ -252,7 +252,7 @@ public final class GameBeloteBeginTrick {
     }
 
     CardBelote playWhenAtMostOneNormalSuit(BeloteInfoPliEnCours _info) {
-        Suit couleurAtout_=bid.getCouleur();
+        Suit couleurAtout_= bid.getSuit();
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         EnumMap<Suit,CustList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
         boolean strictMaitreAtout_;
@@ -288,7 +288,7 @@ public final class GameBeloteBeginTrick {
     }
 
     CardBelote playWhenOnlyTrumps(BeloteInfoPliEnCours _info) {
-        Suit couleurAtout_=bid.getCouleur();
+        Suit couleurAtout_= bid.getSuit();
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         EnumMap<Suit,CustList<HandBelote>> suites_=_info.getSuitesTouteCouleur();
         EnumMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();

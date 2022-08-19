@@ -86,7 +86,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         deck.couper();
         /*On cree_ les_ mains_ des_ joueurs_ puis_ le_ talon_ qui_ sera_ distribue_
         apres_ les_ encheres_*/
-        int nbHands_ = _regles.getRepartition().getId().getNombreJoueurs();
+        int nbHands_ = _regles.getDealing().getId().getNombreJoueurs();
         nbHands_++;
         for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
             deal.add(new HandBelote());
@@ -95,9 +95,9 @@ public final class DealBelote implements Iterable<HandBelote> {
         Le nombre_ de_ cartes_ donnes_ par_ joueur_ est_ de_ 3 puis_ 2*/
         //int nbJoueurs_ = _regles.getRepartition().getNombreJoueurs();
         Bytes ordreDisributionJoueurs_;
-        ordreDisributionJoueurs_ = _regles.getRepartition().getId().getSortedPlayersAfter(dealer);
+        ordreDisributionJoueurs_ = _regles.getDealing().getId().getSortedPlayersAfter(dealer);
 
-        for(int i: _regles.getRepartition().getDistributionDebut()) {
+        for(int i: _regles.getDealing().getDistributionDebut()) {
             for (int j : ordreDisributionJoueurs_) {
                 for (int k = IndexConstants.FIRST_INDEX; k < i; k++) {
                     deal.get(j).ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
@@ -114,15 +114,15 @@ public final class DealBelote implements Iterable<HandBelote> {
     ceci est essentiel pour le solitaire car la fin de partie de solitaire
     ne depend pas a priori de la distribution au debut*/
     private void donnerEnBattant(RulesBelote _regles, DisplayingBelote _displaying,AbstractGenerator _gene) {
-        int nbJoueurs_ = _regles.getRepartition().getId().getNombreJoueurs();
+        int nbJoueurs_ = _regles.getDealing().getId().getNombreJoueurs();
         int nbHands_ = nbJoueurs_;
         nbHands_++;
         for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
             deal.add(new HandBelote());
         }
         HandBelote m = HandBelote.pileBase();
-        int nbCartesJoueurDebut_ = _regles.getRepartition().getFirstCards();
-        int nbCartesJoueursDebut_ = nbCartesJoueurDebut_ * _regles.getRepartition().getId().getNombreJoueurs();
+        int nbCartesJoueurDebut_ = _regles.getDealing().getFirstCards();
+        int nbCartesJoueursDebut_ = nbCartesJoueurDebut_ * _regles.getDealing().getId().getNombreJoueurs();
         for (int i = IndexConstants.FIRST_INDEX; i < nbCartesJoueursDebut_; i++) {
             //On distribue_ les_ 1eres cartes_ des_ joueurs_ aleatoirement_
             deal.get(i/nbCartesJoueurDebut_).ajouter(m.tirerUneCarteAleatoire(_gene));
@@ -150,8 +150,8 @@ public final class DealBelote implements Iterable<HandBelote> {
         hand(_preneur).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
         //Le preneur_ prend_ la_ carte_ du_ dessus_
         Bytes ordreDisributionJoueurs_;
-        ordreDisributionJoueurs_ = _regles.getRepartition().getId().getSortedPlayersAfter(dealer);
-        for(int i: _regles.getRepartition().getDistributionFin()) {
+        ordreDisributionJoueurs_ = _regles.getDealing().getId().getSortedPlayersAfter(dealer);
+        for(int i: _regles.getDealing().getDistributionFin()) {
             for (int j : ordreDisributionJoueurs_) {
                 for (int k = IndexConstants.SECOND_INDEX; k < i; k++) {
                     deal.get(j).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));

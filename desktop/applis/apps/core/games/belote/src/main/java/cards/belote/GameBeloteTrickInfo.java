@@ -156,7 +156,7 @@ public final class GameBeloteTrickInfo {
     void sortSuits(EnumMap<Suit, CustList<HandBelote>> _reps, byte _player) {
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             if(bid.getCouleurDominante()) {
-                if(couleur_!=bid.getCouleur()) {
+                if(couleur_!= bid.getSuit()) {
                     GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
                 }
             } else if(bid.ordreCouleur()) {
@@ -200,7 +200,7 @@ public final class GameBeloteTrickInfo {
         EnumMap<Suit,CustList<HandBelote>> m=new EnumMap<Suit,CustList<HandBelote>>();
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             //On fait une boucle sur les couleurs autres que l'atout
-            if(bid.getCouleur()!=couleur_&&!bid.ordreAtout()) {
+            if(bid.getSuit() !=couleur_&&!bid.ordreAtout()) {
                 m.put(couleur_, cartesPossibles(couleur_, _curHand));
             } else {
                 m.put(couleur_,atoutsPossibles(couleur_,_curHand));
@@ -312,7 +312,7 @@ public final class GameBeloteTrickInfo {
                     if(joueur_ == next_) {
                         continue;
                     }
-                    Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,rules.getRepartition());
+                    Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_, rules.getDealing());
                     byte forceLoc_ = c.strength(couleurDemande_, bid);
                     byte max_ = 0;
                     byte ramasseurVirtuel_ = joueur_;
@@ -434,7 +434,7 @@ public final class GameBeloteTrickInfo {
                 if(joueur_ == next_) {
                     continue;
                 }
-                Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,rules.getRepartition());
+                Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_, rules.getDealing());
                 byte forceLoc_ = c.strength(couleurDemande_, bid);
                 byte max_ = 0;
                 byte ramasseurVirtuel_ = joueur_;
@@ -669,10 +669,10 @@ public final class GameBeloteTrickInfo {
         boolean surCoupeObligPart_=relations.surCoupeObligatoirePartenaire();
         boolean sousCoupeObligPart_=relations.sousCoupeObligatoirePartenaire();
         boolean sousCoupeObligAdv_=relations.sousCoupeObligatoireAdversaire();
-        if(!bid.getCouleurDominante() || bid.getCouleur() == _couleur) {
+        if(!bid.getCouleurDominante() || bid.getSuit() == _couleur) {
             return neFournitPas(_couleur,_joueur,_plisFaits);
         }
-        Suit couleurAtout_=bid.getCouleur();
+        Suit couleurAtout_= bid.getSuit();
         int lastIndex_ = _plisFaits.getLastIndex();
         for(int indicePli_ = lastIndex_; indicePli_>= IndexConstants.FIRST_INDEX; indicePli_--) {
             TrickBelote pli_=_plisFaits.get(indicePli_);
@@ -687,7 +687,7 @@ public final class GameBeloteTrickInfo {
                 continue;
             }
             //defausse de joueur
-            Bytes joueurs_=pli_.joueursAyantJoueAvant(_joueur,rules.getRepartition());
+            Bytes joueurs_=pli_.joueursAyantJoueAvant(_joueur, rules.getDealing());
             //Le pli n'est pas vide.
             CardBelote carteForte_ = pli_.premiereCarte();
             byte forcePremiereCarte_ = carteForte_.strength(_couleur,bid);

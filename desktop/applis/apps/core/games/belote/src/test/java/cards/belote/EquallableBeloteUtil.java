@@ -51,8 +51,8 @@ public abstract class EquallableBeloteUtil {
 
     public static void assertEq(BidBeloteSuit _expected, BidBeloteSuit _result) {
         Assert.assertNotNull(_result);
-        Assert.assertSame(_expected.getCouleur(),_result.getCouleur());
-        Assert.assertSame(_expected.getEnchere(),_result.getEnchere());
+        Assert.assertSame(_expected.getSuit(), _result.getSuit());
+        Assert.assertSame(_expected.getBid(), _result.getBid());
         Assert.assertEquals(_expected.getPoints(),_result.getPoints());
     }
     

@@ -77,7 +77,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -92,7 +92,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_7);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        suits_ = hand_.couleurs(game_.getContrat());
+        suits_ = hand_.couleurs(game_.getBid());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_9);
@@ -117,7 +117,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -132,7 +132,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_7);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        suits_ = hand_.couleurs(game_.getContrat());
+        suits_ = hand_.couleurs(game_.getBid());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_9);
@@ -157,7 +157,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -172,7 +172,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_7);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        suits_ = hand_.couleurs(game_.getContrat());
+        suits_ = hand_.couleurs(game_.getBid());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_9);
@@ -198,7 +198,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -213,7 +213,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_7);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        suits_ = hand_.couleurs(game_.getContrat());
+        suits_ = hand_.couleurs(game_.getBid());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_9);
@@ -240,7 +240,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -255,7 +255,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_7);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        suits_ = hand_.couleurs(game_.getContrat());
+        suits_ = hand_.couleurs(game_.getBid());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_9);
@@ -281,7 +281,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -296,7 +296,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_7);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        suits_ = hand_.couleurs(game_.getContrat());
+        suits_ = hand_.couleurs(game_.getBid());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_9);

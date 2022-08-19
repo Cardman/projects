@@ -42,8 +42,8 @@ public final class HandBelote implements Iterable<CardBelote> {
         for (Suit s: Suit.couleursOrdinaires()) {
             BidBeloteSuit bid_;
             bid_ = new BidBeloteSuit();
-            bid_.setCouleur(s);
-            bid_.setEnchere(BidBelote.SUIT);
+            bid_.setSuit(s);
+            bid_.setBid(BidBelote.SUIT);
             min_ = Math.min(pointsTotauxDixDeDer(bid_), min_);
         }
         return min_;
@@ -221,8 +221,8 @@ public final class HandBelote implements Iterable<CardBelote> {
         Suit c_ = Suit.UNDEFINED;
         int count_ = total();
         BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
-        enchereBeloteLoc_.setCouleur(c_);
-        enchereBeloteLoc_.setEnchere(_b);
+        enchereBeloteLoc_.setSuit(c_);
+        enchereBeloteLoc_.setBid(_b);
         EnumMap<Suit,HandBelote> repartition_=couleurs(enchereBeloteLoc_);
         HandBelote rem_ = HandBelote.pileBase();
         rem_.supprimerCartes(this);
@@ -243,8 +243,8 @@ public final class HandBelote implements Iterable<CardBelote> {
         for(Suit c: GameBeloteCommon.couleurs()) {
             //c: couleur atout
             BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
-            enchereBeloteLoc_.setCouleur(c);
-            enchereBeloteLoc_.setEnchere(BidBelote.SUIT);
+            enchereBeloteLoc_.setSuit(c);
+            enchereBeloteLoc_.setBid(BidBelote.SUIT);
             EnumMap<Suit,HandBelote> repartition_=couleurs(enchereBeloteLoc_);
             EnumMap<Suit,HandBelote> other_ = rem_.couleurs(enchereBeloteLoc_);
             //repartition est la repartition des cartes a la couleur d'atout c
@@ -267,7 +267,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         return couleurPointsFictifs_;
     }
     static long getPointsCount(int _nbPlayers, BidBeloteSuit _bid, Suit _curSuit, EnumMap<Suit,HandBelote> _currHand, EnumMap<Suit,HandBelote> _other) {
-        Suit trumSuit_ = _bid.getCouleur();
+        Suit trumSuit_ = _bid.getSuit();
         long pointsFictifs_ = 0;
         HandBelote zerosLoc_ = new HandBelote();
         for(Suit c3_: GameBeloteCommon.couleurs()) {
@@ -317,7 +317,7 @@ public final class HandBelote implements Iterable<CardBelote> {
             return new HandBelote();
         }
         Suit couleur_ = premiereCarte().getId().getCouleur();
-        Order ordre_ = order(_enchere,_enchere.getCouleur(),couleur_);
+        Order ordre_ = order(_enchere, _enchere.getSuit(),couleur_);
         HandBelote cartesAssurantMin_ = cartesPlisAssuresMin(ordre_);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_ = new HandBelote().couleurs(_enchere);
         CustList<HandBelote> suitesMin_ = cartesAssurantMin_.eclater(repartitionCartesJouees_, _enchere);
@@ -393,7 +393,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         Suit couleur_= premiereCarte().getId().getCouleur();
         CustList<HandBelote> suites_=new CustList<HandBelote>();
         boolean ajouterVec_ = true;
-        Order ordre_ = order(_enchere,_enchere.getCouleur(),couleur_);
+        Order ordre_ = order(_enchere, _enchere.getSuit(),couleur_);
         for(CardBelote carte_:couleurComplete(couleur_,ordre_)) {
             if (!_repartitionCartesJouees.getVal(couleur_).contient(carte_)) {
                 if (!contient(carte_)) {

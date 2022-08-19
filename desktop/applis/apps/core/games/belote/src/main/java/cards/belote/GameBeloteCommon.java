@@ -229,7 +229,7 @@ public final class GameBeloteCommon {
     }
 
     private static HandBelote cartesMaitresses(EnumMap<Suit, HandBelote> _couleurs, EnumMap<Suit, HandBelote> _cartesJouees, BidBeloteSuit _contrat, Suit _couleur) {
-        Suit couleurAtout_ = _contrat.getCouleur();
+        Suit couleurAtout_ = _contrat.getSuit();
         Order ordre_ = order(_contrat, couleurAtout_, _couleur);
         HandBelote couleurTotale_ = HandBelote.couleurComplete(_couleur, ordre_);
         HandBelote cartes_= hand(_couleurs, _couleur);

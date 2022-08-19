@@ -30,8 +30,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         hand_.put(Suit.SPADE, suit_);
         hand_.put(Suit.CLUB, suit_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
@@ -57,8 +57,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         hand_.put(Suit.SPADE, suit_);
         hand_.put(Suit.CLUB, suit_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
@@ -85,8 +85,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         hand_.put(Suit.SPADE, suit_);
         hand_.put(Suit.CLUB, suit_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
@@ -113,8 +113,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         hand_.put(Suit.SPADE, suit_);
         hand_.put(Suit.CLUB, suit_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
@@ -140,8 +140,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         hand_.put(Suit.SPADE, suit_);
         hand_.put(Suit.CLUB, suit_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
@@ -167,8 +167,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         hand_.put(Suit.SPADE, suit_);
         hand_.put(Suit.CLUB, suit_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
@@ -195,8 +195,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         hand_.put(Suit.SPADE, suit_);
         hand_.put(Suit.CLUB, suit_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
@@ -223,8 +223,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         hand_.put(Suit.SPADE, suit_);
         hand_.put(Suit.CLUB, suit_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setCouleur(Suit.SPADE);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());

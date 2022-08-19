@@ -109,14 +109,6 @@ public final class RulesBelote {
     }
 
 
-    public DealingBelote getRepartition() {
-        return dealing;
-    }
-
-    public void setRepartition(DealingBelote _repartition) {
-        dealing = _repartition;
-    }
-
     public boolean getComptePointsClassique() {
         return isClassicCountPoints();
     }

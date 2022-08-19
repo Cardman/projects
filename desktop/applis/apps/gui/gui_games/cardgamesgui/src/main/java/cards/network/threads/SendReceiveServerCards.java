@@ -238,8 +238,8 @@ public final class SendReceiveServerCards extends BasicServer {
                 hand_.setDeck(deal_.derniereMain());
                 hand_.setDealer(Net.getGames(_instance).partieBelote().playerAfter(deal_.getDealer()));
                 hand_.setAllowedBids(Net.getGames(_instance).partieBelote().getGameBeloteBid().allowedBids());
-                hand_.setRep(Net.getGames(_instance).partieBelote().getRegles().getRepartition());
-                hand_.setPoints(Net.getGames(_instance).partieBelote().getContrat().getPoints());
+                hand_.setRep(Net.getGames(_instance).partieBelote().getRegles().getDealing());
+                hand_.setPoints(Net.getGames(_instance).partieBelote().getBid().getPoints());
                 for (byte i:Net.activePlayers(_instance, _common)) {
                     hand_.setCards(deal_.hand(i));
                     Net.sendObject(Net.getSocketByPlace(i, _common), hand_);
@@ -934,7 +934,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 if (Net.isHumanPlayer(place_, _instance, _common)) {
                     AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
                     allowedBids_.setBids(Net.getGames(_instance).partieBelote().getGameBeloteBid().allowedBids());
-                    allowedBids_.setPoints(Net.getGames(_instance).partieBelote().getContrat().getPoints());
+                    allowedBids_.setPoints(Net.getGames(_instance).partieBelote().getBid().getPoints());
                     Net.sendObject(Net.getSocketByPlace(place_, _common), allowedBids_);
                     return;
                 }
@@ -959,7 +959,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 Net.initAllReceived(_instance, _common);
                 GameBelote game_ = Net.getGames(_instance).partieBelote();
                 if (!game_.keepBidding()) {
-                    if (!game_.getContrat().jouerDonne()) {
+                    if (!game_.getBid().jouerDonne()) {
                         endGameBelote(_instance,_common);
                     } else {
                         if (game_.completedDeal()) {
@@ -978,7 +978,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 if (Net.isHumanPlayer(place_, _instance, _common)) {
                     AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
                     allowedBids_.setBids(game_.getGameBeloteBid().allowedBids());
-                    allowedBids_.setPoints(game_.getContrat().getPoints());
+                    allowedBids_.setPoints(game_.getBid().getPoints());
                     Net.sendObject(Net.getSocketByPlace(place_, _common), allowedBids_);
                     return;
                 }
@@ -1002,9 +1002,9 @@ public final class SendReceiveServerCards extends BasicServer {
             BidBeloteSuit b_ = bid_.getBidBelote();
             GameBelote game_ = Net.getGames(_instance).partieBelote();
             if (!game_.getRegles().dealAll()) {
-                if (!b_.estDemandable(game_.getContrat())) {
+                if (!b_.estDemandable(game_.getBid())) {
                     ErrorBiddingBelote error_ = new ErrorBiddingBelote();
-                    error_.setBid(game_.getContrat());
+                    error_.setBid(game_.getBid());
                     Net.sendObject(Net.getSocketByPlace(bid_.getPlace(), _common), error_);
                     return;
                 }
@@ -1029,8 +1029,8 @@ public final class SendReceiveServerCards extends BasicServer {
                 byte donneur_=game_.getDistribution().getDealer();
                 game_.setEntameur(game_.playerAfter(donneur_));
                 if (game_.getRegles().dealAll()) {
-                    int pts_ = game_.getContrat().getPoints();
-                    if (pts_ >= HandBelote.pointsTotauxDixDeDer(game_.getContrat())) {
+                    int pts_ = game_.getBid().getPoints();
+                    if (pts_ >= HandBelote.pointsTotauxDixDeDer(game_.getBid())) {
                         game_.setEntameur(game_.getPreneur());
                     }
                 }
@@ -1156,7 +1156,7 @@ public final class SendReceiveServerCards extends BasicServer {
             tricksHands_.setRules(game_.getRegles());
             tricksHands_.setDistributionCopy(game_.getDistribution());
             tricksHands_.setPreneur(game_.getPreneur());
-            tricksHands_.setBid(game_.getContrat());
+            tricksHands_.setBid(game_.getBid());
             tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
             Net.sendObject(Net.getSocketByPlace(place_, _common), tricksHands_);
             return;

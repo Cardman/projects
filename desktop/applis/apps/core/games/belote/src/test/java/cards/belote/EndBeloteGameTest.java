@@ -21,8 +21,8 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
-        bid_.setCouleur(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_, (byte) first_);
         game_.completerDonne();
         game_.setPliEnCours();
@@ -127,8 +127,8 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
-        bid_.setCouleur(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_, (byte) first_);
         game_.completerDonne();
         game_.setPliEnCours();
@@ -327,8 +327,8 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
-        bid_.setCouleur(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_, (byte) first_);
         game_.completerDonne();
         game_.setPliEnCours();
@@ -433,8 +433,8 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
-        bid_.setCouleur(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_, (byte) first_);
         game_.completerDonne();
         game_.setPliEnCours();

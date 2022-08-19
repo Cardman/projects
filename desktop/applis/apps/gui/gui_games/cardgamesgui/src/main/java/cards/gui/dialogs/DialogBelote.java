@@ -184,9 +184,9 @@ public abstract class DialogBelote extends DialogCards {
         getReglesBelote().setSousCoupeAdv(underTrumpingFoe.isSelected());
         getReglesBelote().setComptePointsClassique(classic.isSelected());
         if (dealAll.isSelected()) {
-            getReglesBelote().setRepartition(DealingBelote.COINCHE_2_VS_2);
+            getReglesBelote().setDealing(DealingBelote.COINCHE_2_VS_2);
         } else {
-            getReglesBelote().setRepartition(DealingBelote.CLASSIC_2_VS_2);
+            getReglesBelote().setDealing(DealingBelote.CLASSIC_2_VS_2);
         }
     }
 

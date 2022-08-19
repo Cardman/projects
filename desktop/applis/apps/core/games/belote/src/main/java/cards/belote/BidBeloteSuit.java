@@ -12,22 +12,6 @@ public final class BidBeloteSuit {
 
     private int points;
 
-    public BidBelote getEnchere() {
-        return bid;
-    }
-
-    public void setEnchere(BidBelote _enchere) {
-        bid = _enchere;
-    }
-
-    public Suit getCouleur() {
-        return suit;
-    }
-
-    public void setCouleur(Suit _couleur) {
-        suit = _couleur;
-    }
-
     public int getPoints() {
         return points;
     }
@@ -71,10 +55,7 @@ public final class BidBeloteSuit {
         if (suit != _obj.suit) {
             return false;
         }
-        if (points != _obj.points) {
-            return false;
-        }
-        return true;
+        return points == _obj.points;
     }
 
     public BidBelote getBid() {

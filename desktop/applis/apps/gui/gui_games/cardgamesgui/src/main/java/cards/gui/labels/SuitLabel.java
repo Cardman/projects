@@ -30,7 +30,7 @@ public final class SuitLabel extends AbsMetaLabel {
     public void setSuit(BidBeloteSuit _bid, String _lg) {
         bid = _bid;
         if (!bid.getCouleurDominante()) {
-            setText(Games.toString(bid.getEnchere(),_lg));
+            setText(Games.toString(bid.getBid(),_lg));
             setBackground(GuiConstants.WHITE);
             setForeground(GuiConstants.newColor(0, 0, 127));
             int h_ = heightFont();
@@ -47,10 +47,10 @@ public final class SuitLabel extends AbsMetaLabel {
     }
 
     public void setSelected(BidBeloteSuit _bid) {
-        if (bid.getCouleur() != _bid.getCouleur()) {
+        if (bid.getSuit() != _bid.getSuit()) {
             selected = false;
         } else {
-            selected = bid.getEnchere() == _bid.getEnchere();
+            selected = bid.getBid() == _bid.getBid();
         }
     }
 
@@ -78,7 +78,7 @@ public final class SuitLabel extends AbsMetaLabel {
     }
 
     private void dessinerGrandSymbole(AbstractImage _g,int _x,int _y) {
-        if(bid.getCouleur() == Suit.HEART) {
+        if(bid.getSuit() == Suit.HEART) {
             _g.setColor(GuiConstants.RED);
             _g.fillOval(_x,_y,10,10);
             _g.fillOval(_x+10,_y,10,10);
@@ -86,7 +86,7 @@ public final class SuitLabel extends AbsMetaLabel {
             _g.setColor(GuiConstants.WHITE);
             _g.fillOval(_x,_y+10,10,10);
             _g.fillOval(_x+10,_y+10,10,10);
-        } else if(bid.getCouleur() == Suit.SPADE) {
+        } else if(bid.getSuit() == Suit.SPADE) {
             _g.setColor(GuiConstants.BLACK);
             _g.fillOval(_x,_y+5,10,10);
             _g.fillOval(_x+10,_y+5,10,10);
@@ -95,7 +95,7 @@ public final class SuitLabel extends AbsMetaLabel {
             _g.setColor(GuiConstants.WHITE);
             _g.fillOval(_x,_y-5,10,10);
             _g.fillOval(_x+10,_y-5,10,10);
-        } else if(bid.getCouleur() == Suit.DIAMOND) {
+        } else if(bid.getSuit() == Suit.DIAMOND) {
             _g.setColor(GuiConstants.RED);
             _g.fillPolygon(NumberUtil.wrapIntArray(_x,10+_x,20+_x,10+_x), NumberUtil.wrapIntArray(10+_y,_y,10+_y,20+_y),4);
         } else {

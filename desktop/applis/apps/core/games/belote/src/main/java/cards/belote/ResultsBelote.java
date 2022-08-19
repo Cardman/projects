@@ -18,7 +18,7 @@ public final class ResultsBelote {
         getRes().setScores(_scores);
         res.setNicknames(_pseudos);
         Shorts scoresDeal_ = new Shorts();
-        BidBeloteSuit bid_ = game.getContrat();
+        BidBeloteSuit bid_ = game.getBid();
         if(bid_.jouerDonne()) {
             int pointsAttaqueTemporaire_;
             int pointsAttaqueDefinitif_;

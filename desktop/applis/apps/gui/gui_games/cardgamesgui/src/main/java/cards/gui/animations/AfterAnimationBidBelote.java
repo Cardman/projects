@@ -31,12 +31,12 @@ public final class AfterAnimationBidBelote implements Runnable {
             container.setCanBid(true);
             if (!gameBelote_.getRegles().dealAll()) {
                 for(BidBeloteSuit e:gameBelote_.getGameBeloteBid().allowedBids()){
-                    container.ajouterBoutonContratBelote(Games.toString(e,lg_),e,e.estDemandable(gameBelote_.getContrat()));
+                    container.ajouterBoutonContratBelote(Games.toString(e,lg_),e,e.estDemandable(gameBelote_.getBid()));
                 }
             } else {
                 container.addButtonsForCoinche(gameBelote_);
             }
-        } else if(gameBelote_.getContrat().jouerDonne()) {
+        } else if(gameBelote_.getBid().jouerDonne()) {
             container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
             container.getMini().setStatus(container.getWindow().getImageFactory(), Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
             container.addButtonNextTrickBelote(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);

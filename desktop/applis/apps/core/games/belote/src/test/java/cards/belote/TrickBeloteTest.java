@@ -546,7 +546,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseurPliEnCours_BeloteToutAtout1Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -563,7 +563,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseurPliEnCours_BeloteToutAtout2Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 1);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -580,7 +580,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseurPliEnCours_BeloteToutAtout3Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 2);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -597,7 +597,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseurPliEnCours_BeloteToutAtout4Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 3);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -614,7 +614,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseurPliEnCours_BeloteSansAtout1Test(){
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -630,7 +630,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseurPliEnCours_BeloteSansAtout2Test(){
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 1);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -646,7 +646,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseurPliEnCours_BeloteSansAtout3Test(){
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 2);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -662,7 +662,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseurPliEnCours_BeloteSansAtout4Test(){
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 3);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -679,8 +679,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.HEART);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.HEART);
         byte jTwo_ = (byte) (2 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
@@ -707,8 +707,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.HEART);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.HEART);
         byte jTwo_ = (byte) ((1 + 2) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 1);
@@ -735,8 +735,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.HEART);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.HEART);
         byte jTwo_ = (byte) ((2 + 2) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 2);
@@ -763,8 +763,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.HEART);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.HEART);
         byte jTwo_ = (byte) ((3 + 2) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 3);
@@ -791,8 +791,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.SPADE);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.SPADE);
         byte j_ = (byte) (1 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
@@ -819,8 +819,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.SPADE);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.SPADE);
         byte j_ = (byte) ((1 + 1) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 1);
@@ -847,8 +847,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.SPADE);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.SPADE);
         byte j_ = (byte) ((2 + 1) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 2);
@@ -875,8 +875,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.SPADE);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.SPADE);
         byte j_ = (byte) ((3 + 1) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 3);
@@ -903,8 +903,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         byte jThree_ = (byte) (3 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
@@ -931,8 +931,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         byte jThree_ = (byte) ((1 + 3) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 1);
@@ -959,8 +959,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         byte jThree_ = (byte) ((2 + 3) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 2);
@@ -987,8 +987,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         byte jThree_ = (byte) ((3 + 3) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 3);
@@ -1015,8 +1015,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.CLUB);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.CLUB);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1042,8 +1042,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.CLUB);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.CLUB);
 
         TrickBelote pli_ = new TrickBelote((byte) 1);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1069,8 +1069,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.CLUB);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.CLUB);
 
         TrickBelote pli_ = new TrickBelote((byte) 2);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1096,8 +1096,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.CLUB);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.CLUB);
 
         TrickBelote pli_ = new TrickBelote((byte) 3);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1122,7 +1122,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteToutAtout1Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1136,7 +1136,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteToutAtout2Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 1);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1150,7 +1150,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteToutAtout3Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 2);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1164,7 +1164,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteToutAtout4Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         byte nombreDeJoueurs_ = 4;
         TrickBelote pli_ = new TrickBelote((byte) 3);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1178,7 +1178,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteSansAtout1Test(){
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
         pli_.getCartes().ajouter(CardBelote.SPADE_7);
@@ -1190,7 +1190,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteSansAtout2Test(){
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         TrickBelote pli_ = new TrickBelote((byte) 1);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
         pli_.getCartes().ajouter(CardBelote.SPADE_7);
@@ -1202,7 +1202,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteSansAtout3Test(){
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         TrickBelote pli_ = new TrickBelote((byte) 2);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
         pli_.getCartes().ajouter(CardBelote.SPADE_7);
@@ -1214,7 +1214,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteSansAtout4Test(){
         BidBelote enchere_ = BidBelote.NO_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setBid(enchere_);
         TrickBelote pli_ = new TrickBelote((byte) 3);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
         pli_.getCartes().ajouter(CardBelote.SPADE_7);
@@ -1227,8 +1227,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.HEART);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.HEART);
         byte jTwo_ = (byte) (2 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
@@ -1249,8 +1249,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.HEART);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.HEART);
         byte jTwo_ = (byte) ((1 + 2) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 1);
@@ -1271,8 +1271,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.HEART);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.HEART);
         byte jTwo_ = (byte) ((2 + 2) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 2);
@@ -1293,8 +1293,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.HEART);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.HEART);
         byte jTwo_ = (byte) ((3 + 2) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 3);
@@ -1315,8 +1315,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.SPADE);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.SPADE);
         byte j_ = (byte) (1 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
@@ -1337,8 +1337,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.SPADE);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.SPADE);
         byte j_ = (byte) ((1 + 1) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 1);
@@ -1359,8 +1359,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.SPADE);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.SPADE);
         byte j_ = (byte) ((2 + 1) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 2);
@@ -1381,8 +1381,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.SPADE);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.SPADE);
         byte j_ = (byte) ((3 + 1) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 3);
@@ -1403,8 +1403,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         byte jThree_ = (byte) (3 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
@@ -1425,8 +1425,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         byte jThree_ = (byte) ((1 + 3) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 1);
@@ -1447,8 +1447,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         byte jThree_ = (byte) ((2 + 3) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 2);
@@ -1469,8 +1469,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         byte nombreDeJoueurs_ = 4;
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.DIAMOND);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         byte jThree_ = (byte) ((3 + 3) % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 3);
@@ -1490,8 +1490,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteCouleur13Test(){
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.CLUB);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.CLUB);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1510,8 +1510,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteCouleur14Test(){
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.CLUB);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.CLUB);
 
         TrickBelote pli_ = new TrickBelote((byte) 1);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1530,8 +1530,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteCouleur15Test(){
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.CLUB);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.CLUB);
 
         TrickBelote pli_ = new TrickBelote((byte) 2);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1550,8 +1550,8 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
     public void getRamasseur_BeloteCouleur16Test(){
         BidBelote e = BidBelote.SUIT;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        enchereCouleur_.setEnchere(e);
-        enchereCouleur_.setCouleur(Suit.CLUB);
+        enchereCouleur_.setBid(e);
+        enchereCouleur_.setSuit(Suit.CLUB);
 
         TrickBelote pli_ = new TrickBelote((byte) 3);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);

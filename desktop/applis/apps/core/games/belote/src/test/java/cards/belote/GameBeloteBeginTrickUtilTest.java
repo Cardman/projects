@@ -107,7 +107,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         addCard(sure_,3,CardBelote.SPADE_1);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        assertTrue(!GameBeloteBeginTrick.playedLeading(b_,(byte)3,b_.getCouleur(),pr_,sure_, Order.TRUMP));
+        assertTrue(!GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_, Order.TRUMP));
     }
     @Test
     public void playedLeading2Test() {
@@ -119,7 +119,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.SPADE_JACK);
         EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        assertTrue(GameBeloteBeginTrick.playedLeading(b_,(byte)3,b_.getCouleur(),pr_,sure_, Order.TRUMP));
+        assertTrue(GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_, Order.TRUMP));
     }
     private static void addCard(EnumMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
         HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
@@ -138,7 +138,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
             for (int i = 0; i < _nbPlayer; i++) {
                 HandBelote h_ = new HandBelote();
                 if(_b.getCouleurDominante()) {
-                    if(s!=_b.getCouleur()) {
+                    if(s!= _b.getSuit()) {
                         h_.setOrdre(Order.SUIT);
                     }
                 } else if(_b.ordreCouleur()) {
@@ -154,7 +154,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         EnumList<Suit> couleursNonAtouts_=new EnumList<Suit>();
         if(_b.getCouleurDominante()) {
             for(Suit couleur_:GameBeloteCommon.couleurs()) {
-                if(couleur_!=_b.getCouleur()) {
+                if(couleur_!= _b.getSuit()) {
                     couleursNonAtouts_.add(couleur_);
                 }
             }

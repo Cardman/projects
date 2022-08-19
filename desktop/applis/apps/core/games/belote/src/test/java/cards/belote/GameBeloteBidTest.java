@@ -23,8 +23,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.HEART_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.SUIT,contrat_.getEnchere());
-        assertSame(Suit.HEART,contrat_.getCouleur());
+        assertSame(BidBelote.SUIT, contrat_.getBid());
+        assertSame(Suit.HEART, contrat_.getSuit());
     }
 
     @Test
@@ -41,8 +41,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
     }
 
     @Test
@@ -60,8 +60,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.HEART_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.SUIT,contrat_.getEnchere());
-        assertSame(Suit.HEART,contrat_.getCouleur());
+        assertSame(BidBelote.SUIT, contrat_.getBid());
+        assertSame(Suit.HEART, contrat_.getSuit());
     }
 
     @Test
@@ -79,8 +79,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
     }
 
     @Test
@@ -97,8 +97,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,true,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.OTHER_SUIT,contrat_.getEnchere());
-        assertSame(Suit.HEART,contrat_.getCouleur());
+        assertSame(BidBelote.OTHER_SUIT, contrat_.getBid());
+        assertSame(Suit.HEART, contrat_.getSuit());
     }
 
     @Test
@@ -116,8 +116,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.NO_TRUMP,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.NO_TRUMP, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
     }
 
     @Test
@@ -134,8 +134,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_8);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,true,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
     }
 
     @Test
@@ -153,8 +153,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_8);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,true,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
     }
 
     @Test
@@ -173,8 +173,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.HEART_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.SUIT,contrat_.getEnchere());
-        assertSame(Suit.HEART,contrat_.getCouleur());
+        assertSame(BidBelote.SUIT, contrat_.getBid());
+        assertSame(Suit.HEART, contrat_.getSuit());
     }
 
     @Test
@@ -191,8 +191,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,true,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.OTHER_SUIT,contrat_.getEnchere());
-        assertSame(Suit.SPADE,contrat_.getCouleur());
+        assertSame(BidBelote.OTHER_SUIT, contrat_.getBid());
+        assertSame(Suit.SPADE, contrat_.getSuit());
     }
 
     @Test
@@ -209,8 +209,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,true,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.OTHER_SUIT,contrat_.getEnchere());
-        assertSame(Suit.CLUB,contrat_.getCouleur());
+        assertSame(BidBelote.OTHER_SUIT, contrat_.getBid());
+        assertSame(Suit.CLUB, contrat_.getSuit());
     }
 
     @Test
@@ -227,8 +227,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,true,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.OTHER_SUIT,contrat_.getEnchere());
-        assertSame(Suit.SPADE,contrat_.getCouleur());
+        assertSame(BidBelote.OTHER_SUIT, contrat_.getBid());
+        assertSame(Suit.SPADE, contrat_.getSuit());
     }
 
     @Test
@@ -245,8 +245,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.DIAMOND_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,true,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.OTHER_SUIT,contrat_.getEnchere());
-        assertSame(Suit.SPADE,contrat_.getCouleur());
+        assertSame(BidBelote.OTHER_SUIT, contrat_.getBid());
+        assertSame(Suit.SPADE, contrat_.getSuit());
     }
 
     @Test
@@ -266,8 +266,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.SUIT,contrat_.getEnchere());
-        assertSame(Suit.HEART,contrat_.getCouleur());
+        assertSame(BidBelote.SUIT, contrat_.getBid());
+        assertSame(Suit.HEART, contrat_.getSuit());
         assertEq(110,contrat_.getPoints());
     }
 
@@ -289,8 +289,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.NO_TRUMP,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.NO_TRUMP, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(120,contrat_.getPoints());
     }
 
@@ -311,8 +311,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(0,contrat_.getPoints());
     }
 
@@ -334,8 +334,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(0,contrat_.getPoints());
     }
 
@@ -360,8 +360,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(0,contrat_.getPoints());
     }
 
@@ -385,8 +385,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(0,contrat_.getPoints());
     }
 
@@ -409,8 +409,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.ALL_TRUMP,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.ALL_TRUMP, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(162,contrat_.getPoints());
     }
 
@@ -433,8 +433,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.NO_TRUMP,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.NO_TRUMP, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(162,contrat_.getPoints());
     }
 
@@ -457,8 +457,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.contrat();
-        assertSame(BidBelote.SUIT,contrat_.getEnchere());
-        assertSame(Suit.DIAMOND,contrat_.getCouleur());
+        assertSame(BidBelote.SUIT, contrat_.getBid());
+        assertSame(Suit.DIAMOND, contrat_.getSuit());
         assertEq(162,contrat_.getPoints());
     }
 
@@ -484,8 +484,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.strategieContrat();
-        assertSame(BidBelote.NO_TRUMP,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.NO_TRUMP, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(162,contrat_.getPoints());
     }
     @Test
@@ -507,8 +507,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         HandBelote l_ = new HandBelote();
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.strategieContrat();
-        assertSame(BidBelote.NO_TRUMP,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.NO_TRUMP, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
         assertEq(162,contrat_.getPoints());
     }
 
@@ -526,8 +526,8 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.HEART_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.strategieContrat();
-        assertSame(BidBelote.SUIT,contrat_.getEnchere());
-        assertSame(Suit.HEART,contrat_.getCouleur());
+        assertSame(BidBelote.SUIT, contrat_.getBid());
+        assertSame(Suit.HEART, contrat_.getSuit());
     }
 
     @Test
@@ -548,7 +548,7 @@ public final class GameBeloteBidTest extends EquallableBeloteUtil {
         l_.ajouter(CardBelote.HEART_9);
         GameBeloteBid g_ = new GameBeloteBid(h_,r_, bid_,false,l_);
         BidBeloteSuit contrat_ = g_.strategieContrat();
-        assertSame(BidBelote.FOLD,contrat_.getEnchere());
-        assertSame(Suit.UNDEFINED,contrat_.getCouleur());
+        assertSame(BidBelote.FOLD, contrat_.getBid());
+        assertSame(Suit.UNDEFINED, contrat_.getSuit());
     }
 }

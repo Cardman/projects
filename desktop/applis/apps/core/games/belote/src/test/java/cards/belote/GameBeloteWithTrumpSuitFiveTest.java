@@ -80,7 +80,7 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -108,7 +108,7 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());

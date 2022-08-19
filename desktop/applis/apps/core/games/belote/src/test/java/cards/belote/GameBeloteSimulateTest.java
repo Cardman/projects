@@ -36,8 +36,8 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
-        b_.setEnchere(BidBelote.SUIT);
-        game_.setContrat(b_);
+        b_.setBid(BidBelote.SUIT);
+        game_.setBid(b_);
         game_.bidSimulate(game_.playerHavingToBid(),s_);
         assertEq(0,game_.getBids().size());
     }
@@ -113,7 +113,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
         game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
         Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
@@ -131,7 +131,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
@@ -151,7 +151,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
         game_.simuPlayCards(s_);
@@ -168,7 +168,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
@@ -188,7 +188,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
         game_.simuPlayCards(s_);
@@ -243,7 +243,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.NO_TRUMP);
+        bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
         game_.simuPlayCards(s_);
@@ -260,7 +260,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.ALL_TRUMP);
+        bid_.setBid(BidBelote.ALL_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
         game_.simuPlayCards(s_);

@@ -147,7 +147,7 @@ final class BeloteInfoPliEnCours {
     }
 
     public Suit getCouleurAtout() {
-        return contrat.getCouleur();
+        return contrat.getSuit();
     }
 
     public void setContrat(BidBeloteSuit _contrat) {

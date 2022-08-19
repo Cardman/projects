@@ -32,7 +32,7 @@ public final class DeclareHandBeloteComparator implements Comparing<DeclareHandB
                 return -cmp_;
             }
         }
-        Suit trumpSuit_ = bid.getCouleur();
+        Suit trumpSuit_ = bid.getSuit();
         if(trumpSuit_ != Suit.UNDEFINED){
             int first_ = main1_.couleurs(bid).getVal(trumpSuit_).total();
             int second_ = main2_.couleurs(bid).getVal(trumpSuit_).total();

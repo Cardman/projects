@@ -13,7 +13,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
-        b_.setEnchere(BidBelote.SUIT);
+        b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 3;
         Bytes calledPlayers_ = new Bytes();
@@ -30,7 +30,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
-        b_.setEnchere(BidBelote.SUIT);
+        b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 3;
         Bytes calledPlayers_ = new Bytes();
@@ -47,7 +47,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
-        b_.setEnchere(BidBelote.SUIT);
+        b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 3;
         Bytes calledPlayers_ = new Bytes();
@@ -64,7 +64,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
-        b_.setEnchere(BidBelote.SUIT);
+        b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 3;
         Bytes calledPlayers_ = new Bytes();

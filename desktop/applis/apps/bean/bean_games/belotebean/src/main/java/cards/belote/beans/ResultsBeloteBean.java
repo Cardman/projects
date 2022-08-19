@@ -46,7 +46,7 @@ public final class ResultsBeloteBean extends BeloteBean {
         setUser(res_.getRes().getUser());
         setLoc(res_.getRes().getLoc());
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
-        setBid(getGame().getContrat());
+        setBid(getGame().getBid());
         EndBeloteGame end_ = getGame().getEndBeloteGame();
         capotAttaque=end_.valeurCapot();
         pointsAttaqueSansPrime=end_.pointsAttaqueSansPrime();

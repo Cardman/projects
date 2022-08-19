@@ -195,6 +195,6 @@ public final class EndBeloteGame {
     }
 
     byte getNombreDeJoueurs() {
-        return (byte) relations.getRules().getRepartition().getId().getNombreJoueurs();
+        return (byte) relations.getRules().getDealing().getId().getNombreJoueurs();
     }
 }

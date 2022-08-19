@@ -102,7 +102,7 @@ public enum CardBelote {
     }
     public byte strength(Suit _dem,BidBeloteSuit _contrat) {
         if(_contrat.getCouleurDominante()) {
-            return strength(_contrat.getCouleur(),_dem);
+            return strength(_contrat.getSuit(),_dem);
         }
         if (_contrat.ordreCouleur() && id.getCouleur() == _dem) {
             return forceCouleur;
@@ -145,7 +145,7 @@ public enum CardBelote {
         if(_contrat.ordreCouleur()) {
             return pointsSansAt;
         }
-        return points(_contrat.getCouleur());
+        return points(_contrat.getSuit());
     }
     public byte forceValeurDansUnTri(boolean _decroissant,Order _ordre) {
         if(_decroissant) {

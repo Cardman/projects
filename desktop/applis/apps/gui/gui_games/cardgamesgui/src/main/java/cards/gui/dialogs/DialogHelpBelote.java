@@ -57,10 +57,10 @@ public final class DialogHelpBelote {
         AbsTextArea zone_;
         HandBelote tout_ = HandBelote.pileBase();
         //une des couleurs domine
-        if(_bid.getCouleur() != Suit.UNDEFINED) {
+        if(_bid.getSuit() != Suit.UNDEFINED) {
             EnumList<Suit> couleurs_ = new EnumList<Suit>();
-            couleurs_.add(_bid.getCouleur());
-            if(_bid.getCouleur()!=_couleurDemandee) {
+            couleurs_.add(_bid.getSuit());
+            if(_bid.getSuit() !=_couleurDemandee) {
                 //si on joue une couleur ordinaire
                 couleurs_.add(_couleurDemandee);
             }
@@ -70,9 +70,9 @@ public final class DialogHelpBelote {
                 }
                 couleurs_.add(couleur_);
             }
-            tout_.trier(couleurs_, true, _bid.getCouleur());
+            tout_.trier(couleurs_, true, _bid.getSuit());
         } else {
-            Order ordre_ = _bid.getEnchere().getOrdre();
+            Order ordre_ = _bid.getBid().getOrdre();
             //non null
             tout_.setOrdre(ordre_);
             tout_.trier(Suit.couleursOrdinaires(), true, ordre_);

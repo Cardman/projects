@@ -37,7 +37,7 @@ public final class RulesBeloteBean extends BeloteBean {
         for (BidBelote m: rules_.getListeEncheresAutorisees()) {
             encheresAutorisees.add(toString(m, rules_.getCommon().getSpecific()));
         }
-        repartition = toString(rules_.getRepartition(), rules_.getCommon().getSpecific());
+        repartition = toString(rules_.getDealing(), rules_.getCommon().getSpecific());
         comptePointsClassique = rules_.getComptePointsClassique();
     }
 

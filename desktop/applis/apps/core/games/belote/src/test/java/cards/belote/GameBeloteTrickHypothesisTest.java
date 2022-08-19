@@ -14,7 +14,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_KING);
@@ -39,7 +39,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_KING);
@@ -60,7 +60,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_KING);
@@ -83,7 +83,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_KING);
@@ -106,7 +106,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -131,7 +131,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -156,7 +156,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -181,7 +181,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_JACK);
         hand_.ajouter(CardBelote.DIAMOND_8);
@@ -210,7 +210,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_8);
         HandBelote playable_ = new HandBelote();
@@ -235,7 +235,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
         TrickBelote current_ = new TrickBelote((byte)2);
@@ -256,7 +256,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -278,7 +278,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -302,7 +302,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -322,7 +322,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -346,7 +346,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -368,7 +368,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -391,7 +391,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         r_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.NO_TRUMP);
+        bid_.setBid(BidBelote.NO_TRUMP);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -414,7 +414,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.UNDEFINED);
-        bid_.setEnchere(BidBelote.NO_TRUMP);
+        bid_.setBid(BidBelote.NO_TRUMP);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -436,7 +436,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -461,7 +461,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -486,7 +486,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_1);
         hand_.ajouter(CardBelote.DIAMOND_8);
@@ -515,7 +515,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_1);
         HandBelote playable_ = new HandBelote();
@@ -540,7 +540,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_1);
         HandBelote playable_ = new HandBelote();
@@ -565,7 +565,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -590,7 +590,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -612,7 +612,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -638,7 +638,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -662,7 +662,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -686,7 +686,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -706,7 +706,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -732,7 +732,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -758,7 +758,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -784,7 +784,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -810,7 +810,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -836,7 +836,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -862,7 +862,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -888,7 +888,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -914,7 +914,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -940,7 +940,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -966,7 +966,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -992,7 +992,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1018,7 +1018,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1042,7 +1042,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1068,7 +1068,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1094,7 +1094,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1116,7 +1116,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1136,7 +1136,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1156,7 +1156,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1176,7 +1176,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1197,7 +1197,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1219,7 +1219,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1239,7 +1239,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1260,7 +1260,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1281,7 +1281,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1301,7 +1301,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1322,7 +1322,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1348,7 +1348,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1374,7 +1374,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1400,7 +1400,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1426,7 +1426,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1448,7 +1448,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_JACK);
         hand_.ajouter(CardBelote.HEART_KING);
@@ -1474,7 +1474,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1496,7 +1496,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1518,7 +1518,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -1540,7 +1540,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -1562,7 +1562,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -1584,7 +1584,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -1606,7 +1606,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -1627,7 +1627,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -1648,7 +1648,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -1668,7 +1668,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
@@ -1688,7 +1688,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         hand_.ajouter(CardBelote.HEART_JACK);
@@ -1713,7 +1713,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.HEART);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
         TrickBelote current_ = new TrickBelote((byte)2);
@@ -1729,7 +1729,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
@@ -1751,7 +1751,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_8);
         HandBelote playable_ = new HandBelote();
@@ -1771,7 +1771,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_8);
         HandBelote playable_ = new HandBelote();
@@ -1791,7 +1791,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
         TrickBelote current_ = new TrickBelote((byte)2);
@@ -1807,7 +1807,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
         TrickBelote current_ = new TrickBelote((byte)2);
@@ -1823,7 +1823,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_JACK);
         hand_.ajouter(CardBelote.DIAMOND_10);
@@ -1849,7 +1849,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
@@ -1871,7 +1871,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
@@ -1893,7 +1893,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
@@ -1915,7 +1915,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
@@ -1935,7 +1935,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
@@ -1955,7 +1955,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -1975,7 +1975,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
@@ -1995,7 +1995,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
         TrickBelote current_ = new TrickBelote((byte)2);
@@ -2011,7 +2011,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
         TrickBelote current_ = new TrickBelote((byte)2);
@@ -2027,7 +2027,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_JACK);
         hand_.ajouter(CardBelote.DIAMOND_9);
@@ -2051,7 +2051,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote playable_ = new HandBelote();
@@ -2073,7 +2073,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
@@ -2095,7 +2095,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
@@ -2117,7 +2117,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
@@ -2139,7 +2139,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
@@ -2161,7 +2161,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
@@ -2183,7 +2183,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_KING);
         hand_.ajouter(CardBelote.HEART_1);
@@ -2207,7 +2207,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.DIAMOND);
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote playable_ = new HandBelote();

@@ -40,7 +40,7 @@ public final class GameBeloteCommonPlaying {
         byte ramasseurVirtuel_ = prog_.getRamasseurPliEnCours(nbPlayers_, bid);
         EnumMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = _cartes.eclaterTout(repartitionCartesJouees_, bid);
 
-        boolean maitreAtout_ = strictMaitreAtout(bid, cartesPossibles_,nextPlayer_,GameBeloteCommon.suite(suitesTouteCouleur_,bid.getCouleur()),repartitionCartesJouees_);
+        boolean maitreAtout_ = strictMaitreAtout(bid, cartesPossibles_,nextPlayer_,GameBeloteCommon.suite(suitesTouteCouleur_, bid.getSuit()),repartitionCartesJouees_);
         EnumList<Suit> couleursMaitresses_ = couleursMaitres(
                 bid, suitesTouteCouleur_, repartitionCartesJouees_, cartesPossibles_,nextPlayer_);
         EnumMap<Suit,HandBelote> cartesMaitresses_ = GameBeloteCommon.cartesMaitresses(
@@ -347,7 +347,7 @@ public final class GameBeloteCommonPlaying {
         EnumList<Suit> couleursNonAtouts_=new EnumList<Suit>();
         if(_bid.getCouleurDominante()) {
             for(Suit couleur_:GameBeloteCommon.couleurs()) {
-                if(couleur_!=_bid.getCouleur()) {
+                if(couleur_!= _bid.getSuit()) {
                     couleursNonAtouts_.add(couleur_);
                 }
             }
@@ -420,7 +420,7 @@ public final class GameBeloteCommonPlaying {
     }
     static HandBelote cartesBeloteRebelote(BidBeloteSuit _bid) {
         HandBelote cartes_ = new HandBelote();
-        for(CardBelote c: GameBeloteCommonPlaying.cartesAtouts(_bid.getCouleur())) {
+        for(CardBelote c: GameBeloteCommonPlaying.cartesAtouts(_bid.getSuit())) {
             if(c.getId().getNomFigure() == CardChar.KING) {
                 cartes_.ajouter(c);
             }
@@ -503,7 +503,7 @@ public final class GameBeloteCommonPlaying {
     static EnumList<Suit> couleursCoupeePar(byte _joueur, BidBeloteSuit _contrat, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
                                             EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        if (!_cartesCertaines.getVal(_contrat.getCouleur()).get(_joueur).estVide()) {
+        if (!_cartesCertaines.getVal(_contrat.getSuit()).get(_joueur).estVide()) {
             for (Suit couleur_ : _couleurs) {
                 if (!_cartesPossibles.getVal(couleur_).get(_joueur).estVide()) {
                     continue;
@@ -569,7 +569,7 @@ public final class GameBeloteCommonPlaying {
     private static boolean defausse(Suit _couleur, byte _joueur,
                                     EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, BidBeloteSuit _contrat) {
         if(_contrat.getCouleurDominante()) {
-            return GameBeloteCommon.hand(_cartesPossibles,_contrat.getCouleur(),_joueur).estVide()&&GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
+            return GameBeloteCommon.hand(_cartesPossibles, _contrat.getSuit(),_joueur).estVide()&&GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
         }
         return GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
     }
@@ -594,7 +594,7 @@ public final class GameBeloteCommonPlaying {
         return unionPlis_;
     }
     private Suit couleurAtout() {
-        return bid.getCouleur();
+        return bid.getSuit();
     }
 
     private boolean sousCoupeObligatoireAdversaire() {

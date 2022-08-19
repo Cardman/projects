@@ -529,7 +529,7 @@ public final class GameBeloteTrickHypothesis {
 
     static boolean beatSureListTrumpNormalSuit(Bytes _equipeABattre, Bytes _equipeDom, Suit _couleurDemandee, BidBeloteSuit _contrat,
                                                EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _strength) {
-        Suit couleurAtout_ = _contrat.getCouleur();
+        Suit couleurAtout_ = _contrat.getSuit();
         boolean ramasseurDeter_=false;
         for(byte joueur_:_equipeDom) {
             if(vaCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines, couleurAtout_)) {
@@ -548,7 +548,7 @@ public final class GameBeloteTrickHypothesis {
 
     static boolean beatByTrumpNormalSuitStrength(Bytes _equipeABattre, Suit _couleurDemandee, BidBeloteSuit _contrat,
                                                  EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _maxForce) {
-        Suit couleurAtout_ = _contrat.getCouleur();
+        Suit couleurAtout_ = _contrat.getSuit();
         boolean joueurBatAdversaire_=true;
         for(byte joueur_:_equipeABattre) {
             boolean ramasseurVirtuelEgalCertain_ = GameBeloteCommon.hand(_cartesPossibles, couleurAtout_, joueur_).estVide();
@@ -585,7 +585,7 @@ public final class GameBeloteTrickHypothesis {
     static boolean defausse(Suit _couleur,byte _joueur,
                             EnumMap<Suit,CustList<HandBelote>> _cartesPossibles, BidBeloteSuit _contrat) {
         if(_contrat.getCouleurDominante()) {
-            return GameBeloteCommon.hand(_cartesPossibles,_contrat.getCouleur(),_joueur).estVide()&&GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
+            return GameBeloteCommon.hand(_cartesPossibles, _contrat.getSuit(),_joueur).estVide()&&GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
         }
         return GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
     }

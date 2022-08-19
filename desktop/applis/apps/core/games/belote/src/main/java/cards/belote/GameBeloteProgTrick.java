@@ -46,7 +46,7 @@ public final class GameBeloteProgTrick {
         EnumMap<Suit,HandBelote> repartitionJouables_=playableCards.couleurs(bid);
         BeloteInfoPliEnCours info_ = initInformations();
         if(bid.getCouleurDominante()) {
-            Suit couleurAtout_=bid.getCouleur();
+            Suit couleurAtout_= bid.getSuit();
             if (couleurDemandee_ != couleurAtout_) {
                 if(!repartitionJouables_.getVal(couleurDemandee_).estVide()) {
                     return fournirCouleurOrdinaireCouleurDominante(info_);
@@ -216,7 +216,7 @@ public final class GameBeloteProgTrick {
         boolean maitreJeu_ = _info.isMaitreJeu();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
         Bytes joueursSusceptiblesDeCouper_=GameBeloteCommonPlaying.joueursSusceptiblesCoupe(cartesPossibles_,
-                couleurDemandee_,bid.getCouleur(),adversaire_);
+                couleurDemandee_, bid.getSuit(),adversaire_);
         byte maxTwo_;
         for (byte joueur_ : adversaire_) {
             if (joueursSusceptiblesDeCouper_.containsObj(joueur_)) {
@@ -337,7 +337,7 @@ public final class GameBeloteProgTrick {
     }
 
     CardBelote coupeCouleurDominante(BeloteInfoPliEnCours _info) {
-        Suit couleurAtout_=bid.getCouleur();
+        Suit couleurAtout_= bid.getSuit();
         EnumMap<Suit,HandBelote> repartitionJouables_=playableCards.couleurs(bid);
         if(GameBeloteCommon.hand(repartitionJouables_,couleurAtout_).total()==playableCards.total()) {
             return coupeObligatoireCouleurDominante(_info);
@@ -726,7 +726,7 @@ public final class GameBeloteProgTrick {
             Suit _couleurJoueur,
             EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, CardBelote _carteForte) {
         byte maxValeur_=0;
-        Suit dom_ = bid.getCouleur();
+        Suit dom_ = bid.getSuit();
         CustList<HandBelote> suitesBis_=new CustList<HandBelote>();
         if(_couleurJoueur==dom_&&_couleurDemandee!=dom_) {
             for(byte joueur_:_joueursNonJoue) {

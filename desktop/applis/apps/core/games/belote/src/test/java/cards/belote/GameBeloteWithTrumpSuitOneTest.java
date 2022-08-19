@@ -71,7 +71,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
         game_.setPliEnCours();
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(), playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
@@ -89,7 +89,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertTrue(playableCards_.contient(CardBelote.SPADE_JACK));
         assertEq(1, playableCards_.total());
@@ -108,9 +108,9 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
-        assertTrue(playableCards_.couleur(game_.getContrat(),Suit.SPADE).estVide());
+        assertTrue(playableCards_.couleur(game_.getBid(),Suit.SPADE).estVide());
     }
     @Test
     public void playableCards_WhileTrumpingTrickOverAFoe2Test(){
@@ -125,9 +125,9 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
-        assertTrue(playableCards_.couleur(game_.getContrat(),Suit.CLUB).estVide());
+        assertTrue(playableCards_.couleur(game_.getBid(),Suit.CLUB).estVide());
     }
     @Test
     public void playableCards_WhileTrumpingTrickOverAFoe3Test(){
@@ -142,9 +142,9 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
-        assertTrue(playableCards_.couleur(game_.getContrat(),Suit.DIAMOND).estVide());
+        assertTrue(playableCards_.couleur(game_.getBid(),Suit.DIAMOND).estVide());
     }
     @Test
     public void playableCards_WhileTrumpingTrickOverAFoe4(){
@@ -159,9 +159,9 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
+        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
-        assertEq(suits_.getVal(Suit.HEART).total(), playableCards_.couleur(game_.getContrat(),Suit.HEART).total());
+        assertEq(suits_.getVal(Suit.HEART).total(), playableCards_.couleur(game_.getBid(),Suit.HEART).total());
         assertTrue(!suits_.getVal(Suit.HEART).estVide());
     }
     @Test
@@ -229,8 +229,8 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
-        bid_.setCouleur(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_, (byte) first_);
         game_.completerDonne();
         game_.setPliEnCours();
@@ -248,8 +248,8 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
-        bid_.setCouleur(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_, (byte) first_);
         game_.completerDonne();
         game_.setPliEnCours();
@@ -278,8 +278,8 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.SUIT);
-        bid_.setCouleur(Suit.SPADE);
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_, (byte) first_);
         game_.completerDonne();
         game_.setPliEnCours();
@@ -316,7 +316,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playerHasAlreadyBidded3Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
@@ -330,7 +330,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playerHasAlreadyBidded4Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
@@ -351,7 +351,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
-        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setBid(BidBelote.SUIT);
         game_.ajouterContrat(bid_, (byte) first_);
         assertTrue(!game_.completedDeal());
         assertTrue(game_.completedDeal());
@@ -360,7 +360,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void completedDeal2Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
@@ -384,7 +384,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     @Test
     public void completedDeal3Test() {
         RulesBelote rules_ = new RulesBelote();
-        rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);

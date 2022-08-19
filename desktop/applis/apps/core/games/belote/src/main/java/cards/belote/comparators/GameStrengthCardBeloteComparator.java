@@ -26,7 +26,7 @@ public final class GameStrengthCardBeloteComparator implements Comparing<CardBel
             Suit _couleurDemandee,
             BidBeloteSuit _enchere,
             boolean _decroissant){
-        trumpSuit = _enchere.getCouleur();
+        trumpSuit = _enchere.getSuit();
         demandedSuit = _couleurDemandee;
         bid = _enchere;
         decreasing = _decroissant;
@@ -38,7 +38,7 @@ public final class GameStrengthCardBeloteComparator implements Comparing<CardBel
         if(decreasing){
             mult_ = -1;
         }
-        if(bid.getEnchere() == BidBelote.FOLD){
+        if(bid.getBid() == BidBelote.FOLD){
             return mult_*NumberUtil.compareLg(_arg0.strength(trumpSuit, demandedSuit), _arg1.strength(trumpSuit, demandedSuit));
         }
         return mult_* NumberUtil.compareLg(_arg0.strength(demandedSuit, bid) , _arg1.strength(demandedSuit, bid));
