@@ -27,10 +27,7 @@ public final class DeclareHandBelote {
         if (declare != _g.declare) {
             return false;
         }
-        if (!hand.eq(_g.hand)) {
-            return false;
-        }
-        return true;
+        return hand.eq(_g.hand);
     }
 
     public DeclaresBelote getDeclare() {
