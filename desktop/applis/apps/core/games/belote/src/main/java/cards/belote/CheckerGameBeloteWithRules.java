@@ -345,7 +345,6 @@ public final class CheckerGameBeloteWithRules {
             }
         }
         int ind_ = 0;
-        boolean passe_ = false;
         TrickBelote firstTrick_;
         if (!allTricks_.isEmpty()) {
             firstTrick_ = allTricks_.first();
@@ -353,11 +352,6 @@ public final class CheckerGameBeloteWithRules {
             firstTrick_ = _loadedGame.getPliEnCours();
         }
         while (true) {
-            if (passe_) {
-                loadedGameCopy_.ajouterPliEnCours();
-                loadedGameCopy_.setEntameur();
-                loadedGameCopy_.setPliEnCours();
-            }
             TrickBelote trick_;
             if (ind_ == 0) {
                 if (firstTrick_.getEntameur() != firstPlayerTrick_) {
@@ -408,9 +402,6 @@ public final class CheckerGameBeloteWithRules {
                         loadedGameCopy_.annoncer(p);
                     }
                 }
-                if (!passe_) {
-                    passe_ = true;
-                }
                 loadedGameCopy_.getDistribution().jouer(p, ct_);
                 loadedGameCopy_.ajouterUneCarteDansPliEnCours(ct_);
             }
@@ -420,6 +411,9 @@ public final class CheckerGameBeloteWithRules {
                 loadedGameCopy_.setDixDeDer(loadedGameCopy_.getRamasseur());
                 break;
             }
+            loadedGameCopy_.ajouterPliEnCours();
+            loadedGameCopy_.setEntameur();
+            loadedGameCopy_.setPliEnCours();
             ind_++;
         }
 

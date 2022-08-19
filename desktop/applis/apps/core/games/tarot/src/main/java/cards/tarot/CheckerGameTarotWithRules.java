@@ -434,13 +434,8 @@ public final class CheckerGameTarotWithRules {
             loadedGameCopy_.setEntameur(loadedGameCopy_.playerAfter(deal_.getDealer()));
         }
         int ind_ = 1;
-        boolean passe_ = false;
         loadedGameCopy_.setPliEnCours(true);
         while (true) {
-            if (passe_) {
-                loadedGameCopy_.ajouterPetitAuBoutPliEnCours();
-                loadedGameCopy_.setPliEnCours(true);
-            }
             TrickTarot trick_;
             if (ind_ == allTricks_.size()) {
                 if (allTricks_.get(ind_ - 1).getVuParToutJoueur()) {
@@ -483,9 +478,6 @@ public final class CheckerGameTarotWithRules {
                 if (!loadedGameCopy_.autorise(ct_)) {
                     _loadedGame.setError(BAD_PLAYING);
                     return;
-                }
-                if (!passe_) {
-                    passe_ = true;
                 }
                 if (loadedGameCopy_.premierTour()) {
                     if (loadedGameCopy_.pasJeuMisere()) {
@@ -565,6 +557,8 @@ public final class CheckerGameTarotWithRules {
                 loadedGameCopy_.ajouterPetitAuBoutPliEnCours();
                 break;
             }
+            loadedGameCopy_.ajouterPetitAuBoutPliEnCours();
+            loadedGameCopy_.setPliEnCours(true);
         }
     }
 }
