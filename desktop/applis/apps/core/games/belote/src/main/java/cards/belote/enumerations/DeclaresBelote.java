@@ -1,4 +1,5 @@
 package cards.belote.enumerations;
+import cards.belote.HandBelote;
 import cards.consts.CardChar;
 import code.util.EnumList;
 
@@ -20,11 +21,9 @@ public enum DeclaresBelote {
     private final byte valeur;
     private final int force;
     private final int points;
-    private final boolean annoncable;
     private final byte taille;
 
     DeclaresBelote(){
-        annoncable = false;
         figure = CardChar.UNDEFINED;
         constante = false;
         valeur = 0;
@@ -33,7 +32,6 @@ public enum DeclaresBelote {
         taille = 0;
     }
     DeclaresBelote(CardChar _figure, int _force, int _points){
-        annoncable = true;
         constante = true;
         figure = _figure;
         force = _force;
@@ -43,7 +41,6 @@ public enum DeclaresBelote {
     }
     DeclaresBelote(int _valeur, int _force, int _points, boolean _constante){
         figure = CardChar.UNDEFINED;
-        annoncable = true;
         constante = _constante;
         if(constante){
             taille = 0;
@@ -55,9 +52,7 @@ public enum DeclaresBelote {
         force = _force;
         points = _points;
     }
-    public boolean estAnnoncable(){
-        return annoncable;
-    }
+
     public boolean estConstante(){
         return constante;
     }
@@ -79,12 +74,17 @@ public enum DeclaresBelote {
 
     public static EnumList<DeclaresBelote> annoncesValides(){
         EnumList<DeclaresBelote> liste_ = new EnumList<DeclaresBelote>();
-        for(DeclaresBelote a: DeclaresBelote.values()){
-            if(!a.estAnnoncable()){
-                continue;
-            }
-            liste_.add(a);
-        }
+        liste_.add(FOUR_1);
+        liste_.add(FOUR_KING);
+        liste_.add(FOUR_QUEEN);
+        liste_.add(FOUR_JACK);
+        liste_.add(FOUR_10);
+        liste_.add(FOUR_9);
+        liste_.add(FOUR_8);
+        liste_.add(FOUR_7);
+        liste_.add(HUNDRED);
+        liste_.add(FIFTY);
+        liste_.add(THIRTY);
         return liste_;
     }
     public int nombreCartes(){
@@ -93,19 +93,13 @@ public enum DeclaresBelote {
             return taille;
         }
         if(estUneFigure()){
-            for(CardBelote c:CardBelote.values()){
-                if(!c.getId().isJouable()){
-                    continue;
-                }
+            for(CardBelote c: HandBelote.pileBase()){
                 if(c.getId().getNomFigure() == figure){
                     nb_++;
                 }
             }
         }else{
-            for(CardBelote c:CardBelote.values()){
-                if(!c.getId().isJouable()){
-                    continue;
-                }
+            for(CardBelote c:HandBelote.pileBase()){
                 if(c.getId().getValeur() == valeur){
                     nb_++;
                 }

@@ -1,6 +1,7 @@
 package cards.tarot;
 
 import cards.consts.Role;
+import cards.consts.SortedPlayers;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.*;
@@ -50,24 +51,11 @@ public final class GameTarotTeamsRelation {
         return true;
     }
     static Bytes intersectionJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
-        Bytes joueurs_ = new Bytes();
-        for (byte j : _joueurs1) {
-            if(!_joueurs2.containsObj(j)) {
-                continue;
-            }
-            joueurs_.add(j);
-        }
-        return joueurs_;
+        return SortedPlayers.intersectionJoueurs(_joueurs1, _joueurs2);
     }
     static Bytes autresJoueurs(Bytes _joueurs,
                                                byte _nombreJoueurs) {
-        Bytes joueurs_ = new Bytes();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            if (!_joueurs.containsObj(joueur_)) {
-                joueurs_.add(joueur_);
-            }
-        }
-        return joueurs_;
+        return SortedPlayers.autresJoueurs(_joueurs, _nombreJoueurs);
     }
 
     static Bytes tousJoueurs(byte _nombreJoueurs) {

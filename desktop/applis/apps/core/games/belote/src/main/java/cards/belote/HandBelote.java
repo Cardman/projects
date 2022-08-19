@@ -61,12 +61,38 @@ public final class HandBelote implements Iterable<CardBelote> {
 
     public static HandBelote pileBase() {
         HandBelote liste_ = new HandBelote();
-        for(CardBelote carte_:CardBelote.values()) {
-            if(!carte_.getId().isJouable()) {
-                continue;
-            }
-            liste_.ajouter(carte_);
-        }
+        liste_.ajouter(CardBelote.HEART_JACK);
+        liste_.ajouter(CardBelote.HEART_9);
+        liste_.ajouter(CardBelote.HEART_1);
+        liste_.ajouter(CardBelote.HEART_10);
+        liste_.ajouter(CardBelote.HEART_KING);
+        liste_.ajouter(CardBelote.HEART_QUEEN);
+        liste_.ajouter(CardBelote.HEART_8);
+        liste_.ajouter(CardBelote.HEART_7);
+        liste_.ajouter(CardBelote.SPADE_JACK);
+        liste_.ajouter(CardBelote.SPADE_9);
+        liste_.ajouter(CardBelote.SPADE_1);
+        liste_.ajouter(CardBelote.SPADE_10);
+        liste_.ajouter(CardBelote.SPADE_KING);
+        liste_.ajouter(CardBelote.SPADE_QUEEN);
+        liste_.ajouter(CardBelote.SPADE_8);
+        liste_.ajouter(CardBelote.SPADE_7);
+        liste_.ajouter(CardBelote.DIAMOND_JACK);
+        liste_.ajouter(CardBelote.DIAMOND_9);
+        liste_.ajouter(CardBelote.DIAMOND_1);
+        liste_.ajouter(CardBelote.DIAMOND_10);
+        liste_.ajouter(CardBelote.DIAMOND_KING);
+        liste_.ajouter(CardBelote.DIAMOND_QUEEN);
+        liste_.ajouter(CardBelote.DIAMOND_8);
+        liste_.ajouter(CardBelote.DIAMOND_7);
+        liste_.ajouter(CardBelote.CLUB_JACK);
+        liste_.ajouter(CardBelote.CLUB_9);
+        liste_.ajouter(CardBelote.CLUB_1);
+        liste_.ajouter(CardBelote.CLUB_10);
+        liste_.ajouter(CardBelote.CLUB_KING);
+        liste_.ajouter(CardBelote.CLUB_QUEEN);
+        liste_.ajouter(CardBelote.CLUB_8);
+        liste_.ajouter(CardBelote.CLUB_7);
         return liste_;
     }
     public static HandBelote reunion(EnumMap<Suit,HandBelote> _all) {

@@ -19,7 +19,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     @Test
     public void pileBase1(){
         HandBelote main_ = HandBelote.pileBase();
-        assertEq(CardBelote.values().length-1, main_.total());
+        assertEq(32, main_.total());
         assertTrue(!main_.contient(CardBelote.WHITE));
         assertNotNull(StringUtil.concatNb(CardBelote.WHITE.getId().getNo(), ""));
         EnumList<CardBelote> one_ = new EnumList<CardBelote>();

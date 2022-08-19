@@ -89,6 +89,25 @@ public final class CardsTest extends EquallableCardsUtil {
         assertFalse(EnumCardsRetrieverUtil.toBool(Hypothesis.POSSIBLE));
     }
     @Test
+    public void intersectionJoueurs1() {
+        Bytes sorted_ = SortedPlayers.intersectionJoueurs(Bytes.newList((byte)1),Bytes.newList((byte)2));
+        assertEq(0, sorted_.size());
+    }
+    @Test
+    public void intersectionJoueurs2() {
+        Bytes sorted_ = SortedPlayers.intersectionJoueurs(Bytes.newList((byte)1,(byte)3),Bytes.newList((byte)1,(byte)2));
+        assertEq(1, sorted_.size());
+        assertEq(1, sorted_.get(0));
+    }
+    @Test
+    public void autresJoueurs() {
+        Bytes sorted_ = SortedPlayers.autresJoueurs(Bytes.newList((byte)1,(byte)3), (byte) 5);
+        assertEq(3, sorted_.size());
+        assertEq(0, sorted_.get(0));
+        assertEq(2, sorted_.get(1));
+        assertEq(4, sorted_.get(2));
+    }
+    @Test
     public void getSortedPlayers() {
         Bytes sorted_ = new SortedPlayers(4).getSortedPlayers(2);
         assertEq(4, sorted_.size());
