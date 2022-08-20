@@ -698,7 +698,7 @@ public final class GameBeloteTrickInfo {
         }
         int lastIndex_ = _plisFaits.getLastIndex();
         for(int indicePli_ = lastIndex_; indicePli_>= IndexConstants.FIRST_INDEX; indicePli_--) {
-            boolean doitCouper_ = doitCouper2(_joueur, _couleur, _plisFaits, indicePli_);
+            boolean doitCouper_ = doitCouper(_joueur, _couleur, _plisFaits, indicePli_);
             if(doitCouper_) {
                 return true;
             }
@@ -706,7 +706,7 @@ public final class GameBeloteTrickInfo {
         return false;
     }
 
-    private boolean doitCouper2(byte _joueur, Suit _couleur, CustList<TrickBelote> _plisFaits, int _i) {
+    private boolean doitCouper(byte _joueur, Suit _couleur, CustList<TrickBelote> _plisFaits, int _i) {
         TrickBelote pli_=_plisFaits.get(_i);
         if(pli_.couleurDemandee()!=_couleur) {
             return false;
@@ -731,21 +731,18 @@ public final class GameBeloteTrickInfo {
                 ramasseurAvant_ = j;
             }
         }
-        return doitCouper(_joueur, couleurAtout_, carteForte_, ramasseurAvant_);
-    }
-    private boolean doitCouper(byte _joueur, Suit _couleurAtout, CardBelote _carteForte, byte _ramasseurAvant) {
         boolean surCoupeObligPart_=relations.surCoupeObligatoirePartenaire();
         boolean sousCoupeObligPart_=relations.sousCoupeObligatoirePartenaire();
         boolean sousCoupeObligAdv_=relations.sousCoupeObligatoireAdversaire();
         boolean doitCouper_;
-        if(relations.memeEquipe(_joueur, _ramasseurAvant)) {
-            if(_carteForte.getId().getCouleur() == _couleurAtout) {
+        if(relations.memeEquipe(_joueur, ramasseurAvant_)) {
+            if(carteForte_.getId().getCouleur() == couleurAtout_) {
                 doitCouper_ = surCoupeObligPart_ && sousCoupeObligPart_;
             } else {
                 doitCouper_ = surCoupeObligPart_;
             }
         } else {
-            if(_carteForte.getId().getCouleur() == _couleurAtout) {
+            if(carteForte_.getId().getCouleur() == couleurAtout_) {
                 doitCouper_ = sousCoupeObligAdv_;
             } else {
                 doitCouper_ = true;
