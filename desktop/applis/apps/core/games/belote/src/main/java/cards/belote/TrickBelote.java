@@ -90,13 +90,12 @@ public final class TrickBelote implements Iterable<CardBelote> {
     Bytes joueursAyantJoueAvant(byte _pnumero, DealingBelote _d) {
         Bytes joueurs_=new Bytes();
         for(byte j : _d.getId().getSortedPlayers(starter)) {
-            if(!aJoue(j, (byte) _d.getId().getNombreJoueurs())) {
-                continue;
+            if (aJoue(j, (byte) _d.getId().getNombreJoueurs())) {
+                if (j == _pnumero) {
+                    break;
+                }
+                joueurs_.add(j);
             }
-            if(j == _pnumero) {
-                break;
-            }
-            joueurs_.add(j);
         }
         return joueurs_;
     }

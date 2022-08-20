@@ -32,9 +32,7 @@ public final class TricksHandsBelote {
             if(key_ > _numeroPli) {
                 continue;
             }
-            for(CardBelote carte_:pli_) {
-                getDistribution().jouer(pli_.joueurAyantJoue(carte_),carte_);
-            }
+            previousTrick(pli_);
             key_++;
         }
         sortHands(_displaying,_nombreJoueurs);
@@ -53,22 +51,29 @@ public final class TricksHandsBelote {
                 continue;
             }
             if(key_ == _numeroPli) {
-                byte indice_ = 0;
-                for (CardBelote carte_ : pli_) {
-                    if (indice_ <= _numeroCarte) {
-                        getDistribution().jouer(pli_.joueurAyantJoue(carte_),carte_);
-                    }
-                    indice_++;
-                }
-                key_++;
-                continue;
-            }
-            for(CardBelote carte_:pli_) {
-                getDistribution().jouer(pli_.joueurAyantJoue(carte_),carte_);
+                currentTrick(_numeroCarte, pli_);
+            } else {
+                previousTrick(pli_);
             }
             key_++;
         }
         sortHands(_displaying,_nombreJoueurs);
+    }
+
+    private void previousTrick(TrickBelote _pli) {
+        for (CardBelote carte_ : _pli) {
+            getDistribution().jouer(_pli.joueurAyantJoue(carte_), carte_);
+        }
+    }
+
+    private void currentTrick(byte _numeroCarte, TrickBelote _pli) {
+        byte indice_ = 0;
+        for (CardBelote carte_ : _pli) {
+            if (indice_ <= _numeroCarte) {
+                getDistribution().jouer(_pli.joueurAyantJoue(carte_),carte_);
+            }
+            indice_++;
+        }
     }
 
     public void sortHands(DisplayingBelote _displaying,
