@@ -1439,7 +1439,7 @@ public class MathUtilTest extends EquallableMathUtil {
     @Test
     public void check1(){
         MbArgument a_ = MathUtil.processEl("1:0", true, new StringMap<String>());
-        assertEq(MathType.RATE.name(), a_.getArgClass().name());
+        assertSame(MathType.RATE, a_.getArgClass());
 
     }
     @Test

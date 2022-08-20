@@ -2698,7 +2698,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
         poss_.ajouter(CardBelote.HEART_7);
-        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), cur_, (byte) 1, poss_);
+        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), (byte) 1, poss_);
         assertEq(1, filter_.total());
         assertTrue(filter_.contient(CardBelote.HEART_1));
     }
@@ -2748,7 +2748,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
         poss_.ajouter(CardBelote.HEART_7);
-        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), cur_, (byte) 2, poss_);
+        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), (byte) 2, poss_);
         assertEq(4, filter_.total());
         assertTrue(filter_.contient(CardBelote.HEART_1));
         assertTrue(filter_.contient(CardBelote.HEART_KING));
@@ -2801,7 +2801,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
         poss_.ajouter(CardBelote.HEART_7);
-        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), cur_, (byte) 0, poss_);
+        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), (byte) 0, poss_);
         assertEq(4, filter_.total());
         assertTrue(filter_.contient(CardBelote.HEART_1));
         assertTrue(filter_.contient(CardBelote.HEART_KING));
@@ -5089,7 +5089,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
-        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, cur_, (byte)2, poss_);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, (byte)2, poss_);
         assertEq(1, filter_.total());
         assertTrue(filter_.contient(CardBelote.DIAMOND_10));
     }
@@ -5134,7 +5134,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
-        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, cur_, (byte)1, poss_);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, (byte)1, poss_);
         assertEq(3, filter_.total());
         assertTrue(filter_.contient(CardBelote.DIAMOND_10));
         assertTrue(filter_.contient(CardBelote.DIAMOND_JACK));
@@ -5181,7 +5181,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
-        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, cur_, (byte)2, poss_);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, (byte)2, poss_);
         assertEq(3, filter_.total());
         assertTrue(filter_.contient(CardBelote.DIAMOND_10));
         assertTrue(filter_.contient(CardBelote.DIAMOND_JACK));
@@ -5228,7 +5228,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.CLUB_10);
         poss_.ajouter(CardBelote.CLUB_JACK);
         poss_.ajouter(CardBelote.CLUB_9);
-        HandBelote filter_ = info_.joueCartePoint(Suit.CLUB, cur_, (byte)2, poss_);
+        HandBelote filter_ = info_.joueCartePoint(Suit.CLUB, (byte)2, poss_);
         assertEq(3, filter_.total());
         assertTrue(filter_.contient(CardBelote.CLUB_10));
         assertTrue(filter_.contient(CardBelote.CLUB_JACK));

@@ -2,7 +2,7 @@ package code.maths;
 
 import code.maths.geo.RatePoint;
 import code.maths.geo.RatePointThreeDims;
-import code.util.core.StringUtil;
+import code.maths.litteral.MathType;
 import org.junit.Assert;
 
 import code.maths.geo.CustPoint;
@@ -10,8 +10,6 @@ import code.maths.geo.CustPointThreeDims;
 import code.util.*;
 
 public abstract class EquallableMathUtil {
-
-    private static final String DIFF = " != ";
 
     public static void assertNotNull(Object _value) {
         Assert.assertNotNull(_value);
@@ -23,6 +21,9 @@ public abstract class EquallableMathUtil {
         Assert.assertTrue(_value);
     }
     public static void assertSame(Object _expected, Object _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(MathType _expected, MathType _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertNotSame(Object _expected, Object _result) {

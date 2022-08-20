@@ -1,8 +1,14 @@
 package code.expressionlanguage.common;
 
 public enum AccessEnum {
-    PUBLIC,PROTECTED,PACKAGE,PRIVATE;
+    PUBLIC(0),PROTECTED(1),PACKAGE(2),PRIVATE(3);
+    private final int level;
+
+    AccessEnum(int _l) {
+        this.level = _l;
+    }
+
     public boolean isStrictMoreAccessibleThan(AccessEnum _a) {
-        return ordinal() < _a.ordinal();
+        return level < _a.level;
     }
 }

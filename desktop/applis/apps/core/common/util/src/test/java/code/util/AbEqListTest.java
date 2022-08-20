@@ -3,7 +3,7 @@ package code.util;
 import code.util.classestest.MyCmp;
 import code.util.classestest.MyEnum;
 import code.util.classestest.MyEquallable;
-import code.util.classestest.ComparatorEnum;
+import code.util.comparators.NaturalComparator;
 import org.junit.Test;
 
 public class AbEqListTest extends EquallableExUtil {
@@ -34,20 +34,20 @@ public class AbEqListTest extends EquallableExUtil {
     }
     @Test
     public void getGroupsSameCompare1Test() {
-        EnumList<MyEnum> e_ = new EnumList<MyEnum>();
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.ONE);
-        CustList<EnumList<MyEnum>> gr_ = e_.getGroupsSameCompare(new ComparatorEnum());
+        EnumList<String> e_ = new EnumList<String>();
+        e_.add("ONE");
+        e_.add("TWO");
+        e_.add("THREE");
+        e_.add("ONE");
+        CustList<EnumList<String>> gr_ = e_.getGroupsSameCompare(new NaturalComparator());
         assertEq(3, gr_.size());
-        assertSame(2, gr_.get(0).size());
-        assertSame(MyEnum.ONE, gr_.get(0).get(0));
-        assertSame(MyEnum.ONE, gr_.get(0).get(1));
-        assertSame(1, gr_.get(1).size());
-        assertSame(MyEnum.TWO, gr_.get(1).get(0));
-        assertSame(1, gr_.get(2).size());
-        assertSame(MyEnum.THREE, gr_.get(2).get(0));
+        assertEq(2, gr_.get(0).size());
+        assertEq("ONE", gr_.get(0).get(0));
+        assertEq("ONE", gr_.get(0).get(1));
+        assertEq(1, gr_.get(1).size());
+        assertEq("THREE", gr_.get(1).get(0));
+        assertEq(1, gr_.get(2).size());
+        assertEq("TWO", gr_.get(2).get(0));
     }
     @Test
     public void eqEnum1Test() {
