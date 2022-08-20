@@ -9,9 +9,9 @@ import code.util.*;
 import code.util.core.IndexConstants;
 
 public final class GameBeloteCommonPlaying {
-    private GameBeloteTrickInfo doneTrickInfo;
-    private GameBeloteTeamsRelation teamsRelation;
-    private BidBeloteSuit bid;
+    private final GameBeloteTrickInfo doneTrickInfo;
+    private final GameBeloteTeamsRelation teamsRelation;
+    private final BidBeloteSuit bid;
 
     public GameBeloteCommonPlaying(GameBeloteTrickInfo _doneTrickInfo, GameBeloteTeamsRelation _teamsRelation) {
         doneTrickInfo = _doneTrickInfo;
@@ -83,149 +83,110 @@ public final class GameBeloteCommonPlaying {
         TrickBelote pr_ = doneTrickInfo.getProgressingTrick();
         byte numero_=pr_.getNextPlayer(nbPlayers_);
         HandBelote m= pr_.getCartes();
-        HandBelote cartesJouables_=new HandBelote();
         if(pr_.estVide()) {
             //L'entame est libre a la belote
-            for(HandBelote couleur_:_repartitionMain.values()) {
-                cartesJouables_.ajouterCartes(couleur_);
-            }
-            return cartesJouables_;
+            return HandBelote.reunion(_repartitionMain);
         }
-        Suit couleurDemandee_= pr_.couleurDemandee();
-        Suit couleurAtout_=couleurAtout();
-        byte ramasseurVirtuel_= pr_.getRamasseurPliEnCours(nbPlayers_, bid);
-        CardBelote carteForte_= pr_.carteDuJoueur(ramasseurVirtuel_, nbPlayers_);
-        HandBelote leadingSuit_ = GameBeloteCommon.hand(_repartitionMain,couleurDemandee_);
-        if(bid.getCouleurDominante()) {
-            HandBelote trumps_ = GameBeloteCommon.hand(_repartitionMain,couleurAtout_);
-            byte valeurForte_=carteForte_.strength(couleurDemandee_, bid);
-            if(couleurAtout_==couleurDemandee_) {
-                //Nombre d'atouts dans la main du joueur
-                if(trumps_.estVide()) {
-                    for(HandBelote couleur_:_repartitionMain.values()) {
-                        cartesJouables_.ajouterCartes(couleur_);
-                    }
-                    return cartesJouables_;
-                }
-                if(trumps_.derniereCarte().strength(couleurDemandee_, bid)>valeurForte_) {
-                    cartesJouables_.ajouterCartes(trumps_);
-                    return cartesJouables_;
-                }
-                if(trumps_.premiereCarte().strength(couleurDemandee_, bid)<valeurForte_) {
-                    cartesJouables_.ajouterCartes(trumps_);
-                    return cartesJouables_;
-                }
-                byte indexTrump_ = IndexConstants.FIRST_INDEX;
-                while (trumps_.carte(indexTrump_).strength(couleurDemandee_, bid)>valeurForte_) {
-                    cartesJouables_.ajouter(trumps_.carte(indexTrump_));
-                    indexTrump_++;
-                }
-                return cartesJouables_;
+        if (!bid.getCouleurDominante()) {
+            return noDomSuit(_repartitionMain, nbPlayers_, pr_);
+        }
+        Suit couleurDemandee_ = pr_.couleurDemandee();
+        Suit couleurAtout_ = couleurAtout();
+        byte ramasseurVirtuel_ = pr_.getRamasseurPliEnCours(nbPlayers_, bid);
+        HandBelote leadingSuit_ = GameBeloteCommon.hand(_repartitionMain, couleurDemandee_);
+        HandBelote trumps_ = GameBeloteCommon.hand(_repartitionMain, couleurAtout_);
+        byte valeurForte_ = pr_.carteDuJoueur(ramasseurVirtuel_, nbPlayers_).strength(couleurDemandee_, bid);
+        if (couleurAtout_ == couleurDemandee_) {
+            //Nombre d'atouts dans la main du joueur
+            return domSuit(_repartitionMain, couleurDemandee_, trumps_, valeurForte_);
+        }
+        if (!leadingSuit_.estVide()) {
+            return leadingSuit_;
+        }
+        if (trumps_.estVide()) {
+            return HandBelote.reunion(_repartitionMain);
+        }
+        if (teamsRelation.memeEquipe(ramasseurVirtuel_, numero_)) {
+            /*Le partenaire est maitre temporairement*/
+            return atLeastOneTrumpSameTeam(_repartitionMain, couleurDemandee_, trumps_, valeurForte_);
+        }
+        HandBelote trumpsTrick_ = GameBeloteCommon.hand(m.couleurs(bid), couleurAtout_);
+        if (trumpsTrick_.estVide()) {
+            /*PliBelote non coupe*/
+            return trumps_;
+        }
+        /*PliBelote coupe par un adversaire*/
+        if (trumps_.derniereCarte().strength(couleurDemandee_, bid) > valeurForte_) {
+            return trumps_;
+        }
+        if (trumps_.premiereCarte().strength(couleurDemandee_, bid) > valeurForte_) {
+            return greaterCards(couleurDemandee_, trumps_, valeurForte_);
+        }
+        if (!sousCoupeObligatoireAdversaire()) {
+            return HandBelote.reunion(_repartitionMain);
+        }
+        return trumps_;
+    }
+
+    private HandBelote atLeastOneTrumpSameTeam(EnumMap<Suit, HandBelote> _repartitionMain, Suit _couleurDemandee, HandBelote _trumps, byte _valeurForte) {
+        if (teamsRelation.surCoupeObligatoirePartenaire()) {
+            if (teamsRelation.sousCoupeObligatoirePartenaire() && _trumps.premiereCarte().strength(_couleurDemandee, bid) < _valeurForte || _trumps.derniereCarte().strength(_couleurDemandee, bid) > _valeurForte) {
+                return _trumps;
             }
-            if(!leadingSuit_.estVide()) {
-                cartesJouables_.ajouterCartes(leadingSuit_);
-                return cartesJouables_;
+            if (_trumps.premiereCarte().strength(_couleurDemandee, bid) > _valeurForte) {
+                return greaterCards(_couleurDemandee, _trumps, _valeurForte);
             }
-            if(trumps_.estVide()) {
-                for(HandBelote couleur_:_repartitionMain.values()) {
-                    cartesJouables_.ajouterCartes(couleur_);
-                }
-                return cartesJouables_;
-            }
-            if(teamsRelation.memeEquipe(ramasseurVirtuel_, numero_)) {
-                /*Le partenaire est maitre temporairement*/
-                if(teamsRelation.surCoupeObligatoirePartenaire()) {
-                    if(teamsRelation.sousCoupeObligatoirePartenaire()) {
-                        if(trumps_.premiereCarte().strength(couleurDemandee_, bid)<valeurForte_) {
-                            cartesJouables_.ajouterCartes(trumps_);
-                            return cartesJouables_;
-                        }
-                    }
-                    if(trumps_.derniereCarte().strength(couleurDemandee_, bid)>valeurForte_) {
-                        cartesJouables_.ajouterCartes(trumps_);
-                        return cartesJouables_;
-                    }
-                    if(trumps_.premiereCarte().strength(couleurDemandee_, bid)>valeurForte_) {
-                        byte indexTrump_ = IndexConstants.FIRST_INDEX;
-                        while (trumps_.carte(indexTrump_).strength(couleurDemandee_, bid)>valeurForte_) {
-                            cartesJouables_.ajouter(trumps_.carte(indexTrump_));
-                            indexTrump_++;
-                        }
-                        return cartesJouables_;
-                    }
 //                    (!sousCoupeObligatoirePartenaire()||
 //                    main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)>valeurForte)
-                    //main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)<valeurForte
-                    //!sousCoupeObligatoirePartenaire() && main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)<valeurForte
-                }
-                if(teamsRelation.sousCoupeObligatoirePartenaire()) {
-                    if(trumps_.premiereCarte().strength(couleurDemandee_, bid)<valeurForte_) {
-                        cartesJouables_.ajouterCartes(trumps_);
-                        return cartesJouables_;
-                    }
-                }
-                for(HandBelote couleur_:_repartitionMain.values()) {
-                    cartesJouables_.ajouterCartes(couleur_);
-                }
-                return cartesJouables_;
-            }
-            HandBelote trumpsTrick_ = GameBeloteCommon.hand(m.couleurs(bid),couleurAtout_);
-            if(trumpsTrick_.estVide()) {
-                /*PliBelote non coupe*/
-                cartesJouables_.ajouterCartes(trumps_);
-                return cartesJouables_;
-            }
-            /*PliBelote coupe par un adversaire*/
-            if(trumps_.derniereCarte().strength(couleurDemandee_, bid)>valeurForte_) {
-                cartesJouables_.ajouterCartes(trumps_);
-                return cartesJouables_;
-            }
-            if(trumps_.premiereCarte().strength(couleurDemandee_, bid)>valeurForte_) {
-                byte indexTrump_ = IndexConstants.FIRST_INDEX;
-                while (trumps_.carte(indexTrump_).strength(couleurDemandee_, bid)>valeurForte_) {
-                    cartesJouables_.ajouter(trumps_.carte(indexTrump_));
-                    indexTrump_++;
-                }
-                return cartesJouables_;
-            }
-            if(!sousCoupeObligatoireAdversaire()) {
-                for(HandBelote couleur_:_repartitionMain.values()) {
-                    cartesJouables_.ajouterCartes(couleur_);
-                }
-                return cartesJouables_;
-            }
-            cartesJouables_.ajouterCartes(trumps_);
-            return cartesJouables_;
+            //main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)<valeurForte
+            //!sousCoupeObligatoirePartenaire() && main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)<valeurForte
         }
-        if(bid.ordreCouleur()) {
-            if(leadingSuit_.estVide()) {
-                for(HandBelote couleur_:_repartitionMain.values()) {
-                    cartesJouables_.ajouterCartes(couleur_);
-                }
-                return cartesJouables_;
+        if (teamsRelation.sousCoupeObligatoirePartenaire() && _trumps.premiereCarte().strength(_couleurDemandee, bid) < _valeurForte) {
+            return _trumps;
+        }
+        return HandBelote.reunion(_repartitionMain);
+    }
+
+    private HandBelote noDomSuit(EnumMap<Suit, HandBelote> _repartitionMain, byte _nbPlayers, TrickBelote _pr) {
+        Suit couleurDemandee_ = _pr.couleurDemandee();
+        HandBelote leadingSuit_ = GameBeloteCommon.hand(_repartitionMain, couleurDemandee_);
+        if (bid.ordreCouleur()) {
+            if (leadingSuit_.estVide()) {
+                return HandBelote.reunion(_repartitionMain);
             }
-            cartesJouables_.ajouterCartes(leadingSuit_);
-            return cartesJouables_;
+            return leadingSuit_;
         }
-        if(leadingSuit_.estVide()) {
-            for(HandBelote couleur_:_repartitionMain.values()) {
-                cartesJouables_.ajouterCartes(couleur_);
-            }
-            return cartesJouables_;
+        if (leadingSuit_.estVide()) {
+            return HandBelote.reunion(_repartitionMain);
         }
-        byte valeurForte_=carteForte_.strength(couleurDemandee_, bid);
-        if(leadingSuit_.derniereCarte().strength(couleurDemandee_, bid)>valeurForte_
-                ||leadingSuit_.premiereCarte().strength(couleurDemandee_, bid)<valeurForte_) {
-            cartesJouables_.ajouterCartes(leadingSuit_);
-            return cartesJouables_;
+        byte valeurForte_ = _pr.carteDuJoueur(_pr.getRamasseurPliEnCours(_nbPlayers, bid), _nbPlayers).strength(couleurDemandee_, bid);
+        if (leadingSuit_.derniereCarte().strength(couleurDemandee_, bid) > valeurForte_
+                || leadingSuit_.premiereCarte().strength(couleurDemandee_, bid) < valeurForte_) {
+            return leadingSuit_;
         }
+        return greaterCards(couleurDemandee_, leadingSuit_, valeurForte_);
+    }
+
+    private HandBelote domSuit(EnumMap<Suit, HandBelote> _repartitionMain, Suit _couleurDemandee, HandBelote _trumps, byte _valeurForte) {
+        if (_trumps.estVide()) {
+            return HandBelote.reunion(_repartitionMain);
+        }
+        if (_trumps.derniereCarte().strength(_couleurDemandee, bid) > _valeurForte || _trumps.premiereCarte().strength(_couleurDemandee, bid) < _valeurForte) {
+            return _trumps;
+        }
+        return greaterCards(_couleurDemandee, _trumps, _valeurForte);
+    }
+
+    private HandBelote greaterCards(Suit _couleurDemandee, HandBelote _trumps, byte _valeurForte) {
+        HandBelote cartesJouables_=new HandBelote();
         byte indexTrump_ = IndexConstants.FIRST_INDEX;
-        while (leadingSuit_.carte(indexTrump_).strength(couleurDemandee_, bid)>valeurForte_) {
-            cartesJouables_.ajouter(leadingSuit_.carte(indexTrump_));
+        while (_trumps.carte(indexTrump_).strength(_couleurDemandee, bid)> _valeurForte) {
+            cartesJouables_.ajouter(_trumps.carte(indexTrump_));
             indexTrump_++;
         }
         return cartesJouables_;
     }
+
     static CardBelote carteMaitresse(BidBeloteSuit _bid,
                                      EnumList<Suit> _couleurs,
                                      EnumMap<Suit, HandBelote> _cartesMaitresses,
@@ -245,36 +206,24 @@ public final class GameBeloteCommonPlaying {
             return true;
         }
         Suit couleurAtout_= _bid.getSuit();
-        int max_= IndexConstants.SIZE_EMPTY;
+        int max_= getNbMaxPossPlayerCards(_cartesPossibles,_numero,couleurAtout_);
         /*max designe le nombre maximal de cartes probablement possedees par un joueur*/
-        CustList<HandBelote> trumps_ = _cartesPossibles.getVal(couleurAtout_);
-        int nbPlayers_ = trumps_.size();
-        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers_; joueur_++) {
-            //La taille de cartesPossibles correspond au nombre de joueurs
-            if(joueur_!=_numero) {
-                max_=Math.max(trumps_.get(joueur_).total(),max_);
-            }
-        }
-        /*Fin for int joueur=0;joueur<cartesPossibles.get(1).size();joueur++
-        (Fin boucle sur le calcul de la valeur maximale possible des atouts*/
         if(GameBeloteCommon.hand(_cartesJouees,couleurAtout_).total()==HandBelote.couleurComplete(couleurAtout_, Order.TRUMP).total()) {
             return true;
         }
         if(_suites.isEmpty()) {
             return false;
         }
-        boolean existeAtoutMaitre_=true;
         CardBelote atoutPetitSuiteHaute_=_suites.first().premiereCarte();
         for(CardBelote carte_:GameBeloteCommonPlaying.cartesAtouts(couleurAtout_)) {
             if(carte_.strength(couleurAtout_, _bid)<atoutPetitSuiteHaute_.strength(couleurAtout_, _bid)) {
                 break;
             }
             if(!GameBeloteCommon.hand(_cartesJouees,couleurAtout_).contient(carte_)&&!_suites.first().contient(carte_)) {
-                existeAtoutMaitre_=false;
-                break;
+                return false;
             }
         }
-        return existeAtoutMaitre_&&_suites.first().total()>=max_;
+        return _suites.first().total()>=max_;
     }
     static EnumList<Suit> couleursMaitres(BidBeloteSuit _bid,
                                           EnumMap<Suit, CustList<HandBelote>> _suites,
@@ -294,25 +243,25 @@ public final class GameBeloteCommonPlaying {
                                                 EnumMap<Suit, HandBelote> _cartesJouees,
                                                 EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero) {
         EnumList<Suit> couleurs_=new EnumList<Suit>();
-        if(!_bid.getCouleurDominante()) {
-            if(_bid.ordreCouleur()) {
-                for(Suit couleur_:GameBeloteCommon.couleurs()) {
-                    addNormalSuit(_bid, _suites, _cartesJouees, _cartesPossibles, _numero, couleurs_, couleur_);
-                }
-            } else {
-                for(Suit couleur_:GameBeloteCommon.couleurs()) {
-                    if(completelyPlayedSuit(_cartesJouees, couleur_)) {
-                        couleurs_.add(couleur_);
-                    } else if(!GameBeloteCommon.suite(_suites,couleur_).isEmpty()) {
-                        int maitres_ = getNbLeadingTrumpCards(_bid, _suites,
-                                _cartesJouees, couleur_);
-                        addSuit(_suites, _cartesPossibles, _numero, couleurs_, couleur_, maitres_);
-                    }
-                }
-            }
-        } else {
+        if (_bid.getCouleurDominante()) {
             for(Suit couleur_:couleursNonAtouts(_bid)) {
                 addNormalSuit(_bid, _suites, _cartesJouees, _cartesPossibles, _numero, couleurs_, couleur_);
+            }
+            return couleurs_;
+        }
+        if(_bid.ordreCouleur()) {
+            for(Suit couleur_:GameBeloteCommon.couleurs()) {
+                addNormalSuit(_bid, _suites, _cartesJouees, _cartesPossibles, _numero, couleurs_, couleur_);
+            }
+        } else {
+            for(Suit couleur_:GameBeloteCommon.couleurs()) {
+                if(completelyPlayedSuit(_cartesJouees, couleur_)) {
+                    couleurs_.add(couleur_);
+                } else if(!GameBeloteCommon.suite(_suites,couleur_).isEmpty()) {
+                    int maitres_ = getNbLeadingTrumpCards(_bid, _suites,
+                            _cartesJouees, couleur_);
+                    addSuit(_suites, _cartesPossibles, _numero, couleurs_, couleur_, maitres_);
+                }
             }
         }
         return couleurs_;
@@ -388,22 +337,17 @@ public final class GameBeloteCommonPlaying {
     }
     private static int getNbLeadingCards(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _seqs,
                                          EnumMap<Suit, HandBelote> _playedCards, Suit _suit, Order _or) {
-        boolean existeCarteMaitresse_=true;
-        CardBelote c=GameBeloteCommon.hand(_seqs,_suit, IndexConstants.FIRST_INDEX).premiereCarte();
+        HandBelote s_ = GameBeloteCommon.hand(_seqs, _suit, IndexConstants.FIRST_INDEX);
+        CardBelote c= s_.premiereCarte();
         for(CardBelote carte_:cartes(_suit,_or)) {
             if(carte_.strength(_suit, _bid)<c.strength(_suit, _bid)) {
                 break;
             }
-            if(!GameBeloteCommon.hand(_playedCards,_suit).contient(carte_)&&!GameBeloteCommon.hand(_seqs,_suit, IndexConstants.FIRST_INDEX).contient(carte_)) {
-                existeCarteMaitresse_=false;
-                break;
+            if(!GameBeloteCommon.hand(_playedCards,_suit).contient(carte_)&&!s_.contient(carte_)) {
+                return IndexConstants.SIZE_EMPTY;
             }
         }
-        int maitres_ = IndexConstants.SIZE_EMPTY;
-        if(existeCarteMaitresse_) {
-            maitres_ = GameBeloteCommon.hand(_seqs,_suit, IndexConstants.FIRST_INDEX).total();
-        }
-        return maitres_;
+        return s_.total();
     }
     private static boolean completelyPlayedSuit(EnumMap<Suit, HandBelote> _playedCards,
                                                 Suit _suit) {
