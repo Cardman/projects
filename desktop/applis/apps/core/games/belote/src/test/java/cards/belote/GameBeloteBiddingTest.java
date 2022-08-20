@@ -398,6 +398,33 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         assertTrue(!game_.keepBidding());
     }
     @Test
+    public void allowedBids_AtSecondRoundBidsInitializePassingDealAll(){
+        RulesBelote regles_=initializeRulesWithBidPoints(false);
+        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+        //game_.resetNbPlisTotal();
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        assertTrue(game_.keepBidding());
+        BidBeloteSuit contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setBid(BidBelote.FOLD);
+        game_.ajouterContrat(contratTmp_,player_);
+        player_ = game_.playerAfter(player_);
+        assertTrue(game_.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setBid(BidBelote.FOLD);
+        game_.ajouterContrat(contratTmp_,player_);
+        player_ = game_.playerAfter(player_);
+        assertTrue(game_.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setBid(BidBelote.FOLD);
+        game_.ajouterContrat(contratTmp_,player_);
+        player_ = game_.playerAfter(player_);
+        assertTrue(game_.keepBidding());
+        contratTmp_ = new BidBeloteSuit();
+        contratTmp_.setBid(BidBelote.FOLD);
+        game_.ajouterContrat(contratTmp_,player_);
+        assertTrue(!game_.keepBidding());
+    }
+    @Test
     public void maximumBid_AtFirstRound1(){
         RulesBelote regles_=initializeDefaultRules();
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);

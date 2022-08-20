@@ -506,27 +506,7 @@ public final class GameBelote {
     }
     public boolean keepBidding() {
         if (getRegles().dealAll()) {
-            int maxPts_ = RulesBelote.getPoints().last();
-            if (bid.getPoints() == maxPts_) {
-                return false;
-            }
-            if (bids.size() < getNombreDeJoueurs()) {
-                return true;
-            }
-            boolean fold_ = true;
-            int iter_ = IndexConstants.FIRST_INDEX+1;
-            while (iter_ < getNombreDeJoueurs()) {
-                //iter_ >= 1 => -iter_ <= -1 => bids.size()-iter_ <= bids.size()-1
-                //bids.size() >= getNombreDeJoueurs() => bids.size() - iter_ >= getNombreDeJoueurs() - iter_
-                //getNombreDeJoueurs() >= iter_ => getNombreDeJoueurs() - iter_ >= 0
-                //bids.size() - iter_ >= getNombreDeJoueurs() - iter_ >= 0 => bids.size() - iter_ >= 0
-                if (bids.get(bids.size()-iter_).jouerDonne()) {
-                    fold_ = false;
-                    break;
-                }
-                iter_++;
-            }
-            return !fold_;
+            return keepBiddingDealAll();
         }
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (BidBeloteSuit e: getGameBeloteBid().allowedBids()) {
@@ -539,6 +519,34 @@ public final class GameBelote {
         }
         return false;
     }
+
+    private boolean keepBiddingDealAll() {
+        int maxPts_ = RulesBelote.getPoints().last();
+        if (bid.getPoints() == maxPts_) {
+            return false;
+        }
+        if (bids.size() < getNombreDeJoueurs()) {
+            return true;
+        }
+        boolean fold_ = true;
+        int iter_ = IndexConstants.FIRST_INDEX+1;
+        while (iter_ < getNombreDeJoueurs()) {
+            //iter_ >= 1 => -iter_ <= -1 => bids.size()-iter_ <= bids.size()-1
+            //bids.size() >= getNombreDeJoueurs() => bids.size() - iter_ >= getNombreDeJoueurs() - iter_
+            //getNombreDeJoueurs() >= iter_ => getNombreDeJoueurs() - iter_ >= 0
+            //bids.size() - iter_ >= getNombreDeJoueurs() - iter_ >= 0 => bids.size() - iter_ >= 0
+            if (bids.get(bids.size()-iter_).jouerDonne()) {
+                fold_ = false;
+                break;
+            }
+            iter_++;
+        }
+        if (bids.size() == getNombreDeJoueurs() && bids.get(bids.size()-iter_).jouerDonne()) {
+            fold_ = false;
+        }
+        return !fold_;
+    }
+
     public boolean keepPlayingCurrentTrick() {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         return progressingTrick.total() < nombreDeJoueurs_;
