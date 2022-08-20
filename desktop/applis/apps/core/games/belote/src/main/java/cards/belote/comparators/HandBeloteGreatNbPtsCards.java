@@ -9,8 +9,8 @@ import code.util.ints.Comparing;
 
 public final class HandBeloteGreatNbPtsCards implements Comparing<Suit> {
 
-    private EnumMap<Suit,HandBelote> hand;
-    private BidBeloteSuit bid;
+    private final EnumMap<Suit,HandBelote> hand;
+    private final BidBeloteSuit bid;
 
     public HandBeloteGreatNbPtsCards(EnumMap<Suit,HandBelote> _hand, BidBeloteSuit _bid) {
         hand = _hand;

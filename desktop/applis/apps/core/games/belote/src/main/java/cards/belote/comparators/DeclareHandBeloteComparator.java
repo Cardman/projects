@@ -10,7 +10,7 @@ import code.util.ints.Comparing;
 
 public final class DeclareHandBeloteComparator implements Comparing<DeclareHandBelote> {
 
-    private BidBeloteSuit bid;
+    private final BidBeloteSuit bid;
     public DeclareHandBeloteComparator(
             BidBeloteSuit _couleurAtout){
         bid = _couleurAtout;

@@ -7,7 +7,7 @@ import code.util.ints.Comparing;
 
 public final class HandBeloteLongLengthComparator implements Comparing<Suit> {
 
-    private EnumMap<Suit,HandBelote> hand;
+    private final EnumMap<Suit,HandBelote> hand;
 
     public HandBeloteLongLengthComparator(EnumMap<Suit,HandBelote> _hand) {
         hand = _hand;
