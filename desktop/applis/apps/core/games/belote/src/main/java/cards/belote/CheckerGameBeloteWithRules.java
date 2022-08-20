@@ -34,53 +34,13 @@ public final class CheckerGameBeloteWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return;
         }
-        if (_loadedGame.getDistribution().derniereMain().total() != rules_.getDealing().getRemainingCards()) {
-            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
-            return;
-        }
-        if (_loadedGame.getWonLastTrick().size() != nombreJoueurs_) {
-            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
-            return;
-        }
-        if (_loadedGame.getDeclares().size() != nombreJoueurs_) {
-            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
-            return;
-        }
-        if (_loadedGame.getDeclaresBeloteRebelote().size() != nombreJoueurs_) {
-            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
-            return;
-        }
-        if (_loadedGame.getScores().size() != nombreJoueurs_) {
-            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
-            return;
-        }
-        if (!_loadedGame.getRules().isValidRules()) {
+        if (_loadedGame.getDistribution().derniereMain().total() != rules_.getDealing().getRemainingCards() || _loadedGame.getWonLastTrick().size() != nombreJoueurs_ || _loadedGame.getDeclares().size() != nombreJoueurs_ || _loadedGame.getDeclaresBeloteRebelote().size() != nombreJoueurs_ || _loadedGame.getScores().size() != nombreJoueurs_ || !_loadedGame.getRules().isValidRules()) {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }
         _loadedGame.loadGame();
         CustList<TrickBelote> allTricks_ = _loadedGame.getTricks();
-        HandBelote cards_ = new HandBelote();
-        for (TrickBelote t : allTricks_) {
-            for (CardBelote c : t) {
-                cards_.ajouter(c);
-            }
-        }
-        for (CardBelote c : _loadedGame.getPliEnCours()) {
-            cards_.ajouter(c);
-        }
-        for (HandBelote c : _loadedGame.getDistribution()) {
-            cards_.ajouterCartes(c);
-        }
-        for (byte p : _loadedGame.orderedPlayers(_loadedGame.getDistribution()
-                .getDealer())) {
-            for (CardBelote c : _loadedGame.getAnnoncesBeloteRebelote(p)) {
-                cards_.ajouter(c);
-            }
-            for (CardBelote c : _loadedGame.getAnnonce(p).getHand()) {
-                cards_.ajouter(c);
-            }
-        }
+        HandBelote cards_ = retrieveCards(_loadedGame, allTricks_);
         for (CardBelote e : cards_) {
             if (!e.getId().isJouable()) {
                 _loadedGame.setError(BAD_CARD);
@@ -101,74 +61,11 @@ public final class CheckerGameBeloteWithRules {
         }
         Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
                 .getDistribution().getDealer());
-        DealBelote deal_ = new DealBelote(_loadedGame.getDistribution());
-        for (TrickBelote t : allTricks_) {
-            for (CardBelote c : t) {
-                byte player_ = t.joueurAyantJoue(c);
-                deal_.hand(player_).ajouter(c);
-            }
+        DealBelote deal_ = buildDeal(_loadedGame, allTricks_, nbPl_);
+        if (reinitialize(_loadedGame, rules_, allTricks_, players_, deal_)) {
+            return;
         }
-        for (CardBelote c : _loadedGame.getPliEnCours()) {
-            byte player_ = _loadedGame.getPliEnCours().joueurAyantJoue(c,
-                    nbPl_);
-            deal_.hand(player_).ajouter(c);
-        }
-        boolean completed_ = false;
-        if (!allTricks_.isEmpty()) {
-            completed_ = true;
-        } else if (!_loadedGame.getPliEnCours().estVide()) {
-            completed_ = true;
-        } else if (rules_.dealAll()) {
-            completed_ = true;
-        }
-        if (completed_) {
-            for (byte p : players_) {
-                if (deal_.hand(p).total() != rules_.getDealing()
-                        .getNombreCartesParJoueur()) {
-                    _loadedGame.setError(BAD_COUNT_FOR_HANDS);
-                    return;
-                }
-            }
-            if (!rules_.dealAll()) {
-                reinitializeGame(deal_, _loadedGame);
-            }
-        } else {
-            boolean allCompleted_ = true;
-            for (byte p : players_) {
-                if (deal_.hand(p).total() != rules_.getDealing()
-                        .getNombreCartesParJoueur()) {
-                    allCompleted_ = false;
-                    break;
-                }
-            }
-            if (!allCompleted_) {
-                for (byte p : players_) {
-                    if (deal_.hand(p).total() != rules_.getDealing()
-                            .getFirstCards()) {
-                        _loadedGame.setError(BAD_COUNT_FOR_HANDS);
-                        return;
-                    }
-                }
-            } else {
-                reinitializeGame(deal_, _loadedGame);
-            }
-        }
-        boolean allCardsUsedOnce_ = true;
-        for (CardBelote c : HandBelote.pileBase()) {
-            int nbUses_ = 0;
-            for (HandBelote t : deal_) {
-                for (CardBelote cTwo_ : t) {
-                    if (c == cTwo_) {
-                        nbUses_++;
-                    }
-                }
-            }
-            if (nbUses_ == 1) {
-                continue;
-            }
-            allCardsUsedOnce_ = false;
-            break;
-        }
+        boolean allCardsUsedOnce_ = allCardsUsedOnce(deal_);
         if (!allCardsUsedOnce_) {
             _loadedGame
                     .setError(ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE);
@@ -176,247 +73,382 @@ public final class CheckerGameBeloteWithRules {
         }
         GameBelote loadedGameCopy_ = new GameBelote(_loadedGame.getType(),
                 deal_, rules_);
-        if (!_loadedGame.getBid().jouerDonne()) {
-            if (!allTricks_.isEmpty()) {
-                _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
-                return;
-            }
-            if (!_loadedGame.getPliEnCours().estVide()) {
-                _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
-                return;
-            }
-            // return;
-        }
-        if (!rules_.dealAll()) {
-            players_ = loadedGameCopy_
-                    .orderedPlayers(loadedGameCopy_.playerAfter(loadedGameCopy_
-                            .getDistribution().getDealer()));
-            boolean finished_ = false;
-            int i_ = 0;
-            for (byte p : players_) {
-                if (i_ == _loadedGame.tailleContrats()) {
-                    finished_ = true;
-                    break;
-                }
-                if (!_loadedGame.contrat(i_).estDemandable(
-                        loadedGameCopy_.getBid())) {
-                    _loadedGame.setError(INVALID_BID);
-                    return;
-                }
-                boolean found_ = false;
-                for (BidBeloteSuit bid_ : loadedGameCopy_.getGameBeloteBid().allowedBids()) {
-                    if (bid_.getBid() != _loadedGame.contrat(i_).getBid()) {
-                        continue;
-                    }
-                    if (bid_.getSuit() != _loadedGame.contrat(i_).getSuit()) {
-                        continue;
-                    }
-                    found_ = true;
-                    break;
-                }
-                if (!found_) {
-                    _loadedGame.setError(INVALID_BID);
-                    return;
-                }
-                loadedGameCopy_.ajouterContrat(_loadedGame.contrat(i_), p);
-                if (!loadedGameCopy_.keepBidding()) {
-                    finished_ = true;
-                    if (_loadedGame.tailleContrats() > i_ + 1) {
-                        _loadedGame.setError(TOO_MUCH_BIDS);
-                        return;
-                    }
-                    break;
-                }
-                i_++;
-            }
-            if (!finished_) {
-                loadedGameCopy_.finEncherePremierTour();
-                int pl_ = 0;
-                while (true) {
-                    byte p_ = players_.get(pl_);
-                    if (!_loadedGame.contrat(i_).estDemandable(
-                            loadedGameCopy_.getBid())) {
-                        _loadedGame.setError(INVALID_BID);
-                        return;
-                    }
-                    boolean found_ = false;
-                    for (BidBeloteSuit bid_ : loadedGameCopy_.getGameBeloteBid().allowedBids()) {
-                        if (bid_.getBid() != _loadedGame.contrat(i_).getBid()) {
-                            continue;
-                        }
-                        if (bid_.getSuit() != _loadedGame.contrat(i_).getSuit()) {
-                            continue;
-                        }
-                        found_ = true;
-                        break;
-                    }
-                    if (!found_) {
-                        _loadedGame.setError(INVALID_BID);
-                        return;
-                    }
-                    loadedGameCopy_.ajouterContrat(_loadedGame.contrat(i_),
-                            p_);
-                    if (!loadedGameCopy_.keepBidding()) {
-                        if (_loadedGame.tailleContrats() > i_ + 1) {
-                            _loadedGame.setError(TOO_MUCH_BIDS);
-                            return;
-                        }
-                        break;
-                    }
-                    i_++;
-                    pl_++;
-                }
-            }
-        } else {
-            int i_ = 0;
-            int nbFold_ = 0;
-            int pts_ = 0;
-            while (i_ < _loadedGame.tailleContrats()) {
-                BidBeloteSuit bid_;
-                bid_ = _loadedGame.contrat(i_);
-                if (bid_.jouerDonne()) {
-                    if (_loadedGame.getRegles().getAllowedBids()
-                            .getVal(bid_.getBid()) != BoolVal.TRUE) {
-                        _loadedGame.setError(BIDDING_LOWER);
-                        return;
-                    }
-                    if (!RulesBelote.getPoints().containsObj(bid_.getPoints())) {
-                        _loadedGame.setError(BIDDING_LOWER);
-                        return;
-                    }
-                    nbFold_ = 0;
-                    if (pts_ >= bid_.getPoints()) {
-                        _loadedGame.setError(BIDDING_LOWER);
-                        return;
-                    }
-                    pts_ = bid_.getPoints();
-                } else {
-                    nbFold_++;
-                    if (nbFold_ >= loadedGameCopy_.getNombreDeJoueurs()) {
-                        _loadedGame.setError(BIDDING_TOO_MUCH_LOW);
-                        return;
-                    }
-                    if (nbFold_ >= loadedGameCopy_.getNombreDeJoueurs() - 1) {
-                        if (i_ + 1 < _loadedGame.tailleContrats()
-                                && _loadedGame.contrat(i_ + 1).jouerDonne()) {
-                            _loadedGame.setError(BIDDING_TOO_MUCH_LOW);
-                            return;
-                        }
-                    }
-                }
-                loadedGameCopy_.ajouterContrat(bid_,
-                        (byte) ((i_
-                                + loadedGameCopy_.getDistribution()
-                                        .getDealer() + 1) % loadedGameCopy_
-                                .getNombreDeJoueurs()));
-                i_++;
-            }
-        }
-        if (allTricks_.isEmpty() && _loadedGame.getPliEnCours().estVide()) {
+        if (koBid(_loadedGame, rules_, allTricks_, loadedGameCopy_) || noPlayed(_loadedGame, allTricks_)) {
             return;
         }
         loadedGameCopy_.completerDonne();
-        int firstPlayerTrick_ = _loadedGame.playerAfter(_loadedGame
-                .getDistribution().getDealer());
-        if (loadedGameCopy_.getRegles().dealAll()) {
-            int pts_ = loadedGameCopy_.getBid().getPoints();
-            if (pts_ >= HandBelote.pointsTotauxDixDeDer(loadedGameCopy_.getBid())) {
-                loadedGameCopy_.setEntameur(loadedGameCopy_.getPreneur());
-                firstPlayerTrick_ = _loadedGame.getPreneur();
-            }
-        }
+        int firstPlayerTrick_ = firstPlayerTrick(_loadedGame, loadedGameCopy_);
         loadedGameCopy_.setPliEnCours();
         HandBelote playedCards_ = _loadedGame.getDoneTrickInfo().cartesJouees();
         playedCards_.ajouterCartes(_loadedGame.getPliEnCours().getCartes());
+        if (koBeloteRebelote(_loadedGame, loadedGameCopy_, playedCards_)) {
+            return;
+        }
+        checkPlayed(_loadedGame, allTricks_, loadedGameCopy_, firstPlayerTrick_);
+
+    }
+
+    private static void checkPlayed(GameBelote _loadedGame, CustList<TrickBelote> _allTricks, GameBelote _loadedGameCopy, int _firstPlayerTrick) {
+        int ind_ = 0;
+        while (true) {
+            if (!keepTrick(_loadedGame, _allTricks, _loadedGameCopy, _firstPlayerTrick,ind_)){
+                return;
+            }
+            ind_++;
+        }
+    }
+
+    private static boolean noPlayed(GameBelote _loadedGame, CustList<TrickBelote> _allTricks) {
+        return _allTricks.isEmpty() && _loadedGame.getPliEnCours().estVide();
+    }
+
+    private static boolean koBeloteRebelote(GameBelote _loadedGame, GameBelote _loadedGameCopy, HandBelote _playedCards) {
+        byte nbPl_ = _loadedGame
+                .getNombreDeJoueurs();
         for (byte b = IndexConstants.FIRST_INDEX; b < nbPl_; b++) {
             for (CardBelote c : _loadedGame.getAnnoncesBeloteRebelote(b)) {
-                if (!_loadedGame.cartesBeloteRebelote().contient(c)) {
+                if (!_loadedGame.cartesBeloteRebelote().contient(c) || !_playedCards.contient(c) || !_loadedGameCopy.getDistribution().hand(b).contient(c)) {
                     _loadedGame.setError(BAD_DECLARING);
-                    return;
-                }
-                if (!playedCards_.contient(c)) {
-                    _loadedGame.setError(BAD_DECLARING);
-                    return;
-                }
-                if (!loadedGameCopy_.getDistribution().hand(b).contient(c)) {
-                    _loadedGame.setError(BAD_DECLARING);
-                    return;
+                    return true;
                 }
             }
         }
-        int ind_ = 0;
+        return false;
+    }
+
+    private static boolean koBid(GameBelote _loadedGame, RulesBelote _rules, CustList<TrickBelote> _allTricks, GameBelote _loadedGameCopy) {
+        if (!_loadedGame.getBid().jouerDonne()) {
+            if (!_allTricks.isEmpty()) {
+                _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
+                return true;
+            }
+            if (!_loadedGame.getPliEnCours().estVide()) {
+                _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
+                return true;
+            }
+            // return;
+        }
+        if (!_rules.dealAll()) {
+            return koBidNotDealAll(_loadedGame, _loadedGameCopy);
+        }
+        return koBidDealAll(_loadedGame, _loadedGameCopy);
+    }
+
+    private static boolean reinitialize(GameBelote _loadedGame, RulesBelote _rules, CustList<TrickBelote> _allTricks, Bytes _players, DealBelote _deal) {
+        boolean completed_ = !_allTricks.isEmpty() || !_loadedGame.getPliEnCours().estVide() || _rules.dealAll();
+        if (completed_) {
+            for (byte p : _players) {
+                if (_deal.hand(p).total() != _rules.getDealing()
+                        .getNombreCartesParJoueur()) {
+                    _loadedGame.setError(BAD_COUNT_FOR_HANDS);
+                    return true;
+                }
+            }
+            if (!_rules.dealAll()) {
+                reinitializeGame(_deal, _loadedGame);
+            }
+            return false;
+        }
+        boolean allCompleted_ = allCompleted(_rules, _players, _deal);
+        if (allCompleted_) {
+            reinitializeGame(_deal, _loadedGame);
+            return false;
+        }
+        for (byte p : _players) {
+            if (_deal.hand(p).total() != _rules.getDealing()
+                    .getFirstCards()) {
+                _loadedGame.setError(BAD_COUNT_FOR_HANDS);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static DealBelote buildDeal(GameBelote _loadedGame, CustList<TrickBelote> _allTricks, byte _nbPl) {
+        DealBelote deal_ = new DealBelote(_loadedGame.getDistribution());
+        for (TrickBelote t : _allTricks) {
+            for (CardBelote c : t) {
+                byte player_ = t.joueurAyantJoue(c);
+                deal_.hand(player_).ajouter(c);
+            }
+        }
+        for (CardBelote c : _loadedGame.getPliEnCours()) {
+            byte player_ = _loadedGame.getPliEnCours().joueurAyantJoue(c,
+                    _nbPl);
+            deal_.hand(player_).ajouter(c);
+        }
+        return deal_;
+    }
+
+    private static HandBelote retrieveCards(GameBelote _loadedGame, CustList<TrickBelote> _allTricks) {
+        HandBelote cards_ = new HandBelote();
+        for (TrickBelote t : _allTricks) {
+            for (CardBelote c : t) {
+                cards_.ajouter(c);
+            }
+        }
+        for (CardBelote c : _loadedGame.getPliEnCours()) {
+            cards_.ajouter(c);
+        }
+        for (HandBelote c : _loadedGame.getDistribution()) {
+            cards_.ajouterCartes(c);
+        }
+        for (byte p : _loadedGame.orderedPlayers(_loadedGame.getDistribution()
+                .getDealer())) {
+            for (CardBelote c : _loadedGame.getAnnoncesBeloteRebelote(p)) {
+                cards_.ajouter(c);
+            }
+            for (CardBelote c : _loadedGame.getAnnonce(p).getHand()) {
+                cards_.ajouter(c);
+            }
+        }
+        return cards_;
+    }
+
+    private static boolean keepTrick(GameBelote _loadedGame, CustList<TrickBelote> _allTricks, GameBelote _loadedGameCopy, int _firstPlayerTrick, int _ind) {
         TrickBelote firstTrick_;
-        if (!allTricks_.isEmpty()) {
-            firstTrick_ = allTricks_.first();
+        if (!_allTricks.isEmpty()) {
+            firstTrick_ = _allTricks.first();
         } else {
             firstTrick_ = _loadedGame.getPliEnCours();
         }
-        while (true) {
-            TrickBelote trick_;
-            if (ind_ == 0) {
-                if (firstTrick_.getEntameur() != firstPlayerTrick_) {
-                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                    return;
-                }
-                trick_ = firstTrick_;
-            } else if (ind_ == allTricks_.size()) {
-                if (allTricks_.last().getRamasseur(_loadedGame.getBid()) != _loadedGame
-                        .getPliEnCours().getEntameur()) {
-                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                    return;
-                }
-                trick_ = _loadedGame.getPliEnCours();
-            } else {
-                if (allTricks_.get(ind_ - 1).getRamasseur(
-                        _loadedGame.getBid()) != allTricks_.get(ind_)
-                        .getEntameur()) {
-                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                    return;
-                }
-                trick_ = allTricks_.get(ind_);
+        TrickBelote trick_;
+        if (_ind == 0) {
+            if (firstTrick_.getEntameur() != _firstPlayerTrick) {
+                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+                return false;
             }
-            for (byte p : loadedGameCopy_.orderedPlayers(loadedGameCopy_
-                    .getEntameur())) {
-                if (!trick_.aJoue(p, nbPl_)) {
-                    return;
-                }
-                CardBelote ct_ = trick_.carteDuJoueur(p,
-                        nbPl_);
-                if (!loadedGameCopy_.autorise(ct_)) {
-                    _loadedGame.setError(BAD_PLAYING);
-                    return;
-                }
-                if (_loadedGame.getAnnoncesBeloteRebelote(p).contient(ct_)) {
-                    loadedGameCopy_.setAnnoncesBeloteRebelote(p, ct_);
-                }
-                if (loadedGameCopy_.premierTour()) {
-                    if (_loadedGame.getAnnonce(p).getDeclare() != DeclaresBelote.UNDEFINED) {
-                        DeclareHandBelote declaring_ = loadedGameCopy_
-                                .strategieAnnonces();
-                        if (!_loadedGame.getAnnonce(p).eq(declaring_)) {
-                            _loadedGame.setError(BAD_DECLARING);
-                            return;
-                        }
-                    }
-                    if (_loadedGame.getAnnonce(p).getDeclare() != DeclaresBelote.UNDEFINED) {
-                        loadedGameCopy_.annoncer(p);
-                    }
-                }
-                loadedGameCopy_.getDistribution().jouer(p, ct_);
-                loadedGameCopy_.ajouterUneCarteDansPliEnCours(ct_);
+            trick_ = firstTrick_;
+        } else if (_ind == _allTricks.size()) {
+            if (_allTricks.last().getRamasseur(_loadedGame.getBid()) != _loadedGame
+                    .getPliEnCours().getEntameur()) {
+                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+                return false;
             }
-            if (!loadedGameCopy_.keepPlayingCurrentGame()) {
-                /* Il y a dix_ de_ der_ */
-                loadedGameCopy_.ajouterPliEnCours();
-                loadedGameCopy_.setDixDeDer(loadedGameCopy_.getRamasseur());
+            trick_ = _loadedGame.getPliEnCours();
+        } else {
+            if (_allTricks.get(_ind - 1).getRamasseur(
+                    _loadedGame.getBid()) != _allTricks.get(_ind)
+                    .getEntameur()) {
+                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+                return false;
+            }
+            trick_ = _allTricks.get(_ind);
+        }
+        for (byte p : _loadedGameCopy.orderedPlayers(_loadedGameCopy
+                .getEntameur())) {
+            if (!keepTrickIt(_loadedGame,_loadedGameCopy,trick_,p)) {
+                return false;
+            }
+        }
+        if (!_loadedGameCopy.keepPlayingCurrentGame()) {
+            /* Il y a dix_ de_ der_ */
+            _loadedGameCopy.ajouterPliEnCours();
+            _loadedGameCopy.setDixDeDer(_loadedGameCopy.getRamasseur());
+            return false;
+        }
+        _loadedGameCopy.ajouterPliEnCours();
+        _loadedGameCopy.setEntameur();
+        _loadedGameCopy.setPliEnCours();
+        return true;
+    }
+    private static boolean keepTrickIt(GameBelote _loadedGame, GameBelote _loadedGameCopy, TrickBelote _trick, byte _p) {
+        byte nbPl_ = _loadedGame
+                .getNombreDeJoueurs();
+        if (!_trick.aJoue(_p, nbPl_)) {
+            return false;
+        }
+        CardBelote ct_ = _trick.carteDuJoueur(_p,
+                nbPl_);
+        if (!_loadedGameCopy.autorise(ct_)) {
+            _loadedGame.setError(BAD_PLAYING);
+            return false;
+        }
+        if (_loadedGame.getAnnoncesBeloteRebelote(_p).contient(ct_)) {
+            _loadedGameCopy.setAnnoncesBeloteRebelote(_p, ct_);
+        }
+        if (_loadedGameCopy.premierTour()) {
+            if (_loadedGame.getAnnonce(_p).getDeclare() != DeclaresBelote.UNDEFINED) {
+                DeclareHandBelote declaring_ = _loadedGameCopy
+                        .strategieAnnonces();
+                if (!_loadedGame.getAnnonce(_p).eq(declaring_)) {
+                    _loadedGame.setError(BAD_DECLARING);
+                    return false;
+                }
+            }
+            if (_loadedGame.getAnnonce(_p).getDeclare() != DeclaresBelote.UNDEFINED) {
+                _loadedGameCopy.annoncer(_p);
+            }
+        }
+        _loadedGameCopy.getDistribution().jouer(_p, ct_);
+        _loadedGameCopy.ajouterUneCarteDansPliEnCours(ct_);
+        return true;
+    }
+
+    private static int firstPlayerTrick(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
+        int firstPlayerTrick_ = _loadedGame.playerAfter(_loadedGame
+                .getDistribution().getDealer());
+        if (_loadedGameCopy.getRegles().dealAll()) {
+            int pts_ = _loadedGameCopy.getBid().getPoints();
+            if (pts_ >= HandBelote.pointsTotauxDixDeDer(_loadedGameCopy.getBid())) {
+                _loadedGameCopy.setEntameur(_loadedGameCopy.getPreneur());
+                firstPlayerTrick_ = _loadedGame.getPreneur();
+            }
+        }
+        return firstPlayerTrick_;
+    }
+
+    private static boolean koBidNotDealAll(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
+        Bytes players_;
+        players_ = _loadedGameCopy
+                .orderedPlayers(_loadedGameCopy.playerAfter(_loadedGameCopy
+                        .getDistribution().getDealer()));
+        boolean finished_ = false;
+        int i_ = 0;
+        for (byte p : players_) {
+            boolean keep_ = keepFirstRound(_loadedGame, _loadedGameCopy, i_, p);
+            if (!_loadedGame.getError().isEmpty()) {
+                return true;
+            }
+            if (!keep_) {
+                finished_ = true;
                 break;
             }
-            loadedGameCopy_.ajouterPliEnCours();
-            loadedGameCopy_.setEntameur();
-            loadedGameCopy_.setPliEnCours();
-            ind_++;
+            i_++;
         }
+        if (finished_) {
+            return false;
+        }
+        return secondRound(_loadedGame, _loadedGameCopy, players_, i_);
+    }
 
+    private static boolean secondRound(GameBelote _loadedGame, GameBelote _loadedGameCopy, Bytes _players, int _i) {
+        int i_ = _i;
+        _loadedGameCopy.finEncherePremierTour();
+        int pl_ = 0;
+        while (true) {
+            byte p_ = _players.get(pl_);
+            if (!_loadedGame.contrat(i_).estDemandable(
+                    _loadedGameCopy.getBid())) {
+                _loadedGame.setError(INVALID_BID);
+                return true;
+            }
+            boolean found_ = okBidSuit(_loadedGame, _loadedGameCopy, i_);
+            if (!found_) {
+                _loadedGame.setError(INVALID_BID);
+                return true;
+            }
+            _loadedGameCopy.ajouterContrat(_loadedGame.contrat(i_),
+                    p_);
+            if (!_loadedGameCopy.keepBidding()) {
+                if (_loadedGame.tailleContrats() > i_ + 1) {
+                    _loadedGame.setError(TOO_MUCH_BIDS);
+                    return true;
+                }
+                break;
+            }
+            i_++;
+            pl_++;
+        }
+        return false;
+    }
+
+    private static boolean koBidDealAll(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
+        int i_ = 0;
+        int nbFold_ = 0;
+        int pts_ = 0;
+        while (i_ < _loadedGame.tailleContrats()) {
+            BidBeloteSuit bid_ = _loadedGame.contrat(i_);
+            if (bid_.jouerDonne()) {
+                if (_loadedGame.getRegles().getAllowedBids()
+                        .getVal(bid_.getBid()) != BoolVal.TRUE || !RulesBelote.getPoints().containsObj(bid_.getPoints()) || pts_ >= bid_.getPoints()) {
+                    _loadedGame.setError(BIDDING_LOWER);
+                    return true;
+                }
+                nbFold_ = 0;
+                pts_ = bid_.getPoints();
+            } else {
+                nbFold_++;
+                if (nbFold_ >= _loadedGameCopy.getNombreDeJoueurs() || nbFold_ >= _loadedGameCopy.getNombreDeJoueurs() - 1 && i_ + 1 < _loadedGame.tailleContrats()
+                        && _loadedGame.contrat(i_ + 1).jouerDonne()) {
+                    _loadedGame.setError(BIDDING_TOO_MUCH_LOW);
+                    return true;
+                }
+            }
+            _loadedGameCopy.ajouterContrat(bid_,
+                    (byte) ((i_
+                            + _loadedGameCopy.getDistribution()
+                                    .getDealer() + 1) % _loadedGameCopy
+                            .getNombreDeJoueurs()));
+            i_++;
+        }
+        return false;
+    }
+
+    private static boolean keepFirstRound(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _i, byte _p) {
+        if (_i == _loadedGame.tailleContrats()) {
+            return false;
+        }
+        if (!_loadedGame.contrat(_i).estDemandable(
+                _loadedGameCopy.getBid())) {
+            _loadedGame.setError(INVALID_BID);
+            return false;
+        }
+        boolean found_ = okBidSuit(_loadedGame, _loadedGameCopy, _i);
+        if (!found_) {
+            _loadedGame.setError(INVALID_BID);
+            return false;
+        }
+        _loadedGameCopy.ajouterContrat(_loadedGame.contrat(_i), _p);
+        if (!_loadedGameCopy.keepBidding()) {
+            if (_loadedGame.tailleContrats() > _i + 1) {
+                _loadedGame.setError(TOO_MUCH_BIDS);
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean okBidSuit(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _i) {
+        boolean found_ = false;
+        for (BidBeloteSuit bid_ : _loadedGameCopy.getGameBeloteBid().allowedBids()) {
+            if (bid_.getBid() == _loadedGame.contrat(_i).getBid() && bid_.getSuit() == _loadedGame.contrat(_i).getSuit()) {
+                found_ = true;
+                break;
+            }
+        }
+        return found_;
+    }
+
+    private static boolean allCardsUsedOnce(DealBelote _deal) {
+        boolean allCardsUsedOnce_ = true;
+        for (CardBelote c : HandBelote.pileBase()) {
+            int nbUses_ = 0;
+            for (HandBelote t : _deal) {
+                for (CardBelote cTwo_ : t) {
+                    if (c == cTwo_) {
+                        nbUses_++;
+                    }
+                }
+            }
+            if (nbUses_ != 1) {
+                allCardsUsedOnce_ = false;
+                break;
+            }
+        }
+        return allCardsUsedOnce_;
+    }
+
+    private static boolean allCompleted(RulesBelote _rules, Bytes _players, DealBelote _deal) {
+        boolean allCompleted_ = true;
+        for (byte p : _players) {
+            if (_deal.hand(p).total() != _rules.getDealing()
+                    .getNombreCartesParJoueur()) {
+                allCompleted_ = false;
+                break;
+            }
+        }
+        return allCompleted_;
     }
 
     private static void reinitializeGame(DealBelote _restitutedDeal,

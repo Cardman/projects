@@ -514,9 +514,11 @@ public final class GameBelote {
             }
             boolean fold_ = true;
             int iter_ = IndexConstants.FIRST_INDEX+1;
-            while (iter_ < getNombreDeJoueurs()) {
-                //iter_ < getNombreDeJoueurs() <= bids.size() => iter_ < bids.size()
-                //iter_ + i_ == bids.size() && iter_ <= bids.size() => i_ >= 0
+            while (iter_ <= getNombreDeJoueurs()) {
+                //iter_ >= 1 => -iter_ <= -1 => bids.size()-iter_ <= bids.size()-1
+                //bids.size() >= getNombreDeJoueurs() => bids.size() - iter_ >= getNombreDeJoueurs() - iter_
+                //getNombreDeJoueurs() >= iter_ => getNombreDeJoueurs() - iter_ >= 0
+                //bids.size() - iter_ >= getNombreDeJoueurs() - iter_ >= 0 => bids.size() - iter_ >= 0
                 if (bids.get(bids.size()-iter_).jouerDonne()) {
                     fold_ = false;
                     break;
