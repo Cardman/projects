@@ -57,7 +57,6 @@ import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.BoolVal;
