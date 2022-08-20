@@ -8,6 +8,7 @@ import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 /**
@@ -28,7 +29,7 @@ public final class GameBelote {
     private final CustList<DeclaresBelote> declaresPts=new CustList<DeclaresBelote>();
     private CustList<HandBelote> declaresBeloteRebelote = new CustList<HandBelote>();
     private final Shorts declaresBeloteRebelotePts = new Shorts();
-    private CustList<Boolean> wonLastTrick = new CustList<Boolean>();
+    private CustList<BoolVal> wonLastTrick = new CustList<BoolVal>();
     /**Le contrat permet de dire quel va etre le deroulement
     de la partie*/
     private BidBeloteSuit bid=new BidBeloteSuit();
@@ -77,7 +78,7 @@ public final class GameBelote {
         for (int j_ = IndexConstants.FIRST_INDEX; j_<nombreJoueurs_; j_++) {
             declaresBeloteRebelote.add(new HandBelote());
             declaresBeloteRebelotePts.add((short) 0);
-            wonLastTrick.add(false);
+            wonLastTrick.add(BoolVal.FALSE);
             declares.add(new DeclareHandBelote());
             declaresPts.add(DeclaresBelote.UNDEFINED);
         }
@@ -216,7 +217,7 @@ public final class GameBelote {
             scores_.set(joueur_, (short) 0);
             declaresBeloteRebelote.set(joueur_, new HandBelote());
             declaresBeloteRebelotePts.set(joueur_, (short) 0);
-            wonLastTrick.set(joueur_, false);
+            wonLastTrick.set(joueur_, BoolVal.FALSE);
             declares.set(joueur_, new DeclareHandBelote());
             declaresPts.set(joueur_, DeclaresBelote.UNDEFINED);
         }
@@ -748,10 +749,10 @@ public final class GameBelote {
         if(!getDistribution().hand().estVide()) {
             return;
         }
-        wonLastTrick.set(_b, true);
+        wonLastTrick.set(_b, BoolVal.TRUE);
     }
     public boolean getDixDeDer(byte _b) {
-        return wonLastTrick.get(_b);
+        return wonLastTrick.get(_b) == BoolVal.TRUE;
     }
 
     public HandBelote empiler() {
@@ -837,11 +838,11 @@ public final class GameBelote {
         declaresBeloteRebelote = _declaresBeloteRebelote;
     }
 
-    public CustList<Boolean> getWonLastTrick() {
+    public CustList<BoolVal> getWonLastTrick() {
         return wonLastTrick;
     }
 
-    public void setWonLastTrick(CustList<Boolean> _wonLastTrick) {
+    public void setWonLastTrick(CustList<BoolVal> _wonLastTrick) {
         wonLastTrick = _wonLastTrick;
     }
 

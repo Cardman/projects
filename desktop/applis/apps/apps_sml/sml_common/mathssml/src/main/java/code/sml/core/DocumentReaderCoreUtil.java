@@ -70,6 +70,16 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
+    public static CustList<BoolVal> getBoolValList(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CustList<BoolVal> list_ = new CustList<BoolVal>(new CollCapacity(len_));
+        for (Element c: childElements_) {
+            list_.add(getBoolVal(c));
+        }
+        return list_;
+    }
+
     public static Bytes getListByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();

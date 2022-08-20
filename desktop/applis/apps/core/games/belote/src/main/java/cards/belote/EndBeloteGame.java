@@ -6,21 +6,22 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.EndGameState;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class EndBeloteGame {
-    private GameBeloteTeamsRelation relations;
-    private CustList<DeclaresBelote> declares;
-    private Shorts declaresBeloteRebelote;
-    private CustList<Boolean> wonLastTrick;
+    private final GameBeloteTeamsRelation relations;
+    private final CustList<DeclaresBelote> declares;
+    private final Shorts declaresBeloteRebelote;
+    private final CustList<BoolVal> wonLastTrick;
     /**Le contrat permet de dire quel va etre le deroulement
      de la partie*/
-    private BidBeloteSuit bid;
+    private final BidBeloteSuit bid;
     /**Ce sont les plis faits par les joueurs*/
-    private CustList<TrickBelote> tricks;
+    private final CustList<TrickBelote> tricks;
 
     public EndBeloteGame(GameBeloteTeamsRelation _relations, CustList<DeclaresBelote> _declares,
-                         Shorts _declaresBeloteRebelote, CustList<Boolean> _wonLastTrick,
+                         Shorts _declaresBeloteRebelote, CustList<BoolVal> _wonLastTrick,
                          BidBeloteSuit _bid, CustList<TrickBelote> _tricks) {
         relations = _relations;
         declares = _declares;
@@ -66,7 +67,7 @@ public final class EndBeloteGame {
     Shorts pointsAnnoncesPrimes(byte _joueur) {
         Shorts totaux_=new Shorts();
         totaux_.add(declaresBeloteRebelote.get(_joueur));
-        if(wonLastTrick.get(_joueur)) {
+        if(wonLastTrick.get(_joueur) == BoolVal.TRUE) {
             totaux_.add((short) BonusBelote.LAST_TRICK.getPoints());
         }
         totaux_.add((short) declares.get(_joueur).getPoints());
@@ -99,10 +100,8 @@ public final class EndBeloteGame {
             return _scoreTmpAttaque;
         }
         if (_rules.dealAll()) {
-            if (_bid.getPoints() == HandBelote.pointsTotauxDixDeDer()) {
-                if (!_trDef.isEmpty()) {
-                    return 0;
-                }
+            if (_bid.getPoints() == HandBelote.pointsTotauxDixDeDer() && !_trDef.isEmpty()) {
+                return 0;
             }
             if (_scoreTmpAttaque >= _bid.getPoints()) {
                 return _scoreTmpAttaque;

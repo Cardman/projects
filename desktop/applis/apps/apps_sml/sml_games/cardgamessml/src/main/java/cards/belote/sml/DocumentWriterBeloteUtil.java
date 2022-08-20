@@ -160,7 +160,7 @@ public final class DocumentWriterBeloteUtil {
         _element.appendChild(setDealBelote(_object.getDeal(),FIELD_DEAL,_document));
         _element.appendChild(setListDeclareHandBelote(_object.getDeclares(),FIELD_DECLARES,_document));
         _element.appendChild(setListHandBelote(_object.getDeclaresBeloteRebelote(),FIELD_DECLARES_BELOTE_REBELOTE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBooleanList(_object.getWonLastTrick(),FIELD_WON_LAST_TRICK,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolValList(_object.getWonLastTrick(),FIELD_WON_LAST_TRICK,_document));
         _element.appendChild(setListTrickBelote(_object.getTricks(),FIELD_TRICKS,_document));
         _element.appendChild(setTrickBelote(_object.getProgressingTrick(),FIELD_PROGRESSING_TRICK,_document));
         _element.appendChild(setListBidBeloteSuit(_object.getBids(),FIELD_BIDS,_document));

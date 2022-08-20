@@ -88,6 +88,16 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
+    public static Element setBoolValList(CustList<BoolVal> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement("bl");
+        setFieldName(elt_, _fieldName);
+        for (BoolVal s: _object) {
+            Element sub_ = setBoolean(s, "", _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
+
     public static Element setListByte(Bytes _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("n");
         setFieldName(elt_, _fieldName);

@@ -209,7 +209,7 @@ public final class DocumentReaderBeloteUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_WON_LAST_TRICK)) {
-            _object.setWonLastTrick(DocumentReaderCoreUtil.getBooleanList(_element));
+            _object.setWonLastTrick(DocumentReaderCoreUtil.getBoolValList(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_TRICKS)) {
