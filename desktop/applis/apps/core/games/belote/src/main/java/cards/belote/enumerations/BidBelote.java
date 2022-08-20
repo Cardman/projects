@@ -79,32 +79,37 @@ public enum BidBelote {
 
     public static EnumList<BidBelote> getAlwaysUsableBids() {
         EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
-        for (BidBelote e: BidBelote.values()) {
-            if (!e.getToujoursPossibleAnnoncer()) {
-                continue;
-            }
-            bids_.add(e);
-        }
+        bids_.add(FOLD);
+        bids_.add(SUIT);
+        bids_.add(OTHER_SUIT);
+        return bids_;
+    }
+    public static EnumList<BidBelote> all() {
+        EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
+        fold(bids_);
+        take(bids_);
         return bids_;
     }
     public static EnumList<BidBelote> getZeroBids() {
         EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
-        for (BidBelote e: BidBelote.values()) {
-            if (e.jouerDonne()) {
-                continue;
-            }
-            bids_.add(e);
-        }
+        fold(bids_);
         return bids_;
     }
+
+    private static void fold(EnumList<BidBelote> _bids) {
+        _bids.add(FOLD);
+    }
+
     public static EnumList<BidBelote> getNonZeroBids() {
         EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
-        for (BidBelote e: BidBelote.values()) {
-            if (!e.jouerDonne()) {
-                continue;
-            }
-            bids_.add(e);
-        }
+        take(bids_);
         return bids_;
+    }
+
+    private static void take(EnumList<BidBelote> _bids) {
+        _bids.add(SUIT);
+        _bids.add(OTHER_SUIT);
+        _bids.add(NO_TRUMP);
+        _bids.add(ALL_TRUMP);
     }
 }

@@ -1299,8 +1299,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     @Test
     public void getRepartitionsValides_repartitionsToutesValides1(){
         EnumList<DealingBelote> repartitionsValides_ = DealingBelote.getRepartitionsValides();
-        assertTrue(!repartitionsValides_.isEmpty());
-        assertEq(DealingBelote.values().length,repartitionsValides_.size());
+        assertEq(2,repartitionsValides_.size());
     }
     @Test
     public void vientAvant1Test() {

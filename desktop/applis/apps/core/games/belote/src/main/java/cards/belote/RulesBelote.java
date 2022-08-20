@@ -28,7 +28,7 @@ public final class RulesBelote {
         for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
             allowedDeclares.put(a, BoolVal.FALSE);
         }
-        for(BidBelote e:BidBelote.values()){
+        for(BidBelote e:BidBelote.all()){
             allowedBids.put(e, ComparatorBoolean.of(e.getToujoursPossibleAnnoncer()));
         }
     }
@@ -48,7 +48,7 @@ public final class RulesBelote {
                 return false;
             }
         }
-        for(BidBelote b:BidBelote.values()){
+        for(BidBelote b:BidBelote.all()){
             if (!allowedBids.contains(b)) {
                 return false;
             }

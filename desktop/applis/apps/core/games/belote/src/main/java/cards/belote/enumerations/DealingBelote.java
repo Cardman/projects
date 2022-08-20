@@ -70,9 +70,8 @@ public enum DealingBelote {
     }
     public static EnumList<DealingBelote> getRepartitionsValides() {
         EnumList<DealingBelote> repartitions_ = new EnumList<DealingBelote>();
-        for(DealingBelote r: DealingBelote.values()) {
-            repartitions_.add(r);
-        }
+        repartitions_.add(CLASSIC_2_VS_2);
+        repartitions_.add(COINCHE_2_VS_2);
         return repartitions_;
     }
 }
