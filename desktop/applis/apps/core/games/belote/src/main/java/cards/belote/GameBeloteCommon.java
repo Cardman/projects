@@ -241,7 +241,7 @@ public final class GameBeloteCommon {
 
 
         HandBelote cartesMaitresses_ = new HandBelote(ordre_);
-        int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
+        int nbPlayedOrOwnedCards_ = Math.min(couleurTotale_.total(), cartesJoueesOuPossedees_.total());
         for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
             if (!CardBelote.eq(cartesJoueesOuPossedees_.carte(c),
                     couleurTotale_.carte(c))) {

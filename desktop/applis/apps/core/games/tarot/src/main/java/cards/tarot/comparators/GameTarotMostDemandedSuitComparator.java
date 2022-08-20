@@ -9,9 +9,9 @@ import code.util.ints.Comparing;
 
 public final class GameTarotMostDemandedSuitComparator implements Comparing<Suit> {
 
-    private CustList<TrickTarot> tricks;
+    private final CustList<TrickTarot> tricks;
 
-    private Bytes players;
+    private final Bytes players;
 
     public GameTarotMostDemandedSuitComparator(CustList<TrickTarot> _tricks,
             Bytes _players) {
@@ -21,8 +21,7 @@ public final class GameTarotMostDemandedSuitComparator implements Comparing<Suit
 
     @Override
     public int compare(Suit _suit1, Suit _suit2) {
-        boolean aussiHaut_ = true;
-        boolean permuter_ = false;
+        int res_ = SortConstants.EQ_CMP;
         byte nbEntamesCouleur1_ = IndexConstants.SIZE_EMPTY;
         byte nbEntamesCouleur2_ = IndexConstants.SIZE_EMPTY;
         for(TrickTarot pli_: tricks){
@@ -37,18 +36,13 @@ public final class GameTarotMostDemandedSuitComparator implements Comparing<Suit
             }
         }
         if (nbEntamesCouleur1_ != nbEntamesCouleur2_) {
-            aussiHaut_ = false;
             if (nbEntamesCouleur1_ < nbEntamesCouleur2_) {
-                permuter_ = true;
+                res_ = SortConstants.SWAP_SORT;
+            } else {
+                res_ = SortConstants.NO_SWAP_SORT;
             }
         }
-        if (permuter_) {
-            return SortConstants.SWAP_SORT;
-        }
-        if (aussiHaut_) {
-            return SortConstants.EQ_CMP;
-        }
-        return SortConstants.NO_SWAP_SORT;
+        return res_;
     }
 
 }
