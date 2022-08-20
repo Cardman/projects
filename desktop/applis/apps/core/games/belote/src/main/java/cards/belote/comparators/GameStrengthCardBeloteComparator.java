@@ -8,10 +8,10 @@ import code.util.ints.Comparing;
 
 public final class GameStrengthCardBeloteComparator implements Comparing<CardBelote> {
 
-    private Suit trumpSuit;
-    private Suit demandedSuit;
-    private BidBeloteSuit bid = new BidBeloteSuit();
-    private boolean decreasing;
+    private final Suit trumpSuit;
+    private final Suit demandedSuit;
+    private final BidBeloteSuit bid;
+    private final boolean decreasing;
 
     public GameStrengthCardBeloteComparator(
             Suit _couleurAtout,
@@ -19,6 +19,7 @@ public final class GameStrengthCardBeloteComparator implements Comparing<CardBel
             boolean _decroissant){
         trumpSuit = _couleurAtout;
         demandedSuit = _couleurDemandee;
+        bid = new BidBeloteSuit();
         decreasing = _decroissant;
     }
 
