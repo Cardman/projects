@@ -125,7 +125,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         return new GameBeloteProgTrick(_done,_teamsRelation,_currentHand);
     }
 
-//    private static int det(EnumMap<Suit,CustList<HandBelote>> _foundHands, Ints _lengths) {
+//    private static int det(IdMap<Suit,CustList<HandBelote>> _foundHands, Ints _lengths) {
 //        int nb_ = _lengths.size();
 //        for (int i = 0;i < nb_; i++) {
 //            int s_ = 0;
@@ -170,7 +170,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
 //                _g.getDeclaresBeloteRebelote(), bid_,
 //                handLengths_);
 //        info_.addSeenDeck(_g.getDistribution().derniereMain(),_g.getTeamsRelation());
-//        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_ = new EnumMap<Suit,CustList<HandBelote>>();
+//        IdMap<Suit,CustList<HandBelote>> cartesPossibles_ = new IdMap<Suit,CustList<HandBelote>>();
 //        for(Suit couleur_:GameBeloteCommon.couleurs()) {
 //            //On fait une boucle sur les couleurs autres que l'atout
 //            if(bid_.getSuit() !=couleur_&&!bid_.ordreAtout()) {
@@ -193,9 +193,9 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
 //            hPlCh_.ajouter(c);
 //        }
 //        assertTrue(StringUtil.concat("Error len",Long.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Long.toString(_currentHand.total())),handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) == _currentHand.total());
-//        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
+//        IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
 //        cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
-//        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_ = hypotheses_
+//        IdMap<Suit,CustList<HandBelote>> cartesCertaines_ = hypotheses_
 //                .getVal(Hypothesis.SURE);
 //        while (true) {
 //            int det_ = det(cartesCertaines_, handLengths_);

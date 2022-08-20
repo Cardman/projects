@@ -8,7 +8,7 @@ import cards.consts.Hypothesis;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -5588,8 +5588,8 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         curHand_.ajouter(CardBelote.CLUB_10);
         curHand_.ajouter(CardBelote.HEART_7);
         curHand_.ajouter(CardBelote.SPADE_KING);
-        EnumMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
-        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(4, rep_.getVal(Suit.HEART).size());
         assertEq(4, rep_.getVal(Suit.SPADE).size());
@@ -5626,9 +5626,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         curHand_.ajouter(CardBelote.CLUB_KING);
         curHand_.ajouter(CardBelote.CLUB_10);
         curHand_.ajouter(CardBelote.SPADE_KING);
-        EnumMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
+        IdMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
         rep_.getVal(Suit.SPADE).get(2).removeCardIfPresent(CardBelote.SPADE_1);
-        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(4, rep_.getVal(Suit.HEART).size());
         assertEq(4, rep_.getVal(Suit.SPADE).size());
@@ -5672,8 +5672,8 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_QUEEN,CardBelote.HEART_7,CardBelote.SPADE_KING,CardBelote.DIAMOND_1,CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10));
         GameBelote g_ = newGameBeloteWithourDecl(curHand_,r_, trs_, pr_, 2, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
-        EnumMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
-        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(4, rep_.getVal(Suit.HEART).size());
         assertEq(4, rep_.getVal(Suit.SPADE).size());
@@ -5716,9 +5716,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.SPADE_KING,CardBelote.DIAMOND_10,CardBelote.DIAMOND_JACK,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_QUEEN,CardBelote.DIAMOND_7,CardBelote.CLUB_1,CardBelote.CLUB_QUEEN));
         GameBelote g_ = newGameBeloteWithourDecl(curHand_,r_, trs_, pr_, 2, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
-        EnumMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
+        IdMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
         rep_.getVal(Suit.SPADE).get(2).removeCardIfPresent(CardBelote.SPADE_1);
-        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(4, rep_.getVal(Suit.HEART).size());
         assertEq(4, rep_.getVal(Suit.SPADE).size());
@@ -5762,7 +5762,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_1,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_8,CardBelote.CLUB_10,CardBelote.CLUB_KING));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EnumMap<Suit, CustList<HandBelote>> tr_ = info_.cartesPossibles(cur_);
+        IdMap<Suit, CustList<HandBelote>> tr_ = info_.cartesPossibles(cur_);
         assertEq(4, tr_.size());
     }
     @Test
@@ -5803,7 +5803,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_1,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_8,CardBelote.CLUB_10,CardBelote.CLUB_KING));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EnumMap<Suit, CustList<HandBelote>> tr_ = info_.cartesPossibles(cur_);
+        IdMap<Suit, CustList<HandBelote>> tr_ = info_.cartesPossibles(cur_);
         assertEq(4, tr_.size());
     }
     @Test
@@ -5844,11 +5844,11 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_1,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.SPADE_9,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_8,CardBelote.CLUB_JACK,CardBelote.CLUB_9));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EnumMap<Suit, CustList<HandBelote>> tr_ = info_.cartesPossibles(cur_);
+        IdMap<Suit, CustList<HandBelote>> tr_ = info_.cartesPossibles(cur_);
         assertEq(4, tr_.size());
     }
-    private static EnumMap<Suit,CustList<HandBelote>> fact(GameBeloteTrickInfo _info, HandBelote _current) {
-        EnumMap<Suit,CustList<HandBelote>> m = new EnumMap<Suit,CustList<HandBelote>>();
+    private static IdMap<Suit,CustList<HandBelote>> fact(GameBeloteTrickInfo _info, HandBelote _current) {
+        IdMap<Suit,CustList<HandBelote>> m = new IdMap<Suit,CustList<HandBelote>>();
         BidBeloteSuit bid_ = _info.getBid();
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             //On fait une boucle sur les couleurs autres que l'atout

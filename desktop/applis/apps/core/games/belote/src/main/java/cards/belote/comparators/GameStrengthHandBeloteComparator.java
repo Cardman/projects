@@ -4,7 +4,7 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
@@ -12,11 +12,11 @@ import code.util.ints.Comparing;
 
 abstract class GameStrengthHandBeloteComparator implements Comparing<Suit> {
 
-    private final EnumMap<Suit,HandBelote> hand;
+    private final IdMap<Suit,HandBelote> hand;
     private final BidBeloteSuit bid;
     private final int rt;
 
-    GameStrengthHandBeloteComparator(EnumMap<Suit, HandBelote> _hand,
+    GameStrengthHandBeloteComparator(IdMap<Suit, HandBelote> _hand,
                                      BidBeloteSuit _bid, int _r) {
         hand = _hand;
         bid = _bid;

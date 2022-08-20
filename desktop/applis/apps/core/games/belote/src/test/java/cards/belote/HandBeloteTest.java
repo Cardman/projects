@@ -12,7 +12,7 @@ import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 
 public class HandBeloteTest extends EquallableBeloteUtil {
@@ -212,7 +212,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     @Test
     public void couleurs1(){
         HandBelote main_ = new HandBelote();
-        EnumMap<Suit,HandBelote> hash_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hash_ = new IdMap<Suit,HandBelote>();
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
         HandBelote couleur_ = new HandBelote();
@@ -303,7 +303,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         couleur_.ajouter(CardBelote.CLUB_7);
         hash_.put(Suit.CLUB, couleur_);
         enchereCouleur_.setBid(BidBelote.SUIT);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(hash_.getVal(Suit.HEART), res_.getVal(Suit.HEART));
         assertEq(hash_.getVal(Suit.SPADE), res_.getVal(Suit.SPADE));
         assertEq(hash_.getVal(Suit.DIAMOND), res_.getVal(Suit.DIAMOND));
@@ -490,7 +490,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
         enchereCouleur_.setSuit(Suit.HEART);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -503,7 +503,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
         enchereCouleur_.setSuit(Suit.SPADE);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -516,7 +516,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
         enchereCouleur_.setSuit(Suit.DIAMOND);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -529,7 +529,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
         enchereCouleur_.setSuit(Suit.CLUB);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -542,7 +542,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
         enchereCouleur_.setSuit(Suit.HEART);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -555,7 +555,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
         enchereCouleur_.setSuit(Suit.SPADE);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -568,7 +568,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
         enchereCouleur_.setSuit(Suit.DIAMOND);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -581,7 +581,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
         enchereCouleur_.setSuit(Suit.CLUB);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -599,7 +599,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
 //        hash_.put(Suit.CLUB, new HandBelote());
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.NO_TRUMP);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -617,7 +617,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
 //        hash_.put(Suit.CLUB, new HandBelote());
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.ALL_TRUMP);
-        EnumMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> res_ = main_.couleurs(enchereCouleur_);
         assertEq(4,res_.size());
         assertEq(0,res_.getVal(Suit.HEART).total());
         assertEq(0,res_.getVal(Suit.SPADE).total());
@@ -786,7 +786,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         enchereCouleur_.setSuit(couleur_);
 
 
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
+        IdMap<Suit,HandBelote> repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
@@ -881,7 +881,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.NO_TRUMP);
@@ -900,7 +900,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.ALL_TRUMP);
@@ -919,7 +919,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
@@ -939,7 +939,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
@@ -959,7 +959,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
@@ -979,7 +979,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
@@ -999,7 +999,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
@@ -1019,7 +1019,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
@@ -1039,7 +1039,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
@@ -1059,7 +1059,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         HandBelote main_;
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_;
+        IdMap<Suit,HandBelote> repartitionCartesJouees_;
         CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
@@ -1443,7 +1443,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
         assertEq(0, rep_.getVal(Suit.CLUB).cartesPlisAssures(b_).total());
     }
     @Test
@@ -1458,7 +1458,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
         assertEq(0, rep_.getVal(Suit.SPADE).cartesPlisAssures(b_).total());
     }
     @Test
@@ -1473,7 +1473,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
         HandBelote cards_ = rep_.getVal(Suit.SPADE).cartesPlisAssures(b_);
         assertEq(1, cards_.total());
         assertTrue(cards_.contient(CardBelote.SPADE_1));
@@ -1490,7 +1490,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
         HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
         assertEq(1, cards_.total());
         assertTrue(cards_.contient(CardBelote.HEART_9));
@@ -1507,7 +1507,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
         HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
         assertEq(3, cards_.total());
         assertTrue(cards_.contient(CardBelote.HEART_JACK));
@@ -1526,7 +1526,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
         HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
         assertEq(2, cards_.total());
         assertTrue(cards_.contient(CardBelote.HEART_9));
@@ -1544,7 +1544,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
         HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
         assertEq(2, cards_.total());
         assertTrue(cards_.contient(CardBelote.HEART_9));
@@ -1562,7 +1562,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
         b_.setBid(BidBelote.NO_TRUMP);
-        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
         HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
         assertEq(2, cards_.total());
         assertTrue(cards_.contient(CardBelote.HEART_1));
@@ -1577,7 +1577,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.HEART_QUEEN);
         h_.ajouter(CardBelote.SPADE_1);
         h_.ajouter(CardBelote.SPADE_9);
-        EnumMap<Suit, Long> res_ = h_.pointsAvg(4,8);
+        IdMap<Suit, Long> res_ = h_.pointsAvg(4,8);
         assertEq(122, res_.getVal(Suit.HEART));
         assertEq(69, res_.getVal(Suit.SPADE));
         assertEq(62, res_.getVal(Suit.DIAMOND));
@@ -1592,7 +1592,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.HEART_QUEEN);
         h_.ajouter(CardBelote.SPADE_1);
         h_.ajouter(CardBelote.SPADE_9);
-        EnumMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
+        IdMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
         assertEq(97, res_.getVal(Suit.HEART));
         assertEq(77, res_.getVal(Suit.SPADE));
         assertEq(73, res_.getVal(Suit.DIAMOND));
@@ -1607,7 +1607,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.HEART_QUEEN);
         h_.ajouter(CardBelote.SPADE_10);
         h_.ajouter(CardBelote.SPADE_9);
-        EnumMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
+        IdMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
         assertEq(65, res_.getVal(Suit.HEART));
         assertEq(42, res_.getVal(Suit.SPADE));
         assertEq(42, res_.getVal(Suit.DIAMOND));
@@ -1622,7 +1622,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.HEART_QUEEN);
         h_.ajouter(CardBelote.SPADE_10);
         h_.ajouter(CardBelote.SPADE_9);
-        EnumMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
+        IdMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
         assertEq(17, res_.getVal(Suit.HEART));
         assertEq(13, res_.getVal(Suit.SPADE));
         assertEq(13, res_.getVal(Suit.DIAMOND));
@@ -1637,7 +1637,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.CLUB_1);
         h_.ajouter(CardBelote.SPADE_1);
         h_.ajouter(CardBelote.DIAMOND_1);
-        EnumMap<Suit, Long> res_ = h_.pointsAvg(4,8);
+        IdMap<Suit, Long> res_ = h_.pointsAvg(4,8);
         assertEq(168, res_.getVal(Suit.HEART));
         assertEq(76, res_.getVal(Suit.SPADE));
         assertEq(76, res_.getVal(Suit.DIAMOND));

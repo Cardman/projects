@@ -54,20 +54,20 @@ public final class GameBeloteTrickInfo {
      ecartes) Cet ensemble peut etre reduit apres appel de methode
      @return l'ensemble des cartes dont on connait par deduction la main
      */
-    public EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>> cartesCertaines(
-            EnumMap<Suit, CustList<HandBelote>> _cartesPossibles) {
+    public IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> cartesCertaines(
+            IdMap<Suit, CustList<HandBelote>> _cartesPossibles) {
         Bytes joueursRepartitionConnue_ = new Bytes();
         Bytes joueursRepartitionConnue2_ = new Bytes();
         Bytes joueursRepartitionConnueMemo_ = new Bytes();
         Bytes joueursRepartitionInconnue_ = new Bytes();
-        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_ = new EnumMap<Suit,CustList<HandBelote>>(
+        IdMap<Suit,CustList<HandBelote>> cartesPossibles_ = new IdMap<Suit,CustList<HandBelote>>(
                 _cartesPossibles);
         /*
         Indique le nombre de mains pour les
         cartes possibles ou apparait la carte
         */
         EnumList<Suit> toutesCouleurs_ = GameBeloteCommon.couleurs();
-        EnumMap<Suit, CustList<HandBelote>> cartesCertaines_ = sure(joueursRepartitionConnue_, joueursRepartitionConnueMemo_, cartesPossibles_, toutesCouleurs_);
+        IdMap<Suit, CustList<HandBelote>> cartesCertaines_ = sure(joueursRepartitionConnue_, joueursRepartitionConnueMemo_, cartesPossibles_, toutesCouleurs_);
         while (!joueursRepartitionConnue_.isEmpty()) {
             /*
         Tant qu'on arrive a
@@ -94,13 +94,13 @@ public final class GameBeloteTrickInfo {
             sortSuits(cartesPossibles_, joueur_);
             sortSuits(cartesCertaines_, joueur_);
         }
-        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>> retour_ = new EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>>();
+        IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> retour_ = new IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>>();
         retour_.put(Hypothesis.POSSIBLE, cartesPossibles_);
         retour_.put(Hypothesis.SURE, cartesCertaines_);
         return retour_;
     }
 
-    private void iterate(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnue2, Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines) {
+    private void iterate(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnue2, Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, IdMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, IdMap<Suit, CustList<HandBelote>> _cartesCertaines) {
         for (byte joueur_ : _joueursRepartitionConnue) {
             for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nbPlayers; joueur2_++) {
                 if (!_joueursRepartitionConnueMemo.containsObj(joueur2_)) {
@@ -124,7 +124,7 @@ public final class GameBeloteTrickInfo {
         _joueursRepartitionConnue2.clear();
     }
 
-    private void validatePlayer(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur) {
+    private void validatePlayer(IdMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur) {
         for (Suit couleur_: _toutesCouleurs) {
             CustList<HandBelote> cardSuit_ = _cartesPossibles.getVal(couleur_);
             for (CardBelote carte_ : cardSuit_.get(
@@ -139,7 +139,7 @@ public final class GameBeloteTrickInfo {
         }
     }
 
-    private void remImpos(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur, byte _joueur2) {
+    private void remImpos(IdMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur, byte _joueur2) {
         for (Suit couleur_: _toutesCouleurs) {
             _cartesCertaines.getVal(couleur_)
                     .get(_joueur2).supprimerCartes(
@@ -163,8 +163,8 @@ public final class GameBeloteTrickInfo {
         return nombreDApparitionCarte_;
     }
 
-    private EnumMap<Suit, CustList<HandBelote>> sure(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnueMemo, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs) {
-        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_ = new EnumMap<Suit,CustList<HandBelote>>();
+    private IdMap<Suit, CustList<HandBelote>> sure(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnueMemo, IdMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs) {
+        IdMap<Suit,CustList<HandBelote>> cartesCertaines_ = new IdMap<Suit,CustList<HandBelote>>();
         for(Suit couleur_: _toutesCouleurs) {
             cartesCertaines_.put(couleur_,new CustList<HandBelote>());
         }
@@ -179,7 +179,7 @@ public final class GameBeloteTrickInfo {
         return cartesCertaines_;
     }
 
-    void sortSuits(EnumMap<Suit, CustList<HandBelote>> _reps, byte _player) {
+    void sortSuits(IdMap<Suit, CustList<HandBelote>> _reps, byte _player) {
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             if(bid.getCouleurDominante()) {
                 if(couleur_!= bid.getSuit()) {
@@ -192,8 +192,8 @@ public final class GameBeloteTrickInfo {
         }
     }
 
-    void addToKnown(EnumList<Suit> _all,EnumMap<Suit,CustList<HandBelote>> _poss,byte _player,
-                    EnumMap<Suit,CustList<HandBelote>> _sure,
+    void addToKnown(EnumList<Suit> _all,IdMap<Suit,CustList<HandBelote>> _poss,byte _player,
+                    IdMap<Suit,CustList<HandBelote>> _sure,
                     Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnueMemo) {
         int nombreCartesPossiblesJoueur_ = 0;
         for (Suit couleur_: _all) {
@@ -214,16 +214,16 @@ public final class GameBeloteTrickInfo {
             _joueursRepartitionConnueMemo.add(_player);
         }
     }
-    static void affect(EnumList<Suit> _all,EnumMap<Suit,CustList<HandBelote>> _from, byte _player,EnumMap<Suit,CustList<HandBelote>> _to) {
+    static void affect(EnumList<Suit> _all,IdMap<Suit,CustList<HandBelote>> _from, byte _player,IdMap<Suit,CustList<HandBelote>> _to) {
         for (Suit s: _all) {
             _to.getVal(s).get(_player).supprimerCartes();
             _to.getVal(s).get(_player).ajouterCartes(_from.getVal(s).get(_player));
         }
     }
 
-    public EnumMap<Suit,CustList<HandBelote>> cartesPossibles(
+    public IdMap<Suit,CustList<HandBelote>> cartesPossibles(
             HandBelote _curHand) {
-        EnumMap<Suit,CustList<HandBelote>> m=new EnumMap<Suit,CustList<HandBelote>>();
+        IdMap<Suit,CustList<HandBelote>> m=new IdMap<Suit,CustList<HandBelote>>();
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             //On fait une boucle sur les couleurs autres que l'atout
             if(bid.getSuit() !=couleur_&&!bid.ordreAtout()) {
@@ -257,7 +257,7 @@ public final class GameBeloteTrickInfo {
     CustList<HandBelote> atoutsPossiblesRegles(
             Suit _couleurAtout,
             HandBelote _curHand) {
-        EnumMap<Suit,HandBelote> repartition_ = _curHand.couleurs(bid);
+        IdMap<Suit,HandBelote> repartition_ = _curHand.couleurs(bid);
         HandBelote trumps_ = GameBeloteCommon.hand(repartition_,_couleurAtout);
         HandBelote cartesJouees_ = cartesJouees();
         cartesJouees_.ajouterCartes(progressingTrick.getCartes());
@@ -607,7 +607,7 @@ public final class GameBeloteTrickInfo {
     /**Retourne l'ensemble des cartes d'une meme couleur autre que l'atout probablement possedees par les autres joueurs on tient compte du pli en cours
      @param numero*/
     CustList<HandBelote> cartesPossiblesRegles(Suit _couleur, HandBelote _cartesJoueur) {
-        EnumMap<Suit,HandBelote> repartition_ = _cartesJoueur.couleurs(bid);
+        IdMap<Suit,HandBelote> repartition_ = _cartesJoueur.couleurs(bid);
         HandBelote suitCards_ = GameBeloteCommon.hand(repartition_,_couleur);
         HandBelote cartesJouees_ = cartesJouees();
         cartesJouees_.ajouterCartes(progressingTrick.getCartes());

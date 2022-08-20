@@ -90,9 +90,9 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.CLUB_1);
         h_.ajouter(CardBelote.CLUB_JACK);
         HandBelote p_ = new HandBelote();
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertEq(4, leading_.size());
         assertEq(1, leading_.getVal(Suit.HEART).total());
         assertTrue(leading_.getVal(Suit.HEART).contient(CardBelote.HEART_JACK));
@@ -119,9 +119,9 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.CLUB_JACK);
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertEq(4, leading_.size());
         assertEq(2, leading_.getVal(Suit.HEART).total());
         assertTrue(leading_.getVal(Suit.HEART).contient(CardBelote.HEART_JACK));
@@ -148,9 +148,9 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.CLUB_1);
         h_.ajouter(CardBelote.CLUB_JACK);
         HandBelote p_ = new HandBelote();
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertEq(4, leading_.size());
         assertEq(0, leading_.getVal(Suit.HEART).total());
         assertEq(1, leading_.getVal(Suit.SPADE).total());
@@ -175,9 +175,9 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.CLUB_1);
         h_.ajouter(CardBelote.CLUB_JACK);
         HandBelote p_ = new HandBelote();
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertEq(4, leading_.size());
         assertEq(5, leading_.getVal(Suit.HEART).total());
         assertTrue(leading_.getVal(Suit.HEART).contient(CardBelote.HEART_JACK));
@@ -206,9 +206,9 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.CLUB_1);
         h_.ajouter(CardBelote.CLUB_JACK);
         HandBelote p_ = new HandBelote();
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertEq(4, leading_.size());
         assertEq(1, leading_.getVal(Suit.HEART).total());
         assertTrue(leading_.getVal(Suit.HEART).contient(CardBelote.HEART_1));
@@ -234,9 +234,9 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.CLUB_1);
         h_.ajouter(CardBelote.CLUB_JACK);
         HandBelote p_ = new HandBelote();
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertEq(4, leading_.size());
         assertEq(1, leading_.getVal(Suit.HEART).total());
         assertTrue(leading_.getVal(Suit.HEART).contient(CardBelote.HEART_JACK));
@@ -261,7 +261,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.CLUB_JACK);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(h_, GameBeloteCommon.couleurs(), 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.DIAMOND));
@@ -307,7 +307,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.CLUB_JACK);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(4, suits_.size());
         assertTrue(suits_.containsObj(Suit.DIAMOND));
@@ -329,7 +329,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.CLUB_JACK);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -350,7 +350,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -370,7 +370,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -390,7 +390,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_7);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(4, suits_.size());
         assertTrue(suits_.containsObj(Suit.DIAMOND));
@@ -412,7 +412,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -433,7 +433,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -453,7 +453,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -473,7 +473,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursLesPlusLongues(hr_,GameBeloteCommon.couleurs());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -493,7 +493,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursLesPlusCourtes(hr_,GameBeloteCommon.couleurs());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -513,7 +513,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLePlusGrandNbPoints(hr_,b_,GameBeloteCommon.couleurs());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -533,7 +533,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_9);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.HEART_9);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> s_ = GameBeloteCommon.couleurs();
         s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_,s_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLePlusPetitNbPoints(hr_,b_, s_);
@@ -576,7 +576,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecPoints(h_,b_, GameBeloteCommon.couleurs());
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.DIAMOND));
@@ -602,7 +602,7 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.HEART_10);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> suits_ = GameBeloteCommon.couleursSansPoint(hr_,b_, GameBeloteCommon.couleurs());
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.CLUB));

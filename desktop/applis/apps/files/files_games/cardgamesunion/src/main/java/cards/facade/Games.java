@@ -266,7 +266,7 @@ public final class Games {
 
     public static String autoriseBelote(GameBelote _g,String _loc) {
         HandBelote main_=_g.getDistribution().hand(_g.playerHavingToPlay());
-        EnumMap<Suit,HandBelote> e_ = main_.couleurs(_g.getBid());
+        IdMap<Suit,HandBelote> e_ = main_.couleurs(_g.getBid());
         byte numero_=_g.playerHavingToPlay();
         HandBelote m= _g.getProgressingTrick().getCartes();
         Suit couleurDemandee_= _g.getProgressingTrick().couleurDemandee();

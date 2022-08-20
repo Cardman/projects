@@ -3,17 +3,17 @@ package cards.belote.comparators;
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.consts.Suit;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.ints.Comparing;
 
 public final class GameStrengthLowLastHandBeloteComparator implements
         Comparing<Suit> {
 
-    private final EnumMap<Suit,HandBelote> hand;
+    private final IdMap<Suit,HandBelote> hand;
     private final BidBeloteSuit bid;
     private final CardStrengthComparatorLast cmp;
 
-    public GameStrengthLowLastHandBeloteComparator(EnumMap<Suit,HandBelote> _hand,
+    public GameStrengthLowLastHandBeloteComparator(IdMap<Suit,HandBelote> _hand,
             BidBeloteSuit _bid) {
         hand = _hand;
         bid = _bid;

@@ -5,7 +5,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -21,10 +21,10 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.CLUB_8);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.DIAMOND_10);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
         EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
         assertSame(CardBelote.HEART_7,GameBeloteBeginTrick.faireCouperAppele(s_,hr_,pr_));
     }
@@ -39,11 +39,11 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.CLUB_8);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.DIAMOND_10);
         p_.ajouter(CardBelote.HEART_8);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
         EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
         assertSame(CardBelote.HEART_7,GameBeloteBeginTrick.faireCouper(b_,s_,hr_,pr_));
     }
@@ -58,7 +58,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.CLUB_8);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
         assertSame(CardBelote.CLUB_8,GameBeloteBeginTrick.ouvrirCouleur(b_,s_,hr_));
     }
@@ -73,11 +73,11 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.CLUB_10);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         HandBelote p_ = new HandBelote();
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
         EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
-        EnumMap<Suit, HandBelote> l_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
+        IdMap<Suit, HandBelote> l_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertSame(CardBelote.HEART_1,GameBeloteBeginTrick.ouvrir(b_,s_,hr_,pr_,l_));
     }
     @Test
@@ -91,11 +91,11 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         h_.ajouter(CardBelote.CLUB_KING);
         h_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        IdMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         HandBelote p_ = new HandBelote();
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
         EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
-        EnumMap<Suit, HandBelote> l_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
+        IdMap<Suit, HandBelote> l_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertSame(CardBelote.CLUB_7,GameBeloteBeginTrick.ouvrir(b_,s_,hr_,pr_,l_));
     }
     @Test
@@ -103,10 +103,10 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
         addCard(sure_,3,CardBelote.SPADE_1);
         HandBelote p_ = new HandBelote();
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
         assertTrue(!GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_, Order.TRUMP));
     }
     @Test
@@ -114,14 +114,14 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
         addCard(sure_,3,CardBelote.SPADE_9);
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.SPADE_JACK);
-        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
         assertTrue(GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_, Order.TRUMP));
     }
-    private static void addCard(EnumMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
+    private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
         HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
         if (h_.contient(_c)) {
             return;
@@ -129,8 +129,8 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         h_.ajouter(_c);
         h_.trierUnicolore(true);
     }
-    private static EnumMap<Suit,CustList<HandBelote>> generate(int _nbPlayer, BidBeloteSuit _b) {
-        EnumMap<Suit,CustList<HandBelote>> e_ = new EnumMap<Suit,CustList<HandBelote>>();
+    private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer, BidBeloteSuit _b) {
+        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
         EnumList<Suit> s_ = new EnumList<Suit>();
         s_.addAllElts(Suit.couleursOrdinaires());
         for (Suit s: s_) {

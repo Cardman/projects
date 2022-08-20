@@ -6,7 +6,7 @@ import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -707,7 +707,7 @@ public final class GameBelote {
         gameTarotTrickInfo_.addSeenDeck(last_,getTeamsRelation());
         return gameTarotTrickInfo_;
     }
-    HandBelote playableCards(EnumMap<Suit,HandBelote> _repartitionMain) {
+    HandBelote playableCards(IdMap<Suit,HandBelote> _repartitionMain) {
         /*Ensemble des cartes jouees sur ce pli*/
         GameBeloteCommonPlaying g_ = new GameBeloteCommonPlaying(getDoneTrickInfo(),getTeamsRelation());
         return g_.playableCards(_repartitionMain);

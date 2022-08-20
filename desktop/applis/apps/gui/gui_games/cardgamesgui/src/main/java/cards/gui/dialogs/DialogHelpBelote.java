@@ -13,10 +13,7 @@ import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -46,9 +43,9 @@ public final class DialogHelpBelote {
         _fenetre.getDialogHelpBelote().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogHelpBelote().absDialog.setTitle(_title);
     }
-    public void setDialogueBelote(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
-                                         EnumMap<Suit, CustList<HandBelote>> _cartesCertaines,
-                                         EnumMap<Suit, HandBelote> _repartitionJouees,
+    public void setDialogueBelote(IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
+                                  IdMap<Suit, CustList<HandBelote>> _cartesCertaines,
+                                  IdMap<Suit, HandBelote> _repartitionJouees,
                                          Suit _couleurDemandee, BidBeloteSuit _bid,
                                          StringList _pseudos, String _lg) {
         AbsPanel container_=compo.newLineBox();

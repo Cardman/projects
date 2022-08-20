@@ -95,7 +95,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         liste_.ajouter(CardBelote.CLUB_7);
         return liste_;
     }
-    public static HandBelote reunion(EnumMap<Suit,HandBelote> _all) {
+    public static HandBelote reunion(IdMap<Suit,HandBelote> _all) {
         HandBelote h_ = new HandBelote();
         for (EntryCust<Suit,HandBelote> e: _all.entryList()) {
             h_.ajouterCartes(e.getValue());
@@ -223,10 +223,10 @@ public final class HandBelote implements Iterable<CardBelote> {
         BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
         enchereBeloteLoc_.setSuit(c_);
         enchereBeloteLoc_.setBid(_b);
-        EnumMap<Suit,HandBelote> repartition_=couleurs(enchereBeloteLoc_);
+        IdMap<Suit,HandBelote> repartition_=couleurs(enchereBeloteLoc_);
         HandBelote rem_ = HandBelote.pileBase();
         rem_.supprimerCartes(this);
-        EnumMap<Suit,HandBelote> other_ = rem_.couleurs(enchereBeloteLoc_);
+        IdMap<Suit,HandBelote> other_ = rem_.couleurs(enchereBeloteLoc_);
         int pointsFictifs_ = 0;
         for(Suit c2_: GameBeloteCommon.couleurs()) {
             pointsFictifs_ += getPointsCount(_nbPlayers,enchereBeloteLoc_,c2_,repartition_,other_);
@@ -235,8 +235,8 @@ public final class HandBelote implements Iterable<CardBelote> {
         pointsFictifs_ /= count_;
         return pointsFictifs_;
     }
-    EnumMap<Suit,Long> pointsAvg(int _nbPlayers, int _nbFinalCards) {
-        EnumMap<Suit,Long> couleurPointsFictifs_ = new EnumMap<Suit,Long>();
+    IdMap<Suit,Long> pointsAvg(int _nbPlayers, int _nbFinalCards) {
+        IdMap<Suit,Long> couleurPointsFictifs_ = new IdMap<Suit,Long>();
         HandBelote rem_ = HandBelote.pileBase();
         rem_.supprimerCartes(this);
         int count_ = total();
@@ -245,8 +245,8 @@ public final class HandBelote implements Iterable<CardBelote> {
             BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
             enchereBeloteLoc_.setSuit(c);
             enchereBeloteLoc_.setBid(BidBelote.SUIT);
-            EnumMap<Suit,HandBelote> repartition_=couleurs(enchereBeloteLoc_);
-            EnumMap<Suit,HandBelote> other_ = rem_.couleurs(enchereBeloteLoc_);
+            IdMap<Suit,HandBelote> repartition_=couleurs(enchereBeloteLoc_);
+            IdMap<Suit,HandBelote> other_ = rem_.couleurs(enchereBeloteLoc_);
             //repartition est la repartition des cartes a la couleur d'atout c
             long pointsFictifs_ = 0;
             for(Suit c2_: GameBeloteCommon.couleurs()) {
@@ -266,7 +266,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         }
         return couleurPointsFictifs_;
     }
-    static long getPointsCount(int _nbPlayers, BidBeloteSuit _bid, Suit _curSuit, EnumMap<Suit,HandBelote> _currHand, EnumMap<Suit,HandBelote> _other) {
+    static long getPointsCount(int _nbPlayers, BidBeloteSuit _bid, Suit _curSuit, IdMap<Suit,HandBelote> _currHand, IdMap<Suit,HandBelote> _other) {
         Suit trumSuit_ = _bid.getSuit();
         long pointsFictifs_ = 0;
         HandBelote zerosLoc_ = new HandBelote();
@@ -319,7 +319,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         Suit couleur_ = premiereCarte().getId().getCouleur();
         Order ordre_ = order(_enchere, _enchere.getSuit(),couleur_);
         HandBelote cartesAssurantMin_ = cartesPlisAssuresMin(ordre_);
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_ = new HandBelote().couleurs(_enchere);
+        IdMap<Suit,HandBelote> repartitionCartesJouees_ = new HandBelote().couleurs(_enchere);
         CustList<HandBelote> suitesMin_ = cartesAssurantMin_.eclater(repartitionCartesJouees_, _enchere);
         CustList<HandBelote> suites_ = eclater(repartitionCartesJouees_,_enchere);
         HandBelote cartesAssurantMax_ = new HandBelote(ordre_);
@@ -372,11 +372,11 @@ public final class HandBelote implements Iterable<CardBelote> {
     byte nombreDePlisMinAssures(Order _ordre) {
         return (byte) cartesPlisAssuresMin(_ordre).total();
     }
-    EnumMap<Suit,CustList<HandBelote>> eclaterTout(EnumMap<Suit,HandBelote> _repartitionCartesJouees,
+    IdMap<Suit,CustList<HandBelote>> eclaterTout(IdMap<Suit,HandBelote> _repartitionCartesJouees,
                                                  BidBeloteSuit _enchere) {
-        EnumMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = new EnumMap<Suit,CustList<HandBelote>>();
+        IdMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = new IdMap<Suit,CustList<HandBelote>>();
 
-        EnumMap<Suit, HandBelote> couleurs_ = couleurs(_enchere);
+        IdMap<Suit, HandBelote> couleurs_ = couleurs(_enchere);
         for (Suit i : GameBeloteCommon.couleurs()) {
             suitesTouteCouleur_.put(i,couleurs_.getVal(i).eclater(
                     _repartitionCartesJouees, _enchere));
@@ -385,7 +385,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         return suitesTouteCouleur_;
     }
     CustList<HandBelote> eclater(
-            EnumMap<Suit,HandBelote> _repartitionCartesJouees,
+            IdMap<Suit,HandBelote> _repartitionCartesJouees,
             BidBeloteSuit _enchere) {
         if(estVide()) {
             return new CustList<HandBelote>();
@@ -421,8 +421,8 @@ public final class HandBelote implements Iterable<CardBelote> {
     HandBelote couleur(BidBeloteSuit _contrat, Suit _couleur) {
         return couleurs(_contrat).getVal(_couleur);
     }
-    public EnumMap<Suit,HandBelote> couleurs(BidBeloteSuit _contrat) {
-        EnumMap<Suit,HandBelote> mains_=new EnumMap<Suit,HandBelote>();
+    public IdMap<Suit,HandBelote> couleurs(BidBeloteSuit _contrat) {
+        IdMap<Suit,HandBelote> mains_=new IdMap<Suit,HandBelote>();
         for(CardBelote c: cards) {
             if(!mains_.contains(c.getId().getCouleur())) {
                 mains_.put(c.getId().getCouleur(), new HandBelote());
@@ -460,7 +460,7 @@ public final class HandBelote implements Iterable<CardBelote> {
     }
 
     private void varAnnonce(BidBeloteSuit _enchere, CustList<DeclareHandBelote> _annoncesPossibles, DeclaresBelote _a) {
-        EnumMap<Suit,HandBelote> mains_ = couleurs(_enchere);
+        IdMap<Suit,HandBelote> mains_ = couleurs(_enchere);
         for(Suit c: mains_.getKeys()) {
             HandBelote annonceMemeCouleur_ = mains_.getVal(c);
             if(annonceMemeCouleur_.total() < _a.nombreCartes()) {

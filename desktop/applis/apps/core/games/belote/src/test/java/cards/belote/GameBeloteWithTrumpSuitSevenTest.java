@@ -9,7 +9,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 public class GameBeloteWithTrumpSuitSevenTest extends GameBeloteWithTrumpSuit {
 
@@ -81,7 +81,7 @@ public class GameBeloteWithTrumpSuitSevenTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         assertTrue(!suits_.getVal(game_.couleurAtout()).estVide());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
@@ -109,7 +109,7 @@ public class GameBeloteWithTrumpSuitSevenTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         assertTrue(!suits_.getVal(game_.couleurAtout()).estVide());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());

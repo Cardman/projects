@@ -165,14 +165,14 @@ public abstract class DialogBelote extends DialogCards {
 
 //        getReglesBelote().setCartesBattues((MixCardsChoice)listeChoix.getSelectedItem());
         getReglesBelote().getCommon().setMixedCards(listeChoix.getCurrent());
-        EnumMap<BidBelote,BoolVal> contrats_ = new EnumMap<BidBelote,BoolVal>();
+        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
         for (BidBelote enchere_: BidBelote.values()) {
             AbsCustCheckBox jcb_= bids.get(enchere_.ordinal());
             contrats_.put(enchere_, ComparatorBoolean.of(jcb_.isSelected()));
         }
         getReglesBelote().setAllowedBids(contrats_);
 
-        EnumMap<DeclaresBelote,BoolVal> annonces_ = new EnumMap<DeclaresBelote,BoolVal>();
+        IdMap<DeclaresBelote,BoolVal> annonces_ = new IdMap<DeclaresBelote,BoolVal>();
         for (DeclaresBelote enchere_: indicesAnnoncesValides.getKeys()) {
             AbsCustCheckBox jcb_= declares.get(indicesAnnoncesValides.getVal(enchere_));
             annonces_.put(enchere_,ComparatorBoolean.of(jcb_.isSelected()));

@@ -457,11 +457,11 @@ public final class DocumentReaderBeloteUtil {
         return list_;
     }
 
-    private static EnumMap<BidBelote, BoolVal> getMapBidBeloteBoolean(Element _elt) {
+    private static IdMap<BidBelote, BoolVal> getMapBidBeloteBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<BidBelote,BoolVal> map_ = new EnumMap<BidBelote,BoolVal>(cap_);
+        IdMap<BidBelote,BoolVal> map_ = new IdMap<BidBelote,BoolVal>(cap_);
         CustList<BidBelote> keys_ = new CustList<BidBelote>(cap_);
         CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
@@ -477,11 +477,11 @@ public final class DocumentReaderBeloteUtil {
         }
         return map_;
     }
-    private static EnumMap<DeclaresBelote,BoolVal> getMapDeclaresBeloteBoolean(Element _elt) {
+    private static IdMap<DeclaresBelote,BoolVal> getMapDeclaresBeloteBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<DeclaresBelote,BoolVal> map_ = new EnumMap<DeclaresBelote,BoolVal>(cap_);
+        IdMap<DeclaresBelote,BoolVal> map_ = new IdMap<DeclaresBelote,BoolVal>(cap_);
         CustList<DeclaresBelote> keys_ = new CustList<DeclaresBelote>(cap_);
         CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {

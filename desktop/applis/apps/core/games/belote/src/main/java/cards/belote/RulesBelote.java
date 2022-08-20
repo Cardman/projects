@@ -6,7 +6,7 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.RulesCommon;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.Ints;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -17,10 +17,10 @@ public final class RulesBelote {
     public static final int DIVISIONS = 10;
 
     private RulesCommon common = new RulesCommon();
-    private EnumMap<DeclaresBelote,BoolVal> allowedDeclares = new EnumMap<DeclaresBelote,BoolVal>();
+    private IdMap<DeclaresBelote,BoolVal> allowedDeclares = new IdMap<DeclaresBelote,BoolVal>();
     private boolean underTrumpFoe;
     private BeloteTrumpPartner trumpPartner=BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP;
-    private EnumMap<BidBelote,BoolVal> allowedBids = new EnumMap<BidBelote,BoolVal>();
+    private IdMap<BidBelote,BoolVal> allowedBids = new IdMap<BidBelote,BoolVal>();
     private DealingBelote dealing = DealingBelote.CLASSIC_2_VS_2;
     private boolean classicCountPoints=true;
 
@@ -35,10 +35,10 @@ public final class RulesBelote {
 
     public RulesBelote(RulesBelote _reglesBelote) {
         common = new RulesCommon(_reglesBelote.common);
-        allowedDeclares = new EnumMap<DeclaresBelote,BoolVal>(_reglesBelote.allowedDeclares);
+        allowedDeclares = new IdMap<DeclaresBelote,BoolVal>(_reglesBelote.allowedDeclares);
         underTrumpFoe = _reglesBelote.underTrumpFoe;
         trumpPartner = _reglesBelote.trumpPartner;
-        allowedBids = new EnumMap<BidBelote,BoolVal>(_reglesBelote.allowedBids);
+        allowedBids = new IdMap<BidBelote,BoolVal>(_reglesBelote.allowedBids);
         dealing = _reglesBelote.dealing;
         classicCountPoints = _reglesBelote.classicCountPoints;
     }
@@ -120,11 +120,11 @@ public final class RulesBelote {
         return common;
     }
 
-    public EnumMap<DeclaresBelote, BoolVal> getAllowedDeclares() {
+    public IdMap<DeclaresBelote, BoolVal> getAllowedDeclares() {
         return allowedDeclares;
     }
 
-    public void setAllowedDeclares(EnumMap<DeclaresBelote, BoolVal> _allowedDeclares) {
+    public void setAllowedDeclares(IdMap<DeclaresBelote, BoolVal> _allowedDeclares) {
         allowedDeclares = _allowedDeclares;
     }
 
@@ -144,11 +144,11 @@ public final class RulesBelote {
         trumpPartner = _trumpPartner;
     }
 
-    public EnumMap<BidBelote, BoolVal> getAllowedBids() {
+    public IdMap<BidBelote, BoolVal> getAllowedBids() {
         return allowedBids;
     }
 
-    public void setAllowedBids(EnumMap<BidBelote, BoolVal> _allowedBids) {
+    public void setAllowedBids(IdMap<BidBelote, BoolVal> _allowedBids) {
         allowedBids = _allowedBids;
     }
 

@@ -305,7 +305,7 @@ public final class DocumentWriterBeloteUtil {
         return elt_;
     }
 
-    private static Element setMapBidBeloteBoolean(EnumMap<BidBelote, BoolVal> _object, String _fieldName, Document _document) {
+    private static Element setMapBidBeloteBoolean(IdMap<BidBelote, BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<BidBelote, BoolVal> s: _object.entryList()) {
@@ -318,7 +318,7 @@ public final class DocumentWriterBeloteUtil {
         return elt_;
     }
 
-    private static Element setMapDeclaresBeloteBoolean(EnumMap<DeclaresBelote,BoolVal> _object, String _fieldName, Document _document) {
+    private static Element setMapDeclaresBeloteBoolean(IdMap<DeclaresBelote,BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<DeclaresBelote, BoolVal> s: _object.entryList()) {

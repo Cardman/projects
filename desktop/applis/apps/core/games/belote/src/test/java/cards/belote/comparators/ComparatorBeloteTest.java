@@ -9,15 +9,15 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 
 public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthLowHandBelote1Test() {
-        EnumMap<Suit,HandBelote> hand_;
-        hand_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hand_;
+        hand_ = new IdMap<Suit,HandBelote>();
         HandBelote suit_ = new HandBelote();
         suit_.ajouter(CardBelote.DIAMOND_JACK);
         suit_.ajouter(CardBelote.DIAMOND_9);
@@ -43,8 +43,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthLowHandBelote2Test() {
-        EnumMap<Suit,HandBelote> hand_;
-        hand_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hand_;
+        hand_ = new IdMap<Suit,HandBelote>();
         HandBelote suit_ = new HandBelote();
         suit_.ajouter(CardBelote.DIAMOND_1);
         suit_.ajouter(CardBelote.DIAMOND_10);
@@ -70,8 +70,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthLowHandBelote3Test() {
-        EnumMap<Suit,HandBelote> hand_;
-        hand_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hand_;
+        hand_ = new IdMap<Suit,HandBelote>();
         HandBelote suit_ = new HandBelote();
         suit_.ajouter(CardBelote.DIAMOND_1);
         suit_.ajouter(CardBelote.DIAMOND_10);
@@ -98,8 +98,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthLowHandBelote4Test() {
-        EnumMap<Suit,HandBelote> hand_;
-        hand_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hand_;
+        hand_ = new IdMap<Suit,HandBelote>();
         HandBelote suit_ = new HandBelote();
         suit_.ajouter(CardBelote.DIAMOND_1);
         suit_.ajouter(CardBelote.DIAMOND_10);
@@ -126,8 +126,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthGreatHandBelote1Test() {
-        EnumMap<Suit,HandBelote> hand_;
-        hand_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hand_;
+        hand_ = new IdMap<Suit,HandBelote>();
         HandBelote suit_ = new HandBelote();
         suit_.ajouter(CardBelote.DIAMOND_JACK);
         suit_.ajouter(CardBelote.DIAMOND_9);
@@ -153,8 +153,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthGreatHandBelote2Test() {
-        EnumMap<Suit,HandBelote> hand_;
-        hand_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hand_;
+        hand_ = new IdMap<Suit,HandBelote>();
         HandBelote suit_ = new HandBelote();
         suit_.ajouter(CardBelote.DIAMOND_1);
         suit_.ajouter(CardBelote.DIAMOND_10);
@@ -180,8 +180,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthGreatHandBelote3Test() {
-        EnumMap<Suit,HandBelote> hand_;
-        hand_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hand_;
+        hand_ = new IdMap<Suit,HandBelote>();
         HandBelote suit_ = new HandBelote();
         suit_.ajouter(CardBelote.DIAMOND_1);
         suit_.ajouter(CardBelote.DIAMOND_10);
@@ -208,8 +208,8 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthGreatHandBelote4Test() {
-        EnumMap<Suit,HandBelote> hand_;
-        hand_ = new EnumMap<Suit,HandBelote>();
+        IdMap<Suit,HandBelote> hand_;
+        hand_ = new IdMap<Suit,HandBelote>();
         HandBelote suit_ = new HandBelote();
         suit_.ajouter(CardBelote.DIAMOND_1);
         suit_.ajouter(CardBelote.DIAMOND_10);

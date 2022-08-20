@@ -1,15 +1,15 @@
 package cards.belote.comparators;
 import cards.belote.HandBelote;
 import cards.consts.Suit;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class HandBeloteShortLengthComparator implements Comparing<Suit> {
 
-    private final EnumMap<Suit,HandBelote> hand;
+    private final IdMap<Suit,HandBelote> hand;
 
-    public HandBeloteShortLengthComparator(EnumMap<Suit,HandBelote> _hand) {
+    public HandBeloteShortLengthComparator(IdMap<Suit,HandBelote> _hand) {
         hand = _hand;
     }
 

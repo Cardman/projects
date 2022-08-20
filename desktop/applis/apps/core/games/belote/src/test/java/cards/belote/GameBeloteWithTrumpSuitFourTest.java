@@ -9,7 +9,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
 
@@ -77,7 +77,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -117,7 +117,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -157,7 +157,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -198,7 +198,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -240,7 +240,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -281,7 +281,7 @@ public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());

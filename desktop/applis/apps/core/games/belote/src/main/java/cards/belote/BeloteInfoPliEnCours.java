@@ -2,7 +2,7 @@ package cards.belote;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 
 final class BeloteInfoPliEnCours {
@@ -11,15 +11,15 @@ final class BeloteInfoPliEnCours {
     private CustList<TrickBelote> plisFaits;
     private TrickBelote progressingTrick;
     private HandBelote cartesJouees;
-    private EnumMap<Suit,HandBelote> repartitionCartesJouees;
-    private EnumMap<Suit,CustList<HandBelote>> cartesPossibles;
-    private EnumMap<Suit,CustList<HandBelote>> cartesCertaines;
+    private IdMap<Suit,HandBelote> repartitionCartesJouees;
+    private IdMap<Suit,CustList<HandBelote>> cartesPossibles;
+    private IdMap<Suit,CustList<HandBelote>> cartesCertaines;
     private byte ramasseurVirtuel;
-    private EnumMap<Suit,CustList<HandBelote>> suitesTouteCouleur;
+    private IdMap<Suit,CustList<HandBelote>> suitesTouteCouleur;
     private boolean maitreAtout;
     private EnumList<Suit> couleursMaitresses;
     private EnumList<Suit> strictCouleursMaitresses;
-    private EnumMap<Suit,HandBelote> cartesMaitresses;
+    private IdMap<Suit,HandBelote> cartesMaitresses;
     private boolean maitreJeu;
     private BidBeloteSuit contrat;
     private Bytes joueursConfiance;
@@ -62,27 +62,27 @@ final class BeloteInfoPliEnCours {
         cartesJouees = _cartesJouees;
     }
 
-    public EnumMap<Suit,HandBelote> getRepartitionCartesJouees() {
+    public IdMap<Suit,HandBelote> getRepartitionCartesJouees() {
         return repartitionCartesJouees;
     }
 
-    public void setRepartitionCartesJouees(EnumMap<Suit,HandBelote> _repartitionCartesJouees) {
+    public void setRepartitionCartesJouees(IdMap<Suit,HandBelote> _repartitionCartesJouees) {
         repartitionCartesJouees = _repartitionCartesJouees;
     }
 
-    public EnumMap<Suit,CustList<HandBelote>> getCartesPossibles() {
+    public IdMap<Suit,CustList<HandBelote>> getCartesPossibles() {
         return cartesPossibles;
     }
 
-    public void setCartesPossibles(EnumMap<Suit,CustList<HandBelote>> _cartesPossibles) {
+    public void setCartesPossibles(IdMap<Suit,CustList<HandBelote>> _cartesPossibles) {
         cartesPossibles = _cartesPossibles;
     }
 
-    public EnumMap<Suit,CustList<HandBelote>> getCartesCertaines() {
+    public IdMap<Suit,CustList<HandBelote>> getCartesCertaines() {
         return cartesCertaines;
     }
 
-    public void setCartesCertaines(EnumMap<Suit,CustList<HandBelote>> _cartesCertaines) {
+    public void setCartesCertaines(IdMap<Suit,CustList<HandBelote>> _cartesCertaines) {
         cartesCertaines = _cartesCertaines;
     }
 
@@ -94,11 +94,11 @@ final class BeloteInfoPliEnCours {
         ramasseurVirtuel = _ramasseurVirtuel;
     }
 
-    public EnumMap<Suit,CustList<HandBelote>> getSuitesTouteCouleur() {
+    public IdMap<Suit,CustList<HandBelote>> getSuitesTouteCouleur() {
         return suitesTouteCouleur;
     }
 
-    public void setSuitesTouteCouleur(EnumMap<Suit,CustList<HandBelote>> _suitesTouteCouleur) {
+    public void setSuitesTouteCouleur(IdMap<Suit,CustList<HandBelote>> _suitesTouteCouleur) {
         suitesTouteCouleur = _suitesTouteCouleur;
     }
 
@@ -126,11 +126,11 @@ final class BeloteInfoPliEnCours {
         strictCouleursMaitresses = _strictCouleursMaitresses;
     }
 
-    public EnumMap<Suit,HandBelote> getCartesMaitresses() {
+    public IdMap<Suit,HandBelote> getCartesMaitresses() {
         return cartesMaitresses;
     }
 
-    public void setCartesMaitresses(EnumMap<Suit,HandBelote> _cartesMaitresses) {
+    public void setCartesMaitresses(IdMap<Suit,HandBelote> _cartesMaitresses) {
         cartesMaitresses = _cartesMaitresses;
     }
 

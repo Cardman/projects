@@ -4,7 +4,7 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -15,7 +15,7 @@ abstract class CardStrengthComparatorAbs implements CardStrengthComparator {
     CardStrengthComparatorAbs(int _r) {
         this.rt = _r;
     }
-    public int compare(EnumMap<Suit,HandBelote> _hand, BidBeloteSuit _bid, Suit _suit1, Suit _suit2) {
+    public int compare(IdMap<Suit,HandBelote> _hand, BidBeloteSuit _bid, Suit _suit1, Suit _suit2) {
         HandBelote main1_ = _hand.getVal(_suit1);
         HandBelote main2_ = _hand.getVal(_suit2);
         int res_;

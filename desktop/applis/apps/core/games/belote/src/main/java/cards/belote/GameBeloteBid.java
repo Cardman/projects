@@ -134,12 +134,12 @@ public final class GameBeloteBid {
             BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
             enchereBeloteLoc_.setSuit(c);
             enchereBeloteLoc_.setBid(BidBelote.SUIT);
-            EnumMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
-            EnumMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
+            IdMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
+            IdMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
             if (repartition_.getVal(c).estVide()) {
                 continue;
             }
-            EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(repartition_, played_, enchereBeloteLoc_);
+            IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(repartition_, played_, enchereBeloteLoc_);
             if (HandBelote.reunion(leading_).total() == _reunion.total()) {
                 s_.add(c);
             }
@@ -159,9 +159,9 @@ public final class GameBeloteBid {
             BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
             enchereBeloteLoc_.setSuit(Suit.UNDEFINED);
             enchereBeloteLoc_.setBid(e);
-            EnumMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
-            EnumMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
-            EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(repartition_, played_, enchereBeloteLoc_);
+            IdMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
+            IdMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
+            IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(repartition_, played_, enchereBeloteLoc_);
             if (HandBelote.reunion(leading_).total() == _reunion.total()) {
                 b_.add(enchereBeloteLoc_);
             }
@@ -174,9 +174,9 @@ public final class GameBeloteBid {
     }
 
     private BidBeloteSuit end(HandBelote _reunion, BidBelote _enchereCouleurDominante, EnumList<Suit> _suits) {
-        EnumMap<BidBelote,Long> couleurPointsFictifsContrats_ = new EnumMap<BidBelote,Long>();
-        EnumMap<BidBelote,Long> couleurPointsFictifsContratsRequis_ = new EnumMap<BidBelote,Long>();
-        EnumMap<Suit, Long> couleursCandidates_ = couleursCandidates(_reunion, _suits, couleurPointsFictifsContrats_, couleurPointsFictifsContratsRequis_);
+        IdMap<BidBelote,Long> couleurPointsFictifsContrats_ = new IdMap<BidBelote,Long>();
+        IdMap<BidBelote,Long> couleurPointsFictifsContratsRequis_ = new IdMap<BidBelote,Long>();
+        IdMap<Suit, Long> couleursCandidates_ = couleursCandidates(_reunion, _suits, couleurPointsFictifsContrats_, couleurPointsFictifsContratsRequis_);
         Suit couleurMax_ = Suit.UNDEFINED;
         long max_ = 0;
         for(Suit c: couleursCandidates_.getKeys()) {
@@ -211,7 +211,7 @@ public final class GameBeloteBid {
         return allBidChoice(_enchereCouleurDominante, couleurPointsFictifsContrats_, couleursCandidates_, couleurMax_, max_, max2_, e_);
     }
 
-    private BidBeloteSuit allBidChoice(BidBelote _enchereCouleurDominante, EnumMap<BidBelote, Long> _couleurPointsFictifsContrats, EnumMap<Suit, Long> _couleursCandidates, Suit _couleurMax, long _max, long _max2, BidBelote _e) {
+    private BidBeloteSuit allBidChoice(BidBelote _enchereCouleurDominante, IdMap<BidBelote, Long> _couleurPointsFictifsContrats, IdMap<Suit, Long> _couleursCandidates, Suit _couleurMax, long _max, long _max2, BidBelote _e) {
         if(_couleurMax != Suit.UNDEFINED && _max == _max2) {
             int minPointsMinusOne_ = RulesBelote.getPoints().first() - 1;
             long pts_ = _couleursCandidates.getVal(_couleurMax);
@@ -259,9 +259,9 @@ public final class GameBeloteBid {
         BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
         enchereBeloteLoc_.setSuit(Suit.UNDEFINED);
         enchereBeloteLoc_.setBid(_e);
-        EnumMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
-        EnumMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
-        EnumMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(repartition_, played_, enchereBeloteLoc_);
+        IdMap<Suit, HandBelote> played_ = new HandBelote().couleurs(enchereBeloteLoc_);
+        IdMap<Suit,HandBelote> repartition_= _reunion.couleurs(enchereBeloteLoc_);
+        IdMap<Suit, HandBelote> leading_ = GameBeloteCommon.cartesMaitresses(repartition_, played_, enchereBeloteLoc_);
         int ls_ = 0;
         for (HandBelote h: leading_.values()) {
             if (!h.estVide()) {
@@ -271,11 +271,11 @@ public final class GameBeloteBid {
         return ls_;
     }
 
-    private EnumMap<Suit, Long> couleursCandidates(HandBelote _reunion, EnumList<Suit> _suits, EnumMap<BidBelote, Long> _couleurPointsFictifsContrats, EnumMap<BidBelote, Long> _couleurPointsFictifsContratsRequis) {
+    private IdMap<Suit, Long> couleursCandidates(HandBelote _reunion, EnumList<Suit> _suits, IdMap<BidBelote, Long> _couleurPointsFictifsContrats, IdMap<BidBelote, Long> _couleurPointsFictifsContratsRequis) {
         int nbPlayers_ = rules.getDealing().getId().getNombreJoueurs();
         int nbCartesFinales_ = rules.getDealing().getNombreCartesParJoueur();
-        EnumMap<Suit,Long> couleurPointsFictifs_ = _reunion.pointsAvg(nbPlayers_,nbCartesFinales_);
-        EnumMap<Suit, Long> couleurPointsFictifsRequis_ = couleurPointsFictifsRequis(_reunion);
+        IdMap<Suit,Long> couleurPointsFictifs_ = _reunion.pointsAvg(nbPlayers_,nbCartesFinales_);
+        IdMap<Suit, Long> couleurPointsFictifsRequis_ = couleurPointsFictifsRequis(_reunion);
         for(BidBelote e: rules.getAllowedBids().getKeys()) {
             if (rules.getAllowedBids().getVal(e) != BoolVal.TRUE || e.getCouleurDominante() || e == BidBelote.FOLD) {
                 continue;
@@ -285,7 +285,7 @@ public final class GameBeloteBid {
             pts_ /= 2;
             _couleurPointsFictifsContratsRequis.put(e, pts_);
         }
-        EnumMap<Suit,Long> couleursCandidates_ = new EnumMap<Suit,Long>();
+        IdMap<Suit,Long> couleursCandidates_ = new IdMap<Suit,Long>();
         for(Suit c: _suits) {
             if(couleurPointsFictifs_.getVal(c) < couleurPointsFictifsRequis_.getVal(c)) {
                 continue;
@@ -295,8 +295,8 @@ public final class GameBeloteBid {
         return couleursCandidates_;
     }
 
-    private EnumMap<Suit, Long> couleurPointsFictifsRequis(HandBelote _reunion) {
-        EnumMap<Suit,Long> couleurPointsFictifsRequis_ = new EnumMap<Suit,Long>();
+    private IdMap<Suit, Long> couleurPointsFictifsRequis(HandBelote _reunion) {
+        IdMap<Suit,Long> couleurPointsFictifsRequis_ = new IdMap<Suit,Long>();
         for(Suit c: GameBeloteCommon.couleurs()) {
             long pts_ = pts(_reunion, c);
             couleurPointsFictifsRequis_.put(c, pts_);

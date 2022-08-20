@@ -13,7 +13,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 
 public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
@@ -70,7 +70,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     static RulesBelote initializeDefaultRules() {
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        EnumMap<BidBelote,BoolVal> contrats_ = new EnumMap<BidBelote,BoolVal>();
+        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
         for (BidBelote b: regles_.getAllowedBids().getKeys()) {
             contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
         }
@@ -87,7 +87,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     static RulesBelote initializeRulesWithBids(EnumList<BidBelote> _bids) {
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        EnumMap<BidBelote,BoolVal> contrats_ = new EnumMap<BidBelote,BoolVal>();
+        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
         for (BidBelote b: regles_.getAllowedBids().getKeys()) {
             contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
         }
@@ -108,7 +108,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        EnumMap<BidBelote,BoolVal> contrats_ = new EnumMap<BidBelote,BoolVal>();
+        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
         for (BidBelote b: regles_.getAllowedBids().getKeys()) {
             contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
         }

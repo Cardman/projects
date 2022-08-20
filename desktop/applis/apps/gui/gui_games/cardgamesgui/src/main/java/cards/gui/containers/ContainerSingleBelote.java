@@ -895,11 +895,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         Suit couleurAtout_=partie_.couleurAtout();
         HandBelote cartesJouees_=info_.cartesJouees();
         cartesJouees_.ajouterCartes(partie_.getPliEnCours().getCartes());
-        EnumMap<Suit,HandBelote> repartitionCartesJouees_=cartesJouees_.couleurs(contrat_);
+        IdMap<Suit,HandBelote> repartitionCartesJouees_=cartesJouees_.couleurs(contrat_);
         DialogHelpBelote.setTitleDialog(getOwner(), StringUtil.concat(getMessages().getVal(WindowCards.HELP_GAME),SPACE,GameEnum.BELOTE.toString(lg_)));
-        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_=info_.cartesPossibles(mainUtilisateur_);
-        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
-        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_=hypotheses_.getVal(Hypothesis.SURE);
+        IdMap<Suit,CustList<HandBelote>> cartesPossibles_=info_.cartesPossibles(mainUtilisateur_);
+        IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
+        IdMap<Suit,CustList<HandBelote>> cartesCertaines_=hypotheses_.getVal(Hypothesis.SURE);
         Suit firstSuit_;
         if (partie_.getPliEnCours().estVide()) {
             firstSuit_ = couleurAtout_;

@@ -8,7 +8,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
 
@@ -76,7 +76,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -110,7 +110,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -146,7 +146,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -182,7 +182,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
@@ -217,7 +217,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         assertEq(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_JACK);
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_1);
@@ -242,7 +242,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         assertEq(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_JACK);
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_1);
@@ -274,7 +274,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
+        IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_9);
         trumpsHandOverCurrentGreatestTrump_.ajouter(CardBelote.HEART_QUEEN);
