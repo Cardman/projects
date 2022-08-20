@@ -9,10 +9,10 @@ import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 final class GameBeloteDeclaring {
-    private GameBeloteTrickInfo doneTrickInfo;
-    private GameBeloteTeamsRelation teamsRelation;
-    private HandBelote curHand;
-    private CustList<DeclareHandBelote> declares;
+    private final GameBeloteTrickInfo doneTrickInfo;
+    private final GameBeloteTeamsRelation teamsRelation;
+    private final HandBelote curHand;
+    private final CustList<DeclareHandBelote> declares;
     GameBeloteDeclaring(GameBeloteTrickInfo _doneTrickInfo,GameBeloteTeamsRelation _teamsRelation,
                         HandBelote _curHand,CustList<DeclareHandBelote> _declares) {
         doneTrickInfo = _doneTrickInfo;
@@ -42,43 +42,26 @@ final class GameBeloteDeclaring {
         CustList<DeclareHandBelote> declarationsTakerTeam_ = filterSort(annoncesLoc_, comparateur_, takerTeam_);
         Bytes takerFoesTeam_ = teamsRelation.adversaires(teamsRelation.getTaker());
         CustList<DeclareHandBelote> declarationsTakerFoesTeam_ = filterSort(annoncesLoc_, comparateur_, takerFoesTeam_);
-        if (!declarationsTakerTeam_.isEmpty()) {
-            if (declarationsTakerFoesTeam_.isEmpty()) {
-                cancelDeclaring(takerFoesTeam_);
-                return;
-            }
-            boolean equals_ = true;
-            int min_ = Math.min(declarationsTakerFoesTeam_.size(), declarationsTakerTeam_.size());
-            for (int i = IndexConstants.FIRST_INDEX; i<min_; i++) {
-                int res_ = comparateur_.compare(declarationsTakerTeam_.get(i), declarationsTakerFoesTeam_.get(i));
-                if (res_ < 0) {
-                    cancelDeclaring(takerFoesTeam_);
-                    equals_ = false;
-                    break;
-                }
-                if (res_ > 0) {
-                    cancelDeclaring(takerTeam_);
-                    equals_ = false;
-                    break;
-                }
-            }
-            if (!equals_) {
-                return;
-            }
-            if (declarationsTakerFoesTeam_.size() > declarationsTakerTeam_.size()) {
-                cancelDeclaring(takerTeam_);
-            } else if (declarationsTakerFoesTeam_.size() < declarationsTakerTeam_.size()) {
-                cancelDeclaring(takerFoesTeam_);
-            } else {
-                cancelDeclaring(takerTeam_);
-                cancelDeclaring(takerFoesTeam_);
-            }
-            return;
-        }
-        if (!declarationsTakerFoesTeam_.isEmpty()) {
-            cancelDeclaring(takerTeam_);
-        }
         //annuler les annonces de l'equipe les plus faibles a la fin du premier tour
+        int diff_ = cmp(comparateur_, declarationsTakerTeam_, declarationsTakerFoesTeam_);
+        if (diff_ > 0) {
+            cancelDeclaring(takerTeam_);
+        } else if (diff_ < 0) {
+            cancelDeclaring(takerFoesTeam_);
+        } else {
+            cancelDeclaring(takerTeam_);
+            cancelDeclaring(takerFoesTeam_);
+        }
+    }
+    private int cmp(DeclareHandBeloteComparator _comparateur,CustList<DeclareHandBelote> _declarationsTakerTeam,CustList<DeclareHandBelote> _declarationsTakerFoesTeam) {
+        int min_ = Math.min(_declarationsTakerFoesTeam.size(), _declarationsTakerTeam.size());
+        for (int i = IndexConstants.FIRST_INDEX; i<min_; i++) {
+            int res_ = _comparateur.compare(_declarationsTakerTeam.get(i), _declarationsTakerFoesTeam.get(i));
+            if (res_ != 0) {
+                return res_;
+            }
+        }
+        return _declarationsTakerFoesTeam.size() - _declarationsTakerTeam.size();
     }
 
     private void cancelDeclaring(Bytes _team) {

@@ -33,60 +33,60 @@ public final class GameBeloteTrickHypothesis {
         /*Le contrat n est ni sans-atout ni tout atout.*/
         BidBeloteSuit bid_ = _info.getContrat();
         byte strength_ = carteForte_.strength(couleurDemandee_, bid_);
-        if (couleurDemandee_!=couleurAtout_) {
-            if(carteForte_.getId().getCouleur() == couleurAtout_) {
-                /*Le pli est coupe*/
-                if(!GameBeloteCommon.hand(cartesCertaines_,couleurDemandee_,next_).estVide()||GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).estVide()||
-                        GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).premiereCarte().strength(couleurDemandee_, bid_)
-                                < strength_) {
-                    /*Le joueur numero ne peut pas prendre la main*/
-                    if(partenaire_.containsObj(ramasseurVirtuel_)) {
-                        return getPossibleOverTrump(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,PossibleTrickWinner.FOE_TEAM);
-                    }
-                    return getPossibleOverTrump(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,PossibleTrickWinner.TEAM);
-                }
-            /*Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()
-            ||cartesCertaines.get(1).get(numero).estVide()
-            ||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
-            (fin test de possibilite pour le joueur numero de prendre le pli)*/
-                /*Le joueur numero peut prendre la main en surcoupant le ramasseur virtuel*/
-                return getPossibleTrickWinnerOverTrump(_info);
-            }
-            boolean canTrump_ = GameBeloteCommonPlaying.peutCouper(couleurDemandee_, next_, cartesPossibles_, couleurAtout_);
-            boolean ramasseurVirtuelEgalCertain_=false;
-            /*La couleur demandee n'est pas de l'atout et le pli n'est pas coupe*/
-            for(byte joueur_:joueursConfianceNonJoue_) {
-                if (vaCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
-                    ramasseurVirtuelEgalCertain_ = true;
-                }
-            }
-            if(ramasseurVirtuelEgalCertain_ && !canTrump_) {
-                return getPossibleTrickWinnerOtherTrump(_info,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_);
-            }
-            ramasseurVirtuelEgalCertain_ = false;
-            for(byte joueur_:joueursNonConfianceNonJoue_) {
-                if (vaCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
-                    ramasseurVirtuelEgalCertain_ = true;
-                }
-            }
-            if(ramasseurVirtuelEgalCertain_ && !canTrump_) {
-                return getPossibleTrickWinnerOtherTrump(_info,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_);
-            }
-            if(!GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).estVide()
-                    &&GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_,bid_)> strength_) {
-                /*Si le joueur numero peut prendre la main sans couper*/
-                /*On ne sait pas si un joueur n'ayant pas joue va couper le pli ou non*/
-                return PossibleTrickWinner.UNKNOWN;
-            }
-            /*Fin si le joueur numero peut prendre la main sans couper*/
-            if(canTrump_) {
-                /*Si le joueur numero peut prendre la main en coupant*/
-                return getPossibleTrickWinnerOverTrump(_info);
-            }
-            return getPossibleTrickWinnerNoCurrentTrump(_info,carteForte_);
+        if (couleurDemandee_ == couleurAtout_) {
+            return overFollowSuit(_info);
         }
+        if(carteForte_.getId().getCouleur() == couleurAtout_) {
+            /*Le pli est coupe*/
+            if(!GameBeloteCommon.hand(cartesCertaines_,couleurDemandee_,next_).estVide()||GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).estVide()||
+                    GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).premiereCarte().strength(couleurDemandee_, bid_)
+                            < strength_) {
+                /*Le joueur numero ne peut pas prendre la main*/
+                if(partenaire_.containsObj(ramasseurVirtuel_)) {
+                    return getPossibleOverTrump(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,PossibleTrickWinner.FOE_TEAM);
+                }
+                return getPossibleOverTrump(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,PossibleTrickWinner.TEAM);
+            }
+        /*Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()
+        ||cartesCertaines.get(1).get(numero).estVide()
+        ||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
+        (fin test de possibilite pour le joueur numero de prendre le pli)*/
+            /*Le joueur numero peut prendre la main en surcoupant le ramasseur virtuel*/
+            return getPossibleTrickWinnerOverTrump(_info);
+        }
+        boolean canTrump_ = GameBeloteCommonPlaying.peutCouper(couleurDemandee_, next_, cartesPossibles_, couleurAtout_);
+        boolean ramasseurVirtuelEgalCertain_ = vaCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, couleurAtout_, joueursConfianceNonJoue_);
+        if(ramasseurVirtuelEgalCertain_ && !canTrump_) {
+            return getPossibleTrickWinnerOtherTrump(_info,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_);
+        }
+        ramasseurVirtuelEgalCertain_ = vaCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, couleurAtout_, joueursNonConfianceNonJoue_);
+        if(ramasseurVirtuelEgalCertain_ && !canTrump_) {
+            return getPossibleTrickWinnerOtherTrump(_info,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_);
+        }
+        if(!GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).estVide()
+                &&GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_,bid_)> strength_) {
+            /*Si le joueur numero peut prendre la main sans couper*/
+            /*On ne sait pas si un joueur n'ayant pas joue va couper le pli ou non*/
+            return PossibleTrickWinner.UNKNOWN;
+        }
+        /*Fin si le joueur numero peut prendre la main sans couper*/
+        if(canTrump_) {
+            /*Si le joueur numero peut prendre la main en coupant*/
+            return getPossibleTrickWinnerOverTrump(_info);
+        }
+        return getPossibleTrickWinnerNoCurrentTrump(_info,carteForte_);
         /*Le pli n'est pas coupe et la couleur demandee est l'atout*/
-        return overFollowSuit(_info);
+    }
+
+    private static boolean vaCouperListe(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, Suit _couleurDemandee, Suit _couleurAtout, Bytes _players) {
+        boolean ramasseurVirtuelEgalCertain_=false;
+        /*La couleur demandee n'est pas de l'atout et le pli n'est pas coupe*/
+        for(byte joueur_: _players) {
+            if (vaCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines, _couleurAtout)) {
+                ramasseurVirtuelEgalCertain_ = true;
+            }
+        }
+        return ramasseurVirtuelEgalCertain_;
     }
 
     static PossibleTrickWinner getPossibleTrickWinnerOverTrump(BeloteInfoPliEnCours _info) {
@@ -253,7 +253,6 @@ public final class GameBeloteTrickHypothesis {
         EnumMap<Suit,CustList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
         TrickBelote t_ = _info.getProgressingTrick();
         Suit couleurDemandee_ = t_.couleurDemandee();
-        boolean ramasseurVirtuelEgalCertain_ = true;
         BidBeloteSuit bid_ = _info.getContrat();
         Suit couleurAtout_ = _info.getCouleurAtout();
         int str_ = _card.strength(couleurDemandee_,bid_);
@@ -261,29 +260,27 @@ public final class GameBeloteTrickHypothesis {
                 couleurDemandee_, str_)) {
             return _current;
         }
-        for (byte joueur_ : _other) {
-            if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
-                ramasseurVirtuelEgalCertain_ = false;
-            }
+        boolean ramasseurVirtuelEgalCertain_ = nePeutCouperListe(_other, cartesPossibles_, cartesCertaines_, couleurDemandee_, couleurAtout_);
+        if (ramasseurVirtuelEgalCertain_ && existPlayerNoTrump(_info, _other, _team, couleurDemandee_, _card, cartesCertaines_)) {
+            return _current;
         }
-        if (ramasseurVirtuelEgalCertain_) {
-            if (existPlayerNoTrump(_info,_other,_team,couleurDemandee_, _card,cartesCertaines_)) {
-                return _current;
-            }
-        }
-        ramasseurVirtuelEgalCertain_ = true;
-        for (byte joueur_ : _team) {
-            if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
-                ramasseurVirtuelEgalCertain_ = false;
-            }
-        }
-        if (ramasseurVirtuelEgalCertain_) {
-            if (existPlayerNoTrump(_info,_team,_other,couleurDemandee_, _card,cartesCertaines_)) {
-                return _after;
-            }
+        ramasseurVirtuelEgalCertain_ = nePeutCouperListe(_team, cartesPossibles_, cartesCertaines_, couleurDemandee_, couleurAtout_);
+        if (ramasseurVirtuelEgalCertain_ && existPlayerNoTrump(_info, _team, _other, couleurDemandee_, _card, cartesCertaines_)) {
+            return _after;
         }
         return PossibleTrickWinner.UNKNOWN;
     }
+
+    private static boolean nePeutCouperListe(Bytes _players, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, Suit _couleurDemandee, Suit _couleurAtout) {
+        boolean ramasseurVirtuelEgalCertain_ = true;
+        for (byte joueur_ : _players) {
+            if (!nePeutCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines, _couleurAtout)) {
+                ramasseurVirtuelEgalCertain_ = false;
+            }
+        }
+        return ramasseurVirtuelEgalCertain_;
+    }
+
     static PossibleTrickWinner getPossibleTrickWinnerOtherTrump(BeloteInfoPliEnCours _info,
                                                                 PossibleTrickWinner _current,
                                                                 Bytes _currentNotPl,
@@ -294,12 +291,7 @@ public final class GameBeloteTrickHypothesis {
         TrickBelote t_ = _info.getProgressingTrick();
         Suit couleurDemandee_ = t_.couleurDemandee();
         Suit couleurAtout_ = _info.getCouleurAtout();
-        boolean ramasseurVirtuelEgalCertain_ = true;
-        for (byte joueur_ : _otherNotPl) {
-            if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
-                ramasseurVirtuelEgalCertain_ = false;
-            }
-        }
+        boolean ramasseurVirtuelEgalCertain_ = nePeutCouperListe(_otherNotPl,cartesPossibles_,cartesCertaines_,couleurDemandee_,couleurAtout_);
         if (ramasseurVirtuelEgalCertain_) {
                 /*
                 Si aucun joueur de non
@@ -473,17 +465,11 @@ public final class GameBeloteTrickHypothesis {
         Suit couleurAtout_ = _info.getCouleurAtout();
         for(byte joueur_:_equipeABattre) {
             boolean ramasseurVirtuelEgalCertain_ = !GameBeloteCommon.hand(cartesCertaines_, _couleurDemandee, joueur_).estVide();
-            if(ramasseurVirtuelEgalCertain_) {
-                if (_strength <= GameBeloteCommon.hand(cartesPossibles_, _couleurDemandee, joueur_).premiereCarte().strength(_couleurDemandee, contrat_)) {
-                    ramasseurVirtuelEgalCertain_ = false;
-                }
+            if (ramasseurVirtuelEgalCertain_ && _strength <= GameBeloteCommon.hand(cartesPossibles_, _couleurDemandee, joueur_).premiereCarte().strength(_couleurDemandee, contrat_)) {
+                ramasseurVirtuelEgalCertain_ = false;
             }
-            if (defausse(_couleurDemandee, joueur_, cartesPossibles_,contrat_)) {
+            if (defausse(_couleurDemandee, joueur_, cartesPossibles_, contrat_) || nePeutCouper(_couleurDemandee, joueur_, cartesPossibles_, cartesCertaines_, couleurAtout_) && _strength > cartesPossibles_.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee, contrat_)) {
                 ramasseurVirtuelEgalCertain_ = true;
-            } else if (nePeutCouper(_couleurDemandee,joueur_,cartesPossibles_,cartesCertaines_,couleurAtout_)) {
-                if (_strength > cartesPossibles_.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee, contrat_)) {
-                    ramasseurVirtuelEgalCertain_ = true;
-                }
             }
             if (!ramasseurVirtuelEgalCertain_) {
                 ramasseurDeter_ = false;
@@ -515,10 +501,8 @@ public final class GameBeloteTrickHypothesis {
         boolean joueurBatAdversaire_=true;
         for(byte joueur_:_equipeABattre) {
             boolean ramasseurVirtuelEgalCertain_ = GameBeloteCommon.hand(_cartesPossibles, _couleurDemandee, joueur_).estVide();
-            if(!ramasseurVirtuelEgalCertain_) {
-                if (_strength>GameBeloteCommon.hand(_cartesPossibles,_couleurDemandee,joueur_).premiereCarte().strength(_couleurDemandee,_bid)) {
-                    ramasseurVirtuelEgalCertain_ = true;
-                }
+            if (!ramasseurVirtuelEgalCertain_ && _strength > GameBeloteCommon.hand(_cartesPossibles, _couleurDemandee, joueur_).premiereCarte().strength(_couleurDemandee, _bid)) {
+                ramasseurVirtuelEgalCertain_ = true;
             }
             if (!ramasseurVirtuelEgalCertain_) {
                 joueurBatAdversaire_ = false;
@@ -552,10 +536,8 @@ public final class GameBeloteTrickHypothesis {
         boolean joueurBatAdversaire_=true;
         for(byte joueur_:_equipeABattre) {
             boolean ramasseurVirtuelEgalCertain_ = GameBeloteCommon.hand(_cartesPossibles, couleurAtout_, joueur_).estVide();
-            if(!ramasseurVirtuelEgalCertain_) {
-                if (_maxForce > GameBeloteCommon.hand(_cartesPossibles, couleurAtout_,joueur_).premiereCarte().strength(_couleurDemandee, _contrat)) {
-                    ramasseurVirtuelEgalCertain_ = true;
-                }
+            if (!ramasseurVirtuelEgalCertain_ && _maxForce > GameBeloteCommon.hand(_cartesPossibles, couleurAtout_, joueur_).premiereCarte().strength(_couleurDemandee, _contrat)) {
+                ramasseurVirtuelEgalCertain_ = true;
             }
             if (!GameBeloteCommon.hand(_cartesCertaines,_couleurDemandee,joueur_).estVide()) {
                 ramasseurVirtuelEgalCertain_ = true;
