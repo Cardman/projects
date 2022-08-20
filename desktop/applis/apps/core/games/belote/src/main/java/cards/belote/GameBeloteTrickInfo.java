@@ -141,6 +141,10 @@ public final class GameBeloteTrickInfo {
 
     private void remImpos(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur, byte _joueur2) {
         for (Suit couleur_: _toutesCouleurs) {
+            _cartesCertaines.getVal(couleur_)
+                    .get(_joueur2).supprimerCartes(
+                    _cartesCertaines.getVal(couleur_).get(
+                            _joueur));
             _cartesPossibles.getVal(couleur_)
                     .get(_joueur2).supprimerCartes(
                     _cartesCertaines.getVal(couleur_).get(
@@ -485,11 +489,7 @@ public final class GameBeloteTrickInfo {
             _h.ajouterCartes(_trumps);
             return;
         }
-        for(CardBelote carte_:GameBeloteCommonPlaying.cartesAtouts(_couleurAtout)) {
-            if (!_cartesJouees.contient(carte_) && !_trumps.contient(carte_) && (lastSeenHand.estVide() || !CardBelote.eq(lastSeenHand.premiereCarte(), carte_) || _j == taker)) {
-                _h.ajouter(carte_);
-            }
-        }
+        feedOtherPlayer(_trumps, _cartesJouees, _j, _h, GameBeloteCommonPlaying.cartesAtouts(_couleurAtout));
         if(bid.getCouleurDominante()) {
             boolean defausse_ = false;
             for(Suit couleur_:GameBeloteCommon.couleurs()) {
@@ -653,14 +653,18 @@ public final class GameBeloteTrickInfo {
             _h.ajouterCartes(_suitCards);
             return;
         }
-        for(CardBelote carte_:GameBeloteCommonPlaying.cartesCouleurs(_couleur)) {
-            if (!_cartesJouees.contient(carte_) && !_suitCards.contient(carte_) && (lastSeenHand.estVide() || !CardBelote.eq(lastSeenHand.premiereCarte(), carte_) || _joueur == taker)) {
-                _h.ajouter(carte_);
-            }
-        }
+        feedOtherPlayer(_suitCards, _cartesJouees, _joueur, _h, GameBeloteCommonPlaying.cartesCouleurs(_couleur));
         if(neFournitPas(_couleur, _joueur, tricks)) {
             //Les joueurs se defaussant sur atout ou couleur demandee ne peuvent pas avoir de l'atout
             _h.supprimerCartes();
+        }
+    }
+
+    private void feedOtherPlayer(HandBelote _suitCards, HandBelote _cartesJouees, byte _joueur, HandBelote _h, HandBelote _allSuitCards) {
+        for(CardBelote carte_: _allSuitCards) {
+            if (!_cartesJouees.contient(carte_) && !_suitCards.contient(carte_) && (lastSeenHand.estVide() || !CardBelote.eq(lastSeenHand.premiereCarte(), carte_) || _joueur == taker)) {
+                _h.ajouter(carte_);
+            }
         }
     }
 
