@@ -530,7 +530,13 @@ public final class GameBelote {
         }
         boolean fold_ = true;
         int iter_ = IndexConstants.FIRST_INDEX+1;
-        while (iter_ < getNombreDeJoueurs()) {
+        int diff_;
+        if (bids.size() == getNombreDeJoueurs()) {
+            diff_ = 1;
+        } else {
+            diff_ = 0;
+        }
+        while (iter_ < getNombreDeJoueurs()+diff_) {
             //iter_ >= 1 => -iter_ <= -1 => bids.size()-iter_ <= bids.size()-1
             //bids.size() >= getNombreDeJoueurs() => bids.size() - iter_ >= getNombreDeJoueurs() - iter_
             //getNombreDeJoueurs() >= iter_ => getNombreDeJoueurs() - iter_ >= 0
@@ -540,9 +546,6 @@ public final class GameBelote {
                 break;
             }
             iter_++;
-        }
-        if (bids.size() == getNombreDeJoueurs() && bids.get(bids.size()-iter_).jouerDonne()) {
-            fold_ = false;
         }
         return !fold_;
     }
