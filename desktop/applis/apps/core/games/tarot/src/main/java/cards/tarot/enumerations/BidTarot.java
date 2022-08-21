@@ -67,40 +67,38 @@ public enum BidTarot {
 
     public static EnumList<BidTarot> getValidBids() {
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
-        for (BidTarot e: BidTarot.values()) {
-            bids_.add(e);
-        }
+        zero(bids_);
+        nonZero(bids_);
         return bids_;
     }
     public static EnumList<BidTarot> getAlwaysUsableBids() {
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
-        for (BidTarot e: BidTarot.values()) {
-            if (e.getPossibiliteAnnonce() != AllowedBiddingTarot.ALWAYS) {
-                continue;
-            }
-            bids_.add(e);
-        }
+        bids_.add(FOLD);
+        bids_.add(GUARD);
         return bids_;
     }
     public static EnumList<BidTarot> getZeroBids() {
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
-        for (BidTarot e: BidTarot.values()) {
-            if (e.isJouerDonne()) {
-                continue;
-            }
-            bids_.add(e);
-        }
+        zero(bids_);
         return bids_;
     }
+
+    private static void zero(EnumList<BidTarot> _bids) {
+        _bids.add(FOLD);
+    }
+
     public static EnumList<BidTarot> getNonZeroBids() {
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
-        for (BidTarot e: BidTarot.values()) {
-            if (!e.isJouerDonne()) {
-                continue;
-            }
-            bids_.add(e);
-        }
+        nonZero(bids_);
         return bids_;
+    }
+
+    private static void nonZero(EnumList<BidTarot> _bids) {
+        _bids.add(TAKE);
+        _bids.add(GUARD);
+        _bids.add(GUARD_WITHOUT);
+        _bids.add(GUARD_AGAINST);
+        _bids.add(SLAM);
     }
 
     public boolean strongerThan(BidTarot _o2) {

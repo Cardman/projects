@@ -28,7 +28,7 @@ public final class RulesTarot {
     }
 
     RulesTarot(DealingTarot _rep) {
-        for(BidTarot c:BidTarot.values()){
+        for(BidTarot c:BidTarot.getValidBids()){
             if(c.getPossibiliteAnnonce()==AllowedBiddingTarot.CAN_BE_FORBIDDEN_BUT_NOT_AFTER){
                 allowedBids.put(c, false);
             }else{
@@ -42,7 +42,7 @@ public final class RulesTarot {
         }
     }
     public RulesTarot(byte _nbPlayers) {
-        for(BidTarot c:BidTarot.values()){
+        for(BidTarot c:BidTarot.getValidBids()){
             if(c.getPossibiliteAnnonce()==AllowedBiddingTarot.CAN_BE_FORBIDDEN_BUT_NOT_AFTER){
                 allowedBids.put(c, false);
             }else{
@@ -79,7 +79,7 @@ public final class RulesTarot {
                 return false;
             }
         }
-        for(BidTarot b:BidTarot.values()){
+        for(BidTarot b:BidTarot.getValidBids()){
             if (!allowedBids.contains(b)) {
                 return false;
             }

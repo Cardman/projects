@@ -15,7 +15,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     @Test
     public void pileBase1(){
         HandTarot main_ = HandTarot.pileBase();
-        assertEq(CardTarot.values().length-1, main_.total());
+        assertEq(78, main_.total());
         assertTrue(!main_.contient(CardTarot.WHITE));
         assertNotNull(Handfuls.getConfigurationParDefautAnnoncePoignee(Handfuls.NO));
         assertNotNull(Handfuls.getNonDeclarableHandFuls());
@@ -861,7 +861,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     public void getRepartitionsValides_repartitionsToutesValides1(){
         EnumList<DealingTarot> repartitionsValides_ = DealingTarot.getRepartitionsValides();
         assertTrue(!repartitionsValides_.isEmpty());
-        assertEq(DealingTarot.values().length,repartitionsValides_.size());
+        assertEq(11,repartitionsValides_.size());
     }
     @Test
     public void getDeclarableHandFuls_poigneesToutesValides1(){

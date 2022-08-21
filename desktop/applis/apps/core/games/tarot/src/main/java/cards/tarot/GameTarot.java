@@ -479,7 +479,7 @@ public final class GameTarot {
 
     public EnumList<BidTarot> allowedBids() {
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
-        for (BidTarot b: BidTarot.values()) {
+        for (BidTarot b: BidTarot.getValidBids()) {
             if (!contratAccepte(b)) {
                 continue;
             }

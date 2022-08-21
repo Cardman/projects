@@ -5,15 +5,12 @@ import code.util.*;
 /**Poignees utilisees au tarot*/
 public enum Handfuls {
     NO,ONE(20),TWO(30),THREE(40),FOUR(50);
-    private final boolean declarable;
     private final int points;
     Handfuls(){
-        declarable = false;
         points = 0;
     }
     Handfuls(int _points){
         points = _points;
-        declarable = true;
     }
     public int getPoints(){
         return points;
@@ -23,22 +20,15 @@ public enum Handfuls {
     }
     public static EnumList<Handfuls> getNonDeclarableHandFuls() {
         EnumList<Handfuls> liste_ = new EnumList<Handfuls>();
-        for(Handfuls p: Handfuls.values()) {
-            if(p.declarable){
-                continue;
-            }
-            liste_.add(p);
-        }
+        liste_.add(NO);
         return liste_;
     }
     public static EnumList<Handfuls> getPoigneesValidesParDefaut() {
         EnumList<Handfuls> liste_ = new EnumList<Handfuls>();
-        for(Handfuls p: Handfuls.values()) {
-            if(!p.declarable){
-                continue;
-            }
-            liste_.add(p);
-        }
+        liste_.add(ONE);
+        liste_.add(TWO);
+        liste_.add(THREE);
+        liste_.add(FOUR);
         return liste_;
     }
 

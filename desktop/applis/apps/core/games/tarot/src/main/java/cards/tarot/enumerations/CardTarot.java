@@ -154,17 +154,10 @@ public enum CardTarot {
         }
         if(id.getCouleur() == Suit.TRUMP) {
             //L'atout_ est_ plus_ fort_ que_ n'importe_ quelle_ couleur
-            byte maxForceDemandee_ = 0;
-            for(CardTarot c: CardTarot.values()) {
-                if(c.id.getCouleur() != _couleurDemande) {
-                    continue;
-                }
-                if(c.force <= maxForceDemandee_) {
-                    continue;
-                }
-                maxForceDemandee_ = c.force;
+            if(_couleurDemande == Suit.TRUMP) {
+                return (byte)(force+21);
             }
-            return (byte)(force+maxForceDemandee_);
+            return (byte)(force+14);
         }
         /*Maintenant on_ traite_ le_ cas_ d'une_ Excuse et_ des_ cartes_ de_ couleur*/
         if(_couleurDemande==id.getCouleur()) {

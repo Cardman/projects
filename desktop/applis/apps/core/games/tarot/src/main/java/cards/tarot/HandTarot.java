@@ -27,25 +27,41 @@ public final class HandTarot implements Iterable<CardTarot> {
 
     public static HandTarot pileBase() {
         HandTarot liste_ = new HandTarot();
-        for(CardTarot carte_: CardTarot.values()) {
-            if(!carte_.getId().isJouable()) {
-                continue;
-            }
-            liste_.ajouter(carte_);
-        }
+        liste_.ajouter(CardTarot.EXCUSE);
+        trWithoutExc(liste_);
+        suits(liste_);
         return liste_;
     }
     public static HandTarot atoutsSansExcuse() {
         HandTarot liste_ = new HandTarot();
-        for(CardTarot carte_: pileBase()) {
-            if(carte_.getId().getCouleur() != Suit.TRUMP) {
-                continue;
-            }
-            liste_.ajouter(carte_);
-        }
-        liste_.trierParForceEnCours(Suit.TRUMP);
+        trWithoutExc(liste_);
         return liste_;
     }
+
+    private static void trWithoutExc(HandTarot _liste) {
+        _liste.ajouter(CardTarot.TRUMP_21);
+        _liste.ajouter(CardTarot.TRUMP_20);
+        _liste.ajouter(CardTarot.TRUMP_19);
+        _liste.ajouter(CardTarot.TRUMP_18);
+        _liste.ajouter(CardTarot.TRUMP_17);
+        _liste.ajouter(CardTarot.TRUMP_16);
+        _liste.ajouter(CardTarot.TRUMP_15);
+        _liste.ajouter(CardTarot.TRUMP_14);
+        _liste.ajouter(CardTarot.TRUMP_13);
+        _liste.ajouter(CardTarot.TRUMP_12);
+        _liste.ajouter(CardTarot.TRUMP_11);
+        _liste.ajouter(CardTarot.TRUMP_10);
+        _liste.ajouter(CardTarot.TRUMP_9);
+        _liste.ajouter(CardTarot.TRUMP_8);
+        _liste.ajouter(CardTarot.TRUMP_7);
+        _liste.ajouter(CardTarot.TRUMP_6);
+        _liste.ajouter(CardTarot.TRUMP_5);
+        _liste.ajouter(CardTarot.TRUMP_4);
+        _liste.ajouter(CardTarot.TRUMP_3);
+        _liste.ajouter(CardTarot.TRUMP_2);
+        _liste.ajouter(CardTarot.TRUMP_1);
+    }
+
     public static HandTarot trumpsPlusExcuse() {
         HandTarot list_ = new HandTarot();
         list_.ajouter(CardTarot.EXCUSE);
@@ -65,26 +81,107 @@ public final class HandTarot implements Iterable<CardTarot> {
     }
     static HandTarot figuesCouleurs() {
         HandTarot liste_ = new HandTarot();
-        for(CardTarot carte_:pileBase()) {
-            if(!carte_.isCharacter()) {
-                continue;
-            }
-            liste_.ajouter(carte_);
-        }
+        heartChars(liste_);
+        spadeChars(liste_);
+        diamondChars(liste_);
+        clubChars(liste_);
         return liste_;
     }
     static HandTarot cartesCouleurs() {
         HandTarot liste_ = new HandTarot();
-        for(CardTarot carte_: pileBase()) {
-            if(carte_.getId().getCouleur() == Suit.TRUMP) {
-                continue;
-            }
-            if(CardTarot.eq(carte_, CardTarot.excuse())) {
-                continue;
-            }
-            liste_.ajouter(carte_);
-        }
+        suits(liste_);
         return liste_;
+    }
+
+    private static void suits(HandTarot _liste) {
+        heartChars(_liste);
+        heartDigits(_liste);
+        spadeChars(_liste);
+        spadeDigits(_liste);
+        diamondChars(_liste);
+        diamondDigits(_liste);
+        clubChars(_liste);
+        clubDigits(_liste);
+    }
+
+    private static void clubDigits(HandTarot _liste) {
+        _liste.ajouter(CardTarot.CLUB_10);
+        _liste.ajouter(CardTarot.CLUB_9);
+        _liste.ajouter(CardTarot.CLUB_8);
+        _liste.ajouter(CardTarot.CLUB_7);
+        _liste.ajouter(CardTarot.CLUB_6);
+        _liste.ajouter(CardTarot.CLUB_5);
+        _liste.ajouter(CardTarot.CLUB_4);
+        _liste.ajouter(CardTarot.CLUB_3);
+        _liste.ajouter(CardTarot.CLUB_2);
+        _liste.ajouter(CardTarot.CLUB_1);
+    }
+
+    private static void clubChars(HandTarot _liste) {
+        _liste.ajouter(CardTarot.CLUB_KING);
+        _liste.ajouter(CardTarot.CLUB_QUEEN);
+        _liste.ajouter(CardTarot.CLUB_KNIGHT);
+        _liste.ajouter(CardTarot.CLUB_JACK);
+    }
+
+    private static void diamondDigits(HandTarot _liste) {
+        _liste.ajouter(CardTarot.DIAMOND_10);
+        _liste.ajouter(CardTarot.DIAMOND_9);
+        _liste.ajouter(CardTarot.DIAMOND_8);
+        _liste.ajouter(CardTarot.DIAMOND_7);
+        _liste.ajouter(CardTarot.DIAMOND_6);
+        _liste.ajouter(CardTarot.DIAMOND_5);
+        _liste.ajouter(CardTarot.DIAMOND_4);
+        _liste.ajouter(CardTarot.DIAMOND_3);
+        _liste.ajouter(CardTarot.DIAMOND_2);
+        _liste.ajouter(CardTarot.DIAMOND_1);
+    }
+
+    private static void diamondChars(HandTarot _liste) {
+        _liste.ajouter(CardTarot.DIAMOND_KING);
+        _liste.ajouter(CardTarot.DIAMOND_QUEEN);
+        _liste.ajouter(CardTarot.DIAMOND_KNIGHT);
+        _liste.ajouter(CardTarot.DIAMOND_JACK);
+    }
+
+    private static void spadeDigits(HandTarot _liste) {
+        _liste.ajouter(CardTarot.SPADE_10);
+        _liste.ajouter(CardTarot.SPADE_9);
+        _liste.ajouter(CardTarot.SPADE_8);
+        _liste.ajouter(CardTarot.SPADE_7);
+        _liste.ajouter(CardTarot.SPADE_6);
+        _liste.ajouter(CardTarot.SPADE_5);
+        _liste.ajouter(CardTarot.SPADE_4);
+        _liste.ajouter(CardTarot.SPADE_3);
+        _liste.ajouter(CardTarot.SPADE_2);
+        _liste.ajouter(CardTarot.SPADE_1);
+    }
+
+    private static void spadeChars(HandTarot _liste) {
+        _liste.ajouter(CardTarot.SPADE_KING);
+        _liste.ajouter(CardTarot.SPADE_QUEEN);
+        _liste.ajouter(CardTarot.SPADE_KNIGHT);
+        _liste.ajouter(CardTarot.SPADE_JACK);
+    }
+
+    private static void heartDigits(HandTarot _liste) {
+        _liste.ajouter(CardTarot.HEART_10);
+        _liste.ajouter(CardTarot.HEART_9);
+        _liste.ajouter(CardTarot.HEART_8);
+        _liste.ajouter(CardTarot.HEART_7);
+        _liste.ajouter(CardTarot.HEART_6);
+        _liste.ajouter(CardTarot.HEART_5);
+        _liste.ajouter(CardTarot.HEART_4);
+        _liste.ajouter(CardTarot.HEART_3);
+        _liste.ajouter(CardTarot.HEART_2);
+        _liste.ajouter(CardTarot.HEART_1);
+    }
+
+    private static void heartChars(HandTarot _liste) {
+        _liste.ajouter(CardTarot.HEART_KING);
+        _liste.ajouter(CardTarot.HEART_QUEEN);
+        _liste.ajouter(CardTarot.HEART_KNIGHT);
+        _liste.ajouter(CardTarot.HEART_JACK);
     }
 
     static HandTarot charCards(CardChar _figure) {
@@ -283,24 +380,7 @@ public final class HandTarot implements Iterable<CardTarot> {
 
         EnumList<CardTarot> nouvelleMain_ = new EnumList<CardTarot>();
         for(Suit couleur_: _couleurs) {
-            HandTarot mainCouleur_ = new HandTarot();
-            for(CardTarot carte_: cards) {
-                if(carte_.getId().getCouleur() == couleur_) {
-                    mainCouleur_.ajouter(carte_);
-                }
-            }
-            if(_decroissant) {
-                mainCouleur_.trierParForceEnCours(couleur_);
-            }else {
-                mainCouleur_.trierParForceEcart(couleur_);
-            }
-            if(couleur_ == Suit.TRUMP && cards.containsObj(CardTarot.EXCUSE)) {
-                if(_decroissant) {
-                    mainCouleur_.ajouter(CardTarot.EXCUSE,0);
-                }else {
-                    mainCouleur_.ajouter(CardTarot.EXCUSE);
-                }
-            }
+            HandTarot mainCouleur_ = suit(_decroissant, couleur_);
 
             nouvelleMain_.addAllElts(mainCouleur_.cards);
         }
@@ -309,6 +389,28 @@ public final class HandTarot implements Iterable<CardTarot> {
 
         cards.clear();
         cards.addAllElts(nouvelleMain_);
+    }
+
+    private HandTarot suit(boolean _decroissant, Suit _couleur) {
+        HandTarot mainCouleur_ = new HandTarot();
+        for(CardTarot carte_: cards) {
+            if(carte_.getId().getCouleur() == _couleur) {
+                mainCouleur_.ajouter(carte_);
+            }
+        }
+        if(_decroissant) {
+            mainCouleur_.trierParForceEnCours(_couleur);
+        }else {
+            mainCouleur_.trierParForceEcart(_couleur);
+        }
+        if(_couleur == Suit.TRUMP && cards.containsObj(CardTarot.EXCUSE)) {
+            if(_decroissant) {
+                mainCouleur_.ajouter(CardTarot.EXCUSE,0);
+            }else {
+                mainCouleur_.ajouter(CardTarot.EXCUSE);
+            }
+        }
+        return mainCouleur_;
     }
 
     void trierParForceEnCours(Suit _couleurDemandee) {
@@ -412,47 +514,35 @@ public final class HandTarot implements Iterable<CardTarot> {
         }
         CustList<HandTarot> suites_=new CustList<HandTarot>();
         Suit couleur_= premiereCarte().getId().getCouleur();
-        boolean ajouterVec_ = true;
         if(couleur_ == CardTarot.excuse().getId().getCouleur()) {
             suites_.add(new HandTarot());
             suites_.last().ajouter(CardTarot.excuse());
         }else if(couleur_ == Suit.TRUMP) {
-            for(CardTarot carte_:atoutsSansExcuse()) {
-                if(_cartesJouees.getVal(couleur_).contient(carte_)) {
-                    continue;
-                }
-                if(!contient(carte_)) {
-                    ajouterVec_ = true;
-                    continue;
-                }
-                if(ajouterVec_) {
-                    sortIfNotEmpty(_couleurDemandee, suites_);
-                    suites_.add(new HandTarot());
-                }
-                ajouterVec_ = false;
-                suites_.last().ajouter(carte_);
-            }
-            sortIfNotEmpty(_couleurDemandee, suites_);
+            eclaterCouleur(_cartesJouees, _couleurDemandee, suites_, couleur_, atoutsSansExcuse());
         }else {
-            for(CardTarot carte_:couleurComplete(couleur_)) {
-                if(_cartesJouees.getVal(couleur_).contient(carte_)) {
-                    continue;
-                }
-                if(!contient(carte_)) {
-                    ajouterVec_ = true;
-                    continue;
-                }
-                if(ajouterVec_) {
-                    sortIfNotEmpty(_couleurDemandee, suites_);
-                    suites_.add(new HandTarot());
-                }
-                ajouterVec_ = false;
-                suites_.last().ajouter(carte_);
-            }
-            sortIfNotEmpty(_couleurDemandee, suites_);
+            eclaterCouleur(_cartesJouees, _couleurDemandee, suites_, couleur_, couleurComplete(couleur_));
         }
         return suites_;
 
+    }
+
+    private void eclaterCouleur(EnumMap<Suit, HandTarot> _cartesJouees, Suit _couleurDemandee, CustList<HandTarot> _suites, Suit _couleur, HandTarot _allCards) {
+        boolean ajouterVec_ = true;
+        for(CardTarot carte_: _allCards) {
+            if (!_cartesJouees.getVal(_couleur).contient(carte_)) {
+                if (!contient(carte_)) {
+                    ajouterVec_ = true;
+                    continue;
+                }
+                if (ajouterVec_) {
+                    sortIfNotEmpty(_couleurDemandee, _suites);
+                    _suites.add(new HandTarot());
+                }
+                ajouterVec_ = false;
+                _suites.last().ajouter(carte_);
+            }
+        }
+        sortIfNotEmpty(_couleurDemandee, _suites);
     }
 
     private static void sortIfNotEmpty(Suit _couleurDemandee, CustList<HandTarot> _suites) {
@@ -478,16 +568,15 @@ public final class HandTarot implements Iterable<CardTarot> {
         cartesJoueesOuPossedees_.ajouterCartes(cartes_);
         cartesJoueesOuPossedees_.trierParForceEnCours(couleur_);
         HandTarot cartesMaitresses_ = new HandTarot();
-        int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
+        int nbPlayedOrOwnedCards_ = Math.min(couleurTotale_.total(), cartesJoueesOuPossedees_.total());
         for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
             if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
                     couleurTotale_.carte(c))) {
                 break;
             }
-            if (!cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
-                continue;
+            if (cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
+                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
             }
-            cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
         }
         if (cartesMaitresses_.total() >= couleurTotale_
                 .total() - played_.total() - cartes_.total()) {

@@ -53,9 +53,17 @@ public enum DealingTarot {
     }
     public static EnumList<DealingTarot> getRepartitionsValides(){
         EnumList<DealingTarot> repartitions_ = new EnumList<DealingTarot>();
-        for(DealingTarot r: DealingTarot.values()) {
-            repartitions_.add(r);
-        }
+        repartitions_.add(DEAL_1_VS_2);
+        repartitions_.add(DEAL_1_VS_3);
+        repartitions_.add(DEAL_2_VS_2_WITHOUT_CALL);
+        repartitions_.add(DEAL_2_VS_2_CALL_KING);
+        repartitions_.add(DEAL_2_VS_2_CALL_CHAR);
+        repartitions_.add(DEAL_1_VS_4);
+        repartitions_.add(DEAL_2_VS_3_CALL_KING);
+        repartitions_.add(DEAL_2_VS_3_CALL_CHAR);
+        repartitions_.add(DEAL_2_VS_4_WITHOUT_CALL);
+        repartitions_.add(DEAL_2_VS_4_CALL_KING);
+        repartitions_.add(DEAL_2_VS_4_CALL_CHAR);
         return repartitions_;
     }
 
