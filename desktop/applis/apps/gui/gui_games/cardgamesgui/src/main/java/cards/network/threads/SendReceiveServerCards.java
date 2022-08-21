@@ -265,7 +265,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 hand_.setDog(deal_.derniereMain());
                 hand_.setDealer(Net.getGames(_instance).partieTarot().playerAfter(deal_.getDealer()));
                 hand_.setAllowedBids(Net.getGames(_instance).partieTarot().allowedBids());
-                hand_.setRep(Net.getGames(_instance).partieTarot().getRegles().getRepartition());
+                hand_.setRep(Net.getGames(_instance).partieTarot().getRegles().getDealing());
                 for (byte i:Net.activePlayers(_instance, _common)) {
                     hand_.setCards(deal_.hand(i));
                     Net.sendObject(Net.getSocketByPlace(i, _common), hand_);
@@ -800,7 +800,7 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
 
-        CallingCard appel_=_game.getRegles().getRepartition().getAppel();
+        CallingCard appel_= _game.getRegles().getDealing().getAppel();
         if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
             if(appel_==CallingCard.DEFINED) {
                 _game.initEquipeDeterminee();
@@ -1791,7 +1791,7 @@ public final class SendReceiveServerCards extends BasicServer {
             if (firstRound_) {
                 EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
                 decla_.setAllowedHandfuls(new EnumList<Handfuls>(handfuls_));
-                decla_.setRequiredTrumps(new EnumMap<Handfuls,Integer>(game_.getRegles().getPoigneesAutorisees()));
+                decla_.setRequiredTrumps(new EnumMap<Handfuls,Integer>(game_.getRegles().getAllowedHandfuls()));
                 decla_.setAllowedMiseres(new EnumList<Miseres>(game_.getRegles().getMiseres()));
             } else {
                 decla_.setAllowedHandfuls(new EnumList<Handfuls>());

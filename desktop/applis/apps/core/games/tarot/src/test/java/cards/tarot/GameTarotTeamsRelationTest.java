@@ -98,7 +98,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) 1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
-        byte nbPl_ = (byte) rules_.getRepartition().getId().getNombreJoueurs();
+        byte nbPl_ = (byte) rules_.getDealing().getId().getNombreJoueurs();
         for (byte p = 0; p < nbPl_; p++) {
             g_.determinerConfiance(p,nbPl_);
         }
@@ -130,7 +130,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) taker_);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
-        byte nbPl_ = (byte) rules_.getRepartition().getId().getNombreJoueurs();
+        byte nbPl_ = (byte) rules_.getDealing().getId().getNombreJoueurs();
         for (byte p = 0; p < nbPl_; p++) {
             g_.determinerConfiance(p,nbPl_);
         }
@@ -248,7 +248,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         } else if (mode_ == ModeTarot.NORMAL_WITH_MISERE) {
             b_ = true;
         }
-        byte nbPl_ = (byte) _r.getRepartition().getId().getNombreJoueurs();
+        byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
         for (int i = 0; i< nbPl_; i++) {
             CustList<Boolean> c_ = new CustList<Boolean>();
             for (int j = 0; j< nbPl_; j++) {
@@ -258,13 +258,13 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         }
         if (!b_ || !_b.isJouerDonne()) {
             for (byte i = IndexConstants.FIRST_INDEX; i < nbPl_; i++) {
-                for (byte p: _r.getRepartition().getAppelesDetermines(i)) {
+                for (byte p: _r.getDealing().getAppelesDetermines(i)) {
                     confidence_.get(i).set(p,true);
                 }
                 confidence_.get(i).set(i,true);
             }
-        } else if (_r.getRepartition().getAppel() == CallingCard.DEFINED) {
-            Bytes attaquants_=_r.getRepartition().getAppelesDetermines((byte) _taker);
+        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
+            Bytes attaquants_= _r.getDealing().getAppelesDetermines((byte) _taker);
             attaquants_.add((byte) _taker);
             Bytes defenseurs_=GameTarotTeamsRelation.autresJoueurs(attaquants_, nbPl_);
             for(byte j1_:attaquants_) {
@@ -283,7 +283,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
                     confidence_.get(j1_).set(j2_,true);
                 }
             }
-        } else if (_r.getRepartition().getAppel() == CallingCard.WITHOUT) {
+        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
             Bytes defenseurs_=new Bytes();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPl_; joueur_++) {
                 if(joueur_==_taker) {

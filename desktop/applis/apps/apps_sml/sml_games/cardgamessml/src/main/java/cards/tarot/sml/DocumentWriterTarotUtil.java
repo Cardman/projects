@@ -21,6 +21,7 @@ import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class DocumentWriterTarotUtil {
 
@@ -334,10 +335,10 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    private static Element setMapBidTarotBoolean(EnumMap<BidTarot,Boolean> _object, String _fieldName, Document _document) {
+    private static Element setMapBidTarotBoolean(EnumMap<BidTarot, BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<BidTarot, Boolean> s: _object.entryList()) {
+        for (EntryCust<BidTarot, BoolVal> s: _object.entryList()) {
             Element sub_ = setBidTarot(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

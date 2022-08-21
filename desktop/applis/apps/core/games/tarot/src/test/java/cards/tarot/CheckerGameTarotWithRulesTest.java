@@ -2,6 +2,7 @@ package cards.tarot;
 
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import cards.consts.GameType;
@@ -907,7 +908,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check25Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
@@ -924,7 +925,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check26Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1070,7 +1071,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check27Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1115,7 +1116,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check28Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1162,7 +1163,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check29Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1188,8 +1189,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check30Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.getContrats().put(BidTarot.SLAM, true);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.getAllowedBids().put(BidTarot.SLAM, BoolVal.TRUE);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1214,8 +1215,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check31Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.getContrats().put(BidTarot.SLAM, true);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.getAllowedBids().put(BidTarot.SLAM, BoolVal.TRUE);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1241,7 +1242,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check32Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1268,7 +1269,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check33Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -1406,7 +1407,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check34Test() {
         RulesTarot rules_ = new RulesTarot((byte)3);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_1_VS_2);
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
@@ -1525,7 +1526,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check35Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal4((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -1673,7 +1674,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check36Test() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2486,7 +2487,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check12FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2524,7 +2525,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check121FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.MISERE);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2554,7 +2555,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check122FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2596,9 +2597,9 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check13FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        rules_.getPoigneesAutorisees().put(Handfuls.FOUR, 0);
+        rules_.getAllowedHandfuls().put(Handfuls.FOUR, 0);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
@@ -2635,7 +2636,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check14FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2673,7 +2674,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check15FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2712,7 +2713,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check16FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal4((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2742,7 +2743,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check17FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2779,7 +2780,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check18FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2809,7 +2810,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check19FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2831,7 +2832,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check20FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2860,7 +2861,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check21FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2897,7 +2898,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check22FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2934,8 +2935,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check23FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        rules_.getContrats().put(BidTarot.SLAM, true);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.getAllowedBids().put(BidTarot.SLAM, BoolVal.TRUE);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -2955,7 +2956,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check24FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -3382,7 +3383,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check43FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -3421,7 +3422,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check44FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
@@ -3724,7 +3725,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check59FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);
-        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal6((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);

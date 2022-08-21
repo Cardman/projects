@@ -675,7 +675,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
                 list_.add(radio_);
                 radio_.setEnabled(poignees_.containsObj(h));
-                radio_.addMouseListener(new ListenerHandfulTarot(regles_.getPoigneesAutorisees().getVal(h), radio_, this, h,list_));
+                radio_.addMouseListener(new ListenerHandfulTarot(regles_.getAllowedHandfuls().getVal(h), radio_, this, h,list_));
                 handFuls_.add(radio_);
             }
             panneau_.add(handFuls_);

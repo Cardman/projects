@@ -12,7 +12,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     protected static GameTarot newGameTarotWithourDecl(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                                        int _dealer,
                                                        EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
-        int nbPl_ = _r.getRepartition().getId().getNombreJoueurs();
+        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
         CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
@@ -26,7 +26,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     protected static GameTarot newGameTarotWithourDecl(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                                        int _dealer,
                                                        EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
-        int nbPl_ = _r.getRepartition().getId().getNombreJoueurs();
+        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
         CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
@@ -40,7 +40,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     protected static GameTarot newGameTarotWithourDecl(RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                               int _dealer,
                                               EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
-        int nbPl_ = _r.getRepartition().getId().getNombreJoueurs();
+        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
         CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
@@ -54,7 +54,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     protected static GameTarot newGameTarotWithourDecl(RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                               int _dealer,
                                               EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
-        int nbPl_ = _r.getRepartition().getId().getNombreJoueurs();
+        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
         CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
@@ -114,9 +114,9 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         g_.setContrat(bid_);
         if (!g_.avecContrat() || !bid_.isJouerDonne()) {
             g_.initEquipeDetermineeSansPreneur();
-        } else if (_r.getRepartition().getAppel() == CallingCard.DEFINED) {
+        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
             g_.initEquipeDeterminee();
-        } else if (_r.getRepartition().getAppel() == CallingCard.WITHOUT) {
+        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
             g_.initDefense();
         }
         for (TrickTarot t: g_.getTricks()) {
@@ -204,12 +204,12 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     private static void check(GameTarot _g,
                               HandTarot _calledCards, HandTarot _currentHand) {
         Ints handLengths_ = new Ints();
-        int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
-        int nbPl_ = _g.getRegles().getRepartition().getId().getNombreJoueurs();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
-        handLengths_.add(_g.getRegles().getRepartition().getNombreCartesChien());
+        handLengths_.add(_g.getRegles().getDealing().getNombreCartesChien());
         int nbTr_ = _g.getTricks().size() - 1;
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.set(i,handLengths_.get(i)-nbTr_);
@@ -329,7 +329,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         _g.getTeamsRelation().faireConfiance(n_, _p);
     }
     protected static int getTaker(RulesTarot _g, int _dealer, CustList<BidTarot> _bids) {
-        byte player_ = _g.getRepartition().getId().getNextPlayer(_dealer);
+        byte player_ = _g.getDealing().getId().getNextPlayer(_dealer);
         int taker_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         BidTarot bid_ = BidTarot.FOLD;
         for (BidTarot b: _bids) {
@@ -337,19 +337,19 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
                 taker_ = player_;
                 bid_ = b;
             }
-            player_ = _g.getRepartition().getId().getNextPlayer(player_);
+            player_ = _g.getDealing().getId().getNextPlayer(player_);
         }
         return taker_;
     }
     protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g, HandTarot _currentHand) {
         check(_g,_g.getCalledCards(),_currentHand);
         Ints handLengths_ = new Ints();
-        int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
-        int nbPl_ = _g.getRegles().getRepartition().getId().getNombreJoueurs();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
-        handLengths_.add(_g.getRegles().getRepartition().getNombreCartesChien());
+        handLengths_.add(_g.getRegles().getDealing().getNombreCartesChien());
         int nbTr_ = _g.getTricks().size() - 1;
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.set(i,handLengths_.get(i)-nbTr_);
@@ -368,12 +368,12 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         CheckerGameTarotWithRules.check(_g);
         assertTrue("Error",_g.getError().isEmpty());
         Ints handLengths_ = new Ints();
-        int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
-        int nbPl_ = _g.getRegles().getRepartition().getId().getNombreJoueurs();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
-        handLengths_.add(_g.getRegles().getRepartition().getNombreCartesChien());
+        handLengths_.add(_g.getRegles().getDealing().getNombreCartesChien());
         int nbTr_ = _g.getTricks().size() - 1;
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.set(i,handLengths_.get(i)-nbTr_);
@@ -390,12 +390,12 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     }
     protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g) {
         Ints handLengths_ = new Ints();
-        int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
-        int nbPl_ = _g.getRegles().getRepartition().getId().getNombreJoueurs();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
-        handLengths_.add(_g.getRegles().getRepartition().getNombreCartesChien());
+        handLengths_.add(_g.getRegles().getDealing().getNombreCartesChien());
         int nbTr_ = _g.getTricks().size() - 1;
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.set(i,handLengths_.get(i)-nbTr_);

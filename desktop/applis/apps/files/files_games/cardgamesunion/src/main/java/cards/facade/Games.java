@@ -247,7 +247,7 @@ public final class Games {
 
     public static String isValidHandfulMessage(GameTarot _g,Handfuls _h, HandTarot _hand,HandTarot _excludedCards, String _loc) {
         StringMap<String> ms_ = MessTarotGr.ms();
-        int nbTrumps_ = _g.getRules().getPoigneesAutorisees().getVal(_h);
+        int nbTrumps_ = _g.getRules().getAllowedHandfuls().getVal(_h);
         if (_hand.total()==nbTrumps_&&(!_hand.contient(CardTarot.excuse())||_excludedCards.estVide())) {
             return EMPTY;
         }

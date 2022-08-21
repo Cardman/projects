@@ -40,7 +40,7 @@ public final class GameTarotTeamsRelation {
         return teams_;
     }
     byte getNombreDeJoueurs() {
-        return (byte) rules.getRepartition().getId().getNombreJoueurs();
+        return (byte) rules.getDealing().getId().getNombreJoueurs();
     }
     static boolean contientJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
         for (byte e: _joueurs2) {

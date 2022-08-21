@@ -42,7 +42,7 @@ public final class AfterAnimationBidTarot implements Runnable {
         } else {
             if(gameTarot_.getContrat().isJouerDonne()) {
                 container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameTarot_.getPreneur());
-                CallingCard appel_=gameTarot_.getRegles().getRepartition().getAppel();
+                CallingCard appel_= gameTarot_.getRegles().getDealing().getAppel();
                 if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
                     if(appel_==CallingCard.DEFINED) {
                         gameTarot_.initEquipeDeterminee();

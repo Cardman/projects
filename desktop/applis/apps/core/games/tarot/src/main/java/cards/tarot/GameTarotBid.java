@@ -10,6 +10,7 @@ import cards.tarot.enumerations.PlayingDog;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class GameTarotBid {
@@ -291,10 +292,10 @@ public final class GameTarotBid {
             petite_ = 90;
             garde_ = 140;
         } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getId().getNombreJoueurs()) {
-            if (rules.getRepartition().getAppel() == CallingCard.WITHOUT) {
+            if (rules.getDealing().getAppel() == CallingCard.WITHOUT) {
                 petite_ = 90;
                 garde_ = 160;
-            } else if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
+            } else if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
                 petite_ = 50;
                 garde_ = 90;
             } else {
@@ -302,7 +303,7 @@ public final class GameTarotBid {
                 garde_ = 110;
             }
         } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getId().getNombreJoueurs()) {
-            if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
+            if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
                 petite_ = 50;
                 garde_ = 90;
             } else {
@@ -310,7 +311,7 @@ public final class GameTarotBid {
                 garde_ = 150;
             }
         } else {
-            if (rules.getRepartition() == DealingTarot.DEAL_1_VS_4) {
+            if (rules.getDealing() == DealingTarot.DEAL_1_VS_4) {
                 petite_ = 80;
                 garde_ = 130;
             } else {
@@ -318,8 +319,8 @@ public final class GameTarotBid {
                 garde_ = 100;
             }
         }
-        boolean sansAppel_ = rules.getRepartition().getAppel() == CallingCard.DEFINED
-                || rules.getRepartition().getAppel() == CallingCard.WITHOUT;
+        boolean sansAppel_ = rules.getDealing().getAppel() == CallingCard.DEFINED
+                || rules.getDealing().getAppel() == CallingCard.WITHOUT;
         int limTr_;
         if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
             limTr_ = 12;
@@ -373,7 +374,7 @@ public final class GameTarotBid {
         if (estUnJeuDeChelemSur(_couleurs,_cartesJouees)) {
             return true;
         }
-        byte nbPlayers_ = (byte) _infos.getRepartition().getId().getNombreJoueurs();
+        byte nbPlayers_ = (byte) _infos.getDealing().getId().getNombreJoueurs();
         if (!maitreAtoutPourChelem(_couleurs,nbPlayers_)) {
             return false;
         }
@@ -385,8 +386,8 @@ public final class GameTarotBid {
         byte nombreCouleursPseuMait_ = nbCouleursPseudoMaitresses(_couleurs,
                 _cartesAppeler,
                 nbPlayers_);
-        boolean avecAppel_ = _infos.getRepartition().getAppel() == CallingCard.KING;
-        if (_infos.getRepartition().getAppel() == CallingCard.CHARACTER_CARD) {
+        boolean avecAppel_ = _infos.getDealing().getAppel() == CallingCard.KING;
+        if (_infos.getDealing().getAppel() == CallingCard.CHARACTER_CARD) {
             avecAppel_ = true;
         }
         if (avecAppel_) {
@@ -655,7 +656,7 @@ public final class GameTarotBid {
     }
     HandTarot cartesAppeler() {
         HandTarot main_ = new HandTarot();
-        if (rules.getRepartition().getAppel() == CallingCard.KING) {
+        if (rules.getDealing().getAppel() == CallingCard.KING) {
             if (currentHand.tailleRois() < HandTarot.charCards(CardChar.KING).total()) {
                 main_.ajouterCartes(HandTarot.charCards(CardChar.KING));
             } else {
@@ -675,7 +676,7 @@ public final class GameTarotBid {
                     }
                 }
             }
-        } else if (rules.getRepartition().getAppel() == CallingCard.CHARACTER_CARD) {
+        } else if (rules.getDealing().getAppel() == CallingCard.CHARACTER_CARD) {
             main_.ajouterCartes(HandTarot.figuesCouleurs());
             main_.ajouter(CardTarot.petit());
             main_.ajouter(CardTarot.vingtEtUn());
@@ -684,10 +685,10 @@ public final class GameTarotBid {
         return main_;
     }
     boolean contratAccepte(BidTarot _enchere) {
-        return rules.getContrats().getVal(_enchere);
+        return rules.getAllowedBids().getVal(_enchere) == BoolVal.TRUE;
     }
     byte getNombreDeJoueurs() {
-        return (byte) rules.getRepartition().getId().getNombreJoueurs();
+        return (byte) rules.getDealing().getId().getNombreJoueurs();
     }
 
     HandTarot getCurrentHand() {

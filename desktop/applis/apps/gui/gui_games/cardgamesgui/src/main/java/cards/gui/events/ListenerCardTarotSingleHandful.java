@@ -12,7 +12,6 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.AbsMouseLocation;
-import code.gui.ConfirmDialog;
 import code.gui.GuiConstants;
 import code.util.core.StringUtil;
 
@@ -49,7 +48,7 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
             container.displayTrumpsForHandful(GameTarotCommonPlaying.atoutsPoignee(partie_.getDistribution().hand().couleurs()));
             if (container.getChoosenHandful() != Handfuls.NO) {
                 String mes_ = container.getMessages().getVal(WindowCards.REMOVE_TRUMPS_HANDFUL);
-                int exces_ = container.getCurrentIncludedTrumps().total()-regles_.getPoigneesAutorisees().getVal(container.getChoosenHandful());
+                int exces_ = container.getCurrentIncludedTrumps().total()- regles_.getAllowedHandfuls().getVal(container.getChoosenHandful());
                 container.getInfoCurrentHandful().setText(StringUtil.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(container.getChoosenHandful(),lg_)));
             }
 

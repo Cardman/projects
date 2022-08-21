@@ -41,7 +41,7 @@ public final class GameTarotDeclaring {
             if(poigneesAutorisees_.isEmpty()) {
                 return va_;
             }
-            EnumMap<Handfuls,Integer> poigneesNbAtout_ = teamsRelation.getRules().getPoigneesAutorisees();
+            EnumMap<Handfuls,Integer> poigneesNbAtout_ = teamsRelation.getRules().getAllowedHandfuls();
             if (atouts_.total() < poigneesNbAtout_.getVal(poigneesAutorisees_.first())) {
                 return va_;
             }
@@ -63,7 +63,7 @@ public final class GameTarotDeclaring {
         EnumMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         int nombreAtoutsEx_ = GameTarotCommon.atoutsAvecExcuse(repartition_);
         EnumList<Handfuls> annoncesPossibles_ = new EnumList<Handfuls>();
-        for (EntryCust<Handfuls,Integer> e: teamsRelation.getRules().getPoigneesAutorisees().entryList()) {
+        for (EntryCust<Handfuls,Integer> e: teamsRelation.getRules().getAllowedHandfuls().entryList()) {
             if (nombreAtoutsEx_ < e.getValue()) {
                 continue;
             }
@@ -79,7 +79,7 @@ public final class GameTarotDeclaring {
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
         HandTarot poignee_ = new HandTarot();
         for(Handfuls p: getAnnoncesPoignees(next_)) {
-            int max_ = teamsRelation.getRules().getPoigneesAutorisees().getVal(p);
+            int max_ = teamsRelation.getRules().getAllowedHandfuls().getVal(p);
             byte trumpIndex_ = IndexConstants.FIRST_INDEX;
             if(atouts_.total() == max_) {
                 while (poignee_.total() < max_) {

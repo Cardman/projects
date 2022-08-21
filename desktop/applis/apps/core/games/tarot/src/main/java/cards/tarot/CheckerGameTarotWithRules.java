@@ -66,13 +66,11 @@ public final class CheckerGameTarotWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }
-        if (_loadedGame.getDistribution().nombreDeMains() != rules_
-                .getRepartition().getId().getNombreJoueurs() + 1) {
+        if (_loadedGame.getDistribution().nombreDeMains() != rules_.getDealing().getId().getNombreJoueurs() + 1) {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return;
         }
-        if (_loadedGame.getDistribution().derniereMain().total() != rules_
-                .getRepartition().getNombreCartesChien()) {
+        if (_loadedGame.getDistribution().derniereMain().total() != rules_.getDealing().getNombreCartesChien()) {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }
@@ -121,7 +119,7 @@ public final class CheckerGameTarotWithRules {
         }
         for (TrickTarot t : allTricks_) {
             if (!t.getVuParToutJoueur()) {
-                if (t.total() > rules_.getRepartition().getNombreCartesChien()) {
+                if (t.total() > rules_.getDealing().getNombreCartesChien()) {
                     _loadedGame.setError(TRICK_WITH_BAD_COUNT);
                     return;
                 }
@@ -133,7 +131,7 @@ public final class CheckerGameTarotWithRules {
             }
         }
         if (!_loadedGame.getPliEnCours().getVuParToutJoueur()) {
-            if (_loadedGame.getPliEnCours().total() > rules_.getRepartition()
+            if (_loadedGame.getPliEnCours().total() > rules_.getDealing()
                     .getNombreCartesChien()) {
                 _loadedGame.setError(TRICK_WITH_BAD_COUNT);
                 return;
@@ -178,7 +176,7 @@ public final class CheckerGameTarotWithRules {
         }
         if (completed_) {
             for (byte p : players_) {
-                if (deal_.hand(p).total() != rules_.getRepartition()
+                if (deal_.hand(p).total() != rules_.getDealing()
                         .getNombreCartesParJoueur()) {
                     _loadedGame.setError(BAD_COUNT_FOR_HANDS);
                     return;
@@ -190,7 +188,7 @@ public final class CheckerGameTarotWithRules {
                     if (p == _loadedGame.getPreneur()) {
                         continue;
                     }
-                    if (deal_.hand(p).total() != rules_.getRepartition()
+                    if (deal_.hand(p).total() != rules_.getDealing()
                             .getNombreCartesParJoueur()) {
                         _loadedGame.setError(BAD_COUNT_FOR_HANDS);
                         return;
@@ -198,7 +196,7 @@ public final class CheckerGameTarotWithRules {
                 }
             } else {
                 for (byte p : players_) {
-                    if (deal_.hand(p).total() != rules_.getRepartition()
+                    if (deal_.hand(p).total() != rules_.getDealing()
                             .getNombreCartesParJoueur()) {
                         _loadedGame.setError(BAD_COUNT_FOR_HANDS);
                         return;
@@ -282,7 +280,7 @@ public final class CheckerGameTarotWithRules {
                 }
             }
             if (_loadedGame.getRegles().getDiscardAfterCall()) {
-                if (_loadedGame.getRegles().getRepartition().callCard()
+                if (_loadedGame.getRegles().getDealing().callCard()
                         && _loadedGame.existePreneur()) {
                     if ((!allTricks_.isEmpty() || !_loadedGame.getPliEnCours()
                             .estVide())

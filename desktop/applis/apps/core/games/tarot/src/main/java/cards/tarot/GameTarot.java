@@ -8,6 +8,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 /** */
@@ -141,14 +142,14 @@ public final class GameTarot {
 
     boolean initTeamWithoutTaker() {
         return !avecContrat()
-                && getRegles().getRepartition().getAppel() == CallingCard.DEFINED;
+                && getRegles().getDealing().getAppel() == CallingCard.DEFINED;
     }
 
     public void initPlayWithoutBid() {
         tricks.add(
                 new TrickTarot(getDistribution().derniereMain(),
                         (byte) (getNombreDeJoueurs() + 1), false));
-        if (getRegles().getRepartition().getAppel() == CallingCard.DEFINED) {
+        if (getRegles().getDealing().getAppel() == CallingCard.DEFINED) {
             initEquipeDetermineeSansPreneur();
         }
     }
@@ -204,10 +205,10 @@ public final class GameTarot {
         boolean defined_ = false;
         if (!avecContrat() || !bid_.isJouerDonne()) {
             initEquipeDetermineeSansPreneur();
-        } else if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
+        } else if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
             initEquipeDeterminee();
             defined_ = true;
-        } else if (rules.getRepartition().getAppel() == CallingCard.WITHOUT) {
+        } else if (rules.getDealing().getAppel() == CallingCard.WITHOUT) {
             initDefense();
         }
         cardsToBeDiscardedCount = 0;
@@ -400,10 +401,10 @@ public final class GameTarot {
     }
 
     void initSimuTeam(SimulatingTarot _simu) {
-        if (rules.getRepartition().getAppel() == CallingCard.CHARACTER_CARD
-                || rules.getRepartition().getAppel() == CallingCard.KING) {
+        if (rules.getDealing().getAppel() == CallingCard.CHARACTER_CARD
+                || rules.getDealing().getAppel() == CallingCard.KING) {
             intelligenceArtificielleAppel();
-        } else if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
+        } else if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
             initEquipeDeterminee();
         } else {
             initDefense();
@@ -466,7 +467,7 @@ public final class GameTarot {
 
     /** Renvoie le nombre de joueurs jouant a la partie */
     public byte getNombreDeJoueurs() {
-        return (byte) rules.getRepartition().getId().getNombreJoueurs();
+        return (byte) rules.getDealing().getId().getNombreJoueurs();
     }
 
     public RulesTarot getRegles() {
@@ -488,7 +489,7 @@ public final class GameTarot {
         return bids_;
     }
     boolean contratAccepte(BidTarot _enchere) {
-        return rules.getContrats().getVal(_enchere);
+        return rules.getAllowedBids().getVal(_enchere) == BoolVal.TRUE;
     }
 
     public boolean avecContrat() {
@@ -616,7 +617,7 @@ public final class GameTarot {
     public void initEquipeDetermineeSansPreneur() {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i < nombreDeJoueurs_; i++) {
-            for (byte p: rules.getRepartition().getAppelesDetermines(i)) {
+            for (byte p: rules.getDealing().getAppelesDetermines(i)) {
                 faireConfiance(i, p);
             }
             faireConfiance(i, i);
@@ -624,7 +625,7 @@ public final class GameTarot {
     }
 
     public void initEquipeDeterminee() {
-        Bytes attaquants_=rules.getRepartition().getAppelesDetermines(taker);
+        Bytes attaquants_= rules.getDealing().getAppelesDetermines(taker);
         calledPlayers = new Bytes(attaquants_);
         attaquants_.add(taker);
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
@@ -693,7 +694,7 @@ public final class GameTarot {
         CustList<HandTarot> cartesAppelablesFinales_ = new CustList<HandTarot>();
         cartesAppelablesFinales_.add(new HandTarot());
         CustList<HandTarot> cartesAppelables_ = new CustList<HandTarot>();
-        boolean call_ = rules.getRepartition().callCard();
+        boolean call_ = rules.getDealing().callCard();
         HandTarot cartesAppeler_ = callableCards();
         cartesAppeler_.supprimerCartes(mainPreneur_);
         if (_removeDog) {
@@ -998,7 +999,7 @@ public final class GameTarot {
     }
 
     public boolean isValidHandful(Handfuls _h, HandTarot _hand, HandTarot _excludedCards) {
-        int nbTrumps_ = rules.getPoigneesAutorisees().getVal(_h);
+        int nbTrumps_ = rules.getAllowedHandfuls().getVal(_h);
         return _hand.total() == nbTrumps_ && (!_hand.contient(CardTarot.excuse()) || _excludedCards.estVide());
     }
 
@@ -1250,7 +1251,7 @@ public final class GameTarot {
 
 
     public Bytes orderedPlayers(byte _leader) {
-        return rules.getRepartition().getId().getSortedPlayers(_leader);
+        return rules.getDealing().getId().getSortedPlayers(_leader);
     }
 
     public byte playerHavingToBid() {
@@ -1266,7 +1267,7 @@ public final class GameTarot {
         return getPliEnCours().getNextPlayer(getNombreDeJoueurs());
     }
     public byte playerAfter(byte _player) {
-        return rules.getRepartition().getId().getNextPlayer(_player);
+        return rules.getDealing().getId().getNextPlayer(_player);
     }
 
 

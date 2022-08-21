@@ -1542,12 +1542,12 @@ public class GameTarotCallDiscardTest extends EquallableTarotUtil {
     }
     private static GameTarotCallDiscard newGameTarotCallDiscard(HandTarot _h, RulesTarot _r, BidTarot _b) {
         GameTarotBid g_ = newGameTarotBid(_h,_r,_b);
-        return new GameTarotCallDiscard(g_,_r.getRepartition().getNombreCartesChien());
+        return new GameTarotCallDiscard(g_, _r.getDealing().getNombreCartesChien());
     }
     private static GameTarotBid newGameTarotBid(HandTarot _h, RulesTarot _r, BidTarot _b) {
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
         bids_.add(_b);
-        int nb_ = _r.getRepartition().getId().getNombreJoueurs();
+        int nb_ = _r.getDealing().getId().getNombreJoueurs();
         for (int i = 1; i < nb_; i++) {
             bids_.add(BidTarot.FOLD);
         }

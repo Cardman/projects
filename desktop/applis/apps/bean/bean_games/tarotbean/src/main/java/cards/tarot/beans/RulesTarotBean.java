@@ -39,9 +39,9 @@ public final class RulesTarotBean extends TarotBean {
             contrats.add(toString(m, rules_.getCommon().getSpecific()));
         }
         mode = toString(rules_.getMode(), rules_.getCommon().getSpecific());
-        repartition = toString(rules_.getRepartition(), rules_.getCommon().getSpecific());
+        repartition = toString(rules_.getDealing(), rules_.getCommon().getSpecific());
         StringMap<Integer> str_ = new StringMap<Integer>();
-        for (EntryCust<Handfuls,Integer> e: rules_.getPoigneesAutorisees().entryList()) {
+        for (EntryCust<Handfuls,Integer> e: rules_.getAllowedHandfuls().entryList()) {
             Handfuls h_ = e.getKey();
             str_.addEntry(toString(h_, rules_.getCommon().getSpecific()), e.getValue());
         }

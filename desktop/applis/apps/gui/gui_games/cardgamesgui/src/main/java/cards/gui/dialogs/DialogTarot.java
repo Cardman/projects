@@ -17,6 +17,8 @@ import cards.tarot.enumerations.ModeTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.ints.Listable;
 
 public abstract class DialogTarot extends DialogCards implements DialogVaryingPlayerNumber {
@@ -101,7 +103,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         bids.clear();
         for (BidTarot enchere_:BidTarot.values()) {
             AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,lg_));
-            caseCroix_.setSelected(getReglesTarot().getContrats().getVal(enchere_));
+            caseCroix_.setSelected(getReglesTarot().getAllowedBids().getVal(enchere_) == BoolVal.TRUE);
             caseCroix_.setEnabled(
                     enchere_.getPossibiliteAnnonce()!=AllowedBiddingTarot.ALWAYS);
             bidding.add(caseCroix_);
@@ -118,10 +120,10 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         listeChoixFive.setListener(new ListenerHandfulName(this));
         sousPanneau_.add(listeChoixFive.self());
         sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_TRUMPS)));
-        int nbCartesJoueur_ = getReglesTarot().getRepartition().getNombreCartesParJoueur();
+        int nbCartesJoueur_ = getReglesTarot().getDealing().getNombreCartesParJoueur();
         int nbTrumps_ = HandTarot.trumpsPlusExcuse().total();
         nbCartesJoueur_ = Math.min(nbCartesJoueur_, nbTrumps_);
-        poigneesAutorisees = new EnumMap<Handfuls,Integer>(getReglesTarot().getPoigneesAutorisees());
+        poigneesAutorisees = new EnumMap<Handfuls,Integer>(getReglesTarot().getAllowedHandfuls());
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
         nbAtoutsPoignee = getCompoFactory().newSpinner(valeur_,0,nbCartesJoueur_,1);
         sousPanneau_.add(nbAtoutsPoignee);
@@ -213,7 +215,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         if (_nbPlayers != 0) {
             value_ = _nbPlayers;
         } else {
-            value_ = getReglesTarot().getRepartition().getId().getNombreJoueurs();
+            value_ = getReglesTarot().getDealing().getId().getNombreJoueurs();
         }
         nbJoueurs=getCompoFactory().newSpinner(value_,minJoueurs_,maxJoueurs_,1);
         if (_enabledChangingNbPlayers) {
@@ -224,7 +226,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(nbJoueurs);
         valeur_= nbJoueurs.getValue();
         listeChoixFour=new ComboBoxEnumCards<DealingTarot>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
-        DealingTarot curThree_ = getReglesTarot().getRepartition();
+        DealingTarot curThree_ = getReglesTarot().getDealing();
         index_ = 0;
         i_ = -1;
         for(DealingTarot r:DealingTarot.values()) {
@@ -323,7 +325,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     protected void validateRules() {
 //        getReglesTarot().setCartesBattues((MixCardsChoice)listeChoix.getSelectedItem());
         getReglesTarot().getCommon().setMixedCards(listeChoix.getCurrent());
-        getReglesTarot().setPoigneesAutorisees(poigneesAutorisees);
+        getReglesTarot().setAllowedHandfuls(poigneesAutorisees);
         EnumList<Miseres> miseres_=new EnumList<Miseres>();
         for (Miseres misere_: Miseres.values()) {
             AbsCustCheckBox jcb_= miseres.get(misere_.ordinal());
@@ -332,17 +334,17 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             }
         }
         getReglesTarot().setMiseres(miseres_);
-        EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
+        EnumMap<BidTarot,BoolVal> contrats_ = new EnumMap<BidTarot,BoolVal>();
         for (BidTarot enchere_: BidTarot.values()) {
             AbsCustCheckBox jcb_= bids.get(enchere_.ordinal());
-            contrats_.put(enchere_, jcb_.isSelected());
+            contrats_.put(enchere_, ComparatorBoolean.of(jcb_.isSelected()));
         }
-        getReglesTarot().setContrats(contrats_);
+        getReglesTarot().setAllowedBids(contrats_);
         getReglesTarot().setEndDealTarot(listeChoixTwo.getCurrentElement());
         getReglesTarot().setMode(listeChoixThree.getCurrentElement());
         getReglesTarot().setDiscardAfterCall(discardAfterCall.isSelected());
         getReglesTarot().setAllowPlayCalledSuit(allowPlayCalledSuit.isSelected());
-        getReglesTarot().setRepartition(listeChoixFour.getCurrentElement());
+        getReglesTarot().setDealing(listeChoixFour.getCurrentElement());
 
 
     }

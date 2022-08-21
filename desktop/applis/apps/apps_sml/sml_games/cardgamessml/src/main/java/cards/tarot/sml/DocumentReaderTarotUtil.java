@@ -22,6 +22,7 @@ import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -486,18 +487,18 @@ public final class DocumentReaderTarotUtil {
         return list_;
     }
 
-    private static EnumMap<BidTarot,Boolean> getMapBidTarotBoolean(Element _elt) {
+    private static EnumMap<BidTarot, BoolVal> getMapBidTarotBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<BidTarot,Boolean> map_ = new EnumMap<BidTarot,Boolean>(cap_);
+        EnumMap<BidTarot,BoolVal> map_ = new EnumMap<BidTarot,BoolVal>(cap_);
         CustList<BidTarot> keys_ = new CustList<BidTarot>(cap_);
-        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getBidTarot(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getBoolean(c));
+                values_.add(DocumentReaderCoreUtil.getBoolVal(c));
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());

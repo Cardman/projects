@@ -9,13 +9,15 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 
 
 public final class RulesTarot {
 
     private RulesCommon common = new RulesCommon();
     private EnumList<Miseres> miseres=new EnumList<Miseres>();
-    private EnumMap<BidTarot,Boolean> allowedBids=new EnumMap<BidTarot,Boolean>();
+    private EnumMap<BidTarot, BoolVal> allowedBids=new EnumMap<BidTarot,BoolVal>();
     private ModeTarot mode=ModeTarot.NORMAL;
     private DealingTarot dealing=DealingTarot.DEAL_2_VS_3_CALL_KING;
     private EnumMap<Handfuls,Integer> allowedHandfuls = new EnumMap<Handfuls,Integer>();
@@ -28,27 +30,16 @@ public final class RulesTarot {
     }
 
     RulesTarot(DealingTarot _rep) {
-        for(BidTarot c:BidTarot.getValidBids()){
-            if(c.getPossibiliteAnnonce()==AllowedBiddingTarot.CAN_BE_FORBIDDEN_BUT_NOT_AFTER){
-                allowedBids.put(c, false);
-            }else{
-                allowedBids.put(c, true);
-            }
-        }
+        initAllowBids();
         int nbCartesParJoueurs_ = _rep.getNombreCartesParJoueur();
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
             IntMap<Integer> conf_ = Handfuls.getConfigurationParDefautAnnoncePoignee(p);
             allowedHandfuls.put(p,conf_.getVal(nbCartesParJoueurs_));
         }
     }
+
     public RulesTarot(byte _nbPlayers) {
-        for(BidTarot c:BidTarot.getValidBids()){
-            if(c.getPossibiliteAnnonce()==AllowedBiddingTarot.CAN_BE_FORBIDDEN_BUT_NOT_AFTER){
-                allowedBids.put(c, false);
-            }else{
-                allowedBids.put(c, true);
-            }
-        }
+        initAllowBids();
         boolean found_ = false;
         for (DealingTarot r: DealingTarot.getRepartitionsValides()) {
             if (r.getId().getNombreJoueurs() == _nbPlayers && !found_) {
@@ -62,10 +53,11 @@ public final class RulesTarot {
             }
         }
     }
+
     public RulesTarot(RulesTarot _reglesTarot){
         common = new RulesCommon(_reglesTarot.common);
         miseres = new EnumList<Miseres>(_reglesTarot.miseres);
-        allowedBids = new EnumMap<BidTarot,Boolean>(_reglesTarot.allowedBids);
+        allowedBids = new EnumMap<BidTarot,BoolVal>(_reglesTarot.allowedBids);
         mode = _reglesTarot.mode;
         dealing = _reglesTarot.dealing;
         allowedHandfuls = new EnumMap<Handfuls,Integer>(_reglesTarot.allowedHandfuls);
@@ -73,6 +65,13 @@ public final class RulesTarot {
         discardAfterCall = _reglesTarot.discardAfterCall;
         allowPlayCalledSuit = _reglesTarot.allowPlayCalledSuit;
     }
+
+    private void initAllowBids() {
+        for(BidTarot c:BidTarot.getValidBids()){
+            allowedBids.put(c, ComparatorBoolean.of(c.getPossibiliteAnnonce() != AllowedBiddingTarot.CAN_BE_FORBIDDEN_BUT_NOT_AFTER));
+        }
+    }
+
     public boolean isValidRules() {
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
             if (!allowedHandfuls.contains(p)) {
@@ -87,13 +86,7 @@ public final class RulesTarot {
         int nbCardsPerPlayer_ = dealing.getNombreCartesParJoueur();
         int nbTrumps_ = HandTarot.trumpsPlusExcuse().total();
         for (Handfuls p: allowedHandfuls.getKeys()) {
-            if (allowedHandfuls.getVal(p) < 0) {
-                return false;
-            }
-            if (allowedHandfuls.getVal(p) > nbCardsPerPlayer_) {
-                return false;
-            }
-            if (allowedHandfuls.getVal(p) > nbTrumps_) {
+            if (allowedHandfuls.getVal(p) < 0 || allowedHandfuls.getVal(p) > nbCardsPerPlayer_ || allowedHandfuls.getVal(p) > nbTrumps_) {
                 return false;
             }
         }
@@ -101,14 +94,33 @@ public final class RulesTarot {
         int size_ = allowedHandfuls.size();
         for (int i = 1; i < size_; i++) {
             int value_ = allowedHandfuls.getValue(i);
-            if (value_ == 0) {
-                continue;
-            }
-            if (allowedHandfuls.getValue(i - 1) > value_) {
+            if (value_ != 0 && allowedHandfuls.getValue(i - 1) > value_) {
                 return false;
             }
         }
         return true;
+    }
+    public void allowAllBids() {
+        EnumMap<BidTarot,BoolVal> contrats_ = new EnumMap<BidTarot,BoolVal>();
+        for (BidTarot b: getAllowedBids().getKeys()) {
+            contrats_.put(b,BoolVal.TRUE);
+        }
+        setAllowedBids( contrats_);
+    }
+
+    public void allowSome(EnumList<BidTarot> _bids) {
+        EnumMap<BidTarot,BoolVal> contrats_ = new EnumMap<BidTarot,BoolVal>();
+        for (BidTarot b: getAllowedBids().getKeys()) {
+            if (b.getPossibiliteAnnonce() != AllowedBiddingTarot.ALWAYS) {
+                contrats_.put(b,BoolVal.FALSE);
+            } else {
+                contrats_.put(b,BoolVal.TRUE);
+            }
+        }
+        for (BidTarot b: _bids) {
+            contrats_.put(b,BoolVal.TRUE);
+        }
+        setAllowedBids( contrats_);
     }
 
     public void reorgHandfules() {
@@ -144,36 +156,19 @@ public final class RulesTarot {
     public EnumList<BidTarot> getContratsAutorises() {
         EnumList<BidTarot> l_;
         l_ = new EnumList<BidTarot>();
-        for (EntryCust<BidTarot, Boolean> e: allowedBids.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<BidTarot, BoolVal> e: allowedBids.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());
             }
         }
         return l_;
     }
-    public EnumMap<BidTarot,Boolean> getContrats() {
-        return allowedBids;
-    }
-    public void setContrats(EnumMap<BidTarot,Boolean> _contrats) {
-        allowedBids = _contrats;
-    }
+
     public ModeTarot getMode() {
         return mode;
     }
     public void setMode(ModeTarot _mode) {
         mode = _mode;
-    }
-    public DealingTarot getRepartition() {
-        return dealing;
-    }
-    public void setRepartition(DealingTarot _repartition) {
-        dealing = _repartition;
-    }
-    public EnumMap<Handfuls,Integer> getPoigneesAutorisees() {
-        return allowedHandfuls;
-    }
-    public void setPoigneesAutorisees(EnumMap<Handfuls,Integer> _poigneesAutorisees) {
-        allowedHandfuls = _poigneesAutorisees;
     }
 
     public boolean getDiscardAfterCall() {
@@ -202,11 +197,11 @@ public final class RulesTarot {
         return common;
     }
 
-    public EnumMap<BidTarot, Boolean> getAllowedBids() {
+    public EnumMap<BidTarot, BoolVal> getAllowedBids() {
         return allowedBids;
     }
 
-    public void setAllowedBids(EnumMap<BidTarot, Boolean> _allowedBids) {
+    public void setAllowedBids(EnumMap<BidTarot, BoolVal> _allowedBids) {
         allowedBids = _allowedBids;
     }
 

@@ -492,7 +492,7 @@ public final class EndTarotGame {
             coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
         } else {
             if (nombreJoueurs_ == 4) {
-                if (_relations.getRules().getRepartition().getAppel() == CallingCard.DEFINED) {
+                if (_relations.getRules().getDealing().getAppel() == CallingCard.DEFINED) {
                     coefficientsRepartition_.put(Role.TAKER,new Rate(1));
                     coefficientsRepartition_.put(Role.CALLED_PLAYER,new Rate(1));
                     coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
@@ -506,7 +506,7 @@ public final class EndTarotGame {
                 coefficientsRepartition_.put(Role.CALLED_PLAYER,new Rate(1));
                 coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
             } else {
-                if (_relations.getRules().getRepartition().getAppel() == CallingCard.DEFINED) {
+                if (_relations.getRules().getDealing().getAppel() == CallingCard.DEFINED) {
                     coefficientsRepartition_.put(Role.TAKER,new Rate(2));
                     coefficientsRepartition_.put(Role.CALLED_PLAYER,new Rate(2));
                     coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
@@ -964,7 +964,7 @@ public final class EndTarotGame {
     }
 
     public Shorts coefficients(Shorts _positions) {
-        DealingTarot repartition_ = relations.getRules().getRepartition();
+        DealingTarot repartition_ = relations.getRules().getDealing();
         return coefficients(_positions, repartition_);
     }
 
@@ -1192,7 +1192,7 @@ public final class EndTarotGame {
     }
 
     public Shorts coefficientsMisere(Shorts _positions) {
-        DealingTarot repartition_ = relations.getRules().getRepartition();
+        DealingTarot repartition_ = relations.getRules().getDealing();
         return coefficientsMisere(_positions, repartition_);
     }
 

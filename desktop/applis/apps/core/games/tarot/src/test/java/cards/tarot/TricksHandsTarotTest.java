@@ -739,7 +739,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
                                                CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
-        byte nbPl_ = (byte) _r.getRepartition().getId().getNombreJoueurs();
+        byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
             deal_.add(new HandTarot());
         }
@@ -749,7 +749,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
                                                CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>(_deal);
-        byte nbPl_ = (byte) _r.getRepartition().getId().getNombreJoueurs();
+        byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
         deal_.add(_lastHand);
         TrickTarot last_ = _trs.last();
         GameTarot g_ = new GameTarot(GameType.RANDOM,new DealTarot(deal_, (byte) _dealer),_r);
@@ -773,9 +773,9 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         g_.setContrat(bid_);
         if (!g_.avecContrat() || !bid_.isJouerDonne()) {
             g_.initEquipeDetermineeSansPreneur();
-        } else if (_r.getRepartition().getAppel() == CallingCard.DEFINED) {
+        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
             g_.initEquipeDeterminee();
-        } else if (_r.getRepartition().getAppel() == CallingCard.WITHOUT) {
+        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
             g_.initDefense();
         }
         for (TrickTarot t: g_.getTricks()) {

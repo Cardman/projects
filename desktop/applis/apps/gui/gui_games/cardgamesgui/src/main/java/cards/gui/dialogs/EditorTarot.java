@@ -144,15 +144,15 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_;
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
-        byte nbCartesPJ_ = (byte) getReglesTarot().getRepartition().getNombreCartesParJoueur();
-        byte nbCartesC_ = (byte) getReglesTarot().getRepartition().getNombreCartesChien();
+        byte nbCartesPJ_ = (byte) getReglesTarot().getDealing().getNombreCartesParJoueur();
+        byte nbCartesC_ = (byte) getReglesTarot().getDealing().getNombreCartesChien();
 
         HandTarot pile_=HandTarot.pileBase();
         panneau_=_parent.getCompoFactory().newLineBox();
         panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
-        int nbPlayers_ = getReglesTarot().getRepartition().getId().getNombreJoueurs();
+        int nbPlayers_ = getReglesTarot().getDealing().getId().getNombreJoueurs();
         for(String n: nickNames.getPseudosTarot()) {
             if (liste.getItemCount() == nbPlayers_) {
                 break;
@@ -208,7 +208,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosTarot()) {
-            if (listeTwo.getItemCount() == getReglesTarot().getRepartition().getId().getNombreJoueurs() + 1) {
+            if (listeTwo.getItemCount() == getReglesTarot().getDealing().getId().getNombreJoueurs() + 1) {
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);

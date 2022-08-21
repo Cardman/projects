@@ -65,7 +65,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     public void setRandomDealer(RulesTarot _regles, AbstractGenerator _gene) {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer = (byte) (_regles.getRepartition().getNombreJoueurs() * MonteCarlo.randomDouble());
-        dealer = (byte) MonteCarloUtil.randomLong(_regles.getRepartition().getId().getNombreJoueurs(),_gene);
+        dealer = (byte) MonteCarloUtil.randomLong(_regles.getDealing().getId().getNombreJoueurs(),_gene);
     }
 
     /**
@@ -76,7 +76,7 @@ public final class DealTarot implements Iterable<HandTarot> {
         dealer = _nouveauDonneur;
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
         dealer++;
-        dealer %= _regles.getRepartition().getId().getNombreJoueurs();
+        dealer %= _regles.getDealing().getId().getNombreJoueurs();
     }
 
     /**
@@ -104,8 +104,8 @@ public final class DealTarot implements Iterable<HandTarot> {
         /* Les deux_ nombres_ donnent_ le_ nombre_ d atouts_ avec_ Excuse */
         byte minAtout_ = 0;
         byte maxAtout_ = 0;
-        int nbPlayers_ = _regles.getRepartition().getId().getNombreJoueurs();
-        int nbCards_ = _regles.getRepartition().getNombreCartesParJoueur();
+        int nbPlayers_ = _regles.getDealing().getId().getNombreJoueurs();
+        int nbCards_ = _regles.getDealing().getNombreCartesParJoueur();
         byte autresCartesTirer_;
         CustList<LgInt> fonctionRepartition_;
         LgInt alea_;
@@ -271,14 +271,13 @@ public final class DealTarot implements Iterable<HandTarot> {
     */
     private void donnerEnBattant(RulesTarot _regles,AbstractGenerator _gene) {
 
-        byte nbJrs_ = (byte) _regles.getRepartition().getId().getNombreJoueurs();
+        byte nbJrs_ = (byte) _regles.getDealing().getId().getNombreJoueurs();
         for (int i = IndexConstants.FIRST_INDEX; i <= nbJrs_; i++) {
             deal.add(new HandTarot());
         }
         HandTarot m = HandTarot.pileBase();
-        byte nombreTotalCarteJoueurs_ = (byte) (nbJrs_ * _regles
-                .getRepartition().getNombreCartesParJoueur());
-        byte nombreCarteChien_ = (byte) _regles.getRepartition()
+        byte nombreTotalCarteJoueurs_ = (byte) (nbJrs_ * _regles.getDealing().getNombreCartesParJoueur());
+        byte nombreCarteChien_ = (byte) _regles.getDealing()
                 .getNombreCartesChien();
 
         for (int i = IndexConstants.FIRST_INDEX; i < nombreTotalCarteJoueurs_; i++) {
@@ -295,7 +294,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     */
     private void donnerSansBattre(RulesTarot _regles) {
         deck.couper();
-        DealingTarot repartition_ = _regles.getRepartition();
+        DealingTarot repartition_ = _regles.getDealing();
         /* On recupere_ le_ nombre_ de_ joueurs_ jouant_ au_ tarot_ */
         byte nbJrs_ = (byte) repartition_.getId().getNombreJoueurs();
         /* On prepare_ les_ mains_ des_ joueurs_ */
@@ -304,7 +303,7 @@ public final class DealTarot implements Iterable<HandTarot> {
         }
         int iterations_ = IndexConstants.SIZE_EMPTY;
         Bytes ordreDisributionJoueurs_;
-        ordreDisributionJoueurs_ = _regles.getRepartition().getId().getSortedPlayersAfter(dealer);
+        ordreDisributionJoueurs_ = _regles.getDealing().getId().getSortedPlayersAfter(dealer);
         IntMap<Integer> distributionChien_ = repartition_.getDistributionAuChien();
         for (int i : repartition_.getDistribution()) {
             //i == nombre_ de_ cartes_ a donner_

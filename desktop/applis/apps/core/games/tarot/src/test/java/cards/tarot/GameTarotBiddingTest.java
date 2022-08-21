@@ -5,12 +5,10 @@ import org.junit.Test;
 
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
-import cards.tarot.enumerations.AllowedBiddingTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumList;
-import code.util.EnumMap;
 
 public class GameTarotBiddingTest extends CommonTarotGame {
 
@@ -202,38 +200,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     static RulesTarot initializeRulesWithBids(EnumList<BidTarot> _bids) {
         RulesTarot regles_=new RulesTarot();
-        regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
+        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
-        for (BidTarot b: regles_.getContrats().getKeys()) {
-            if (b.getPossibiliteAnnonce() != AllowedBiddingTarot.ALWAYS) {
-                contrats_.put(b,false);
-            } else {
-                contrats_.put(b,true);
-            }
-        }
-        for (BidTarot b: _bids) {
-            contrats_.put(b,true);
-        }
-        regles_.setContrats(contrats_);
+        regles_.allowSome(_bids);
         return regles_;
     }
+
     static RulesTarot initializeRulesWithBidsForSixPlayers(EnumList<BidTarot> _bids) {
         RulesTarot regles_=new RulesTarot();
-        regles_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        regles_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
-        for (BidTarot b: regles_.getContrats().getKeys()) {
-            if (b.getPossibiliteAnnonce() != AllowedBiddingTarot.ALWAYS) {
-                contrats_.put(b,false);
-            } else {
-                contrats_.put(b,true);
-            }
-        }
-        for (BidTarot b: _bids) {
-            contrats_.put(b,true);
-        }
-        regles_.setContrats(contrats_);
+        regles_.allowSome(_bids);
         return regles_;
     }    @Test
     public void allowedBids_BidsInitialize1(){

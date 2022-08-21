@@ -7,6 +7,7 @@ import cards.tarot.enumerations.DealingTarot;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameTarotBidTest extends EquallableTarotUtil {
@@ -1259,7 +1260,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        r_.getContrats().put(BidTarot.SLAM,true);
+        r_.getAllowedBids().put(BidTarot.SLAM, BoolVal.TRUE);
         GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
         EnumList<BidTarot> called_ = g_.allowedBids();
         assertEq(6, called_.size());
@@ -1324,7 +1325,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        r_.getContrats().put(BidTarot.SLAM,true);
+        r_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
         GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.SLAM,bid_);
@@ -1373,7 +1374,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_3_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        r_.getContrats().put(BidTarot.SLAM,true);
+        r_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
         GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.SLAM,bid_);
@@ -1455,7 +1456,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_1);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        r_.getContrats().put(BidTarot.TAKE,false);
+        r_.getAllowedBids().put(BidTarot.TAKE,BoolVal.FALSE);
         GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD,bid_);

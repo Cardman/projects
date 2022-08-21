@@ -9,7 +9,6 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import code.util.EnumMap;
 
 public class GameTarotPlayingFourTest extends CommonTarotGame {
 
@@ -112,13 +111,9 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
 
     static RulesTarot initializeRulesWithBids() {
         RulesTarot regles_=new RulesTarot();
-        regles_.setRepartition(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        regles_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
-        for (BidTarot b: regles_.getContrats().getKeys()) {
-            contrats_.put(b,true);
-        }
-        regles_.setContrats(contrats_);
+        regles_.allowAllBids();
         return regles_;
     }
 
