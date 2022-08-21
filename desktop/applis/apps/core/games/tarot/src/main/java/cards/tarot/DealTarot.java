@@ -20,6 +20,17 @@ public final class DealTarot implements Iterable<HandTarot> {
     public static final byte NUMERO_UTILISATEUR = 0;
 
     public static final int NB_CARDS = 78;
+    private static final int NB_THREE = 24;
+    private static final int NB_FOUR = 18;
+    private static final int NB_FIVE = 15;
+    private static final int NB_SIX = 12;
+    private static final int NB_THREE_MAX = 21;
+    private static final int NB_FIVE_MAX = 14;
+    private static final int NB_FOUR_MIN = 13;
+    private static final int NB_FIVE_MIN = 10;
+    private static final int NB_SAVE_THREE_MAX = 5;
+    private static final int NB_SAVE_FOUR_MAX = 4;
+    private static final int NB_SAVE_GREAT_MAX = 3;
 
     /** Ensemble des mains des joueurs */
     private CustList<HandTarot> deal = new CustList<HandTarot>();
@@ -102,145 +113,170 @@ public final class DealTarot implements Iterable<HandTarot> {
     public void initDonne(ChoiceTarot _choix,
                           RulesTarot _regles, AbstractGenerator _gene) {
         /* Les deux_ nombres_ donnent_ le_ nombre_ d atouts_ avec_ Excuse */
-        byte minAtout_ = 0;
-        byte maxAtout_ = 0;
         int nbPlayers_ = _regles.getDealing().getId().getNombreJoueurs();
-        int nbCards_ = _regles.getDealing().getNombreCartesParJoueur();
+        long nbCards_ = _regles.getDealing().getNombreCartesParJoueur();
+        byte minAtout_ = min(_choix, nbCards_);
         byte autresCartesTirer_;
         CustList<LgInt> fonctionRepartition_;
         LgInt alea_;
+        byte maxAtout_ = max(_choix, nbCards_);
+        byte atoutsTires_;
+        HandTarot atouts_;
+        HandTarot autresCartes_;
         if (_choix == ChoiceTarot.HUNT_SMALL) {
-            if (nbCards_ == 24) {
-                minAtout_ = 15;
-                maxAtout_ = 21;
-            } else if (nbCards_ == 18) {
-                minAtout_ = 13;
-                maxAtout_ = 18;
-            } else if (nbCards_ == 15) {
-                minAtout_ = 10;
-                maxAtout_ = 15;
-            } else if (nbCards_ == 12) {
-                minAtout_ = 9;
-                maxAtout_ = 12;
-            } else {
-                minAtout_ = 10;
-                maxAtout_ = 14;
-            }
             fonctionRepartition_ = new CustList<LgInt>();
             fonctionRepartition_.add(LgInt.multiply(
-                    LgInt.among(new LgInt(minAtout_), new LgInt(21)),
+                    LgInt.among(new LgInt(minAtout_), new LgInt(NB_THREE_MAX)),
                     LgInt.among(new LgInt(nbCards_), new LgInt(56))));
             byte index_ = (byte) (minAtout_ + 1);
             for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
                 fonctionRepartition_.add(LgInt.plus(
                         fonctionRepartition_.last(), LgInt
                         .multiply(LgInt.among(new LgInt(evenement_),
-                                new LgInt(21)), LgInt.among(
+                                new LgInt(NB_THREE_MAX)), LgInt.among(
                                 new LgInt(nbCards_ - evenement_),
                                 new LgInt(56)))));
             }
             alea_ = MonteCarloUtil.randomLgInt(fonctionRepartition_.last(),_gene);
-            byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
+            atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_);
             for (int i = IndexConstants.FIRST_INDEX; i <= nbPlayers_; i++) {
                 deal.add(new HandTarot());
             }
-            HandTarot atouts_ = new HandTarot();
-            HandTarot autresCartes_ = new HandTarot();
+            atouts_ = new HandTarot();
+            autresCartes_ = new HandTarot();
             atouts_.ajouter(CardTarot.excuse());
             atouts_.ajouterCartes(HandTarot.atoutsSansExcuse());
             autresCartes_.ajouterCartes(HandTarot.cartesCouleurs());
-            feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_,_gene);
-            deck = new HandTarot();
-            deck.ajouterCartes(atouts_);
-            deck.ajouterCartes(autresCartes_);
-            byte reste_ = (byte) (NB_CARDS - nbCards_ * nbPlayers_);
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
-                if (joueur_ == NUMERO_UTILISATEUR) {
-                    continue;
-                }
-                for (byte indiceCarte_ = IndexConstants.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
-                    deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire(_gene));
-                }
-            }
-            for (int i = IndexConstants.SIZE_EMPTY; i < reste_; i++) {
-                deal.last().ajouter(deck.jouer(0));
-            }
-            setRandomDealer(_regles,_gene);
         } else {
-            if (_choix == ChoiceTarot.SAVE_SMALL) {
-                minAtout_ = 1;
-                if (nbCards_ == 24) {
-                    maxAtout_ = 5;
-                } else if (nbCards_ == 18) {
-                    maxAtout_ = 4;
-                } else if (nbCards_ == 15 || nbCards_ == 12) {
-                    maxAtout_ = 3;
-                } else {
-                    maxAtout_ = 2;
-                }
-            } else {
-                if (nbCards_ == 24) {
-                    minAtout_ = 14;
-                    maxAtout_ = 21;
-                } else if (nbCards_ == 18) {
-                    minAtout_ = 12;
-                    maxAtout_ = 17;
-                } else if (nbCards_ == 15) {
-                    minAtout_ = 9;
-                    maxAtout_ = 14;
-                } else if (nbCards_ == 12) {
-                    minAtout_ = 8;
-                    maxAtout_ = 11;
-                } else {
-                    minAtout_ = 9;
-                    maxAtout_ = 13;
-                }
-            }
             fonctionRepartition_ = new CustList<LgInt>();
             fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                    minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                    nbCards_ - minAtout_ - 1), new LgInt(56))));
+                    minAtout_), new LgInt(NB_THREE_MAX)), LgInt.among(new LgInt(
+                    nbCards_ - minAtout_ - 1L), new LgInt(56))));
             byte index_ = (byte) (minAtout_ + 1);
             for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
                 fonctionRepartition_.add(LgInt.plus(
                         fonctionRepartition_.last(), LgInt
                                 .multiply(LgInt.among(new LgInt(evenement_),
-                                        new LgInt(21)), LgInt.among(
+                                        new LgInt(NB_THREE_MAX)), LgInt.among(
                                         new LgInt(nbCards_ - evenement_
-                                                - 1), new LgInt(56)))));
+                                                - 1L), new LgInt(56)))));
             }
             alea_ = MonteCarloUtil.randomLgInt(fonctionRepartition_.last(),_gene);
-            byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
+            atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_ - 1);
             for (int i = IndexConstants.FIRST_INDEX; i <= nbPlayers_; i++) {
                 deal.add(new HandTarot());
             }
-            HandTarot atouts_ = new HandTarot();
+            atouts_ = new HandTarot();
             atouts_.ajouter(CardTarot.excuse());
             atouts_.ajouterCartes(HandTarot.atoutsSansExcuse());
             atouts_.jouer(CardTarot.petit());
-            HandTarot autresCartes_ = new HandTarot();
+            autresCartes_ = new HandTarot();
             autresCartes_.ajouterCartes(HandTarot.cartesCouleurs());
             deal.first().ajouter(CardTarot.petit());
-            feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_,_gene);
-            deck = new HandTarot();
-            deck.ajouterCartes(atouts_);
-            deck.ajouterCartes(autresCartes_);
-            byte reste_ = (byte) (NB_CARDS - nbCards_ * nbPlayers_);
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
-                if (joueur_ == NUMERO_UTILISATEUR) {
-                    continue;
-                }
-                for (byte indiceCarte_ = IndexConstants.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
-                    deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire(_gene));
-                }
-            }
-            for (int i = IndexConstants.SIZE_EMPTY; i < reste_; i++) {
-                deal.last().ajouter(deck.jouer(0));
-            }
-            setRandomDealer(_regles,_gene);
         }
+        feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_,_gene);
+        deck = new HandTarot();
+        deck.ajouterCartes(atouts_);
+        deck.ajouterCartes(autresCartes_);
+        dealToPlayrs(_regles, _gene, nbPlayers_, nbCards_);
+    }
+
+    private byte max(ChoiceTarot _choix, long _nbCards) {
+        if (_choix == ChoiceTarot.HUNT_SMALL) {
+            return hunt(_nbCards);
+        }
+        if (_choix == ChoiceTarot.SAVE_SMALL) {
+            byte maxAtout_;
+            if (_nbCards == NB_THREE) {
+                maxAtout_ = NB_SAVE_THREE_MAX;
+            } else if (_nbCards == NB_FOUR) {
+                maxAtout_ = NB_SAVE_FOUR_MAX;
+            } else if (_nbCards == NB_FIVE || _nbCards == NB_SIX) {
+                maxAtout_ = NB_SAVE_GREAT_MAX;
+            } else {
+                maxAtout_ = 2;
+            }
+            return maxAtout_;
+        }
+        byte maxAtout_;
+        if (_nbCards == NB_THREE) {
+            maxAtout_ = NB_THREE_MAX;
+        } else if (_nbCards == NB_FOUR) {
+            maxAtout_ = 17;
+        } else if (_nbCards == NB_FIVE) {
+            maxAtout_ = NB_FIVE_MAX;
+        } else if (_nbCards == NB_SIX) {
+            maxAtout_ = 11;
+        } else {
+            maxAtout_ = NB_FOUR_MIN;
+        }
+        return maxAtout_;
+    }
+
+    private byte hunt(long _nbCards) {
+        byte maxAtout_;
+        if (_nbCards == NB_THREE) {
+            maxAtout_ = NB_THREE_MAX;
+        } else if (_nbCards == NB_FOUR) {
+            maxAtout_ = NB_FOUR;
+        } else if (_nbCards == NB_FIVE) {
+            maxAtout_ = NB_FIVE;
+        } else if (_nbCards == NB_SIX) {
+            maxAtout_ = NB_SIX;
+        } else {
+            maxAtout_ = NB_FIVE_MAX;
+        }
+        return maxAtout_;
+    }
+
+    private byte min(ChoiceTarot _choix, long _nbCards) {
+        byte minAtout_;
+        if (_choix == ChoiceTarot.HUNT_SMALL) {
+            if (_nbCards == NB_THREE) {
+                minAtout_ = NB_FIVE;
+            } else if (_nbCards == NB_FOUR) {
+                minAtout_ = NB_FOUR_MIN;
+            } else if (_nbCards == NB_FIVE) {
+                minAtout_ = NB_FIVE_MIN;
+            } else if (_nbCards == NB_SIX) {
+                minAtout_ = 9;
+            } else {
+                minAtout_ = NB_FIVE_MIN;
+            }
+        } else if (_choix == ChoiceTarot.SAVE_SMALL) {
+            minAtout_ = 1;
+        } else {
+            if (_nbCards == NB_THREE) {
+                minAtout_ = NB_FIVE_MAX;
+            } else if (_nbCards == NB_FOUR) {
+                minAtout_ = NB_SIX;
+            } else if (_nbCards == NB_FIVE) {
+                minAtout_ = 9;
+            } else if (_nbCards == NB_SIX) {
+                minAtout_ = 8;
+            } else {
+                minAtout_ = 9;
+            }
+        }
+        return minAtout_;
+    }
+
+    private void dealToPlayrs(RulesTarot _regles, AbstractGenerator _gene, int _nbPlayers, long _nbCards) {
+        byte reste_ = (byte) (NB_CARDS - _nbCards * _nbPlayers);
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+            if (joueur_ == NUMERO_UTILISATEUR) {
+                continue;
+            }
+            for (byte indiceCarte_ = IndexConstants.SIZE_EMPTY; indiceCarte_ < _nbCards; indiceCarte_++) {
+                deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire(_gene));
+            }
+        }
+        for (int i = IndexConstants.SIZE_EMPTY; i < reste_; i++) {
+            deal.last().ajouter(deck.jouer(0));
+        }
+        setRandomDealer(_regles, _gene);
     }
 
     public void feedUserHand(byte _autresCartesTirer, byte _atoutsTires, HandTarot _atouts, HandTarot _autresCartes,AbstractGenerator _gene) {
