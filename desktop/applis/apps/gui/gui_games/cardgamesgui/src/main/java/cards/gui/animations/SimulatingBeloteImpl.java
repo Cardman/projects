@@ -31,17 +31,14 @@ import code.util.core.StringUtil;
 
 
 
-public final class SimulatingBeloteImpl implements SimulatingBelote {
+public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     private final ContainerSimuBelote container;
-    private final Games partieSimulee;
-    private final DisplayingBelote displayingBelote;
     private final StopEvent stopEvent;
 
     public SimulatingBeloteImpl(ContainerSimuBelote _container, Games _partieSimulee,
                                 DisplayingBelote _displayingBelote, StopEvent _stopEvent) {
+        super(_displayingBelote,_partieSimulee.partieBelote());
         container = _container;
-        partieSimulee = _partieSimulee;
-        displayingBelote = _displayingBelote;
         stopEvent = _stopEvent;
     }
     @Override
@@ -50,10 +47,6 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
-    @Override
-    public DisplayingBelote getDisplaying() {
-        return displayingBelote;
-    }
 
     @Override
     public void actingBid(byte _player) {
@@ -331,9 +324,6 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
-    private GameBelote partieBeloteSimulee() {
-        return partieSimulee.partieBelote();
-    }
     /**Pseudos utilis_&eacute_;s*/
     private StringList pseudosSimuleeBelote() {
         GameBelote partie_=partieBeloteSimulee();
