@@ -1,4 +1,7 @@
 package cards.belote;
+import cards.consts.EndGameState;
+import cards.consts.PossibleTrickWinner;
+import cards.consts.Role;
 import org.junit.Assert;
 
 import cards.belote.enumerations.BidBelote;
@@ -10,11 +13,8 @@ import code.util.*;
 
 public abstract class EquallableBeloteUtil {
 
-    public static void assertNotNull(Object _value) {
+    public static void assertNotNull(String _value) {
         Assert.assertNotNull(_value);
-    }
-    public static void assertNull(Object _value) {
-        Assert.assertNull(_value);
     }
 
     public static void assertTrue(boolean _value) {
@@ -26,10 +26,37 @@ public abstract class EquallableBeloteUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(Object _expected, Object _result) {
+    public static void assertSame(EndGameState _expected, EndGameState _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertNotSame(Object _expected, Object _result) {
+    public static void assertSame(CardBelote _expected, CardBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Role _expected, Role _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(BidBeloteSuit _expected, BidBeloteSuit _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(RulesBelote _expected, RulesBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(GameBelote _expected, GameBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(BidBelote _expected, BidBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Suit _expected, Suit _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(PossibleTrickWinner _expected, PossibleTrickWinner _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertNotSame(Suit _expected, Suit _result) {
+        Assert.assertNotSame(_expected, _result);
+    }
+    public static void assertNotSame(RulesBelote _expected, RulesBelote _result) {
         Assert.assertNotSame(_expected, _result);
     }
 

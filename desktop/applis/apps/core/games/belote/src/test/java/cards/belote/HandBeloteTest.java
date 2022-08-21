@@ -53,7 +53,6 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         resAtt_.ajouter(CardBelote.HEART_1);
         resAtt_.ajouter(CardBelote.HEART_10);
         resAtt_.ajouter(CardBelote.HEART_KING);
-        assertNotSame(resAtt_, main_);
         main_.trierUnicolore(true);
         assertEq(resAtt_, main_);
         resAtt_ = new HandBelote(Order.SUIT);
