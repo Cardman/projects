@@ -98,7 +98,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(sure_,2,CardBelote.SPADE_1);
         EnumList<Suit> couleursNonAtouts_ = nonTrump(b_);
         EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonCoupeeParJoueurs(new Bytes((byte) 2), b_, poss_, sure_, couleursNonVides_);
+        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonCoupeeParJoueurs(Bytes.newList((byte) 2), b_, poss_, sure_, couleursNonVides_);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.CLUB));
     }
@@ -120,7 +120,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,0,CardBelote.HEART_10);
         EnumList<Suit> couleursNonAtouts_ = nonTrump(b_);
         EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(new Bytes((byte) 2,(byte) 0), b_, poss_, couleursNonVides_);
+        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(Bytes.newList((byte) 2,(byte) 0), b_, poss_, couleursNonVides_);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.CLUB));
         assertTrue(suits_.containsObj(Suit.DIAMOND));
@@ -143,7 +143,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,0,CardBelote.HEART_10);
         EnumList<Suit> couleursNonAtouts_ = nonTrump(b_);
         EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(new Bytes((byte) 2,(byte) 0), b_, poss_, couleursNonVides_);
+        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(Bytes.newList((byte) 2,(byte) 0), b_, poss_, couleursNonVides_);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -158,7 +158,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
         addCard(poss_,2,CardBelote.HEART_7);
-        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),new Bytes((byte) 2));
+        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),Bytes.newList((byte) 2));
         assertEq(0, pls_.size());
     }
     @Test
@@ -168,7 +168,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         b_.setBid(BidBelote.SUIT);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
-        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),new Bytes((byte) 2));
+        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),Bytes.newList((byte) 2));
         assertEq(0, pls_.size());
     }
     @Test
@@ -179,7 +179,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_, 2, CardBelote.CLUB_9);
         addCard(poss_, 2, CardBelote.SPADE_1);
-        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_, Suit.HEART, b_.getSuit(), new Bytes((byte) 2));
+        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_, Suit.HEART, b_.getSuit(), Bytes.newList((byte) 2));
         assertEq(1, pls_.size());
         assertTrue(pls_.containsObj(2));
     }
@@ -193,7 +193,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,2,CardBelote.DIAMOND_8);
         addCard(poss_,2,CardBelote.SPADE_1);
         addCard(poss_,2,CardBelote.HEART_7);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(new Bytes((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
+        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(0, suits_.size());
     }
     @Test
@@ -205,7 +205,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,2,CardBelote.HEART_7);
         addCard(poss_,2,CardBelote.DIAMOND_8);
         addCard(poss_,2,CardBelote.CLUB_9);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(new Bytes((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
+        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(0, suits_.size());
     }
     @Test
@@ -217,7 +217,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,2,CardBelote.DIAMOND_8);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(new Bytes((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
+        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }

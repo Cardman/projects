@@ -130,7 +130,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         if (partie_.availableSwitchingCards()) {
-            Bytes l_ = partie_.getLoosers(new Bytes(DealPresident.NUMERO_UTILISATEUR));
+            Bytes l_ = partie_.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
@@ -139,7 +139,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 getGivenCards().ajouterCartes(partie_.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
                 updateCardsInPanelPresidentGiven();
             }
-            Bytes w_ = partie_.getWinners(new Bytes(DealPresident.NUMERO_UTILISATEUR));
+            Bytes w_ = partie_.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
@@ -364,7 +364,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         game_.initCartesEchanges();
         game_.donnerMeilleuresCartes();
         if (game_.availableSwitchingCards()) {
-            Bytes w_ = game_.getWinners(new Bytes(DealPresident.NUMERO_UTILISATEUR));
+            Bytes w_ = game_.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
                 game_.giveWorstCards(w_);
                 setCanDiscard(true);
@@ -381,7 +381,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 return;
             }
             game_.giveWorstCards();
-            Bytes l_ = game_.getLoosers(new Bytes(DealPresident.NUMERO_UTILISATEUR));
+            Bytes l_ = game_.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(game_.getSwitchedCards().get(game_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
@@ -424,7 +424,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             donne_=new DealPresident(nb_,pile_);
             donne_.setRandomDealer(getReglesPresident(),getOwner().getGenerator());
             donne_.initDonne(getReglesPresident(),getOwner().getGenerator());
-            getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_,getReglesPresident(), new Bytes()));
+            getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_,getReglesPresident(), Bytes.newList()));
         } else {
             GamePresident partie_=partiePresident();
             Bytes newRanks_ = partie_.getNewRanks();
