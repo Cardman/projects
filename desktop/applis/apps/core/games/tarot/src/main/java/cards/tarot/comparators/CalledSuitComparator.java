@@ -4,12 +4,13 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.EnumMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class CalledSuitComparator implements Comparing<CardTarot> {
 
-    private EnumMap<Suit,HandTarot> dealingCalledCards;
-    private EnumMap<Suit,HandTarot> dealingTakerHand;
+    private final EnumMap<Suit,HandTarot> dealingCalledCards;
+    private final EnumMap<Suit,HandTarot> dealingTakerHand;
 
     public CalledSuitComparator(HandTarot _cartesAppeler,
                                 HandTarot _mainPreneur) {
@@ -43,10 +44,8 @@ public final class CalledSuitComparator implements Comparing<CardTarot> {
         if (_arg0.strength(sOne_) < _arg1.strength(sTwo_)) {
             return 1;
         }
-        if(couleur(sOne_).estVide()) {
-            if(couleur(sTwo_).estVide()) {
-                return 0;
-            }
+        if (couleur(sOne_).estVide() && couleur(sTwo_).estVide()) {
+            return 0;
         }
         if(couleur(sOne_).estVide()) {
             return 1;
@@ -54,67 +53,67 @@ public final class CalledSuitComparator implements Comparing<CardTarot> {
         if(couleur(sTwo_).estVide()) {
             return -1;
         }
-        if(couleur(Suit.TRUMP).total() < 8) {
-            if(couleur(sOne_).total() > 4) {
-                if(couleur(sTwo_).total() < 4) {
-                    return 1;
-                }
-                if(couleur(sTwo_).total() > couleur(sOne_).total()) {
-                    return -1;
-                }
-                return 1;
-            }
-            if(couleur(sTwo_).total() > 4) {
+        return notEmpty(sOne_, sTwo_);
+
+    }
+
+    private int notEmpty(Suit _sOne, Suit _sTwo) {
+        if (couleur(Suit.TRUMP).total() >= 8) {
+            if (couleur(_sOne).total() > couleur(_sTwo).total()) {
                 return -1;
             }
-            CardTarot carteAppelee0_ = dealingCalledCards.getVal(sOne_).premiereCarte();
-            CardTarot carteAppelee1_ = dealingCalledCards.getVal(sTwo_).premiereCarte();
-            HandTarot cartesPossedesNonAppelees0_ = getCharCards(sOne_, carteAppelee0_);
-            HandTarot cartesPossedesNonAppelees1_ = getCharCards(sTwo_, carteAppelee1_);
-            HandTarot figures0_ = cartesPossedesNonAppelees0_.charCardsBySuit(sOne_);
-            HandTarot figures1_ = cartesPossedesNonAppelees1_.charCardsBySuit(sTwo_);
-            int min_ = Math.min(figures0_.total(), figures1_.total());
-            boolean id_ = true;
-            boolean plusGrand_ = false;
-            for (int i = IndexConstants.FIRST_INDEX; i<min_; i++) {
-                if(figures0_.carte(i).points() > figures1_.carte(i).points()) {
-                    plusGrand_ = true;
-                    id_ = false;
-                    break;
-                }
-                if(figures0_.carte(i).points() < figures1_.carte(i).points()) {
-                    id_ = false;
-                    break;
-                }
-            }
-            if(!id_) {
-                if(plusGrand_) {
-                    return -1;
-                }
-                return 1;
-            }
-            if(figures0_.total() > figures1_.total()) {
-                return -1;
-            }
-            if(figures0_.total() < figures1_.total()) {
-                return 1;
-            }
-            if(couleur(sOne_).total() < couleur(sTwo_).total()) {
-                return -1;
-            }
-            if(couleur(sOne_).total() > couleur(sTwo_).total()) {
+            if (couleur(_sOne).total() < couleur(_sTwo).total()) {
                 return 1;
             }
             return 0;
         }
-        if(couleur(sOne_).total() > couleur(sTwo_).total()) {
+        if (couleur(_sOne).total() > 4) {
+            if (couleur(_sTwo).total() < 4) {
+                return 1;
+            }
+            if (couleur(_sTwo).total() > couleur(_sOne).total()) {
+                return -1;
+            }
+            return 1;
+        }
+        if (couleur(_sTwo).total() > 4) {
             return -1;
         }
-        if(couleur(sOne_).total() < couleur(sTwo_).total()) {
+        return end(_sOne, _sTwo);
+    }
+
+    private int end(Suit _sOne, Suit _sTwo) {
+        CardTarot carteAppelee0_ = dealingCalledCards.getVal(_sOne).premiereCarte();
+        CardTarot carteAppelee1_ = dealingCalledCards.getVal(_sTwo).premiereCarte();
+        HandTarot cartesPossedesNonAppelees0_ = getCharCards(_sOne, carteAppelee0_);
+        HandTarot cartesPossedesNonAppelees1_ = getCharCards(_sTwo, carteAppelee1_);
+        HandTarot figures0_ = cartesPossedesNonAppelees0_.charCardsBySuit(_sOne);
+        HandTarot figures1_ = cartesPossedesNonAppelees1_.charCardsBySuit(_sTwo);
+        int min_ = Math.min(figures0_.total(), figures1_.total());
+        int eq_ = 0;
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
+            int tmp_ = -NumberUtil.compareLg(figures0_.carte(i).points(), figures1_.carte(i).points());
+            if (tmp_ != 0) {
+                eq_ = tmp_;
+                break;
+            }
+        }
+        if (eq_ != 0) {
+            return eq_;
+        }
+        if (figures0_.total() > figures1_.total()) {
+            return -1;
+        }
+        if (figures0_.total() < figures1_.total()) {
+            return 1;
+        }
+        if (couleur(_sOne).total() < couleur(_sTwo).total()) {
+            return -1;
+        }
+        if (couleur(_sOne).total() > couleur(_sTwo).total()) {
             return 1;
         }
         return 0;
-
     }
 
     private static int cmpLoc(Suit _one, Suit _two, Suit _crit) {
@@ -132,13 +131,7 @@ public final class CalledSuitComparator implements Comparing<CardTarot> {
     private HandTarot getCharCards(Suit _suit, CardTarot _carteAppelee) {
         HandTarot cartesPossedesNonAppelees_ = new HandTarot();
         for(CardTarot c:HandTarot.couleurComplete(_suit)) {
-            if(!c.isCharacter()) {
-                continue;
-            }
-            if(c == _carteAppelee) {
-                continue;
-            }
-            if(!couleur(_suit).contient(c)) {
+            if (!c.isCharacter() || c == _carteAppelee || !couleur(_suit).contient(c)) {
                 continue;
             }
             cartesPossedesNonAppelees_.ajouter(c);
