@@ -24,6 +24,7 @@ public final class RulesTarotBean extends TarotBean {
     private String finPartieTarot;
 
     private boolean discardAfterCall = true;
+    private boolean allowPlayCalledSuit = true;
 
     @Override
     public void beforeDisplaying() {
@@ -47,6 +48,7 @@ public final class RulesTarotBean extends TarotBean {
         poigneesAutorisees = str_;
         finPartieTarot = toString(rules_.getEndDealTarot(), rules_.getCommon().getSpecific());
         discardAfterCall = rules_.getDiscardAfterCall();
+        allowPlayCalledSuit = rules_.isAllowPlayCalledSuit();
     }
 
     public String getCartesBattues() {
@@ -79,6 +81,10 @@ public final class RulesTarotBean extends TarotBean {
 
     public boolean isDiscardAfterCall() {
         return discardAfterCall;
+    }
+
+    public boolean isAllowPlayCalledSuit() {
+        return allowPlayCalledSuit;
     }
 
 //

@@ -43,6 +43,7 @@ public final class DocumentWriterTarotUtil {
     private static final String FIELD_DECLARES_SLAM = "declaresSlam";
     private static final String FIELD_DECREASING = "decreasing";
     private static final String FIELD_DISCARD_AFTER_CALL = "discardAfterCall";
+    private static final String FIELD_ALLOW_PLAY_CALLED_SUIT = "allowPlayCalledSuit";
     private static final String FIELD_DISTRIBUTION = "distribution";
     private static final String FIELD_END_DEAL_TAROT = "endDealTarot";
     private static final String FIELD_GAME = "game";
@@ -194,6 +195,7 @@ public final class DocumentWriterTarotUtil {
         _element.appendChild(setEndDealTarot(_object.getEndDealTarot(),FIELD_END_DEAL_TAROT,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getCommon().getNbDeals(),FIELD_NB_DEALS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getDiscardAfterCall(),FIELD_DISCARD_AFTER_CALL,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAllowPlayCalledSuit(),FIELD_ALLOW_PLAY_CALLED_SUIT,_document));
     }
 
     private static Element setTrickTarot(TrickTarot _object, String _fieldName, Document _document) {

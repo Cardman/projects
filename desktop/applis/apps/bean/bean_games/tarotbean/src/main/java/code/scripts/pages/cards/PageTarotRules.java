@@ -15,9 +15,12 @@ private static final String C_3_0_8="{repartition}";
 private static final String C_3_0_9="msg,mode";
 private static final String C_3_0_10="{mode}";
 private static final String C_3_0_11="msg,discard";
+private static final String C_3_0_11_1="msg,played_called";
 private static final String C_3_0_12="discardAfterCall";
+private static final String C_3_0_12_1="allowPlayCalledSuit";
 private static final String C_3_0_13="msg,yes";
 private static final String C_3_0_14="!discardAfterCall";
+private static final String C_3_0_14_1="!allowPlayCalledSuit";
 private static final String C_3_0_15="msg,no";
 private static final String C_3_0_16="msg,bids";
 private static final String C_3_0_17="d";
@@ -76,6 +79,9 @@ build5(elt3_,_doc2);
 build6(elt3_,_doc2);
 build7(elt3_,_doc2);
 build8(elt3_,_doc2);
+build60(elt3_,_doc2);
+build70(elt3_,_doc2);
+build80(elt3_,_doc2);
 build9(elt3_,_doc2);
 build10(elt3_,_doc2);
 build11(elt3_,_doc2);
@@ -144,6 +150,15 @@ at(elt1_,attrs0_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
+static void build60(Element _body,Document _doc){
+Element elt0_=el(_doc,H1);
+Element elt1_=el(_doc,C_MESSAGE);
+CustList<Attr> attrs0_=al(1);
+attrs0_.add(at(VALUE,C_3_0_11_1));
+at(elt1_,attrs0_);
+ad(elt0_,elt1_);
+ad(_body,elt0_);
+}
 static void build7(Element _body,Document _doc){
 Element elt0_=el(_doc,C_IF);
 CustList<Attr> attrs0_=al(1);
@@ -156,10 +171,34 @@ at(elt1_,attrs1_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
+static void build70(Element _body,Document _doc){
+Element elt0_=el(_doc,C_IF);
+CustList<Attr> attrs0_=al(1);
+attrs0_.add(at(CONDITION,C_3_0_12_1));
+at(elt0_,attrs0_);
+Element elt1_=el(_doc,C_MESSAGE);
+CustList<Attr> attrs1_=al(1);
+attrs1_.add(at(VALUE,C_3_0_13));
+at(elt1_,attrs1_);
+ad(elt0_,elt1_);
+ad(_body,elt0_);
+}
 static void build8(Element _body,Document _doc){
 Element elt0_=el(_doc,C_IF);
 CustList<Attr> attrs0_=al(1);
 attrs0_.add(at(CONDITION,C_3_0_14));
+at(elt0_,attrs0_);
+Element elt1_=el(_doc,C_MESSAGE);
+CustList<Attr> attrs1_=al(1);
+attrs1_.add(at(VALUE,C_3_0_15));
+at(elt1_,attrs1_);
+ad(elt0_,elt1_);
+ad(_body,elt0_);
+}
+static void build80(Element _body,Document _doc){
+Element elt0_=el(_doc,C_IF);
+CustList<Attr> attrs0_=al(1);
+attrs0_.add(at(CONDITION,C_3_0_14_1));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);

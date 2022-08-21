@@ -22,6 +22,7 @@ import code.util.core.StringUtil;
 public final class TarotStandards extends BeanNatCommonLgNames {
     static final String TYPE_RATE = "$Rate";
     private static final String DISCARD_AFTER_CALL = "discardAfterCall";
+    private static final String ALLOW_PLAY_CALLED_SUIT = "allowPlayCalledSuit";
     private static final String POIGNEES_AUTORISEES = "poigneesAutorisees";
     private static final String CONTRATS = "contrats";
     private static final String FIN_PARTIE_TAROT = "finPartieTarot";
@@ -261,6 +262,7 @@ public final class TarotStandards extends BeanNatCommonLgNames {
         fields_.add( new StandardField(MODE, STRING, false, false,new RulesTarotBeanMode(),null));
         fields_.add( new StandardField(FIN_PARTIE_TAROT, STRING, false, false,new RulesTarotBeanFinPartieTarot(),null));
         fields_.add( new StandardField(DISCARD_AFTER_CALL, PRIM_BOOLEAN, false, false,new RulesTarotBeanDiscardAfterCall(),null));
+        fields_.add( new StandardField(ALLOW_PLAY_CALLED_SUIT, PRIM_BOOLEAN, false, false,new RulesTarotBeanAllowPlayCalledSuit(),null));
         fields_.add( new StandardField(CONTRATS, TYPE_LIST, false, false,new RulesTarotBeanContrats(),null));
         fields_.add( new StandardField(POIGNEES_AUTORISEES, TYPE_MAP, false, false,new RulesTarotBeanPoigneesAutorisees(),null));
         fields_.add( new StandardField(MISERES, TYPE_LIST, false, false,new RulesTarotBeanMiseres(),null));

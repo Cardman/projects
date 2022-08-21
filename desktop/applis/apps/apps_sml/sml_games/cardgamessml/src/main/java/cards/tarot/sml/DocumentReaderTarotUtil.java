@@ -46,6 +46,7 @@ public final class DocumentReaderTarotUtil {
     private static final String FIELD_DECLARES_SLAM = "declaresSlam";
     private static final String FIELD_DECREASING = "decreasing";
     private static final String FIELD_DISCARD_AFTER_CALL = "discardAfterCall";
+    private static final String FIELD_ALLOW_PLAY_CALLED_SUIT = "allowPlayCalledSuit";
     private static final String FIELD_DISTRIBUTION = "distribution";
     private static final String FIELD_END_DEAL_TAROT = "endDealTarot";
     private static final String FIELD_GAME = "game";
@@ -298,6 +299,9 @@ public final class DocumentReaderTarotUtil {
         if (StringUtil.quickEq(_fieldName, FIELD_DISCARD_AFTER_CALL)) {
             _object.setDiscardAfterCall(DocumentReaderCoreUtil.getBoolean(_element));
             return;
+        }
+        if (StringUtil.quickEq(_fieldName, FIELD_ALLOW_PLAY_CALLED_SUIT)) {
+            _object.setAllowPlayCalledSuit(DocumentReaderCoreUtil.getBoolean(_element));
         }
     }
 

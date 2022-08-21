@@ -26,6 +26,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private static final String DEALING = "dealing";
     private static final String DECLARING = "declaring";
     private static final String DISCARDING = "discarding";
+    private static final String ALLOW_PLAYING_CALLED_SUIT = "allowPlayingCalledSuit";
     private static final String END_DEAL = "endDeal";
     private static final String END_DEAL_RULE = "endDealRule";
     private static final String HANDFUL = "handful";
@@ -50,6 +51,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private ComboBoxEnumCards<EndDealTarot> listeChoixTwo;
     private ComboBoxEnumCards<ModeTarot> listeChoixThree;
     private AbsCustCheckBox discardAfterCall;
+    private AbsCustCheckBox allowPlayCalledSuit;
     private ComboBoxEnumCards<DealingTarot> listeChoixFour;
     private ComboBoxEnumCards<Handfuls> listeChoixFive;
 
@@ -185,6 +187,9 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         discardAfterCall = getCompoFactory().newCustCheckBox(getMessages().getVal(DISCARDING));
         discardAfterCall.setSelected(getReglesTarot().getDiscardAfterCall());
         bidding_.add(discardAfterCall);
+        allowPlayCalledSuit = getCompoFactory().newCustCheckBox(getMessages().getVal(ALLOW_PLAYING_CALLED_SUIT));
+        allowPlayCalledSuit.setSelected(getReglesTarot().isAllowPlayCalledSuit());
+        bidding_.add(allowPlayCalledSuit);
         getJt().add(getMessages().getVal(RULES),bidding_);
         //Panneau 4-5 joueurs
         players=_window.getCompoFactory().newGrid(2,0);
@@ -336,6 +341,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getReglesTarot().setEndDealTarot(listeChoixTwo.getCurrentElement());
         getReglesTarot().setMode(listeChoixThree.getCurrentElement());
         getReglesTarot().setDiscardAfterCall(discardAfterCall.isSelected());
+        getReglesTarot().setAllowPlayCalledSuit(allowPlayCalledSuit.isSelected());
         getReglesTarot().setRepartition(listeChoixFour.getCurrentElement());
 
 
