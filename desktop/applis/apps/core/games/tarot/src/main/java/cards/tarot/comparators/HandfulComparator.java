@@ -7,6 +7,6 @@ import code.util.ints.Comparing;
 public final class HandfulComparator implements Comparing<Handfuls> {
     @Override
     public int compare(Handfuls _one, Handfuls _two) {
-        return NumberUtil.compareLg(_one.ordinal(), _two.ordinal());
+        return NumberUtil.compareLg(_one.getPoints(), _two.getPoints());
     }
 }
