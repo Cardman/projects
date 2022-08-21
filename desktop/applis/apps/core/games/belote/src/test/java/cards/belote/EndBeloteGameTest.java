@@ -219,15 +219,15 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
     }
     @Test
     public void getUserState1Test() {
-         assertSame(EndGameState.LOOSE, EndBeloteGame.getUserState((byte)0,new Shorts((short)50,(short)112,(short)50,(short)112),Bytes.newList((byte)1,(byte)3)));
+         assertSame(EndGameState.LOOSE, EndBeloteGame.getUserState((byte)0,Shorts.newList((short)50,(short)112,(short)50,(short)112),Bytes.newList((byte)1,(byte)3)));
     }
     @Test
     public void getUserState2Test() {
-        assertSame(EndGameState.WIN, EndBeloteGame.getUserState((byte)0,new Shorts((short)112,(short)50,(short)112,(short)50),Bytes.newList((byte)1,(byte)3)));
+        assertSame(EndGameState.WIN, EndBeloteGame.getUserState((byte)0,Shorts.newList((short)112,(short)50,(short)112,(short)50),Bytes.newList((byte)1,(byte)3)));
     }
     @Test
     public void getUserState3Test() {
-        assertSame(EndGameState.EQUALLITY, EndBeloteGame.getUserState((byte)0,new Shorts((short)81,(short)81,(short)81,(short)81),Bytes.newList((byte)1,(byte)3)));
+        assertSame(EndGameState.EQUALLITY, EndBeloteGame.getUserState((byte)0,Shorts.newList((short)81,(short)81,(short)81,(short)81),Bytes.newList((byte)1,(byte)3)));
     }
     @Test
     public void scoreDefinitifAttaque1Test() {
