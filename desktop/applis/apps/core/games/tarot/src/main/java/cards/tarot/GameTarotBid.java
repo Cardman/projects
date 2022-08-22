@@ -29,7 +29,6 @@ public final class GameTarotBid {
     }
 
     public BidTarot strategieContrat() {
-        byte nombreJoueurs_ = getNombreDeJoueurs();
         EnumMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
         int atouts_ = couleurs_.getVal(CardTarot.excuse().getId().getCouleur()).total() + couleurs_.getVal(Suit.TRUMP).total();
         boolean chelem_ = estUnJeuDeChelem(couleurs_, new HandTarot().couleurs(), rules, cartesAppeler());
@@ -40,40 +39,35 @@ public final class GameTarotBid {
         Suit couleurAtout_ = Suit.TRUMP;
         HandTarot trumps_ = couleurs_.getVal(couleurAtout_);
         CustList<HandTarot> suitesAtouts_ = trumps_.eclaterDebutPartie();
-        int nbAtoutsMajeursConsecutifs_ = 0;
-        HandTarot bouts_ = getOulderInHand(couleurs_);
-        for (HandTarot main_ : suitesAtouts_) {
-            if (main_.total() > 1 && main_.premiereCarte().getId().getValeur() > 14) {
-                nbAtoutsMajeursConsecutifs_ += main_.total();
-            }
-        }
+        int nbAtoutsMajeursConsecutifs_ = nbAtoutsMajeursConsecutifs(suitesAtouts_);
         int valeurAtout_ = valeur(atouts_, NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(4, 5), NumberUtil.wrapIntArray(4, 5), NumberUtil.wrapIntArray(5, 7));
-        int valeurAtoutMajeur_ = valeur(atouts_, NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(4, 7));
-        int valeurAtoutMoyen_ = valeur(atouts_, NumberUtil.wrapIntArray(1, 2), NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 3));
-        int valeurVingtEtUnSeul_ = valeur(atouts_, NumberUtil.wrapIntArray(4, 6), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(8, 10));
-        int valeurExcuseSeule_ = valeur(atouts_, NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(5, 7));
-        int valeurVingtEtUnExcuse_ = valeur(atouts_, NumberUtil.wrapIntArray(10, 14), NumberUtil.wrapIntArray(12, 16), NumberUtil.wrapIntArray(12, 16), NumberUtil.wrapIntArray(16, 21));
-        int valeurLongue_ = valeur(atouts_, NumberUtil.wrapIntArray(3, 6), NumberUtil.wrapIntArray(4, 8), NumberUtil.wrapIntArray(4, 8), NumberUtil.wrapIntArray(5, 11));
-        int valeurCoupe_ = valeur(atouts_, NumberUtil.wrapIntArray(1, 2), NumberUtil.wrapIntArray(2, 4), NumberUtil.wrapIntArray(2, 4), NumberUtil.wrapIntArray(3, 7));
         int coeff_ = valeur(atouts_, NumberUtil.wrapIntArray(1,2), NumberUtil.wrapIntArray(2,4), NumberUtil.wrapIntArray(2,4), NumberUtil.wrapIntArray(3,6));
         int total_ = nbAtoutsMajeursConsecutifs_ * coeff_;
-        int midSup_ = sum(trumps_, suitesAtouts_, valeurAtoutMajeur_, valeurAtoutMoyen_);
+        int midSup_ = sum(atouts_,trumps_, suitesAtouts_);
         total_ += valeurAtout_ * atouts_ + midSup_;
+        total_ += bouts(couleurs_,atouts_);
+        total_ += normalSuits(atouts_,couleurs_);
+        return end(atouts_, total_);
+    }
+    private int bouts(EnumMap<Suit, HandTarot> _couleurs, int _atouts) {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int valeurVingtEtUnSeul_ = valeur(_atouts, NumberUtil.wrapIntArray(4, 6), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(8, 10));
+        int valeurExcuseSeule_ = valeur(_atouts, NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(5, 7));
+        int valeurVingtEtUnExcuse_ = valeur(_atouts, NumberUtil.wrapIntArray(10, 14), NumberUtil.wrapIntArray(12, 16), NumberUtil.wrapIntArray(12, 16), NumberUtil.wrapIntArray(16, 21));
+
+        HandTarot bouts_ = getOulderInHand(_couleurs);
         int valeurPetitBout_;
         if (nombreJoueurs_ == 3) {
-            valeurPetitBout_ = valeurPetitBout(atouts_,7,12,0,2,4);
+            valeurPetitBout_ = valeurPetitBout(_atouts,7,12, 2,4);
         } else if (nombreJoueurs_ == 4) {
-            valeurPetitBout_ = valeurPetitBout(atouts_,6,9,0,3,6);
+            valeurPetitBout_ = valeurPetitBout(_atouts,6,9, 3,6);
         } else if (nombreJoueurs_ == 5) {
-            valeurPetitBout_ = valeurPetitBout(atouts_,5,7,0,3,6);
+            valeurPetitBout_ = valeurPetitBout(_atouts,5,7, 3,6);
         } else {
             /* 6 joueurs */
-            valeurPetitBout_ = valeurPetitBout(atouts_,4,6,0,5,10);
+            valeurPetitBout_ = valeurPetitBout(_atouts,4,6, 5,10);
         }
-        if (atouts_ == 0) {
-            valeurCoupe_ = 0;
-            valeurLongue_ = 0;
-        }
+        int total_ = 0;
         if (bouts_.contient(CardTarot.petit())) {
             total_ += valeurPetitBout_;
         }
@@ -85,63 +79,36 @@ public final class GameTarotBid {
         } else if (bouts_.contient(CardTarot.vingtEtUn())) {
             total_ += valeurVingtEtUnSeul_;
         }
-        total_ += normalSuits(atouts_,couleurs_,valeurLongue_,valeurCoupe_);
-        return end(atouts_, total_);
+        return total_;
+    }
+
+    private int nbAtoutsMajeursConsecutifs(CustList<HandTarot> _suitesAtouts) {
+        int nbAtoutsMajeursConsecutifs_ = 0;
+        for (HandTarot main_ : _suitesAtouts) {
+            if (main_.total() > 1 && main_.premiereCarte().getId().getValeur() > 14) {
+                nbAtoutsMajeursConsecutifs_ += main_.total();
+            }
+        }
+        return nbAtoutsMajeursConsecutifs_;
     }
 
     private BidTarot end(int _atouts, int _total) {
-        byte nombreJoueurs_ = getNombreDeJoueurs();
-        int petite_;
-        int garde_;
-        if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
-            petite_ = 90;
-            garde_ = 140;
-        } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getId().getNombreJoueurs()) {
-            if (rules.getDealing().getAppel() == CallingCard.WITHOUT) {
-                petite_ = 90;
-                garde_ = 160;
-            } else if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
-                petite_ = 50;
-                garde_ = 90;
-            } else {
-                petite_ = 60;
-                garde_ = 110;
-            }
-        } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getId().getNombreJoueurs()) {
-            if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
-                petite_ = 50;
-                garde_ = 90;
-            } else {
-                petite_ = 90;
-                garde_ = 150;
-            }
-        } else {
-            if (rules.getDealing() == DealingTarot.DEAL_1_VS_4) {
-                petite_ = 80;
-                garde_ = 130;
-            } else {
-                petite_ = 60;
-                garde_ = 100;
-            }
-        }
-        return end(_atouts, _total, petite_, garde_);
-    }
-
-    private BidTarot end(int _atouts, int _total, int _petite, int _garde) {
+        int petite_ = rules.getDealing().getPetite();
+        int garde_ = rules.getDealing().getGarde();
         byte nombreJoueurs_ = getNombreDeJoueurs();
         boolean sansAppel_ = rules.getDealing().getAppel() == CallingCard.DEFINED
                 || rules.getDealing().getAppel() == CallingCard.WITHOUT;
-        int limTr_ = lim(12, 9, 7, 6);
-        if (_atouts >= limTr_ && _total >= _garde) {
+        int limTr_ = lim();
+        if (_atouts >= limTr_ && _total >= garde_) {
             BidTarot f_ = tryGetStrongBid(sansAppel_);
             if (f_.isJouerDonne()) {
                 return f_;
             }
         }
         BidTarot c_;
-        if (_total < _petite) {
+        if (_total < petite_) {
             c_ = BidTarot.FOLD;
-        } else if (_total < _garde && contratAccepte(BidTarot.TAKE)) {
+        } else if (_total < garde_ && contratAccepte(BidTarot.TAKE)) {
             c_ = BidTarot.TAKE;
         } else {
             c_ = BidTarot.GUARD;
@@ -155,15 +122,23 @@ public final class GameTarotBid {
         return BidTarot.FOLD;
     }
 
-    private int normalSuits(int _atouts, EnumMap<Suit, HandTarot> _couleurs, int _valeurLongue, int _valeurCoupe) {
+    private int normalSuits(int _atouts, EnumMap<Suit, HandTarot> _couleurs) {
+        int valeurLongue_;
+        int valeurCoupe_;
+        if (_atouts == 0) {
+            valeurCoupe_ = 0;
+            valeurLongue_ = 0;
+        } else {
+            valeurLongue_ = valeur(_atouts, NumberUtil.wrapIntArray(3, 6), NumberUtil.wrapIntArray(4, 8), NumberUtil.wrapIntArray(4, 8), NumberUtil.wrapIntArray(5, 11));
+            valeurCoupe_ = valeur(_atouts, NumberUtil.wrapIntArray(1, 2), NumberUtil.wrapIntArray(2, 4), NumberUtil.wrapIntArray(2, 4), NumberUtil.wrapIntArray(3, 7));
+        }
         byte nombreJoueurs_ = getNombreDeJoueurs();
-        int nombreLimiteLongue_;
         int totalCouleur_=0;
         for(Suit c: Suit.couleursOrdinaires()) {
             totalCouleur_+= HandTarot.couleurComplete(c).total();
         }
         totalCouleur_ /= Suit.couleursOrdinaires().size();
-        nombreLimiteLongue_ = totalCouleur_ / nombreJoueurs_ + 2;
+        int nombreLimiteLongue_ = totalCouleur_ / nombreJoueurs_ + 2;
         int valeurRoiSeul_ = valeur(_atouts, NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(5, 6), NumberUtil.wrapIntArray(5, 6), NumberUtil.wrapIntArray(4, 5));
         int valeurDameSeul_ = valeur(_atouts, NumberUtil.wrapIntArray(4, 7), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(2, 3));
         int valeurMariageRoiDame_ = valeur(_atouts, NumberUtil.wrapIntArray(10, 18), NumberUtil.wrapIntArray(8, 12), NumberUtil.wrapIntArray(8, 12), NumberUtil.wrapIntArray(6, 9));
@@ -186,16 +161,18 @@ public final class GameTarotBid {
             total_ += cavalier_ * valeurCavalier_;
             total_ += valet_ * valeurValet_;
             if (mt_.total() >= nombreLimiteLongue_) {
-                total_ += _valeurLongue;
+                total_ += valeurLongue_;
             }
             if (mt_.estVide()) {
-                total_ += _valeurCoupe;
+                total_ += valeurCoupe_;
             }
         }
         return total_;
     }
 
-    private int sum(HandTarot _trumps, CustList<HandTarot> _suitesAtouts, int _valeurAtoutMajeur, int _valeurAtoutMoyen) {
+    private int sum(int _atouts, HandTarot _trumps, CustList<HandTarot> _suitesAtouts) {
+        int valeurAtoutMajeur_ = valeur(_atouts, NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(4, 7));
+        int valeurAtoutMoyen_ = valeur(_atouts, NumberUtil.wrapIntArray(1, 2), NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 3));
         int nbTrumps_ = _trumps.total();
         int nbAtoutsQuinzeAuVingtEtUn_ = 0;
         int nbAtoutsSeptAuQuatorze_ = 0;
@@ -223,25 +200,26 @@ public final class GameTarotBid {
                 }
             }
         }
-        return _valeurAtoutMajeur * nbAtoutsQuinzeAuVingtEtUn_
-                + _valeurAtoutMoyen * nbAtoutsSeptAuQuatorze_;
+        return valeurAtoutMajeur_ * nbAtoutsQuinzeAuVingtEtUn_
+                + valeurAtoutMoyen_ * nbAtoutsSeptAuQuatorze_;
     }
 
-    private int lim(int _one, int _two, int _three, int _four) {
+    private int lim() {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         if (nombreJoueurs_ == 3) {
-            return _one;
-        } else if (nombreJoueurs_ == 4){
-            return _two;
-        } else if (nombreJoueurs_ == 5) {
-            return _three;
-        } else {
-            /* 6 joueurs */
-            return _four;
+            return 12;
         }
+        if (nombreJoueurs_ == 4){
+            return 9;
+        }
+        if (nombreJoueurs_ == 5) {
+            return 7;
+        }
+        /* 6 joueurs */
+        return 6;
     }
     private int valeurSing(int _atouts, int _one, int _two) {
-        if (_atouts <= lim(12, 9, 7, 6)) {
+        if (_atouts <= lim()) {
             return _one;
         }
         return _two;
@@ -260,14 +238,14 @@ public final class GameTarotBid {
         /* 6 joueurs */
         return valeurSing(_atouts,_four[0],_four[1]);
     }
-    private int valeurPetitBout(int _atouts,int _fbound, int _sbound, int _fvalue, int _svalue, int _tvalue) {
+    private int valeurPetitBout(int _atouts, int _fbound, int _sbound, int _svalue, int _tvalue) {
         if (_atouts <= _fbound) {
-            return _fvalue;
-        } else if (_atouts <= _sbound) {
-            return _svalue;
-        } else {
-            return _tvalue;
+            return 0;
         }
+        if (_atouts <= _sbound) {
+            return _svalue;
+        }
+        return _tvalue;
     }
     static boolean incr(CardTarot _c, CustList<HandTarot> _l, int _lim) {
         for (HandTarot main_ : _l) {
