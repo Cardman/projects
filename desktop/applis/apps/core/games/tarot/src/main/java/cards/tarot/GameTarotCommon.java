@@ -281,7 +281,7 @@ public final class GameTarotCommon {
         cartesJoueesOuPossedees_.ajouterCartes(cartes_);
         cartesJoueesOuPossedees_.trierParForceEnCours(_i);
         HandTarot cartesMaitresses_ = new HandTarot();
-        int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
+        int nbPlayedOrOwnedCards_ = Math.min(cartesJoueesOuPossedees_.total(),couleurTotale_.total());
         for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
             if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
                     couleurTotale_.carte(c))) {
