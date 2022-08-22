@@ -613,28 +613,7 @@ public final class GameTarotBid {
                 }
             }
             cartesJoueesOuPossedees_.trierParForceEnCours(i);
-            HandTarot cartesMaitresses_ = new HandTarot();
-            int length_ = cartesJoueesOuPossedees_.total();
-            for (byte c = IndexConstants.FIRST_INDEX; c < length_; c++) {
-                if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
-                        couleurTotale_.carte(c))) {
-                    break;
-                }
-                if (!cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
-                    continue;
-                }
-                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
-            }
-            int nbLeadingCards_ = cartesMaitresses_.total();
-            if (nbLeadingCards_ + cartes_.total() + _playedCards.getVal(i).total() >= couleurTotale_
-                    .total()) {
-                for (CardTarot carte_ : cartes_) {
-                    if (!cartesMaitresses_.contient(carte_)) {
-                        cartesMaitresses_.ajouter(carte_);
-                    }
-                }
-            }
-            suits_.put(i,cartesMaitresses_);
+            suits_.put(i,GameTarotCommon.findLeading(cartes_,couleurTotale_,cartesJoueesOuPossedees_,_playedCards.getVal(i)));
         }
         return suits_;
     }

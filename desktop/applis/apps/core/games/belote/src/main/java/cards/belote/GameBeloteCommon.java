@@ -2,12 +2,12 @@ package cards.belote;
 
 import cards.belote.comparators.*;
 import cards.belote.enumerations.CardBelote;
+import cards.consts.LeadingCards;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.IdMap;
-import code.util.core.IndexConstants;
 
 public final class GameBeloteCommon {
 
@@ -240,28 +240,14 @@ public final class GameBeloteCommon {
         cartesJoueesOuPossedees_.trierUnicolore(true);
 
 
-        HandBelote cartesMaitresses_ = new HandBelote(ordre_);
-        int nbPlayedOrOwnedCards_ = Math.min(couleurTotale_.total(), cartesJoueesOuPossedees_.total());
-        for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
-            if (!CardBelote.eq(cartesJoueesOuPossedees_.carte(c),
-                    couleurTotale_.carte(c))) {
-                break;
-            }
-            if (cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
-                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
-            }
+        LeadingCards<CardBelote> calc_ = new LeadingCards<CardBelote>();
+        calc_.leading(cartesJoueesOuPossedees_.getCards(),cartes_.getCards(),hand(_cartesJouees, _couleur).getCards(),couleurTotale_.getCards());
+        HandBelote retr_ = new HandBelote(ordre_);
+        for (CardBelote c: calc_.getList()) {
+            retr_.ajouter(c);
         }
-        int nbLeadingCards_ = cartesMaitresses_.total();
-        if (nbLeadingCards_ + cartes_.total() + _cartesJouees.getVal(_couleur).total() >= couleurTotale_
-                .total()) {
-            for (CardBelote carte_ : cartes_) {
-                if (!cartesMaitresses_.contient(carte_)) {
-                    cartesMaitresses_.ajouter(carte_);
-                }
-            }
-        }
-        cartesMaitresses_.trierUnicolore(true);
-        return cartesMaitresses_;
+        retr_.trierUnicolore(true);
+        return retr_;
     }
 
     private static Order order(BidBeloteSuit _contrat, Suit _couleurAtout, Suit _couleur) {

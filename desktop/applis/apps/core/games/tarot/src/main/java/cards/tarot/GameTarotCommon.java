@@ -1,5 +1,6 @@
 package cards.tarot;
 
+import cards.consts.LeadingCards;
 import cards.consts.Suit;
 import cards.tarot.comparators.*;
 import cards.tarot.enumerations.CardTarot;
@@ -287,28 +288,19 @@ public final class GameTarotCommon {
         cartesJoueesOuPossedees_.ajouterCartes(pla_);
         cartesJoueesOuPossedees_.ajouterCartes(cartes_);
         cartesJoueesOuPossedees_.trierParForceEnCours(_i);
-        HandTarot cartesMaitresses_ = new HandTarot();
-        int nbPlayedOrOwnedCards_ = Math.min(cartesJoueesOuPossedees_.total(),couleurTotale_.total());
-        for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
-            if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
-                    couleurTotale_.carte(c))) {
-                break;
-            }
-            if (cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
-                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
-            }
+        HandTarot retr_ = findLeading(cartes_, couleurTotale_, cartesJoueesOuPossedees_, pla_);
+        retr_.trierParForceEnCours(_i);
+        return retr_;
+    }
+
+    static HandTarot findLeading(HandTarot _cartes, HandTarot _couleurTotale, HandTarot _cartesJoueesOuPossedees, HandTarot _pla) {
+        LeadingCards<CardTarot> calc_ = new LeadingCards<CardTarot>();
+        calc_.leading(_cartesJoueesOuPossedees.getCards(), _cartes.getCards(), _pla.getCards(), _couleurTotale.getCards());
+        HandTarot retr_ = new HandTarot();
+        for (CardTarot c: calc_.getList()) {
+            retr_.ajouter(c);
         }
-        int nbLeadingCards_ = cartesMaitresses_.total();
-        if (nbLeadingCards_ + cartes_.total() + pla_.total() >= couleurTotale_
-                .total()) {
-            for (CardTarot carte_ : cartes_) {
-                if (!cartesMaitresses_.contient(carte_)) {
-                    cartesMaitresses_.ajouter(carte_);
-                }
-            }
-        }
-        cartesMaitresses_.trierParForceEnCours(_i);
-        return cartesMaitresses_;
+        return retr_;
     }
 
     public static int atoutsAvecExcuse(EnumMap<Suit, HandTarot> _couleurs) {

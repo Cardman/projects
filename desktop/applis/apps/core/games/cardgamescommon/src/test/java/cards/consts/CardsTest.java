@@ -192,6 +192,83 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq(2, new SortedPlayers(4).index(0,2, 3));
     }
     @Test
+    public void leading1() {
+        LeadingCards<CardChar> lead_ = new LeadingCards<CardChar>();
+        lead_.leading(two(CardChar.EXCUSE,CardChar.QUEEN),two(CardChar.EXCUSE,CardChar.QUEEN),zero(),all());
+        CustList<CardChar> list_ = lead_.getList();
+        assertEq(1, list_.size());
+        assertSame(CardChar.EXCUSE, list_.get(0));
+    }
+    @Test
+    public void leading2() {
+        LeadingCards<CardChar> lead_ = new LeadingCards<CardChar>();
+        lead_.leading(two(CardChar.KING,CardChar.QUEEN),two(CardChar.KING,CardChar.QUEEN),zero(),all());
+        CustList<CardChar> list_ = lead_.getList();
+        assertEq(0, list_.size());
+    }
+    @Test
+    public void leading3() {
+        LeadingCards<CardChar> lead_ = new LeadingCards<CardChar>();
+        lead_.leading(three(CardChar.EXCUSE,CardChar.KING,CardChar.QUEEN),two(CardChar.EXCUSE,CardChar.QUEEN),one(CardChar.KING),all());
+        CustList<CardChar> list_ = lead_.getList();
+        assertEq(2, list_.size());
+        assertSame(CardChar.EXCUSE, list_.get(0));
+        assertSame(CardChar.QUEEN, list_.get(1));
+    }
+    @Test
+    public void leading4() {
+        LeadingCards<CardChar> lead_ = new LeadingCards<CardChar>();
+        lead_.leading(four(CardChar.EXCUSE,CardChar.KING,CardChar.QUEEN,CardChar.UNDEFINED),three(CardChar.EXCUSE,CardChar.QUEEN,CardChar.UNDEFINED),one(CardChar.KING),all());
+        CustList<CardChar> list_ = lead_.getList();
+        assertEq(3, list_.size());
+        assertSame(CardChar.EXCUSE, list_.get(0));
+        assertSame(CardChar.QUEEN, list_.get(1));
+        assertSame(CardChar.UNDEFINED, list_.get(2));
+    }
+    @Test
+    public void leading5() {
+        LeadingCards<CardChar> lead_ = new LeadingCards<CardChar>();
+        lead_.leading(all(),three(CardChar.EXCUSE,CardChar.QUEEN,CardChar.UNDEFINED),three(CardChar.KING,CardChar.KNIGHT,CardChar.JACK),all());
+        CustList<CardChar> list_ = lead_.getList();
+        assertEq(3, list_.size());
+        assertSame(CardChar.EXCUSE, list_.get(0));
+        assertSame(CardChar.QUEEN, list_.get(1));
+        assertSame(CardChar.UNDEFINED, list_.get(2));
+    }
+    private static CustList<CardChar> zero() {
+        return new CustList<CardChar>();
+    }
+    private static CustList<CardChar> one(CardChar _one) {
+        CustList<CardChar> ls_ = zero();
+        ls_.add(_one);
+        return ls_;
+    }
+    private static CustList<CardChar> two(CardChar _one, CardChar _two) {
+        CustList<CardChar> ls_ = one(_one);
+        ls_.add(_two);
+        return ls_;
+    }
+    private static CustList<CardChar> three(CardChar _one, CardChar _two, CardChar _three) {
+        CustList<CardChar> ls_ = two(_one,_two);
+        ls_.add(_three);
+        return ls_;
+    }
+    private static CustList<CardChar> four(CardChar _one, CardChar _two, CardChar _three, CardChar _four) {
+        CustList<CardChar> ls_ = three(_one,_two,_three);
+        ls_.add(_four);
+        return ls_;
+    }
+    private static CustList<CardChar> five(CardChar _one, CardChar _two, CardChar _three, CardChar _four, CardChar _five) {
+        CustList<CardChar> ls_ = four(_one,_two,_three,_four);
+        ls_.add(_five);
+        return ls_;
+    }
+    private static CustList<CardChar> all() {
+        CustList<CardChar> ls_ = five(CardChar.EXCUSE,CardChar.KING,CardChar.QUEEN,CardChar.KNIGHT,CardChar.JACK);
+        ls_.add(CardChar.UNDEFINED);
+        return ls_;
+    }
+    @Test
     public void eqSuitTest() {
         assertEq(4, Suit.couleursOrdinaires().size());
         assertEq(5, Suit.couleursDefinies().size());
