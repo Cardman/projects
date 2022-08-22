@@ -7,7 +7,6 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.core.IndexConstants;
 
 public final class GameTarotCommon {
 
