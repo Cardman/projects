@@ -12,12 +12,13 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class GameTarotBid {
-    private HandTarot currentHand;
-    private RulesTarot rules;
-    private EnumList<BidTarot> bids;
-    private BidTarot bid;
+    private final HandTarot currentHand;
+    private final RulesTarot rules;
+    private final EnumList<BidTarot> bids;
+    private final BidTarot bid;
 
     public GameTarotBid(HandTarot _currentHand, RulesTarot _rules,
                         EnumList<BidTarot> _bids, BidTarot _bid) {
@@ -39,11 +40,6 @@ public final class GameTarotBid {
         Suit couleurAtout_ = Suit.TRUMP;
         HandTarot trumps_ = couleurs_.getVal(couleurAtout_);
         CustList<HandTarot> suitesAtouts_ = trumps_.eclaterDebutPartie();
-        int valeurAtout_;
-        int valeurAtoutMoyen_;
-        int valeurAtoutMajeur_;
-        int nbAtoutsQuinzeAuVingtEtUn_ = 0;
-        int nbAtoutsSeptAuQuatorze_ = 0;
         int nbAtoutsMajeursConsecutifs_ = 0;
         HandTarot bouts_ = getOulderInHand(couleurs_);
         for (HandTarot main_ : suitesAtouts_) {
@@ -51,206 +47,33 @@ public final class GameTarotBid {
                 nbAtoutsMajeursConsecutifs_ += main_.total();
             }
         }
-        int nbTrumps_ = trumps_.total();
-        for (int indiceCarte_ = IndexConstants.FIRST_INDEX; indiceCarte_ < nbTrumps_; indiceCarte_++) {
-            if (trumps_.carte(indiceCarte_).getId().getValeur() > 14) {
-                nbAtoutsQuinzeAuVingtEtUn_++;
-            } else if (trumps_.carte(indiceCarte_).getId().getValeur() > 6) {
-                boolean continuer_ = incr(trumps_.carte(
-                        indiceCarte_),suitesAtouts_,14);
-                if (continuer_) {
-                    nbAtoutsQuinzeAuVingtEtUn_++;
-                    continue;
-                }
-                nbAtoutsSeptAuQuatorze_++;
-            } else {
-                boolean continuer_ = incr(trumps_.carte(
-                        indiceCarte_),suitesAtouts_,14);
-                if (continuer_) {
-                    nbAtoutsQuinzeAuVingtEtUn_++;
-                    continue;
-                }
-                if (incr(trumps_.carte(
-                        indiceCarte_),suitesAtouts_,6)) {
-                    nbAtoutsSeptAuQuatorze_++;
-                }
-            }
-        }
-        int total_ = 0;
-        int valeurVingtEtUnSeul_;
-        int valeurExcuseSeule_;
-        int valeurVingtEtUnExcuse_;
+        int valeurAtout_ = valeur(atouts_, NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(4, 5), NumberUtil.wrapIntArray(4, 5), NumberUtil.wrapIntArray(5, 7));
+        int valeurAtoutMajeur_ = valeur(atouts_, NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(4, 7));
+        int valeurAtoutMoyen_ = valeur(atouts_, NumberUtil.wrapIntArray(1, 2), NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 3));
+        int valeurVingtEtUnSeul_ = valeur(atouts_, NumberUtil.wrapIntArray(4, 6), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(8, 10));
+        int valeurExcuseSeule_ = valeur(atouts_, NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(5, 7));
+        int valeurVingtEtUnExcuse_ = valeur(atouts_, NumberUtil.wrapIntArray(10, 14), NumberUtil.wrapIntArray(12, 16), NumberUtil.wrapIntArray(12, 16), NumberUtil.wrapIntArray(16, 21));
+        int valeurLongue_ = valeur(atouts_, NumberUtil.wrapIntArray(3, 6), NumberUtil.wrapIntArray(4, 8), NumberUtil.wrapIntArray(4, 8), NumberUtil.wrapIntArray(5, 11));
+        int valeurCoupe_ = valeur(atouts_, NumberUtil.wrapIntArray(1, 2), NumberUtil.wrapIntArray(2, 4), NumberUtil.wrapIntArray(2, 4), NumberUtil.wrapIntArray(3, 7));
+        int coeff_ = valeur(atouts_, NumberUtil.wrapIntArray(1,2), NumberUtil.wrapIntArray(2,4), NumberUtil.wrapIntArray(2,4), NumberUtil.wrapIntArray(3,6));
+        int total_ = nbAtoutsMajeursConsecutifs_ * coeff_;
+        int midSup_ = sum(trumps_, suitesAtouts_, valeurAtoutMajeur_, valeurAtoutMoyen_);
+        total_ += valeurAtout_ * atouts_ + midSup_;
         int valeurPetitBout_;
-        int valeurMariageRoiDame_;
-        // roi - dame
-        int valeurRoiSeul_;
-        int valeurDameSeul_;
-        int valeurCavalier_;
-        int valeurValet_;
-        int valeurCoupe_;
-        int valeurLongue_;
         if (nombreJoueurs_ == 3) {
-            if (atouts_ <= 7) {
-                valeurPetitBout_ = 0;
-            } else if (atouts_ <= 12) {
-                valeurPetitBout_ = 2;
-            } else {
-                valeurPetitBout_ = 4;
-            }
-            if (atouts_ <= 12) {
-                valeurAtoutMoyen_ = 1;
-                valeurAtout_ = 3;
-                valeurAtoutMajeur_ = 2;
-                valeurVingtEtUnSeul_ = 4;
-                valeurExcuseSeule_ = 2;
-                valeurVingtEtUnExcuse_ = 10;
-                valeurMariageRoiDame_ = 10;
-                valeurRoiSeul_ = 6;
-                valeurDameSeul_ = 4;
-                valeurCavalier_ = 3;
-                valeurValet_ = 1;
-                valeurCoupe_ = 1;
-                valeurLongue_ = 3;
-                total_ += nbAtoutsMajeursConsecutifs_;
-            } else {
-                valeurAtoutMoyen_ = 2;
-                valeurAtout_ = 4;
-                valeurAtoutMajeur_ = 3;
-                valeurVingtEtUnSeul_ = 6;
-                valeurExcuseSeule_ = 3;
-                valeurVingtEtUnExcuse_ = 14;
-                valeurMariageRoiDame_ = 18;
-                valeurRoiSeul_ = 8;
-                valeurDameSeul_ = 7;
-                valeurCavalier_ = 3;
-                valeurValet_ = 2;
-                valeurCoupe_ = 2;
-                valeurLongue_ = 6;
-                total_ += nbAtoutsMajeursConsecutifs_ * 2;
-            }
+            valeurPetitBout_ = valeurPetitBout(atouts_,7,12,0,2,4);
         } else if (nombreJoueurs_ == 4) {
-            if (atouts_ <= 6) {
-                valeurPetitBout_ = 0;
-            } else if (atouts_ <= 9) {
-                valeurPetitBout_ = 3;
-            } else {
-                valeurPetitBout_ = 6;
-            }
-            valeurCavalier_ = 2;
-            valeurValet_ = 1;
-            if (atouts_ <= 9) {
-                valeurAtout_ = 4;
-                valeurAtoutMoyen_ = 2;
-                valeurAtoutMajeur_ = 3;
-                valeurVingtEtUnSeul_ = 6;
-                valeurExcuseSeule_ = 3;
-                valeurVingtEtUnExcuse_ = 12;
-                valeurMariageRoiDame_ = 8;
-                valeurRoiSeul_ = 5;
-                valeurDameSeul_ = 3;
-                valeurCoupe_ = 2;
-                valeurLongue_ = 4;
-                total_ += nbAtoutsMajeursConsecutifs_ * 2;
-            } else {
-                valeurAtout_ = 5;
-                valeurAtoutMoyen_ = 3;
-                valeurAtoutMajeur_ = 4;
-                valeurVingtEtUnSeul_ = 8;
-                valeurExcuseSeule_ = 4;
-                valeurVingtEtUnExcuse_ = 16;
-                valeurMariageRoiDame_ = 12;
-                valeurRoiSeul_ = 6;
-                valeurDameSeul_ = 4;
-                valeurCoupe_ = 4;
-                valeurLongue_ = 8;
-                total_ += nbAtoutsMajeursConsecutifs_ * 4;
-            }
+            valeurPetitBout_ = valeurPetitBout(atouts_,6,9,0,3,6);
         } else if (nombreJoueurs_ == 5) {
-            if (atouts_ <= 5) {
-                valeurPetitBout_ = 0;
-            } else if (atouts_ <= 7) {
-                valeurPetitBout_ = 3;
-            } else {
-                valeurPetitBout_ = 6;
-            }
-            valeurCavalier_ = 2;
-            valeurValet_ = 1;
-            if (atouts_ <= 7) {
-                valeurAtout_ = 4;
-                valeurAtoutMoyen_ = 2;
-                valeurAtoutMajeur_ = 3;
-                valeurVingtEtUnSeul_ = 6;
-                valeurExcuseSeule_ = 3;
-                valeurVingtEtUnExcuse_ = 12;
-                valeurMariageRoiDame_ = 8;
-                valeurRoiSeul_ = 5;
-                valeurDameSeul_ = 3;
-                valeurCoupe_ = 2;
-                valeurLongue_ = 4;
-                total_ += nbAtoutsMajeursConsecutifs_ * 2;
-            } else {
-                valeurAtout_ = 5;
-                valeurAtoutMoyen_ = 3;
-                valeurAtoutMajeur_ = 4;
-                valeurVingtEtUnSeul_ = 8;
-                valeurExcuseSeule_ = 4;
-                valeurVingtEtUnExcuse_ = 16;
-                valeurMariageRoiDame_ = 12;
-                valeurRoiSeul_ = 6;
-                valeurDameSeul_ = 4;
-                valeurCoupe_ = 4;
-                valeurLongue_ = 8;
-                total_ += nbAtoutsMajeursConsecutifs_ * 4;
-            }
+            valeurPetitBout_ = valeurPetitBout(atouts_,5,7,0,3,6);
         } else {
             /* 6 joueurs */
-            if (atouts_ <= 4) {
-                valeurPetitBout_ = 0;
-            } else if (atouts_ <= 6) {
-                valeurPetitBout_ = 5;
-            } else {
-                valeurPetitBout_ = 10;
-            }
-            valeurAtoutMoyen_ = 3;
-            valeurCavalier_ = 2;
-            valeurValet_ = 1;
-            if (atouts_ <= 6) {
-                valeurAtout_ = 5;
-                valeurAtoutMajeur_ = 4;
-                valeurVingtEtUnSeul_ = 8;
-                valeurExcuseSeule_ = 5;
-                valeurVingtEtUnExcuse_ = 16;
-                valeurMariageRoiDame_ = 6;
-                valeurRoiSeul_ = 4;
-                valeurDameSeul_ = 2;
-                valeurCoupe_ = 3;
-                valeurLongue_ = 5;
-                total_ += nbAtoutsMajeursConsecutifs_ * 3;
-            } else {
-                valeurAtout_ = 7;
-                valeurAtoutMajeur_ = 7;
-                valeurVingtEtUnSeul_ = 10;
-                valeurExcuseSeule_ = 7;
-                valeurVingtEtUnExcuse_ = 21;
-                valeurMariageRoiDame_ = 9;
-                valeurRoiSeul_ = 5;
-                valeurDameSeul_ = 3;
-                valeurCoupe_ = 7;
-                valeurLongue_ = 11;
-                total_ += nbAtoutsMajeursConsecutifs_ * 6;
-            }
+            valeurPetitBout_ = valeurPetitBout(atouts_,4,6,0,5,10);
         }
         if (atouts_ == 0) {
             valeurCoupe_ = 0;
             valeurLongue_ = 0;
         }
-        int nombreLimiteLongue_;
-        int totalCouleur_=0;
-        for(Suit c: Suit.couleursOrdinaires()) {
-            totalCouleur_+= HandTarot.couleurComplete(c).total();
-        }
-        totalCouleur_ /= Suit.couleursOrdinaires().size();
-        nombreLimiteLongue_ = totalCouleur_ / nombreJoueurs_ + 2;
         if (bouts_.contient(CardTarot.petit())) {
             total_ += valeurPetitBout_;
         }
@@ -262,30 +85,12 @@ public final class GameTarotBid {
         } else if (bouts_.contient(CardTarot.vingtEtUn())) {
             total_ += valeurVingtEtUnSeul_;
         }
-        total_ += valeurAtout_ * atouts_ + valeurAtoutMajeur_ * nbAtoutsQuinzeAuVingtEtUn_
-                + valeurAtoutMoyen_ * nbAtoutsSeptAuQuatorze_;
-        for (Suit couleur_ : Suit.couleursOrdinaires()) {
-            HandTarot mt_ = couleurs_.getVal(couleur_);
-            int roi_ = mt_.tailleRois();
-            int dame_ = mt_.tailleDames();
-            int cavalier_ = mt_.tailleCavaliers();
-            int valet_ = mt_.tailleValets();
-            if (roi_ + dame_ == 2) {
-                total_ += valeurMariageRoiDame_;
-            } else if (roi_ == 1) {
-                total_ += valeurRoiSeul_;
-            } else if (dame_ == 1) {
-                total_ += valeurDameSeul_;
-            }
-            total_ += cavalier_ * valeurCavalier_;
-            total_ += valet_ * valeurValet_;
-            if (mt_.total() >= nombreLimiteLongue_) {
-                total_ += valeurLongue_;
-            }
-            if (mt_.estVide()) {
-                total_ += valeurCoupe_;
-            }
-        }
+        total_ += normalSuits(atouts_,couleurs_,valeurLongue_,valeurCoupe_);
+        return end(atouts_, total_);
+    }
+
+    private BidTarot end(int _atouts, int _total) {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
         int petite_;
         int garde_;
         if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
@@ -319,54 +124,161 @@ public final class GameTarotBid {
                 garde_ = 100;
             }
         }
+        return end(_atouts, _total, petite_, garde_);
+    }
+
+    private BidTarot end(int _atouts, int _total, int _petite, int _garde) {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
         boolean sansAppel_ = rules.getDealing().getAppel() == CallingCard.DEFINED
                 || rules.getDealing().getAppel() == CallingCard.WITHOUT;
-        int limTr_;
-        if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
-            limTr_ = 12;
-        } else  if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getId().getNombreJoueurs()) {
-            limTr_ = 9;
-        } else  if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_3_CALL_KING.getId().getNombreJoueurs()) {
-            limTr_ = 7;
-        } else {
-            limTr_ = 6;
-        }
-        if (atouts_ >= limTr_ && total_ >= garde_) {
+        int limTr_ = lim(12, 9, 7, 6);
+        if (_atouts >= limTr_ && _total >= _garde) {
             BidTarot f_ = tryGetStrongBid(sansAppel_);
             if (f_.isJouerDonne()) {
                 return f_;
             }
         }
         BidTarot c_;
-        if (total_ < petite_) {
+        if (_total < _petite) {
             c_ = BidTarot.FOLD;
-        } else if (total_ < garde_ && contratAccepte(BidTarot.TAKE)) {
+        } else if (_total < _garde && contratAccepte(BidTarot.TAKE)) {
             c_ = BidTarot.TAKE;
         } else {
             c_ = BidTarot.GUARD;
         }
         if (c_.estDemandable(bid)) {
-            if (c_ == BidTarot.TAKE) {
-                if (bids.size() == nombreJoueurs_ - 1) {
-                    c_ = BidTarot.GUARD;
-                }
+            if (c_ == BidTarot.TAKE && bids.size() == nombreJoueurs_ - 1) {
+                c_ = BidTarot.GUARD;
             }
             return c_;
         }
         return BidTarot.FOLD;
     }
+
+    private int normalSuits(int _atouts, EnumMap<Suit, HandTarot> _couleurs, int _valeurLongue, int _valeurCoupe) {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int nombreLimiteLongue_;
+        int totalCouleur_=0;
+        for(Suit c: Suit.couleursOrdinaires()) {
+            totalCouleur_+= HandTarot.couleurComplete(c).total();
+        }
+        totalCouleur_ /= Suit.couleursOrdinaires().size();
+        nombreLimiteLongue_ = totalCouleur_ / nombreJoueurs_ + 2;
+        int valeurRoiSeul_ = valeur(_atouts, NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(5, 6), NumberUtil.wrapIntArray(5, 6), NumberUtil.wrapIntArray(4, 5));
+        int valeurDameSeul_ = valeur(_atouts, NumberUtil.wrapIntArray(4, 7), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(2, 3));
+        int valeurMariageRoiDame_ = valeur(_atouts, NumberUtil.wrapIntArray(10, 18), NumberUtil.wrapIntArray(8, 12), NumberUtil.wrapIntArray(8, 12), NumberUtil.wrapIntArray(6, 9));
+        int valeurCavalier_ = valeur(_atouts, NumberUtil.wrapIntArray(3, 3), NumberUtil.wrapIntArray(2, 2), NumberUtil.wrapIntArray(2, 2), NumberUtil.wrapIntArray(2, 2));
+        int valeurValet_ = valeur(_atouts, NumberUtil.wrapIntArray(1, 2), NumberUtil.wrapIntArray(1, 1), NumberUtil.wrapIntArray(1, 1), NumberUtil.wrapIntArray(1, 1));
+        int total_ = 0;
+        for (Suit couleur_ : Suit.couleursOrdinaires()) {
+            HandTarot mt_ = _couleurs.getVal(couleur_);
+            int roi_ = mt_.tailleRois();
+            int dame_ = mt_.tailleDames();
+            int cavalier_ = mt_.tailleCavaliers();
+            int valet_ = mt_.tailleValets();
+            if (roi_ + dame_ == 2) {
+                total_ += valeurMariageRoiDame_;
+            } else if (roi_ == 1) {
+                total_ += valeurRoiSeul_;
+            } else if (dame_ == 1) {
+                total_ += valeurDameSeul_;
+            }
+            total_ += cavalier_ * valeurCavalier_;
+            total_ += valet_ * valeurValet_;
+            if (mt_.total() >= nombreLimiteLongue_) {
+                total_ += _valeurLongue;
+            }
+            if (mt_.estVide()) {
+                total_ += _valeurCoupe;
+            }
+        }
+        return total_;
+    }
+
+    private int sum(HandTarot _trumps, CustList<HandTarot> _suitesAtouts, int _valeurAtoutMajeur, int _valeurAtoutMoyen) {
+        int nbTrumps_ = _trumps.total();
+        int nbAtoutsQuinzeAuVingtEtUn_ = 0;
+        int nbAtoutsSeptAuQuatorze_ = 0;
+        for (int indiceCarte_ = IndexConstants.FIRST_INDEX; indiceCarte_ < nbTrumps_; indiceCarte_++) {
+            if (_trumps.carte(indiceCarte_).getId().getValeur() > 14) {
+                nbAtoutsQuinzeAuVingtEtUn_++;
+            } else if (_trumps.carte(indiceCarte_).getId().getValeur() > 6) {
+                boolean continuer_ = incr(_trumps.carte(
+                        indiceCarte_), _suitesAtouts,14);
+                if (continuer_) {
+                    nbAtoutsQuinzeAuVingtEtUn_++;
+                } else {
+                    nbAtoutsSeptAuQuatorze_++;
+                }
+            } else {
+                boolean continuer_ = incr(_trumps.carte(
+                        indiceCarte_), _suitesAtouts,14);
+                if (continuer_) {
+                    nbAtoutsQuinzeAuVingtEtUn_++;
+                    continue;
+                }
+                if (incr(_trumps.carte(
+                        indiceCarte_), _suitesAtouts,6)) {
+                    nbAtoutsSeptAuQuatorze_++;
+                }
+            }
+        }
+        return _valeurAtoutMajeur * nbAtoutsQuinzeAuVingtEtUn_
+                + _valeurAtoutMoyen * nbAtoutsSeptAuQuatorze_;
+    }
+
+    private int lim(int _one, int _two, int _three, int _four) {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
+        if (nombreJoueurs_ == 3) {
+            return _one;
+        } else if (nombreJoueurs_ == 4){
+            return _two;
+        } else if (nombreJoueurs_ == 5) {
+            return _three;
+        } else {
+            /* 6 joueurs */
+            return _four;
+        }
+    }
+    private int valeurSing(int _atouts, int _one, int _two) {
+        if (_atouts <= lim(12, 9, 7, 6)) {
+            return _one;
+        }
+        return _two;
+    }
+    private int valeur(int _atouts, int[] _one, int[] _two, int[] _three, int[] _four) {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
+        if (nombreJoueurs_ == 3) {
+            return valeurSing(_atouts,_one[0],_one[1]);
+        }
+        if (nombreJoueurs_ == 4) {
+            return valeurSing(_atouts,_two[0],_two[1]);
+        }
+        if (nombreJoueurs_ == 5) {
+            return valeurSing(_atouts,_three[0],_three[1]);
+        }
+        /* 6 joueurs */
+        return valeurSing(_atouts,_four[0],_four[1]);
+    }
+    private int valeurPetitBout(int _atouts,int _fbound, int _sbound, int _fvalue, int _svalue, int _tvalue) {
+        if (_atouts <= _fbound) {
+            return _fvalue;
+        } else if (_atouts <= _sbound) {
+            return _svalue;
+        } else {
+            return _tvalue;
+        }
+    }
     static boolean incr(CardTarot _c, CustList<HandTarot> _l, int _lim) {
-        boolean continuer_ = false;
         for (HandTarot main_ : _l) {
             if (main_.premiereCarte().getId().getValeur() <= _lim) {
                 break;
             }
             if (main_.contient(_c)) {
-                continuer_ = true;
-                break;
+                return true;
             }
         }
-        return continuer_;
+        return false;
     }
     static boolean estUnJeuDeChelem(EnumMap<Suit, HandTarot> _couleurs,
                                     EnumMap<Suit, HandTarot> _cartesJouees,
@@ -444,9 +356,7 @@ public final class GameTarotBid {
     BidTarot getStrongBid(HandTarot _bouts) {
         BidTarot e_ = BidTarot.FOLD;
         PlayingDog jeuChien_ = PlayingDog.WITHOUT;
-        if (_bouts.total() >= 2) {
-            jeuChien_ = PlayingDog.AGAINST;
-        } else if (_bouts.contient(CardTarot.vingtEtUn())) {
+        if (_bouts.total() >= 2 || _bouts.contient(CardTarot.vingtEtUn())) {
             jeuChien_ = PlayingDog.AGAINST;
         }
         for(BidTarot e: allowedBids()) {
@@ -578,23 +488,18 @@ public final class GameTarotBid {
         cartesJoueesOuPossedes_.trierParForceEnCours(_noCouleur);
         HandTarot couleurComplete_ = HandTarot.couleurComplete(_noCouleur);
         couleurComplete_.trierParForceEnCours(_noCouleur);
-        boolean cartesMaitressesToutesJoueesOuPossedes_ = true;
         for(CardTarot carte_: couleurComplete_) {
             if(!cartesJoueesOuPossedes_.contient(carte_)) {
-                cartesMaitressesToutesJoueesOuPossedes_ = false;
-                break;
+                return 0;
             }
             if(couleur_.contient(carte_)) {
                 break;
             }
         }
-        if(cartesMaitressesToutesJoueesOuPossedes_) {
-            if (suites_.isEmpty()) {
-                return 0;
-            }
-            return suites_.first().total();
+        if (suites_.isEmpty()) {
+            return 0;
         }
-        return 0;
+        return suites_.first().total();
     }
     static EnumMap<Suit,HandTarot> cartesPseudoMaitresses(
             EnumMap<Suit,HandTarot> _couleurs, HandTarot _autresCartes,
@@ -638,22 +543,16 @@ public final class GameTarotBid {
         if (rules.getDealing().getAppel() == CallingCard.KING) {
             if (currentHand.tailleRois() < HandTarot.charCards(CardChar.KING).total()) {
                 main_.ajouterCartes(HandTarot.charCards(CardChar.KING));
+            } else if (currentHand.tailleDames() < HandTarot.charCards(CardChar.QUEEN).total()) {
+                main_.ajouterCartes(HandTarot.charCards(CardChar.QUEEN));
+            } else if (currentHand.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+            } else if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
             } else {
-                if (currentHand.tailleDames() < HandTarot.charCards(CardChar.QUEEN).total()) {
-                    main_.ajouterCartes(HandTarot.charCards(CardChar.QUEEN));
-                } else {
-                    if (currentHand.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
-                        main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
-                    } else {
-                        if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
-                            main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                        } else {
-                            main_.ajouter(CardTarot.petit());
-                            main_.ajouter(CardTarot.vingtEtUn());
-                            main_.ajouter(CardTarot.excuse());
-                        }
-                    }
-                }
+                main_.ajouter(CardTarot.petit());
+                main_.ajouter(CardTarot.vingtEtUn());
+                main_.ajouter(CardTarot.excuse());
             }
         } else if (rules.getDealing().getAppel() == CallingCard.CHARACTER_CARD) {
             main_.ajouterCartes(HandTarot.figuesCouleurs());
