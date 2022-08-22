@@ -626,7 +626,7 @@ public final class GameTarotBid {
                 cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
             }
             int nbLeadingCards_ = cartesMaitresses_.total();
-            if (nbLeadingCards_ + nbLeadingCards_ + _playedCards.getVal(i).total() >= couleurTotale_
+            if (nbLeadingCards_ + cartes_.total() + _playedCards.getVal(i).total() >= couleurTotale_
                     .total()) {
                 for (CardTarot carte_ : cartes_) {
                     if (!cartesMaitresses_.contient(carte_)) {

@@ -329,14 +329,10 @@ public final class GameTarotCommonPlaying {
         couleurs_.removeDuplicates();
         return couleurs_;
     }
-    static EnumList<Suit> couleursAvecCarteMaitresse(HandTarot _main,
-                                                     HandTarot _cartesJouees, EnumList<Suit> _couleurs) {
+    static EnumList<Suit> couleursAvecCarteMaitresse(EnumList<Suit> _couleurs, EnumMap<Suit, HandTarot> _cartesMaitresses) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        EnumMap<Suit,HandTarot> couleursMains_ = _main.couleurs();
-        EnumMap<Suit,HandTarot> cartesJouees_ = _cartesJouees.couleurs();
         for (Suit couleur_ : _couleurs) {
-            HandTarot cartesMaitresses_ = GameTarotCommon.cartesMaitresses(couleursMains_,
-                    cartesJouees_).getVal(couleur_);
+            HandTarot cartesMaitresses_ = _cartesMaitresses.getVal(couleur_);
             if (!cartesMaitresses_.estVide()) {
                 couleurs_.add(couleur_);
             }
@@ -344,13 +340,11 @@ public final class GameTarotCommonPlaying {
         return couleurs_;
     }
     static EnumList<Suit> couleursAvecCarteNonMaitresse(HandTarot _main,
-                                                     HandTarot _cartesJouees, EnumList<Suit> _couleurs) {
+                                                        EnumList<Suit> _couleurs, EnumMap<Suit, HandTarot> _cartesMaitresses) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         EnumMap<Suit,HandTarot> couleursMains_ = _main.couleurs();
-        EnumMap<Suit,HandTarot> cartesJouees_ = _cartesJouees.couleurs();
         for (Suit couleur_ : _couleurs) {
-            HandTarot cartesMaitresses_ = GameTarotCommon.cartesMaitresses(couleursMains_,
-                    cartesJouees_).getVal(couleur_);
+            HandTarot cartesMaitresses_ = _cartesMaitresses.getVal(couleur_);
             if (cartesMaitresses_.total() != couleursMains_.getVal(couleur_).total()) {
                 couleurs_.add(couleur_);
             }

@@ -1663,7 +1663,7 @@ public final class GameTarotProgTrickClassic {
                                          HandTarot _main, EnumMap<Suit, HandTarot> _cartesMaitresses) {
         EnumList<Suit> couleursNonVides_ = GameTarotCommon.couleursNonAtoutNonVides(_main, Suit.couleursOrdinaires());
         EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursAvecCarteNonMaitresse(_main,
-                HandTarot.reunion(_repartitionCartesJouees), Suit.couleursOrdinaires());
+                Suit.couleursOrdinaires(), _cartesMaitresses);
         if (!couleurs_.isEmpty()) {
             return jeuPetiteDefausseMaitre(_suitesTouteCouleur,
                     _cartesMaitresses, _main, couleurs_);

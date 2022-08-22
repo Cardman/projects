@@ -252,7 +252,7 @@ public final class GameBeloteCommon {
             }
         }
         int nbLeadingCards_ = cartesMaitresses_.total();
-        if (nbLeadingCards_ + nbLeadingCards_ + _cartesJouees.getVal(_couleur).total() >= couleurTotale_
+        if (nbLeadingCards_ + cartes_.total() + _cartesJouees.getVal(_couleur).total() >= couleurTotale_
                 .total()) {
             for (CardBelote carte_ : cartes_) {
                 if (!cartesMaitresses_.contient(carte_)) {

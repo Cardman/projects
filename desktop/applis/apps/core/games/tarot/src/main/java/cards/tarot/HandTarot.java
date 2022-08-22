@@ -552,43 +552,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     }
 
     public HandTarot atoutsMaitres(EnumMap<Suit,HandTarot> _cartesJouees) {
-        if(estVide()) {
-            return new HandTarot();
-        }
-        HandTarot couleurTotale_ = atoutsSansExcuse();
-        Suit couleur_=Suit.TRUMP;
-        HandTarot cartes_ = couleur(couleur_);
-        HandTarot cartesJoueesOuPossedees_ = new HandTarot();
-        HandTarot played_ = new HandTarot();
-        if(!_cartesJouees.isEmpty()) {
-            played_.ajouterCartes(_cartesJouees.getVal(couleur_));
-        }
-        //C'est_ la_ reunion_ des_ cartes_ jouees_ dans_ le_ jeu_ et_ de_ celles_ du_ joueur_
-        cartesJoueesOuPossedees_.ajouterCartes(played_);
-        cartesJoueesOuPossedees_.ajouterCartes(cartes_);
-        cartesJoueesOuPossedees_.trierParForceEnCours(couleur_);
-        HandTarot cartesMaitresses_ = new HandTarot();
-        int nbPlayedOrOwnedCards_ = Math.min(couleurTotale_.total(), cartesJoueesOuPossedees_.total());
-        for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
-            if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
-                    couleurTotale_.carte(c))) {
-                break;
-            }
-            if (cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
-                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
-            }
-        }
-        if (cartesMaitresses_.total() >= couleurTotale_
-                .total() - played_.total() - cartes_.total()) {
-            for (CardTarot carte_ : cartes_) {
-                if (!cartesMaitresses_.contient(carte_)) {
-                    cartesMaitresses_.ajouter(carte_);
-                }
-            }
-        }
-
-        cartesMaitresses_.trierParForceEnCours(couleur_);
-        return cartesMaitresses_;
+        return GameTarotCommon.cartesMaitresses(couleurs(),_cartesJouees,pileBase(),Suit.TRUMP);
     }
     public HandTarot charCardsBySuit(Suit _couleur) {
         HandTarot m=new HandTarot();

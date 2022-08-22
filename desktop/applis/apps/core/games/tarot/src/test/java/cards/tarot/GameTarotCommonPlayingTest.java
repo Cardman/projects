@@ -4922,7 +4922,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         HandTarot played_ = new HandTarot();
         played_.ajouter(CardTarot.DIAMOND_KING);
         played_.ajouter(CardTarot.HEART_KNIGHT);
-        EnumList<Suit> s_ = GameTarotCommonPlaying.couleursAvecCarteMaitresse(curHand_, played_, Suit.couleursOrdinaires());
+        EnumList<Suit> s_ = GameTarotCommonPlaying.couleursAvecCarteMaitresse(Suit.couleursOrdinaires(), GameTarotCommon.cartesMaitresses(curHand_.couleurs(),
+                played_.couleurs()));
         assertEq(2, s_.size());
         assertTrue(s_.containsObj(Suit.HEART));
         assertTrue(s_.containsObj(Suit.DIAMOND));

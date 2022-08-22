@@ -514,6 +514,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
+        cartesMaitresses_.getVal(Suit.HEART).removeCardIfPresent(CardTarot.HEART_1);
         assertSame(CardTarot.HEART_1,GameTarotProgTrickClassic.discardOptimPartner(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_));
     }
     @Test
@@ -791,6 +792,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
         s_.add(Suit.CLUB);
+        cartesMaitresses_.getVal(Suit.HEART).removeCardIfPresent(CardTarot.HEART_1);
         assertSame(CardTarot.HEART_1,GameTarotProgTrickClassic.defausseAtoutSurPartenaire(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_,s_));
     }
     @Test

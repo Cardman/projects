@@ -229,7 +229,8 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
-        CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, cartesJouees_);
+        CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, GameTarotCommon.cartesMaitresses(curHand_.couleurs(),
+                cartesJouees_.couleurs()));
         assertSame(CardTarot.TRUMP_21,card_);
     }
     @Test
@@ -352,7 +353,8 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
-        CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, cartesJouees_);
+        CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, GameTarotCommon.cartesMaitresses(curHand_.couleurs(),
+                cartesJouees_.couleurs()));
         assertSame(CardTarot.DIAMOND_KING,card_);
     }
     @Test
@@ -481,7 +483,8 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
-        CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, cartesJouees_);
+        CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, GameTarotCommon.cartesMaitresses(curHand_.couleurs(),
+                cartesJouees_.couleurs()));
         assertSame(CardTarot.TRUMP_1,card_);
     }
     @Test
@@ -707,7 +710,8 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
-        EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursSansCarteMaitresse(curHand_, cartesJouees_, Suit.couleursOrdinaires());
+        EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursSansCarteMaitresse(curHand_, Suit.couleursOrdinaires(), GameTarotCommon.cartesMaitresses(curHand_.couleurs(),
+                cartesJouees_.couleurs()));
         assertEq(1,suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
