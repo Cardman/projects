@@ -8,6 +8,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
@@ -34,16 +35,16 @@ public final class GameTarot {
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
     private CustList<EnumList<Miseres>> declaresMiseres = new CustList<EnumList<Miseres>>();
     /** Ce sont les primes annoncees par le(s) joueur(s) */
-    private CustList<Boolean> declaresSlam = new CustList<Boolean>();
+    private CustList<BoolVal> declaresSlam = new CustList<BoolVal>();
     /** Ce sont les petits au bout par le(s) joueur(s) */
-    private CustList<Boolean> smallBound = new CustList<Boolean>();
+    private CustList<BoolVal> smallBound = new CustList<BoolVal>();
     /** Poignees */
     private CustList<HandTarot> handfuls = new CustList<HandTarot>();
     /**
     Au tarot lors d'un appel il faut savoir si les joueurs ont confiance ou
     non en les autres
     */
-    private CustList<CustList<Boolean>> confidence = new CustList<CustList<Boolean>>();
+    private CustList<CustList<BoolVal>> confidence = new CustList<CustList<BoolVal>>();
     /**
     Le contrat permet de dire quel va etre le deroulement de la partie
     */
@@ -115,17 +116,17 @@ public final class GameTarot {
         Initialise la confiance a un
         jeu non solitaire
         */
-            confidence.add(new CustList<Boolean>());
+            confidence.add(new CustList<BoolVal>());
             for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-                confidence.last().add(i == j);
+                confidence.last().add(ComparatorBoolean.of(i == j));
             }
         }
         initConstTeamWithoutTaker();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             declaresHandfuls.add(new EnumList<Handfuls>());
             declaresMiseres.add(new EnumList<Miseres>());
-            declaresSlam.add(false);
-            smallBound.add(false);
+            declaresSlam.add(BoolVal.FALSE);
+            smallBound.add(BoolVal.FALSE);
         }
         // Par default tout le monde est defenseur
         for (byte j_ = IndexConstants.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
@@ -172,15 +173,15 @@ public final class GameTarot {
         }
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-                confidence.get(i).set(j, i == j);
+                confidence.get(i).set(j, ComparatorBoolean.of(i == j));
             }
         }
         initConstTeamWithoutTaker();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             declaresHandfuls.set( i, new EnumList<Handfuls>());
             declaresMiseres.set( i, new EnumList<Miseres>());
-            smallBound.set(i, false);
-            declaresSlam.set(i, false);
+            smallBound.set(i, BoolVal.FALSE);
+            declaresSlam.set(i, BoolVal.FALSE);
         }
         // Par default tout le monde est defenseur
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
@@ -942,7 +943,7 @@ public final class GameTarot {
 
     public void slam() {
         ajouterChelem(getPreneur(),annoncerUnChelem(getPreneur()));
-        if (declaresSlam.get(getPreneur())) {
+        if (declaresSlam.get(getPreneur()) == BoolVal.TRUE) {
             setEntameur(getPreneur());
         }
     }
@@ -951,19 +952,19 @@ public final class GameTarot {
         setEntameur(getPreneur());
     }
     void ajouterChelem(byte _b, boolean _annonce) {
-        declaresSlam.set( _b, _annonce);
+        declaresSlam.set( _b,ComparatorBoolean.of(_annonce));
     }
 
 
     public boolean chelemAnnonce(byte _numero) {
-        return declaresSlam.get(_numero);
+        return declaresSlam.get(_numero) == BoolVal.TRUE;
     }
 
     /** Est vrai si et seulement si un chelem est annonce */
     public boolean chelemAnnonce() {
         boolean contientChelem_ = bid.isFaireTousPlis();
-        for (boolean chelem_ : declaresSlam) {
-            if (chelem_) {
+        for (BoolVal chelem_ : declaresSlam) {
+            if (chelem_ == BoolVal.TRUE) {
                 contientChelem_ = true;
             }
         }
@@ -1161,7 +1162,7 @@ public final class GameTarot {
     }
 
     private void faireConfiance(byte _joueur, byte _enjoueur) {
-        confidence.get(_joueur).set( _enjoueur, true);
+        confidence.get(_joueur).set( _enjoueur, BoolVal.TRUE);
     }
 
     public CardTarot strategieJeuCarteUnique() {
@@ -1230,7 +1231,7 @@ public final class GameTarot {
     }
 
     boolean confiance(byte _joueur, byte _enjoueur) {
-        return confidence.get(_joueur).get(_enjoueur);
+        return confidence.get(_joueur).get(_enjoueur) == BoolVal.TRUE;
     }
 
 
@@ -1325,7 +1326,7 @@ public final class GameTarot {
         }
         if(getDistribution().hand().estVide()) {
             /*Le Petit est mene au bout*/
-            smallBound.set( trickWinner, true);
+            smallBound.set( trickWinner, BoolVal.TRUE);
             return;
         }
         //getDistribution().main().total() == 1
@@ -1341,7 +1342,7 @@ public final class GameTarot {
         if (possedeExcuseMemeEquipe_) {
             if (!teamsRelation_.adversaireAFaitPlis(trickWinner,tricks)) {
                 //ajouterPetitAuBoutCasChelem
-                smallBound.set( trickWinner, true);
+                smallBound.set( trickWinner, BoolVal.TRUE);
             }
         }
     }
@@ -1456,19 +1457,19 @@ public final class GameTarot {
         declaresMiseres = _declaresMiseres;
     }
 
-    public CustList<Boolean> getDeclaresSlam() {
+    public CustList<BoolVal> getDeclaresSlam() {
         return declaresSlam;
     }
 
-    public void setDeclaresSlam(CustList<Boolean> _declaresSlam) {
+    public void setDeclaresSlam(CustList<BoolVal> _declaresSlam) {
         declaresSlam = _declaresSlam;
     }
 
-    public CustList<Boolean> getSmallBound() {
+    public CustList<BoolVal> getSmallBound() {
         return smallBound;
     }
 
-    public void setSmallBound(CustList<Boolean> _smallBound) {
+    public void setSmallBound(CustList<BoolVal> _smallBound) {
         smallBound = _smallBound;
     }
 
@@ -1480,11 +1481,11 @@ public final class GameTarot {
         handfuls = _handfuls;
     }
 
-    public CustList<CustList<Boolean>> getConfidence() {
+    public CustList<CustList<BoolVal>> getConfidence() {
         return confidence;
     }
 
-    public void setConfidence(CustList<CustList<Boolean>> _confidence) {
+    public void setConfidence(CustList<CustList<BoolVal>> _confidence) {
         confidence = _confidence;
     }
 

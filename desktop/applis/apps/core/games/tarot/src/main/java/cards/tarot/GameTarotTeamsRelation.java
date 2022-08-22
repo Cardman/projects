@@ -5,17 +5,18 @@ import cards.consts.SortedPlayers;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class GameTarotTeamsRelation {
 
     private final byte taker;
     private final Bytes calledPlayers;
-    private final CustList<CustList<Boolean>> confidence;
+    private final CustList<CustList<BoolVal>> confidence;
     private final RulesTarot rules;
 
     public GameTarotTeamsRelation(byte _taker, Bytes _calledPlayers,
-                                  CustList<CustList<Boolean>> _confidence, RulesTarot _rules) {
+                                  CustList<CustList<BoolVal>> _confidence, RulesTarot _rules) {
         taker = _taker;
         calledPlayers = _calledPlayers;
         confidence = _confidence;
@@ -101,7 +102,7 @@ public final class GameTarotTeamsRelation {
     Bytes joueursNonConfiance(byte _joueur, Bytes _joueurs) {
         Bytes joueurs_ = new Bytes();
         for (byte joueur_ : _joueurs) {
-            if (confidence.get(_joueur).get(joueur_)) {
+            if (confidence.get(_joueur).get(joueur_) == BoolVal.TRUE) {
                 continue;
             }
             joueurs_.add(joueur_);
@@ -113,10 +114,7 @@ public final class GameTarotTeamsRelation {
     Bytes joueursConfiance(byte _joueur, Bytes _joueurs) {
         Bytes joueurs_ = new Bytes();
         for (byte joueur_ : _joueurs) {
-            if (joueur_ == _joueur) {
-                continue;
-            }
-            if (!confidence.get(_joueur).get(joueur_)) {
+            if (joueur_ == _joueur || confidence.get(_joueur).get(joueur_) != BoolVal.TRUE) {
                 continue;
             }
             joueurs_.add(joueur_);
@@ -135,27 +133,36 @@ public final class GameTarotTeamsRelation {
 
     void determinerConfiance(byte _numero, byte _nombreJoueurs) {
         if (!aPourDefenseur(_numero)) {
-            faireConfiance(_numero, taker);
-            for (byte joueur_: calledPlayers) {
-                faireConfiance(_numero, joueur_);
-            }
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-                if (joueur_ != taker && !calledPlayers.containsObj(joueur_)) {
-                    faireMefiance(_numero, joueur_);
-                }
-            }
+            attacker(_numero, _nombreJoueurs);
         } else {
-            faireMefiance(_numero, taker);
-            for (byte joueur_: calledPlayers) {
-                faireMefiance(_numero, joueur_);
-            }
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-                if (joueur_ != taker && !calledPlayers.containsObj(joueur_)) {
-                    faireConfiance(_numero, joueur_);
-                }
+            defender(_numero, _nombreJoueurs);
+        }
+    }
+
+    private void defender(byte _numero, byte _nombreJoueurs) {
+        faireMefiance(_numero, taker);
+        for (byte joueur_: calledPlayers) {
+            faireMefiance(_numero, joueur_);
+        }
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            if (joueur_ != taker && !calledPlayers.containsObj(joueur_)) {
+                faireConfiance(_numero, joueur_);
             }
         }
     }
+
+    private void attacker(byte _numero, byte _nombreJoueurs) {
+        faireConfiance(_numero, taker);
+        for (byte joueur_: calledPlayers) {
+            faireConfiance(_numero, joueur_);
+        }
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            if (joueur_ != taker && !calledPlayers.containsObj(joueur_)) {
+                faireMefiance(_numero, joueur_);
+            }
+        }
+    }
+
     boolean allKnownCalledPlayers(HandTarot _calledCards,
             EnumMap<Suit,CustList<HandTarot>> _cartesCertaines, byte _nbPlayers) {
         boolean appelesTousConnus_;
@@ -198,13 +205,13 @@ public final class GameTarotTeamsRelation {
     }
 
     void faireConfiance(byte _joueur, byte _enjoueur) {
-        confidence.get(_joueur).set( _enjoueur, true);
+        confidence.get(_joueur).set( _enjoueur, BoolVal.TRUE);
     }
     void faireMefiance(byte _joueur, byte _enjoueur) {
-        confidence.get(_joueur).set( _enjoueur, false);
+        confidence.get(_joueur).set( _enjoueur, BoolVal.FALSE);
     }
     boolean confiance(byte _joueur, byte _enjoueur) {
-        return confidence.get(_joueur).get(_enjoueur);
+        return confidence.get(_joueur).get(_enjoueur) == BoolVal.TRUE;
     }
     boolean isVirtualTaker(byte _pl) {
         if (!existePreneur()) {

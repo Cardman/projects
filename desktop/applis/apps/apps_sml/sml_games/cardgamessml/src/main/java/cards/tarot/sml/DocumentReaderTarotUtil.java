@@ -158,11 +158,11 @@ public final class DocumentReaderTarotUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_DECLARES_SLAM)) {
-            _object.setDeclaresSlam(DocumentReaderCoreUtil.getBooleanList(_element));
+            _object.setDeclaresSlam(DocumentReaderCoreUtil.getBoolValList(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SMALL_BOUND)) {
-            _object.setSmallBound(DocumentReaderCoreUtil.getBooleanList(_element));
+            _object.setSmallBound(DocumentReaderCoreUtil.getBoolValList(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_HANDFULS)) {

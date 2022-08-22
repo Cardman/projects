@@ -60,16 +60,6 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static CustList<Boolean> getBooleanList(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CustList<Boolean> list_ = new CustList<Boolean>(new CollCapacity(len_));
-        for (Element c: childElements_) {
-            list_.add(getBoolean(c));
-        }
-        return list_;
-    }
-
     public static CustList<BoolVal> getBoolValList(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
@@ -120,12 +110,12 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static CustList<CustList<Boolean>> getListBooleanList(Element _elt) {
+    public static CustList<CustList<BoolVal>> getListBooleanList(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        CustList<CustList<Boolean>> list_ = new CustList<CustList<Boolean>>(new CollCapacity(len_));
+        CustList<CustList<BoolVal>> list_ = new CustList<CustList<BoolVal>>(new CollCapacity(len_));
         for (Element c: childElements_) {
-            list_.add(getBooleanList(c));
+            list_.add(getBoolValList(c));
         }
         return list_;
     }

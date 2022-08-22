@@ -7,6 +7,8 @@ import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Miseres;
 import code.maths.Rate;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameTarotCommonPlayingTest extends CommonGameTarot {
@@ -4887,11 +4889,11 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo gt_ = new GameTarotTrickInfo(p_,trs_,m_,h_,BidTarot.TAKE,new HandTarot(),ls_);
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        CustList<CustList<Boolean>> confidence_ = new CustList<CustList<Boolean>>();
+        CustList<CustList<BoolVal>> confidence_ = new CustList<CustList<BoolVal>>();
         for (int i = 0; i < 4; i++) {
-            CustList<Boolean> b_ = new CustList<Boolean>();
+            CustList<BoolVal> b_ = new CustList<BoolVal>();
             for (int j = 0; j < 4; j++) {
-                b_.add(i==j);
+                b_.add(ComparatorBoolean.of(i==j));
             }
             confidence_.add(b_);
         }

@@ -5,6 +5,7 @@ import cards.consts.Hypothesis;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -147,7 +148,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         }
         g_.getAppele().removeDuplicates();
         for (int i: g_.getAppele()) {
-            g_.getConfidence().get(i).set(g_.getPreneur(),true);
+            g_.getConfidence().get(i).set(g_.getPreneur(), BoolVal.TRUE);
         }
         g_.setStarter(starter_);
         g_.setTrickWinner(trickWinner_);

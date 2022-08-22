@@ -78,16 +78,6 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setBooleanList(CustList<Boolean> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("bl");
-        setFieldName(elt_, _fieldName);
-        for (boolean s: _object) {
-            Element sub_ = setBoolean(s, "", _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
     public static Element setBoolValList(CustList<BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("bl");
         setFieldName(elt_, _fieldName);
@@ -138,11 +128,11 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setListBooleanList(CustList<CustList<Boolean>> _object, String _fieldName, Document _document) {
+    public static Element setListBooleanList(CustList<CustList<BoolVal>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("l");
         setFieldName(elt_, _fieldName);
-        for (CustList<Boolean> s: _object) {
-            Element sub_ = setBooleanList(s, "", _document);
+        for (CustList<BoolVal> s: _object) {
+            Element sub_ = setBoolValList(s, "", _document);
             elt_.appendChild(sub_);
         }
         return elt_;

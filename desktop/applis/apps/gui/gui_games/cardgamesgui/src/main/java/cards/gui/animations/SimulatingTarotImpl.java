@@ -21,6 +21,7 @@ import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.threads.ThreadUtil;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -297,8 +298,8 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     }
 
     @Override
-    public void declareSlam(CustList<Boolean> _slam,byte _taker,BidTarot _bid) {
-        if (!_slam.get(_taker)) {
+    public void declareSlam(CustList<BoolVal> _slam, byte _taker, BidTarot _bid) {
+        if (_slam.get(_taker) != BoolVal.TRUE) {
             return;
         }
         if (_bid.getJeuChien() == PlayingDog.WITH) {
@@ -382,8 +383,8 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     }
 
     @Override
-    public void displaySmallBound(CustList<Boolean> _smallBound, byte _trickWinner) {
-        if (!_smallBound.get(_trickWinner)) {
+    public void displaySmallBound(CustList<BoolVal> _smallBound, byte _trickWinner) {
+        if (_smallBound.get(_trickWinner) != BoolVal.TRUE) {
             return;
         }
         String lg_ = container.getOwner().getLanguageKey();

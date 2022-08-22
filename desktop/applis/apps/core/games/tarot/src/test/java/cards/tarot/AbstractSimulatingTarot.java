@@ -8,6 +8,7 @@ import code.util.BooleanList;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.core.BoolVal;
 
 public abstract class AbstractSimulatingTarot implements SimulatingTarot {
     private DisplayingTarot displayingTarot = new DisplayingTarot();
@@ -107,7 +108,7 @@ public abstract class AbstractSimulatingTarot implements SimulatingTarot {
     }
 
     @Override
-    public void declareSlam(CustList<Boolean> _slam, byte _taker, BidTarot _bid) {
+    public void declareSlam(CustList<BoolVal> _slam, byte _taker, BidTarot _bid) {
 
     }
 
@@ -152,7 +153,7 @@ public abstract class AbstractSimulatingTarot implements SimulatingTarot {
     }
 
     @Override
-    public void displaySmallBound(CustList<Boolean> _smallBound, byte _trickWinner) {
+    public void displaySmallBound(CustList<BoolVal> _smallBound, byte _trickWinner) {
 
     }
 

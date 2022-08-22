@@ -3,6 +3,8 @@ package cards.tarot;
 import cards.consts.GameType;
 import cards.tarot.enumerations.*;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -32,10 +34,10 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<Boolean> dSlam_ = new CustList<Boolean>();
-        dSlam_.add(false);
-        dSlam_.add(false);
-        dSlam_.add(false);
+        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+        dSlam_.add(BoolVal.FALSE);
+        dSlam_.add(BoolVal.FALSE);
+        dSlam_.add(BoolVal.FALSE);
         TrickTarot t_ =  newClassicTrick(trs_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -156,10 +158,10 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        CustList<Boolean> small_ = new CustList<Boolean>();
-        small_.add(false);
-        small_.add(false);
-        small_.add(false);
+        CustList<BoolVal> small_ = new CustList<BoolVal>();
+        small_.add(BoolVal.FALSE);
+        small_.add(BoolVal.FALSE);
+        small_.add(BoolVal.FALSE);
         CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
         CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
@@ -188,7 +190,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot();
         r_.setMode(ModeTarot.ONE_FOR_ONE);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.FOLD, r_, -1);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.FOLD, r_, -1);
         Bytes called_ = new Bytes();
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)-1, called_,conf_,r_);
         CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
@@ -202,7 +204,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot();
         r_.setMode(ModeTarot.ONE_FOR_ONE);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.FOLD, r_, -1);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.FOLD, r_, -1);
         Bytes called_ = new Bytes();
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)-1, called_,conf_,r_);
         CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
@@ -1525,7 +1527,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot();
         r_.setMode(ModeTarot.ONE_FOR_ONE);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.FOLD, r_, -1);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.FOLD, r_, -1);
         Bytes called_ = new Bytes();
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)-1, called_,conf_,r_);
         Shorts pos_ = new Shorts();
@@ -1558,10 +1560,10 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         misere_ = new EnumList<Miseres>();
         misere_.add(Miseres.CHARACTER);
         miseres_.add(misere_);
-        CustList<Boolean> small_ = new CustList<Boolean>();
-        small_.add(true);
-        small_.add(false);
-        small_.add(false);
+        CustList<BoolVal> small_ = new CustList<BoolVal>();
+        small_.add(BoolVal.TRUE);
+        small_.add(BoolVal.FALSE);
+        small_.add(BoolVal.FALSE);
         Shorts scores_ = EndTarotGame.calculerScoresJoueurs(rates_, primes_, 100, g_, handfuls_, miseres_, small_);
         assertEq(3, scores_.size());
         assertEq(2320, scores_.get(0));
@@ -1573,7 +1575,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot();
         r_.setMode(ModeTarot.ONE_FOR_ONE);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.FOLD, r_, -1);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.FOLD, r_, -1);
         Bytes called_ = new Bytes();
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)-1, called_,conf_,r_);
         Shorts pos_ = new Shorts();
@@ -1606,10 +1608,10 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         misere_ = new EnumList<Miseres>();
         misere_.add(Miseres.CHARACTER);
         miseres_.add(misere_);
-        CustList<Boolean> small_ = new CustList<Boolean>();
-        small_.add(false);
-        small_.add(true);
-        small_.add(false);
+        CustList<BoolVal> small_ = new CustList<BoolVal>();
+        small_.add(BoolVal.FALSE);
+        small_.add(BoolVal.TRUE);
+        small_.add(BoolVal.FALSE);
         Shorts scores_ = EndTarotGame.calculerScoresJoueurs(rates_, primes_, 100, g_, handfuls_, miseres_, small_);
         assertEq(3, scores_.size());
         assertEq(2200, scores_.get(0));
@@ -1654,10 +1656,10 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<Boolean> dSlam_ = new CustList<Boolean>();
-        dSlam_.add(false);
-        dSlam_.add(false);
-        dSlam_.add(false);
+        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+        dSlam_.add(BoolVal.FALSE);
+        dSlam_.add(BoolVal.FALSE);
+        dSlam_.add(BoolVal.FALSE);
         TrickTarot t_ =  newClassicTrick(trs_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -1778,10 +1780,10 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        CustList<Boolean> small_ = new CustList<Boolean>();
-        small_.add(false);
-        small_.add(false);
-        small_.add(false);
+        CustList<BoolVal> small_ = new CustList<BoolVal>();
+        small_.add(BoolVal.FALSE);
+        small_.add(BoolVal.FALSE);
+        small_.add(BoolVal.FALSE);
         CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
         CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
@@ -1796,8 +1798,8 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         assertEq(3,endTarotGame_.calculMiseresScorePlayer((byte)0).size());
         assertEq(3,endTarotGame_.calculSmallLastTurnScorePlayer((byte)0).size());
     }
-    private static CustList<CustList<Boolean>> getConf(BidTarot _b, RulesTarot _r, int _taker){
-        CustList<CustList<Boolean>> confidence_ = new CustList<CustList<Boolean>>();
+    private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){
+        CustList<CustList<BoolVal>> confidence_ = new CustList<CustList<BoolVal>>();
         ModeTarot mode_ = _r.getMode();
         boolean b_ = false;
         if (mode_ == ModeTarot.NORMAL) {
@@ -1809,18 +1811,18 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         }
         byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
         for (int i = 0; i< nbPl_; i++) {
-            CustList<Boolean> c_ = new CustList<Boolean>();
+            CustList<BoolVal> c_ = new CustList<BoolVal>();
             for (int j = 0; j< nbPl_; j++) {
-                c_.add(i == j);
+                c_.add(ComparatorBoolean.of(i == j));
             }
             confidence_.add(c_);
         }
         if (!b_ || !_b.isJouerDonne()) {
             for (byte i = IndexConstants.FIRST_INDEX; i < nbPl_; i++) {
                 for (byte p: _r.getDealing().getAppelesDetermines(i)) {
-                    confidence_.get(i).set(p,true);
+                    confidence_.get(i).set(p,BoolVal.TRUE);
                 }
-                confidence_.get(i).set(i,true);
+                confidence_.get(i).set(i,BoolVal.TRUE);
             }
         } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
             Bytes attaquants_= _r.getDealing().getAppelesDetermines((byte) _taker);
@@ -1831,7 +1833,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
                     if(j1_==j2_) {
                         continue;
                     }
-                    confidence_.get(j1_).set(j2_,true);
+                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
                 }
             }
             for(byte j1_:defenseurs_) {
@@ -1839,7 +1841,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
                     if(j1_==j2_) {
                         continue;
                     }
-                    confidence_.get(j1_).set(j2_,true);
+                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
                 }
             }
         } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
@@ -1855,7 +1857,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
                     if(j1_==j2_) {
                         continue;
                     }
-                    confidence_.get(j1_).set(j2_,true);
+                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
                 }
             }
         }
@@ -1863,7 +1865,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
     }
     private static EndTarotGame newEndTarotGame(RulesTarot _r, CustList<TrickTarot> _trs,
                                                 CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<Boolean> _dSam, CustList<Boolean> _small) {
+                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<BoolVal> _dSam, CustList<BoolVal> _small) {
         GameTarot g_ = newEndedGameTarot(_r, _trs, _m, _dh, _h, _dealer, _bids, _calledCards, _lastHand);
         return new EndTarotGame(g_.getTeamsRelation(),g_.getTricks(),g_.getDeclaresHandfuls(),g_.getDeclaresMiseres(),_dSam,_small);
     }

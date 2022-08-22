@@ -8,6 +8,7 @@ import code.util.BooleanList;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.core.BoolVal;
 
 public interface SimulatingTarot {
     void displayLineReturn();
@@ -36,7 +37,7 @@ public interface SimulatingTarot {
 
     void mergedDog(byte _taker, HandTarot _nextHand);
 
-    void declareSlam(CustList<Boolean> _slam, byte _taker, BidTarot _bid);
+    void declareSlam(CustList<BoolVal> _slam, byte _taker, BidTarot _bid);
 
     void firstCardPlaying(byte _joueur);
 
@@ -54,7 +55,7 @@ public interface SimulatingTarot {
 
     void displayTrickWinner(byte _trickWinner);
 
-    void displaySmallBound(CustList<Boolean> _smallBound, byte _trickWinner);
+    void displaySmallBound(CustList<BoolVal> _smallBound, byte _trickWinner);
 
     void clearCarpet(byte _nbPlayers);
 

@@ -7,6 +7,8 @@ import cards.tarot.enumerations.ModeTarot;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -23,7 +25,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_,new Bytes(),conf_,rules_);
         CustList<Bytes> teams_ = g_.teams();
         assertEq(2, teams_.size());
@@ -42,7 +44,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         byte dealer_ = (byte) 2;
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.FOLD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.FOLD, rules_, taker_);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_,new Bytes(),conf_,rules_);
         CustList<Bytes> teams_ = g_.teams();
         assertEq(3, teams_.size());
@@ -69,7 +71,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_,new Bytes(),conf_,rules_);
         CustList<Bytes> teams_ = g_.teams();
         assertEq(2, teams_.size());
@@ -94,7 +96,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) 1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
@@ -126,7 +128,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) taker_);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
@@ -158,7 +160,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) 1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
@@ -181,7 +183,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) 1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
@@ -204,7 +206,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) 1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
@@ -228,7 +230,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<Boolean>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) 1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
@@ -237,8 +239,8 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         set_.add((byte) 1);
         assertTrue(!g_.isSameTeam(set_));
     }
-    private static CustList<CustList<Boolean>> getConf(BidTarot _b, RulesTarot _r, int _taker){
-        CustList<CustList<Boolean>> confidence_ = new CustList<CustList<Boolean>>();
+    private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){
+        CustList<CustList<BoolVal>> confidence_ = new CustList<CustList<BoolVal>>();
         ModeTarot mode_ = _r.getMode();
         boolean b_ = false;
         if (mode_ == ModeTarot.NORMAL) {
@@ -250,18 +252,18 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         }
         byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
         for (int i = 0; i< nbPl_; i++) {
-            CustList<Boolean> c_ = new CustList<Boolean>();
+            CustList<BoolVal> c_ = new CustList<BoolVal>();
             for (int j = 0; j< nbPl_; j++) {
-                c_.add(i == j);
+                c_.add(ComparatorBoolean.of(i == j));
             }
             confidence_.add(c_);
         }
         if (!b_ || !_b.isJouerDonne()) {
             for (byte i = IndexConstants.FIRST_INDEX; i < nbPl_; i++) {
                 for (byte p: _r.getDealing().getAppelesDetermines(i)) {
-                    confidence_.get(i).set(p,true);
+                    confidence_.get(i).set(p,BoolVal.TRUE);
                 }
-                confidence_.get(i).set(i,true);
+                confidence_.get(i).set(i,BoolVal.TRUE);
             }
         } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
             Bytes attaquants_= _r.getDealing().getAppelesDetermines((byte) _taker);
@@ -272,7 +274,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
                     if(j1_==j2_) {
                         continue;
                     }
-                    confidence_.get(j1_).set(j2_,true);
+                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
                 }
             }
             for(byte j1_:defenseurs_) {
@@ -280,7 +282,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
                     if(j1_==j2_) {
                         continue;
                     }
-                    confidence_.get(j1_).set(j2_,true);
+                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
                 }
             }
         } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
@@ -296,7 +298,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
                     if(j1_==j2_) {
                         continue;
                     }
-                    confidence_.get(j1_).set(j2_,true);
+                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
                 }
             }
         }

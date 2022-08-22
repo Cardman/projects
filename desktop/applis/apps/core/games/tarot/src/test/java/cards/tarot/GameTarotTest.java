@@ -5,6 +5,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameTarotTest extends EquallableTarotUtil {
@@ -21,9 +22,9 @@ public final class GameTarotTest extends EquallableTarotUtil {
         d_.donneurSuivant((byte) 3, rules_);
         d_.setNbDeals(1);
         g_.setDeal(d_);
-        g_.setDeclaresSlam(new CustList<Boolean>());
-        g_.setSmallBound(new CustList<Boolean>());
-        g_.setConfidence(new CustList<CustList<Boolean>>());
+        g_.setDeclaresSlam(new CustList<BoolVal>());
+        g_.setSmallBound(new CustList<BoolVal>());
+        g_.setConfidence(new CustList<CustList<BoolVal>>());
         g_.setRules(rules_);
         g_.setType(GameType.RANDOM);
         assertTrue(!h_.validStack());
