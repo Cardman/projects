@@ -117,6 +117,26 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq(1, sorted_.get(3));
     }
     @Test
+    public void aJoue1() {
+        assertTrue(new SortedPlayers(4).aJoue(2,4,0));
+    }
+    @Test
+    public void aJoue2() {
+        assertTrue(new SortedPlayers(4).aJoue(2,2,1));
+    }
+    @Test
+    public void aJoue3() {
+        assertFalse(new SortedPlayers(4).aJoue(3,2,1));
+    }
+    @Test
+    public void aJoue4() {
+        assertTrue(new SortedPlayers(4).aJoue(0,2,3));
+    }
+    @Test
+    public void aJoue5() {
+        assertFalse(new SortedPlayers(4).aJoue(1,2,3));
+    }
+    @Test
     public void getSortedPlayersAfter() {
         Bytes sorted_ = new SortedPlayers(4).getSortedPlayersAfter(2);
         assertEq(4, sorted_.size());
@@ -124,6 +144,52 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq(0, sorted_.get(1));
         assertEq(1, sorted_.get(2));
         assertEq(2, sorted_.get(3));
+    }
+    @Test
+    public void joueursAyantJoueAvant1() {
+        Bytes sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(1,2,2);
+        assertEq(2, sorted_.size());
+        assertEq(2, sorted_.get(0));
+        assertEq(3, sorted_.get(1));
+    }
+    @Test
+    public void joueursAyantJoueAvant2() {
+        Bytes sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(1,2,3);
+        assertEq(3, sorted_.size());
+        assertEq(2, sorted_.get(0));
+        assertEq(3, sorted_.get(1));
+        assertEq(0, sorted_.get(2));
+    }
+    @Test
+    public void joueursAyantJoueAvant3() {
+        Bytes sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(0,2,3);
+        assertEq(2, sorted_.size());
+        assertEq(2, sorted_.get(0));
+        assertEq(3, sorted_.get(1));
+    }
+    @Test
+    public void joueursAyantJoue() {
+        Bytes sorted_ = new SortedPlayers(4).joueursAyantJoue(2,3);
+        assertEq(3, sorted_.size());
+        assertEq(2, sorted_.get(0));
+        assertEq(3, sorted_.get(1));
+        assertEq(0, sorted_.get(2));
+    }
+    @Test
+    public void index1() {
+        assertEq(0, new SortedPlayers(4).index(2,2, 4));
+    }
+    @Test
+    public void index2() {
+        assertEq(3, new SortedPlayers(4).index(1,2, 4));
+    }
+    @Test
+    public void index3() {
+        assertEq(0, new SortedPlayers(4).index(2,2, 3));
+    }
+    @Test
+    public void index4() {
+        assertEq(2, new SortedPlayers(4).index(0,2, 3));
     }
     @Test
     public void eqSuitTest() {

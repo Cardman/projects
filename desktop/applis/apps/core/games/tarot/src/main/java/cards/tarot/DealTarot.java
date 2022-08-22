@@ -116,15 +116,13 @@ public final class DealTarot implements Iterable<HandTarot> {
         int nbPlayers_ = _regles.getDealing().getId().getNombreJoueurs();
         long nbCards_ = _regles.getDealing().getNombreCartesParJoueur();
         byte minAtout_ = min(_choix, nbCards_);
-        byte autresCartesTirer_;
-        CustList<LgInt> fonctionRepartition_;
-        LgInt alea_;
         byte maxAtout_ = max(_choix, nbCards_);
         byte atoutsTires_;
+        byte autresCartesTirer_;
         HandTarot atouts_;
         HandTarot autresCartes_;
+        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
         if (_choix == ChoiceTarot.HUNT_SMALL) {
-            fonctionRepartition_ = new CustList<LgInt>();
             fonctionRepartition_.add(LgInt.multiply(
                     LgInt.among(new LgInt(minAtout_), new LgInt(NB_THREE_MAX)),
                     LgInt.among(new LgInt(nbCards_), new LgInt(56))));
@@ -137,7 +135,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                                 new LgInt(nbCards_ - evenement_),
                                 new LgInt(56)))));
             }
-            alea_ = MonteCarloUtil.randomLgInt(fonctionRepartition_.last(),_gene);
+            LgInt alea_ = MonteCarloUtil.randomLgInt(fonctionRepartition_.last(), _gene);
             atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_);
             for (int i = IndexConstants.FIRST_INDEX; i <= nbPlayers_; i++) {
@@ -149,7 +147,6 @@ public final class DealTarot implements Iterable<HandTarot> {
             atouts_.ajouterCartes(HandTarot.atoutsSansExcuse());
             autresCartes_.ajouterCartes(HandTarot.cartesCouleurs());
         } else {
-            fonctionRepartition_ = new CustList<LgInt>();
             fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
                     minAtout_), new LgInt(NB_THREE_MAX)), LgInt.among(new LgInt(
                     nbCards_ - minAtout_ - 1L), new LgInt(56))));
@@ -162,7 +159,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                                         new LgInt(nbCards_ - evenement_
                                                 - 1L), new LgInt(56)))));
             }
-            alea_ = MonteCarloUtil.randomLgInt(fonctionRepartition_.last(),_gene);
+            LgInt alea_ = MonteCarloUtil.randomLgInt(fonctionRepartition_.last(), _gene);
             atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_ - 1);
             for (int i = IndexConstants.FIRST_INDEX; i <= nbPlayers_; i++) {

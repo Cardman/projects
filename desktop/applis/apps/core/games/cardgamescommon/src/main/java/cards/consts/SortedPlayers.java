@@ -38,7 +38,53 @@ public final class SortedPlayers {
         next_++;
         return (byte) (next_%getNombreJoueurs());
     }
+    public int index(int _joueur, int _entameur, int _total) {
+        if(_total<nombreJoueurs) {
+            //Pli en_ cours_
+            if(_joueur>=_entameur) {
+                return _joueur-_entameur;
+            }
+            return _joueur+nombreJoueurs-_entameur;
+        }
+        //Pli non_ separe_
+        if(_joueur>=_entameur) {
+            return _joueur-_entameur;
+        }
+        return _joueur-_entameur+nombreJoueurs;
+    }
 
+    public Bytes joueursAyantJoue(int _starter, int _total) {
+        Bytes joueurs_=new Bytes();
+        for(byte j : getSortedPlayers(_starter)) {
+            if (aJoue(j, _total, _starter)) {
+                joueurs_.add(j);
+            }
+        }
+        return joueurs_;
+    }
+    public Bytes joueursAyantJoueAvant(int _pnumero, int _starter, int _total){
+        Bytes joueurs_=new Bytes();
+        for(byte j : getSortedPlayers(_starter)) {
+            if (aJoue(j, _total, _starter)) {
+                if (j == _pnumero) {
+                    break;
+                }
+                joueurs_.add(j);
+            }
+        }
+        return joueurs_;
+    }
+    public boolean aJoue(int _joueur, int _total, int _entameur) {
+        if(_total<nombreJoueurs) {
+            //Pli en_ cours_
+            if(_joueur>=_entameur) {
+                return _joueur - _entameur < _total;
+            }
+            return _joueur - _entameur + nombreJoueurs < _total;
+        }
+        //Pli non_ separe_
+        return true;
+    }
     public Bytes getSortedPlayers(int _player) {
         Bytes players_ = new Bytes();
         int next_ = _player;

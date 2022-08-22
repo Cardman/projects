@@ -3,6 +3,7 @@ import java.util.Iterator;
 
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
+import cards.consts.SortedPlayers;
 import cards.consts.Suit;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -88,39 +89,18 @@ public final class TrickBelote implements Iterable<CardBelote> {
     }
 
     Bytes joueursAyantJoueAvant(byte _pnumero, DealingBelote _d) {
-        Bytes joueurs_=new Bytes();
-        for(byte j : _d.getId().getSortedPlayers(starter)) {
-            if (aJoue(j, (byte) _d.getId().getNombreJoueurs())) {
-                if (j == _pnumero) {
-                    break;
-                }
-                joueurs_.add(j);
-            }
-        }
-        return joueurs_;
+        return _d.getId().joueursAyantJoueAvant(_pnumero,starter,total());
     }
 
     boolean aJoue(byte _joueur,byte _nombreDeJoueurs) {
-        if(total()<_nombreDeJoueurs) {
-            //Pli en_ cours_
-            if(_joueur>=getEntameur()) {
-                return _joueur - getEntameur() < total();
-            }
-            return _joueur - getEntameur() + _nombreDeJoueurs < total();
-        }
-        //Pli non_ separe_
-        return true;
+        return new SortedPlayers(_nombreDeJoueurs).aJoue(_joueur,total(),getEntameur());
     }
     CardBelote carteDuJoueur(byte _joueur) {
         return carteDuJoueur(_joueur, (byte) total());
     }
     /**Retourne la carte du joueur de variable joueur en fonction du nombre de joueurs et du pli ayant la plus petite longueur*/
     public CardBelote carteDuJoueur(byte _joueur,byte _nombreDeJoueurs) {
-        //Pli non_ separe_
-        if(_joueur>=getEntameur()) {
-            return carte(_joueur-getEntameur());
-        }
-        return carte(_joueur-getEntameur()+_nombreDeJoueurs);
+        return carte(new SortedPlayers(_nombreDeJoueurs).index(_joueur,getEntameur(),total()));
     }
     /**Retourne la couleur demandee du pli*/
     public Suit couleurDemandee() {
@@ -154,11 +134,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
         return coupes_;
     }
     public Bytes playersHavingPlayed(byte _numberPlayers) {
-        Bytes players_ = new Bytes();
-        for (CardBelote c: cards) {
-            players_.add(joueurAyantJoue(c,_numberPlayers));
-        }
-        return players_;
+        return new SortedPlayers(_numberPlayers).joueursAyantJoue(starter,total());
     }
     /**Retourne vrai si et seulement si la carte est jouee dans ce pli*/
     public boolean contient(CardBelote _c) {
