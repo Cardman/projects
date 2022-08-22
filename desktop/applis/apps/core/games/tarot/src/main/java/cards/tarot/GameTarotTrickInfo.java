@@ -5,6 +5,8 @@ import cards.consts.Hypothesis;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class GameTarotTrickInfo {
@@ -843,9 +845,9 @@ public final class GameTarotTrickInfo {
         HandTarot retour_ = new HandTarot();
         retour_.ajouterCartes(_probablyCharacterCard);
         HandTarot playedCards_ = new HandTarot();
-        ByteMap<Boolean> defausses_ = new ByteMap<Boolean>();
+        ByteMap<BoolVal> defausses_ = new ByteMap<BoolVal>();
         for (byte j = IndexConstants.FIRST_INDEX; j<nbPlayers; j++) {
-            defausses_.put(j, GameTarotTrickInfo.defausseTarot(j, _unionPlis));
+            defausses_.put(j,ComparatorBoolean.of(GameTarotTrickInfo.defausseTarot(j, _unionPlis)));
         }
         for (TrickTarot pli_ : _unionPlis) {
             if (!pli_.getVuParToutJoueur()) {
@@ -870,7 +872,7 @@ public final class GameTarotTrickInfo {
             }
             boolean defausseToutJoueurApres_ = true;
             for(byte j: pli_.joueursAyantJoueApres(_numero, rules.getDealing())) {
-                if(defausses_.getVal(j)) {
+                if(defausses_.getVal(j) == BoolVal.TRUE) {
                     continue;
                 }
                 defausseToutJoueurApres_ = false;
@@ -1022,9 +1024,9 @@ public final class GameTarotTrickInfo {
         HandTarot cartesJouees_ = cartesJoueesEnCours(_joueurCourant);
         CustList<TrickTarot> plis_ = new CustList<TrickTarot>();
         ByteMap<HandTarot> atoutsJouesPlis_ = new ByteMap<HandTarot>();
-        ByteMap<Boolean> defausses_ = new ByteMap<Boolean>();
+        ByteMap<BoolVal> defausses_ = new ByteMap<BoolVal>();
         for (byte j = IndexConstants.FIRST_INDEX; j<nbPlayers; j++) {
-            defausses_.put(j, GameTarotTrickInfo.defausseTarot(j, tricks));
+            defausses_.put(j, ComparatorBoolean.of(GameTarotTrickInfo.defausseTarot(j, tricks)));
         }
         byte key_ = 0;
         for (TrickTarot pli_ : tricks) {
@@ -1062,7 +1064,7 @@ public final class GameTarotTrickInfo {
             }
             boolean defausseToutJoueurApres_ = true;
             for(byte j: pli_.joueursAyantJoueApres(_numero, rules.getDealing())) {
-                if(defausses_.getVal(j)) {
+                if(defausses_.getVal(j) == BoolVal.TRUE) {
                     continue;
                 }
                 defausseToutJoueurApres_ = false;
