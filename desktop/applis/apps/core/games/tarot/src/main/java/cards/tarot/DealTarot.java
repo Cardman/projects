@@ -185,82 +185,38 @@ public final class DealTarot implements Iterable<HandTarot> {
 
     private byte max(ChoiceTarot _choix, long _nbCards) {
         if (_choix == ChoiceTarot.HUNT_SMALL) {
-            return hunt(_nbCards);
+            return (byte) sw(_nbCards, NB_THREE_MAX, NB_FOUR, NB_FIVE, NB_SIX, NB_FIVE_MAX);
         }
         if (_choix == ChoiceTarot.SAVE_SMALL) {
-            byte maxAtout_;
-            if (_nbCards == NB_THREE) {
-                maxAtout_ = NB_SAVE_THREE_MAX;
-            } else if (_nbCards == NB_FOUR) {
-                maxAtout_ = NB_SAVE_FOUR_MAX;
-            } else if (_nbCards == NB_FIVE || _nbCards == NB_SIX) {
-                maxAtout_ = NB_SAVE_GREAT_MAX;
-            } else {
-                maxAtout_ = 2;
-            }
-            return maxAtout_;
+            return (byte) sw(_nbCards,NB_SAVE_THREE_MAX,NB_SAVE_FOUR_MAX,NB_SAVE_GREAT_MAX,NB_SAVE_GREAT_MAX,2);
         }
-        byte maxAtout_;
-        if (_nbCards == NB_THREE) {
-            maxAtout_ = NB_THREE_MAX;
-        } else if (_nbCards == NB_FOUR) {
-            maxAtout_ = 17;
-        } else if (_nbCards == NB_FIVE) {
-            maxAtout_ = NB_FIVE_MAX;
-        } else if (_nbCards == NB_SIX) {
-            maxAtout_ = 11;
-        } else {
-            maxAtout_ = NB_FOUR_MIN;
-        }
-        return maxAtout_;
-    }
-
-    private byte hunt(long _nbCards) {
-        byte maxAtout_;
-        if (_nbCards == NB_THREE) {
-            maxAtout_ = NB_THREE_MAX;
-        } else if (_nbCards == NB_FOUR) {
-            maxAtout_ = NB_FOUR;
-        } else if (_nbCards == NB_FIVE) {
-            maxAtout_ = NB_FIVE;
-        } else if (_nbCards == NB_SIX) {
-            maxAtout_ = NB_SIX;
-        } else {
-            maxAtout_ = NB_FIVE_MAX;
-        }
-        return maxAtout_;
+        return (byte) sw(_nbCards,NB_THREE_MAX,17,NB_FIVE_MAX,11,NB_FOUR_MIN);
     }
 
     private byte min(ChoiceTarot _choix, long _nbCards) {
-        byte minAtout_;
         if (_choix == ChoiceTarot.HUNT_SMALL) {
-            if (_nbCards == NB_THREE) {
-                minAtout_ = NB_FIVE;
-            } else if (_nbCards == NB_FOUR) {
-                minAtout_ = NB_FOUR_MIN;
-            } else if (_nbCards == NB_FIVE) {
-                minAtout_ = NB_FIVE_MIN;
-            } else if (_nbCards == NB_SIX) {
-                minAtout_ = 9;
-            } else {
-                minAtout_ = NB_FIVE_MIN;
-            }
-        } else if (_choix == ChoiceTarot.SAVE_SMALL) {
-            minAtout_ = 1;
-        } else {
-            if (_nbCards == NB_THREE) {
-                minAtout_ = NB_FIVE_MAX;
-            } else if (_nbCards == NB_FOUR) {
-                minAtout_ = NB_SIX;
-            } else if (_nbCards == NB_FIVE) {
-                minAtout_ = 9;
-            } else if (_nbCards == NB_SIX) {
-                minAtout_ = 8;
-            } else {
-                minAtout_ = 9;
-            }
+            return (byte) sw(_nbCards,NB_FIVE,NB_FOUR_MIN,NB_FIVE_MIN,9,NB_FIVE_MIN);
         }
-        return minAtout_;
+        if (_choix == ChoiceTarot.SAVE_SMALL) {
+            return (byte) sw(_nbCards,1,1,1,1,1);
+        }
+        return (byte) sw(_nbCards,NB_FIVE_MAX,NB_SIX,9,8,9);
+    }
+
+    private int sw(long _nbCards, int _three, int _four, int _five, int _six, int _other) {
+        int nb_;
+        if (_nbCards == NB_THREE) {
+            nb_ = _three;
+        } else if (_nbCards == NB_FOUR) {
+            nb_ = _four;
+        } else if (_nbCards == NB_FIVE) {
+            nb_ = _five;
+        } else if (_nbCards == NB_SIX) {
+            nb_ = _six;
+        } else {
+            nb_ = _other;
+        }
+        return nb_;
     }
 
     private void dealToPlayrs(RulesTarot _regles, AbstractGenerator _gene, int _nbPlayers, long _nbCards) {

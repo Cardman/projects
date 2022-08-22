@@ -267,38 +267,43 @@ public final class GameTarotCommon {
         EnumMap<Suit,HandTarot> suits_ = new EnumMap<Suit,HandTarot>();
         HandTarot pileBase_ = HandTarot.pileBase();
         for (Suit i : Suit.couleursOrdinaires()) {
-            HandTarot cartes_ = _couleurs.getVal(i);
-            HandTarot couleurTotale_ = pileBase_.couleur(i);
-            HandTarot cartesJoueesOuPossedees_ = new HandTarot();
-            cartesJoueesOuPossedees_.ajouterCartes(_cartesJouees.getVal(i));
-            cartesJoueesOuPossedees_.ajouterCartes(cartes_);
-            cartesJoueesOuPossedees_.trierParForceEnCours(i);
-            HandTarot cartesMaitresses_ = new HandTarot();
-            int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
-            for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
-                if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
-                        couleurTotale_.carte(c))) {
-                    break;
-                }
-                if (!cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
-                    continue;
-                }
-                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
-            }
-            int nbLeadingCards_ = cartesMaitresses_.total();
-            if (nbLeadingCards_ + nbLeadingCards_ + _cartesJouees.getVal(i).total() >= couleurTotale_
-                    .total()) {
-                for (CardTarot carte_ : cartes_) {
-                    if (!cartesMaitresses_.contient(carte_)) {
-                        cartesMaitresses_.ajouter(carte_);
-                    }
-                }
-            }
-            cartesMaitresses_.trierParForceEnCours(i);
+            HandTarot cartesMaitresses_ = cartesMaitresses(_couleurs, _cartesJouees, pileBase_, i);
             suits_.put(i,cartesMaitresses_);
         }
         return suits_;
     }
+
+    private static HandTarot cartesMaitresses(EnumMap<Suit, HandTarot> _couleurs, EnumMap<Suit, HandTarot> _cartesJouees, HandTarot _pileBase, Suit _i) {
+        HandTarot cartes_ = _couleurs.getVal(_i);
+        HandTarot couleurTotale_ = _pileBase.couleur(_i);
+        HandTarot cartesJoueesOuPossedees_ = new HandTarot();
+        cartesJoueesOuPossedees_.ajouterCartes(_cartesJouees.getVal(_i));
+        cartesJoueesOuPossedees_.ajouterCartes(cartes_);
+        cartesJoueesOuPossedees_.trierParForceEnCours(_i);
+        HandTarot cartesMaitresses_ = new HandTarot();
+        int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
+        for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
+            if (!CardTarot.eq(cartesJoueesOuPossedees_.carte(c),
+                    couleurTotale_.carte(c))) {
+                break;
+            }
+            if (cartes_.contient(cartesJoueesOuPossedees_.carte(c))) {
+                cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
+            }
+        }
+        int nbLeadingCards_ = cartesMaitresses_.total();
+        if (nbLeadingCards_ + nbLeadingCards_ + _cartesJouees.getVal(_i).total() >= couleurTotale_
+                .total()) {
+            for (CardTarot carte_ : cartes_) {
+                if (!cartesMaitresses_.contient(carte_)) {
+                    cartesMaitresses_.ajouter(carte_);
+                }
+            }
+        }
+        cartesMaitresses_.trierParForceEnCours(_i);
+        return cartesMaitresses_;
+    }
+
     public static int atoutsAvecExcuse(EnumMap<Suit, HandTarot> _couleurs) {
         return _couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total() + _couleurs.getVal(Suit.TRUMP).total();
     }
