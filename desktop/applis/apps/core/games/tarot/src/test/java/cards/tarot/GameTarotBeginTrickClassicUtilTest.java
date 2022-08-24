@@ -488,6 +488,13 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         assertSame(CardTarot.TRUMP_1,card_);
     }
     @Test
+    public void jeuMainMaitresse4() {
+        HandTarot currentHand_ = new HandTarot();
+        currentHand_.ajouter(CardTarot.EXCUSE);
+        CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(currentHand_, GameTarotCommon.cartesMaitresses(currentHand_.couleurs(),new HandTarot().couleurs()));
+        assertSame(CardTarot.EXCUSE,card_);
+    }
+    @Test
     public void carteCouleurAppeleeSousCarte1Test() {
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.TRUMP_21);

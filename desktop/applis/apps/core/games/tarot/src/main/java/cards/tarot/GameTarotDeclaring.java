@@ -9,10 +9,10 @@ import code.util.EnumMap;
 import code.util.core.IndexConstants;
 
 public final class GameTarotDeclaring {
-    private GameTarotTrickInfo doneTrickInfo;
-    private GameTarotTeamsRelation teamsRelation;
-    private HandTarot curHand;
-    private CustList<EnumList<Handfuls>> declaresHandfuls;
+    private final GameTarotTrickInfo doneTrickInfo;
+    private final GameTarotTeamsRelation teamsRelation;
+    private final HandTarot curHand;
+    private final CustList<EnumList<Handfuls>> declaresHandfuls;
 
     public GameTarotDeclaring(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation, HandTarot _curHand, CustList<EnumList<Handfuls>> _declaresHandfuls) {
         doneTrickInfo = _doneTrickInfo;
@@ -29,34 +29,34 @@ public final class GameTarotDeclaring {
         // peuvent etre annoncees par le joueur si toutes les annonces etaient
         // autorisees
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
-        if (teamsRelation.getTaker() != next_ || !curHand.contientCartes(_calledCards) || GameTarotBid.estUnJeuDeChelemSur(repartition_,doneTrickInfo.cartesJoueesEnCours(next_).couleurs())) {
-            CustList<Handfuls> poigneesOrdonnees_ = teamsRelation.getRules().getPoigneesOrdonnees();
-            EnumList<Handfuls> poigneesAutorisees_ = new EnumList<Handfuls>();
-            for(Handfuls p: poigneesOrdonnees_) {
-                if(!teamsRelation.getRules().poigneeAutorisee(p)) {
-                    continue;
-                }
-                poigneesAutorisees_.add(p);
-            }
-            if(poigneesAutorisees_.isEmpty()) {
-                return va_;
-            }
-            EnumMap<Handfuls,Integer> poigneesNbAtout_ = teamsRelation.getRules().getAllowedHandfuls();
-            if (atouts_.total() < poigneesNbAtout_.getVal(poigneesAutorisees_.first())) {
-                return va_;
-            }
-            int nbHandfuls_ = poigneesOrdonnees_.size();
-            for(int i = IndexConstants.SECOND_INDEX; i<nbHandfuls_; i++) {
-                Handfuls p_ = poigneesOrdonnees_.get(i);
-                if(atouts_.total() < poigneesNbAtout_.getVal(p_)) {
-                    va_.add(poigneesAutorisees_.getPrev(i));
-                    return va_;
-                }
-
-            }
-            va_.add(poigneesAutorisees_.last());
+        if (teamsRelation.getTaker() == next_ && curHand.contientCartes(_calledCards) && !GameTarotBid.estUnJeuDeChelemSur(repartition_, doneTrickInfo.cartesJoueesEnCours(next_).couleurs())) {
             return va_;
         }
+        CustList<Handfuls> poigneesOrdonnees_ = teamsRelation.getRules().getPoigneesOrdonnees();
+        EnumList<Handfuls> poigneesAutorisees_ = new EnumList<Handfuls>();
+        for(Handfuls p: poigneesOrdonnees_) {
+            if(!teamsRelation.getRules().poigneeAutorisee(p)) {
+                continue;
+            }
+            poigneesAutorisees_.add(p);
+        }
+        if(poigneesAutorisees_.isEmpty()) {
+            return va_;
+        }
+        EnumMap<Handfuls,Integer> poigneesNbAtout_ = teamsRelation.getRules().getAllowedHandfuls();
+        if (atouts_.total() < poigneesNbAtout_.getVal(poigneesAutorisees_.first())) {
+            return va_;
+        }
+        int nbHandfuls_ = poigneesOrdonnees_.size();
+        for(int i = IndexConstants.SECOND_INDEX; i<nbHandfuls_; i++) {
+            Handfuls p_ = poigneesOrdonnees_.get(i);
+            if(atouts_.total() < poigneesNbAtout_.getVal(p_)) {
+                va_.add(poigneesAutorisees_.getPrev(i));
+                return va_;
+            }
+
+        }
+        va_.add(poigneesAutorisees_.last());
         return va_;
     }
     EnumList<Handfuls> getAnnoncesPoigneesPossibles() {

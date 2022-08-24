@@ -67,17 +67,13 @@ public final class GameTarotBeginTrickClassic {
         HandTarot atouts_ = repartitionJouable_.getVal(Suit.TRUMP);
         HandTarot cartesJouees_ = _info.getCartesJouees();
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
-        boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         HandTarot atoutsSansPetit_ = GameTarotCommonPlaying.atoutsSansPetit(atouts_);
         if(!atoutsSansPetit_.estVide()) {
             return atoutsSansPetit_.premiereCarte();
         }
-        EnumList<Suit> couleursAjouer_ = Suit.couleursOrdinaires();
-        if(!carteAppeleeJouee_) {
-            couleursAjouer_ = couleursNonAppelees(couleursAjouer_);
-        }
+        EnumList<Suit> couleursAjouer_ = couleursNonAppelees(_info);
 
         EnumList<Suit> couleursNonVidesAjouer_ = GameTarotCommon.couleursNonAtoutNonVides(playableCards, couleursAjouer_);
         EnumList<Suit> couleurs_ = couleursOuvertes(currentHand,
@@ -114,10 +110,8 @@ public final class GameTarotBeginTrickClassic {
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         //jeu atout s'il n'exite aucun partenaire avec un atout
         // ou si le defenseur possede le petit
-        if(GameTarotTrickHypothesis.joueursPossedantAtout(confidentPlayersNotPlay, cartesCertaines_).isEmpty()) {
-            if(!atouts_.estVide()) {
-                return atouts_.derniereCarte();
-            }
+        if (GameTarotTrickHypothesis.joueursPossedantAtout(confidentPlayersNotPlay, cartesCertaines_).isEmpty() && !atouts_.estVide()) {
+            return atouts_.derniereCarte();
         }
         if(atouts_.contient(CardTarot.petit())) {
             return CardTarot.petit();
@@ -165,11 +159,10 @@ public final class GameTarotBeginTrickClassic {
         EnumList<Suit> couleurs_ = couleursNonVidesAjouer_;
         boolean pasAtoutAppeles_ = true;
         for (byte a: teamsRelation.getCalledPlayers()) {
-            if(cartesPossibles_.getVal(Suit.TRUMP).get(a).estVide()) {
-                continue;
+            if (!cartesPossibles_.getVal(Suit.TRUMP).get(a).estVide()) {
+                pasAtoutAppeles_ = false;
+                break;
             }
-            pasAtoutAppeles_ = false;
-            break;
         }
         if (pasAtoutAppeles_) {
             //attention s'il existe une couleur que l'appele ne possede pas
@@ -220,12 +213,7 @@ public final class GameTarotBeginTrickClassic {
         }
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         HandTarot atouts_ = repartition_.getVal(Suit.TRUMP);
-        boolean atoutsTousJoues_ = false;
-        if (!common.premierTour()) {
-            if(atouts_.total() + info_.getRepartitionCartesJouees().getVal(Suit.TRUMP).total() == HandTarot.atoutsSansExcuse().total()) {
-                atoutsTousJoues_ = true;
-            }
-        }
+        boolean atoutsTousJoues_ = !common.premierTour() && atouts_.total() + info_.getRepartitionCartesJouees().getVal(Suit.TRUMP).total() == HandTarot.atoutsSansExcuse().total();
         if(atoutsTousJoues_) {
             CardTarot card_ = playAfterAllTrumps(info_);
             if (card_ != CardTarot.WHITE) {
@@ -254,14 +242,14 @@ public final class GameTarotBeginTrickClassic {
     CardTarot playWithAtMostOneSuitCard(TarotInfoPliEnCours _info) {
         EnumMap<Suit,HandTarot> repartitionJouable_ = playableCards.couleurs();
         HandTarot atouts_ = repartitionJouable_.getVal(Suit.TRUMP);
-        if(currentHand.total() == atouts_ .total() + repartitionJouable_.getVal(CardTarot.excuse().getId().getCouleur()).total()) {
+        if(playableCards.total() == atouts_ .total() + repartitionJouable_.getVal(CardTarot.excuse().getId().getCouleur()).total()) {
             //il n'y a que de l'atout (ev excuse)
             CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
             boolean contientExcuse_ = _info.isContientExcuse();
             boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
             HandTarot cartesJouees_ = _info.getCartesJouees();
             if (!contientExcuse_) {
-                return jeuAtoutOffensif(currentHand, cartesJouees_);
+                return jeuAtoutOffensif(playableCards, cartesJouees_);
             }
             if(atouts_.total() + repartitionJouable_.getVal(CardTarot.excuse().getId().getCouleur()).total() == 2) {
                 if(!playExc(teamsRelation.getNombreDeJoueurs(),_info.getCurrentPlayer(),plisFaits_,carteAppeleeJouee_)) {
@@ -269,47 +257,51 @@ public final class GameTarotBeginTrickClassic {
                 }
                 return CardTarot.excuse();
             }
-            return jeuAtoutOffensif(currentHand, cartesJouees_);
+            return jeuAtoutOffensif(playableCards, cartesJouees_);
         }
         EnumList<Suit> couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand, Suit.couleursOrdinaires());
         if (couleurs_.size() == 1) {
             HandTarot uniqueCouleur_ = repartitionJouable_.getVal(couleurs_.first());
             if (uniqueCouleur_.total() == 1 && !atouts_.estVide()) {
-                return tryPlay(_info, repartitionJouable_, atouts_, couleurs_, uniqueCouleur_);
+                return tryPlay(_info, repartitionJouable_, atouts_, couleurs_, uniqueCouleur_.premiereCarte());
             }
         }
         return CardTarot.WHITE;
     }
 
     private CardTarot tryPlay(TarotInfoPliEnCours _info, EnumMap<Suit, HandTarot> _repartitionJouable,
-                              HandTarot _atouts, EnumList<Suit> _couleurs, HandTarot _uniqueCouleur) {
+                              HandTarot _atouts, EnumList<Suit> _couleurs, CardTarot _cartCouleur) {
         //une seule carte de couleur est presente
         HandTarot cartesJouees_ = _info.getCartesJouees();
-        EnumMap<Suit, HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
         EnumMap<Suit, CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit, CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        HandTarot atoutsMaitres_ = _repartitionJouable.getVal(Suit.TRUMP)
-                .atoutsMaitres(repartitionCartesJouees_);
-        CardTarot carteCouleur_ = _uniqueCouleur.premiereCarte();
         Bytes partenaires_ = GameTarotTrickHypothesis.joueursPouvantCouperCouleurs(currentHand, confidentPlayersNotPlay,
                 cartesPossibles_, _couleurs);
         partenaires_ = GameTarotTrickHypothesis.joueursPossedantAtoutMaitre(partenaires_, cartesCertaines_,
                 cartesJouees_);
         if (!partenaires_.isEmpty()) {
-            return carteCouleur_;
+            return _cartCouleur;
         }
+        return tryPlayWithoutPartner(_info,_repartitionJouable, _atouts, _cartCouleur);
+    }
+
+    private CardTarot tryPlayWithoutPartner(TarotInfoPliEnCours _info, EnumMap<Suit, HandTarot> _repartitionJouable, HandTarot _atouts, CardTarot _cartCouleur) {
+        EnumMap<Suit, HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
+        HandTarot atoutsMaitres_ = _repartitionJouable.getVal(Suit.TRUMP)
+                .atoutsMaitres(repartitionCartesJouees_);
+        EnumMap<Suit, CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumList<Suit> couleursMaitres_ = _info.getCouleursMaitresses();
         if (couleursMaitres_.size() == Suit.couleursOrdinaires().size()) {
             if (_atouts.total() == 1 && _atouts.contient(CardTarot.petit())) {
-                return carteCouleur_;
+                return _cartCouleur;
             }
             int nbAtoutsMaitres_ = atoutsMaitres_.total();
             if (nbAtoutsMaitres_ > 0) {
                 atoutsMaitres_.trierParForceEnCours(Suit.TRUMP);
                 return atoutsMaitres_.premiereCarte();
             }
-            if (!carteCouleur_.isCharacter()) {
-                return carteCouleur_;
+            if (!_cartCouleur.isCharacter()) {
+                return _cartCouleur;
             }
             _atouts.trierParForceEnCours(Suit.TRUMP);
             if (_atouts.contient(CardTarot.petit())) {
@@ -320,26 +312,27 @@ public final class GameTarotBeginTrickClassic {
         int nbAtoutsMaitres_ = atoutsMaitres_.total();
         if (nbAtoutsMaitres_ > 0) {
             if (currentHand.total() == 2 && _atouts.contient(CardTarot.petit())) {
-                return carteCouleur_;
+                return _cartCouleur;
             }
             atoutsMaitres_.trierParForceEnCours(Suit.TRUMP);
             return atoutsMaitres_.premiereCarte();
         }
-        if (GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_, carteCouleur_.getId().getCouleur(), notConfidentPlayersNotPlay).isEmpty()) {
-            return carteCouleur_;
+        if (GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_, _cartCouleur.getId().getCouleur(), notConfidentPlayersNotPlay).isEmpty()) {
+            return _cartCouleur;
         }
         return CardTarot.WHITE;
     }
 
     CardTarot playWithStrongestTrumps(TarotInfoPliEnCours _info) {
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
+        EnumMap<Suit,HandTarot> repartitionJouable_ = playableCards.couleurs();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
         EnumMap<Suit,CustList<HandTarot>> suites_ = _info.getSuitesTouteCouleur();
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumList<Suit> couleursAppelees_ = common.couleursAppelees();
         EnumList<Suit> couleursStrictementMaitresses_ = GameTarotCommonPlaying.strictCouleursMaitres(
                 suites_, repartitionCartesJouees_, cartesPossibles_, _info.getCurrentPlayer());
-        HandTarot atoutsMaitres_ = repartition_.getVal(Suit.TRUMP)
+        HandTarot atoutsMaitres_ = repartitionJouable_.getVal(Suit.TRUMP)
                 .atoutsMaitres(repartitionCartesJouees_);
         EnumList<Suit> couleursNonAppelees_ = couleursNonAppelees(Suit.couleursOrdinaires());
         EnumMap<Suit, HandTarot> cards_ = GameTarotBid.cartesPseudoMaitresses(repartition_, calledCards,
@@ -358,43 +351,44 @@ public final class GameTarotBeginTrickClassic {
         if (common.premierTour()) {
             leadTrNotFirstRd_ = false;
         }
-        if(!couleursAppeleesNonVides_.isEmpty() && couleursPseudosMaitres_.containsAllObj(couleursAppelees_)) {
-            if(leadTr_&&nbAtoutsMaitres_ > 1) {
-                atoutsMaitres_.trierParForceEnCours(Suit.TRUMP);
-                return atoutsMaitres_.premiereCarte();
+        if (couleursAppeleesNonVides_.isEmpty() || !couleursPseudosMaitres_.containsAllObj(couleursAppelees_)) {
+            return CardTarot.WHITE;
+        }
+        if(leadTr_&&nbAtoutsMaitres_ > 1) {
+            atoutsMaitres_.trierParForceEnCours(Suit.TRUMP);
+            return atoutsMaitres_.premiereCarte();
+        }
+        if (leadTrNotFirstRd_) {
+            couleursAppeleesNonVides_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleursAppeleesNonVides_);
+            couleursAppeleesNonVides_ = GameTarotCommon.couleursLesPlusHautes(currentHand, couleursAppeleesNonVides_);
+            if(cards_.getVal(couleursAppeleesNonVides_.first()).total() > 1) {
+                return carteCouleurAppeleeSousCarte(playableCards, couleursAppeleesNonVides_.first(), calledCards);
             }
-            if (leadTrNotFirstRd_) {
-                couleursAppeleesNonVides_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleursAppeleesNonVides_);
-                couleursAppeleesNonVides_ = GameTarotCommon.couleursLesPlusHautes(currentHand, couleursAppeleesNonVides_);
-                if(cards_.getVal(couleursAppeleesNonVides_.first()).total() > 1) {
-                    return carteCouleurAppeleeSousCarte(currentHand, couleursAppeleesNonVides_.first(), calledCards);
-                }
-            }
-            if (leadTr_) {
-                EnumList<Suit> couleursStrictementMaitressesNonAppelees_ = couleursNonAppelees(couleursStrictementMaitresses_);
-                EnumList<Suit> suitsNoCall_ = couleursNonAppelees(couleursMaitres_);
-                suitsNoCall_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand,suitsNoCall_);
-                if(!suitsNoCall_.isEmpty() && couleursStrictementMaitressesNonAppelees_.containsAllObj(couleursNonAppelees_)) {
-                    couleursMaitres_ =GameTarotCommon.couleursLesPlusLongues(currentHand, suitsNoCall_);
-                    HandTarot couleurCandidate_ = repartition_.getVal(couleursMaitres_.first());
-                    couleurCandidate_.trierParForceEnCours(couleursMaitres_.first());
-                    return couleurCandidate_.premiereCarte();
-                }
+        }
+        if (leadTr_) {
+            EnumList<Suit> couleursStrictementMaitressesNonAppelees_ = couleursNonAppelees(couleursStrictementMaitresses_);
+            EnumList<Suit> suitsNoCall_ = couleursNonAppelees(couleursMaitres_);
+            suitsNoCall_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand,suitsNoCall_);
+            if(!suitsNoCall_.isEmpty() && couleursStrictementMaitressesNonAppelees_.containsAllObj(couleursNonAppelees_)) {
+                couleursMaitres_ =GameTarotCommon.couleursLesPlusLongues(currentHand, suitsNoCall_);
+                HandTarot couleurCandidate_ = repartitionJouable_.getVal(couleursMaitres_.first());
+                couleurCandidate_.trierParForceEnCours(couleursMaitres_.first());
+                return couleurCandidate_.premiereCarte();
             }
         }
         return CardTarot.WHITE;
     }
     CardTarot playAfterAllTrumps(TarotInfoPliEnCours _info) {
         HandTarot cartesJouees_ = _info.getCartesJouees();
-        EnumList<Suit> notEmptySuits_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand, Suit.couleursOrdinaires());
+        EnumList<Suit> notEmptySuits_ = GameTarotCommon.couleursNonAtoutNonVides(playableCards, Suit.couleursOrdinaires());
         notEmptySuits_ = GameTarotCommonPlaying.couleursAvecCarteMaitresse(notEmptySuits_, _info.getCartesMaitresses());
         if(!notEmptySuits_.isEmpty()) {
-            return jeuAvecCarteMaitresseSansAtout(currentHand, cartesJouees_, notEmptySuits_);
+            return jeuAvecCarteMaitresseSansAtout(playableCards, cartesJouees_, notEmptySuits_);
         }
         return CardTarot.WHITE;
     }
     CardTarot tryDemandTrumpSuit(TarotInfoPliEnCours _info) {
-        EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
+        EnumMap<Suit,HandTarot> repartition_ = playableCards.couleurs();
         HandTarot atouts_ = repartition_.getVal(Suit.TRUMP);
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         if(!GameTarotTrickHypothesis.joueursPouvantPossederPetit(confidentPlayersNotPlay,
@@ -410,21 +404,17 @@ public final class GameTarotBeginTrickClassic {
         }
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         HandTarot cartesJouees_ = _info.getCartesJouees();
-        if(!GameTarotTrickHypothesis.joueursPossedantAtoutMaitre(confidentPlayersNotPlay,
-                cartesCertaines_, cartesJouees_).isEmpty()) {
-            if(atouts_.contient(CardTarot.petit())) {
-                return CardTarot.petit();
-            }
+        if (!GameTarotTrickHypothesis.joueursPossedantAtoutMaitre(confidentPlayersNotPlay,
+                cartesCertaines_, cartesJouees_).isEmpty() && atouts_.contient(CardTarot.petit())) {
+            return CardTarot.petit();
         }
         HandTarot atoutsJoues_ = cartesJouees_.couleur(Suit.TRUMP);
         byte nombreDeJoueurs_ =teamsRelation.getNombreDeJoueurs();
         Rate moyenneAtout_ = GameTarotCommonPlaying.moyenneAtout(currentHand, atoutsJoues_,
                 cartesPossibles_, nombreDeJoueurs_);
-        if(!GameTarotTrickHypothesis.joueursPossedantNbAtout(confidentPlayersNotPlay,
-                cartesCertaines_, moyenneAtout_).isEmpty()) {
-            if(atouts_.total() > Math.max(moyenneAtout_.ll(), 1)) {
-                return jeuAtoutOffensif(currentHand, cartesJouees_);
-            }
+        if (!GameTarotTrickHypothesis.joueursPossedantNbAtout(confidentPlayersNotPlay,
+                cartesCertaines_, moyenneAtout_).isEmpty() && atouts_.total() > Math.max(moyenneAtout_.ll(), 1)) {
+            return jeuAtoutOffensif(playableCards, cartesJouees_);
         }
         return CardTarot.WHITE;
     }
@@ -436,58 +426,22 @@ public final class GameTarotBeginTrickClassic {
         byte next_ = _info.getProgressingTrick().getNextPlayer(nombreDeJoueurs_);
         boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
         EnumList<Suit> couleursAppelees_ = common.couleursAppelees();
-        EnumList<Suit> couleursAjouer_ = Suit.couleursOrdinaires();
         EnumMap<Suit,HandTarot> repartitionJouable_ = playableCards.couleurs();
-        if(!carteAppeleeJouee_) {
-            couleursAjouer_ = couleursNonAppelees(couleursAjouer_);
-        }
+        EnumList<Suit> couleursAjouer_ = couleursNonAppelees(_info);
         EnumList<Suit> couleursNonVidesAjouer_ = GameTarotCommon.couleursNonAtoutNonVides(cartesJouables_, couleursAjouer_);
-        EnumList<Suit> couleursNonVides_ = couleursNonVidesAjouer_;
-        if (couleursNonVides_.isEmpty()) {
-            couleursNonVides_ = GameTarotCommon.couleursNonAtoutNonVides(cartesJouables_,Suit.couleursOrdinaires());
-        }
+        EnumList<Suit> couleursNonVides_ = couleursNonVides(cartesJouables_, couleursNonVidesAjouer_);
         //Defenseur
         if (!carteAppeleeJouee_ && !common.premierTour()) {
             for(Suit c: couleursAppelees_) {
-                if(!cartesJouables_.couleur(c).estVide()) {
-                    if(GameTarotCommon.couleursAvecCartesBasses(cartesJouables_,Suit.couleursOrdinaires()).containsObj(c)) {
-                        return repartitionJouable_.getVal(c).derniereCarte();
-                    }
+                if (!cartesJouables_.couleur(c).estVide() && GameTarotCommon.couleursAvecCartesBasses(cartesJouables_, Suit.couleursOrdinaires()).containsObj(c)) {
+                    return repartitionJouable_.getVal(c).derniereCarte();
                 }
             }
         }
 
         //ouvreur
         if(defenseOuvreur(next_,carteAppeleeJouee_)) {
-            if(defenseOuvreurStrict(next_)) {
-                EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(cartesJouables_,
-                        plisFaits_, couleursNonVidesAjouer_);
-                couleurs_ = GameTarotCommon.couleursSansFigures(cartesJouables_, couleurs_);
-                if(!couleurs_.isEmpty()) {
-                    couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouables_, couleurs_);
-                    couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
-                    couleurs_ = GameTarotCommon.couleursLesPlusBasses(cartesJouables_, couleurs_);
-                    return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
-                }
-            }
-            EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(cartesJouables_,
-                    plisFaits_, couleursNonVidesAjouer_);
-            couleurs_ = GameTarotCommon.couleursAvecCartesBasses(cartesJouables_, couleurs_);
-            if(!couleurs_.isEmpty()) {
-                couleurs_ = GameTarotCommon.couleursLesPlusHautes(cartesJouables_, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouables_, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
-                return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
-            }
-            couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(cartesJouables_,
-                    plisFaits_, couleursNonVidesAjouer_);
-            if(!couleurs_.isEmpty()) {
-                couleurs_ = GameTarotCommon.couleursLesPlusBasses(cartesJouables_, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouables_, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
-                return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
-            }
-            return playDefaultCardAsDefender(cartesJouables_, cartesJouees_, repartitionJouable_, couleursNonVides_);
+            return playAsDefenderStartNew(_info, next_, couleursNonVidesAjouer_, couleursNonVides_);
             //couleur appelee
         }
         EnumList<Suit> couleurs_ = couleursOuvertes(cartesJouables_,
@@ -512,24 +466,64 @@ public final class GameTarotBeginTrickClassic {
         return playDefaultCardAsDefender(cartesJouables_, cartesJouees_, repartitionJouable_, couleursNonVides_);
     }
 
-    private static CardTarot playDefaultCardAsDefender(HandTarot _cartesJouables, HandTarot _cartesJouees, EnumMap<Suit, HandTarot> _repartition, EnumList<Suit> _couleursNonVidesAjouer) {
+    private CardTarot playAsDefenderStartNew(TarotInfoPliEnCours _info, byte _next, EnumList<Suit> _couleursNonVidesAjouer, EnumList<Suit> _couleursNonVides) {
+        EnumMap<Suit,HandTarot> repartitionJouable_ = playableCards.couleurs();
+        CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
+        HandTarot cartesJouables_ = _info.getCartesJouables();
+        HandTarot cartesJouees_ = _info.getCartesJouees();
+        if(defenseOuvreurStrict(_next)) {
+            EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(cartesJouables_,
+                    plisFaits_, _couleursNonVidesAjouer);
+            couleurs_ = GameTarotCommon.couleursSansFigures(cartesJouables_, couleurs_);
+            if(!couleurs_.isEmpty()) {
+                couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouables_, couleurs_);
+                couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
+                couleurs_ = GameTarotCommon.couleursLesPlusBasses(cartesJouables_, couleurs_);
+                return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
+            }
+        }
+        EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(cartesJouables_,
+                plisFaits_, _couleursNonVidesAjouer);
+        couleurs_ = GameTarotCommon.couleursAvecCartesBasses(cartesJouables_, couleurs_);
+        if(!couleurs_.isEmpty()) {
+            couleurs_ = GameTarotCommon.couleursLesPlusHautes(cartesJouables_, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouables_, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
+            return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
+        }
+        couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(cartesJouables_,
+                plisFaits_, _couleursNonVidesAjouer);
+        if(!couleurs_.isEmpty()) {
+            couleurs_ = GameTarotCommon.couleursLesPlusBasses(cartesJouables_, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouables_, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
+            return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
+        }
+        return playDefaultCardAsDefender(cartesJouables_, cartesJouees_, repartitionJouable_, _couleursNonVides);
+    }
+
+    private EnumList<Suit> couleursNonVides(HandTarot _cartesJouables, EnumList<Suit> _couleursNonVidesAjouer) {
+        EnumList<Suit> couleursNonVides_ = _couleursNonVidesAjouer;
+        if (couleursNonVides_.isEmpty()) {
+            couleursNonVides_ = GameTarotCommon.couleursNonAtoutNonVides(_cartesJouables,Suit.couleursOrdinaires());
+        }
+        return couleursNonVides_;
+    }
+
+    private static CardTarot playDefaultCardAsDefender(HandTarot _cartesJouables, HandTarot _cartesJouees, EnumMap<Suit, HandTarot> _repartitionJouable, EnumList<Suit> _couleursNonVidesAjouer) {
         EnumList<Suit> couleurs_ = GameTarotCommon.couleursLesPlusBasses(_cartesJouables, _couleursNonVidesAjouer);
         couleurs_ = GameTarotCommon.couleursLesPlusCourtes(_cartesJouables, couleurs_);
         couleurs_ = GameTarotCommon.couleursLesPlusCourtes(_cartesJouees, couleurs_);
-        return _repartition.getVal(couleurs_.first()).derniereCarte();
+        return _repartitionJouable.getVal(couleurs_.first()).derniereCarte();
     }
 
     static boolean allSuitOwnLeadingCard(EnumMap<Suit, HandTarot> _repartition, EnumMap<Suit, HandTarot> _cartesMaitresses, EnumList<Suit> _suits) {
         boolean touteCouleurPossedeCarteMaitresse_ = true;
         for (Suit couleur_ : _suits) {
-            if(_repartition.getVal(couleur_).estVide()) {
-                continue;
+            if (!_repartition.getVal(couleur_).estVide() && _cartesMaitresses.getVal(couleur_).estVide()) {
+                touteCouleurPossedeCarteMaitresse_ = false;
+                break;
             }
-            if(!_cartesMaitresses.getVal(couleur_).estVide()) {
-                continue;
-            }
-            touteCouleurPossedeCarteMaitresse_ = false;
-            break;
         }
         return touteCouleurPossedeCarteMaitresse_;
     }
@@ -539,20 +533,15 @@ public final class GameTarotBeginTrickClassic {
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             boolean plusCartesCouleurAutres_ = true;
             for(byte joueur_: _joueursNonJoue) {
-                if(_cartesPossibles.getVal(couleur_).get(joueur_).estVide()) {
-                    continue;
+                if (!_cartesPossibles.getVal(couleur_).get(joueur_).estVide()) {
+                    plusCartesCouleurAutres_ = false;
+                    break;
                 }
-                plusCartesCouleurAutres_ = false;
+            }
+            if (!plusCartesCouleurAutres_ && _repartition.getVal(couleur_).estVide()) {
+                aucuneCoupe_ = false;
                 break;
             }
-            if(plusCartesCouleurAutres_) {
-                continue;
-            }
-            if(!_repartition.getVal(couleur_).estVide()) {
-                continue;
-            }
-            aucuneCoupe_ = false;
-            break;
         }
         return aucuneCoupe_;
     }
@@ -581,116 +570,32 @@ public final class GameTarotBeginTrickClassic {
         byte next_ = _info.getProgressingTrick().getNextPlayer(nombreDeJoueurs_);
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         EnumMap<Suit,HandTarot> repartitionJouable_ = playableCards.couleurs();
-        HandTarot cartesChien_ = common.cartesVuesAuChien();
         HandTarot cartesJouees_ = _info.getCartesJouees();
         HandTarot atoutsJoues_ = cartesJouees_.couleur(Suit.TRUMP);
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
-        boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         EnumMap<Suit,HandTarot> cartesMaitresses_ = _info.getCartesMaitresses();
         boolean touteCouleurPossedeCarteMaitresse_ = allSuitOwnLeadingCard(repartition_, cartesMaitresses_, Suit.couleursOrdinaires());
         byte taker_ = teamsRelation.getTaker();
         boolean takerNoPlay_ = notPlayed.containsObj(taker_);
-        EnumList<Suit> couleursAjouer_ = Suit.couleursOrdinaires();
-        if(!carteAppeleeJouee_) {
-            couleursAjouer_ = couleursNonAppelees(couleursAjouer_);
-        }
+        EnumList<Suit> couleursAjouer_ = couleursNonAppelees(_info);
         EnumList<Suit> couleursNonVidesAjouer_ = GameTarotCommon.couleursNonAtoutNonVides(playableCards_, couleursAjouer_);
-        EnumList<Suit> couleursNonVides_ = couleursNonVidesAjouer_;
-        if (couleursNonVides_.isEmpty()) {
-            couleursNonVides_ = GameTarotCommon.couleursNonAtoutNonVides(playableCards_, Suit.couleursOrdinaires());
+        EnumList<Suit> couleursNonVides_ = couleursNonVides(playableCards_, couleursNonVidesAjouer_);
+        CardTarot calledCardPoss_ = playAsCalledPlayerCalledCard(_info);
+        if (calledCardPoss_ != CardTarot.WHITE) {
+            return calledCardPoss_;
         }
-        if(takerNoPlay_) {
-            boolean jouerUneCouleurAppelee_ = false;
-            HandTarot cartesPossedees_ = new HandTarot();
-            for(CardTarot c: calledCards) {
-                if(playableCards_.contient(c)) {
-                    cartesPossedees_.ajouter(c);
-                }
-            }
-            if(!cartesPossedees_.estVide()) {
-                boolean defausseTousJoueurs_ = true;
-                CustList<HandTarot> atoutsJoueurs_ = cartesPossibles_.getVal(Suit.TRUMP);
-                for(byte joueur_: notConfidentPlayersNotPlay) {
-                    if (!atoutsJoueurs_.get(joueur_).estVide()) {
-                        defausseTousJoueurs_ = false;
-                    }
-                }
-                if(defausseTousJoueurs_) {
-                    jouerUneCouleurAppelee_ = true;
-                }
-                CustList<HandTarot> atoutsJoueursSur_ = cartesCertaines_.getVal(Suit.TRUMP);
-                if (atoutsJoueursSur_.get(taker_).contient(CardTarot.TRUMP_1) && currentHand.contient(CardTarot.TRUMP_21)) {
-                    jouerUneCouleurAppelee_ = true;
-                }
-            }
-            if(jouerUneCouleurAppelee_) {
-                return cartesPossedees_.premiereCarte();
-            }
-        }
-        EnumList<Suit> couleurs_;
         boolean afterTaker_ = GameTarotTeamsRelation.justeApresJoueur(next_, taker_, nombreDeJoueurs_);
         boolean takerLast_ = afterTaker_ && takerNoPlay_;
-        boolean saveLeading_ = jouerAtout(currentHand, atoutsJoues_,
+        boolean saveLeading_ = jouerAtout(playableCards, atoutsJoues_,
                 cartesPossibles_, nombreDeJoueurs_) && touteCouleurPossedeCarteMaitresse_;
         if(takerLast_) {
-            couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(currentHand,
-                    plisFaits_, couleursNonVidesAjouer_);
-            couleurs_ = GameTarotCommon.couleursSansFigures(currentHand, couleurs_);
-            if(!couleurs_.isEmpty()) {
-                couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
-                return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
-            }
-            couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(currentHand,
-                    plisFaits_, couleursNonVidesAjouer_);
-            couleurs_ = couleursSansCarteMaitresse(currentHand, couleurs_, _info.getCartesMaitresses());
-            if(!couleurs_.isEmpty()) {
-                couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
-                return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
-            }
-            couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(currentHand,
-                    plisFaits_, couleursNonVidesAjouer_);
-            if(!couleurs_.isEmpty()) {
-                couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
-                couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
-                return repartitionJouable_.getVal(couleurs_.first()).premiereCarte();
-            }
-            couleurs_ = couleursCoupeePar(currentHand,
-                    taker_, cartesPossibles_,
-                    cartesCertaines_, couleursNonVidesAjouer_);
-            if(!couleurs_.isEmpty()) {
-                if(cartesPossibles_.getVal(Suit.TRUMP).get(taker_).contient(CardTarot.petit())) {
-                    couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
-                    couleurs_ = GameTarotCommon.couleursLesPlusCourtes(currentHand, couleurs_);
-                    couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
-                    return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
-                }
-            }
-            if(saveLeading_) {
-                return jeuAtoutOffensif(currentHand, cartesJouees_);
-            }
-            Bytes partenaires_ = new Bytes();
-            partenaires_.add(taker_);
-            couleurs_ = GameTarotCommonPlaying.couleursLesPlusEntameesParJoueurs(plisFaits_, partenaires_, couleursNonVides_);
-            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
-            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(currentHand, couleurs_);
-            couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
-            return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
+            return playAsCalledPlayerTakerLast(_info, couleursNonVidesAjouer_, couleursNonVides_, saveLeading_);
         }
+        EnumList<Suit> couleurs_;
         Bytes defenseurs_ = joueursAvantAppeleApresPreneur(next_);
-        boolean defausseTousDefenseursIntermediaire_ = true;
-        CustList<HandTarot> atoutsJoueurs_ = cartesPossibles_.getVal(Suit.TRUMP);
-        for(byte joueur_: defenseurs_) {
-            if (!atoutsJoueurs_.get(joueur_).estVide()) {
-                defausseTousDefenseursIntermediaire_ = false;
-            }
-        }
+        boolean defausseTousDefenseursIntermediaire_ = defausseTousJoueursNonConfiance(cartesPossibles_, defenseurs_);
         if(defausseTousDefenseursIntermediaire_
                 && cartesPossibles_.getVal(Suit.TRUMP).get(taker_).contient(CardTarot.petit())
                 && takerNoPlay_) {
@@ -717,7 +622,7 @@ public final class GameTarotBeginTrickClassic {
             return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
         }
         if(saveLeading_) {
-            return jeuAtoutOffensif(currentHand, cartesJouees_);
+            return jeuAtoutOffensif(playableCards, cartesJouees_);
         }
         couleurs_ = couleursOuvertes(currentHand,
                 plisFaits_, couleursNonVidesAjouer_);
@@ -740,17 +645,23 @@ public final class GameTarotBeginTrickClassic {
             couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
             return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
         }
+        return defCalledPlayer(_info, couleursNonVidesAjouer_);
+    }
+
+    private CardTarot defCalledPlayer(TarotInfoPliEnCours _info, EnumList<Suit> _couleursNonVidesAjouer) {
+        HandTarot cartesChien_ = common.cartesVuesAuChien();
+        EnumMap<Suit,HandTarot> repartitionJouable_ = playableCards.couleurs();
+        HandTarot cartesJouees_ = _info.getCartesJouees();
+        CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
+        EnumList<Suit> couleurs_;
         couleurs_ = couleursOuvertes(currentHand,
-                plisFaits_, couleursNonVidesAjouer_);
+                plisFaits_, _couleursNonVidesAjouer);
         if(!couleurs_.isEmpty()) {
-            boolean defausseTousJoueurs_ = true;
-            for(byte joueur_: notConfidentPlayersNotPlay) {
-                if (!atoutsJoueurs_.get(joueur_).estVide()) {
-                    defausseTousJoueurs_ = false;
-                }
-            }
+            boolean defausseTousJoueurs_ = defausseTousJoueursNonConfiance(cartesPossibles_, notConfidentPlayersNotPlay);
             if(defausseTousJoueurs_) {
-                EnumList<Suit> couleursMaitres_ = couleursAvecCartesMaitressesVuesChien(currentHand,cartesJouees_,cartesChien_,couleurs_);
+                EnumList<Suit> couleursMaitres_ = couleursAvecCartesMaitressesVuesChien(currentHand, cartesJouees_, cartesChien_,couleurs_);
                 if (!couleursMaitres_.isEmpty()) {
                     couleurs_ = couleursMaitres_;
                 }
@@ -774,7 +685,7 @@ public final class GameTarotBeginTrickClassic {
             return repartitionJouable_.getVal(couleurs_.first()).premiereCarte();
         }
         couleurs_ = couleursAvecCartesMaitressesVuesChien(currentHand, cartesJouees_,
-                cartesChien_, couleursNonVidesAjouer_);
+                cartesChien_, _couleursNonVidesAjouer);
         if(!couleurs_.isEmpty()) {
             couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleurs_);
             couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
@@ -784,6 +695,93 @@ public final class GameTarotBeginTrickClassic {
         couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand, Suit.couleursOrdinaires());
         couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleurs_);
         couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
+        couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
+        return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
+    }
+
+    private CardTarot playAsCalledPlayerCalledCard(TarotInfoPliEnCours _info) {
+        HandTarot playableCards_ = _info.getCartesJouables();
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
+        byte taker_ = teamsRelation.getTaker();
+        boolean takerNoPlay_ = notPlayed.containsObj(taker_);
+        if (!takerNoPlay_) {
+            return CardTarot.WHITE;
+        }
+        boolean jouerUneCouleurAppelee_ = false;
+        HandTarot cartesPossedees_ = new HandTarot();
+        for(CardTarot c: calledCards) {
+            if(playableCards_.contient(c)) {
+                cartesPossedees_.ajouter(c);
+            }
+        }
+        if(!cartesPossedees_.estVide()) {
+            boolean defausseTousJoueurs_ = defausseTousJoueursNonConfiance(cartesPossibles_, notConfidentPlayersNotPlay);
+            if(defausseTousJoueurs_) {
+                jouerUneCouleurAppelee_ = true;
+            }
+            CustList<HandTarot> atoutsJoueursSur_ = cartesCertaines_.getVal(Suit.TRUMP);
+            if (atoutsJoueursSur_.get(taker_).contient(CardTarot.TRUMP_1) && currentHand.contient(CardTarot.TRUMP_21)) {
+                jouerUneCouleurAppelee_ = true;
+            }
+        }
+        if(jouerUneCouleurAppelee_) {
+            return cartesPossedees_.premiereCarte();
+        }
+        return CardTarot.WHITE;
+    }
+
+    private CardTarot playAsCalledPlayerTakerLast(TarotInfoPliEnCours _info, EnumList<Suit> _couleursNonVidesAjouer, EnumList<Suit> _couleursNonVides, boolean _saveLeading) {
+        byte taker_ = teamsRelation.getTaker();
+        EnumMap<Suit,HandTarot> repartitionJouable_ = playableCards.couleurs();
+        HandTarot cartesJouees_ = _info.getCartesJouees();
+        CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
+        EnumList<Suit> couleurs_;
+        couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(currentHand,
+                plisFaits_, _couleursNonVidesAjouer);
+        couleurs_ = GameTarotCommon.couleursSansFigures(currentHand, couleurs_);
+        if(!couleurs_.isEmpty()) {
+            couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
+            return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
+        }
+        couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(currentHand,
+                plisFaits_, _couleursNonVidesAjouer);
+        couleurs_ = couleursSansCarteMaitresse(currentHand, couleurs_, _info.getCartesMaitresses());
+        if(!couleurs_.isEmpty()) {
+            couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
+            return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
+        }
+        couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(currentHand,
+                plisFaits_, _couleursNonVidesAjouer);
+        if(!couleurs_.isEmpty()) {
+            couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
+            return repartitionJouable_.getVal(couleurs_.first()).premiereCarte();
+        }
+        couleurs_ = couleursCoupeePar(currentHand,
+                taker_, cartesPossibles_,
+                cartesCertaines_, _couleursNonVidesAjouer);
+        if (!couleurs_.isEmpty() && cartesPossibles_.getVal(Suit.TRUMP).get(taker_).contient(CardTarot.petit())) {
+            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(currentHand, couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
+            return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
+        }
+        if(_saveLeading) {
+            return jeuAtoutOffensif(playableCards, cartesJouees_);
+        }
+        Bytes partenaires_ = new Bytes();
+        partenaires_.add(taker_);
+        couleurs_ = GameTarotCommonPlaying.couleursLesPlusEntameesParJoueurs(plisFaits_, partenaires_, _couleursNonVides);
+        couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
+        couleurs_ = GameTarotCommon.couleursLesPlusCourtes(currentHand, couleurs_);
         couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
         return repartitionJouable_.getVal(couleurs_.first()).derniereCarte();
     }
@@ -814,36 +812,17 @@ public final class GameTarotBeginTrickClassic {
         HandTarot playableCards_ = _info.getCartesJouables();
         HandTarot playedCards_ = _info.getCartesJouees();
         HandTarot atoutsJoues_ = playedCards_.couleur(Suit.TRUMP);
-        EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
+        EnumMap<Suit,HandTarot> repartition_ = playableCards.couleurs();
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        EnumList<Suit> couleursAppelees_ = common.couleursAppelees();
-        boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
-        EnumMap<Suit,HandTarot> cartesMaitresses_ = _info.getCartesMaitresses();
-        boolean defausseTousJoueurs_ = true;
-        CustList<HandTarot> atoutsJoueurs_ = cartesPossibles_.getVal(Suit.TRUMP);
-        for(byte joueur_: notConfidentPlayersNotPlay) {
-            if (!atoutsJoueurs_.get(joueur_).estVide()) {
-                defausseTousJoueurs_ = false;
-                break;
-            }
-        }
-        boolean plTr_ = jouerAtout(currentHand, atoutsJoues_,
+        boolean plTr_ = jouerAtout(playableCards, atoutsJoues_,
                 cartesPossibles_, nombreDeJoueurs_);
-        EnumList<Suit> couleursAjouer_ = Suit.couleursOrdinaires();
-        if (!carteAppeleeJouee_) {
-            couleursAjouer_ = couleursNonAppelees(couleursAjouer_);
-            boolean touteCouleurPossedeCarteMaitresse_ = allSuitOwnLeadingCard(repartition_, cartesMaitresses_,couleursAjouer_);
-            for(Suit c: couleursAppelees_) {
-                if(!playableCards_.couleur(c).estVide()) {
-                    //jouer la couleur appelee dans certains cas
-                    if(defausseTousJoueurs_ && touteCouleurPossedeCarteMaitresse_) {
-                        return repartition_.getVal(c).derniereCarte();
-                    }
-                }
-            }
+        CardTarot calledCardToPlay_ = possiblePlayCalledCards(_info);
+        if (calledCardToPlay_ != CardTarot.WHITE) {
+            return calledCardToPlay_;
         }
+        EnumList<Suit> couleursAjouer_ = couleursNonAppelees(_info);
         EnumList<Suit> couleursNonVidesAjouer_ = GameTarotCommon.couleursNonAtoutNonVides(playableCards_, couleursAjouer_);
         EnumList<Suit> couleurs_ = couleursOuvertes(currentHand,
                 plisFaits_, couleursNonVidesAjouer_);
@@ -878,7 +857,7 @@ public final class GameTarotBeginTrickClassic {
             return repartition_.getVal(couleurs_.first()).derniereCarte();
         }
         if(plTr_) {
-            return jeuAtoutOffensif(currentHand, playedCards_);
+            return jeuAtoutOffensif(playableCards, playedCards_);
         }
         couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(currentHand,
                 plisFaits_, couleursNonVidesAjouer_);
@@ -918,6 +897,38 @@ public final class GameTarotBeginTrickClassic {
         }
         return playDefaultCard(repartition_);
     }
+    private CardTarot possiblePlayCalledCards(TarotInfoPliEnCours _info) {
+        HandTarot playableCards_ = _info.getCartesJouables();
+        EnumMap<Suit,HandTarot> repartition_ = playableCards.couleurs();
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumList<Suit> couleursAppelees_ = common.couleursAppelees();
+        boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
+        EnumMap<Suit,HandTarot> cartesMaitresses_ = _info.getCartesMaitresses();
+        boolean defausseTousJoueurs_ = defausseTousJoueursNonConfiance(cartesPossibles_, notConfidentPlayersNotPlay);
+        EnumList<Suit> couleursAjouer_ = couleursNonAppelees(_info);
+        if (!carteAppeleeJouee_) {
+            boolean touteCouleurPossedeCarteMaitresse_ = allSuitOwnLeadingCard(repartition_, cartesMaitresses_,couleursAjouer_);
+            for(Suit c: couleursAppelees_) {
+                if (!playableCards_.couleur(c).estVide() && defausseTousJoueurs_ && touteCouleurPossedeCarteMaitresse_) {
+                    //jouer la couleur appelee dans certains cas
+                    return repartition_.getVal(c).derniereCarte();
+                }
+            }
+        }
+        return CardTarot.WHITE;
+    }
+
+    private boolean defausseTousJoueursNonConfiance(EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _foeTeam) {
+        boolean defausseTousJoueurs_ = true;
+        CustList<HandTarot> atoutsJoueurs_ = _cartesPossibles.getVal(Suit.TRUMP);
+        for(byte joueur_: _foeTeam) {
+            if (!atoutsJoueurs_.get(joueur_).estVide()) {
+                defausseTousJoueurs_ = false;
+                break;
+            }
+        }
+        return defausseTousJoueurs_;
+    }
 
     CardTarot playDefaultCard(EnumMap<Suit, HandTarot> _repartition) {
         EnumList<Suit> couleurs_;
@@ -929,7 +940,7 @@ public final class GameTarotBeginTrickClassic {
             }
             return tr_.derniereCarte();
         }
-        if (currentHand.contient(CardTarot.EXCUSE)) {
+        if (playableCards.contient(CardTarot.EXCUSE)) {
             return CardTarot.EXCUSE;
         }
         couleurs_ = Suit.couleursOrdinaires();
@@ -949,7 +960,7 @@ public final class GameTarotBeginTrickClassic {
         boolean contientExcuse_ = _info.isContientExcuse();
         boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
         if (!contientExcuse_) {
-            return jeuMainMaitresse(currentHand, _info.getCartesMaitresses());
+            return jeuMainMaitresse(playableCards, _info.getCartesMaitresses());
         }
         if (teamsRelation.isVirtualTaker(next_)) {
             //Preneur
@@ -957,20 +968,20 @@ public final class GameTarotBeginTrickClassic {
             if (playExc_) {
                 return CardTarot.excuse();
             }
-            return jeuMainMaitresse(currentHand, _info.getCartesMaitresses());
+            return jeuMainMaitresse(playableCards, _info.getCartesMaitresses());
         }
         if(currentStatus == Role.CALLED_PLAYER) {
             //Appele
             //existeAppele
             if(teamsRelation.aucunPliAdverse(next_,plisFaits_)) {
-                return jeuMainMaitresse(currentHand, _info.getCartesMaitresses());
+                return jeuMainMaitresse(playableCards, _info.getCartesMaitresses());
             }
             return CardTarot.excuse();
         }
         Bytes joueursConfianceNumero_ = new Bytes(confidentPlayers);
         joueursConfianceNumero_.add(next_);
         if(GameTarotTrickInfo.plisTousFaitsPar(joueursConfianceNumero_,plisFaits_,nbPlayers_)) {
-            return jeuMainMaitresse(currentHand, _info.getCartesMaitresses());
+            return jeuMainMaitresse(playableCards, _info.getCartesMaitresses());
         }
         return CardTarot.excuse();
     }
@@ -1031,17 +1042,10 @@ public final class GameTarotBeginTrickClassic {
         for (Suit couleur_ : _couleurs) {
             boolean couleurEntamee_ = false;
             for(TrickTarot pli_: _plisFaits) {
-                if (!pli_.getVuParToutJoueur()) {
-                    continue;
+                if (pli_.getVuParToutJoueur() && pli_.couleurDemandee() == couleur_ && _joueurs.containsObj(pli_.getEntameur())) {
+                    couleurEntamee_ = true;
+                    break;
                 }
-                if (pli_.couleurDemandee() != couleur_) {
-                    continue;
-                }
-                if (!_joueurs.containsObj(pli_.getEntameur())) {
-                    continue;
-                }
-                couleurEntamee_ = true;
-                break;
             }
             if (!couleurEntamee_) {
                 continue;
@@ -1065,7 +1069,10 @@ public final class GameTarotBeginTrickClassic {
             cartesCouleur_.trierParForceEnCours(couleurs_.first());
             return cartesCouleur_.premiereCarte();
         }
-        return CardTarot.petit();
+        if (atouts_.contient(CardTarot.petit())) {
+            return CardTarot.petit();
+        }
+        return CardTarot.excuse();
     }
 
     static EnumList<Suit> couleursSansCarteMaitresse(HandTarot _main,
@@ -1161,6 +1168,13 @@ public final class GameTarotBeginTrickClassic {
         return suitesAtouts_.first().premiereCarte();
     }
 
+    EnumList<Suit> couleursNonAppelees(TarotInfoPliEnCours _info) {
+        boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
+        if (!carteAppeleeJouee_) {
+            return couleursNonAppelees(Suit.couleursOrdinaires());
+        }
+        return Suit.couleursOrdinaires();
+    }
     EnumList<Suit> couleursNonAppelees(EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         EnumList<Suit> couleursAppelees_ = common.couleursAppelees();
@@ -1189,16 +1203,12 @@ public final class GameTarotBeginTrickClassic {
                 continue;
             }
             Suit couleurDemandee_ = pli_.couleurDemandee();
-            if (couleurDemandee_ == Suit.TRUMP) {
-                continue;
+            if (couleurDemandee_ != Suit.TRUMP) {
+                couleursOuvertes_.add(couleurDemandee_);
             }
-            couleursOuvertes_.add(couleurDemandee_);
         }
         for (Suit couleur_ : _couleurs) {
-            if (couleursMains_.getVal(couleur_).estVide()) {
-                continue;
-            }
-            if (!couleursOuvertes_.containsObj(couleur_)) {
+            if (couleursMains_.getVal(couleur_).estVide() || !couleursOuvertes_.containsObj(couleur_)) {
                 continue;
             }
             couleurs_.add(couleur_);
@@ -1225,10 +1235,9 @@ public final class GameTarotBeginTrickClassic {
             unionLogique_.trierParForceEnCours(couleur_);
             HandTarot cartesMaitressesChien_ = GameTarotCommon.cartesMaitresses(couleursMains_,
                     unionLogique_.couleurs()).getVal(couleur_);
-            if (cartesMaitressesChien_.estVide()) {
-                continue;
+            if (!cartesMaitressesChien_.estVide()) {
+                couleurs_.add(couleur_);
             }
-            couleurs_.add(couleur_);
         }
 
         return couleurs_;
@@ -1266,13 +1275,9 @@ public final class GameTarotBeginTrickClassic {
                 continue;
             }
             Suit couleurDemandee_ = pli_.couleurDemandee();
-            if (couleurDemandee_ == Suit.TRUMP) {
-                continue;
+            if (couleurDemandee_ != Suit.TRUMP && _attaquants.containsObj(pli_.getEntameur())) {
+                couleursOuvertes_.add(couleurDemandee_);
             }
-            if (!_attaquants.containsObj(pli_.getEntameur())) {
-                continue;
-            }
-            couleursOuvertes_.add(couleurDemandee_);
         }
         for (Suit couleur_ : _couleurs) {
             if (couleursMains_.getVal(couleur_).estVide()) {
@@ -1292,10 +1297,7 @@ public final class GameTarotBeginTrickClassic {
         EnumMap<Suit,HandTarot> couleursMains_ = _main.couleurs();
         if (!_cartesCertaines.getVal(Suit.TRUMP).get(_joueur).estVide()) {
             for (Suit couleur_ : _couleurs) {
-                if (!_cartesPossibles.getVal(couleur_).get(_joueur).estVide()) {
-                    continue;
-                }
-                if (couleursMains_.getVal(couleur_).estVide()) {
+                if (!_cartesPossibles.getVal(couleur_).get(_joueur).estVide() || couleursMains_.getVal(couleur_).estVide()) {
                     continue;
                 }
                 couleurs_.add(couleur_);
