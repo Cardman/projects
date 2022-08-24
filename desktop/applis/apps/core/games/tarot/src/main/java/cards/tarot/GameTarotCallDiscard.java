@@ -479,6 +479,7 @@ public final class GameTarotCallDiscard {
             }
         }
         if (total_ - rois_ >= _nombreCartesChien) {
+            complete(cartesEcartables_,_nombreCartesChien,_repartition);
             return cartesEcartables_;
         }
             /*
@@ -511,7 +512,17 @@ public final class GameTarotCallDiscard {
                 */
             cartesEcartables_.ajouter(c);
         }
+        complete(cartesEcartables_,_nombreCartesChien,_repartition);
         return cartesEcartables_;
+    }
+    static void complete(HandTarot _cartesEcartables, int _nombreCartesChien, EnumMap<Suit, HandTarot> _repartition) {
+        if (_cartesEcartables.total() < _nombreCartesChien) {
+            for (CardTarot c: HandTarot.reunion(_repartition)) {
+                if (!_cartesEcartables.contient(c)) {
+                    _cartesEcartables.ajouter(c);
+                }
+            }
+        }
     }
     static EnumList<Suit> couleursTotalEcartables(HandTarot _mainPreneur,
                                                   int _tailleChien, HandTarot _ecart, EnumList<Suit> _couleursNonAppelees) {
