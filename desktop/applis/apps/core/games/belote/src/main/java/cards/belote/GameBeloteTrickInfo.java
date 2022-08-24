@@ -3,6 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Hypothesis;
 import cards.consts.Order;
+import cards.consts.SortedPlayers;
 import cards.consts.Suit;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -85,11 +86,7 @@ public final class GameBeloteTrickInfo {
         */
             iterate(joueursRepartitionConnue_, joueursRepartitionConnue2_, joueursRepartitionConnueMemo_, joueursRepartitionInconnue_, cartesPossibles_, toutesCouleurs_, cartesCertaines_);
         }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-            if (!joueursRepartitionConnueMemo_.containsObj(joueur_)) {
-                joueursRepartitionInconnue_.add(joueur_);
-            }
-        }
+        SortedPlayers.nextPlayers(joueursRepartitionConnueMemo_, joueursRepartitionInconnue_, nbPlayers);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             sortSuits(cartesPossibles_, joueur_);
             sortSuits(cartesCertaines_, joueur_);
@@ -104,27 +101,20 @@ public final class GameBeloteTrickInfo {
         for (byte joueur_ : _joueursRepartitionConnue) {
             for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nbPlayers; joueur2_++) {
                 if (!_joueursRepartitionConnueMemo.containsObj(joueur2_)) {
-                    remImpos(_cartesPossibles, _toutesCouleurs, _cartesCertaines, joueur_, joueur2_);
+                    remImposBelote(_cartesPossibles, _toutesCouleurs, _cartesCertaines, joueur_, joueur2_);
                 }
                 addToKnown(_toutesCouleurs, _cartesPossibles,joueur_, _cartesCertaines, _joueursRepartitionConnue2, _joueursRepartitionConnueMemo);
             }
         }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-            if (!_joueursRepartitionConnueMemo.containsObj(joueur_)) {
-                _joueursRepartitionInconnue.add(joueur_);
-            }
-        }
+        SortedPlayers.nextPlayers(_joueursRepartitionConnueMemo, _joueursRepartitionInconnue, nbPlayers);
         for (byte joueur_ : _joueursRepartitionInconnue) {
-            validatePlayer(_cartesPossibles, _toutesCouleurs, _cartesCertaines, joueur_);
+            validatePlayerBelote(_cartesPossibles, _toutesCouleurs, _cartesCertaines, joueur_);
             addToKnown(_toutesCouleurs, _cartesCertaines,joueur_, _cartesPossibles, _joueursRepartitionConnue2, _joueursRepartitionConnueMemo);
         }
-        _joueursRepartitionInconnue.clear();
-        _joueursRepartitionConnue.clear();
-        _joueursRepartitionConnue.addAllElts(_joueursRepartitionConnue2);
-        _joueursRepartitionConnue2.clear();
+        SortedPlayers.shift(_joueursRepartitionConnue, _joueursRepartitionConnue2, _joueursRepartitionInconnue);
     }
 
-    private void validatePlayer(IdMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur) {
+    private void validatePlayerBelote(IdMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur) {
         for (Suit couleur_: _toutesCouleurs) {
             CustList<HandBelote> cardSuit_ = _cartesPossibles.getVal(couleur_);
             for (CardBelote carte_ : cardSuit_.get(
@@ -139,17 +129,25 @@ public final class GameBeloteTrickInfo {
         }
     }
 
-    private void remImpos(IdMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur, byte _joueur2) {
+    private void remImposBelote(IdMap<Suit, CustList<HandBelote>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur, byte _joueur2) {
         for (Suit couleur_: _toutesCouleurs) {
-            _cartesCertaines.getVal(couleur_)
-                    .get(_joueur2).supprimerCartes(
-                    _cartesCertaines.getVal(couleur_).get(
-                            _joueur));
-            _cartesPossibles.getVal(couleur_)
-                    .get(_joueur2).supprimerCartes(
-                    _cartesCertaines.getVal(couleur_).get(
-                            _joueur));
+            remSure(_cartesCertaines, _joueur, _joueur2, couleur_);
+            remPoss(_cartesPossibles, _cartesCertaines, _joueur, _joueur2, couleur_);
         }
+    }
+
+    private void remPoss(IdMap<Suit, CustList<HandBelote>> _cartesPossibles, IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur, byte _joueur2, Suit _couleur) {
+        _cartesPossibles.getVal(_couleur)
+                .get(_joueur2).supprimerCartes(
+                _cartesCertaines.getVal(_couleur).get(
+                        _joueur));
+    }
+
+    private void remSure(IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur, byte _joueur2, Suit _couleur) {
+        _cartesCertaines.getVal(_couleur)
+                .get(_joueur2).supprimerCartes(
+                _cartesCertaines.getVal(_couleur).get(
+                        _joueur));
     }
 
     private int nombreDApparitionCarte(CardBelote _carte, CustList<HandBelote> _cards) {

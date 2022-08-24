@@ -100,6 +100,26 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq(1, sorted_.get(0));
     }
     @Test
+    public void nextPlayers() {
+        Bytes joueursRepartitionInconnue_ = Bytes.newList();
+        SortedPlayers.nextPlayers(Bytes.newList((byte)1), joueursRepartitionInconnue_, (byte) 4);
+        assertEq(3, joueursRepartitionInconnue_.size());
+        assertEq(0, joueursRepartitionInconnue_.get(0));
+        assertEq(2, joueursRepartitionInconnue_.get(1));
+        assertEq(3, joueursRepartitionInconnue_.get(2));
+    }
+    @Test
+    public void shift() {
+        Bytes joueursRepartitionInconnue_ = Bytes.newList((byte)1);
+        Bytes joueursRepartitionConnue_ = Bytes.newList((byte)2);
+        Bytes joueursRepartitionConnue2_ = Bytes.newList((byte)3);
+        SortedPlayers.shift(joueursRepartitionConnue_, joueursRepartitionConnue2_, joueursRepartitionInconnue_);
+        assertEq(0, joueursRepartitionInconnue_.size());
+        assertEq(1, joueursRepartitionConnue_.size());
+        assertEq(3, joueursRepartitionConnue_.get(0));
+        assertEq(0, joueursRepartitionConnue2_.size());
+    }
+    @Test
     public void autresJoueurs() {
         Bytes sorted_ = SortedPlayers.autresJoueurs(Bytes.newList((byte)1,(byte)3), (byte) 5);
         assertEq(3, sorted_.size());

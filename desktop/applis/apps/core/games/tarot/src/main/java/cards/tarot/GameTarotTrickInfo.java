@@ -2,6 +2,7 @@ package cards.tarot;
 
 import cards.consts.CardChar;
 import cards.consts.Hypothesis;
+import cards.consts.SortedPlayers;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.*;
@@ -13,6 +14,7 @@ public final class GameTarotTrickInfo {
 
     private final TrickTarot progressingTrick;
     private final CustList<TrickTarot> tricks;
+    private final CustList<TrickTarot> tricksSeen = new CustList<TrickTarot>();
 
     private final CustList<EnumList<Miseres>> declaresMiseres;
 
@@ -38,6 +40,11 @@ public final class GameTarotTrickInfo {
         bid = _bid;
         calledCards = _calledCards;
         handLengths = _handLengths;
+        for (TrickTarot t: tricks) {
+            if (t.getVuParToutJoueur()) {
+                tricksSeen.add(t);
+            }
+        }
     }
 
     void addSeenDeck(HandTarot _h, GameTarotTeamsRelation _rel) {
@@ -108,56 +115,10 @@ public final class GameTarotTrickInfo {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             HandTarot h_ = new HandTarot();
             possibleExcuse_.add(h_);
-            if(joueur_ == next_) {
-                if (containsExcuse_) {
-                    h_.ajouter(CardTarot.EXCUSE);
-                }
-                continue;
-            }
-            if (!noExc_) {
-                h_.ajouter(CardTarot.EXCUSE);
-            }
-            if (declaresMiseres.get(joueur_).containsObj(Miseres.POINT)
-                    || declaresMiseres.get(joueur_).containsObj(Miseres.TRUMP)) {
-                h_.supprimerCartes();
-            }
+            playerExcuse(next_, containsExcuse_, noExc_, joueur_, h_);
         }
         possibleExcuse_.add(new HandTarot());
-        HandTarot copy_ = new HandTarot();
-        copy_.ajouterCartes(calledCards);
-        copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
-        if (!copy_.estVide()) {
-            CardTarot calledCard_ = copy_.premiereCarte();
-            Suit couleur_ = calledCard_.getId().getCouleur();
-
-            if (tricks.size() == 1) {
-                if (progressingTrick.couleurDemandee() == couleur_) {
-                    CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
-                    if (applyFilter(calledCard_, cardTarot_)) {
-                        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getId().getNombreJoueurs());
-                            if (pl_ != joueur_) {
-                                continue;
-                            }
-                            HandTarot hand_ = possibleExcuse_.get(pl_);
-                            hand_.supprimerCartes();
-                        }
-                    }
-                }
-            } else if (tricks.get(1).couleurDemandee() == couleur_) {
-                CardTarot cardTarot_ = tricks.get(1).premiereCarteNonExc();
-                if (applyFilter(calledCard_, cardTarot_)) {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                        byte pl_ = tricks.get(1).joueurAyantJoue(cardTarot_);
-                        if (pl_ != joueur_) {
-                            continue;
-                        }
-                        HandTarot hand_ = possibleExcuse_.get(pl_);
-                        hand_.supprimerCartes();
-                    }
-                }
-            }
-        }
+        calledCardsTrumps(possibleExcuse_);
         if (bid.getJeuChien() != PlayingDog.WITH) {
             if (!noExc_) {
                 possibleExcuse_.last().ajouter(CardTarot.excuse());
@@ -183,6 +144,27 @@ public final class GameTarotTrickInfo {
                 }
             }
         }
+        handfulExcuse(next_, possibleExcuse_);
+        return possibleExcuse_;
+    }
+
+    private void playerExcuse(byte _next, boolean _containsExcuse, boolean _noExc, byte _joueur, HandTarot _h) {
+        if(_joueur == _next) {
+            if (_containsExcuse) {
+                _h.ajouter(CardTarot.EXCUSE);
+            }
+            return;
+        }
+        if (!_noExc) {
+            _h.ajouter(CardTarot.EXCUSE);
+        }
+        if (declaresMiseres.get(_joueur).containsObj(Miseres.POINT)
+                || declaresMiseres.get(_joueur).containsObj(Miseres.TRUMP)) {
+            _h.supprimerCartes();
+        }
+    }
+
+    private void handfulExcuse(byte _next, CustList<HandTarot> _possibleExcuse) {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             // L'Excuse dans
             // une poignee
@@ -191,7 +173,7 @@ public final class GameTarotTrickInfo {
             // qu'un autre
             // joueur ait
             // celle-ci
-            if (joueur_ == next_) {
+            if (joueur_ == _next) {
                 continue;
             }
             int nbHandfuls_ = handfuls.size();
@@ -201,17 +183,17 @@ public final class GameTarotTrickInfo {
                 }
                 /* The current poignee contains the Excuse*/
                 if (i != joueur_) {
-                    possibleExcuse_.get(joueur_).supprimerCartes();
+                    _possibleExcuse.get(joueur_).supprimerCartes();
                 }
             }
         }
         for (HandTarot poignee_ : handfuls) {
             if (poignee_.contient(CardTarot.EXCUSE)) {
-                possibleExcuse_.last().supprimerCartes();
+                _possibleExcuse.last().supprimerCartes();
             }
         }
-        return possibleExcuse_;
     }
+
     /**
      Retourne l'ensemble des atouts (sans l'Excuse) probablement possedes par
      les autres joueurs
@@ -269,66 +251,10 @@ public final class GameTarotTrickInfo {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             HandTarot h_ = new HandTarot();
             m.add(h_);
-            if(joueur_ == next_) {
-                h_.ajouterCartes(curTr_);
-                continue;
-            }
-            for (CardTarot carte_ : HandTarot.atoutsSansExcuse()) {
-                if (!plTr_.contient(carte_)
-                        && !curTr_.contient(carte_)) {
-                    h_.ajouter(carte_);
-                }
-            }
-            if (GameTarotTrickInfo.defausseTarot(joueur_, tricks)) {
-                // Les joueurs se defaussant
-                // sur atout ou couleur
-                // demandee ne peuvent pas
-                // avoir de l'atout
-                h_.supprimerCartes();
-            }
-            if (declaresMiseres.get(joueur_).containsObj(Miseres.TRUMP)) {
-                h_.supprimerCartes();
-            }
-            if (declaresMiseres.get(joueur_).containsObj(Miseres.POINT)) {
-                h_.supprimerCartes(m.get(joueur_).bouts());
-            }
+            playerTr(next_, plTr_, curTr_, m, joueur_, h_);
         }
         m.add(new HandTarot());
-        HandTarot copy_ = new HandTarot();
-        copy_.ajouterCartes(calledCards);
-        copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
-        if (!copy_.estVide()) {
-            CardTarot calledCard_ = copy_.premiereCarte();
-            Suit couleur_ = calledCard_.getId().getCouleur();
-
-            if (tricks.size() == 1) {
-                if (progressingTrick.couleurDemandee() == couleur_) {
-                    CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
-                    if (applyFilter(calledCard_, cardTarot_)) {
-                        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getId().getNombreJoueurs());
-                            if (pl_ != joueur_) {
-                                continue;
-                            }
-                            HandTarot hand_ = m.get(pl_);
-                            hand_.supprimerCartes();
-                        }
-                    }
-                }
-            } else if (tricks.get(1).couleurDemandee() == couleur_) {
-                CardTarot cardTarot_ = tricks.get(1).premiereCarteNonExc();
-                if (applyFilter(calledCard_, cardTarot_)) {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                        byte pl_ = tricks.get(1).joueurAyantJoue(cardTarot_);
-                        if (pl_ != joueur_) {
-                            continue;
-                        }
-                        HandTarot hand_ = m.get(pl_);
-                        hand_.supprimerCartes();
-                    }
-                }
-            }
-        }
+        calledCardsTrumps(m);
         if (bid.getJeuChien() == PlayingDog.WITH) {
             /*
             Les atouts ecartes sont annonces donc certains de faire partie du
@@ -348,6 +274,29 @@ public final class GameTarotTrickInfo {
                 }
             }
         }
+        tricksTrumps(next_, m);
+        if (bid.getJeuChien() == PlayingDog.WITH) {
+            excludeTrumpByDog(next_, m);
+        }
+        handfulsAll(next_, m);
+        return m;
+    }
+
+    private void handfulsAll(byte _next, CustList<HandTarot> _m) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+            if (joueur_ == _next) {
+                continue;
+            }
+            handfuls(_m, joueur_);
+        }
+        for (HandTarot main_ : handfuls) {
+            for (CardTarot carte_ : main_) {
+                _m.last().removeCardIfPresent(carte_);
+            }
+        }
+    }
+
+    private void tricksTrumps(byte _next, CustList<HandTarot> _m) {
         CustList<TrickTarot> plis_ = new CustList<TrickTarot>(tricks);
         plis_.add(progressingTrick);
         for(TrickTarot pli_:plis_) {
@@ -356,129 +305,170 @@ public final class GameTarotTrickInfo {
             }
             Suit couleurDemande_=pli_.couleurDemandee();
             for(CardTarot c: pli_) {
-                if (c.getId().getCouleur() != Suit.TRUMP) {
-                    continue;
-                }
-                byte joueur_ = pli_.joueurAyantJouePliEnCours(c,nbPlayers);
-                if (joueur_ == next_) {
-                    continue;
-                }
-                Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_, rules.getDealing());
-                byte forceLoc_ = c.strength(couleurDemande_);
-                byte max_ = 0;
-                byte ramasseurVirtuel_ = joueur_;
-                //joueursAvant non vide
-                for(byte j: joueursAvant_) {
-                    CardTarot carte_ = pli_.carteDuJoueur(j,nbPlayers);
-                    byte forceLoc2_ = carte_.strength(couleurDemande_);
-                    if(forceLoc2_ < forceLoc_) {
-                        continue;
-                    }
-                    if(forceLoc2_ < max_) {
-                        continue;
-                    }
-                    max_ = forceLoc2_;
-                    ramasseurVirtuel_ = j;
-                }
-                if(ramasseurVirtuel_ == joueur_) {
-                    continue;
-                }
-                HandTarot cartesExclues_ = new HandTarot();
-                for(CardTarot c2_: m.get(joueur_)) {
-                    if(c2_.strength(couleurDemande_) < max_) {
-                        continue;
-                    }
-                    cartesExclues_.ajouter(c2_);
-                }
-                m.get(joueur_).supprimerCartes(cartesExclues_);
+                trickCard(_next, _m, pli_, couleurDemande_, c);
             }
 
         }
-        if (bid.getJeuChien() == PlayingDog.WITH) {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                if (joueur_ == next_) {
-                    continue;
-                }
-                if (taker != joueur_) {
-                    // Les atouts du chien (si il est vu) ne peuvent possedes
-                    // que par le preneur
-                    for (CardTarot carte_ : lastSeenHand) {
-                        if (!Suit.couleursOrdinaires().containsObj(carte_.getId().getCouleur())) {
-                            m.get(joueur_).removeCardIfPresent(carte_);
-                        }
-                    }
-                }
-                /*
-                Les atouts eventuellement ecartes au chien sont vus par les
-                autres joueurs et ne peuvent pas etre joues dans les plis
-                suivants
-                */
-                for (CardTarot carte_ : tricks.first()) {
-                    if (carte_.getId().getCouleur() == Suit.TRUMP) {
-                        m.get(joueur_).removeCardIfPresent(carte_);
-                    }
-                }
-            }
-        }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-            if (joueur_ == next_) {
-                continue;
-            }
-            int nbHandfuls_ = handfuls.size();
-            for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nbHandfuls_; joueur2_++) {
-                if (joueur2_ != joueur_) {
-                    m.get(joueur_).supprimerCartes(getPoignee(joueur2_));
-                } else if (getPoignee(joueur_).contient(CardTarot.excuse())) {
-                    HandTarot atoutsPoignee_ = new HandTarot();
-                    for (CardTarot c: m.get(joueur_)) {
-                        if (!getPoignee(joueur_)
-                                .contient(c)) {
-                            continue;
-                        }
-                        atoutsPoignee_.ajouter(c);
-                    }
-                    m.set(joueur_, atoutsPoignee_);
-                }
-            }
-            if (!progressingTrick.aJoue(joueur_, nbPlayers)) {
-                continue;
-            }
-            CardTarot carteDuJoueur_ = progressingTrick.carteDuJoueur(
-                    joueur_, nbPlayers);
-            Suit couleurDemandee_ = progressingTrick.couleurDemandee();
-            if (Suit.couleursOrdinaires().containsObj(carteDuJoueur_.getId().getCouleur())
-                    && couleurDemandee_ != carteDuJoueur_.getId().getCouleur()) {
-                /*
-                    Si le
-                    joueur
-                    a
-                    joue
-                    une
-                    carte
-                    autre
-                    que
-                    l'atout
-                    et
-                    l'Excuse
-                    et
-                    que
-                    la
-                    couleur
-                    demandee
-                    alors
-                    il se
-                    defausse
-                    */
-                m.get(joueur_).supprimerCartes();
-            }
-        }
-        for (HandTarot main_ : handfuls) {
-            for (CardTarot carte_ : main_) {
-                m.last().removeCardIfPresent(carte_);
-            }
-        }
-        return m;
     }
+
+    private void excludeTrumpByDog(byte _next, CustList<HandTarot> _m) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+            if (joueur_ == _next) {
+                continue;
+            }
+            excludeTrumpByDogInd(_m, joueur_);
+        }
+    }
+
+    private void excludeTrumpByDogInd(CustList<HandTarot> _m, byte _joueur) {
+        if (taker != _joueur) {
+            // Les atouts du chien (si il est vu) ne peuvent possedes
+            // que par le preneur
+            for (CardTarot carte_ : lastSeenHand) {
+                if (!Suit.couleursOrdinaires().containsObj(carte_.getId().getCouleur())) {
+                    _m.get(_joueur).removeCardIfPresent(carte_);
+                }
+            }
+        }
+            /*
+            Les atouts eventuellement ecartes au chien sont vus par les
+            autres joueurs et ne peuvent pas etre joues dans les plis
+            suivants
+            */
+        for (CardTarot carte_ : tricks.first()) {
+            if (carte_.getId().getCouleur() == Suit.TRUMP) {
+                _m.get(_joueur).removeCardIfPresent(carte_);
+            }
+        }
+    }
+
+    private void handfuls(CustList<HandTarot> _m, byte _joueur) {
+        int nbHandfuls_ = handfuls.size();
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nbHandfuls_; joueur2_++) {
+            if (joueur2_ != _joueur) {
+                _m.get(_joueur).supprimerCartes(getPoignee(joueur2_));
+            } else if (getPoignee(_joueur).contient(CardTarot.excuse())) {
+                HandTarot atoutsPoignee_ = new HandTarot();
+                for (CardTarot c: _m.get(_joueur)) {
+                    if (!getPoignee(_joueur)
+                            .contient(c)) {
+                        continue;
+                    }
+                    atoutsPoignee_.ajouter(c);
+                }
+                _m.set(_joueur, atoutsPoignee_);
+            }
+        }
+        if (!progressingTrick.aJoue(_joueur, nbPlayers)) {
+            return;
+        }
+        CardTarot carteDuJoueur_ = progressingTrick.carteDuJoueur(
+                _joueur, nbPlayers);
+        Suit couleurDemandee_ = progressingTrick.couleurDemandee();
+        if (Suit.couleursOrdinaires().containsObj(carteDuJoueur_.getId().getCouleur())
+                && couleurDemandee_ != carteDuJoueur_.getId().getCouleur()) {
+            /*
+                Si le
+                joueur
+                a
+                joue
+                une
+                carte
+                autre
+                que
+                l'atout
+                et
+                l'Excuse
+                et
+                que
+                la
+                couleur
+                demandee
+                alors
+                il se
+                defausse
+                */
+            _m.get(_joueur).supprimerCartes();
+        }
+    }
+
+    private void trickCard(byte _next, CustList<HandTarot> _m, TrickTarot _pli, Suit _couleurDemande, CardTarot _c) {
+        if (_c.getId().getCouleur() != Suit.TRUMP) {
+            return;
+        }
+        byte joueur_ = _pli.joueurAyantJouePliEnCours(_c,nbPlayers);
+        if (joueur_ == _next) {
+            return;
+        }
+        Bytes joueursAvant_ = _pli.joueursAyantJoueAvant(joueur_, rules.getDealing());
+        byte forceLoc_ = _c.strength(_couleurDemande);
+        byte max_ = 0;
+        byte ramasseurVirtuel_ = joueur_;
+        //joueursAvant non vide
+        for(byte j: joueursAvant_) {
+            CardTarot carte_ = _pli.carteDuJoueur(j,nbPlayers);
+            byte forceLoc2_ = carte_.strength(_couleurDemande);
+            if (forceLoc2_ < forceLoc_ || forceLoc2_ < max_) {
+                continue;
+            }
+            max_ = forceLoc2_;
+            ramasseurVirtuel_ = j;
+        }
+        if(ramasseurVirtuel_ == joueur_) {
+            return;
+        }
+        HandTarot cartesExclues_ = new HandTarot();
+        for(CardTarot c2_: _m.get(joueur_)) {
+            if(c2_.strength(_couleurDemande) < max_) {
+                continue;
+            }
+            cartesExclues_.ajouter(c2_);
+        }
+        _m.get(joueur_).supprimerCartes(cartesExclues_);
+    }
+
+    private void playerTr(byte _next, HandTarot _plTr, HandTarot _curTr, CustList<HandTarot> _m, byte _joueur, HandTarot _h) {
+        if(_joueur == _next) {
+            _h.ajouterCartes(_curTr);
+            return;
+        }
+        for (CardTarot carte_ : HandTarot.atoutsSansExcuse()) {
+            if (!_plTr.contient(carte_)
+                    && !_curTr.contient(carte_)) {
+                _h.ajouter(carte_);
+            }
+        }
+        if (GameTarotTrickInfo.defausseTarot(_joueur, tricks)) {
+            // Les joueurs se defaussant
+            // sur atout ou couleur
+            // demandee ne peuvent pas
+            // avoir de l'atout
+            _h.supprimerCartes();
+        }
+        if (declaresMiseres.get(_joueur).containsObj(Miseres.TRUMP)) {
+            _h.supprimerCartes();
+        }
+        if (declaresMiseres.get(_joueur).containsObj(Miseres.POINT)) {
+            _h.supprimerCartes(_m.get(_joueur).bouts());
+        }
+    }
+
+    private void calledCardsTrumps(CustList<HandTarot> _m) {
+        HandTarot copy_ = calledCardsTrumpsExcuse();
+        if (!copy_.estVide()) {
+            CardTarot calledCard_ = copy_.premiereCarte();
+            Suit couleur_ = calledCard_.getId().getCouleur();
+            calledCards(_m, copy_, calledCard_, couleur_, true);
+        }
+    }
+
+    private HandTarot calledCardsTrumpsExcuse() {
+        HandTarot copy_ = new HandTarot();
+        copy_.ajouterCartes(calledCards);
+        copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
+        return copy_;
+    }
+
     /**
      Retourne l'ensemble des cartes d'une meme couleur autre que l'atout
      probablement possedees par les autres joueurs on tient compte du pli en
@@ -493,10 +483,7 @@ public final class GameTarotTrickInfo {
         CustList<HandTarot> m = cartesPossiblesRegles(_couleur,_curHand);
         for (byte i = 0; i < nbPlayers; i++) {
             HandTarot couleurLoc_ = m.get(i);
-            if (i == next_) {
-                continue;
-            }
-            if (couleurLoc_.estVide()) {
+            if (i == next_ || couleurLoc_.estVide()) {
                 continue;
             }
             Suit noCouleur_ = couleurLoc_.premiereCarte().getId().getCouleur();
@@ -508,10 +495,7 @@ public final class GameTarotTrickInfo {
         if (playedCalledCard_) {
             for (byte i = 0; i < nbPlayers; i++) {
                 HandTarot couleurLoc_ = m.get(i);
-                if (i == next_) {
-                    continue;
-                }
-                if (couleurLoc_.estVide()) {
+                if (i == next_ || couleurLoc_.estVide()) {
                     continue;
                 }
                 Suit noCouleur_ = couleurLoc_.premiereCarte().getId().getCouleur();
@@ -531,169 +515,192 @@ public final class GameTarotTrickInfo {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             HandTarot h_ = new HandTarot();
             m.add(h_);
-            if(joueur_ == next_) {
-                h_.ajouterCartes(_curHand.couleur(_couleur));
-                continue;
-            }
-            for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
-                if (!playedCards_.contient(carte_)
-                        && !_curHand.contient(carte_)) {
-                    h_.ajouter(carte_);
-                }
-            }
-            if (GameTarotTrickInfo.defausseTarot(joueur_, _couleur, tricks)
-                    || GameTarotTrickInfo.coupeTarot(_couleur, joueur_, tricks)) {
-                // Les joueurs
-                // se defaussant
-                // sur atout ou
-                // couleur
-                // demandee ne
-                // peuvent pas
-                // avoir de
-                // l'atout
-                h_.supprimerCartes();
-            }
-            if (declaresMiseres.get(joueur_).containsObj(Miseres.SUIT)) {
-                h_.supprimerCartes();
-            }
-            if (declaresMiseres.get(joueur_).containsObj(Miseres.POINT)
-                    || declaresMiseres.get(joueur_).containsObj(Miseres.CHARACTER)) {
-                h_.supprimerCartes(h_.charCardsBySuit(_couleur));
-            }
-            if (declaresMiseres.get(joueur_).containsObj(Miseres.LOW_CARDS)) {
-                h_.supprimerCartes(
-                        h_.cartesBasses(_couleur));
-            }
+            plNormal(_couleur, _curHand, next_, playedCards_, joueur_, h_);
         }
         m.add(new HandTarot());
-        HandTarot copy_ = new HandTarot();
-        copy_.ajouterCartes(calledCards);
-        copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
-        if (!copy_.estVide()) {
-            CardTarot calledCard_ = copy_.premiereCarte();
-            Suit couleur_ = calledCard_.getId().getCouleur();
-
-            if (tricks.size() == 1) {
-                if (progressingTrick.couleurDemandee() == couleur_) {
-                    CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
-                    if (applyFilter(calledCard_, cardTarot_)) {
-                        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getId().getNombreJoueurs());
-                            if (pl_ != joueur_) {
-                                continue;
-                            }
-                            HandTarot hand_ = m.get(pl_);
-                            if (_couleur != couleur_) {
-                                hand_.supprimerCartes();
-                            } else {
-                                hand_.supprimerCartes(copy_);
-                            }
-                        }
-                    }
-                }
-            } else if (tricks.get(1).couleurDemandee() == couleur_) {
-                CardTarot cardTarot_ = tricks.get(1).premiereCarteNonExc();
-                if (applyFilter(calledCard_, cardTarot_)) {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                        byte pl_ = tricks.get(1).joueurAyantJoue(cardTarot_);
-                        if (pl_ != joueur_) {
-                            continue;
-                        }
-                        HandTarot hand_ = m.get(pl_);
-                        if (_couleur != couleur_) {
-                            hand_.supprimerCartes();
-                        } else {
-                            hand_.supprimerCartes(copy_);
-                        }
-                    }
-                }
-            }
-        }
+        calledCardsNormal(_couleur, m);
         if (bid.getJeuChien() != PlayingDog.WITH) {
-            for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
-                if (!playedCards_.contient(carte_)
-                        && !_curHand.contient(carte_)) {
-                    m.last().ajouter(carte_);
-                }
-            }
+            noDog(_couleur, _curHand, playedCards_, m);
         } else {
-            if (next_ == taker) {
-                /*
-            Le preneur sait ce qu'il a mis au chien
-            pour une Petite ou une Garde
-            */
-                m.last().ajouterCartes(
-                        tricks.first().getCartes().couleur(_couleur));
-            } else {
-                for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
-                    if (carte_.getId().getNomFigure() == CardChar.KING) {
-                        continue;
-                    }
-                    if (!playedCards_.contient(carte_)
-                            && !_curHand.contient(carte_)) {
-                        m.last().ajouter(carte_);
-                    }
-                }
-            }
+            dog(_couleur, _curHand, next_, playedCards_, m);
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
                 if (joueur_ == next_) {
                     continue;
                 }
-                if (taker != joueur_) {
-                    // Les cartes d'une couleur du chien (si il est vu) ne
-                    // peuvent possedes que par le preneur ou etre ecartees
-                    for (CardTarot carte_ : lastSeenHand) {
-                        if (carte_.getId().getCouleur() == _couleur) {
-                            m.get(joueur_).removeCardIfPresent(carte_);
-                        }
-                    }
-                } else if (tricks.first().getCartes().tailleCouleur(Suit.TRUMP) > 0) {
-                    /* Si le preneur a ecarte des
-                    atouts dans le chien alors
-                    les cartes autres que
-                    les atouts incluant
-                    l 'Excuse et les rois
-                    ne peuvent pas etre
-                    possedees par le preneur*/
-                    for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
-                        if (carte_.getId().getNomFigure() == CardChar.KING) {
-                            continue;
-                        }
-                        m.get(taker).removeCardIfPresent(carte_);
-                    }
-                }
+                excludeByDog(_couleur, m, joueur_);
             }
         }
         if (progressingTrick.couleurDemandee() == _couleur) {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                if (joueur_ == next_) {
-                    continue;
-                }
-                if (!progressingTrick.aJoue(joueur_, nbPlayers)) {
-                    continue;
-                }
-                CardTarot carteJouee_ = progressingTrick.carteDuJoueur(
-                        joueur_, nbPlayers);
-                if (carteJouee_.getId().getCouleur() != _couleur
-                        && carteJouee_ != CardTarot.EXCUSE) {
-                    /*
-                        Si un joueur a joue
-                        une carte autre que
-                        l'Excuse et pas de la
-                        couleur demandee dans
-                        le pli en cours,
-                        alors il coupe ou se
-                        defausse
-                        */
-                    m.get(joueur_).supprimerCartes();
-                }
-            }
+            currentTrick(_couleur, next_, m);
         }
         return m;
     }
 
-    private boolean applyFilter(CardTarot _calledCard, CardTarot _cardTarot) {
-        return _calledCard != _cardTarot &&!rules.isAllowPlayCalledSuit();
+    private void excludeByDog(Suit _couleur, CustList<HandTarot> _m, byte _joueur) {
+        if (taker != _joueur) {
+            // Les cartes d'une couleur du chien (si il est vu) ne
+            // peuvent possedes que par le preneur ou etre ecartees
+            for (CardTarot carte_ : lastSeenHand) {
+                if (carte_.getId().getCouleur() == _couleur) {
+                    _m.get(_joueur).removeCardIfPresent(carte_);
+                }
+            }
+        } else if (tricks.first().getCartes().tailleCouleur(Suit.TRUMP) > 0) {
+            /* Si le preneur a ecarte des
+            atouts dans le chien alors
+            les cartes autres que
+            les atouts incluant
+            l 'Excuse et les rois
+            ne peuvent pas etre
+            possedees par le preneur*/
+            for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
+                if (carte_.getId().getNomFigure() == CardChar.KING) {
+                    continue;
+                }
+                _m.get(taker).removeCardIfPresent(carte_);
+            }
+        }
+    }
+
+    private void dog(Suit _couleur, HandTarot _curHand, byte _next, HandTarot _playedCards, CustList<HandTarot> _m) {
+        if (_next == taker) {
+            /*
+        Le preneur sait ce qu'il a mis au chien
+        pour une Petite ou une Garde
+        */
+            _m.last().ajouterCartes(
+                    tricks.first().getCartes().couleur(_couleur));
+        } else {
+            for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
+                if (carte_.getId().getNomFigure() == CardChar.KING) {
+                    continue;
+                }
+                if (notPlayedNotHand(_curHand, _playedCards, carte_)) {
+                    _m.last().ajouter(carte_);
+                }
+            }
+        }
+    }
+
+    private void noDog(Suit _couleur, HandTarot _curHand, HandTarot _playedCards, CustList<HandTarot> _m) {
+        for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
+            if (notPlayedNotHand(_curHand, _playedCards, carte_)) {
+                _m.last().ajouter(carte_);
+            }
+        }
+    }
+
+    private boolean notPlayedNotHand(HandTarot _curHand, HandTarot _playedCards, CardTarot _carte) {
+        return !_playedCards.contient(_carte)
+                && !_curHand.contient(_carte);
+    }
+
+    private void currentTrick(Suit _couleur, byte _next, CustList<HandTarot> _m) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+            if (joueur_ == _next || !progressingTrick.aJoue(joueur_, nbPlayers)) {
+                continue;
+            }
+            CardTarot carteJouee_ = progressingTrick.carteDuJoueur(
+                    joueur_, nbPlayers);
+            if (carteJouee_.getId().getCouleur() != _couleur
+                    && carteJouee_ != CardTarot.EXCUSE) {
+                /*
+                    Si un joueur a joue
+                    une carte autre que
+                    l'Excuse et pas de la
+                    couleur demandee dans
+                    le pli en cours,
+                    alors il coupe ou se
+                    defausse
+                    */
+                _m.get(joueur_).supprimerCartes();
+            }
+        }
+    }
+
+    private void plNormal(Suit _couleur, HandTarot _curHand, byte _next, HandTarot _playedCards, byte _joueur, HandTarot _h) {
+        if(_joueur == _next) {
+            _h.ajouterCartes(_curHand.couleur(_couleur));
+            return;
+        }
+        for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
+            if (!_playedCards.contient(carte_)
+                    && !_curHand.contient(carte_)) {
+                _h.ajouter(carte_);
+            }
+        }
+        if (GameTarotTrickInfo.defausseTarot(_joueur, _couleur, tricks)
+                || GameTarotTrickInfo.coupeTarot(_couleur, _joueur, tricks)) {
+            // Les joueurs
+            // se defaussant
+            // sur atout ou
+            // couleur
+            // demandee ne
+            // peuvent pas
+            // avoir de
+            // l'atout
+            _h.supprimerCartes();
+        }
+        if (declaresMiseres.get(_joueur).containsObj(Miseres.SUIT)) {
+            _h.supprimerCartes();
+        }
+        if (declaresMiseres.get(_joueur).containsObj(Miseres.POINT)
+                || declaresMiseres.get(_joueur).containsObj(Miseres.CHARACTER)) {
+            _h.supprimerCartes(_h.charCardsBySuit(_couleur));
+        }
+        if (declaresMiseres.get(_joueur).containsObj(Miseres.LOW_CARDS)) {
+            _h.supprimerCartes(
+                    _h.cartesBasses(_couleur));
+        }
+    }
+
+    private void calledCardsNormal(Suit _couleur, CustList<HandTarot> _m) {
+        HandTarot copy_ = calledCardsTrumpsExcuse();
+        if (!copy_.estVide()) {
+            CardTarot calledCard_ = copy_.premiereCarte();
+            Suit couleur_ = calledCard_.getId().getCouleur();
+            calledCards(_m, copy_, calledCard_, couleur_, _couleur != couleur_);
+        }
+    }
+
+    private void calledCards(CustList<HandTarot> _m, HandTarot _copy, CardTarot _calledCard, Suit _couleur, boolean _all) {
+        if (tricks.size() == 1) {
+            if (progressingTrick.couleurDemandee() == _couleur) {
+                CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
+                if (notApplyFilter(_calledCard, cardTarot_)) {
+                    return;
+                }
+                for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+                    byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getId().getNombreJoueurs());
+                    supprimerCartes(pl_, joueur_, _m, _copy, _all);
+                }
+            }
+        } else if (tricks.get(1).couleurDemandee() == _couleur) {
+            CardTarot cardTarot_ = tricks.get(1).premiereCarteNonExc();
+            if (notApplyFilter(_calledCard, cardTarot_)) {
+                return;
+            }
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+                byte pl_ = tricks.get(1).joueurAyantJoue(cardTarot_);
+                supprimerCartes(pl_, joueur_, _m, _copy, _all);
+            }
+        }
+    }
+
+    private void supprimerCartes(byte _pl, byte _joueur, CustList<HandTarot> _m, HandTarot _copy, boolean _all) {
+        if (_pl != _joueur) {
+            return;
+        }
+        HandTarot hand_ = _m.get(_pl);
+        if (_all) {
+            hand_.supprimerCartes();
+        } else {
+            hand_.supprimerCartes(_copy);
+        }
+    }
+
+    private boolean notApplyFilter(CardTarot _calledCard, CardTarot _cardTarot) {
+        return _calledCard == _cardTarot || rules.isAllowPlayCalledSuit();
     }
 
     /**
@@ -716,7 +723,6 @@ public final class GameTarotTrickInfo {
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,CustList<HandTarot>>(
                 _cartesPossibles);
         EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> retour_ = new EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>>();
-        int nombreDApparitionCarte_;
         /*
         Indique le nombre de mains pour les
         cartes possibles ou apparait la carte
@@ -751,54 +757,9 @@ public final class GameTarotTrickInfo {
         d'etre possedees par
         les joueurs
         */
-            for (byte joueur_ : joueursRepartitionConnue_) {
-                for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ <= nbPlayers; joueur2_++) {
-                    if (!joueursRepartitionConnueMemo_.containsObj(joueur2_)) {
-                        for (Suit couleur_:toutesCouleurs_) {
-                            cartesPossibles_.getVal(couleur_)
-                                    .get(joueur2_).supprimerCartes(
-                                    cartesCertaines_.getVal(couleur_).get(
-                                            joueur_));
-                        }
-                    }
-                    addToKnown(toutesCouleurs_,cartesPossibles_,joueur_,cartesCertaines_,joueursRepartitionConnue2_,joueursRepartitionConnueMemo_);
-                }
-            }
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ <= nbPlayers; joueur_++) {
-                if (!joueursRepartitionConnueMemo_.containsObj(joueur_)) {
-                    joueursRepartitionInconnue_.add(joueur_);
-                }
-            }
-            for (byte joueur_ : joueursRepartitionInconnue_) {
-                for (Suit couleur_:toutesCouleurs_) {
-                    for (CardTarot carte_ : cartesPossibles_.getVal(couleur_).get(
-                            joueur_)) {
-                        nombreDApparitionCarte_ = 0;
-                        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ <= nbPlayers; joueur2_++) {
-                            if (cartesPossibles_.getVal(couleur_).get(joueur2_)
-                                    .contient(carte_)) {
-                                nombreDApparitionCarte_++;
-                            }
-                        }
-                        if (nombreDApparitionCarte_ == 1) {
-                            cartesCertaines_.getVal(couleur_).get(joueur_).removeCardIfPresent(carte_);
-                            cartesCertaines_.getVal(couleur_).get(joueur_)
-                                    .ajouter(carte_);
-                        }
-                    }
-                }
-                addToKnown(toutesCouleurs_,cartesCertaines_,joueur_,cartesPossibles_,joueursRepartitionConnue2_,joueursRepartitionConnueMemo_);
-            }
-            joueursRepartitionInconnue_.clear();
-            joueursRepartitionConnue_.clear();
-            joueursRepartitionConnue_.addAllElts(joueursRepartitionConnue2_);
-            joueursRepartitionConnue2_.clear();
+            iterate(joueursRepartitionConnue_, joueursRepartitionConnue2_, joueursRepartitionConnueMemo_, joueursRepartitionInconnue_, cartesCertaines_, cartesPossibles_, toutesCouleurs_);
         }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ <= nbPlayers; joueur_++) {
-            if (!joueursRepartitionConnueMemo_.containsObj(joueur_)) {
-                joueursRepartitionInconnue_.add(joueur_);
-            }
-        }
+        nextPlayers(joueursRepartitionConnueMemo_, joueursRepartitionInconnue_, nbPlayers);
         for (byte joueur_ : joueursRepartitionInconnue_) {
             cartesCertaines_.getVal(Suit.TRUMP).get(joueur_).trierParForceEnCours(Suit.TRUMP);
             for (Suit couleur_ : Suit.couleursOrdinaires()) {
@@ -808,6 +769,68 @@ public final class GameTarotTrickInfo {
         retour_.put(Hypothesis.POSSIBLE, cartesPossibles_);
         retour_.put(Hypothesis.SURE, cartesCertaines_);
         return retour_;
+    }
+
+    private void iterate(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnue2, Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs) {
+        for (byte joueur_ : _joueursRepartitionConnue) {
+            for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ <= nbPlayers; joueur2_++) {
+                if (!_joueursRepartitionConnueMemo.containsObj(joueur2_)) {
+                    remImposTarot(_cartesCertaines, _cartesPossibles, _toutesCouleurs, joueur_, joueur2_);
+                }
+                addToKnown(_toutesCouleurs, _cartesPossibles,joueur_, _cartesCertaines, _joueursRepartitionConnue2, _joueursRepartitionConnueMemo);
+            }
+        }
+        nextPlayers(_joueursRepartitionConnueMemo, _joueursRepartitionInconnue, nbPlayers);
+        for (byte joueur_ : _joueursRepartitionInconnue) {
+            validatePlayerTarot(_cartesCertaines, _cartesPossibles, _toutesCouleurs, joueur_);
+            addToKnown(_toutesCouleurs, _cartesCertaines,joueur_, _cartesPossibles, _joueursRepartitionConnue2, _joueursRepartitionConnueMemo);
+        }
+        SortedPlayers.shift(_joueursRepartitionConnue,_joueursRepartitionConnue2,_joueursRepartitionInconnue);
+    }
+
+    static void nextPlayers(Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, byte _nbPlayers) {
+        SortedPlayers.nextPlayers(_joueursRepartitionConnueMemo,_joueursRepartitionInconnue, (byte) (_nbPlayers+1));
+    }
+
+    private void validatePlayerTarot(EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, byte _joueur) {
+        for (Suit couleur_: _toutesCouleurs) {
+            for (CardTarot carte_ : _cartesPossibles.getVal(couleur_).get(
+                    _joueur)) {
+                int nombreDApparitionCarte_ = 0;
+                for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ <= nbPlayers; joueur2_++) {
+                    if (_cartesPossibles.getVal(couleur_).get(joueur2_)
+                            .contient(carte_)) {
+                        nombreDApparitionCarte_++;
+                    }
+                }
+                if (nombreDApparitionCarte_ == 1) {
+                    _cartesCertaines.getVal(couleur_).get(_joueur).removeCardIfPresent(carte_);
+                    _cartesCertaines.getVal(couleur_).get(_joueur)
+                            .ajouter(carte_);
+                }
+            }
+        }
+    }
+
+    private void remImposTarot(EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, byte _joueur, byte _joueur2) {
+        for (Suit couleur_: _toutesCouleurs) {
+            remSure(_cartesCertaines, _joueur, _joueur2, couleur_);
+            remPoss(_cartesCertaines, _cartesPossibles, _joueur, _joueur2, couleur_);
+        }
+    }
+
+    private void remPoss(EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, byte _joueur, byte _joueur2, Suit _couleur) {
+        _cartesPossibles.getVal(_couleur)
+                .get(_joueur2).supprimerCartes(
+                _cartesCertaines.getVal(_couleur).get(
+                        _joueur));
+    }
+
+    private void remSure(EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _joueur, byte _joueur2, Suit _couleur) {
+        _cartesCertaines.getVal(_couleur)
+                .get(_joueur2).supprimerCartes(
+                        _cartesCertaines.getVal(_couleur).get(
+                                _joueur));
     }
 
     void addToKnown(EnumList<Suit> _all,EnumMap<Suit,CustList<HandTarot>> _poss,byte _player,
@@ -845,57 +868,25 @@ public final class GameTarotTrickInfo {
         HandTarot retour_ = new HandTarot();
         retour_.ajouterCartes(_probablyCharacterCard);
         HandTarot playedCards_ = new HandTarot();
-        ByteMap<BoolVal> defausses_ = new ByteMap<BoolVal>();
-        for (byte j = IndexConstants.FIRST_INDEX; j<nbPlayers; j++) {
-            defausses_.put(j,ComparatorBoolean.of(GameTarotTrickInfo.defausseTarot(j, _unionPlis)));
-        }
+        ByteMap<BoolVal> defausses_ = defausses(_unionPlis);
         for (TrickTarot pli_ : _unionPlis) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
-            if (pli_.getEntameur() == _numero) {
+            if (!pli_.getVuParToutJoueur() || pli_.getEntameur() == _numero) {
                 continue;
             }
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if (carteObservee_.getId().getCouleur() != _couleur) {
-                continue;
+            if (carteObservee_.getId().getCouleur() == _couleur && carteObservee_.isCharacter() && confidence.get(_numero).get(pli_.getRamasseur()) != Confidence.YES && pli_.joueursAyantJoueAvant(_numero, rules.getDealing()).containsObj(pli_.getRamasseur()) && defausseToutJoueurApres(_numero, defausses_, pli_)) {
+                //winner of the trick foe for the viewed player
+                // Plis (sur)coupes (couleur demandee) sans joueur pouvant sur/sous/couper
+                // Plis fournis (demande atout) sans joueur pouvant fournir un atout
+                playedCards_.ajouter(carteObservee_);
             }
-            if (!carteObservee_.isCharacter()) {
-                continue;
-            }
-            if (confidence.get(_numero).get(pli_.getRamasseur()) == Confidence.YES) {
-                continue;
-            }
-            //winner of the trick foe for the viewed player
-            if (!pli_.joueursAyantJoueAvant(_numero, rules.getDealing()).containsObj(pli_.getRamasseur())) {
-                continue;
-            }
-            boolean defausseToutJoueurApres_ = true;
-            for(byte j: pli_.joueursAyantJoueApres(_numero, rules.getDealing())) {
-                if(defausses_.getVal(j) == BoolVal.TRUE) {
-                    continue;
-                }
-                defausseToutJoueurApres_ = false;
-                break;
-            }
-            if(!defausseToutJoueurApres_) {
-                continue;
-            }
-            // Plis (sur)coupes (couleur demandee) sans joueur pouvant sur/sous/couper
-            // Plis fournis (demande atout) sans joueur pouvant fournir un atout
-            playedCards_.ajouter(carteObservee_);
         }
-        if (!playedCards_.estVide()) {
-            CardTarot maxCarte_ = playedCards_.premiereCarte();
-            HandTarot cartesImpossibles_ = new HandTarot();
-            for (CardTarot atout_ : HandTarot.couleurComplete(_couleur)) {
-                if (atout_.strength(_couleur) >= maxCarte_.strength(_couleur)) {
-                    continue;
-                }
-                cartesImpossibles_.ajouter(atout_);
-            }
-            retour_.supprimerCartes(cartesImpossibles_);
+        if (playedCards_.estVide()) {
+            return retour_;
         }
+        CardTarot maxCarte_ = playedCards_.premiereCarte();
+        HandTarot cartesImpossibles_ = excLowerCardsSuit(_couleur, maxCarte_, HandTarot.couleurComplete(_couleur));
+        retour_.supprimerCartes(cartesImpossibles_);
         return retour_;
     }
 
@@ -911,15 +902,11 @@ public final class GameTarotTrickInfo {
                 continue;
             }
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if (carteObservee_.getId().getCouleur() != _couleur) {
-                continue;
+            if (carteObservee_.getId().getCouleur() == _couleur && !carteObservee_.isCharacter()) {
+                playedCards_.ajouter(carteObservee_);
+                // Plis sous coupes (couleur demandee) ou avec un atout joue en
+                // dessous du ramasseur (demande atout)
             }
-            if (carteObservee_.isCharacter()) {
-                continue;
-            }
-            playedCards_.ajouter(carteObservee_);
-            // Plis sous coupes (couleur demandee) ou avec un atout joue en
-            // dessous du ramasseur (demande atout)
         }
         HandTarot cartesVues_ = new HandTarot();
         cartesVues_.ajouterCartes(cartesJouees_.couleur(_couleur).cartesBasses(
@@ -928,29 +915,41 @@ public final class GameTarotTrickInfo {
                 _couleur));
         cartesVues_.trierParForceEnCours(_couleur);
         playedCards_.trierParForceEnCours(_couleur);
-        if (!playedCards_.estVide()) {
-            HandTarot mainLocale_ = new HandTarot();
-            CardTarot carteObservee_ = playedCards_.derniereCarte();
-            for (CardTarot carte_ : cartesVues_) {
-                if (carte_.strength(_couleur) < carteObservee_
-                        .strength(_couleur)) {
-                    mainLocale_.ajouter(carte_);
-                }
-            }
-            if (!mainLocale_.estVide()) {
-                CardTarot maxCarte_ = mainLocale_.premiereCarte();
-                HandTarot cartesImpossibles_ = new HandTarot();
-                for (CardTarot atout_ : HandTarot.couleurComplete(_couleur)
-                        .cartesBasses(_couleur)) {
-                    if (atout_.strength(_couleur) >= maxCarte_.strength(_couleur)) {
-                        continue;
-                    }
-                    cartesImpossibles_.ajouter(atout_);
-                }
-                retour_.supprimerCartes(cartesImpossibles_);
-            }
+        if (playedCards_.estVide()) {
+            return retour_;
+        }
+        CardTarot carteObservee_ = playedCards_.derniereCarte();
+        HandTarot mainLocale_ = subCardSeenCards(cartesVues_, _couleur, carteObservee_);
+        if (!mainLocale_.estVide()) {
+            CardTarot maxCarte_ = mainLocale_.premiereCarte();
+            HandTarot cartesImpossibles_ = excLowerCardsSuit(_couleur, maxCarte_, HandTarot.couleurComplete(_couleur)
+                    .cartesBasses(_couleur));
+            retour_.supprimerCartes(cartesImpossibles_);
         }
         return retour_;
+    }
+
+
+    private HandTarot excLowerCardsSuit(Suit _couleur, CardTarot _maxCarte, HandTarot _cards) {
+        HandTarot cartesImpossibles_ = new HandTarot();
+        for (CardTarot atout_ : _cards) {
+            if (atout_.strength(_couleur) >= _maxCarte.strength(_couleur)) {
+                continue;
+            }
+            cartesImpossibles_.ajouter(atout_);
+        }
+        return cartesImpossibles_;
+    }
+
+    private HandTarot subCardSeenCards(HandTarot _cartesVues, Suit _couleur, CardTarot _card) {
+        HandTarot mainLocale_ = new HandTarot();
+        for (CardTarot carte_ : _cartesVues) {
+            if (carte_.strength(_couleur) < _card
+                    .strength(_couleur)) {
+                mainLocale_.ajouter(carte_);
+            }
+        }
+        return mainLocale_;
     }
 
     HandTarot sousCoupeTarot(byte _joueurCourant, HandTarot _curHand, byte _numero,
@@ -959,25 +958,9 @@ public final class GameTarotTrickInfo {
         retour_.ajouterCartes(_atoutsPossibles);
         HandTarot cartesJouees_ = cartesJoueesEnCours(_joueurCourant);
         HandTarot playedCards_ = new HandTarot();
-        for (TrickTarot pli_ : tricks) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot pli_ : tricksSeen) {
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if (carteObservee_.getId().getCouleur() != Suit.TRUMP) {
-                continue;
-            }
-            boolean sousCoupe_ = false;
-            Suit couleurDemandee_ = pli_.couleurDemandee();
-            byte force_ = carteObservee_.strength(couleurDemandee_);
-            for(byte j: pli_.joueursAyantJoueAvant(_numero, rules.getDealing())) {
-                if(pli_.carteDuJoueur(j).strength(couleurDemandee_) < force_) {
-                    continue;
-                }
-                sousCoupe_ = true;
-                break;
-            }
-            if (!sousCoupe_) {
+            if (!sousCoupe(_numero, pli_, carteObservee_)) {
                 continue;
             }
             // Plis sous coupes (couleur demandee) ou avec un atout joue en
@@ -990,22 +973,13 @@ public final class GameTarotTrickInfo {
         cartesVues_.trierParForceEnCours(Suit.TRUMP);
         playedCards_.trierParForceEnCours(Suit.TRUMP);
         if (!playedCards_.estVide()) {
-            HandTarot mainLocale_ = new HandTarot();
             CardTarot carteObservee_ = playedCards_.derniereCarte();
-            for (CardTarot carte_ : cartesVues_) {
-                if (carte_.strength(Suit.TRUMP) < carteObservee_
-                        .strength(Suit.TRUMP)) {
-                    mainLocale_.ajouter(carte_);
-                }
-            }
+            HandTarot mainLocale_ = subCardSeenCards(cartesVues_, Suit.TRUMP, carteObservee_);
             if (!mainLocale_.estVide()) {
                 CardTarot maxCarte_ = mainLocale_.premiereCarte();
                 HandTarot atoutsImpossibles_ = new HandTarot();
                 for (CardTarot atout_ : HandTarot.atoutsSansExcuse()) {
-                    if (CardTarot.eq(atout_, CardTarot.petit())) {
-                        continue;
-                    }
-                    if (atout_.strength(Suit.TRUMP) >= maxCarte_
+                    if (CardTarot.eq(atout_, CardTarot.petit()) || atout_.strength(Suit.TRUMP) >= maxCarte_
                             .strength(Suit.TRUMP)) {
                         continue;
                     }
@@ -1017,6 +991,22 @@ public final class GameTarotTrickInfo {
         return retour_;
     }
 
+    private boolean sousCoupe(byte _numero, TrickTarot _pli, CardTarot _carteObservee) {
+        if (_carteObservee.getId().getCouleur() != Suit.TRUMP) {
+            return false;
+        }
+        boolean sousCoupe_ = false;
+        Suit couleurDemandee_ = _pli.couleurDemandee();
+        byte force_ = _carteObservee.strength(couleurDemandee_);
+        for(byte j: _pli.joueursAyantJoueAvant(_numero, rules.getDealing())) {
+            if (_pli.carteDuJoueur(j).strength(couleurDemandee_) >= force_) {
+                sousCoupe_ = true;
+                break;
+            }
+        }
+        return sousCoupe_;
+    }
+
     HandTarot coupeTarot(byte _joueurCourant, HandTarot _curHand, byte _numero,
                          HandTarot _atoutsPossibles) {
         HandTarot retour_ = new HandTarot();
@@ -1024,53 +1014,11 @@ public final class GameTarotTrickInfo {
         HandTarot cartesJouees_ = cartesJoueesEnCours(_joueurCourant);
         CustList<TrickTarot> plis_ = new CustList<TrickTarot>();
         ByteMap<HandTarot> atoutsJouesPlis_ = new ByteMap<HandTarot>();
-        ByteMap<BoolVal> defausses_ = new ByteMap<BoolVal>();
-        for (byte j = IndexConstants.FIRST_INDEX; j<nbPlayers; j++) {
-            defausses_.put(j, ComparatorBoolean.of(GameTarotTrickInfo.defausseTarot(j, tricks)));
-        }
+        ByteMap<BoolVal> defausses_ = defausses(tricks);
         byte key_ = 0;
-        for (TrickTarot pli_ : tricks) {
-            if (!pli_.getVuParToutJoueur()) {
-                key_++;
-                continue;
-            }
-            if (pli_.getEntameur() == _numero) {
-                key_++;
-                continue;
-            }
-            CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if (carteObservee_.getId().getCouleur() != Suit.TRUMP) {
-                key_++;
-                continue;
-            }
-            Suit couleurDemandee_ = pli_.couleurDemandee();
-            boolean coupe_ = true;
-            byte force_ = carteObservee_.strength(couleurDemandee_);
+        for (TrickTarot pli_ : tricksSeen) {
             HandTarot atoutsJouesAvant_ = new HandTarot();
-            for(byte j: pli_.joueursAyantJoueAvant(_numero, rules.getDealing())) {
-                CardTarot carteJouee_ = pli_.carteDuJoueur(j);
-                if(carteJouee_.strength(couleurDemandee_) < force_) {
-                    if(carteJouee_.getId().getCouleur() == Suit.TRUMP) {
-                        atoutsJouesAvant_.ajouter(carteJouee_);
-                    }
-                    continue;
-                }
-                coupe_ = false;
-                break;
-            }
-            if(!coupe_) {
-                key_++;
-                continue;
-            }
-            boolean defausseToutJoueurApres_ = true;
-            for(byte j: pli_.joueursAyantJoueApres(_numero, rules.getDealing())) {
-                if(defausses_.getVal(j) == BoolVal.TRUE) {
-                    continue;
-                }
-                defausseToutJoueurApres_ = false;
-                break;
-            }
-            if(!defausseToutJoueurApres_) {
+            if (!coupe(_numero, pli_, atoutsJouesAvant_) || !defausseToutJoueurApres(_numero, defausses_, pli_)) {
                 key_++;
                 continue;
             }
@@ -1086,72 +1034,103 @@ public final class GameTarotTrickInfo {
         cartesVues_.trierParForceEnCours(Suit.TRUMP);
         key_ = 0;
         for (EntryCust<Byte,HandTarot> e: atoutsJouesPlis_.entryList()) {
-            TrickTarot pli_ = plis_.get(key_);
-            HandTarot atoutsJouesPli_ = e.getValue();
-            CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            HandTarot mainLocale_ = new HandTarot();
-            for (CardTarot carte_ : cartesVues_) {
-                if (carte_.strength(Suit.TRUMP) < carteObservee_
-                        .strength(Suit.TRUMP)) {
-                    mainLocale_.ajouter(carte_);
-                }
-            }
-            //mainLocale: cartesVues inferieures a la carte observee
-            if (mainLocale_.estVide()) {
-                //le joueur courant ne possede pas de carte en dessous de la carte observee
-                //aucune carte en dessous de la carte observee n'a ete jouee
-                //tout reste possible
-                key_++;
-                continue;
-            }
-            CardTarot maxCarte_ = mainLocale_.premiereCarte();
-            HandTarot atoutsImpossibles_ = new HandTarot();
-            if(atoutsJouesPli_.estVide()) {
-                for (CardTarot atout_ : HandTarot.atoutsSansExcuse()) {
-                    if (atout_.strength(Suit.TRUMP) >= maxCarte_
-                            .strength(Suit.TRUMP)) {
-                        continue;
-                    }
-                    atoutsImpossibles_.ajouter(atout_);
-                }
-            } else {
-                atoutsJouesPli_.trierParForceEnCours(pli_.couleurDemandee());
-                CardTarot maxAtoutJouePli_ = atoutsJouesPli_.premiereCarte();
-                for (CardTarot atout_ : HandTarot.atoutsSansExcuse()) {
-                    if (atout_.strength(Suit.TRUMP) >= maxCarte_
-                            .strength(Suit.TRUMP)) {
-                        continue;
-                    }
-                    if (atout_.strength(Suit.TRUMP) <= maxAtoutJouePli_
-                            .strength(Suit.TRUMP)) {
-                        continue;
-                    }
-                    atoutsImpossibles_.ajouter(atout_);
-                }
-            }
-            retour_.supprimerCartes(atoutsImpossibles_);
+            excludeLowerTrumpsOverMaxCard(_numero, retour_, cartesVues_, e.getValue(), plis_.get(key_));
             key_++;
         }
         return retour_;
     }
+
+    private ByteMap<BoolVal> defausses(CustList<TrickTarot> _tricks) {
+        ByteMap<BoolVal> defausses_ = new ByteMap<BoolVal>();
+        for (byte j = IndexConstants.FIRST_INDEX; j<nbPlayers; j++) {
+            defausses_.put(j, ComparatorBoolean.of(GameTarotTrickInfo.defausseTarot(j, _tricks)));
+        }
+        return defausses_;
+    }
+
+    private boolean coupe(byte _numero, TrickTarot _pli, HandTarot _atoutsJouesAvant) {
+        if (_pli.getEntameur() == _numero) {
+            return false;
+        }
+        CardTarot carteObservee_ = _pli.carteDuJoueur(_numero);
+        if (carteObservee_.getId().getCouleur() != Suit.TRUMP) {
+            return false;
+        }
+        boolean coupe_ = true;
+        Suit couleurDemandee_ = _pli.couleurDemandee();
+        byte force_ = carteObservee_.strength(couleurDemandee_);
+        for(byte j: _pli.joueursAyantJoueAvant(_numero, rules.getDealing())) {
+            CardTarot carteJouee_ = _pli.carteDuJoueur(j);
+            if (carteJouee_.strength(couleurDemandee_) >= force_) {
+                coupe_ = false;
+                break;
+            }
+            if (carteJouee_.getId().getCouleur() == Suit.TRUMP) {
+                _atoutsJouesAvant.ajouter(carteJouee_);
+            }
+        }
+        return coupe_;
+    }
+
+    private boolean defausseToutJoueurApres(byte _numero, ByteMap<BoolVal> _defausses, TrickTarot _pli) {
+        boolean defausseToutJoueurApres_ = true;
+        for(byte j: _pli.joueursAyantJoueApres(_numero, rules.getDealing())) {
+            if (_defausses.getVal(j) != BoolVal.TRUE) {
+                defausseToutJoueurApres_ = false;
+                break;
+            }
+        }
+        return defausseToutJoueurApres_;
+    }
+
+    private void excludeLowerTrumpsOverMaxCard(byte _numero, HandTarot _retour, HandTarot _cartesVues, HandTarot _atoutsJouesAvant, TrickTarot _pli) {
+        HandTarot mainLocale_ = subCardSeenCards(_numero, _cartesVues, _pli);
+        //mainLocale: cartesVues inferieures a la carte observee
+        //le joueur courant ne possede pas de carte en dessous de la carte observee
+        //aucune carte en dessous de la carte observee n'a ete jouee
+        //tout reste possible
+        if (mainLocale_.estVide()) {
+            return;
+        }
+        CardTarot maxCarte_ = mainLocale_.premiereCarte();
+        HandTarot atoutsImpossibles_ = new HandTarot();
+        if(_atoutsJouesAvant.estVide()) {
+            for (CardTarot atout_ : HandTarot.atoutsSansExcuse()) {
+                if (atout_.strength(Suit.TRUMP) >= maxCarte_
+                        .strength(Suit.TRUMP)) {
+                    continue;
+                }
+                atoutsImpossibles_.ajouter(atout_);
+            }
+        } else {
+            _atoutsJouesAvant.trierParForceEnCours(_pli.couleurDemandee());
+            CardTarot maxAtoutJouePli_ = _atoutsJouesAvant.premiereCarte();
+            for (CardTarot atout_ : HandTarot.atoutsSansExcuse()) {
+                if (atout_.strength(Suit.TRUMP) >= maxCarte_
+                        .strength(Suit.TRUMP) || atout_.strength(Suit.TRUMP) <= maxAtoutJouePli_
+                        .strength(Suit.TRUMP)) {
+                    continue;
+                }
+                atoutsImpossibles_.ajouter(atout_);
+            }
+        }
+        _retour.supprimerCartes(atoutsImpossibles_);
+    }
+
+    private HandTarot subCardSeenCards(byte _numero, HandTarot _cartesVues, TrickTarot _pli) {
+        CardTarot carteObservee_ = _pli.carteDuJoueur(_numero);
+        return subCardSeenCards(_cartesVues, Suit.TRUMP, carteObservee_);
+    }
+
     boolean petitJoueDemandeAtoutRamasseurAdv(byte _numero) {
         boolean playedSmall_ = false;
-        for (TrickTarot pli_ : tricks) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
+        for (TrickTarot pli_ : tricksSeen) {
+            if (pli_.couleurDemandee() == Suit.TRUMP && pli_.carteDuJoueur(_numero) == CardTarot.petit()) {//jeu du Petit sur demande d'atout
+                if (confidence.get(_numero).get(pli_.getRamasseur()) == Confidence.NO) {
+                    playedSmall_ = true;
+                }
+                break;
             }
-            if(pli_.couleurDemandee() != Suit.TRUMP) {
-                continue;
-            }
-            CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
-            if(carteObservee_ != CardTarot.petit()) {
-                continue;
-            }
-            //jeu du Petit sur demande d'atout
-            if(confidence.get(_numero).get(pli_.getRamasseur()) == Confidence.NO) {
-                playedSmall_ = true;
-            }
-            break;
         }
         return playedSmall_;
     }
@@ -1168,10 +1147,7 @@ public final class GameTarotTrickInfo {
                 m.ajouterCartes(t.getCartes());
             }
         } else {
-            for (TrickTarot t: tricks) {
-                if (!t.getVuParToutJoueur()) {
-                    continue;
-                }
+            for (TrickTarot t: tricksSeen) {
                 m.ajouterCartes(t.getCartes());
             }
         }
@@ -1192,12 +1168,9 @@ public final class GameTarotTrickInfo {
      */
     static boolean defausseTarot(byte _numero, Suit _couleurDonnee,
                                          CustList<TrickTarot> _unionPlis) {
-        boolean coupe_ = false;
+        boolean coupe_ = coupeTarot(Suit.TRUMP, _numero, _unionPlis);
         // coupe retourne vrai si on sait que le joueur ne
         // peut que jouer de l'atout sur des couleurs
-        if (coupeTarot(Suit.TRUMP, _numero, _unionPlis)) {
-            coupe_ = true;
-        }
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             if (coupeTarot(couleur_, _numero, _unionPlis)) {
                 coupe_ = true;
@@ -1217,17 +1190,12 @@ public final class GameTarotTrickInfo {
                 continue;
             }
             Suit couleurDemandee_ = pli_.couleurDemandee();
-            if (_couleurDonnee != couleurDemandee_) {
-                continue;
+            if (_couleurDonnee == couleurDemandee_) {
+                Suit couleurCarte_ = pli_.carteDuJoueur(_numero).getId().getCouleur();
+                if (couleurCarte_ != couleurDemandee_ && couleurCarte_ != Suit.TRUMP) {
+                    return true;
+                }
             }
-            Suit couleurCarte_ = pli_.carteDuJoueur(_numero).getId().getCouleur();
-            if (couleurCarte_ == couleurDemandee_) {
-                continue;
-            }
-            if (couleurCarte_ == Suit.TRUMP) {
-                continue;
-            }
-            return true;
         }
         return false;
     }
@@ -1250,17 +1218,11 @@ public final class GameTarotTrickInfo {
             int lastIndex_ = _unionPlis.size() - 1;
             for (int b = lastIndex_; b >= IndexConstants.FIRST_INDEX; b--) {
                 TrickTarot pli_ = _unionPlis.get(b);
-                if (!pli_.getVuParToutJoueur()) {
-                    continue;
-                }
-                if (pli_.couleurDemandee() != _couleur) {
+                if (!pli_.getVuParToutJoueur() || pli_.couleurDemandee() != _couleur || pli_.carteDuJoueur(_numero).getId().getCouleur() != Suit.TRUMP) {
                     continue;
                 }
                 // On ne cherche que les plis dont la couleur demande
                 // est couleur
-                if (pli_.carteDuJoueur(_numero).getId().getCouleur() != Suit.TRUMP) {
-                    continue;
-                }
                 return true;
             }
             return false;
@@ -1277,10 +1239,7 @@ public final class GameTarotTrickInfo {
 
             Suit couleurDemandee_ = pli_.couleurDemandee();
             Suit couleurJoueur_ = pli_.carteDuJoueur(_numero).getId().getCouleur();
-            if (!Suit.couleursOrdinaires().containsObj(couleurJoueur_)) {
-                continue;
-            }
-            if (couleurDemandee_ == _couleur) {
+            if (Suit.couleursOrdinaires().containsObj(couleurJoueur_) && (couleurDemandee_ == _couleur || couleurJoueur_ != couleurDemandee_)) {
                 /*
                 Si la couleur demandee
                 est atout alors il suffit
@@ -1294,12 +1253,9 @@ public final class GameTarotTrickInfo {
                 couleur que celle
                 demandee
                 */
-                return true;
-            }
-            //couleurDemandee est une couleur ordinaire
-            //couleurJoueur est une couleur ordinaire
-            //donc le joueur se defausse
-            if (couleurJoueur_ != couleurDemandee_) {
+                //couleurDemandee est une couleur ordinaire
+                //couleurJoueur est une couleur ordinaire
+                //donc le joueur se defausse
                 return true;
             }
         }

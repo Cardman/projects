@@ -9,6 +9,22 @@ public final class SortedPlayers {
     public SortedPlayers(int _nb) {
         this.nombreJoueurs = _nb;
     }
+
+    public static void nextPlayers(Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, byte _nbPlayers) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+            if (!_joueursRepartitionConnueMemo.containsObj(joueur_)) {
+                _joueursRepartitionInconnue.add(joueur_);
+            }
+        }
+    }
+
+    public static void shift(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnue2, Bytes _joueursRepartitionInconnue) {
+        _joueursRepartitionInconnue.clear();
+        _joueursRepartitionConnue.clear();
+        _joueursRepartitionConnue.addAllElts(_joueursRepartitionConnue2);
+        _joueursRepartitionConnue2.clear();
+    }
+
     public int getNombreJoueurs() {
         return nombreJoueurs;
     }
