@@ -22,14 +22,12 @@ public final class GameBeloteTrickHypothesis {
         Bytes joueursNonJoue_=_info.getJoueursNonJoue();
         byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
         byte next_ = _info.getNextPlayer();
-        Bytes partenaire_ = _info.getJoueursConfiance();
-        Bytes adversaires_=_info.getJoueursNonConfiance();
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
         Suit couleurAtout_=_info.getCouleurAtout();
         byte nbPlayers_ = _info.getNbPlayers();
         CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
-        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
-        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
+        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         /*Le contrat n est ni sans-atout ni tout atout.*/
         BidBeloteSuit bid_ = _info.getContrat();
         byte strength_ = carteForte_.strength(couleurDemandee_, bid_);
@@ -42,7 +40,7 @@ public final class GameBeloteTrickHypothesis {
                     GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).premiereCarte().strength(couleurDemandee_, bid_)
                             < strength_) {
                 /*Le joueur numero ne peut pas prendre la main*/
-                if(partenaire_.containsObj(ramasseurVirtuel_)) {
+                if(_info.getJoueursConfiance().containsObj(ramasseurVirtuel_)) {
                     return getPossibleOverTrump(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,PossibleTrickWinner.FOE_TEAM);
                 }
                 return getPossibleOverTrump(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,PossibleTrickWinner.TEAM);
@@ -93,10 +91,8 @@ public final class GameBeloteTrickHypothesis {
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
         Bytes joueursNonJoue_=_info.getJoueursNonJoue();
         byte next_ = _info.getNextPlayer();
-        Bytes partenaire_ = _info.getJoueursConfiance();
-        Bytes adversaires_=_info.getJoueursNonConfiance();
-        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
-        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
+        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
         Suit couleurAtout_=_info.getCouleurAtout();
         Bytes other_ = new Bytes(joueursNonJoue_);
@@ -164,18 +160,16 @@ public final class GameBeloteTrickHypothesis {
         byte nbPlayers_ = _info.getNbPlayers();
         CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
         byte next_ = _info.getNextPlayer();
-        Bytes partenaire_ = _info.getJoueursConfiance();
-        Bytes adversaires_=_info.getJoueursNonConfiance();
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
-        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
-        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
+        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         BidBeloteSuit bid_ = _info.getContrat();
         byte strength_ = carteForte_.strength(couleurDemandee_, bid_);
         HandBelote sure_ = GameBeloteCommon.hand(cartesCertaines_, couleurDemandee_, next_);
         if(sure_.estVide()
                 || sure_.premiereCarte().strength(couleurDemandee_, bid_)< strength_) {
             /*Si le joueur numero ne peut pas prendre la main sur demande d'atout*/
-            if(partenaire_.containsObj(ramasseurVirtuel_)) {
+            if(_info.getJoueursConfiance().containsObj(ramasseurVirtuel_)) {
                 return getPossibleTrickWinnerTrumpDemand(_info,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_);
             }
             /*ramasseurVirtuel n'est pas un joueur de confiance pour le joueur numero*/
@@ -229,17 +223,11 @@ public final class GameBeloteTrickHypothesis {
     static PossibleTrickWinner getPossibleTrickWinnerNoCurrentTrump(BeloteInfoPliEnCours _info, CardBelote _card) {
         byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
         Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        Bytes joueursNonConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
-        Bytes joueursConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
         byte player_ = _info.getNextPlayer();
-        Bytes joueursConfiance_ = _info.getJoueursConfiance();
-        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        joueursNonConfianceNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
-        joueursConfianceNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
+        Bytes joueursNonConfianceNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Bytes joueursConfianceNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         joueursConfianceNonJoue_.removeObj(player_);
-        if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
+        if (_info.getJoueursConfiance().containsObj(ramasseurVirtuel_)) {
             return getPossibleTrickWinnerCurrentNoTrump(_info,_card,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_);
         }
         /* Fin joueursDeConfiance.contains(ramasseurVirtuel) */

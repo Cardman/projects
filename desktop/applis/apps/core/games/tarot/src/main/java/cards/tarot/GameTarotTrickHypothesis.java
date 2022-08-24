@@ -35,312 +35,378 @@ final class GameTarotTrickHypothesis {
         Bytes possibleAlly_ = new Bytes();
         possibleAlly_.add(_numero);
         if(appelesTousConnus_) {
-            if (st_ == Role.DEFENDER) {
-                for(CardTarot c: _calledCards) {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                        if (joueur_ == _teamReal.getTaker()) {
-                            continue;
-                        }
-                        if (!_cartesCertaines.getVal(c.getId().getCouleur())
-                                .get(joueur_).contient(c)) {
-                            possibleAlly_.add(joueur_);
-                        }
-                    }
-                }
-            } else {
-                for(CardTarot c: _calledCards) {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                        if (_cartesCertaines.getVal(c.getId().getCouleur())
-                                .get(joueur_).contient(c)) {
-                            possibleAlly_.add(joueur_);
-                        }
-                    }
-                }
-            }
-            for (byte b: GameTarotTeamsRelation.autresJoueurs(possibleAlly_,nombreJoueurs_)) {
-                joueursNonConfiancePresqueSure_.add(b);
-            }
+            feedJoueursNonConfiancePresqueSurePossibleAlly(_teamReal, _calledCards, _cartesCertaines, st_, joueursNonConfiancePresqueSure_, possibleAlly_);
         }
-        boolean arreterRechercheJoueurJoueCartePoint_;
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-            //iteration sur la confiance du joueur numero en le joueur j
-            //vis a vis du Petit joue en premier atout mais jamais virtuellement maitre
-            //le Petit doit etre ramasse par le plus grand atout encore en jeu
-            //ramasse par un autre atout
-            byte ramasseur_ = -1;
-            for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
-                CardTarot carte_ = p.carteDuJoueur(j, nombreJoueurs_);
-                if(carte_.getId().getCouleur() != Suit.TRUMP) {
-                    continue;
-                }
-                //arret de la boucle sur les plis des que le joueur a joue un atout
-                if(carte_ != CardTarot.petit()) {
-                    //Si le joueur j n'a pas joue le Petit en tant que premier atout,
-                    //alors on passe au joueur suivant
-                    break;
-                }
-                Suit couleurDemandee_ = p.couleurDemandee();
-                byte forcePetit_ = carte_.strength(couleurDemandee_);
-                boolean petitRamasse_ = false;
-                for(byte j2_: p.joueursAyantJoueAvant(j,_teamReal.getRules().getDealing())) {
-                    if(p.carteDuJoueur(j2_, nombreJoueurs_).strength(couleurDemandee_) < forcePetit_) {
-                        continue;
-                    }
-                    //la carte du joueur j2 est un atout ramassant temporairement le Petit
-                    petitRamasse_ = true;
-                    break;
-                }
-                if(!petitRamasse_) {
-                    break;
-                }
-                //carte == CarteTarot.petit()
-                ramasseur_ = p.getRamasseur(nombreJoueurs_);
-                //ramasseur != -1 && passerAuJoueurSuivant = false
-                break;
-            }
-            if(ramasseur_ == -1) {
-                continue;
-            }
-            res(j, possibleAlly_, ramasseur_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
-        }
-        arreterRechercheJoueurJoueCartePoint_ = false;
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-            //boucle cherchant l'entameur du Petit
-            byte ramasseur_ = -1;
-            for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
-                if(j != p.getEntameur()) {
-                    continue;
-                }
-                //le joueur j a entame
-                CardTarot carte_ = p.carteDuJoueur(j,nombreJoueurs_);
-                if(carte_ != CardTarot.petit()) {
-                    continue;
-                }
-                //Entame du Petit par le joueur j
-                ramasseur_ = p.getRamasseur(nombreJoueurs_);
-                if(ramasseur_ == j) {
-                    //Si le joueur j a entame et ramasse le pli avec le Petit,
-                    //alors on passe au joueur suivant
-                    arreterRechercheJoueurJoueCartePoint_ = true;
-                }
-                //ramasseur != -1 && passerAuJoueurSuivant = false
-                break;
-            }
-            if(ramasseur_ == -1) {
-                continue;
-            }
-            if(arreterRechercheJoueurJoueCartePoint_) {
-                break;
-            }
-            res(j, possibleAlly_, ramasseur_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
-        }
-        arreterRechercheJoueurJoueCartePoint_ = false;
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-            byte ramasseur_ = -1;
-            boolean petitJoueDemandeAtout_ = false;
-            boolean defausse_ = _cartesPossibles.getVal(Suit.TRUMP).get(j).estVide();
-            for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
-                CardTarot carte_ = p.carteDuJoueur(j,nombreJoueurs_);
-                if(petitJoueDemandeAtout_) {
-                    if(!defausse_) {
-                        arreterRechercheJoueurJoueCartePoint_ = true;
-                        break;
-                    }
-                }
-                if(carte_.getId().getCouleur() != Suit.TRUMP) {
-                    continue;
-                }
-                if(p.couleurDemandee() != Suit.TRUMP) {
-                    continue;
-                }
-                if(carte_ != CardTarot.petit()) {
-                    continue;
-                }
-                ramasseur_ = p.getRamasseur(nombreJoueurs_);
-                if(ramasseur_ != _teamReal.getTaker()) {
-                    arreterRechercheJoueurJoueCartePoint_ = true;
-                    break;
-                }
-                petitJoueDemandeAtout_ = true;
-            }
-            if(ramasseur_ == -1) {
-                continue;
-            }
-            if(arreterRechercheJoueurJoueCartePoint_) {
-                break;
-            }
-            //le ramasseur du pli et le joueur du Petit (entameur) sont dans la meme equipe
-            if(st_ == Role.DEFENDER) {
-                //confiance de j en ramasseur, qui n'est pas le preneur ni l'appele
-                //car il serait absurde de jouer le Petit en premier sur un joueur dont l'equipe n'est pas connu
-                //de plus numero est un defenseur
-                Bytes found_ = new Bytes();
-                found_.add(j);
-                found_.add(_numero);
-                for (byte b: GameTarotTeamsRelation.autresJoueurs(found_,nombreJoueurs_)) {
-                    joueursNonConfiancePresqueSure_.add(b);
-                }
-                possibleAlly_.add(j);
-                // confiance en j
-            } else {
-                //!aPourDefenseur(numero) ==> numero == preneur ==> mefiance de j
-                joueursNonConfiancePresqueSure_.add(j);
-            }
-        }
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-            //boucle cherchant les figures jouees au premier tour d'une couleur ordinaire demandee
-            for(Suit c: Suit.couleursOrdinaires()) {
-                HandTarot cartesCouleurJouees_ = new HandTarot();
-                byte ramasseurVirtuel_ = -1;
-                for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
-                    Suit couleurDemandee_ = p.couleurDemandee();
-                    if(couleurDemandee_ != c) {
-                        continue;
-                    }
-                    CardTarot carteJouee_ = p.carteDuJoueur(j,nombreJoueurs_);
-                    //Premier tour a la couleur demandee c
-                    if(carteJouee_.getId().getCouleur() != c) {
-                        break;
-                    }
-                    //carteJouee est une carte de la couleur demandee au premier tour
-                    if(!carteJouee_.isCharacter()) {
-                        break;
-                    }
-                    //carteJouee est une figure de la couleur demandee au premier tour
-                    boolean carteJoueeRamassee_ = false;
-                    byte max_ = carteJouee_.strength(c);
-                    for(byte j2_: p.joueursAyantJoueAvant(j, _teamReal.getRules().getDealing())) {
-                        CardTarot carteJoueeAvant_ = p.carteDuJoueur(j2_,nombreJoueurs_);
-                        if(carteJoueeAvant_.strength(c) < max_) {
-                            continue;
-                        }
-                        max_ = carteJoueeAvant_.strength(c);
-                        ramasseurVirtuel_ = j2_;
-                        carteJoueeRamassee_ = true;
-                    }
-                    if(!carteJoueeRamassee_) {
-                        break;
-                    }
-                    cartesCouleurJouees_.ajouter(carteJouee_);
-                    break;
-                }
-                if(ramasseurVirtuel_ == -1) {
-                    continue;
-                }
-                if(onlyOnePlayedCard(fullTricksProg_, nombreJoueurs_, cartesCouleurJouees_, j)) {
-                    continue;
-                }
-                res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
-            }
-
-        }
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-            //boucle cherchant les figures defaussese sur demande d'atout
-            for(Suit c: Suit.couleursOrdinaires()) {
-                HandTarot cartesCouleurJouees_ = new HandTarot();
-                byte ramasseurVirtuel_ = -1;
-                for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
-                    Suit couleurDemandee_ = p.couleurDemandee();
-                    if(couleurDemandee_ != Suit.TRUMP) {
-                        continue;
-                    }
-                    CardTarot carteJouee_ = p.carteDuJoueur(j,nombreJoueurs_);
-                    //Premier tour d'atout
-                    if(carteJouee_.getId().getCouleur() != c) {
-                        continue;
-                    }
-                    //carteJouee est une carte defaussee de la couleur c
-                    if(!carteJouee_.isCharacter()) {
-                        continue;
-                    }
-                    //carteJouee est une figure defaussee de la couleur c
-                    ramasseurVirtuel_ = p.getRamasseur(nombreJoueurs_);
-                    //ramasseurVirtuel != j, car une defause ne permet JAMAIS de prendre la main
-                    cartesCouleurJouees_.ajouter(carteJouee_);
-                    break;
-                }
-                if(ramasseurVirtuel_ == -1) {
-                    continue;
-                }
-                if(onlyOnePlayedCard(fullTricksProg_, nombreJoueurs_, cartesCouleurJouees_, j)) {
-                    continue;
-                }
-                res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
-            }
-
-        }
-        if (st_ == Role.DEFENDER) {
-            for(CardTarot c: _calledCards) {
-                for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                    if (joueur_ == _teamReal.getTaker()) {
-                        continue;
-                    }
-                    if (_cartesPossibles.getVal(c.getId().getCouleur())
-                            .get(joueur_).estVide()) {
-                        possibleAlly_.add(joueur_);
-                    }
-                }
-            }
-        } else {
-            for(CardTarot c: _calledCards) {
-                for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                    if (_cartesPossibles.getVal(c.getId().getCouleur())
-                            .get(joueur_).estVide()) {
-                        joueursNonConfiancePresqueSure_.add(joueur_);
-                    }
-                }
-            }
-        }
+        trumpAceFirstPlayedTrump(_teamReal, _numero, fullTricksProg_, joueursNonConfiancePresqueSure_, possibleAlly_);
+        trumpAceStarter(_teamReal, _numero, fullTricksProg_, joueursNonConfiancePresqueSure_, possibleAlly_);
+        trumpAce(_teamReal, _numero, _cartesPossibles, fullTricksProg_, joueursNonConfiancePresqueSure_, possibleAlly_);
+        charsFollowSuit(_teamReal, _numero, fullTricksProg_, joueursNonConfiancePresqueSure_, possibleAlly_);
+        charsDiscard(_teamReal, _numero, fullTricksProg_, joueursNonConfiancePresqueSure_, possibleAlly_);
+        completeJoueursNonConfiancePresqueSurePossibleAlly(_teamReal, _calledCards, _cartesPossibles, st_, joueursNonConfiancePresqueSure_, possibleAlly_);
         possibleAlly_.removeDuplicates();
         if (st_ == Role.DEFENDER) {
             joueursNonConfiancePresqueSure_.add(_teamReal.getTaker());
         }
         joueursNonConfiancePresqueSure_.removeObj(_numero);
         joueursNonConfiancePresqueSure_.removeDuplicates();
+        changeConfidence(_teamReal, _numero, joueursNonConfiancePresqueSure_, possibleAlly_);
+    }
+
+    private static void completeJoueursNonConfiancePresqueSurePossibleAlly(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, Role _st, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+        if (_st == Role.DEFENDER) {
+            completeJoueursNonConfiancePresqueSurePossibleAllyDefender(_teamReal, _calledCards, _cartesPossibles, _possibleAlly);
+        } else {
+            completeJoueursNonConfiancePresqueSurePossibleAllyAttacker(_teamReal, _calledCards, _cartesPossibles, _joueursNonConfiancePresqueSure);
+        }
+    }
+
+    private static void completeJoueursNonConfiancePresqueSurePossibleAllyAttacker(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _joueursNonConfiancePresqueSure) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for(CardTarot c: _calledCards) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                if (_cartesPossibles.getVal(c.getId().getCouleur())
+                        .get(joueur_).estVide()) {
+                    _joueursNonConfiancePresqueSure.add(joueur_);
+                }
+            }
+        }
+    }
+
+    private static void completeJoueursNonConfiancePresqueSurePossibleAllyDefender(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _possibleAlly) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for(CardTarot c: _calledCards) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                if (joueur_ == _teamReal.getTaker()) {
+                    continue;
+                }
+                if (_cartesPossibles.getVal(c.getId().getCouleur())
+                        .get(joueur_).estVide()) {
+                    _possibleAlly.add(joueur_);
+                }
+            }
+        }
+    }
+
+    private static void changeConfidence(GameTarotTeamsRelation _teamReal, byte _numero, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        Role st_ = _teamReal.statutDe(_numero);
         Bytes allConf_ = new Bytes();
-        allConf_.addAllElts(possibleAlly_);
-        allConf_.addAllElts(joueursNonConfiancePresqueSure_);
+        allConf_.addAllElts(_possibleAlly);
+        allConf_.addAllElts(_joueursNonConfiancePresqueSure);
         if (NumberUtil.equalsSetBytes(allConf_, GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_))) {
-            for (byte b: possibleAlly_) {
+            for (byte b: _possibleAlly) {
                 _teamReal.faireConfiance(_numero,b);
             }
-            for (byte b: joueursNonConfiancePresqueSure_) {
+            for (byte b: _joueursNonConfiancePresqueSure) {
                 _teamReal.faireMefiance(_numero,b);
             }
         } else if (st_ == Role.DEFENDER) {
-            for (byte b: possibleAlly_) {
+            for (byte b: _possibleAlly) {
                 _teamReal.faireConfiance(_numero,b);
             }
         } else {
-            if (possibleAlly_.size() < 3) {
-                for (byte b: possibleAlly_) {
+            if (_possibleAlly.size() < 3) {
+                for (byte b: _possibleAlly) {
                     _teamReal.faireConfiance(_numero,b);
                 }
             }
         }
     }
+
+    private static void charsDiscard(GameTarotTeamsRelation _teamReal, byte _numero, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        Role st_ = _teamReal.statutDe(_numero);
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+            //boucle cherchant les figures defaussese sur demande d'atout
+            for(Suit c: Suit.couleursOrdinaires()) {
+                HandTarot cartesCouleurJouees_ = new HandTarot();
+                byte ramasseurVirtuel_ = ramasseurVirtuelCharsDiscard(_teamReal, _fullTricksProg, j, c, cartesCouleurJouees_);
+                if (ramasseurVirtuel_ == -1 || onlyOnePlayedCard(_fullTricksProg, nombreJoueurs_, cartesCouleurJouees_, j)) {
+                    continue;
+                }
+                res(j, _possibleAlly, ramasseurVirtuel_, _teamReal, st_, _joueursNonConfiancePresqueSure, _numero);
+            }
+
+        }
+    }
+
+    private static byte ramasseurVirtuelCharsDiscard(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, byte _j, Suit _c, HandTarot _cartesCouleurJouees) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        byte ramasseurVirtuel_ = -1;
+        for(TrickTarot p: filter(_fullTricksProg, nombreJoueurs_, _j)) {
+            Suit couleurDemandee_ = p.couleurDemandee();
+            if (couleurDemandee_ == Suit.TRUMP) {
+                CardTarot carteJouee_ = p.carteDuJoueur(_j, nombreJoueurs_);
+                //Premier tour d'atout
+                if (carteJouee_.getId().getCouleur() == _c && carteJouee_.isCharacter()) {//carteJouee est une carte defaussee de la couleur c
+                    //carteJouee est une figure defaussee de la couleur c
+                    ramasseurVirtuel_ = p.getRamasseur(nombreJoueurs_);
+                    //ramasseurVirtuel != j, car une defause ne permet JAMAIS de prendre la main
+                    _cartesCouleurJouees.ajouter(carteJouee_);
+                    break;
+                }
+            }
+        }
+        return ramasseurVirtuel_;
+    }
+
+    private static void charsFollowSuit(GameTarotTeamsRelation _teamReal, byte _numero, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        Role st_ = _teamReal.statutDe(_numero);
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+            //boucle cherchant les figures jouees au premier tour d'une couleur ordinaire demandee
+            for(Suit c: Suit.couleursOrdinaires()) {
+                HandTarot cartesCouleurJouees_ = new HandTarot();
+                byte ramasseurVirtuel_ = charsFollowSuitRamasseurVirtuel(_teamReal, _fullTricksProg, j, c, cartesCouleurJouees_);
+                if (ramasseurVirtuel_ == -1 || onlyOnePlayedCard(_fullTricksProg, nombreJoueurs_, cartesCouleurJouees_, j)) {
+                    continue;
+                }
+                res(j, _possibleAlly, ramasseurVirtuel_, _teamReal, st_, _joueursNonConfiancePresqueSure, _numero);
+            }
+
+        }
+    }
+
+    private static byte charsFollowSuitRamasseurVirtuel(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, byte _j, Suit _c, HandTarot _cartesCouleurJouees) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        byte ramasseurVirtuel_ = -1;
+        for(TrickTarot p: filter(_fullTricksProg, nombreJoueurs_, _j)) {
+            Suit couleurDemandee_ = p.couleurDemandee();
+            if (couleurDemandee_ == _c) {
+                CardTarot carteJouee_ = p.carteDuJoueur(_j, nombreJoueurs_);
+                //Premier tour a la couleur demandee c
+                if (carteJouee_.getId().getCouleur() == _c && carteJouee_.isCharacter()) {//carteJouee est une carte de la couleur demandee au premier tour
+                    //carteJouee est une figure de la couleur demandee au premier tour
+                    ramasseurVirtuel_ = majRamasseurVirtuel(_teamReal, _j, _c, _cartesCouleurJouees, ramasseurVirtuel_, p, carteJouee_);
+                }
+                break;
+            }
+        }
+        return ramasseurVirtuel_;
+    }
+
+    private static byte majRamasseurVirtuel(GameTarotTeamsRelation _teamReal, byte _j, Suit _c, HandTarot _cartesCouleurJouees, byte _ramasseurVirtuel, TrickTarot _p, CardTarot _carteJouee) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        byte ramasseurVirtuel_ = _ramasseurVirtuel;
+        boolean carteJoueeRamassee_ = false;
+        byte max_ = _carteJouee.strength(_c);
+        for(byte j2_: _p.joueursAyantJoueAvant(_j, _teamReal.getRules().getDealing())) {
+            CardTarot carteJoueeAvant_ = _p.carteDuJoueur(j2_, nombreJoueurs_);
+            if(carteJoueeAvant_.strength(_c) < max_) {
+                continue;
+            }
+            max_ = carteJoueeAvant_.strength(_c);
+            ramasseurVirtuel_ = j2_;
+            carteJoueeRamassee_ = true;
+        }
+        if (carteJoueeRamassee_) {
+            _cartesCouleurJouees.ajouter(_carteJouee);
+        }
+        return ramasseurVirtuel_;
+    }
+
+    private static void trumpAce(GameTarotTeamsRelation _teamReal, byte _numero, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+            byte ramasseur_ = trumpAceWin(_teamReal, _cartesPossibles, _fullTricksProg, j);
+            if (ramasseur_ != -1) {
+                if (ramasseur_ == -2) {
+                    break;
+                }
+                trumpAceFeed(_teamReal, _numero, _joueursNonConfiancePresqueSure, _possibleAlly, j);
+            }
+        }
+    }
+
+    private static byte trumpAceWin(GameTarotTeamsRelation _teamReal, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, CustList<TrickTarot> _fullTricksProg, byte _j) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        byte ramasseur_ = -1;
+        boolean petitJoueDemandeAtout_ = false;
+        boolean defausse_ = _cartesPossibles.getVal(Suit.TRUMP).get(_j).estVide();
+        for(TrickTarot p: filter(_fullTricksProg, nombreJoueurs_, _j)) {
+            CardTarot carte_ = p.carteDuJoueur(_j, nombreJoueurs_);
+            if (petitJoueDemandeAtout_ && !defausse_) {
+                return -2;
+            }
+            if (followTrumpAce(p, carte_)) {
+                ramasseur_ = p.getRamasseur(nombreJoueurs_);
+                if (ramasseur_ != _teamReal.getTaker()) {
+                    return -2;
+                }
+                petitJoueDemandeAtout_ = true;
+            }
+        }
+        return ramasseur_;
+    }
+
+    private static void trumpAceFeed(GameTarotTeamsRelation _teamReal, byte _numero, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly, byte _j) {
+        Role st_ = _teamReal.statutDe(_numero);
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        //le ramasseur du pli et le joueur du Petit (entameur) sont dans la meme equipe
+        if(st_ == Role.DEFENDER) {
+            //confiance de j en ramasseur, qui n'est pas le preneur ni l'appele
+            //car il serait absurde de jouer le Petit en premier sur un joueur dont l'equipe n'est pas connu
+            //de plus numero est un defenseur
+            Bytes found_ = new Bytes();
+            found_.add(_j);
+            found_.add(_numero);
+            for (byte b: GameTarotTeamsRelation.autresJoueurs(found_, nombreJoueurs_)) {
+                _joueursNonConfiancePresqueSure.add(b);
+            }
+            _possibleAlly.add(_j);
+            // confiance en j
+        } else {
+            //!aPourDefenseur(numero) ==> numero == preneur ==> mefiance de j
+            _joueursNonConfiancePresqueSure.add(_j);
+        }
+    }
+
+    private static boolean followTrumpAce(TrickTarot _p, CardTarot _carte) {
+        return _carte.getId().getCouleur() == Suit.TRUMP && _p.couleurDemandee() == Suit.TRUMP && _carte == CardTarot.petit();
+    }
+
+    private static void trumpAceStarter(GameTarotTeamsRelation _teamReal, byte _numero, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+        Role st_ = _teamReal.statutDe(_numero);
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+            //boucle cherchant l'entameur du Petit
+            byte ramasseur_ = trumpAceStarterWin(_fullTricksProg, nombreJoueurs_, j);
+            if (ramasseur_ != -1) {
+                if (ramasseur_ == -2) {
+                    break;
+                }
+                res(j, _possibleAlly, ramasseur_, _teamReal, st_, _joueursNonConfiancePresqueSure, _numero);
+            }
+        }
+    }
+
+    private static byte trumpAceStarterWin(CustList<TrickTarot> _fullTricksProg, byte _nombreJoueurs, byte _j) {
+        byte ramasseur_ = -1;
+        for(TrickTarot p: filter(_fullTricksProg, _nombreJoueurs, _j)) {
+            if (trumpAceAsFirstPlayedCardTrick(_nombreJoueurs, _j, p)) {
+                //le joueur j a entame
+                //Entame du Petit par le joueur j
+                ramasseur_ = p.getRamasseur(_nombreJoueurs);
+                if (ramasseur_ == _j) {
+                    //Si le joueur j a entame et ramasse le pli avec le Petit,
+                    //alors on passe au joueur suivant
+                    ramasseur_ = -2;
+                }
+                //ramasseur != -1 && passerAuJoueurSuivant = false
+                break;
+            }
+        }
+        return ramasseur_;
+    }
+
+    private static boolean trumpAceAsFirstPlayedCardTrick(byte _nombreJoueurs, byte _j, TrickTarot _p) {
+        return _j == _p.getEntameur() && _p.carteDuJoueur(_j, _nombreJoueurs) == CardTarot.petit();
+    }
+
+    private static void trumpAceFirstPlayedTrump(GameTarotTeamsRelation _teamReal, byte _numero, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+        Role st_ = _teamReal.statutDe(_numero);
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+            byte ramasseur_ = trumpAceFirstPlayedTrumpPlayer(_teamReal, _fullTricksProg, j);
+            if(ramasseur_ == -1) {
+                continue;
+            }
+            res(j, _possibleAlly, ramasseur_, _teamReal, st_, _joueursNonConfiancePresqueSure, _numero);
+        }
+    }
+
+    private static byte trumpAceFirstPlayedTrumpPlayer(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, byte _j) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        //iteration sur la confiance du joueur numero en le joueur j
+        //vis a vis du Petit joue en premier atout mais jamais virtuellement maitre
+        //le Petit doit etre ramasse par le plus grand atout encore en jeu
+        //ramasse par un autre atout
+        byte ramasseur_ = -1;
+        for(TrickTarot p: filter(_fullTricksProg, nombreJoueurs_, _j)) {
+            CardTarot carte_ = p.carteDuJoueur(_j, nombreJoueurs_);
+            if (carte_.getId().getCouleur() == Suit.TRUMP) {
+                //arret de la boucle sur les plis des que le joueur a joue un atout
+                if (carte_ == CardTarot.petit() && petitRamasse(_teamReal, _j, p, carte_)) {
+                    //carte == CarteTarot.petit()
+                    ramasseur_ = p.getRamasseur(nombreJoueurs_);
+                    //ramasseur != -1 && passerAuJoueurSuivant = false
+                }
+                break;
+            }
+        }
+        return ramasseur_;
+    }
+
+    private static boolean petitRamasse(GameTarotTeamsRelation _teamReal, byte _j, TrickTarot _p, CardTarot _carte) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        boolean petitRamasse_ = false;
+        Suit couleurDemandee_ = _p.couleurDemandee();
+        byte forcePetit_ = _carte.strength(couleurDemandee_);
+        for (byte j2_ : _p.joueursAyantJoueAvant(_j, _teamReal.getRules().getDealing())) {
+            if (_p.carteDuJoueur(j2_, nombreJoueurs_).strength(couleurDemandee_) >= forcePetit_) {//la carte du joueur j2 est un atout ramassant temporairement le Petit
+                petitRamasse_ = true;
+                break;
+            }
+        }
+        return petitRamasse_;
+    }
+
+    private static void feedJoueursNonConfiancePresqueSurePossibleAlly(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, Role _st, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        if (_st == Role.DEFENDER) {
+            feedJoueursNonConfiancePresqueSurePossibleAllyDefender(_teamReal, _calledCards, _cartesCertaines, _possibleAlly);
+        } else {
+            feedJoueursNonConfiancePresqueSurePossibleAllyAttacker(_teamReal, _calledCards, _cartesCertaines, _possibleAlly);
+        }
+        for (byte b: GameTarotTeamsRelation.autresJoueurs(_possibleAlly, nombreJoueurs_)) {
+            _joueursNonConfiancePresqueSure.add(b);
+        }
+    }
+
+    private static void feedJoueursNonConfiancePresqueSurePossibleAllyAttacker(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, Bytes _possibleAlly) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for(CardTarot c: _calledCards) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                if (_cartesCertaines.getVal(c.getId().getCouleur())
+                        .get(joueur_).contient(c)) {
+                    _possibleAlly.add(joueur_);
+                }
+            }
+        }
+    }
+
+    private static void feedJoueursNonConfiancePresqueSurePossibleAllyDefender(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, Bytes _possibleAlly) {
+        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for(CardTarot c: _calledCards) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                if (joueur_ == _teamReal.getTaker()) {
+                    continue;
+                }
+                if (!_cartesCertaines.getVal(c.getId().getCouleur())
+                        .get(joueur_).contient(c)) {
+                    _possibleAlly.add(joueur_);
+                }
+            }
+        }
+    }
+
     private static boolean onlyOnePlayedCard(CustList<TrickTarot> _full, byte _nbPl, HandTarot _played, byte _cur) {
         boolean autreCarteCouleurJouee_ = false;
         boolean figureJouee_ = false;
         CardTarot premiereFigureJouee_ = _played.premiereCarte();
         for(TrickTarot p: filter(_full,_nbPl,_cur)) {
             CardTarot carteJouee_ = p.carteDuJoueur(_cur,_nbPl);
-            if(carteJouee_.getId().getCouleur() != premiereFigureJouee_.getId().getCouleur()) {
-                continue;
+            if (carteJouee_.getId().getCouleur() == premiereFigureJouee_.getId().getCouleur()) {
+                if (carteJouee_ != premiereFigureJouee_) {
+                    if (figureJouee_ && carteJouee_.points() <= premiereFigureJouee_.points()) {
+                        //la carte jouee est une carte inferieure a la premiere en points mais de la meme couleur
+                        autreCarteCouleurJouee_ = true;
+                        break;
+                    }
+                } else {
+                    figureJouee_ = true;
+                }
             }
-            if(carteJouee_ == premiereFigureJouee_) {
-                figureJouee_ = true;
-                continue;
-            }
-            if(!figureJouee_) {
-                continue;
-            }
-            if(carteJouee_.points() > premiereFigureJouee_.points()) {
-                continue;
-            }
-            //la carte jouee est une carte inferieure a la premiere en points mais de la meme couleur
-            autreCarteCouleurJouee_ = true;
-            break;
         }
         return !autreCarteCouleurJouee_;
     }
@@ -437,23 +503,12 @@ final class GameTarotTrickHypothesis {
     static PossibleTrickWinner getPossibleTrickWinnerTrumpSuit(TarotInfoPliEnCours _info) {
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
-        byte nbPlayers_ = _info.getNbPlayers();
-        CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nbPlayers_);
+        CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
         Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        EnumList<Suit> couleursAppelees_ = _info.getCalledSuits();
-        boolean carteAppeleeJouee_ =_info.isCarteAppeleeJouee();
-        Bytes joueursNonConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
-        Bytes joueursConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
         byte player_ = _info.getCurrentPlayer();
-        Bytes joueursConfiance_ = _info.getJoueursConfiance();
-        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
-        joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
-        TrickTarot t_ = _info.getProgressingTrick();
-        Suit couleurDemandee_ = t_.couleurDemandee();
+        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
+        Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
         /*
         Le pli est coupe
         */
@@ -461,109 +516,7 @@ final class GameTarotTrickHypothesis {
                 || cartesCertaines_.getVal(Suit.TRUMP).get(player_).estVide()
                 || cartesCertaines_.getVal(Suit.TRUMP).get(player_).premiereCarte()
                 .strength(couleurDemandee_) < card_.strength(couleurDemandee_)) {
-                /*
-                Le joueur
-                numero ne
-                peut pas
-                prendre la
-                main
-                */
-            if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
-                if (couleursAppelees_.containsObj(couleurDemandee_)
-                        && !carteAppeleeJouee_ && joueursNonConfiance_.containsObj(_info.getTaker())) {
-                    /* The player, probably called by the current taker
-                    and still owing one called card of the current led suit,
-                    must follow a card belonging to the current demanded suit.*/
-                    Bytes joueursNonConfiancePreneur_ = new Bytes();
-                    for (byte j: joueursNonConfianceNonJoue_) {
-                        if (j != _info.getTaker()) {
-                            continue;
-                        }
-                        joueursNonConfiancePreneur_.add(j);
-                    }
-                    joueursNonConfianceNonJoue_ = joueursNonConfiancePreneur_;
-                }
-                /*
-                On cherche a savoir si le ramasseur virtuel (joueur de
-                confiance) va avec sa coupe sur la couleur demandee
-                dominer tous les atouts des joueurs de non confiance
-                eventuels
-                */
-                if (ramasseurBatAdvSur(joueursNonConfianceNonJoue_,
-                        couleurDemandee_, card_, cartesPossibles_,
-                        cartesCertaines_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-                /*
-                On cherche les joueurs de confiance battant de maniere
-                certaine les joueurs de non confiance n'ayant pas joue ou
-                possedant des cartes que les joueurs ayant joue n'ont pas
-                ainsi que les joueurs de non confiance n'ayant pas joue
-                */
-                if (existeJoueurNonJoueBattantAdv(
-                        joueursNonConfianceNonJoue_,
-                        joueursConfianceNonJoue_, couleurDemandee_,
-                        cartesPossibles_, cartesCertaines_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-                /*
-                On cherche les joueurs de non confiance battant de
-                maniere certaine les joueurs de confiance n'ayant pas
-                joue ou possedant des cartes que les joueurs ayant joue
-                n'ont pas ainsi que les joueurs de non confiance n'ayant
-                pas joue
-                */
-                if (existeJoueurAdvRamBatAdvSur(
-                        joueursConfianceNonJoue_,
-                        joueursNonConfianceNonJoue_, couleurDemandee_,
-                        card_, cartesPossibles_, cartesCertaines_)) {
-                    return PossibleTrickWinner.FOE_TEAM;
-                }
-                return PossibleTrickWinner.UNKNOWN;
-            }
-            /*
-            ramasseurVirtuel n'est pas un joueur de confiance pour le
-            joueur numero
-            */
-            if (couleursAppelees_.containsObj(couleurDemandee_) && !carteAppeleeJouee_
-                    && player_ == _info.getTaker()) {
-                joueursConfianceNonJoue_ = new Bytes();
-            }
-            /*
-            On cherche a savoir si le ramasseur virtuel (joueur de non
-            confiance) bat tous les joueurs de confiance n'ayant pas joue
-            */
-            if (ramasseurBatAdvSur(joueursConfianceNonJoue_,
-                    couleurDemandee_, card_, cartesPossibles_,
-                    cartesCertaines_)) {
-                return PossibleTrickWinner.FOE_TEAM;
-            }
-            /*
-            On cherche les joueurs de non confiance battant de maniere
-            certaine les joueurs de confiance n'ayant pas joue ou
-            possedant des cartes que les joueurs ayant joue n'ont pas
-            ainsi que les joueurs de non confiance n'ayant pas joue
-            */
-            if (existeJoueurNonJoueBattantAdv(
-                    joueursConfianceNonJoue_,
-                    joueursNonConfianceNonJoue_, couleurDemandee_,
-                    cartesPossibles_, cartesCertaines_)) {
-                return PossibleTrickWinner.FOE_TEAM;
-            }
-            /*
-            On cherche les joueurs de confiance battant de maniere
-            certaine les joueurs de non confiance n'ayant pas joue ou
-            possedant des cartes que les joueurs ayant joue n'ont pas
-            ainsi que les joueurs de non confiance n'ayant pas joue
-            */
-            if (existeJoueurAdvRamBatAdvSur(
-                    joueursNonConfianceNonJoue_,
-                    joueursConfianceNonJoue_, couleurDemandee_,
-                    card_, cartesPossibles_, cartesCertaines_)) {
-                return PossibleTrickWinner.TEAM;
-            }
-            return PossibleTrickWinner.UNKNOWN;
-            /* Fin joueurDeConfiance.contains(ramasseurVirtuel) */
+            return possibleTrickWinnerTrumpSuitCannotLeadTrick(_info, couleurDemandee_);
         }
         /*
         Fin
@@ -612,34 +565,149 @@ final class GameTarotTrickHypothesis {
         return PossibleTrickWinner.UNKNOWN;
     }
 
+    private static PossibleTrickWinner possibleTrickWinnerTrumpSuitCannotLeadTrick(TarotInfoPliEnCours _info, Suit _couleurDemandee) {
+        EnumList<Suit> couleursAppelees_ = _info.getCalledSuits();
+        boolean carteAppeleeJouee_ =_info.isCarteAppeleeJouee();
+        byte player_ = _info.getCurrentPlayer();
+        CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
+        Bytes joueursConfiance_ = _info.getJoueursConfiance();
+        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
+        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
+        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursNonConfiance_);
+        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursConfiance_);
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
+        /*
+    Le joueur
+    numero ne
+    peut pas
+    prendre la
+    main
+    */
+        if (joueursConfiance_.containsObj(_info.getRamasseurVirtuel())) {
+            return possibleTrickWinnerTrumpSuitCannotLeadTrickPartners(_info, _couleurDemandee, card_);
+        }
+            /*
+            ramasseurVirtuel n'est pas un joueur de confiance pour le
+            joueur numero
+            */
+        if (couleursAppelees_.containsObj(_couleurDemandee) && !carteAppeleeJouee_
+                && player_ == _info.getTaker()) {
+            joueursConfianceNonJoue_ = new Bytes();
+        }
+            /*
+            On cherche a savoir si le ramasseur virtuel (joueur de non
+            confiance) bat tous les joueurs de confiance n'ayant pas joue
+            */
+        if (ramasseurBatAdvSur(joueursConfianceNonJoue_,
+                _couleurDemandee, card_, cartesPossibles_,
+                cartesCertaines_)) {
+            return PossibleTrickWinner.FOE_TEAM;
+        }
+            /*
+            On cherche les joueurs de non confiance battant de maniere
+            certaine les joueurs de confiance n'ayant pas joue ou
+            possedant des cartes que les joueurs ayant joue n'ont pas
+            ainsi que les joueurs de non confiance n'ayant pas joue
+            */
+        if (existeJoueurNonJoueBattantAdv(
+                joueursConfianceNonJoue_,
+                joueursNonConfianceNonJoue_, _couleurDemandee,
+                cartesPossibles_, cartesCertaines_)) {
+            return PossibleTrickWinner.FOE_TEAM;
+        }
+            /*
+            On cherche les joueurs de confiance battant de maniere
+            certaine les joueurs de non confiance n'ayant pas joue ou
+            possedant des cartes que les joueurs ayant joue n'ont pas
+            ainsi que les joueurs de non confiance n'ayant pas joue
+            */
+        if (existeJoueurAdvRamBatAdvSur(
+                joueursNonConfianceNonJoue_,
+                joueursConfianceNonJoue_, _couleurDemandee,
+                card_, cartesPossibles_, cartesCertaines_)) {
+            return PossibleTrickWinner.TEAM;
+        }
+        return PossibleTrickWinner.UNKNOWN;
+        /* Fin joueurDeConfiance.contains(ramasseurVirtuel) */
+    }
+
+    private static PossibleTrickWinner possibleTrickWinnerTrumpSuitCannotLeadTrickPartners(TarotInfoPliEnCours _info, Suit _couleurDemandee, CardTarot _card) {
+        EnumList<Suit> couleursAppelees_ = _info.getCalledSuits();
+        boolean carteAppeleeJouee_ =_info.isCarteAppeleeJouee();
+        Bytes joueursConfiance_ = _info.getJoueursConfiance();
+        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
+        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
+        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursNonConfiance_);
+        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursConfiance_);
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
+        if (couleursAppelees_.containsObj(_couleurDemandee)
+                && !carteAppeleeJouee_ && joueursNonConfiance_.containsObj(_info.getTaker())) {
+            /* The player, probably called by the current taker
+            and still owing one called card of the current led suit,
+            must follow a card belonging to the current demanded suit.*/
+            Bytes joueursNonConfiancePreneur_ = new Bytes();
+            for (byte j: joueursNonConfianceNonJoue_) {
+                if (j != _info.getTaker()) {
+                    continue;
+                }
+                joueursNonConfiancePreneur_.add(j);
+            }
+            joueursNonConfianceNonJoue_ = joueursNonConfiancePreneur_;
+        }
+            /*
+            On cherche a savoir si le ramasseur virtuel (joueur de
+            confiance) va avec sa coupe sur la couleur demandee
+            dominer tous les atouts des joueurs de non confiance
+            eventuels
+            */
+        if (ramasseurBatAdvSur(joueursNonConfianceNonJoue_,
+                _couleurDemandee, _card, cartesPossibles_,
+                cartesCertaines_)) {
+            return PossibleTrickWinner.TEAM;
+        }
+            /*
+            On cherche les joueurs de confiance battant de maniere
+            certaine les joueurs de non confiance n'ayant pas joue ou
+            possedant des cartes que les joueurs ayant joue n'ont pas
+            ainsi que les joueurs de non confiance n'ayant pas joue
+            */
+        if (existeJoueurNonJoueBattantAdv(
+                joueursNonConfianceNonJoue_,
+                joueursConfianceNonJoue_, _couleurDemandee,
+                cartesPossibles_, cartesCertaines_)) {
+            return PossibleTrickWinner.TEAM;
+        }
+            /*
+            On cherche les joueurs de non confiance battant de
+            maniere certaine les joueurs de confiance n'ayant pas
+            joue ou possedant des cartes que les joueurs ayant joue
+            n'ont pas ainsi que les joueurs de non confiance n'ayant
+            pas joue
+            */
+        if (existeJoueurAdvRamBatAdvSur(
+                joueursConfianceNonJoue_,
+                joueursNonConfianceNonJoue_, _couleurDemandee,
+                _card, cartesPossibles_, cartesCertaines_)) {
+            return PossibleTrickWinner.FOE_TEAM;
+        }
+        return PossibleTrickWinner.UNKNOWN;
+    }
+
     static PossibleTrickWinner getPossibleTrickWinnerNoTrump(TarotInfoPliEnCours _info) {
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
-        byte nbPlayers_ = _info.getNbPlayers();
-        CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nbPlayers_);
+        CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
         Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        boolean ramasseurVirtuelEgalCertain_;
-        Bytes joueursNonConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
-        Bytes joueursConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
         byte player_ = _info.getCurrentPlayer();
-        Bytes joueursConfiance_ = _info.getJoueursConfiance();
-        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
-        joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
+        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         joueursConfianceNonJoue_.removeObj(player_);
-        TrickTarot t_ = _info.getProgressingTrick();
-        Suit couleurDemandee_ = t_.couleurDemandee();
+        Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
         /* La couleur demandee n 'est pas de l 'atout et le pli n 'est pas coupe */
         boolean canTrump_ = peutCouper(couleurDemandee_, player_, cartesPossibles_);
-        ramasseurVirtuelEgalCertain_ = false;
-        for (byte joueur_ : joueursConfianceNonJoue_) {
-            if (vaCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                ramasseurVirtuelEgalCertain_ = true;
-            }
-        }
+        boolean ramasseurVirtuelEgalCertain_ = vaCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, joueursConfianceNonJoue_);
         if (ramasseurVirtuelEgalCertain_ && !canTrump_) {
             /*
         Si un joueur de confiance n
@@ -648,12 +716,7 @@ final class GameTarotTrickHypothesis {
         */
             return getPossibleTrickWinnerOtherTrump(_info,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_);
         }
-        ramasseurVirtuelEgalCertain_ = false;
-        for (byte joueur_ : joueursNonConfianceNonJoue_) {
-            if (vaCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                ramasseurVirtuelEgalCertain_ = true;
-            }
-        }
+        ramasseurVirtuelEgalCertain_ = vaCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, joueursNonConfianceNonJoue_);
         if (ramasseurVirtuelEgalCertain_ && !canTrump_) {
             return getPossibleTrickWinnerOtherTrump(_info,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_);
         }
@@ -710,6 +773,16 @@ final class GameTarotTrickHypothesis {
         return getPossibleTrickWinnerNoCurrentTrump(_info,card_);
     }
 
+    private static boolean vaCouperListe(EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, Suit _couleurDemandee, Bytes _team) {
+        boolean ramasseurVirtuelEgalCertain_ = false;
+        for (byte joueur_ : _team) {
+            if (vaCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines)) {
+                ramasseurVirtuelEgalCertain_ = true;
+            }
+        }
+        return ramasseurVirtuelEgalCertain_;
+    }
+
     static PossibleTrickWinner getPossibleTrickWinnerOtherTrump(TarotInfoPliEnCours _info,
                                                                 PossibleTrickWinner _current,
                                                                 Bytes _currentNotPl,
@@ -717,14 +790,8 @@ final class GameTarotTrickHypothesis {
                                                                 Bytes _otherNotPl) {
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        TrickTarot t_ = _info.getProgressingTrick();
-        Suit couleurDemandee_ = t_.couleurDemandee();
-        boolean ramasseurVirtuelEgalCertain_ = true;
-        for (byte joueur_ : _otherNotPl) {
-            if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                ramasseurVirtuelEgalCertain_ = false;
-            }
-        }
+        Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
+        boolean ramasseurVirtuelEgalCertain_ = nePeutCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, _otherNotPl);
         if (ramasseurVirtuelEgalCertain_) {
                 /*
                 Si aucun joueur de non
@@ -750,48 +817,25 @@ final class GameTarotTrickHypothesis {
     static PossibleTrickWinner getPossibleTrickWinnerNoCurrentTrump(TarotInfoPliEnCours _info, CardTarot _card) {
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
         Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        Bytes joueursNonConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
-        Bytes joueursConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
-        byte player_ = _info.getCurrentPlayer();
-        Bytes joueursConfiance_ = _info.getJoueursConfiance();
-        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
-        joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
-        joueursConfianceNonJoue_.removeObj(player_);
-        TrickTarot t_ = _info.getProgressingTrick();
-        Suit couleurDemandee_ = t_.couleurDemandee();
-        boolean ramasseurVirtuelEgalCertain_ = true;
+        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
+        joueursConfianceNonJoue_.removeObj(_info.getCurrentPlayer());
+        Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
         int str_ = _card.strength(couleurDemandee_);
-        if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
+        if (_info.getJoueursConfiance().containsObj(_info.getRamasseurVirtuel())) {
             if (ramasseurBatSsCprAdv(joueursNonConfianceNonJoue_,
                     couleurDemandee_, str_, cartesPossibles_,
                     cartesCertaines_)) {
                 return PossibleTrickWinner.TEAM;
             }
-            for (byte joueur_ : joueursNonConfianceNonJoue_) {
-                if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                    ramasseurVirtuelEgalCertain_ = false;
-                }
+            boolean ramasseurVirtuelEgalCertain_ = nePeutCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, joueursNonConfianceNonJoue_);
+            if (ramasseurVirtuelEgalCertain_ && existPlayerNoTrump(joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, couleurDemandee_, _card, cartesPossibles_, cartesCertaines_)) {
+                return PossibleTrickWinner.TEAM;
             }
-            if (ramasseurVirtuelEgalCertain_) {
-                if (existPlayerNoTrump(joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,couleurDemandee_, _card,cartesPossibles_,cartesCertaines_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-            }
-            ramasseurVirtuelEgalCertain_ = true;
-            for (byte joueur_ : joueursConfianceNonJoue_) {
-                if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                    ramasseurVirtuelEgalCertain_ = false;
-                }
-            }
-            if (ramasseurVirtuelEgalCertain_) {
-                if (existPlayerNoTrump(joueursConfianceNonJoue_,joueursNonConfianceNonJoue_,couleurDemandee_, _card,cartesPossibles_,cartesCertaines_)) {
-                    return PossibleTrickWinner.FOE_TEAM;
-                }
+            ramasseurVirtuelEgalCertain_ = nePeutCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, joueursConfianceNonJoue_);
+            if (ramasseurVirtuelEgalCertain_ && existPlayerNoTrump(joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, couleurDemandee_, _card, cartesPossibles_, cartesCertaines_)) {
+                return PossibleTrickWinner.FOE_TEAM;
             }
             return PossibleTrickWinner.UNKNOWN;
         }
@@ -802,22 +846,11 @@ final class GameTarotTrickHypothesis {
                 cartesCertaines_)) {
             return PossibleTrickWinner.FOE_TEAM;
         }
-        for (byte joueur_ : joueursConfianceNonJoue_) {
-            if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                ramasseurVirtuelEgalCertain_ = false;
-            }
+        boolean ramasseurVirtuelEgalCertain_ = nePeutCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, joueursConfianceNonJoue_);
+        if (ramasseurVirtuelEgalCertain_ && existPlayerNoTrump(joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, couleurDemandee_, _card, cartesPossibles_, cartesCertaines_)) {
+            return PossibleTrickWinner.FOE_TEAM;
         }
-        if (ramasseurVirtuelEgalCertain_) {
-            if (existPlayerNoTrump(joueursConfianceNonJoue_,joueursNonConfianceNonJoue_,couleurDemandee_, _card,cartesPossibles_,cartesCertaines_)) {
-                return PossibleTrickWinner.FOE_TEAM;
-            }
-        }
-        ramasseurVirtuelEgalCertain_ = true;
-        for (byte joueur_ : joueursNonConfianceNonJoue_) {
-            if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                ramasseurVirtuelEgalCertain_ = false;
-            }
-        }
+        ramasseurVirtuelEgalCertain_ = nePeutCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, joueursNonConfianceNonJoue_);
         if (ramasseurVirtuelEgalCertain_) {
             if (existPlayerNoTrump(joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,couleurDemandee_, _card,cartesPossibles_,cartesCertaines_)) {
                 return PossibleTrickWinner.TEAM;
@@ -826,6 +859,17 @@ final class GameTarotTrickHypothesis {
         }
         return PossibleTrickWinner.UNKNOWN;
     }
+
+    private static boolean nePeutCouperListe(EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, Suit _couleurDemandee, Bytes _team) {
+        boolean ramasseurVirtuelEgalCertain_ = true;
+        for (byte joueur_ : _team) {
+            if (!nePeutCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines)) {
+                ramasseurVirtuelEgalCertain_ = false;
+            }
+        }
+        return ramasseurVirtuelEgalCertain_;
+    }
+
     static boolean existPlayerNoTrump(Bytes _equipeABattre,Bytes _equipeDom, Suit _couleurDemandee,
                                       CardTarot _carteForte,EnumMap<Suit,CustList<HandTarot>> _cartesPossibles,
                                       EnumMap<Suit,CustList<HandTarot>> _cartesCertaines) {
@@ -848,97 +892,17 @@ final class GameTarotTrickHypothesis {
     static PossibleTrickWinner getPossibleTrickWinnerTrump(TarotInfoPliEnCours _info) {
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
-        byte nbPlayers_ = _info.getNbPlayers();
-        CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nbPlayers_);
+        CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
         Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        Bytes joueursNonConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
-        Bytes joueursConfianceNonJoue_ = new Bytes(
-                joueursNonJoue_);
         byte player_ = _info.getCurrentPlayer();
-        Bytes joueursConfiance_ = _info.getJoueursConfiance();
-        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
-        joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
+        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         joueursConfianceNonJoue_.removeObj(player_);
         /* Le pli n'est pas coupe et la couleur demandee est l'atout */
         if (cartesCertaines_.getVal(Suit.TRUMP).get(player_).estVide()
                 || cartesCertaines_.getVal(Suit.TRUMP).get(player_).premiereCarte().strength(Suit.TRUMP) < card_
                 .strength(Suit.TRUMP)) {
-            /*
-            Si le joueur numero ne peut pas prendre
-            la main sur demande d'atout
-            */
-            if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
-                /*
-                Si le ramasseur virtuel (de confiance, ici) domine
-                certainement les joueurs de non confiance n'ayant pas joue
-                */
-                if (ramasseurBatAdvDemat(joueursNonConfianceNonJoue_,
-                        card_, cartesPossibles_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-                /*
-                On cherche les joueurs de confiance battant de maniere
-                certaine les joueurs de non confiance n'ayant pas joue ou
-                possedant des cartes que les joueurs ayant joue n'ont pas
-                ainsi que les joueurs de non confiance n'ayant pas joue
-                */
-                if (existeJouBatAdvDemat(joueursNonConfianceNonJoue_,
-                        joueursConfianceNonJoue_, cartesPossibles_,
-                        cartesCertaines_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-                /*
-                On cherche les joueurs de non confiance battant de maniere
-                certaine les joueurs de confiance n'ayant pas joue ou
-                possedant des cartes que les joueurs ayant joue n'ont pas
-                ainsi que les joueurs de non confiance n'ayant pas joue
-                */
-                if (existeJouBatAdvSurDemat(joueursConfianceNonJoue_,
-                        joueursNonConfianceNonJoue_, card_,
-                        cartesPossibles_, cartesCertaines_)) {
-                    return PossibleTrickWinner.FOE_TEAM;
-                }
-                return PossibleTrickWinner.UNKNOWN;
-            }
-            /*
-            ramasseurVirtuel n'est pas un joueur de confiance pour le joueur
-            numero
-            */
-            /*
-            Si le ramasseur virtuel (de non confiance, ici) domine
-            certainement les joueurs de non confiance n'ayant pas joue
-            */
-            if (ramasseurBatAdvDemat(joueursConfianceNonJoue_,
-                    card_, cartesPossibles_)) {
-                return PossibleTrickWinner.FOE_TEAM;
-            }
-            /*
-            On cherche les joueurs de non confiance battant de maniere
-            certaine les joueurs de confiance n'ayant pas joue ou possedant
-            des cartes que les joueurs ayant joue n'ont pas ainsi que les
-            joueurs de non confiance n'ayant pas joue
-            */
-            if (existeJouBatAdvDemat(joueursConfianceNonJoue_,
-                    joueursNonConfianceNonJoue_, cartesPossibles_,
-                    cartesCertaines_)) {
-                return PossibleTrickWinner.FOE_TEAM;
-            }
-            /*
-            On cherche les joueurs de confiance battant de maniere certaine
-            les joueurs de non confiance n'ayant pas joue ou possedant des
-            cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs
-            de non confiance n'ayant pas joue
-            */
-            if (existeJouBatAdvSurDemat(joueursNonConfianceNonJoue_,
-                    joueursConfianceNonJoue_, card_, cartesPossibles_,
-                    cartesCertaines_)) {
-                return PossibleTrickWinner.TEAM;
-            }
-            return PossibleTrickWinner.UNKNOWN;
-            /* Fin joueurDeConfiance.contains(ramasseurVirtuel) */
+            return possibleTrickWinnerTrumpCannotUseGreaterTrump(_info, card_, joueursNonConfianceNonJoue_, joueursConfianceNonJoue_);
         }
         /*
         Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()||
@@ -982,6 +946,86 @@ final class GameTarotTrickHypothesis {
             return PossibleTrickWinner.FOE_TEAM;
         }
         return PossibleTrickWinner.UNKNOWN;
+    }
+
+    private static PossibleTrickWinner possibleTrickWinnerTrumpCannotUseGreaterTrump(TarotInfoPliEnCours _info, CardTarot _card, Bytes _joueursNonConfianceNonJoue, Bytes _joueursConfianceNonJoue) {
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
+        byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
+        Bytes joueursConfiance_ = _info.getJoueursConfiance();
+        /*
+    Si le joueur numero ne peut pas prendre
+    la main sur demande d'atout
+    */
+        if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
+            /*
+            Si le ramasseur virtuel (de confiance, ici) domine
+            certainement les joueurs de non confiance n'ayant pas joue
+            */
+            if (ramasseurBatAdvDemat(_joueursNonConfianceNonJoue,
+                    _card, cartesPossibles_)) {
+                return PossibleTrickWinner.TEAM;
+            }
+            /*
+            On cherche les joueurs de confiance battant de maniere
+            certaine les joueurs de non confiance n'ayant pas joue ou
+            possedant des cartes que les joueurs ayant joue n'ont pas
+            ainsi que les joueurs de non confiance n'ayant pas joue
+            */
+            if (existeJouBatAdvDemat(_joueursNonConfianceNonJoue,
+                    _joueursConfianceNonJoue, cartesPossibles_,
+                    cartesCertaines_)) {
+                return PossibleTrickWinner.TEAM;
+            }
+            /*
+            On cherche les joueurs de non confiance battant de maniere
+            certaine les joueurs de confiance n'ayant pas joue ou
+            possedant des cartes que les joueurs ayant joue n'ont pas
+            ainsi que les joueurs de non confiance n'ayant pas joue
+            */
+            if (existeJouBatAdvSurDemat(_joueursConfianceNonJoue,
+                    _joueursNonConfianceNonJoue, _card,
+                    cartesPossibles_, cartesCertaines_)) {
+                return PossibleTrickWinner.FOE_TEAM;
+            }
+            return PossibleTrickWinner.UNKNOWN;
+        }
+            /*
+            ramasseurVirtuel n'est pas un joueur de confiance pour le joueur
+            numero
+            */
+            /*
+            Si le ramasseur virtuel (de non confiance, ici) domine
+            certainement les joueurs de non confiance n'ayant pas joue
+            */
+        if (ramasseurBatAdvDemat(_joueursConfianceNonJoue,
+                _card, cartesPossibles_)) {
+            return PossibleTrickWinner.FOE_TEAM;
+        }
+            /*
+            On cherche les joueurs de non confiance battant de maniere
+            certaine les joueurs de confiance n'ayant pas joue ou possedant
+            des cartes que les joueurs ayant joue n'ont pas ainsi que les
+            joueurs de non confiance n'ayant pas joue
+            */
+        if (existeJouBatAdvDemat(_joueursConfianceNonJoue,
+                _joueursNonConfianceNonJoue, cartesPossibles_,
+                cartesCertaines_)) {
+            return PossibleTrickWinner.FOE_TEAM;
+        }
+            /*
+            On cherche les joueurs de confiance battant de maniere certaine
+            les joueurs de non confiance n'ayant pas joue ou possedant des
+            cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs
+            de non confiance n'ayant pas joue
+            */
+        if (existeJouBatAdvSurDemat(_joueursNonConfianceNonJoue,
+                _joueursConfianceNonJoue, _card, cartesPossibles_,
+                cartesCertaines_)) {
+            return PossibleTrickWinner.TEAM;
+        }
+        return PossibleTrickWinner.UNKNOWN;
+        /* Fin joueurDeConfiance.contains(ramasseurVirtuel) */
     }
 
     static boolean existeJouBatAdvNumDemat(
@@ -1077,17 +1121,11 @@ final class GameTarotTrickHypothesis {
             boolean ramasseurVirtuelEgalCertain_;
             ramasseurVirtuelEgalCertain_ = !_cartesCertaines
                     .getVal(_couleurDemandee).get(joueur_).estVide();
-            if (ramasseurVirtuelEgalCertain_) {
-                if (_strength <= _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
-                    ramasseurVirtuelEgalCertain_ = false;
-                }
+            if (ramasseurVirtuelEgalCertain_ && _strength <= _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
+                ramasseurVirtuelEgalCertain_ = false;
             }
-            if (defausse(_cartesPossibles, joueur_, _couleurDemandee)) {
+            if (defausse(_cartesPossibles, joueur_, _couleurDemandee) || nePeutCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines) && _strength > _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
                 ramasseurVirtuelEgalCertain_ = true;
-            } else if (nePeutCouper(_couleurDemandee,joueur_,_cartesPossibles,_cartesCertaines)){
-                if (_strength > _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
-                    ramasseurVirtuelEgalCertain_ = true;
-                }
             }
             if (!ramasseurVirtuelEgalCertain_) {
                 ramasseurDeter_ = false;
@@ -1132,10 +1170,8 @@ final class GameTarotTrickHypothesis {
             boolean ramasseurVirtuelEgalCertain_;
             ramasseurVirtuelEgalCertain_ = _cartesPossibles.getVal(Suit.TRUMP)
                     .get(joueur_).estVide();
-            if (!ramasseurVirtuelEgalCertain_) {
-                if (_strength > _cartesPossibles.getVal(Suit.TRUMP).get(joueur_).premiereCarte().strength(Suit.TRUMP)) {
-                    ramasseurVirtuelEgalCertain_ = true;
-                }
+            if (!ramasseurVirtuelEgalCertain_ && _strength > _cartesPossibles.getVal(Suit.TRUMP).get(joueur_).premiereCarte().strength(Suit.TRUMP)) {
+                ramasseurVirtuelEgalCertain_ = true;
             }
             if (!ramasseurVirtuelEgalCertain_) {
                 joueurBatAdversaire_ = false;
@@ -1176,10 +1212,8 @@ final class GameTarotTrickHypothesis {
             boolean ramasseurVirtuelEgalCertain_;
             ramasseurVirtuelEgalCertain_ = _cartesPossibles.getVal(Suit.TRUMP)
                     .get(joueur_).estVide();
-            if (!ramasseurVirtuelEgalCertain_) {
-                if (_strength > _cartesPossibles.getVal(Suit.TRUMP).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
-                    ramasseurVirtuelEgalCertain_ = true;
-                }
+            if (!ramasseurVirtuelEgalCertain_ && _strength > _cartesPossibles.getVal(Suit.TRUMP).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
+                ramasseurVirtuelEgalCertain_ = true;
             }
             if (!_cartesCertaines.getVal(_couleurDemandee).get(joueur_).estVide()) {
                 ramasseurVirtuelEgalCertain_ = true;
@@ -1221,10 +1255,7 @@ final class GameTarotTrickHypothesis {
         Bytes joueurs_ = new Bytes();
         for (byte joueur_ : _joueurs) {
             for (Suit couleur_ : _couleurs) {
-                if (_main.couleur(couleur_).estVide()) {
-                    continue;
-                }
-                if (peutCouper(couleur_, joueur_, _cartesPossibles)) {
+                if (!_main.couleur(couleur_).estVide() && peutCouper(couleur_, joueur_, _cartesPossibles)) {
                     joueurs_.add(joueur_);
                     break;
                 }
@@ -1269,10 +1300,9 @@ final class GameTarotTrickHypothesis {
             HandTarot atouts_ = new HandTarot();
             atouts_.ajouterCartes(atoutsCertains_.get(joueur_));
             HandTarot atoutsMaitres_ = atouts_.atoutsMaitres(cartesJouees_);
-            if (atoutsMaitres_.estVide()) {
-                continue;
+            if (!atoutsMaitres_.estVide()) {
+                joueurs_.add(joueur_);
             }
-            joueurs_.add(joueur_);
         }
         return joueurs_;
     }
