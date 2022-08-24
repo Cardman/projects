@@ -29,18 +29,15 @@ import code.util.core.StringUtil;
 
 
 
-public final class SimulatingTarotImpl implements SimulatingTarot {
+public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     private final ContainerSimuTarot container;
-    private final Games partieSimulee;
-    private final DisplayingTarot displayingTarot;
     private final StopEvent stopEvent;
 
 
     public SimulatingTarotImpl(ContainerSimuTarot _container, Games _partieSimulee,
                                DisplayingTarot _displayingTarot, StopEvent _stopEvent) {
+        super(_displayingTarot,_partieSimulee.partieTarot());
         container = _container;
-        partieSimulee = _partieSimulee;
-        displayingTarot = _displayingTarot;
         stopEvent = _stopEvent;
     }
 
@@ -48,11 +45,6 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     public void displayLineReturn() {
         String event_ = ContainerGame.RETURN_LINE;
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
-    }
-
-    @Override
-    public DisplayingTarot getDisplaying() {
-        return displayingTarot;
     }
 
     @Override
@@ -411,8 +403,5 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     private StringList pseudosSimuleeTarot() {
         GameTarot partie_=partieTarotSimulee();
         return container.pseudosTarot(partie_.getNombreDeJoueurs());
-    }
-    private GameTarot partieTarotSimulee() {
-        return partieSimulee.partieTarot();
     }
 }
