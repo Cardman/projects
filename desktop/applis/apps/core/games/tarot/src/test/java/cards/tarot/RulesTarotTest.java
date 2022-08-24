@@ -2,7 +2,7 @@ package cards.tarot;
 
 import cards.tarot.enumerations.*;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -130,8 +130,8 @@ public class RulesTarotTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot(DealingTarot.DEAL_1_VS_2);
         RulesTarot rulesTwo_ = new RulesTarot(rules_);
         rulesTwo_.setMiseres(new EnumList<Miseres>());
-        rulesTwo_.setAllowedBids(new EnumMap<BidTarot, BoolVal>());
-        rulesTwo_.setAllowedHandfuls(new EnumMap<Handfuls, Integer>());
+        rulesTwo_.setAllowedBids(new IdMap<BidTarot, BoolVal>());
+        rulesTwo_.setAllowedHandfuls(new IdMap<Handfuls, Integer>());
         rulesTwo_.setEndDealTarot(rules_.getEndDealTarot());
         rulesTwo_.getCommon().setNbDeals(4);
         rulesTwo_.getCommon().setMixedCards(rules_.getCommon().getMixedCards());

@@ -2,7 +2,7 @@ package cards.tarot;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 
 final class TarotInfoPliEnCours {
@@ -12,16 +12,16 @@ final class TarotInfoPliEnCours {
     private CustList<TrickTarot> plisFaits;
     private TrickTarot progressingTrick;
     private HandTarot cartesJouees;
-    private EnumMap<Suit,HandTarot> repartitionCartesJouees;
+    private IdMap<Suit,HandTarot> repartitionCartesJouees;
     private boolean carteAppeleeJouee;
     private boolean contientExcuse;
-    private EnumMap<Suit,CustList<HandTarot>> cartesPossibles;
-    private EnumMap<Suit,CustList<HandTarot>> cartesCertaines;
+    private IdMap<Suit,CustList<HandTarot>> cartesPossibles;
+    private IdMap<Suit,CustList<HandTarot>> cartesCertaines;
     private byte ramasseurVirtuel;
-    private EnumMap<Suit,CustList<HandTarot>> suitesTouteCouleur;
+    private IdMap<Suit,CustList<HandTarot>> suitesTouteCouleur;
     private boolean maitreAtout;
     private EnumList<Suit> couleursMaitresses;
-    private EnumMap<Suit,HandTarot> cartesMaitresses;
+    private IdMap<Suit,HandTarot> cartesMaitresses;
     private boolean maitreJeu;
     private EnumList<Suit> coupesFranches;
     private EnumList<Suit> calledSuits;
@@ -82,11 +82,11 @@ final class TarotInfoPliEnCours {
         cartesJouees = _cartesJouees;
     }
 
-    public EnumMap<Suit,HandTarot> getRepartitionCartesJouees() {
+    public IdMap<Suit,HandTarot> getRepartitionCartesJouees() {
         return repartitionCartesJouees;
     }
 
-    public void setRepartitionCartesJouees(EnumMap<Suit,HandTarot> _repartitionCartesJouees) {
+    public void setRepartitionCartesJouees(IdMap<Suit,HandTarot> _repartitionCartesJouees) {
         repartitionCartesJouees = _repartitionCartesJouees;
     }
 
@@ -106,19 +106,19 @@ final class TarotInfoPliEnCours {
         contientExcuse = _contientExcuse;
     }
 
-    public EnumMap<Suit,CustList<HandTarot>> getCartesPossibles() {
+    public IdMap<Suit,CustList<HandTarot>> getCartesPossibles() {
         return cartesPossibles;
     }
 
-    public void setCartesPossibles(EnumMap<Suit,CustList<HandTarot>> _cartesPossibles) {
+    public void setCartesPossibles(IdMap<Suit,CustList<HandTarot>> _cartesPossibles) {
         cartesPossibles = _cartesPossibles;
     }
 
-    public EnumMap<Suit,CustList<HandTarot>> getCartesCertaines() {
+    public IdMap<Suit,CustList<HandTarot>> getCartesCertaines() {
         return cartesCertaines;
     }
 
-    public void setCartesCertaines(EnumMap<Suit,CustList<HandTarot>> _cartesCertaines) {
+    public void setCartesCertaines(IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
         cartesCertaines = _cartesCertaines;
     }
 
@@ -130,11 +130,11 @@ final class TarotInfoPliEnCours {
         ramasseurVirtuel = _ramasseurVirtuel;
     }
 
-    public EnumMap<Suit,CustList<HandTarot>> getSuitesTouteCouleur() {
+    public IdMap<Suit,CustList<HandTarot>> getSuitesTouteCouleur() {
         return suitesTouteCouleur;
     }
 
-    public void setSuitesTouteCouleur(EnumMap<Suit,CustList<HandTarot>> _suitesTouteCouleur) {
+    public void setSuitesTouteCouleur(IdMap<Suit,CustList<HandTarot>> _suitesTouteCouleur) {
         suitesTouteCouleur = _suitesTouteCouleur;
     }
 
@@ -154,11 +154,11 @@ final class TarotInfoPliEnCours {
         couleursMaitresses = _couleursMaitresses;
     }
 
-    public EnumMap<Suit,HandTarot> getCartesMaitresses() {
+    public IdMap<Suit,HandTarot> getCartesMaitresses() {
         return cartesMaitresses;
     }
 
-    public void setCartesMaitresses(EnumMap<Suit,HandTarot> _cartesMaitresses) {
+    public void setCartesMaitresses(IdMap<Suit,HandTarot> _cartesMaitresses) {
         cartesMaitresses = _cartesMaitresses;
     }
 

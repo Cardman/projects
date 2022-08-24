@@ -487,11 +487,11 @@ public final class DocumentReaderTarotUtil {
         return list_;
     }
 
-    private static EnumMap<BidTarot, BoolVal> getMapBidTarotBoolean(Element _elt) {
+    private static IdMap<BidTarot, BoolVal> getMapBidTarotBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<BidTarot,BoolVal> map_ = new EnumMap<BidTarot,BoolVal>(cap_);
+        IdMap<BidTarot,BoolVal> map_ = new IdMap<BidTarot,BoolVal>(cap_);
         CustList<BidTarot> keys_ = new CustList<BidTarot>(cap_);
         CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
@@ -507,11 +507,11 @@ public final class DocumentReaderTarotUtil {
         }
         return map_;
     }
-    public static EnumMap<Handfuls,Integer> getMapHandfulsInteger(Element _elt) {
+    public static IdMap<Handfuls,Integer> getMapHandfulsInteger(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<Handfuls,Integer> map_ = new EnumMap<Handfuls,Integer>(cap_);
+        IdMap<Handfuls,Integer> map_ = new IdMap<Handfuls,Integer>(cap_);
         CustList<Handfuls> keys_ = new CustList<Handfuls>(cap_);
         CustList<Integer> values_ = new CustList<Integer>(cap_);
         for (Element c: childElements_) {

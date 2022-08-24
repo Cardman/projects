@@ -75,8 +75,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
-        EnumMap<MixCardsChoice, String> trMix_;
-        trMix_ = new EnumMap<MixCardsChoice, String>();
+        IdMap<MixCardsChoice, String> trMix_;
+        trMix_ = new IdMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
             trMix_.put(choix_, Games.toString(choix_,lg_));
         }

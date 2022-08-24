@@ -18,7 +18,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.TreeMap;
 import code.util.core.BoolVal;
@@ -394,7 +394,7 @@ public final class EndTarotGame {
         return scorePreneurSansAnnonces_;
     }
 
-    public Shorts calculateScores(EnumMap<Role,Rate> _coefficientsRepartition,
+    public Shorts calculateScores(IdMap<Role,Rate> _coefficientsRepartition,
                                 short _sommeTemporaire, short _scorePreneurSansAnnonces) {
         return calculateScores(_coefficientsRepartition, _sommeTemporaire, _scorePreneurSansAnnonces, relations);
     }
@@ -597,14 +597,14 @@ public final class EndTarotGame {
         return 0;
     }
 
-    public EnumMap<Role,Rate> coefficientsRepartition() {
+    public IdMap<Role,Rate> coefficientsRepartition() {
         return coefficientsRepartition(relations);
     }
 
-    static EnumMap<Role, Rate> coefficientsRepartition(GameTarotTeamsRelation _relations) {
-        EnumMap<Role,Rate> coefficientsRepartition_;
+    static IdMap<Role, Rate> coefficientsRepartition(GameTarotTeamsRelation _relations) {
+        IdMap<Role,Rate> coefficientsRepartition_;
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
-        coefficientsRepartition_ = new EnumMap<Role,Rate>();
+        coefficientsRepartition_ = new IdMap<Role,Rate>();
         if (_relations.coequipiers(_relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_)).isEmpty()) {
             coefficientsRepartition_.put(Role.TAKER,new Rate(nombreJoueurs_ - 1L));
             coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
@@ -1612,15 +1612,15 @@ public final class EndTarotGame {
         return nombreLitiges_;
     }
 
-    public CustList<EnumMap<Handfuls,Short>> calculHandfulsScorePlayer(byte _player) {
+    public CustList<IdMap<Handfuls,Short>> calculHandfulsScorePlayer(byte _player) {
         return calculHandfulsScorePlayer(_player, relations, declaresHandfuls);
     }
 
-    static CustList<EnumMap<Handfuls, Short>> calculHandfulsScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Handfuls>> _declaresHandfuls) {
+    static CustList<IdMap<Handfuls, Short>> calculHandfulsScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Handfuls>> _declaresHandfuls) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
-        CustList<EnumMap<Handfuls,Short>> scores1_ = new CustList<EnumMap<Handfuls,Short>>();
+        CustList<IdMap<Handfuls,Short>> scores1_ = new CustList<IdMap<Handfuls,Short>>();
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
-            scores1_.add(new EnumMap<Handfuls,Short>());
+            scores1_.add(new IdMap<Handfuls,Short>());
 
             if (_relations.memeEquipe(joueur2_,_player)) {
                 for (Handfuls poignee_ : _declaresHandfuls.get(joueur2_)) {
@@ -1632,15 +1632,15 @@ public final class EndTarotGame {
         return scores1_;
     }
 
-    public CustList<EnumMap<Miseres,Short>> calculMiseresScorePlayer(byte _player) {
+    public CustList<IdMap<Miseres,Short>> calculMiseresScorePlayer(byte _player) {
         return calculMiseresScorePlayer(_player, relations, declaresMiseres);
     }
 
-    static CustList<EnumMap<Miseres, Short>> calculMiseresScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Miseres>> _declaresMiseres) {
+    static CustList<IdMap<Miseres, Short>> calculMiseresScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Miseres>> _declaresMiseres) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
-        CustList<EnumMap<Miseres,Short>> scores1_ = new CustList<EnumMap<Miseres,Short>>();
+        CustList<IdMap<Miseres,Short>> scores1_ = new CustList<IdMap<Miseres,Short>>();
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
-            scores1_.add(new EnumMap<Miseres,Short>());
+            scores1_.add(new IdMap<Miseres,Short>());
 
             if (_relations.memeEquipe(joueur2_,_player)) {
                 for (Miseres poignee_ : _declaresMiseres.get(joueur2_)) {
@@ -1774,11 +1774,11 @@ public final class EndTarotGame {
 
     private static short pointsAnnoncesJoueur(GameTarotTeamsRelation _relations, CustList<EnumList<Handfuls>> _declaresHandfuls, CustList<EnumList<Miseres>> _declaresMiseres, CustList<BoolVal> _smallBound, byte _joueur) {
         short pointsAnnoncesJoueur_ = 0;
-        for (EnumMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(_joueur, _relations, _declaresHandfuls)) {
+        for (IdMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(_joueur, _relations, _declaresHandfuls)) {
             CustList<Short> values_ = annoncesJoueur_.values();
             pointsAnnoncesJoueur_ += sum(values_);
         }
-        for (EnumMap<Miseres,Short> annoncesJoueur_ : calculMiseresScorePlayer(_joueur, _relations, _declaresMiseres)) {
+        for (IdMap<Miseres,Short> annoncesJoueur_ : calculMiseresScorePlayer(_joueur, _relations, _declaresMiseres)) {
             CustList<Short> values_ = annoncesJoueur_.values();
             pointsAnnoncesJoueur_ += sum(values_);
         }

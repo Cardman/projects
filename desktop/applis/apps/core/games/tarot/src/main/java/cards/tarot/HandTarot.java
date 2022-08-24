@@ -10,7 +10,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.IndexConstants;
 
 /**
@@ -195,7 +195,7 @@ public final class HandTarot implements Iterable<CardTarot> {
         return main_;
     }
 
-    static HandTarot figuresMain(EnumMap<Suit,HandTarot> _repartition, CardChar _figure) {
+    static HandTarot figuresMain(IdMap<Suit,HandTarot> _repartition, CardChar _figure) {
         HandTarot main_ = new HandTarot();
         for (CardTarot carte_ : charCards(_figure)) {
             if (_repartition.getVal(carte_.getId().getCouleur()).contient(carte_)) {
@@ -492,9 +492,9 @@ public final class HandTarot implements Iterable<CardTarot> {
         }
         return eclaterEnCours(new HandTarot().couleurs(), premiereCarte().getId().getCouleur());
     }
-    public EnumMap<Suit,CustList<HandTarot>> eclaterToutEnCours(EnumMap<Suit, HandTarot> _cartesJouees) {
-        EnumMap<Suit,CustList<HandTarot>> suitesTouteCouleur_ = new EnumMap<Suit,CustList<HandTarot>>();
-        EnumMap<Suit,HandTarot> repartition_ = couleurs();
+    public IdMap<Suit,CustList<HandTarot>> eclaterToutEnCours(IdMap<Suit, HandTarot> _cartesJouees) {
+        IdMap<Suit,CustList<HandTarot>> suitesTouteCouleur_ = new IdMap<Suit,CustList<HandTarot>>();
+        IdMap<Suit,HandTarot> repartition_ = couleurs();
         suitesTouteCouleur_.put(CardTarot.EXCUSE.getId().getCouleur(),repartition_.getVal(CardTarot.excuse().getId().getCouleur()).eclaterEnCours(
                 _cartesJouees, CardTarot.EXCUSE.getId().getCouleur()));
         suitesTouteCouleur_.put(Suit.TRUMP,repartition_.getVal(Suit.TRUMP).eclaterEnCours(
@@ -508,7 +508,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     }
     /**Eclate une couleur en suite en tenant compte des cartes jouees
     Exemple: pour l'atout 21 - 20 - 19 forment une suite de trois cartes*/
-    public CustList<HandTarot> eclaterEnCours(EnumMap<Suit,HandTarot> _cartesJouees,Suit _couleurDemandee) {
+    public CustList<HandTarot> eclaterEnCours(IdMap<Suit,HandTarot> _cartesJouees,Suit _couleurDemandee) {
         if(estVide()) {
             return new CustList<HandTarot>();
         }
@@ -526,7 +526,7 @@ public final class HandTarot implements Iterable<CardTarot> {
 
     }
 
-    private void eclaterCouleur(EnumMap<Suit, HandTarot> _cartesJouees, Suit _couleurDemandee, CustList<HandTarot> _suites, Suit _couleur, HandTarot _allCards) {
+    private void eclaterCouleur(IdMap<Suit, HandTarot> _cartesJouees, Suit _couleurDemandee, CustList<HandTarot> _suites, Suit _couleur, HandTarot _allCards) {
         boolean ajouterVec_ = true;
         for(CardTarot carte_: _allCards) {
             if (!_cartesJouees.getVal(_couleur).contient(carte_)) {
@@ -551,7 +551,7 @@ public final class HandTarot implements Iterable<CardTarot> {
         }
     }
 
-    public HandTarot atoutsMaitres(EnumMap<Suit,HandTarot> _cartesJouees) {
+    public HandTarot atoutsMaitres(IdMap<Suit,HandTarot> _cartesJouees) {
         return GameTarotCommon.cartesMaitresses(couleurs(),_cartesJouees,pileBase(),Suit.TRUMP);
     }
     public HandTarot charCardsBySuit(Suit _couleur) {
@@ -589,8 +589,8 @@ public final class HandTarot implements Iterable<CardTarot> {
     /**Donne la repartition des cartes de la main dans les differentes couleurs
     pour une main de tarot les cartes d'une meme couleur sont classees par ordre decroissant de la valeur
     @return un vecteur de mains ordonnee par numero de couleur croissant*/
-    public EnumMap<Suit,HandTarot> couleurs() {
-        EnumMap<Suit,HandTarot> mains_=new EnumMap<Suit,HandTarot>();
+    public IdMap<Suit,HandTarot> couleurs() {
+        IdMap<Suit,HandTarot> mains_=new IdMap<Suit,HandTarot>();
         mains_.put(CardTarot.EXCUSE.getId().getCouleur(),couleur(CardTarot.excuse().getId().getCouleur()));
         mains_.put(Suit.TRUMP,couleur(Suit.TRUMP));
         for(Suit b: Suit.couleursOrdinaires()) {
@@ -598,7 +598,7 @@ public final class HandTarot implements Iterable<CardTarot> {
         }
         return mains_;
     }
-    static HandTarot reunion(EnumMap<Suit,HandTarot> _couleurs) {
+    static HandTarot reunion(IdMap<Suit,HandTarot> _couleurs) {
         HandTarot main_ = new HandTarot();
         for(HandTarot m: _couleurs.values()) {
             main_.ajouterCartes(m);

@@ -6,7 +6,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -946,7 +946,7 @@ public final class GameTarot {
         return annoncerUnChelem(_mainJoueur,calledCards);
     }
     private boolean annoncerUnChelem(HandTarot _mainJoueur, HandTarot _called) {
-        EnumMap<Suit,HandTarot> repartition_ = _mainJoueur.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = _mainJoueur.couleurs();
         return GameTarotBid.estUnJeuDeChelem(repartition_, new HandTarot().couleurs(), rules, _called);
     }
 
@@ -1084,14 +1084,14 @@ public final class GameTarot {
 
     public boolean autorise(CardTarot _c) {
         HandTarot main_ = getDistribution().hand(playerHavingToPlay());
-        EnumMap<Suit,HandTarot> repartition_ = main_.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = main_.couleurs();
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(doneTrickInfo_,teamsRelation_);
         return g_.cartesJouables(repartition_).contient(_c);
     }
 
-    HandTarot playableCards(EnumMap<Suit,HandTarot> _repartitionMain) {
+    HandTarot playableCards(IdMap<Suit,HandTarot> _repartitionMain) {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(doneTrickInfo_,teamsRelation_);
@@ -1147,10 +1147,10 @@ public final class GameTarot {
             teamRel_.determinerConfiance(numero_, nombreDeJoueurs_);
             return;
         }
-        EnumMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         HandTarot cartesJouees_ = doneTrickInfo_.cartesJoueesEnCours(numero_);
-        EnumMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
+        IdMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         CustList<CustList<HandTarot>> suites_ = new CustList<CustList<HandTarot>>();
         suites_.add(new CustList<HandTarot>());
         suites_.add(repartition_.getVal(Suit.TRUMP).eclaterEnCours(
@@ -1159,10 +1159,10 @@ public final class GameTarot {
             suites_.add(repartition_.getVal(i).eclaterEnCours(
                     repartitionCartesJouees_, i));
         }
-        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = doneTrickInfo_.cartesPossibles(mainJoueur_);
-        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
+        IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = doneTrickInfo_.cartesPossibles(mainJoueur_);
+        IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
-        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
+        IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
         CustList<TrickTarot> plisFaits_ = unionPlis();
         plisFaits_.add(progressingTrick);

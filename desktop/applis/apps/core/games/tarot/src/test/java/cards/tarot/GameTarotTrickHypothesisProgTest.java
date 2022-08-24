@@ -5,7 +5,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.EqList;
 import code.util.*;
 import org.junit.Test;
@@ -2607,20 +2607,20 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.equipeQuiVaFairePli(t_));
     }
     static boolean existeJouBatAdvDemat(TarotInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
-        EnumMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
+        IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
+        IdMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
         return GameTarotTrickHypothesis.existeJouBatAdvDemat(_beat,_dom,poss_,sure_);
     }
     static boolean existeJoueurNonJoueBattantAdv(TarotInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
-        EnumMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
+        IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
+        IdMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
         TrickTarot cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         return GameTarotTrickHypothesis.existeJoueurNonJoueBattantAdv(_beat,_dom,suit_,poss_,sure_);
     }
     static boolean ramasseurBatSsCprAdv(TarotInfoPliEnCours _t,Bytes _beat) {
-        EnumMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
+        IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
+        IdMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
         TrickTarot cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         byte nbPlayers_ = _t.getNbPlayers();
@@ -2635,8 +2635,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         return beatSureListTrumpDemand(_t,_dom,_beat, strength_);
     }
     static boolean beatSureListTrumpDemand(TarotInfoPliEnCours _t,Bytes _dom,Bytes _beat,int _str) {
-        EnumMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
+        IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
+        IdMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
         return GameTarotTrickHypothesis.beatSureListTrumpDemand(_beat,_dom,poss_,sure_, (byte) _str);
     }
     static boolean beatSureListTrumpDemandPast(TarotInfoPliEnCours _t,Bytes _beat) {
@@ -2647,7 +2647,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         return beatSureListTrumpDemandPast(_t,_beat, strength_);
     }
     static boolean beatSureListTrumpDemandPast(TarotInfoPliEnCours _t,Bytes _beat,int _str) {
-        EnumMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
+        IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
         return GameTarotTrickHypothesis.beatSureListTrumpDemandPast(_beat,poss_, (byte) _str);
     }
     static boolean beatSureListTrumpNormalSuit(TarotInfoPliEnCours _t, Bytes _dom,Bytes _beat) {
@@ -2658,8 +2658,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         return beatSureListTrumpNormalSuit(_t,_dom,_beat, strength_);
     }
     static boolean beatSureListTrumpNormalSuit(TarotInfoPliEnCours _t, Bytes _dom,Bytes _beat,int _str) {
-        EnumMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
+        IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
+        IdMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         return GameTarotTrickHypothesis.beatSureListTrumpNormalSuit(_beat,_dom,suit_,poss_,sure_, (byte) _str);
     }
@@ -2670,14 +2670,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         return beatByTrumpNormalSuitStrength(_t, _beat, strength_);
     }
     static boolean beatByTrumpNormalSuitStrength(TarotInfoPliEnCours _t, Bytes _beat,int _str) {
-        EnumMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
+        IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
+        IdMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         return GameTarotTrickHypothesis.beatByTrumpNormalSuitStrength(_beat,suit_,poss_,sure_, (byte) _str);
     }
     static boolean beatByTrumpNormalSuit(TarotInfoPliEnCours _t, Bytes _beat,int _pl) {
-        EnumMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
+        IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
+        IdMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         return GameTarotTrickHypothesis.beatByTrumpNormalSuit(_beat,suit_,poss_,sure_, (byte) _pl);
     }
@@ -2691,13 +2691,13 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         Bytes played_ = _current.joueursAyantJoue((byte) _nbPlayers);
         byte nextPlayer_ = _current.getNextPlayer((byte) _nbPlayers);
         _team.add(nextPlayer_);
-        EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
-        EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _playedCard.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
+        IdMap<Suit,HandTarot> repartitionCartesJouees_ = _playedCard.couleurs();
         Bytes notConfident_ = GameTarotTeamsRelation.autresJoueurs(_team, (byte) _nbPlayers);
         Bytes joueursNonJoue_ = GameTarotTeamsRelation.autresJoueurs(played_, (byte) _nbPlayers);
-        EnumMap<Suit,CustList<HandTarot>> suitesTouteCouleur_ = _cartes.eclaterToutEnCours(repartitionCartesJouees_);
+        IdMap<Suit,CustList<HandTarot>> suitesTouteCouleur_ = _cartes.eclaterToutEnCours(repartitionCartesJouees_);
 
-        EnumMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
+        IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 repartition_, repartitionCartesJouees_);
 
         TarotInfoPliEnCours info_ = new TarotInfoPliEnCours();
@@ -2722,8 +2722,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         info_.setJoueursNonConfiance(notConfident_);
         return info_;
     }
-    private static EnumMap<Suit,CustList<HandTarot>> generate(int _nbPlayer) {
-        EnumMap<Suit,CustList<HandTarot>> e_ = new EnumMap<Suit,CustList<HandTarot>>();
+    private static IdMap<Suit,CustList<HandTarot>> generate(int _nbPlayer) {
+        IdMap<Suit,CustList<HandTarot>> e_ = new IdMap<Suit,CustList<HandTarot>>();
         EnumList<Suit> s_ = new EnumList<Suit>();
         s_.add(Suit.UNDEFINED);
         s_.add(Suit.TRUMP);

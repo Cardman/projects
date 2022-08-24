@@ -426,24 +426,24 @@ public final class WindowCards extends NetGroupFrame {
     private AbsMenuItem tricksHands;
     private AbsMenuItem teams;
     private AbsMenu edit;
-    private final EnumMap<GameEnum,AbsMenuItem> editGames = new EnumMap<GameEnum,AbsMenuItem>();
+    private final IdMap<GameEnum,AbsMenuItem> editGames = new IdMap<GameEnum,AbsMenuItem>();
     private AbsMenu demo;
-    private final EnumMap<GameEnum,AbsMenuItem> demoGames = new EnumMap<GameEnum,AbsMenuItem>();
+    private final IdMap<GameEnum,AbsMenuItem> demoGames = new IdMap<GameEnum,AbsMenuItem>();
     private AbsMenu training;
-    private final EnumMap<ChoiceTarot,AbsMenuItem> trainingTarot = new EnumMap<ChoiceTarot,AbsMenuItem>();
+    private final IdMap<ChoiceTarot,AbsMenuItem> trainingTarot = new IdMap<ChoiceTarot,AbsMenuItem>();
     private AbsMenuItem multiStop;
 
     //parameters menu
 
     private AbsMenu parameters;
-    private final EnumMap<GameEnum,AbsMenuItem> rulesGames = new EnumMap<GameEnum,AbsMenuItem>();
+    private final IdMap<GameEnum,AbsMenuItem> rulesGames = new IdMap<GameEnum,AbsMenuItem>();
     private AbsMenuItem players;
     private AbsMenuItem launching;
     private AbsMenuItem timing;
     private AbsMenuItem interact;
     private AbsMenuItem language;
     private AbsMenu displaying;
-    private final EnumMap<GameEnum,AbsMenuItem> displayingGames = new EnumMap<GameEnum,AbsMenuItem>();
+    private final IdMap<GameEnum,AbsMenuItem> displayingGames = new IdMap<GameEnum,AbsMenuItem>();
 
     //parameters help
 
@@ -2143,7 +2143,7 @@ public final class WindowCards extends NetGroupFrame {
         return edit;
     }
 
-    public EnumMap<GameEnum,AbsMenuItem> getEditGames() {
+    public IdMap<GameEnum,AbsMenuItem> getEditGames() {
         return editGames;
     }
 
@@ -2151,7 +2151,7 @@ public final class WindowCards extends NetGroupFrame {
         return demo;
     }
 
-    public EnumMap<GameEnum,AbsMenuItem> getDemoGames() {
+    public IdMap<GameEnum,AbsMenuItem> getDemoGames() {
         return demoGames;
     }
 
@@ -2159,7 +2159,7 @@ public final class WindowCards extends NetGroupFrame {
         return training;
     }
 
-    public EnumMap<ChoiceTarot,AbsMenuItem> getTrainingTarot() {
+    public IdMap<ChoiceTarot,AbsMenuItem> getTrainingTarot() {
         return trainingTarot;
     }
 
@@ -2171,7 +2171,7 @@ public final class WindowCards extends NetGroupFrame {
         return parameters;
     }
 
-    public EnumMap<GameEnum,AbsMenuItem> getRulesGames() {
+    public IdMap<GameEnum,AbsMenuItem> getRulesGames() {
         return rulesGames;
     }
 
@@ -2199,7 +2199,7 @@ public final class WindowCards extends NetGroupFrame {
         return displaying;
     }
 
-    public EnumMap<GameEnum,AbsMenuItem> getDisplayingGames() {
+    public IdMap<GameEnum,AbsMenuItem> getDisplayingGames() {
         return displayingGames;
     }
 

@@ -164,7 +164,7 @@ public final class GameTarotTeamsRelation {
     }
 
     boolean allKnownCalledPlayers(HandTarot _calledCards,
-            EnumMap<Suit,CustList<HandTarot>> _cartesCertaines, byte _nbPlayers) {
+            IdMap<Suit,CustList<HandTarot>> _cartesCertaines, byte _nbPlayers) {
         boolean appelesTousConnus_;
         appelesTousConnus_ = true;
         for(CardTarot c: _calledCards) {

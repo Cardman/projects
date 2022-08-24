@@ -11,7 +11,7 @@ import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -72,9 +72,9 @@ public final class DialogSoft extends DialogCards {
             //Lancement du logiciel
             AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
             list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
-            EnumMap<GameEnum,String> mess_;
+            IdMap<GameEnum,String> mess_;
             EnumList<GameEnum> order_;
-            mess_ = new EnumMap<GameEnum,String>();
+            mess_ = new IdMap<GameEnum,String>();
             order_ = new EnumList<GameEnum>();
             mess_.put(null, messages.getVal(LAUNCHING));
             order_.add(null);

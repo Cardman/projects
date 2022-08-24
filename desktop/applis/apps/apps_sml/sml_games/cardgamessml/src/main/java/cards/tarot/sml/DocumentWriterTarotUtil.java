@@ -335,7 +335,7 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    private static Element setMapBidTarotBoolean(EnumMap<BidTarot, BoolVal> _object, String _fieldName, Document _document) {
+    private static Element setMapBidTarotBoolean(IdMap<BidTarot, BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<BidTarot, BoolVal> s: _object.entryList()) {
@@ -348,7 +348,7 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    public static Element setMapHandfulsInteger(EnumMap<Handfuls,Integer> _object, String _fieldName, Document _document) {
+    public static Element setMapHandfulsInteger(IdMap<Handfuls,Integer> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Handfuls, Integer> s: _object.entryList()) {

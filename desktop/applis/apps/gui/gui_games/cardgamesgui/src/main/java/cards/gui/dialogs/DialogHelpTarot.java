@@ -13,7 +13,7 @@ import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -41,8 +41,8 @@ public final class DialogHelpTarot {
         _fenetre.getDialogHelpTarot().absDialog.setTitle(_title);
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
-    public void setDialogueTarot(EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
-                                        EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, HandTarot> _repartitionJouees,
+    public void setDialogueTarot(IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                        IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, HandTarot> _repartitionJouees,
                                         StringList _pseudos, String _lg) {
         AbsPanel container_=compo.newLineBox();
         AbsPanel panneau2_=compo.newBorder();

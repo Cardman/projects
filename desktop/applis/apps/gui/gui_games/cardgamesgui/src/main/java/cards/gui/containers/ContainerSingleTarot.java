@@ -66,7 +66,7 @@ import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -646,7 +646,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         afficherMainUtilisateurTarot(true);
         setRaisonCourante(EMPTY);
         setChoosenHandful(Handfuls.NO);
-        setSelectedMiseres(new EnumMap<Miseres,Boolean>());
+        setSelectedMiseres(new IdMap<Miseres,Boolean>());
         String lg_ = getOwner().getLanguageKey();
         GameTarot partie_=partieTarot();
         if(partie_.premierTourNoMisere()) {
@@ -1370,12 +1370,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         HandTarot mainUtilisateur_=partie_.getDistribution().hand();
         GameTarotTrickInfo doneTrickInfo_ = partie_.getDoneTrickInfo();
         HandTarot cartesJouees_=doneTrickInfo_.cartesJoueesEnCours(DealTarot.NUMERO_UTILISATEUR);
-        EnumMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_= doneTrickInfo_.cartesPossibles(mainUtilisateur_);
+        IdMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> cartesPossibles_= doneTrickInfo_.cartesPossibles(mainUtilisateur_);
         DialogHelpTarot.setTitleDialog(getWindow(), StringUtil.concat(getMessages().getVal(WindowCards.HELP_GAME),SPACE,GameEnum.TAROT.toString(lg_)));
-        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
+        IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
-        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
+        IdMap<Suit,CustList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
         getOwner().getDialogHelpTarot().setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);
     }
 

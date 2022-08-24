@@ -8,7 +8,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import org.junit.Test;
 
 public final class TarotAddonTest extends CommonGameTarot {
@@ -67,7 +67,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         game_.setEntameur((byte) 2);
         assertEq(2,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
-        EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
+        IdMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
@@ -103,7 +103,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         game_.setEntameur((byte) 4);
         assertEq(4,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
-        EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
+        IdMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));

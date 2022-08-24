@@ -6,7 +6,7 @@ import cards.tarot.comparators.*;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 public final class GameTarotCommon {
 
@@ -200,7 +200,7 @@ public final class GameTarotCommon {
         }
         return couleurs_;
     }
-    static int nombreDeCoupesFranches(EnumMap<Suit,HandTarot> _repartition) {
+    static int nombreDeCoupesFranches(IdMap<Suit,HandTarot> _repartition) {
         int nombre_ = 0;
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             if (_repartition.getVal(couleur_).estVide()) {
@@ -262,9 +262,9 @@ public final class GameTarotCommon {
         }
         return o_;
     }
-    static EnumMap<Suit,HandTarot> cartesMaitresses(
-            EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _cartesJouees) {
-        EnumMap<Suit,HandTarot> suits_ = new EnumMap<Suit,HandTarot>();
+    static IdMap<Suit,HandTarot> cartesMaitresses(
+            IdMap<Suit,HandTarot> _couleurs, IdMap<Suit,HandTarot> _cartesJouees) {
+        IdMap<Suit,HandTarot> suits_ = new IdMap<Suit,HandTarot>();
         HandTarot pileBase_ = HandTarot.pileBase();
         for (Suit i : Suit.couleursOrdinaires()) {
             HandTarot cartesMaitresses_ = cartesMaitresses(_couleurs, _cartesJouees, pileBase_, i);
@@ -273,7 +273,7 @@ public final class GameTarotCommon {
         return suits_;
     }
 
-    static HandTarot cartesMaitresses(EnumMap<Suit, HandTarot> _couleurs, EnumMap<Suit, HandTarot> _cartesJouees, HandTarot _pileBase, Suit _i) {
+    static HandTarot cartesMaitresses(IdMap<Suit, HandTarot> _couleurs, IdMap<Suit, HandTarot> _cartesJouees, HandTarot _pileBase, Suit _i) {
         HandTarot cartes_ = _couleurs.getVal(_i);
         HandTarot couleurTotale_ = _pileBase.couleur(_i);
         HandTarot cartesJoueesOuPossedees_ = new HandTarot();
@@ -302,7 +302,7 @@ public final class GameTarotCommon {
         return retr_;
     }
 
-    public static int atoutsAvecExcuse(EnumMap<Suit, HandTarot> _couleurs) {
+    public static int atoutsAvecExcuse(IdMap<Suit, HandTarot> _couleurs) {
         return _couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total() + _couleurs.getVal(Suit.TRUMP).total();
     }
 

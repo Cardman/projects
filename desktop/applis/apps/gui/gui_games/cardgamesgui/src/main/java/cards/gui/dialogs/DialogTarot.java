@@ -60,7 +60,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private AbsSpinner nbAtoutsPoignee;
     private AbsPanel players;
     private AbsSpinner nbJoueurs;
-    private EnumMap<Handfuls,Integer> poigneesAutorisees = new EnumMap<Handfuls,Integer>();
+    private IdMap<Handfuls,Integer> poigneesAutorisees = new IdMap<Handfuls,Integer>();
 
     protected DialogTarot(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
         super(_frameFactory, _ch);
@@ -80,8 +80,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
-        EnumMap<MixCardsChoice, String> trMix_;
-        trMix_ = new EnumMap<MixCardsChoice, String>();
+        IdMap<MixCardsChoice, String> trMix_;
+        trMix_ = new IdMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
             trMix_.put(choix_, Games.toString(choix_,lg_));
         }
@@ -123,7 +123,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         int nbCartesJoueur_ = getReglesTarot().getDealing().getNombreCartesParJoueur();
         int nbTrumps_ = HandTarot.trumpsPlusExcuse().total();
         nbCartesJoueur_ = Math.min(nbCartesJoueur_, nbTrumps_);
-        poigneesAutorisees = new EnumMap<Handfuls,Integer>(getReglesTarot().getAllowedHandfuls());
+        poigneesAutorisees = new IdMap<Handfuls,Integer>(getReglesTarot().getAllowedHandfuls());
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
         nbAtoutsPoignee = getCompoFactory().newSpinner(valeur_,0,nbCartesJoueur_,1);
         sousPanneau_.add(nbAtoutsPoignee);
@@ -334,7 +334,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             }
         }
         getReglesTarot().setMiseres(miseres_);
-        EnumMap<BidTarot,BoolVal> contrats_ = new EnumMap<BidTarot,BoolVal>();
+        IdMap<BidTarot,BoolVal> contrats_ = new IdMap<BidTarot,BoolVal>();
         for (BidTarot enchere_: BidTarot.values()) {
             AbsCustCheckBox jcb_= bids.get(enchere_.ordinal());
             contrats_.put(enchere_, ComparatorBoolean.of(jcb_.isSelected()));

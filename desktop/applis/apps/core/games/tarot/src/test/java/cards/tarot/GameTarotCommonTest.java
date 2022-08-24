@@ -2,7 +2,7 @@ package cards.tarot;
 
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
-import code.util.EnumMap;
+import code.util.IdMap;
 import org.junit.Test;
 
 public final class GameTarotCommonTest extends EquallableTarotUtil {
@@ -21,7 +21,7 @@ public final class GameTarotCommonTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_8);
         handSuit_.ajouter(CardTarot.SPADE_1);
         handSuit_.ajouter(CardTarot.CLUB_KING);
-        EnumMap<Suit, HandTarot> out_ = GameTarotCommon.cartesMaitresses(handSuit_.couleurs(), new HandTarot().couleurs());
+        IdMap<Suit, HandTarot> out_ = GameTarotCommon.cartesMaitresses(handSuit_.couleurs(), new HandTarot().couleurs());
         assertEq(4, out_.size());
         assertEq(3, out_.getVal(Suit.HEART).total());
         assertTrue(out_.getVal(Suit.HEART).contient(CardTarot.HEART_KING));
@@ -49,7 +49,7 @@ public final class GameTarotCommonTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_KING);
         HandTarot played_ = new HandTarot();
         played_.ajouter(CardTarot.HEART_KNIGHT);
-        EnumMap<Suit, HandTarot> out_ = GameTarotCommon.cartesMaitresses(handSuit_.couleurs(), played_.couleurs());
+        IdMap<Suit, HandTarot> out_ = GameTarotCommon.cartesMaitresses(handSuit_.couleurs(), played_.couleurs());
         assertEq(4, out_.size());
         assertEq(3, out_.getVal(Suit.HEART).total());
         assertTrue(out_.getVal(Suit.HEART).contient(CardTarot.HEART_KING));
@@ -85,7 +85,7 @@ public final class GameTarotCommonTest extends EquallableTarotUtil {
         played_.ajouter(CardTarot.HEART_3);
         played_.ajouter(CardTarot.HEART_2);
         played_.ajouter(CardTarot.HEART_1);
-        EnumMap<Suit, HandTarot> out_ = GameTarotCommon.cartesMaitresses(handSuit_.couleurs(), played_.couleurs());
+        IdMap<Suit, HandTarot> out_ = GameTarotCommon.cartesMaitresses(handSuit_.couleurs(), played_.couleurs());
         assertEq(4, out_.size());
         assertEq(4, out_.getVal(Suit.HEART).total());
         assertTrue(out_.getVal(Suit.HEART).contient(CardTarot.HEART_KING));

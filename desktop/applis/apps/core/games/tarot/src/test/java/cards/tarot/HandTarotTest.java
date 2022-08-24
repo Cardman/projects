@@ -8,7 +8,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 
 public class HandTarotTest extends EquallableTarotUtil {
@@ -448,7 +448,7 @@ public class HandTarotTest extends EquallableTarotUtil {
         main_.ajouter(CardTarot.HEART_1);
         main_.ajouter(CardTarot.TRUMP_12);
         main_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit,HandTarot> hash_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hash_ = new IdMap<Suit,HandTarot>();
         HandTarot couleur_ = new HandTarot();
         couleur_.ajouter(CardTarot.SPADE_KING);
         couleur_.ajouter(CardTarot.SPADE_JACK);
@@ -466,7 +466,7 @@ public class HandTarotTest extends EquallableTarotUtil {
         couleur_ = new HandTarot();
         hash_.put(Suit.DIAMOND, couleur_);
         hash_.put(Suit.CLUB, couleur_);
-        EnumMap<Suit,HandTarot> res_ = main_.couleurs();
+        IdMap<Suit,HandTarot> res_ = main_.couleurs();
         assertEq(hash_.getVal(Suit.HEART), res_.getVal(Suit.HEART));
         assertEq(hash_.getVal(Suit.DIAMOND), res_.getVal(Suit.DIAMOND));
         assertEq(hash_.getVal(Suit.SPADE), res_.getVal(Suit.SPADE));
@@ -700,7 +700,7 @@ public class HandTarotTest extends EquallableTarotUtil {
         h_.ajouter(CardTarot.TRUMP_6);
         h_.ajouter(CardTarot.TRUMP_3);
         h_.ajouter(CardTarot.TRUMP_1);
-        HandTarot out_ = h_.atoutsMaitres(new EnumMap<Suit, HandTarot>());
+        HandTarot out_ = h_.atoutsMaitres(new IdMap<Suit, HandTarot>());
         assertEq(1, out_.total());
         assertSame(CardTarot.TRUMP_21, out_.carte(0));
     }

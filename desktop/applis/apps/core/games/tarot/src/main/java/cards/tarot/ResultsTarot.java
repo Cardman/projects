@@ -41,7 +41,7 @@ public final class ResultsTarot {
         short basePoints_;
         short doubledScoreTaker_;
         short differenceScoreTaker_;
-        EnumMap<Role,Rate> repartitionRate_;
+        IdMap<Role,Rate> repartitionRate_;
         short additionnalBonusesAttack_;
         short additionnalBonusesDefense_;
         short scoreTakerWithoutDeclaring_;

@@ -5,7 +5,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import org.junit.Test;
 
@@ -782,7 +782,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         TarotInfoPliEnCours infoTr_ = newGameTarotBeginTrickClassicDeal(g_,info_,team_,calledCards_,curHand_).initInformations();
         assertTrue(!GameTarotBeginTrickClassic.noTrumping(repartition_,infoTr_.getCartesPossibles(),infoTr_.getJoueursNonJoue()));
     }
@@ -906,7 +906,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         TarotInfoPliEnCours infoTr_ = newGameTarotBeginTrickClassicDeal(g_,info_,team_,calledCards_,curHand_).initInformations();
         assertTrue(GameTarotBeginTrickClassic.noTrumping(repartition_,infoTr_.getCartesPossibles(),infoTr_.getJoueursNonJoue()));
     }
@@ -970,7 +970,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         TarotInfoPliEnCours infoTr_ = newGameTarotBeginTrickClassicDeal(g_,info_,team_,calledCards_,curHand_).initInformations();
         assertTrue(!GameTarotBeginTrickClassic.allSuitOwnLeadingCard(repartition_,infoTr_.getCartesMaitresses(),Suit.couleursOrdinaires()));
     }
@@ -1094,7 +1094,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         TarotInfoPliEnCours infoTr_ = newGameTarotBeginTrickClassicDeal(g_,info_,team_,calledCards_,curHand_).initInformations();
         assertTrue(GameTarotBeginTrickClassic.allSuitOwnLeadingCard(repartition_,infoTr_.getCartesMaitresses(), Suit.couleursOrdinaires()));
     }

@@ -10,7 +10,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 public class GameTarotPlayingOneTest extends CommonTarotGame {
 
@@ -148,7 +148,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game_.setPliEnCours(true);
         assertEq(0,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
-        EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
+        IdMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
@@ -329,7 +329,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         assertEq(Suit.DIAMOND,game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
+        IdMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game_.playableCards(suits_);
         HandTarot expected_ = suits_.getVal(game_.getPliEnCours().couleurDemandee());
         expected_.ajouter(CardTarot.EXCUSE);
@@ -365,7 +365,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         assertEq(Suit.DIAMOND,game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(player_);
-        EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
+        IdMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game_.playableCards(suits_);
         HandTarot expected_ = suits_.getVal(Suit.TRUMP);
         assertEq(expected_.total(),playableCards_.total());

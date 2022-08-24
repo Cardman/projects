@@ -16,7 +16,7 @@ import cards.gui.panels.SuitsScrollableList;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Listable;
@@ -84,8 +84,8 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         //Panneau Tri avant enchere
         panneau_=_window.getCompoFactory().newGrid(0,4);
         listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
-        EnumMap<Suit,String> trSuit_;
-        trSuit_ = new EnumMap<Suit,String>();
+        IdMap<Suit,String> trSuit_;
+        trSuit_ = new IdMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
         String lg_ = _window.getLanguageKey();
         for (Suit couleur_:ls_) {

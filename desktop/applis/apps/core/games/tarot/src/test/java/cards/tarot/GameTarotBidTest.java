@@ -6,19 +6,19 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameTarotBidTest extends EquallableTarotUtil {
     @Test
     public void nbCartesMaitresses1Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         plSuit_.ajouter(CardTarot.HEART_7);
         plSuit_.ajouter(CardTarot.HEART_4);
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.HEART_10);
         handSuit_.ajouter(CardTarot.HEART_6);
@@ -27,12 +27,12 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
     }
     @Test
     public void nbCartesMaitresses2Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         plSuit_.ajouter(CardTarot.HEART_7);
         plSuit_.ajouter(CardTarot.HEART_4);
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.HEART_KING);
         handSuit_.ajouter(CardTarot.HEART_6);
@@ -41,12 +41,12 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
     }
     @Test
     public void nbCartesMaitresses3Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         plSuit_.ajouter(CardTarot.HEART_KING);
         plSuit_.ajouter(CardTarot.HEART_4);
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         handSuit_.ajouter(CardTarot.HEART_6);
@@ -55,13 +55,13 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
     }
     @Test
     public void nbCartesMaitresses4Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         plSuit_.ajouter(CardTarot.HEART_KING);
         plSuit_.ajouter(CardTarot.HEART_KNIGHT);
         plSuit_.ajouter(CardTarot.HEART_4);
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         handSuit_.ajouter(CardTarot.HEART_JACK);
@@ -72,31 +72,31 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
     }
     @Test
     public void nbCartesMaitresses5Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         hand_.put(Suit.HEART,handSuit_);
         assertEq(0,GameTarotBid.nbCartesMaitresses(hand_,played_,Suit.HEART));
     }
     @Test
     public void nbCartesMaitresses6Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         plSuit_.ajouterCartes(HandTarot.couleurComplete(Suit.HEART));
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         hand_.put(Suit.HEART,handSuit_);
         assertEq(0,GameTarotBid.nbCartesMaitresses(hand_,played_,Suit.HEART));
     }
     @Test
     public void maitreDansUneCouleur1Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.HEART_KING);
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
@@ -110,10 +110,10 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
     }
     @Test
     public void maitreDansUneCouleur2Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.HEART_KING);
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
@@ -128,10 +128,10 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
     }
     @Test
     public void maitreDansUneCouleur3Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.HEART_KING);
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
@@ -146,10 +146,10 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
     }
     @Test
     public void maitreDansUneCouleur4Test() {
-        EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit,HandTarot> played_ = new IdMap<Suit, HandTarot>();
         HandTarot plSuit_ = new HandTarot();
         played_.put(Suit.HEART,plSuit_);
-        EnumMap<Suit,HandTarot> hand_ = new EnumMap<Suit,HandTarot>();
+        IdMap<Suit,HandTarot> hand_ = new IdMap<Suit,HandTarot>();
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         handSuit_.ajouter(CardTarot.HEART_KNIGHT);
@@ -466,7 +466,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
         HandTarot played_ = new HandTarot();
-        EnumMap<Suit, HandTarot> out_ = GameTarotBid.cartesPseudoMaitresses(handSuit_.couleurs(), other_, played_.couleurs());
+        IdMap<Suit, HandTarot> out_ = GameTarotBid.cartesPseudoMaitresses(handSuit_.couleurs(), other_, played_.couleurs());
         assertEq(4, out_.size());
         assertEq(3, out_.getVal(Suit.HEART).total());
         assertTrue(out_.getVal(Suit.HEART).contient(CardTarot.HEART_KING));
@@ -501,7 +501,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
         HandTarot played_ = new HandTarot();
-        EnumMap<Suit, HandTarot> out_ = GameTarotBid.cartesPseudoMaitresses(handSuit_.couleurs(), other_, played_.couleurs());
+        IdMap<Suit, HandTarot> out_ = GameTarotBid.cartesPseudoMaitresses(handSuit_.couleurs(), other_, played_.couleurs());
         assertEq(4, out_.size());
         assertEq(2, out_.getVal(Suit.HEART).total());
         assertTrue(out_.getVal(Suit.HEART).contient(CardTarot.HEART_KING));
@@ -537,7 +537,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
         HandTarot played_ = new HandTarot();
-        EnumMap<Suit, HandTarot> out_ = GameTarotBid.cartesPseudoMaitresses(handSuit_.couleurs(), other_, played_.couleurs());
+        IdMap<Suit, HandTarot> out_ = GameTarotBid.cartesPseudoMaitresses(handSuit_.couleurs(), other_, played_.couleurs());
         assertEq(4, out_.size());
         assertEq(2, out_.getVal(Suit.HEART).total());
         assertTrue(out_.getVal(Suit.HEART).contient(CardTarot.HEART_KING));
@@ -573,7 +573,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
         HandTarot played_ = new HandTarot();
-        EnumMap<Suit, HandTarot> out_ = GameTarotBid.cartesPseudoMaitresses(handSuit_.couleurs(), other_, played_.couleurs());
+        IdMap<Suit, HandTarot> out_ = GameTarotBid.cartesPseudoMaitresses(handSuit_.couleurs(), other_, played_.couleurs());
         assertEq(4, out_.size());
         assertEq(2, out_.getVal(Suit.HEART).total());
         assertTrue(out_.getVal(Suit.HEART).contient(CardTarot.HEART_KING));
@@ -601,8 +601,8 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
         HandTarot played_ = new HandTarot();
-        EnumMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
-        EnumMap<Suit, HandTarot> pseudo_ = GameTarotBid.cartesPseudoMaitresses(suits_, other_, played_.couleurs());
+        IdMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
+        IdMap<Suit, HandTarot> pseudo_ = GameTarotBid.cartesPseudoMaitresses(suits_, other_, played_.couleurs());
         EnumList<Suit> out_ = GameTarotBid.couleursPseudosMaitres(suits_, pseudo_);
         assertEq(1, out_.size());
         assertTrue(out_.containsObj(Suit.CLUB));
@@ -625,8 +625,8 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
         HandTarot played_ = new HandTarot();
-        EnumMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
-        EnumMap<Suit, HandTarot> pseudo_ = GameTarotBid.cartesPseudoMaitresses(suits_, other_, played_.couleurs());
+        IdMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
+        IdMap<Suit, HandTarot> pseudo_ = GameTarotBid.cartesPseudoMaitresses(suits_, other_, played_.couleurs());
         EnumList<Suit> out_ = GameTarotBid.couleursPseudosMaitres(suits_, pseudo_);
         assertEq(2, out_.size());
         assertTrue(out_.containsObj(Suit.SPADE));
@@ -649,7 +649,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_KING);
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
-        EnumMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
+        IdMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
         assertEq(0,GameTarotBid.nbCouleursPseudoMaitresses(suits_,other_, (byte) 6));
     }
     @Test
@@ -669,7 +669,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_KING);
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
-        EnumMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
+        IdMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
         assertEq(1,GameTarotBid.nbCouleursPseudoMaitresses(suits_,other_, (byte) 6));
     }
     @Test

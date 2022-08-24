@@ -9,7 +9,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
 
@@ -152,7 +152,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         game_.initConfianceAppele();
         game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
         HandTarot takerHand_ = game_.getDistribution().hand(game_.getPreneur());
-        EnumMap<Suit,HandTarot> suits_ = takerHand_.couleurs();
+        IdMap<Suit,HandTarot> suits_ = takerHand_.couleurs();
         HandTarot discardableCards_ =
                 GameTarotCallDiscard.getCartesEcartables(game_.getDistribution()
                     .derniereMain().total(),suits_);
@@ -192,7 +192,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         game_.initConfianceAppele();
         game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
         HandTarot takerHand_ = game_.getDistribution().hand(game_.getPreneur());
-        EnumMap<Suit,HandTarot> suits_ = takerHand_.couleurs();
+        IdMap<Suit,HandTarot> suits_ = takerHand_.couleurs();
         HandTarot discardableCards_ =
             GameTarotCallDiscard.getCartesEcartables(game_.getDistribution()
                     .derniereMain().total(),suits_);

@@ -2,7 +2,7 @@ package cards.network.tarot.unlock;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 
 public final class AllowPlayingTarot {
@@ -11,7 +11,7 @@ public final class AllowPlayingTarot {
 
     private EnumList<Handfuls> allowedHandfuls;
 
-    private EnumMap<Handfuls,Integer> requiredTrumps;
+    private IdMap<Handfuls,Integer> requiredTrumps;
 
     private EnumList<Miseres> allowedMiseres;
 
@@ -33,11 +33,11 @@ public final class AllowPlayingTarot {
         allowedHandfuls = _allowedHandfuls;
     }
 
-    public EnumMap<Handfuls,Integer> getRequiredTrumps() {
+    public IdMap<Handfuls,Integer> getRequiredTrumps() {
         return requiredTrumps;
     }
 
-    public void setRequiredTrumps(EnumMap<Handfuls,Integer> _requiredTrumps) {
+    public void setRequiredTrumps(IdMap<Handfuls,Integer> _requiredTrumps) {
         requiredTrumps = _requiredTrumps;
     }
 

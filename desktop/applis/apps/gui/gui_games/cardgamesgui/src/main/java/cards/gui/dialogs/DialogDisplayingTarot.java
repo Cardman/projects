@@ -15,7 +15,7 @@ import cards.tarot.DisplayingTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Listable;
@@ -81,8 +81,8 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         //Panneau Tri
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,3);
         listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
-        EnumMap<Suit,String> trSuit_;
-        trSuit_ = new EnumMap<Suit,String>();
+        IdMap<Suit,String> trSuit_;
+        trSuit_ = new IdMap<Suit,String>();
         Listable<Suit> ls_ = new EnumList<Suit>(Suit.toutesCouleurs());
         String lg_ = _window.getLanguageKey();
         for (Suit couleur_:ls_) {

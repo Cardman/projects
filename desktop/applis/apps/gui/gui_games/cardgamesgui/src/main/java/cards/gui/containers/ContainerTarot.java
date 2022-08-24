@@ -25,7 +25,7 @@ import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -57,7 +57,7 @@ public abstract class ContainerTarot extends ContainerGame{
     private AbsSplitPane declaringHandful;
     private AbsPanel includedTrumpsForHandful;
     private AbsPanel excludedTrumpsForHandful;
-    private EnumMap<Miseres,Boolean> selectedMiseres = new EnumMap<Miseres,Boolean>();
+    private IdMap<Miseres,Boolean> selectedMiseres = new IdMap<Miseres,Boolean>();
     private AbsScrollPane scrollCallableCards;
     private AbsPanel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
@@ -244,10 +244,10 @@ public abstract class ContainerTarot extends ContainerGame{
         }
         return l_;
     }
-    public EnumMap<Miseres,Boolean> getSelectedMiseres() {
+    public IdMap<Miseres,Boolean> getSelectedMiseres() {
         return selectedMiseres;
     }
-    protected void setSelectedMiseres(EnumMap<Miseres,Boolean> _selectedMiseres) {
+    protected void setSelectedMiseres(IdMap<Miseres,Boolean> _selectedMiseres) {
         selectedMiseres = _selectedMiseres;
     }
     public boolean isArretDemo() {

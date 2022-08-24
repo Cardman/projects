@@ -14,7 +14,7 @@ import code.gui.events.JoinServerEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.network.enums.IpType;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -34,7 +34,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
     private boolean join;
     private AbsSpinner nbPlayers;
     private StringMap<String> messages;
-    private EnumMap<IpType,String> messagesIpEnum;
+    private IdMap<IpType,String> messagesIpEnum;
 //    private JComboBox<DealingBelote> repBelote;
 //    private JComboBox<DealingTarot> repTarot;
 
@@ -53,7 +53,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         join = false;
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), getCardDialog().getAccessFile());
-        messagesIpEnum = new EnumMap<IpType,String>();
+        messagesIpEnum = new IdMap<IpType,String>();
         for (IpType i: IpType.values()) {
             messagesIpEnum.put(i, i.toString(_fenetre.getLanguageKey()));
         }

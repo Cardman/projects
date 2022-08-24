@@ -23,7 +23,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesCommonCommon;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -406,7 +406,7 @@ public abstract class ContainerGame implements Containable {
         return window.getEdit();
     }
 
-    public EnumMap<GameEnum,AbsMenuItem> getEditGames() {
+    public IdMap<GameEnum,AbsMenuItem> getEditGames() {
         return window.getEditGames();
     }
 
@@ -414,7 +414,7 @@ public abstract class ContainerGame implements Containable {
         return window.getDemo();
     }
 
-    public EnumMap<GameEnum,AbsMenuItem> getDemoGames() {
+    public IdMap<GameEnum,AbsMenuItem> getDemoGames() {
         return window.getDemoGames();
     }
 
@@ -422,7 +422,7 @@ public abstract class ContainerGame implements Containable {
         return window.getTraining();
     }
 
-    public EnumMap<ChoiceTarot,AbsMenuItem> getTrainingTarot() {
+    public IdMap<ChoiceTarot,AbsMenuItem> getTrainingTarot() {
         return window.getTrainingTarot();
     }
 
@@ -434,7 +434,7 @@ public abstract class ContainerGame implements Containable {
         return window.getParameters();
     }
 
-    public EnumMap<GameEnum,AbsMenuItem> getRulesGames() {
+    public IdMap<GameEnum,AbsMenuItem> getRulesGames() {
         return window.getRulesGames();
     }
 
@@ -462,7 +462,7 @@ public abstract class ContainerGame implements Containable {
         return window.getDisplaying();
     }
 
-    public EnumMap<GameEnum,AbsMenuItem> getDisplayingGames() {
+    public IdMap<GameEnum,AbsMenuItem> getDisplayingGames() {
         return window.getDisplayingGames();
     }
 

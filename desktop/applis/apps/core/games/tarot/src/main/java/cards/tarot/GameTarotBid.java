@@ -9,7 +9,7 @@ import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -29,7 +29,7 @@ public final class GameTarotBid {
     }
 
     public BidTarot strategieContrat() {
-        EnumMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
+        IdMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
         int atouts_ = couleurs_.getVal(CardTarot.excuse().getId().getCouleur()).total() + couleurs_.getVal(Suit.TRUMP).total();
         boolean chelem_ = estUnJeuDeChelem(couleurs_, new HandTarot().couleurs(), rules, cartesAppeler());
         EnumList<BidTarot> bidTarotRule_ = allowedBids();
@@ -49,7 +49,7 @@ public final class GameTarotBid {
         total_ += normalSuits(atouts_,couleurs_);
         return end(atouts_, total_);
     }
-    private int bouts(EnumMap<Suit, HandTarot> _couleurs, int _atouts) {
+    private int bouts(IdMap<Suit, HandTarot> _couleurs, int _atouts) {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         int valeurVingtEtUnSeul_ = valeur(_atouts, NumberUtil.wrapIntArray(4, 6), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(8, 10));
         int valeurExcuseSeule_ = valeur(_atouts, NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(5, 7));
@@ -122,7 +122,7 @@ public final class GameTarotBid {
         return BidTarot.FOLD;
     }
 
-    private int normalSuits(int _atouts, EnumMap<Suit, HandTarot> _couleurs) {
+    private int normalSuits(int _atouts, IdMap<Suit, HandTarot> _couleurs) {
         int valeurLongue_;
         int valeurCoupe_;
         if (_atouts == 0) {
@@ -258,8 +258,8 @@ public final class GameTarotBid {
         }
         return false;
     }
-    static boolean estUnJeuDeChelem(EnumMap<Suit, HandTarot> _couleurs,
-                                    EnumMap<Suit, HandTarot> _cartesJouees,
+    static boolean estUnJeuDeChelem(IdMap<Suit, HandTarot> _couleurs,
+                                    IdMap<Suit, HandTarot> _cartesJouees,
                                     RulesTarot _infos, HandTarot _cartesAppeler) {
         if (estUnJeuDeChelemSur(_couleurs,_cartesJouees)) {
             return true;
@@ -286,7 +286,7 @@ public final class GameTarotBid {
         }
         return nombreCouleursLargMait_ == Suit.couleursOrdinaires().size();
     }
-    static boolean maitreAtoutPourChelem(EnumMap<Suit,HandTarot> _couleurs,
+    static boolean maitreAtoutPourChelem(IdMap<Suit,HandTarot> _couleurs,
                                          byte _joueurs) {
         byte atouts_ = (byte) (_couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total() + _couleurs.getVal(Suit.TRUMP).total());
         byte atoutsMaitres_ = nbAtoutsMaitres(_couleurs);
@@ -311,7 +311,7 @@ public final class GameTarotBid {
     }
 
     BidTarot tryGetStrongBid(boolean _withoutCall) {
-        EnumMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
+        IdMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
         HandTarot bouts_ = getOulderInHand(couleurs_);
         byte nombreJoueurs_ = getNombreDeJoueurs();
         int nbCouleurs_ = Suit.couleursOrdinaires().size();
@@ -348,7 +348,7 @@ public final class GameTarotBid {
         }
         return BidTarot.FOLD;
     }
-    static HandTarot getOulderInHand(EnumMap<Suit, HandTarot> _couleurs) {
+    static HandTarot getOulderInHand(IdMap<Suit, HandTarot> _couleurs) {
         HandTarot trumps_ = _couleurs.getVal(Suit.TRUMP);
         HandTarot bouts_ = new HandTarot();
         if (!_couleurs.getVal(CardTarot.EXCUSE.getId().getCouleur()).estVide()) {
@@ -373,7 +373,7 @@ public final class GameTarotBid {
         return bids_;
     }
 
-    static boolean estUnJeuDeChelemSur(EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _cartesJouees) {
+    static boolean estUnJeuDeChelemSur(IdMap<Suit,HandTarot> _couleurs, IdMap<Suit,HandTarot> _cartesJouees) {
         int nbTr_ = nbAtoutsMaitres(_couleurs) + _cartesJouees.getVal(Suit.TRUMP).total() + _couleurs.getVal(Suit.TRUMP).total();
         int nbFullTr_ = HandTarot.atoutsSansExcuse().total() + _couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total();
         if (nbTr_ >= nbFullTr_) {
@@ -382,11 +382,11 @@ public final class GameTarotBid {
         return false;
     }
 
-    static byte nbAtoutsMaitres(EnumMap<Suit,HandTarot> _repartition) {
+    static byte nbAtoutsMaitres(IdMap<Suit,HandTarot> _repartition) {
         return (byte) _repartition.getVal(Suit.TRUMP).atoutsMaitres(new HandTarot().couleurs()).total();
     }
 
-    static byte nbCouleursMaitresses(EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _cartesJouees) {
+    static byte nbCouleursMaitresses(IdMap<Suit,HandTarot> _couleurs, IdMap<Suit,HandTarot> _cartesJouees) {
         byte nb_ = 0;
         for (Suit b : Suit.couleursOrdinaires()) {
             if (maitreDansUneCouleur(_couleurs, _cartesJouees, b)) {
@@ -396,7 +396,7 @@ public final class GameTarotBid {
         return nb_;
     }
 
-    static byte nbCouleursPseudoMaitresses(EnumMap<Suit,HandTarot> _couleurs,
+    static byte nbCouleursPseudoMaitresses(IdMap<Suit,HandTarot> _couleurs,
                                                    HandTarot _cartesAppeler,
                                                    byte _nombreJoueurs) {
         byte nb_ = 0;
@@ -409,7 +409,7 @@ public final class GameTarotBid {
     }
 
     static byte nbCouleursLargementMaitresses(
-            EnumMap<Suit,HandTarot> _couleurs, byte _nombreJoueurs) {
+            IdMap<Suit,HandTarot> _couleurs, byte _nombreJoueurs) {
         byte nb_ = 0;
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             if (largementMaitreDansUneCouleurAuDebut(_couleurs, couleur_, _nombreJoueurs)) {
@@ -420,7 +420,7 @@ public final class GameTarotBid {
     }
 
     static boolean pseudoMaitreDansUneCouleurContrat(
-            EnumMap<Suit,HandTarot> _couleurs, Suit _noCouleur, HandTarot _cartesAppeler, byte _nombreJoueurs) {
+            IdMap<Suit,HandTarot> _couleurs, Suit _noCouleur, HandTarot _cartesAppeler, byte _nombreJoueurs) {
         if (largementMaitreDansUneCouleurAuDebut(_couleurs, _noCouleur, _nombreJoueurs)) {
             return false;
         }
@@ -428,7 +428,7 @@ public final class GameTarotBid {
     }
 
     static boolean largementMaitreDansUneCouleurAuDebut(
-            EnumMap<Suit,HandTarot> _couleurs, Suit _noCouleur, byte _nombreJoueurs) {
+            IdMap<Suit,HandTarot> _couleurs, Suit _noCouleur, byte _nombreJoueurs) {
         if (maitreDansUneCouleur(_couleurs, new HandTarot().couleurs(), _noCouleur)) {
             return true;
         }
@@ -436,12 +436,12 @@ public final class GameTarotBid {
     }
 
     static boolean pseudoMaitreDansUneCouleur(
-            EnumMap<Suit,HandTarot> _couleurs, HandTarot _cartesAppeler, Suit _noCouleur) {
+            IdMap<Suit,HandTarot> _couleurs, HandTarot _cartesAppeler, Suit _noCouleur) {
         return couleursPseudosMaitres(_couleurs, cartesPseudoMaitresses(_couleurs, _cartesAppeler, new HandTarot().couleurs())).containsObj(_noCouleur);
     }
 
-    static boolean maitreDansUneCouleur(EnumMap<Suit,HandTarot> _couleurs,
-                                                EnumMap<Suit,HandTarot> _cartesJouees,
+    static boolean maitreDansUneCouleur(IdMap<Suit,HandTarot> _couleurs,
+                                                IdMap<Suit,HandTarot> _cartesJouees,
                                                 Suit _noCouleur) {
         int nombreCartesMaitresses_ = nbCartesMaitresses(_couleurs, _cartesJouees, _noCouleur);
         if (nombreCartesMaitresses_ == _couleurs.getVal(_noCouleur).total()) {
@@ -455,8 +455,8 @@ public final class GameTarotBid {
         return nb_ >= totalCouleur_;
     }
 
-    static int nbCartesMaitresses(EnumMap<Suit,HandTarot> _couleurs,
-                                  EnumMap<Suit,HandTarot> _cartesJouees,
+    static int nbCartesMaitresses(IdMap<Suit,HandTarot> _couleurs,
+                                  IdMap<Suit,HandTarot> _cartesJouees,
                                   Suit _noCouleur) {
         HandTarot couleur_ = _couleurs.getVal(_noCouleur);
         CustList<HandTarot> suites_ = couleur_.eclaterEnCours(_cartesJouees, _noCouleur);
@@ -479,10 +479,10 @@ public final class GameTarotBid {
         }
         return suites_.first().total();
     }
-    static EnumMap<Suit,HandTarot> cartesPseudoMaitresses(
-            EnumMap<Suit,HandTarot> _couleurs, HandTarot _autresCartes,
-            EnumMap<Suit,HandTarot> _playedCards) {
-        EnumMap<Suit,HandTarot> suits_ = new EnumMap<Suit,HandTarot>();
+    static IdMap<Suit,HandTarot> cartesPseudoMaitresses(
+            IdMap<Suit,HandTarot> _couleurs, HandTarot _autresCartes,
+            IdMap<Suit,HandTarot> _playedCards) {
+        IdMap<Suit,HandTarot> suits_ = new IdMap<Suit,HandTarot>();
         HandTarot pileBase_ = HandTarot.pileBase();
         for (Suit i : Suit.couleursOrdinaires()) {
             HandTarot cartes_ = _couleurs.getVal(i);
@@ -501,7 +501,7 @@ public final class GameTarotBid {
         return suits_;
     }
     static EnumList<Suit> couleursPseudosMaitres(
-            EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _hashMap) {
+            IdMap<Suit,HandTarot> _couleurs, IdMap<Suit,HandTarot> _hashMap) {
         EnumList<Suit> nombre_ = new EnumList<Suit>();
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             if (_couleurs.getVal(couleur_).total() == _hashMap.getVal(

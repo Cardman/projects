@@ -167,7 +167,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         return new GameTarotProgTrickClassic(_done,_teamsRelation,_calledCards,_currentHand);
     }
 
-    private static int det(EnumMap<Suit,CustList<HandTarot>> _foundHands, Ints _lengths) {
+    private static int det(IdMap<Suit,CustList<HandTarot>> _foundHands, Ints _lengths) {
         int nb_ = _lengths.size();
         for (int i = 0;i < nb_; i++) {
             int s_ = 0;
@@ -224,7 +224,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
                 _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
                 handLengths_);
         info_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
-        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,CustList<HandTarot>>();
+        IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = new IdMap<Suit,CustList<HandTarot>>();
         CustList<HandTarot> possibleExcuse_ = info_.excusePossibleRegles(_currentHand);
         cartesPossibles_.put(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
         cartesPossibles_.put(Suit.TRUMP,info_.atoutsPossiblesRegles(
@@ -269,9 +269,9 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
             hPlCh_.ajouter(c);
         }
         assertTrue(StringUtil.concat("Error len",Long.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Long.toString(_currentHand.total())),handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) == _currentHand.total());
-        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
+        IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
-        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
+        IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
         while (true) {
             int det_ = det(cartesCertaines_, handLengths_);

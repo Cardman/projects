@@ -61,7 +61,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
         faireConfiance(g_,(byte)2);
         faireConfiance(g_,(byte)4);
-        assertTrue(playing_.appeleConnuDefenseur((byte) 3,new EnumMap<Suit, CustList<HandTarot>>()));
+        assertTrue(playing_.appeleConnuDefenseur((byte) 3,new IdMap<Suit, CustList<HandTarot>>()));
     }
     @Test
     public void appeleConnuDefenseur2Test() {
@@ -111,7 +111,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
         faireConfiance(g_,(byte)2);
-        assertTrue(!playing_.appeleConnuDefenseur((byte) 3,new EnumMap<Suit, CustList<HandTarot>>()));
+        assertTrue(!playing_.appeleConnuDefenseur((byte) 3,new IdMap<Suit, CustList<HandTarot>>()));
     }
     @Test
     public void appeleConnuDefenseur3Test() {
@@ -162,7 +162,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
         faireConfiance(g_,(byte)2);
         faireConfiance(g_,(byte)4);
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         hands_.add(new HandTarot());
         HandTarot calledHand_ = new HandTarot();
@@ -224,7 +224,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
         faireConfiance(g_,(byte)2);
         faireConfiance(g_,(byte)4);
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot takerHand_ = new HandTarot();
         takerHand_.ajouter(CardTarot.CLUB_QUEEN);
@@ -287,7 +287,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
         faireConfiance(g_,(byte)2);
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         hands_.add(new HandTarot());
         HandTarot calledHand_ = new HandTarot();
@@ -347,12 +347,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
         faireConfiance(g_,(byte)2);
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         assertTrue(playing_.appeleConnuDefenseur((byte) 3, rep_));
     }
     @Test
     public void strictCouleursMaitres1Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -449,8 +449,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_2);
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -458,7 +458,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void strictCouleursMaitres2Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -555,8 +555,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         played_.ajouter(CardTarot.SPADE_8);
         played_.ajouter(CardTarot.SPADE_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -564,7 +564,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void strictCouleursMaitres3Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -661,8 +661,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
         played_.ajouter(CardTarot.SPADE_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -670,7 +670,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void strictCouleursMaitres4Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -767,15 +767,15 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
         played_.ajouter(CardTarot.SPADE_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
     @Test
     public void strictCouleursMaitres5Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -873,8 +873,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
         played_.ajouter(CardTarot.SPADE_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -882,7 +882,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void couleursMaitres1Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -979,8 +979,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_2);
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -989,7 +989,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void couleursMaitres2Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -1086,8 +1086,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         played_.ajouter(CardTarot.SPADE_8);
         played_.ajouter(CardTarot.SPADE_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1096,7 +1096,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void couleursMaitres3Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -1193,8 +1193,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
         played_.ajouter(CardTarot.SPADE_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1203,7 +1203,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void couleursMaitres4Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -1300,8 +1300,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
         played_.ajouter(CardTarot.SPADE_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1309,7 +1309,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void couleursMaitres5Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -1407,8 +1407,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
         played_.ajouter(CardTarot.SPADE_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1417,7 +1417,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void strictMaitreAtout1Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_8);
@@ -1470,13 +1470,13 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout2Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_8);
@@ -1529,13 +1529,13 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout3Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_8);
@@ -1588,13 +1588,13 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout4Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_8);
@@ -1647,13 +1647,13 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout5Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_8);
@@ -1706,13 +1706,13 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout6Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_8);
@@ -1765,13 +1765,13 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout7Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -1824,13 +1824,13 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout8Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -1887,7 +1887,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_3);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
     }
@@ -1916,7 +1916,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_3);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.maitreAtout(suites_,played_,false));
     }
@@ -1945,7 +1945,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(!GameTarotCommonPlaying.maitreAtout(suites_,played_,false));
     }
@@ -1974,7 +1974,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_3);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.maitreAtout(suites_,played_,true));
     }
@@ -2002,7 +2002,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_3);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.maitreAtout(suites_,played_,true));
     }
@@ -2030,7 +2030,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_10);
         played_.ajouter(CardTarot.TRUMP_3);
         played_.ajouter(CardTarot.TRUMP_2);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.maitreAtout(suites_,played_,true));
     }
@@ -2058,7 +2058,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_10);
         played_.ajouter(CardTarot.TRUMP_3);
         played_.ajouter(CardTarot.TRUMP_2);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(GameTarotCommonPlaying.maitreAtout(suites_,played_,true));
     }
@@ -2086,14 +2086,14 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_3);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
         assertTrue(!GameTarotCommonPlaying.maitreAtout(suites_,played_,false));
     }
 
     @Test
     public void cartesRelativementMaitreEncours1Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -2171,7 +2171,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hand_ = new HandTarot();
         hypos_.add(hand_);
         rep_.put(Suit.UNDEFINED,hypos_);
-        EnumMap<Suit, CustList<HandTarot>> repSure_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> repSure_ = new IdMap<Suit, CustList<HandTarot>>();
         hypos_ = new CustList<HandTarot>();
         hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -2267,8 +2267,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_2);
         played_.ajouter(CardTarot.SPADE_1);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
@@ -2284,7 +2284,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
 
     @Test
     public void cartesRelativementMaitreEncours2Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -2366,7 +2366,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hand_ = new HandTarot();
         hypos_.add(hand_);
         rep_.put(Suit.UNDEFINED,hypos_);
-        EnumMap<Suit, CustList<HandTarot>> repSure_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> repSure_ = new IdMap<Suit, CustList<HandTarot>>();
         hypos_ = new CustList<HandTarot>();
         hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -2462,8 +2462,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.removeCardIfPresent(CardTarot.DIAMOND_1);
         played_.removeCardIfPresent(CardTarot.DIAMOND_KING);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
@@ -2479,7 +2479,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
 
     @Test
     public void cartesRelativementMaitreEncours3Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -2561,7 +2561,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hand_ = new HandTarot();
         hypos_.add(hand_);
         rep_.put(Suit.UNDEFINED,hypos_);
-        EnumMap<Suit, CustList<HandTarot>> repSure_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> repSure_ = new IdMap<Suit, CustList<HandTarot>>();
         hypos_ = new CustList<HandTarot>();
         hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -2657,8 +2657,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.removeCardIfPresent(CardTarot.DIAMOND_1);
         played_.removeCardIfPresent(CardTarot.DIAMOND_KING);
         played_.ajouter(CardTarot.EXCUSE);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
@@ -2674,7 +2674,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
 
     @Test
     public void cartesRelativementMaitreEncours4Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -2778,7 +2778,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hand_ = new HandTarot();
         hypos_.add(hand_);
         rep_.put(Suit.TRUMP,hypos_);
-        EnumMap<Suit, CustList<HandTarot>> repSure_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> repSure_ = new IdMap<Suit, CustList<HandTarot>>();
         hypos_ = new CustList<HandTarot>();
         hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -2909,8 +2909,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_7);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
@@ -2927,7 +2927,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
 
     @Test
     public void cartesRelativementMaitreEncours5Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -3027,7 +3027,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hand_ = new HandTarot();
         hypos_.add(hand_);
         rep_.put(Suit.TRUMP,hypos_);
-        EnumMap<Suit, CustList<HandTarot>> repSure_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> repSure_ = new IdMap<Suit, CustList<HandTarot>>();
         hypos_ = new CustList<HandTarot>();
         hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -3158,8 +3158,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_7);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
@@ -3176,7 +3176,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
 
     @Test
     public void cartesRelativementMaitreEncours6Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -3274,7 +3274,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hand_ = new HandTarot();
         hypos_.add(hand_);
         rep_.put(Suit.TRUMP,hypos_);
-        EnumMap<Suit, CustList<HandTarot>> repSure_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> repSure_ = new IdMap<Suit, CustList<HandTarot>>();
         hypos_ = new CustList<HandTarot>();
         hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -3405,8 +3405,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_7);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
@@ -3423,7 +3423,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
 
     @Test
     public void cartesRelativementMaitreEncours7Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -3522,7 +3522,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hand_ = new HandTarot();
         hypos_.add(hand_);
         rep_.put(Suit.TRUMP,hypos_);
-        EnumMap<Suit, CustList<HandTarot>> repSure_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> repSure_ = new IdMap<Suit, CustList<HandTarot>>();
         hypos_ = new CustList<HandTarot>();
         hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -3652,8 +3652,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_9);
         played_.ajouter(CardTarot.TRUMP_8);
         played_.ajouter(CardTarot.TRUMP_7);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
@@ -3673,7 +3673,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
 
     @Test
     public void cartesRelativementMaitreEncours8Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -3771,7 +3771,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hand_ = new HandTarot();
         hypos_.add(hand_);
         rep_.put(Suit.TRUMP,hypos_);
-        EnumMap<Suit, CustList<HandTarot>> repSure_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> repSure_ = new IdMap<Suit, CustList<HandTarot>>();
         hypos_ = new CustList<HandTarot>();
         hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -3902,8 +3902,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_7);
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
-        EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
-        EnumMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
+        IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
+        IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
         Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
@@ -3919,7 +3919,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void moyenneAtout1Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -4061,7 +4061,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void moyenneAtout2Test() {
-        EnumMap<Suit, CustList<HandTarot>> rep_ = new EnumMap<Suit, CustList<HandTarot>>();
+        IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hypos_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hypos_.add(hand_);
@@ -4289,9 +4289,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
         played_.ajouter(CardTarot.HEART_KNIGHT);
-        EnumMap<Suit, CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(played_.couleurs());
-        EnumMap<Suit, HandTarot> suits_ = curHand_.couleurs();
-        EnumMap<Suit, HandTarot> lead_ = GameTarotCommon.cartesMaitresses(suits_, played_.couleurs());
+        IdMap<Suit, CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(played_.couleurs());
+        IdMap<Suit, HandTarot> suits_ = curHand_.couleurs();
+        IdMap<Suit, HandTarot> lead_ = GameTarotCommon.cartesMaitresses(suits_, played_.couleurs());
         HandTarot h_ = GameTarotCommonPlaying.cartesNonMaitresses(suits_, lead_, seqs_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.HEART_5));

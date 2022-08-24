@@ -17,10 +17,10 @@ public final class RulesTarot {
 
     private RulesCommon common = new RulesCommon();
     private EnumList<Miseres> miseres=new EnumList<Miseres>();
-    private EnumMap<BidTarot, BoolVal> allowedBids=new EnumMap<BidTarot,BoolVal>();
+    private IdMap<BidTarot, BoolVal> allowedBids=new IdMap<BidTarot,BoolVal>();
     private ModeTarot mode=ModeTarot.NORMAL;
     private DealingTarot dealing=DealingTarot.DEAL_2_VS_3_CALL_KING;
-    private EnumMap<Handfuls,Integer> allowedHandfuls = new EnumMap<Handfuls,Integer>();
+    private IdMap<Handfuls,Integer> allowedHandfuls = new IdMap<Handfuls,Integer>();
     private EndDealTarot endDealTarot=EndDealTarot.ATTACK_LOOSE;
     private boolean discardAfterCall = true;
     private boolean allowPlayCalledSuit = true;
@@ -57,10 +57,10 @@ public final class RulesTarot {
     public RulesTarot(RulesTarot _reglesTarot){
         common = new RulesCommon(_reglesTarot.common);
         miseres = new EnumList<Miseres>(_reglesTarot.miseres);
-        allowedBids = new EnumMap<BidTarot,BoolVal>(_reglesTarot.allowedBids);
+        allowedBids = new IdMap<BidTarot,BoolVal>(_reglesTarot.allowedBids);
         mode = _reglesTarot.mode;
         dealing = _reglesTarot.dealing;
-        allowedHandfuls = new EnumMap<Handfuls,Integer>(_reglesTarot.allowedHandfuls);
+        allowedHandfuls = new IdMap<Handfuls,Integer>(_reglesTarot.allowedHandfuls);
         endDealTarot = _reglesTarot.endDealTarot;
         discardAfterCall = _reglesTarot.discardAfterCall;
         allowPlayCalledSuit = _reglesTarot.allowPlayCalledSuit;
@@ -101,7 +101,7 @@ public final class RulesTarot {
         return true;
     }
     public void allowAllBids() {
-        EnumMap<BidTarot,BoolVal> contrats_ = new EnumMap<BidTarot,BoolVal>();
+        IdMap<BidTarot,BoolVal> contrats_ = new IdMap<BidTarot,BoolVal>();
         for (BidTarot b: getAllowedBids().getKeys()) {
             contrats_.put(b,BoolVal.TRUE);
         }
@@ -109,7 +109,7 @@ public final class RulesTarot {
     }
 
     public void allowSome(EnumList<BidTarot> _bids) {
-        EnumMap<BidTarot,BoolVal> contrats_ = new EnumMap<BidTarot,BoolVal>();
+        IdMap<BidTarot,BoolVal> contrats_ = new IdMap<BidTarot,BoolVal>();
         for (BidTarot b: getAllowedBids().getKeys()) {
             if (b.getPossibiliteAnnonce() != AllowedBiddingTarot.ALWAYS) {
                 contrats_.put(b,BoolVal.FALSE);
@@ -124,7 +124,7 @@ public final class RulesTarot {
     }
 
     public void reorgHandfules() {
-        EnumMap<Handfuls,Integer> s_ = new EnumMap<Handfuls,Integer>();
+        IdMap<Handfuls,Integer> s_ = new IdMap<Handfuls,Integer>();
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
             s_.put(p, allowedHandfuls.getVal(p));
         }
@@ -197,11 +197,11 @@ public final class RulesTarot {
         return common;
     }
 
-    public EnumMap<BidTarot, BoolVal> getAllowedBids() {
+    public IdMap<BidTarot, BoolVal> getAllowedBids() {
         return allowedBids;
     }
 
-    public void setAllowedBids(EnumMap<BidTarot, BoolVal> _allowedBids) {
+    public void setAllowedBids(IdMap<BidTarot, BoolVal> _allowedBids) {
         allowedBids = _allowedBids;
     }
 
@@ -213,11 +213,11 @@ public final class RulesTarot {
         dealing = _dealing;
     }
 
-    public EnumMap<Handfuls, Integer> getAllowedHandfuls() {
+    public IdMap<Handfuls, Integer> getAllowedHandfuls() {
         return allowedHandfuls;
     }
 
-    public void setAllowedHandfuls(EnumMap<Handfuls, Integer> _allowedHandfuls) {
+    public void setAllowedHandfuls(IdMap<Handfuls, Integer> _allowedHandfuls) {
         allowedHandfuls = _allowedHandfuls;
     }
 

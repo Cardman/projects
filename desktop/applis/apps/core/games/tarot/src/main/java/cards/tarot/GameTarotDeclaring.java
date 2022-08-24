@@ -5,7 +5,7 @@ import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.IndexConstants;
 
 public final class GameTarotDeclaring {
@@ -25,7 +25,7 @@ public final class GameTarotDeclaring {
 
         EnumList<Handfuls> va_ = new EnumList<Handfuls>();
         byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
-        EnumMap<Suit,HandTarot> repartition_ = curHand.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         // peuvent etre annoncees par le joueur si toutes les annonces etaient
         // autorisees
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
@@ -43,7 +43,7 @@ public final class GameTarotDeclaring {
         if(poigneesAutorisees_.isEmpty()) {
             return va_;
         }
-        EnumMap<Handfuls,Integer> poigneesNbAtout_ = teamsRelation.getRules().getAllowedHandfuls();
+        IdMap<Handfuls,Integer> poigneesNbAtout_ = teamsRelation.getRules().getAllowedHandfuls();
         if (atouts_.total() < poigneesNbAtout_.getVal(poigneesAutorisees_.first())) {
             return va_;
         }
@@ -60,7 +60,7 @@ public final class GameTarotDeclaring {
         return va_;
     }
     EnumList<Handfuls> getAnnoncesPoigneesPossibles() {
-        EnumMap<Suit,HandTarot> repartition_ = curHand.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         int nombreAtoutsEx_ = GameTarotCommon.atoutsAvecExcuse(repartition_);
         EnumList<Handfuls> annoncesPossibles_ = new EnumList<Handfuls>();
         for (EntryCust<Handfuls,Integer> e: teamsRelation.getRules().getAllowedHandfuls().entryList()) {
@@ -75,7 +75,7 @@ public final class GameTarotDeclaring {
 
     public HandTarot strategiePoignee() {
         byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
-        EnumMap<Suit,HandTarot> repartition_ = curHand.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
         HandTarot poignee_ = new HandTarot();
         for(Handfuls p: getAnnoncesPoignees(next_)) {
@@ -100,7 +100,7 @@ public final class GameTarotDeclaring {
         return poignee_;
     }
     public EnumList<Miseres> getAnnoncesMiseresPossibles() {
-        EnumMap<Suit,HandTarot> repartition_ = curHand.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         int nombreAtoutsEx_ = GameTarotCommon.atoutsAvecExcuse(repartition_);
         EnumList<Miseres> annoncesPossibles_ = new EnumList<Miseres>();
         if (nombreAtoutsEx_ == 0) {

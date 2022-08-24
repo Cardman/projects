@@ -25,7 +25,7 @@ import code.scripts.messages.cards.MessagesCardsAll;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -202,7 +202,7 @@ public final class Games {
             return new StringBuilder(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_TOO_MANY_CARDS));
         }
         HandTarot m = _g.getDistribution().hand(_g.getPreneur());
-        EnumMap<Suit,HandTarot> rep_ = m.couleurs();
+        IdMap<Suit,HandTarot> rep_ = m.couleurs();
         int atoutsExcuse_ = GameTarotCommon.atoutsAvecExcuse(rep_);
         int total_ = atoutsExcuse_;
         int rois_ = 0;
@@ -390,7 +390,7 @@ public final class Games {
     public static String autoriseTarot(GameTarot _g, String _loc) {
         StringMap<String> ms_ = MessTarotGr.ms();
         HandTarot main_ = _g.getDistribution().hand(_g.playerHavingToPlay());
-        EnumMap<Suit,HandTarot> repartition_ = main_.couleurs();
+        IdMap<Suit,HandTarot> repartition_ = main_.couleurs();
         Suit couleurDemandee_ = _g.getProgressingTrick().couleurDemandee();
         if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)
                 && !repartition_.getVal(couleurDemandee_).estVide()) {

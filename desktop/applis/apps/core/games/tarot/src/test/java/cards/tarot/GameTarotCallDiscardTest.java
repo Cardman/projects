@@ -5,7 +5,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import org.junit.Test;
 
 public class GameTarotCallDiscardTest extends EquallableTarotUtil {
@@ -15,7 +15,7 @@ public class GameTarotCallDiscardTest extends EquallableTarotUtil {
         ecartables_.ajouter(CardTarot.HEART_QUEEN);
         ecartables_.ajouter(CardTarot.HEART_KNIGHT);
         ecartables_.ajouter(CardTarot.HEART_1);
-        EnumMap<Suit, HandTarot> repartition_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
         HandTarot h_ = new HandTarot();
         h_.ajouter(CardTarot.HEART_9);
         repartition_.put(Suit.HEART, h_);
@@ -31,7 +31,7 @@ public class GameTarotCallDiscardTest extends EquallableTarotUtil {
         ecartables_.ajouter(CardTarot.HEART_QUEEN);
         ecartables_.ajouter(CardTarot.HEART_KNIGHT);
         ecartables_.ajouter(CardTarot.HEART_1);
-        EnumMap<Suit, HandTarot> repartition_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
         HandTarot h_ = new HandTarot();
         h_.ajouter(CardTarot.HEART_9);
         repartition_.put(Suit.HEART, h_);
@@ -48,7 +48,7 @@ public class GameTarotCallDiscardTest extends EquallableTarotUtil {
         ecartables_.ajouter(CardTarot.HEART_QUEEN);
         ecartables_.ajouter(CardTarot.HEART_KNIGHT);
         ecartables_.ajouter(CardTarot.HEART_1);
-        EnumMap<Suit, HandTarot> repartition_ = new EnumMap<Suit, HandTarot>();
+        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
         HandTarot h_ = new HandTarot();
         h_.ajouter(CardTarot.HEART_9);
         h_.ajouter(CardTarot.HEART_1);
@@ -76,8 +76,8 @@ public class GameTarotCallDiscardTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_1);
         handSuit_.ajouter(CardTarot.CLUB_KING);
         HandTarot called_ = new HandTarot();
-        EnumMap<Suit, HandTarot> seq_ = handSuit_.couleurs();
-        EnumMap<Suit, HandTarot> lead_ = GameTarotCommon.cartesMaitresses(seq_, called_.couleurs());
+        IdMap<Suit, HandTarot> seq_ = handSuit_.couleurs();
+        IdMap<Suit, HandTarot> lead_ = GameTarotCommon.cartesMaitresses(seq_, called_.couleurs());
         HandTarot h_ = GameTarotCallDiscard.cartesNonMaitressesDebut(handSuit_,lead_, new HandTarot(), new HandTarot());
         assertEq(8, h_.total());
         assertTrue(h_.contient(CardTarot.HEART_1));
@@ -106,8 +106,8 @@ public class GameTarotCallDiscardTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_KING);
         HandTarot called_ = new HandTarot();
         called_.ajouter(CardTarot.SPADE_KING);
-        EnumMap<Suit, HandTarot> seq_ = handSuit_.couleurs();
-        EnumMap<Suit, HandTarot> lead_ = GameTarotCommon.cartesMaitresses(seq_, called_.couleurs());
+        IdMap<Suit, HandTarot> seq_ = handSuit_.couleurs();
+        IdMap<Suit, HandTarot> lead_ = GameTarotCommon.cartesMaitresses(seq_, called_.couleurs());
         HandTarot pseudo_ = GameTarotBid.cartesPseudoMaitresses(seq_, called_, new HandTarot().couleurs()).getVal(Suit.SPADE);
         HandTarot h_ = GameTarotCallDiscard.cartesNonMaitressesDebut(handSuit_,lead_,called_,pseudo_);
         assertEq(2, h_.total());

@@ -1791,11 +1791,11 @@ public final class SendReceiveServerCards extends BasicServer {
             if (firstRound_) {
                 EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
                 decla_.setAllowedHandfuls(new EnumList<Handfuls>(handfuls_));
-                decla_.setRequiredTrumps(new EnumMap<Handfuls,Integer>(game_.getRegles().getAllowedHandfuls()));
+                decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>(game_.getRegles().getAllowedHandfuls()));
                 decla_.setAllowedMiseres(new EnumList<Miseres>(game_.getRegles().getMiseres()));
             } else {
                 decla_.setAllowedHandfuls(new EnumList<Handfuls>());
-                decla_.setRequiredTrumps(new EnumMap<Handfuls,Integer>());
+                decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>());
                 decla_.setAllowedMiseres(new EnumList<Miseres>());
             }
             Net.sendObject(Net.getSocketByPlace(place_, _common), decla_);

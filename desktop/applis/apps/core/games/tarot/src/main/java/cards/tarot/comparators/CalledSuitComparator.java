@@ -2,15 +2,15 @@ package cards.tarot.comparators;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class CalledSuitComparator implements Comparing<CardTarot> {
 
-    private final EnumMap<Suit,HandTarot> dealingCalledCards;
-    private final EnumMap<Suit,HandTarot> dealingTakerHand;
+    private final IdMap<Suit,HandTarot> dealingCalledCards;
+    private final IdMap<Suit,HandTarot> dealingTakerHand;
 
     public CalledSuitComparator(HandTarot _cartesAppeler,
                                 HandTarot _mainPreneur) {

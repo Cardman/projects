@@ -123,7 +123,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
                     }
                     sumPlayers = sumPlayers_;
                 }
-                EnumMap<Role,Rate> repartitionRate_=end_.coefficientsRepartition();
+                IdMap<Role,Rate> repartitionRate_=end_.coefficientsRepartition();
                 for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++) {
                     ScoresPlayers scoresPayer_ = new ScoresPlayers();
                     scoresPayer_.setNickname(getNicknames().get(p));

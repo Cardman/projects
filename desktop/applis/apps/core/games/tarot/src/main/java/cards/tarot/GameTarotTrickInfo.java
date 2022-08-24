@@ -90,8 +90,8 @@ public final class GameTarotTrickInfo {
      couleur, deuxieme indice joueur
      @param _numero
      */
-    public EnumMap<Suit,CustList<HandTarot>> cartesPossibles(HandTarot _cartesJoueur) {
-        EnumMap<Suit,CustList<HandTarot>> m = new EnumMap<Suit,CustList<HandTarot>>();
+    public IdMap<Suit,CustList<HandTarot>> cartesPossibles(HandTarot _cartesJoueur) {
+        IdMap<Suit,CustList<HandTarot>> m = new IdMap<Suit,CustList<HandTarot>>();
         CustList<HandTarot> possibleExcuse_ = excusePossibleRegles(_cartesJoueur);
         m.put(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
         m.put(Suit.TRUMP,atoutsPossibles(
@@ -241,9 +241,9 @@ public final class GameTarotTrickInfo {
 
     CustList<HandTarot> atoutsPossiblesRegles(HandTarot _curHand) {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
-        EnumMap<Suit,HandTarot> curRep_ = _curHand.couleurs();
+        IdMap<Suit,HandTarot> curRep_ = _curHand.couleurs();
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
-        EnumMap<Suit,HandTarot> plRep_ = playedCards_.couleurs();
+        IdMap<Suit,HandTarot> plRep_ = playedCards_.couleurs();
         HandTarot plTr_ = plRep_.getVal(Suit.TRUMP);
         HandTarot curTr_ = curRep_.getVal(Suit.TRUMP);
         CustList<HandTarot> m = new CustList<HandTarot>();
@@ -713,16 +713,16 @@ public final class GameTarotTrickInfo {
      ecartes) Cet ensemble peut etre reduit apres appel de methode
      @return l'ensemble des cartes dont on connait par deduction la main
      */
-    public EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> cartesCertaines(
-            EnumMap<Suit, CustList<HandTarot>> _cartesPossibles) {
+    public IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> cartesCertaines(
+            IdMap<Suit, CustList<HandTarot>> _cartesPossibles) {
         Bytes joueursRepartitionConnue_ = new Bytes();
         Bytes joueursRepartitionConnue2_ = new Bytes();
         Bytes joueursRepartitionConnueMemo_ = new Bytes();
         Bytes joueursRepartitionInconnue_ = new Bytes();
-        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = new EnumMap<Suit,CustList<HandTarot>>();
-        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,CustList<HandTarot>>(
+        IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = new IdMap<Suit,CustList<HandTarot>>();
+        IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = new IdMap<Suit,CustList<HandTarot>>(
                 _cartesPossibles);
-        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> retour_ = new EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>>();
+        IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> retour_ = new IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>>();
         /*
         Indique le nombre de mains pour les
         cartes possibles ou apparait la carte
@@ -771,7 +771,7 @@ public final class GameTarotTrickInfo {
         return retour_;
     }
 
-    private void iterate(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnue2, Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs) {
+    private void iterate(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnue2, Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs) {
         for (byte joueur_ : _joueursRepartitionConnue) {
             for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ <= nbPlayers; joueur2_++) {
                 if (!_joueursRepartitionConnueMemo.containsObj(joueur2_)) {
@@ -792,7 +792,7 @@ public final class GameTarotTrickInfo {
         SortedPlayers.nextPlayers(_joueursRepartitionConnueMemo,_joueursRepartitionInconnue, (byte) (_nbPlayers+1));
     }
 
-    private void validatePlayerTarot(EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, byte _joueur) {
+    private void validatePlayerTarot(IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, byte _joueur) {
         for (Suit couleur_: _toutesCouleurs) {
             for (CardTarot carte_ : _cartesPossibles.getVal(couleur_).get(
                     _joueur)) {
@@ -812,29 +812,29 @@ public final class GameTarotTrickInfo {
         }
     }
 
-    private void remImposTarot(EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, byte _joueur, byte _joueur2) {
+    private void remImposTarot(IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, byte _joueur, byte _joueur2) {
         for (Suit couleur_: _toutesCouleurs) {
             remSure(_cartesCertaines, _joueur, _joueur2, couleur_);
             remPoss(_cartesCertaines, _cartesPossibles, _joueur, _joueur2, couleur_);
         }
     }
 
-    private void remPoss(EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, byte _joueur, byte _joueur2, Suit _couleur) {
+    private void remPoss(IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, byte _joueur, byte _joueur2, Suit _couleur) {
         _cartesPossibles.getVal(_couleur)
                 .get(_joueur2).supprimerCartes(
                 _cartesCertaines.getVal(_couleur).get(
                         _joueur));
     }
 
-    private void remSure(EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _joueur, byte _joueur2, Suit _couleur) {
+    private void remSure(IdMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _joueur, byte _joueur2, Suit _couleur) {
         _cartesCertaines.getVal(_couleur)
                 .get(_joueur2).supprimerCartes(
                         _cartesCertaines.getVal(_couleur).get(
                                 _joueur));
     }
 
-    void addToKnown(EnumList<Suit> _all,EnumMap<Suit,CustList<HandTarot>> _poss,byte _player,
-                    EnumMap<Suit,CustList<HandTarot>> _sure,
+    void addToKnown(EnumList<Suit> _all,IdMap<Suit,CustList<HandTarot>> _poss,byte _player,
+                    IdMap<Suit,CustList<HandTarot>> _sure,
                     Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnueMemo) {
         int nombreCartesPossiblesJoueur_ = 0;
         for (Suit couleur_: _all) {
@@ -855,7 +855,7 @@ public final class GameTarotTrickInfo {
             _joueursRepartitionConnueMemo.add(_player);
         }
     }
-    static void affect(EnumList<Suit> _all,EnumMap<Suit,CustList<HandTarot>> _from, byte _player,EnumMap<Suit,CustList<HandTarot>> _to) {
+    static void affect(EnumList<Suit> _all,IdMap<Suit,CustList<HandTarot>> _from, byte _player,IdMap<Suit,CustList<HandTarot>> _to) {
         for (Suit s: _all) {
             _to.getVal(s).get(_player).supprimerCartes();
             _to.getVal(s).get(_player).ajouterCartes(_from.getVal(s).get(_player));

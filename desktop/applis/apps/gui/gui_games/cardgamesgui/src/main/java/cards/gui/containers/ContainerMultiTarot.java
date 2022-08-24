@@ -58,7 +58,7 @@ import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
@@ -88,7 +88,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private RulesTarot rulesTarotMulti=new RulesTarot();
 
-    private EnumMap<Handfuls,Integer> requiredTrumps = new EnumMap<Handfuls,Integer>();
+    private IdMap<Handfuls,Integer> requiredTrumps = new IdMap<Handfuls,Integer>();
     private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
 
     public ContainerMultiTarot(WindowCards _window, boolean _hasCreatedServer, int _nbPlayers) {
@@ -544,7 +544,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
         handFuls_.add(scroll_);
         setChoosenHandful(Handfuls.NO);
-        setSelectedMiseres(new EnumMap<Miseres,Boolean>());
+        setSelectedMiseres(new IdMap<Miseres,Boolean>());
         CustList<AbsRadioButton> list_ = new CustList<AbsRadioButton>();
         for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
             AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
@@ -1053,7 +1053,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return playerHand;
     }
 
-    public EnumMap<Handfuls,Integer> getRequiredTrumps() {
+    public IdMap<Handfuls,Integer> getRequiredTrumps() {
         return requiredTrumps;
     }
 
