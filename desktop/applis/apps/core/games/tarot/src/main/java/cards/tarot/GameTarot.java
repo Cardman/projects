@@ -192,17 +192,7 @@ public final class GameTarot {
     }
 
     void loadGame() {
-        byte player_ = playerAfter(deal.getDealer());
-        taker = IndexConstants.INDEX_NOT_FOUND_ELT;
-        BidTarot bid_ = BidTarot.FOLD;
-        for (BidTarot b: bids) {
-            if (b.strongerThan(bid_)) {
-                taker = player_;
-                bid_ = b;
-            }
-            player_ = playerAfter(player_);
-        }
-        bid = bid_;
+        BidTarot bid_ = bid();
         boolean defined_ = false;
         if (!avecContrat() || !bid_.isJouerDonne()) {
             initEquipeDetermineeSansPreneur();
@@ -212,14 +202,7 @@ public final class GameTarot {
         } else if (rules.getDealing().getAppel() == CallingCard.WITHOUT) {
             initDefense();
         }
-        cardsToBeDiscardedCount = 0;
-        if (bid.getJeuChien() == PlayingDog.WITH) {
-            if (tricks.isEmpty()) {
-                cardsToBeDiscardedCount += getPliEnCours().total();
-            } else {
-                cardsToBeDiscardedCount += tricks.first().total();
-            }
-        }
+        cardsToBeDiscarded();
         if (!defined_) {
             calledPlayers = new Bytes();
             calledPlayers.addAllElts(joueursAyantCarteAppelee());
@@ -238,20 +221,40 @@ public final class GameTarot {
                 ajouterPetitAuBoutPliEnCours();
                 setPliEnCours(true);
             }
-        } else if (!avecContrat()) {
+        } else if (!avecContrat() || contrats() < getNombreDeJoueurs() || !pasJeuApresPasse()) {
             starter = playerAfter(deal.getDealer());
             trickWinner = starter;
-        } else if (contrats() < getNombreDeJoueurs()) {
-            starter = playerAfter(deal.getDealer());
-            trickWinner = starter;
-        } else if (pasJeuApresPasse()) {
+        } else {
             //if existePreneur()
             starter = taker;
             trickWinner = taker;
-        } else {
-            starter = playerAfter(deal.getDealer());
-            trickWinner = starter;
         }
+    }
+
+    private void cardsToBeDiscarded() {
+        cardsToBeDiscardedCount = 0;
+        if (bid.getJeuChien() == PlayingDog.WITH) {
+            if (tricks.isEmpty()) {
+                cardsToBeDiscardedCount += getPliEnCours().total();
+            } else {
+                cardsToBeDiscardedCount += tricks.first().total();
+            }
+        }
+    }
+
+    private BidTarot bid() {
+        byte player_ = playerAfter(deal.getDealer());
+        taker = IndexConstants.INDEX_NOT_FOUND_ELT;
+        BidTarot bid_ = BidTarot.FOLD;
+        for (BidTarot b: bids) {
+            if (b.strongerThan(bid_)) {
+                taker = player_;
+                bid_ = b;
+            }
+            player_ = playerAfter(player_);
+        }
+        bid = bid_;
+        return bid_;
     }
 
     void retrieveCalledPlayers(TrickTarot _t) {
@@ -297,25 +300,11 @@ public final class GameTarot {
         while (true) {
             setPliEnCours(true);
             for (byte joueur_ : orderedPlayers(starter)) {
-                if (getProgressingTrick().estVide()) {
-                    _simu.firstCardPlaying(joueur_);
-                } else {
-                    _simu.nextCardPlaying(joueur_);
-                }
+                beforeCards(_simu, joueur_);
                 _simu.sleepSimu(1000);
 //                _simu.pause();
                 currentPlayerHasPlayed(joueur_);
-                if (premierTourNoMisere()) {
-                    _simu.declareHandfuls(joueur_,getAnnoncesPoignees(joueur_),getPoignee(joueur_));
-                    _simu.declareMiseres(joueur_,getAnnoncesMiseres(joueur_));
-                }
-                if (getCalledCards().contient(playedCard)) {
-                    _simu.displayCalled(joueur_);
-                }
-                _simu.played(joueur_,playedCard);
-                if(joueur_==DealTarot.NUMERO_UTILISATEUR) {
-                    _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
-                }
+                endCards(_simu, joueur_);
                 if (_simu.stopped()) {
                     _simu.stopDemo();
                     return;
@@ -337,6 +326,28 @@ public final class GameTarot {
         }
         _simu.endDeal();
         ended = true;
+    }
+
+    private void endCards(SimulatingTarot _simu, byte _joueur) {
+        if (premierTourNoMisere()) {
+            _simu.declareHandfuls(_joueur,getAnnoncesPoignees(_joueur),getPoignee(_joueur));
+            _simu.declareMiseres(_joueur,getAnnoncesMiseres(_joueur));
+        }
+        if (getCalledCards().contient(playedCard)) {
+            _simu.displayCalled(_joueur);
+        }
+        _simu.played(_joueur,playedCard);
+        if(_joueur ==DealTarot.NUMERO_UTILISATEUR) {
+            _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+        }
+    }
+
+    private void beforeCards(SimulatingTarot _simu, byte _joueur) {
+        if (getProgressingTrick().estVide()) {
+            _simu.firstCardPlaying(_joueur);
+        } else {
+            _simu.nextCardPlaying(_joueur);
+        }
     }
 
     void simuStarter() {
@@ -545,9 +556,7 @@ public final class GameTarot {
     @param numero
     */
     public void ajouterContrat(BidTarot _c, byte _t) {
-        if (lastHasBid == -1) {
-            lastHasBid = _t;
-        } else if (lastHasBid == _t) {
+        if (lastHasBid != -1 && lastHasBid == _t) {
             return;
         }
         lastHasBid = _t;
@@ -1339,11 +1348,9 @@ public final class GameTarot {
                 possedeExcuseMemeEquipe_ = true;
             }
         }
-        if (possedeExcuseMemeEquipe_) {
-            if (!teamsRelation_.adversaireAFaitPlis(trickWinner,tricks)) {
-                //ajouterPetitAuBoutCasChelem
-                smallBound.set( trickWinner, BoolVal.TRUE);
-            }
+        if (possedeExcuseMemeEquipe_ && !teamsRelation_.adversaireAFaitPlis(trickWinner, tricks)) {
+            //ajouterPetitAuBoutCasChelem
+            smallBound.set(trickWinner, BoolVal.TRUE);
         }
     }
 

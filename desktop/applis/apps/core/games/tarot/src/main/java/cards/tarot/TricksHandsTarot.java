@@ -25,27 +25,17 @@ public final class TricksHandsTarot {
     }
     public void restoreHandsAtSelectedNumberedTrick(DisplayingTarot _displaying,
             byte _nombreJoueurs, byte _numeroPli) {
-        for (byte p = IndexConstants.FIRST_INDEX; p<_nombreJoueurs; p++) {
-            supprimerCartes(p);
-            ajouterCartes(p, cardsHandsAtInitialState.get(p));
-        }
-        if (_numeroPli >= 0 && preneur > -1) {
-            ajouterCartes(preneur, derniereMain());
-            supprimerCartes(preneur,tricks.first().getCartes());
-        }
+        reinit(_nombreJoueurs, _numeroPli);
         byte key_ = 0;
         for (TrickTarot pli_ : tricks) {
             if(!pli_.getVuParToutJoueur()) {
                 key_++;
-                continue;
+            } else {
+                if (key_ <= _numeroPli) {
+                    previousTrick(pli_);
+                    key_++;
+                }
             }
-            if(key_ > _numeroPli) {
-                continue;
-            }
-            for (CardTarot carte_ : pli_) {
-                jouer(pli_.joueurAyantJoue(carte_),carte_);
-            }
-            key_++;
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             trier(joueur_, _displaying.getDisplaying().getSuits(),
@@ -55,7 +45,46 @@ public final class TricksHandsTarot {
 
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard(DisplayingTarot _displaying,
             byte _nombreJoueurs, byte _numeroPli, byte _numeroCarte) {
-        for (byte p = IndexConstants.FIRST_INDEX; p<_nombreJoueurs; p++) {
+        reinit(_nombreJoueurs, _numeroPli);
+        byte key_ = 0;
+        for (TrickTarot pli_ : tricks) {
+            if(!pli_.getVuParToutJoueur()) {
+                key_++;
+                continue;
+            }
+            if (key_ <= _numeroPli) {
+                if (key_ == _numeroPli) {
+                    currentTrick(_numeroCarte, pli_);
+                } else {
+                    previousTrick(pli_);
+                }
+                key_++;
+            }
+        }
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            trier(joueur_, _displaying.getDisplaying().getSuits(),
+                    _displaying.getDisplaying().isDecreasing());
+        }
+    }
+
+    private void currentTrick(byte _numeroCarte, TrickTarot _pli) {
+        byte indice_ = 0;
+        for (CardTarot carte_ : _pli) {
+            if (indice_ <= _numeroCarte) {
+                jouer(_pli.joueurAyantJoue(carte_),carte_);
+            }
+            indice_++;
+        }
+    }
+
+    private void previousTrick(TrickTarot _pli) {
+        for (CardTarot carte_ : _pli) {
+            jouer(_pli.joueurAyantJoue(carte_),carte_);
+        }
+    }
+
+    private void reinit(byte _nombreJoueurs, byte _numeroPli) {
+        for (byte p = IndexConstants.FIRST_INDEX; p< _nombreJoueurs; p++) {
             supprimerCartes(p);
             ajouterCartes(p, cardsHandsAtInitialState.get(p));
         }
@@ -63,36 +92,8 @@ public final class TricksHandsTarot {
             ajouterCartes(preneur, derniereMain());
             supprimerCartes(preneur,tricks.first().getCartes());
         }
-        byte key_ = 0;
-        for (TrickTarot pli_ : tricks) {
-            if(!pli_.getVuParToutJoueur()) {
-                key_++;
-                continue;
-            }
-            if(key_ > _numeroPli) {
-                continue;
-            }
-            if(key_ == _numeroPli) {
-                byte indice_ = 0;
-                for (CardTarot carte_ : pli_) {
-                    if (indice_ <= _numeroCarte) {
-                        jouer(pli_.joueurAyantJoue(carte_),carte_);
-                    }
-                    indice_++;
-                }
-                key_++;
-                continue;
-            }
-            for (CardTarot carte_ : pli_) {
-                jouer(pli_.joueurAyantJoue(carte_),carte_);
-            }
-            key_++;
-        }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_, _displaying.getDisplaying().getSuits(),
-                    _displaying.getDisplaying().isDecreasing());
-        }
     }
+
     private void supprimerCartes(byte _joueur) {
         distribution.supprimerCartes(_joueur);
     }
