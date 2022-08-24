@@ -303,54 +303,28 @@ public final class CheckerGameBeloteWithRules {
         players_ = _loadedGameCopy
                 .orderedPlayers(_loadedGameCopy.playerAfter(_loadedGameCopy
                         .getDistribution().getDealer()));
-        boolean finished_ = false;
-        int i_ = 0;
-        for (byte p : players_) {
-            boolean keep_ = keepFirstRound(_loadedGame, _loadedGameCopy, i_, p);
-            if (!_loadedGame.getError().isEmpty()) {
-                return true;
-            }
-            if (!keep_) {
-                finished_ = true;
-                break;
-            }
-            i_++;
+        int i_ = round(_loadedGame, _loadedGameCopy, players_, 0);
+        if (!_loadedGame.getError().isEmpty()) {
+            return true;
         }
-        if (finished_) {
+        if (i_ < players_.size()) {
             return false;
         }
-        return secondRound(_loadedGame, _loadedGameCopy, players_, i_);
+        _loadedGameCopy.finEncherePremierTour();
+        round(_loadedGame, _loadedGameCopy, players_, i_);
+        return !_loadedGame.getError().isEmpty();
     }
 
-    private static boolean secondRound(GameBelote _loadedGame, GameBelote _loadedGameCopy, Bytes _players, int _i) {
-        int i_ = _i;
-        _loadedGameCopy.finEncherePremierTour();
-        int pl_ = 0;
-        while (true) {
-            byte p_ = _players.get(pl_);
-            if (!_loadedGame.contrat(i_).estDemandable(
-                    _loadedGameCopy.getBid())) {
-                _loadedGame.setError(INVALID_BID);
-                return true;
-            }
-            boolean found_ = okBidSuit(_loadedGame, _loadedGameCopy, i_);
-            if (!found_) {
-                _loadedGame.setError(INVALID_BID);
-                return true;
-            }
-            _loadedGameCopy.ajouterContrat(_loadedGame.contrat(i_),
-                    p_);
-            if (!_loadedGameCopy.keepBidding()) {
-                if (_loadedGame.tailleContrats() > i_ + 1) {
-                    _loadedGame.setError(TOO_MUCH_BIDS);
-                    return true;
-                }
+    private static int round(GameBelote _loadedGame, GameBelote _loadedGameCopy, Bytes _players, int _i) {
+        int j_ = _i;
+        for (byte p : _players) {
+            boolean keep_ = keepRound(_loadedGame, _loadedGameCopy, j_, p);
+            if (!keep_) {
                 break;
             }
-            i_++;
-            pl_++;
+            j_++;
         }
-        return false;
+        return j_;
     }
 
     private static boolean koBidDealAll(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
@@ -385,7 +359,7 @@ public final class CheckerGameBeloteWithRules {
         return false;
     }
 
-    private static boolean keepFirstRound(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _i, byte _p) {
+    private static boolean keepRound(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _i, byte _p) {
         if (_i == _loadedGame.tailleContrats()) {
             return false;
         }

@@ -3,7 +3,6 @@ import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 
 final class TarotInfoPliEnCours {

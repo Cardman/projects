@@ -4,7 +4,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.util.BooleanList;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.EnumList;
