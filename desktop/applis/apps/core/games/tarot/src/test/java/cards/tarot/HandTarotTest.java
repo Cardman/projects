@@ -117,7 +117,6 @@ public class HandTarotTest extends EquallableTarotUtil {
         resAtt_.ajouter(CardTarot.HEART_KING);
         resAtt_.ajouter(CardTarot.HEART_10);
         resAtt_.ajouter(CardTarot.HEART_1);
-        assertNotSame(resAtt_,main_);
         main_.trierParForceEnCours(Suit.HEART);
         assertEq(resAtt_, main_);
         main_ = new HandTarot();

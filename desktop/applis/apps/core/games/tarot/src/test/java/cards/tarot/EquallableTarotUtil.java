@@ -1,4 +1,7 @@
 package cards.tarot;
+import cards.consts.EndGameState;
+import cards.consts.PossibleTrickWinner;
+import cards.consts.Role;
 import code.maths.Rate;
 import org.junit.Assert;
 
@@ -11,9 +14,6 @@ public abstract class EquallableTarotUtil {
     public static void assertNotNull(Object _value) {
         Assert.assertNotNull(_value);
     }
-    public static void assertNull(Object _value) {
-        Assert.assertNull(_value);
-    }
 
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
@@ -24,10 +24,28 @@ public abstract class EquallableTarotUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(Object _expected, Object _result) {
+    public static void assertSame(EndGameState _expected, EndGameState _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertNotSame(Object _expected, Object _result) {
+    public static void assertSame(PossibleTrickWinner _expected, PossibleTrickWinner _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(BidTarot _expected, BidTarot _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Role _expected, Role _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Suit _expected, Suit _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(CardTarot _expected, CardTarot _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(GameTarot _expected, GameTarot _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertNotSame(RulesTarot _expected, RulesTarot _result) {
         Assert.assertNotSame(_expected, _result);
     }
 
