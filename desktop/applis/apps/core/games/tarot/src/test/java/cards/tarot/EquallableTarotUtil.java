@@ -2,7 +2,10 @@ package cards.tarot;
 import cards.consts.EndGameState;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Role;
+import cards.tarot.enumerations.Handfuls;
 import code.maths.Rate;
+import code.util.EnumList;
+import code.util.IntMap;
 import org.junit.Assert;
 
 import cards.consts.Suit;
@@ -11,7 +14,15 @@ import cards.tarot.enumerations.CardTarot;
 
 public abstract class EquallableTarotUtil {
 
-    public static void assertNotNull(Object _value) {
+    public static void assertNotNull(EnumList<Handfuls> _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(IntMap<Integer> _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNotNull(String _value) {
         Assert.assertNotNull(_value);
     }
 

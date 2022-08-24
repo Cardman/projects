@@ -19,7 +19,6 @@ public class HandTarotTest extends EquallableTarotUtil {
         assertTrue(!main_.contient(CardTarot.WHITE));
         assertNotNull(Handfuls.getConfigurationParDefautAnnoncePoignee(Handfuls.NO));
         assertNotNull(Handfuls.getNonDeclarableHandFuls());
-        assertNotNull(Handfuls.getDeclarableHandFuls());
         assertNotNull(StringUtil.concatNb(CardTarot.EXCUSE.getId().getNo(), ""));
         EnumList<CardTarot> one_ = new EnumList<CardTarot>();
         one_.add(CardTarot.EXCUSE);
