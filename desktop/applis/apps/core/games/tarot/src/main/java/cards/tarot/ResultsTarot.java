@@ -55,79 +55,82 @@ public final class ResultsTarot {
         Shorts doubledScoresPlayersTricks_ = new Shorts();
         Shorts needlyScoresPlayers_ = new Shorts();
         Shorts doublesDifferencesPlayers_ = new Shorts();
-        if(!game.getTricks().isEmpty()) {
-            if(contrat_.isJouerDonne()) {
-                EndTarotGame end_ = game.getEndTarotGame();
-                end_.setupSlams();
-                miseresTaker_ = end_.getMiseresPointsForTaker();
-                doubledScoreTaker_=end_.scorePreneurPlisDouble(contrat_);
-                needlyScoresTaker_=end_.scoreNecessairePreneur(contrat_);
-                short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
-                differenceScoreTaker_=(short) (scorePreneurPlis_-needlyScoresTaker_);
-                playerSmallBound= end_.joueurPetitAuBout(_pseudos);
-                scoreSmallBound = end_.scoreSmallBound();
-                endTarotGame = end_.getUserState(differenceScoreTaker_, res.getUser());
-                basePoints_=end_.base(doubledScoreTaker_,differenceScoreTaker_);
-                scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker_,basePoints_);
-                handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
-                additionnalBonusesAttack_ = end_.additionnalBonusesAttack(contrat_);
-                additionnalBonusesDefense_ = end_.additionnalBonusesDefense();
-                short sommeTemporaire_= EndTarotGame.temporarySum(contrat_,scoreTakerWithoutDeclaring_, miseresTaker_, handfulsTaker_, additionnalBonusesAttack_, additionnalBonusesDefense_);
-                repartitionRate_=end_.coefficientsRepartition();
-                game.setScores(end_.calculateScores(repartitionRate_, sommeTemporaire_, scoreTakerWithoutDeclaring_));
-                scoresDeal_=game.getScores();
-            } else {
-                EndTarotGame end_ = game.getEndTarotGame();
-                end_.setupPlayersWonTricks();
-                boolean pasJeuMisere_=game.pasJeuMisere();
-                if(pasJeuMisere_) {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                        short ptsDb_ = end_.scoreJoueurPlisDouble(joueur_);
-                        doubledScoresPlayersTricks_.add(ptsDb_);
-                        short ptsNeed_ = end_.scoreNecessaireJoueur(joueur_);
-                        needlyScoresPlayers_.add(ptsNeed_);
-                        short diffDb_ = EndTarotGame.differenceJoueurDouble(ptsNeed_, ptsDb_);
-                        doublesDifferencesPlayers_.add(diffDb_);
-                        maxDoubledDifference_=(short)Math.max(maxDoubledDifference_,diffDb_);
-                        additionnalBonuses_.add(end_.primeSupplementaire(joueur_));
-                    }
-                    maxDifference=end_.differenceMax(maxDoubledDifference_);
-                    positionsDiff=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
-                    positionsOne = end_.changePositionsOne(positionsDiff, true);
-                    positionsTwo = end_.changePositionsTwo(positionsOne, true);
-                    positionsThree = end_.changePositionsThree(positionsTwo, true);
-                    positionsFour = end_.changePositionsFour(positionsThree, true);
-                    coefficients=end_.coefficients(positionsFour);
-                    game.setScores(end_.calculerScoresJoueurs(coefficients, maxDoubledDifference_, additionnalBonuses_));
-                    scoresDeal_=game.getScores();
-                } else {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                        doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
-                        needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
-                        doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                        maxDoubledDifference_=(short)Math.max(maxDoubledDifference_,doublesDifferencesPlayers_.last());
-                    }
-                    maxDifference=end_.differenceMax(maxDoubledDifference_);
-                    positionsDiff=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
-                    positionsOne = end_.changePositionsOne(positionsDiff, false);
-                    positionsTwo = end_.changePositionsTwo(positionsOne, false);
-                    positionsThree = end_.changePositionsThree(positionsTwo, false);
-                    positionsFour = end_.changePositionsFour(positionsThree, false);
-                    coefficients=end_.coefficientsMisere(positionsFour);
-                    game.setScores(end_.calculerScoresJoueurs(coefficients,maxDoubledDifference_));
-                    scoresDeal_=game.getScores();
-                }
-                finalUserPosition = positionsFour.get(res.getUser());
-            }
-        } else {
+        if (game.getTricks().isEmpty()) {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scoresDeal_.add((short)0);
             }
+            calculateScores(scoresDeal_);
+            return;
         }
+        EndTarotGame end_ = game.getEndTarotGame();
+        if(contrat_.isJouerDonne()) {
+            end_.setupSlams();
+            miseresTaker_ = end_.getMiseresPointsForTaker();
+            doubledScoreTaker_=end_.scorePreneurPlisDouble(contrat_);
+            needlyScoresTaker_=end_.scoreNecessairePreneur(contrat_);
+            short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
+            differenceScoreTaker_=(short) (scorePreneurPlis_-needlyScoresTaker_);
+            playerSmallBound= end_.joueurPetitAuBout(_pseudos);
+            scoreSmallBound = end_.scoreSmallBound();
+            endTarotGame = end_.getUserState(differenceScoreTaker_, res.getUser());
+            basePoints_=end_.base(doubledScoreTaker_,differenceScoreTaker_);
+            scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker_,basePoints_);
+            handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
+            additionnalBonusesAttack_ = end_.additionnalBonusesAttack(contrat_);
+            additionnalBonusesDefense_ = end_.additionnalBonusesDefense();
+            short sommeTemporaire_= EndTarotGame.temporarySum(contrat_,scoreTakerWithoutDeclaring_, miseresTaker_, handfulsTaker_, additionnalBonusesAttack_, additionnalBonusesDefense_);
+            repartitionRate_=end_.coefficientsRepartition();
+            game.setScores(end_.calculateScores(repartitionRate_, sommeTemporaire_, scoreTakerWithoutDeclaring_));
+            scoresDeal_=game.getScores();
+        } else {
+            end_.setupPlayersWonTricks();
+            boolean pasJeuMisere_=game.pasJeuMisere();
+            if(pasJeuMisere_) {
+                for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+                    short ptsDb_ = end_.scoreJoueurPlisDouble(joueur_);
+                    doubledScoresPlayersTricks_.add(ptsDb_);
+                    short ptsNeed_ = end_.scoreNecessaireJoueur(joueur_);
+                    needlyScoresPlayers_.add(ptsNeed_);
+                    short diffDb_ = EndTarotGame.differenceJoueurDouble(ptsNeed_, ptsDb_);
+                    doublesDifferencesPlayers_.add(diffDb_);
+                    maxDoubledDifference_=(short)Math.max(maxDoubledDifference_,diffDb_);
+                    additionnalBonuses_.add(end_.primeSupplementaire(joueur_));
+                }
+                maxDifference=end_.differenceMax(maxDoubledDifference_);
+                positionsDiff=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
+                positionsOne = end_.changePositionsOne(positionsDiff, true);
+                positionsTwo = end_.changePositionsTwo(positionsOne, true);
+                positionsThree = end_.changePositionsThree(positionsTwo, true);
+                positionsFour = end_.changePositionsFour(positionsThree, true);
+                coefficients=end_.coefficients(positionsFour);
+                game.setScores(end_.calculerScoresJoueurs(coefficients, maxDoubledDifference_, additionnalBonuses_));
+            } else {
+                for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+                    doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
+                    needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
+                    doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
+                    maxDoubledDifference_=(short)Math.max(maxDoubledDifference_,doublesDifferencesPlayers_.last());
+                }
+                maxDifference=end_.differenceMax(maxDoubledDifference_);
+                positionsDiff=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
+                positionsOne = end_.changePositionsOne(positionsDiff, false);
+                positionsTwo = end_.changePositionsTwo(positionsOne, false);
+                positionsThree = end_.changePositionsThree(positionsTwo, false);
+                positionsFour = end_.changePositionsFour(positionsThree, false);
+                coefficients=end_.coefficientsMisere(positionsFour);
+                game.setScores(end_.calculerScoresJoueurs(coefficients,maxDoubledDifference_));
+            }
+            scoresDeal_=game.getScores();
+            finalUserPosition = positionsFour.get(res.getUser());
+        }
+        calculateScores(scoresDeal_);
+    }
+
+    private void calculateScores(Shorts _scoresDeal) {
         GameType type_ = game.getType();
         long number_ = game.getNumber();
         int nbDeals_ = game.getRegles().getCommon().getNbDeals();
-        calculateScores(scoresDeal_, type_, number_, nbDeals_);
+        calculateScores(_scoresDeal, type_, number_, nbDeals_);
     }
 
     void calculateScores(Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
