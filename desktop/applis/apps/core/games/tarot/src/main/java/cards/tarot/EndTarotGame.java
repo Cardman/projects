@@ -33,6 +33,116 @@ public final class EndTarotGame {
     public static final int ALL_OUDLERS_PTS = 36;
 
     public static final int PTS_BASE = 25;
+    private static final short FOUR_PLAYERS_WITHOUT_CALL_WIN = (short) 1;
+    private static final short FOUR_PLAYERS_WITHOUT_CALL_LOOSE = (short) -1;
+    private static final short SIX_PLAYERS_WITHOUT_CALL_THREE_WIN = (short) 1;
+    private static final short SIX_PLAYERS_WITHOUT_CALL_THREE_ZERO = (short) 0;
+    private static final short SIX_PLAYERS_WITHOUT_CALL_THREE_LOOSE = (short) -1;
+    private static final short SIX_PLAYERS_WITHOUT_CALL_WIN = (short) 2;
+    private static final short SIX_PLAYERS_WITHOUT_CALL_LOOSE = (short) -1;
+    private static final short TRHEE_PLAYERS_THREE_WIN = (short) 1;
+    private static final short TRHEE_PLAYERS_THREE_ZERO = (short) 0;
+    private static final short TRHEE_PLAYERS_THREE_LOOSE = (short) -1;
+    private static final short TRHEE_PLAYERS_WIN = (short) 2;
+    private static final short TRHEE_PLAYERS_LOOSE = (short) -1;
+    private static final short FOUR_PLAYERS_FOUR_WIN = (short) 2;
+    private static final short FOUR_PLAYERS_FOUR_SECOND = (short) 1;
+    private static final short FOUR_PLAYERS_FOUR_THIRD = (short) -1;
+    private static final short FOUR_PLAYERS_FOUR_LOOSE = (short) -2;
+    private static final short FOUR_PLAYERS_THREE_WIN = (short) 3;
+    private static final short FOUR_PLAYERS_THREE_ZERO = (short) 1;
+    private static final short FOUR_PLAYERS_THREE_LOOSE = (short) -2;
+    private static final short FOUR_PLAYERS_WIN = (short) 6;
+    private static final short FOUR_PLAYERS_LOOSE = (short) -2;
+    private static final short FIVE_PLAYERS_FIVE_WIN = (short) 2;
+    private static final short FIVE_PLAYERS_FIVE_SECOND = (short) 1;
+    private static final short FIVE_PLAYERS_FIVE_THIRD = (short) 0;
+    private static final short FIVE_PLAYERS_FIVE_FOURTH = (short) -1;
+    private static final short FIVE_PLAYERS_FIVE_LOOSE = (short) -2;
+    private static final short FIVE_PLAYERS_FOUR_WIN = (short) 3;
+    private static final short FIVE_PLAYERS_FOUR_SECOND = (short) 1;
+    private static final short FIVE_PLAYERS_FOUR_THIRD = (short) 0;
+    private static final short FIVE_PLAYERS_FOUR_LOOSE = (short) -2;
+    private static final short FIVE_PLAYERS_THREE_WIN = (short) 6;
+    private static final short FIVE_PLAYERS_THREE_ZERO = (short) 0;
+    private static final short FIVE_PLAYERS_THREE_LOOSE = (short) -2;
+    private static final short FIVE_PLAYERS_WIN = (short) 8;
+    private static final short FIVE_PLAYERS_LOOSE = (short) -2;
+    private static final short SIX_PLAYERS_SIX_WIN = (short) 3;
+    private static final short SIX_PLAYERS_SIX_SECOND = (short) 2;
+    private static final short SIX_PLAYERS_SIX_THIRD = (short) 1;
+    private static final short SIX_PLAYERS_SIX_FOURTH = (short) -1;
+    private static final short SIX_PLAYERS_SIX_FIFTH = (short) -2;
+    private static final short SIX_PLAYERS_SIX_LOOSE = (short) -3;
+    private static final short SIX_PLAYERS_FIVE_WIN = (short) 3;
+    private static final short SIX_PLAYERS_FIVE_SECOND = (short) 2;
+    private static final short SIX_PLAYERS_FIVE_THIRD = (short) 1;
+    private static final short SIX_PLAYERS_FIVE_FOURTH = (short) 0;
+    private static final short SIX_PLAYERS_FIVE_LOOSE = (short) -3;
+    private static final short SIX_PLAYERS_FOUR_WIN = (short) 4;
+    private static final short SIX_PLAYERS_FOUR_SECOND = (short) 2;
+    private static final short SIX_PLAYERS_FOUR_THIRD = (short) 0;
+    private static final short SIX_PLAYERS_FOUR_LOOSE = (short) -2;
+    private static final short SIX_PLAYERS_THREE_WIN = (short) 8;
+    private static final short SIX_PLAYERS_THREE_ZERO = (short) 0;
+    private static final short SIX_PLAYERS_THREE_LOOSE = (short) -2;
+    private static final short SIX_PLAYERS_WIN = (short) 10;
+    private static final short SIX_PLAYERS_LOOSE = (short) -2;
+    private static final short MIS_FOUR_PLAYERS_WITHOUT_CALL_WIN = (short) 1;
+    private static final short MIS_FOUR_PLAYERS_WITHOUT_CALL_LOOSE = (short) -1;
+    private static final short MIS_SIX_PLAYERS_WITHOUT_CALL_THREE_WIN = (short) 1;
+    private static final short MIS_SIX_PLAYERS_WITHOUT_CALL_THREE_ZERO = (short) 0;
+    private static final short MIS_SIX_PLAYERS_WITHOUT_CALL_THREE_LOOSE = (short) -1;
+    private static final short MIS_SIX_PLAYERS_WITHOUT_CALL_WIN = (short) 1;
+    private static final short MIS_SIX_PLAYERS_WITHOUT_CALL_LOOSE = (short) -2;
+    private static final short MIS_THREE_PLAYERS_THREE_WIN = (short) 1;
+    private static final short MIS_THREE_PLAYERS_THREE_ZERO = (short) 0;
+    private static final short MIS_THREE_PLAYERS_THREE_LOOSE = (short) -1;
+    private static final short MIS_THREE_PLAYERS_WIN = (short) 1;
+    private static final short MIS_THREE_PLAYERS_LOOSE = (short) -2;
+    private static final short MIS_FOUR_PLAYERS_FOUR_WIN = (short) 2;
+    private static final short MIS_FOUR_PLAYERS_FOUR_SECOND = (short) 1;
+    private static final short MIS_FOUR_PLAYERS_FOUR_THIRD = (short) -1;
+    private static final short MIS_FOUR_PLAYERS_FOUR_LOOSE = (short) -2;
+    private static final short MIS_FOUR_PLAYERS_THREE_WIN = (short) 2;
+    private static final short MIS_FOUR_PLAYERS_THREE_ZERO = (short) -1;
+    private static final short MIS_FOUR_PLAYERS_THREE_LOOSE = (short) -3;
+    private static final short MIS_FOUR_PLAYERS_LOOSE = (short) 2;
+    private static final short MIS_FOUR_PLAYERS_WIN = (short) -6;
+    private static final short MIS_FIVE_PLAYERS_FIVE_WIN = (short) 2;
+    private static final short MIS_FIVE_PLAYERS_FIVE_SECOND = (short) 1;
+    private static final short MIS_FIVE_PLAYERS_FIVE_THIRD = (short) 0;
+    private static final short MIS_FIVE_PLAYERS_FIVE_FOURTH = (short) -1;
+    private static final short MIS_FIVE_PLAYERS_FIVE_LOOSE = (short) -2;
+    private static final short MIS_FIVE_PLAYERS_FOUR_WIN = (short) 2;
+    private static final short MIS_FIVE_PLAYERS_FOUR_SECOND = (short) 0;
+    private static final short MIS_FIVE_PLAYERS_FOUR_THIRD = (short) -1;
+    private static final short MIS_FIVE_PLAYERS_FOUR_LOOSE = (short) -3;
+    private static final short MIS_FIVE_PLAYERS_THREE_WIN = (short) 2;
+    private static final short MIS_FIVE_PLAYERS_THREE_ZERO = (short) 0;
+    private static final short MIS_FIVE_PLAYERS_THREE_LOOSE = (short) -6;
+    private static final short MIS_FIVE_PLAYERS_WIN = (short) 2;
+    private static final short MIS_FIVE_PLAYERS_LOOSE = (short) -8;
+    private static final short MIS_SIX_PLAYERS_SIX_WIN = (short) 3;
+    private static final short MIS_SIX_PLAYERS_SIX_SECOND = (short) 2;
+    private static final short MIS_SIX_PLAYERS_SIX_THIRD = (short) 1;
+    private static final short MIS_SIX_PLAYERS_SIX_FOURTH = (short) -1;
+    private static final short MIS_SIX_PLAYERS_SIX_FIFTH = (short) -2;
+    private static final short MIS_SIX_PLAYERS_SIX_LOOSE = (short) -3;
+    private static final short MIS_SIX_PLAYERS_FIVE_WIN = (short) 3;
+    private static final short MIS_SIX_PLAYERS_FIVE_SECOND = (short) 0;
+    private static final short MIS_SIX_PLAYERS_FIVE_THIRD = (short) -1;
+    private static final short MIS_SIX_PLAYERS_FIVE_FOURTH = (short) -2;
+    private static final short MIS_SIX_PLAYERS_FIVE_LOOSE = (short) -3;
+    private static final short MIS_SIX_PLAYERS_FOUR_WIN = (short) 2;
+    private static final short MIS_SIX_PLAYERS_FOUR_SECOND = (short) 0;
+    private static final short MIS_SIX_PLAYERS_FOUR_THIRD = (short) -2;
+    private static final short MIS_SIX_PLAYERS_FOUR_LOOSE = (short) -4;
+    private static final short MIS_SIX_PLAYERS_THREE_WIN = (short) 2;
+    private static final short MIS_SIX_PLAYERS_THREE_ZERO = (short) 0;
+    private static final short MIS_SIX_PLAYERS_THREE_LOOSE = (short) -8;
+    private static final short MIS_SIX_PLAYERS_WIN = (short) 2;
+    private static final short MIS_SIX_PLAYERS_LOOSE = (short) -10;
     private final GameTarotTeamsRelation relations;
     private final CustList<TrickTarot> tricks;
     /** Ce sont les poignees annoncees par le(s) joueur(s) */
@@ -113,22 +223,10 @@ public final class EndTarotGame {
 
     HandTarot getWonCardsPlayer(byte _player,BidTarot _bid) {
         HandTarot nbPointsAtt_ = new HandTarot();
-        boolean chelemAttaque_ =false;
-        boolean chelemDefense_ =false;
-        if(aucunPliAdverseFin(_player, tricks)) {
-            chelemAttaque_ = true;
-        }
-        if(!chelemAttaque_ && slamTeam()) {
-            chelemDefense_ = true;
-        }
+        boolean chelemAttaque_ = aucunPliAdverseFin(_player, tricks);
+        boolean chelemDefense_ = !chelemAttaque_ && slamTeam();
         boolean excuseEcartee_ = tricks.first().contient(CardTarot.excuse());
-        CustList<TrickTarot> tricks_ = new CustList<TrickTarot>();
-        if (_bid.getJeuChien() != PlayingDog.AGAINST) {
-            tricks_.add(tricks.first());
-        }
-        for (TrickTarot t: getWonTricksListTeam(_player)) {
-            tricks_.add(t);
-        }
+        CustList<TrickTarot> tricks_ = tricks(_player, _bid);
         for (TrickTarot pli_ : tricks_) {
             for (CardTarot carte_ : pli_) {
                 nbPointsAtt_.ajouter(carte_);
@@ -137,12 +235,7 @@ public final class EndTarotGame {
         if(excuseEcartee_) {
             return nbPointsAtt_;
         }
-        boolean excuseDansPlisAttaque_ = false;
-        for (TrickTarot pli_ : tricks_) {
-            if (pli_.contient(CardTarot.excuse())) {
-                excuseDansPlisAttaque_ = true;
-            }
-        }
+        boolean excuseDansPlisAttaque_ = excuseDansPlisAttaque(tricks_);
         CustList<TrickTarot> otherTricks_ = getOtherTricksTarot(tricks_, tricks);
         CustList<TrickTarot> excuseTrick_;
         if(chelemAttaque_) {
@@ -164,6 +257,27 @@ public final class EndTarotGame {
             }
         }
         return nbPointsAtt_;
+    }
+
+    private CustList<TrickTarot> tricks(byte _player, BidTarot _bid) {
+        CustList<TrickTarot> tricks_ = new CustList<TrickTarot>();
+        if (_bid.getJeuChien() != PlayingDog.AGAINST) {
+            tricks_.add(tricks.first());
+        }
+        for (TrickTarot t: getWonTricksListTeam(_player)) {
+            tricks_.add(t);
+        }
+        return tricks_;
+    }
+
+    private boolean excuseDansPlisAttaque(CustList<TrickTarot> _tricks) {
+        boolean excuseDansPlisAttaque_ = false;
+        for (TrickTarot pli_ : _tricks) {
+            if (pli_.contient(CardTarot.excuse())) {
+                excuseDansPlisAttaque_ = true;
+            }
+        }
+        return excuseDansPlisAttaque_;
     }
 
     private static CustList<TrickTarot> getOtherTricksTarot(CustList<TrickTarot> _tricksTeam, CustList<TrickTarot> _tricks) {
@@ -210,12 +324,8 @@ public final class EndTarotGame {
             if (_scorePreneurPlisDouble % 2 == 1) {
                 scorePreneurPlis_++;
             }
-        } else if (scorePreneurPlis_ + 1 == _scoreNecessairePreneur) {
-            if (_rules.getEndDealTarot() == EndDealTarot.ATTACK_WIN) {
-                if (_scorePreneurPlisDouble % 2 == 1) {
-                    scorePreneurPlis_++;
-                }
-            }
+        } else if (scorePreneurPlis_ + 1 == _scoreNecessairePreneur && _rules.getEndDealTarot() == EndDealTarot.ATTACK_WIN && _scorePreneurPlisDouble % 2 == 1) {
+            scorePreneurPlis_++;
         }
         return scorePreneurPlis_;
     }
@@ -256,28 +366,29 @@ public final class EndTarotGame {
 
     static short scorePreneurSansAnnonces(short _differenceScorePreneur, short _base, byte _nombreJoueurs, byte _taker, Bytes _called, CustList<BoolVal> _smallBound) {
         short scorePreneurSansAnnonces_ = 0;
-        if (_base != 0) {
-            scorePreneurSansAnnonces_ = (short) (_base + _differenceScorePreneur);
-            if (_smallBound.get(_taker) == BoolVal.TRUE) {
-                scorePreneurSansAnnonces_ += BonusTarot.SMALL_BOUND
+        if (_base == 0) {
+            return scorePreneurSansAnnonces_;
+        }
+        scorePreneurSansAnnonces_ = (short) (_base + _differenceScorePreneur);
+        if (_smallBound.get(_taker) == BoolVal.TRUE) {
+            scorePreneurSansAnnonces_ += BonusTarot.SMALL_BOUND
+                    .getPoints();
+        }
+        boolean appelePetitAuBout_ = false;
+        for (byte a: _called) {
+            if (_smallBound.get(a) == BoolVal.TRUE) {
+                appelePetitAuBout_ = true;
+            }
+        }
+        if(appelePetitAuBout_) {
+            scorePreneurSansAnnonces_ += BonusTarot.SMALL_BOUND
+                    .getPoints();
+        }
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            if (joueur_ != _taker && !_called.containsObj(joueur_)
+                    && _smallBound.get(joueur_) == BoolVal.TRUE) {
+                scorePreneurSansAnnonces_ -= BonusTarot.SMALL_BOUND
                         .getPoints();
-            }
-            boolean appelePetitAuBout_ = false;
-            for (byte a: _called) {
-                if (_smallBound.get(a) == BoolVal.TRUE) {
-                    appelePetitAuBout_ = true;
-                }
-            }
-            if(appelePetitAuBout_) {
-                scorePreneurSansAnnonces_ += BonusTarot.SMALL_BOUND
-                        .getPoints();
-            }
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-                if (joueur_ != _taker && !_called.containsObj(joueur_)
-                        && _smallBound.get(joueur_) == BoolVal.TRUE) {
-                    scorePreneurSansAnnonces_ -= BonusTarot.SMALL_BOUND
-                            .getPoints();
-                }
             }
         }
         return scorePreneurSansAnnonces_;
@@ -300,37 +411,43 @@ public final class EndTarotGame {
             }
         } else {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                Role st_ = _relations.statutDe(joueur_);
-                Rate rate_ = _coefficientsRepartition.getVal(st_);
-                if (st_ == Role.DEFENDER) {
-                    scores_.set(joueur_,
-                            (short) Rate.multiply(rate_, new Rate(_sommeTemporaire)).ll());
-                } else if (st_ == Role.CALLED_PLAYER) {
-                    Rate mult_ = Rate.multiply(new Rate(rate_.getNumeratorCopy()), new Rate(_sommeTemporaire));
-                    if (!LgInt.remain(mult_.getNumeratorCopy(),rate_.getDenominatorCopy()).isZero()) {
-                        if (_scorePreneurSansAnnonces > 0) {
-                            mult_.removeNb(Rate.one());
-                        } else {
-                            mult_.addNb(Rate.one());
-                        }
-                    }
-                    mult_.divideBy(new Rate(rate_.getDenominatorCopy()));
-                    scores_.set(joueur_, (short) mult_.ll());
-                } else {
-                    Rate mult_ = Rate.multiply(new Rate(rate_.getNumeratorCopy()), new Rate(_sommeTemporaire));
-                    if (!LgInt.remain(mult_.getNumeratorCopy(),rate_.getDenominatorCopy()).isZero()) {
-                        if (_scorePreneurSansAnnonces > 0) {
-                            mult_.addNb(Rate.one());
-                        } else {
-                            mult_.removeNb(Rate.one());
-                        }
-                    }
-                    mult_.divideBy(new Rate(rate_.getDenominatorCopy()));
-                    scores_.set(joueur_, (short) mult_.ll());
-                }
+                short ll_ = calculateScoresInd(_coefficientsRepartition, _sommeTemporaire, _scorePreneurSansAnnonces, _relations, joueur_);
+                scores_.set(joueur_,
+                        ll_);
             }
         }
         return scores_;
+    }
+
+    private static short calculateScoresInd(AbsMap<Role, Rate> _coefficientsRepartition, short _sommeTemporaire, short _scorePreneurSansAnnonces, GameTarotTeamsRelation _relations, byte _joueur) {
+        Role st_ = _relations.statutDe(_joueur);
+        Rate rate_ = _coefficientsRepartition.getVal(st_);
+        short ll_;
+        if (st_ == Role.DEFENDER) {
+            ll_ = (short) Rate.multiply(rate_, new Rate(_sommeTemporaire)).ll();
+            return ll_;
+        }
+        Rate mult_ = Rate.multiply(new Rate(rate_.getNumeratorCopy()), new Rate(_sommeTemporaire));
+        if (st_ == Role.CALLED_PLAYER) {
+            if (!LgInt.remain(mult_.getNumeratorCopy(),rate_.getDenominatorCopy()).isZero()) {
+                if (_scorePreneurSansAnnonces > 0) {
+                    mult_.removeNb(Rate.one());
+                } else {
+                    mult_.addNb(Rate.one());
+                }
+            }
+        } else {
+            if (!LgInt.remain(mult_.getNumeratorCopy(),rate_.getDenominatorCopy()).isZero()) {
+                if (_scorePreneurSansAnnonces > 0) {
+                    mult_.addNb(Rate.one());
+                } else {
+                    mult_.removeNb(Rate.one());
+                }
+            }
+        }
+        mult_.divideBy(new Rate(rate_.getDenominatorCopy()));
+        ll_ = (short) mult_.ll();
+        return ll_;
     }
 
     String scoreSmallBound(){
@@ -489,7 +606,7 @@ public final class EndTarotGame {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         coefficientsRepartition_ = new EnumMap<Role,Rate>();
         if (_relations.coequipiers(_relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_)).isEmpty()) {
-            coefficientsRepartition_.put(Role.TAKER,new Rate(nombreJoueurs_ - 1));
+            coefficientsRepartition_.put(Role.TAKER,new Rate(nombreJoueurs_ - 1L));
             coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
         } else {
             if (nombreJoueurs_ == 4) {
@@ -614,47 +731,40 @@ public final class EndTarotGame {
     }
 
     static Shorts changePositionsOne(CustList<HandTarot> _wonPlayersTeam, Shorts _positions, boolean _pasJeuMisere) {
-        Shorts positions_ = new Shorts(_positions);
-        HandTarot main_;
-        HandTarot main2_;
-        byte nombreBouts_;
-        byte positionTemporaire_;
-        byte nombreBouts2_;
-        CustList<Shorts> groupes_ = buildGroups(positions_);
         if (_pasJeuMisere) {
-            for (Shorts groupe_ : groupes_) {
-                for (short joueur_ : groupe_) {
-                    positionTemporaire_ = 1;
-                    main_ = _wonPlayersTeam.get((byte) joueur_);
-                    nombreBouts_ = (byte) main_.nombreDeBouts();
-                    for (short joueur2_ : groupe_) {
-                        main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                        nombreBouts2_ = (byte) main2_.nombreDeBouts();
-                        if (nombreBouts2_ > nombreBouts_) {
-                            positionTemporaire_++;
-                        }
-                    }
-                    positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
-                }
-            }
+            return changePositionsOneRate(_wonPlayersTeam,_positions,1);
         } else {
-            for (Shorts groupe_ : groupes_) {
-                for (short joueur_ : groupe_) {
-                    positionTemporaire_ = 1;
-                    main_ = _wonPlayersTeam.get((byte) joueur_);
-                    nombreBouts_ = (byte) main_.nombreDeBouts();
-                    for (short joueur2_ : groupe_) {
-                        main2_ = _wonPlayersTeam.get((byte)joueur2_);
-                        nombreBouts2_ = (byte) main2_.nombreDeBouts();
-                        if (nombreBouts2_ < nombreBouts_) {
-                            positionTemporaire_++;
-                        }
-                    }
-                    positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
-                }
+            return changePositionsOneRate(_wonPlayersTeam,_positions,-1);
+        }
+    }
+    private static Shorts changePositionsOneRate(CustList<HandTarot> _wonPlayersTeam, Shorts _positions, int _pasJeuMisere) {
+        Shorts positions_ = new Shorts(_positions);
+        CustList<Shorts> groupes_ = buildGroups(positions_);
+        for (Shorts groupe_ : groupes_) {
+            int groupeLen_ = groupe_.size();
+            for (int i = 0; i < groupeLen_; i++) {
+                short joueur_ = groupe_.get(i);
+                byte positionTemporaire_ = positionTemporaireOne(_wonPlayersTeam, _pasJeuMisere, groupe_, (byte) joueur_);
+                positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
             }
         }
         return positions_;
+    }
+
+    private static byte positionTemporaireOne(CustList<HandTarot> _wonPlayersTeam, int _pasJeuMisere, Shorts _groupe, byte _joueur) {
+        int groupeLen_ = _groupe.size();
+        byte positionTemporaire_ = 1;
+        HandTarot main_ = _wonPlayersTeam.get(_joueur);
+        byte nombreBouts_ = (byte) main_.nombreDeBouts();
+        for (int j = 0; j < groupeLen_; j++) {
+            short joueur2_ = _groupe.get(j);
+            HandTarot main2_ = _wonPlayersTeam.get((byte) joueur2_);
+            byte nombreBouts2_ = (byte) main2_.nombreDeBouts();
+            if (_pasJeuMisere *nombreBouts2_ > _pasJeuMisere *nombreBouts_) {
+                positionTemporaire_++;
+            }
+        }
+        return positionTemporaire_;
     }
 
     private static CustList<Shorts> getGroups(CustList<Shorts> _groupes) {
@@ -677,99 +787,78 @@ public final class EndTarotGame {
     }
 
     static Shorts changePositionsTwo(CustList<HandTarot> _wonPlayersTeam, Shorts _positions, boolean _pasJeuMisere) {
-        Shorts positions_ = new Shorts(_positions);
-        HandTarot main_;
-        HandTarot main2_;
-        byte nombreBouts_;
-        byte nombreFigures_;
-        byte nombreFigures2_;
-        byte positionTemporaire_;
-        CardTarot bout_;
-        CardTarot bout2_;
-        CustList<Shorts> groupes_ = buildGroups(positions_);
         if (_pasJeuMisere) {
-            for (Shorts groupe_ : groupes_) {
-                for (short joueur_ : groupe_) {
-                    positionTemporaire_ = 1;
-                    main_ = _wonPlayersTeam.get((byte) joueur_);
-                    nombreBouts_ = (byte) main_.nombreDeBouts();
-                    nombreFigures_ = (byte) main_.nombreDeFigures();
-                    if (nombreBouts_ == 0) {
-                        for (short joueur2_ : groupe_) {
-                            main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                            nombreFigures2_ = (byte) main2_
-                                    .nombreDeFigures();
-                            if (nombreFigures2_ > nombreFigures_) {
-                                positionTemporaire_++;
-                            }
-                        }
-                    } else {
-                        bout_ = main_.bouts().premiereCarte();
-                        if (CardTarot.eq(bout_,CardTarot.excuse())) {
-                            for (short joueur2_ : groupe_) {
-                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                                bout2_ = main2_.bouts().premiereCarte();
-                                if (CardTarot.eq(bout2_,CardTarot.vingtEtUn())) {
-                                    positionTemporaire_++;
-                                }
-                            }
-                        } else if (CardTarot.eq(bout_,CardTarot.petit())) {
-                            for (short joueur2_ : groupe_) {
-                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                                bout2_ = main2_.bouts().premiereCarte();
-                                if (CardTarot.eq(bout2_,CardTarot.excuse())
-                                        || CardTarot.eq(bout2_,CardTarot
-                                        .vingtEtUn())) {
-                                    positionTemporaire_++;
-                                }
-                            }
-                        }
-                    }
-                    positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
-                }
-            }
+            return changePositionsTwoRate(_wonPlayersTeam,_positions,1,CardTarot.vingtEtUn(),CardTarot.petit());
         } else {
-            for (Shorts groupe_ : groupes_) {
-                for (short joueur_ : groupe_) {
-                    positionTemporaire_ = 1;
-                    main_ = _wonPlayersTeam.get((byte) joueur_);
-                    nombreBouts_ = (byte) main_.nombreDeBouts();
-                    nombreFigures_ = (byte) main_.nombreDeFigures();
-                    if (nombreBouts_ == 0) {
-                        for (short joueur2_ : groupe_) {
-                            main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                            nombreFigures2_ = (byte) main2_
-                                    .nombreDeFigures();
-                            if (nombreFigures2_ < nombreFigures_) {
-                                positionTemporaire_++;
-                            }
-                        }
-                    } else {
-                        bout_ = main_.bouts().premiereCarte();
-                        if (CardTarot.eq(bout_, CardTarot.excuse())) {
-                            for (short joueur2_ : groupe_) {
-                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                                bout2_ = main2_.bouts().premiereCarte();
-                                if (CardTarot.eq(bout2_, CardTarot.petit())) {
-                                    positionTemporaire_++;
-                                }
-                            }
-                        } else if (CardTarot.eq(bout_, CardTarot.vingtEtUn())) {
-                            for (short joueur2_ : groupe_) {
-                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                                bout2_ = main2_.bouts().premiereCarte();
-                                if (CardTarot.eq(bout2_, CardTarot.excuse())
-                                        || CardTarot.eq(bout2_, CardTarot.petit())) {
-                                    positionTemporaire_++;
-                                }
-                            }
-                        }
-                    }
-                    positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
-                }
+            return changePositionsTwoRate(_wonPlayersTeam,_positions,-1,CardTarot.petit(),CardTarot.vingtEtUn());
+        }
+    }
+
+    static Shorts changePositionsTwoRate(CustList<HandTarot> _wonPlayersTeam, Shorts _positions, int _pasJeuMisere, CardTarot _greatest, CardTarot _lowest) {
+        Shorts positions_ = new Shorts(_positions);
+        CustList<Shorts> groupes_ = buildGroups(positions_);
+        for (Shorts groupe_ : groupes_) {
+            int groupeLen_ = groupe_.size();
+            for (int i = 0; i < groupeLen_; i++) {
+                short joueur_ = groupe_.get(i);
+                byte positionTemporaire_ = positionTemporaireTwo(_wonPlayersTeam, _pasJeuMisere, _greatest, _lowest, groupe_, (byte) joueur_);
+                positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
             }
         }
         return positions_;
+    }
+
+    private static byte positionTemporaireTwo(CustList<HandTarot> _wonPlayersTeam, int _pasJeuMisere, CardTarot _greatest, CardTarot _lowest, Shorts _groupe, byte _joueur) {
+        HandTarot main_ = _wonPlayersTeam.get(_joueur);
+        byte nombreBouts_ = (byte) main_.nombreDeBouts();
+        if (nombreBouts_ == 0) {
+            return positionTemporaireTwoNoOudler(_wonPlayersTeam, _pasJeuMisere, _groupe, main_);
+        }
+        int groupeLen_ = _groupe.size();
+        byte positionTemporaire_ = 1;
+        HandTarot main2_;
+        CardTarot bout_ = main_.bouts().premiereCarte();
+        CardTarot bout2_;
+        if (CardTarot.eq(bout_,CardTarot.excuse())) {
+            for (int j = 0; j < groupeLen_; j++) {
+                short joueur2_ = _groupe.get(j);
+                main2_ = _wonPlayersTeam.get((byte) joueur2_);
+                bout2_ = main2_.bouts().premiereCarte();
+                if (CardTarot.eq(bout2_, _greatest)) {
+                    positionTemporaire_++;
+                }
+            }
+            return positionTemporaire_;
+        }
+        if (!CardTarot.eq(bout_, _lowest)) {
+            return positionTemporaire_;
+        }
+        for (int j = 0; j < groupeLen_; j++) {
+            short joueur2_ = _groupe.get(j);
+            main2_ = _wonPlayersTeam.get((byte) joueur2_);
+            bout2_ = main2_.bouts().premiereCarte();
+            if (CardTarot.eq(bout2_,CardTarot.excuse())
+                    || CardTarot.eq(bout2_, _greatest)) {
+                positionTemporaire_++;
+            }
+        }
+        return positionTemporaire_;
+    }
+
+    private static byte positionTemporaireTwoNoOudler(CustList<HandTarot> _wonPlayersTeam, int _pasJeuMisere, Shorts _groupe, HandTarot _main) {
+        int groupeLen_ = _groupe.size();
+        byte nombreFigures_ = (byte) _main.nombreDeFigures();
+        byte positionTemporaire_ = 1;
+        for (int j = 0; j < groupeLen_; j++) {
+            short joueur2_ = _groupe.get(j);
+            HandTarot main2_ = _wonPlayersTeam.get((byte) joueur2_);
+            byte nombreFigures2_ = (byte) main2_
+                    .nombreDeFigures();
+            if (_pasJeuMisere *nombreFigures2_ > _pasJeuMisere *nombreFigures_) {
+                positionTemporaire_++;
+            }
+        }
+        return positionTemporaire_;
     }
 
     /**
@@ -781,97 +870,65 @@ public final class EndTarotGame {
     }
 
     static Shorts changePositionsThree(Shorts _positions, boolean _pasJeuMisere, CustList<HandTarot> _wonPlayersTeam) {
-        Shorts positions_ = new Shorts(_positions);
 
-        HandTarot main_;
-        HandTarot main2_;
-        HandTarot figures_;
-        HandTarot figures2_;
-        byte positionTemporaire_;
-        CustList<Shorts> groupes_ = buildGroups(positions_);
         if (_pasJeuMisere) {
-            for (Shorts groupe_ : groupes_) {
-                for (short joueur_ : groupe_) {
-                    positionTemporaire_ = 1;
-                    main_ = _wonPlayersTeam.get((byte) joueur_);
-                    figures_ = new HandTarot();
-                    for (Suit couleur_ : Suit.couleursOrdinaires()) {
-                        figures_.ajouterCartes(main_.charCardsBySuit(couleur_));
-                    }
-                    figures_.sortCharsByGreaterPoints();
-                    for (short joueur2_ : groupe_) {
-                        main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                        figures2_ = new HandTarot();
-                        for (Suit couleur_ : Suit.couleursOrdinaires()) {
-                            figures2_.ajouterCartes(main2_
-                                    .charCardsBySuit(couleur_));
-                        }
-                        figures2_.sortCharsByGreaterPoints();
-                        positionTemporaire_ = incrementPosByLowerPoints(
-                                figures_, figures2_, positionTemporaire_);
-                    }
-                    positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
-                }
-            }
+            return changePositionsThreeRate(_positions, _wonPlayersTeam, 1);
         } else {
-            for (Shorts groupe_ : groupes_) {
-                for (short joueur_ : groupe_) {
-                    positionTemporaire_ = 1;
-                    main_ = _wonPlayersTeam.get((byte) joueur_);
-                    figures_ = new HandTarot();
-                    for (Suit couleur_ : Suit.couleursOrdinaires()) {
-                        figures_.ajouterCartes(main_.charCardsBySuit(couleur_));
-                    }
-                    figures_.sortCharsByGreaterPoints();
-                    for (short joueur2_ : groupe_) {
-                        main2_ = _wonPlayersTeam.get((byte) joueur2_);
-                        figures2_ = new HandTarot();
-                        for (Suit couleur_ : Suit.couleursOrdinaires()) {
-                            figures2_.ajouterCartes(main2_
-                                    .charCardsBySuit(couleur_));
-                        }
-                        figures2_.sortCharsByGreaterPoints();
-                        positionTemporaire_ = incrementPosByGreaterPoints(
-                                figures_, figures2_, positionTemporaire_);
-                    }
-                    positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
-                }
+            return changePositionsThreeRate(_positions, _wonPlayersTeam, -1);
+        }
+    }
+
+    private static Shorts changePositionsThreeRate(Shorts _positions, CustList<HandTarot> _wonPlayersTeam, int _rate) {
+        Shorts positions_ = new Shorts(_positions);
+        CustList<Shorts> groupes_ = buildGroups(positions_);
+        for (Shorts groupe_ : groupes_) {
+            int groupeLen_ = groupe_.size();
+            for (int i = 0; i < groupeLen_; i++) {
+                short joueur_ = groupe_.get(i);
+                byte positionTemporaire_ = positionTemporaireThree(_wonPlayersTeam, _rate, groupe_, (byte) joueur_);
+                positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
             }
         }
         return positions_;
     }
 
-    private static byte incrementPosByGreaterPoints(HandTarot _charactersOne,
-                                                    HandTarot _charactersTwo, byte _positionTmp) {
-        byte positionTmp_ = _positionTmp;
-        int nbCharacters_ = _charactersOne.total();
-        for (int indiceFigure_ = IndexConstants.FIRST_INDEX; indiceFigure_ < nbCharacters_; indiceFigure_++) {
-            if (_charactersTwo.carte(indiceFigure_).points() < _charactersOne
-                    .carte(indiceFigure_).points()) {
-                positionTmp_++;
-                break;
-            } else if (_charactersTwo.carte(indiceFigure_)
-                    .points() > _charactersOne.carte(
-                    indiceFigure_).points()) {
-                break;
-            }
+    private static byte positionTemporaireThree(CustList<HandTarot> _wonPlayersTeam, int _rate, Shorts _groupe, byte _joueur) {
+        int groupeLen_ = _groupe.size();
+        byte positionTemporaire_ = 1;
+        HandTarot main_ = _wonPlayersTeam.get(_joueur);
+        HandTarot figures_ = new HandTarot();
+        for (Suit couleur_ : Suit.couleursOrdinaires()) {
+            figures_.ajouterCartes(main_.charCardsBySuit(couleur_));
         }
-        return positionTmp_;
+        figures_.sortCharsByGreaterPoints();
+        for (int j = 0; j < groupeLen_; j++) {
+            short joueur2_ = _groupe.get(j);
+            HandTarot main2_ = _wonPlayersTeam.get((byte) joueur2_);
+            HandTarot figures2_ = new HandTarot();
+            for (Suit couleur_ : Suit.couleursOrdinaires()) {
+                figures2_.ajouterCartes(main2_
+                        .charCardsBySuit(couleur_));
+            }
+            figures2_.sortCharsByGreaterPoints();
+            positionTemporaire_ = incrementPosByPoints(
+                    figures_, figures2_, positionTemporaire_, _rate);
+        }
+        return positionTemporaire_;
     }
 
-    private static byte incrementPosByLowerPoints(HandTarot _charactersOne,
-                                                  HandTarot _charactersTwo, byte _positionTmp) {
+    private static byte incrementPosByPoints(HandTarot _charactersOne,
+                                                    HandTarot _charactersTwo, byte _positionTmp, int _rate) {
         byte positionTmp_ = _positionTmp;
         int nbCharacters_ = _charactersOne.total();
         for (int indiceFigure_ = IndexConstants.FIRST_INDEX; indiceFigure_ < nbCharacters_; indiceFigure_++) {
-            if (_charactersTwo.carte(indiceFigure_).points() > _charactersOne
+            if (_rate*_charactersTwo.carte(indiceFigure_).points() > _rate*_charactersOne
                     .carte(indiceFigure_).points()) {
                 positionTmp_++;
-                break;
-            } else if (_charactersTwo.carte(indiceFigure_)
-                    .points() < _charactersOne.carte(
+                return positionTmp_;
+            } else if (_rate*_charactersTwo.carte(indiceFigure_)
+                    .points() < _rate*_charactersOne.carte(
                     indiceFigure_).points()) {
-                break;
+                return positionTmp_;
             }
         }
         return positionTmp_;
@@ -886,41 +943,39 @@ public final class EndTarotGame {
     }
 
     static Shorts changePositionsFour(Shorts _positions, boolean _pasJeuMisere, Ints _tricks) {
-        Shorts positions_ = new Shorts(_positions);
-        byte positionTemporaire_;
-        CustList<Shorts> groupes_ = buildGroups(positions_);
         if (_pasJeuMisere) {
-            for (Shorts groupe_ : groupes_) {
-                for (short joueur_ : groupe_) {
-                    positionTemporaire_ = 1;
-                    for (short joueur2_ : groupe_) {
-                        int indexOne_ = _tricks.get(joueur_);
-                        int indexTwo_ = _tricks.get(joueur2_);
-                        if (indexTwo_ <
-                                indexOne_) {
-                            positionTemporaire_++;
-                        }
-                    }
-                    positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
-                }
-            }
+            return changePositionsFourRate(_positions,1,_tricks);
         } else {
-            for (Shorts groupe_ : groupes_) {
-                for (short joueur_ : groupe_) {
-                    positionTemporaire_ = 1;
-                    for (short joueur2_ : groupe_) {
-                        int indexOne_ = _tricks.get(joueur_);
-                        int indexTwo_ = _tricks.get(joueur2_);
-                        if (indexTwo_ >
-                                indexOne_) {
-                            positionTemporaire_++;
-                        }
-                    }
-                    positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
-                }
+            return changePositionsFourRate(_positions,-1,_tricks);
+        }
+    }
+    private static Shorts changePositionsFourRate(Shorts _positions, int _pasJeuMisere, Ints _tricks) {
+        Shorts positions_ = new Shorts(_positions);
+        CustList<Shorts> groupes_ = buildGroups(positions_);
+        for (Shorts groupe_ : groupes_) {
+            int groupeLen_ = groupe_.size();
+            for (int i = 0; i < groupeLen_; i++) {
+                short joueur_ = groupe_.get(i);
+                byte positionTemporaire_ = positionTemporaireFour(_pasJeuMisere, _tricks, groupe_, joueur_);
+                positions_.set(joueur_, (short) (positions_.get(joueur_) + positionTemporaire_ - 1));
             }
         }
         return positions_;
+    }
+
+    private static byte positionTemporaireFour(int _pasJeuMisere, Ints _tricks, Shorts _groupe, short _joueur) {
+        int groupeLen_ = _groupe.size();
+        byte positionTemporaire_ = 1;
+        for (int j = 0; j < groupeLen_; j++) {
+            short joueur2_ = _groupe.get(j);
+            int indexOne_ = _tricks.get(_joueur);
+            int indexTwo_ = _tricks.get(joueur2_);
+            if (_pasJeuMisere *indexTwo_ <
+                    _pasJeuMisere *indexOne_) {
+                positionTemporaire_++;
+            }
+        }
+        return positionTemporaire_;
     }
 
     static CustList<Shorts> buildGroups(Shorts _positions) {
@@ -954,10 +1009,8 @@ public final class EndTarotGame {
                 index_++;
                 continue;
             }
-            if (_relations.memeEquipe(t.getRamasseur(), (byte) _player)) {
-                if (indexOne_ == -1) {
-                    indexOne_ = index_;
-                }
+            if (_relations.memeEquipe(t.getRamasseur(), (byte) _player) && indexOne_ == -1) {
+                indexOne_ = index_;
             }
             index_++;
         }
@@ -970,223 +1023,294 @@ public final class EndTarotGame {
     }
 
     static Shorts coefficients(Shorts _positions, DealingTarot _repartition) {
-        byte nombreJoueurs_ = (byte) _repartition.getId().getNombreJoueurs();
-        byte maxPosition_ = 0;
-        byte nombreLitiges_;
-        Shorts coefficients_ = new Shorts();
-        for (short position_ : _positions) {
-            maxPosition_ = (byte) Math.max(position_, maxPosition_);
-        }
-        nombreLitiges_ = (byte) (nombreJoueurs_ - maxPosition_ + 1);
         if (_repartition == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL) {
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 1);
-                } else {
-                    coefficients_.add((short) -1);
-                }
-            }
-            return coefficients_;
+            return fourPlayersWithoutCall(_positions);
         }
         if (_repartition == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL) {
-            Shorts positionsDist_ = new Shorts(_positions);
-            positionsDist_.removeDuplicates();
-            if (positionsDist_.size() == 3) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) 0);
-                    } else {
-                        coefficients_.add((short) -1);
-                    }
-                }
-                return coefficients_;
-            }
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 2);
-                } else {
-                    coefficients_.add((short) -1);
-                }
-            }
-            return coefficients_;
+            return sixPlayersWithoutCall(_positions);
         }
+        byte nombreJoueurs_ = (byte) _repartition.getId().getNombreJoueurs();
         if (nombreJoueurs_ == 3) {
-            if (nombreLitiges_ == 1) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 0);
-                    } else {
-                        coefficients_.add((short) -1);
-                    }
-                }
-                return coefficients_;
-            }
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 2);
-                } else {
-                    coefficients_.add((short) -1);
-                }
-            }
-            return coefficients_;
+            return threePlayers(_positions, nombreJoueurs_);
         }
         if (nombreJoueurs_ == 4) {
-            if (nombreLitiges_ == 1) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 2);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) -1);
-                    } else {
-                        coefficients_.add((short) -2);
-                    }
-                }
-                return coefficients_;
-            }
-            if (nombreLitiges_ == 2) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 3);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 1);
-                    } else {
-                        coefficients_.add((short) -2);
-                    }
-                }
-                return coefficients_;
-            }
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 6);
-                } else {
-                    coefficients_.add((short) -2);
-                }
-            }
-            return coefficients_;
+            return fourPlayers(_positions, nombreJoueurs_);
         }
         if (nombreJoueurs_ == 5) {
-            if (nombreLitiges_ == 1) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 2);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) 0);
-                    } else if (position_ == 4) {
-                        coefficients_.add((short) -1);
-                    } else {
-                        coefficients_.add((short) -2);
-                    }
-                }
-                return coefficients_;
-            }
-            if (nombreLitiges_ == 2) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 3);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) 0);
-                    } else {
-                        coefficients_.add((short) -2);
-                    }
-                }
-                return coefficients_;
-            }
-            if (nombreLitiges_ == 3) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 6);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 0);
-                    } else {
-                        coefficients_.add((short) -2);
-                    }
-                }
-                return coefficients_;
-            }
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 8);
-                } else {
-                    coefficients_.add((short) -2);
-                }
-            }
-            return coefficients_;
+            return fivePlayers(_positions, nombreJoueurs_);
         }
+        return sixPlayers(_positions, nombreJoueurs_);
+    }
+
+    private static Shorts sixPlayers(Shorts _positions, byte _nombreJoueurs) {
+        byte maxPosition_ = maxPosition(_positions);
+        byte nombreLitiges_ = (byte) (_nombreJoueurs - maxPosition_ + 1);
         if (nombreLitiges_ == 1) {
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 3);
-                } else if (position_ == 2) {
-                    coefficients_.add((short) 2);
-                } else if (position_ == 3) {
-                    coefficients_.add((short) 1);
-                } else if (position_ == 4) {
-                    coefficients_.add((short) -1);
-                } else if (position_ == 5) {
-                    coefficients_.add((short) -2);
-                } else {
-                    coefficients_.add((short) -3);
-                }
-            }
-            return coefficients_;
+            return sixPlayersDiff(_positions);
         }
         if (nombreLitiges_ == 2) {
+            return sixPlayersNearDiff(_positions);
+        }
+        if (nombreLitiges_ == 3) {
+            return sixPlayersNearNearDiff(_positions);
+        }
+        if (nombreLitiges_ == 4) {
+            Shorts coefficients_ = new Shorts();
             for (short position_ : _positions) {
                 if (position_ == 1) {
-                    coefficients_.add((short) 3);
+                    coefficients_.add(SIX_PLAYERS_THREE_WIN);
                 } else if (position_ == 2) {
-                    coefficients_.add((short) 2);
-                } else if (position_ == 3) {
-                    coefficients_.add((short) 1);
-                } else if (position_ == 4) {
-                    coefficients_.add((short) 0);
+                    coefficients_.add(SIX_PLAYERS_THREE_ZERO);
                 } else {
-                    coefficients_.add((short) -3);
+                    coefficients_.add(SIX_PLAYERS_THREE_LOOSE);
                 }
             }
             return coefficients_;
         }
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(SIX_PLAYERS_WIN);
+            } else {
+                coefficients_.add(SIX_PLAYERS_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts sixPlayersNearNearDiff(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(SIX_PLAYERS_FOUR_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(SIX_PLAYERS_FOUR_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(SIX_PLAYERS_FOUR_THIRD);
+            } else {
+                coefficients_.add(SIX_PLAYERS_FOUR_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts sixPlayersNearDiff(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(SIX_PLAYERS_FIVE_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(SIX_PLAYERS_FIVE_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(SIX_PLAYERS_FIVE_THIRD);
+            } else if (position_ == 4) {
+                coefficients_.add(SIX_PLAYERS_FIVE_FOURTH);
+            } else {
+                coefficients_.add(SIX_PLAYERS_FIVE_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts sixPlayersDiff(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(SIX_PLAYERS_SIX_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(SIX_PLAYERS_SIX_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(SIX_PLAYERS_SIX_THIRD);
+            } else if (position_ == 4) {
+                coefficients_.add(SIX_PLAYERS_SIX_FOURTH);
+            } else if (position_ == 5) {
+                coefficients_.add(SIX_PLAYERS_SIX_FIFTH);
+            } else {
+                coefficients_.add(SIX_PLAYERS_SIX_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fivePlayers(Shorts _positions, byte _nombreJoueurs) {
+        byte maxPosition_ = maxPosition(_positions);
+        byte nombreLitiges_ = (byte) (_nombreJoueurs - maxPosition_ + 1);
+        if (nombreLitiges_ == 1) {
+            return fivePlayersDiff(_positions);
+        }
+        if (nombreLitiges_ == 2) {
+            return fivePlayersNearDiff(_positions);
+        }
+        Shorts coefficients_ = new Shorts();
         if (nombreLitiges_ == 3) {
             for (short position_ : _positions) {
                 if (position_ == 1) {
-                    coefficients_.add((short) 4);
+                    coefficients_.add(FIVE_PLAYERS_THREE_WIN);
                 } else if (position_ == 2) {
-                    coefficients_.add((short) 2);
-                } else if (position_ == 3) {
-                    coefficients_.add((short) 0);
+                    coefficients_.add(FIVE_PLAYERS_THREE_ZERO);
                 } else {
-                    coefficients_.add((short) -2);
-                }
-            }
-            return coefficients_;
-        }
-        if (nombreLitiges_ == 4) {
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 8);
-                } else if (position_ == 2) {
-                    coefficients_.add((short) 0);
-                } else {
-                    coefficients_.add((short) -2);
+                    coefficients_.add(FIVE_PLAYERS_THREE_LOOSE);
                 }
             }
             return coefficients_;
         }
         for (short position_ : _positions) {
             if (position_ == 1) {
-                coefficients_.add((short) 10);
+                coefficients_.add(FIVE_PLAYERS_WIN);
             } else {
-                coefficients_.add((short) -2);
+                coefficients_.add(FIVE_PLAYERS_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fivePlayersNearDiff(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(FIVE_PLAYERS_FOUR_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(FIVE_PLAYERS_FOUR_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(FIVE_PLAYERS_FOUR_THIRD);
+            } else {
+                coefficients_.add(FIVE_PLAYERS_FOUR_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fivePlayersDiff(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(FIVE_PLAYERS_FIVE_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(FIVE_PLAYERS_FIVE_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(FIVE_PLAYERS_FIVE_THIRD);
+            } else if (position_ == 4) {
+                coefficients_.add(FIVE_PLAYERS_FIVE_FOURTH);
+            } else {
+                coefficients_.add(FIVE_PLAYERS_FIVE_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fourPlayers(Shorts _positions, byte _nombreJoueurs) {
+        byte maxPosition_ = maxPosition(_positions);
+        byte nombreLitiges_ = (byte) (_nombreJoueurs - maxPosition_ + 1);
+        if (nombreLitiges_ == 1) {
+            return fourPlayersDiff(_positions);
+        }
+        Shorts coefficients_ = new Shorts();
+        if (nombreLitiges_ == 2) {
+            for (short position_ : _positions) {
+                if (position_ == 1) {
+                    coefficients_.add(FOUR_PLAYERS_THREE_WIN);
+                } else if (position_ == 2) {
+                    coefficients_.add(FOUR_PLAYERS_THREE_ZERO);
+                } else {
+                    coefficients_.add(FOUR_PLAYERS_THREE_LOOSE);
+                }
+            }
+            return coefficients_;
+        }
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(FOUR_PLAYERS_WIN);
+            } else {
+                coefficients_.add(FOUR_PLAYERS_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fourPlayersDiff(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(FOUR_PLAYERS_FOUR_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(FOUR_PLAYERS_FOUR_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(FOUR_PLAYERS_FOUR_THIRD);
+            } else {
+                coefficients_.add(FOUR_PLAYERS_FOUR_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static byte maxPosition(Shorts _positions) {
+        byte maxPosition_ = 0;
+        for (short position_ : _positions) {
+            maxPosition_ = (byte) Math.max(position_, maxPosition_);
+        }
+        return maxPosition_;
+    }
+
+    private static Shorts threePlayers(Shorts _positions, byte _nombreJoueurs) {
+        byte maxPosition_ = maxPosition(_positions);
+        byte nombreLitiges_ = (byte) (_nombreJoueurs - maxPosition_ + 1);
+        Shorts coefficients_ = new Shorts();
+        if (nombreLitiges_ == 1) {
+            for (short position_ : _positions) {
+                if (position_ == 1) {
+                    coefficients_.add(TRHEE_PLAYERS_THREE_WIN);
+                } else if (position_ == 2) {
+                    coefficients_.add(TRHEE_PLAYERS_THREE_ZERO);
+                } else {
+                    coefficients_.add(TRHEE_PLAYERS_THREE_LOOSE);
+                }
+            }
+            return coefficients_;
+        }
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(TRHEE_PLAYERS_WIN);
+            } else {
+                coefficients_.add(TRHEE_PLAYERS_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts sixPlayersWithoutCall(Shorts _positions) {
+        Shorts positionsDist_ = new Shorts(_positions);
+        positionsDist_.removeDuplicates();
+        if (positionsDist_.size() == 3) {
+            Shorts coefficients_ = new Shorts();
+            for (short position_ : _positions) {
+                if (position_ == 1) {
+                    coefficients_.add(SIX_PLAYERS_WITHOUT_CALL_THREE_WIN);
+                } else if (position_ == 3) {
+                    coefficients_.add(SIX_PLAYERS_WITHOUT_CALL_THREE_ZERO);
+                } else {
+                    coefficients_.add(SIX_PLAYERS_WITHOUT_CALL_THREE_LOOSE);
+                }
+            }
+            return coefficients_;
+        }
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(SIX_PLAYERS_WITHOUT_CALL_WIN);
+            } else {
+                coefficients_.add(SIX_PLAYERS_WITHOUT_CALL_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fourPlayersWithoutCall(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(FOUR_PLAYERS_WITHOUT_CALL_WIN);
+            } else {
+                coefficients_.add(FOUR_PLAYERS_WITHOUT_CALL_LOOSE);
             }
         }
         return coefficients_;
@@ -1198,226 +1322,294 @@ public final class EndTarotGame {
     }
 
     static Shorts coefficientsMisere(Shorts _positions, DealingTarot _repartition) {
+        if (_repartition == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL) {
+            return fourPlayersWithoutCallMisere(_positions);
+        }
+        if (_repartition == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL) {
+            return sixPlayersWithoutCallMisere(_positions);
+        }
         byte nombreJoueurs_ = (byte) _repartition.getId().getNombreJoueurs();
-        byte nombreLitiges_ = 0;
+        if (nombreJoueurs_ == 3) {
+            return threePlayersMisere(_positions);
+        }
+        if (nombreJoueurs_ == 4) {
+            return fourPlayersMisere(_positions);
+        }
+        if (nombreJoueurs_ == 5) {
+            return fivePlayersMisere(_positions);
+        }
+        return sixPlayersMisere(_positions);
+    }
+
+    private static Shorts sixPlayersMisere(Shorts _positions) {
+        byte nombreLitiges_ = nombreLitiges(_positions);
+        if (nombreLitiges_ == 1) {
+            return sixPlayersDiffMisere(_positions);
+        }
+        if (nombreLitiges_ == 2) {
+            return sixPlayersNearDiffMisere(_positions);
+        }
+        if (nombreLitiges_ == 3) {
+            return sixPlayersNearNearDiffMisere(_positions);
+        }
         Shorts coefficients_ = new Shorts();
+        if (nombreLitiges_ == 4) {
+            for (short position_ : _positions) {
+                if (position_ == 1) {
+                    coefficients_.add(MIS_SIX_PLAYERS_THREE_WIN);
+                } else if (position_ == 5) {
+                    coefficients_.add(MIS_SIX_PLAYERS_THREE_ZERO);
+                } else {
+                    coefficients_.add(MIS_SIX_PLAYERS_THREE_LOOSE);
+                }
+            }
+            return coefficients_;
+        }
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_SIX_PLAYERS_WIN);
+            } else {
+                coefficients_.add(MIS_SIX_PLAYERS_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts sixPlayersNearNearDiffMisere(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_SIX_PLAYERS_FOUR_WIN);
+            } else if (position_ == 4) {
+                coefficients_.add(MIS_SIX_PLAYERS_FOUR_SECOND);
+            } else if (position_ == 5) {
+                coefficients_.add(MIS_SIX_PLAYERS_FOUR_THIRD);
+            } else {
+                coefficients_.add(MIS_SIX_PLAYERS_FOUR_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts sixPlayersNearDiffMisere(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_SIX_PLAYERS_FIVE_WIN);
+            } else if (position_ == 3) {
+                coefficients_.add(MIS_SIX_PLAYERS_FIVE_SECOND);
+            } else if (position_ == 4) {
+                coefficients_.add(MIS_SIX_PLAYERS_FIVE_THIRD);
+            } else if (position_ == 5) {
+                coefficients_.add(MIS_SIX_PLAYERS_FIVE_FOURTH);
+            } else {
+                coefficients_.add(MIS_SIX_PLAYERS_FIVE_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts sixPlayersDiffMisere(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_SIX_PLAYERS_SIX_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(MIS_SIX_PLAYERS_SIX_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(MIS_SIX_PLAYERS_SIX_THIRD);
+            } else if (position_ == 4) {
+                coefficients_.add(MIS_SIX_PLAYERS_SIX_FOURTH);
+            } else if (position_ == 5) {
+                coefficients_.add(MIS_SIX_PLAYERS_SIX_FIFTH);
+            } else {
+                coefficients_.add(MIS_SIX_PLAYERS_SIX_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fivePlayersMisere(Shorts _positions) {
+        byte nombreLitiges_ = nombreLitiges(_positions);
+        if (nombreLitiges_ == 1) {
+            return fivePlayersDiffMisere(_positions);
+        }
+        if (nombreLitiges_ == 2) {
+            return fivePlayersNearDiffMisere(_positions);
+        }
+        Shorts coefficients_ = new Shorts();
+        if (nombreLitiges_ == 3) {
+            for (short position_ : _positions) {
+                if (position_ == 1) {
+                    coefficients_.add(MIS_FIVE_PLAYERS_THREE_WIN);
+                } else if (position_ == 4) {
+                    coefficients_.add(MIS_FIVE_PLAYERS_THREE_ZERO);
+                } else {
+                    coefficients_.add(MIS_FIVE_PLAYERS_THREE_LOOSE);
+                }
+            }
+            return coefficients_;
+        }
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_FIVE_PLAYERS_WIN);
+            } else {
+                coefficients_.add(MIS_FIVE_PLAYERS_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fivePlayersNearDiffMisere(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_FIVE_PLAYERS_FOUR_WIN);
+            } else if (position_ == 3) {
+                coefficients_.add(MIS_FIVE_PLAYERS_FOUR_SECOND);
+            } else if (position_ == 4) {
+                coefficients_.add(MIS_FIVE_PLAYERS_FOUR_THIRD);
+            } else {
+                coefficients_.add(MIS_FIVE_PLAYERS_FOUR_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fivePlayersDiffMisere(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_FIVE_PLAYERS_FIVE_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(MIS_FIVE_PLAYERS_FIVE_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(MIS_FIVE_PLAYERS_FIVE_THIRD);
+            } else if (position_ == 4) {
+                coefficients_.add(MIS_FIVE_PLAYERS_FIVE_FOURTH);
+            } else {
+                coefficients_.add(MIS_FIVE_PLAYERS_FIVE_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fourPlayersMisere(Shorts _positions) {
+        byte nombreLitiges_ = nombreLitiges(_positions);
+        if (nombreLitiges_ == 1) {
+            return fourPlayersDiffMisere(_positions);
+        }
+        Shorts coefficients_ = new Shorts();
+        if (nombreLitiges_ == 2) {
+            for (short position_ : _positions) {
+                if (position_ == 1) {
+                    coefficients_.add(MIS_FOUR_PLAYERS_THREE_WIN);
+                } else if (position_ == 3) {
+                    coefficients_.add(MIS_FOUR_PLAYERS_THREE_ZERO);
+                } else {
+                    coefficients_.add(MIS_FOUR_PLAYERS_THREE_LOOSE);
+                }
+            }
+            return coefficients_;
+        }
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_FOUR_PLAYERS_LOOSE);
+            } else {
+                coefficients_.add(MIS_FOUR_PLAYERS_WIN);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fourPlayersDiffMisere(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_FOUR_PLAYERS_FOUR_WIN);
+            } else if (position_ == 2) {
+                coefficients_.add(MIS_FOUR_PLAYERS_FOUR_SECOND);
+            } else if (position_ == 3) {
+                coefficients_.add(MIS_FOUR_PLAYERS_FOUR_THIRD);
+            } else {
+                coefficients_.add(MIS_FOUR_PLAYERS_FOUR_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts threePlayersMisere(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        byte nombreLitiges_ = nombreLitiges(_positions);
+        if (nombreLitiges_ == 1) {
+            for (short position_ : _positions) {
+                if (position_ == 1) {
+                    coefficients_.add(MIS_THREE_PLAYERS_THREE_WIN);
+                } else if (position_ == 2) {
+                    coefficients_.add(MIS_THREE_PLAYERS_THREE_ZERO);
+                } else {
+                    coefficients_.add(MIS_THREE_PLAYERS_THREE_LOOSE);
+                }
+            }
+            return coefficients_;
+        }
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_THREE_PLAYERS_WIN);
+            } else {
+                coefficients_.add(MIS_THREE_PLAYERS_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts sixPlayersWithoutCallMisere(Shorts _positions) {
+        Shorts positionsDist_ = new Shorts(_positions);
+        positionsDist_.removeDuplicates();
+        if (positionsDist_.size() == 3) {
+            Shorts coefficients_ = new Shorts();
+            for (short position_ : _positions) {
+                if (position_ == 1) {
+                    coefficients_.add(MIS_SIX_PLAYERS_WITHOUT_CALL_THREE_WIN);
+                } else if (position_ == 3) {
+                    coefficients_.add(MIS_SIX_PLAYERS_WITHOUT_CALL_THREE_ZERO);
+                } else {
+                    coefficients_.add(MIS_SIX_PLAYERS_WITHOUT_CALL_THREE_LOOSE);
+                }
+            }
+            return coefficients_;
+        }
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_SIX_PLAYERS_WITHOUT_CALL_WIN);
+            } else {
+                coefficients_.add(MIS_SIX_PLAYERS_WITHOUT_CALL_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static Shorts fourPlayersWithoutCallMisere(Shorts _positions) {
+        Shorts coefficients_ = new Shorts();
+        for (short position_ : _positions) {
+            if (position_ == 1) {
+                coefficients_.add(MIS_FOUR_PLAYERS_WITHOUT_CALL_WIN);
+            } else {
+                coefficients_.add(MIS_FOUR_PLAYERS_WITHOUT_CALL_LOOSE);
+            }
+        }
+        return coefficients_;
+    }
+
+    private static byte nombreLitiges(Shorts _positions) {
+        byte nombreLitiges_ = 0;
         for (short position_ : _positions) {
             if (position_ == 1) {
                 nombreLitiges_++;
             }
         }
-        if (_repartition == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL) {
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 1);
-                } else {
-                    coefficients_.add((short) -1);
-                }
-            }
-            return coefficients_;
-        }
-        if (_repartition == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL) {
-            Shorts positionsDist_ = new Shorts(_positions);
-            positionsDist_.removeDuplicates();
-            if (positionsDist_.size() == 3) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) 0);
-                    } else {
-                        coefficients_.add((short) -1);
-                    }
-                }
-                return coefficients_;
-            }
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 1);
-                } else {
-                    coefficients_.add((short) -2);
-                }
-            }
-            return coefficients_;
-        }
-        if (nombreJoueurs_ == 3) {
-            if (nombreLitiges_ == 1) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 0);
-                    } else {
-                        coefficients_.add((short) -1);
-                    }
-                }
-                return coefficients_;
-            }
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 1);
-                } else {
-                    coefficients_.add((short) -2);
-                }
-            }
-            return coefficients_;
-        }
-        if (nombreJoueurs_ == 4) {
-            if (nombreLitiges_ == 1) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 2);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) -1);
-                    } else {
-                        coefficients_.add((short) -2);
-                    }
-                }
-                return coefficients_;
-            }
-            if (nombreLitiges_ == 2) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 2);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) -1);
-                    } else {
-                        coefficients_.add((short) -3);
-                    }
-                }
-                return coefficients_;
-            }
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 2);
-                } else {
-                    coefficients_.add((short) -6);
-                }
-            }
-            return coefficients_;
-        }
-        if (nombreJoueurs_ == 5) {
-            if (nombreLitiges_ == 1) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 2);
-                    } else if (position_ == 2) {
-                        coefficients_.add((short) 1);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) 0);
-                    } else if (position_ == 4) {
-                        coefficients_.add((short) -1);
-                    } else {
-                        coefficients_.add((short) -2);
-                    }
-                }
-                return coefficients_;
-            }
-            if (nombreLitiges_ == 2) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 2);
-                    } else if (position_ == 3) {
-                        coefficients_.add((short) 0);
-                    } else if (position_ == 4) {
-                        coefficients_.add((short) -1);
-                    } else {
-                        coefficients_.add((short) -3);
-                    }
-                }
-                return coefficients_;
-            }
-            if (nombreLitiges_ == 3) {
-                for (short position_ : _positions) {
-                    if (position_ == 1) {
-                        coefficients_.add((short) 2);
-                    } else if (position_ == 4) {
-                        coefficients_.add((short) 0);
-                    } else {
-                        coefficients_.add((short) -6);
-                    }
-                }
-                return coefficients_;
-            }
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 2);
-                } else {
-                    coefficients_.add((short) -8);
-                }
-            }
-            return coefficients_;
-        }
-        if (nombreLitiges_ == 1) {
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 3);
-                } else if (position_ == 2) {
-                    coefficients_.add((short) 2);
-                } else if (position_ == 3) {
-                    coefficients_.add((short) 1);
-                } else if (position_ == 4) {
-                    coefficients_.add((short) -1);
-                } else if (position_ == 5) {
-                    coefficients_.add((short) -2);
-                } else {
-                    coefficients_.add((short) -3);
-                }
-            }
-            return coefficients_;
-        }
-        if (nombreLitiges_ == 2) {
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 3);
-                } else if (position_ == 3) {
-                    coefficients_.add((short) 0);
-                } else if (position_ == 4) {
-                    coefficients_.add((short) -1);
-                } else if (position_ == 5) {
-                    coefficients_.add((short) -2);
-                } else {
-                    coefficients_.add((short) -3);
-                }
-            }
-            return coefficients_;
-        }
-        if (nombreLitiges_ == 3) {
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 2);
-                } else if (position_ == 4) {
-                    coefficients_.add((short) 0);
-                } else if (position_ == 5) {
-                    coefficients_.add((short) -2);
-                } else {
-                    coefficients_.add((short) -4);
-                }
-            }
-            return coefficients_;
-        }
-        if (nombreLitiges_ == 4) {
-            for (short position_ : _positions) {
-                if (position_ == 1) {
-                    coefficients_.add((short) 2);
-                } else if (position_ == 5) {
-                    coefficients_.add((short) 0);
-                } else {
-                    coefficients_.add((short) -8);
-                }
-            }
-            return coefficients_;
-        }
-        for (short position_ : _positions) {
-            if (position_ == 1) {
-                coefficients_.add((short) 2);
-            } else {
-                coefficients_.add((short) -10);
-            }
-        }
-        return coefficients_;
+        return nombreLitiges_;
     }
 
     public CustList<EnumMap<Handfuls,Short>> calculHandfulsScorePlayer(byte _player) {
@@ -1470,11 +1662,9 @@ public final class EndTarotGame {
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
             scores1_.add(new Shorts());
 
-            if (_relations.memeEquipe(joueur2_,_player)) {
-                if (_smallBound.get(joueur2_) == BoolVal.TRUE) {
-                    scores1_.last().add(
-                            (short) BonusTarot.SMALL_BOUND.getPoints());
-                }
+            if (_relations.memeEquipe(joueur2_, _player) && _smallBound.get(joueur2_) == BoolVal.TRUE) {
+                scores1_.last().add(
+                        (short) BonusTarot.SMALL_BOUND.getPoints());
             }
         }
         return scores1_;
@@ -1555,46 +1745,47 @@ public final class EndTarotGame {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         Shorts scores_ = new Shorts();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-            scores_.add((short)0);
-        }
-        short pointsAnnoncesJoueur_;
-        short pointsAnnoncesAutresJoueurs_;
-        short sommePrimeSupplementaire_;
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-            pointsAnnoncesJoueur_ = 0;
-            pointsAnnoncesAutresJoueurs_ = 0;
-            for (EnumMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(joueur_, _relations, _declaresHandfuls)) {
-                CustList<Short> values_ = annoncesJoueur_.values();
-                pointsAnnoncesJoueur_ += sum(values_);
-            }
-            for (EnumMap<Miseres,Short> annoncesJoueur_ : calculMiseresScorePlayer(joueur_, _relations, _declaresMiseres)) {
-                CustList<Short> values_ = annoncesJoueur_.values();
-                pointsAnnoncesJoueur_ += sum(values_);
-            }
-            for (Shorts annoncesJoueur_ : calculSmallLastTurnScorePlayer(joueur_, _relations, _smallBound)) {
-                pointsAnnoncesJoueur_ += sum(annoncesJoueur_);
-            }
-            sommePrimeSupplementaire_ = 0;
+            short pointsAnnoncesAutresJoueurs_ = 0;
+            short pointsAnnoncesJoueur_ = pointsAnnoncesJoueur(_relations, _declaresHandfuls, _declaresMiseres, _smallBound, joueur_);
+            short sommePrimeSupplementaire_ = 0;
             for (byte j_ = IndexConstants.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
-                if (!_relations.memeEquipe(j_, joueur_)) {
-                    sommePrimeSupplementaire_ += _primeSupplementaire.get(j_);
-                    for (Handfuls h : _declaresHandfuls.get(j_)) {
-                        pointsAnnoncesAutresJoueurs_ += h.getPoints();
-                    }
-                    for (Miseres h : _declaresMiseres.get(j_)) {
-                        pointsAnnoncesAutresJoueurs_ += h.getPoints();
-                    }
-                    if (_smallBound.get(j_) == BoolVal.TRUE) {
-                        pointsAnnoncesAutresJoueurs_ += BonusTarot.SMALL_BOUND.getPoints();
-                    }
+                if (_relations.memeEquipe(j_, joueur_)) {
+                    continue;
+                }
+                sommePrimeSupplementaire_ += _primeSupplementaire.get(j_);
+                for (Handfuls h : _declaresHandfuls.get(j_)) {
+                    pointsAnnoncesAutresJoueurs_ += h.getPoints();
+                }
+                for (Miseres h : _declaresMiseres.get(j_)) {
+                    pointsAnnoncesAutresJoueurs_ += h.getPoints();
+                }
+                if (_smallBound.get(j_) == BoolVal.TRUE) {
+                    pointsAnnoncesAutresJoueurs_ += BonusTarot.SMALL_BOUND.getPoints();
                 }
             }
-            scores_.set(joueur_,
-                    (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + _sumLoc / 2)
-                            + (nombreJoueurs_ - 1) * (pointsAnnoncesJoueur_ + _primeSupplementaire.get(joueur_))
-                            - pointsAnnoncesAutresJoueurs_ - sommePrimeSupplementaire_)));
+            short score_ = (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + _sumLoc / 2)
+                    + (nombreJoueurs_ - 1) * (pointsAnnoncesJoueur_ + _primeSupplementaire.get(joueur_))
+                    - pointsAnnoncesAutresJoueurs_ - sommePrimeSupplementaire_));
+            scores_.add(
+                    score_);
         }
         return scores_;
+    }
+
+    private static short pointsAnnoncesJoueur(GameTarotTeamsRelation _relations, CustList<EnumList<Handfuls>> _declaresHandfuls, CustList<EnumList<Miseres>> _declaresMiseres, CustList<BoolVal> _smallBound, byte _joueur) {
+        short pointsAnnoncesJoueur_ = 0;
+        for (EnumMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(_joueur, _relations, _declaresHandfuls)) {
+            CustList<Short> values_ = annoncesJoueur_.values();
+            pointsAnnoncesJoueur_ += sum(values_);
+        }
+        for (EnumMap<Miseres,Short> annoncesJoueur_ : calculMiseresScorePlayer(_joueur, _relations, _declaresMiseres)) {
+            CustList<Short> values_ = annoncesJoueur_.values();
+            pointsAnnoncesJoueur_ += sum(values_);
+        }
+        for (Shorts annoncesJoueur_ : calculSmallLastTurnScorePlayer(_joueur, _relations, _smallBound)) {
+            pointsAnnoncesJoueur_ += sum(annoncesJoueur_);
+        }
+        return pointsAnnoncesJoueur_;
     }
 
     static short sum(CustList<Short> _ls) {
@@ -1646,27 +1837,27 @@ public final class EndTarotGame {
             }
             if (!_players.containsObj(t.getRamasseur())) {
                 nbOther_++;
-                continue;
+            } else {
+                tricks_.add(t);
             }
-            tricks_.add(t);
         }
-        if (indExc_ < 0) {
-            return tricks_;
+        return wonTricksListTeam(_players, tricks_, lastTrick_, indExc_, nbOther_);
+    }
+
+    private static CustList<TrickTarot> wonTricksListTeam(Bytes _players, CustList<TrickTarot> _tricks, TrickTarot _lastTrick, byte _indExc, int _nbOther) {
+        if (_indExc < 0) {
+            return _tricks;
         }
-        if (nbOther_ == 0) {
-            if (_players.containsObj(indExc_) || _players.containsObj(lastTrick_.getRamasseur())) {
-                tricks_.add(lastTrick_);
+        if (_nbOther == 0) {
+            if (_players.containsObj(_indExc) || _players.containsObj(_lastTrick.getRamasseur())) {
+                _tricks.add(_lastTrick);
             }
         } else {
-            if (_players.containsObj(lastTrick_.getRamasseur())) {
-                if (!tricks_.isEmpty()) {
-                    tricks_.add(lastTrick_);
-                } else if (_players.containsObj(indExc_)) {
-                    tricks_.add(lastTrick_);
-                }
+            if (_players.containsObj(_lastTrick.getRamasseur()) && (!_tricks.isEmpty() || _players.containsObj(_indExc))) {
+                _tricks.add(_lastTrick);
             }
         }
-        return tricks_;
+        return _tricks;
     }
 
     Ints getFirstTrick() {
