@@ -322,7 +322,22 @@ public final class GameTarotProgTrickClassic {
             return cartesRelMaitres_.last()
                     .premiereCarte();
         }
+        CardTarot cardTarot_ = tryFollow(_info);
+        if (cardTarot_ != CardTarot.WHITE) {
+            return cardTarot_;
+        }
+        return repartitionCouleDem_
+                .premiereCarte();
+    }
+    private CardTarot tryFollow(TarotInfoPliEnCours _info) {
+        Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         EnumList<Suit> couleursAppelees_ = common.couleursAppelees();
+        EnumMap<Suit,HandTarot> cartesMaitresses_ = _info.getCartesMaitresses();
+        EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
+        HandTarot repartitionCouleDem_ = _info.getCartesJouables().couleurs().getVal(couleurDemandee_);
+        CustList<HandTarot> suites_ = repartitionCouleDem_
+                .eclaterEnCours(repartitionCartesJouees_, couleurDemandee_);
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         if (couleursAppelees_.containsObj(couleurDemandee_)) {/* La couleur demandee est la couleur appelee */
             if (cartesMaitresses_.getVal(couleurDemandee_)
                     .estVide()) {
@@ -351,9 +366,9 @@ public final class GameTarotProgTrickClassic {
                 cartesPossibles_, couleurDemandee_, notConfidentPlayersNotPlay)) {
             return jeuFigureHauteDePlusFaibleSuite(suites_);
         }
-        return repartitionCouleDem_
-                .premiereCarte();
+        return CardTarot.WHITE;
     }
+
 
     private CardTarot processWhenPossibleTrumps(CustList<HandTarot> _suites, Bytes _joueursSusceptiblesDeCouper, boolean _maitreJeu) {
         if (!GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers, _joueursSusceptiblesDeCouper).isEmpty()) {
@@ -395,7 +410,6 @@ public final class GameTarotProgTrickClassic {
     }
 
     CardTarot playWhenLastDiscard(TarotInfoPliEnCours _info) {
-        EnumList<Suit> couleursAppelees_ = common.couleursAppelees();
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         boolean maitreJeu_ = _info.isMaitreJeu();
@@ -404,7 +418,6 @@ public final class GameTarotProgTrickClassic {
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         boolean joueurConfianceRamasseur_ = confidentPlayers.containsObj(ramasseurVirtuel_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
-        EnumMap<Suit,HandTarot> cartesMaitresses_ = _info.getCartesMaitresses();
         EnumMap<Suit,HandTarot> repartitionJouables_ = _info.getCartesJouables().couleurs();
         CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nombreDeJoueurs_);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
@@ -425,32 +438,9 @@ public final class GameTarotProgTrickClassic {
             return cartesRelMaitres_.last()
                     .premiereCarte();
         }
-        if (couleursAppelees_.containsObj(couleurDemandee_)) {
-            /* La couleur demandee est la couleur appelee */
-            if (cartesMaitresses_.getVal(couleurDemandee_)
-                    .estVide()) {
-                return jeuFigureHauteDePlusFaibleSuite(suites_);
-            }
-            return repartitionCouleDem_.premiereCarte();
-        }
-        if (cartesMaitresses_.getVal(couleurDemandee_)
-                .estVide()) {/* Le joueur n'a aucune cartes maitresses */
-            if (aucunePriseMainPossibleParFigure(
-                    cartesPossibles_, couleurDemandee_, notConfidentPlayersNotPlay)) {
-                return repartitionCouleDem_
-                        .premiereCarte();
-            }
-            return carteLaPlusPetite(suites_);
-        }
-        if (suites_.size() == 1
-                || !suites_.get(1).premiereCarte()
-                .isCharacter()) {
-            return repartitionCouleDem_
-                    .premiereCarte();
-        }
-        if (aucunePriseMainPossibleParFigure(
-                cartesPossibles_, couleurDemandee_, notConfidentPlayersNotPlay)) {
-            return jeuFigureHauteDePlusFaibleSuite(suites_);
+        CardTarot cardTarot_ = tryFollow(_info);
+        if (cardTarot_ != CardTarot.WHITE) {
+            return cardTarot_;
         }
         if (carteForte_.isCharacter()) {
             if (!joueurConfianceRamasseurProbaPli_) {
@@ -793,14 +783,9 @@ public final class GameTarotProgTrickClassic {
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
         EnumMap<Suit,HandTarot> repartitionJouables_ = _info.getCartesJouables().couleurs();
         boolean maitreJeu_ = _info.isMaitreJeu();
-        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
-        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
-        HandTarot atoutsCoupe_;
-        atoutsCoupe_ = repartitionJouables_.getVal(Suit.TRUMP);
-        CustList<HandTarot> suites_;
-        suites_ = atoutsCoupe_.eclaterEnCours(
-                repartitionCartesJouees_, couleurDemandee_);
+        HandTarot atoutsCoupe_ = repartitionJouables_.getVal(Suit.TRUMP);
+        CustList<HandTarot> suites_ = atoutsCoupe_.eclaterEnCours(repartitionCartesJouees_, couleurDemandee_);
         Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
         Bytes joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
         Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfiance_, joueursNonJoue_);
@@ -810,9 +795,10 @@ public final class GameTarotProgTrickClassic {
         HandTarot atoutsCoupeSansPetit_ = new HandTarot();
         atoutsCoupeSansPetit_.ajouterCartes(atoutsCoupe_);
         atoutsCoupeSansPetit_.removeCardIfPresent(CardTarot.TRUMP_1);
-        CustList<HandTarot> suitesSansPetit_;
-        suitesSansPetit_ = atoutsCoupeSansPetit_.eclaterEnCours(
+        CustList<HandTarot> suitesSansPetit_ = atoutsCoupeSansPetit_.eclaterEnCours(
                 repartitionCartesJouees_, couleurDemandee_);
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         CustList<HandTarot> cartesRelMaitresSansPetit_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suitesSansPetit_, cartesPossibles_, joueursNonJoue_,
                 Suit.TRUMP, couleurDemandee_, cartesCertaines_,
@@ -860,15 +846,13 @@ public final class GameTarotProgTrickClassic {
         CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(virtLead_, nombreDeJoueurs_);
         EnumMap<Suit,HandTarot> repartitionJouables_ = _info.getCartesJouables().couleurs();
         boolean maitreJeu_ = _info.isMaitreJeu();
-        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
-        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
-        HandTarot atoutsCoupe_;
-        atoutsCoupe_ = repartitionJouables_.getVal(Suit.TRUMP);
-        CustList<HandTarot> suites_;
-        suites_ = atoutsCoupe_.eclaterEnCours(
+        HandTarot atoutsCoupe_ = repartitionJouables_.getVal(Suit.TRUMP);
+        CustList<HandTarot> suites_ = atoutsCoupe_.eclaterEnCours(
                 repartitionCartesJouees_, couleurDemandee_);
         Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, cartesPossibles_, joueursNonJoue_,
                 Suit.TRUMP, couleurDemandee_, cartesCertaines_,
