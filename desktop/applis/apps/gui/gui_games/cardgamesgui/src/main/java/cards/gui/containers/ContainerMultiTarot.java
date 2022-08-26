@@ -529,7 +529,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!_declaration.isFirstRoundPlaying()) {
             setChoosenHandful(Handfuls.NO);
             for (Miseres m: getSelectedMiseres().getKeys()) {
-                getSelectedMiseres().put(m, false);
+                getSelectedMiseres().put(m, BoolVal.FALSE);
             }
             return;
         }
@@ -544,7 +544,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
         handFuls_.add(scroll_);
         setChoosenHandful(Handfuls.NO);
-        setSelectedMiseres(new IdMap<Miseres,Boolean>());
+        setSelectedMiseres(new IdMap<Miseres,BoolVal>());
         CustList<AbsRadioButton> list_ = new CustList<AbsRadioButton>();
         for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
             AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
@@ -565,7 +565,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         for(Miseres po_:_declaration.getAllowedMiseres()) {
             AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
             check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
-            getSelectedMiseres().put(po_, false);
+            getSelectedMiseres().put(po_, BoolVal.FALSE);
             miseres_.add(check_);
         }
         getPanneauBoutonsJeu().add(miseres_);

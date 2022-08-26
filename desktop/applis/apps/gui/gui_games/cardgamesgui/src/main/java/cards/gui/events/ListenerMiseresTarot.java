@@ -4,6 +4,7 @@ import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Miseres;
 import code.gui.AbsCustCheckBox;
 import code.gui.events.AbsActionListener;
+import code.util.comparators.ComparatorBoolean;
 
 public class ListenerMiseresTarot implements AbsActionListener {
 
@@ -18,6 +19,6 @@ public class ListenerMiseresTarot implements AbsActionListener {
 
     @Override
     public void action() {
-        container.getSelectedMiseres().put(miseres, check.isSelected());
+        container.getSelectedMiseres().put(miseres,ComparatorBoolean.of(check.isSelected()));
     }
 }

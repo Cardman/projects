@@ -61,8 +61,8 @@ public final class Net {
 
     private CustList<Longs> scores = new CustList<Longs>();
 
-    private ByteMap<Boolean> activePlayers;
-    private ByteMap<Boolean> received;
+    private ByteMap<BoolVal> activePlayers;
+    private ByteMap<BoolVal> received;
 
     public static int getPort() {
         return PORT;
@@ -196,9 +196,9 @@ public final class Net {
      * @param _instance
      * @param _common*/
     static void initAllPresent(Net _instance, NetCommon _common) {
-        _instance.activePlayers = new ByteMap<Boolean>();
+        _instance.activePlayers = new ByteMap<BoolVal>();
         for (byte r: _common.getPlacesPlayers().values()) {
-            _instance.activePlayers.put(r, true);
+            _instance.activePlayers.put(r, BoolVal.TRUE);
         }
     }
     static void initAllReady(NetCommon _common) {
@@ -211,11 +211,11 @@ public final class Net {
      * @param _common*/
     static void initAllReceived(Net _instance, NetCommon _common) {
         if (_instance.received == null) {
-            _instance.received = new ByteMap<Boolean>();
+            _instance.received = new ByteMap<BoolVal>();
         }
         for (byte r: _common.getPlacesPlayers().values()) {
-            if (_instance.activePlayers.getVal(r)) {
-                _instance.received.put(r, false);
+            if (_instance.activePlayers.getVal(r) == BoolVal.TRUE) {
+                _instance.received.put(r, BoolVal.FALSE);
             } else {
                 setReceivedForPlayer(r, _instance);
             }
@@ -228,13 +228,13 @@ public final class Net {
         if (_instance.activePlayers == null) {
             return;
         }
-        _instance.activePlayers.put(_p, false);
+        _instance.activePlayers.put(_p, BoolVal.FALSE);
         setReceivedForPlayer(_p, _instance);
     }
     //bk: synchronized
     /**server*/
     static void setReceivedForPlayer(byte _p, Net _instance) {
-        _instance.received.put(_p,true);
+        _instance.received.put(_p,BoolVal.TRUE);
     }
 
     //bk: synchronized
@@ -245,7 +245,7 @@ public final class Net {
             if (!_players.containsObj(p)) {
                 continue;
             }
-            if (_instance.received.getVal(p)) {
+            if (_instance.received.getVal(p) == BoolVal.TRUE) {
                 continue;
             }
             allReceived_ = false;
@@ -256,8 +256,8 @@ public final class Net {
 
     static boolean allReceived(Net _instance) {
         boolean allReceived_ = true;
-        for (boolean r: _instance.received.values()) {
-            if (r) {
+        for (BoolVal r: _instance.received.values()) {
+            if (r == BoolVal.TRUE) {
                 continue;
             }
             allReceived_ = false;
@@ -288,7 +288,7 @@ public final class Net {
         }
         Bytes activePlayers_ = new Bytes();
         for (byte i: _common.getPlacesPlayers().values()) {
-            if (!_instance.activePlayers.getVal(i)) {
+            if (_instance.activePlayers.getVal(i) != BoolVal.TRUE) {
                 continue;
             }
             activePlayers_.add(i);
@@ -302,7 +302,7 @@ public final class Net {
      * @param _instance
      * @param _common */
     static boolean isHumanPlayer(byte _place, Net _instance, NetCommon _common) {
-        return !getPlacesPlayersByValue(_place, _common).isEmpty() && _instance.activePlayers.getVal(_place);
+        return !getPlacesPlayersByValue(_place, _common).isEmpty() && _instance.activePlayers.getVal(_place) == BoolVal.TRUE;
     }
     /**server
      @return the associated socket of the place or null if it is an invalid place for a player

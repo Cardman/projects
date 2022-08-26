@@ -69,6 +69,7 @@ import code.util.EnumList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -646,7 +647,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         afficherMainUtilisateurTarot(true);
         setRaisonCourante(EMPTY);
         setChoosenHandful(Handfuls.NO);
-        setSelectedMiseres(new IdMap<Miseres,Boolean>());
+        setSelectedMiseres(new IdMap<Miseres,BoolVal>());
         String lg_ = getOwner().getLanguageKey();
         GameTarot partie_=partieTarot();
         if(partie_.premierTourNoMisere()) {
@@ -684,7 +685,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
                 //check_.addChangeListener(new ListenerMiseres(check_,po_));
                 check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
-                getSelectedMiseres().put(po_, false);
+                getSelectedMiseres().put(po_, BoolVal.FALSE);
                 miseresPanel_.add(check_);
             }
             panneau_.add(miseresPanel_);

@@ -28,6 +28,7 @@ import code.util.EnumList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public abstract class ContainerTarot extends ContainerGame{
@@ -57,7 +58,7 @@ public abstract class ContainerTarot extends ContainerGame{
     private AbsSplitPane declaringHandful;
     private AbsPanel includedTrumpsForHandful;
     private AbsPanel excludedTrumpsForHandful;
-    private IdMap<Miseres,Boolean> selectedMiseres = new IdMap<Miseres,Boolean>();
+    private IdMap<Miseres,BoolVal> selectedMiseres = new IdMap<Miseres,BoolVal>();
     private AbsScrollPane scrollCallableCards;
     private AbsPanel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
@@ -237,17 +238,17 @@ public abstract class ContainerTarot extends ContainerGame{
     public EnumList<Miseres> getAllowedMiseres() {
         EnumList<Miseres> l_;
         l_ = new EnumList<Miseres>();
-        for (EntryCust<Miseres,Boolean> e: selectedMiseres.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<Miseres,BoolVal> e: selectedMiseres.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());
             }
         }
         return l_;
     }
-    public IdMap<Miseres,Boolean> getSelectedMiseres() {
+    public IdMap<Miseres,BoolVal> getSelectedMiseres() {
         return selectedMiseres;
     }
-    protected void setSelectedMiseres(IdMap<Miseres,Boolean> _selectedMiseres) {
+    protected void setSelectedMiseres(IdMap<Miseres,BoolVal> _selectedMiseres) {
         selectedMiseres = _selectedMiseres;
     }
     public boolean isArretDemo() {
