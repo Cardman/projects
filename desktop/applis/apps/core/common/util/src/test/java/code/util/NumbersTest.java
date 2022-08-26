@@ -902,19 +902,19 @@ public class NumbersTest extends EquallableExUtil {
     }
     @Test
     public void containsObj2Test(){
-        Longs nbs_ = new Longs(5L,1L);
+        Longs nbs_ = Longs.newList(5L,1L);
         assertTrue(nbs_.containsObj(1));
         assertTrue(!nbs_.containsObj(2));
     }
     @Test
     public void containsObj3Test(){
-        Bytes nbs_ = new Bytes((byte)5,(byte)1);
+        Bytes nbs_ = Bytes.newList((byte)5,(byte)1);
         assertTrue(nbs_.containsObj(1));
         assertTrue(!nbs_.containsObj(2));
     }
     @Test
     public void containsObj4Test(){
-        Shorts nbs_ = new Shorts((short)5,(short)1);
+        Shorts nbs_ = Shorts.newList((short)5,(short)1);
         assertTrue(nbs_.containsObj(1));
         assertTrue(!nbs_.containsObj(2));
     }
@@ -958,6 +958,24 @@ public class NumbersTest extends EquallableExUtil {
     public void toArrShort() {
         Shorts nbs_ = Shorts.newList((byte)5,(byte)1);
         short[] bytes_ = nbs_.toArrShort();
+        assertEq(2, bytes_.length);
+        assertEq(5, bytes_[0]);
+        assertEq(1, bytes_[1]);
+    }
+
+    @Test
+    public void toArrInt() {
+        Ints nbs_ = Ints.newList(5,1);
+        int[] bytes_ = nbs_.toArrInt();
+        assertEq(2, bytes_.length);
+        assertEq(5, bytes_[0]);
+        assertEq(1, bytes_[1]);
+    }
+
+    @Test
+    public void toArrLong() {
+        Longs nbs_ = Longs.newList(5,1);
+        long[] bytes_ = nbs_.toArrLong();
         assertEq(2, bytes_.length);
         assertEq(5, bytes_[0]);
         assertEq(1, bytes_[1]);

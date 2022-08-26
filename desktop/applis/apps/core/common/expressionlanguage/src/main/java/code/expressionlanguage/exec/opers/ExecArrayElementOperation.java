@@ -28,7 +28,7 @@ public final class ExecArrayElementOperation extends
 
         int nbCh_ = arguments_.size();
 
-        Ints dims_ = new Ints(nbCh_);
+        Ints dims_ = Ints.newList(nbCh_);
         Struct str_ = ExecArrayTemplates.newCustomArray(className_, dims_, _conf);
         ExecArrayTemplates.setCheckedElements(arguments_,str_, _conf, _stack);
         Argument res_ = new Argument(str_);

@@ -163,7 +163,7 @@ public final class FrameUtil {
         if (_selectedIndex == -1) {
             return new Ints();
         }
-        return new Ints(_selectedIndex);
+        return Ints.newList(_selectedIndex);
     }
 
     public static int maxWidth(AbsGraphicListCommon _current, CustList<String> _list) {

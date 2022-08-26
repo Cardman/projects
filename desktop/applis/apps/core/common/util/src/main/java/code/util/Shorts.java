@@ -11,10 +11,6 @@ public final class Shorts extends Numbers<Short> {
         super(_list);
     }
 
-    public Shorts(Short... _array) {
-        super(_array);
-    }
-
 
     public Shorts(CollCapacity _capacity) {
         super(_capacity);

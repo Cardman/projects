@@ -368,7 +368,7 @@ public final class DataMap {
                         .removeDuplicates();
             } else {
                 wildPokemonBeforeFirstLeague_.put(keyPlaceLevel_,
-                        new Ints(index_));
+                        Ints.newList(index_));
             }
         }
         if (!ball_) {

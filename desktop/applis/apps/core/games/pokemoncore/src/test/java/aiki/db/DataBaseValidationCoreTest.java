@@ -53,8 +53,8 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         pkData_.setHappinessHatch((short)-1);
         pkData_.setCatchingRate((short)-1);
         pkData_.setExpRate(-1);
-        pkData_.setTechnicalMoves(new Shorts((short)100));
-        pkData_.setHiddenMoves(new Shorts((short)100));
+        pkData_.setTechnicalMoves(Shorts.newList((short)100));
+        pkData_.setHiddenMoves(Shorts.newList((short)100));
         pkData_.setMoveTutors(new StringList(NULL_REF));
         EvolutionStoneGender evGend_ = Instances.newEvolutionStoneGender();
         pkData_.getEvolutions().addEntry(PIKACHU2, evGend_);

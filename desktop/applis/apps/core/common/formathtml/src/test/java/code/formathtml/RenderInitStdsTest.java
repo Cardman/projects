@@ -68,7 +68,7 @@ public final class RenderInitStdsTest extends CommonRender {
         BeanLgNames standards_ = (BeanLgNames) generate_.getStandards();
         String err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(), generate_, rendStackCall_).getClassName(generate_);
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
-        err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(-1), generate_, rendStackCall_).getClassName(generate_);
+        err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", Ints.newList(-1), generate_, rendStackCall_).getClassName(generate_);
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
         Navigation navigation1_ = new Navigation();
         initializeRendSessionDoc(b_, rendStackCall_, navigation1_);

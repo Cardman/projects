@@ -100,7 +100,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecArrayTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
+        ArrayStruct arr_ = ExecArrayTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),Ints.newList(0),c_);
         assertNotNull(getParent(arr_, c_, getStackCall(c_)));
     }
 
@@ -113,7 +113,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecArrayTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
+        ArrayStruct arr_ = ExecArrayTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),Ints.newList(0),c_);
         assertNotNull(getParent(arr_, c_, getStackCall(c_)));
     }
 
@@ -126,7 +126,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecArrayTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
+        ArrayStruct arr_ = ExecArrayTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),Ints.newList(0),c_);
         assertNotNull(getParent(arr_, c_, getStackCall(c_)));
     }
 
@@ -139,7 +139,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecArrayTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
+        ArrayStruct arr_ = ExecArrayTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),Ints.newList(0),c_);
         StackCall stackCall_ = getStackCall(c_);
         assertSame(arr_, getParent(arr_, c_, stackCall_));
         assertNull(stackCall_.getCallingState());
@@ -154,7 +154,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
-        Ints dims_ = new Ints(1);
+        Ints dims_ = Ints.newList(1);
         ArrayStruct customArray_ = ExecArrayTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_CUST_CLASS, customArray_.getClassName());
         Struct[] instance_ = customArray_.getInstance();
@@ -172,7 +172,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
-        Ints dims_ = new Ints(2);
+        Ints dims_ = Ints.newList(2);
         ArrayStruct customArray_ = ExecArrayTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_CUST_CLASS, customArray_.getClassName());
         Struct[] instance_ = customArray_.getInstance();
@@ -192,7 +192,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
-        Ints dims_ = new Ints(2,3);
+        Ints dims_ = Ints.newList(2,3);
         ArrayStruct customArray_ = ExecArrayTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_ARR_CUST_CLASS, customArray_.getClassName());
         Struct[] instance_ = customArray_.getInstance();
@@ -228,7 +228,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
-        Ints dims_ = new Ints(4,2,3);
+        Ints dims_ = Ints.newList(4,2,3);
         ArrayStruct customArray_ = ExecArrayTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_ARR_ARR_CUST_CLASS, customArray_.getClassName());
         Struct[] instance_ = customArray_.getInstance();

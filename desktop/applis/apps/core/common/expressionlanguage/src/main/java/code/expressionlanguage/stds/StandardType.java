@@ -65,7 +65,7 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
 
     @Override
     public Ints getTypeVarCounts() {
-        return new Ints(0);
+        return Ints.newList(0);
     }
 
     @Override

@@ -60,7 +60,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         assertNotNull(BeanNatCommonLgNames.getPairStruct(null));
         assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(null));
         assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(new ArrayStruct(0,"")));
-        assertNotNull(BeanNatCommonLgNames.getLongsArray(new CustList<Longs>(new Longs(0L))));
+        assertNotNull(BeanNatCommonLgNames.getLongsArray(new CustList<Longs>(Longs.newList(0L))));
         NatRendStackCall stack_ = new NatRendStackCall();
         stack_.addPage(new NatImportingPage());
         RendBlockHelp.processElse(null,stack_);

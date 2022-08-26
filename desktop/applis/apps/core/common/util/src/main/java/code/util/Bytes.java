@@ -11,10 +11,6 @@ public final class Bytes extends Numbers<Byte> {
         super(_list);
     }
 
-    public Bytes(Byte... _array) {
-        super(_array);
-    }
-
 
     public Bytes(CollCapacity _capacity) {
         super(_capacity);

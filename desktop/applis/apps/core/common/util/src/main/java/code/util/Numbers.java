@@ -13,10 +13,6 @@ public abstract class Numbers<T> extends CustList<T> {
         super(_list);
     }
 
-    protected Numbers(T... _array) {
-        super(_array);
-    }
-
 
     protected Numbers(CollCapacity _capacity) {
         super(_capacity);

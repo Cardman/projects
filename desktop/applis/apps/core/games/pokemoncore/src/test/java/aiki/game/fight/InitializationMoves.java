@@ -1913,13 +1913,13 @@ final class InitializationMoves {
         ficheAttaqueOff_.getBoostedTypes().add(TENEBRE);
         ficheAttaqueOff_.setAccuracy("1");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
-        ficheAttaqueOff_.getSecEffectsByItem().addEntry(HERBEBLANCHE,new Ints(8));
+        ficheAttaqueOff_.getSecEffectsByItem().addEntry(HERBEBLANCHE,Ints.newList(8));
         //validate ficheAttaqueOff_.getSecEffectsByItem().addEntry("PIC_VENIN",new Ints(4));
-        ficheAttaqueOff_.getSecEffectsByItem().addEntry(ROCHE_ROYALE,new Ints(6));
-        ficheAttaqueOff_.getSecEffectsByItem().addEntry(ORBE_FLAMME,new Ints(1));
+        ficheAttaqueOff_.getSecEffectsByItem().addEntry(ROCHE_ROYALE,Ints.newList(6));
+        ficheAttaqueOff_.getSecEffectsByItem().addEntry(ORBE_FLAMME,Ints.newList(1));
         //validate ficheAttaqueOff_.getSecEffectsByItem().addEntry("AIMANT",new Ints(3));
         //validate ficheAttaqueOff_.getSecEffectsByItem().addEntry("ORBE_TOXIQUE",new Ints(2));
-        ficheAttaqueOff_.getSecEffectsByItem().addEntry(HERBE_MENTAL,new Ints(7));
+        ficheAttaqueOff_.getSecEffectsByItem().addEntry(HERBE_MENTAL,Ints.newList(7));
         //validate ficheAttaqueOff_.getSecEffectsByItem().addEntry("CROC_RASOIR",new Ints(5));
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);

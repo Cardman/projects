@@ -411,17 +411,17 @@ final class InitializationMap {
         Seller seller_;
         seller_ = new Seller();
         seller_.setItems(new StringList(POKE_BALL,HYPER_BALL,PT_DE_MIRE, PIERRE_EAU,ROCHE_ROYALE,PIERRE_LUNE,PIERRE_SOLEIL,PIERRE_GLACE));
-        seller_.setTm(new Shorts());
+        seller_.setTm(Shorts.newList());
         seller_.setSell(SellType.ITEM);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(new Shorts((short)2));
+        seller_.setTm(Shorts.newList((short)2));
         seller_.setSell(SellType.TM);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 5), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(new Shorts());
+        seller_.setTm(Shorts.newList());
         seller_.setSell(SellType.MOVE);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 6), seller_);
     }
@@ -925,7 +925,7 @@ final class InitializationMap {
     static void initOtherCharactersFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         Road road_ = (Road) map_.getPlace((short) 0);
-        road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), new Shorts((short)5)));
+        road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), Shorts.newList((short)5)));
     }
 
     static void initLeague(DataBase _data) {
