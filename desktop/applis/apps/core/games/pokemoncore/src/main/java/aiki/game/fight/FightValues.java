@@ -470,27 +470,27 @@ final class FightValues {
         Fighter creatureCbtCible_ = _fight.getFighter(_cible);
         Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
         StringMap<String> variables_ = new StringMap<String>();
-        StringMap<Boolean> enabled_ = new StringMap<Boolean>();
+        StringMap<BoolVal> enabled_ = new StringMap<BoolVal>();
         StringList moves_ = new StringList();
         for (MoveTeamPosition s: creatureCbtCible_.getStatusRelatSet()) {
             moves_.add(s.getMove());
         }
         moves_.removeDuplicates();
         for (String m: moves_) {
-            boolean enabledLoc_ = false;
+            BoolVal enabledLoc_ = BoolVal.FALSE;
             for (MoveTeamPosition s: creatureCbtCible_.getStatusRelatSet()) {
                 if (!StringUtil.quickEq(s.getMove(), m)) {
                     continue;
                 }
                 if (creatureCbtCible_.getStatusRelatNbRoundShort(s) > 0) {
-                    enabledLoc_ = true;
+                    enabledLoc_ = BoolVal.TRUE;
                     break;
                 }
             }
             enabled_.put(m, enabledLoc_);
         }
         for (String m: enabled_.getKeys()) {
-            if(enabled_.getVal(m)){
+            if(enabled_.getVal(m) == BoolVal.TRUE){
                 //enabled status relation
                 variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_POSSEDE_STATUT_RELATION,DataBase.SEP_BETWEEN_KEYS,m),_import.getTrueString());
             }else{

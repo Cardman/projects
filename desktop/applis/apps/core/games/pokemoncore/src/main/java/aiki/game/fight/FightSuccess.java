@@ -356,9 +356,9 @@ final class FightSuccess {
     static Rate rateEffAgainstTarget(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _typeOff,DataBase _import){
         Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
-        StringMap<Boolean> priseEnCompteCoeffNul_ = new StringMap<Boolean>();
+        StringMap<BoolVal> priseEnCompteCoeffNul_ = new StringMap<BoolVal>();
         for(String e:creatureCbtCible_.getTypes()){
-            priseEnCompteCoeffNul_.put(e,true);
+            priseEnCompteCoeffNul_.put(e,BoolVal.TRUE);
         }
         StringMap<Rate> coeffEffGl_ = new StringMap<Rate>();
         for(String e:creatureCbtCible_.getTypes()){
@@ -387,7 +387,7 @@ final class FightSuccess {
                 }
             }
             if(noNullSum_){
-                priseEnCompteCoeffNul_.put(e,false);
+                priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
                 coeffEffGl_.put(e,coeff_);
             }
             for(String e2_:creatureCbtCible_.enabledIndividualAntiImmuMoves()){
@@ -400,12 +400,12 @@ final class FightSuccess {
                     }
                     EffectUnprotectFromTypes effetAntiImmu_=(EffectUnprotectFromTypes)effet_;
                     if(StringUtil.contains(effetAntiImmu_.getAttackTargetWithTypes(), _typeOff)){
-                        priseEnCompteCoeffNul_.put(e,false);
+                        priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
                         continuer_=true;
                         break;
                     }
                     if(TypesDuos.contains(effetAntiImmu_.getTypes(),new TypesDuo(_typeOff,e))){
-                        priseEnCompteCoeffNul_.put(e,false);
+                        priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
                         continuer_=true;
                         break;
                     }
@@ -419,7 +419,7 @@ final class FightSuccess {
             AbilityData fCapacite_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
             for(String e:creatureCbtCible_.getTypes()){
                 if(TypesDuos.contains(fCapacite_.getBreakFoeImmune(),new TypesDuo(_typeOff,e))){
-                    priseEnCompteCoeffNul_.put(e,false);
+                    priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
                 }
             }
         }
@@ -429,7 +429,7 @@ final class FightSuccess {
                 ItemForBattle fObjetCombatLanceur_=(ItemForBattle)fObjetLanceur_;
                 if(fObjetCombatLanceur_.getCancelImmuType()){
                     for(String e:creatureCbtCible_.getTypes()){
-                        priseEnCompteCoeffNul_.put(e,false);
+                        priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
                     }
                 }
             }
@@ -439,7 +439,7 @@ final class FightSuccess {
             Rate efficacite_=_import.getTableTypes().getVal(new TypesDuo(_typeOff,e));
             if(coeffEffGl_.contains(e)){
                 coeff_.multiplyBy(coeffEffGl_.getVal(e));
-            } else if(priseEnCompteCoeffNul_.getVal(e)||!efficacite_.isZero()){
+            } else if(priseEnCompteCoeffNul_.getVal(e) == BoolVal.TRUE||!efficacite_.isZero()){
                 coeff_.multiplyBy(efficacite_);
             }
         }

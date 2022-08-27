@@ -1124,38 +1124,38 @@ public class PokemonPlayerTest extends InitializationDataBase {
     @Test
     public void getMovesForEvolution1Test() {
         DataBase data_ = initDb();
-        StringMap<Boolean> map_ = PokemonPlayer.getMovesForEvolution((short) 12, new StringList(CHARGE), MELODELFE, data_);
+        StringMap<BoolVal> map_ = PokemonPlayer.getMovesForEvolution((short) 12, new StringList(CHARGE), MELODELFE, data_);
         assertEq(4, map_.size());
-        assertTrue(map_.getVal(CHARGE));
-        assertTrue(map_.getVal(ECLAIR));
-        assertTrue(map_.getVal(OEIL_MIRACLE));
-        assertTrue(map_.getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,map_.getVal(CHARGE));
+        assertSame(BoolVal.TRUE,map_.getVal(ECLAIR));
+        assertSame(BoolVal.TRUE,map_.getVal(OEIL_MIRACLE));
+        assertSame(BoolVal.TRUE,map_.getVal(VIVE_ATTAQUE));
     }
 
     @Test
     public void getMovesForEvolution2Test() {
         DataBase data_ = initDb();
-        StringMap<Boolean> map_ = PokemonPlayer.getMovesForEvolution((short) 1, new StringList(CHARGE), TARTARD, data_);
+        StringMap<BoolVal> map_ = PokemonPlayer.getMovesForEvolution((short) 1, new StringList(CHARGE), TARTARD, data_);
         assertEq(5, map_.size());
-        assertTrue(map_.getVal(CHARGE));
-        assertTrue(!map_.getVal(BULLES_D_O));
-        assertTrue(!map_.getVal(HYPNOSE));
-        assertTrue(!map_.getVal(SACRIFICE));
-        assertTrue(!map_.getVal(TORGNOLES));
+        assertSame(BoolVal.TRUE,map_.getVal(CHARGE));
+        assertSame(BoolVal.FALSE,map_.getVal(BULLES_D_O));
+        assertSame(BoolVal.FALSE,map_.getVal(HYPNOSE));
+        assertSame(BoolVal.FALSE,map_.getVal(SACRIFICE));
+        assertSame(BoolVal.FALSE,map_.getVal(TORGNOLES));
     }
 
     @Test
     public void getMovesForEvolution3Test() {
         DataBase data_ = initDb();
-        StringMap<Boolean> map_ = PokemonPlayer.getMovesForEvolution((short) 100, new StringList(CHARGE), TARTARD, data_);
+        StringMap<BoolVal> map_ = PokemonPlayer.getMovesForEvolution((short) 100, new StringList(CHARGE), TARTARD, data_);
         assertEq(7, map_.size());
-        assertTrue(map_.getVal(CHARGE));
-        assertTrue(!map_.getVal(BULLES_D_O));
-        assertTrue(!map_.getVal(HYPNOSE));
-        assertTrue(!map_.getVal(SACRIFICE));
-        assertTrue(!map_.getVal(TORGNOLES));
-        assertTrue(!map_.getVal(DYNAMOPOING));
-        assertTrue(!map_.getVal(LIRE_ESPRIT));
+        assertSame(BoolVal.TRUE,map_.getVal(CHARGE));
+        assertSame(BoolVal.FALSE,map_.getVal(BULLES_D_O));
+        assertSame(BoolVal.FALSE,map_.getVal(HYPNOSE));
+        assertSame(BoolVal.FALSE,map_.getVal(SACRIFICE));
+        assertSame(BoolVal.FALSE,map_.getVal(TORGNOLES));
+        assertSame(BoolVal.FALSE,map_.getVal(DYNAMOPOING));
+        assertSame(BoolVal.FALSE,map_.getVal(LIRE_ESPRIT));
     }
 
     @Test

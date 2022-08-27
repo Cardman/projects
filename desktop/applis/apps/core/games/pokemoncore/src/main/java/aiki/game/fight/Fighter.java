@@ -1866,13 +1866,13 @@ public final class Fighter {
             wonExp.affectZero();
             wonExpSinceLastLevel.affectZero();
         }
-        StringMap<Boolean> newMoves_ = newMoves(achievedLevel_, _diff, _import);
+        StringMap<BoolVal> newMoves_ = newMoves(achievedLevel_, _diff, _import);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=new StringList();
         StringList attaquesApprendre_=new StringList();
-        for (EntryCust<String,Boolean> e: newMoves_.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<String,BoolVal> e: newMoves_.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 attaquesApprendre_.add(e.getKey());
             } else {
                 attaquesConnues_.add(e.getKey());
@@ -1944,8 +1944,8 @@ public final class Fighter {
         }
     }
 
-    StringMap<Boolean> newMoves(short _niveauTmp, Difficulty _diff, DataBase _import) {
-        StringMap<Boolean> newMoves_ = new StringMap<Boolean>();
+    StringMap<BoolVal> newMoves(short _niveauTmp, Difficulty _diff, DataBase _import) {
+        StringMap<BoolVal> newMoves_ = new StringMap<BoolVal>();
         StringList attaquesConnues_=new StringList(moves.getKeys());
         PokemonData fPk_=fichePokemon(_import);
         for(LevelMove nivAtt_: fPk_.getLevMoves()){
@@ -1963,10 +1963,10 @@ public final class Fighter {
                     continue;
                 }
             }
-            newMoves_.put(nivAtt_.getMove(), true);
+            newMoves_.put(nivAtt_.getMove(), BoolVal.TRUE);
         }
         for (String m : attaquesConnues_) {
-            newMoves_.put(m, false);
+            newMoves_.put(m, BoolVal.FALSE);
         }
         return newMoves_;
     }

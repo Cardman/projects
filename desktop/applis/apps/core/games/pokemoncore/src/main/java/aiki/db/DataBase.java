@@ -85,6 +85,7 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
@@ -524,10 +525,10 @@ public class DataBase {
             if (Rate.strLower(power_, new Rate(90))) {
                 setError(true);
             }
-            ObjectMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
-            for (EntryCust<TypeStatistic, Boolean> e : strongMovesTypeStat_
+            ObjectMap<TypeStatistic, BoolVal> strongMovesTypeStat_ = strongMoves(power_);
+            for (EntryCust<TypeStatistic, BoolVal> e : strongMovesTypeStat_
                     .entryList()) {
-                if (e.getValue()) {
+                if (e.getValue() == BoolVal.TRUE) {
                     continue;
                 }
                 setError(true);
@@ -552,14 +553,14 @@ public class DataBase {
 
     }
 
-    ObjectMap<TypeStatistic, Boolean> strongMoves(Rate _power) {
-        ObjectMap<TypeStatistic, Boolean> existDamageMoveWithTypeStatAttack_;
-        existDamageMoveWithTypeStatAttack_ = new ObjectMap<TypeStatistic, Boolean>();
+    ObjectMap<TypeStatistic, BoolVal> strongMoves(Rate _power) {
+        ObjectMap<TypeStatistic, BoolVal> existDamageMoveWithTypeStatAttack_;
+        existDamageMoveWithTypeStatAttack_ = new ObjectMap<TypeStatistic, BoolVal>();
         for (String t : getTypes()) {
             existDamageMoveWithTypeStatAttack_.put(new TypeStatistic(t,
-                    Statistic.ATTACK), false);
+                    Statistic.ATTACK), BoolVal.FALSE);
             existDamageMoveWithTypeStatAttack_.put(new TypeStatistic(t,
-                    Statistic.SPECIAL_ATTACK), false);
+                    Statistic.SPECIAL_ATTACK), BoolVal.FALSE);
         }
         for (EntryCust<String, MoveData> m : getMoves().entryList()) {
             if (StringUtil.quickEq(m.getKey(),getDefaultMove())) {
@@ -618,7 +619,7 @@ public class DataBase {
                 TypeStatistic pair_;
                 pair_ = new TypeStatistic(move_.getTypes().first(),
                         effect_.getStatisAtt());
-                if (existDamageMoveWithTypeStatAttack_.contains(pair_) && existDamageMoveWithTypeStatAttack_.getVal(pair_)) {
+                if (existDamageMoveWithTypeStatAttack_.contains(pair_) && existDamageMoveWithTypeStatAttack_.getVal(pair_) == BoolVal.TRUE) {
                     continue;
                 }
                 String powStr_ = effect_.getPower();
@@ -629,7 +630,7 @@ public class DataBase {
                     break;
                 }
 
-                existDamageMoveWithTypeStatAttack_.put(pair_, true);
+                existDamageMoveWithTypeStatAttack_.put(pair_, BoolVal.TRUE);
                 break;
             }
         }

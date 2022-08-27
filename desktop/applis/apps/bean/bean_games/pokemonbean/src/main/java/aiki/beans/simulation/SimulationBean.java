@@ -50,6 +50,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -352,7 +353,7 @@ public class SimulationBean extends CommonBean {
                             line_.setDirect(damag_.isDirect());
                         }
                         line_.setPriority(moveData_.getPriority());
-                        line_.setSelected(info_.getMoves().getVal(k));
+                        line_.setSelected(info_.getMoves().getVal(k) == BoolVal.TRUE);
                         keptMoves.add(line_);
                     }
                     keptMoves.sortElts(new ComparatorMoves());
@@ -1298,7 +1299,7 @@ public class SimulationBean extends CommonBean {
         for (String e: evolutions_) {
             evolutionsAfterFight.put(e, translationsPokemon_.getVal(e));
         }
-        StringMap<Boolean> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), lastPk_, data_);
+        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), lastPk_, data_);
         keptMovesAfterFight.clear();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
@@ -1320,7 +1321,7 @@ public class SimulationBean extends CommonBean {
                 line_.setDirect(damag_.isDirect());
             }
             line_.setPriority(moveData_.getPriority());
-            line_.setSelected(selectedMoves_.getVal(m));
+            line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
             keptMovesAfterFight.add(line_);
         }
         keptMovesAfterFight.sortElts(new ComparatorMoves());
@@ -1344,7 +1345,7 @@ public class SimulationBean extends CommonBean {
         for (String e: evolutions_) {
             evolutionsAfterFight.put(e, translationsPokemon_.getVal(e));
         }
-        StringMap<Boolean> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), evolutionAfterFight, data_);
+        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), evolutionAfterFight, data_);
         keptMovesAfterFight.clear();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
@@ -1366,7 +1367,7 @@ public class SimulationBean extends CommonBean {
                 line_.setDirect(damag_.isDirect());
             }
             line_.setPriority(moveData_.getPriority());
-            line_.setSelected(selectedMoves_.getVal(m));
+            line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
             keptMovesAfterFight.add(line_);
         }
         keptMovesAfterFight.sortElts(new ComparatorMoves());
@@ -1396,7 +1397,7 @@ public class SimulationBean extends CommonBean {
         for (String e: evolutions_) {
             evolutionsAfterFight.put(e, translationsPokemon_.getVal(e));
         }
-        StringMap<Boolean> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), evolutionAfterFight, data_);
+        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), evolutionAfterFight, data_);
         keptMovesAfterFight.clear();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
@@ -1418,7 +1419,7 @@ public class SimulationBean extends CommonBean {
                 line_.setDirect(damag_.isDirect());
             }
             line_.setPriority(moveData_.getPriority());
-            line_.setSelected(selectedMoves_.getVal(m));
+            line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
             keptMovesAfterFight.add(line_);
         }
         keptMovesAfterFight.sortElts(new ComparatorMoves());

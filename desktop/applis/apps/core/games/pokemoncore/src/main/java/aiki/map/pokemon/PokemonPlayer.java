@@ -629,19 +629,19 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         moves.put(_nvAtt, new UsesOfMove(pp_));
     }
 
-    public static StringMap<Boolean> getMovesForEvolution(short _level, StringList _currentMoves, String _evolution, DataBase _import) {
-        StringMap<Boolean> moves_;
-        moves_ = new StringMap<Boolean>();
+    public static StringMap<BoolVal> getMovesForEvolution(short _level, StringList _currentMoves, String _evolution, DataBase _import) {
+        StringMap<BoolVal> moves_;
+        moves_ = new StringMap<BoolVal>();
         PokemonData pk_ = _import.getPokemon(_evolution);
         for (String m: pk_.getMovesBeforeLevel(_level)) {
-            moves_.put(m, false);
+            moves_.put(m, BoolVal.FALSE);
         }
         for (String m: _currentMoves) {
-            moves_.put(m, true);
+            moves_.put(m, BoolVal.TRUE);
         }
         if (moves_.size() <= _import.getNbMaxMoves()) {
             for (String m: moves_.getKeys()) {
-                moves_.put(m, true);
+                moves_.put(m, BoolVal.TRUE);
             }
         }
         return moves_;

@@ -25,6 +25,7 @@ import aiki.util.Point;
 import aiki.util.PointParam;
 import code.images.BaseSixtyFourUtil;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -455,13 +456,13 @@ public class MapLevelBean extends CommonBean {
         current_.getLevel().setLevelIndex((byte) lev_);
         current_.getLevel().setPoint(pt_);
         AreaApparition app_ = data_.getMap().getAreaByCoords(current_);
-        boolean seeArea_ = false;
+        BoolVal seeArea_ = BoolVal.FALSE;
         if (!app_.isVirtual()) {
             getForms().put(CST_AREA, app_);
-            seeArea_ = true;
+            seeArea_ = BoolVal.TRUE;
         }
         Place p_ = data_.getMap().getPlace(pl_);
-        StringMap<Boolean> booleans_ = new StringMap<Boolean>();
+        StringMap<BoolVal> booleans_ = new StringMap<BoolVal>();
         booleans_.put(CST_SEE_AREA,seeArea_);
         Coords coords_ = new Coords();
         coords_.setNumberPlace((short) pl_);
@@ -476,20 +477,20 @@ public class MapLevelBean extends CommonBean {
                     points_.add(p.getDir());
                 }
             }
-            booleans_.put(CST_PROPONE_LINK,!points_.isEmpty());
+            booleans_.put(CST_PROPONE_LINK, ComparatorBoolean.of(!points_.isEmpty()));
             if (points_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 for (Direction d: Direction.values()) {
-                    booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), points_.containsObj(d));
+                    booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()),ComparatorBoolean.of(points_.containsObj(d)));
                 }
             } else {
                 for (Direction d: Direction.values()) {
-                    booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
+                    booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), BoolVal.FALSE);
                 }
             }
         } else {
-            booleans_.put(CST_PROPONE_LINK,false);
+            booleans_.put(CST_PROPONE_LINK,BoolVal.FALSE);
             for (Direction d: Direction.values()) {
-                booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
+                booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), BoolVal.FALSE);
             }
         }
         Coords coordsLoc_ = new Coords();
@@ -497,16 +498,16 @@ public class MapLevelBean extends CommonBean {
         coordsLoc_.setLevel(new LevelPoint());
         coordsLoc_.getLevel().setLevelIndex((byte) lev_);
         coordsLoc_.getLevel().setPoint(pt_);
-        booleans_.put(CST_PROPONE_TILE,!data_.getMap().isEmptyForAdding(coordsLoc_));
+        booleans_.put(CST_PROPONE_TILE,ComparatorBoolean.of(!data_.getMap().isEmptyForAdding(coordsLoc_)));
         int nbTrue_ = IndexConstants.SIZE_EMPTY;
-        for (boolean b: booleans_.values()) {
-            if (b) {
+        for (BoolVal b: booleans_.values()) {
+            if (b == BoolVal.TRUE) {
                 nbTrue_++;
             }
         }
         if (nbTrue_ > DataBase.ONE_POSSIBLE_CHOICE) {
-            for (EntryCust<String, Boolean> e: booleans_.entryList()) {
-                getForms().put(e.getKey(), e.getValue());
+            for (EntryCust<String, BoolVal> e: booleans_.entryList()) {
+                getForms().put(e.getKey(),e.getValue() == BoolVal.TRUE);
             }
             return CST_LEVEL;
         }

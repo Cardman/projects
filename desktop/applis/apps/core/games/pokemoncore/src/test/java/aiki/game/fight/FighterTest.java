@@ -5497,12 +5497,12 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
         assertEq(4, newMoves_.size());
-        assertTrue(!newMoves_.getVal(ULTRASON));
-        assertTrue(!newMoves_.getVal(BROUHAHA));
-        assertTrue(!newMoves_.getVal(POURSUITE));
-        assertTrue(newMoves_.getVal(POUV_ANTIQUE));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(ULTRASON));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(BROUHAHA));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(POURSUITE));
+        assertSame(BoolVal.TRUE,newMoves_.getVal(POUV_ANTIQUE));
     }
 
     @Test
@@ -5531,12 +5531,12 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
         assertEq(4, newMoves_.size());
-        assertTrue(!newMoves_.getVal(ULTRASON));
-        assertTrue(!newMoves_.getVal(BROUHAHA));
-        assertTrue(!newMoves_.getVal(POURSUITE));
-        assertTrue(newMoves_.getVal(POUV_ANTIQUE));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(ULTRASON));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(BROUHAHA));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(POURSUITE));
+        assertSame(BoolVal.TRUE,newMoves_.getVal(POUV_ANTIQUE));
     }
 
     @Test
@@ -5565,12 +5565,12 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
         assertEq(4, newMoves_.size());
-        assertTrue(!newMoves_.getVal(ULTRASON));
-        assertTrue(!newMoves_.getVal(BROUHAHA));
-        assertTrue(!newMoves_.getVal(POURSUITE));
-        assertTrue(newMoves_.getVal(POUV_ANTIQUE));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(ULTRASON));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(BROUHAHA));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(POURSUITE));
+        assertSame(BoolVal.TRUE,newMoves_.getVal(POUV_ANTIQUE));
     }
 
     @Test
@@ -5599,11 +5599,11 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
         assertEq(3, newMoves_.size());
-        assertTrue(!newMoves_.getVal(ULTRASON));
-        assertTrue(!newMoves_.getVal(BROUHAHA));
-        assertTrue(!newMoves_.getVal(POURSUITE));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(ULTRASON));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(BROUHAHA));
+        assertSame(BoolVal.FALSE,newMoves_.getVal(POURSUITE));
     }
 
     @Test
@@ -5632,7 +5632,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
@@ -5668,7 +5668,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
@@ -5705,7 +5705,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
@@ -5762,7 +5762,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
@@ -5819,7 +5819,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
@@ -5875,7 +5875,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
@@ -5932,7 +5932,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("5"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
@@ -5991,7 +5991,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setWonExp(new Rate("3"));
         LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
+        StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
@@ -6006,18 +6006,18 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, movesAbilities_.size());
     }
 
-    private static StringList getMoves(StringMap<Boolean> _map, boolean _learn) {
+    private static StringList getMoves(StringMap<BoolVal> _map, boolean _learn) {
         StringList moves_;
         moves_ = new StringList();
         if (_learn) {
-            for (EntryCust<String,Boolean> e: _map.entryList()) {
-                if (e.getValue()) {
+            for (EntryCust<String,BoolVal> e: _map.entryList()) {
+                if (e.getValue() == BoolVal.TRUE) {
                     moves_.add(e.getKey());
                 }
             }
         } else {
-            for (EntryCust<String,Boolean> e: _map.entryList()) {
-                if (!e.getValue()) {
+            for (EntryCust<String,BoolVal> e: _map.entryList()) {
+                if (e.getValue() != BoolVal.TRUE) {
                     moves_.add(e.getKey());
                 }
             }

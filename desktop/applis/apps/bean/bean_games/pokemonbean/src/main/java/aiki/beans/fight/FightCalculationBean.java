@@ -11,12 +11,14 @@ import aiki.game.fight.TeamPosition;
 import aiki.game.fight.util.MoveTarget;
 import code.maths.Rate;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 
 public class FightCalculationBean extends CommonFightBean {
     private TreeMap<MoveTarget, MoveTarget> allyChoice;
     private ByteTreeMap<MoveTarget> foeChoices;
 
-    private ByteTreeMap<Boolean> foeChoicesTargets;
+    private ByteTreeMap<BoolVal> foeChoicesTargets;
     private SortableCustList<KeyHypothesis> damage;
     private EqList<TeamPosition> sortedFighters;
     private NatStringTreeMap<EqList<TeamPosition>> sortedFightersWildFight;
@@ -76,8 +78,8 @@ public class FightCalculationBean extends CommonFightBean {
         allyChoice = allyChoice_;
         ByteTreeMap<MoveTarget> foeChoices_;
         foeChoices_ = new ByteTreeMap<MoveTarget>();
-        ByteTreeMap<Boolean> foeChoicesTargets_;
-        foeChoicesTargets_ = new ByteTreeMap<Boolean>();
+        ByteTreeMap<BoolVal> foeChoicesTargets_;
+        foeChoicesTargets_ = new ByteTreeMap<BoolVal>();
         for (byte k: fight_.getFoeTeam().getMembers().getKeys()) {
             MoveTarget value_;
             value_ = new MoveTarget();
@@ -91,7 +93,7 @@ public class FightCalculationBean extends CommonFightBean {
                 value_.setTarget(f_.getChosenTargets().first());
             }
             foeChoices_.put(k, value_);
-            foeChoicesTargets_.put(k, !f_.getChosenTargets().isEmpty());
+            foeChoicesTargets_.put(k, ComparatorBoolean.of(!f_.getChosenTargets().isEmpty()));
         }
         foeChoices = foeChoices_;
         foeChoicesTargets = foeChoicesTargets_;
@@ -135,7 +137,7 @@ public class FightCalculationBean extends CommonFightBean {
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
     public boolean isChosenTarget(int _index) {
-        return foeChoicesTargets.getValue(_index);
+        return foeChoicesTargets.getValue(_index) == BoolVal.TRUE;
     }
     public String getTargetNameFoeChoice(int _index) {
         FacadeGame dataBaseFight_ = getDataBase();

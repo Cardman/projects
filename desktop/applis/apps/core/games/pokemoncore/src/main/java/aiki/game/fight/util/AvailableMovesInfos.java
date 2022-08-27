@@ -1,13 +1,14 @@
 package aiki.game.fight.util;
 import aiki.game.fight.KeyFightRound;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public final class AvailableMovesInfos {
 
     private KeyFightRound key;
-    private final StringMap<Boolean> moves;
+    private final StringMap<BoolVal> moves;
     public AvailableMovesInfos(KeyFightRound _key,
-            StringMap<Boolean> _moves) {
+            StringMap<BoolVal> _moves) {
         key = _key;
         moves = _moves;
     }
@@ -17,7 +18,7 @@ public final class AvailableMovesInfos {
     public void setFirst(KeyFightRound _key) {
         key = _key;
     }
-    public StringMap<Boolean> getMoves() {
+    public StringMap<BoolVal> getMoves() {
         return moves;
     }
 
