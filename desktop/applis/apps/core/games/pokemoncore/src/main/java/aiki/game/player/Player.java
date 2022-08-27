@@ -42,7 +42,9 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.comparators.ComparatorBoolean;
 import code.util.comparators.ComparatorTreeMapValue;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -113,7 +115,7 @@ public final class Player {
     private Inventory inventory;
 
     /**Ensemble des pokemon attrapes.*/
-    private StringMap<Boolean> caughtPk;
+    private StringMap<BoolVal> caughtPk;
 
     /***/
     private LgInt money;
@@ -130,7 +132,7 @@ public final class Player {
 
     private StringMap<Short> chosenMoves = new StringMap<Short>();
 
-    private StringMap<Boolean> selectedMoves = new StringMap<Boolean>();
+    private StringMap<BoolVal> selectedMoves = new StringMap<BoolVal>();
 
     private short chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
 
@@ -139,7 +141,7 @@ public final class Player {
     private Bytes indexesOfPokemonTeam = new Bytes();
 
     //values are true <==> a move has to be forgotten
-    private ByteMap<Boolean> indexesOfPokemonTeamMoves = new ByteMap<Boolean>();
+    private ByteMap<BoolVal> indexesOfPokemonTeamMoves = new ByteMap<BoolVal>();
 
     public Player(){
     }
@@ -156,7 +158,7 @@ public final class Player {
         sex=_sexeHeros;
         team = new CustList<UsablePokemon>();
         box = new CustList<UsablePokemon>();
-        caughtPk = new StringMap<Boolean>();
+        caughtPk = new StringMap<BoolVal>();
         if(_avecPkIni){
             DataMap donnees_=_import.getMap();
             initTeam(_sexeHeros, _diff, donnees_.getFirstPokemon(), _import);
@@ -178,9 +180,9 @@ public final class Player {
         userPk_.initPvRestants(_import);
         team.add(userPk_);
         for(String p:_import.getPokedex().getKeys()){
-            caughtPk.put(p,false);
+            caughtPk.put(p, BoolVal.FALSE);
         }
-        caughtPk.put(_firstPk.getName(),true);
+        caughtPk.put(_firstPk.getName(),BoolVal.TRUE);
     }
 
     public void initIv(Difficulty _diff, DataBase _data){
@@ -188,11 +190,11 @@ public final class Player {
         selectedObject = DataBase.EMPTY_STRING;
         selectedMove = DataBase.EMPTY_STRING;
         chosenMoves = new StringMap<Short>();
-        selectedMoves = new StringMap<Boolean>();
+        selectedMoves = new StringMap<BoolVal>();
         chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         chosenAbilityForEvolution = DataBase.EMPTY_STRING;
         indexesOfPokemonTeam = new Bytes();
-        indexesOfPokemonTeamMoves = new ByteMap<Boolean>();
+        indexesOfPokemonTeamMoves = new ByteMap<BoolVal>();
         for(UsablePokemon e:team){
             if (!(e instanceof PokemonPlayer)) {
                 continue;
@@ -798,12 +800,12 @@ public final class Player {
         chosenMoves.clear();
         selectedMoves.clear();
         for (String m: ((PokemonPlayer) team.get(chosenTeamPokemon)).getMoves().getKeys()) {
-            selectedMoves.put(m, true);
+            selectedMoves.put(m, BoolVal.TRUE);
         }
         for (String m: ((PokemonPlayer) team.get(chosenTeamPokemon)).moveTutors(_import)) {
             MoveData fMove_ = _import.getMove(m);
             chosenMoves.put(m, fMove_.getPp());
-            selectedMoves.put(m, false);
+            selectedMoves.put(m, BoolVal.FALSE);
         }
     }
 
@@ -898,8 +900,8 @@ public final class Player {
     private StringList getCheckedMoves() {
         StringList l_;
         l_ = new StringList();
-        for (EntryCust<String,Boolean> e: selectedMoves.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<String,BoolVal> e: selectedMoves.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());
             }
         }
@@ -909,8 +911,8 @@ public final class Player {
     private StringList getUnCheckedMoves() {
         StringList l_;
         l_ = new StringList();
-        for (EntryCust<String,Boolean> e: selectedMoves.entryList()) {
-            if (!e.getValue()) {
+        for (EntryCust<String,BoolVal> e: selectedMoves.entryList()) {
+            if (e.getValue() != BoolVal.TRUE) {
                 l_.add(e.getKey());
             }
         }
@@ -960,7 +962,7 @@ public final class Player {
         for (byte i: indexesOfPokemonTeam) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
 //            indexesOfPokemonTeamMoves.put(i, Numbers.eq(pk_.getMoves().size(), maxMoves_));
-            indexesOfPokemonTeamMoves.put(i, pk_.getMoves().size() >= maxMoves_);
+            indexesOfPokemonTeamMoves.put(i, ComparatorBoolean.of(pk_.getMoves().size() >= maxMoves_));
         }
         if (indexesOfPokemonTeam.isEmpty()) {
             selectedMove = DataBase.EMPTY_STRING;
@@ -971,7 +973,7 @@ public final class Player {
         clearComments();
         chosenMoves.clear();
         chosenTeamPokemon = indexesOfPokemonTeam.get(_position);
-        if (indexesOfPokemonTeamMoves.getVal((byte) chosenTeamPokemon)) {
+        if (indexesOfPokemonTeamMoves.getVal((byte) chosenTeamPokemon) == BoolVal.TRUE) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(chosenTeamPokemon);
             for (String m: pk_.getMoves().getKeys()) {
                 chosenMoves.put(m, pk_.getMoves().getVal(m).getMax());
@@ -1471,11 +1473,11 @@ public final class Player {
         inventory.getTm(_ct);
     }
     private void attrapePk(String _name) {
-        caughtPk.put(_name, true);
+        caughtPk.put(_name, BoolVal.TRUE);
     }
 
     public boolean estAttrape(String _name) {
-        return caughtPk.contains(_name) && caughtPk.getVal(_name);
+        return caughtPk.contains(_name) && caughtPk.getVal(_name) == BoolVal.TRUE;
     }
 
     public ByteTreeMap< PokemonPlayer> getPokemonPlayerList() {
@@ -1578,11 +1580,11 @@ public final class Player {
         inventory = _inventory;
     }
 
-    public StringMap<Boolean> getCaughtPk() {
+    public StringMap<BoolVal> getCaughtPk() {
         return caughtPk;
     }
 
-    public void setCaughtPk(StringMap<Boolean> _caughtPk) {
+    public void setCaughtPk(StringMap<BoolVal> _caughtPk) {
         caughtPk = _caughtPk;
     }
 
@@ -1626,7 +1628,7 @@ public final class Player {
         return chosenMoves;
     }
 
-    public StringMap<Boolean> getSelectedMoves() {
+    public StringMap<BoolVal> getSelectedMoves() {
         return selectedMoves;
     }
 
@@ -1646,7 +1648,7 @@ public final class Player {
         return indexesOfPokemonTeam;
     }
 
-    public ByteMap<Boolean> getIndexesOfPokemonTeamMoves() {
+    public ByteMap<BoolVal> getIndexesOfPokemonTeamMoves() {
         return indexesOfPokemonTeamMoves;
     }
 

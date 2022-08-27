@@ -2,6 +2,7 @@ package aiki.game.fight;
 
 import aiki.comments.Comment;
 import aiki.db.DataBase;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -54,8 +55,8 @@ public class FightInitializationTest extends InitializationDataBase {
         assertEq(4, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(0, fight_.getTeams().size());
         assertEq(2, fight_.getKos().size());
-        assertTrue(!fight_.getKos().getVal(Fight.CST_FOE));
-        assertTrue(!fight_.getKos().getVal(Fight.CST_PLAYER));
+        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_FOE));
+        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_PLAYER));
     }
 
     @Test

@@ -34,6 +34,7 @@ import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -103,7 +104,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private StringList newAbilitiesToBeChosen = new StringList();
 
     /***/
-    private StringMap<Boolean> movesToBeKeptEvo = new StringMap<Boolean>();
+    private StringMap<BoolVal> movesToBeKeptEvo = new StringMap<BoolVal>();
 
     /***/
     private String possibleEvolution = DataBase.EMPTY_STRING;
@@ -342,7 +343,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     public void initIv(Difficulty _diff){
         commentPk = new Comment();
         newAbilitiesToBeChosen = new StringList();
-        movesToBeKeptEvo = new StringMap<Boolean>();
+        movesToBeKeptEvo = new StringMap<BoolVal>();
         possibleEvolution = DataBase.EMPTY_STRING;
         trading = false;
         if (iv == null) {
@@ -718,11 +719,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             }
         } else {
             for (String m: moves.getKeys()) {
-                movesToBeKeptEvo.put(m, true);
+                movesToBeKeptEvo.put(m, BoolVal.TRUE);
             }
             attaquesApprendreEvos_.removeDuplicates();
             for (String m: attaquesApprendreEvos_) {
-                movesToBeKeptEvo.put(m, false);
+                movesToBeKeptEvo.put(m, BoolVal.FALSE);
             }
             if (capacites_.size() != DataBase.ONE_POSSIBLE_CHOICE) {
                 capacites_.sort();
@@ -751,8 +752,8 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     public void learnMovesAfterEvolvingWithOneAbility(DataBase _import) {
 //        CustList<String> keys_ = movesToBeKeptEvo.getKeys(true);
         StringList keys_ = new StringList();
-        for (EntryCust<String, Boolean> e: movesToBeKeptEvo.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<String, BoolVal> e: movesToBeKeptEvo.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 keys_.add(e.getKey());
             }
         }
@@ -1046,7 +1047,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         nbStepsTeamLead = _nbStepsTeamLead;
     }
 
-    public StringMap<Boolean> getMovesToBeKeptEvo() {
+    public StringMap<BoolVal> getMovesToBeKeptEvo() {
         return movesToBeKeptEvo;
     }
 

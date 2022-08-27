@@ -1,4 +1,5 @@
 package aiki.db;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -45,6 +46,9 @@ public abstract class EquallablePkUtil {
     }
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
+    }
+    public static void assertSame(BoolVal _expected, BoolVal _result) {
+        Assert.assertSame(_expected, _result);
     }
     public static void assertSame(Object _expected, Object _result) {
         Assert.assertSame(_expected, _result);

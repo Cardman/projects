@@ -7,11 +7,12 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public class FightBean extends CommonFightBean {
     private byte mult;
     private NatStringTreeMap<ActivityOfMove> enabledMoves;
-    private NatStringTreeMap<Boolean> stillEnabledMoves;
+    private NatStringTreeMap<BoolVal> stillEnabledMoves;
     private short nbFleeAttempt;
     private LgInt nbRounds;
     private Rate winningMoney;
@@ -33,8 +34,8 @@ public class FightBean extends CommonFightBean {
             enabledMoves_.put(translationsMoves_.getVal(m), fight_.getEnabledMoves().getVal(m));
         }
         enabledMoves = enabledMoves_;
-        NatStringTreeMap<Boolean> stillEnabledMoves_;
-        stillEnabledMoves_ = new NatStringTreeMap<Boolean>();
+        NatStringTreeMap<BoolVal> stillEnabledMoves_;
+        stillEnabledMoves_ = new NatStringTreeMap<BoolVal>();
         for (String m: fight_.getStillEnabledMoves().getKeys()) {
             stillEnabledMoves_.put(translationsMoves_.getVal(m), fight_.getStillEnabledMoves().getVal(m));
         }

@@ -35,7 +35,7 @@ public class MapLevelBean extends CommonBean {
     private boolean proponeLink;
     private boolean proponeTile;
     private boolean seeArea;
-    private TreeMap<String, Boolean> dirs;
+    private TreeMap<String, BoolVal> dirs;
     private String placeName;
     private int levelIndex;
     private boolean outside;
@@ -103,13 +103,13 @@ public class MapLevelBean extends CommonBean {
         proponeLink = getForms().getValBool(CST_PROPONE_LINK);
         proponeTile = getForms().getValBool(CST_PROPONE_TILE);
         seeArea = getForms().getValBool(CST_SEE_AREA);
-        dirs = new TreeMap<String, Boolean>(new ComparatorDirection());
+        dirs = new TreeMap<String, BoolVal>(new ComparatorDirection());
         for (EntryCust<String, BoolVal> s: getForms().getMapBoolean().entryList()) {
             if (!s.getKey().startsWith(CST_PROPONE_LINK_VAR) || s.getValue() != BoolVal.TRUE) {
                 continue;
             }
             String dirStr_ = s.getKey().substring(CST_PROPONE_LINK_VAR.length());
-            dirs.put(dirStr_, true);
+            dirs.put(dirStr_, BoolVal.TRUE);
         }
     }
     public int getMapWidth() {
@@ -738,7 +738,7 @@ public class MapLevelBean extends CommonBean {
         return seeArea;
     }
 
-    public TreeMap<String,Boolean> getDirs() {
+    public TreeMap<String,BoolVal> getDirs() {
         return dirs;
     }
 }

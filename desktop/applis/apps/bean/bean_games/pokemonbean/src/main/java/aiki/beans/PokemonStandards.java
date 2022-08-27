@@ -100,6 +100,7 @@ import code.formathtml.structs.BeanInfo;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 public abstract class PokemonStandards extends BeanNatCommonLgNames implements AbstractNatImpLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
@@ -1109,11 +1110,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static ArrayStruct getWcMvTpBool(AbsMap<MoveTeamPosition, Boolean> _map) {
+    public static ArrayStruct getWcMvTpBool(AbsMap<MoveTeamPosition, BoolVal> _map) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
         int j_ = 0;
-        for (EntryCust<MoveTeamPosition, Boolean> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(OBJECT,new MoveTeamPositionStruct(e.getKey(),TYPE_MOVE_TEAM_POSITION),BooleanStruct.of(e.getValue()));
+        for (EntryCust<MoveTeamPosition, BoolVal> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(OBJECT,new MoveTeamPositionStruct(e.getKey(),TYPE_MOVE_TEAM_POSITION),BooleanStruct.of(e.getValue() == BoolVal.TRUE));
             arr_.set(j_,p_);
             j_++;
         }
@@ -1766,11 +1767,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static ArrayStruct getStrBool(AbsMap<String, Boolean> _map) {
+    public static ArrayStruct getStrBool(AbsMap<String, BoolVal> _map) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
         int i_ = 0;
-        for (EntryCust<String,Boolean> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),BooleanStruct.of(e.getValue()));
+        for (EntryCust<String,BoolVal> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),BooleanStruct.of(e.getValue() == BoolVal.TRUE));
             arr_.set(i_,p_);
             i_++;
         }

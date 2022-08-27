@@ -40,6 +40,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -608,7 +609,7 @@ final class FightEndRound {
             return;
         }
         if (_fight.getStillEnabledMoves().contains(_move)){
-            if (_fight.getStillEnabledMoves().getVal(_move)){
+            if (_fight.getStillEnabledMoves().getVal(_move) == BoolVal.TRUE){
                 return;
             }
         }

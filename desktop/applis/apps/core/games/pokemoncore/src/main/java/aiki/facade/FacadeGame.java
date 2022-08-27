@@ -60,6 +60,8 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -967,7 +969,7 @@ public class FacadeGame {
             if (!(pl_ instanceof City)) {
                 continue;
             }
-            boolean visited_ =  game.getVisitedPlacesNb().getVal(tile_.getPlace());
+            boolean visited_ =  game.getVisitedPlacesNb().getVal(tile_.getPlace()) == BoolVal.TRUE;
             if (!visited_) {
                 continue;
             }
@@ -998,7 +1000,7 @@ public class FacadeGame {
         if (!coords_.isValid()) {
             return;
         }
-        if (!game.getVisitedPlaces().getVal(coords_)) {
+        if (game.getVisitedPlaces().getVal(coords_) != BoolVal.TRUE) {
             return;
         }
         int notFound_;
@@ -1712,17 +1714,17 @@ public class FacadeGame {
     public void addOrDeleteMoveEvo(String _move) {
         PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer()
                 .getSelectedPkTeam();
-        boolean learnt_ = pk_.getMovesToBeKeptEvo().getVal(_move);
-        pk_.getMovesToBeKeptEvo().put(_move, !learnt_);
+        boolean learnt_ = pk_.getMovesToBeKeptEvo().getVal(_move) == BoolVal.TRUE;
+        pk_.getMovesToBeKeptEvo().put(_move, ComparatorBoolean.of(!learnt_));
     }
 
     public StringList getKeptMovesToEvo() {
         PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer()
                 .getSelectedPkTeam();
-        StringMap<Boolean> m_ = pk_.getMovesToBeKeptEvo();
+        StringMap<BoolVal> m_ = pk_.getMovesToBeKeptEvo();
         StringList l_ = new StringList();
-        for (EntryCust<String, Boolean> e : m_.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<String, BoolVal> e : m_.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());
             }
         }
@@ -1732,10 +1734,10 @@ public class FacadeGame {
     public StringList getUnKeptMovesToEvo() {
         PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer()
                 .getSelectedPkTeam();
-        StringMap<Boolean> m_ = pk_.getMovesToBeKeptEvo();
+        StringMap<BoolVal> m_ = pk_.getMovesToBeKeptEvo();
         StringList l_ = new StringList();
-        for (EntryCust<String, Boolean> e : m_.entryList()) {
-            if (!e.getValue()) {
+        for (EntryCust<String, BoolVal> e : m_.entryList()) {
+            if (e.getValue() != BoolVal.TRUE) {
                 l_.add(e.getKey());
             }
         }
@@ -1878,9 +1880,9 @@ public class FacadeGame {
     public StringList getSelectedMoves() {
         StringList list_;
         list_ = new StringList();
-        StringMap<Boolean> moves_ = game.getPlayer().getSelectedMoves();
+        StringMap<BoolVal> moves_ = game.getPlayer().getSelectedMoves();
         for (String k : moves_.getKeys()) {
-            if (!moves_.getVal(k)) {
+            if (moves_.getVal(k) != BoolVal.TRUE) {
                 continue;
             }
             list_.add(k);
@@ -1892,9 +1894,9 @@ public class FacadeGame {
     public StringList getUnselectedMoves() {
         StringList list_;
         list_ = new StringList();
-        StringMap<Boolean> moves_ = game.getPlayer().getSelectedMoves();
+        StringMap<BoolVal> moves_ = game.getPlayer().getSelectedMoves();
         for (String k : moves_.getKeys()) {
-            if (moves_.getVal(k)) {
+            if (moves_.getVal(k) == BoolVal.TRUE) {
                 continue;
             }
             list_.add(k);
@@ -1904,8 +1906,8 @@ public class FacadeGame {
     }
 
     public void addOrDeleteMove(String _move) {
-        boolean selected_ = game.getPlayer().getSelectedMoves().getVal(_move);
-        game.getPlayer().getSelectedMoves().put(_move, !selected_);
+        boolean selected_ = game.getPlayer().getSelectedMoves().getVal(_move) == BoolVal.TRUE;
+        game.getPlayer().getSelectedMoves().put(_move, ComparatorBoolean.of(!selected_));
     }
 
     public void learnMovesByMoveTutor() {
@@ -2413,11 +2415,11 @@ public class FacadeGame {
         return game.getChosenIndex();
     }
 
-    public NatStringTreeMap< Boolean> getMoves() {
+    public NatStringTreeMap< BoolVal> getMoves() {
         return game.getMoves();
     }
 
-    public TreeMap<String, Boolean> getEvolutions() {
+    public TreeMap<String, BoolVal> getEvolutions() {
         return game.getEvolutions();
     }
 

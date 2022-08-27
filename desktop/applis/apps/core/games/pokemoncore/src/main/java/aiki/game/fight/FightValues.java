@@ -10,6 +10,7 @@ import aiki.game.UsesOfMove;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -538,7 +539,7 @@ final class FightValues {
                 continue;
             }
             if (creatureCbtCible_.getEnabledMovesForAlly().contains(c)) {
-                if(creatureCbtCible_.getEnabledMovesForAlly().getVal(c)){
+                if(creatureCbtCible_.getEnabledMovesForAlly().getVal(c) == BoolVal.TRUE){
                     //enabled effect
                     variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,c),_import.getTrueString());
                 }else{
@@ -666,7 +667,7 @@ final class FightValues {
                 continue;
             }
             if (creatureCbtLanceur_.getEnabledMovesForAlly().contains(c)) {
-                if(creatureCbtLanceur_.getEnabledMovesForAlly().getVal(c)){
+                if(creatureCbtLanceur_.getEnabledMovesForAlly().getVal(c) == BoolVal.TRUE){
                     //enabled effect
                     variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_EFFET,DataBase.SEP_BETWEEN_KEYS,c),_import.getTrueString());
                 }else{

@@ -3,6 +3,7 @@ package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.game.fight.actions.*;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -589,11 +590,11 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, fighter_.getCopiedMoves().getVal(COPIE).getPp());
         assertEq(3, fighter_.getEnabledMovesForAlly().size());
         assertTrue(fighter_.getEnabledMovesForAlly().contains(COUP_D_MAIN));
-        assertTrue(!fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
+        assertSame(BoolVal.FALSE,fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
         assertTrue(fighter_.getEnabledMovesForAlly().contains(COUP_D_MAIN_2));
-        assertTrue(!fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN_2));
+        assertSame(BoolVal.FALSE,fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN_2));
         assertTrue(fighter_.getEnabledMovesForAlly().contains(AIDE));
-        assertTrue(!fighter_.getEnabledMovesForAlly().getVal(AIDE));
+        assertSame(BoolVal.FALSE,fighter_.getEnabledMovesForAlly().getVal(AIDE));
         assertEq(4, fighter_.getEnabledMovesEndRound().size());
         assertTrue(fighter_.getEnabledMovesEndRound().contains(ANNEAU_HYDRO));
         assertTrue(fighter_.getEnabledMovesEndRound().contains(RACINES));
@@ -855,9 +856,9 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(activity_.isIncrementCount());
         assertEq(2, fighter_.getIncrUserAccuracy().size());
         assertTrue(fighter_.getIncrUserAccuracy().contains(new MoveTeamPosition(LIRE_ESPRIT,fighterCoords_)));
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,fighterCoords_)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,fighterCoords_)));
         assertTrue(fighter_.getIncrUserAccuracy().contains(new MoveTeamPosition(LEVIKINESIE,fighterCoords_)));
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LEVIKINESIE,fighterCoords_)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LEVIKINESIE,fighterCoords_)));
     }
 
     @Test
@@ -968,13 +969,13 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(activity_.isIncrementCount());
         assertEq(4, fighter_.getIncrUserAccuracy().size());
         assertTrue(fighter_.getIncrUserAccuracy().contains(new MoveTeamPosition(LIRE_ESPRIT,fighterCoordsOne_)));
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,fighterCoordsTwo_)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,fighterCoordsTwo_)));
         assertTrue(fighter_.getIncrUserAccuracy().contains(new MoveTeamPosition(LIRE_ESPRIT,fighterCoordsOne_)));
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,fighterCoordsTwo_)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,fighterCoordsTwo_)));
         assertTrue(fighter_.getIncrUserAccuracy().contains(new MoveTeamPosition(LEVIKINESIE,fighterCoordsOne_)));
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LEVIKINESIE,fighterCoordsTwo_)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LEVIKINESIE,fighterCoordsTwo_)));
         assertTrue(fighter_.getIncrUserAccuracy().contains(new MoveTeamPosition(LEVIKINESIE,fighterCoordsOne_)));
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LEVIKINESIE,fighterCoordsTwo_)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LEVIKINESIE,fighterCoordsTwo_)));
     }
 
     @Test
@@ -3856,9 +3857,9 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         fighter_.reinitEffetTour();
-        assertTrue(!fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
+        assertSame(BoolVal.FALSE,fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
     }
 
     @Test
@@ -3874,7 +3875,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         fighter_.reinitEffetTour();
-        assertTrue(!fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
+        assertSame(BoolVal.FALSE,fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
     }
 
     @Test
@@ -3892,7 +3893,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getDamageSufferedCategRound().getVal(PHYSIQUE).affect(new Rate("3"));
         fighter_.getDamageSufferedCategRound().getVal(SPECIALE).affect(new Rate("3"));
         fighter_.initRoundFrontFighter();
-        assertTrue(!fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
+        assertSame(BoolVal.FALSE,fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
         assertEq(0, fighter_.getAlreadyInvokedMovesRound().size());
         assertTrue(!fighter_.isActed());
         assertEq(Rate.zero(), fighter_.getDamageSufferedCateg().getVal(PHYSIQUE));
@@ -3917,7 +3918,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getDamageSufferedCategRound().getVal(PHYSIQUE).affect(new Rate("3"));
         fighter_.getDamageSufferedCategRound().getVal(SPECIALE).affect(new Rate("3"));
         fighter_.initRoundFrontFighter();
-        assertTrue(!fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
+        assertSame(BoolVal.FALSE,fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
         assertEq(0, fighter_.getAlreadyInvokedMovesRound().size());
         assertTrue(!fighter_.isActed());
         assertEq(new Rate("2"), fighter_.getDamageSufferedCateg().getVal(PHYSIQUE));
@@ -5191,8 +5192,8 @@ public class FighterTest extends InitializationDataBase {
         fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         partner_.effectBatonPass(fighter_);
         assertEq(1, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
@@ -5227,8 +5228,8 @@ public class FighterTest extends InitializationDataBase {
         activity_ = partner_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO));
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        assertTrue(partner_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO)));
-        assertTrue(!partner_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
+        assertSame(BoolVal.TRUE,partner_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO)));
+        assertSame(BoolVal.FALSE,partner_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
     }
 
     @Test
@@ -6992,12 +6993,12 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
         fighter_.calculateNewLevel(diff_, data_, new StringList());
-        NatStringTreeMap<Boolean> map_ = fighter_.getMoves(NULL_REF);
+        NatStringTreeMap<BoolVal> map_ = fighter_.getMoves(NULL_REF);
         assertEq(4, map_.size());
-        assertTrue(map_.getVal(DETECTION));
-        assertTrue(map_.getVal(ULTRASON));
-        assertTrue(map_.getVal(BROUHAHA));
-        assertTrue(map_.getVal(POURSUITE));
+        assertSame(BoolVal.TRUE,map_.getVal(DETECTION));
+        assertSame(BoolVal.TRUE,map_.getVal(ULTRASON));
+        assertSame(BoolVal.TRUE,map_.getVal(BROUHAHA));
+        assertSame(BoolVal.TRUE,map_.getVal(POURSUITE));
     }
 
     @Test
@@ -7026,20 +7027,20 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
         fighter_.calculateNewLevel(diff_, data_, new StringList());
-        NatStringTreeMap<Boolean> map_ = fighter_.getMoves(TARINORME);
+        NatStringTreeMap<BoolVal> map_ = fighter_.getMoves(TARINORME);
         assertEq(12, map_.size());
-        assertTrue(map_.getVal(DETECTION));
-        assertTrue(map_.getVal(ULTRASON));
-        assertTrue(map_.getVal(BROUHAHA));
-        assertTrue(map_.getVal(POURSUITE));
-        assertTrue(!map_.getVal(CHARGE));
-        assertTrue(!map_.getVal(GRAVITE));
-        assertTrue(!map_.getVal(VOL_MAGNETIK));
-        assertTrue(!map_.getVal(MUR_DE_FER));
-        assertTrue(!map_.getVal(BOMBAIMANT));
-        assertTrue(!map_.getVal(REGARD_NOIR));
-        assertTrue(!map_.getVal(CAGE_ECLAIR));
-        assertTrue(!map_.getVal(EBOULEMENT));
+        assertSame(BoolVal.TRUE,map_.getVal(DETECTION));
+        assertSame(BoolVal.TRUE,map_.getVal(ULTRASON));
+        assertSame(BoolVal.TRUE,map_.getVal(BROUHAHA));
+        assertSame(BoolVal.TRUE,map_.getVal(POURSUITE));
+        assertSame(BoolVal.FALSE,map_.getVal(CHARGE));
+        assertSame(BoolVal.FALSE,map_.getVal(GRAVITE));
+        assertSame(BoolVal.FALSE,map_.getVal(VOL_MAGNETIK));
+        assertSame(BoolVal.FALSE,map_.getVal(MUR_DE_FER));
+        assertSame(BoolVal.FALSE,map_.getVal(BOMBAIMANT));
+        assertSame(BoolVal.FALSE,map_.getVal(REGARD_NOIR));
+        assertSame(BoolVal.FALSE,map_.getVal(CAGE_ECLAIR));
+        assertSame(BoolVal.FALSE,map_.getVal(EBOULEMENT));
     }
 
     @Test
@@ -7068,13 +7069,13 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
         fighter_.calculateNewLevel(diff_, data_, new StringList());
-        NatStringTreeMap<Boolean> map_ = fighter_.getMoves(NULL_REF);
+        NatStringTreeMap<BoolVal> map_ = fighter_.getMoves(NULL_REF);
         assertEq(5, map_.size());
-        assertTrue(map_.getVal(DETECTION));
-        assertTrue(map_.getVal(ULTRASON));
-        assertTrue(map_.getVal(BROUHAHA));
-        assertTrue(map_.getVal(POURSUITE));
-        assertTrue(!map_.getVal(EBOULEMENT));
+        assertSame(BoolVal.TRUE,map_.getVal(DETECTION));
+        assertSame(BoolVal.TRUE,map_.getVal(ULTRASON));
+        assertSame(BoolVal.TRUE,map_.getVal(BROUHAHA));
+        assertSame(BoolVal.TRUE,map_.getVal(POURSUITE));
+        assertSame(BoolVal.FALSE,map_.getVal(EBOULEMENT));
     }
 
     @Test

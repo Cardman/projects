@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -640,13 +641,13 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(!FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         String ability_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAbility();
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, ability_, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         assertEq(AIR_LOCK,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getCurrentAbility());
     }
 
@@ -657,12 +658,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(!FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
     }
 
     @Test
@@ -672,12 +673,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
     }
 
     @Test
@@ -687,12 +688,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
     }
 
     @Test
@@ -702,13 +703,13 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         String ability_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAbility();
         FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, ability_, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
     }
 
     @Test

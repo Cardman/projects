@@ -18,6 +18,7 @@ import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -42,7 +43,7 @@ public final class Team {
     private StringMap<ActivityOfMove> enabledMoves;
 
     /***/
-    private StringMap<Boolean> enabledMovesWhileSendingFoe;
+    private StringMap<BoolVal> enabledMovesWhileSendingFoe;
 
     /***/
     private StringMap<LgInt> enabledMovesWhileSendingFoeUses;
@@ -88,10 +89,10 @@ public final class Team {
         for(String e:_import.getMovesEffectTeam()){
             enabledMoves.put(e,new ActivityOfMove());
         }
-        enabledMovesWhileSendingFoe = new StringMap<Boolean>();
+        enabledMovesWhileSendingFoe = new StringMap<BoolVal>();
         enabledMovesWhileSendingFoeUses = new StringMap<LgInt>();
         for(String e:_import.getMovesEffectWhileSending()){
-            enabledMovesWhileSendingFoe.put(e,false);
+            enabledMovesWhileSendingFoe.put(e, BoolVal.FALSE);
             enabledMovesWhileSendingFoeUses.put(e,LgInt.zero());
         }
         enabledMovesByGroup = new ListActivityOfMoves();
@@ -492,12 +493,12 @@ public final class Team {
     }
 
     void ajouterEffetEquipeEntreeAdv(String _attaque){
-        enabledMovesWhileSendingFoe.put(_attaque,true);
+        enabledMovesWhileSendingFoe.put(_attaque, BoolVal.TRUE);
         enabledMovesWhileSendingFoeUses.getVal(_attaque).increment();
     }
 
     void supprimerEffetEquipeEntreeAdv(String _attaque){
-        enabledMovesWhileSendingFoe.put(_attaque,false);
+        enabledMovesWhileSendingFoe.put(_attaque, BoolVal.FALSE);
         enabledMovesWhileSendingFoeUses.put(_attaque,LgInt.zero());
     }
 
@@ -820,11 +821,11 @@ public final class Team {
         enabledMoves = _enabledMoves;
     }
 
-    public StringMap<Boolean> getEnabledMovesWhileSendingFoe() {
+    public StringMap<BoolVal> getEnabledMovesWhileSendingFoe() {
         return enabledMovesWhileSendingFoe;
     }
 
-    public void setEnabledMovesWhileSendingFoe(StringMap<Boolean> _enabledMovesWhileSendingFoe) {
+    public void setEnabledMovesWhileSendingFoe(StringMap<BoolVal> _enabledMovesWhileSendingFoe) {
         enabledMovesWhileSendingFoe = _enabledMovesWhileSendingFoe;
     }
 

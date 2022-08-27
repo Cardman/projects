@@ -12,6 +12,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -59,7 +60,7 @@ final class FightKo {
         creature_.formeNormale(_import);
         creature_.initCreatureRelationsAutre(FightOrder.fighters(_fight), _import);
         FightSending.endRelations(_fight, _combattant, _import);
-        _fight.getKos().put(_combattant.getTeam(),equipe_.estKo());
+        _fight.getKos().put(_combattant.getTeam(),ComparatorBoolean.of(equipe_.estKo()));
     }
 
     static boolean endedFight(Fight _fight, Difficulty _diff){

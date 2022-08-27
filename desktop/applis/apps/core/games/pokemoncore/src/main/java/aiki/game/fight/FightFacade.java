@@ -81,7 +81,7 @@ public final class FightFacade {
         fight_.setCurrentUser(new TeamPosition());
         fight_.setNbRounds(LgInt.zero());
         fight_.setCatchingBall(DataBase.EMPTY_STRING);
-        fight_.setStillEnabledMoves(new StringMap<Boolean>());
+        fight_.setStillEnabledMoves(new StringMap<BoolVal>());
         fight_.setEnabledMoves(new StringMap<ActivityOfMove>());
         fight_.setCaughtEvolutions(new StringList());
         fight_.setEnvType(EnvironmentType.NOTHING);
@@ -603,7 +603,7 @@ public final class FightFacade {
             if (!(_data.getItem(_fight.getCatchingBall()) instanceof Ball)) {
                 return false;
             }
-            return !_fight.getKos().getVal(Fight.CST_PLAYER);
+            return _fight.getKos().getVal(Fight.CST_PLAYER) != BoolVal.TRUE;
         } else if (_fight.getState() == FightState.CAPTURE_KO) {
             _fight.getChoices().clear();
             if (!_user.existBall(_data)) {
@@ -1451,7 +1451,7 @@ public final class FightFacade {
     }
 
     public static boolean koTeam(Fight _fight){
-        return _fight.getKos().getVal(Fight.CST_PLAYER)||_fight.getKos().getVal(Fight.CST_FOE);
+        return _fight.getKos().getVal(Fight.CST_PLAYER)==BoolVal.TRUE||_fight.getKos().getVal(Fight.CST_FOE)==BoolVal.TRUE;
     }
 
     public static void endFight(Fight _fight){
@@ -1463,15 +1463,15 @@ public final class FightFacade {
     }
 
     public static boolean win(Fight _fight){
-        return !_fight.getKos().getVal(Fight.CST_PLAYER)&&_fight.getKos().getVal(Fight.CST_FOE);
+        return _fight.getKos().getVal(Fight.CST_PLAYER)!=BoolVal.TRUE&&_fight.getKos().getVal(Fight.CST_FOE)==BoolVal.TRUE;
     }
 
     public static boolean equality(Fight _fight){
-        return _fight.getKos().getVal(Fight.CST_PLAYER)&&_fight.getKos().getVal(Fight.CST_FOE);
+        return _fight.getKos().getVal(Fight.CST_PLAYER)==BoolVal.TRUE&&_fight.getKos().getVal(Fight.CST_FOE)==BoolVal.TRUE;
     }
 
     public static boolean loose(Fight _fight){
-        return _fight.getKos().getVal(Fight.CST_PLAYER)&&!_fight.getKos().getVal(Fight.CST_FOE);
+        return _fight.getKos().getVal(Fight.CST_PLAYER)==BoolVal.TRUE&&_fight.getKos().getVal(Fight.CST_FOE)!=BoolVal.TRUE;
     }
 
     public static FightState fightStatement(Fight _fight, boolean _existBall,Difficulty _diff){
@@ -1716,8 +1716,8 @@ public final class FightFacade {
         _fight.setChosenIndex(_key);
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         if (NumberUtil.eq(key_, Fighter.BACK)) {
-            _fight.setMoves(new NatStringTreeMap<Boolean>());
-            _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator()));
+            _fight.setMoves(new NatStringTreeMap<BoolVal>());
+            _fight.setEvolutions(new TreeMap<String,BoolVal>(new NaturalComparator()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
             _fight.setChosenIndex(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -1728,46 +1728,46 @@ public final class FightFacade {
             _fight.setEvolutions(getEvolutions(_fight, _key, _d));
             _fight.setAbilities(getAbilities(_fight, _key, DataBase.EMPTY_STRING));
             _fight.setAbility(_fight.getAbilities().first());
-            _fight.getEvolutions().put(DataBase.EMPTY_STRING, false);
+            _fight.getEvolutions().put(DataBase.EMPTY_STRING, BoolVal.FALSE);
             String name_ = _fight.getChoices().getVal(key_).getName();
-            _fight.getEvolutions().put(name_, true);
+            _fight.getEvolutions().put(name_, BoolVal.TRUE);
             _fight.setAbilities(getAbilities(_fight, _key, name_));
             _fight.setAbility(_fight.getChoices().getVal(key_).getAbility());
-            NatStringTreeMap<Boolean> tree_ = getMoves(_fight, _key, name_);
+            NatStringTreeMap<BoolVal> tree_ = getMoves(_fight, _key, name_);
             for (String m : tree_.getKeys()) {
-                tree_.put(m, false);
+                tree_.put(m, BoolVal.FALSE);
             }
             for (String m : _fight.getChoices().getVal(key_).getKeptMoves()) {
-                tree_.put(m, true);
+                tree_.put(m, BoolVal.TRUE);
             }
             _fight.setMoves(tree_);
         } else {
             _fight.setChosenIndex(IndexConstants.INDEX_NOT_FOUND_ELT);
-            _fight.setMoves(new NatStringTreeMap<Boolean>());
-            _fight.setEvolutions(new TreeMap<String, Boolean>(new NaturalComparator()));
+            _fight.setMoves(new NatStringTreeMap<BoolVal>());
+            _fight.setEvolutions(new TreeMap<String, BoolVal>(new NaturalComparator()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
         }
     }
 
-    static NatStringTreeMap<Boolean> getMoves(Fight _fight, byte _key,String _evo) {
+    static NatStringTreeMap<BoolVal> getMoves(Fight _fight, byte _key,String _evo) {
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         Fighter fighter_ = _fight.getUserTeam().getMembers().getVal(key_);
-        NatStringTreeMap<Boolean> map_ = new NatStringTreeMap<Boolean>();
+        NatStringTreeMap<BoolVal> map_ = new NatStringTreeMap<BoolVal>();
         map_.putAllMap(fighter_.getMoves(_evo));
         return map_;
     }
 
-    static TreeMap<String,Boolean> getEvolutions(Fight _fight, byte _key, DataBase _d) {
+    static TreeMap<String,BoolVal> getEvolutions(Fight _fight, byte _key, DataBase _d) {
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         Fighter fighter_ = _fight.getUserTeam().getMembers().getVal(key_);
         String lg_ = _d.getLanguage();
         StringMap<String> m_ = _d.getTranslatedPokemonCurLanguage(lg_);
-        TreeMap<String,Boolean> map_;
-        map_ = new TreeMap<String, Boolean>(new ComparatorTrStrings(m_));
-        map_.put(DataBase.EMPTY_STRING, true);
+        TreeMap<String,BoolVal> map_;
+        map_ = new TreeMap<String, BoolVal>(new ComparatorTrStrings(m_));
+        map_.put(DataBase.EMPTY_STRING, BoolVal.TRUE);
         for (String e: fighter_.getMovesAbilitiesEvos().getKeys()) {
-            map_.put(e, false);
+            map_.put(e, BoolVal.FALSE);
         }
         return map_;
     }
@@ -1792,9 +1792,9 @@ public final class FightFacade {
             }
             ChoiceOfEvolutionAndMoves defaultChoice_ = new ChoiceOfEvolutionAndMoves();
             StringList keptMoves_ = new StringList();
-            NatStringTreeMap< Boolean> map_ = fighter_.getMoves(DataBase.EMPTY_STRING);
+            NatStringTreeMap< BoolVal> map_ = fighter_.getMoves(DataBase.EMPTY_STRING);
             for (String m: map_.getKeys()) {
-                if (!map_.getVal(m)) {
+                if (map_.getVal(m) != BoolVal.TRUE) {
                     continue;
                 }
                 keptMoves_.add(m);
@@ -1812,10 +1812,10 @@ public final class FightFacade {
         ChoiceOfEvolutionAndMoves choice_ = choices_.getVal(key_);
         if (StringUtil.contains(choice_.getKeptMoves(), _move)) {
             choice_.getKeptMoves().removeString(_move);
-            _fight.getMoves().put(_move, false);
+            _fight.getMoves().put(_move, BoolVal.FALSE);
         } else {
             choice_.getKeptMoves().add(_move);
-            _fight.getMoves().put(_move, true);
+            _fight.getMoves().put(_move, BoolVal.TRUE);
         }
     }
 
@@ -1839,18 +1839,18 @@ public final class FightFacade {
         choice_.getKeptMoves().clear();
         String backEvo_ = choice_.getName();
         //set _fight.getEvolutions() map for displaying
-        _fight.getEvolutions().put(backEvo_, false);
-        _fight.getEvolutions().put(_evo, true);
+        _fight.getEvolutions().put(backEvo_, BoolVal.FALSE);
+        _fight.getEvolutions().put(_evo, BoolVal.TRUE);
         choice_.setName(_evo);
         StringList abilities_ = getAbilities(_fight, index_, _evo);
         _fight.setAbilities(abilities_);
         _fight.setAbility(abilities_.first());
         choice_.setAbility(abilities_.first());
-        NatStringTreeMap<Boolean> moves_ = getMoves(_fight, index_, _evo);
+        NatStringTreeMap<BoolVal> moves_ = getMoves(_fight, index_, _evo);
         _fight.setMoves(moves_);
         StringList movesList_ = new StringList();
         for (String m: moves_.getKeys()) {
-            if (!moves_.getVal(m)) {
+            if (moves_.getVal(m) != BoolVal.TRUE) {
                 continue;
             }
             movesList_.add(m);
@@ -2576,7 +2576,7 @@ public final class FightFacade {
         }
         _fight.setError(false);
         _fight.setFullHealing(false);
-        _fight.setSuccessfulEffects(new ObjectMap<NbEffectFighterCoords,Boolean>());
+        _fight.setSuccessfulEffects(new ObjectMap<NbEffectFighterCoords,BoolVal>());
         _fight.setDamageByCurrentUser(new ObjectMap<TeamPosition,Rate>());
         _fight.setSufferingTargetStatus(new StringList());
         _fight.setLettingUserAttackWithStatus(true);
@@ -2611,8 +2611,8 @@ public final class FightFacade {
         _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
         _fight.setChosenSubstitute(Fighter.BACK);
         _fight.setChosenIndex(Fighter.BACK);
-        _fight.setMoves(new NatStringTreeMap<Boolean>());
-        _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator()));
+        _fight.setMoves(new NatStringTreeMap<BoolVal>());
+        _fight.setEvolutions(new TreeMap<String,BoolVal>(new NaturalComparator()));
         _fight.setAbilities(new StringList());
         _fight.setAbility(DataBase.EMPTY_STRING);
         _fight.setKeepRound(true);
@@ -2620,9 +2620,9 @@ public final class FightFacade {
         _fight.setEffects(new CustList<AnimationInt>());
         _fight.setComment(new Comment());
         _fight.setCurrentActivity(new ActivityOfMove());
-        _fight.setKos(new ByteMap<Boolean>());
-        _fight.getKos().put(Fight.CST_PLAYER,false);
-        _fight.getKos().put(Fight.CST_FOE,false);
+        _fight.setKos(new ByteMap<BoolVal>());
+        _fight.getKos().put(Fight.CST_PLAYER,BoolVal.FALSE);
+        _fight.getKos().put(Fight.CST_FOE,BoolVal.FALSE);
         _fight.getFoeTeam().setComment(new Comment());
         _fight.getUserTeam().setComment(new Comment());
         for (Fighter f: _fight.getFoeTeam().getMembers().values()) {

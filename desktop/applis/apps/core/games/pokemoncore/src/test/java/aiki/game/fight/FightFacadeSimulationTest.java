@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -1655,8 +1656,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
-        fight_.getKos().put(Fight.CST_FOE, true);
-        fight_.getKos().put(Fight.CST_PLAYER, false);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
         FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getSimulation());
     }

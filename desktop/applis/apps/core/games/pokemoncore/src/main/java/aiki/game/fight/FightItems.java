@@ -11,6 +11,7 @@ import aiki.fight.moves.effects.EffectRestriction;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import code.maths.Rate;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -257,7 +258,7 @@ final class FightItems {
         }
         creatureCible_.useObject();
         bonusHp(_fight, _combattant, _import);
-        _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,_combattant),false);
+        _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,_combattant),BoolVal.FALSE);
     }
 
     static void bonusHp(Fight _fight,TeamPosition _combattant,DataBase _import) {

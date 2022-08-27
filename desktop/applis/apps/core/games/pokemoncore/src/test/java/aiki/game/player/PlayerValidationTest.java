@@ -1,5 +1,6 @@
 package aiki.game.player;
 
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -211,7 +212,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
-        player_.getCaughtPk().put(INVALID_DATA_KEY, false);
+        player_.getCaughtPk().put(INVALID_DATA_KEY, BoolVal.FALSE);
         assertTrue(!player_.validate(data_));
     }
     @Test
@@ -220,7 +221,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
-        player_.getCaughtPk().put(INVALID_DATA_KEY, false);
+        player_.getCaughtPk().put(INVALID_DATA_KEY,  BoolVal.FALSE);
         assertTrue(!player_.validate(data_));
     }
     @Test

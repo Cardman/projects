@@ -355,7 +355,7 @@ public final class Fight {
     private StringMap<ActivityOfMove> enabledMoves;
 
     /***/
-    private StringMap<Boolean> stillEnabledMoves;
+    private StringMap<BoolVal> stillEnabledMoves;
 
     /***/
     private ByteMap<Team> teams;
@@ -378,7 +378,7 @@ public final class Fight {
     private boolean error;
 
     /***/
-    private ObjectMap<NbEffectFighterCoords,Boolean> successfulEffects = new ObjectMap<NbEffectFighterCoords,Boolean>();
+    private ObjectMap<NbEffectFighterCoords,BoolVal> successfulEffects = new ObjectMap<NbEffectFighterCoords,BoolVal>();
 
     /***/
     private Comment comment = new Comment();
@@ -390,7 +390,7 @@ public final class Fight {
     private ObjectMap<TeamPosition,Rate> damageByCurrentUser = new ObjectMap<TeamPosition,Rate>();
 
     /***/
-    private ByteMap<Boolean> kos = new ByteMap<Boolean>();
+    private ByteMap<BoolVal> kos = new ByteMap<BoolVal>();
 
     /***/
     private StringList sufferingTargetStatus = new StringList();
@@ -516,10 +516,10 @@ public final class Fight {
     private byte chosenIndex = Fighter.BACK;
 
     /***/
-    private NatStringTreeMap<Boolean> moves = new NatStringTreeMap<Boolean>();
+    private NatStringTreeMap<BoolVal> moves = new NatStringTreeMap<BoolVal>();
 
     /***/
-    private TreeMap<String,Boolean> evolutions = new TreeMap<String,Boolean>(new NaturalComparator());
+    private TreeMap<String,BoolVal> evolutions = new TreeMap<String,BoolVal>(new NaturalComparator());
 
     /***/
     private StringList abilities = new StringList();
@@ -666,11 +666,11 @@ public final class Fight {
         enabledMoves = _enabledMoves;
     }
 
-    public StringMap<Boolean> getStillEnabledMoves() {
+    public StringMap<BoolVal> getStillEnabledMoves() {
         return stillEnabledMoves;
     }
 
-    public void setStillEnabledMoves(StringMap<Boolean> _stillEnabledMoves) {
+    public void setStillEnabledMoves(StringMap<BoolVal> _stillEnabledMoves) {
         stillEnabledMoves = _stillEnabledMoves;
     }
 
@@ -722,11 +722,11 @@ public final class Fight {
         catchingBall = _catchingBall;
     }
 
-    public ObjectMap<NbEffectFighterCoords,Boolean> getSuccessfulEffects() {
+    public ObjectMap<NbEffectFighterCoords,BoolVal> getSuccessfulEffects() {
         return successfulEffects;
     }
 
-    public void setSuccessfulEffects(ObjectMap<NbEffectFighterCoords,Boolean> _successfulEffects) {
+    public void setSuccessfulEffects(ObjectMap<NbEffectFighterCoords,BoolVal> _successfulEffects) {
         successfulEffects = _successfulEffects;
     }
 
@@ -738,11 +738,11 @@ public final class Fight {
         damageByCurrentUser = _damage;
     }
 
-    public ByteMap<Boolean> getKos() {
+    public ByteMap<BoolVal> getKos() {
         return kos;
     }
 
-    public void setKos(ByteMap<Boolean> _kos) {
+    public void setKos(ByteMap<BoolVal> _kos) {
         kos = _kos;
     }
 
@@ -1089,19 +1089,19 @@ public final class Fight {
         chosenIndex = _chosenIndex;
     }
 
-    public NatStringTreeMap< Boolean> getMoves() {
+    public NatStringTreeMap< BoolVal> getMoves() {
         return moves;
     }
 
-    void setMoves(NatStringTreeMap< Boolean> _moves) {
+    void setMoves(NatStringTreeMap< BoolVal> _moves) {
         moves = _moves;
     }
 
-    public TreeMap<String, Boolean> getEvolutions() {
+    public TreeMap<String, BoolVal> getEvolutions() {
         return evolutions;
     }
 
-    void setEvolutions(TreeMap<String, Boolean> _evolutions) {
+    void setEvolutions(TreeMap<String, BoolVal> _evolutions) {
         evolutions = _evolutions;
     }
 

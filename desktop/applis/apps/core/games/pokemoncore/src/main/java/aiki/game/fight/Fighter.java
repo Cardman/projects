@@ -50,6 +50,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -185,7 +186,7 @@ public final class Fighter {
     private StringMap<ActivityOfMove> enabledCounteringMoves;
 
     /**Never mind*/
-    private StringMap<Boolean> enabledMovesForAlly;
+    private StringMap<BoolVal> enabledMovesForAlly;
 
     /**Never mind*/
     private StringMap<Rate> damageRateInflictedByType;
@@ -219,7 +220,7 @@ public final class Fighter {
     private String usedBallCatching;
 
     /**Never mind*/
-    private ObjectMap<MoveTeamPosition,Boolean> incrUserAccuracy;
+    private ObjectMap<MoveTeamPosition,BoolVal> incrUserAccuracy;
 
     /**Never mind*/
     private StringMap<Integer> nbUsesMoves;
@@ -280,7 +281,7 @@ public final class Fighter {
     private boolean changed;
 
     /***/
-    private StringMap<Boolean> enabledImmuAbilities;
+    private StringMap<BoolVal> enabledImmuAbilities;
 
     /**Never mind*/
     private ObjectMap<MoveTeamPosition,StringList> privateMoves;
@@ -372,7 +373,7 @@ public final class Fighter {
     void initCreature(Pokemon _pokemon) {
         statusRelat = new ObjectMap<MoveTeamPosition,Short>();
         status = new StringMap<Short>();
-        incrUserAccuracy = new ObjectMap<MoveTeamPosition,Boolean>();
+        incrUserAccuracy = new ObjectMap<MoveTeamPosition,BoolVal>();
         trackingMoves = new ObjectMap<MoveTeamPosition,AffectedMove>();
         trappingMoves = new ObjectMap<MoveTeamPosition,ActivityOfMove>();
         privateMoves = new ObjectMap<MoveTeamPosition,StringList>();
@@ -510,9 +511,9 @@ public final class Fighter {
         for(String e:_import.getMovesEffectUnprot()){
             enabledMovesUnprot.put(e, new ActivityOfMove(StringUtil.contains(_import.getMovesEffectIndivIncr(), e)));
         }
-        enabledMovesForAlly = new StringMap<Boolean>();
+        enabledMovesForAlly = new StringMap<BoolVal>();
         for(String e:_import.getMovesEffectAlly()){
-            enabledMovesForAlly.put(e, false);
+            enabledMovesForAlly.put(e, BoolVal.FALSE);
         }
         enabledMovesEndRound = new StringMap<ActivityOfMove>();
         for(String e:_import.getMovesEffEndRoundIndiv()){
@@ -1137,7 +1138,7 @@ public final class Fighter {
             trappingMoves.put(new MoveTeamPosition(e,_cbt),new ActivityOfMove());
         }
         for(String e:_import.getMovesAccuracy()){
-            incrUserAccuracy.put(new MoveTeamPosition(e,_cbt),false);
+            incrUserAccuracy.put(new MoveTeamPosition(e,_cbt), BoolVal.FALSE);
         }
     }
 
@@ -2227,7 +2228,7 @@ public final class Fighter {
 
     void reinitEffetTour(){
         for(String e:enabledMovesForAlly.getKeys()){
-            enabledMovesForAlly.put(e, false);
+            enabledMovesForAlly.put(e, BoolVal.FALSE);
         }
     }
 
@@ -2391,18 +2392,18 @@ public final class Fighter {
         return trackingMoves.getVal(_c);
     }
 
-    NatStringTreeMap<Boolean> getMoves(String _evo) {
-        NatStringTreeMap<Boolean> map_ = new NatStringTreeMap<Boolean>();
+    NatStringTreeMap<BoolVal> getMoves(String _evo) {
+        NatStringTreeMap<BoolVal> map_ = new NatStringTreeMap<BoolVal>();
         for (String m: moves.getKeys()) {
-            map_.put(m, true);
+            map_.put(m, BoolVal.TRUE);
         }
         if (!_evo.isEmpty()) {
             for (String m: movesAbilitiesEvos.getVal(_evo).getMoves()) {
-                map_.put(m, false);
+                map_.put(m, BoolVal.FALSE);
             }
         } else {
             for (String m: movesToBeLearnt) {
-                map_.put(m, false);
+                map_.put(m, BoolVal.FALSE);
             }
         }
         return map_;
@@ -2795,12 +2796,12 @@ public final class Fighter {
         enabledCounteringMoves = _enabledCounteredMoves;
     }
 
-    public StringMap<Boolean> getEnabledMovesForAlly() {
+    public StringMap<BoolVal> getEnabledMovesForAlly() {
         return enabledMovesForAlly;
     }
 
     public void setEnabledMovesForAlly(
-            StringMap<Boolean> _attaquesActivesPartenaireTour) {
+            StringMap<BoolVal> _attaquesActivesPartenaireTour) {
         enabledMovesForAlly = _attaquesActivesPartenaireTour;
     }
 
@@ -2887,12 +2888,12 @@ public final class Fighter {
         usedBallCatching = _usedBallCatching;
     }
 
-    public ObjectMap<MoveTeamPosition,Boolean> getIncrUserAccuracy() {
+    public ObjectMap<MoveTeamPosition,BoolVal> getIncrUserAccuracy() {
         return incrUserAccuracy;
     }
 
     public void setIncrUserAccuracy(
-            ObjectMap<MoveTeamPosition,Boolean> _precisionAccrueLanceur) {
+            ObjectMap<MoveTeamPosition,BoolVal> _precisionAccrueLanceur) {
         incrUserAccuracy = _precisionAccrueLanceur;
     }
 
@@ -3051,11 +3052,11 @@ public final class Fighter {
         changed = _changed;
     }
 
-    public StringMap<Boolean> getEnabledImmuAbilities() {
+    public StringMap<BoolVal> getEnabledImmuAbilities() {
         return enabledImmuAbilities;
     }
 
-    public void setEnabledImmuAbilities(StringMap<Boolean> _enabledImmuAbilities) {
+    public void setEnabledImmuAbilities(StringMap<BoolVal> _enabledImmuAbilities) {
         enabledImmuAbilities = _enabledImmuAbilities;
     }
 

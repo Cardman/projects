@@ -3,6 +3,7 @@ package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.game.fight.util.ListActivityOfMove;
 import code.maths.Rate;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import aiki.game.Game;
@@ -165,7 +166,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
+        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, BoolVal.FALSE);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -173,7 +174,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
+        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, BoolVal.FALSE);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -245,7 +246,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
+        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, BoolVal.FALSE);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -253,7 +254,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
+        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, BoolVal.FALSE);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -477,7 +478,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
+        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, BoolVal.FALSE);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -485,7 +486,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
+        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, BoolVal.FALSE);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -557,7 +558,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
+        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, BoolVal.FALSE);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -565,7 +566,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, false);
+        team_.getEnabledMovesWhileSendingFoe().put(CHARGE, BoolVal.FALSE);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test

@@ -1,6 +1,7 @@
 package aiki.game.player;
 
 import aiki.db.DataBase;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.setNickname(NICKNAME);
         player_.setBox(new CustList<UsablePokemon>());
         player_.setTeam(new CustList<UsablePokemon>());
-        player_.setCaughtPk(new StringMap<Boolean>());
+        player_.setCaughtPk(new StringMap<BoolVal>());
         WildPk pkTwo_ = new WildPk();
         pkTwo_.setAbility(GARDE_MAGIK);
         pkTwo_.setGender(Gender.NO_GENDER);
@@ -90,7 +91,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.setNickname(NICKNAME);
         player_.setBox(new CustList<UsablePokemon>());
         player_.setTeam(new CustList<UsablePokemon>());
-        player_.setCaughtPk(new StringMap<Boolean>());
+        player_.setCaughtPk(new StringMap<BoolVal>());
         WildPk pkTwo_ = new WildPk();
         pkTwo_.setAbility(GARDE_MAGIK);
         pkTwo_.setGender(Gender.NO_GENDER);
@@ -139,7 +140,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.setNickname(NICKNAME);
         player_.setBox(new CustList<UsablePokemon>());
         player_.setTeam(new CustList<UsablePokemon>());
-        player_.setCaughtPk(new StringMap<Boolean>());
+        player_.setCaughtPk(new StringMap<BoolVal>());
         WildPk pkTwo_ = new WildPk();
         pkTwo_.setAbility(GARDE_MAGIK);
         pkTwo_.setGender(Gender.NO_GENDER);
@@ -188,7 +189,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.setNickname(NICKNAME);
         player_.setBox(new CustList<UsablePokemon>());
         player_.setTeam(new CustList<UsablePokemon>());
-        player_.setCaughtPk(new StringMap<Boolean>());
+        player_.setCaughtPk(new StringMap<BoolVal>());
         WildPk pkTwo_ = new WildPk();
         pkTwo_.setAbility(GARDE_MAGIK);
         pkTwo_.setGender(Gender.NO_GENDER);
@@ -4950,7 +4951,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.chooseObject(PIERRE_LUNE);
         player_.useObjectForEvolving(data_);
         player_.choosePokemonForEvolution((short) 1, data_);
-        ((PokemonPlayer)player_.getTeam().get(1)).getMovesToBeKeptEvo().put(OEIL_MIRACLE, true);
+        ((PokemonPlayer)player_.getTeam().get(1)).getMovesToBeKeptEvo().put(OEIL_MIRACLE, BoolVal.TRUE);
         player_.evolvePokemon(data_);
         assertEq(1, player_.getChosenTeamPokemon());
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
@@ -5070,10 +5071,10 @@ public class PlayerTest extends InitializationDataBase {
         player_.getTeam().add(pkPlayer_);
         player_.choosePokemonForMoveTutors((short) 0, data_);
         assertEq(4, player_.getSelectedMoves().size());
-        assertTrue(!player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
-        assertTrue(player_.getSelectedMoves().getVal(OEIL_MIRACLE));
-        assertTrue(player_.getSelectedMoves().getVal(JACKPOT));
-        assertTrue(player_.getSelectedMoves().getVal(PASSE_PASSE));
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(OEIL_MIRACLE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(JACKPOT));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(PASSE_PASSE));
         assertEq(1, player_.getChosenTeamPokemon());
         assertEq(1, player_.getChosenMoves().size());
         assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
@@ -5089,10 +5090,10 @@ public class PlayerTest extends InitializationDataBase {
         player_.getTeam().add(egg_);
         player_.choosePokemonForMoveTutors((short) 0, data_);
         assertEq(4, player_.getSelectedMoves().size());
-        assertTrue(!player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
-        assertTrue(player_.getSelectedMoves().getVal(OEIL_MIRACLE));
-        assertTrue(player_.getSelectedMoves().getVal(JACKPOT));
-        assertTrue(player_.getSelectedMoves().getVal(PASSE_PASSE));
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(OEIL_MIRACLE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(JACKPOT));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(PASSE_PASSE));
         assertEq(0, player_.getChosenTeamPokemon());
         assertEq(1, player_.getChosenMoves().size());
         assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
@@ -5161,10 +5162,10 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getChosenMoves().size());
         assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
         assertEq(4, player_.getSelectedMoves().size());
-        assertTrue(!player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
-        assertTrue(player_.getSelectedMoves().getVal(OEIL_MIRACLE));
-        assertTrue(player_.getSelectedMoves().getVal(JACKPOT));
-        assertTrue(player_.getSelectedMoves().getVal(PASSE_PASSE));
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(OEIL_MIRACLE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(JACKPOT));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(PASSE_PASSE));
         player_.learnMovesByMoveTutor(data_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().first();
         assertEq(3, pk_.getMoves().size());
@@ -5200,8 +5201,8 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getChosenMoves().size());
         assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
         assertEq(2, player_.getSelectedMoves().size());
-        assertTrue(!player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
-        assertTrue(player_.getSelectedMoves().getVal(JACKPOT));
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(JACKPOT));
         player_.learnMovesByMoveTutor(data_);
         pkPl_ = (PokemonPlayer) player_.getTeam().first();
         assertEq(1, pkPl_.getMoves().size());
@@ -5224,11 +5225,11 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getChosenMoves().size());
         assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
         assertEq(4, player_.getSelectedMoves().size());
-        assertTrue(!player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
-        assertTrue(player_.getSelectedMoves().getVal(OEIL_MIRACLE));
-        assertTrue(player_.getSelectedMoves().getVal(JACKPOT));
-        assertTrue(player_.getSelectedMoves().getVal(PASSE_PASSE));
-        player_.getSelectedMoves().put(VIVE_ATTAQUE, true);
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(OEIL_MIRACLE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(JACKPOT));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(PASSE_PASSE));
+        player_.getSelectedMoves().put(VIVE_ATTAQUE, BoolVal.TRUE);
         player_.learnMovesByMoveTutor(data_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().first();
         assertEq(4, pk_.getMoves().size());
@@ -5264,9 +5265,9 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getChosenMoves().size());
         assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
         assertEq(2, player_.getSelectedMoves().size());
-        assertTrue(!player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
-        assertTrue(player_.getSelectedMoves().getVal(JACKPOT));
-        player_.getSelectedMoves().put(VIVE_ATTAQUE, true);
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(JACKPOT));
+        player_.getSelectedMoves().put(VIVE_ATTAQUE, BoolVal.TRUE);
         player_.learnMovesByMoveTutor(data_);
         pkPl_ = (PokemonPlayer) player_.getTeam().first();
         assertEq(2, pkPl_.getMoves().size());
@@ -5300,13 +5301,13 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getChosenMoves().size());
         assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
         assertEq(5, player_.getSelectedMoves().size());
-        assertTrue(!player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
-        assertTrue(player_.getSelectedMoves().getVal(JACKPOT));
-        assertTrue(player_.getSelectedMoves().getVal(PASSE_PASSE));
-        assertTrue(player_.getSelectedMoves().getVal(OEIL_MIRACLE));
-        assertTrue(player_.getSelectedMoves().getVal(ORAGE));
-        player_.getSelectedMoves().put(VIVE_ATTAQUE, true);
-        player_.getSelectedMoves().put(PASSE_PASSE, false);
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(JACKPOT));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(PASSE_PASSE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(OEIL_MIRACLE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(ORAGE));
+        player_.getSelectedMoves().put(VIVE_ATTAQUE, BoolVal.TRUE);
+        player_.getSelectedMoves().put(PASSE_PASSE, BoolVal.FALSE);
         player_.learnMovesByMoveTutor(data_);
         pkPl_ = (PokemonPlayer) player_.getTeam().first();
         assertEq(4, pkPl_.getMoves().size());
@@ -5341,7 +5342,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(0));
         assertEq(1, player_.getIndexesOfPokemonTeamMoves().size());
-        assertTrue(!player_.getIndexesOfPokemonTeamMoves().getVal((byte) 0));
+        assertSame(BoolVal.FALSE,player_.getIndexesOfPokemonTeamMoves().getVal((byte) 0));
         assertEq(TONNERRE, player_.getSelectedMove());
     }
 
@@ -5355,7 +5356,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(0));
         assertEq(1, player_.getIndexesOfPokemonTeamMoves().size());
-        assertTrue(!player_.getIndexesOfPokemonTeamMoves().getVal((byte) 0));
+        assertSame(BoolVal.FALSE,player_.getIndexesOfPokemonTeamMoves().getVal((byte) 0));
         assertEq(ECLAIR, player_.getSelectedMove());
     }
 
@@ -5379,7 +5380,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(0));
         assertEq(1, player_.getIndexesOfPokemonTeamMoves().size());
-        assertTrue(player_.getIndexesOfPokemonTeamMoves().getVal((byte) 0));
+        assertSame(BoolVal.TRUE,player_.getIndexesOfPokemonTeamMoves().getVal((byte) 0));
         assertEq(ECLAIR, player_.getSelectedMove());
     }
 
@@ -5486,7 +5487,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(1));
         assertEq(1, player_.getIndexesOfPokemonTeamMoves().size());
-        assertTrue(player_.getIndexesOfPokemonTeamMoves().getVal((byte) 1));
+        assertSame(BoolVal.TRUE,player_.getIndexesOfPokemonTeamMoves().getVal((byte) 1));
         assertEq(ECLAIR, player_.getSelectedMove());
     }
 
@@ -5538,7 +5539,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(0));
         assertEq(1, player_.getIndexesOfPokemonTeamMoves().size());
-        assertTrue(player_.getIndexesOfPokemonTeamMoves().getVal((byte) 0));
+        assertSame(BoolVal.TRUE,player_.getIndexesOfPokemonTeamMoves().getVal((byte) 0));
         assertEq(ECLAIR, player_.getSelectedMove());
     }
 
@@ -5570,7 +5571,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(1));
         assertEq(1, player_.getIndexesOfPokemonTeamMoves().size());
-        assertTrue(player_.getIndexesOfPokemonTeamMoves().getVal((byte) 1));
+        assertSame(BoolVal.TRUE,player_.getIndexesOfPokemonTeamMoves().getVal((byte) 1));
         assertEq(ECLAIR, player_.getSelectedMove());
     }
 
@@ -5607,7 +5608,7 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(1));
         assertEq(1, player_.getIndexesOfPokemonTeamMoves().size());
-        assertTrue(player_.getIndexesOfPokemonTeamMoves().getVal((byte) 1));
+        assertSame(BoolVal.TRUE,player_.getIndexesOfPokemonTeamMoves().getVal((byte) 1));
         assertEq(ECLAIR, player_.getSelectedMove());
     }
 

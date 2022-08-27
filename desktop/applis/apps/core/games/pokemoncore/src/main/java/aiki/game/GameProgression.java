@@ -15,6 +15,7 @@ import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public final class GameProgression {
 
@@ -94,7 +95,7 @@ public final class GameProgression {
             if (k.getNbFight() < trainer_.getTeamsRewards().getLastIndex()) {
                 continue;
             }
-            boolean beaten_ = _game.getBeatTrainer().getVal(k);
+            boolean beaten_ = _game.getBeatTrainer().getVal(k) == BoolVal.TRUE;
             if (beaten_) {
                 continue;
             }

@@ -75,7 +75,7 @@ final class FightSuccess {
                 boolean atLeastOneSuccessful_ = false;
                 NbEffectFighterCoords hit_ = new NbEffectFighterCoords(e, _cible);
                 if (_fight.getSuccessfulEffects().contains(hit_)) {
-                    atLeastOneSuccessful_ = _fight.getSuccessfulEffects().getVal(hit_);
+                    atLeastOneSuccessful_ = _fight.getSuccessfulEffects().getVal(hit_) == BoolVal.TRUE;
                 }
                 if (!atLeastOneSuccessful_) {
                     sucessful_ = false;
@@ -583,7 +583,7 @@ final class FightSuccess {
                 if (!_fight.getSuccessfulEffects().contains(new NbEffectFighterCoords(e,_cible))) {
                     continue;
                 }
-                if(!_fight.getSuccessfulEffects().getVal(new NbEffectFighterCoords(e,_cible))){
+                if(_fight.getSuccessfulEffects().getVal(new NbEffectFighterCoords(e,_cible)) != BoolVal.TRUE){
                     reussi_=false;
                     break;
                 }
@@ -628,7 +628,7 @@ final class FightSuccess {
             if(!TeamPosition.eq(c.getTeamPosition(),_cible)){
                 continue;
             }
-            if(!creatureCbtLanceur_.getIncrUserAccuracy().getVal(c)){
+            if(creatureCbtLanceur_.getIncrUserAccuracy().getVal(c) != BoolVal.TRUE){
                 continue;
             }
             precisionMaxCible_=true;

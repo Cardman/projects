@@ -2,6 +2,7 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -89,11 +90,11 @@ public class TeamTest extends InitializationDataBase {
         assertTrue(team_.getEnabledMovesWhileSendingFoe().contains(PICOTS));
         assertTrue(team_.getEnabledMovesWhileSendingFoe().contains(PICOTS_BIS));
         assertTrue(team_.getEnabledMovesWhileSendingFoe().contains(TOILE_GLUANTE));
-        assertTrue(!team_.getEnabledMovesWhileSendingFoe().getVal(PIEGE_DE_ROC));
-        assertTrue(!team_.getEnabledMovesWhileSendingFoe().getVal(PICS_TOXIK));
-        assertTrue(!team_.getEnabledMovesWhileSendingFoe().getVal(PICOTS));
-        assertTrue(!team_.getEnabledMovesWhileSendingFoe().getVal(PICOTS_BIS));
-        assertTrue(!team_.getEnabledMovesWhileSendingFoe().getVal(TOILE_GLUANTE));
+        assertSame(BoolVal.FALSE,team_.getEnabledMovesWhileSendingFoe().getVal(PIEGE_DE_ROC));
+        assertSame(BoolVal.FALSE,team_.getEnabledMovesWhileSendingFoe().getVal(PICS_TOXIK));
+        assertSame(BoolVal.FALSE,team_.getEnabledMovesWhileSendingFoe().getVal(PICOTS));
+        assertSame(BoolVal.FALSE,team_.getEnabledMovesWhileSendingFoe().getVal(PICOTS_BIS));
+        assertSame(BoolVal.FALSE,team_.getEnabledMovesWhileSendingFoe().getVal(TOILE_GLUANTE));
         assertEq(5, team_.getEnabledMovesWhileSendingFoeUses().size());
         assertEq(LgInt.zero(), team_.getEnabledMovesWhileSendingFoeUses().getVal(PIEGE_DE_ROC));
         assertEq(LgInt.zero(), team_.getEnabledMovesWhileSendingFoeUses().getVal(PICS_TOXIK));

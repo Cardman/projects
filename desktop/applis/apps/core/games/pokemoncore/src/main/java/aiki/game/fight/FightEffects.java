@@ -79,6 +79,7 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -206,12 +207,12 @@ final class FightEffects {
         }
         if(effet_ instanceof EffectAlly){
             //ex: COUP_D_MAIN
-            creatureCible_.getEnabledMovesForAlly().put(_move, true);
+            creatureCible_.getEnabledMovesForAlly().put(_move, BoolVal.TRUE);
             _fight.addHelpAllyMessage(finalThrower_, finalTarget_, _import);
             return;
         }
         if(effet_ instanceof EffectAccuracy){
-            creatureLanceur_.getIncrUserAccuracy().put(new MoveTeamPosition(_move,finalTarget_), true);
+            creatureLanceur_.getIncrUserAccuracy().put(new MoveTeamPosition(_move,finalTarget_), BoolVal.TRUE);
             _fight.addEnabledMoveRelMessage(finalTarget_, _move, finalThrower_, _import);
             return;
         }
@@ -1172,7 +1173,7 @@ final class FightEffects {
     static Rate ratePartnerMove(Fighter _fighter, DataBase _import) {
         Rate ratePartnerMove_=DataBase.defRateProduct();
         for(String c:_fighter.getEnabledMovesForAlly().getKeys()){
-            if(!_fighter.getEnabledMovesForAlly().getVal(c)){
+            if(_fighter.getEnabledMovesForAlly().getVal(c) != BoolVal.TRUE){
                 continue;
             }
             MoveData fAttPart_=_import.getMove(c);
@@ -2145,7 +2146,7 @@ final class FightEffects {
             _fight.getEnabledMoves().getVal(e).reset();
             _fight.addDisabledWeatherMessage(e, _import);
             if (_fight.getStillEnabledMoves().contains(e)) {
-                _fight.getStillEnabledMoves().put(e, false);
+                _fight.getStillEnabledMoves().put(e, BoolVal.FALSE);
             }
         }
         for(TeamPosition c:FightOrder.frontFighters(_fight)){

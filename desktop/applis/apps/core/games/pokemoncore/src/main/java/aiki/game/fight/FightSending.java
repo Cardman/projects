@@ -26,6 +26,7 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -110,7 +111,7 @@ final class FightSending {
     static void effectWhileSendingBegin(Fight _fight,TeamPosition _cbtEnvoye,EffectWhileSendingWithStatistic _effet,DataBase _import){
         String climat_=_effet.getEnabledWeather();
         if(!climat_.isEmpty()){
-            _fight.getStillEnabledMoves().put(climat_,true);
+            _fight.getStillEnabledMoves().put(climat_,BoolVal.TRUE);
             _fight.getEnabledMoves().getVal(climat_).setEnabled(true);
             _fight.getEnabledMoves().getVal(climat_).reset();
             _fight.addEnabledWeatherMessage(climat_, _import);
@@ -128,7 +129,7 @@ final class FightSending {
                         _fight.getEnabledMoves().getVal(c).reset();
                         _fight.addDisabledWeatherMessage(c, _import);
                         if(_fight.getStillEnabledMoves().contains(c)){
-                            _fight.getStillEnabledMoves().put(c,false);
+                            _fight.getStillEnabledMoves().put(c,BoolVal.FALSE);
                         }
                     }
 //                    if(effetGlobal_.getPriseEnComptePkLanceur()){
@@ -404,11 +405,11 @@ final class FightSending {
                     _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
                 }
             }
-            ObjectMap<MoveTeamPosition,Boolean> accuracy_ = fighter_.getIncrUserAccuracy();
+            ObjectMap<MoveTeamPosition, BoolVal> accuracy_ = fighter_.getIncrUserAccuracy();
             for (MoveTeamPosition m: accuracy_.getKeys()) {
                 if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
-                    boolean wasEnabled_ = accuracy_.getVal(m);
-                    accuracy_.put(m, false);
+                    boolean wasEnabled_ = accuracy_.getVal(m) == BoolVal.TRUE;
+                    accuracy_.put(m, BoolVal.FALSE);
                     _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
                 }
             }

@@ -197,6 +197,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class DocumentWriterAikiCoreUtil {
@@ -4602,10 +4603,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapNbFightCoordsBoolean(ObjectMap<NbFightCoords,Boolean> _object, String _fieldName, Document _document) {
+    private static Element setMapNbFightCoordsBoolean(ObjectMap<NbFightCoords,BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<NbFightCoords, Boolean> s: _object.entryList()) {
+        for (EntryCust<NbFightCoords, BoolVal> s: _object.entryList()) {
             Element sub_ = setNbFightCoords(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4654,10 +4655,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapMoveTeamPositionBoolean(ObjectMap<MoveTeamPosition,Boolean> _object, String _fieldName, Document _document) {
+    private static Element setMapMoveTeamPositionBoolean(ObjectMap<MoveTeamPosition,BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<MoveTeamPosition, Boolean> s: _object.entryList()) {
+        for (EntryCust<MoveTeamPosition, BoolVal> s: _object.entryList()) {
             Element sub_ = setMoveTeamPosition(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4745,10 +4746,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapCoordsBoolean(ObjectMap<Coords,Boolean> _object, String _fieldName, Document _document) {
+    private static Element setMapCoordsBoolean(ObjectMap<Coords,BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Coords, Boolean> s: _object.entryList()) {
+        for (EntryCust<Coords, BoolVal> s: _object.entryList()) {
             Element sub_ = setCoords(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

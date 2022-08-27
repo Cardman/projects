@@ -10,6 +10,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.TreeMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class PokemonPanel {
@@ -51,14 +52,14 @@ public final class PokemonPanel {
 
     public void initEvos() {
         liste.clear();
-        TreeMap<String,Boolean> map_ = facade.getEvolutions();
+        TreeMap<String, BoolVal> map_ = facade.getEvolutions();
         for (String b: map_.getKeys()) {
             liste.add(b);
         }
 //        liste.setListData(map_.getKeys().toArray(new String[CustList.SIZE_EMPTY]));
         int index_ = IndexConstants.FIRST_INDEX;
         for (String b: map_.getKeys()) {
-            if (map_.getVal(b)) {
+            if (map_.getVal(b) == BoolVal.TRUE) {
                 liste.setSelectedIndice(index_);
             }
             index_++;

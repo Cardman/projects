@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -1399,7 +1400,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(PREVENTION);
         FightRound.initRound(fight_);
         assertTrue(!FightSuccess.protectedTargetAgainstMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO, IMPLORE, data_));
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), false);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), BoolVal.FALSE);
         assertTrue(!FightSuccess.protectedTargetAgainstMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO, IMPLORE, data_));
     }
 
@@ -1644,7 +1645,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = successfulEffectWhileIfTargetIsNotThrower(data_);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 0, true, data_));
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), false);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), BoolVal.FALSE);
         assertTrue(!FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 1, true, data_));
     }
 
@@ -1652,7 +1653,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void successfulEffectWhileIfTargetIsNotThrower3Test() {
         DataBase data_ = initDb();
         Fight fight_ = successfulEffectWhileIfTargetIsNotThrower(data_);
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 1, true, data_));
     }
 
@@ -1660,7 +1661,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void successfulEffectWhileIfTargetIsNotThrower4Test() {
         DataBase data_ = initDb();
         Fight fight_ = successfulEffectWhileIfTargetIsNotThrower(data_);
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 1, true, data_));
     }
 
@@ -1711,7 +1712,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void successfulEffectWhileIfTargetIsNotThrower8Test() {
         DataBase data_ = initDb();
         Fight fight_ = successfulEffectWhileIfTargetIsNotThrower(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).apprendreAttaqueEcrasant(BROUHAHA, COPIE, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).apprendreAttaqueEcrasant(TUNNEL, COPIE, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(BROUHAHA);
@@ -1786,7 +1787,7 @@ public class FightSuccessTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 0, true, data_));
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         assertTrue(!FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 1, true, data_));
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ZERO, IMPLORE, 1, true, data_));
     }
@@ -1803,7 +1804,7 @@ public class FightSuccessTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ZERO, IMPLORE, 0, true, data_));
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_PLAYER_FIGHTER_ZERO), true);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_PLAYER_FIGHTER_ZERO), BoolVal.TRUE);
         assertTrue(!FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ZERO, IMPLORE, 1, true, data_));
     }
 
@@ -1904,7 +1905,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(PREVENTION);
         FightRound.initRound(fight_);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 0, false, data_));
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), false);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), BoolVal.FALSE);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 1, false, data_));
     }
 
@@ -1920,7 +1921,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(ECRAN_POUDRE);
         FightRound.initRound(fight_);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 0, false, data_));
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), false);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0,POKEMON_FOE_FIGHTER_ZERO), BoolVal.FALSE);
         assertTrue(FightSuccess.successfulEffectWhileIfTargetIsNotThrower(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, IMPLORE, 1, false, data_));
     }
 
@@ -3020,7 +3021,7 @@ public class FightSuccessTest extends InitializationDataBase {
         assertTrue(pair_.isSuccessful());
         assertTrue(!pair_.isEffectIfFail());
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0, POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         pair_ = FightSuccess.successfulMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, VAMPIPOING, 1, true, data_);
         assertTrue(pair_.isSuccessful());
         assertTrue(!pair_.isEffectIfFail());
@@ -3043,7 +3044,7 @@ public class FightSuccessTest extends InitializationDataBase {
         assertTrue(pair_.isSuccessful());
         assertTrue(!pair_.isEffectIfFail());
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0, POKEMON_FOE_FIGHTER_ZERO), false);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0, POKEMON_FOE_FIGHTER_ZERO), BoolVal.FALSE);
         pair_ = FightSuccess.successfulMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, VAMPIPOING, 1, true, data_);
         assertTrue(!pair_.isSuccessful());
         assertTrue(!pair_.isEffectIfFail());
@@ -3194,7 +3195,7 @@ public class FightSuccessTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         RandomBoolResults pair_;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0, POKEMON_FOE_FIGHTER_ZERO), false);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0, POKEMON_FOE_FIGHTER_ZERO), BoolVal.FALSE);
         pair_ = FightSuccess.successfulMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, VAMPIPOING, 1, false, data_);
         assertTrue(pair_.isSuccessful());
         assertTrue(!pair_.isEffectIfFail());
@@ -3236,7 +3237,7 @@ public class FightSuccessTest extends InitializationDataBase {
         assertTrue(pair_.isSuccessful());
         assertTrue(!pair_.isEffectIfFail());
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
-        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0, POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getSuccessfulEffects().put(new NbEffectFighterCoords(0, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         pair_ = FightSuccess.successfulMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, TOUR_RAPIDE, 1, true, data_);
         assertTrue(pair_.isSuccessful());
         assertTrue(!pair_.isEffectIfFail());

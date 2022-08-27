@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import code.maths.montecarlo.MonteCarloList;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -577,7 +578,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         assertEq(new Rate("3/2"),FightEffects.ratePartnerMove(fighter_, data_));
     }
 
@@ -586,7 +587,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        fighter_.getEnabledMovesForAlly().put(AIDE, true);
+        fighter_.getEnabledMovesForAlly().put(AIDE, BoolVal.TRUE);
         assertEq(new Rate("1"),FightEffects.ratePartnerMove(fighter_, data_));
     }
 
@@ -595,7 +596,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN_2, true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN_2, BoolVal.TRUE);
         assertEq(new Rate("3/2"),FightEffects.ratePartnerMove(fighter_, data_));
     }
 

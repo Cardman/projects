@@ -140,18 +140,18 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static StringMap<Boolean> getStringMapBoolean(Element _elt) {
+    public static StringMap<BoolVal> getStringMapBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<Boolean> map_ = new StringMap<Boolean>(cap_);
+        StringMap<BoolVal> map_ = new StringMap<BoolVal>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getString(c));
             } else {
-                values_.add(getBoolean(c));
+                values_.add(getBoolVal(c));
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
@@ -346,18 +346,18 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static ShortMap<Boolean> getMapShortBoolean(Element _elt) {
+    public static ShortMap<BoolVal> getMapShortBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ShortMap<Boolean> map_ = new ShortMap<Boolean>(cap_);
+        ShortMap<BoolVal> map_ = new ShortMap<BoolVal>(cap_);
         Shorts keys_ = new Shorts(cap_);
-        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getShort(c));
             } else {
-                values_.add(getBoolean(c));
+                values_.add(getBoolVal(c));
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());

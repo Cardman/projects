@@ -1,5 +1,6 @@
 package aiki.game.fight;
 
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -1562,7 +1563,7 @@ public class FighterValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.getEnabledMovesForAlly().put(CHARGE, true);
+        figther_.getEnabledMovesForAlly().put(CHARGE, BoolVal.TRUE);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -1570,7 +1571,7 @@ public class FighterValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.getEnabledMovesForAlly().put(CHARGE, true);
+        figther_.getEnabledMovesForAlly().put(CHARGE, BoolVal.TRUE);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -1834,7 +1835,7 @@ public class FighterValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.getIncrUserAccuracy().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), true);
+        figther_.getIncrUserAccuracy().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -1842,7 +1843,7 @@ public class FighterValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.getIncrUserAccuracy().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), true);
+        figther_.getIncrUserAccuracy().put(new MoveTeamPosition(CHARGE, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test

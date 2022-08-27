@@ -2,6 +2,7 @@ package aiki.game;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -838,7 +839,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(4, game_.getTakenObjects().size());
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
-        assertTrue(game_.getTakenObjects().getVal(newCoords(2, 0, 6, 5)));
+        assertSame(BoolVal.TRUE,game_.getTakenObjects().getVal(newCoords(2, 0, 6, 5)));
         assertEq(new LgInt("1"), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
     }
 
@@ -854,7 +855,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(4, game_.getTakenObjects().size());
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
-        assertTrue(game_.getTakenObjects().getVal(newCoords(2, 0, 7, 5)));
+        assertSame(BoolVal.TRUE,game_.getTakenObjects().getVal(newCoords(2, 0, 7, 5)));
         assertTrue(game_.getPlayer().getInventory().gotTm().containsObj((short) 2));
     }
 
@@ -870,7 +871,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(4, game_.getTakenObjects().size());
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
-        assertTrue(game_.getTakenObjects().getVal(newCoords(2, 0, 8, 5)));
+        assertSame(BoolVal.TRUE,game_.getTakenObjects().getVal(newCoords(2, 0, 8, 5)));
         assertTrue(game_.getPlayer().getInventory().gotHm().containsObj((short) 1));
     }
 
@@ -886,7 +887,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(4, game_.getTakenObjects().size());
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
-        assertTrue(game_.getTakenObjects().getVal(newCoords(0, 0, 0, 1)));
+        assertSame(BoolVal.TRUE,game_.getTakenObjects().getVal(newCoords(0, 0, 0, 1)));
         assertTrue(game_.getPlayer().getInventory().gotTm().containsObj((short) 5));
         assertEq(new LgInt("1"), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
     }
@@ -904,17 +905,17 @@ public class GameTest extends InitializationDataBase {
         game_.healTeamWithoutUsingObject(data_);
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
     }
-    private static int nbTakenObjects(ObjectMap<Coords, Boolean> _map, boolean _taken) {
+    private static int nbTakenObjects(ObjectMap<Coords, BoolVal> _map, boolean _taken) {
         int n_ = IndexConstants.FIRST_INDEX;
         if (_taken) {
-            for (EntryCust<Coords, Boolean> e: _map.entryList()) {
-                if (e.getValue()) {
+            for (EntryCust<Coords, BoolVal> e: _map.entryList()) {
+                if (e.getValue() == BoolVal.TRUE) {
                     n_++;
                 }
             }
         } else {
-            for (EntryCust<Coords, Boolean> e: _map.entryList()) {
-                if (!e.getValue()) {
+            for (EntryCust<Coords, BoolVal> e: _map.entryList()) {
+                if (e.getValue() != BoolVal.TRUE) {
                     n_++;
                 }
             }
@@ -5465,14 +5466,14 @@ public class GameTest extends InitializationDataBase {
         assertEq(4, game_.getVisitedPlaces().size());
         assertEq(4, game_.getVisitedPlacesNb().size());
         assertEq(3, game_.getUnVisited().size());
-        assertTrue(game_.getVisitedPlaces().getVal(newCoords(3, 0, 2, 2)));
-        assertTrue(!game_.getVisitedPlaces().getVal(newCoords(1, 0, 1, 2)));
-        assertTrue(!game_.getVisitedPlaces().getVal(newCoords(7, 0, 3, 4)));
-        assertTrue(!game_.getVisitedPlaces().getVal(newCoords(8, 0, 3, 4)));
-        assertTrue(game_.getVisitedPlacesNb().getVal((short) 3));
-        assertTrue(!game_.getVisitedPlacesNb().getVal((short) 1));
-        assertTrue(!game_.getVisitedPlacesNb().getVal((short) 7));
-        assertTrue(!game_.getVisitedPlacesNb().getVal((short) 8));
+        assertSame(BoolVal.TRUE,game_.getVisitedPlaces().getVal(newCoords(3, 0, 2, 2)));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlaces().getVal(newCoords(1, 0, 1, 2)));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlaces().getVal(newCoords(7, 0, 3, 4)));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlaces().getVal(newCoords(8, 0, 3, 4)));
+        assertSame(BoolVal.TRUE,game_.getVisitedPlacesNb().getVal((short) 3));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlacesNb().getVal((short) 1));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlacesNb().getVal((short) 7));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlacesNb().getVal((short) 8));
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(1, game_.getNbSteps());
         assertTrue(!game_.isShowEndGame());
@@ -5493,14 +5494,14 @@ public class GameTest extends InitializationDataBase {
         assertEq(4, game_.getVisitedPlaces().size());
         assertEq(4, game_.getVisitedPlacesNb().size());
         assertEq(4, game_.getUnVisited().size());
-        assertTrue(!game_.getVisitedPlaces().getVal(newCoords(3, 0, 2, 2)));
-        assertTrue(!game_.getVisitedPlaces().getVal(newCoords(1, 0, 1, 2)));
-        assertTrue(!game_.getVisitedPlaces().getVal(newCoords(7, 0, 3, 4)));
-        assertTrue(!game_.getVisitedPlaces().getVal(newCoords(8, 0, 3, 4)));
-        assertTrue(!game_.getVisitedPlacesNb().getVal((short) 3));
-        assertTrue(!game_.getVisitedPlacesNb().getVal((short) 1));
-        assertTrue(!game_.getVisitedPlacesNb().getVal((short) 7));
-        assertTrue(!game_.getVisitedPlacesNb().getVal((short) 8));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlaces().getVal(newCoords(3, 0, 2, 2)));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlaces().getVal(newCoords(1, 0, 1, 2)));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlaces().getVal(newCoords(7, 0, 3, 4)));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlaces().getVal(newCoords(8, 0, 3, 4)));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlacesNb().getVal((short) 3));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlacesNb().getVal((short) 1));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlacesNb().getVal((short) 7));
+        assertSame(BoolVal.FALSE,game_.getVisitedPlacesNb().getVal((short) 8));
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(1, game_.getNbSteps());
         assertTrue(!game_.isShowEndGame());

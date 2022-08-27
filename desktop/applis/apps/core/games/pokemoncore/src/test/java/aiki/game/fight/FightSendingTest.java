@@ -2,6 +2,7 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -183,7 +184,7 @@ public class FightSendingTest extends InitializationDataBase {
         EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
     }
 
     @Test
@@ -236,8 +237,8 @@ public class FightSendingTest extends InitializationDataBase {
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(fight_.getEnabledMoves().getVal(ORAGE).isEnabled());
         assertTrue(!fight_.getEnabledMoves().getVal(TEMPETESABLE).isEnabled());
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
-        assertTrue(!fight_.getStillEnabledMoves().getVal(TEMPETESABLE));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(TEMPETESABLE));
     }
 
     @Test
@@ -285,7 +286,7 @@ public class FightSendingTest extends InitializationDataBase {
         AbilityData obj_ = fighter_.ficheCapaciteActuelle(data_);
         EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data_);
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
@@ -339,7 +340,7 @@ public class FightSendingTest extends InitializationDataBase {
         EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
         assertEq(1, fighter_.getStatusNbRound(PEUR));
         FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ONE, data_);
@@ -394,7 +395,7 @@ public class FightSendingTest extends InitializationDataBase {
         AbilityData obj_ = fighter_.ficheCapaciteActuelle(data_);
         EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data_);
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
@@ -1058,8 +1059,8 @@ public class FightSendingTest extends InitializationDataBase {
         aff_.setMove(JACKPOT);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ONE)).enable();
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ONE), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ONE), BoolVal.TRUE);
         FightSending.endRelations(fight_, POKEMON_FOE_FIGHTER_ZERO, data_);
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_FOE_FIGHTER_ZERO)));
         assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_FOE_FIGHTER_ONE)));
@@ -1070,8 +1071,8 @@ public class FightSendingTest extends InitializationDataBase {
         assertTrue(fighter_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ONE)).getActivity().isEnabled());
         assertTrue(!fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).isEnabled());
         assertTrue(fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ONE)).isEnabled());
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO)));
-        assertTrue(fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ONE)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO)));
+        assertSame(BoolVal.TRUE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ONE)));
     }
 
     @Test
@@ -2421,7 +2422,7 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         String ab_ = fighter_.getCurrentAbility();
         FightSending.effectWhileSending(fight_, thrower_, data_.getAbility(ab_).getEffectSending().first(), diff_, data_);
-        assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
     }
 
     @Test
@@ -2437,7 +2438,7 @@ public class FightSendingTest extends InitializationDataBase {
         fighter_.setAbility(ab_);
         fighter_.setCurrentAbility(ab_);
         FightSending.effectWhileSending(fight_, thrower_, data_.getAbility(ab_).getEffectSending().first(), diff_, data_);
-        assertTrue(!fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(ZENITH));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
     }

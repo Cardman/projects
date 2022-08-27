@@ -48,6 +48,7 @@ import code.scripts.messages.aiki.MessPkGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractThread;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -1160,13 +1161,13 @@ public class Battle extends ChildFrame {
     private void initLearntMovesAbilities() {
         StringMap<StringMap<String>> trMoves_;
         trMoves_ = facade.getData().getTranslatedMoves();
-        TreeMap<String,Boolean> moves_ = new TreeMap<String, Boolean>(new ComparatorTrStrings(trMoves_.getVal(window.getLanguageKey())));
-        NatStringTreeMap<Boolean> retMoves_ = facade.getMoves();
+        TreeMap<String,BoolVal> moves_ = new TreeMap<String, BoolVal>(new ComparatorTrStrings(trMoves_.getVal(window.getLanguageKey())));
+        NatStringTreeMap<BoolVal> retMoves_ = facade.getMoves();
         moves_.putAllMap(retMoves_);
         movesLearnPanel.removeAll();
         movesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
         for (String m: moves_.getKeys()) {
-            boolean learnt_ = moves_.getVal(m);
+            boolean learnt_ = moves_.getVal(m) == BoolVal.TRUE;
             if (!learnt_) {
                 continue;
             }
@@ -1176,7 +1177,7 @@ public class Battle extends ChildFrame {
             movesLearnPanel.add(check_.getComponent());
         }
         for (String m: moves_.getKeys()) {
-            boolean learnt_ = moves_.getVal(m);
+            boolean learnt_ = moves_.getVal(m) == BoolVal.TRUE;
             if (learnt_) {
                 continue;
             }

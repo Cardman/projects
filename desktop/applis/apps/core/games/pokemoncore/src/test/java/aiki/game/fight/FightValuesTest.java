@@ -1,5 +1,6 @@
 package aiki.game.fight;
 
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -1769,8 +1770,8 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO)).setMove(SEISME);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSuccessfulMove(false);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
@@ -1847,8 +1848,8 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO)).setMove(SEISME);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
         assertEq(43, map_.size());
@@ -1924,8 +1925,8 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_FOE_FIGHTER_ZERO)).setMove(SEISME);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ZERO, data_);
         assertEq(43, map_.size());
@@ -1989,8 +1990,8 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainingHp(Rate.zero());
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ZERO, data_);
         assertEq(43, map_.size());
@@ -2058,8 +2059,8 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentGender(Gender.FEMALE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentGender(Gender.NO_GENDER);
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
         assertEq(43, map_.size());
@@ -2140,8 +2141,8 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentGender(Gender.MALE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentGender(Gender.FEMALE);
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
         assertEq(43, map_.size());

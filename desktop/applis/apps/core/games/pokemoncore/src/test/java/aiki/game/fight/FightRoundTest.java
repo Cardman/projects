@@ -1827,10 +1827,10 @@ public class FightRoundTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setUsingItem(false);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         FightRound.useBoostForAccuracy(fight_, thrower_, target_, NULL_REF, false, false, false, data_);
         assertTrue(!fighter_.isUsingItem());
-        assertTrue(fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
+        assertSame(BoolVal.TRUE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
     }
 
     @Test
@@ -1841,10 +1841,10 @@ public class FightRoundTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setUsingItem(false);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         FightRound.useBoostForAccuracy(fight_, thrower_, target_, NULL_REF, false, false, true, data_);
         assertTrue(!fighter_.isUsingItem());
-        assertTrue(fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
+        assertSame(BoolVal.TRUE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
     }
 
     @Test
@@ -1855,10 +1855,10 @@ public class FightRoundTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setUsingItem(false);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         FightRound.useBoostForAccuracy(fight_, thrower_, target_, NULL_REF, false, true, true, data_);
         assertTrue(fighter_.isUsingItem());
-        assertTrue(fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
+        assertSame(BoolVal.TRUE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
     }
 
     @Test
@@ -1869,10 +1869,10 @@ public class FightRoundTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setUsingItem(false);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         FightRound.useBoostForAccuracy(fight_, thrower_, target_, LIRE_ESPRIT, true, false, true, data_);
         assertTrue(!fighter_.isUsingItem());
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
     }
 
     @Test
@@ -1883,10 +1883,10 @@ public class FightRoundTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setUsingItem(false);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         FightRound.useBoostForAccuracy(fight_, thrower_, target_, LIRE_ESPRIT, true, true, true, data_);
         assertTrue(!fighter_.isUsingItem());
-        assertTrue(!fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
+        assertSame(BoolVal.FALSE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
     }
 
     @Test
@@ -1923,11 +1923,11 @@ public class FightRoundTest extends InitializationDataBase {
     public void processAccurracy4Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectWhileFail(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BAIE_MICLE);
         FightRound.processAccurracy(fight_,BERCEUSE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
         assertTrue(fight_.isSuccessfulUse());
-        assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
+        assertSame(BoolVal.FALSE,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
         assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).isUsingItem());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -1947,11 +1947,11 @@ public class FightRoundTest extends InitializationDataBase {
     public void processAccurracy6Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectWhileFail(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
         FightRound.processAccurracy(fight_,BERCEUSE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
         assertTrue(fight_.isSuccessfulUse());
-        assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
+        assertSame(BoolVal.FALSE,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
         assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).isUsingItem());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -1960,10 +1960,10 @@ public class FightRoundTest extends InitializationDataBase {
     public void processAccurracy7Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectWhileFail(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         FightRound.processAccurracy(fight_,TONNERRE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
         assertTrue(fight_.isSuccessfulUse());
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
+        assertSame(BoolVal.TRUE,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -2838,7 +2838,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.processEffectTargets(fight_, target_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getSuccessfulEffects().clear();
         assertEq(PointViewChangementType.MIRROR_AGAINST_THROWER, FightOrder.getPointViewChangementType(moveTarget_, data_));
         FightRound.processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
@@ -2874,7 +2874,7 @@ public class FightRoundTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(NULL_REF);
         String move_ = BERCEUSE;
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         FightRound.processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
@@ -2982,8 +2982,8 @@ public class FightRoundTest extends InitializationDataBase {
         fobiddenMoves_ = fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF, POKEMON_PLAYER_FIGHTER_ZERO));
         assertEq(0, fobiddenMoves_.size());
         assertEq(2, fight_.getSuccessfulEffects().size());
-        assertTrue(!fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, POKEMON_PLAYER_FIGHTER_ZERO)));
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, POKEMON_PLAYER_FIGHTER_THREE)));
+        assertSame(BoolVal.FALSE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, POKEMON_PLAYER_FIGHTER_ZERO)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, POKEMON_PLAYER_FIGHTER_THREE)));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -3022,7 +3022,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertEq(1, fight_.getSuccessfulEffects().size());
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         fighter_ = fight_.getFighter(thrower_);
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertTrue(fighter_.isSuccessfulMove());
@@ -3033,7 +3033,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("1"),fight_.getDamageByCurrentUser().getVal(target_));
         FightRound.processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
         assertEq(1, fight_.getSuccessfulEffects().size());
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -3083,15 +3083,15 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(!fight_.isEnabledHealingPartner());
         assertEq(0, fight_.getDamageByCurrentUser().size());
         assertEq(2, fight_.getSuccessfulEffects().size());
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
         assertTrue(fight_.getAcceptableChoices());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
         FightRound.processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
         assertEq(3, fight_.getSuccessfulEffects().size());
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(1, thrower_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(1, thrower_)));
         assertTrue(fight_.getAcceptableChoices());
         assertEq(LgInt.zero(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
     }
@@ -3143,12 +3143,12 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(!fight_.isEnabledHealingPartner());
         assertEq(0, fight_.getDamageByCurrentUser().size());
         assertEq(1, fight_.getSuccessfulEffects().size());
-        assertTrue(!fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.FALSE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         assertTrue(fight_.getAcceptableChoices());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
         FightRound.processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
         assertEq(1, fight_.getSuccessfulEffects().size());
-        assertTrue(!fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.FALSE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         assertTrue(fight_.getAcceptableChoices());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
     }
@@ -3355,8 +3355,8 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.enableCounteringMoves(NUEE_DE_POUDRE);
         FightRound.processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertEq(2, fight_.getSuccessfulEffects().size());
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertTrue(fighter_.isSuccessfulMove());
@@ -4383,7 +4383,7 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setLastUsedMove(move_);
         fighter_.setUsedMoveLastRound(move_);
         //validate fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(NULL_REF, target_), true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);

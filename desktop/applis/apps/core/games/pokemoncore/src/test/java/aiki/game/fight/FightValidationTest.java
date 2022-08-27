@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -4090,7 +4091,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getStillEnabledMoves().put(GRAVITE, false);
+        fight_.getStillEnabledMoves().put(GRAVITE, BoolVal.FALSE);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4101,7 +4102,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getStillEnabledMoves().put(GRAVITE, false);
+        fight_.getStillEnabledMoves().put(GRAVITE, BoolVal.FALSE);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4948,8 +4949,8 @@ public class FightValidationTest extends InitializationDataBase {
         game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getKos().put(Fight.CST_PLAYER, true);
-        fight_.getKos().put(Fight.CST_FOE, false);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.FALSE);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4976,8 +4977,8 @@ public class FightValidationTest extends InitializationDataBase {
         game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getKos().put(Fight.CST_PLAYER, true);
-        fight_.getKos().put(Fight.CST_FOE, false);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.FALSE);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -5112,8 +5113,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getKos().put(Fight.CST_PLAYER, true);
-        fight_.getKos().put(Fight.CST_FOE, false);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.FALSE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5124,8 +5125,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getKos().put(Fight.CST_PLAYER, true);
-        fight_.getKos().put(Fight.CST_FOE, false);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.FALSE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5296,7 +5297,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
-        fight_.getKos().put(Fight.CST_FOE, true);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5353,7 +5354,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
-        fight_.getKos().put(Fight.CST_FOE, true);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5704,7 +5705,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getKos().put(Fight.CST_FOE, true);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5727,7 +5728,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getKos().put(Fight.CST_FOE, true);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5853,7 +5854,7 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
         //invalid data_
-        fight_.getKos().put(Fight.CST_PLAYER, true);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5865,7 +5866,7 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = game_.getFight();
         game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
         //invalid data_
-        fight_.getKos().put(Fight.CST_PLAYER, true);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5964,7 +5965,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getKos().put(Fight.CST_PLAYER, true);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5979,7 +5980,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getKos().put(Fight.CST_PLAYER, true);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test

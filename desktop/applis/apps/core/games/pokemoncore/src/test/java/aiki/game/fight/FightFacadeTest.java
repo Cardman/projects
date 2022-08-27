@@ -64,8 +64,8 @@ public class FightFacadeTest extends InitializationDataBase {
     @Test
     public void newFight2Test() {
         Fight fight_ = FightFacade.newFight();
-        fight_.getKos().put(Fight.CST_PLAYER,false);
-        fight_.getKos().put(Fight.CST_FOE,false);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
+        fight_.getKos().put(Fight.CST_FOE,BoolVal.FALSE);
         assertEq(FightType.NOTHING,fight_.getFightType());
         assertEq(Rate.zero(),fight_.getWinningMoney());
         assertTrue(!fight_.getSimulation());
@@ -7856,20 +7856,20 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
-        NatStringTreeMap<Boolean> map_ = FightFacade.getMoves(fight_, (byte) 0, TARINORME);
+        NatStringTreeMap<BoolVal> map_ = FightFacade.getMoves(fight_, (byte) 0, TARINORME);
         assertEq(12, map_.size());
-        assertTrue(map_.getVal(DETECTION));
-        assertTrue(map_.getVal(ULTRASON));
-        assertTrue(map_.getVal(BROUHAHA));
-        assertTrue(map_.getVal(POURSUITE));
-        assertTrue(!map_.getVal(CHARGE));
-        assertTrue(!map_.getVal(GRAVITE));
-        assertTrue(!map_.getVal(VOL_MAGNETIK));
-        assertTrue(!map_.getVal(MUR_DE_FER));
-        assertTrue(!map_.getVal(BOMBAIMANT));
-        assertTrue(!map_.getVal(REGARD_NOIR));
-        assertTrue(!map_.getVal(CAGE_ECLAIR));
-        assertTrue(!map_.getVal(EBOULEMENT));
+        assertSame(BoolVal.TRUE,map_.getVal(DETECTION));
+        assertSame(BoolVal.TRUE,map_.getVal(ULTRASON));
+        assertSame(BoolVal.TRUE,map_.getVal(BROUHAHA));
+        assertSame(BoolVal.TRUE,map_.getVal(POURSUITE));
+        assertSame(BoolVal.FALSE,map_.getVal(CHARGE));
+        assertSame(BoolVal.FALSE,map_.getVal(GRAVITE));
+        assertSame(BoolVal.FALSE,map_.getVal(VOL_MAGNETIK));
+        assertSame(BoolVal.FALSE,map_.getVal(MUR_DE_FER));
+        assertSame(BoolVal.FALSE,map_.getVal(BOMBAIMANT));
+        assertSame(BoolVal.FALSE,map_.getVal(REGARD_NOIR));
+        assertSame(BoolVal.FALSE,map_.getVal(CAGE_ECLAIR));
+        assertSame(BoolVal.FALSE,map_.getVal(EBOULEMENT));
     }
 
     @Test
@@ -7906,10 +7906,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
-        TreeMap<String,Boolean> map_ = FightFacade.getEvolutions(fight_, (byte) 0, data_);
+        TreeMap<String, BoolVal> map_ = FightFacade.getEvolutions(fight_, (byte) 0, data_);
         assertEq(2, map_.size());
-        assertTrue(map_.getVal(NULL_REF));
-        assertTrue(!map_.getVal(TARINORME));
+        assertSame(BoolVal.TRUE,map_.getVal(NULL_REF));
+        assertSame(BoolVal.FALSE,map_.getVal(TARINORME));
     }
 
     @Test
@@ -12544,7 +12544,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
-        fight_.getKos().put(Fight.CST_FOE,true);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         assertTrue(!FightFacade.keepLoop(fight_,true));
     }
 
@@ -13164,10 +13164,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
-        ByteMap<Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<BoolVal> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
-        assertEq(2, getNbKoByValue(ko_, false));
-        assertEq(0, getNbKoByValue(ko_, true));
+        assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
+        assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -13215,10 +13215,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
-        ByteMap<Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<BoolVal> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
-        assertEq(2, getNbKoByValue(ko_, false));
-        assertEq(0, getNbKoByValue(ko_, true));
+        assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
+        assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -13272,10 +13272,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
-        ByteMap<Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<BoolVal> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
-        assertEq(2, getNbKoByValue(ko_, false));
-        assertEq(0, getNbKoByValue(ko_, true));
+        assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
+        assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -13327,10 +13327,10 @@ public class FightFacadeTest extends InitializationDataBase {
         ActionMove actionMove_ = (ActionMove) loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         actionMove_.setFirstChosenMove(NULL_REF);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
-        ByteMap<Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<BoolVal> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
-        assertEq(2, getNbKoByValue(ko_, false));
-        assertEq(0, getNbKoByValue(ko_, true));
+        assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
+        assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -13391,10 +13391,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
-        ByteMap<Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<BoolVal> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
-        assertEq(2, getNbKoByValue(ko_, false));
-        assertEq(0, getNbKoByValue(ko_, true));
+        assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
+        assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter playerBackPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
@@ -13461,10 +13461,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.APPRENDRE_EVOLUER, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
-        ByteMap<Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<BoolVal> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
-        assertEq(2, getNbKoByValue(ko_, false));
-        assertEq(0, getNbKoByValue(ko_, true));
+        assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
+        assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -13522,10 +13522,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
-        ByteMap<Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<BoolVal> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
-        assertEq(2, getNbKoByValue(ko_, false));
-        assertEq(0, getNbKoByValue(ko_, true));
+        assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
+        assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter playerAllyPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
@@ -13581,10 +13581,10 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
-        ByteMap<Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<BoolVal> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
-        assertEq(2, getNbKoByValue(ko_, false));
-        assertEq(0, getNbKoByValue(ko_, true));
+        assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
+        assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -13604,9 +13604,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(loadedFight_.getAcceptableChoices());
     }
 
-    private static int getNbKoByValue(ByteMap<Boolean> _map, Boolean _value) {
+    private static int getNbKoByValue(ByteMap<BoolVal> _map, BoolVal _value) {
         int nb_ = IndexConstants.FIRST_INDEX;
-        for (EntryCust<Byte,Boolean> e: _map.entryList()) {
+        for (EntryCust<Byte,BoolVal> e: _map.entryList()) {
             if (e.getValue() == _value) {
                 nb_++;
             }

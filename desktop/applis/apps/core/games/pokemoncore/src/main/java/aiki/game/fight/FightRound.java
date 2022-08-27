@@ -50,6 +50,8 @@ import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -480,7 +482,7 @@ final class FightRound {
                     }
                 }
                 if(!_fight.getLettingUserAttackWithStatus()){
-                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e),false);
+                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e),BoolVal.FALSE);
                     continue;
                 }
                 if(_firstEffect){
@@ -500,7 +502,7 @@ final class FightRound {
             if(!resultatsReussite_.isSuccessful()){
                 _fight.addFailMoveMessage(attaqueLanceur_, e, _import);
                 //precision
-                _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e),false);
+                _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e),BoolVal.FALSE);
                 if(resultatsReussite_.isEffectIfFail() && !_fight.isChangeThrower()){
                     effectWhileFail(_fight,_finalThrower, e, attaqueLanceur_, _diff, _import);
                     if (!_fight.getAcceptableChoices()) {
@@ -533,9 +535,9 @@ final class FightRound {
                 }
                 if (continueLoop_) {
                     _fight.addSuccessfulMoveButNoDamageMessage(attaqueLanceur_, e, _import);
-                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e), fAttFinal_.getSecEffectIfNoDamage());
+                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e),ComparatorBoolean.of(fAttFinal_.getSecEffectIfNoDamage()));
                     if (fAttFinal_.getSecEffectIfNoDamage()) {
-                        _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,_finalThrower), true);
+                        _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,_finalThrower),BoolVal.TRUE);
                     }
                     continue;
                 }
@@ -547,12 +549,12 @@ final class FightRound {
                 }
                 if (!_fight.isSuccessfulUse()) {
                     _fight.addFailMoveMessage(attaqueLanceur_, e, _import);
-                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e), false);
+                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e),BoolVal.FALSE);
                     continue;
                 }
             }
             _fight.addSuccessfulMoveMessage(attaqueLanceur_, e, _import);
-            _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e),true);
+            _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,e),BoolVal.TRUE);
             FightEffects.processEffectTarget(_fight,attaqueLanceur_,_index,
                     _finalThrower, e, _diff, _import);
             achieveTarget_ = true;
@@ -574,7 +576,7 @@ final class FightRound {
             if (nbEffets_ > _index + 1) {
                 Effect eff_ = fAttFinal_.getEffet(_index + 1);
                 if (eff_.getTargetChoice() == TargetChoice.LANCEUR) {
-                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index, _finalThrower), true);
+                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index, _finalThrower),BoolVal.TRUE);
                 }
             }
         }
@@ -980,7 +982,7 @@ final class FightRound {
             if(!TeamPosition.eq(c.getTeamPosition(),_target)){
                 continue;
             }
-            if(!creature_.getIncrUserAccuracy().getVal(c)){
+            if(creature_.getIncrUserAccuracy().getVal(c) != BoolVal.TRUE){
                 continue;
             }
             precisionMaxCible_=true;
@@ -1028,7 +1030,7 @@ final class FightRound {
         Fighter creature_=_fight.getFighter(_thrower);
         if(_partialAccuracy){
             if(_maxAccuracy){
-                creature_.getIncrUserAccuracy().put(new MoveTeamPosition(_accuracyMove,_target), false);
+                creature_.getIncrUserAccuracy().put(new MoveTeamPosition(_accuracyMove,_target),BoolVal.FALSE);
                 _fight.addDisabledMoveRelMessage(_target, _accuracyMove, _thrower, _import);
             }else if(_withoutFailObject){
                 creature_.useObject();

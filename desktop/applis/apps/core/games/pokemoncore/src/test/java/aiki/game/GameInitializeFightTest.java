@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -118,7 +119,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
-        game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
+        game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
@@ -146,7 +147,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
-        game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
+        game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(MEW);
@@ -156,7 +157,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
-        game_.getPlayer().getCaughtPk().put(MEW, true);
+        game_.getPlayer().getCaughtPk().put(MEW, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
@@ -184,7 +185,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
-        game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
+        game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(MEW);
@@ -194,7 +195,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
-        game_.getPlayer().getCaughtPk().put(MEW, true);
+        game_.getPlayer().getCaughtPk().put(MEW, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
@@ -312,7 +313,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
-        game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
+        game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
@@ -340,7 +341,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
-        game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
+        game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
@@ -373,7 +374,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
-        game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
+        game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);

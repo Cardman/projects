@@ -20,6 +20,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public class FighterBean extends CommonFightBean {
@@ -51,14 +52,14 @@ public class FighterBean extends CommonFightBean {
     private String cloneStr;
     private StringList protectedAgainstMoveTypes;
     private NatStringTreeMap<ActivityOfMove> enabledMoves;
-    private NatStringTreeMap<Boolean> enabledMovesForAlly;
+    private NatStringTreeMap<BoolVal> enabledMovesForAlly;
     private NatStringTreeMap<MultPowerMoves> damageRateByType;
     private byte groundPlace;
     private Rate wonExpSinceLastLevel;
     private Rate necessaryPointsNextLevel;
     private short level;
     private short happiness;
-    private TreeMap<MoveTeamPosition,Boolean> incrUserAccuracy;
+    private TreeMap<MoveTeamPosition,BoolVal> incrUserAccuracy;
     private NatStringTreeMap<Integer> nbUsesMoves;
     private short nbPrepaRound;
     private boolean needingToRecharge;
@@ -334,8 +335,8 @@ public class FighterBean extends CommonFightBean {
             damageSufferedCateg_.put(translationsCategories_.getVal(c), suff_);
         }
         damageSufferedCateg = damageSufferedCateg_;
-        NatStringTreeMap<Boolean> enabledMovesForAlly_;
-        enabledMovesForAlly_ = new NatStringTreeMap<Boolean>();
+        NatStringTreeMap<BoolVal> enabledMovesForAlly_;
+        enabledMovesForAlly_ = new NatStringTreeMap<BoolVal>();
         for (String c: fighter_.getEnabledMovesForAlly().getKeys()) {
             enabledMovesForAlly_.put(translationsMoves_.getVal(c), fighter_.getEnabledMovesForAlly().getVal(c));
         }
@@ -420,7 +421,7 @@ public class FighterBean extends CommonFightBean {
             trackingMoves_.put(m_, new AffectedMove(affectedMoveTr_, activity_));
         }
         trackingMoves = trackingMoves_;
-        TreeMap<MoveTeamPosition,Boolean> incrUserAccuracy_;
+        TreeMap<MoveTeamPosition,BoolVal> incrUserAccuracy_;
 //        incrUserAccuracy_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
 //            public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {
@@ -435,7 +436,7 @@ public class FighterBean extends CommonFightBean {
 //                return Integer.compare(_o1.getTeamPosition().getPosition(), _o2.getTeamPosition().getPosition());
 //            }
 //        });
-        incrUserAccuracy_ = new TreeMap<MoveTeamPosition, Boolean>(new ComparatorMoveTeamPosition());
+        incrUserAccuracy_ = new TreeMap<MoveTeamPosition, BoolVal>(new ComparatorMoveTeamPosition());
         for (MoveTeamPosition m: fighter_.getIncrUserAccuracy().getKeys()) {
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
@@ -684,7 +685,7 @@ public class FighterBean extends CommonFightBean {
         return enabledMoves;
     }
 
-    public NatStringTreeMap<Boolean> getEnabledMovesForAlly() {
+    public NatStringTreeMap<BoolVal> getEnabledMovesForAlly() {
         return enabledMovesForAlly;
     }
 
@@ -756,7 +757,7 @@ public class FighterBean extends CommonFightBean {
         return trackingMoves;
     }
 
-    public TreeMap<MoveTeamPosition,Boolean> getIncrUserAccuracy() {
+    public TreeMap<MoveTeamPosition,BoolVal> getIncrUserAccuracy() {
         return incrUserAccuracy;
     }
 }

@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.game.fight.animations.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -4453,8 +4454,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         Effect effect_ = data_.getMove(RELAIS).getEffet(0);
         fight_.addEffect(thrower_, thrower_, effect_);
@@ -4523,8 +4524,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         assertEq(new Rate("561/25"), partner_.getRemainingHp());
         Effect effect_ = data_.getMove(RELAIS).getEffet(0);
@@ -4584,8 +4585,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         assertEq(new Rate("1873/100"), partner_.getRemainingHp());
         Effect effect_ = data_.getMove(RELAIS).getEffet(0);
@@ -4638,8 +4639,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         assertEq(new Rate("561/25"), partner_.getRemainingHp());
         Effect effect_ = data_.getMove(RELAIS).getEffet(0);
@@ -4693,8 +4694,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         Effect effect_ = data_.getMove(RELAIS).getEffet(0);
         fight_.addEffect(thrower_, thrower_, effect_);
@@ -4759,8 +4760,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         Effect effect_ = data_.getMove(RELAIS).getEffet(0);
         fight_.addEffect(thrower_, thrower_, effect_);
@@ -4808,7 +4809,7 @@ public class FightEffectsTest extends InitializationDataBase {
         activity_ = fight_.getEnabledMoves().getVal(ZENITH);
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        assertTrue(!fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(ZENITH));
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
@@ -4833,7 +4834,7 @@ public class FightEffectsTest extends InitializationDataBase {
         activity_ = fight_.getEnabledMoves().getVal(ZENITH);
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        assertTrue(!fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(ZENITH));
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
@@ -4903,11 +4904,11 @@ public class FightEffectsTest extends InitializationDataBase {
         activity_ = fight_.getEnabledMoves().getVal(TEMPETESABLE);
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
-        assertTrue(!fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(ZENITH));
         activity_ = fight_.getEnabledMoves().getVal(ZENITH);
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        assertTrue(!fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(ZENITH));
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
@@ -4932,11 +4933,11 @@ public class FightEffectsTest extends InitializationDataBase {
         activity_ = fight_.getEnabledMoves().getVal(DANSE_PLUIE);
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        assertTrue(!fight_.getStillEnabledMoves().getVal(DANSE_PLUIE));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(DANSE_PLUIE));
         activity_ = fight_.getEnabledMoves().getVal(ZENITH);
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        assertTrue(!fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(ZENITH));
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(2, types_.size());
@@ -6372,7 +6373,7 @@ public class FightEffectsTest extends InitializationDataBase {
         activity_ = fight_.getEnabledMoves().getVal(ZENITH);
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        assertTrue(!fight_.getStillEnabledMoves().getVal(ZENITH));
+        assertSame(BoolVal.FALSE,fight_.getStillEnabledMoves().getVal(ZENITH));
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
@@ -6449,7 +6450,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightEffects.processEffectTarget(fight_, COUP_D_MAIN, IndexConstants.FIRST_INDEX, thrower_, target_, diff_, data_);
         fighter_ = fight_.getFighter(target_);
-        assertTrue(fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
+        assertSame(BoolVal.TRUE,fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
     }
@@ -6467,7 +6468,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.setFirstChosenMove(LIRE_ESPRIT);
         FightRound.initRound(fight_);
         FightEffects.processEffectTarget(fight_, LIRE_ESPRIT, IndexConstants.FIRST_INDEX, thrower_, target_, diff_, data_);
-        assertTrue(fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
+        assertSame(BoolVal.TRUE,fighter_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, target_)));
         assertTrue(fighter_.isSuccessfulMove());
     }
 
@@ -6499,8 +6500,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         FightEffects.processEffectTarget(fight_, RELAIS, IndexConstants.FIRST_INDEX, thrower_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();

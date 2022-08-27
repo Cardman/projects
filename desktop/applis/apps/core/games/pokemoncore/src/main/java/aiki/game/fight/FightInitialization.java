@@ -19,6 +19,7 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -112,13 +113,13 @@ final class FightInitialization {
     }
 
     static void initGlobalMoves(Fight _fight,DataBase _import) {
-        _fight.setStillEnabledMoves(new StringMap<Boolean>());
+        _fight.setStillEnabledMoves(new StringMap<BoolVal>());
         _fight.setEnabledMoves(new StringMap<ActivityOfMove>());
         //lanceursGlobaux = new Map<>();
         for(String e:_import.getMovesEffectGlobal()){
             _fight.getEnabledMoves().put(e,new ActivityOfMove());
             if(StringUtil.contains(_import.getMovesEffectGlobalWeather(), e)){
-                _fight.getStillEnabledMoves().put(e,false);
+                _fight.getStillEnabledMoves().put(e,BoolVal.FALSE);
 //                lanceursGlobaux.put(e,new TeamPosition());
             }
         }
@@ -142,9 +143,9 @@ final class FightInitialization {
         _fight.setFullHealing(false);
         _fight.setEndRound(false);
         _fight.setState(FightState.ATTAQUES);
-        _fight.setKos(new ByteMap<Boolean>());
-        _fight.getKos().put(Fight.CST_PLAYER,false);
-        _fight.getKos().put(Fight.CST_FOE,false);
+        _fight.setKos(new ByteMap<BoolVal>());
+        _fight.getKos().put(Fight.CST_PLAYER,BoolVal.FALSE);
+        _fight.getKos().put(Fight.CST_FOE,BoolVal.FALSE);
         _fight.setNbFleeAttempt((short) 0);
         _fight.setNbRounds(LgInt.zero());
         _fight.setCatchingBall(DataBase.EMPTY_STRING);

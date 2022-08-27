@@ -69,6 +69,7 @@ import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloList;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -132,16 +133,16 @@ public final class Game {
 
     private ShortMap<EqList<Point>> beatGymTrainer;
 
-    private ObjectMap<Coords,Boolean> beatGymLeader;
+    private ObjectMap<Coords,BoolVal> beatGymLeader;
 
     /***/
-    private ObjectMap<NbFightCoords,Boolean> beatTrainer;
+    private ObjectMap<NbFightCoords,BoolVal> beatTrainer;
 
     /***/
-    private ObjectMap<Coords,Boolean> takenObjects;
+    private ObjectMap<Coords,BoolVal> takenObjects;
 
     /***/
-    private ObjectMap<Coords,Boolean> takenPokemon;
+    private ObjectMap<Coords,BoolVal> takenPokemon;
 
     /***/
     private Coords playerCoords;
@@ -170,8 +171,8 @@ public final class Game {
 
     private boolean reinitInteraction;
 
-    private ObjectMap<Coords,Boolean> visitedPlaces;
-    private ShortMap<Boolean> visitedPlacesNb;
+    private ObjectMap<Coords,BoolVal> visitedPlaces;
+    private ShortMap<BoolVal> visitedPlacesNb;
 
     private int nbSteps;
 
@@ -190,12 +191,12 @@ public final class Game {
         setBeatGymTrainer(new ShortMap<EqList<Point>>());
         reinitInteraction=false;
         setInterfaceType(InterfaceType.RIEN);
-        setVisitedPlacesNb(new ShortMap<Boolean>());
-        setVisitedPlaces(new ObjectMap<Coords,Boolean>());
-        setBeatGymLeader(new ObjectMap<Coords, Boolean>());
-        setTakenObjects(new ObjectMap<Coords, Boolean>());
-        setTakenPokemon(new ObjectMap<Coords, Boolean>());
-        setBeatTrainer(new ObjectMap<NbFightCoords, Boolean>());
+        setVisitedPlacesNb(new ShortMap<BoolVal>());
+        setVisitedPlaces(new ObjectMap<Coords,BoolVal>());
+        setBeatGymLeader(new ObjectMap<Coords, BoolVal>());
+        setTakenObjects(new ObjectMap<Coords, BoolVal>());
+        setTakenPokemon(new ObjectMap<Coords, BoolVal>());
+        setBeatTrainer(new ObjectMap<NbFightCoords, BoolVal>());
         setHostedPk(new ObjectMap<Coords, HostPokemonDuo>());
         setFight(new Fight());
         playerCoords = new Coords();
@@ -208,25 +209,25 @@ public final class Game {
         reinitInteraction=false;
         interfaceType=InterfaceType.RIEN;
         DataMap d_=_d.getMap();
-        visitedPlaces = new ObjectMap<Coords,Boolean>();
-        visitedPlacesNb = new ShortMap<Boolean>();
+        visitedPlaces = new ObjectMap<Coords,BoolVal>();
+        visitedPlacesNb = new ShortMap<BoolVal>();
         playerCoords= new Coords(d_.getBegin());
         playerOrientation=Direction.UP;
-        takenPokemon = new ObjectMap<Coords,Boolean>();
+        takenPokemon = new ObjectMap<Coords,BoolVal>();
         for (Coords c: d_.getTakenPokemon()){
-            takenPokemon.put(c, false);
+            takenPokemon.put(c, BoolVal.FALSE);
         }
-        takenObjects = new ObjectMap<Coords,Boolean>();
+        takenObjects = new ObjectMap<Coords,BoolVal>();
         for (Coords c: d_.getTakenObjects()){
-            takenObjects.put(c, false);
+            takenObjects.put(c, BoolVal.FALSE);
         }
-        beatGymLeader = new ObjectMap<Coords,Boolean>();
+        beatGymLeader = new ObjectMap<Coords,BoolVal>();
         for (Coords c: d_.getBeatGymLeader()){
-            beatGymLeader.put(c, false);
+            beatGymLeader.put(c, BoolVal.FALSE);
         }
-        beatTrainer = new ObjectMap<NbFightCoords,Boolean>();
+        beatTrainer = new ObjectMap<NbFightCoords,BoolVal>();
         for (NbFightCoords c: d_.getBeatTrainer()) {
-            beatTrainer.put(c, false);
+            beatTrainer.put(c, BoolVal.FALSE);
         }
         beatGymTrainer = new ShortMap<EqList<Point>>();
         for (Short c: d_.getBeatGymTrainer().getKeys()){
@@ -239,11 +240,11 @@ public final class Game {
             h_.setSecondPokemon(new PokemonPlayer());
             hostedPk.put(c, h_);
         }
-        visitedPlaces = new ObjectMap<Coords,Boolean>();
-        visitedPlacesNb = new ShortMap<Boolean>();
+        visitedPlaces = new ObjectMap<Coords,BoolVal>();
+        visitedPlacesNb = new ShortMap<BoolVal>();
         for (Coords c: d_.getCities()) {
-            visitedPlaces.put(c, false);
-            visitedPlacesNb.put(c.getNumberPlace(), false);
+            visitedPlaces.put(c, BoolVal.FALSE);
+            visitedPlacesNb.put(c.getNumberPlace(), BoolVal.FALSE);
         }
         indexStep=0;
         indexPeriod=0;
@@ -254,13 +255,13 @@ public final class Game {
     public void visitFirstPlaces(DataBase _d) {
         DataMap d_=_d.getMap();
         visitedPlacesNb.clear();
-        for (EntryCust<Coords,Boolean> e: visitedPlaces.entryList()) {
+        for (EntryCust<Coords,BoolVal> e: visitedPlaces.entryList()) {
             visitedPlacesNb.put(e.getKey().getNumberPlace(),e.getValue());
         }
         for (Coords c: visitedPlaces.getKeys()) {
             if (d_.getAccessibility().getVal(c).isEmpty()) {
-                visitedPlaces.put(c, true);
-                visitedPlacesNb.put(c.getNumberPlace(), true);
+                visitedPlaces.put(c, BoolVal.TRUE);
+                visitedPlacesNb.put(c.getNumberPlace(), BoolVal.TRUE);
             }
         }
     }
@@ -966,17 +967,17 @@ public final class Game {
         if (l_.getItems().contains(pt_)) {
             String obj_ = l_.getItems().getVal(pt_);
             player.getItem(obj_);
-            takenObjects.put(voisin_, true);
+            takenObjects.put(voisin_, BoolVal.TRUE);
             interfaceType = InterfaceType.RIEN;
         } else if (l_.getTm().contains(pt_)) {
             short obj_ = l_.getTm().getVal(pt_);
             player.getTm(obj_);
-            takenObjects.put(voisin_, true);
+            takenObjects.put(voisin_, BoolVal.TRUE);
             interfaceType = InterfaceType.RIEN;
         } else if (l_.getHm().contains(pt_)) {
             short obj_ = l_.getHm().getVal(pt_);
             player.getHm(obj_);
-            takenObjects.put(voisin_, true);
+            takenObjects.put(voisin_, BoolVal.TRUE);
             interfaceType = InterfaceType.RIEN;
         } else {
             //l_.getCharacters().contains(pt_)
@@ -988,7 +989,7 @@ public final class Game {
             for (Short t: ((DealerItem)person_).getTechnicalMoves()) {
                 player.getTm(t);
             }
-            takenObjects.put(voisin_, true);
+            takenObjects.put(voisin_, BoolVal.TRUE);
             interfaceType = InterfaceType.RIEN;
         }
     }
@@ -1041,7 +1042,7 @@ public final class Game {
         int nb_=0;
         for(NbFightCoords d:beatTrainer.getKeys()){
             if(Coords.eq(d.getCoords(),voisin_)){
-                if(!beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_))){
+                if(beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_)) != BoolVal.TRUE){
                     break;
                 }
                 nb_++;
@@ -1291,7 +1292,7 @@ public final class Game {
                     coords_.setLevel(new LevelPoint());
                     coords_.getLevel().setLevelIndex((byte) 0);
                     coords_.getLevel().setPoint(((League) pl_).getBegin());
-                    beatGymLeader.put(coords_, true);
+                    beatGymLeader.put(coords_, BoolVal.TRUE);
                     beatenImportantTrainer_ = coords_;
                     player.healTeamWithoutUsingObject(_import);
                 }
@@ -1325,7 +1326,7 @@ public final class Game {
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
                 commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                beatGymLeader.put(coordsFoe_, true);
+                beatGymLeader.put(coordsFoe_, BoolVal.TRUE);
                 beatenImportantTrainer_ = coordsFoe_;
                 addBeatenTrainer(beatenImportantTrainer_, _import);
                 //player.obtentionCs(gymTr_.getCs());
@@ -1350,7 +1351,7 @@ public final class Game {
                 player.healTeamWithoutUsingObject(_import);
                 Coords key_ = new Coords(playerCoords);
                 key_.getLevel().getPoint().affect(e.getKey());
-                beatGymLeader.put(key_, true);
+                beatGymLeader.put(key_, BoolVal.TRUE);
                 beatenImportantTrainer_ = key_;
                 addBeatenTrainer(beatenImportantTrainer_, _import);
                 FightFacade.endFight(fight);
@@ -1366,7 +1367,7 @@ public final class Game {
                 int nb_=0;
                 for(NbFightCoords d:beatTrainer.getKeys()){
                     if(Coords.eq(d.getCoords(),coordsFoe_)){
-                        if(!beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_))){
+                        if(beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_)) != BoolVal.TRUE){
                             break;
                         }
                         nb_++;
@@ -1381,7 +1382,7 @@ public final class Game {
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
                 commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                beatTrainer.put(new NbFightCoords(coordsFoe_,nb_), true);
+                beatTrainer.put(new NbFightCoords(coordsFoe_,nb_), BoolVal.TRUE);
                 //player.obtentionCs(gymTr_.getCs());
                 FightFacade.endFight(fight);
                 directInteraction(closestTile(_import.getMap()), _import.getMap());
@@ -1404,7 +1405,7 @@ public final class Game {
                     coords_.setLevel(new LevelPoint());
                     coords_.getLevel().setLevelIndex((byte) 0);
                     coords_.getLevel().setPoint(((League) pl_).getBegin());
-                    beatGymLeader.put(coords_, true);
+                    beatGymLeader.put(coords_, BoolVal.TRUE);
                     addBeatenTrainer(coords_, _import);
                     player.healTeamWithoutUsingObject(_import);
                     FightFacade.endFight(fight);
@@ -1490,7 +1491,7 @@ public final class Game {
             int nb_=0;
             for(NbFightCoords d:beatTrainer.getKeys()){
                 if(Coords.eq(d.getCoords(),coordsFoe_)){
-                    if(!beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_))){
+                    if(beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_)) != BoolVal.TRUE){
                         break;
                     }
                     nb_++;
@@ -1696,11 +1697,11 @@ public final class Game {
         return fight.getChosenIndex();
     }
 
-    public NatStringTreeMap<Boolean> getMoves() {
+    public NatStringTreeMap<BoolVal> getMoves() {
         return fight.getMoves();
     }
 
-    public TreeMap<String,Boolean> getEvolutions() {
+    public TreeMap<String,BoolVal> getEvolutions() {
         return fight.getEvolutions();
     }
 
@@ -1816,7 +1817,7 @@ public final class Game {
         if (fPk_.getGenderRep() == GenderRepartition.LEGENDARY) {
             if (nextLegPk(_import)) {
                 Coords n_ = closestTile(_import.getMap());
-                takenPokemon.put(n_, true);
+                takenPokemon.put(n_, BoolVal.TRUE);
             }
         }
         FightFacade.endFight(fight);
@@ -1839,7 +1840,7 @@ public final class Game {
 
     void catchAll(DataBase _d) {
         for(String p:_d.getPokedex().getKeys()){
-            player.getCaughtPk().put(p, true);
+            player.getCaughtPk().put(p, BoolVal.TRUE);
         }
     }
 
@@ -1862,7 +1863,7 @@ public final class Game {
             LevelWithWildPokemon level_ = place_.getLevelCompaignByCoords(coords_);
             TrainerMultiFights trainer_ = (TrainerMultiFights) level_.getCharacters().getVal(coords_.getLevel().getPoint());
             if (k.getNbFight() == trainer_.getTeamsRewards().getLastIndex()) {
-                if (!beatTrainer.getVal(k)) {
+                if (beatTrainer.getVal(k) != BoolVal.TRUE) {
                     return false;
                 }
             }
@@ -1923,8 +1924,8 @@ public final class Game {
         }
         movingHero(_d);
         if (visitedPlaces.contains(playerCoords)) {
-            visitedPlaces.put(playerCoords, true);
-            visitedPlacesNb.put(playerCoords.getNumberPlace(),true);
+            visitedPlaces.put(playerCoords, BoolVal.TRUE);
+            visitedPlacesNb.put(playerCoords.getNumberPlace(),BoolVal.TRUE);
         }
         voisin_ = closestTile(d_);
         player.moveLoop(nbSteps, difficulty, _d);
@@ -2164,7 +2165,7 @@ public final class Game {
                     }
                     if (Point.eq(((Gym)building_).getIndoor().getGymLeaderCoords(),_voisin.getLevel().getPoint())) {
                         if (beatGymTrainer.getVal(_voisin.getNumberPlace()).containsAllObj(((Gym)building_).getIndoor().getGymTrainers().getKeys())) {
-                            if (!beatGymLeader.getVal(_voisin)) {
+                            if (beatGymLeader.getVal(_voisin) != BoolVal.TRUE) {
                                 interfaceType=InterfaceType.DRESSEUR;
                             } else {
                                 interfaceType=InterfaceType.RIEN;
@@ -2226,7 +2227,7 @@ public final class Game {
                 return;
             }
             //char_ instanceof DealerItem
-            if (!takenObjects.getVal(_voisin)) {
+            if (takenObjects.getVal(_voisin) != BoolVal.TRUE) {
                 interfaceType=InterfaceType.DON_OBJET;
                 return;
             }
@@ -2242,14 +2243,14 @@ public final class Game {
             }
             Coords coords_ = new Coords(_voisin);
             coords_.getLevel().getPoint().affect(e.getKey());
-            if (!beatGymLeader.getVal(coords_)) {
+            if (beatGymLeader.getVal(coords_) != BoolVal.TRUE) {
                 interfaceType=InterfaceType.DRESSEUR;
                 return;
             }
             break;
         }
         if (level_.getTm().contains(_voisin.getLevel().getPoint())) {
-            if (takenObjects.getVal(_voisin)) {
+            if (takenObjects.getVal(_voisin) == BoolVal.TRUE) {
                 interfaceType=InterfaceType.RIEN;
             } else {
                 interfaceType=InterfaceType.OBJ_RAMAS;
@@ -2257,7 +2258,7 @@ public final class Game {
             return;
         }
         if (level_.getHm().contains(_voisin.getLevel().getPoint())) {
-            if (takenObjects.getVal(_voisin)) {
+            if (takenObjects.getVal(_voisin) == BoolVal.TRUE) {
                 interfaceType=InterfaceType.RIEN;
             } else {
                 interfaceType=InterfaceType.OBJ_RAMAS;
@@ -2265,7 +2266,7 @@ public final class Game {
             return;
         }
         if (level_.getItems().contains(_voisin.getLevel().getPoint())) {
-            if (takenObjects.getVal(_voisin)) {
+            if (takenObjects.getVal(_voisin) == BoolVal.TRUE) {
                 interfaceType=InterfaceType.RIEN;
             } else {
                 interfaceType=InterfaceType.OBJ_RAMAS;
@@ -2380,22 +2381,22 @@ public final class Game {
             return player.estAttrape(pk_.getName());
         }
         if (levelWildPk_.getItems().contains(pt_)) {
-            return takenObjects.getVal(_coords);
+            return takenObjects.getVal(_coords) == BoolVal.TRUE;
         }
         if (levelWildPk_.getTm().contains(pt_)) {
-            return takenObjects.getVal(_coords);
+            return takenObjects.getVal(_coords) == BoolVal.TRUE;
         }
         if (levelWildPk_.getHm().contains(pt_)) {
-            return takenObjects.getVal(_coords);
+            return takenObjects.getVal(_coords) == BoolVal.TRUE;
         }
         for (PointParam<DualFight> e: levelWildPk_.getDualFights().entryList()) {
             if (Point.eq(e.getKey(), pt_)) {
-                return beatGymLeader.getVal(_coords);
+                return beatGymLeader.getVal(_coords) == BoolVal.TRUE;
             }
             if (Point.eq(e.getValue().getPt(), pt_)) {
                 Coords coords_ = new Coords(_coords);
                 coords_.getLevel().setPoint(e.getKey());
-                return beatGymLeader.getVal(coords_);
+                return beatGymLeader.getVal(coords_) == BoolVal.TRUE;
             }
         }
         return level_.isEmpty(pt_);
@@ -2458,8 +2459,8 @@ public final class Game {
     }
     public EqList<Coords> getBeatenGymLeader() {
         EqList<Coords> k_ = new EqList<Coords>();
-        for (EntryCust<Coords, Boolean> e: beatGymLeader.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<Coords, BoolVal> e: beatGymLeader.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 k_.add(e.getKey());
             }
         }
@@ -2468,8 +2469,8 @@ public final class Game {
 
     public EqList<Coords> getUnBeatenGymLeader() {
         EqList<Coords> k_ = new EqList<Coords>();
-        for (EntryCust<Coords, Boolean> e: beatGymLeader.entryList()) {
-            if (!e.getValue()) {
+        for (EntryCust<Coords, BoolVal> e: beatGymLeader.entryList()) {
+            if (e.getValue() != BoolVal.TRUE) {
                 k_.add(e.getKey());
             }
         }
@@ -2477,25 +2478,25 @@ public final class Game {
     }
 
     public void beatGymLeader(Coords _coords) {
-        beatGymLeader.set(_coords, true);
+        beatGymLeader.set(_coords, BoolVal.TRUE);
     }
 
     public void beatTrainer(NbFightCoords _coords) {
-        beatTrainer.set(_coords, true);
+        beatTrainer.set(_coords, BoolVal.TRUE);
     }
 
     void takenObjects(Coords _coords) {
-        takenObjects.set(_coords, true);
+        takenObjects.set(_coords, BoolVal.TRUE);
     }
 
     void takenPokemon(Coords _coords) {
-        takenPokemon.set(_coords, true);
+        takenPokemon.set(_coords, BoolVal.TRUE);
     }
 
     public EqList<Coords> getVisited() {
         EqList<Coords> k_ = new EqList<Coords>();
-        for (EntryCust<Coords, Boolean> e: visitedPlaces.entryList()) {
-            if (e.getValue()) {
+        for (EntryCust<Coords, BoolVal> e: visitedPlaces.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
                 k_.add(e.getKey());
             }
         }
@@ -2504,8 +2505,8 @@ public final class Game {
 
     public EqList<Coords> getUnVisited() {
         EqList<Coords> k_ = new EqList<Coords>();
-        for (EntryCust<Coords, Boolean> e: visitedPlaces.entryList()) {
-            if (!e.getValue()) {
+        for (EntryCust<Coords, BoolVal> e: visitedPlaces.entryList()) {
+            if (e.getValue() != BoolVal.TRUE) {
                 k_.add(e.getKey());
             }
         }
@@ -2513,8 +2514,8 @@ public final class Game {
     }
 
     void visitPlace(Coords _coords) {
-        visitedPlaces.set(_coords, true);
-        visitedPlacesNb.set(_coords.getNumberPlace(), true);
+        visitedPlaces.set(_coords, BoolVal.TRUE);
+        visitedPlacesNb.set(_coords.getNumberPlace(), BoolVal.TRUE);
     }
 
     public Player getPlayer() {
@@ -2533,27 +2534,27 @@ public final class Game {
         rankLeague = _rankLeague;
     }
 
-    public ObjectMap<Coords,Boolean> getBeatGymLeader() {
+    public ObjectMap<Coords,BoolVal> getBeatGymLeader() {
         return beatGymLeader;
     }
 
-    public void setBeatGymLeader(ObjectMap<Coords,Boolean> _beatGymLeader) {
+    public void setBeatGymLeader(ObjectMap<Coords,BoolVal> _beatGymLeader) {
         beatGymLeader = _beatGymLeader;
     }
 
-    public ObjectMap<Coords,Boolean> getTakenObjects() {
+    public ObjectMap<Coords,BoolVal> getTakenObjects() {
         return takenObjects;
     }
 
-    public void setTakenObjects(ObjectMap<Coords,Boolean> _takenObjects) {
+    public void setTakenObjects(ObjectMap<Coords,BoolVal> _takenObjects) {
         takenObjects = _takenObjects;
     }
 
-    public ObjectMap<Coords,Boolean> getTakenPokemon() {
+    public ObjectMap<Coords,BoolVal> getTakenPokemon() {
         return takenPokemon;
     }
 
-    public void setTakenPokemon(ObjectMap<Coords,Boolean> _takenPokemon) {
+    public void setTakenPokemon(ObjectMap<Coords,BoolVal> _takenPokemon) {
         takenPokemon = _takenPokemon;
     }
 
@@ -2621,19 +2622,19 @@ public final class Game {
         return reinitInteraction;
     }
 
-    public ObjectMap<Coords,Boolean> getVisitedPlaces() {
+    public ObjectMap<Coords,BoolVal> getVisitedPlaces() {
         return visitedPlaces;
     }
 
-    public void setVisitedPlaces(ObjectMap<Coords,Boolean> _visitedPlaces) {
+    public void setVisitedPlaces(ObjectMap<Coords,BoolVal> _visitedPlaces) {
         visitedPlaces = _visitedPlaces;
     }
 
-    public ShortMap<Boolean> getVisitedPlacesNb() {
+    public ShortMap<BoolVal> getVisitedPlacesNb() {
         return visitedPlacesNb;
     }
 
-    public void setVisitedPlacesNb(ShortMap<Boolean> _visitedPlacesNb) {
+    public void setVisitedPlacesNb(ShortMap<BoolVal> _visitedPlacesNb) {
         visitedPlacesNb = _visitedPlacesNb;
     }
 
@@ -2657,7 +2658,7 @@ public final class Game {
         beatGymTrainer = _beatGymTrainer;
     }
 
-    public void setBeatTrainer(ObjectMap<NbFightCoords,Boolean> _beatTrainer) {
+    public void setBeatTrainer(ObjectMap<NbFightCoords,BoolVal> _beatTrainer) {
         beatTrainer = _beatTrainer;
     }
 
@@ -2665,7 +2666,7 @@ public final class Game {
         playerOrientation = _playerOrientation;
     }
 
-    public ObjectMap<NbFightCoords,Boolean> getBeatTrainer() {
+    public ObjectMap<NbFightCoords,BoolVal> getBeatTrainer() {
         return beatTrainer;
     }
 

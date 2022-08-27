@@ -194,6 +194,7 @@ import code.sml.ElementList;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -8423,18 +8424,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<NbFightCoords,Boolean> getMapNbFightCoordsBoolean(Element _elt) {
+    private static ObjectMap<NbFightCoords,BoolVal> getMapNbFightCoordsBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<NbFightCoords,Boolean> map_ = new ObjectMap<NbFightCoords,Boolean>(cap_);
+        ObjectMap<NbFightCoords,BoolVal> map_ = new ObjectMap<NbFightCoords,BoolVal>(cap_);
         CustList<NbFightCoords> keys_ = new CustList<NbFightCoords>(cap_);
-        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getNbFightCoords(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getBoolean(c));
+                values_.add(DocumentReaderCoreUtil.getBoolVal(c));
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
@@ -8503,18 +8504,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<MoveTeamPosition,Boolean> getMapMoveTeamPositionBoolean(Element _elt) {
+    private static ObjectMap<MoveTeamPosition,BoolVal> getMapMoveTeamPositionBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<MoveTeamPosition,Boolean> map_ = new ObjectMap<MoveTeamPosition,Boolean>(cap_);
+        ObjectMap<MoveTeamPosition,BoolVal> map_ = new ObjectMap<MoveTeamPosition,BoolVal>(cap_);
         CustList<MoveTeamPosition> keys_ = new CustList<MoveTeamPosition>(cap_);
-        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getMoveTeamPosition(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getBoolean(c));
+                values_.add(DocumentReaderCoreUtil.getBoolVal(c));
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());
@@ -8643,18 +8644,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Coords,Boolean> getMapCoordsBoolean(Element _elt) {
+    private static ObjectMap<Coords, BoolVal> getMapCoordsBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Coords,Boolean> map_ = new ObjectMap<Coords,Boolean>(cap_);
+        ObjectMap<Coords,BoolVal> map_ = new ObjectMap<Coords,BoolVal>(cap_);
         CustList<Coords> keys_ = new CustList<Coords>(cap_);
-        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getCoords(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getBoolean(c));
+                values_.add(DocumentReaderCoreUtil.getBoolVal(c));
             }
         }
         int min_ = Math.min(keys_.size(), values_.size());

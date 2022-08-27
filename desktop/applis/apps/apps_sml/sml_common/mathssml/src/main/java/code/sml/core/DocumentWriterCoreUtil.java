@@ -158,10 +158,10 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setStringMapBoolean(StringMap<Boolean> _object, String _fieldName, Document _document) {
+    public static Element setStringMapBoolean(StringMap<BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("sm");
         setFieldName(elt_, _fieldName);
-        for (EntryCust<String, Boolean> s: _object.entryList()) {
+        for (EntryCust<String, BoolVal> s: _object.entryList()) {
             Element sub_ = setString(s.getKey(), "", _document);
             setKey(sub_);
             elt_.appendChild(sub_);
@@ -288,10 +288,10 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setMapShortBoolean(ShortMap<Boolean> _object, String _fieldName, Document _document) {
+    public static Element setMapShortBoolean(ShortMap<BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("nm");
         setFieldName(elt_, _fieldName);
-        for (EntryCust<Short,Boolean> s: _object.entryList()) {
+        for (EntryCust<Short,BoolVal> s: _object.entryList()) {
             Element sub_ = setShort(s.getKey(), "", _document);
             setKey(sub_);
             elt_.appendChild(sub_);

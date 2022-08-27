@@ -177,6 +177,7 @@ import code.util.Ints;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public final class Instances {
     private Instances() {
@@ -1086,17 +1087,17 @@ public final class Instances {
         object_.setZippedRom(DataBase.EMPTY_STRING);
         object_.setPlayer(newPlayer());
         object_.setBeatGymTrainer(new ShortMap<EqList<Point>>(cap_));
-        object_.setBeatGymLeader(new ObjectMap<Coords,Boolean>(cap_));
-        object_.setBeatTrainer(new ObjectMap<NbFightCoords,Boolean>(cap_));
-        object_.setTakenObjects(new ObjectMap<Coords,Boolean>(cap_));
-        object_.setTakenPokemon(new ObjectMap<Coords,Boolean>(cap_));
+        object_.setBeatGymLeader(new ObjectMap<Coords,BoolVal>(cap_));
+        object_.setBeatTrainer(new ObjectMap<NbFightCoords,BoolVal>(cap_));
+        object_.setTakenObjects(new ObjectMap<Coords,BoolVal>(cap_));
+        object_.setTakenPokemon(new ObjectMap<Coords,BoolVal>(cap_));
         object_.setPlayerCoords(new Coords());
         object_.setPlayerOrientation(Direction.UP);
         object_.setHostedPk(new ObjectMap<Coords,HostPokemonDuo>(cap_));
         object_.setFight(newFight());
         object_.setDifficulty(newDifficulty());
-        object_.setVisitedPlacesNb(new ShortMap<Boolean>());
-        object_.setVisitedPlaces(new ObjectMap<Coords,Boolean>(cap_));
+        object_.setVisitedPlacesNb(new ShortMap<BoolVal>());
+        object_.setVisitedPlaces(new ObjectMap<Coords,BoolVal>(cap_));
         return object_;
     }
 
@@ -1122,7 +1123,7 @@ public final class Instances {
         object_.setFightType(FightType.NOTHING);
         object_.setEnvType(EnvironmentType.ROAD);
         object_.setEnabledMoves(new StringMap<ActivityOfMove>(cap_));
-        object_.setStillEnabledMoves(new StringMap<Boolean>(cap_));
+        object_.setStillEnabledMoves(new StringMap<BoolVal>(cap_));
         object_.setTeams(new ByteMap<Team>(cap_));
         object_.setNbRounds(LgInt.zero());
         object_.setWinningMoney(Rate.zero());
@@ -1173,13 +1174,13 @@ public final class Instances {
         object_.setEnabledMovesConstChoices(new StringMap<ActivityOfMove>(cap_));
         object_.setEnabledChangingTypesMoves(new StringMap<ActivityOfMove>(cap_));
         object_.setEnabledCounteringMoves(new StringMap<ActivityOfMove>(cap_));
-        object_.setEnabledMovesForAlly(new StringMap<Boolean>(cap_));
+        object_.setEnabledMovesForAlly(new StringMap<BoolVal>(cap_));
         object_.setDamageRateInflictedByType(new StringMap<Rate>(cap_));
         object_.setDamageRateSufferedByType(new StringMap<Rate>(cap_));
         object_.setWonExp(Rate.zero());
         object_.setWonExpSinceLastLevel(Rate.zero());
         object_.setUsedBallCatching(DataBase.EMPTY_STRING);
-        object_.setIncrUserAccuracy(new ObjectMap<MoveTeamPosition,Boolean>(cap_));
+        object_.setIncrUserAccuracy(new ObjectMap<MoveTeamPosition,BoolVal>(cap_));
         object_.setNbUsesMoves(new StringMap<Integer>(cap_));
         object_.setTrackingMoves(new ObjectMap<MoveTeamPosition,AffectedMove>(cap_));
         object_.setTrappingMoves(new ObjectMap<MoveTeamPosition,ActivityOfMove>(cap_));
@@ -1205,7 +1206,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setEnabledMovesByGroup(new ListActivityOfMoves(cap_));
         object_.setEnabledMoves(new StringMap<ActivityOfMove>(cap_));
-        object_.setEnabledMovesWhileSendingFoe(new StringMap<Boolean>(cap_));
+        object_.setEnabledMovesWhileSendingFoe(new StringMap<BoolVal>(cap_));
         object_.setEnabledMovesWhileSendingFoeUses(new StringMap<LgInt>(cap_));
         object_.setNbUsesMoves(new StringMap<Integer>(cap_));
         object_.setNbUsesMovesRound(new StringMap<Integer>(cap_));
@@ -1261,8 +1262,8 @@ public final class Instances {
         Inventory object_ = new Inventory();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setItems(new StringMap<LgInt>(cap_));
-        object_.setTm(new ShortMap<Boolean>(cap_));
-        object_.setHm(new ShortMap<Boolean>(cap_));
+        object_.setTm(new ShortMap<BoolVal>(cap_));
+        object_.setHm(new ShortMap<BoolVal>(cap_));
         return object_;
     }
 
@@ -1273,7 +1274,7 @@ public final class Instances {
         object_.setTeam(new CustList<UsablePokemon>(cap_));
         object_.setBox(new CustList<UsablePokemon>(cap_));
         object_.setInventory(newInventory());
-        object_.setCaughtPk(new StringMap<Boolean>(cap_));
+        object_.setCaughtPk(new StringMap<BoolVal>(cap_));
         object_.setMoney(LgInt.zero());
         return object_;
     }
