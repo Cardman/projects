@@ -13,10 +13,7 @@ import aiki.map.characters.DualFight;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.*;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
-import aiki.util.PointParam;
+import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.TreeMap;
@@ -68,7 +65,7 @@ public class SimulationLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            for (PointParam<int[][]> pt_: data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
+            for (CommonParam<Point,int[][]> pt_: data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         } else {
@@ -86,7 +83,7 @@ public class SimulationLevelBean extends CommonBean {
             }
             placeName = data_.getMap().getPlace(pl_).getName();
             levelIndex = lev_;
-            for (PointParam<int[][]> pt_: data_.getLevelImage((short) pl_, (byte) lev_).entryList()) {
+            for (CommonParam<Point,int[][]> pt_: data_.getLevelImage((short) pl_, (byte) lev_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         }

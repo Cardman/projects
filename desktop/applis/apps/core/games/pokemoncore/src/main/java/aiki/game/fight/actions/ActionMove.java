@@ -1,5 +1,6 @@
 package aiki.game.fight.actions;
 import aiki.game.fight.TargetCoords;
+import aiki.util.TargetCoordsList;
 import code.util.EqList;
 
 
@@ -12,7 +13,7 @@ public final class ActionMove extends AbstractAction implements ChosenMove,Chose
     private String finalChosenMove;
 
     /***/
-    private EqList<TargetCoords> chosenTargets;
+    private TargetCoordsList chosenTargets;
 
     /***/
     private byte substitute;
@@ -39,11 +40,11 @@ public final class ActionMove extends AbstractAction implements ChosenMove,Chose
         finalChosenMove = _finalChosenMove;
     }
 
-    public EqList<TargetCoords> getChosenTargets() {
+    public TargetCoordsList getChosenTargets() {
         return chosenTargets;
     }
 
-    public void setChosenTargets(EqList<TargetCoords> _chosenTargets) {
+    public void setChosenTargets(TargetCoordsList _chosenTargets) {
         chosenTargets = _chosenTargets;
     }
 

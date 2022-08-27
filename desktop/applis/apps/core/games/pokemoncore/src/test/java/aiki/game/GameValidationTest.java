@@ -1,6 +1,7 @@
 package aiki.game;
 
 import aiki.db.DataBase;
+import aiki.util.PointEqList;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -2348,7 +2349,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data
-        game_.getBeatGymTrainer().put((short) 0, new EqList<Point>());
+        game_.getBeatGymTrainer().put((short) 0, new PointEqList());
         assertTrue(!game_.validate(data_));
     }
     @Test
@@ -2357,7 +2358,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data
-        game_.getBeatGymTrainer().put((short) 0, new EqList<Point>());
+        game_.getBeatGymTrainer().put((short) 0, new PointEqList());
         assertTrue(!game_.validate(data_));
     }
     @Test

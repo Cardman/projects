@@ -14,14 +14,11 @@ import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
 import aiki.map.util.PlaceInterConnectCoords;
 import aiki.map.util.PlaceInterConnects;
-import aiki.util.Coords;
-import aiki.util.Point;
-import aiki.util.PointParam;
-import aiki.util.Points;
+import aiki.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.core.IndexConstants;
 
 
@@ -82,7 +79,7 @@ public final class Road extends Campaign implements InitializedPlace {
                 return false;
             }
         }
-        for (PointParam<Link> e : linksWithCaves.entryList()) {
+        for (CommonParam<Point,Link> e : linksWithCaves.entryList()) {
             Link link_ = e.getValue();
             if (!_tree.isValid(link_.getCoords(), true)) {
                 return false;

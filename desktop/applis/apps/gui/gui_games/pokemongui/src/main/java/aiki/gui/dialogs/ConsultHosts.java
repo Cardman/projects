@@ -2,6 +2,7 @@ package aiki.gui.dialogs;
 
 
 import aiki.gui.threads.PreparedRenderedPages;
+import aiki.map.Condition;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.HostPokemonDuo;
@@ -58,13 +59,13 @@ public final class ConsultHosts {
         absDialog.setTitle(messages.getVal(TITLE));
         facade = _facade;
         AbsPanel contentPane_ = window.getCompoFactory().newGrid(0,1);
-        ShortTreeMap<EqList<Coords>> hostsByPlace_;
-        hostsByPlace_ = new ShortTreeMap<EqList<Coords>>();
+        ShortTreeMap<Condition> hostsByPlace_;
+        hostsByPlace_ = new ShortTreeMap<Condition>();
         for (Coords c: facade.getMap().getHostPokemons()) {
             if (hostsByPlace_.contains(c.getNumberPlace())) {
                 hostsByPlace_.getVal(c.getNumberPlace()).add(c);
             } else {
-                hostsByPlace_.put(c.getNumberPlace(), new EqList<Coords>(c));
+                hostsByPlace_.put(c.getNumberPlace(), Condition.newList(c));
             }
         }
         for (short p: hostsByPlace_.getKeys()) {

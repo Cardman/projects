@@ -1,11 +1,10 @@
 package aiki.game.fight;
+
 import code.util.StringList;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Displayable {
+public final class MoveTeamPosition {
 
     private static final char SEPARATOR=',';
 
@@ -57,7 +56,6 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Dis
         return new MoveTeamPosition(_string);
     }
 
-    @Override
     public boolean eq(MoveTeamPosition _obj) {
         if (!StringUtil.quickEq(getMove(),_obj.getMove())) {
             return false;
@@ -73,8 +71,6 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Dis
         return teamPosition;
     }
 
-    
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(move);

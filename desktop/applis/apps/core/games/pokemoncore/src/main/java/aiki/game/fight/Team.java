@@ -11,6 +11,7 @@ import aiki.game.player.Player;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
+import aiki.util.TeamPositionList;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -302,7 +303,7 @@ public final class Team {
     }
 
 
-    void initRelationsCombattant(EqList<TeamPosition> _cbts,DataBase _import){
+    void initRelationsCombattant(TeamPositionList _cbts, DataBase _import){
         for(Fighter f:members.values()){
             f.initCreatureRelationsAutre(_cbts,_import);
         }
@@ -386,16 +387,16 @@ public final class Team {
             keysMovesLatter_.add(i);
         }
         StringList movesTeam_ = new StringList();
-        EqList<MoveUsesTeam> relMovesTh_;
-        EqList<MoveUsesTeam> relMovesExp_;
-        relMovesTh_ = new EqList<MoveUsesTeam>();
+        CustList<MoveUsesTeam> relMovesTh_;
+        CustList<MoveUsesTeam> relMovesExp_;
+        relMovesTh_ = new CustList<MoveUsesTeam>();
         movesTeam_.addAllElts(_data.getMovesHealingAfter());
         for (byte f: keysMovesLatter_) {
             for (String m: movesTeam_) {
                 relMovesTh_.add(new MoveUsesTeam(m, f));
             }
         }
-        relMovesExp_ = new EqList<MoveUsesTeam>();
+        relMovesExp_ = new CustList<MoveUsesTeam>();
         for (EntryCust<String,ByteMap<StacksOfUses>> k: healAfter.entryList()) {
             for (byte b: k.getValue().getKeys()) {
                 relMovesExp_.add(new MoveUsesTeam(k.getKey(),b));
@@ -404,8 +405,8 @@ public final class Team {
         if (!MoveUsesTeam.equalsSet(relMovesTh_, relMovesExp_)) {
             return false;
         }
-        relMovesTh_ = new EqList<MoveUsesTeam>();
-        relMovesExp_ = new EqList<MoveUsesTeam>();
+        relMovesTh_ = new CustList<MoveUsesTeam>();
+        relMovesExp_ = new CustList<MoveUsesTeam>();
         movesTeam_.clear();
         movesTeam_.addAllElts(_data.getMovesAnticipation());
         for (byte f: keysMovesLatter_) {

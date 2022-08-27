@@ -1,13 +1,12 @@
 package aiki.game;
+
 import aiki.util.Coords;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class NbFightCoords implements Equallable<NbFightCoords>, Displayable {
+public final class NbFightCoords {
 
     private static final char SEPARATOR = '\'';
 
@@ -59,7 +58,6 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
         return new NbFightCoords(_string);
     }
 
-    @Override
     public boolean eq(NbFightCoords _obj) {
         //getCoords() != null
         if (!Coords.eq(getCoords(), _obj.getCoords())) {
@@ -76,8 +74,6 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
         return nbFight;
     }
 
-    
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(coords.display());
         str_.append(SEPARATOR);

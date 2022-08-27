@@ -39,12 +39,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.SortingEgg;
-import aiki.util.SortingHealingItem;
-import aiki.util.SortingItem;
-import aiki.util.SortingMove;
-import aiki.util.SortingPokemonPlayer;
+import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -54,7 +49,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -280,11 +275,11 @@ public class FacadeGame {
         // }
     }
 
-    public ObjectMap<ScreenCoords, int[][]> getBackgroundImages() {
+    public ScreenCoordssInt getBackgroundImages() {
         return data.getMap().getBackgroundImages();
     }
 
-    public ObjectMap<ScreenCoords, CustList<int[][]>> getForegroundImages() {
+    public ScreenCoordssCustListInt getForegroundImages() {
         return data.getMap().getForegroundImages();
     }
 
@@ -2291,15 +2286,15 @@ public class FacadeGame {
         game.setChosenHealingItem(selected_, data);
     }
 
-    public ObjectMap<TeamPosition, StringMap<ObjectMap<TeamPosition, Rate>>> remainingThrowersTargetsHp() {
+    public TeamPositionsStringMapTeamPositionsRate remainingThrowersTargetsHp() {
         return game.remainingThrowersTargetsHp(data);
     }
 
-    public NatStringTreeMap< EqList<TeamPosition>> sortedFightersBeginRoundWildFight() {
+    public NatStringTreeMap< TeamPositionList> sortedFightersBeginRoundWildFight() {
         return game.sortedFightersBeginRoundWildFight(data);
     }
 
-    public EqList<TeamPosition> sortedFightersBeginRound() {
+    public TeamPositionList sortedFightersBeginRound() {
         return game.sortedFightersBeginRound(data);
     }
 

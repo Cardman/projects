@@ -17,13 +17,14 @@ import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.RandomBoolResults;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
+import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -380,7 +381,7 @@ final class FightSending {
                     _fight.addDisabledStatusRelMessage(m.getMove(), t, _cbtRetire, r_, _import);
                 }
             }
-            ObjectMap<MoveTeamPosition,StringList> privateMoves_ = fighter_.getPrivateMoves();
+            MoveTeamPositionsStringList privateMoves_ = fighter_.getPrivateMoves();
             for (MoveTeamPosition m: privateMoves_.getKeys()) {
                 if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
                     boolean wasEnabled_ = !privateMoves_.getVal(m).isEmpty();
@@ -388,7 +389,7 @@ final class FightSending {
                     _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
                 }
             }
-            ObjectMap<MoveTeamPosition,AffectedMove> tracking_ = fighter_.getTrackingMoves();
+            MoveTeamPositionsAffectedMove tracking_ = fighter_.getTrackingMoves();
             for (MoveTeamPosition m: tracking_.getKeys()) {
                 if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
                     boolean wasEnabled_ = tracking_.getVal(m).getActivity().isEnabled();
@@ -397,7 +398,7 @@ final class FightSending {
                     _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
                 }
             }
-            ObjectMap<MoveTeamPosition,ActivityOfMove> trapping_ = fighter_.getTrappingMoves();
+            MoveTeamPositionsActivityOfMove trapping_ = fighter_.getTrappingMoves();
             for (MoveTeamPosition m: trapping_.getKeys()) {
                 if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
                     boolean wasEnabled_ = trapping_.getVal(m).isEnabled();
@@ -405,7 +406,7 @@ final class FightSending {
                     _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
                 }
             }
-            ObjectMap<MoveTeamPosition, BoolVal> accuracy_ = fighter_.getIncrUserAccuracy();
+            MoveTeamPositionsBoolVal accuracy_ = fighter_.getIncrUserAccuracy();
             for (MoveTeamPosition m: accuracy_.getKeys()) {
                 if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
                     boolean wasEnabled_ = accuracy_.getVal(m) == BoolVal.TRUE;
@@ -472,7 +473,7 @@ final class FightSending {
         Fighter creatureCbt_=_fight.getFighter(_cbtEnvoye);
         EffectWhileSendingWithStatistic effect_ = _effect;
         if(effect_.getCopyingAbility()){
-            EqList<TeamPosition> foes_ = FightOrder.closestFoeFighter(_fight,_cbtEnvoye);
+            TeamPositionList foes_ = FightOrder.closestFoeFighter(_fight,_cbtEnvoye);
             if (foes_.isEmpty()) {
                 return;
             }

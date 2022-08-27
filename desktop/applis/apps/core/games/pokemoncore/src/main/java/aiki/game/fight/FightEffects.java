@@ -66,6 +66,8 @@ import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.UserTarget;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.util.TeamPositionList;
+import aiki.util.TeamPositionsMonteCarloNumber;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
@@ -76,7 +78,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -267,7 +269,7 @@ final class FightEffects {
         MoveData fAttFinal_ = _import.getMove(_move);
         if(fAttFinal_ instanceof StatusMoveData && !_fight.isChangeThrower()){
             StatusMoveData fAttNonOff_=(StatusMoveData)fAttFinal_;
-            EqList<TeamPosition> takers_ = new EqList<TeamPosition>();
+            TeamPositionList takers_ = new TeamPositionList();
             if (fAttNonOff_.getThievableMove()) {
                 takers_.addAllElts(FightRound.takers(_fight,_initialThrower, _import));
             }
@@ -1618,9 +1620,9 @@ final class FightEffects {
         EffectDamage effect_ = (EffectDamage) fAtt_.getEffet(fAtt_.indexOfPrimaryEffect());
         ThrowerDamageLaws throwerDamageLaws_;
         throwerDamageLaws_ = new ThrowerDamageLaws();
-        throwerDamageLaws_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        throwerDamageLaws_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        throwerDamageLaws_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        throwerDamageLaws_.setBase(new TeamPositionsMonteCarloNumber());
+        throwerDamageLaws_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        throwerDamageLaws_.setNumberHits(new TeamPositionsMonteCarloNumber());
         Fighter thrower_ = _fight.getFighter(_lanceur);
         if (thrower_.capaciteActive()) {
             AbilityData ab_ = thrower_.ficheCapaciteActuelle(_import);

@@ -40,6 +40,8 @@ import aiki.game.fight.util.NextUsers;
 import aiki.game.fight.util.RandomBoolResults;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
+import aiki.util.TargetCoordsList;
+import aiki.util.TeamPositionList;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -70,7 +72,7 @@ final class FightRound {
     }
 
     static void setAllyChoices(Fight _fight,DataBase _import) {
-        EqList<TeamPosition> partners_ = FightOrder.notKoFrontFightersBelongingToUser(_fight,false);
+        TeamPositionList partners_ = FightOrder.notKoFrontFightersBelongingToUser(_fight,false);
         TeamPosition partner_ = partners_.first();
         boolean foundCombo_ = false;
         for (MoveTarget p: _fight.getAllyChoiceSet()) {
@@ -83,7 +85,7 @@ final class FightRound {
             if (!StringUtil.quickEq(move_, p.getMove())) {
                 continue;
             }
-            EqList<TargetCoords> list_ = fighter_.getChosenTargets();
+            TargetCoordsList list_ = fighter_.getChosenTargets();
             if (!list_.isEmpty()) {
                 if (!TargetCoords.eq(list_.first(),p.getTarget())) {
                     continue;
@@ -134,7 +136,7 @@ final class FightRound {
         }
     }
 
-    static void calculateNextFighters(Fight _fight, EqList<TeamPosition> _fighters, DataBase _import) {
+    static void calculateNextFighters(Fight _fight, TeamPositionList _fighters, DataBase _import) {
         _fight.getRemainingFighters().clear();
         NextUsers cbtsNonJoue_;
         cbtsNonJoue_ = nextFighters(_fight, _fighters, _import);
@@ -154,10 +156,10 @@ final class FightRound {
         }
     }
 
-    static NextUsers nextFighters(Fight _fight, EqList<TeamPosition> _fighters,DataBase _import) {
+    static NextUsers nextFighters(Fight _fight, TeamPositionList _fighters,DataBase _import) {
         NextUsers nextFighters_;
-        nextFighters_ = new NextUsers(new EqList<TeamPosition>(),new EqList<TeamPosition>());
-        EqList<TeamPosition> cbts_;
+        nextFighters_ = new NextUsers(new TeamPositionList(),new TeamPositionList());
+        TeamPositionList cbts_;
         if (_fighters.isEmpty()) {
             cbts_ = FightOrder.fightersHavingToAct(_fight,false,_import);
             cbts_ = FightOrder.fightersBeingHealed(_fight, cbts_);
@@ -202,7 +204,7 @@ final class FightRound {
         }
         nextFighters_=FightOrder.sortFightersByWornBerry(_fight,cbts_,_import);
         cbts_=nextFighters_.getNextFighters();
-        EqList<TeamPosition> currentUsers_;
+        TeamPositionList currentUsers_;
         currentUsers_ = FightOrder.randomFigtherHavingToAct(_fight,cbts_,_import);
         if (!currentUsers_.isEmpty()) {
             nextFighters_.getNextFighters().clear();
@@ -226,7 +228,7 @@ final class FightRound {
     }
 
     static void beginRound(Fight _fight, Difficulty _diff, DataBase _import) {
-        EqList<TeamPosition> cbts_=new EqList<TeamPosition>();
+        TeamPositionList cbts_=new TeamPositionList();
         _fight.setKeepRound(true);
         _fight.getEffects().clear();
         if(_fight.getBeginRound()){
@@ -288,7 +290,7 @@ final class FightRound {
         }
         creature_.setActed(true);
         //tri des lanceurs
-        EqList<TeamPosition> cbts_ = selectTargetHavingToPlayAfterThrower(_fight,_fight.getCurrentUser(),_import);
+        TeamPositionList cbts_ = selectTargetHavingToPlayAfterThrower(_fight,_fight.getCurrentUser(),_import);
         _fight.getOrderedFighters().clear();
         _fight.getOrderedFighters().addAllElts(cbts_);
         FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
@@ -386,7 +388,7 @@ final class FightRound {
         if (fAttFinal_.canBoostAllies()) {
             StatusMoveData fAttNonOff_=(StatusMoveData)fAttFinal_;
             if (fAttNonOff_.getThievableMove()) {
-                EqList<TeamPosition> takers_ = takers(_fight,lanceur_, _import);
+                TeamPositionList takers_ = takers(_fight,lanceur_, _import);
                 if (!takers_.isEmpty()) {
                     _fight.getOrderedFighters().clear();
                     _fight.getOrderedFighters().addAllElts(takers_);
@@ -796,8 +798,8 @@ final class FightRound {
         }
     }
 
-    static EqList<TeamPosition> takers(Fight _fight, TeamPosition _fighter, DataBase _data) {
-        EqList<TeamPosition> takers_ = new EqList<TeamPosition>();
+    static TeamPositionList takers(Fight _fight, TeamPosition _fighter, DataBase _data) {
+        TeamPositionList takers_ = new TeamPositionList();
         for (TeamPosition t: FightOrder.frontFighters(_fight)) {
             if (NumberUtil.eq(t.getTeam(), _fighter.getTeam())) {
                 continue;
@@ -1089,25 +1091,25 @@ final class FightRound {
         }
     }
 
-    static EqList<TeamPosition> selectTargetHavingToPlayAfterThrower(Fight _fight,TeamPosition _lanceur,DataBase _import){
+    static TeamPositionList selectTargetHavingToPlayAfterThrower(Fight _fight,TeamPosition _lanceur,DataBase _import){
         Fighter creature_=_fight.getFighter(_lanceur);
         if(creature_.estArriere()){
-            return new EqList<TeamPosition>();
+            return new TeamPositionList();
         }
         if(!creature_.isSuccessfulMove()){
-            return new EqList<TeamPosition>();
+            return new TeamPositionList();
         }
         if(creature_.getChosenTargets().isEmpty()){
-            return new EqList<TeamPosition>();
+            return new TeamPositionList();
         }
         TargetCoords targetCoords_ = creature_.getChosenTargets().first();
         Team equipeCbt_=_fight.getTeams().getVal((byte) targetCoords_.getTeam());
         Bytes ciblesEquipe_=equipeCbt_.fightersAtCurrentPlace(targetCoords_.getPosition());
-        EqList<TeamPosition> fighters_ = new EqList<TeamPosition>();
+        TeamPositionList fighters_ = new TeamPositionList();
         fighters_.addAllElts(FightOrder.fightersHavingToAct(_fight, false, _import));
         fighters_.addAllElts(FightOrder.fightersHavingToAct(_fight, true, _import));
         fighters_ = FightOrder.fightersUsingMove(_fight, fighters_);
-        EqList<TeamPosition> cibles_=new EqList<TeamPosition>();
+        TeamPositionList cibles_=new TeamPositionList();
         for(byte c:ciblesEquipe_){
             TeamPosition teamPos_ = new TeamPosition((byte) targetCoords_.getTeam(),c);
             if (!fighters_.containsObj(teamPos_)) {
@@ -1127,7 +1129,7 @@ final class FightRound {
                 return cibles_;
             }
         }
-        return new EqList<TeamPosition>();
+        return new TeamPositionList();
     }
 
     static void roundThrowerHealing(Fight _fight,TeamPosition _lanceur, Difficulty _diff,DataBase _import){
@@ -1161,7 +1163,7 @@ final class FightRound {
             if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
                 if (NumberUtil.eq(_lanceur.getTeam(), Fight.CST_PLAYER)) {
                     //As for all team, is exists a "no ko fighter" at the front, so there a single free place
-                    EqList<TeamPosition> pkPlayers_;
+                    TeamPositionList pkPlayers_;
                     pkPlayers_ = FightOrder.fightersBelongingToUser(_fight, true);
                     _fight.setFullHealing(true);
                     Bytes ally_ = new Bytes();

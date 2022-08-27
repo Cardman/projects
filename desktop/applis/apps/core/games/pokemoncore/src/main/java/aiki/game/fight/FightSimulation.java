@@ -36,6 +36,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.util.Coords;
+import aiki.util.TargetCoordsList;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.util.CustList;
@@ -1337,7 +1338,7 @@ public class FightSimulation {
                     ActionMove action_;
                     action_ = new ActionMove();
                     action_.setFirstChosenMove(DataBase.EMPTY_STRING);
-                    action_.setChosenTargets(new EqList<TargetCoords>());
+                    action_.setChosenTargets(new TargetCoordsList());
                     actionsBeforeRound_.add(action_);
                 }
                 actionsBeforeRoundFight_.add(actionsBeforeRound_);

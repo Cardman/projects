@@ -9,6 +9,9 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.util.MoveTarget;
+import aiki.util.TeamPositionList;
+import aiki.util.TeamPositionsRate;
+import aiki.util.TeamPositionsStringMapTeamPositionsRate;
 import code.maths.Rate;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
@@ -20,13 +23,13 @@ public class FightCalculationBean extends CommonFightBean {
 
     private ByteTreeMap<BoolVal> foeChoicesTargets;
     private SortableCustList<KeyHypothesis> damage;
-    private EqList<TeamPosition> sortedFighters;
-    private NatStringTreeMap<EqList<TeamPosition>> sortedFightersWildFight;
+    private TeamPositionList sortedFighters;
+    private NatStringTreeMap<TeamPositionList> sortedFightersWildFight;
 
     @Override
     public void beforeDisplaying() {
         FacadeGame dataBaseFight_ = getDataBase();
-        ObjectMap<TeamPosition,StringMap<ObjectMap<TeamPosition,Rate>>> resTh_;
+        TeamPositionsStringMapTeamPositionsRate resTh_;
         resTh_ = dataBaseFight_.remainingThrowersTargetsHp();
         damage = new SortableCustList<KeyHypothesis>();
         for (TeamPosition p: resTh_.getKeys()) {
@@ -43,12 +46,12 @@ public class FightCalculationBean extends CommonFightBean {
         if (!dataBaseFight_.getGame().getFight().getFightType().isWild()) {
             sortedFighters = dataBaseFight_.sortedFightersBeginRound();
         } else {
-            sortedFighters = new EqList<TeamPosition>();
+            sortedFighters = new TeamPositionList();
         }
         if (dataBaseFight_.getGame().getFight().getFightType().isWild()) {
             sortedFightersWildFight = dataBaseFight_.sortedFightersBeginRoundWildFight();
         } else {
-            sortedFightersWildFight = new NatStringTreeMap<EqList<TeamPosition>>();
+            sortedFightersWildFight = new NatStringTreeMap<TeamPositionList>();
         }
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
@@ -159,11 +162,11 @@ public class FightCalculationBean extends CommonFightBean {
         return foeChoices.getValue(_index).getTarget().getTeam() == Fight.CST_FOE;
     }
 
-    public EqList<TeamPosition> getSortedFighters() {
+    public TeamPositionList getSortedFighters() {
         return sortedFighters;
     }
 
-    public NatStringTreeMap<EqList<TeamPosition>> getSortedFightersWildFight() {
+    public NatStringTreeMap<TeamPositionList> getSortedFightersWildFight() {
         return sortedFightersWildFight;
     }
 

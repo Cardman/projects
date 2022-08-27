@@ -22,7 +22,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-
+import aiki.util.*;
 
 public class FighterTest extends InitializationDataBase {
 
@@ -873,7 +873,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
         TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
-        EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
+        TeamPositionList fightersCoords_ = new TeamPositionList();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
         fighter_.initCreatureRelationsAutre(fightersCoords_, data_);
@@ -2294,7 +2294,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
         TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
-        EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
+        TeamPositionList fightersCoords_ = new TeamPositionList();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
         fighter_.initCreatureRelationsAutre(fightersCoords_, data_);
@@ -2345,7 +2345,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_FOE, (byte)0);
-        EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
+        TeamPositionList fightersCoords_ = new TeamPositionList();
         fightersCoords_.add(fighterCoordsOne_);
         fighter_.initCreatureRelationsAutre(fightersCoords_, data_);
         fighter_.affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO, VAMPIGRAINE);
@@ -3102,7 +3102,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
-        EqList<TargetCoords> list_ = fighter_.getChosenTargets();
+        TargetCoordsList list_ = fighter_.getChosenTargets();
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_TARGET_ZERO));
     }
@@ -3118,7 +3118,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
-        EqList<TargetCoords> list_ = fighter_.getChosenTargets();
+        TargetCoordsList list_ = fighter_.getChosenTargets();
         assertEq(0, list_.size());
     }
 
@@ -3145,7 +3145,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
-        EqList<TargetCoords> list_ = fighter_.getChosenTargets();
+        TargetCoordsList list_ = fighter_.getChosenTargets();
         assertEq(0, list_.size());
     }
 
@@ -3172,7 +3172,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
-        EqList<TargetCoords> list_ = fighter_.getChosenTargets();
+        TargetCoordsList list_ = fighter_.getChosenTargets();
         assertEq(0, list_.size());
     }
 
@@ -3199,7 +3199,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
-        EqList<TargetCoords> list_ = fighter_.getChosenTargets();
+        TargetCoordsList list_ = fighter_.getChosenTargets();
         assertEq(0, list_.size());
     }
 
@@ -5176,8 +5176,8 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
         Fighter partner_ = new Fighter(pokemonUser_, data_, Fighter.BACK);
-        fighter_.initCreatureRelationsAutre(new EqList<TeamPosition>(POKEMON_FOE_FIGHTER_ZERO),data_);
-        partner_.initCreatureRelationsAutre(new EqList<TeamPosition>(POKEMON_FOE_FIGHTER_ZERO),data_);
+        fighter_.initCreatureRelationsAutre(TeamPositionList.newList(POKEMON_FOE_FIGHTER_ZERO),data_);
+        partner_.initCreatureRelationsAutre(TeamPositionList.newList(POKEMON_FOE_FIGHTER_ZERO),data_);
         fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
@@ -7227,7 +7227,7 @@ public class FighterTest extends InitializationDataBase {
 
     static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
         int i_ = IndexConstants.SIZE_EMPTY;
-        for (EntryCust<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
             if (NumberUtil.eq(e.getValue(), _nbRounds)) {
                 i_++;
             }

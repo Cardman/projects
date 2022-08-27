@@ -34,7 +34,7 @@ public final class Cave extends Campaign {
         for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
             level_.validate(_data, _placeArea.getLevel(i));
-            for (PointParam<Link> e : level_.getLinksOtherLevels()
+            for (CommonParam<Point,Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 Link link_ = e.getValue();
                 if (!link_.isValid(_data)) {
@@ -97,11 +97,11 @@ public final class Cave extends Campaign {
     @Override
     public boolean validLinks(short _place, Tree _tree) {
         int nbLevels_ = levels.size();
-        EqList<LevelPoint> ids_ = new EqList<LevelPoint>();
+        LevelPointEqList ids_ = new LevelPointEqList();
         boolean valid_ = true;
         for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
-            for (PointParam<Link> e : level_.getLinksOtherLevels()
+            for (CommonParam<Point,Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 Link link_ = e.getValue();
                 Coords coords_ = link_.getCoords();

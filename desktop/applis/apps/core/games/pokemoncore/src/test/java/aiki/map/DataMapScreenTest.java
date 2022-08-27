@@ -23,7 +23,7 @@ import aiki.map.places.Road;
 import aiki.map.util.PlaceInterConnect;
 import aiki.map.util.ScreenCoords;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -133,7 +133,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)1,(short)1));
-        ObjectMap<ScreenCoords, Coords> intersect_ = dataMap_.intersectWithScreen(begin_);
+        ScreenCoordssCoords intersect_ = dataMap_.intersectWithScreen(begin_);
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
         assertTrue(intersect_.contains(new ScreenCoords(0,1)));
@@ -187,7 +187,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)0,(short)0));
-        ObjectMap<ScreenCoords, Coords> intersect_ = dataMap_.intersectWithScreen(begin_);
+        ScreenCoordssCoords intersect_ = dataMap_.intersectWithScreen(begin_);
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
         assertTrue(intersect_.contains(new ScreenCoords(0,1)));
@@ -229,7 +229,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)4,(short)0));
-        ObjectMap<ScreenCoords, Coords> intersect_ = dataMap_.intersectWithScreen(begin_);
+        ScreenCoordssCoords intersect_ = dataMap_.intersectWithScreen(begin_);
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
         assertTrue(intersect_.contains(new ScreenCoords(0,1)));
@@ -282,7 +282,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         begin_.getLevel().setPoint(new Point((short)1,(short)1));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.moveCamera(Direction.RIGHT);
-        ObjectMap<ScreenCoords, Coords> intersect_ = dataMap_.getTiles();
+        ScreenCoordssCoords intersect_ = dataMap_.getTiles();
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
         assertTrue(intersect_.contains(new ScreenCoords(0,1)));
@@ -336,7 +336,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         begin_.getLevel().setPoint(new Point((short)1,(short)1));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.moveCamera(Direction.LEFT);
-        ObjectMap<ScreenCoords, Coords> intersect_ = dataMap_.getTiles();
+        ScreenCoordssCoords intersect_ = dataMap_.getTiles();
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
         assertTrue(intersect_.contains(new ScreenCoords(0,1)));
@@ -384,7 +384,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         begin_.getLevel().setPoint(new Point((short)0,(short)0));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.moveCamera(Direction.DOWN);
-        ObjectMap<ScreenCoords, Coords> intersect_ = dataMap_.getTiles();
+        ScreenCoordssCoords intersect_ = dataMap_.getTiles();
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
         assertTrue(intersect_.contains(new ScreenCoords(0,1)));
@@ -432,7 +432,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         begin_.getLevel().setPoint(new Point((short)4,(short)1));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.moveCamera(Direction.UP);
-        ObjectMap<ScreenCoords, Coords> intersect_ = dataMap_.getTiles();
+        ScreenCoordssCoords intersect_ = dataMap_.getTiles();
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
         assertTrue(intersect_.contains(new ScreenCoords(0,1)));
@@ -504,7 +504,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         begin_.getLevel().setPoint(new Point((short)1,(short)1));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.calculateBackgroundImagesFromTiles(data_);
-        ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap_.getBackgroundImages();
+        ScreenCoordssInt backGroundImages_ = dataMap_.getBackgroundImages();
         assertEq(45, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,3)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,4)));
@@ -589,7 +589,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         data_.setupPseudoImages();
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.calculateBackgroundImagesFromTiles(data_);
-        ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap_.getBackgroundImages();
+        ScreenCoordssInt backGroundImages_ = dataMap_.getBackgroundImages();
         assertEq(42, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,4)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,5)));
@@ -667,7 +667,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         data_.setupPseudoImages();
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.calculateBackgroundImagesFromTiles(data_);
-        ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap_.getBackgroundImages();
+        ScreenCoordssInt backGroundImages_ = dataMap_.getBackgroundImages();
         assertEq(36, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(4,3)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(4,4)));
@@ -739,7 +739,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         data_.setupPseudoImages();
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.calculateBackgroundImagesFromTiles(data_);
-        ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap_.getBackgroundImages();
+        ScreenCoordssInt backGroundImages_ = dataMap_.getBackgroundImages();
         assertEq(33, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(0,0)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(0,1)));

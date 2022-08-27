@@ -1,9 +1,9 @@
 package aiki.util;
+
 import aiki.fight.enums.Statistic;
 import code.util.core.StringUtil;
-import code.util.ints.Equallable;
 
-public final class TypeStatistic implements Equallable<TypeStatistic> {
+public final class TypeStatistic {
 
     private final String type;
 
@@ -22,7 +22,6 @@ public final class TypeStatistic implements Equallable<TypeStatistic> {
         return stat;
     }
 
-    @Override
     public boolean eq(TypeStatistic _g) {
         if (getStat() != _g.getStat()) {
             return false;

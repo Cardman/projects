@@ -19,10 +19,7 @@ import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.*;
 import aiki.map.util.PlaceInterConnect;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
-import aiki.util.PointParam;
+import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
@@ -79,7 +76,7 @@ public class MapLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            for (PointParam<int[][]> pt_: data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
+            for (CommonParam<Point,int[][]> pt_: data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         } else {
@@ -97,7 +94,7 @@ public class MapLevelBean extends CommonBean {
             }
             placeName = data_.getMap().getPlace(pl_).getName();
             levelIndex = lev_;
-            for (PointParam<int[][]> pt_: data_.getLevelImage((short) pl_, (byte) lev_).entryList()) {
+            for (CommonParam<Point,int[][]> pt_: data_.getLevelImage((short) pl_, (byte) lev_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         }

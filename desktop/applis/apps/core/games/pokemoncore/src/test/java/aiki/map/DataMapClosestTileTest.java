@@ -18,7 +18,7 @@ import aiki.map.places.Place;
 import aiki.map.places.Road;
 import aiki.map.util.PlaceInterConnect;
 import code.util.*;
-import code.util.ObjectMap;
+
 
 public class DataMapClosestTileTest extends EquallablePkUtil {
 

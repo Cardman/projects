@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.util.TeamPositionList;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -74,7 +75,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
-        EqList<TeamPosition> fighters_ = FightOrder.fighters(fight_);
+        TeamPositionList fighters_ = FightOrder.fighters(fight_);
         assertEq(4, fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -121,7 +122,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
-        EqList<TeamPosition> fighters_ = FightOrder.fighters(fight_,Fight.CST_PLAYER);
+        TeamPositionList fighters_ = FightOrder.fighters(fight_,Fight.CST_PLAYER);
         assertEq(2, fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -167,7 +168,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
-        EqList<TeamPosition> fighters_ = FightOrder.frontFighters(fight_);
+        TeamPositionList fighters_ = FightOrder.frontFighters(fight_);
         assertEq(2, fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(fighters_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
@@ -299,7 +300,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(A_LA_QUEUE, POKEMON_FOE_TARGET_ZERO);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
@@ -315,7 +316,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setActed(true);
-        EqList<TeamPosition> list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         list_ = FightOrder.fightersHavingToAct(fight_,true, data_);
@@ -331,7 +332,7 @@ public class FightOrderTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setActed(true);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(Rate.zero());
-        EqList<TeamPosition> list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         assertEq(0, list_.size());
         list_ = FightOrder.fightersHavingToAct(fight_,true, data_);
         assertEq(0, list_.size());
@@ -347,7 +348,7 @@ public class FightOrderTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setActed(true);
-        EqList<TeamPosition> list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
         list_ = FightOrder.fightersHavingToAct(fight_,true, data_);
@@ -362,7 +363,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 1);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
@@ -378,7 +379,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.zero());
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList list_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         list_ = FightOrder.fightersHavingToAct(fight_,true, data_);
@@ -533,11 +534,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -582,11 +583,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(APRES_VOUS, POKEMON_FOE_TARGET_ZERO);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(PREVENTION);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -632,11 +633,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(FARCEUR);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -682,11 +683,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(ENCENS_PLEIN);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -733,11 +734,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(ENCENS_PLEIN);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -783,11 +784,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(FREIN);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -834,11 +835,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(FREIN);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -885,11 +886,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -944,13 +945,13 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBase().getVal(Statistic.SPEED).affect(new Rate("25"));
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = new EqList<TeamPosition>();
+        TeamPositionList fighters_ = new TeamPositionList();
         fighters_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         fighters_.add(POKEMON_FOE_FIGHTER_ZERO);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -996,11 +997,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(COMBO_GRIFFE, POKEMON_PLAYER_TARGET_ZERO);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(AILES_BOURRASQUE);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -1045,11 +1046,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersSwitchingAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -1104,13 +1105,13 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBase().getVal(Statistic.SPEED).affect(new Rate("25"));
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = new EqList<TeamPosition>();
+        TeamPositionList fighters_ = new TeamPositionList();
         fighters_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         fighters_.add(POKEMON_FOE_FIGHTER_ZERO);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersSwitchingAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -1155,11 +1156,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setChosenHealingObject(EAU_FRAICHE, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setChosenHealingObject(CENDRESACREE, data_);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersBeingHealedAmongList(fight_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         TeamPosition element_;
         element_ = fighters_.get(0);
@@ -1196,11 +1197,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setChosenHealingObject(EAU_FRAICHE, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(CENDRESACREE, data_);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersBeingHealedAmongList(fight_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ONE, orderedFighters_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, orderedFighters_.get(1));
@@ -1245,11 +1246,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setChosenHealingObject(CENDRESACREE, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(CENDRESACREE, data_);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersBeingHealedAmongList(fight_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         assertEq(2, orderedFighters_.size());
         TeamPosition element_;
         element_ = fighters_.get(0);
@@ -1398,12 +1399,12 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(BAIE_CHERIM);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fighters_ = FightOrder.fightersUsingMove(fight_, fighters_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         NextUsers lists_ = FightOrder.sortFightersByWornBerry(fight_,orderedFighters_, data_);
         assertEq(2, lists_.getNextFighters().size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, lists_.getNextFighters().get(0));
@@ -1421,12 +1422,12 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(BAIE_CHERIM);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fighters_ = FightOrder.fightersUsingMove(fight_, fighters_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         NextUsers lists_ = FightOrder.sortFightersByWornBerry(fight_,orderedFighters_, data_);
         assertEq(2, lists_.getNextFighters().size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, lists_.getNextFighters().get(0));
@@ -1442,12 +1443,12 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BAIE_CHERIM);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fighters_ = FightOrder.fightersUsingMove(fight_, fighters_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         NextUsers lists_ = FightOrder.sortFightersByWornBerry(fight_,orderedFighters_, data_);
         assertEq(2, lists_.getNextFighters().size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, lists_.getNextFighters().get(0));
@@ -1462,12 +1463,12 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
+        TeamPositionList fighters_ = FightOrder.fightersHavingToAct(fight_,false, data_);
         fighters_ = FightOrder.fightersUsingMove(fight_, fighters_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(fighters_);
         FightOrder.sortFightersUsingMoveAmongList(fight_, data_);
-        EqList<TeamPosition> orderedFighters_ = fight_.getOrderedFighters();
+        TeamPositionList orderedFighters_ = fight_.getOrderedFighters();
         NextUsers lists_ = FightOrder.sortFightersByWornBerry(fight_,orderedFighters_, data_);
         assertEq(2, lists_.getNextFighters().size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, lists_.getNextFighters().get(0));
@@ -1549,7 +1550,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersUsingMoveWithBerry(fight_,FightOrder.frontFighters(fight_), data_);
+        TeamPositionList fighters_ = FightOrder.fightersUsingMoveWithBerry(fight_,FightOrder.frontFighters(fight_), data_);
         assertEq(1,fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
     }
@@ -1628,7 +1629,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersUsingMove(fight_,FightOrder.frontFighters(fight_));
+        TeamPositionList fighters_ = FightOrder.fightersUsingMove(fight_,FightOrder.frontFighters(fight_));
         assertEq(2,fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -1708,7 +1709,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersSwitching(fight_,FightOrder.frontFighters(fight_));
+        TeamPositionList fighters_ = FightOrder.fightersSwitching(fight_,FightOrder.frontFighters(fight_));
         assertEq(1,fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
     }
@@ -1787,7 +1788,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(EAU_FRAICHE, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersBeingHealed(fight_,FightOrder.frontFighters(fight_));
+        TeamPositionList fighters_ = FightOrder.fightersBeingHealed(fight_,FightOrder.frontFighters(fight_));
         assertEq(1,fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
     }
@@ -1867,7 +1868,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = new EqList<TeamPosition>();
+        TeamPositionList list_ = new TeamPositionList();
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
@@ -1955,11 +1956,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = new EqList<TeamPosition>();
+        TeamPositionList list_ = new TeamPositionList();
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        EqList<TeamPosition> next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 2, data_);
+        TeamPositionList next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 2, data_);
         assertEq(1, next_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, next_.get(0));
         assertTrue(fight_.getAcceptableChoices());
@@ -2044,11 +2045,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = new EqList<TeamPosition>();
+        TeamPositionList list_ = new TeamPositionList();
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        EqList<TeamPosition> next_;
+        TeamPositionList next_;
         next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, data_);
         assertEq(1, next_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ONE, next_.get(0));
@@ -2134,11 +2135,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = new EqList<TeamPosition>();
+        TeamPositionList list_ = new TeamPositionList();
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        EqList<TeamPosition> next_;
+        TeamPositionList next_;
         next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, data_);
         assertEq(1, next_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ONE, next_.get(0));
@@ -2219,7 +2220,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> next_ = FightOrder.randomFigtherHavingToAct(fight_,new EqList<TeamPosition>(), data_);
+        TeamPositionList next_ = FightOrder.randomFigtherHavingToAct(fight_,new TeamPositionList(), data_);
         assertEq(0, next_.size());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -2300,11 +2301,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = new EqList<TeamPosition>();
+        TeamPositionList list_ = new TeamPositionList();
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        EqList<TeamPosition> next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, data_);
+        TeamPositionList next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, data_);
         assertEq(0, next_.size());
         assertTrue(!fight_.getAcceptableChoices());
     }
@@ -2385,11 +2386,11 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        EqList<TeamPosition> list_ = new EqList<TeamPosition>();
+        TeamPositionList list_ = new TeamPositionList();
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        EqList<TeamPosition> next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 2, data_);
+        TeamPositionList next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 2, data_);
         assertEq(0, next_.size());
         assertTrue(!fight_.getAcceptableChoices());
     }
@@ -2482,7 +2483,7 @@ public class FightOrderTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        EqList<TeamPosition> fighters_ = FightOrder.fightersBelongingToUser(fight_,true);
+        TeamPositionList fighters_ = FightOrder.fightersBelongingToUser(fight_,true);
         fighters_ = FightOrder.fightersWearingExpObject(fight_,fighters_, data_);
         assertEq(1, fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
@@ -2541,7 +2542,7 @@ public class FightOrderTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        EqList<TeamPosition> list_ = FightOrder.fightersBelongingToUser(fight_,true);
+        TeamPositionList list_ = FightOrder.fightersBelongingToUser(fight_,true);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         list_ = FightOrder.fightersBelongingToUser(fight_,false);
@@ -2696,7 +2697,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList());
+        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList());
         assertEq(0,list_.size());
         list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, Bytes.newList());
         assertEq(0,list_.size());
@@ -2742,7 +2743,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0));
+        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0));
@@ -2790,7 +2791,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 2);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
+        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
@@ -2838,7 +2839,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
+        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
@@ -2898,7 +2899,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)0,(byte)1,(byte)2));
+        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)0,(byte)1,(byte)2));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
         list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)0,(byte)1,(byte)2));
@@ -2976,7 +2977,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 4);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1,(byte)2,(byte)3));
+        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1,(byte)2,(byte)3));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)3,(byte)2,(byte)1,(byte)0));
@@ -3031,7 +3032,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 4);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFoeFighter(fight_,POKEMON_PLAYER_FIGHTER_ZERO);
+        TeamPositionList list_ = FightOrder.closestFoeFighter(fight_,POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
     }
@@ -3085,7 +3086,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFigthersTeam((byte) 0, Fight.CST_PLAYER, fight_.getUserTeam(), diff_);
+        TeamPositionList list_ = FightOrder.closestFigthersTeam((byte) 0, Fight.CST_PLAYER, fight_.getUserTeam(), diff_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         list_ = FightOrder.closestFigthersTeam((byte) 0, Fight.CST_FOE, fight_.getFoeTeam(), diff_);
@@ -3142,7 +3143,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 2);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFigthersTeam((byte) 0, Fight.CST_PLAYER, fight_.getUserTeam(), diff_);
+        TeamPositionList list_ = FightOrder.closestFigthersTeam((byte) 0, Fight.CST_PLAYER, fight_.getUserTeam(), diff_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -3207,7 +3208,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFigthersTeam((byte) 0, Fight.CST_PLAYER, fight_.getUserTeam(), diff_);
+        TeamPositionList list_ = FightOrder.closestFigthersTeam((byte) 0, Fight.CST_PLAYER, fight_.getUserTeam(), diff_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -3293,7 +3294,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFigthersSameTeam(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_);
+        TeamPositionList list_ = FightOrder.closestFigthersSameTeam(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
         list_ = FightOrder.closestFigthersSameTeam(fight_,POKEMON_FOE_FIGHTER_ZERO, diff_);
@@ -3356,7 +3357,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFigthersFoeTeam(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_);
+        TeamPositionList list_ = FightOrder.closestFigthersFoeTeam(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
@@ -3405,7 +3406,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFigthersFoeTeam(fight_,POKEMON_PLAYER_FIGHTER_TWO, diff_);
+        TeamPositionList list_ = FightOrder.closestFigthersFoeTeam(fight_,POKEMON_PLAYER_FIGHTER_TWO, diff_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
     }
@@ -3465,7 +3466,7 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFigthers(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_);
+        TeamPositionList list_ = FightOrder.closestFigthers(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_);
         assertEq(3, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
@@ -3553,7 +3554,7 @@ public class FightOrderTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 1, diff_, data_);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.NOTHING, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.NOTHING, diff_, data_);
         assertEq(0, list_.size());
         list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.LANCEUR, diff_, data_);
         assertEq(1, list_.size());
@@ -3599,7 +3600,7 @@ public class FightOrderTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 2, diff_, data_);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.NOTHING, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.NOTHING, diff_, data_);
         assertEq(0, list_.size());
         list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.LANCEUR, diff_, data_);
         assertEq(1, list_.size());
@@ -3724,7 +3725,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).successUsingMove();
         fight_.getFighter(POKEMON_FOE_FIGHTER_TWO).successUsingMove();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).successUsingMove();
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_TWO, TargetChoice.AUTRE_UNIQ, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_TWO, TargetChoice.AUTRE_UNIQ, diff_, data_);
         assertEq(0, list_.size());
 //        assertEq(1, list_.size());
 //        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
@@ -3747,7 +3748,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).successUsingMove();
         fight_.getFighter(POKEMON_FOE_FIGHTER_TWO).successUsingMove();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).successUsingMove();
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_TWO, TargetChoice.AUTRE_UNIQ, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_TWO, TargetChoice.AUTRE_UNIQ, diff_, data_);
         assertEq(0, list_.size());
 //        assertEq(1, list_.size());
 //        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_TWO));
@@ -3770,7 +3771,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).successUsingMove();
         fight_.getFighter(POKEMON_FOE_FIGHTER_TWO).successUsingMove();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).successUsingMove();
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ONE, TargetChoice.AUTRE_UNIQ, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ONE, TargetChoice.AUTRE_UNIQ, diff_, data_);
         assertEq(0, list_.size());
 //        assertEq(2, list_.size());
 //        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
@@ -3784,7 +3785,7 @@ public class FightOrderTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 2, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ABIME,POKEMON_FOE_TARGET_ONE);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.ANY_FOE, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.ANY_FOE, diff_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
     }
@@ -3795,7 +3796,7 @@ public class FightOrderTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 2, diff_, data_);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.ALLIE, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.ALLIE, diff_, data_);
         assertEq(0, list_.size());
         list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.AUTRE_UNIQ, diff_, data_);
         assertEq(0, list_.size());
@@ -3808,7 +3809,7 @@ public class FightOrderTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 1, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ABIME,POKEMON_FOE_TARGET_ONE);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.AUTRE_UNIQ, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.AUTRE_UNIQ, diff_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
     }
@@ -3820,7 +3821,7 @@ public class FightOrderTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 2, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(INTERVERSION,POKEMON_PLAYER_TARGET_ONE);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.ALLIE, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.ALLIE, diff_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
     }
@@ -3832,7 +3833,7 @@ public class FightOrderTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 1, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(INTERVERSION,POKEMON_PLAYER_TARGET_ONE);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.ALLIE, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.ALLIE, diff_, data_);
         assertEq(0, list_.size());
     }
 
@@ -3843,7 +3844,7 @@ public class FightOrderTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 2, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ACUPRESSION,POKEMON_PLAYER_TARGET_ONE);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.UNIQUE_IMPORTE, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.UNIQUE_IMPORTE, diff_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
     }
@@ -3855,7 +3856,7 @@ public class FightOrderTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         Fight fight_ = chosenTargets((byte) 1, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ACUPRESSION,POKEMON_PLAYER_TARGET_ONE);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.UNIQUE_IMPORTE, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.UNIQUE_IMPORTE, diff_, data_);
         assertEq(0, list_.size());
     }
 
@@ -3869,7 +3870,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(SAISIE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).choisirAttaqueFin();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSuccessfulMove(true);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.AUTRE_UNIQ, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.AUTRE_UNIQ, diff_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
     }
@@ -3884,7 +3885,7 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(PAR_ICI);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).choisirAttaqueFin();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSuccessfulMove(true);
-        EqList<TeamPosition> list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.AUTRE_UNIQ, diff_, data_);
+        TeamPositionList list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TargetChoice.AUTRE_UNIQ, diff_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
     }
@@ -3953,7 +3954,7 @@ public class FightOrderTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         String finalMove_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove();
         MoveData move_ = data_.getMove(finalMove_);
-        EqList<TeamPosition> list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ONE, move_.getEffet(move_.indexOfPrimaryEffect()), diff_, data_);
+        TeamPositionList list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ONE, move_.getEffet(move_.indexOfPrimaryEffect()), diff_, data_);
         assertEq(3, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
@@ -4147,7 +4148,7 @@ public class FightOrderTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        EqList<TeamPosition> list_ = FightOrder.notKoFrontFightersBelongingToUser(fight_, true);
+        TeamPositionList list_ = FightOrder.notKoFrontFightersBelongingToUser(fight_, true);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -4206,7 +4207,7 @@ public class FightOrderTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        EqList<TeamPosition> list_ = FightOrder.notKoBackFightersBelongingToUser(fight_, true);
+        TeamPositionList list_ = FightOrder.notKoBackFightersBelongingToUser(fight_, true);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
     }
@@ -4294,7 +4295,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, sorted_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, sorted_.get(1));
@@ -4332,7 +4333,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, true, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, true, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, sorted_.get(1));
@@ -4371,7 +4372,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
         fight_.enableGlobalMove(DISTORSION);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, sorted_.get(1));
@@ -4410,7 +4411,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
         fight_.enableGlobalMove(DISTORSION);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, true, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, true, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, sorted_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, sorted_.get(1));
@@ -4448,7 +4449,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.backUpObject(ENCENS_PLEIN);
         fighter_.setCurrentAbility(NULL_REF);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, sorted_.get(1));
@@ -4486,7 +4487,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.backUpObject(ENCENS_PLEIN);
         fighter_.setCurrentAbility(FREIN);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, sorted_.get(1));
@@ -4524,7 +4525,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.backUpObject(ENCENS_PLEIN);
         fighter_.setCurrentAbility(FREIN);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, sorted_.get(1));
@@ -4562,7 +4563,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(FREIN);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(0));
         assertEq(POKEMON_FOE_FIGHTER_ZERO, sorted_.get(1));
@@ -4600,7 +4601,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.backUpObject(ENCENS_PLEIN);
         fighter_.setCurrentAbility(FREIN);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, sorted_.get(1));
@@ -4638,7 +4639,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.backUpObject(BAIE_MEPO);
         fighter_.setCurrentAbility(FREIN);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(3, sorted_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, sorted_.get(1));
@@ -4690,7 +4691,7 @@ public class FightOrderTest extends InitializationDataBase {
         fighter_.setCurrentAbility(GARDE_MAGIK);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.affecterTypes(DRAGON);
-        EqList<TeamPosition> sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
+        TeamPositionList sorted_ = FightOrder.sortedFightersAmongListEndRound(fight_, false, data_);
         assertEq(4, sorted_.size());
         assertTrue(sorted_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
         assertTrue(sorted_.containsObj(POKEMON_FOE_FIGHTER_ZERO));

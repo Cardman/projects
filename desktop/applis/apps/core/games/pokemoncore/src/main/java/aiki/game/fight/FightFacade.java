@@ -37,8 +37,7 @@ import aiki.map.levels.Block;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
+import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
@@ -47,7 +46,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -72,7 +71,7 @@ public final class FightFacade {
         fight_.setWinningMoney(Rate.zero());
         fight_.setUsedItemsWhileRound(new StringMap<Short>());
         fight_.setChoices(new ByteMap<ChoiceOfEvolutionAndMoves>());
-        fight_.setAllyChoice(new ObjectMap<MoveTarget,MoveTarget>());
+        fight_.setAllyChoice(new MoveTargets());
         fight_.setTeams(new ByteMap<Team>());
         fight_.setLostObjects(new StringList());
         fight_.setFirstPositPlayerFighters(new ByteMap<Byte>());
@@ -365,7 +364,7 @@ public final class FightFacade {
             }
         }
         if (validSwitchTeam_) {
-            EqList<TeamPosition> team_;
+            TeamPositionList team_;
             team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
             for (TeamPosition t: team_) {
                 Fighter f_ = _fight.getFighter(t);
@@ -410,7 +409,7 @@ public final class FightFacade {
             if (!(action_ instanceof ActionMove)) {
                 continue;
             }
-            EqList<TargetCoords> targets_ = ((ActionMove)action_).getChosenTargets();
+            TargetCoordsList targets_ = ((ActionMove)action_).getChosenTargets();
             if (targets_.isEmpty()) {
                 continue;
             }
@@ -568,7 +567,7 @@ public final class FightFacade {
                 return false;
             }
             if (FightEndRound.proponedSwitchWhileKoPlayer(_fight)) {
-                EqList<TeamPosition> team_;
+                TeamPositionList team_;
                 team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
                 if (!validSubstitutingTeam(_fight, team_)) {
                     return false;
@@ -586,7 +585,7 @@ public final class FightFacade {
                 return false;
             }
             if (!_fight.getFightType().isWild()) {
-                EqList<TeamPosition> team_;
+                TeamPositionList team_;
                 team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
                 if (!validSubstitutingTeam(_fight, team_)) {
                     return false;
@@ -712,7 +711,7 @@ public final class FightFacade {
         }
         return !replace_.hasDuplicates();
     }
-    static boolean validSubstitutingTeam(Fight _fight, EqList<TeamPosition> _pseusoTeam) {
+    static boolean validSubstitutingTeam(Fight _fight, TeamPositionList _pseusoTeam) {
         Bytes replace_ = new Bytes();
         Bytes replaceNoPlayer_ = new Bytes();
         byte teamNo_ = _pseusoTeam.first().getTeam();
@@ -1191,7 +1190,7 @@ public final class FightFacade {
                 playerTargets_.get(k).setChosable(wrap(!NumberUtil.eq(k, groundPlace_)));
             }
         } else if (move_.getTargetChoice() == TargetChoice.ADJ_UNIQ) {
-            EqList<TeamPosition> list_;
+            TeamPositionList list_;
             list_ = FightOrder.closestFigthersSameTeam(_fight, f_, _diff);
             for (TeamPosition f: list_) {
                 Fighter partner_ = _fight.getFighter(f);
@@ -1939,8 +1938,8 @@ public final class FightFacade {
         }
     }
 
-    public static EqList<TeamPosition> fightersBelongingToUser(Fight _fight,boolean _user) {
-        EqList<TeamPosition> list_ = new EqList<TeamPosition>();
+    public static TeamPositionList fightersBelongingToUser(Fight _fight,boolean _user) {
+        TeamPositionList list_ = new TeamPositionList();
         ByteMap<Fighter> map_ = _fight.getUserTeam().getMembers();
         for(byte c:map_.getKeys()){
             if (ComparatorBoolean.diff(map_.getVal(c).isBelongingToPlayer(), _user)) {
@@ -1959,22 +1958,22 @@ public final class FightFacade {
         creatureLanceur_.cancelActions();
     }
 
-    public static ObjectMap<TeamPosition,StringMap<ObjectMap<TeamPosition,Rate>>>
+    public static TeamPositionsStringMapTeamPositionsRate
             remainingThrowersTargetsHp(Fight _fight, Difficulty _diff, DataBase _import) {
-        ObjectMap<TeamPosition,StringMap<ObjectMap<TeamPosition,Rate>>> map_;
-        map_ = new ObjectMap<TeamPosition,StringMap<ObjectMap<TeamPosition,Rate>>>();
+        TeamPositionsStringMapTeamPositionsRate map_;
+        map_ = new TeamPositionsStringMapTeamPositionsRate();
         for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
             StringList moves_;
             moves_ = allowedMovesNotEmpty(_fight, f, _import);
-            StringMap<ObjectMap<TeamPosition,Rate>> mapMovesTargets_;
-            mapMovesTargets_ = new StringMap<ObjectMap<TeamPosition,Rate>>();
+            StringMap<TeamPositionsRate> mapMovesTargets_;
+            mapMovesTargets_ = new StringMap<TeamPositionsRate>();
             for (String m: moves_) {
                 if (!(_import.getMove(m) instanceof DamagingMoveData)) {
                     continue;
                 }
-                ObjectMap<TeamPosition,Rate> fighters_;
-                fighters_ = new ObjectMap<TeamPosition,Rate>();
-                ObjectMap<TargetCoords,Rate> mapTargets_;
+                TeamPositionsRate fighters_;
+                fighters_ = new TeamPositionsRate();
+                TargetCoordssRate mapTargets_;
                 mapTargets_ = FightArtificialIntelligence.remainingFoeTargetHp(_fight, f, m, _diff, _import);
                 for (TargetCoords t: mapTargets_.getKeys()) {
                     Team team_ = _fight.getTeams().getVal((byte) t.getTeam());
@@ -1982,7 +1981,7 @@ public final class FightFacade {
                         fighters_.put(new TeamPosition((byte) t.getTeam(), f2_), mapTargets_.getVal(t));
                     }
                 }
-                ObjectMap<TeamPosition,Rate> mapFighters_;
+                TeamPositionsRate mapFighters_;
                 mapFighters_ = FightArtificialIntelligence.remainingPartnerTargetHp(_fight, f, m, _diff, _import);
                 fighters_.putAllMap(mapFighters_);
                 mapMovesTargets_.put(m, fighters_);
@@ -1992,21 +1991,21 @@ public final class FightFacade {
         return map_;
     }
 
-    public static NatStringTreeMap<EqList<TeamPosition>> sortedFightersBeginRoundWildFight(Fight _fight, DataBase _data) {
-        NatStringTreeMap<EqList<TeamPosition>> tree_;
-        tree_ = new NatStringTreeMap<EqList<TeamPosition>>();
+    public static NatStringTreeMap<TeamPositionList> sortedFightersBeginRoundWildFight(Fight _fight, DataBase _data) {
+        NatStringTreeMap<TeamPositionList> tree_;
+        tree_ = new NatStringTreeMap<TeamPositionList>();
         StringList moves_ = allowedMovesNotEmpty(_fight, Fight.toFoeFighter((byte) 0), _data);
         for (String m: moves_) {
             Fighter wildPk_ = _fight.wildPokemon();
             MoveData move_ = _data.getMove(m);
             if(move_.getTargetChoice().isWithChoice()){
-                EqList<TeamPosition> cibles_= FightOrder.closestFoeFighter(_fight, Fight.toFoeFighter((byte) 0));
+                TeamPositionList cibles_= FightOrder.closestFoeFighter(_fight, Fight.toFoeFighter((byte) 0));
                 Fighter cible_ = _fight.getFighter(cibles_.first());
                 wildPk_.setFirstChosenMoveTarget(m,TargetCoords.toUserTarget(cible_.getGroundPlace()));
             }else{
                 wildPk_.setFirstChosenMove(m);
             }
-            EqList<TeamPosition> fightersUsingMove_;
+            TeamPositionList fightersUsingMove_;
             fightersUsingMove_ = FightOrder.fightersUsingMove(_fight, FightOrder.fighters(_fight));
             _fight.getOrderedFighters().clear();
             _fight.getOrderedFighters().addAllElts(fightersUsingMove_);
@@ -2014,7 +2013,7 @@ public final class FightFacade {
                 _fight.getFighter(f).choisirAttaqueFin();
             }
             FightOrder.sortFightersUsingMoveAmongList(_fight, _data);
-            tree_.put(_data.translateMove(m), new EqList<TeamPosition>(_fight.getOrderedFighters()));
+            tree_.put(_data.translateMove(m), new TeamPositionList(_fight.getOrderedFighters()));
             for (TeamPosition f: fightersUsingMove_) {
                 ((ActionMove) _fight.getFighter(f).getAction()).setFinalChosenMove(DataBase.EMPTY_STRING);
             }
@@ -2023,11 +2022,11 @@ public final class FightFacade {
         return tree_;
     }
 
-    public static EqList<TeamPosition> sortedFightersBeginRound(Fight _fight, DataBase _data) {
+    public static TeamPositionList sortedFightersBeginRound(Fight _fight, DataBase _data) {
         if (!_fight.getAllyChoiceSet().isEmpty()) {
             FightRound.setAllyChoices(_fight, _data);
         }
-        EqList<TeamPosition> fightersUsingMove_;
+        TeamPositionList fightersUsingMove_;
         fightersUsingMove_ = FightOrder.fightersUsingMove(_fight, FightOrder.fighters(_fight));
         _fight.getOrderedFighters().clear();
         _fight.getOrderedFighters().addAllElts(fightersUsingMove_);
@@ -2051,7 +2050,7 @@ public final class FightFacade {
         if (!_fight.getAllyChoiceSet().isEmpty()) {
             FightRound.setAllyChoices(_fight, _data);
         }
-        EqList<TeamPosition> fightersUsingMove_;
+        TeamPositionList fightersUsingMove_;
         fightersUsingMove_ = FightOrder.fightersUsingMove(_fight, FightOrder.fighters(_fight));
         _fight.getOrderedFighters().clear();
         _fight.getOrderedFighters().addAllElts(fightersUsingMove_);
@@ -2576,8 +2575,8 @@ public final class FightFacade {
         }
         _fight.setError(false);
         _fight.setFullHealing(false);
-        _fight.setSuccessfulEffects(new ObjectMap<NbEffectFighterCoords,BoolVal>());
-        _fight.setDamageByCurrentUser(new ObjectMap<TeamPosition,Rate>());
+        _fight.setSuccessfulEffects(new NbEffectFighterCoordss());
+        _fight.setDamageByCurrentUser(new TeamPositionsRate());
         _fight.setSufferingTargetStatus(new StringList());
         _fight.setLettingUserAttackWithStatus(true);
         _fight.setEndRound(false);
@@ -2596,8 +2595,8 @@ public final class FightFacade {
         _fight.getDamage().setDamageClone(Rate.zero());
         _fight.getDamage().setDamageCount(Rate.zero());
         _fight.setDamageKo(Rate.zero());
-        _fight.setOrderedFighters(new EqList<TeamPosition>());
-        _fight.setRemainingFighters(new EqList<TeamPosition>());
+        _fight.setOrderedFighters(new TeamPositionList());
+        _fight.setRemainingFighters(new TeamPositionList());
         _fight.setChosablePlayerTargets(new CustList<ChosableTargetName>());
         _fight.setChosableFoeTargets(new CustList<ChosableTargetName>());
 //        _fight.setChosenFoeTarget(Fighter.BACK);

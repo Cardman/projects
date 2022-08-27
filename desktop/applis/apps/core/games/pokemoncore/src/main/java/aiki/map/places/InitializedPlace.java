@@ -6,7 +6,7 @@ import aiki.map.util.PlaceInterConnects;
 import aiki.util.Coords;
 import aiki.util.Point;
 import aiki.util.Points;
-import code.util.ObjectMap;
+
 
 public interface InitializedPlace {
 

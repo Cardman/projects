@@ -1,8 +1,6 @@
 package aiki.map.util;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class PlaceLevel implements Equallable<PlaceLevel>, Displayable {
+public final class PlaceLevel {
 
     private static final String SEPARATOR = "/";
 
@@ -18,15 +16,11 @@ public final class PlaceLevel implements Equallable<PlaceLevel>, Displayable {
         level = _level;
     }
 
-    @Override
     public boolean eq(PlaceLevel _obj) {
         if (_obj.place != place) {
             return false;
         }
-        if (_obj.level != level) {
-            return false;
-        }
-        return true;
+        return _obj.level == level;
     }
 
     public short getPlace() {
@@ -45,7 +39,6 @@ public final class PlaceLevel implements Equallable<PlaceLevel>, Displayable {
         level = _level;
     }
 
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(place);

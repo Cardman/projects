@@ -84,6 +84,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Point;
+import aiki.util.TeamPositionList;
 import code.bean.Bean;
 import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
@@ -1029,10 +1030,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static ArrayStruct getBigNatMapLs(AbsMap<String, EqList<TeamPosition>> _map) {
+    public static ArrayStruct getBigNatMapLs(AbsMap<String, TeamPositionList> _map) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
         int j_ = 0;
-        for (EntryCust<String, EqList<TeamPosition>> e:_map.entryList()) {
+        for (EntryCust<String, TeamPositionList> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(OBJECT,new StringStruct(e.getKey()),getTeamPos(e.getValue()));
             arr_.set(j_,p_);
             j_++;

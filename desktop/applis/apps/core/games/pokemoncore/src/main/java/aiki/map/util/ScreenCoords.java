@@ -1,9 +1,8 @@
 package aiki.map.util;
-import code.util.core.NumberUtil;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class ScreenCoords implements Equallable<ScreenCoords>, Displayable {
+import code.util.core.NumberUtil;
+
+public final class ScreenCoords {
 
     private static final String SEPARATOR = ";";
 
@@ -19,7 +18,6 @@ public final class ScreenCoords implements Equallable<ScreenCoords>, Displayable
         yCoords = _y;
     }
 
-    @Override
     public boolean eq(ScreenCoords _g) {
         if (!NumberUtil.eq(xCoords, _g.xCoords)) {
             return false;
@@ -43,7 +41,6 @@ public final class ScreenCoords implements Equallable<ScreenCoords>, Displayable
         yCoords = _y;
     }
 
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(xCoords);

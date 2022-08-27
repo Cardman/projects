@@ -32,7 +32,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.PlaceInterConnect;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.ObjectMap;
+
 
 
 public class GameUnlockPlacesTest extends InitializationDataBase {

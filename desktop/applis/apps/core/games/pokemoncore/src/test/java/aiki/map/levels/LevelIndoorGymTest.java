@@ -10,7 +10,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.util.Limits;
 import aiki.map.util.ScreenCoords;
 import aiki.util.Point;
-import code.util.ObjectMap;
+
 
 
 public class LevelIndoorGymTest extends EquallablePkUtil {

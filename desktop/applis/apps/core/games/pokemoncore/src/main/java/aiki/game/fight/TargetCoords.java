@@ -1,12 +1,11 @@
 package aiki.game.fight;
+
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class TargetCoords implements Equallable<TargetCoords>, Displayable {
+public final class TargetCoords {
 
     private static final char SEPARATOR=';';
 
@@ -47,7 +46,6 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
         return _tp1.eq(_tp2);
     }
 
-    @Override
     public boolean eq(TargetCoords _obj) {
         if (!NumberUtil.eq(getTeam(),_obj.getTeam())) {
             return false;
@@ -63,8 +61,6 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
         return position;
     }
 
-    
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(team);

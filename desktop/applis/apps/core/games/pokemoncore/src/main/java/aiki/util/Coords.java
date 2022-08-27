@@ -1,13 +1,12 @@
 package aiki.util;
+
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class Coords implements Equallable<Coords>, Displayable {
+public final class Coords {
 
     static final char SEPARATOR = ';';
     static final String INVALID = "";
@@ -110,7 +109,6 @@ public final class Coords implements Equallable<Coords>, Displayable {
         return _c1.eq(_c2);
     }
 
-    @Override
     public boolean eq(Coords _g) {
         if (!NumberUtil.eq(numberPlace,_g.numberPlace)) {
             return false;
@@ -152,8 +150,6 @@ public final class Coords implements Equallable<Coords>, Displayable {
     public void setLevel(LevelPoint _level) {
         level = _level;
     }
-
-    @Override
     
     public String display() {
         if (!isValid()) {

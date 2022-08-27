@@ -29,10 +29,7 @@ import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.util.*;
-import aiki.util.Coords;
-import aiki.util.CoordsLists;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
 import org.junit.Test;
@@ -1309,7 +1306,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
-        map_.getAccessCondition().put(newCoords(1,0,1,1),new Condition(newCoords(0,0,0,1)));
+        map_.getAccessCondition().put(newCoords(1,0,1,1),Condition.newList(newCoords(0,0,0,1)));
         WildPk pkm_ = new WildPk();
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
@@ -1391,7 +1388,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
-        map_.getAccessCondition().put(newCoords(1,0,1,1),new Condition(newCoords(0,0,0,1)));
+        map_.getAccessCondition().put(newCoords(1,0,1,1),Condition.newList(newCoords(0,0,0,1)));
         WildPk pkm_ = new WildPk();
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
@@ -1917,8 +1914,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setLevel((short) 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
-        map_.getAccessCondition().put(newCoords(0, 0, 0, 0),new Condition(newCoords(1, 0,1,0, 0, 0)));
-        map_.getAccessCondition().put(newCoords(0, 0,0,0, 0, 0),new Condition(newCoords(1, 0, 1,0,0, 0)));
+        map_.getAccessCondition().put(newCoords(0, 0, 0, 0),Condition.newList(newCoords(1, 0,1,0, 0, 0)));
+        map_.getAccessCondition().put(newCoords(0, 0,0,0, 0, 0),Condition.newList(newCoords(1, 0, 1,0,0, 0)));
         map_.getAccessCondition().put(newCoords(0, 0,1, 0),new Condition());
         data_.completeVariables();
         initConstants(data_);
@@ -1973,7 +1970,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setLevel((short) 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
-        map_.getAccessCondition().put(newCoords(2, 0, 0, 0),new Condition(newCoords(1, 0,1,0, 0, 0)));
+        map_.getAccessCondition().put(newCoords(2, 0, 0, 0),Condition.newList(newCoords(1, 0,1,0, 0, 0)));
         data_.completeVariables();
         initConstants(data_);
         initRandomLaws(data_);
@@ -2027,8 +2024,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setLevel((short) 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
-        map_.getAccessCondition().put(newCoords(0, 0, 0, 0),new Condition(newCoords(2, 10, 0, 0)));
-        map_.getAccessCondition().put(newCoords(0, 1, 0, 0),new Condition(newCoords(1, 10, 0, 0)));
+        map_.getAccessCondition().put(newCoords(0, 0, 0, 0),Condition.newList(newCoords(2, 10, 0, 0)));
+        map_.getAccessCondition().put(newCoords(0, 1, 0, 0),Condition.newList(newCoords(1, 10, 0, 0)));
         data_.completeVariables();
         initConstants(data_);
         initRandomLaws(data_);
@@ -2261,7 +2258,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.getMap().calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
                 playerOrientation_.gety());
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(121, foreGround_.size());
     }
@@ -2285,7 +2282,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.getMap().calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
                 playerOrientation_.gety());
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(121, foreGround_.size());
     }
@@ -2308,7 +2305,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.getMap().calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
                 playerOrientation_.gety());
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(121, foreGround_.size());
     }
@@ -2334,7 +2331,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
                 playerOrientation_.gety());
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 1, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(121, foreGround_.size());
     }

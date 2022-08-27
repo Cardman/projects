@@ -23,6 +23,7 @@ import aiki.game.fight.enums.FightType;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
+import aiki.util.TargetCoordsList;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EqList;
@@ -366,7 +367,7 @@ final class FightRules {
                             _fight.addMessage(_import,Fight.ERR_FRONT_SWITCH, namePart_);
                         }
                     }
-                    EqList<TargetCoords> cibles_=creature_.getChosenTargets();
+                    TargetCoordsList cibles_=creature_.getChosenTargets();
                     MoveData fAtt_=_import.getMove(attaque_);
                     //If the player selects a fighter then a move,
                     //there are two cases:

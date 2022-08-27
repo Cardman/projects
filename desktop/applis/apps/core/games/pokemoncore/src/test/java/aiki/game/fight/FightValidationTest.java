@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -6171,7 +6172,7 @@ public class FightValidationTest extends InitializationDataBase {
         TeamPosition key_ = Fight.toFoeFighter((byte) team_.size());
         fight_.getFirstPositFoeFighters().put((byte) team_.size(), Fighter.BACK);
         team_.put((byte) team_.size(), fighter_);
-        EqList<TeamPosition> fs_ = FightOrder.fighters(fight_);
+        TeamPositionList fs_ = FightOrder.fighters(fight_);
         fighter_.initCreatureRelationsAutre(fs_, _data);
         for (TeamPosition t: fs_) {
             fight_.getFighter(t).ajouterRelationAutre(key_, _data);

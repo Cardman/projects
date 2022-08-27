@@ -59,7 +59,7 @@ import code.util.EnumList;
 import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -99,29 +99,29 @@ public final class DataMap {
 
     private Tree tree = new Tree();
 
-    private ObjectMap<Coords, Condition> accessibility = new ObjectMap<Coords, Condition>();
+    private CoordssCondition accessibility = new CoordssCondition();
 
-    private final EqList<Coords> cities = new EqList<Coords>();
+    private final Condition cities = new Condition();
 
-    private EqList<Coords> leagues = new EqList<Coords>();
+    private Condition leagues = new Condition();
 
-    private EqList<NbFightCoords> beatTrainer = new EqList<NbFightCoords>();
+    private CustList<NbFightCoords> beatTrainer = new CustList<NbFightCoords>();
 
-    private EqList<Coords> beatGymLeader = new EqList<Coords>();
+    private Condition beatGymLeader = new Condition();
 
-    private ShortMap< EqList<Point>> beatGymTrainer = new ShortMap< EqList<Point>>();
+    private ShortMap< PointEqList> beatGymTrainer = new ShortMap< PointEqList>();
 
-    private EqList<Coords> hostPokemons = new EqList<Coords>();
+    private Condition hostPokemons = new Condition();
 
-    private EqList<Coords> takenPokemon = new EqList<Coords>();
+    private Condition takenPokemon = new Condition();
 
-    private EqList<Coords> takenObjects = new EqList<Coords>();
+    private Condition takenObjects = new Condition();
 
-    private ObjectMap<ScreenCoords, Coords> tiles = new ObjectMap<ScreenCoords, Coords>();
+    private ScreenCoordssCoords tiles = new ScreenCoordssCoords();
 
-    private final ObjectMap<ScreenCoords, int[][]> backgroundImages = new ObjectMap<ScreenCoords, int[][]>();
+    private final ScreenCoordssInt backgroundImages = new ScreenCoordssInt();
 
-    private final ObjectMap<ScreenCoords, CustList<int[][]>> foregroundImages = new ObjectMap<ScreenCoords, CustList<int[][]>>();
+    private final ScreenCoordssCustListInt foregroundImages = new ScreenCoordssCustListInt();
 
     public void validate(DataBase _d) {
         if (screenWidth < 0 || screenHeight < 0) {
@@ -159,7 +159,7 @@ public final class DataMap {
             _d.setError(true);
             return;
         }
-        ObjectMap<PlaceLevel, Ints> wildPokemonBeforeFirstLeague_ = new ObjectMap<PlaceLevel, Ints>();
+        PlaceLevelsInts wildPokemonBeforeFirstLeague_ = new PlaceLevelsInts();
         int nbPlaces_ = places.size();
         Shorts placesNumbers_ = new Shorts();
         for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
@@ -251,8 +251,8 @@ public final class DataMap {
             }
         }
         for (Coords c : accessCondition.getKeys()) {
-            EqList<Coords> invalidCoords_ = new EqList<Coords>();
-            EqList<Coords> addedCoords_ = new EqList<Coords>();
+            Condition invalidCoords_ = new Condition();
+            Condition addedCoords_ = new Condition();
             for (Coords c2_ : accessCondition.getVal(c)) {
                 Place pl_ = places.get(c2_.getNumberPlace());
                 if (pl_ instanceof League) {
@@ -799,17 +799,17 @@ public final class DataMap {
     }
 
     public void initInteractiveElements() {
-        beatTrainer = new EqList<NbFightCoords>();
-        beatGymLeader = new EqList<Coords>();
-        beatGymTrainer = new ShortMap< EqList<Point>>();
-        hostPokemons = new EqList<Coords>();
-        takenPokemon = new EqList<Coords>();
-        takenObjects = new EqList<Coords>();
+        beatTrainer = new CustList<NbFightCoords>();
+        beatGymLeader = new Condition();
+        beatGymTrainer = new ShortMap< PointEqList>();
+        hostPokemons = new Condition();
+        takenPokemon = new Condition();
+        takenObjects = new Condition();
         int nbPlaces_ = places.size();
         for (short s = IndexConstants.FIRST_INDEX; s < nbPlaces_; s++) {
             Place place_ = places.get(s);
             if (place_ instanceof City) {
-                for (PointParam<Building> b : ((City) place_)
+                for (CommonParam<Point,Building> b : ((City) place_)
                         .getBuildings().entryList()) {
                     if (b.getValue() instanceof Gym) {
                         Coords c_ = new Coords();
@@ -822,12 +822,12 @@ public final class DataMap {
                                         .getGymLeaderCoords());
                         beatGymLeader.add(c_);
                         beatGymTrainer
-                                .put(s, new EqList<Point>(((Gym) b.getValue())
+                                .put(s, new PointEqList(((Gym) b.getValue())
                                         .getIndoor().getGymTrainers().getKeys()));
                         break;
                     }
                 }
-                for (PointParam<Building> b : ((City) place_)
+                for (CommonParam<Point,Building> b : ((City) place_)
                         .getBuildings().entryList()) {
                     if (b.getValue() instanceof PokemonCenter) {
                         Coords coordsCity_ = new Coords();
@@ -839,7 +839,7 @@ public final class DataMap {
                         coordsCity_.getLevel().getPoint()
                                 .moveTo(Direction.DOWN);
                         cities.add(coordsCity_);
-                        for (PointParam<Person> g : ((PokemonCenter) b
+                        for (CommonParam<Point,Person> g : ((PokemonCenter) b
                                 .getValue()).getIndoor().getGerants()
                                 .entryList()) {
                             if (!(g.getValue() instanceof GerantPokemon)) {
@@ -930,7 +930,7 @@ public final class DataMap {
                 for (EntryCust<Byte, Level> e : levels_.entryList()) {
                     LevelWithWildPokemon wild_ = (LevelWithWildPokemon) e
                             .getValue();
-                    for (PointParam<CharacterInRoadCave> c : wild_
+                    for (CommonParam<Point,CharacterInRoadCave> c : wild_
                             .getCharacters().entryList()) {
                         if (!(c.getValue() instanceof TrainerMultiFights)) {
                             continue;
@@ -1030,24 +1030,24 @@ public final class DataMap {
     }
 
     public void initializeAccessibility() {
-        EqList<Coords> leaders_ = new EqList<Coords>();
-        ObjectMap<Coords, Condition> newElts_ = new ObjectMap<Coords, Condition>();
+        Condition leaders_ = new Condition();
+        CoordssCondition newElts_ = new CoordssCondition();
         newElts_.put(new Coords(begin), new Condition());
-        ObjectMap<Coords, Condition> coordsCond_ = new ObjectMap<Coords, Condition>(
+        CoordssCondition coordsCond_ = new CoordssCondition(
                 newElts_);
-        ObjectMap<Coords, Condition> coordsCondBis_ = new ObjectMap<Coords, Condition>(
+        CoordssCondition coordsCondBis_ = new CoordssCondition(
                 newElts_);
-        ObjectMap<Coords, Condition> allTiles_ = new ObjectMap<Coords, Condition>(
+        CoordssCondition allTiles_ = new CoordssCondition(
                 newElts_);
-        leagues = new EqList<Coords>();
+        leagues = new Condition();
         while (true) {
-            ObjectMap<Coords, Condition> neigh_ = possibleNeighbours(allTiles_,
+            CoordssCondition neigh_ = possibleNeighbours(allTiles_,
                     coordsCond_);
             CustList<Coords> diff_ = neigh_.getKeys();
             if (diff_.isEmpty()) {
                 break;
             }
-            for (EntryCust<Coords, Condition> e : neigh_.entryList()) {
+            for (CommonParam<Coords, Condition> e : neigh_.entryList()) {
                 Coords c_ = e.getKey();
                 if (allTiles_.contains(c_)) {
                     continue;
@@ -1059,8 +1059,8 @@ public final class DataMap {
                 coordsCondBis_.put(c_, cond_);
             }
             Condition inext_ = new Condition();
-            EqList<Coords> ext_ = new EqList<Coords>();
-            for (EntryCust<Coords, Condition> e : neigh_.entryList()) {
+            Condition ext_ = new Condition();
+            for (CommonParam<Coords, Condition> e : neigh_.entryList()) {
                 Coords c_ = e.getKey();
                 if (accessCondition.contains(c_)
                         && !coordsCond_.contains(c_)) {
@@ -1076,7 +1076,7 @@ public final class DataMap {
             }
             diff_ = ext_;
 
-            ObjectMap<Coords, Coords> newLeaders_ = leaders(diff_);
+            CoordssCoords newLeaders_ = leaders(diff_);
             CustList<Coords> accessibleLeaders_ = newLeaders_.getKeys();
             for (Coords c : coordsCondBis_.getKeys()) {
                 if (allTiles_.contains(c)) {
@@ -1102,7 +1102,7 @@ public final class DataMap {
             leaders_.addAllElts(accessibleLeaders_);
             coordsCond_.clear();
             Condition initCond_ = new Condition();
-            for (EntryCust<Coords, Condition> e : coordsCondBis_.entryList()) {
+            for (CommonParam<Coords, Condition> e : coordsCondBis_.entryList()) {
                 Coords c_ = e.getKey();
                 if (!accessCondition.contains(c_)) {
                     continue;
@@ -1124,7 +1124,7 @@ public final class DataMap {
         leagues.removeDuplicates();
         accessibility = allTiles_;
 
-        EqList<Coords> accessLeagues_ = new EqList<Coords>();
+        Condition accessLeagues_ = new Condition();
         int nbPlaces_ = places.size();
         for (int p = 0; p <nbPlaces_;p++) {
             Place pl_ = places.get(p);
@@ -1140,7 +1140,7 @@ public final class DataMap {
             if (accessLeagues_.containsObj(c)) {
                 continue;
             }
-            ObjectMap<Coords, Condition> conditions_ = getNext(c,
+            CoordssCondition conditions_ = getNext(c,
                     accessibility.getVal(c));
             boolean contained_ = false;
             Condition elts_ = accessCondition.getVal(c);
@@ -1167,13 +1167,13 @@ public final class DataMap {
 
     }
 
-    public ObjectMap<Coords, Condition> possibleNeighbours(
-            ObjectMap<Coords, Condition> _visitedGl,
-            ObjectMap<Coords, Condition> _previousVisited) {
-        ObjectMap<Coords, Condition> visitedTiles_ = new ObjectMap<Coords, Condition>(
+    public CoordssCondition possibleNeighbours(
+            CoordssCondition _visitedGl,
+            CoordssCondition _previousVisited) {
+        CoordssCondition visitedTiles_ = new CoordssCondition(
                 _previousVisited);
         CustList<Coords> currentTiles_ = _previousVisited.getKeys();
-        EqList<Coords> newPlaces_ = new EqList<Coords>();
+        Condition newPlaces_ = new Condition();
         while (true) {
             for (Coords i : currentTiles_) {
                 if (accessCondition.contains(i)) {
@@ -1181,9 +1181,9 @@ public final class DataMap {
                         continue;
                     }
                 }
-                ObjectMap<Coords, Condition> neighbours_ = getNext(i,
+                CoordssCondition neighbours_ = getNext(i,
                         visitedTiles_.getVal(i));
-                for (EntryCust<Coords, Condition> e : neighbours_.entryList()) {
+                for (CommonParam<Coords, Condition> e : neighbours_.entryList()) {
                     Coords n_ = e.getKey();
                     if (visitedTiles_.contains(n_)) {
                         continue;
@@ -1198,14 +1198,14 @@ public final class DataMap {
             if (newPlaces_.isEmpty()) {
                 break;
             }
-            currentTiles_ = new EqList<Coords>(newPlaces_);
-            newPlaces_ = new EqList<Coords>();
+            currentTiles_ = new Condition(newPlaces_);
+            newPlaces_ = new Condition();
         }
         return visitedTiles_;
     }
 
-    public ObjectMap<Coords, Coords> leaders(Listable<Coords> _accessibleCoords) {
-        ObjectMap<Coords, Coords> list_ = new ObjectMap<Coords, Coords>();
+    public CoordssCoords leaders(Listable<Coords> _accessibleCoords) {
+        CoordssCoords list_ = new CoordssCoords();
         for (Coords c : _accessibleCoords) {
             Place place_ = getPlace(c.getNumberPlace());
             if (place_ instanceof League) {
@@ -1243,8 +1243,8 @@ public final class DataMap {
         return list_;
     }
 
-    public ObjectMap<Coords, Condition> getNext(Coords _id, Condition _condition) {
-        ObjectMap<Coords, Condition> return_ = new ObjectMap<Coords, Condition>();
+    public CoordssCondition getNext(Coords _id, Condition _condition) {
+        CoordssCondition return_ = new CoordssCondition();
         Place place_ = places.get(_id.getNumberPlace());
         Point pt_ = _id.getLevel().getPoint();
         int nbPlaces_ = places.size();
@@ -1416,12 +1416,12 @@ public final class DataMap {
     }
 
     boolean validConditions(Condition _accessCoords,
-            ObjectMap<Coords, Condition> _condition) {
-        ObjectMap<Coords, EqList<Coords>> groups_ = new ObjectMap<Coords, EqList<Coords>>();
+            CoordssCondition _condition) {
+        CoordssCondition groups_ = new CoordssCondition();
         Condition defaultCondition_ = new Condition();
         for (Coords c : _accessCoords) {
             boolean continue_ = false;
-            for (EqList<Coords> l : groups_.values()) {
+            for (Condition l : groups_.values()) {
                 if (l.containsObj(c)) {
                     continue_ = true;
                     break;
@@ -1430,13 +1430,13 @@ public final class DataMap {
             if (continue_) {
                 continue;
             }
-            EqList<Coords> eq_ = new EqList<Coords>();
+            Condition eq_ = new Condition();
             eq_.add(c);
-            EqList<Coords> currentElts_ = new EqList<Coords>(eq_);
-            EqList<Coords> newElts_ = new EqList<Coords>();
+            Condition currentElts_ = new Condition(eq_);
+            Condition newElts_ = new Condition();
             while (true) {
                 for (Coords c2_ : currentElts_) {
-                    ObjectMap<Coords, Condition> next_ = getNext(c2_,
+                    CoordssCondition next_ = getNext(c2_,
                             defaultCondition_);
                     for (Coords n : next_.getKeys()) {
                         if (!_accessCoords.containsObj(n)) {
@@ -1452,12 +1452,12 @@ public final class DataMap {
                 if (newElts_.isEmpty()) {
                     break;
                 }
-                currentElts_ = new EqList<Coords>(newElts_);
-                newElts_ = new EqList<Coords>();
+                currentElts_ = new Condition(newElts_);
+                newElts_ = new Condition();
             }
             groups_.put(c, eq_);
         }
-        for (EntryCust<Coords, EqList<Coords>> e : groups_.entryList()) {
+        for (CommonParam<Coords, Condition> e : groups_.entryList()) {
             Condition cond_ = _condition.getVal(e.getKey());
             for (Coords c2_ : e.getValue()) {
                 Condition condLoc_ = _condition.getVal(c2_);
@@ -1895,8 +1895,8 @@ public final class DataMap {
         tiles = intersectWithScreen(_coords);
     }
 
-    ObjectMap<ScreenCoords, Coords> intersectWithScreen(Coords _coords) {
-        ObjectMap<ScreenCoords, Coords> liste_ = new ObjectMap<ScreenCoords, Coords>();
+    ScreenCoordssCoords intersectWithScreen(Coords _coords) {
+        ScreenCoordssCoords liste_ = new ScreenCoordssCoords();
 
         for (int i = IndexConstants.FIRST_INDEX; i < screenWidth; i++) {
             for (int j = IndexConstants.FIRST_INDEX; j < screenHeight; j++) {
@@ -1905,11 +1905,11 @@ public final class DataMap {
         }
         liste_.put(new ScreenCoords(spaceBetweenLeftAndHeros,
                 spaceBetweenTopAndHeros), _coords);
-        ObjectMap<ScreenCoords, Coords> oldList_ = new ObjectMap<ScreenCoords, Coords>(liste_);
-        EqList<ScreenCoords> currentElements_ = new EqList<ScreenCoords>();
+        ScreenCoordssCoords oldList_ = new ScreenCoordssCoords(liste_);
+        CustList<ScreenCoords> currentElements_ = new CustList<ScreenCoords>();
         currentElements_.add(new ScreenCoords(spaceBetweenLeftAndHeros,
                 spaceBetweenTopAndHeros));
-        EqList<ScreenCoords> newElements_ = new EqList<ScreenCoords>();
+        CustList<ScreenCoords> newElements_ = new CustList<ScreenCoords>();
         while (true) {
             for (ScreenCoords p : currentElements_) {
                 Coords coords_ = liste_.getVal(p);
@@ -1934,14 +1934,14 @@ public final class DataMap {
             if (newElements_.isEmpty()) {
                 break;
             }
-            currentElements_ = new EqList<ScreenCoords>(newElements_);
-            newElements_ = new EqList<ScreenCoords>();
+            currentElements_ = new CustList<ScreenCoords>(newElements_);
+            newElements_ = new CustList<ScreenCoords>();
         }
         return liste_;
     }
 
     public void calculateIntersectWithScreenDirection(Coords _coords) {
-        ObjectMap<ScreenCoords, Coords> liste_ = new ObjectMap<ScreenCoords, Coords>();
+        ScreenCoordssCoords liste_ = new ScreenCoordssCoords();
 
         for (int i = IndexConstants.FIRST_INDEX; i < screenWidth; i++) {
             for (int j = IndexConstants.FIRST_INDEX; j < screenHeight; j++) {
@@ -1967,11 +1967,11 @@ public final class DataMap {
 
         liste_.put(new ScreenCoords(spaceBetweenLeftAndHeros,
                 spaceBetweenTopAndHeros), _coords);
-        ObjectMap<ScreenCoords, Coords> oldList_ = new ObjectMap<ScreenCoords, Coords>(liste_);
-        EqList<ScreenCoords> currentElements_ = new EqList<ScreenCoords>();
+        ScreenCoordssCoords oldList_ = new ScreenCoordssCoords(liste_);
+        CustList<ScreenCoords> currentElements_ = new CustList<ScreenCoords>();
         currentElements_.add(new ScreenCoords(spaceBetweenLeftAndHeros,
                 spaceBetweenTopAndHeros));
-        EqList<ScreenCoords> newElements_ = new EqList<ScreenCoords>();
+        CustList<ScreenCoords> newElements_ = new CustList<ScreenCoords>();
         while (true) {
             for (ScreenCoords p : currentElements_) {
                 Coords coords_ = liste_.getVal(p);
@@ -1996,8 +1996,8 @@ public final class DataMap {
             if (newElements_.isEmpty()) {
                 break;
             }
-            currentElements_ = new EqList<ScreenCoords>(newElements_);
-            newElements_ = new EqList<ScreenCoords>();
+            currentElements_ = new CustList<ScreenCoords>(newElements_);
+            newElements_ = new CustList<ScreenCoords>();
         }
         tiles = liste_;
     }
@@ -2064,47 +2064,47 @@ public final class DataMap {
         return currentLevel_.getBlockByPoint(closestPoint_);
     }
 
-    public ObjectMap<Coords, Condition> getAccessibility() {
+    public CoordssCondition getAccessibility() {
         return accessibility;
     }
 
-    public EqList<Coords> getCities() {
+    public Condition getCities() {
         return cities;
     }
 
-    public EqList<NbFightCoords> getBeatTrainer() {
+    public CustList<NbFightCoords> getBeatTrainer() {
         return beatTrainer;
     }
 
-    public EqList<Coords> getBeatGymLeader() {
+    public Condition getBeatGymLeader() {
         return beatGymLeader;
     }
 
-    public ShortMap< EqList<Point>> getBeatGymTrainer() {
+    public ShortMap< PointEqList> getBeatGymTrainer() {
         return beatGymTrainer;
     }
 
-    public EqList<Coords> getHostPokemons() {
+    public Condition getHostPokemons() {
         return hostPokemons;
     }
 
-    public EqList<Coords> getTakenPokemon() {
+    public Condition getTakenPokemon() {
         return takenPokemon;
     }
 
-    public EqList<Coords> getTakenObjects() {
+    public Condition getTakenObjects() {
         return takenObjects;
     }
 
-    public ObjectMap<ScreenCoords, Coords> getTiles() {
+    public ScreenCoordssCoords getTiles() {
         return tiles;
     }
 
-    public ObjectMap<ScreenCoords, int[][]> getBackgroundImages() {
+    public ScreenCoordssInt getBackgroundImages() {
         return backgroundImages;
     }
 
-    public ObjectMap<ScreenCoords, CustList<int[][]>> getForegroundImages() {
+    public ScreenCoordssCustListInt getForegroundImages() {
         return foregroundImages;
     }
 

@@ -7,6 +7,7 @@ import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.pokemon.PokemonData;
 import aiki.game.params.Difficulty;
+import aiki.util.TeamPositionList;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.EqList;
@@ -74,8 +75,8 @@ final class FightKo {
     }
 
     static void addExpEvsFighters(Fight _fight,Bytes _membres,byte _adv,Difficulty _diff,DataBase _import){
-        EqList<TeamPosition> fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(_fight,true);
-        EqList<TeamPosition> porteursMultExp_ = FightOrder.fightersWearingExpObject(_fight,fightersBelongingToUser_, _import);
+        TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(_fight,true);
+        TeamPositionList porteursMultExp_ = FightOrder.fightersWearingExpObject(_fight,fightersBelongingToUser_, _import);
         Rate points_ = pointsFoe(_fight,_adv, _diff, _import);
         Rate sumMaxLevel_ = Rate.zero();
         short levelMax_ = (short) _import.getMaxLevel();
@@ -147,7 +148,7 @@ final class FightKo {
     }
 
     static void addExp(Fight _fight,TeamPosition _fighter,
-            Bytes _members, EqList<TeamPosition> _porteursMultExp,
+            Bytes _members, TeamPositionList _porteursMultExp,
             TeamPosition _foe, Rate _points,
             Difficulty _diff, boolean _showMessage, DataBase _import) {
         //If the fighter _fighter is KO then it cannot win exp even by MULTI_EXP

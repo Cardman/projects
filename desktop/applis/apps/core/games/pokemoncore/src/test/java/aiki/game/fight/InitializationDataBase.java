@@ -36,7 +36,7 @@ import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.EnumMap;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringMap;
 import code.util.core.StringUtil;
 

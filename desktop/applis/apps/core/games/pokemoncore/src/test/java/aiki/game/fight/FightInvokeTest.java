@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.util.TeamPositionList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -602,7 +603,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData fAttInvoque_ = data_.getMove(MIMIQUE);
         EffectInvoke effet_=(EffectInvoke) fAttInvoque_.getEffet(IndexConstants.FIRST_INDEX);
-        EqList<TeamPosition> list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ZERO,effet_,diff_,data_);
+        TeamPositionList list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ZERO,effet_,diff_,data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertEq(1, FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, effet_, data_).size());
@@ -681,7 +682,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData fAttInvoque_ = data_.getMove(METRONOME);
         EffectInvoke effet_=(EffectInvoke) fAttInvoque_.getEffet(IndexConstants.FIRST_INDEX);
-        EqList<TeamPosition> list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ZERO,effet_,diff_,data_);
+        TeamPositionList list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ZERO,effet_,diff_,data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertEq(253, FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, effet_, data_).size());

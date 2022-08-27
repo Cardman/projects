@@ -12,33 +12,36 @@ import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
+import aiki.util.CoordssCondition;
+import aiki.util.CoordssCustListGenderName;
+import aiki.util.PlaceLevelsCustListGenderName;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
+
 
 public class Step {
 
-    private ObjectMap<Coords,CustList<GenderName>> caughtPokemon;
+    private CoordssCustListGenderName caughtPokemon;
 
-    private ObjectMap<PlaceLevel,CustList<GenderName>> caughtPokemonPlaceLevel;
+    private PlaceLevelsCustListGenderName caughtPokemonPlaceLevel;
 
-    private EqList<Coords> importantsTrainers;
+    private Condition importantsTrainers;
 
-    private EqList<Coords> allImportantsTrainers;
+    private Condition allImportantsTrainers;
 
-    private EqList<Coords> accessibleCoords;
+    private Condition accessibleCoords;
 
     private boolean keep = true;
 
     private Step() {
     }
 
-    public Step(ObjectMap<Coords, Condition> _accessibility, CustList<Place> _places, Tree _tree) {
-        caughtPokemon = new ObjectMap<Coords,CustList<GenderName>>();
-        importantsTrainers = new EqList<Coords>();
-        caughtPokemonPlaceLevel = new ObjectMap<PlaceLevel,CustList<GenderName>>();
-        allImportantsTrainers = new EqList<Coords>();
-        accessibleCoords = new EqList<Coords>();
+    public Step(CoordssCondition _accessibility, CustList<Place> _places, Tree _tree) {
+        caughtPokemon = new CoordssCustListGenderName();
+        importantsTrainers = new Condition();
+        caughtPokemonPlaceLevel = new PlaceLevelsCustListGenderName();
+        allImportantsTrainers = new Condition();
+        accessibleCoords = new Condition();
         for (Coords c: _accessibility.getKeys()) {
             if (!_accessibility.getVal(c).isEmpty()) {
                 continue;
@@ -49,13 +52,13 @@ public class Step {
         allImportantsTrainers.addAllElts(importantsTrainers);
     }
 
-    public Step nextStep(ObjectMap<Coords, Condition> _accessibility, CustList<Place> _places, Tree _tree) {
+    public Step nextStep(CoordssCondition _accessibility, CustList<Place> _places, Tree _tree) {
         Step step_ = new Step();
-        step_.caughtPokemonPlaceLevel = new ObjectMap<PlaceLevel,CustList<GenderName>>();
-        step_.caughtPokemon = new ObjectMap<Coords,CustList<GenderName>>();
-        step_.importantsTrainers = new EqList<Coords>();
-        step_.allImportantsTrainers = new EqList<Coords>(allImportantsTrainers);
-        step_.accessibleCoords = new EqList<Coords>();
+        step_.caughtPokemonPlaceLevel = new PlaceLevelsCustListGenderName();
+        step_.caughtPokemon = new CoordssCustListGenderName();
+        step_.importantsTrainers = new Condition();
+        step_.allImportantsTrainers = new Condition(allImportantsTrainers);
+        step_.accessibleCoords = new Condition();
         boolean keep_ = true;
         for (Coords c: _accessibility.getKeys()) {
             if (accessibleCoords.containsObj(c)) {
@@ -93,7 +96,7 @@ public class Step {
                 }
             }
         }
-        EqList<Coords> empty_ = new EqList<Coords>();
+        Condition empty_ = new Condition();
         for (Coords c: caughtPokemon.getKeys()) {
             if (!caughtPokemon.getVal(c).isEmpty()) {
                 continue;
@@ -141,19 +144,19 @@ public class Step {
         return keep;
     }
 
-    public EqList<Coords> getAccessibleCoords() {
+    public Condition getAccessibleCoords() {
         return accessibleCoords;
     }
 
-    public ObjectMap<Coords,CustList<GenderName>> getCaughtPokemon() {
+    public CoordssCustListGenderName getCaughtPokemon() {
         return caughtPokemon;
     }
 
-    public ObjectMap<PlaceLevel,CustList<GenderName>> getCaughtPokemonPlaceLevel() {
+    public PlaceLevelsCustListGenderName getCaughtPokemonPlaceLevel() {
         return caughtPokemonPlaceLevel;
     }
 
-    public EqList<Coords> getImportantsTrainers() {
+    public Condition getImportantsTrainers() {
         return importantsTrainers;
     }
 }

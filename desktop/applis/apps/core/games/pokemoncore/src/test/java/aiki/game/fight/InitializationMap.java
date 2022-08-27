@@ -53,7 +53,7 @@ import aiki.util.*;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -973,12 +973,12 @@ final class InitializationMap {
         league_.getRooms().get(1).getTrainer().setName(LEAGUE_TR_TWO);
         //map_.getBeatGymLeader().add(newCoords(6, 0, 4, 8));
         map_.setAccessCondition(new CoordsLists());
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 0, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 1, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 2, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 3, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 4, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 5, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 0, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 1, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 2, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 3, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 4, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 5, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
     }
 
     static void initBlockThirdCity(DataBase _data) {
@@ -1132,13 +1132,13 @@ final class InitializationMap {
 //        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         map_.join((short)7,(short) 4, newPoint(0,0), newPoint(0,5), Direction.UP);
         //map_.join(_pl1, _pl2, _p1, _p2, _dir1);
-        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new Condition(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 0, 0), new Condition(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 1, 0), new Condition(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 2, 0), new Condition(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 3, 0), new Condition(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 4, 0), new Condition(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 5, 0), new Condition(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), Condition.newList(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 0, 0), Condition.newList(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 1, 0), Condition.newList(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 2, 0), Condition.newList(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 3, 0), Condition.newList(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 4, 0), Condition.newList(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 5, 0), Condition.newList(newCoords(6, 0, 4, 8)));
         //map_.getAccessCondition().addEntry(newCoords(7, 0, 6, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         //map_.getAccessCondition().addEntry(newCoords(7, 0, 7, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         map_.join((short) 9, (short)7, newPoint(0,0), newPoint(0,5), Direction.UP);

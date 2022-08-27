@@ -6,7 +6,7 @@ import aiki.util.PointsShort;
 import org.junit.Test;
 
 import aiki.util.Point;
-import code.util.ObjectMap;
+
 
 
 public class LevelTest extends EquallablePkUtil {

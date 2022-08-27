@@ -96,9 +96,9 @@ public class SolutionBean extends CommonBean {
             steps.add(s_);
         }
     }
-    public EqList<PlaceLevel> getPlaces(int _indexStep) {
+    public CustList<PlaceLevel> getPlaces(int _indexStep) {
         StepDto step_ = steps.get(_indexStep);
-        EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
+        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
 //        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
 //            @Override
@@ -115,7 +115,7 @@ public class SolutionBean extends CommonBean {
     }
     public String getPlace(int _indexStep, int _indexPlace) {
         StepDto step_ = steps.get(_indexStep);
-        EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
+        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
 //        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
 //            @Override
@@ -139,7 +139,7 @@ public class SolutionBean extends CommonBean {
     }
     public CustList<WildPokemonDto> getPokemonList(int _indexStep, int _indexLevelPlace) {
         StepDto step_ = steps.get(_indexStep);
-        EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
+        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
 //        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
 //            @Override
@@ -156,7 +156,7 @@ public class SolutionBean extends CommonBean {
     }
     public String getPokemonName(int _indexStep, int _indexLevelPlace, int _indexPokemon) {
         Step step_ = solution.getSteps().get(_indexStep);
-        EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
+        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
         keys_.addAllElts(step_.getCaughtPokemonPlaceLevel().getKeys());
 //        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
 //            @Override

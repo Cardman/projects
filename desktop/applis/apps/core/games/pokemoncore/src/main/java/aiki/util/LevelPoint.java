@@ -1,11 +1,10 @@
 package aiki.util;
+
 import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
+public final class LevelPoint {
 
     static final char SEPARATOR = '_';
 
@@ -42,7 +41,6 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
         return _lp1.eq(_lp2);
     }
 
-    @Override
     public boolean eq(LevelPoint _obj) {
         if (!NumberUtil.eq(levelIndex,_obj.levelIndex)) {
             return false;
@@ -65,8 +63,6 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
         point = _point;
     }
 
-    
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(levelIndex);

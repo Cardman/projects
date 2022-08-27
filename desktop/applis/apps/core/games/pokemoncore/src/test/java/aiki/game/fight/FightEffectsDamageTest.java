@@ -1,5 +1,6 @@
 package aiki.game.fight;
 
+import aiki.util.TeamPositionsMonteCarloNumber;
 import code.maths.montecarlo.MonteCarloList;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -28,7 +29,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -2289,9 +2290,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void koTarget1Test() {
         DataBase data_ = initDb();
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         TeamPosition fighterOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -2672,9 +2673,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -2708,9 +2709,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -2744,9 +2745,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -2779,9 +2780,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -2815,9 +2816,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -2853,9 +2854,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -2891,9 +2892,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -2929,9 +2930,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -2975,9 +2976,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -3020,9 +3021,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
-        law_.setBase(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setCriticalHit(new ObjectMap<TeamPosition,MonteCarloNumber>());
-        law_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
+        law_.setBase(new TeamPositionsMonteCarloNumber());
+        law_.setCriticalHit(new TeamPositionsMonteCarloNumber());
+        law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
         law_.getBase().put(thrower_, new MonteCarloNumber());
@@ -5426,15 +5427,15 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         t_.setRandomRate(rate_);
         MonteCarloNumber base_ = new MonteCarloNumber();
         base_.addQuickEvent(new Rate(3,4),LgInt.one());
-        t_.setBase(new ObjectMap<TeamPosition, MonteCarloNumber>());
+        t_.setBase(new TeamPositionsMonteCarloNumber());
         t_.getBase().put(thrower_,base_);
         MonteCarloNumber ch_ = new MonteCarloNumber();
         ch_.addQuickEvent(Rate.one(),LgInt.one());
-        t_.setCriticalHit(new ObjectMap<TeamPosition, MonteCarloNumber>());
+        t_.setCriticalHit(new TeamPositionsMonteCarloNumber());
         t_.getCriticalHit().put(thrower_,ch_);
         MonteCarloNumber nh_ = new MonteCarloNumber();
         nh_.addQuickEvent(new Rate(2),LgInt.one());
-        t_.setNumberHits(new ObjectMap<TeamPosition, MonteCarloNumber>());
+        t_.setNumberHits(new TeamPositionsMonteCarloNumber());
         t_.getNumberHits().put(thrower_,nh_);
         FightEffects.effectDamage(fight_, t_, thrower_, target_, move_, diff_, data_);
         fighter_ = fight_.getFighter(target_);

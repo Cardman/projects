@@ -2,10 +2,20 @@ package aiki.fight.util;
 
 import aiki.db.EquallablePkUtil;
 import aiki.fight.enums.Statistic;
+import aiki.game.NbFightCoords;
+import aiki.game.fight.MoveTeamPosition;
+import aiki.game.fight.TargetCoords;
+import aiki.game.fight.TeamPosition;
+import aiki.game.fight.util.MoveTarget;
+import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.instances.Instances;
+import aiki.map.Condition;
 import aiki.map.tree.util.Dims;
+import aiki.map.util.PlaceLevel;
 import aiki.map.util.ScreenCoords;
+import aiki.util.*;
 import code.maths.Rate;
+import code.util.CollCapacity;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -136,4 +146,156 @@ public final class RecordsTest extends EquallablePkUtil {
         l_.add(new ListEffectCombo(new StringList(""),Instances.newEffectCombo()));
         assertEq(0, l_.getVal(new StringList()).getEffectEndRound().size());
     }
+    @Test
+    public void test18() {
+        Condition c_ = new Condition();
+        c_.add(newCoords(1,1,1,1));
+        c_.retainAllElements(new Condition());
+        assertEq(0, c_.size());
+    }
+    @Test
+    public void test19() {
+        CoordssCoords  m_ = new CoordssCoords();
+        m_.set(new Coords(),new Coords());
+        assertEq(0, m_.size());
+        assertNotNull(m_.getVal(new Coords()));
+    }
+    @Test
+    public void test20() {
+        NbEffectFighterCoordss  m_ = new NbEffectFighterCoordss();
+        assertNotNull(m_.getVal(new NbEffectFighterCoords("")));
+    }
+    @Test
+    public void test21() {
+        TeamPositionsRate  m_ = new TeamPositionsRate();
+        assertNotNull(m_.getVal(new TeamPosition("")));
+    }
+    @Test
+    public void test22() {
+        TeamPositionsStringMapTeamPositionsRate m_ = new TeamPositionsStringMapTeamPositionsRate();
+        assertNotNull(m_.getVal(new TeamPosition("")));
+    }
+    @Test
+    public void test23() {
+        TeamPositionsMonteCarloNumber  m_ = new TeamPositionsMonteCarloNumber();
+        assertNotNull(m_.getVal(new TeamPosition("")));
+    }
+    @Test
+    public void test24() {
+        MoveTeamPositionsAffectedMove  m_ = new MoveTeamPositionsAffectedMove();
+        assertNotNull(m_.getVal(new MoveTeamPosition("")));
+    }
+    @Test
+    public void test25() {
+        MoveTeamPositionsActivityOfMove  m_ = new MoveTeamPositionsActivityOfMove();
+        assertNotNull(m_.getVal(new MoveTeamPosition("")));
+    }
+    @Test
+    public void test26() {
+        MoveTeamPositionsStringList  m_ = new MoveTeamPositionsStringList();
+        assertNotNull(m_.getVal(new MoveTeamPosition("")));
+    }
+    @Test
+    public void test27() {
+        MoveTeamPositionsShort  m_ = new MoveTeamPositionsShort();
+        assertNotNull(m_.getVal(new MoveTeamPosition("")));
+    }
+    @Test
+    public void test28() {
+        MoveTeamPositionsBoolVal  m_ = new MoveTeamPositionsBoolVal();
+        assertNotNull(m_.getVal(new MoveTeamPosition("")));
+    }
+    @Test
+    public void test29() {
+        MoveTargets m_ = new MoveTargets();
+        assertNotNull(m_.getVal(new MoveTarget("")));
+    }
+    @Test
+    public void test30() {
+        CoordssCondition m_ = new CoordssCondition();
+        assertNotNull(m_.getVal(new Coords()));
+    }
+    @Test
+    public void test31() {
+        CoordssBoolVal m_ = new CoordssBoolVal();
+        assertNotNull(m_.getVal(new Coords()));
+    }
+    @Test
+    public void test32() {
+        CoordssCustListGenderName m_ = new CoordssCustListGenderName();
+        assertNotNull(m_.getVal(new Coords()));
+    }
+    @Test
+    public void test33() {
+        CoordssHostPokemonDuo m_ = new CoordssHostPokemonDuo();
+        assertNotNull(m_.getVal(new Coords()));
+    }
+    @Test
+    public void test34() {
+        PlaceLevelsCustListGenderName m_ = new PlaceLevelsCustListGenderName();
+        assertNotNull(m_.getVal(new PlaceLevel()));
+    }
+    @Test
+    public void test35() {
+        PlaceLevelsInts m_ = new PlaceLevelsInts();
+        assertNotNull(m_.getVal(new PlaceLevel()));
+    }
+    @Test
+    public void test36() {
+        ScreenCoordssCoords m_ = new ScreenCoordssCoords();
+        assertNotNull(m_.getVal(new ScreenCoords()));
+    }
+    @Test
+    public void test37() {
+        ScreenCoordssCustListInt m_ = new ScreenCoordssCustListInt();
+        assertNotNull(m_.getVal(new ScreenCoords()));
+    }
+    @Test
+    public void test38() {
+        ScreenCoordssInt m_ = new ScreenCoordssInt();
+        assertNotNull(m_.getVal(new ScreenCoords()));
+    }
+    @Test
+    public void test39() {
+        NbFightCoordss m_ = new NbFightCoordss();
+        assertNotNull(m_.getVal(new NbFightCoords("")));
+    }
+    @Test
+    public void test40() {
+        TargetCoordssRate m_ = new TargetCoordssRate();
+        assertNotNull(m_.getVal(new TargetCoords()));
+    }
+    @Test
+    public void test41() {
+        TypeStatistics m_ = new TypeStatistics();
+        assertNotNull(m_.getVal(new TypeStatistic("",null)));
+    }
+    @Test
+    public void test42() {
+        PointEqList m_ = new PointEqList(new CollCapacity(0));
+        assertEq(0, m_.size());
+    }
+    private static Coords newCoords(int _place, int _level, int _x, int _y) {
+        Coords begin_ = new Coords();
+        begin_.setNumberPlace((short) _place);
+        begin_.setLevel(new LevelPoint());
+        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setPoint(newPoint(_x, _y));
+        return begin_;
+    }
+
+    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
+        Coords begin_ = new Coords();
+        begin_.setNumberPlace((short) _place);
+        begin_.setInsideBuilding(newPoint(_xi, _yi));
+        begin_.setLevel(new LevelPoint());
+        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setPoint(newPoint(_x, _y));
+        return begin_;
+    }
+
+    private static Point newPoint(int _x, int _y) {
+        return new Point((short)_x, (short)_y);
+    }
+
 }

@@ -7,7 +7,7 @@ import aiki.map.places.Place;
 import aiki.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.ObjectMap;
+
 
 public class PlaceArea {
 
@@ -25,7 +25,7 @@ public class PlaceArea {
         if (_place instanceof City) {
             Points< Building> buildings_ = ((City) _place)
                     .getBuildings();
-            for (PointParam<Building> p : buildings_.entryList()) {
+            for (CommonParam<Point,Building> p : buildings_.entryList()) {
                 BuildingArea b_ = new BuildingArea();
                 b_.initialize(p.getValue());
                 buildings.put(p.getKey(), b_);
@@ -38,7 +38,7 @@ public class PlaceArea {
         Point point_ = levelPoint_.getPoint();
         if (_coords.isInside()) {
             Point ptInside_ = _coords.getInsideBuilding();
-            for (PointParam<BuildingArea> p : buildings.entryList()) {
+            for (CommonParam<Point,BuildingArea> p : buildings.entryList()) {
                 if (Point.eq(p.getKey(), ptInside_)) {
                     return p.getValue().isValid(point_, _accessible);
                 }

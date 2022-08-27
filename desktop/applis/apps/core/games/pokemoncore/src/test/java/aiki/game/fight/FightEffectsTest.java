@@ -56,10 +56,10 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
-
+import aiki.util.*;
 
 public class FightEffectsTest extends InitializationDataBase {
 
@@ -554,7 +554,7 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectRestriction effect_ = (EffectRestriction) fMove_.getEffet(IndexConstants.FIRST_INDEX);
         FightEffects.effectRestriction(fight_, thrower_, target_, effect_, ENCORE, data_);
         Fighter fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
-        ObjectMap<MoveTeamPosition,AffectedMove> map_ = fighter_.getTrackingMoves();
+        MoveTeamPositionsAffectedMove map_ = fighter_.getTrackingMoves();
         AffectedMove value_;
         value_ = map_.getVal(new MoveTeamPosition(ENCORE, thrower_));
         assertEq(SEISME, value_.getMove());
@@ -575,7 +575,7 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectRestriction effect_ = (EffectRestriction) fMove_.getEffet(IndexConstants.FIRST_INDEX);
         FightEffects.effectRestriction(fight_, thrower_, target_, effect_, ENCORE, data_);
         Fighter fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
-        ObjectMap<MoveTeamPosition,AffectedMove> map_ = fighter_.getTrackingMoves();
+        MoveTeamPositionsAffectedMove map_ = fighter_.getTrackingMoves();
         AffectedMove value_;
         value_ = map_.getVal(new MoveTeamPosition(ENCORE, thrower_));
         assertEq(NULL_REF, value_.getMove());
@@ -596,7 +596,7 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectRestriction effect_ = (EffectRestriction) fMove_.getEffet(IndexConstants.FIRST_INDEX);
         FightEffects.effectRestriction(fight_, thrower_, target_, effect_, ENTRAVE, data_);
         Fighter fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
-        ObjectMap<MoveTeamPosition,AffectedMove> map_ = fighter_.getTrackingMoves();
+        MoveTeamPositionsAffectedMove map_ = fighter_.getTrackingMoves();
         AffectedMove value_;
         value_ = map_.getVal(new MoveTeamPosition(ENTRAVE, thrower_));
         assertEq(SEISME, value_.getMove());
@@ -617,7 +617,7 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectRestriction effect_ = (EffectRestriction) fMove_.getEffet(IndexConstants.FIRST_INDEX);
         FightEffects.effectRestriction(fight_, thrower_, target_, effect_, ENTRAVE, data_);
         Fighter fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
-        ObjectMap<MoveTeamPosition,AffectedMove> map_ = fighter_.getTrackingMoves();
+        MoveTeamPositionsAffectedMove map_ = fighter_.getTrackingMoves();
         AffectedMove value_;
         value_ = map_.getVal(new MoveTeamPosition(ENTRAVE, thrower_));
         assertEq(NULL_REF, value_.getMove());
@@ -636,7 +636,7 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectRestriction effect_ = (EffectRestriction) fMove_.getEffet(IndexConstants.FIRST_INDEX);
         FightEffects.effectRestriction(fight_, thrower_, target_, effect_, POSSESSIF, data_);
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
-        ObjectMap<MoveTeamPosition,StringList> map_ = fighter_.getPrivateMoves();
+        MoveTeamPositionsStringList map_ = fighter_.getPrivateMoves();
         StringList value_;
         value_ = map_.getVal(new MoveTeamPosition(POSSESSIF, target_));
         assertEq(1, value_.size());

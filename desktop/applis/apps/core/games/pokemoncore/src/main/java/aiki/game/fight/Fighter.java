@@ -47,6 +47,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
@@ -127,7 +128,7 @@ public final class Fighter {
     private StringMap<Short> status;
 
     /**The key set is not changed*/
-    private ObjectMap<MoveTeamPosition,Short> statusRelat;
+    private MoveTeamPositionsShort statusRelat;
 
     /**Never mind*/
     private LgInt nbRounds;
@@ -220,7 +221,7 @@ public final class Fighter {
     private String usedBallCatching;
 
     /**Never mind*/
-    private ObjectMap<MoveTeamPosition,BoolVal> incrUserAccuracy;
+    private MoveTeamPositionsBoolVal incrUserAccuracy;
 
     /**Never mind*/
     private StringMap<Integer> nbUsesMoves;
@@ -235,10 +236,10 @@ public final class Fighter {
     private boolean needingToRecharge;
 
     /**Never mind*/
-    private ObjectMap<MoveTeamPosition,AffectedMove> trackingMoves;
+    private MoveTeamPositionsAffectedMove trackingMoves;
 
     /**Never mind*/
-    private ObjectMap<MoveTeamPosition,ActivityOfMove> trappingMoves;
+    private MoveTeamPositionsActivityOfMove trappingMoves;
 
     /**Never mind*/
     private String lastSufferedMove;
@@ -284,7 +285,7 @@ public final class Fighter {
     private StringMap<BoolVal> enabledImmuAbilities;
 
     /**Never mind*/
-    private ObjectMap<MoveTeamPosition,StringList> privateMoves;
+    private MoveTeamPositionsStringList privateMoves;
 
     /**Cannot be changed in a fight*/
     private boolean belongingToPlayer;
@@ -371,12 +372,12 @@ public final class Fighter {
     }
 
     void initCreature(Pokemon _pokemon) {
-        statusRelat = new ObjectMap<MoveTeamPosition,Short>();
+        statusRelat = new MoveTeamPositionsShort();
         status = new StringMap<Short>();
-        incrUserAccuracy = new ObjectMap<MoveTeamPosition,BoolVal>();
-        trackingMoves = new ObjectMap<MoveTeamPosition,AffectedMove>();
-        trappingMoves = new ObjectMap<MoveTeamPosition,ActivityOfMove>();
-        privateMoves = new ObjectMap<MoveTeamPosition,StringList>();
+        incrUserAccuracy = new MoveTeamPositionsBoolVal();
+        trackingMoves = new MoveTeamPositionsAffectedMove();
+        trappingMoves = new MoveTeamPositionsActivityOfMove();
+        privateMoves = new MoveTeamPositionsStringList();
         name = _pokemon.getName();
         currentName = name;
         level=_pokemon.getLevel();
@@ -536,7 +537,7 @@ public final class Fighter {
     }
 
 
-    void initCreatureRelationsAutre(EqList<TeamPosition> _cbts,DataBase _import){
+    void initCreatureRelationsAutre(TeamPositionList _cbts,DataBase _import){
         for(TeamPosition c:_cbts){
             ajouterRelationAutre(c,_import);
         }
@@ -938,12 +939,12 @@ public final class Fighter {
                 }
             }
         }
-        EqList<TeamPosition> fighters_ = FightOrder.fighters(_fight);
+        TeamPositionList fighters_ = FightOrder.fighters(_fight);
         StringList relMoves_;
         relMoves_ = new StringList();
         relMoves_.addAllElts(_data.getMovesActingMoveUses());
-        EqList<MoveTeamPosition> relMovesTh_;
-        relMovesTh_ = new EqList<MoveTeamPosition>();
+        CustList<MoveTeamPosition> relMovesTh_;
+        relMovesTh_ = new CustList<MoveTeamPosition>();
         for (TeamPosition f: fighters_) {
             for (String m: relMoves_) {
                 relMovesTh_.add(new MoveTeamPosition(m, f));
@@ -954,7 +955,7 @@ public final class Fighter {
         }
         relMoves_ = new StringList();
         relMoves_.addAllElts(_data.getTrappingMoves());
-        relMovesTh_ = new EqList<MoveTeamPosition>();
+        relMovesTh_ = new CustList<MoveTeamPosition>();
         for (TeamPosition f: fighters_) {
             for (String m: relMoves_) {
                 relMovesTh_.add(new MoveTeamPosition(m, f));
@@ -965,7 +966,7 @@ public final class Fighter {
         }
         relMoves_ = new StringList();
         relMoves_.addAllElts(_data.getMovesForbidding());
-        relMovesTh_ = new EqList<MoveTeamPosition>();
+        relMovesTh_ = new CustList<MoveTeamPosition>();
         for (TeamPosition f: fighters_) {
             for (String m: relMoves_) {
                 relMovesTh_.add(new MoveTeamPosition(m, f));
@@ -976,7 +977,7 @@ public final class Fighter {
         }
         relMoves_ = new StringList();
         relMoves_.addAllElts(_data.getMovesAccuracy());
-        relMovesTh_ = new EqList<MoveTeamPosition>();
+        relMovesTh_ = new CustList<MoveTeamPosition>();
         for (TeamPosition f: fighters_) {
             for (String m: relMoves_) {
                 relMovesTh_.add(new MoveTeamPosition(m, f));
@@ -1023,7 +1024,7 @@ public final class Fighter {
         }
         relMoves_ = new StringList();
         relMoves_.addAllElts(statusRelation_);
-        relMovesTh_ = new EqList<MoveTeamPosition>();
+        relMovesTh_ = new CustList<MoveTeamPosition>();
         for (TeamPosition f: fighters_) {
             for (String m: relMoves_) {
                 relMovesTh_.add(new MoveTeamPosition(m, f));
@@ -2163,7 +2164,7 @@ public final class Fighter {
 
     void setFirstChosenMoveTarget(String _attaque,TargetCoords _cible){
         ActionMove action_ = new ActionMove();
-        action_.setChosenTargets(new EqList<TargetCoords>(_cible));
+        action_.setChosenTargets(TargetCoordsList.newList(_cible));
         action_.setSubstitute(BACK);
         action_.setFirstChosenMove(_attaque);
         action_.setFinalChosenMove(DataBase.EMPTY_STRING);
@@ -2172,7 +2173,7 @@ public final class Fighter {
 
     void setFirstChosenMoveTargetSubstitute(String _attaque, TargetCoords _cible, byte _remplacant){
         ActionMove action_ = new ActionMove();
-        action_.setChosenTargets(new EqList<TargetCoords>(_cible));
+        action_.setChosenTargets(TargetCoordsList.newList(_cible));
         action_.setSubstitute(_remplacant);
         action_.setFirstChosenMove(_attaque);
         action_.setFinalChosenMove(DataBase.EMPTY_STRING);
@@ -2181,7 +2182,7 @@ public final class Fighter {
 
     void setFirstChosenMove(String _attaque){
         ActionMove action_ = new ActionMove();
-        action_.setChosenTargets(new EqList<TargetCoords>());
+        action_.setChosenTargets(new TargetCoordsList());
         action_.setFirstChosenMove(_attaque);
         action_.setFinalChosenMove(DataBase.EMPTY_STRING);
         action_.setSubstitute(Fighter.BACK);
@@ -2366,8 +2367,8 @@ public final class Fighter {
         return list_;
     }
 
-    EqList<MoveTeamPosition> enabledRelationsMoves() {
-        EqList<MoveTeamPosition> list_ = new EqList<MoveTeamPosition>();
+    CustList<MoveTeamPosition> enabledRelationsMoves() {
+        CustList<MoveTeamPosition> list_ = new CustList<MoveTeamPosition>();
         for(MoveTeamPosition m:trackingMoves.getKeys()){
             if(!trackingMoves.getVal(m).getActivity().isEnabled()){
                 continue;
@@ -2377,8 +2378,8 @@ public final class Fighter {
         return list_;
     }
 
-    EqList<MoveTeamPosition> enabledRelationsTraps() {
-        EqList<MoveTeamPosition> list_ = new EqList<MoveTeamPosition>();
+    CustList<MoveTeamPosition> enabledRelationsTraps() {
+        CustList<MoveTeamPosition> list_ = new CustList<MoveTeamPosition>();
         for(MoveTeamPosition m:trappingMoves.getKeys()){
             if(!trappingMoves.getVal(m).isEnabled()){
                 continue;
@@ -2440,11 +2441,11 @@ public final class Fighter {
         return DataBase.EMPTY_STRING;
     }
 
-    public EqList<TargetCoords> getChosenTargets() {
+    public TargetCoordsList getChosenTargets() {
         if (action instanceof ActionMove) {
             return ((ActionMove)action).getChosenTargets();
         }
-        return new EqList<TargetCoords>();
+        return new TargetCoordsList();
     }
 
     public byte getSubstistute() {
@@ -2613,7 +2614,7 @@ public final class Fighter {
         return statusRelat.contains(_status);
     }
 
-    public ObjectMap<MoveTeamPosition,Short> getStatusRelat() {
+    public MoveTeamPositionsShort getStatusRelat() {
         return statusRelat;
     }
 
@@ -2621,7 +2622,7 @@ public final class Fighter {
         return statusRelat.getKeys();
     }
 
-    public void setStatusRelat(ObjectMap<MoveTeamPosition,Short> _statusRelat) {
+    public void setStatusRelat(MoveTeamPositionsShort _statusRelat) {
         statusRelat = _statusRelat;
     }
 
@@ -2888,12 +2889,12 @@ public final class Fighter {
         usedBallCatching = _usedBallCatching;
     }
 
-    public ObjectMap<MoveTeamPosition,BoolVal> getIncrUserAccuracy() {
+    public MoveTeamPositionsBoolVal getIncrUserAccuracy() {
         return incrUserAccuracy;
     }
 
     public void setIncrUserAccuracy(
-            ObjectMap<MoveTeamPosition,BoolVal> _precisionAccrueLanceur) {
+            MoveTeamPositionsBoolVal _precisionAccrueLanceur) {
         incrUserAccuracy = _precisionAccrueLanceur;
     }
 
@@ -2929,21 +2930,21 @@ public final class Fighter {
         needingToRecharge = _needingToRecharge;
     }
 
-    public ObjectMap<MoveTeamPosition,AffectedMove> getTrackingMoves() {
+    public MoveTeamPositionsAffectedMove getTrackingMoves() {
         return trackingMoves;
     }
 
     public void setTrackingMoves(
-            ObjectMap<MoveTeamPosition,AffectedMove> _attaquesSurCombatAtt) {
+            MoveTeamPositionsAffectedMove _attaquesSurCombatAtt) {
         trackingMoves = _attaquesSurCombatAtt;
     }
 
-    public ObjectMap<MoveTeamPosition,ActivityOfMove> getTrappingMoves() {
+    public MoveTeamPositionsActivityOfMove getTrappingMoves() {
         return trappingMoves;
     }
 
     public void setTrappingMoves(
-            ObjectMap<MoveTeamPosition,ActivityOfMove> _attaquesPiegeantes) {
+            MoveTeamPositionsActivityOfMove _attaquesPiegeantes) {
         trappingMoves = _attaquesPiegeantes;
     }
 
@@ -3060,11 +3061,11 @@ public final class Fighter {
         enabledImmuAbilities = _enabledImmuAbilities;
     }
 
-    public ObjectMap<MoveTeamPosition,StringList> getPrivateMoves() {
+    public MoveTeamPositionsStringList getPrivateMoves() {
         return privateMoves;
     }
 
-    public void setPrivateMoves(ObjectMap<MoveTeamPosition,StringList> _privateMoves) {
+    public void setPrivateMoves(MoveTeamPositionsStringList _privateMoves) {
         privateMoves = _privateMoves;
     }
 

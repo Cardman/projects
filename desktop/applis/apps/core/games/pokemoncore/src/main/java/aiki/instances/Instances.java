@@ -174,7 +174,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -1086,18 +1086,18 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setZippedRom(DataBase.EMPTY_STRING);
         object_.setPlayer(newPlayer());
-        object_.setBeatGymTrainer(new ShortMap<EqList<Point>>(cap_));
-        object_.setBeatGymLeader(new ObjectMap<Coords,BoolVal>(cap_));
-        object_.setBeatTrainer(new ObjectMap<NbFightCoords,BoolVal>(cap_));
-        object_.setTakenObjects(new ObjectMap<Coords,BoolVal>(cap_));
-        object_.setTakenPokemon(new ObjectMap<Coords,BoolVal>(cap_));
+        object_.setBeatGymTrainer(new ShortMap<PointEqList>(cap_));
+        object_.setBeatGymLeader(new CoordssBoolVal(cap_));
+        object_.setBeatTrainer(new NbFightCoordss(cap_));
+        object_.setTakenObjects(new CoordssBoolVal(cap_));
+        object_.setTakenPokemon(new CoordssBoolVal(cap_));
         object_.setPlayerCoords(new Coords());
         object_.setPlayerOrientation(Direction.UP);
-        object_.setHostedPk(new ObjectMap<Coords,HostPokemonDuo>(cap_));
+        object_.setHostedPk(new CoordssHostPokemonDuo(cap_));
         object_.setFight(newFight());
         object_.setDifficulty(newDifficulty());
         object_.setVisitedPlacesNb(new ShortMap<BoolVal>());
-        object_.setVisitedPlaces(new ObjectMap<Coords,BoolVal>(cap_));
+        object_.setVisitedPlaces(new CoordssBoolVal(cap_));
         return object_;
     }
 
@@ -1133,7 +1133,7 @@ public final class Instances {
         object_.setUsedItemsWhileRound(new StringMap<Short>(cap_));
         object_.setFirstPositPlayerFighters(new ByteMap<Byte>(cap_));
         object_.setFirstPositFoeFighters(new ByteMap<Byte>(cap_));
-        object_.setAllyChoice(new ObjectMap<MoveTarget,MoveTarget>(cap_));
+        object_.setAllyChoice(new MoveTargets(cap_));
         object_.setLostObjects(new StringList(cap_));
         object_.setChoices(new ByteMap<ChoiceOfEvolutionAndMoves>(cap_));
         object_.setCaughtEvolutions(new StringList(cap_));
@@ -1156,7 +1156,7 @@ public final class Instances {
         object_.setAbility(DataBase.EMPTY_STRING);
         object_.setCurrentAbility(DataBase.EMPTY_STRING);
         object_.setStatus(new StringMap<Short>(cap_));
-        object_.setStatusRelat(new ObjectMap<MoveTeamPosition,Short>(cap_));
+        object_.setStatusRelat(new MoveTeamPositionsShort(cap_));
         object_.setNbRounds(LgInt.zero());
         object_.setTypes(new StringList(cap_));
         object_.setMoves(new StringMap<UsesOfMove>(cap_));
@@ -1180,10 +1180,10 @@ public final class Instances {
         object_.setWonExp(Rate.zero());
         object_.setWonExpSinceLastLevel(Rate.zero());
         object_.setUsedBallCatching(DataBase.EMPTY_STRING);
-        object_.setIncrUserAccuracy(new ObjectMap<MoveTeamPosition,BoolVal>(cap_));
+        object_.setIncrUserAccuracy(new MoveTeamPositionsBoolVal(cap_));
         object_.setNbUsesMoves(new StringMap<Integer>(cap_));
-        object_.setTrackingMoves(new ObjectMap<MoveTeamPosition,AffectedMove>(cap_));
-        object_.setTrappingMoves(new ObjectMap<MoveTeamPosition,ActivityOfMove>(cap_));
+        object_.setTrackingMoves(new MoveTeamPositionsAffectedMove(cap_));
+        object_.setTrappingMoves(new MoveTeamPositionsActivityOfMove(cap_));
         object_.setLastSufferedMove(DataBase.EMPTY_STRING);
         object_.setLastSufferedMoveTypes(new StringList(cap_));
         object_.setDamageSufferedCateg(new StringMap<Rate>(cap_));
@@ -1194,7 +1194,7 @@ public final class Instances {
         object_.setLastSuccessfulMove(DataBase.EMPTY_STRING);
         object_.setCopiedMoves(new StringMap<CopiedMove>(cap_));
         object_.setNbRepeatingSuccessfulMoves(LgInt.zero());
-        object_.setPrivateMoves(new ObjectMap<MoveTeamPosition,StringList>(cap_));
+        object_.setPrivateMoves(new MoveTeamPositionsStringList(cap_));
         object_.setAction(null);
         object_.setMovesToBeLearnt(new StringList(cap_));
         object_.setMovesAbilitiesEvos(new StringMap<MovesAbilities>(cap_));
@@ -1230,7 +1230,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setFirstChosenMove(DataBase.EMPTY_STRING);
         object_.setFinalChosenMove(DataBase.EMPTY_STRING);
-        object_.setChosenTargets(new EqList<TargetCoords>(cap_));
+        object_.setChosenTargets(new TargetCoordsList(cap_));
         return object_;
     }
 

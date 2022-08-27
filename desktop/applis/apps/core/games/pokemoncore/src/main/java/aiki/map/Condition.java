@@ -1,17 +1,13 @@
 package aiki.map;
+
 import aiki.util.Coords;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.core.IndexConstants;
 
 public final class Condition extends CustList<Coords> {
 
     public Condition() {
-    }
-
-    public Condition(Coords... _coords) {
-        super(_coords);
     }
 
     public Condition(Condition _coords) {
@@ -22,11 +18,29 @@ public final class Condition extends CustList<Coords> {
         super(_cap);
     }
 
-    public boolean exists(EqList<Coords> _gymLeaders) {
+    public static Condition newList(Coords... _coords) {
+        Condition co_ = new Condition(new CollCapacity(_coords.length));
+        for (Coords c: _coords) {
+            co_.add(c);
+        }
+        return co_;
+    }
+    public boolean exists(Condition _gymLeaders) {
         return !_gymLeaders.containsAllObj(this);
     }
     public static boolean equalsSet(Condition _list1,Condition _list2) {
         return Coords.equalsSet(_list1, _list2);
+    }
+
+    public void retainAllElements(Condition _c) {
+        int i_ = size() - 1;
+        while (i_ >= IndexConstants.FIRST_INDEX) {
+            Coords e_ = get(i_);
+            if (!_c.containsObj(e_)) {
+                remove(i_);
+            }
+            i_--;
+        }
     }
 
 

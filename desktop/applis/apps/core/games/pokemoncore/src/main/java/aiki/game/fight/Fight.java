@@ -17,6 +17,10 @@ import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.map.levels.enums.EnvironmentType;
+import aiki.util.MoveTargets;
+import aiki.util.NbEffectFighterCoordss;
+import aiki.util.TeamPositionList;
+import aiki.util.TeamPositionsRate;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.BooleanList;
@@ -26,7 +30,7 @@ import code.util.EnumList;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -378,7 +382,7 @@ public final class Fight {
     private boolean error;
 
     /***/
-    private ObjectMap<NbEffectFighterCoords,BoolVal> successfulEffects = new ObjectMap<NbEffectFighterCoords,BoolVal>();
+    private NbEffectFighterCoordss successfulEffects = new NbEffectFighterCoordss();
 
     /***/
     private Comment comment = new Comment();
@@ -387,7 +391,7 @@ public final class Fight {
     //private boolean entres = true;
 
     /***/
-    private ObjectMap<TeamPosition,Rate> damageByCurrentUser = new ObjectMap<TeamPosition,Rate>();
+    private TeamPositionsRate damageByCurrentUser = new TeamPositionsRate();
 
     /***/
     private ByteMap<BoolVal> kos = new ByteMap<BoolVal>();
@@ -420,7 +424,7 @@ public final class Fight {
     private ByteMap<Byte> firstPositFoeFighters;
 
     /***/
-    private ObjectMap<MoveTarget,MoveTarget> allyChoice;
+    private MoveTargets allyChoice;
 
     /***/
     private StringList lostObjects;
@@ -471,10 +475,10 @@ public final class Fight {
     private Rate damageKo = Rate.zero();
 
     /***/
-    private EqList<TeamPosition> orderedFighters = new EqList<TeamPosition>();
+    private TeamPositionList orderedFighters = new TeamPositionList();
 
     /***/
-    private EqList<TeamPosition> remainingFighters = new EqList<TeamPosition>();
+    private TeamPositionList remainingFighters = new TeamPositionList();
 
     /***/
     private CustList<ChosableTargetName> chosablePlayerTargets = new CustList<ChosableTargetName>();
@@ -592,13 +596,13 @@ public final class Fight {
         return teams.getVal(_teamPosition.getTeam()).getMembers().getVal(_teamPosition.getPosition());
     }
 
-    public EqList<TeamPosition> sortedTeamMembersByPosition(byte _team) {
+    public TeamPositionList sortedTeamMembersByPosition(byte _team) {
         Bytes positions_ = new Bytes();
         for (byte p: teams.getVal(_team).getMembers().getKeys()) {
             positions_.add(p);
         }
         positions_.sort();
-        EqList<TeamPosition> list_ = new EqList<TeamPosition>();
+        TeamPositionList list_ = new TeamPositionList();
         for (byte p: positions_) {
             list_.add(new TeamPosition(_team, p));
         }
@@ -722,19 +726,19 @@ public final class Fight {
         catchingBall = _catchingBall;
     }
 
-    public ObjectMap<NbEffectFighterCoords,BoolVal> getSuccessfulEffects() {
+    public NbEffectFighterCoordss getSuccessfulEffects() {
         return successfulEffects;
     }
 
-    public void setSuccessfulEffects(ObjectMap<NbEffectFighterCoords,BoolVal> _successfulEffects) {
+    public void setSuccessfulEffects(NbEffectFighterCoordss _successfulEffects) {
         successfulEffects = _successfulEffects;
     }
 
-    public ObjectMap<TeamPosition,Rate> getDamageByCurrentUser() {
+    public TeamPositionsRate getDamageByCurrentUser() {
         return damageByCurrentUser;
     }
 
-    public void setDamageByCurrentUser(ObjectMap<TeamPosition,Rate> _damage) {
+    public void setDamageByCurrentUser(TeamPositionsRate _damage) {
         damageByCurrentUser = _damage;
     }
 
@@ -844,11 +848,11 @@ public final class Fight {
         return allyChoice.values();
     }
 
-    public ObjectMap<MoveTarget,MoveTarget> getAllyChoice() {
+    public MoveTargets getAllyChoice() {
         return allyChoice;
     }
 
-    public void setAllyChoice(ObjectMap<MoveTarget,MoveTarget> _allyChoice) {
+    public void setAllyChoice(MoveTargets _allyChoice) {
         allyChoice = _allyChoice;
     }
 
@@ -964,11 +968,11 @@ public final class Fight {
         enabledHealingPartner = _enabledHealingPartner;
     }
 
-    EqList<TeamPosition> getRemainingFighters() {
+    TeamPositionList getRemainingFighters() {
         return remainingFighters;
     }
 
-    void setRemainingFighters(EqList<TeamPosition> _remainingFighters) {
+    void setRemainingFighters(TeamPositionList _remainingFighters) {
         remainingFighters = _remainingFighters;
     }
 
@@ -977,11 +981,11 @@ public final class Fight {
     en:this method is public for comparing<br/>
     fr:cette m&eacute;thode est publique pour comparer
     </html>*/
-    public EqList<TeamPosition> getOrderedFighters() {
+    public TeamPositionList getOrderedFighters() {
         return orderedFighters;
     }
 
-    void setOrderedFighters(EqList<TeamPosition> _orderedFighters) {
+    void setOrderedFighters(TeamPositionList _orderedFighters) {
         orderedFighters = _orderedFighters;
     }
 

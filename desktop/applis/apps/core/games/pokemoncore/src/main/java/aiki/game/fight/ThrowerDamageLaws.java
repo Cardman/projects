@@ -1,17 +1,18 @@
 package aiki.game.fight;
+
+import aiki.util.TeamPositionsMonteCarloNumber;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.ObjectMap;
 
 public class ThrowerDamageLaws {
 
-    private ObjectMap<TeamPosition,MonteCarloNumber> randomBase;
+    private TeamPositionsMonteCarloNumber randomBase;
 
-    private ObjectMap<TeamPosition,MonteCarloNumber> criticalHit;
+    private TeamPositionsMonteCarloNumber criticalHit;
 
     private MonteCarloNumber randomRate;
 
-    private ObjectMap<TeamPosition,MonteCarloNumber> numberHits;
+    private TeamPositionsMonteCarloNumber numberHits;
 
     public Rate min(TeamPosition _fighter) {
         Rate min_ = Rate.multiply(randomBase.getVal(_fighter).minimum(), criticalHit.getVal(_fighter).minimum());
@@ -58,19 +59,19 @@ public class ThrowerDamageLaws {
         return var_;
     }
 
-    public ObjectMap<TeamPosition,MonteCarloNumber> getBase() {
+    public TeamPositionsMonteCarloNumber getBase() {
         return randomBase;
     }
 
-    public void setBase(ObjectMap<TeamPosition,MonteCarloNumber> _randomBase) {
+    public void setBase(TeamPositionsMonteCarloNumber _randomBase) {
         randomBase = _randomBase;
     }
 
-    public ObjectMap<TeamPosition,MonteCarloNumber> getCriticalHit() {
+    public TeamPositionsMonteCarloNumber getCriticalHit() {
         return criticalHit;
     }
 
-    public void setCriticalHit(ObjectMap<TeamPosition,MonteCarloNumber> _criticalHit) {
+    public void setCriticalHit(TeamPositionsMonteCarloNumber _criticalHit) {
         criticalHit = _criticalHit;
     }
 
@@ -82,11 +83,11 @@ public class ThrowerDamageLaws {
         randomRate = _randomRate;
     }
 
-    public ObjectMap<TeamPosition,MonteCarloNumber> getNumberHits() {
+    public TeamPositionsMonteCarloNumber getNumberHits() {
         return numberHits;
     }
 
-    public void setNumberHits(ObjectMap<TeamPosition,MonteCarloNumber> _numberHits) {
+    public void setNumberHits(TeamPositionsMonteCarloNumber _numberHits) {
         numberHits = _numberHits;
     }
 }

@@ -20,7 +20,7 @@ import aiki.map.places.Place;
 import aiki.map.places.Road;
 import aiki.map.util.PlaceInterConnect;
 import code.util.CustList;
-import code.util.ObjectMap;
+
 
 public class DataMapJoiningTest extends EquallablePkUtil {
 

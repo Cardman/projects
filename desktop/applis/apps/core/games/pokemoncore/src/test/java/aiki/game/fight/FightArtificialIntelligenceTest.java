@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.util.*;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -1321,7 +1322,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
-        ObjectMap<TargetCoords,Rate> damages_;
+        TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(2, damages_.size());
         assertEq(new Rate("92/5"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
@@ -1365,7 +1366,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterTypes(SOL);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_VOLT);
-        ObjectMap<TargetCoords,Rate> damages_;
+        TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(2, damages_.size());
         assertEq(new Rate("92/5"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
@@ -1410,7 +1411,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterTypes(SOL);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_VOLT);
-        ObjectMap<TargetCoords,Rate> damages_;
+        TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(3, damages_.size());
         assertEq(new Rate("52"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
@@ -1454,7 +1455,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)15,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        ObjectMap<TargetCoords,Rate> damages_;
+        TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(3, damages_.size());
         assertEq(new Rate("52"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
@@ -1499,7 +1500,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
-        ObjectMap<TargetCoords,Rate> damages_;
+        TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(3, damages_.size());
         assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
@@ -1544,7 +1545,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
-        ObjectMap<TargetCoords,Rate> damages_;
+        TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(3, damages_.size());
         assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
@@ -1588,7 +1589,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
-        ObjectMap<TargetCoords,Rate> damages_;
+        TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(2, damages_.size());
         assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
@@ -1630,7 +1631,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, SACRIFICE, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, SACRIFICE, diff_, data_);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -1674,7 +1675,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(thrower_));
     }
@@ -1714,7 +1715,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, SIPHON, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -1758,7 +1759,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, COUPE_VENT, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, COUPE_VENT, diff_, data_);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -1802,7 +1803,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, BROUHAHA, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, BROUHAHA, diff_, data_);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
@@ -1847,7 +1848,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)15,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, PICORE, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, PICORE, diff_, data_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(thrower_));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
@@ -1885,7 +1886,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)15,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, PICORE, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, PICORE, diff_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(thrower_));
     }
@@ -1926,7 +1927,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).affecterTypes(SOL);
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(thrower_));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
@@ -1968,7 +1969,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
-        EqList<TeamPosition> list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
+        TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(thrower_));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
@@ -2009,7 +2010,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        ObjectMap<TeamPosition,Rate> damages_;
+        TeamPositionsRate damages_;
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(5, damages_.size());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_));
@@ -2054,7 +2055,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        ObjectMap<TeamPosition,Rate> damages_;
+        TeamPositionsRate damages_;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(5, damages_.size());
@@ -2100,7 +2101,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        ObjectMap<TeamPosition,Rate> damages_;
+        TeamPositionsRate damages_;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(5, damages_.size());
@@ -2146,7 +2147,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)4,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        ObjectMap<TeamPosition,Rate> damages_;
+        TeamPositionsRate damages_;
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, ABIME, diff_, data_);
         assertEq(5, damages_.size());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_));
@@ -2546,10 +2547,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
-        StringMap<EqList<TargetCoords>> mapTargets_;
-        mapTargets_ = new StringMap<EqList<TargetCoords>>();
-        mapTargets_.put(TONNERRE, new EqList<TargetCoords>(POKEMON_PLAYER_TARGET_ZERO,POKEMON_PLAYER_TARGET_ONE));
-        EqList<TargetCoords> kos_ = FightArtificialIntelligence.koFoeFighters(fight_, thrower_, TONNERRE, mapTargets_, diff_, data_);
+        StringMap<TargetCoordsList> mapTargets_;
+        mapTargets_ = new StringMap<TargetCoordsList>();
+        mapTargets_.put(TONNERRE, TargetCoordsList.newList(POKEMON_PLAYER_TARGET_ZERO,POKEMON_PLAYER_TARGET_ONE));
+        TargetCoordsList kos_ = FightArtificialIntelligence.koFoeFighters(fight_, thrower_, TONNERRE, mapTargets_, diff_, data_);
         assertEq(1, kos_.size());
         assertTrue(kos_.containsObj(POKEMON_PLAYER_TARGET_ONE));
     }
@@ -2591,10 +2592,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("3"));
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
-        StringMap<EqList<TargetCoords>> targets_ = new StringMap<EqList<TargetCoords>>();
-        targets_.put(COUPE_VENT, new EqList<TargetCoords>(POKEMON_FOE_TARGET_ZERO,POKEMON_FOE_TARGET_ONE));
+        StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
+        targets_.put(COUPE_VENT, TargetCoordsList.newList(POKEMON_FOE_TARGET_ZERO,POKEMON_FOE_TARGET_ONE));
         FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
@@ -2639,10 +2640,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) -2);
-        StringMap<EqList<TargetCoords>> targets_ = new StringMap<EqList<TargetCoords>>();
-        targets_.put(COUPE_VENT, new EqList<TargetCoords>(POKEMON_FOE_TARGET_ZERO,POKEMON_FOE_TARGET_ONE));
+        StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
+        targets_.put(COUPE_VENT, TargetCoordsList.newList(POKEMON_FOE_TARGET_ZERO,POKEMON_FOE_TARGET_ONE));
         FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
@@ -2687,10 +2688,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) -2);
-        StringMap<EqList<TargetCoords>> targets_ = new StringMap<EqList<TargetCoords>>();
-        targets_.put(SIPHON, new EqList<TargetCoords>(POKEMON_FOE_TARGET_ZERO));
+        StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
+        targets_.put(SIPHON, TargetCoordsList.newList(POKEMON_FOE_TARGET_ZERO));
         FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(SIPHON,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
@@ -2734,10 +2735,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
-        StringMap<EqList<TargetCoords>> targets_ = new StringMap<EqList<TargetCoords>>();
-        targets_.put(SIPHON, new EqList<TargetCoords>(POKEMON_FOE_TARGET_ONE));
+        StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
+        targets_.put(SIPHON, TargetCoordsList.newList(POKEMON_FOE_TARGET_ONE));
         FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(SIPHON,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
@@ -2781,9 +2782,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
-        StringMap<EqList<TargetCoords>> targets_ = new StringMap<EqList<TargetCoords>>();
+        StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
         FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(0, choices_.size());
     }
@@ -2821,7 +2822,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -2868,7 +2869,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(SOL);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -2916,7 +2917,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -2963,7 +2964,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(SOL);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3013,7 +3014,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)12,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3063,7 +3064,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3109,7 +3110,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)10,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3159,7 +3160,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)10,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3209,7 +3210,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)13,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3259,7 +3260,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)13,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3303,7 +3304,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(3, choices_.size());
         assertEq(JACKPOT,choices_.getVal(new MoveTarget(PLAQUAGE,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3348,7 +3349,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_EAU);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(2, choices_.size());
         assertEq(CHARGE,choices_.getVal(new MoveTarget(SIPHON,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3394,7 +3395,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().put(Statistic.ATTACK, (byte) -1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(2, choices_.size());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3441,7 +3442,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().put(Statistic.ATTACK, (byte) -1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(2, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO)).getMove());
@@ -3488,7 +3489,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
@@ -3529,7 +3530,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
 //        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ONE, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
-        ObjectMap<MoveTarget,MoveTarget> choices_;
+        MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(0, choices_.size());
     }

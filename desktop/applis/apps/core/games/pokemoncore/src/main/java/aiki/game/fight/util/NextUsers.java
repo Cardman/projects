@@ -1,23 +1,24 @@
 package aiki.game.fight.util;
 import aiki.game.fight.TeamPosition;
+import aiki.util.TeamPositionList;
 import code.util.EqList;
 
 public final class NextUsers {
 
-    private final EqList<TeamPosition> nextFighters;
+    private final TeamPositionList nextFighters;
 
-    private final EqList<TeamPosition> itemUsers;
+    private final TeamPositionList itemUsers;
 
-    public NextUsers(EqList<TeamPosition> _nextFighters, EqList<TeamPosition> _itemUsers) {
+    public NextUsers(TeamPositionList _nextFighters, TeamPositionList _itemUsers) {
         nextFighters = _nextFighters;
         itemUsers = _itemUsers;
     }
 
-    public EqList<TeamPosition> getNextFighters() {
+    public TeamPositionList getNextFighters() {
         return nextFighters;
     }
 
-    public EqList<TeamPosition> getItemUsers() {
+    public TeamPositionList getItemUsers() {
         return itemUsers;
     }
 }

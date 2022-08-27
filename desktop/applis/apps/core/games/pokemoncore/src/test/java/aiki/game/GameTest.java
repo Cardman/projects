@@ -2,6 +2,7 @@ package aiki.game;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.*;
+import aiki.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -24,16 +25,13 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Campaign;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.ScreenCoords;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.ObjectMap;
+
 
 
 public class GameTest extends InitializationDataBase {
@@ -905,16 +903,16 @@ public class GameTest extends InitializationDataBase {
         game_.healTeamWithoutUsingObject(data_);
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
     }
-    private static int nbTakenObjects(ObjectMap<Coords, BoolVal> _map, boolean _taken) {
+    private static int nbTakenObjects(CoordssBoolVal _map, boolean _taken) {
         int n_ = IndexConstants.FIRST_INDEX;
         if (_taken) {
-            for (EntryCust<Coords, BoolVal> e: _map.entryList()) {
+            for (CommonParam<Coords, BoolVal> e: _map.entryList()) {
                 if (e.getValue() == BoolVal.TRUE) {
                     n_++;
                 }
             }
         } else {
-            for (EntryCust<Coords, BoolVal> e: _map.entryList()) {
+            for (CommonParam<Coords, BoolVal> e: _map.entryList()) {
                 if (e.getValue() != BoolVal.TRUE) {
                     n_++;
                 }
@@ -2210,7 +2208,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2237,7 +2235,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2265,7 +2263,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(73, getEmptyTiles(foreGround_).size());
@@ -2307,7 +2305,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2334,7 +2332,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2360,7 +2358,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2388,7 +2386,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(73, getEmptyTiles(foreGround_).size());
@@ -2430,7 +2428,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2456,7 +2454,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2485,7 +2483,7 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2516,7 +2514,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2545,7 +2543,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2573,7 +2571,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(75, getEmptyTiles(foreGround_).size());
@@ -2591,11 +2589,11 @@ public class GameTest extends InitializationDataBase {
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
-    private static EqList<ScreenCoords> getEmptyTiles(
-            ObjectMap<ScreenCoords, CustList<int[][]>> _foreGround) {
-        EqList<ScreenCoords> k_;
-        k_ = new EqList<ScreenCoords>();
-        for (EntryCust<ScreenCoords, CustList<int[][]>> e: _foreGround.entryList()) {
+    private static CustList<ScreenCoords> getEmptyTiles(
+            ScreenCoordssCustListInt _foreGround) {
+        CustList<ScreenCoords> k_;
+        k_ = new CustList<ScreenCoords>();
+        for (CommonParam<ScreenCoords, CustList<int[][]>> e: _foreGround.entryList()) {
             if (e.getValue().isEmpty()) {
                 k_.add(e.getKey());
             }
@@ -2616,7 +2614,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(75, getEmptyTiles(foreGround_).size());
@@ -2647,7 +2645,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2676,7 +2674,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2705,7 +2703,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(74, getEmptyTiles(foreGround_).size());
@@ -2736,7 +2734,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(74, getEmptyTiles(foreGround_).size());
@@ -2767,7 +2765,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2796,7 +2794,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(76, getEmptyTiles(foreGround_).size());
@@ -2825,7 +2823,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2855,7 +2853,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(77, getEmptyTiles(foreGround_).size());
@@ -2885,7 +2883,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2912,7 +2910,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2939,7 +2937,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2966,7 +2964,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(78, getEmptyTiles(foreGround_).size());
@@ -2993,7 +2991,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(79, getEmptyTiles(foreGround_).size());
@@ -3019,7 +3017,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(79, getEmptyTiles(foreGround_).size());
@@ -3045,7 +3043,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(79, getEmptyTiles(foreGround_).size());
@@ -3071,7 +3069,7 @@ public class GameTest extends InitializationDataBase {
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 0, 0);
-        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        ScreenCoordssCustListInt foreGround_;
         foreGround_ = map_.getForegroundImages();
         assertEq(81, foreGround_.size());
         assertEq(79, getEmptyTiles(foreGround_).size());

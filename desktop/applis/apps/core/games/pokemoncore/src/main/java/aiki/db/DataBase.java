@@ -82,7 +82,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -226,17 +226,17 @@ public class DataBase {
 
     private StringMap<String> typesColors = new StringMap<String>();
 
-    private ObjectMap<ImageHeroKey, int[][]> frontHeros = new ObjectMap<ImageHeroKey, int[][]>();
+    private ImageHeroKeys frontHeros = new ImageHeroKeys();
 
-    private ObjectMap<ImageHeroKey, int[][]> backHeros = new ObjectMap<ImageHeroKey, int[][]>();
+    private ImageHeroKeys backHeros = new ImageHeroKeys();
 
-    private ObjectMap<ImageHeroKey, int[][]> overWorldHeros = new ObjectMap<ImageHeroKey, int[][]>();
+    private ImageHeroKeys overWorldHeros = new ImageHeroKeys();
 
     private StringMap<int[][]> links = new StringMap<int[][]>();
 
     private StringMap<int[][]> images = new StringMap<int[][]>();
 
-    private StringMap<ObjectMap<ScreenCoords, int[][]>> imagesTiles = new StringMap<ObjectMap<ScreenCoords, int[][]>>();
+    private StringMap<ScreenCoordssInt> imagesTiles = new StringMap<ScreenCoordssInt>();
 
     private StringMap<int[][]> miniMap = new StringMap<int[][]>();
 
@@ -525,8 +525,8 @@ public class DataBase {
             if (Rate.strLower(power_, new Rate(90))) {
                 setError(true);
             }
-            ObjectMap<TypeStatistic, BoolVal> strongMovesTypeStat_ = strongMoves(power_);
-            for (EntryCust<TypeStatistic, BoolVal> e : strongMovesTypeStat_
+            TypeStatistics strongMovesTypeStat_ = strongMoves(power_);
+            for (CommonParam<TypeStatistic, BoolVal> e : strongMovesTypeStat_
                     .entryList()) {
                 if (e.getValue() == BoolVal.TRUE) {
                     continue;
@@ -553,9 +553,9 @@ public class DataBase {
 
     }
 
-    ObjectMap<TypeStatistic, BoolVal> strongMoves(Rate _power) {
-        ObjectMap<TypeStatistic, BoolVal> existDamageMoveWithTypeStatAttack_;
-        existDamageMoveWithTypeStatAttack_ = new ObjectMap<TypeStatistic, BoolVal>();
+    TypeStatistics strongMoves(Rate _power) {
+        TypeStatistics existDamageMoveWithTypeStatAttack_;
+        existDamageMoveWithTypeStatAttack_ = new TypeStatistics();
         for (String t : getTypes()) {
             existDamageMoveWithTypeStatAttack_.put(new TypeStatistic(t,
                     Statistic.ATTACK), BoolVal.FALSE);
@@ -1217,8 +1217,8 @@ public class DataBase {
             Dims d_ = new Dims();
             d_.setWidth((short) (img_[0].length / side_));
             d_.setHeight((short) (img_.length / side_));
-            ObjectMap<ScreenCoords, int[][]> tiles_;
-            tiles_ = new ObjectMap<ScreenCoords, int[][]>();
+            ScreenCoordssInt tiles_;
+            tiles_ = new ScreenCoordssInt();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
@@ -1800,15 +1800,15 @@ public class DataBase {
         typesColors = _typesColors;
     }
 
-    public void setFrontHeros(ObjectMap<ImageHeroKey, int[][]> _frontHeros) {
+    public void setFrontHeros(ImageHeroKeys _frontHeros) {
         frontHeros = _frontHeros;
     }
 
-    public void setBackHeros(ObjectMap<ImageHeroKey, int[][]> _backHeros) {
+    public void setBackHeros(ImageHeroKeys _backHeros) {
         backHeros = _backHeros;
     }
 
-    public void setOverWorldHeros(ObjectMap<ImageHeroKey, int[][]> _overWorldHeros) {
+    public void setOverWorldHeros(ImageHeroKeys _overWorldHeros) {
         overWorldHeros = _overWorldHeros;
     }
 
@@ -1820,11 +1820,11 @@ public class DataBase {
         images = _images;
     }
 
-    public StringMap<ObjectMap<ScreenCoords, int[][]>> getImagesTiles() {
+    public StringMap<ScreenCoordssInt> getImagesTiles() {
         return imagesTiles;
     }
 
-    public void setImagesTiles(StringMap<ObjectMap<ScreenCoords, int[][]>> _imagesTiles) {
+    public void setImagesTiles(StringMap<ScreenCoordssInt> _imagesTiles) {
         imagesTiles = _imagesTiles;
     }
 
@@ -2032,8 +2032,8 @@ public class DataBase {
             Dims d_ = new Dims();
             d_.setWidth((short) (img_[0].length / side_));
             d_.setHeight((short) (img_.length / side_));
-            ObjectMap<ScreenCoords, int[][]> tiles_;
-            tiles_ = new ObjectMap<ScreenCoords, int[][]>();
+            ScreenCoordssInt tiles_;
+            tiles_ = new ScreenCoordssInt();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
@@ -3015,15 +3015,15 @@ public class DataBase {
         return people;
     }
 
-    public ObjectMap<ImageHeroKey, int[][]> getFrontHeros() {
+    public ImageHeroKeys getFrontHeros() {
         return frontHeros;
     }
 
-    public ObjectMap<ImageHeroKey, int[][]> getBackHeros() {
+    public ImageHeroKeys getBackHeros() {
         return backHeros;
     }
 
-    public ObjectMap<ImageHeroKey, int[][]> getOverWorldHeros() {
+    public ImageHeroKeys getOverWorldHeros() {
         return overWorldHeros;
     }
 
@@ -3046,7 +3046,7 @@ public class DataBase {
     }
 
     public int[][] getImageTile(String _name, ScreenCoords _coords) {
-        for (EntryCust<String, ObjectMap<ScreenCoords, int[][]>> e : imagesTiles
+        for (EntryCust<String, ScreenCoordssInt> e : imagesTiles
                 .entryList()) {
             if (!StringUtil.quickEq(e.getKey(),_name)) {
                 continue;

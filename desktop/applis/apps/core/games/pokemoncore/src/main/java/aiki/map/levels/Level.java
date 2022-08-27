@@ -20,7 +20,7 @@ import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.ObjectMap;
+
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
@@ -38,8 +38,8 @@ public abstract class Level {
      */
     public void validate(DataBase _data, LevelArea _level) {
         long sum_ = 0;
-        EqList<Point> used_ = new EqList<Point>();
-        for (PointParam<Block> e : blocks.entryList()) {
+        PointEqList used_ = new PointEqList();
+        for (CommonParam<Point,Block> e : blocks.entryList()) {
             if (!e.getValue().isValid()) {
                 _data.setError(true);
                 continue;
@@ -70,7 +70,7 @@ public abstract class Level {
 
 
     public boolean hasValidImage(DataBase _data) {
-        for (PointParam<Block> e : blocks.entryList()) {
+        for (CommonParam<Point,Block> e : blocks.entryList()) {
             if (!e.getValue().hasValidImage(_data)) {
                 return false;
             }

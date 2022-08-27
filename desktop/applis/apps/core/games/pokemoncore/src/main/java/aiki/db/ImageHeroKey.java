@@ -3,9 +3,8 @@ package aiki.db;
 import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
-import code.util.ints.Equallable;
 
-public final class ImageHeroKey implements Equallable<ImageHeroKey> {
+public final class ImageHeroKey {
 
     private EnvironmentType type;
 
@@ -27,7 +26,6 @@ public final class ImageHeroKey implements Equallable<ImageHeroKey> {
         sex = _sex;
     }
 
-    @Override
     public boolean eq(ImageHeroKey _obj) {
         if (type != _obj.type) {
             return false;
@@ -35,10 +33,7 @@ public final class ImageHeroKey implements Equallable<ImageHeroKey> {
         if (direction != _obj.direction) {
             return false;
         }
-        if (sex != _obj.sex) {
-            return false;
-        }
-        return true;
+        return sex == _obj.sex;
     }
 
     public EnvironmentType getType() {

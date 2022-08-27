@@ -1,6 +1,7 @@
 package aiki.game;
 
 import aiki.db.DataBase;
+import aiki.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -29,14 +30,11 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 
 
@@ -799,16 +797,16 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
     }
 
-    private static int nbBeatTrainers(ObjectMap<NbFightCoords, BoolVal> _map, boolean _taken) {
+    private static int nbBeatTrainers(NbFightCoordss _map, boolean _taken) {
         int n_ = IndexConstants.FIRST_INDEX;
         if (_taken) {
-            for (EntryCust<NbFightCoords, BoolVal> e: _map.entryList()) {
+            for (CommonParam<NbFightCoords, BoolVal> e: _map.entryList()) {
                 if (e.getValue() == BoolVal.TRUE) {
                     n_++;
                 }
             }
         } else {
-            for (EntryCust<NbFightCoords, BoolVal> e: _map.entryList()) {
+            for (CommonParam<NbFightCoords, BoolVal> e: _map.entryList()) {
                 if (e.getValue() != BoolVal.TRUE) {
                     n_++;
                 }
@@ -1011,16 +1009,16 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
     }
 
-    private static int nbPokemon(ObjectMap<Coords, BoolVal> _map, boolean _taken) {
+    private static int nbPokemon(CoordssBoolVal _map, boolean _taken) {
         int n_ = IndexConstants.FIRST_INDEX;
         if (_taken) {
-            for (EntryCust<Coords, BoolVal> e: _map.entryList()) {
+            for (CommonParam<Coords, BoolVal> e: _map.entryList()) {
                 if (e.getValue() == BoolVal.TRUE) {
                     n_++;
                 }
             }
         } else {
-            for (EntryCust<Coords, BoolVal> e: _map.entryList()) {
+            for (CommonParam<Coords, BoolVal> e: _map.entryList()) {
                 if (e.getValue() != BoolVal.TRUE) {
                     n_++;
                 }

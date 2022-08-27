@@ -20,7 +20,7 @@ import aiki.map.tree.util.Dims;
 import aiki.map.util.PlaceInterConnect;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
+
 
 
 public class BuildingAreaTest extends EquallablePkUtil {

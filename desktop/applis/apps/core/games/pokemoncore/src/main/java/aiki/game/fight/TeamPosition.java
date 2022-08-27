@@ -1,12 +1,11 @@
 package aiki.game.fight;
+
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class TeamPosition implements Equallable<TeamPosition>, Displayable {
+public final class TeamPosition {
 
     private static final String EMPTY_STRING = "";
     private static final String INVALID=EMPTY_STRING;
@@ -61,15 +60,14 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
     public byte getPosition() {
         return position;
     }
-    @Override
+
     public boolean eq(TeamPosition _g) {
         if (!NumberUtil.eq(getTeam(),_g.getTeam())) {
             return false;
         }
         return NumberUtil.eq(getPosition(), _g.getPosition());
     }
-    
-    @Override
+
     public String display() {
         if (!isValid()) {
             return INVALID;

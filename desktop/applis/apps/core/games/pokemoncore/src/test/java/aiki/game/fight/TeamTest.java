@@ -19,7 +19,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-
+import aiki.util.*;
 
 public class TeamTest extends InitializationDataBase {
 
@@ -725,7 +725,7 @@ public class TeamTest extends InitializationDataBase {
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
         TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
         TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
-        EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
+        TeamPositionList fightersCoords_ = new TeamPositionList();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
         team_.initRelationsCombattant(fightersCoords_, data_);
@@ -1586,7 +1586,7 @@ public class TeamTest extends InitializationDataBase {
 
     static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
         int i_ = IndexConstants.SIZE_EMPTY;
-        for (EntryCust<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
             if (NumberUtil.eq(e.getValue(), _nbRounds)) {
                 i_++;
             }

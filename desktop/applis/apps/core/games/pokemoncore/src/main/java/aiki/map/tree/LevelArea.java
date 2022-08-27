@@ -13,13 +13,13 @@ import aiki.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.ObjectMap;
+
 import code.util.core.IndexConstants;
 
 public class LevelArea {
 
     private Point leftTop;
-    private EqList<Point> inacessiblePoints;
+    private PointEqList inacessiblePoints;
     private Points< Dims> dimsBlocks;
     private Points< Short> indexes;
     private CustList<CustList<GenderName>> pokemon;
@@ -31,10 +31,10 @@ public class LevelArea {
         leftTop = limits_.getTopLeft();
         height = limits_.getBottomRight().gety() - leftTop.gety() + 1;
         width = limits_.getBottomRight().getx() - leftTop.getx() + 1;
-        inacessiblePoints = new EqList<Point>();
+        inacessiblePoints = new PointEqList();
         indexes = new PointsShort();
         dimsBlocks = new PointsDims();
-        for (PointParam<Block> e : _level.getBlocks().entryList()) {
+        for (CommonParam<Point,Block> e : _level.getBlocks().entryList()) {
             Block block_ = e.getValue();
             Point id_ = e.getKey();
             if (block_.getType() != EnvironmentType.NOTHING) {
@@ -141,7 +141,7 @@ public class LevelArea {
         return leftTop;
     }
 
-    public EqList<Point> getInacessiblePoints() {
+    public PointEqList getInacessiblePoints() {
         return inacessiblePoints;
     }
 

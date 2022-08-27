@@ -6,7 +6,7 @@ import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCoords>, Displayable {
+public final class NbEffectFighterCoords {
 
     private static final char SEPARATOR = ',';
 
@@ -30,7 +30,6 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
         return new NbEffectFighterCoords(_string);
     }
 
-    @Override
     public boolean eq(NbEffectFighterCoords _obj) {
         if (!NumberUtil.eq(number, _obj.getNumber())) {
             return false;
@@ -46,8 +45,6 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
         return position;
     }
 
-    @Override
-    
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(number);

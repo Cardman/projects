@@ -2,6 +2,7 @@ package aiki.game.fight;
 
 import aiki.comments.Comment;
 import aiki.db.DataBase;
+import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -1153,7 +1154,7 @@ public class FightInitializationTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_,data_);
-        EqList<TeamPosition> userTeam_ = fight_.sortedTeamMembersByPosition(Fight.CST_PLAYER);
+        TeamPositionList userTeam_ = fight_.sortedTeamMembersByPosition(Fight.CST_PLAYER);
         assertEq(3, userTeam_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, userTeam_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ONE, userTeam_.get(1));

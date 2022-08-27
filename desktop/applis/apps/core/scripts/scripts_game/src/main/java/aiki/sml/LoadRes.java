@@ -179,7 +179,7 @@ public final class LoadRes{
                 _d.getHm().addEntry(cle_, infos_.get(1));
             }
         }
-        _d.setFrontHeros(new ObjectMap<ImageHeroKey, int[][]>());
+        _d.setFrontHeros(new ImageHeroKeys());
         StringMap<String> heFr_ = HeFront.im();
         for (EntryCust<String,String> e:heFr_.entryList()){
             StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
@@ -189,7 +189,7 @@ public final class LoadRes{
             _d.getFrontHeros().addEntry(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
-        _d.setBackHeros(new ObjectMap<ImageHeroKey, int[][]>());
+        _d.setBackHeros(new ImageHeroKeys());
         StringMap<String> heBk_ = HeBack.im();
         for (EntryCust<String,String> e:heBk_.entryList()) {
             StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
@@ -200,7 +200,7 @@ public final class LoadRes{
             _d.getBackHeros().addEntry(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
-        _d.setOverWorldHeros(new ObjectMap<ImageHeroKey, int[][]>());
+        _d.setOverWorldHeros(new ImageHeroKeys());
         StringMap<String> heMi_ = HeMini.im();
         for (EntryCust<String,String> e:heMi_.entryList()) {
             StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
@@ -654,7 +654,7 @@ public final class LoadRes{
         _d.setTrainers(new StringMap<int[][]>());
         _d.setPeople(new StringMap<int[][]>());
         _d.setImages(new StringMap<int[][]>());
-        _d.setImagesTiles(new StringMap<ObjectMap<ScreenCoords, int[][]>>());
+        _d.setImagesTiles(new StringMap<ScreenCoordssInt>());
         _d.setLinks(new StringMap<int[][]>());
         _d.setMiniMap(new StringMap<int[][]>());
 		for (EntryCust<String,String> e: TrainerImg.im().entryList()) {
@@ -717,8 +717,8 @@ public final class LoadRes{
             Dims d_ = new Dims();
             d_.setWidth((short) (img_[0].length / side_));
             d_.setHeight((short) (img_.length / side_));
-            ObjectMap<ScreenCoords, int[][]> tiles_;
-            tiles_ = new ObjectMap<ScreenCoords, int[][]>();
+            ScreenCoordssInt tiles_;
+            tiles_ = new ScreenCoordssInt();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);

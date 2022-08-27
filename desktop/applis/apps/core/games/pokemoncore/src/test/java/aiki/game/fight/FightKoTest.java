@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -162,8 +163,8 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
-        EqList<TeamPosition> fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
-        EqList<TeamPosition> porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
+        TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
+        TeamPositionList porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
         Rate points_ = FightKo.pointsFoe(fight_,(byte) 0, diff_, data_);
         Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addExp(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, porteursMultExp_, POKEMON_FOE_FIGHTER_ZERO, points_, diff_, true, data_);
@@ -176,8 +177,8 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
-        EqList<TeamPosition> fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
-        EqList<TeamPosition> porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
+        TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
+        TeamPositionList porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
         Rate points_ = FightKo.pointsFoe(fight_,(byte) 0, diff_, data_);
         Bytes fighters_ = new Bytes();
         FightKo.addExp(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, porteursMultExp_, POKEMON_FOE_FIGHTER_ZERO, points_, diff_, false, data_);
@@ -191,8 +192,8 @@ public class FightKoTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setExpItem(MULTI_EXP);
-        EqList<TeamPosition> fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
-        EqList<TeamPosition> porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
+        TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
+        TeamPositionList porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
         Rate points_ = FightKo.pointsFoe(fight_,(byte) 0, diff_, data_);
         Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addExp(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, porteursMultExp_, POKEMON_FOE_FIGHTER_ZERO, points_, diff_, true, data_);
@@ -206,8 +207,8 @@ public class FightKoTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setExpItem(OEUF_CHANCE);
-        EqList<TeamPosition> fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
-        EqList<TeamPosition> porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
+        TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
+        TeamPositionList porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
         Rate points_ = FightKo.pointsFoe(fight_,(byte) 0, diff_, data_);
         Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addExp(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, porteursMultExp_, POKEMON_FOE_FIGHTER_ZERO, points_, diff_, false, data_);

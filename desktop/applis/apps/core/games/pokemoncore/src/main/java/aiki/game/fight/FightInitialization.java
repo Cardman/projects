@@ -12,11 +12,13 @@ import aiki.map.characters.GymTrainer;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.WildPk;
+import aiki.util.MoveTargets;
+import aiki.util.TeamPositionList;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
+
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -78,7 +80,7 @@ final class FightInitialization {
         _fight.setFightType(FightType.NOTHING);
         _fight.setUsedItemsWhileRound(new StringMap<Short>());
         _fight.setChoices(new ByteMap<ChoiceOfEvolutionAndMoves>());
-        _fight.setAllyChoice(new ObjectMap<MoveTarget,MoveTarget>());
+        _fight.setAllyChoice(new MoveTargets());
         _fight.setCaughtEvolutions(new StringList());
         _fight.clearComments();
     }
@@ -126,7 +128,7 @@ final class FightInitialization {
     }
 
     static void initRelationships(Fight _fight,DataBase _import) {
-        EqList<TeamPosition> cbts_= FightOrder.fighters(_fight);
+        TeamPositionList cbts_= FightOrder.fighters(_fight);
         for(Team t:_fight.getTeams().values()){
             t.initRelationsCombattant(cbts_,_import);
         }

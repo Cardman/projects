@@ -1,10 +1,10 @@
 package aiki.game.fight;
-import code.util.EqList;
+
+import code.util.CustList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import code.util.ints.Equallable;
 
-public final class MoveUsesTeam implements Equallable<MoveUsesTeam> {
+public final class MoveUsesTeam {
 
     private final String move;
 
@@ -14,7 +14,7 @@ public final class MoveUsesTeam implements Equallable<MoveUsesTeam> {
         move = _move;
         nbUses = _nbUses;
     }
-    public static boolean equalsSet(EqList<MoveUsesTeam> _list1,EqList<MoveUsesTeam> _list2) {
+    public static boolean equalsSet(CustList<MoveUsesTeam> _list1, CustList<MoveUsesTeam> _list2) {
         for (MoveUsesTeam a: _list2) {
             boolean contains_ = false;
             for (MoveUsesTeam b: _list1) {
@@ -42,7 +42,6 @@ public final class MoveUsesTeam implements Equallable<MoveUsesTeam> {
         return true;
     }
 
-    @Override
     public boolean eq(MoveUsesTeam _obj) {
         if (!StringUtil.quickEq(move, _obj.move)) {
             return false;

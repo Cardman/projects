@@ -29,6 +29,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
+import aiki.util.TeamPositionList;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedBooleanString;
@@ -255,7 +256,7 @@ public final class CheckNumericStringsFight {
         fails_.addAllElts(e_.getLocalFailStatis().values());
         fails_.addAllElts(e_.getLocalFailSwapBoostStatis()
                 .values());
-        EqList<TeamPosition> listFighters_ = addIfEmpty(FightOrder
+        TeamPositionList listFighters_ = addIfEmpty(FightOrder
                 .targetsEffect(_fight, _userFighter, e_, _diff,
                         _data),_foeFighter);
         checkFailsWhenFighter(_data, _foeFighter, _varsDiff, _boolVarsDiffNotSending, fails_, listFighters_);
@@ -510,7 +511,7 @@ public final class CheckNumericStringsFight {
                     EffectStatus e_ = (EffectStatus) e;
                     fails_.addAllElts(e_.getLocalFailStatus().values());
                 }
-                EqList<TeamPosition> listFighters_ = addIfEmpty(FightOrder.targetsEffect(
+                TeamPositionList listFighters_ = addIfEmpty(FightOrder.targetsEffect(
                         _fight, _userFighter, e, _diff, _data),_foeFighter);
                 checkFailsWhenFighter(_data, _foeFighter, _varsDiff, _boolVarsDiffNotSending, fails_, listFighters_);
                 checkFailsWhenFighter(_data, _userFighter, _varsSame, _boolVarsNotSending, fails_, listFighters_);
@@ -536,7 +537,7 @@ public final class CheckNumericStringsFight {
     }
 
     private static void checkFailsWhenFighter(DataBase _data, TeamPosition _userFighter, StringMap<String> _varsSame, StringMap<String> _boolVarsNotSending,
-                                              StringList _fails, EqList<TeamPosition> _listFighters) {
+                                              StringList _fails, TeamPositionList _listFighters) {
         boolean containsFighter_ = _listFighters
                 .containsObj(_userFighter);
         if (containsFighter_) {
@@ -742,12 +743,12 @@ public final class CheckNumericStringsFight {
         return variables_;
     }
 
-    private static EqList<TeamPosition> addIfEmpty(CustList<TeamPosition> _list, TeamPosition _foe) {
+    private static TeamPositionList addIfEmpty(CustList<TeamPosition> _list, TeamPosition _foe) {
         if (!_list.isEmpty()) {
-            return new EqList<TeamPosition>(_list);
+            return new TeamPositionList(_list);
         }
         _list.add(_foe);
-        return new EqList<TeamPosition>(_list);
+        return new TeamPositionList(_list);
     }
     private static void checkTranslations(DataBase _data, String _string) {
         _data.checkTranslations(_string);
