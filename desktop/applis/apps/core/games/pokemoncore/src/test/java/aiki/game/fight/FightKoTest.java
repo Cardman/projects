@@ -21,7 +21,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
@@ -221,7 +221,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
-        EnumMap<Statistic,Short> evs_ = new EnumMap<Statistic,Short>();
+        AbsMap<Statistic,Short> evs_ = new IdMap<Statistic,Short>();
         evs_.put(Statistic.ATTACK, (short) 2);
         evs_.put(Statistic.DEFENSE, (short) 2);
         evs_.put(Statistic.SPECIAL_ATTACK, (short) 2);

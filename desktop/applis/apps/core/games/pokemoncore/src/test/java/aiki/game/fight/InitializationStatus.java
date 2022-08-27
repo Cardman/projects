@@ -17,7 +17,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -364,7 +364,7 @@ final class InitializationStatus {
         object_.setCatchingRate(Rate.zero());
         object_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
         object_.setEffectsPartner(new CustList<EffectPartnerStatus>());
-        object_.setMultStat(new EnumMap<Statistic,Rate>());
+        object_.setMultStat(new IdMap<Statistic,Rate>());
         object_.setFail(NULL_REF);
         return object_;
     }
@@ -389,7 +389,7 @@ final class InitializationStatus {
         object_.setCatchingRate(Rate.zero());
         object_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
         object_.setEffectsPartner(new CustList<EffectPartnerStatus>());
-        object_.setMultStat(new EnumMap<Statistic,Rate>());
+        object_.setMultStat(new IdMap<Statistic,Rate>());
         object_.setFail(NULL_REF);
         return object_;
     }
@@ -425,7 +425,7 @@ final class InitializationStatus {
         object_.setCatchingRate(Rate.zero());
         object_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
         object_.setEffectsPartner(new CustList<EffectPartnerStatus>());
-        object_.setMultStat(new EnumMap<Statistic,Rate>());
+        object_.setMultStat(new IdMap<Statistic,Rate>());
         object_.setFail(NULL_REF);
         return object_;
     }

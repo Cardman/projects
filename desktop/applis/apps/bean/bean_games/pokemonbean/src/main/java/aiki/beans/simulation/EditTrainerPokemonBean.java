@@ -69,7 +69,7 @@ public class EditTrainerPokemonBean extends CommonBean {
 //        Map<String,String> translatedAbilities_;
 //        translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
 //        abilities = new TreeMap<new>(new ComparatorTrString<>(translatedAbilities_));
-        EnumMap<Gender,String> translatedGenders_;
+        AbsMap<Gender,String> translatedGenders_;
         translatedGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         StringMap<String> translated_;
         translated_ = new StringMap<String>();

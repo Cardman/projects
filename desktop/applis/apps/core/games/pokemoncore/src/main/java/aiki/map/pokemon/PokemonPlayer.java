@@ -31,7 +31,8 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.EntryCust;
-import code.util.EnumMap;
+import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -75,7 +76,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private StringList status;
 
     /***/
-    private EnumMap<Statistic,Short> iv;
+    private AbsMap<Statistic,Short> iv;
 
     /**nickname du pokemon par defaut le nom du pokemon*/
     private String nickname;
@@ -84,7 +85,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private StringMap<UsesOfMove> moves;
 
     /***/
-    private EnumMap<Statistic,Short> ev;
+    private AbsMap<Statistic,Short> ev;
 
     /**Points d'experience gagnes depuis la derniere montee de niveau*/
     private Rate wonExpSinceLastLevel;
@@ -122,7 +123,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         status = new StringList();
         nickname = DataBase.EMPTY_STRING;
         moves = new StringMap<UsesOfMove>();
-        ev = new EnumMap<Statistic,Short>();
+        ev = new IdMap<Statistic,Short>();
         wonExpSinceLastLevel = Rate.zero();
         usedBallCatching = DataBase.EMPTY_STRING;
     }
@@ -257,8 +258,8 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     void initEvIv(DataBase _import, boolean _initEv) {
         if (!trading) {
-            iv = new EnumMap<Statistic,Short>();
-            ev = new EnumMap<Statistic,Short>();
+            iv = new IdMap<Statistic,Short>();
+            ev = new IdMap<Statistic,Short>();
         }
         for(Statistic c:Statistic.getStatisticsWithBase()){
             if (_initEv) {
@@ -347,7 +348,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         possibleEvolution = DataBase.EMPTY_STRING;
         trading = false;
         if (iv == null) {
-            iv = new EnumMap<Statistic,Short>();
+            iv = new IdMap<Statistic,Short>();
         }
         for(Statistic s: Statistic.getStatisticsWithBase()){
             iv.put(s, _diff.getIvPlayer());
@@ -470,7 +471,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             moves = new StringMap<UsesOfMove>();
         }
         if (ev == null) {
-            ev = new EnumMap<Statistic,Short>();
+            ev = new IdMap<Statistic,Short>();
             for (Statistic s: Statistic.getStatisticsWithBase()) {
                 ev.put(s, (short) 0);
             }
@@ -485,7 +486,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         if (iv != null) {
             iv.clear();
         } else {
-            iv = new EnumMap<Statistic,Short>();
+            iv = new IdMap<Statistic,Short>();
         }
         for (String m: moves.getKeys()) {
             if (!_dateBase.getMoves().contains(m)) {
@@ -983,11 +984,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         status = _status;
     }
 
-    public EnumMap<Statistic,Short> getIv() {
+    public AbsMap<Statistic,Short> getIv() {
         return iv;
     }
 
-    public void setIv(EnumMap<Statistic,Short> _iv) {
+    public void setIv(AbsMap<Statistic,Short> _iv) {
         iv = _iv;
     }
 
@@ -1007,11 +1008,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         moves = _moves;
     }
 
-    public EnumMap<Statistic,Short> getEv() {
+    public AbsMap<Statistic,Short> getEv() {
         return ev;
     }
 
-    public void setEv(EnumMap<Statistic,Short> _ev) {
+    public void setEv(AbsMap<Statistic,Short> _ev) {
         ev = _ev;
     }
 

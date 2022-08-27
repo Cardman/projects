@@ -9104,13 +9104,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<EnumMap<Statistic,Byte>> getStringMapMapStatisticByte(Element _elt) {
+    private static StringMap<AbsMap<Statistic,Byte>> getStringMapMapStatisticByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<EnumMap<Statistic,Byte>> map_ = new StringMap<EnumMap<Statistic,Byte>>(cap_);
+        StringMap<AbsMap<Statistic,Byte>> map_ = new StringMap<AbsMap<Statistic,Byte>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<EnumMap<Statistic,Byte>> values_ = new CustList<EnumMap<Statistic,Byte>>(cap_);
+        CustList<AbsMap<Statistic,Byte>> values_ = new CustList<AbsMap<Statistic,Byte>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));

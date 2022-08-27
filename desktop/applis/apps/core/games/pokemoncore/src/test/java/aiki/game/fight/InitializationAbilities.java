@@ -16,7 +16,7 @@ import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.*;
 
@@ -875,18 +875,18 @@ final class InitializationAbilities {
         object_.setMultPower(NULL_REF);
         object_.setMultDamage(NULL_REF);
         object_.setMultStab(Rate.zero());
-        object_.setLowStatFoeHit(new EnumMap<Statistic,Byte>());
-        object_.setBonusStatRank(new EnumMap<Statistic,Byte>());
-        object_.setBoostStatRankProtected(new EnumMap<Statistic,Byte>());
-        object_.setBoostStatRankEndRound(new EnumMap<Statistic,Byte>());
-        object_.setMultStatAlly(new EnumMap<Statistic,Rate>());
-        object_.setMultStatIfKoFoe(new EnumMap<Statistic,Byte>());
-        object_.setMultStatIfLowStat(new EnumMap<Statistic,Byte>());
+        object_.setLowStatFoeHit(new IdMap<Statistic,Byte>());
+        object_.setBonusStatRank(new IdMap<Statistic,Byte>());
+        object_.setBoostStatRankProtected(new IdMap<Statistic,Byte>());
+        object_.setBoostStatRankEndRound(new IdMap<Statistic,Byte>());
+        object_.setMultStatAlly(new IdMap<Statistic,Rate>());
+        object_.setMultStatIfKoFoe(new IdMap<Statistic,Byte>());
+        object_.setMultStatIfLowStat(new IdMap<Statistic,Byte>());
         object_.setMultStatIfCat(new StatisticCategoryRate());
         object_.setMultStatIfStatutRank(new StatisticStatusList());
         object_.setMultStatIfDamageCat(new StatisticCategoryByte());
         object_.setMultStatIfDamgeType(new StatisticTypeByte());
-        object_.setMultStat(new EnumMap<Statistic,String>());
+        object_.setMultStat(new IdMap<Statistic,String>());
         object_.setMultVarBoost(Rate.zero());
         object_.setHealedHpRateBySwitch(Rate.zero());
         object_.setIncreasedPrio(new StringMap<Short>());
@@ -923,12 +923,12 @@ final class InitializationAbilities {
 
     private static EffectStatistic defaultEffetStatistique() {
         EffectStatistic object_ = new EffectStatistic();
-        object_.setStatisVarRank(new EnumMap<Statistic,Byte>());
-        object_.setLocalFailStatis(new EnumMap<Statistic,String>());
+        object_.setStatisVarRank(new IdMap<Statistic,Byte>());
+        object_.setLocalFailStatis(new IdMap<Statistic,String>());
         object_.setEvtRate(Rate.zero());
         object_.setCopyBoost(new EnumList<Statistic>());
         object_.setSwapBoostStatis(new EnumList<Statistic>());
-        object_.setLocalFailSwapBoostStatis(new EnumMap<Statistic,String>());
+        object_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>());
         object_.setLawBoost(new MonteCarloEnum<Statistic>());
         object_.setCancelLowStat(new EnumList<Statistic>());
         object_.setCancelChgtStat(new EnumList<Statistic>());

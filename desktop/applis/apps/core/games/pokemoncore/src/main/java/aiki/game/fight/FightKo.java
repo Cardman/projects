@@ -9,7 +9,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.game.params.Difficulty;
 import aiki.util.TeamPositionList;
 import code.maths.Rate;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
@@ -137,7 +137,7 @@ final class FightKo {
     static void addEvStatistics(Fight _fight,
             TeamPosition _fighter,
             Rate _rateEv,
-            EnumMap<Statistic,Short> _evs,
+            AbsMap<Statistic,Short> _evs,
             DataBase _import) {
         Fighter membre_=_fight.getUserTeam().refPartMembres(_fighter.getPosition());
         for(Statistic c2_: _evs.getKeys()){

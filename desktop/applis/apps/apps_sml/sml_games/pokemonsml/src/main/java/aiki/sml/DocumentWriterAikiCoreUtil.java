@@ -1188,7 +1188,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         for (String l : _d.getTranslatedGenders().getKeys()) {
             StringList linesGenders_ = new StringList();
-            EnumMap<Gender, String> genders_ = _d.getTranslatedGenders().getVal(l);
+            AbsMap<Gender, String> genders_ = _d.getTranslatedGenders().getVal(l);
             for (Gender g : genders_.getKeys()) {
                 StringList words_;
                 words_ = new StringList();
@@ -1204,7 +1204,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         for (String l : _d.getTranslatedBooleans().getKeys()) {
             StringList linesGenders_ = new StringList();
-            EnumMap<SelectedBoolean, String> genders_ = _d.getTranslatedBooleans()
+            AbsMap<SelectedBoolean, String> genders_ = _d.getTranslatedBooleans()
                     .getVal(l);
             for (SelectedBoolean g : genders_.getKeys()) {
                 StringList words_;
@@ -1221,7 +1221,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         for (String l : _d.getTranslatedDiffWinPts().getKeys()) {
             StringList linesGenders_ = new StringList();
-            EnumMap<DifficultyWinPointsFight, String> genders_ = _d.getTranslatedDiffWinPts()
+            AbsMap<DifficultyWinPointsFight, String> genders_ = _d.getTranslatedDiffWinPts()
                     .getVal(l);
             for (DifficultyWinPointsFight g : genders_.getKeys()) {
                 StringList words_;
@@ -1238,7 +1238,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         for (String l : _d.getTranslatedDiffModelLaw().getKeys()) {
             StringList linesGenders_ = new StringList();
-            EnumMap<DifficultyModelLaw, String> genders_ = _d.getTranslatedDiffModelLaw()
+            AbsMap<DifficultyModelLaw, String> genders_ = _d.getTranslatedDiffModelLaw()
                     .getVal(l);
             for (DifficultyModelLaw g : genders_.getKeys()) {
                 StringList words_;
@@ -1256,7 +1256,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         for (String l : _d.getTranslatedEnvironment().getKeys()) {
             StringList linesGenders_ = new StringList();
-            EnumMap<EnvironmentType, String> statistics_ = _d.getTranslatedEnvironment()
+            AbsMap<EnvironmentType, String> statistics_ = _d.getTranslatedEnvironment()
                     .getVal(l);
             for (EnvironmentType g : statistics_.getKeys()) {
                 StringList words_;
@@ -1273,7 +1273,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         for (String l : _d.getTranslatedStatistics().getKeys()) {
             StringList linesGenders_ = new StringList();
-            EnumMap<Statistic, String> statistics_ = _d.getTranslatedStatistics()
+            AbsMap<Statistic, String> statistics_ = _d.getTranslatedStatistics()
                     .getVal(l);
             for (Statistic g : statistics_.getKeys()) {
                 StringList words_;
@@ -1290,7 +1290,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         for (String l : _d.getTranslatedTargets().getKeys()) {
             StringList linesGenders_ = new StringList();
-            EnumMap<TargetChoice, String> statistics_ = _d.getTranslatedTargets()
+            AbsMap<TargetChoice, String> statistics_ = _d.getTranslatedTargets()
                     .getVal(l);
             for (TargetChoice g : statistics_.getKeys()) {
                 StringList words_;
@@ -4220,7 +4220,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticBoostHpRate(EnumMap<Statistic,BoostHpRate> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticBoostHpRate(AbsMap<Statistic,BoostHpRate> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, BoostHpRate> s: _object.entryList()) {
@@ -4233,7 +4233,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticStatBaseEv(EnumMap<Statistic,StatBaseEv> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticStatBaseEv(AbsMap<Statistic,StatBaseEv> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, StatBaseEv> s: _object.entryList()) {
@@ -4246,7 +4246,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticRate(EnumMap<Statistic,Rate> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticRate(AbsMap<Statistic,Rate> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, Rate> s: _object.entryList()) {
@@ -4259,7 +4259,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticByte(EnumMap<Statistic,Byte> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticByte(AbsMap<Statistic,Byte> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, Byte> s: _object.entryList()) {
@@ -4272,7 +4272,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticShort(EnumMap<Statistic,Short> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticShort(AbsMap<Statistic,Short> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, Short> s: _object.entryList()) {
@@ -4285,7 +4285,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticString(EnumMap<Statistic,String> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticString(AbsMap<Statistic,String> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, String> s: _object.entryList()) {
@@ -4298,7 +4298,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapEnvironmentTypeString(EnumMap<EnvironmentType,String> _object, String _fieldName, Document _document) {
+    private static Element setMapEnvironmentTypeString(AbsMap<EnvironmentType,String> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<EnvironmentType, String> s: _object.entryList()) {
@@ -5044,10 +5044,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setStringMapMapStatisticByte(StringMap<EnumMap<Statistic,Byte>> _object, String _fieldName, Document _document) {
+    private static Element setStringMapMapStatisticByte(StringMap<AbsMap<Statistic,Byte>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<String, EnumMap<Statistic,Byte>> s: _object.entryList()) {
+        for (EntryCust<String, AbsMap<Statistic,Byte>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

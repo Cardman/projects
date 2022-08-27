@@ -9,10 +9,7 @@ import aiki.fight.moves.effects.EffectEndRound;
 import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.TreeMap;
+import code.util.*;
 
 public class EffectComboBean extends CommonBean {
     private ComboDto combos;
@@ -49,7 +46,7 @@ public class EffectComboBean extends CommonBean {
             reasonsEndRound = new StringList();
             mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
-        EnumMap<Statistic,String> translatedStatistics_;
+        AbsMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         if (!effect.getTeamMove().isEmpty()) {
             TreeMap<Statistic, Rate> multStatisticFoe_;
@@ -70,7 +67,7 @@ public class EffectComboBean extends CommonBean {
     }
     public String getTrStatistic(int _index) {
         DataBase data_ = getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_;
+        AbsMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic stat_ = multStatisticFoe.getKey(_index);
         return translatedStatistics_.getVal(stat_);

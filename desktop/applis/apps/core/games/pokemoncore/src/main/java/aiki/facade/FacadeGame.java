@@ -45,7 +45,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
@@ -2566,11 +2566,11 @@ public class FacadeGame {
         return data.getTranslatedAbilitiesCurLanguage(language);
     }
 
-    public EnumMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage() {
+    public AbsMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage() {
         return data.getTranslatedBooleansCurLanguage(language);
     }
 
-    public EnumMap<Gender, String> getTranslatedGendersCurLanguage() {
+    public AbsMap<Gender, String> getTranslatedGendersCurLanguage() {
         return data.getTranslatedGendersCurLanguage(language);
     }
 

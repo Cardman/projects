@@ -11,6 +11,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.Ints;
 import code.util.core.StringUtil;
@@ -55,7 +56,7 @@ public final class PokemonLabel extends SelectableLabel {
         sideLength = _facade.getMap().getSideLength();
     }
 
-    public void refresh(EnumMap<Gender,String> _tr) {
+    public void refresh(AbsMap<Gender,String> _tr) {
         gender = _tr.getVal(pokemon.getGender());
     }
 

@@ -13,6 +13,7 @@ import code.bean.Bean;
 import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.TreeMap;
 
@@ -62,12 +63,12 @@ public class DifficultyBean extends Bean implements WithFacade {
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
         damageRates = new TreeMap<String, String>(new ComparatorDifficultyModelLaw());
         winPointsFight = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
-        EnumMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
+        AbsMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
         for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //            winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
             winPointsFight.put(k.name(), trWinPts_.getVal(k));
         }
-        EnumMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
+        AbsMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
         for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
 //            damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
             damageRates.put(k.name(), trWinLaw_.getVal(k));

@@ -42,7 +42,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
@@ -2627,7 +2627,7 @@ public final class FightFacade {
         for (Fighter f: _fight.getFoeTeam().getMembers().values()) {
             f.setVarHp(Rate.zero());
             f.setComment(new Comment());
-            f.setIv(new EnumMap<Statistic,Short>());
+            f.setIv(new IdMap<Statistic,Short>());
             boolean isCaught_ = _user.estAttrape(f.getName());
             if (isCaught_) {
                 f.initIvAdv(_diff, _data.getDefaultBall());
@@ -2638,7 +2638,7 @@ public final class FightFacade {
         for (Fighter f: _fight.getUserTeam().getMembers().values()) {
             f.setVarHp(Rate.zero());
             f.setComment(new Comment());
-            f.setIv(new EnumMap<Statistic,Short>());
+            f.setIv(new IdMap<Statistic,Short>());
             f.initIvUt(_diff);
             f.initHp();
         }

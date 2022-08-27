@@ -28,7 +28,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 
 import code.util.StringList;
 import code.util.StringMap;
@@ -2133,7 +2133,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.affecterTypes(NORMAL);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
-        EnumMap<UsefulValueLaw,Rate> values_ = FightEffects.calculateMinMaxAvgVarForDamage(fight_, thrower_, target_, move_, diff_, data_);
+        AbsMap<UsefulValueLaw,Rate> values_ = FightEffects.calculateMinMaxAvgVarForDamage(fight_, thrower_, target_, move_, diff_, data_);
         assertEq(new Rate("21432/13375"),values_.getVal(UsefulValueLaw.MINI));
         assertEq(new Rate("21432/13375"),values_.getVal(UsefulValueLaw.MAXI));
         assertEq(new Rate("21432/13375"),values_.getVal(UsefulValueLaw.MOY));

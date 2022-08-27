@@ -75,7 +75,7 @@ import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.*;
 
@@ -573,8 +573,8 @@ final class FightEffects {
     static void effectCommonStatistics(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectCommonStatistics _effet, DataBase _import){
         Fighter creatureCible_=_fight.getFighter(_cible);
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
-        EnumMap<Statistic,Rate> statisValeurs_=new EnumMap<Statistic,Rate>();
-        EnumMap<Statistic,String> valCommunes_=_effet.getCommonValue();
+        AbsMap<Statistic,Rate> statisValeurs_=new IdMap<Statistic,Rate>();
+        AbsMap<Statistic,String> valCommunes_=_effet.getCommonValue();
         StringMap<String> values_ = FightValues.calculateValues(_fight, _lanceur, _cible, _import);
         for(Statistic c:valCommunes_.getKeys()){
             Rate rate_ = Rate.one();
@@ -1582,9 +1582,9 @@ final class FightEffects {
     //not necessary from data (trainer or wild pokemon)
     //add a user/target lists for calculating
     //add a message with order of fighters (because each one has an action)
-    static EnumMap<UsefulValueLaw,Rate> calculateMinMaxAvgVarForDamage(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,String _attaqueLanceur, Difficulty _diff,DataBase _import){
+    static AbsMap<UsefulValueLaw,Rate> calculateMinMaxAvgVarForDamage(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,String _attaqueLanceur, Difficulty _diff,DataBase _import){
         ThrowerDamageLaws throwerDamageLaws_ = calculateLawsForDamageByTeam(_fight, _lanceur, _cible, _attaqueLanceur, _diff, _import);
-        EnumMap<UsefulValueLaw,Rate> degatsUnCoup_=new EnumMap<UsefulValueLaw,Rate>();
+        AbsMap<UsefulValueLaw,Rate> degatsUnCoup_=new IdMap<UsefulValueLaw,Rate>();
         degatsUnCoup_.put(UsefulValueLaw.MINI, Rate.zero());
         degatsUnCoup_.put(UsefulValueLaw.MAXI, Rate.zero());
         degatsUnCoup_.put(UsefulValueLaw.MOY, Rate.zero());
@@ -2246,7 +2246,7 @@ final class FightEffects {
     }
 
     static void effectStatistic(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,EnumList<Statistic> _statistiques,DataBase _import){
-        EnumMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
+        AbsMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
         Fighter creatureCible_= _fight.getFighter(_cible);
         if(!_effet.getLawBoost().events().isEmpty()){
             MonteCarloEnum<Statistic> loi_ = new MonteCarloEnum<Statistic>();
@@ -2271,7 +2271,7 @@ final class FightEffects {
             }
         }
         if(!varStatisCran_.isEmpty()){
-            EnumMap<Statistic,Byte> vars_ = new EnumMap<Statistic,Byte>();
+            AbsMap<Statistic,Byte> vars_ = new IdMap<Statistic,Byte>();
             for (EntryCust<Statistic,Byte> e: varStatisCran_.entryList()) {
                 if (Statistic.containsStatistic(_statistiques,e.getKey())) {
                     vars_.put(e.getKey(), e.getValue());
@@ -2780,8 +2780,8 @@ final class FightEffects {
         }
     }
 
-    static EnumMap<Statistic,Byte> deltaBoostStatisticMap(Fight _fight, TeamPosition _combattant,EnumMap<Statistic,Byte> _varBase,DataBase _import) {
-        EnumMap<Statistic,Byte> map_ = new EnumMap<Statistic,Byte>();
+    static AbsMap<Statistic,Byte> deltaBoostStatisticMap(Fight _fight, TeamPosition _combattant,AbsMap<Statistic,Byte> _varBase,DataBase _import) {
+        AbsMap<Statistic,Byte> map_ = new IdMap<Statistic,Byte>();
         for (Statistic s: _varBase.getKeys()) {
             byte var_ = deltaBoostStatistic(_fight, _combattant, s, _varBase.getVal(s), _import);
             map_.put(s, var_);

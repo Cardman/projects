@@ -21,7 +21,7 @@ import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.*;
 
@@ -579,7 +579,7 @@ final class FightSending {
         Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_cbt.getTeam()));
         StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        EnumMap<Statistic,Byte> vars_ = new EnumMap<Statistic,Byte>();
+        AbsMap<Statistic,Byte> vars_ = new IdMap<Statistic,Byte>();
         for (Statistic s: _effet.getStatistics().getKeys()) {
             byte varBase_ = _effet.getStatistics().getVal(s);
             if (!FightSuccess.successChangedStatisticProtect(_fight, _cbt, s, varBase_, false, new StringList(), _import)) {

@@ -97,7 +97,7 @@ public class EffectDamageBean extends EffectBean {
         chLaw = chLaw_;
         userAttack = effect_.isUserAttack();
         targetDefense = effect_.isTargetDefense();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         statisAtt = translatedStatistics_.getVal(effect_.getStatisAtt());
         statisDef = translatedStatistics_.getVal(effect_.getStatisDef());
         EnumList<Statistic> ignVarStatTargetPos_;
@@ -155,19 +155,19 @@ public class EffectDamageBean extends EffectBean {
     public String getTranslatedStatisTarget(int _index) {
         Statistic st_ = ignVarStatTargetPos.get(_index);
         DataBase data_ = getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
     public String getTranslatedStatisUser(int _index) {
         Statistic st_ = ignVarStatUserNeg.get(_index);
         DataBase data_ = getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
     public String getTranslatedStatisKo(int _index) {
         Statistic st_ = boostStatisOnceKoFoe.getKey(_index);
         DataBase data_ = getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
 

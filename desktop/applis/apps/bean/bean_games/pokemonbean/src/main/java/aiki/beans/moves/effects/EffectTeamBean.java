@@ -31,7 +31,7 @@ public class EffectTeamBean extends EffectBean {
         super.beforeDisplaying();
         EffectTeam effect_ = (EffectTeam) getEffect();
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());

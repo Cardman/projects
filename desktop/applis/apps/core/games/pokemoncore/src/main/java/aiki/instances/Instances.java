@@ -170,7 +170,7 @@ import code.maths.montecarlo.MonteCarloString;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
@@ -215,17 +215,17 @@ public final class Instances {
         object_.setMultPower(DataBase.EMPTY_STRING);
         object_.setMultDamage(DataBase.EMPTY_STRING);
         object_.setMultStab(Rate.zero());
-        object_.setBonusStatRank(new EnumMap<Statistic,Byte>(cap_));
-        object_.setBoostStatRankProtected(new EnumMap<Statistic,Byte>(cap_));
-        object_.setBoostStatRankEndRound(new EnumMap<Statistic,Byte>(cap_));
-        object_.setMultStatAlly(new EnumMap<Statistic,Rate>(cap_));
-        object_.setMultStatIfKoFoe(new EnumMap<Statistic,Byte>(cap_));
-        object_.setMultStatIfLowStat(new EnumMap<Statistic,Byte>(cap_));
+        object_.setBonusStatRank(new IdMap<Statistic,Byte>(cap_));
+        object_.setBoostStatRankProtected(new IdMap<Statistic,Byte>(cap_));
+        object_.setBoostStatRankEndRound(new IdMap<Statistic,Byte>(cap_));
+        object_.setMultStatAlly(new IdMap<Statistic,Rate>(cap_));
+        object_.setMultStatIfKoFoe(new IdMap<Statistic,Byte>(cap_));
+        object_.setMultStatIfLowStat(new IdMap<Statistic,Byte>(cap_));
         object_.setMultStatIfCat(new StatisticCategoryRate(cap_));
         object_.setMultStatIfStatutRank(new StatisticStatusList(cap_));
         object_.setMultStatIfDamageCat(new StatisticCategoryByte(cap_));
         object_.setMultStatIfDamgeType(new StatisticTypeByte(cap_));
-        object_.setMultStat(new EnumMap<Statistic,String>(cap_));
+        object_.setMultStat(new IdMap<Statistic,String>(cap_));
         object_.setMultVarBoost(Rate.zero());
         object_.setHealedHpRateBySwitch(Rate.zero());
         object_.setIncreasedPrio(new StringMap<Short>(cap_));
@@ -244,7 +244,7 @@ public final class Instances {
         object_.setImmuAllyFromMoves(new StringList(cap_));
         object_.setImmuStatusTypes(new StringMap<StringList>(cap_));
         object_.setImmuLowStatisTypes(new StringMap<EnumList<Statistic>>(cap_));
-        object_.setLowStatFoeHit(new EnumMap<Statistic,Byte>(cap_));
+        object_.setLowStatFoeHit(new IdMap<Statistic,Byte>(cap_));
         object_.setMultPowerMovesTypesGlobal(new StringMap<Rate>(cap_));
         object_.setHealHpWhileUsingBerry(Rate.zero());
         return object_;
@@ -276,7 +276,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setHealHpBySuperEffMove(Rate.zero());
         object_.setMultFoesDamage(new StringMap<EfficiencyRate>(cap_));
-        object_.setMultStat(new EnumMap<Statistic,BoostHpRate>(cap_));
+        object_.setMultStat(new IdMap<Statistic,BoostHpRate>(cap_));
         object_.setHealHp(Rate.zero());
         object_.setMaxHpHealingHp(Rate.zero());
         object_.setHealStatus(new StringList(cap_));
@@ -284,7 +284,7 @@ public final class Instances {
         object_.setMaxHpHealingHpRate(Rate.zero());
         object_.setDamageRateRecoilFoe(new StringMap<Rate>(cap_));
         object_.setCategoryBoosting(DataBase.EMPTY_STRING);
-        object_.setBoostStatis(new EnumMap<Statistic,Byte>(cap_));
+        object_.setBoostStatis(new IdMap<Statistic,Byte>(cap_));
         return object_;
     }
 
@@ -293,7 +293,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setWinPp(Rate.zero());
         object_.setHappiness(new StringMap<Short>(cap_));
-        object_.setEvs(new EnumMap<Statistic,Short>(cap_));
+        object_.setEvs(new IdMap<Statistic,Short>(cap_));
         return object_;
     }
 
@@ -361,7 +361,7 @@ public final class Instances {
         object_.setProtectAgainstKo(Rate.zero());
         object_.setProtectAgainstKoIfFullHp(Rate.zero());
         object_.setDrainedHpByDamageRate(Rate.zero());
-        object_.setWinEvFight(new EnumMap<Statistic,Short>(cap_));
+        object_.setWinEvFight(new IdMap<Statistic,Short>(cap_));
         object_.setLawForAttackFirst(new MonteCarloBoolean(cap_));
         object_.setMultTrappingDamage(Rate.zero());
         object_.setMultWinningHappiness(Rate.zero());
@@ -371,17 +371,17 @@ public final class Instances {
         object_.setMultDamage(DataBase.EMPTY_STRING);
         object_.setMultDrainedHp(Rate.zero());
         object_.setDamageRecoil(Rate.zero());
-        object_.setMultStatRank(new EnumMap<Statistic,Byte>(cap_));
+        object_.setMultStatRank(new IdMap<Statistic,Byte>(cap_));
         object_.setMultStatPokemonRank(new StatisticPokemons(cap_));
-        object_.setMultStat(new EnumMap<Statistic,String>(cap_));
+        object_.setMultStat(new IdMap<Statistic,String>(cap_));
         object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Short>(cap_));
         object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Short>(cap_));
         object_.setImmuMoves(new StringList(cap_));
         object_.setHatching(new StringList(cap_));
         object_.setImmuTypes(new StringList(cap_));
         object_.setImmuWeather(new StringList(cap_));
-        object_.setBoostStatisSuperEff(new EnumMap<Statistic,Byte>(cap_));
-        object_.setBoostStatisTypes(new StringMap<EnumMap<Statistic,Byte>>(cap_));
+        object_.setBoostStatisSuperEff(new IdMap<Statistic,Byte>(cap_));
+        object_.setBoostStatisTypes(new StringMap<AbsMap<Statistic,Byte>>(cap_));
         object_.setEffectEndRound(new CustList<EffectEndRound>(cap_));
         object_.setEffectSending(new CustList<EffectWhileSendingWithStatistic>(cap_));
         return object_;
@@ -485,7 +485,7 @@ public final class Instances {
     public static EffectCommonStatistics newEffectCommonStatistics() {
         EffectCommonStatistics object_ = new EffectCommonStatistics();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setCommonValue(new EnumMap<Statistic,String>(cap_));
+        object_.setCommonValue(new IdMap<Statistic,String>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
         object_.setRequiredSuccessfulEffects(new Ints(cap_));
@@ -515,7 +515,7 @@ public final class Instances {
         EffectCounterAttack object_ = new EffectCounterAttack();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setSufferingDamageTypes(new StringMap<Rate>(cap_));
-        object_.setDroppedStatDirectMove(new EnumMap<Statistic,Byte>(cap_));
+        object_.setDroppedStatDirectMove(new IdMap<Statistic,Byte>(cap_));
         object_.setSufferingDamageDirectMove(Rate.zero());
         object_.setProtectFail(DataBase.EMPTY_STRING);
         object_.setCounterFail(DataBase.EMPTY_STRING);
@@ -537,7 +537,7 @@ public final class Instances {
         object_.setIgnVarStatUserNeg(new EnumList<Statistic>(cap_));
         object_.setStatisAtt(Statistic.ATTACK);
         object_.setStatisDef(Statistic.DEFENSE);
-        object_.setBoostStatisOnceKoFoe(new EnumMap<Statistic,Byte>(cap_));
+        object_.setBoostStatisOnceKoFoe(new IdMap<Statistic,Byte>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
         object_.setRequiredSuccessfulEffects(new Ints(cap_));
@@ -714,7 +714,7 @@ public final class Instances {
     public static EffectInvoke newEffectInvoke() {
         EffectInvoke object_ = new EffectInvoke();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setMoveFctEnv(new EnumMap<EnvironmentType,String>(cap_));
+        object_.setMoveFctEnv(new IdMap<EnvironmentType,String>(cap_));
         object_.setInvokingMoveByUserTypes(new StringMap<String>(cap_));
         object_.setMovesNotToBeInvoked(new StringList(cap_));
         object_.setRateInvokationMove(Rate.zero());
@@ -796,12 +796,12 @@ public final class Instances {
     public static EffectStatistic newEffectStatistic() {
         EffectStatistic object_ = new EffectStatistic();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setStatisVarRank(new EnumMap<Statistic,Byte>(cap_));
-        object_.setLocalFailStatis(new EnumMap<Statistic,String>(cap_));
+        object_.setStatisVarRank(new IdMap<Statistic,Byte>(cap_));
+        object_.setLocalFailStatis(new IdMap<Statistic,String>(cap_));
         object_.setEvtRate(Rate.zero());
         object_.setCopyBoost(new EnumList<Statistic>(cap_));
         object_.setSwapBoostStatis(new EnumList<Statistic>(cap_));
-        object_.setLocalFailSwapBoostStatis(new EnumMap<Statistic,String>(cap_));
+        object_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>(cap_));
         object_.setLawBoost(new MonteCarloEnum<Statistic>(cap_));
         object_.setCancelLowStat(new EnumList<Statistic>(cap_));
         object_.setCancelChgtStat(new EnumList<Statistic>(cap_));
@@ -877,7 +877,7 @@ public final class Instances {
     public static EffectSwitchTypes newEffectSwitchTypes() {
         EffectSwitchTypes object_ = new EffectSwitchTypes();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setChgtTypeByEnv(new EnumMap<EnvironmentType,String>(cap_));
+        object_.setChgtTypeByEnv(new IdMap<EnvironmentType,String>(cap_));
         object_.setConstValuesType(ConstValuesType.NOTHING);
         object_.setExchangeTypes(ExchangeType.NOTHING);
         object_.setConstTypes(new StringList(cap_));
@@ -896,8 +896,8 @@ public final class Instances {
         object_.setCancelChgtStatFoeTeam(new EnumList<Statistic>(cap_));
         object_.setCancelChgtStatTeam(new EnumList<Statistic>(cap_));
         object_.setMultDamage(new CategoryMults(cap_));
-        object_.setMultStatistic(new EnumMap<Statistic,Rate>(cap_));
-        object_.setMultStatisticFoe(new EnumMap<Statistic,Rate>(cap_));
+        object_.setMultStatistic(new IdMap<Statistic,Rate>(cap_));
+        object_.setMultStatisticFoe(new IdMap<Statistic,Rate>(cap_));
         object_.setProtectAgainstLowStat(new EnumList<Statistic>(cap_));
         object_.setProtectAgainstStatus(new StringList(cap_));
         object_.setDisableFoeTeamEffects(new StringList(cap_));
@@ -915,7 +915,7 @@ public final class Instances {
         object_.setStatusByNbUses(new ShortMap<String>(cap_));
         object_.setDeletedByFoeTypes(new StringList(cap_));
         object_.setDamageRateAgainstFoe(DataBase.EMPTY_STRING);
-        object_.setStatistics(new EnumMap<Statistic,Byte>(cap_));
+        object_.setStatistics(new IdMap<Statistic,Byte>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
         object_.setRequiredSuccessfulEffects(new Ints(cap_));
@@ -959,7 +959,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setWeight(Rate.zero());
         object_.setTypes(new StringList(cap_));
-        object_.setStatistics(new EnumMap<Statistic,StatBaseEv>(cap_));
+        object_.setStatistics(new IdMap<Statistic,StatBaseEv>(cap_));
         object_.setLevMoves(new CustList<LevelMove>(cap_));
         object_.setGenderRep(GenderRepartition.NO_GENDER);
         object_.setAbilities(new StringList(cap_));
@@ -1042,7 +1042,7 @@ public final class Instances {
         object_.setCatchingRate(Rate.zero());
         object_.setEffectEndRound(new CustList<EffectEndRoundStatus>(cap_));
         object_.setEffectsPartner(new CustList<EffectPartnerStatus>(cap_));
-        object_.setMultStat(new EnumMap<Statistic,Rate>(cap_));
+        object_.setMultStat(new IdMap<Statistic,Rate>(cap_));
         object_.setFail(DataBase.EMPTY_STRING);
         return object_;
     }
@@ -1058,7 +1058,7 @@ public final class Instances {
         object_.setCatchingRate(Rate.zero());
         object_.setEffectEndRound(new CustList<EffectEndRoundStatus>(cap_));
         object_.setEffectsPartner(new CustList<EffectPartnerStatus>(cap_));
-        object_.setMultStat(new EnumMap<Statistic,Rate>(cap_));
+        object_.setMultStat(new IdMap<Statistic,Rate>(cap_));
         object_.setFail(DataBase.EMPTY_STRING);
         return object_;
     }
@@ -1069,7 +1069,7 @@ public final class Instances {
         object_.setCatchingRate(Rate.zero());
         object_.setEffectEndRound(new CustList<EffectEndRoundStatus>(cap_));
         object_.setEffectsPartner(new CustList<EffectPartnerStatus>(cap_));
-        object_.setMultStat(new EnumMap<Statistic,Rate>(cap_));
+        object_.setMultStat(new IdMap<Statistic,Rate>(cap_));
         object_.setFail(DataBase.EMPTY_STRING);
         return object_;
     }
@@ -1161,9 +1161,9 @@ public final class Instances {
         object_.setTypes(new StringList(cap_));
         object_.setMoves(new StringMap<UsesOfMove>(cap_));
         object_.setCurrentMoves(new StringMap<UsesOfMove>(cap_));
-        object_.setEv(new EnumMap<Statistic,Short>(cap_));
-        object_.setStatisBase(new EnumMap<Statistic,Rate>(cap_));
-        object_.setStatisBoost(new EnumMap<Statistic,Byte>(cap_));
+        object_.setEv(new IdMap<Statistic,Short>(cap_));
+        object_.setStatisBase(new IdMap<Statistic,Rate>(cap_));
+        object_.setStatisBoost(new IdMap<Statistic,Byte>(cap_));
         object_.setRemainingHp(Rate.zero());
         object_.setClone(Rate.zero());
         object_.setEnabledMoves(new StringMap<ActivityOfMove>(cap_));
@@ -1548,7 +1548,7 @@ public final class Instances {
         object_.setStatus(new StringList(cap_));
         object_.setNickname(DataBase.EMPTY_STRING);
         object_.setMoves(new StringMap<UsesOfMove>(cap_));
-        object_.setEv(new EnumMap<Statistic,Short>(cap_));
+        object_.setEv(new IdMap<Statistic,Short>(cap_));
         object_.setWonExpSinceLastLevel(Rate.zero());
         object_.setUsedBallCatching(DataBase.EMPTY_STRING);
         return object_;

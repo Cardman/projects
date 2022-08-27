@@ -29,7 +29,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -216,7 +216,7 @@ final class InitializationItems {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(LUNETTES_FILTRE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getBoostStatisTypes().addEntry(EAU, new EnumMap<Statistic,Byte>());
+        objetAttachableCombat_.getBoostStatisTypes().addEntry(EAU, new IdMap<Statistic,Byte>());
         objetAttachableCombat_.getBoostStatisTypes().getVal(EAU).addEntry(Statistic.SPECIAL_DEFENSE, (byte) 1);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(LICHEN_LUMINEUX,objetAttachableCombat_);
@@ -707,14 +707,14 @@ final class InitializationItems {
         Berry object_ = new Berry();
         object_.setHealHpBySuperEffMove(Rate.zero());
         object_.setMultFoesDamage(new StringMap<EfficiencyRate>());
-        object_.setMultStat(new EnumMap<Statistic,BoostHpRate>());
+        object_.setMultStat(new IdMap<Statistic,BoostHpRate>());
         object_.setHealHp(Rate.zero());
         object_.setMaxHpHealingHp(Rate.zero());
         object_.setHealStatus(new StringList());
         object_.setHealHpRate(Rate.zero());
         object_.setMaxHpHealingHpRate(Rate.zero());
         object_.setDamageRateRecoilFoe(new StringMap<Rate>());
-        object_.setBoostStatis(new EnumMap<Statistic,Byte>());
+        object_.setBoostStatis(new IdMap<Statistic,Byte>());
         object_.setCategoryBoosting(NULL_REF);
         return object_;
     }
@@ -731,7 +731,7 @@ final class InitializationItems {
         object_.setProtectAgainstKo(Rate.zero());
         object_.setProtectAgainstKoIfFullHp(Rate.zero());
         object_.setDrainedHpByDamageRate(Rate.zero());
-        object_.setWinEvFight(new EnumMap<Statistic,Short>());
+        object_.setWinEvFight(new IdMap<Statistic,Short>());
         object_.setLawForAttackFirst(new MonteCarloBoolean());
         object_.setMultTrappingDamage(Rate.zero());
         object_.setMultWinningHappiness(Rate.zero());
@@ -741,15 +741,15 @@ final class InitializationItems {
         object_.setMultDamage(NULL_REF);
         object_.setMultDrainedHp(Rate.zero());
         object_.setDamageRecoil(Rate.zero());
-        object_.setMultStatRank(new EnumMap<Statistic,Byte>());
+        object_.setMultStatRank(new IdMap<Statistic,Byte>());
         object_.setMultStatPokemonRank(new StatisticPokemons());
-        object_.setMultStat(new EnumMap<Statistic,String>());
+        object_.setMultStat(new IdMap<Statistic,String>());
         object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Short>());
         object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Short>());
         object_.setHatching(new StringList());
         object_.setImmuTypes(new StringList());
-        object_.setBoostStatisTypes(new StringMap<EnumMap<Statistic,Byte>>());
-        object_.setBoostStatisSuperEff(new EnumMap<Statistic,Byte>());
+        object_.setBoostStatisTypes(new StringMap<AbsMap<Statistic,Byte>>());
+        object_.setBoostStatisSuperEff(new IdMap<Statistic,Byte>());
         //object_.setSansEffetCapacite(new StringList());
         object_.setEffectEndRound(new CustList<EffectEndRound>());
         object_.setEffectSending(new CustList<EffectWhileSendingWithStatistic>());
@@ -822,7 +822,7 @@ final class InitializationItems {
         Boost object_ = new Boost();
         object_.setWinPp(Rate.zero());
         object_.setHappiness(new StringMap<Short>());
-        object_.setEvs(new EnumMap<Statistic,Short>());
+        object_.setEvs(new IdMap<Statistic,Short>());
         return object_;
     }
 

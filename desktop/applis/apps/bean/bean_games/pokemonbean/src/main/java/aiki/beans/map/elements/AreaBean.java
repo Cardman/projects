@@ -8,6 +8,7 @@ import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -45,7 +46,7 @@ public class AreaBean extends CommonBean {
     }
     public String getGender(int _index) {
         DataBase data_ = getDataBase();
-        EnumMap<Gender,String> translationsGenders_;
+        AbsMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
@@ -176,7 +177,7 @@ public class AreaBean extends CommonBean {
     }
     public String getGenderFishing(int _index) {
         DataBase data_ = getDataBase();
-        EnumMap<Gender,String> translationsGenders_;
+        AbsMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);

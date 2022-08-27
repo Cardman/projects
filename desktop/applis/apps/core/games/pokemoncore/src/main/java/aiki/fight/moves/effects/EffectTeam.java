@@ -20,8 +20,8 @@ public final class EffectTeam extends Effect {
 
     private CategoryMults multDamage;
 
-    private EnumMap<Statistic, Rate> multStatistic;
-    private EnumMap<Statistic, Rate> multStatisticFoe;
+    private AbsMap<Statistic, Rate> multStatistic;
+    private AbsMap<Statistic, Rate> multStatisticFoe;
     private EnumList<Statistic> protectAgainstLowStat;
     private boolean protectAgainstCh;
     private StringList protectAgainstStatus;
@@ -143,19 +143,19 @@ public final class EffectTeam extends Effect {
         multDamage = _multDamage;
     }
 
-    public EnumMap<Statistic, Rate> getMultStatistic() {
+    public AbsMap<Statistic, Rate> getMultStatistic() {
         return multStatistic;
     }
 
-    public void setMultStatistic(EnumMap<Statistic, Rate> _multStatistic) {
+    public void setMultStatistic(AbsMap<Statistic, Rate> _multStatistic) {
         multStatistic = _multStatistic;
     }
 
-    public EnumMap<Statistic, Rate> getMultStatisticFoe() {
+    public AbsMap<Statistic, Rate> getMultStatisticFoe() {
         return multStatisticFoe;
     }
 
-    public void setMultStatisticFoe(EnumMap<Statistic, Rate> _multStatisticFoe) {
+    public void setMultStatisticFoe(AbsMap<Statistic, Rate> _multStatisticFoe) {
         multStatisticFoe = _multStatisticFoe;
     }
 

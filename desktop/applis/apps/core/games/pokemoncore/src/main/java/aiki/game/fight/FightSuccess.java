@@ -31,7 +31,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.*;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -702,12 +702,12 @@ final class FightSuccess {
 
     static EnumList<Statistic> successfulChangedStatistics(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import){
         EnumList<Statistic> statistiques_ = successfulChangedBoostedStatistics(_fight,_lanceur, _cible, _effet, _import);
-        EnumMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
+        AbsMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
         if(!varStatisCran_.isEmpty()){
             if (statistiques_.isEmpty()) {
                 return statistiques_;
             }
-            EnumMap<Statistic,String> raisonsEchec_=_effet.getLocalFailStatis();
+            AbsMap<Statistic,String> raisonsEchec_=_effet.getLocalFailStatis();
             EnumList<Statistic> statistiquesVariant_=new EnumList<Statistic>();
             for(Statistic c:statistiques_){
                 if(!raisonsEchec_.contains(c)){
@@ -753,7 +753,7 @@ final class FightSuccess {
         }
         EnumList<Statistic> echangeStatis_=_effet.getSwapBoostStatis();
         if(!echangeStatis_.isEmpty()){
-            EnumMap<Statistic,String> raisonsEchec_=_effet.getLocalFailSwapBoostStatis();
+            AbsMap<Statistic,String> raisonsEchec_=_effet.getLocalFailSwapBoostStatis();
             Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
             Fighter creatureCbtCible_=_fight.getFighter(_cible);
             //CustList<Statistic> statistiquesEchangees_=new CustList<>();
@@ -785,7 +785,7 @@ final class FightSuccess {
 
     static EnumList<Statistic> successfulChangedBoostedStatistics(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import) {
         EnumList<Statistic> statistiques_=new EnumList<Statistic>();
-        EnumMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
+        AbsMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
         for (Statistic s: _effet.getStatisVarRank().getKeys()) {
             if(successChangedStatistic(_fight,_lanceur,_cible,s,varStatisCran_.getVal(s),_import)){
                 statistiques_.add(s);

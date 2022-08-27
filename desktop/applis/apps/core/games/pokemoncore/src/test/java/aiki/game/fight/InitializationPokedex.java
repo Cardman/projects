@@ -21,7 +21,7 @@ import aiki.fight.util.StatBaseEv;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
@@ -5275,7 +5275,7 @@ final class InitializationPokedex {
         object_.setExpEvo(ExpType.P);
         object_.setWeight(Rate.zero());
         object_.setTypes(new StringList());
-        object_.setStatistics(new EnumMap<Statistic,StatBaseEv>());
+        object_.setStatistics(new IdMap<Statistic,StatBaseEv>());
         object_.setLevMoves(new CustList<LevelMove>());
         object_.setAbilities(new StringList());
         object_.setMoveTutors(new StringList());

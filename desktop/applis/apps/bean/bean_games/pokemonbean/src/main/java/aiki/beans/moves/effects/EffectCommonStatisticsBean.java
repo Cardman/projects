@@ -3,6 +3,7 @@ import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCommonStatistics;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.NatStringTreeMap;
 import code.util.TreeMap;
@@ -16,7 +17,7 @@ public class EffectCommonStatisticsBean extends EffectBean {
         super.beforeDisplaying();
         EffectCommonStatistics effect_ = (EffectCommonStatistics) getEffect();
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         NatStringTreeMap< String> mapVarsCommonStatistics_;
         mapVarsCommonStatistics_ = new NatStringTreeMap< String>();
         TreeMap<Statistic, String> commonValue_;
@@ -40,7 +41,7 @@ public class EffectCommonStatisticsBean extends EffectBean {
     public String getTrStatistic(int _index) {
         Statistic st_ = commonValue.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
 

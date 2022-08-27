@@ -2,7 +2,7 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.util.AbsMap;
 import code.util.CollCapacity;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 
 public final class MonteCarloEnum<E> extends AbMonteCarloMap<E> {
@@ -10,11 +10,11 @@ public final class MonteCarloEnum<E> extends AbMonteCarloMap<E> {
     private AbsMap<E,LgInt> law;
 
     public MonteCarloEnum() {
-        setLaw(new EnumMap<E,LgInt>());
+        setLaw(new IdMap<E,LgInt>());
     }
 
     public MonteCarloEnum(CollCapacity _capacity) {
-        setLaw(new EnumMap<E,LgInt>(_capacity));
+        setLaw(new IdMap<E,LgInt>(_capacity));
     }
 
     @Override

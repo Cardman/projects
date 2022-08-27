@@ -61,7 +61,7 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -7435,12 +7435,12 @@ final class InitializationMoves {
 
     private static EffectStatistic defaultEffetStatistique() {
         EffectStatistic object_ = new EffectStatistic();
-        object_.setStatisVarRank(new EnumMap<Statistic,Byte>());
-        object_.setLocalFailStatis(new EnumMap<Statistic,String>());
+        object_.setStatisVarRank(new IdMap<Statistic,Byte>());
+        object_.setLocalFailStatis(new IdMap<Statistic,String>());
         object_.setEvtRate(Rate.zero());
         object_.setCopyBoost(new EnumList<Statistic>());
         object_.setSwapBoostStatis(new EnumList<Statistic>());
-        object_.setLocalFailSwapBoostStatis(new EnumMap<Statistic,String>());
+        object_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>());
         object_.setLawBoost(new MonteCarloEnum<Statistic>());
         object_.setCancelLowStat(new EnumList<Statistic>());
         object_.setCancelChgtStat(new EnumList<Statistic>());
@@ -7471,7 +7471,7 @@ final class InitializationMoves {
 
     private static EffectDamage defaultEffetDegats() {
         EffectDamage object_ = new EffectDamage();
-        object_.setBoostStatisOnceKoFoe(new EnumMap<Statistic,Byte>());
+        object_.setBoostStatisOnceKoFoe(new IdMap<Statistic,Byte>());
         object_.setDamageLaw(new MonteCarloString());
         object_.setMultDamageAgainst(new StringMap<Rate>());
         object_.setChLaw(new MonteCarloNumber());
@@ -7565,7 +7565,7 @@ final class InitializationMoves {
 
     private static EffectSwitchTypes defaultEffetChgtType() {
         EffectSwitchTypes object_ = new EffectSwitchTypes();
-        object_.setChgtTypeByEnv(new EnumMap<EnvironmentType,String>());
+        object_.setChgtTypeByEnv(new IdMap<EnvironmentType,String>());
         object_.setConstValuesType(ConstValuesType.NOTHING);
         object_.setExchangeTypes(ExchangeType.NOTHING);
         object_.setConstTypes(new StringList());
@@ -7603,8 +7603,8 @@ final class InitializationMoves {
         object_.setCancelChgtStatFoeTeam(new EnumList<Statistic>());
         object_.setCancelChgtStatTeam(new EnumList<Statistic>());
         object_.setMultDamage(new CategoryMults());
-        object_.setMultStatistic(new EnumMap<Statistic,Rate>());
-        object_.setMultStatisticFoe(new EnumMap<Statistic,Rate>());
+        object_.setMultStatistic(new IdMap<Statistic,Rate>());
+        object_.setMultStatisticFoe(new IdMap<Statistic,Rate>());
         object_.setProtectAgainstLowStat(new EnumList<Statistic>());
         object_.setProtectAgainstStatus(new StringList());
         object_.setDisableFoeTeamEffects(new StringList());
@@ -7683,7 +7683,7 @@ final class InitializationMoves {
 
     private static EffectCommonStatistics defaultEffetCommun() {
         EffectCommonStatistics object_ = new EffectCommonStatistics();
-        object_.setCommonValue(new EnumMap<Statistic,String>());
+        object_.setCommonValue(new IdMap<Statistic,String>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
         object_.setRequiredSuccessfulEffects(new Ints());
@@ -7692,7 +7692,7 @@ final class InitializationMoves {
 
     private static EffectTeamWhileSendFoe defaultEffetEquipeEntreeAdv() {
         EffectTeamWhileSendFoe object_ = new EffectTeamWhileSendFoe();
-        object_.setStatistics(new EnumMap<Statistic,Byte>());
+        object_.setStatistics(new IdMap<Statistic,Byte>());
         object_.setStatusByNbUses(new ShortMap<String>());
         object_.setDeletedByFoeTypes(new StringList());
         object_.setDamageRateAgainstFoe(NULL_REF);
@@ -7751,7 +7751,7 @@ final class InitializationMoves {
 
     private static EffectInvoke defaultEffetInvoque() {
         EffectInvoke object_ = new EffectInvoke();
-        object_.setMoveFctEnv(new EnumMap<EnvironmentType,String>());
+        object_.setMoveFctEnv(new IdMap<EnvironmentType,String>());
         object_.setInvokingMoveByUserTypes(new StringMap<String>());
         object_.setMovesNotToBeInvoked(new StringList());
         object_.setRateInvokationMove(Rate.zero());
@@ -7864,7 +7864,7 @@ final class InitializationMoves {
         object_.setFail(NULL_REF);
         object_.setRequiredSuccessfulEffects(new Ints());
         object_.setSufferingDamageTypes(new StringMap<Rate>());
-        object_.setDroppedStatDirectMove(new EnumMap<Statistic,Byte>());
+        object_.setDroppedStatDirectMove(new IdMap<Statistic,Byte>());
         object_.setSufferingDamageDirectMove(Rate.zero());
         object_.setProtectFail(NULL_REF);
         object_.setCounterFail(NULL_REF);

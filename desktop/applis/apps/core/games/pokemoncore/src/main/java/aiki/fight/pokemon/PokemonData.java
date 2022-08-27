@@ -36,7 +36,7 @@ public final class PokemonData {
     private StringList types;
 
     /** DONE */
-    private EnumMap<Statistic, StatBaseEv> statistics;
+    private AbsMap<Statistic, StatBaseEv> statistics;
 
     /** DONE */
     private CustList<LevelMove> levMoves;
@@ -203,8 +203,8 @@ public final class PokemonData {
     // return FORM_STATIS;
     // }
 
-    public Rate statHp(short _niv, EnumMap<Statistic, Short> _ev,
-            EnumMap<Statistic, Short> _iv) {
+    public Rate statHp(short _niv, AbsMap<Statistic, Short> _ev,
+            AbsMap<Statistic, Short> _iv) {
         return stat(_niv, Statistic.HP, _ev.getVal(Statistic.HP),
                 _iv.getVal(Statistic.HP));
     }
@@ -291,8 +291,8 @@ public final class PokemonData {
         return evos_;
     }
 
-    public EnumMap<Statistic, Short> getEvs() {
-        EnumMap<Statistic, Short> evs_ = new EnumMap<Statistic, Short>();
+    public AbsMap<Statistic, Short> getEvs() {
+        AbsMap<Statistic, Short> evs_ = new IdMap<Statistic, Short>();
         for (Statistic s : statistics.getKeys()) {
             evs_.put(s, statistics.getVal(s).getEv());
         }
@@ -315,11 +315,11 @@ public final class PokemonData {
         types = _types;
     }
 
-    public EnumMap<Statistic, StatBaseEv> getStatistics() {
+    public AbsMap<Statistic, StatBaseEv> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(EnumMap<Statistic, StatBaseEv> _statistics) {
+    public void setStatistics(AbsMap<Statistic, StatBaseEv> _statistics) {
         statistics = _statistics;
     }
 

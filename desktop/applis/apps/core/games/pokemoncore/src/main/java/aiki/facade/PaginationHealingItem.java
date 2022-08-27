@@ -17,7 +17,7 @@ import aiki.util.SortingHealingItem;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -62,7 +62,7 @@ public final class PaginationHealingItem extends
 
     private StringMap<String> translatedStatus;
 
-    private EnumMap<Statistic, String> translatedStatistics;
+    private AbsMap<Statistic, String> translatedStatistics;
 
     private Inventory inventory;
 

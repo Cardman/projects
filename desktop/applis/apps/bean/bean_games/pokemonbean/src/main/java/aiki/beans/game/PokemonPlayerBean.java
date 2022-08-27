@@ -66,9 +66,9 @@ public class PokemonPlayerBean extends Bean implements WithFacade {
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        EnumMap<Gender,String> translationsGenders_;
+        AbsMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
-        EnumMap<Statistic,String> translationsStatistics_;
+        AbsMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         PokemonPlayer pkPlayer_;
         if (facadeGame_.isSelectedTeamPokemon()) {

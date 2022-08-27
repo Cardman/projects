@@ -99,7 +99,7 @@ public class FighterBean extends CommonFightBean {
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        EnumMap<Gender,String> translationsGenders_;
+        AbsMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -109,7 +109,7 @@ public class FighterBean extends CommonFightBean {
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        EnumMap<Statistic,String> translationsStatistics_;
+        AbsMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         keyName = fighter_.getName();
         name = translationsPokemon_.getVal(fighter_.getName());

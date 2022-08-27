@@ -148,7 +148,7 @@ public class ItemForBattleBean extends ItemBean {
         }
         synchroStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         synchroStatus = synchroStatus_;
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         TreeMap<Statistic, Short> winEvFight_;
         winEvFight_ = new TreeMap<Statistic, Short>(new ComparatorTrStringStatistic(translatedStatistics_));
         for (Statistic s: item_.getWinEvFight().getKeys()) {
@@ -327,25 +327,25 @@ public class ItemForBattleBean extends ItemBean {
     public String getTrWinEvFight(int _index) {
         Statistic type_ = winEvFight.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStat(int _index) {
         Statistic type_ = multStat.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatRank(int _index) {
         Statistic type_ = multStatRank.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatPkRank(int _index) {
         Statistic type_ = multStatPokemonRank.getKey(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatPk(int _index) {
@@ -368,7 +368,7 @@ public class ItemForBattleBean extends ItemBean {
     public String getTrMultStatisTypesStat(int _indexOne, int _indexTwo) {
         Statistic type_ = boostStatisTypes.getValue(_indexOne).getKey(_indexTwo);
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public TreeMap<Statistic, Byte> getMapMultStatisTypesStat(int _index) {
@@ -377,7 +377,7 @@ public class ItemForBattleBean extends ItemBean {
     public String getTrMultStatisSuperEff(int _index) {
         Statistic type_ = boostStatisSuperEff.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrTrapMove(int _index) {

@@ -143,12 +143,12 @@ public class SimulationBean extends CommonBean {
 
             damageRates = new TreeMap<String, String>(new ComparatorDifficultyModelLaw());
             winPointsFight = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
-            EnumMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
+            AbsMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
             for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //                winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
                 winPointsFight.put(k.name(), trWinPts_.getVal(k));
             }
-            EnumMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
+            AbsMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
             for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
 //                damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
                 damageRates.put(k.name(), trWinLaw_.getVal(k));
@@ -593,7 +593,7 @@ public class SimulationBean extends CommonBean {
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.FOE);
         stepNumber++;
         StringMap<String> translated_ = new StringMap<String>();
-        EnumMap<EnvironmentType, String> tr_;
+        AbsMap<EnvironmentType, String> tr_;
         tr_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         for (EntryCust<EnvironmentType,String> s: tr_.entryList()) {
             translated_.addEntry(s.getKey().name(),s.getValue());

@@ -18,7 +18,7 @@ public final class Berry extends Item {
 
     private StringMap<EfficiencyRate> multFoesDamage;
 
-    private EnumMap<Statistic, BoostHpRate> multStat;
+    private AbsMap<Statistic, BoostHpRate> multStat;
 
     private boolean withoutFail;
     private int healPp;
@@ -37,7 +37,7 @@ public final class Berry extends Item {
 
     private String categoryBoosting;
 
-    private EnumMap<Statistic, Byte> boostStatis;
+    private AbsMap<Statistic, Byte> boostStatis;
 
     @Override
     public String getItemType() {
@@ -178,11 +178,11 @@ public final class Berry extends Item {
         multFoesDamage = _multFoesDamage;
     }
 
-    public EnumMap<Statistic, BoostHpRate> getMultStat() {
+    public AbsMap<Statistic, BoostHpRate> getMultStat() {
         return multStat;
     }
 
-    public void setMultStat(EnumMap<Statistic, BoostHpRate> _multStat) {
+    public void setMultStat(AbsMap<Statistic, BoostHpRate> _multStat) {
         multStat = _multStat;
     }
 
@@ -258,11 +258,11 @@ public final class Berry extends Item {
         categoryBoosting = _categoryBoosting;
     }
 
-    public EnumMap<Statistic, Byte> getBoostStatis() {
+    public AbsMap<Statistic, Byte> getBoostStatis() {
         return boostStatis;
     }
 
-    public void setBoostStatis(EnumMap<Statistic, Byte> _boostStatis) {
+    public void setBoostStatis(AbsMap<Statistic, Byte> _boostStatis) {
         boostStatis = _boostStatis;
     }
 }

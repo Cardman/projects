@@ -839,7 +839,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         itemForBattle_.getImmuStatus().add(ELECTRICK);
         itemForBattle_.getImmuWeather().add(ELECTRICK);
         itemForBattle_.getBoostStatisSuperEff().addEntry(Statistic.HP, (byte) 0);
-        EnumMap<Statistic, Byte> v_ = new EnumMap<Statistic, Byte>();
+        AbsMap<Statistic, Byte> v_ = new IdMap<Statistic, Byte>();
         v_.addEntry(Statistic.HP, (byte) 0);
         itemForBattle_.getBoostStatisTypes().addEntry(ELECTRICK, v_);
         itemForBattle_.getSynchroStatus().add(ELECTRICK);

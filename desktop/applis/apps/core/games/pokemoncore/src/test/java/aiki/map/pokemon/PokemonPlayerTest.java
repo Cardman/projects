@@ -22,7 +22,7 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -2041,7 +2041,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         sent_.setHappiness((short) 70);
         sent_.setWonExpSinceLastLevel(Rate.one());
         sent_.setUsedBallCatching(POKE_BALL);
-        sent_.setEv(new EnumMap<Statistic,Short>());
+        sent_.setEv(new IdMap<Statistic,Short>());
         sent_.getEv().put(Statistic.ATTACK, (short) 0);
         sent_.getEv().put(Statistic.DEFENSE, (short) 0);
         sent_.getEv().put(Statistic.SPECIAL_ATTACK, (short) 0);
@@ -2200,7 +2200,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         sent_.setWonExpSinceLastLevel(Rate.one());
         sent_.setUsedBallCatching(POKE_BALL);
         sent_.setEv(null);
-        sent_.setIv(new EnumMap<Statistic,Short>());
+        sent_.setIv(new IdMap<Statistic,Short>());
         sent_.setStatus(null);
         sent_.initilializeFromExchange(data_);
         assertEq(PIKACHU, sent_.getName());
@@ -2250,7 +2250,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         sent_.setHappiness((short) 70);
         sent_.setWonExpSinceLastLevel(Rate.one());
         sent_.setUsedBallCatching(POKE_BALL);
-        sent_.setEv(new EnumMap<Statistic,Short>());
+        sent_.setEv(new IdMap<Statistic,Short>());
         sent_.getEv().put(Statistic.ATTACK, (short) 0);
         sent_.getEv().put(Statistic.DEFENSE, (short) 0);
         sent_.getEv().put(Statistic.SPECIAL_ATTACK, (short) 0);
@@ -2304,7 +2304,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         sent_.setHappiness((short) 70);
         sent_.setWonExpSinceLastLevel(Rate.one());
         sent_.setUsedBallCatching(POKE_BALL);
-        sent_.setEv(new EnumMap<Statistic,Short>());
+        sent_.setEv(new IdMap<Statistic,Short>());
         sent_.getEv().put(Statistic.ATTACK, (short) 0);
         sent_.getEv().put(Statistic.DEFENSE, (short) 0);
         sent_.getEv().put(Statistic.SPECIAL_ATTACK, (short) 0);

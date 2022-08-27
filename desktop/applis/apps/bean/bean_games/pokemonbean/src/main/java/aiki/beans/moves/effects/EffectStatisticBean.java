@@ -3,6 +3,7 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectStatistic;
 import code.maths.Rate;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
@@ -29,7 +30,7 @@ public class EffectStatisticBean extends EffectBean {
         super.beforeDisplaying();
         EffectStatistic effect_ = (EffectStatistic) getEffect();
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         evtRate = effect_.getEvtRate();
         evtRatePerCent = Rate.multiply(evtRate, new Rate(CST_CENT)).evaluate(2);
         NatStringTreeMap< Byte> statisVarRank_;

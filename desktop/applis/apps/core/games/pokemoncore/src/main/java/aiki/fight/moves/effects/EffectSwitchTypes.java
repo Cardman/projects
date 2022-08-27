@@ -6,14 +6,14 @@ import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import code.util.EntryCust;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 
 public final class EffectSwitchTypes extends Effect {
 
-    private EnumMap<EnvironmentType, String> chgtTypeByEnv;
+    private AbsMap<EnvironmentType, String> chgtTypeByEnv;
     private ConstValuesType constValuesType;
     private ExchangeType exchangeTypes;
     private StringList constTypes;
@@ -64,11 +64,11 @@ public final class EffectSwitchTypes extends Effect {
         }
     }
 
-    public EnumMap<EnvironmentType, String> getChgtTypeByEnv() {
+    public AbsMap<EnvironmentType, String> getChgtTypeByEnv() {
         return chgtTypeByEnv;
     }
 
-    public void setChgtTypeByEnv(EnumMap<EnvironmentType, String> _chgtTypeByEnv) {
+    public void setChgtTypeByEnv(AbsMap<EnvironmentType, String> _chgtTypeByEnv) {
         chgtTypeByEnv = _chgtTypeByEnv;
     }
 

@@ -27,7 +27,7 @@ public class SelectPokemonBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
-        EnumMap<SelectedBoolean,String> translatedBooleans_;
+        AbsMap<SelectedBoolean,String> translatedBooleans_;
         translatedBooleans_ = data_.getTranslatedBooleans().getVal(getLanguage());
         StringMap<String> translated_ = new StringMap<String>();
         for (EntryCust<SelectedBoolean,String> s: translatedBooleans_.entryList()) {

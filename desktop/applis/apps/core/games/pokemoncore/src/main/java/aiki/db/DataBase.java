@@ -79,7 +79,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.NatStringTreeMap;
 import code.util.*;
 
@@ -266,14 +266,14 @@ public class DataBase {
 
     private String rateCatching;
 
-    private EnumMap<ExpType, String> expGrowth = new EnumMap<ExpType, String>();
+    private AbsMap<ExpType, String> expGrowth = new IdMap<ExpType, String>();
 
-    private EnumMap<DifficultyWinPointsFight, String> rates = new EnumMap<DifficultyWinPointsFight, String>();
+    private AbsMap<DifficultyWinPointsFight, String> rates = new IdMap<DifficultyWinPointsFight, String>();
 
     private TypesDuos tableTypes = new TypesDuos();
     private StringList types = new StringList();
 
-    private EnumMap<DifficultyModelLaw, LawNumber> lawsDamageRate = new EnumMap<DifficultyModelLaw, LawNumber>();
+    private AbsMap<DifficultyModelLaw, LawNumber> lawsDamageRate = new IdMap<DifficultyModelLaw, LawNumber>();
 
     private StringList movesProtAgainstStatusMoves;
     private StringList movesProtAgainstDamageMoves;
@@ -319,19 +319,19 @@ public class DataBase {
 
     private StringMap<StringMap<String>> translatedCategories = new StringMap<StringMap<String>>();
 
-    private StringMap<EnumMap<EnvironmentType, String>> translatedEnvironment = new StringMap<EnumMap<EnvironmentType, String>>();
+    private StringMap<AbsMap<EnvironmentType, String>> translatedEnvironment = new StringMap<AbsMap<EnvironmentType, String>>();
 
-    private StringMap<EnumMap<SelectedBoolean, String>> translatedBooleans = new StringMap<EnumMap<SelectedBoolean, String>>();
+    private StringMap<AbsMap<SelectedBoolean, String>> translatedBooleans = new StringMap<AbsMap<SelectedBoolean, String>>();
 
-    private StringMap<EnumMap<DifficultyWinPointsFight, String>> translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight, String>>();
+    private StringMap<AbsMap<DifficultyWinPointsFight, String>> translatedDiffWinPts = new StringMap<AbsMap<DifficultyWinPointsFight, String>>();
 
-    private StringMap<EnumMap<DifficultyModelLaw, String>> translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw, String>>();
+    private StringMap<AbsMap<DifficultyModelLaw, String>> translatedDiffModelLaw = new StringMap<AbsMap<DifficultyModelLaw, String>>();
 
-    private StringMap<EnumMap<Gender, String>> translatedGenders = new StringMap<EnumMap<Gender, String>>();
+    private StringMap<AbsMap<Gender, String>> translatedGenders = new StringMap<AbsMap<Gender, String>>();
 
-    private StringMap<EnumMap<Statistic, String>> translatedStatistics = new StringMap<EnumMap<Statistic, String>>();
+    private StringMap<AbsMap<Statistic, String>> translatedStatistics = new StringMap<AbsMap<Statistic, String>>();
 
-    private StringMap<EnumMap<TargetChoice, String>> translatedTargets = new StringMap<EnumMap<TargetChoice, String>>();
+    private StringMap<AbsMap<TargetChoice, String>> translatedTargets = new StringMap<AbsMap<TargetChoice, String>>();
 
     private StringMap<StringMap<String>> translatedTypes = new StringMap<StringMap<String>>();
 
@@ -1239,7 +1239,7 @@ public class DataBase {
         }
         StringList homonyms_ = new StringList();
         StringList distinct_ = new StringList();
-        for (EnumMap<Gender, String> v : translatedGenders.values()) {
+        for (AbsMap<Gender, String> v : translatedGenders.values()) {
             for (Gender g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
@@ -1258,7 +1258,7 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (EnumMap<SelectedBoolean, String> v : translatedBooleans.values()) {
+        for (AbsMap<SelectedBoolean, String> v : translatedBooleans.values()) {
             for (SelectedBoolean g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
@@ -1273,7 +1273,7 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (EnumMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
+        for (AbsMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
                 .values()) {
             for (DifficultyWinPointsFight g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
@@ -1289,7 +1289,7 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (EnumMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
+        for (AbsMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
                 .values()) {
             for (DifficultyModelLaw g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
@@ -1305,7 +1305,7 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (EnumMap<EnvironmentType, String> v : translatedEnvironment
+        for (AbsMap<EnvironmentType, String> v : translatedEnvironment
                 .values()) {
             for (EnvironmentType g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
@@ -1325,7 +1325,7 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (EnumMap<Statistic, String> v : translatedStatistics.values()) {
+        for (AbsMap<Statistic, String> v : translatedStatistics.values()) {
             for (Statistic g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
@@ -1547,7 +1547,7 @@ public class DataBase {
                 }
                 for (Statistic s_ : Statistic.values()) {
                     if (StringUtil.quickEq(s, s_.name())) {
-                        for (EntryCust<String,EnumMap<Statistic,String>> e: translatedStatistics.entryList()) {
+                        for (EntryCust<String,AbsMap<Statistic,String>> e: translatedStatistics.entryList()) {
                             if (!StringUtil.quickEq(e.getKey(),l)) {
                                 continue;
                             }
@@ -1562,7 +1562,7 @@ public class DataBase {
                 }
                 for (Gender g : Gender.values()) {
                     if (StringUtil.quickEq(s, g.name())) {
-                        for (EntryCust<String,EnumMap<Gender,String>> e: translatedGenders.entryList()) {
+                        for (EntryCust<String,AbsMap<Gender,String>> e: translatedGenders.entryList()) {
                             if (!StringUtil.quickEq(e.getKey(),l)) {
                                 continue;
                             }
@@ -1602,7 +1602,7 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (EnumMap<TargetChoice, String> v : translatedTargets.values()) {
+        for (AbsMap<TargetChoice, String> v : translatedTargets.values()) {
             for (TargetChoice g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
@@ -1892,11 +1892,11 @@ public class DataBase {
         rateCatching = _rateCatching;
     }
 
-    public void setExpGrowth(EnumMap<ExpType, String> _expGrowth) {
+    public void setExpGrowth(AbsMap<ExpType, String> _expGrowth) {
         expGrowth = _expGrowth;
     }
 
-    public void setRates(EnumMap<DifficultyWinPointsFight, String> _rates) {
+    public void setRates(AbsMap<DifficultyWinPointsFight, String> _rates) {
         rates = _rates;
     }
 
@@ -1908,7 +1908,7 @@ public class DataBase {
         types = _types;
     }
 
-    public void setLawsDamageRate(EnumMap<DifficultyModelLaw, LawNumber> _lawsDamageRate) {
+    public void setLawsDamageRate(AbsMap<DifficultyModelLaw, LawNumber> _lawsDamageRate) {
         lawsDamageRate = _lawsDamageRate;
     }
 
@@ -1917,12 +1917,12 @@ public class DataBase {
     }
 
     public void initTranslations() {
-        translatedBooleans = new StringMap<EnumMap<SelectedBoolean, String>>();
-        translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight, String>>();
-        translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw, String>>();
-        translatedGenders = new StringMap<EnumMap<Gender, String>>();
-        translatedEnvironment = new StringMap<EnumMap<EnvironmentType, String>>();
-        translatedStatistics = new StringMap<EnumMap<Statistic, String>>();
+        translatedBooleans = new StringMap<AbsMap<SelectedBoolean, String>>();
+        translatedDiffWinPts = new StringMap<AbsMap<DifficultyWinPointsFight, String>>();
+        translatedDiffModelLaw = new StringMap<AbsMap<DifficultyModelLaw, String>>();
+        translatedGenders = new StringMap<AbsMap<Gender, String>>();
+        translatedEnvironment = new StringMap<AbsMap<EnvironmentType, String>>();
+        translatedStatistics = new StringMap<AbsMap<Statistic, String>>();
         translatedPokemon = new StringMap<StringMap<String>>();
         translatedMoves = new StringMap<StringMap<String>>();
         translatedItems = new StringMap<StringMap<String>>();
@@ -1931,7 +1931,7 @@ public class DataBase {
         translatedCategories = new StringMap<StringMap<String>>();
         translatedTypes = new StringMap<StringMap<String>>();
         translatedFctMath = new StringMap<StringMap<String>>();
-        translatedTargets = new StringMap<EnumMap<TargetChoice, String>>();
+        translatedTargets = new StringMap<AbsMap<TargetChoice, String>>();
         translatedClassesDescriptions = new StringMap<StringMap<String>>();
         litterals = new StringMap<StringMap<String>>();
     }
@@ -2953,15 +2953,15 @@ public class DataBase {
         return status;
     }
 
-    public EnumMap<ExpType, String> getExpGrowth() {
+    public AbsMap<ExpType, String> getExpGrowth() {
         return expGrowth;
     }
 
-    public EnumMap<DifficultyWinPointsFight, String> getRates() {
+    public AbsMap<DifficultyWinPointsFight, String> getRates() {
         return rates;
     }
 
-    public EnumMap<DifficultyModelLaw, LawNumber> getLawsDamageRate() {
+    public AbsMap<DifficultyModelLaw, LawNumber> getLawsDamageRate() {
         return lawsDamageRate;
     }
 
@@ -3436,11 +3436,11 @@ public class DataBase {
         return translatedCategories;
     }
 
-    public EnumMap<Gender, String> getTranslatedGendersCurLanguage(String _lg) {
+    public AbsMap<Gender, String> getTranslatedGendersCurLanguage(String _lg) {
         return translatedGenders.getVal(_lg);
     }
 
-    public StringMap<EnumMap<Gender, String>> getTranslatedGenders() {
+    public StringMap<AbsMap<Gender, String>> getTranslatedGenders() {
         return translatedGenders;
     }
 
@@ -3452,31 +3452,31 @@ public class DataBase {
         return translatedAbilities.getVal(_lg);
     }
 
-    public EnumMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage(String _lg) {
+    public AbsMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage(String _lg) {
         return translatedBooleans.getVal(_lg);
     }
 
-    public StringMap<EnumMap<SelectedBoolean, String>> getTranslatedBooleans() {
+    public StringMap<AbsMap<SelectedBoolean, String>> getTranslatedBooleans() {
         return translatedBooleans;
     }
 
-    public StringMap<EnumMap<DifficultyModelLaw, String>> getTranslatedDiffModelLaw() {
+    public StringMap<AbsMap<DifficultyModelLaw, String>> getTranslatedDiffModelLaw() {
         return translatedDiffModelLaw;
     }
 
-    public StringMap<EnumMap<DifficultyWinPointsFight, String>> getTranslatedDiffWinPts() {
+    public StringMap<AbsMap<DifficultyWinPointsFight, String>> getTranslatedDiffWinPts() {
         return translatedDiffWinPts;
     }
 
-    public StringMap<EnumMap<EnvironmentType, String>> getTranslatedEnvironment() {
+    public StringMap<AbsMap<EnvironmentType, String>> getTranslatedEnvironment() {
         return translatedEnvironment;
     }
 
-    public StringMap<EnumMap<Statistic, String>> getTranslatedStatistics() {
+    public StringMap<AbsMap<Statistic, String>> getTranslatedStatistics() {
         return translatedStatistics;
     }
 
-    public StringMap<EnumMap<TargetChoice, String>> getTranslatedTargets() {
+    public StringMap<AbsMap<TargetChoice, String>> getTranslatedTargets() {
         return translatedTargets;
     }
 

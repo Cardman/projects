@@ -4,12 +4,12 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 
 
 public final class EffectCommonStatistics extends Effect {
 
-    private EnumMap<Statistic, String> commonValue;
+    private AbsMap<Statistic, String> commonValue;
 
     @Override
     public void validate(DataBase _data) {
@@ -33,11 +33,11 @@ public final class EffectCommonStatistics extends Effect {
         }
     }
 
-    public EnumMap<Statistic, String> getCommonValue() {
+    public AbsMap<Statistic, String> getCommonValue() {
         return commonValue;
     }
 
-    public void setCommonValue(EnumMap<Statistic, String> _commonValue) {
+    public void setCommonValue(AbsMap<Statistic, String> _commonValue) {
         commonValue = _commonValue;
     }
 

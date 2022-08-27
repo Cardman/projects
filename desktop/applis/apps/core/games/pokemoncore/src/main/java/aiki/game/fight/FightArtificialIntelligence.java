@@ -17,7 +17,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 import code.util.*;
 
@@ -212,7 +212,7 @@ final class FightArtificialIntelligence {
                 remoteHpLoc_.put(t_, remoteHpFoe_);
                 continue;
             }
-            EnumMap<UsefulValueLaw,Rate> statistiquesLoc_;
+            AbsMap<UsefulValueLaw,Rate> statistiquesLoc_;
             statistiquesLoc_= FightEffects.calculateMinMaxAvgVarForDamage(_fight,_thrower,f_,_move, _diff,_import);
             Rate delta_ = Rate.minus(remoteHpFoe_, statistiquesLoc_.getVal(UsefulValueLaw.MINI));
             if (delta_.isZeroOrGt()) {
@@ -248,7 +248,7 @@ final class FightArtificialIntelligence {
                 remoteHpLoc_.put(f, remoteHpPartner_);
                 continue;
             }
-            EnumMap<UsefulValueLaw,Rate> statistiquesLoc_;
+            AbsMap<UsefulValueLaw,Rate> statistiquesLoc_;
             statistiquesLoc_= FightEffects.calculateMinMaxAvgVarForDamage(_fight,_thrower,f,_move, _diff,_import);
             Rate delta_ = Rate.minus(remoteHpPartner_, statistiquesLoc_.getVal(UsefulValueLaw.MAXI));
             if (delta_.isZeroOrGt()) {
@@ -372,7 +372,7 @@ final class FightArtificialIntelligence {
             if (!affect_) {
                 continue;
             }
-            EnumMap<UsefulValueLaw,Rate> statistiquesLoc_=FightEffects.calculateMinMaxAvgVarForDamage(_fight,_thrower,_foe,_move,_diff,_import);
+            AbsMap<UsefulValueLaw,Rate> statistiquesLoc_=FightEffects.calculateMinMaxAvgVarForDamage(_fight,_thrower,_foe,_move,_diff,_import);
             if (Rate.lowerEq(remoteHpFoe_, statistiquesLoc_.getVal(UsefulValueLaw.MINI))) {
                 return true;
             }
@@ -419,7 +419,7 @@ final class FightArtificialIntelligence {
             }
             CustList<StatisticsDamageMove> liste_=new CustList<StatisticsDamageMove>();
             for(String m:attaquesOffUtilisables_){
-                EnumMap<UsefulValueLaw,Rate> statistiques_=new EnumMap<UsefulValueLaw,Rate>();
+                AbsMap<UsefulValueLaw,Rate> statistiques_=new IdMap<UsefulValueLaw,Rate>();
                 statistiques_.put(UsefulValueLaw.MINI,Rate.zero());
                 statistiques_.put(UsefulValueLaw.MAXI,Rate.zero());
                 statistiques_.put(UsefulValueLaw.MOY,Rate.zero());
@@ -434,7 +434,7 @@ final class FightArtificialIntelligence {
                     if (!reachable(_fight, c, f_, m, _diff, _import)) {
                         continue;
                     }
-                    EnumMap<UsefulValueLaw,Rate> statistiquesLoc_;
+                    AbsMap<UsefulValueLaw,Rate> statistiquesLoc_;
                     statistiquesLoc_=FightEffects.calculateMinMaxAvgVarForDamage(_fight,c,f_,m,_diff,_import);
                     Rate accuracy_ = FightSuccess.accuracy(_fight,c, f_, m, _import);
                     if (accuracy_.isZero()) {

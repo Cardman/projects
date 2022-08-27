@@ -13,7 +13,7 @@ import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.EqList;
 
 import code.util.StringList;
@@ -62,12 +62,12 @@ public final class AbilityData {
     private String multPower;
     private String multDamage;
     private Rate multStab;
-    private EnumMap<Statistic, Byte> bonusStatRank;
-    private EnumMap<Statistic, Byte> boostStatRankProtected;
-    private EnumMap<Statistic, Byte> boostStatRankEndRound;
-    private EnumMap<Statistic, Rate> multStatAlly;
-    private EnumMap<Statistic, Byte> multStatIfKoFoe;
-    private EnumMap<Statistic, Byte> multStatIfLowStat;
+    private AbsMap<Statistic, Byte> bonusStatRank;
+    private AbsMap<Statistic, Byte> boostStatRankProtected;
+    private AbsMap<Statistic, Byte> boostStatRankEndRound;
+    private AbsMap<Statistic, Rate> multStatAlly;
+    private AbsMap<Statistic, Byte> multStatIfKoFoe;
+    private AbsMap<Statistic, Byte> multStatIfLowStat;
     private StatisticCategoryList<Rate> multStatIfCat;
 
     private StatisticStatusList multStatIfStatutRank;
@@ -76,7 +76,7 @@ public final class AbilityData {
 
     private StatisticTypeList<Byte> multStatIfDamgeType;
 
-    private EnumMap<Statistic, String> multStat;
+    private AbsMap<Statistic, String> multStat;
     private boolean inflictingDamageInsteadOfSuffering;
     private Rate multVarBoost;
     private int nbUsedPp;
@@ -111,7 +111,7 @@ public final class AbilityData {
 
     private StringMap<EnumList<Statistic>> immuLowStatisTypes;
 
-    private EnumMap<Statistic, Byte> lowStatFoeHit;
+    private AbsMap<Statistic, Byte> lowStatFoeHit;
 
     private boolean copyMovesTypes;
 
@@ -765,53 +765,53 @@ public final class AbilityData {
         multStab = _multStab;
     }
 
-    public EnumMap<Statistic, Byte> getBonusStatRank() {
+    public AbsMap<Statistic, Byte> getBonusStatRank() {
         return bonusStatRank;
     }
 
-    public void setBonusStatRank(EnumMap<Statistic, Byte> _bonusStatRank) {
+    public void setBonusStatRank(AbsMap<Statistic, Byte> _bonusStatRank) {
         bonusStatRank = _bonusStatRank;
     }
 
-    public EnumMap<Statistic, Byte> getBoostStatRankProtected() {
+    public AbsMap<Statistic, Byte> getBoostStatRankProtected() {
         return boostStatRankProtected;
     }
 
     public void setBoostStatRankProtected(
-            EnumMap<Statistic, Byte> _boostStatRankProtected) {
+            AbsMap<Statistic, Byte> _boostStatRankProtected) {
         boostStatRankProtected = _boostStatRankProtected;
     }
 
-    public EnumMap<Statistic, Byte> getBoostStatRankEndRound() {
+    public AbsMap<Statistic, Byte> getBoostStatRankEndRound() {
         return boostStatRankEndRound;
     }
 
     public void setBoostStatRankEndRound(
-            EnumMap<Statistic, Byte> _boostStatRankEndRound) {
+            AbsMap<Statistic, Byte> _boostStatRankEndRound) {
         boostStatRankEndRound = _boostStatRankEndRound;
     }
 
-    public EnumMap<Statistic, Rate> getMultStatAlly() {
+    public AbsMap<Statistic, Rate> getMultStatAlly() {
         return multStatAlly;
     }
 
-    public void setMultStatAlly(EnumMap<Statistic, Rate> _multStat) {
+    public void setMultStatAlly(AbsMap<Statistic, Rate> _multStat) {
         multStatAlly = _multStat;
     }
 
-    public EnumMap<Statistic, Byte> getMultStatIfKoFoe() {
+    public AbsMap<Statistic, Byte> getMultStatIfKoFoe() {
         return multStatIfKoFoe;
     }
 
-    public void setMultStatIfKoFoe(EnumMap<Statistic, Byte> _multStatIfKoFoe) {
+    public void setMultStatIfKoFoe(AbsMap<Statistic, Byte> _multStatIfKoFoe) {
         multStatIfKoFoe = _multStatIfKoFoe;
     }
 
-    public EnumMap<Statistic, Byte> getMultStatIfLowStat() {
+    public AbsMap<Statistic, Byte> getMultStatIfLowStat() {
         return multStatIfLowStat;
     }
 
-    public void setMultStatIfLowStat(EnumMap<Statistic, Byte> _multStatIfLowStat) {
+    public void setMultStatIfLowStat(AbsMap<Statistic, Byte> _multStatIfLowStat) {
         multStatIfLowStat = _multStatIfLowStat;
     }
 
@@ -851,11 +851,11 @@ public final class AbilityData {
         multStatIfDamgeType = _multStatIfDamgeType;
     }
 
-    public EnumMap<Statistic, String> getMultStat() {
+    public AbsMap<Statistic, String> getMultStat() {
         return multStat;
     }
 
-    public void setMultStat(EnumMap<Statistic, String> _multStat) {
+    public void setMultStat(AbsMap<Statistic, String> _multStat) {
         multStat = _multStat;
     }
 
@@ -1072,11 +1072,11 @@ public final class AbilityData {
         immuLowStatisTypes = _immuLowStatisTypes;
     }
 
-    public EnumMap<Statistic, Byte> getLowStatFoeHit() {
+    public AbsMap<Statistic, Byte> getLowStatFoeHit() {
         return lowStatFoeHit;
     }
 
-    public void setLowStatFoeHit(EnumMap<Statistic, Byte> _lowStatFoeHit) {
+    public void setLowStatFoeHit(AbsMap<Statistic, Byte> _lowStatFoeHit) {
         lowStatFoeHit = _lowStatFoeHit;
     }
 

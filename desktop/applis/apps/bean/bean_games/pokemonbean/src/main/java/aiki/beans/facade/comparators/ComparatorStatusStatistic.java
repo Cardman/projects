@@ -3,6 +3,7 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticStatus;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.StringMap;
 import code.util.ints.Comparing;
@@ -26,7 +27,7 @@ public final class ComparatorStatusStatistic implements Comparing<StatisticStatu
         if (res_ != 0) {
             return res_;
         }
-        EnumMap<Statistic,String> translatedStatisticsCmp_;
+        AbsMap<Statistic,String> translatedStatisticsCmp_;
         translatedStatisticsCmp_ = data.getTranslatedStatistics().getVal(language);
         return ComparatorTrStringStatistic.compare(translatedStatisticsCmp_, _o1.getStatistic(), _o2.getStatistic());
     }

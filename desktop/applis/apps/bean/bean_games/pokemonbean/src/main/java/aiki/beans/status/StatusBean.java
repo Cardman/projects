@@ -82,7 +82,7 @@ public class StatusBean extends CommonBean {
         incrementingEndRound = status_.getIncrementingEndRound();
         reasons = getFormattedReasons(data_, getReasons(status_.getFail()), getLanguage());
         mapVarsFail = getMapVarsFail(data_, status_.getFail(), getLanguage());
-        EnumMap<Statistic,String> translatedStatistics_;
+        AbsMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         TreeMap<Statistic, Rate> multStat_;
         multStat_ = new TreeMap<Statistic, Rate>(new ComparatorTrStringStatistic(translatedStatistics_));
@@ -153,7 +153,7 @@ public class StatusBean extends CommonBean {
     public String getTrMultStat(int _index) {
         Statistic type_ = multStat.getKey(_index);
         DataBase data_ = getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
 

@@ -112,7 +112,7 @@ public class PokemonBean extends CommonBean {
         weight = pk_.getWeight();
         height = pk_.getHeight();
         possibleGenders = new StringList();
-        EnumMap<Gender,String> translationsGenders_;
+        AbsMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         for (Gender g: pk_.getGenderRep().getPossibleGenders()) {
             possibleGenders.add(translationsGenders_.getVal(g));
@@ -141,7 +141,7 @@ public class PokemonBean extends CommonBean {
             mapVars.put(k, mapVars_.getVal(k));
         }
         expRate = pk_.getExpRate();
-        EnumMap<Statistic,String> translationsStatistics_;
+        AbsMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         statisticsEnum = new EnumList<Statistic>();
         statistics = new StringList();

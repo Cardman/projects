@@ -7,17 +7,17 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 
 
 public final class EffectStatistic extends Effect {
 
-    private EnumMap<Statistic, Byte> statisVarRank;
-    private EnumMap<Statistic, String> localFailStatis;
+    private AbsMap<Statistic, Byte> statisVarRank;
+    private AbsMap<Statistic, String> localFailStatis;
     private Rate evtRate;
     private EnumList<Statistic> copyBoost;
     private EnumList<Statistic> swapBoostStatis;
-    private EnumMap<Statistic, String> localFailSwapBoostStatis;
+    private AbsMap<Statistic, String> localFailSwapBoostStatis;
     private MonteCarloEnum<Statistic> lawBoost;
     private EnumList<Statistic> cancelLowStat;
     private EnumList<Statistic> cancelChgtStat;
@@ -121,19 +121,19 @@ public final class EffectStatistic extends Effect {
 
     }
 
-    public EnumMap<Statistic, Byte> getStatisVarRank() {
+    public AbsMap<Statistic, Byte> getStatisVarRank() {
         return statisVarRank;
     }
 
-    public void setStatisVarRank(EnumMap<Statistic, Byte> _statisVarRank) {
+    public void setStatisVarRank(AbsMap<Statistic, Byte> _statisVarRank) {
         statisVarRank = _statisVarRank;
     }
 
-    public EnumMap<Statistic, String> getLocalFailStatis() {
+    public AbsMap<Statistic, String> getLocalFailStatis() {
         return localFailStatis;
     }
 
-    public void setLocalFailStatis(EnumMap<Statistic, String> _localFailStatis) {
+    public void setLocalFailStatis(AbsMap<Statistic, String> _localFailStatis) {
         localFailStatis = _localFailStatis;
     }
 
@@ -161,12 +161,12 @@ public final class EffectStatistic extends Effect {
         swapBoostStatis = _swapBoostStatis;
     }
 
-    public EnumMap<Statistic, String> getLocalFailSwapBoostStatis() {
+    public AbsMap<Statistic, String> getLocalFailSwapBoostStatis() {
         return localFailSwapBoostStatis;
     }
 
     public void setLocalFailSwapBoostStatis(
-            EnumMap<Statistic, String> _localFailSwapBoostStatis) {
+            AbsMap<Statistic, String> _localFailSwapBoostStatis) {
         localFailSwapBoostStatis = _localFailSwapBoostStatis;
     }
 

@@ -34,7 +34,7 @@ import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
 import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.*;
 
 import code.util.StringMap;
@@ -1397,29 +1397,29 @@ public class InitializationDataBase extends EquallablePkUtil {
     }
 
     protected static void initTranslations(DataBase _data) {
-        EnumMap<SelectedBoolean,String> bools_;
-        bools_ = new EnumMap<SelectedBoolean,String>();
+        AbsMap<SelectedBoolean,String> bools_;
+        bools_ = new IdMap<SelectedBoolean,String>();
         bools_.addEntry(SelectedBoolean.YES, SelectedBoolean.YES.name());
         bools_.addEntry(SelectedBoolean.NO, SelectedBoolean.NO.name());
         bools_.addEntry(SelectedBoolean.YES_AND_NO, SelectedBoolean.YES_AND_NO.name());
         _data.getTranslatedBooleans().addEntry(LANGUAGE, bools_);
-        EnumMap<DifficultyWinPointsFight,String> diffsWin_;
-        diffsWin_ = new EnumMap<DifficultyWinPointsFight,String>();
+        AbsMap<DifficultyWinPointsFight,String> diffsWin_;
+        diffsWin_ = new IdMap<DifficultyWinPointsFight,String>();
         diffsWin_.addEntry(DifficultyWinPointsFight.TRES_FACILE, DifficultyWinPointsFight.TRES_FACILE.name());
         diffsWin_.addEntry(DifficultyWinPointsFight.FACILE, DifficultyWinPointsFight.FACILE.name());
         diffsWin_.addEntry(DifficultyWinPointsFight.DIFFICILE, DifficultyWinPointsFight.DIFFICILE.name());
         diffsWin_.addEntry(DifficultyWinPointsFight.TRES_DIFFICILE, DifficultyWinPointsFight.TRES_DIFFICILE.name());
         _data.getTranslatedDiffWinPts().addEntry(LANGUAGE, diffsWin_);
-        EnumMap<DifficultyModelLaw,String> diffsLaw_;
-        diffsLaw_ = new EnumMap<DifficultyModelLaw,String>();
+        AbsMap<DifficultyModelLaw,String> diffsLaw_;
+        diffsLaw_ = new IdMap<DifficultyModelLaw,String>();
         diffsLaw_.addEntry(DifficultyModelLaw.CONSTANT_MIN, DifficultyModelLaw.CONSTANT_MIN.name());
         diffsLaw_.addEntry(DifficultyModelLaw.CROISSANT, DifficultyModelLaw.CROISSANT.name());
         diffsLaw_.addEntry(DifficultyModelLaw.UNIFORME, DifficultyModelLaw.UNIFORME.name());
         diffsLaw_.addEntry(DifficultyModelLaw.DECROISSANT, DifficultyModelLaw.DECROISSANT.name());
         diffsLaw_.addEntry(DifficultyModelLaw.CONSTANT_MAX, DifficultyModelLaw.CONSTANT_MAX.name());
         _data.getTranslatedDiffModelLaw().addEntry(LANGUAGE, diffsLaw_);
-        EnumMap<EnvironmentType,String> envs_;
-        envs_ = new EnumMap<EnvironmentType,String>();
+        AbsMap<EnvironmentType,String> envs_;
+        envs_ = new IdMap<EnvironmentType,String>();
         envs_.addEntry(EnvironmentType.NOTHING, EnvironmentType.NOTHING.name());
         envs_.addEntry(EnvironmentType.ROAD, EnvironmentType.ROAD.name());
         envs_.addEntry(EnvironmentType.DESERT, EnvironmentType.DESERT.name());
@@ -1430,14 +1430,14 @@ public class InitializationDataBase extends EquallablePkUtil {
         envs_.addEntry(EnvironmentType.SNOW, EnvironmentType.SNOW.name());
         envs_.addEntry(EnvironmentType.ICE, EnvironmentType.ICE.name());
         _data.getTranslatedEnvironment().addEntry(LANGUAGE, envs_);
-        EnumMap<Gender,String> genders_;
-        genders_ = new EnumMap<Gender,String>();
+        AbsMap<Gender,String> genders_;
+        genders_ = new IdMap<Gender,String>();
         genders_.addEntry(Gender.FEMALE, Gender.FEMALE.name());
         genders_.addEntry(Gender.NO_GENDER, Gender.NO_GENDER.name());
         genders_.addEntry(Gender.MALE, Gender.MALE.name());
         _data.getTranslatedGenders().addEntry(LANGUAGE, genders_);
-        EnumMap<Statistic,String> statistics_;
-        statistics_ = new EnumMap<Statistic,String>();
+        AbsMap<Statistic,String> statistics_;
+        statistics_ = new IdMap<Statistic,String>();
         statistics_.addEntry(Statistic.ATTACK, Statistic.ATTACK.name());
         statistics_.addEntry(Statistic.DEFENSE, Statistic.DEFENSE.name());
         statistics_.addEntry(Statistic.SPECIAL_ATTACK, Statistic.SPECIAL_ATTACK.name());
@@ -1449,8 +1449,8 @@ public class InitializationDataBase extends EquallablePkUtil {
         statistics_.addEntry(Statistic.PV_RESTANTS, Statistic.PV_RESTANTS.name());
         statistics_.addEntry(Statistic.HP, Statistic.HP.name());
         _data.getTranslatedStatistics().addEntry(LANGUAGE, statistics_);
-        EnumMap<TargetChoice,String> targets_;
-        targets_ = new EnumMap<TargetChoice,String>();
+        AbsMap<TargetChoice,String> targets_;
+        targets_ = new IdMap<TargetChoice,String>();
         targets_.addEntry(TargetChoice.ADJ_ADV, TargetChoice.ADJ_ADV.name());
         targets_.addEntry(TargetChoice.ADJ_MULT, TargetChoice.ADJ_MULT.name());
         targets_.addEntry(TargetChoice.ADJ_UNIQ, TargetChoice.ADJ_UNIQ.name());

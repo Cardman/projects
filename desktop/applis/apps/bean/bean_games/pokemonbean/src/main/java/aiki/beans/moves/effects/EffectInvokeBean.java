@@ -29,7 +29,7 @@ public class EffectInvokeBean extends EffectBean {
         super.beforeDisplaying();
         DataBase data_ = (DataBase) getDataBase();
         EffectInvoke effect_ = (EffectInvoke) getEffect();
-        EnumMap<EnvironmentType,String> translatedEnvironments_ = data_.getTranslatedEnvironment().getVal(getLanguage());
+        AbsMap<EnvironmentType,String> translatedEnvironments_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translated_ = new StringMap<String>();
@@ -88,7 +88,7 @@ public class EffectInvokeBean extends EffectBean {
     }
     public String getTrEnv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<EnvironmentType,String> translatedMoves_ = data_.getTranslatedEnvironment().getVal(getLanguage());
+        AbsMap<EnvironmentType,String> translatedMoves_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         EnvironmentType st_ = PokemonStandards.getEnvByName(moveFctEnv.getKey(_index));
         return translatedMoves_.getVal(st_);
     }

@@ -955,7 +955,7 @@ return m289itemForBattle_;
 }
 static Item m87(){
 ItemForBattle m290itemForBattle_ =Instances.newItemForBattle();
-StringMap<EnumMap<Statistic,Byte>> m290stringMapEnumMapStatisticByte_=new StringMap<EnumMap<Statistic,Byte>>(new CollCapacity(1));
+StringMap<AbsMap<Statistic,Byte>> m290stringMapEnumMapStatisticByte_=new StringMap<AbsMap<Statistic,Byte>>(new CollCapacity(1));
 EnumMap<Statistic,Byte> m290enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
 m290enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)1);
 m290stringMapEnumMapStatisticByte_.addEntry(I_GLACE,m290enumMapStatisticByte_);
@@ -1570,7 +1570,7 @@ return m363itemForBattle_;
 }
 static Item m161(){
 ItemForBattle m364itemForBattle_ =Instances.newItemForBattle();
-StringMap<EnumMap<Statistic,Byte>> m364stringMapEnumMapStatisticByte_=new StringMap<EnumMap<Statistic,Byte>>(new CollCapacity(1));
+StringMap<AbsMap<Statistic,Byte>> m364stringMapEnumMapStatisticByte_=new StringMap<AbsMap<Statistic,Byte>>(new CollCapacity(1));
 EnumMap<Statistic,Byte> m364enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
 m364enumMapStatisticByte_.addEntry(Statistic.SPECIAL_DEFENSE,(byte)1);
 m364stringMapEnumMapStatisticByte_.addEntry(I_EAU,m364enumMapStatisticByte_);

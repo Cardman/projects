@@ -7,10 +7,7 @@ import aiki.fight.items.Berry;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 public class BerryBean extends ItemBean {
     private Rate healHpBySuperEffMove;
@@ -44,7 +41,7 @@ public class BerryBean extends ItemBean {
         StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         if (!item_.getCategoryBoosting().isEmpty()) {
             categoryBoosting = translatedCategories_.getVal(item_.getCategoryBoosting());
         } else {
@@ -93,13 +90,13 @@ public class BerryBean extends ItemBean {
     }
     public String getTrMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic type_ = multStat.getKey(_index);
         return translatedStatistics_.getVal(type_);
     }
     public String getTrBoostStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic type_ = boostStatis.getKey(_index);
         return translatedStatistics_.getVal(type_);
     }

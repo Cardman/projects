@@ -50,7 +50,7 @@ public class EffectGlobalBean extends EffectBean {
         super.beforeDisplaying();
         EffectGlobal effect_ = (EffectGlobal) getEffect();
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -322,7 +322,7 @@ public class EffectGlobalBean extends EffectBean {
     public String getTrMultStatIfDamgeTypeFirst(int _index) {
         Statistic statis_ = multStatIfContainsType.getKey(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translationsStatistics_;
+        AbsMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(statis_);
     }

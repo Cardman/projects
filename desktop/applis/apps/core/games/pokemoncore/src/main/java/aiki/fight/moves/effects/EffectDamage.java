@@ -8,7 +8,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.StringMap;
 
 
@@ -46,7 +46,7 @@ public final class EffectDamage extends Effect {
 
     private Statistic statisDef;
 
-    private EnumMap<Statistic, Byte> boostStatisOnceKoFoe;
+    private AbsMap<Statistic, Byte> boostStatisOnceKoFoe;
 
     @Override
     public void validate(DataBase _data) {
@@ -283,12 +283,12 @@ public final class EffectDamage extends Effect {
         statisDef = _statisDef;
     }
 
-    public EnumMap<Statistic, Byte> getBoostStatisOnceKoFoe() {
+    public AbsMap<Statistic, Byte> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 
     public void setBoostStatisOnceKoFoe(
-            EnumMap<Statistic, Byte> _boostStatisOnceKoFoe) {
+            AbsMap<Statistic, Byte> _boostStatisOnceKoFoe) {
         boostStatisOnceKoFoe = _boostStatisOnceKoFoe;
     }
 }

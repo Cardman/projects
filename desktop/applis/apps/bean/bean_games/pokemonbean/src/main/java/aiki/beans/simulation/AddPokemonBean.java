@@ -36,7 +36,7 @@ public class AddPokemonBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
-        EnumMap<SelectedBoolean,String> translatedBooleans_;
+        AbsMap<SelectedBoolean,String> translatedBooleans_;
         translatedBooleans_ = data_.getTranslatedBooleans().getVal(getLanguage());
         StringMap<String> translated_ = new StringMap<String>();
         for (EntryCust<SelectedBoolean,String> s: translatedBooleans_.entryList()) {
@@ -46,7 +46,7 @@ public class AddPokemonBean extends CommonBean {
         StringMap<String> translatedAbilities_;
         translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilities = new TreeMap<String, String>(new ComparatorTrStrings(translatedAbilities_));
-        EnumMap<Gender,String> translatedGenders_;
+        AbsMap<Gender,String> translatedGenders_;
         translatedGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         translated_ = new StringMap<String>();
         for (EntryCust<Gender,String> s: translatedGenders_.entryList()) {

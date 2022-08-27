@@ -3,7 +3,7 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import code.maths.Rate;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.StringMap;
 
 
@@ -11,7 +11,7 @@ public final class EffectCounterAttack extends Effect {
 
     private StringMap<Rate> sufferingDamageTypes;
 
-    private EnumMap<Statistic, Byte> droppedStatDirectMove;
+    private AbsMap<Statistic, Byte> droppedStatDirectMove;
 
     private Rate sufferingDamageDirectMove;
 
@@ -55,12 +55,12 @@ public final class EffectCounterAttack extends Effect {
         sufferingDamageTypes = _sufferingDamageTypes;
     }
 
-    public EnumMap<Statistic, Byte> getDroppedStatDirectMove() {
+    public AbsMap<Statistic, Byte> getDroppedStatDirectMove() {
         return droppedStatDirectMove;
     }
 
     public void setDroppedStatDirectMove(
-            EnumMap<Statistic, Byte> _droppedStatDirectMove) {
+            AbsMap<Statistic, Byte> _droppedStatDirectMove) {
         droppedStatDirectMove = _droppedStatDirectMove;
     }
 

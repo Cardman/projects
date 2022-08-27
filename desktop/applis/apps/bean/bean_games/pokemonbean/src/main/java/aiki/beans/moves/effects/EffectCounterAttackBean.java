@@ -23,7 +23,7 @@ public class EffectCounterAttackBean extends EffectBean {
         super.beforeDisplaying();
         EffectCounterAttack effect_ = (EffectCounterAttack) getEffect();
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         TreeMap<String,Rate> sufferingDamageTypes_;
         sufferingDamageTypes_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedTypes_));
@@ -97,7 +97,7 @@ public class EffectCounterAttackBean extends EffectBean {
     }
     public String getTrDroppedStatDirectMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic st_ = droppedStatDirectMove.getKey(_index);
         return translatedStatistics_.getVal(st_);
     }

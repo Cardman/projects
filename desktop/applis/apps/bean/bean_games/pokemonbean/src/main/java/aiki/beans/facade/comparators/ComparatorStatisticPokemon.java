@@ -3,6 +3,7 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticPokemon;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.StringMap;
 import code.util.ints.Comparing;
@@ -20,7 +21,7 @@ public final class ComparatorStatisticPokemon implements Comparing<StatisticPoke
 
     @Override
     public int compare(StatisticPokemon _o1, StatisticPokemon _o2) {
-        EnumMap<Statistic,String> translatedStatisticsCmp_ = data.getTranslatedStatistics().getVal(language);
+        AbsMap<Statistic,String> translatedStatisticsCmp_ = data.getTranslatedStatistics().getVal(language);
         int res_ = ComparatorTrStringStatistic.compare(translatedStatisticsCmp_, _o1.getStatistic(), _o2.getStatistic());
         if (res_ != 0) {
             return res_;

@@ -143,16 +143,16 @@ public final class Fighter {
     private StringMap<UsesOfMove> currentMoves;
 
     /**Never mind*/
-    private EnumMap<Statistic,Short> ev;
+    private AbsMap<Statistic,Short> ev;
 
     /**Never mind*/
-    private EnumMap<Statistic,Short> iv = new EnumMap<Statistic,Short>();
+    private AbsMap<Statistic,Short> iv = new IdMap<Statistic,Short>();
 
     /**Never mind*/
-    private EnumMap<Statistic,Rate> statisBase;
+    private AbsMap<Statistic,Rate> statisBase;
 
     /**Never mind*/
-    private EnumMap<Statistic,Byte> statisBoost;
+    private AbsMap<Statistic,Byte> statisBoost;
 
     /***/
     private Rate remainingHp;
@@ -401,7 +401,7 @@ public final class Fighter {
     }
 
     void initEvIvUser(PokemonPlayer _pokemon) {
-        ev=new EnumMap<Statistic,Short>();
+        ev=new IdMap<Statistic,Short>();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             ev.put(s, _pokemon.getEv().getVal(s));
             iv.put(s, _pokemon.getIv().getVal(s));
@@ -433,7 +433,7 @@ public final class Fighter {
     }
 
     void initEvIvOther(DataBase _import) {
-        ev = new EnumMap<Statistic,Short>();
+        ev = new IdMap<Statistic,Short>();
         for(Statistic c:Statistic.getStatisticsWithBase()){
             ev.put(c, (short)0);
             iv.put(c, (short)0);
@@ -445,11 +445,11 @@ public final class Fighter {
         PokemonData fPk_=fichePokemonActuelle(_import);
         types=new StringList(fPk_.getTypes());
         byte def_ = (byte) _import.getDefaultBoost();
-        statisBoost = new EnumMap<Statistic,Byte>();
+        statisBoost = new IdMap<Statistic,Byte>();
         for(Statistic c:Statistic.getStatisticsWithBoost()){
             statisBoost.put(c, def_);
         }
-        statisBase = new EnumMap<Statistic,Rate>();
+        statisBase = new IdMap<Statistic,Rate>();
         for(Statistic c:Statistic.getStatisticsWithBase()){
             statisBase.put(c, new Rate(fPk_.getStatistics().getVal(c).getBase()));
         }
@@ -1751,7 +1751,7 @@ public final class Fighter {
         for(String c:_creature.getCurrentMovesSet()){
             currentMoves.put(c,new UsesOfMove(_pp));
         }
-        EnumMap<Statistic,Rate> statBase_=_creature.getStatisBase();
+        AbsMap<Statistic,Rate> statBase_=_creature.getStatisBase();
         for(Statistic c:statBase_.getKeys()){
             if(c == Statistic.HP){
                 continue;
@@ -1780,7 +1780,7 @@ public final class Fighter {
                 currentMoves.put(m, new UsesOfMove(pp_.getCurrent(),pp_.getMax()));
             }
         }
-        EnumMap<Statistic,StatBaseEv> statEv_=fPk_.getStatistics();
+        AbsMap<Statistic,StatBaseEv> statEv_=fPk_.getStatistics();
         for(Statistic c:statEv_.getKeys()){
             statisBase.put(c, new Rate(statEv_.getVal(c).getBase()));
         }
@@ -2253,7 +2253,7 @@ public final class Fighter {
         action = action_;
     }
 
-    public static Rate statistiqueGlobale(EnumMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,short _ev,short _iv, short _level){
+    public static Rate statistiqueGlobale(AbsMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,short _ev,short _iv, short _level){
         return PokemonData.stat(_level, _statistiquesBase.getVal(_nomStat), _nomStat, _ev, _iv);
     }
 
@@ -2678,35 +2678,35 @@ public final class Fighter {
         currentMoves = _currentMoves;
     }
 
-    public EnumMap<Statistic,Short> getEv() {
+    public AbsMap<Statistic,Short> getEv() {
         return ev;
     }
 
-    public void setEv(EnumMap<Statistic,Short> _ev) {
+    public void setEv(AbsMap<Statistic,Short> _ev) {
         ev = _ev;
     }
 
-    public EnumMap<Statistic,Short> getIv() {
+    public AbsMap<Statistic,Short> getIv() {
         return iv;
     }
 
-    public void setIv(EnumMap<Statistic,Short> _iv) {
+    public void setIv(AbsMap<Statistic,Short> _iv) {
         iv = _iv;
     }
 
-    public EnumMap<Statistic,Rate> getStatisBase() {
+    public AbsMap<Statistic,Rate> getStatisBase() {
         return statisBase;
     }
 
-    public void setStatisBase(EnumMap<Statistic,Rate> _statisBase) {
+    public void setStatisBase(AbsMap<Statistic,Rate> _statisBase) {
         statisBase = _statisBase;
     }
 
-    public EnumMap<Statistic,Byte> getStatisBoost() {
+    public AbsMap<Statistic,Byte> getStatisBoost() {
         return statisBoost;
     }
 
-    public void setStatisBoost(EnumMap<Statistic,Byte> _statisBoost) {
+    public void setStatisBoost(AbsMap<Statistic,Byte> _statisBoost) {
         statisBoost = _statisBoost;
     }
 

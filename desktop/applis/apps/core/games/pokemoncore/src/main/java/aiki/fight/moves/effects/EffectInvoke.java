@@ -9,7 +9,7 @@ import code.util.core.StringUtil;
 
 public final class EffectInvoke extends Effect {
 
-    private EnumMap<EnvironmentType, String> moveFctEnv;
+    private AbsMap<EnvironmentType, String> moveFctEnv;
     private boolean invokingMoveButUser;
     private boolean invokingTargetChosenMove;
     private boolean invokingUserMoveWhileSleep;
@@ -44,11 +44,11 @@ public final class EffectInvoke extends Effect {
         }
     }
 
-    public EnumMap<EnvironmentType, String> getMoveFctEnv() {
+    public AbsMap<EnvironmentType, String> getMoveFctEnv() {
         return moveFctEnv;
     }
 
-    public void setMoveFctEnv(EnumMap<EnvironmentType, String> _moveFctEnv) {
+    public void setMoveFctEnv(AbsMap<EnvironmentType, String> _moveFctEnv) {
         moveFctEnv = _moveFctEnv;
     }
 

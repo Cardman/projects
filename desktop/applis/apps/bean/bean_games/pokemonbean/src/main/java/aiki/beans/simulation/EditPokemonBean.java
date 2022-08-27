@@ -115,7 +115,7 @@ public class EditPokemonBean extends CommonBean {
     public String getTranslatedStatistic(int _index) {
         Statistic st_ = ev.getKey(_index);
         DataBase data_ = getDataBase();
-        EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return tr_.getVal(st_);
     }
     public static String cancel() {

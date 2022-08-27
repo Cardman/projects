@@ -11,7 +11,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -35,7 +35,7 @@ public final class ItemForBattle extends Item {
     private Rate protectAgainstKo;
     private Rate protectAgainstKoIfFullHp;
     private Rate drainedHpByDamageRate;
-    private EnumMap<Statistic, Short> winEvFight;
+    private AbsMap<Statistic, Short> winEvFight;
     private MonteCarloBoolean lawForAttackFirst;
     private Rate multTrappingDamage;
     private Rate multWinningHappiness;
@@ -45,19 +45,19 @@ public final class ItemForBattle extends Item {
     private String multDamage;
     private Rate multDrainedHp;
     private Rate damageRecoil;
-    private EnumMap<Statistic, Byte> multStatRank;
+    private AbsMap<Statistic, Byte> multStatRank;
 
     private StatisticPokemons multStatPokemonRank;
 
-    private EnumMap<Statistic, String> multStat;
+    private AbsMap<Statistic, String> multStat;
     private StringMap<Short> increasingMaxNbRoundGlobalMove;
     private StringMap<Short> increasingMaxNbRoundTeamMove;
     private StringList immuMoves;
     private StringList hatching;
     private StringList immuTypes;
     private StringList immuWeather;
-    private EnumMap<Statistic, Byte> boostStatisSuperEff;
-    private StringMap<EnumMap<Statistic, Byte>> boostStatisTypes;
+    private AbsMap<Statistic, Byte> boostStatisSuperEff;
+    private StringMap<AbsMap<Statistic, Byte>> boostStatisTypes;
 
     private CustList<EffectEndRound> effectEndRound;
     private CustList<EffectWhileSendingWithStatistic> effectSending;
@@ -345,11 +345,11 @@ public final class ItemForBattle extends Item {
         drainedHpByDamageRate = _drainedHpByDamageRate;
     }
 
-    public EnumMap<Statistic, Short> getWinEvFight() {
+    public AbsMap<Statistic, Short> getWinEvFight() {
         return winEvFight;
     }
 
-    public void setWinEvFight(EnumMap<Statistic, Short> _winEvFight) {
+    public void setWinEvFight(AbsMap<Statistic, Short> _winEvFight) {
         winEvFight = _winEvFight;
     }
 
@@ -425,11 +425,11 @@ public final class ItemForBattle extends Item {
         damageRecoil = _damageRecoil;
     }
 
-    public EnumMap<Statistic, Byte> getMultStatRank() {
+    public AbsMap<Statistic, Byte> getMultStatRank() {
         return multStatRank;
     }
 
-    public void setMultStatRank(EnumMap<Statistic, Byte> _multStat) {
+    public void setMultStatRank(AbsMap<Statistic, Byte> _multStat) {
         multStatRank = _multStat;
     }
 
@@ -442,11 +442,11 @@ public final class ItemForBattle extends Item {
         multStatPokemonRank = _multStatPokemonRank;
     }
 
-    public EnumMap<Statistic, String> getMultStat() {
+    public AbsMap<Statistic, String> getMultStat() {
         return multStat;
     }
 
-    public void setMultStat(EnumMap<Statistic, String> _multStat) {
+    public void setMultStat(AbsMap<Statistic, String> _multStat) {
         multStat = _multStat;
     }
 
@@ -500,21 +500,21 @@ public final class ItemForBattle extends Item {
         immuWeather = _immuWeather;
     }
 
-    public EnumMap<Statistic, Byte> getBoostStatisSuperEff() {
+    public AbsMap<Statistic, Byte> getBoostStatisSuperEff() {
         return boostStatisSuperEff;
     }
 
     public void setBoostStatisSuperEff(
-            EnumMap<Statistic, Byte> _boostStatisSuperEff) {
+            AbsMap<Statistic, Byte> _boostStatisSuperEff) {
         boostStatisSuperEff = _boostStatisSuperEff;
     }
 
-    public StringMap<EnumMap<Statistic, Byte>> getBoostStatisTypes() {
+    public StringMap<AbsMap<Statistic, Byte>> getBoostStatisTypes() {
         return boostStatisTypes;
     }
 
     public void setBoostStatisTypes(
-            StringMap<EnumMap<Statistic, Byte>> _boostStatisTypes) {
+            StringMap<AbsMap<Statistic, Byte>> _boostStatisTypes) {
         boostStatisTypes = _boostStatisTypes;
     }
 

@@ -7,6 +7,7 @@ import aiki.fight.items.*;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -41,7 +42,7 @@ public class LegendaryPokemonBean extends CommonBean {
     }
     public String getGender() {
         DataBase data_ = getDataBase();
-        EnumMap<Gender,String> translationsGenders_;
+        AbsMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Gender gender_ = pokemon.getGender();
         return translationsGenders_.getVal(gender_);

@@ -5,10 +5,7 @@ import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectStatistic;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 
 public class EffectWhileSendingBean extends CommonBean {
@@ -65,7 +62,7 @@ public class EffectWhileSendingBean extends CommonBean {
                 cancelChgtStat = new StringList();
             } else {
                 DataBase data_ = (DataBase) getDataBase();
-                EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+                AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
                 evtRate = effect_.getEvtRate();
                 evtRatePerCent = Rate.multiply(evtRate, new Rate(CST_CENT)).evaluate(2);
                 NatStringTreeMap< Byte> statisVarRank_;

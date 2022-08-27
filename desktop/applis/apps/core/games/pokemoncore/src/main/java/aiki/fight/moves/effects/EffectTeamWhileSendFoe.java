@@ -5,7 +5,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
 import code.util.EntryCust;
-import code.util.EnumMap;
+import code.util.AbsMap;
 import code.util.*;
 import code.util.StringList;
 
@@ -17,7 +17,7 @@ public final class EffectTeamWhileSendFoe extends Effect {
     private StringList deletedByFoeTypes;
     private String damageRateAgainstFoe;
 
-    private EnumMap<Statistic, Byte> statistics;
+    private AbsMap<Statistic, Byte> statistics;
 
     @Override
     public void validate(DataBase _data) {
@@ -76,11 +76,11 @@ public final class EffectTeamWhileSendFoe extends Effect {
         damageRateAgainstFoe = _damageRateAgainstFoe;
     }
 
-    public EnumMap<Statistic, Byte> getStatistics() {
+    public AbsMap<Statistic, Byte> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(EnumMap<Statistic, Byte> _statistics) {
+    public void setStatistics(AbsMap<Statistic, Byte> _statistics) {
         statistics = _statistics;
     }
 }

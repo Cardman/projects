@@ -27,7 +27,7 @@ public class EffectSwitchTypesBean extends EffectBean {
         super.beforeDisplaying();
         EffectSwitchTypes effect_ = (EffectSwitchTypes) getEffect();
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<EnvironmentType,String> translatedEnvironments_ = data_.getTranslatedEnvironment().getVal(getLanguage());
+        AbsMap<EnvironmentType,String> translatedEnvironments_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         StringMap<String> translated_ = new StringMap<String>();
         for (EntryCust<EnvironmentType,String> s: translatedEnvironments_.entryList()) {
             translated_.addEntry(s.getKey().name(),s.getValue());
@@ -89,7 +89,7 @@ public class EffectSwitchTypesBean extends EffectBean {
     public String getTrEnv(int _index) {
         EnvironmentType env_ = PokemonStandards.getEnvByName(chgtTypeByEnv.getKey(_index));
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<EnvironmentType,String> translatedTypes_ = data_.getTranslatedEnvironment().getVal(getLanguage());
+        AbsMap<EnvironmentType,String> translatedTypes_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         return translatedTypes_.getVal(env_);
     }
     public String getTrGlobalMoveFctEnv(int _index) {

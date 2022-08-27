@@ -5,6 +5,7 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Boost;
 import code.maths.Rate;
+import code.util.AbsMap;
 import code.util.EnumMap;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -21,7 +22,7 @@ public class BoostBean extends ItemBean {
         DataBase data_ = (DataBase) getDataBase();
         maxEv = data_.getMaxEv();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Boost item_ = (Boost) getItem();
         winPp = item_.getWinPp();
         TreeMap<String, Short> happiness_;
@@ -54,7 +55,7 @@ public class BoostBean extends ItemBean {
     }
     public String getTrEv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic statistic_ = evs.getKey(_index);
         return translatedStatistics_.getVal(statistic_);
     }
