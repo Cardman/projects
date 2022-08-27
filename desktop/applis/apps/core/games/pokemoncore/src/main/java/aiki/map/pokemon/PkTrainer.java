@@ -8,41 +8,23 @@ import code.util.core.StringUtil;
 
 public final class PkTrainer extends Pokemon {
 
-    /***/
-    private String name;
-
-    /***/
-    private short level;
-
-    /***/
-    private Gender gender;
-
-    /** non modifiable une fois affecte a l'objet. */
-    private String ability;
-
-    /**
-     * si la chaine de caractere est vide alors le pokemon ne porte pas d'objet,
-     * sinon cette chaine vaut le nom de l'objet.
-     */
-    private String item;
-
     private StringList moves;
 
     public PkTrainer() {
-        name = DataBase.EMPTY_STRING;
-        level = 1;
-        gender = Gender.NO_GENDER;
-        ability = DataBase.EMPTY_STRING;
-        item = DataBase.EMPTY_STRING;
+        setName(DataBase.EMPTY_STRING);
+        setLevel((short) 1);
+        setGender(Gender.NO_GENDER);
+        setAbility(DataBase.EMPTY_STRING);
+        setItem(DataBase.EMPTY_STRING);
     }
 
     public PkTrainer(Pokemon _pk, StringList _moves) {
         // super(_pk, _moves);
-        name = _pk.getName();
-        level = _pk.getLevel();
-        gender = _pk.getGender();
-        ability = _pk.getAbility();
-        item = _pk.getItem();
+        setName(_pk.getName());
+        setLevel(_pk.getLevel());
+        setGender(_pk.getGender());
+        setAbility(_pk.getAbility());
+        setItem(_pk.getItem());
         moves = _moves;
     }
 
@@ -65,55 +47,6 @@ public final class PkTrainer extends Pokemon {
         }
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String _name) {
-        name = _name;
-    }
-
-    @Override
-    public short getLevel() {
-        return level;
-    }
-
-    @Override
-    public void setLevel(short _level) {
-        level = _level;
-    }
-
-    @Override
-    public Gender getGender() {
-        return gender;
-    }
-
-    @Override
-    public void setGender(Gender _gender) {
-        gender = _gender;
-    }
-
-    @Override
-    public String getAbility() {
-        return ability;
-    }
-
-    @Override
-    public void setAbility(String _ability) {
-        ability = _ability;
-    }
-
-    @Override
-    public String getItem() {
-        return item;
-    }
-
-    @Override
-    public void setItem(String _item) {
-        item = _item;
-    }
 
     public StringList getMoves() {
         return moves;
