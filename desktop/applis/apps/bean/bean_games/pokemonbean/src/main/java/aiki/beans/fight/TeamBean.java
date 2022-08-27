@@ -121,7 +121,7 @@ public class TeamBean extends CommonFightBean {
     }
     public Bytes getMembers() {
         FacadeGame dataBaseFight_ = getDataBase();
-        Integer noTeam_ = getForms().getValInt(NO_TEAM);
+        int noTeam_ = getForms().getValInt(NO_TEAM);
         return getMembers(dataBaseFight_, noTeam_);
     }
     public String getTrPokemonLink(int _index) {

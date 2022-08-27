@@ -87,7 +87,7 @@ public class StringMapObjectBase {
         return mapString.getVal(_key);
     }
 
-    public Integer getValInt(String _key) {
+    public int getValInt(String _key) {
         return mapInt.getVal(_key);
     }
 
