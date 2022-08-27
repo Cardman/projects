@@ -1676,6 +1676,61 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
     @Test
+    public void strongMoves16Test() {
+        DataBase data_ = newData();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
+        StatusMoveData move_ = Instances.newStatusMoveData();
+        EffectStatus effectDamage_ = Instances.newEffectStatus();
+        effectDamage_.setKoUserHealSubst(true);
+        effectDamage_.setFail("F");
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.setPriority((byte) -1);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves17Test() {
+        DataBase data_ = newData();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        data_.initDefaultConsts(POKE_BALL,
+                "",
+                "",
+                "",
+                "",
+                "",
+                LUTTE,
+                "");
+        StatusMoveData move_ = Instances.newStatusMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("70");
+        effectDamage_.setFail("F");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectEndRoundPositionTargetRelation());
+        move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.setPriority((byte) -1);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
     public void checkTranslations1Test() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);

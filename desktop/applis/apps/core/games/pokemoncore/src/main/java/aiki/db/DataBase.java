@@ -563,7 +563,7 @@ public class DataBase {
                     Statistic.SPECIAL_ATTACK), BoolVal.FALSE);
         }
         for (EntryCust<String, MoveData> m : getMoves().entryList()) {
-            if (StringUtil.quickEq(m.getKey(),getDefaultMove())) {
+            if (StringUtil.quickEq(m.getKey(),getDefaultMove())||StringUtil.contains(getMovesFullHeal(),m.getKey())||StringUtil.contains(getMovesAnticipation(),m.getKey())) {
                 continue;
             }
             MoveData move_ = m.getValue();
@@ -580,7 +580,7 @@ public class DataBase {
             if (move_.getRechargeRound()) {
                 continue;
             }
-            if (move_.getTypes().size() > DataBase.ONE_POSSIBLE_CHOICE) {
+            if (move_.getTypes().size() != DataBase.ONE_POSSIBLE_CHOICE) {
                 continue;
             }
             if (move_.getConstUserChoice()) {
