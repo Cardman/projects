@@ -1,10 +1,11 @@
 package aiki.map.pokemon;
 
 import aiki.db.DataBase;
+import aiki.map.characters.Rewardable;
 import code.util.CustList;
 
 
-public final class PokemonTeam {
+public final class PokemonTeam implements Rewardable {
 
     private CustList<PkTrainer> team;
 
@@ -30,6 +31,7 @@ public final class PokemonTeam {
         team = _team;
     }
 
+    @Override
     public short getReward() {
         return reward;
     }

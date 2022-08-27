@@ -91,7 +91,7 @@ public final class GameProgression {
             Coords coords_ = k.getCoords();
             Campaign place_ = (Campaign) _data.getMap().getPlace(coords_.getNumberPlace());
             LevelWithWildPokemon level_ = place_.getLevelCompaignByCoords(coords_);
-            TrainerMultiFights trainer_ = (TrainerMultiFights) level_.getCharacters().getVal(coords_.getLevel().getPoint());
+            TrainerMultiFights trainer_ = level_.getTrainers().getVal(coords_.getLevel().getPoint());
             if (k.getNbFight() < trainer_.getTeamsRewards().getLastIndex()) {
                 continue;
             }

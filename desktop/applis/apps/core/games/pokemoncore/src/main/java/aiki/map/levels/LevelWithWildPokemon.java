@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.Person;
+import aiki.map.characters.TrainerMultiFights;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.WildPk;
@@ -11,6 +12,7 @@ import aiki.map.tree.LevelArea;
 import aiki.util.Point;
 import aiki.util.PointParam;
 import aiki.util.Points;
+import aiki.util.PointsTrainerMultiFights;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -226,6 +228,17 @@ public abstract class LevelWithWildPokemon extends Level {
             return new AreaApparition();
         }
         return wildPokemonAreas.get(index_);
+    }
+
+    public PointsTrainerMultiFights getTrainers() {
+        PointsTrainerMultiFights trainers_ = new PointsTrainerMultiFights();
+        for (PointParam<CharacterInRoadCave> e: getCharacters().entryList()) {
+            CharacterInRoadCave val_ = e.getValue();
+            if (val_ instanceof TrainerMultiFights) {
+                trainers_.addEntry(e.getKey(),(TrainerMultiFights) val_);
+            }
+        }
+        return trainers_;
     }
 
     public CustList<AreaApparition> getWildPokemonAreas() {

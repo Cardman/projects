@@ -25,18 +25,7 @@ import aiki.map.DataMap;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
-import aiki.map.characters.CharacterInRoadCave;
-import aiki.map.characters.DealerItem;
-import aiki.map.characters.DualFight;
-import aiki.map.characters.GerantPokemon;
-import aiki.map.characters.GymLeader;
-import aiki.map.characters.GymTrainer;
-import aiki.map.characters.Person;
-import aiki.map.characters.Seller;
-import aiki.map.characters.TempTrainer;
-import aiki.map.characters.Trainer;
-import aiki.map.characters.TrainerLeague;
-import aiki.map.characters.TrainerMultiFights;
+import aiki.map.characters.*;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
@@ -56,10 +45,7 @@ import aiki.map.places.City;
 import aiki.map.places.InitializedPlace;
 import aiki.map.places.League;
 import aiki.map.places.Place;
-import aiki.map.pokemon.Egg;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.UsablePokemon;
-import aiki.map.pokemon.WildPk;
+import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.ScreenCoords;
 import aiki.util.*;
@@ -77,7 +63,7 @@ import code.util.core.StringUtil;
 
 public final class Game {
 
-    public static final String GAME = "aiki.game.game";
+    public static final String GAME_ACCESS = "aiki.game.game";
 
     public static final String END_GAME = "endGame";
 
@@ -630,6 +616,8 @@ public final class Game {
                     Link link_ = cave_.getLinksWithOtherPlaces().getVal(lPoint_);
                     images_.add(_data.getLink(link_.getFileName()));
                 }
+            }
+            if (level_ instanceof LevelCave) {
                 LevelCave lv_ = (LevelCave) level_;
                 if (lv_.getLinksOtherLevels().contains(pt_)) {
                     Link link_ = lv_.getLinksOtherLevels().getVal(pt_);
@@ -1037,22 +1025,13 @@ public final class Game {
             return;
         }
         //l_.getCharacters().contains(voisin_.getLevel().getPoint())
-        CharacterInRoadCave ch_ = l_.getCharacters().getVal(voisin_.getLevel().getPoint());
+        TrainerMultiFights ch_ = l_.getTrainers().getVal(voisin_.getLevel().getPoint());
         //ch_ instanceof TrainerMultiFights
-        int nb_=0;
-        for(NbFightCoords d:beatTrainer.getKeys()){
-            if(Coords.eq(d.getCoords(),voisin_)){
-                if(beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_)) != BoolVal.TRUE){
-                    break;
-                }
-                nb_++;
-            }
+        int nb_ = nbFights(voisin_);
+        if (!ch_.getTeamsRewards().isValidIndex(nb_)) {
+            nb_ = ch_.getTeamsRewards().size() - 1;
         }
-        TrainerMultiFights dr_=(TrainerMultiFights)ch_;
-        if (!dr_.getTeamsRewards().isValidIndex(nb_)) {
-            nb_ = dr_.getTeamsRewards().size() - 1;
-        }
-        FightFacade.initFight(fight,player,difficulty,dr_,nb_,_d);
+        FightFacade.initFight(fight,player,difficulty, ch_,nb_,_d);
         FightFacade.initTypeEnv(fight,playerCoords,difficulty,_d);
         commentGame.addComment(fight.getComment());
     }
@@ -1131,9 +1110,8 @@ public final class Game {
             }
             return _d.getTrainer(dual_.getFoeTrainer().getImageMaxiFileName());
         }
-        CharacterInRoadCave ch_ = l_.getCharacters().getVal(voisin_.getLevel().getPoint());
-        TrainerMultiFights dr_=(TrainerMultiFights)ch_;
-        return _d.getTrainer(dr_.getImageMaxiFileName());
+        TrainerMultiFights ch_ = l_.getTrainers().getVal(voisin_.getLevel().getPoint());
+        return _d.getTrainer(ch_.getImageMaxiFileName());
     }
 
     public void initFishing(DataBase _d) {
@@ -1161,9 +1139,7 @@ public final class Game {
         Level level_ = place_.getLevelByCoords(voisin_);
         Point pt_ = voisin_.getLevel().getPoint();
         WildPk pkLeg_ = ((LevelWithWildPokemon)level_).getPokemon(pt_);
-        FightFacade.initFight(fight,player,difficulty,pkLeg_,_d);
-        FightFacade.initTypeEnv(fight,playerCoords,difficulty,_d);
-        commentGame.addComment(fight.getComment());
+        initFight(_d, pkLeg_);
     }
 
     public void setChosenTeamPokemon(short _pk) {
@@ -1244,18 +1220,7 @@ public final class Game {
         //sortie de cette si pk sauvage
         StringMap<String> mess_ = _import.getMessagesGame();
         if (fight.getFightType().isWild()) {
-            if (FightFacade.loose(fight)) {
-                LgInt money_ = new LgInt(player.getMoney());
-                player.winMoneyFight(new LgInt(-2000));
-                commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                player.healTeamWithoutUsingObject(_import);
-            } else if (FightFacade.win(fight)) {
-                player.affectEndFight(fight,difficulty,_import);
-            } else {
-                player.healTeamWithoutUsingObject(_import);
-            }
-            FightFacade.endFight(fight);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            wildFight(_import);
             return;
         }
         player.affectEndFight(fight,difficulty,_import);
@@ -1268,158 +1233,34 @@ public final class Game {
         DataMap d_=_import.getMap();
         Coords coordsFoe_ = closestTile(d_);
         Place pl_ = d_.getPlace(playerCoords.getNumberPlace());
-        int sommeNiveau_ = 0;
-        Team equipeAdv_=fight.getFoeTeam();
-        for(byte c:equipeAdv_.getMembers().getKeys()){
-            Fighter creature_=equipeAdv_.getMembers().getVal(c);
-            sommeNiveau_ += creature_.getLevel();
-        }
+        int sommeNiveau_ = sommeNiveau();
         LgInt money_ = new LgInt(player.getMoney());
         if(FightFacade.win(fight)){
-            Coords beatenImportantTrainer_ = new Coords();
-            if (pl_ instanceof League) {
-                TrainerLeague tr_ = ((League)pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
-                rankLeague++;
-                Rate gainArgent_=new Rate(fight.getWinningMoney());
-                gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
-                gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
-                player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                int nbPlateaux_=((League)pl_).getRooms().size();
-                if(rankLeague==nbPlateaux_){
-                    Coords coords_ = new Coords();
-                    coords_.setNumberPlace(playerCoords.getNumberPlace());
-                    coords_.setLevel(new LevelPoint());
-                    coords_.getLevel().setLevelIndex((byte) 0);
-                    coords_.getLevel().setPoint(((League) pl_).getBegin());
-                    beatGymLeader.put(coords_, BoolVal.TRUE);
-                    beatenImportantTrainer_ = coords_;
-                    player.healTeamWithoutUsingObject(_import);
-                }
-                addBeatenTrainer(beatenImportantTrainer_, _import);
-                FightFacade.endFight(fight);
-                directInteraction(closestTile(_import.getMap()), _import.getMap());
-                return;
-            }
-            if (pl_ instanceof City) {
-                //playerCoords.isInside()
-                Level l_ = pl_.getLevelByCoords(playerCoords);
-                //l_ instanceof LevelIndoorGym
-                LevelIndoorGym gym_ = (LevelIndoorGym) l_;
-                if(gym_.getGymTrainers().contains(coordsFoe_.getLevel().getPoint())) {
-                    GymTrainer gymTr_ = gym_.getGymTrainers().getVal(coordsFoe_.getLevel().getPoint());
-                    Rate gainArgent_=new Rate(fight.getWinningMoney());
-                    gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
-                    gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
-                    player.winMoneyFight(gainArgent_.intPart());
-                    commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                    beatGymTrainer.getVal(playerCoords.getNumberPlace()).add(coordsFoe_.getLevel().getPoint());
-                    addPossibleBeatLeader(_import);
-                    FightFacade.endFight(fight);
-                    directInteraction(closestTile(_import.getMap()), _import.getMap());
-                    return;
-                }
-                //if(Point.eq(gym_.getGymLeaderCoords(),coordsFoe_.getLevel().getPoint()))
-                GymLeader gymTr_ = gym_.getGymLeader();
-                Rate gainArgent_=new Rate(fight.getWinningMoney());
-                gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
-                gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
-                player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                beatGymLeader.put(coordsFoe_, BoolVal.TRUE);
-                beatenImportantTrainer_ = coordsFoe_;
-                addBeatenTrainer(beatenImportantTrainer_, _import);
-                //player.obtentionCs(gymTr_.getCs());
-                player.getTm(gymTr_.getTm());
-                FightFacade.endFight(fight);
-                directInteraction(closestTile(_import.getMap()), _import.getMap());
-                return;
-            }
-            LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(playerCoords);
-            for (PointParam<DualFight> e: l_.getDualFights().entryList()) {
-                DualFight dual_ = e.getValue();
-                if (!Point.eq(e.getKey(), coordsFoe_.getLevel().getPoint())) {
-                    if (!Point.eq(dual_.getPt(), coordsFoe_.getLevel().getPoint())) {
-                        continue;
-                    }
-                }
-                Rate gainArgent_=new Rate(fight.getWinningMoney());
-                gainArgent_.addNb(new Rate(sommeNiveau_*dual_.getFoeTrainer().getReward()*10));
-                gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
-                player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                player.healTeamWithoutUsingObject(_import);
-                Coords key_ = new Coords(playerCoords);
-                key_.getLevel().getPoint().affect(e.getKey());
-                beatGymLeader.put(key_, BoolVal.TRUE);
-                beatenImportantTrainer_ = key_;
-                addBeatenTrainer(beatenImportantTrainer_, _import);
-                FightFacade.endFight(fight);
-                directInteraction(closestTile(_import.getMap()), _import.getMap());
-                return;
-            }
-            for (PointParam<CharacterInRoadCave> e:l_.getCharacters().entryList()) {
-                if (!Point.eq(e.getKey(),coordsFoe_.getLevel().getPoint())) {
-                    continue;
-                }
-                CharacterInRoadCave ch_ = e.getValue();
-                //ch_ instanceof TrainerMultiFights
-                int nb_=0;
-                for(NbFightCoords d:beatTrainer.getKeys()){
-                    if(Coords.eq(d.getCoords(),coordsFoe_)){
-                        if(beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_)) != BoolVal.TRUE){
-                            break;
-                        }
-                        nb_++;
-                    }
-                }
-                TrainerMultiFights dr_=(TrainerMultiFights)ch_;
-                if (!dr_.getTeamsRewards().isValidIndex(nb_)) {
-                    nb_ = dr_.getTeamsRewards().size() - 1;
-                }
-                Rate gainArgent_=new Rate(fight.getWinningMoney());
-                gainArgent_.addNb(new Rate(sommeNiveau_*dr_.getTeamsRewards().get(nb_).getReward()*10));
-                gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
-                player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                beatTrainer.put(new NbFightCoords(coordsFoe_,nb_), BoolVal.TRUE);
-                //player.obtentionCs(gymTr_.getCs());
-                FightFacade.endFight(fight);
-                directInteraction(closestTile(_import.getMap()), _import.getMap());
-            }
+            winFight(_import);
             return;
         }
-        if(FightFacade.equality(fight)){
-            if (pl_ instanceof League) {
-                int nbPlateaux_=((League)pl_).getRooms().size();
-                if(rankLeague+1==nbPlateaux_){
-                    TrainerLeague tr_ = ((League)pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
-                    rankLeague++;
-                    Rate gainArgent_=new Rate(fight.getWinningMoney());
-                    gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
-                    gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
-                    player.winMoneyFight(gainArgent_.intPart());
-                    commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                    Coords coords_ = new Coords();
-                    coords_.setNumberPlace(playerCoords.getNumberPlace());
-                    coords_.setLevel(new LevelPoint());
-                    coords_.getLevel().setLevelIndex((byte) 0);
-                    coords_.getLevel().setPoint(((League) pl_).getBegin());
-                    beatGymLeader.put(coords_, BoolVal.TRUE);
-                    addBeatenTrainer(coords_, _import);
-                    player.healTeamWithoutUsingObject(_import);
-                    FightFacade.endFight(fight);
-                    directInteraction(closestTile(_import.getMap()), _import.getMap());
-                    return;
-                }
-            }
+        if (FightFacade.equality(fight) && pl_ instanceof League && rankLeague + 1 == ((League) pl_).getRooms().size()) {
+            Rewardable tr_ = ((League) pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
+            rankLeague++;
+            Rate gainArgent_ = gainArgent(sommeNiveau_, tr_);
+            player.winMoneyFight(gainArgent_.intPart());
+            commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+            Coords coords_ = new Coords();
+            coords_.setNumberPlace(playerCoords.getNumberPlace());
+            coords_.setLevel(new LevelPoint());
+            coords_.getLevel().setLevelIndex((byte) 0);
+            coords_.getLevel().setPoint(((League) pl_).getBegin());
+            beatGymLeader.put(coords_, BoolVal.TRUE);
+            addBeatenTrainer(coords_, _import);
+            player.healTeamWithoutUsingObject(_import);
+            FightFacade.endFight(fight);
+            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            return;
         }
         //FightFacade.equality(fight) or FightFacade.loose(fight)
         if (pl_ instanceof League) {
-            TrainerLeague tr_ = ((League)pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
-            Rate gainArgent_=new Rate(fight.getWinningMoney());
-            gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
-            gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
+            Rewardable tr_ = ((League)pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
+            Rate gainArgent_ = gainArgent(sommeNiveau_, tr_);
             player.winMoneyFight(gainArgent_.intPart().opposNb());
             commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
@@ -1434,29 +1275,11 @@ public final class Game {
             Level l_ = pl_.getLevelByCoords(playerCoords);
             //l_ instanceof LevelIndoorGym
             LevelIndoorGym gym_ = (LevelIndoorGym) l_;
-            if(gym_.getGymTrainers().contains(coordsFoe_.getLevel().getPoint())) {
-                GymTrainer gymTr_ = gym_.getGymTrainers().getVal(coordsFoe_.getLevel().getPoint());
-                Rate gainArgent_=new Rate(fight.getWinningMoney());
-                gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
-                gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
-                player.winMoneyFight(gainArgent_.intPart().opposNb());
-                commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                FightFacade.endFight(fight);
-                //begin of the game
-                playerCoords.affect(d_.getBegin());
-                player.healTeamWithoutUsingObject(_import);
-                directInteraction(closestTile(_import.getMap()), _import.getMap());
-                return;
-            }
-            //if(Point.eq(gym_.getGymLeaderCoords(),coordsFoe_.getLevel().getPoint()))
-            GymLeader gymTr_ = gym_.getGymLeader();
-            Rate gainArgent_=new Rate(fight.getWinningMoney());
-            gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
-            gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
+            Rewardable gymTr_ = gymTr(coordsFoe_, gym_);
+            Rate gainArgent_ = gainArgent(sommeNiveau_, gymTr_);
             player.winMoneyFight(gainArgent_.intPart().opposNb());
             commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
-            //begin of the game
             playerCoords.affect(d_.getBegin());
             player.healTeamWithoutUsingObject(_import);
             directInteraction(closestTile(_import.getMap()), _import.getMap());
@@ -1465,14 +1288,10 @@ public final class Game {
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(playerCoords);
         for (PointParam<DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
-            if (!Point.eq(e.getKey(), coordsFoe_.getLevel().getPoint())) {
-                if (!Point.eq(dual_.getPt(), coordsFoe_.getLevel().getPoint())) {
-                    continue;
-                }
+            if (notInFrontOfDual(coordsFoe_, e, dual_)) {
+                continue;
             }
-            Rate gainArgent_=new Rate(fight.getWinningMoney());
-            gainArgent_.addNb(new Rate(sommeNiveau_*dual_.getFoeTrainer().getReward()*10));
-            gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
+            Rate gainArgent_ = gainArgent(sommeNiveau_, dual_);
             player.winMoneyFight(gainArgent_.intPart().opposNb());
             commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
@@ -1482,36 +1301,177 @@ public final class Game {
             directInteraction(closestTile(_import.getMap()), _import.getMap());
             return;
         }
-        for (PointParam<CharacterInRoadCave> e:l_.getCharacters().entryList()) {
-            if (!Point.eq(e.getKey(),coordsFoe_.getLevel().getPoint())) {
+        TrainerMultiFights ch_ = l_.getTrainers().getVal(coordsFoe_.getLevel().getPoint());
+        int nb_ = nbFights(coordsFoe_, ch_);
+        Rewardable pokemonTeam_ = ch_.getTeamsRewards().get(nb_);
+        Rate gainArgent_ = gainArgent(sommeNiveau_, pokemonTeam_);
+        player.winMoneyFight(gainArgent_.intPart().opposNb());
+        commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+        FightFacade.endFight(fight);
+        //begin of the game
+        playerCoords.affect(d_.getBegin());
+        player.healTeamWithoutUsingObject(_import);
+        directInteraction(closestTile(_import.getMap()), _import.getMap());
+    }
+
+    private Rewardable gymTr(Coords _coordsFoe, LevelIndoorGym _gym) {
+        Rewardable gymTr_;
+        if(_gym.getGymTrainers().contains(_coordsFoe.getLevel().getPoint())) {
+            gymTr_ = _gym.getGymTrainers().getVal(_coordsFoe.getLevel().getPoint());
+        } else {
+            gymTr_ = _gym.getGymLeader();
+        }
+        return gymTr_;
+    }
+
+    private void winFight(DataBase _import) {
+        DataMap d_=_import.getMap();
+        Place pl_ = d_.getPlace(playerCoords.getNumberPlace());
+        int sommeNiveau_ = sommeNiveau();
+        LgInt money_ = new LgInt(player.getMoney());
+        StringMap<String> mess_ = _import.getMessagesGame();
+        if (pl_ instanceof League) {
+            Rewardable tr_ = ((League) pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
+            rankLeague++;
+            Rate gainArgent_ = gainArgent(sommeNiveau_, tr_);
+            player.winMoneyFight(gainArgent_.intPart());
+            commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+            int nbPlateaux_=((League) pl_).getRooms().size();
+            Coords beatenImportantTrainer_ = new Coords();
+            if(rankLeague==nbPlateaux_){
+                Coords coords_ = new Coords();
+                coords_.setNumberPlace(playerCoords.getNumberPlace());
+                coords_.setLevel(new LevelPoint());
+                coords_.getLevel().setLevelIndex((byte) 0);
+                coords_.getLevel().setPoint(((League) pl_).getBegin());
+                beatGymLeader.put(coords_, BoolVal.TRUE);
+                beatenImportantTrainer_ = coords_;
+                player.healTeamWithoutUsingObject(_import);
+            }
+            addBeatenTrainer(beatenImportantTrainer_, _import);
+            FightFacade.endFight(fight);
+            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            return;
+        }
+        Coords coordsFoe_ = closestTile(d_);
+        if (pl_ instanceof City) {
+            //playerCoords.isInside()
+            Level l_ = pl_.getLevelByCoords(playerCoords);
+            //l_ instanceof LevelIndoorGym
+            LevelIndoorGym gym_ = (LevelIndoorGym) l_;
+            if(gym_.getGymTrainers().contains(coordsFoe_.getLevel().getPoint())) {
+                Rewardable gymTr_ = gym_.getGymTrainers().getVal(coordsFoe_.getLevel().getPoint());
+                Rate gainArgent_ = gainArgent(sommeNiveau_, gymTr_);
+                player.winMoneyFight(gainArgent_.intPart());
+                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                beatGymTrainer.getVal(playerCoords.getNumberPlace()).add(coordsFoe_.getLevel().getPoint());
+                addPossibleBeatLeader(_import);
+                FightFacade.endFight(fight);
+                directInteraction(closestTile(_import.getMap()), _import.getMap());
+                return;
+            }
+            //if(Point.eq(gym_.getGymLeaderCoords(),coordsFoe_.getLevel().getPoint()))
+            Rewardable gymTr_ = gym_.getGymLeader();
+            Rate gainArgent_ = gainArgent(sommeNiveau_, gymTr_);
+            player.winMoneyFight(gainArgent_.intPart());
+            commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+            beatGymLeader.put(coordsFoe_, BoolVal.TRUE);
+            addBeatenTrainer(coordsFoe_, _import);
+            //player.obtentionCs(gymTr_.getCs());
+            player.getTm(gym_.getGymLeader().getTm());
+            FightFacade.endFight(fight);
+            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            return;
+        }
+        LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(playerCoords);
+        for (PointParam<DualFight> e: l_.getDualFights().entryList()) {
+            DualFight dual_ = e.getValue();
+            if (notInFrontOfDual(coordsFoe_, e, dual_)) {
                 continue;
             }
-            CharacterInRoadCave ch_ = e.getValue();
-            //ch_ instanceof TrainerMultiFights
-            int nb_=0;
-            for(NbFightCoords d:beatTrainer.getKeys()){
-                if(Coords.eq(d.getCoords(),coordsFoe_)){
-                    if(beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_)) != BoolVal.TRUE){
-                        break;
-                    }
-                    nb_++;
-                }
-            }
-            TrainerMultiFights dr_=(TrainerMultiFights)ch_;
-            if (!dr_.getTeamsRewards().isValidIndex(nb_)) {
-                nb_ = dr_.getTeamsRewards().size() - 1;
-            }
-            Rate gainArgent_=new Rate(fight.getWinningMoney());
-            gainArgent_.addNb(new Rate(sommeNiveau_*dr_.getTeamsRewards().get(nb_).getReward()*10));
-            gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
-            player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-            FightFacade.endFight(fight);
-            //begin of the game
-            playerCoords.affect(d_.getBegin());
+            Rate gainArgent_ = gainArgent(sommeNiveau_, dual_);
+            player.winMoneyFight(gainArgent_.intPart());
+            commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             player.healTeamWithoutUsingObject(_import);
+            Coords key_ = new Coords(playerCoords);
+            key_.getLevel().getPoint().affect(e.getKey());
+            beatGymLeader.put(key_, BoolVal.TRUE);
+            addBeatenTrainer(key_, _import);
+            FightFacade.endFight(fight);
             directInteraction(closestTile(_import.getMap()), _import.getMap());
+            return;
         }
+        TrainerMultiFights ch_ = l_.getTrainers().getVal(coordsFoe_.getLevel().getPoint());
+        int nb_ = nbFights(coordsFoe_, ch_);
+        Rewardable pokemonTeam_ = ch_.getTeamsRewards().get(nb_);
+        Rate gainArgent_ = gainArgent(sommeNiveau_, pokemonTeam_);
+        player.winMoneyFight(gainArgent_.intPart());
+        commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+        beatTrainer.put(new NbFightCoords(coordsFoe_,nb_), BoolVal.TRUE);
+        //player.obtentionCs(gymTr_.getCs());
+        FightFacade.endFight(fight);
+        directInteraction(closestTile(_import.getMap()), _import.getMap());
+    }
+
+    private void wildFight(DataBase _import) {
+        StringMap<String> mess_ = _import.getMessagesGame();
+        if (FightFacade.loose(fight)) {
+            LgInt money_ = new LgInt(player.getMoney());
+            player.winMoneyFight(new LgInt(-2000));
+            commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+            player.healTeamWithoutUsingObject(_import);
+        } else if (FightFacade.win(fight)) {
+            player.affectEndFight(fight,difficulty, _import);
+        } else {
+            player.healTeamWithoutUsingObject(_import);
+        }
+        FightFacade.endFight(fight);
+        directInteraction(closestTile(_import.getMap()), _import.getMap());
+    }
+
+    private boolean notInFrontOfDual(Coords _coordsFoe, PointParam<DualFight> _e, DualFight _dual) {
+        return !Point.eq(_e.getKey(), _coordsFoe.getLevel().getPoint()) && !Point.eq(_dual.getPt(), _coordsFoe.getLevel().getPoint());
+    }
+
+    private int nbFights(Coords _coordsFoe, TrainerMultiFights _dr) {
+        int nb_ = nbFights(_coordsFoe);
+        if (!_dr.getTeamsRewards().isValidIndex(nb_)) {
+            nb_ = _dr.getTeamsRewards().size() - 1;
+        }
+        return nb_;
+    }
+
+    private int nbFights(Coords _coordsFoe) {
+        int nb_=0;
+        for(NbFightCoords d:beatTrainer.getKeys()){
+            if(Coords.eq(d.getCoords(), _coordsFoe)){
+                if(beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_)) != BoolVal.TRUE){
+                    break;
+                }
+                nb_++;
+            }
+        }
+        return nb_;
+    }
+
+    private Rate gainArgent(int _sommeNiveau, DualFight _tr) {
+        return gainArgent(_sommeNiveau,_tr.getFoeTrainer());
+    }
+    private Rate gainArgent(int _sommeNiveau, Rewardable _tr) {
+        Rate gainArgent_=new Rate(fight.getWinningMoney());
+        gainArgent_.addNb(new Rate(_sommeNiveau * _tr.getReward()*10L));
+        gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
+        return gainArgent_;
+    }
+
+    private int sommeNiveau() {
+        int sommeNiveau_ = 0;
+        Team equipeAdv_=fight.getFoeTeam();
+        for(byte c:equipeAdv_.getMembers().getKeys()){
+            Fighter creature_=equipeAdv_.getMembers().getVal(c);
+            sommeNiveau_ += creature_.getLevel();
+        }
+        return sommeNiveau_;
     }
 
     void addBeatenTrainer(Coords _coords, DataBase _import) {
@@ -1851,29 +1811,25 @@ public final class Game {
                 attrape_ = false;
             }
         }
-        if(!attrape_){
-            return false;
-        }
-        if (!getUnBeatenGymLeader().isEmpty()) {
+        if (!attrape_ || !getUnBeatenGymLeader().isEmpty()) {
             return false;
         }
         for (NbFightCoords k: beatTrainer.getKeys()) {
             Coords coords_ = k.getCoords();
             Campaign place_ = (Campaign) _d.getMap().getPlace(coords_.getNumberPlace());
             LevelWithWildPokemon level_ = place_.getLevelCompaignByCoords(coords_);
-            TrainerMultiFights trainer_ = (TrainerMultiFights) level_.getCharacters().getVal(coords_.getLevel().getPoint());
-            if (k.getNbFight() == trainer_.getTeamsRewards().getLastIndex()) {
-                if (beatTrainer.getVal(k) != BoolVal.TRUE) {
-                    return false;
-                }
+            TrainerMultiFights trainer_ = level_.getTrainers().getVal(coords_.getLevel().getPoint());
+            if (k.getNbFight() == trainer_.getTeamsRewards().getLastIndex() && beatTrainer.getVal(k) != BoolVal.TRUE) {
+                return false;
             }
         }
-        if (!getUnVisited().isEmpty()) {
+        if (!getUnVisited().isEmpty() || !player.getEggsList().isEmpty()) {
             return false;
         }
-        if (!player.getEggsList().isEmpty()) {
-            return false;
-        }
+        return allPkHappyMaxLevel(_d);
+    }
+
+    private boolean allPkHappyMaxLevel(DataBase _d) {
         CustList<PokemonPlayer> pks_ = new CustList<PokemonPlayer>();
         pks_.addAllElts(player.getPokemonPlayerList().values());
         for (UsablePokemon u: player.getBox()) {
@@ -1884,10 +1840,7 @@ public final class Game {
             pks_.add(pk_);
         }
         for (PokemonPlayer p: pks_) {
-            if (p.getLevel() < _d.getMaxLevel()) {
-                return false;
-            }
-            if (p.getHappiness() < _d.getHappinessMax()) {
+            if (p.getLevel() < _d.getMaxLevel() || p.getHappiness() < _d.getHappinessMax()) {
                 return false;
             }
         }
@@ -1915,7 +1868,6 @@ public final class Game {
         placeChanged = false;
         incrementStepsToLayEggs(_d);
         DataMap d_=_d.getMap();
-        Coords voisin_;
         nbSteps = 0;
         if(_direction != playerOrientation){
             playerOrientation = _direction;
@@ -1927,20 +1879,15 @@ public final class Game {
             visitedPlaces.put(playerCoords, BoolVal.TRUE);
             visitedPlacesNb.put(playerCoords.getNumberPlace(),BoolVal.TRUE);
         }
-        voisin_ = closestTile(d_);
+        Coords voisin_ = closestTile(d_);
         player.moveLoop(nbSteps, difficulty, _d);
         commentGame.addComment(player.getCommentGame());
         if (nbSteps > 0) {
             processWalkingAreaApparition(voisin_, _d);
         }
-        showEndGame = false;
-        if (!fight.getFightType().isExisting()) {
-            if (endGame(_d)) {
-                //show by an other kind the end of game
-                //rather than modal dialog box
-                showEndGame = true;
-            }
-        }
+        //show by an other kind the end of game
+        //rather than modal dialog box
+        showEndGame = !fight.getFightType().isExisting() && endGame(_d);
     }
 
     void directInteraction(DataMap _d) {
@@ -1998,39 +1945,13 @@ public final class Game {
         }
         Place nextPl_ = map_.getPlace(voisin_.getNumberPlace());
         if (nextPl_ instanceof League) {
-            if (!isEmpty(map_, voisin_)) {
-                return;
-            }
-            LevelLeague nextLevel_ = ((League)nextPl_).getRooms().get(voisin_.getLevel().getLevelIndex());
-            if(Point.eq(nextLevel_.getAccessPoint(),voisin_.getLevel().getPoint())) {
-                if(rankLeague>voisin_.getLevel().getLevelIndex()){
-                    placeChanged = true;
-                    nbSteps++;
-                    if(rankLeague == ((League)nextPl_).getRooms().size()){
-                        playerCoords.affect(map_.getBegin());
-                        rankLeague = 0;
-                        return;
-                    }
-                    playerCoords.getLevel().setLevelIndex((byte) (playerCoords.getLevel().getLevelIndex()+1));
-                    playerCoords.getLevel().getPoint().affect(nextLevel_.getNextLevelTarget());
-                    return;
-                }
-            }
-            nbSteps++;
-            playerCoords.affect(voisin_);
+            movingHeroLeague(map_, voisin_, (League) nextPl_);
             return;
         }
-        StringMap<String> mess_ = _db.getMessagesGame();
         if(map_.getAccessCondition().contains(voisin_)){
             EqList<Coords> leaders_ = getBeatenGymLeader();
             if (!leaders_.containsAllObj(map_.getAccessCondition().getVal(voisin_))) {
-                EqList<Coords> noBeaten_ = new EqList<Coords>(map_.getAccessCondition().getVal(voisin_));
-                noBeaten_.removeAllElements(leaders_);
-                for (Coords c: noBeaten_) {
-                    Place pl_ = map_.getPlace(c.getNumberPlace());
-                    String name_ = map_.getTrainerName(c);
-                    commentGame.addMessage(mess_.getVal(NO_BEATEN_TRAINER), name_, pl_.getName());
-                }
+                noBeatenTrainers(_db, voisin_, leaders_);
                 return;
             }
         }
@@ -2051,11 +1972,15 @@ public final class Game {
                 return;
             }
         }
+        movingHeroOtherThanLeague(map_, voisin_, nextPl_);
+    }
+
+    private void movingHeroOtherThanLeague(DataMap _map, Coords _voisin, Place _nextPl) {
         Level nextlevel_;
-        nextlevel_ = nextPl_.getLevelByCoords(voisin_);
-        Point nextPt_ = voisin_.getLevel().getPoint();
-        if(nextPl_ instanceof City && !playerCoords.isInside()) {
-            Points<Building> buildings_ = ((City)nextPl_).getBuildings();
+        nextlevel_ = _nextPl.getLevelByCoords(_voisin);
+        Point nextPt_ = _voisin.getLevel().getPoint();
+        if(_nextPl instanceof City && !playerCoords.isInside()) {
+            Points<Building> buildings_ = ((City) _nextPl).getBuildings();
             if (buildings_.contains(nextPt_)) {
                 nbSteps++;
                 playerCoords.getLevel().getPoint().affect(buildings_.getVal(nextPt_).getExitCity());
@@ -2065,70 +1990,105 @@ public final class Game {
                 return;
             }
         }
-        if (nextPl_ instanceof Cave) {
-            Cave cave_ = (Cave) nextPl_;
-            if (cave_.getLinksWithOtherPlaces().contains(voisin_.getLevel())) {
-                nbSteps++;
-                playerCoords.affect(cave_.getLinksWithOtherPlaces().getVal(voisin_.getLevel()).getCoords());
-                placeChanged = true;
-                return;
-            }
+        if (_nextPl instanceof Cave && ((Cave) _nextPl).getLinksWithOtherPlaces().contains(_voisin.getLevel())) {
+            nbSteps++;
+            playerCoords.affect(((Cave) _nextPl).getLinksWithOtherPlaces().getVal(_voisin.getLevel()).getCoords());
+            placeChanged = true;
+            return;
         }
-        if(nextPl_ instanceof InitializedPlace) {
-            if (((InitializedPlace)nextPl_).getLinksWithCaves().contains(nextPt_)) {
-                Link to_ = ((InitializedPlace)nextPl_).getLinksWithCaves().getVal(nextPt_);
-                nbSteps++;
-                playerCoords.affect(to_.getCoords());
-                placeChanged = true;
-                return;
-            }
+        if (_nextPl instanceof InitializedPlace && ((InitializedPlace) _nextPl).getLinksWithCaves().contains(nextPt_)) {
+            Link to_ = ((InitializedPlace) _nextPl).getLinksWithCaves().getVal(nextPt_);
+            nbSteps++;
+            playerCoords.affect(to_.getCoords());
+            placeChanged = true;
+            return;
         }
         if (nextlevel_.getBlockByPoint(nextPt_).getType() == EnvironmentType.NOTHING) {
             return;
         }
-        if (nextPl_ instanceof City && playerCoords.isInside()) {
-            Point inside_ = playerCoords.getInsideBuilding();
-            Building building_ = ((City)nextPl_).getBuildings().getVal(inside_);
-            if (Point.eq(building_.getExitCity(),nextPt_)) {
-                inside_.moveTo(Direction.DOWN);
-                //not on the door of the building
-                nbSteps++;
-                playerCoords.getLevel().getPoint().affect(inside_);
-                playerCoords.getLevel().setLevelIndex((byte) 0);
-                playerCoords.outside();
-                placeChanged = true;
-                return;
-            }
-            if (!isEmpty(map_, voisin_)) {
-                return;
-            }
-            nbSteps++;
-            playerCoords.getLevel().getPoint().affect(nextPt_);
+        if (_nextPl instanceof City && playerCoords.isInside()) {
+            movingHeroBuilding(_map, _voisin, (City) _nextPl, nextPt_);
             return;
         }
-        if(!(nextPl_ instanceof Cave)) {
-            if (!isEmpty(map_, voisin_)) {
+        if(!(_nextPl instanceof Cave)) {
+            if (!isEmpty(_map, _voisin)) {
                 return;
             }
             nbSteps++;
-            playerCoords.affect(voisin_);
+            playerCoords.affect(_voisin);
             return;
         }
         //nextPl_ instanceof Cave
-        Cave cave_ = (Cave) nextPl_;
-        LevelPoint lPoint_ = voisin_.getLevel();
-        LevelCave levelCave_ = (LevelCave)cave_.getLevelsMap().getVal(lPoint_.getLevelIndex());
+        movingHeroCave(_map, _voisin, (Cave) _nextPl, nextPt_);
+    }
+
+    private void movingHeroBuilding(DataMap _map, Coords _voisin, City _nextPl, Point _nextPt) {
+        Point inside_ = playerCoords.getInsideBuilding();
+        Building building_ = _nextPl.getBuildings().getVal(inside_);
+        if (Point.eq(building_.getExitCity(), _nextPt)) {
+            inside_.moveTo(Direction.DOWN);
+            //not on the door of the building
+            nbSteps++;
+            playerCoords.getLevel().getPoint().affect(inside_);
+            playerCoords.getLevel().setLevelIndex((byte) 0);
+            playerCoords.outside();
+            placeChanged = true;
+            return;
+        }
+        if (!isEmpty(_map, _voisin)) {
+            return;
+        }
+        nbSteps++;
+        playerCoords.getLevel().getPoint().affect(_nextPt);
+    }
+
+    private void movingHeroCave(DataMap _map, Coords _voisin, Cave _nextPl, Point _nextPt) {
+        LevelPoint lPoint_ = _voisin.getLevel();
+        LevelCave levelCave_ = (LevelCave) _nextPl.getLevelsMap().getVal(lPoint_.getLevelIndex());
         if (levelCave_.getLinksOtherLevels().contains(lPoint_.getPoint())) {
             nbSteps++;
             playerCoords.affect(levelCave_.getLinksOtherLevels().getVal(lPoint_.getPoint()).getCoords());
             placeChanged = true;
             return;
         }
-        if (!isEmpty(map_, voisin_)) {
+        if (!isEmpty(_map, _voisin)) {
             return;
         }
         nbSteps++;
-        playerCoords.getLevel().getPoint().affect(nextPt_);
+        playerCoords.getLevel().getPoint().affect(_nextPt);
+    }
+
+    private void noBeatenTrainers(DataBase _db, Coords _voisin, EqList<Coords> _leaders) {
+        StringMap<String> mess_ = _db.getMessagesGame();
+        DataMap map_ = _db.getMap();
+        EqList<Coords> noBeaten_ = new EqList<Coords>(map_.getAccessCondition().getVal(_voisin));
+        noBeaten_.removeAllElements(_leaders);
+        for (Coords c: noBeaten_) {
+            Place pl_ = map_.getPlace(c.getNumberPlace());
+            String name_ = map_.getTrainerName(c);
+            commentGame.addMessage(mess_.getVal(NO_BEATEN_TRAINER), name_, pl_.getName());
+        }
+    }
+
+    private void movingHeroLeague(DataMap _map, Coords _voisin, League _nextPl) {
+        if (!isEmpty(_map, _voisin)) {
+            return;
+        }
+        LevelLeague nextLevel_ = _nextPl.getRooms().get(_voisin.getLevel().getLevelIndex());
+        if (Point.eq(nextLevel_.getAccessPoint(), _voisin.getLevel().getPoint()) && rankLeague > _voisin.getLevel().getLevelIndex()) {
+            placeChanged = true;
+            nbSteps++;
+            if (rankLeague == _nextPl.getRooms().size()) {
+                playerCoords.affect(_map.getBegin());
+                rankLeague = 0;
+                return;
+            }
+            playerCoords.getLevel().setLevelIndex((byte) (playerCoords.getLevel().getLevelIndex() + 1));
+            playerCoords.getLevel().getPoint().affect(nextLevel_.getNextLevelTarget());
+            return;
+        }
+        nbSteps++;
+        playerCoords.affect(_voisin);
     }
 
     public void directInteraction(Coords _voisin, DataMap _map) {
@@ -2139,142 +2099,55 @@ public final class Game {
         Place pl_ = _map.getPlace(_voisin.getNumberPlace());
         Point pt_ = _voisin.getLevel().getPoint();
         if (pl_ instanceof League) {
-            LevelLeague level_ = ((League)pl_).getRooms().get(_voisin.getLevel().getLevelIndex());
-            if (Point.eq(level_.getTrainerCoords(),_voisin.getLevel().getPoint())) {
-                if (NumberUtil.eq(rankLeague,_voisin.getLevel().getLevelIndex())){
-                    interfaceType=InterfaceType.DRESSEUR;
-                } else {
-                    interfaceType=InterfaceType.PERSONNAGE;
-                }
-                return;
-            }
-            interfaceType=InterfaceType.RIEN;
+            league(_voisin, (League) pl_);
             return;
         }
         if (pl_ instanceof City) {
-            if (_voisin.isInside()) {
-                Building building_ = ((City)pl_).getBuildings().getVal(_voisin.getInsideBuilding());
-                if (building_ instanceof Gym) {
-                    if (((Gym)building_).getIndoor().getGymTrainers().contains(_voisin.getLevel().getPoint())) {
-                        if (!beatGymTrainer.getVal(_voisin.getNumberPlace()).containsObj(_voisin.getLevel().getPoint())) {
-                            interfaceType=InterfaceType.DRESSEUR;
-                            return;
-                        }
-                        interfaceType=InterfaceType.RIEN;
-                        return;
-                    }
-                    if (Point.eq(((Gym)building_).getIndoor().getGymLeaderCoords(),_voisin.getLevel().getPoint())) {
-                        if (beatGymTrainer.getVal(_voisin.getNumberPlace()).containsAllObj(((Gym)building_).getIndoor().getGymTrainers().getKeys())) {
-                            if (beatGymLeader.getVal(_voisin) != BoolVal.TRUE) {
-                                interfaceType=InterfaceType.DRESSEUR;
-                            } else {
-                                interfaceType=InterfaceType.RIEN;
-                            }
-                        } else {
-                            interfaceType=InterfaceType.GYM_LEADER;
-                        }
-                        return;
-                    }
-                    interfaceType=InterfaceType.RIEN;
-                    return;
-                }
-                //building_ instanceof PokemonCenter
-                Points<Person> gerants_ =((PokemonCenter)building_).getIndoor().getGerants();
-                if (gerants_.contains(_voisin.getLevel().getPoint())) {
-                    Person gear_ = gerants_.getVal(_voisin.getLevel().getPoint());
-                    if (gear_ instanceof Seller) {
-                        SellType sell_ = ((Seller) gear_).getSell();
-                        interfaceType=InterfaceType.RIEN;
-                        if (sell_ == SellType.TM) {
-                            interfaceType = InterfaceType.ACHATS_CT;
-                        }
-                        if (sell_ == SellType.ITEM) {
-                            interfaceType = InterfaceType.ACHATS;
-                        }
-                        if (sell_ == SellType.MOVE) {
-                            interfaceType = InterfaceType.MOVE_TUTORS;
-                        }
-                        return;
-                    }
-                    GeranceType gerance_ = ((GerantPokemon) gear_).getGerance();
-                    interfaceType=InterfaceType.RIEN;
-                    if (gerance_ == GeranceType.FOSSILE) {
-                        interfaceType=InterfaceType.FOSSILE;
-                    }
-                    if (gerance_ == GeranceType.HEAL) {
-                        interfaceType=InterfaceType.SOIN_PK;
-                    }
-                    if (gerance_ == GeranceType.HOST) {
-                        interfaceType=InterfaceType.PENSION;
-                    }
-                    return;
-                }
-                if (Point.eq(((PokemonCenter)building_).getIndoor().getStorageCoords(),_voisin.getLevel().getPoint())) {
-                    interfaceType = InterfaceType.ECH_BOITE;
-                    return;
-                }
+            if (!_voisin.isInside()) {
+                interfaceType=InterfaceType.RIEN;
+                return;
             }
-            interfaceType=InterfaceType.RIEN;
+            Building building_ = ((City)pl_).getBuildings().getVal(_voisin.getInsideBuilding());
+            if (building_ instanceof Gym) {
+                gym(_voisin, (Gym) building_);
+                return;
+            }
+            pkCenter(_voisin, (PokemonCenter) building_);
             return;
         }
         //pl_ instanceof Campaign
         Campaign campaign_ = (Campaign) pl_;
         LevelWithWildPokemon level_ = (LevelWithWildPokemon) campaign_.getLevelsMap().getVal(_voisin.getLevel().getLevelIndex());
         if (level_.getCharacters().contains(_voisin.getLevel().getPoint())) {
-            CharacterInRoadCave char_ = level_.getCharacters().getVal(_voisin.getLevel().getPoint());
-            if (char_ instanceof Trainer) {
-                interfaceType=InterfaceType.DRESSEUR;
-                return;
-            }
-            //char_ instanceof DealerItem
-            if (takenObjects.getVal(_voisin) != BoolVal.TRUE) {
-                interfaceType=InterfaceType.DON_OBJET;
-                return;
-            }
-            interfaceType=InterfaceType.RIEN;
+            character(_voisin, level_);
             return;
         }
         for (PointParam<DualFight> e: level_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
-            if (!Point.eq(e.getKey(), pt_)) {
-                if (!Point.eq(dual_.getPt(), pt_)) {
-                    continue;
+            if (Point.eq(e.getKey(), pt_) || Point.eq(dual_.getPt(), pt_)) {
+                Coords coords_ = new Coords(_voisin);
+                coords_.getLevel().getPoint().affect(e.getKey());
+                if (beatGymLeader.getVal(coords_) != BoolVal.TRUE) {
+                    interfaceType = InterfaceType.DRESSEUR;
+                    return;
                 }
+                break;
             }
-            Coords coords_ = new Coords(_voisin);
-            coords_.getLevel().getPoint().affect(e.getKey());
-            if (beatGymLeader.getVal(coords_) != BoolVal.TRUE) {
-                interfaceType=InterfaceType.DRESSEUR;
-                return;
-            }
-            break;
         }
-        if (level_.getTm().contains(_voisin.getLevel().getPoint())) {
+        itemPkLegFish(_voisin, level_);
+    }
+
+    private void itemPkLegFish(Coords _voisin, LevelWithWildPokemon _level) {
+        if (_level.getTm().contains(_voisin.getLevel().getPoint()) || _level.getHm().contains(_voisin.getLevel().getPoint()) || _level.getItems().contains(_voisin.getLevel().getPoint())) {
             if (takenObjects.getVal(_voisin) == BoolVal.TRUE) {
-                interfaceType=InterfaceType.RIEN;
+                interfaceType = InterfaceType.RIEN;
             } else {
-                interfaceType=InterfaceType.OBJ_RAMAS;
+                interfaceType = InterfaceType.OBJ_RAMAS;
             }
             return;
         }
-        if (level_.getHm().contains(_voisin.getLevel().getPoint())) {
-            if (takenObjects.getVal(_voisin) == BoolVal.TRUE) {
-                interfaceType=InterfaceType.RIEN;
-            } else {
-                interfaceType=InterfaceType.OBJ_RAMAS;
-            }
-            return;
-        }
-        if (level_.getItems().contains(_voisin.getLevel().getPoint())) {
-            if (takenObjects.getVal(_voisin) == BoolVal.TRUE) {
-                interfaceType=InterfaceType.RIEN;
-            } else {
-                interfaceType=InterfaceType.OBJ_RAMAS;
-            }
-            return;
-        }
-        if (level_.containsPokemon(_voisin.getLevel().getPoint())) {
-            WildPk pk_ = level_.getPokemon(_voisin.getLevel().getPoint());
+        if (_level.containsPokemon(_voisin.getLevel().getPoint())) {
+            WildPk pk_ = _level.getPokemon(_voisin.getLevel().getPoint());
             if (!player.estAttrape(pk_.getName())) {
                 interfaceType=InterfaceType.PK_LEG;
             } else {
@@ -2282,9 +2155,98 @@ public final class Game {
             }
             return;
         }
-        Block bl_ = level_.getBlockByPoint(_voisin.getLevel().getPoint());
+        Block bl_ = _level.getBlockByPoint(_voisin.getLevel().getPoint());
         if (bl_.isValid() && bl_.getType() == EnvironmentType.WATER) {
             interfaceType=InterfaceType.PECHE;
+            return;
+        }
+        interfaceType=InterfaceType.RIEN;
+    }
+
+    private void character(Coords _voisin, LevelWithWildPokemon _level) {
+        CharacterInRoadCave char_ = _level.getCharacters().getVal(_voisin.getLevel().getPoint());
+        if (char_ instanceof Trainer) {
+            interfaceType=InterfaceType.DRESSEUR;
+            return;
+        }
+        //char_ instanceof DealerItem
+        if (takenObjects.getVal(_voisin) != BoolVal.TRUE) {
+            interfaceType=InterfaceType.DON_OBJET;
+            return;
+        }
+        interfaceType=InterfaceType.RIEN;
+    }
+
+    private void pkCenter(Coords _voisin, PokemonCenter _building) {
+        Points<Person> gerants_ = _building.getIndoor().getGerants();
+        if (!gerants_.contains(_voisin.getLevel().getPoint())) {
+            if (Point.eq(_building.getIndoor().getStorageCoords(), _voisin.getLevel().getPoint())) {
+                interfaceType = InterfaceType.ECH_BOITE;
+                return;
+            }
+            interfaceType = InterfaceType.RIEN;
+            return;
+        }
+        Person gear_ = gerants_.getVal(_voisin.getLevel().getPoint());
+        if (gear_ instanceof Seller) {
+            SellType sell_ = ((Seller) gear_).getSell();
+            interfaceType = InterfaceType.RIEN;
+            if (sell_ == SellType.TM) {
+                interfaceType = InterfaceType.ACHATS_CT;
+            }
+            if (sell_ == SellType.ITEM) {
+                interfaceType = InterfaceType.ACHATS;
+            }
+            if (sell_ == SellType.MOVE) {
+                interfaceType = InterfaceType.MOVE_TUTORS;
+            }
+            return;
+        }
+        GeranceType gerance_ = ((GerantPokemon) gear_).getGerance();
+        interfaceType = InterfaceType.RIEN;
+        if (gerance_ == GeranceType.FOSSILE) {
+            interfaceType = InterfaceType.FOSSILE;
+        }
+        if (gerance_ == GeranceType.HEAL) {
+            interfaceType = InterfaceType.SOIN_PK;
+        }
+        if (gerance_ == GeranceType.HOST) {
+            interfaceType = InterfaceType.PENSION;
+        }
+    }
+
+    private void gym(Coords _voisin, Gym _building) {
+        if (_building.getIndoor().getGymTrainers().contains(_voisin.getLevel().getPoint())) {
+            if (!beatGymTrainer.getVal(_voisin.getNumberPlace()).containsObj(_voisin.getLevel().getPoint())) {
+                interfaceType=InterfaceType.DRESSEUR;
+                return;
+            }
+            interfaceType=InterfaceType.RIEN;
+            return;
+        }
+        if (Point.eq(_building.getIndoor().getGymLeaderCoords(), _voisin.getLevel().getPoint())) {
+            if (beatGymTrainer.getVal(_voisin.getNumberPlace()).containsAllObj(_building.getIndoor().getGymTrainers().getKeys())) {
+                if (beatGymLeader.getVal(_voisin) != BoolVal.TRUE) {
+                    interfaceType=InterfaceType.DRESSEUR;
+                } else {
+                    interfaceType=InterfaceType.RIEN;
+                }
+            } else {
+                interfaceType=InterfaceType.GYM_LEADER;
+            }
+            return;
+        }
+        interfaceType=InterfaceType.RIEN;
+    }
+
+    private void league(Coords _voisin, League _pl) {
+        LevelLeague level_ = _pl.getRooms().get(_voisin.getLevel().getLevelIndex());
+        if (Point.eq(level_.getTrainerCoords(), _voisin.getLevel().getPoint())) {
+            if (NumberUtil.eq(rankLeague, _voisin.getLevel().getLevelIndex())){
+                interfaceType=InterfaceType.DRESSEUR;
+            } else {
+                interfaceType=InterfaceType.PERSONNAGE;
+            }
             return;
         }
         interfaceType=InterfaceType.RIEN;
@@ -2315,23 +2277,23 @@ public final class Game {
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
 //            WildPokemon pk_ = _pokemon.get((i + i_) % nb_);
             WildPk pk_ = _area.getWildPokemon((i + i_) % nb_, _walking);
-            if (player.estAttrape(pk_.getName())) {
-                PokemonData fPk_=_d.getPokedex().getVal(pk_.getName());
-                if (fPk_.getGenderRep() == GenderRepartition.LEGENDARY) {
-                    continue;
-                }
+            if (!player.estAttrape(pk_.getName()) || _d.getPokedex().getVal(pk_.getName()).getGenderRep() != GenderRepartition.LEGENDARY) {
+                initFight(_d, pk_);
+                interfaceType = InterfaceType.COMBAT_PK_SAUV;
+                break;
             }
-            FightFacade.initFight(fight,player,difficulty,pk_,_d);
-            FightFacade.initTypeEnv(fight,playerCoords,difficulty,_d);
-            commentGame.addComment(fight.getComment());
-            interfaceType = InterfaceType.COMBAT_PK_SAUV;
-            break;
         }
         if (_walking) {
             indexPeriod = (i_ + 1) % nb_;
         } else {
             indexPeriodFishing = (i_ + 1) % nb_;
         }
+    }
+
+    private void initFight(DataBase _d, WildPk _pk) {
+        FightFacade.initFight(fight, player, difficulty, _pk, _d);
+        FightFacade.initTypeEnv(fight, playerCoords, difficulty, _d);
+        commentGame.addComment(fight.getComment());
     }
 
     void newRandomPokemon(MonteCarloList<WildPk> _law, DataBase _d) {
@@ -2341,9 +2303,7 @@ public final class Game {
         if(pkAlea_.hasJustBeenCreated()){
             return;
         }
-        FightFacade.initFight(fight,player,difficulty, pkAlea_, _d);
-        FightFacade.initTypeEnv(fight,playerCoords,difficulty,_d);
-        commentGame.addComment(fight.getComment());
+        initFight(_d, pkAlea_);
         interfaceType=InterfaceType.COMBAT_PK_SAUV;
     }
 
@@ -2352,18 +2312,11 @@ public final class Game {
         for(EventFreq<WildPk> i:_law.getEvents()){
             WildPk e = i.getEvent();
             LgInt f_ = i.getFreq();
-            if(e.getName().isEmpty()){
-                lawCopy_.addQuickEvent(e,f_);
-                continue;
+            if (e.getName().isEmpty() || !player.estAttrape(e.getName()) || _d.getPokedex().getVal(e.getName()).getGenderRep() != GenderRepartition.LEGENDARY) {
+                lawCopy_.addQuickEvent(e, f_);
+            } else {
+                lawCopy_.addQuickEvent(new WildPk(), f_);
             }
-            if(player.estAttrape(e.getName())){
-                PokemonData fPk_=_d.getPokedex().getVal(e.getName());
-                if(fPk_.getGenderRep() == GenderRepartition.LEGENDARY){
-                    lawCopy_.addQuickEvent(new WildPk(),f_);
-                    continue;
-                }
-            }
-            lawCopy_.addQuickEvent(e,f_);
         }
         return lawCopy_;
     }

@@ -215,4 +215,9 @@ public final class RecordsMapTest extends EquallablePkUtil {
         c_.put(new PlaceInterConnect(""),new Coords(""));
         assertEq(1,c_.size());
     }
+    @Test
+    public void test35() {
+        PointsTrainerMultiFights c_ = new PointsTrainerMultiFights();
+        assertNotNull(c_.getVal(new Point()));
+    }
 }

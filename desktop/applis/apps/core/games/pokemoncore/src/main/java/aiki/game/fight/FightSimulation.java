@@ -214,7 +214,7 @@ public class FightSimulation {
                     nbMax_ = 1;
                     foeTeams.add(dual_.getFoeTrainer().getTeam());
                 } else {
-                    TrainerMultiFights tr_ = (TrainerMultiFights) ((LevelWithWildPokemon)l_).getCharacters().getVal(foeCoords.getLevel().getPoint());
+                    TrainerMultiFights tr_ = ((LevelWithWildPokemon)l_).getTrainers().getVal(foeCoords.getLevel().getPoint());
                     CustList<PkTrainer> team_ = tr_.getTeamsRewards().get(noFight).getTeam();
                     mult_ = tr_.getMultiplicityFight();
                     nbMax_ = mult_;
@@ -271,7 +271,7 @@ public class FightSimulation {
                     foeTeams.add(new CustList<PkTrainer>(dual_.getFoeTrainer().getTeam()));
                     allyTeam.addAllElts(dual_.getAlly().getTeam());
                 } else {
-                    TrainerMultiFights tr_ = (TrainerMultiFights) ((LevelWithWildPokemon)l_).getCharacters().getVal(foeCoords.getLevel().getPoint());
+                    TrainerMultiFights tr_ = ((LevelWithWildPokemon)l_).getTrainers().getVal(foeCoords.getLevel().getPoint());
                     CustList<PkTrainer> team_ = tr_.getTeamsRewards().get(noFight).getTeam();
                     mult_ = tr_.getMultiplicityFight();
                     nbMax_ = mult_;
@@ -1519,7 +1519,7 @@ public class FightSimulation {
                         DualFight dual_ = ((LevelWithWildPokemon)l_).getDualFight(foeCoords.getLevel().getPoint());
                         duals_.add(dual_);
                     } else {
-                        TrainerMultiFights tr_ = (TrainerMultiFights) ((LevelWithWildPokemon)l_).getCharacters().getVal(foeCoords.getLevel().getPoint());
+                        TrainerMultiFights tr_ = ((LevelWithWildPokemon)l_).getTrainers().getVal(foeCoords.getLevel().getPoint());
                         trainers_.add(tr_);
                     }
                 } else {
@@ -1603,7 +1603,7 @@ public class FightSimulation {
                     DualFight dual_ = ((LevelWithWildPokemon)l_).getDualFight(foeCoords.getLevel().getPoint());
                     duals_.add(dual_);
                 } else {
-                    TrainerMultiFights tr_ = (TrainerMultiFights) ((LevelWithWildPokemon)l_).getCharacters().getVal(foeCoords.getLevel().getPoint());
+                    TrainerMultiFights tr_ = ((LevelWithWildPokemon)l_).getTrainers().getVal(foeCoords.getLevel().getPoint());
                     trainers_.add(tr_);
                 }
             } else {

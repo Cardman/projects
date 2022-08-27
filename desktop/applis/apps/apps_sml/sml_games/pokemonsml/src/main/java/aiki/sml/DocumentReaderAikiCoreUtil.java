@@ -1021,7 +1021,7 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setMessagesFighter(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fighter.FIGHTER));
         _d.setMessagesTeam(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Team.TEAM));
         _d.setMessagesFight(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fight.FIGHT));
-        _d.setMessagesGame(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Game.GAME));
+        _d.setMessagesGame(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Game.GAME_ACCESS));
     }
     private static StringMap<String> getMessagesFromLocaleClass(StringMap<String> _map,String _folder, String _loc, String _class) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);

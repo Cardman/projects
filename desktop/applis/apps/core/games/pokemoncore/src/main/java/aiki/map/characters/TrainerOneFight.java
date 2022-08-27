@@ -5,7 +5,7 @@ import aiki.map.pokemon.PkTrainer;
 import code.util.CustList;
 
 
-public abstract class TrainerOneFight extends Trainer {
+public abstract class TrainerOneFight extends Trainer implements Rewardable {
 
     private short reward;
 
@@ -29,6 +29,7 @@ public abstract class TrainerOneFight extends Trainer {
         }
     }
 
+    @Override
     public short getReward() {
         return reward;
     }

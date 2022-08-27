@@ -667,7 +667,6 @@ public final class DataMap {
             if (accessibility.contains(c)) {
                 if (accessibility.getVal(c).isEmpty()) {
                     firstCities_ = true;
-                    break;
                 }
             } else {
                 _d.setError(true);
