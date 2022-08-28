@@ -6,7 +6,6 @@ import aiki.fight.items.Item;
 import aiki.game.player.Inventory;
 import aiki.map.pokemon.CriteriaForSearchingItem;
 import aiki.util.SortingItem;
-import code.maths.LgInt;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -62,19 +61,7 @@ public final class PaginationItem extends
             Item i_ = _data.getItem(_list.get(i));
             String description_ = translatedDescription
                     .getVal(i_.getItemType());
-            if (!getCriteria().matchPrice(i_.getPrice())) {
-                continue;
-            }
-            if (!getCriteria().matchDescription(description_)) {
-                continue;
-            }
-            if (!getCriteria().matchClass(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchNumber(inventory.getNumber(_list.get(i)))) {
-                continue;
-            }
-            if (!match(translatedItem.getVal(_list.get(i)))) {
+            if (!getCriteria().matchPrice(i_.getPrice()) || !getCriteria().matchDescription(description_) || !getCriteria().matchClass(i_) || !getCriteria().matchNumber(inventory.getNumber(_list.get(i))) || !match(translatedItem.getVal(_list.get(i)))) {
                 continue;
             }
             SortingItem s_ = new SortingItem();
@@ -89,7 +76,7 @@ public final class PaginationItem extends
         search(new StringList(items.values()));
     }
 
-    protected void search(Listable<String> _items) {
+    void search(Listable<String> _items) {
         if (!_items.isEmpty()) {
             setNumberPage(IndexConstants.FIRST_INDEX);
         } else {
@@ -105,7 +92,7 @@ public final class PaginationItem extends
         calculateRendered();
     }
 
-    protected boolean match(String _item) {
+    boolean match(String _item) {
         return getCriteria().matchName(_item);
     }
 
@@ -146,10 +133,10 @@ public final class PaginationItem extends
 
     public String currentObject() {
         int index_ = getIndex();
-        if (!getResults().getKeys().isValidIndex(index_)) {
+        if (!getItems().getKeys().isValidIndex(index_)) {
             return "";
         }
-        return getResults().getValue(index_);
+        return getItems().getValue(index_);
     }
     public StringFieldComparator getCmpName() {
         return cmpName;
@@ -167,13 +154,13 @@ public final class PaginationItem extends
         return cmpNumber;
     }
     protected void excludeResults() {
-        Listable<SortingItem> list_ = getResults().getKeys();
+        Listable<SortingItem> list_ = getItems().getKeys();
         for (SortingItem k: list_) {
-            String value_ = getResults().getVal(k);
+            String value_ = getItems().getVal(k);
             if (match(value_)) {
                 continue;
             }
-            getResults().removeKey(k);
+            getItems().removeKey(k);
         }
     }
 
@@ -182,32 +169,32 @@ public final class PaginationItem extends
         return getRendered().isEmpty();
     }
     protected boolean hasNoResult() {
-        return getResults().isEmpty();
+        return getItems().isEmpty();
     }
     protected void updateRendered(int _end) {
-        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), _end));
+        getRendered().addAllElts(getItems().getKeys().sub(getFullCount(), _end));
     }
     protected void clearResults() {
-        getResults().clear();
+        getItems().clear();
     }
     protected int getResultsSize() {
-        return getResults().size();
+        return getItems().size();
     }
 
     protected int getIndex(int _index) {
-        return getResults().getKey(_index).getIndex();
+        return getItems().getKey(_index).getIndex();
     }
 
     protected boolean isValidIndex(int _index) {
-        return getResults().getKeys().isValidIndex(_index);
+        return getItems().getKeys().isValidIndex(_index);
     }
 
-    protected TreeMap<SortingItem, String> getResults() {
+    TreeMap<SortingItem, String> getItems() {
         return items;
     }
 
 
-    protected CustList<SortingItem> getRendered() {
+    CustList<SortingItem> getRendered() {
         return rendered;
     }
 }

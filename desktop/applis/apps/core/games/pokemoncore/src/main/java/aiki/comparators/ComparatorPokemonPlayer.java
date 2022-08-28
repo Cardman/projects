@@ -48,39 +48,27 @@ public final class ComparatorPokemonPlayer implements
     @Override
     public int compare(SortingPokemonPlayer _o1, SortingPokemonPlayer _o2) {
         for (int i = nbComparators; i >= Pagination.MIN_PRIORITY; i--) {
-            if (cmpLevel.getPriority() == i) {
-                int res_ = cmpLevel.compare(_o1.getLevel(), _o2.getLevel());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpName.getPriority() == i) {
-                int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpAbility.getPriority() == i) {
-                int res_ = cmpAbility.compare(_o1.getAbility(), _o2.getAbility());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpItem.getPriority() == i) {
-                int res_ = cmpItem.compare(_o1.getItem(), _o2.getItem());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpGender.getPriority() == i) {
-                int res_ = cmpGender.compare(_o1.getGender(), _o2.getGender());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpPossEvos.getPriority() == i) {
-                int res_ = cmpPossEvos.compare(_o1.getNbPossEvos(), _o2.getNbPossEvos());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
+            int res_ = res(_o1,_o2,i);
+            if (res_ != SortConstants.EQ_CMP) {
+                return res_;
             }
         }
         return NumberUtil.compareLg(_o1.getIndex(), _o2.getIndex());
     }
-
+    private int res(SortingPokemonPlayer _o1, SortingPokemonPlayer _o2, int _i){
+        if (cmpLevel.getPriority() == _i) {
+            return cmpLevel.compare(_o1.getLevel(), _o2.getLevel());
+        } else if (cmpName.getPriority() == _i) {
+            return cmpName.compare(_o1.getName(), _o2.getName());
+        } else if (cmpAbility.getPriority() == _i) {
+            return cmpAbility.compare(_o1.getAbility(), _o2.getAbility());
+        } else if (cmpItem.getPriority() == _i) {
+            return cmpItem.compare(_o1.getItem(), _o2.getItem());
+        } else if (cmpGender.getPriority() == _i) {
+            return cmpGender.compare(_o1.getGender(), _o2.getGender());
+        } else if (cmpPossEvos.getPriority() == _i) {
+            return cmpPossEvos.compare(_o1.getNbPossEvos(), _o2.getNbPossEvos());
+        }
+        return SortConstants.EQ_CMP;
+    }
 }

@@ -21,17 +21,17 @@ public final class PaginationMove extends
 
     public static final int NB_CMPARATORS = 6;
 
-    private StringFieldComparator cmpName = new StringFieldComparator();
+    private final StringFieldComparator cmpName = new StringFieldComparator();
 
-    private LongFieldComparator cmpPrice = new LongFieldComparator();
+    private final LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private LongFieldComparator cmpDescription = new LongFieldComparator();
+    private final LongFieldComparator cmpDescription = new LongFieldComparator();
 
-    private LongFieldComparator cmpPpp = new LongFieldComparator();
+    private final LongFieldComparator cmpPpp = new LongFieldComparator();
 
-    private LongFieldComparator cmpPrio = new LongFieldComparator();
+    private final LongFieldComparator cmpPrio = new LongFieldComparator();
 
-    private EnumFieldComparator<TargetChoice> cmpTargetChoice = new EnumFieldComparator<TargetChoice>();
+    private final EnumFieldComparator<TargetChoice> cmpTargetChoice = new EnumFieldComparator<TargetChoice>();
 
     private StringMap<String> translatedMove;
 
@@ -42,9 +42,9 @@ public final class PaginationMove extends
     private TreeMap<SortingMove, String> moves = new TreeMap<SortingMove, String>(
             new ComparatorMove());
 
-    private CustList<SortingMove> rendered = new CustList<SortingMove>();
+    private final CustList<SortingMove> rendered = new CustList<SortingMove>();
 
-    private CriteriaForSearchingMove criteria;
+    private final CriteriaForSearchingMove criteria;
 
     public PaginationMove() {
         criteria = new CriteriaForSearchingMove();
@@ -67,38 +67,8 @@ public final class PaginationMove extends
         int len_ = _list.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             MoveData i_ = _data.getMove(_list.get(i));
-            int price_ = 0;
-            // CustList<Short> tmKeys_ = _data.getTm().getKeys(_list.get(i));
-            Shorts tmKeys_ = _data.getTmByMove(_list.get(i));
-            if (!tmKeys_.isEmpty()) {
-                short tm_ = tmKeys_.first();
-                if (_data.getTmPrice().contains(tm_)) {
-                    price_ = (int) _data.getTmPrice().getVal(tm_).ll();
-                }
-            }
-            if (!getCriteria().matchPrice(price_)) {
-                continue;
-            }
-            if (!getCriteria().matchClass(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchPp(i_.getPp())) {
-                continue;
-            }
-            if (!getCriteria().matchTargetChoice(i_.getTargetChoice())) {
-                continue;
-            }
-            if (!getCriteria().matchPrio(i_.getPriority())) {
-                continue;
-            }
-            StringList types_ = new StringList();
-            for (String t : i_.getTypes()) {
-                types_.add(translatedType.getVal(t));
-            }
-            if (!getCriteria().matchTypes(types_)) {
-                continue;
-            }
-            if (!match(translatedMove.getVal(_list.get(i)))) {
+            int price_ = price(_list, _data, i);
+            if (!getCriteria().matchPrice(price_) || !getCriteria().matchClass(i_) || !getCriteria().matchPp(i_.getPp()) || !getCriteria().matchTargetChoice(i_.getTargetChoice()) || !getCriteria().matchPrio(i_.getPriority()) || !getCriteria().matchTypes(types(i_)) || !match(translatedMove.getVal(_list.get(i)))) {
                 continue;
             }
             SortingMove s_ = new SortingMove();
@@ -115,7 +85,28 @@ public final class PaginationMove extends
         search(new StringList(moves.values()));
     }
 
-    protected void search(Listable<String> _list) {
+    private StringList types(MoveData _i) {
+        StringList types_ = new StringList();
+        for (String t : _i.getTypes()) {
+            types_.add(translatedType.getVal(t));
+        }
+        return types_;
+    }
+
+    private int price(CustList<String> _list, DataBase _data, int _i) {
+        int price_ = 0;
+        // CustList<Short> tmKeys_ = _data.getTm().getKeys(_list.get(i));
+        Shorts tmKeys_ = _data.getTmByMove(_list.get(_i));
+        if (!tmKeys_.isEmpty()) {
+            short tm_ = tmKeys_.first();
+            if (_data.getTmPrice().contains(tm_)) {
+                price_ = (int) _data.getTmPrice().getVal(tm_).ll();
+            }
+        }
+        return price_;
+    }
+
+    void search(Listable<String> _list) {
         if (!_list.isEmpty()) {
             setNumberPage(IndexConstants.FIRST_INDEX);
         } else {
@@ -131,7 +122,7 @@ public final class PaginationMove extends
         calculateRendered();
     }
 
-    protected boolean match(String _move) {
+    boolean match(String _move) {
         return getCriteria().matchName(_move);
     }
 
@@ -242,11 +233,11 @@ public final class PaginationMove extends
         return getResults().getKeys().isValidIndex(_index);
     }
 
-    protected TreeMap<SortingMove, String> getResults() {
+    TreeMap<SortingMove, String> getResults() {
         return moves;
     }
 
-    protected CustList<SortingMove> getRendered() {
+    CustList<SortingMove> getRendered() {
         return rendered;
     }
 

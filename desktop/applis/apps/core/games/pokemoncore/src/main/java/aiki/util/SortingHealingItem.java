@@ -2,10 +2,7 @@ package aiki.util;
 import aiki.facade.Sorting;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
-import code.util.ints.Cmp;
 
 public final class SortingHealingItem implements Sorting {
 
@@ -19,7 +16,7 @@ public final class SortingHealingItem implements Sorting {
 
     private int nbHealedStatus;
 
-    private StringList status = new StringList();
+    private final StringList status = new StringList();
 
     private boolean relativeRateHp;
 
@@ -35,7 +32,7 @@ public final class SortingHealingItem implements Sorting {
 
     private int nbStatistics;
 
-    private StringList statistics = new StringList();
+    private final StringList statistics = new StringList();
 
     private boolean ko;
 

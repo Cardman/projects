@@ -123,7 +123,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(0);
         sorting_.setNumber(LgInt.zero());
         itemName_ = BAIE_ORAN;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         sorting_ = new SortingItem();
         sorting_.setName(METRONOME_OBJ);
         sorting_.setItemClass(BATTLE_ITEM);
@@ -131,7 +131,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(1);
         sorting_.setNumber(LgInt.zero());
         itemName_ = METRONOME_OBJ;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         pagination_.getCmpName().setPriority(3);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpDescription().setPriority(2);
@@ -139,12 +139,12 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCmpPrice().setPriority(1);
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getItems().size());
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(METRONOME_OBJ, itemName_);
     }
 
@@ -163,7 +163,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(0);
         sorting_.setNumber(LgInt.zero());
         itemName_ = BAIE_ORAN;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         sorting_ = new SortingItem();
         sorting_.setName(METRONOME_OBJ);
         sorting_.setItemClass(BATTLE_ITEM);
@@ -171,7 +171,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(1);
         sorting_.setNumber(LgInt.zero());
         itemName_ = METRONOME_OBJ;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         pagination_.getCmpDescription().setPriority(3);
         pagination_.getCmpDescription().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(2);
@@ -179,12 +179,12 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCmpPrice().setPriority(1);
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getItems().size());
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(METRONOME_OBJ, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(BAIE_ORAN, itemName_);
     }
 
@@ -203,7 +203,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(0);
         sorting_.setNumber(LgInt.zero());
         itemName_ = BAIE_ORAN;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         sorting_ = new SortingItem();
         sorting_.setName(METRONOME_OBJ);
         sorting_.setItemClass(BATTLE_ITEM);
@@ -211,7 +211,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(1);
         sorting_.setNumber(LgInt.zero());
         itemName_ = METRONOME_OBJ;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         pagination_.getCmpPrice().setPriority(3);
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpDescription().setPriority(2);
@@ -219,12 +219,12 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getItems().size());
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(METRONOME_OBJ, itemName_);
     }
 
@@ -243,7 +243,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(0);
         sorting_.setNumber(LgInt.zero());
         itemName_ = BAIE_ORAN;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         sorting_ = new SortingItem();
         sorting_.setName(METRONOME_OBJ);
         sorting_.setItemClass(BATTLE_ITEM);
@@ -251,16 +251,16 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(1);
         sorting_.setNumber(LgInt.one());
         itemName_ = METRONOME_OBJ;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         pagination_.getCmpNumber().setPriority(1);
         pagination_.getCmpNumber().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getItems().size());
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(METRONOME_OBJ, itemName_);
     }
 
@@ -280,7 +280,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(0);
         sorting_.setNumber(LgInt.zero());
         itemName_ = BAIE_ORAN;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         sorting_ = new SortingItem();
         sorting_.setName(METRONOME_OBJ);
         sorting_.setItemClass(BATTLE_ITEM);
@@ -288,16 +288,16 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(1);
         sorting_.setNumber(LgInt.one());
         itemName_ = METRONOME_OBJ;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         pagination_.getCmpNumber().setPriority(1);
         pagination_.getCmpNumber().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getItems().size());
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(METRONOME_OBJ, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(BAIE_ORAN, itemName_);
     }
 
@@ -316,7 +316,7 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(0);
         sorting_.setNumber(LgInt.zero());
         itemName_ = BAIE_ORAN;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         sorting_ = new SortingItem();
         sorting_.setName(METRONOME_OBJ);
         sorting_.setItemClass(BATTLE_ITEM);
@@ -324,14 +324,14 @@ public class PaginationItemTest extends InitializationDataBase {
         sorting_.setIndex(1);
         sorting_.setNumber(LgInt.zero());
         itemName_ = METRONOME_OBJ;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getItems().put(sorting_, itemName_);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getItems().size());
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(METRONOME_OBJ, itemName_);
     }
 
@@ -356,11 +356,11 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
         assertTrue(!pagination_.hasNoRendered());
-        assertEq(1, pagination_.getResults().size());
+        assertEq(1, pagination_.getItems().size());
         String itemName_;
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_MEPO, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
@@ -399,7 +399,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCriteria().setMinPrice(300L);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
-        assertEq(0, pagination_.getResults().size());
+        assertEq(0, pagination_.getItems().size());
         CustList<SortingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
@@ -429,11 +429,11 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCriteria().setSelectedClass(Berry.ITEM);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
-        assertEq(1, pagination_.getResults().size());
+        assertEq(1, pagination_.getItems().size());
         String itemName_;
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_MEPO, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
@@ -466,15 +466,15 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCriteria().setSelectedClass(HealingItem.ITEM);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
-        assertEq(3, pagination_.getResults().size());
+        assertEq(3, pagination_.getItems().size());
         String itemName_;
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(HUILE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(CENDRESACREE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(2));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(2));
         assertEq(EAU_FRAICHE, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
@@ -507,15 +507,15 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCriteria().setSelectedClass(HealingItem.ITEM);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
-        assertEq(3, pagination_.getResults().size());
+        assertEq(3, pagination_.getItems().size());
         String itemName_;
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(HUILE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(CENDRESACREE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(2));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(2));
         assertEq(EAU_FRAICHE, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(3, sorted_.size());
@@ -555,21 +555,21 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.setTranslation(data_, LANGUAGE);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
-        assertEq(6, pagination_.getResults().size());
+        assertEq(6, pagination_.getItems().size());
         String itemName_;
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(BAIE_MEPO, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(2));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(2));
         assertEq(MULTI_EXP, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(3));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(3));
         assertEq(HUILE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(4));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(4));
         assertEq(CENDRESACREE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(5));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(5));
         assertEq(EAU_FRAICHE, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(3, sorted_.size());
@@ -608,11 +608,11 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCriteria().setContentOfDescription("*ItemForBattle*");
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
-        assertEq(1, pagination_.getResults().size());
+        assertEq(1, pagination_.getItems().size());
         String itemName_;
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(MULTI_EXP, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
@@ -645,19 +645,19 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.setTranslation(data_, LANGUAGE);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
-        assertEq(5, pagination_.getResults().size());
+        assertEq(5, pagination_.getItems().size());
         String itemName_;
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(1));
         assertEq(MULTI_EXP, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(2));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(2));
         assertEq(HUILE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(3));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(3));
         assertEq(CENDRESACREE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(4));
+        itemName_ = pagination_.getItems().getVal(sorted_.get(4));
         assertEq(EAU_FRAICHE, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(3, sorted_.size());
@@ -693,11 +693,11 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCriteria().setSearchModeName(SearchingMode.SUBSTRING);
         pagination_.getCriteria().setContentOfName("BAIE");
         pagination_.newSearch();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getItems().size());
         String itemName_;
         CustList<SortingItem> sorted_;
-        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingItem>(pagination_.getItems().getKeys());
+        itemName_ = pagination_.getItems().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());

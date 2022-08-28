@@ -47,39 +47,28 @@ public final class ComparatorMove implements Comparing<SortingMove> {
     @Override
     public int compare(SortingMove _o1, SortingMove _o2) {
         for (int i = nbComparators; i >= Pagination.MIN_PRIORITY; i--) {
-            if (cmpPrice.getPriority() == i) {
-                int res_ = cmpPrice.compare(_o1.getPrice(), _o2.getPrice());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpPpp.getPriority() == i) {
-                int res_ = cmpPpp.compare(_o1.getPp(), _o2.getPp());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpPrio.getPriority() == i) {
-                int res_ = cmpPrio.compare(_o1.getPriority(), _o2.getPriority());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpTargetChoice.getPriority() == i) {
-                int res_ = cmpTargetChoice.compare(_o1.getTargetChoice(), _o2.getTargetChoice());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpName.getPriority() == i) {
-                int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            } else if (cmpDescription.getPriority() == i) {
-                int res_ = cmpDescription.compare(_o1.getMoveClass(), _o2.getMoveClass());
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
+            int res_ = res(_o1,_o2,i);
+            if (res_ != SortConstants.EQ_CMP) {
+                return res_;
             }
         }
         return NumberUtil.compareLg(_o1.getIndex(), _o2.getIndex());
     }
 
+    private int res(SortingMove _o1, SortingMove _o2,int _i){
+        if (cmpPrice.getPriority() == _i) {
+            return cmpPrice.compare(_o1.getPrice(), _o2.getPrice());
+        } else if (cmpPpp.getPriority() == _i) {
+            return cmpPpp.compare(_o1.getPp(), _o2.getPp());
+        } else if (cmpPrio.getPriority() == _i) {
+            return cmpPrio.compare(_o1.getPriority(), _o2.getPriority());
+        } else if (cmpTargetChoice.getPriority() == _i) {
+            return cmpTargetChoice.compare(_o1.getTargetChoice(), _o2.getTargetChoice());
+        } else if (cmpName.getPriority() == _i) {
+            return cmpName.compare(_o1.getName(), _o2.getName());
+        } else if (cmpDescription.getPriority() == _i) {
+            return cmpDescription.compare(_o1.getMoveClass(), _o2.getMoveClass());
+        }
+        return SortConstants.EQ_CMP;
+    }
 }

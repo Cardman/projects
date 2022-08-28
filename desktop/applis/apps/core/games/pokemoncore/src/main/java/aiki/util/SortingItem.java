@@ -1,9 +1,6 @@
 package aiki.util;
 import aiki.facade.Sorting;
 import code.maths.LgInt;
-import code.util.CustList;
-import code.util.*;
-import code.util.ints.Cmp;
 
 public final class SortingItem implements Sorting {
 

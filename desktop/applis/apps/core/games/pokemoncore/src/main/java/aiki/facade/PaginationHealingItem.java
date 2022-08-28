@@ -30,31 +30,7 @@ public final class PaginationHealingItem extends
 
     public static final int NB_COMPARATORS = 13;
 
-    private final StringFieldComparator cmpName = new StringFieldComparator();
-
-    private final StringFieldComparator cmpDescription = new StringFieldComparator();
-
-    private final LongFieldComparator cmpPrice = new LongFieldComparator();
-
-    private final LongFieldComparator cmpNbHealedStatus = new LongFieldComparator();
-
-    private final BooleanFieldComparator cmpRelativeRateHp = new BooleanFieldComparator();
-
-    private final RateFieldComparator cmpHp = new RateFieldComparator();
-
-    private final RateFieldComparator cmpRateHp = new RateFieldComparator();
-
-    private final BooleanFieldComparator cmpRelativeRatePp = new BooleanFieldComparator();
-
-    private final RateFieldComparator cmpPp = new RateFieldComparator();
-
-    private final BooleanFieldComparator cmpHealOneMove = new BooleanFieldComparator();
-
-    private final LongFieldComparator cmpStatistics = new LongFieldComparator();
-
-    private final BooleanFieldComparator cmpKo = new BooleanFieldComparator();
-
-    private final LgIntFieldComparator cmpNumber = new LgIntFieldComparator();
+    private ComparatorHealingItem comparatorHealingItem = new ComparatorHealingItem(0);
 
     private StringMap<String> translatedItem;
 
@@ -65,9 +41,8 @@ public final class PaginationHealingItem extends
     private AbsMap<Statistic, String> translatedStatistics;
 
     private Inventory inventory;
-
     private TreeMap<SortingHealingItem, String> items = new TreeMap<SortingHealingItem, String>(
-            new ComparatorHealingItem());
+            comparatorHealingItem);
 
     private final CustList<SortingHealingItem> rendered = new CustList<SortingHealingItem>();
 
@@ -102,137 +77,113 @@ public final class PaginationHealingItem extends
         int len_ = _list.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             Item i_ = _data.getItem(_list.get(i));
-            if (!(i_ instanceof HealingItem)) {
-                if (!(i_ instanceof Berry)) {
-                    continue;
-                }
+            if (!(i_ instanceof HealingItem) && !(i_ instanceof Berry)) {
+                continue;
             }
             String description_ = translatedDescription
                     .getVal(i_.getItemType());
-            if (!getCriteria().matchPrice(i_.getPrice())) {
-                continue;
+            if (getCriteria().matchPrice(i_.getPrice()) && getCriteria().matchDescription(description_) && getCriteria().matchHp(i_) && getCriteria().matchRateHp(i_) && getCriteria().matchKo(i_) && getCriteria().matchPp(i_) && getCriteria().matchStatus(i_) && getCriteria().matchStatistic(i_) && getCriteria().matchClass(i_) && getCriteria().matchNumber(inventory.getNumber(_list.get(i))) && match(_list.get(i))) {
+                SortingHealingItem s_ = sortingHealingItem(_list, maxPp_, i, i_, description_);
+                items.put(s_, _list.get(i));
             }
-            if (!getCriteria().matchDescription(description_)) {
-                continue;
-            }
-            if (!getCriteria().matchHp(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchRateHp(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchKo(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchPp(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchStatus(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchStatistic(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchClass(i_)) {
-                continue;
-            }
-            if (!getCriteria().matchNumber(inventory.getNumber(_list.get(i)))) {
-                continue;
-            }
-            if (!match(_list.get(i))) {
-                continue;
-            }
-            SortingHealingItem s_ = new SortingHealingItem();
-            s_.setIndex(i);
-            s_.setNumber(new LgInt(inventory.getNumber(_list.get(i))));
-            s_.setKeyName(_list.get(i));
-            s_.setName(translatedItem.getVal(_list.get(i)));
-            Rate hp_ = Rate.zero();
-            Rate hpRate_ = Rate.zero();
-            if (i_ instanceof HealingHp) {
-                hp_.addNb(((HealingHp) i_).getHp());
-                s_.setRelativeRateHp(false);
-            }
-            if (i_ instanceof Berry) {
-                hpRate_.addNb(((Berry) i_).getHealHpBySuperEffMove());
-                hpRate_.addNb(((Berry) i_).getHealHpRate());
-                hp_.addNb(((Berry) i_).getHealHp());
-            }
-            if (i_ instanceof HealingHpStatus) {
-                HealingHpStatus healingHp_ = (HealingHpStatus) i_;
-                hpRate_.addNb(healingHp_.getHealedHpRate());
-                s_.setRelativeRateHp(true);
-            }
-            s_.setPp(Rate.zero());
-            long pp_ = 0;
-            if (i_ instanceof HealingPp) {
-                HealingPp healing_ = (HealingPp) i_;
-                if (healing_.getHealingMoveFullpp()) {
-                    pp_ = maxPp_;
-                    s_.setHealOneMove(true);
-                }
-                if (healing_.isHealingAllMovesPp()) {
-                    pp_ = maxPp_;
-                    s_.setHealOneMove(false);
-                }
-                if (pp_ == 0) {
-                    s_.setRelativeRatePp(false);
-                    pp_ = healing_.getHealedMovePp();
-                    if (pp_ == 0) {
-                        s_.setHealOneMove(false);
-                        pp_ = healing_.getHealingAllMovesFullpp();
-                    } else {
-                        s_.setHealOneMove(true);
-                    }
-                } else {
-                    s_.setRelativeRatePp(true);
-                }
-                s_.setPp(new Rate(pp_));
-            }
-            if (i_ instanceof Berry) {
-                Berry healing_ = (Berry) i_;
-                if (healing_.getHealPp() > 0) {
-                    s_.setHealOneMove(true);
-                    s_.setRelativeRatePp(false);
-                    s_.setPp(new Rate(healing_.getHealPp()));
-                }
-            }
-            s_.setHp(hp_);
-            s_.setHpRate(hpRate_);
-            s_.setNbHealedStatus(0);
-            if (i_ instanceof HealingStatus) {
-                HealingStatus healing_ = (HealingStatus) i_;
-                s_.setNbHealedStatus(healing_.getStatus().size());
-            }
-            if (i_ instanceof Berry) {
-                Berry healing_ = (Berry) i_;
-                s_.setNbHealedStatus(healing_.getHealStatus().size());
-            }
-            for (String status_ : CriteriaForSearchingHealingItem.getStatus(i_)) {
-                s_.getStatus().add(translatedStatus.getVal(status_));
-            }
-            s_.setNbStatistics(0);
-            if (i_ instanceof Berry) {
-                Berry healing_ = (Berry) i_;
-                s_.setNbStatistics(healing_.getMultStat().size());
-                for (Statistic statis_ : healing_.getMultStat().getKeys()) {
-                    s_.getStatistics()
-                            .add(translatedStatistics.getVal(statis_));
-                }
-            }
-            s_.setKo(false);
-            if (i_ instanceof HealingStatus) {
-                HealingStatus healing_ = (HealingStatus) i_;
-                s_.setKo(healing_.getHealingKo());
-            }
-            s_.setPrice(i_.getPrice());
-            s_.setItemClass(description_);
-            items.put(s_, _list.get(i));
         }
         search(new StringList(items.values()));
     }
 
-    protected void search(Listable<String> _items) {
+    private SortingHealingItem sortingHealingItem(CustList<String> _list, long _maxPp, int _i, Item _item, String _description) {
+        SortingHealingItem s_ = new SortingHealingItem();
+        s_.setIndex(_i);
+        s_.setNumber(new LgInt(inventory.getNumber(_list.get(_i))));
+        s_.setKeyName(_list.get(_i));
+        s_.setName(translatedItem.getVal(_list.get(_i)));
+        Rate hp_ = Rate.zero();
+        Rate hpRate_ = Rate.zero();
+        if (_item instanceof HealingHp) {
+            hp_.addNb(((HealingHp) _item).getHp());
+            s_.setRelativeRateHp(false);
+        }
+        if (_item instanceof Berry) {
+            hpRate_.addNb(((Berry) _item).getHealHpBySuperEffMove());
+            hpRate_.addNb(((Berry) _item).getHealHpRate());
+            hp_.addNb(((Berry) _item).getHealHp());
+        }
+        if (_item instanceof HealingHpStatus) {
+            HealingHpStatus healingHp_ = (HealingHpStatus) _item;
+            hpRate_.addNb(healingHp_.getHealedHpRate());
+            s_.setRelativeRateHp(true);
+        }
+        s_.setPp(Rate.zero());
+        pp(_maxPp, _item, s_);
+        if (_item instanceof Berry) {
+            Berry healing_ = (Berry) _item;
+            if (healing_.getHealPp() > 0) {
+                s_.setHealOneMove(true);
+                s_.setRelativeRatePp(false);
+                s_.setPp(new Rate(healing_.getHealPp()));
+            }
+        }
+        s_.setHp(hp_);
+        s_.setHpRate(hpRate_);
+        s_.setNbHealedStatus(0);
+        if (_item instanceof HealingStatus) {
+            HealingStatus healing_ = (HealingStatus) _item;
+            s_.setNbHealedStatus(healing_.getStatus().size());
+        }
+        if (_item instanceof Berry) {
+            Berry healing_ = (Berry) _item;
+            s_.setNbHealedStatus(healing_.getHealStatus().size());
+        }
+        for (String status_ : CriteriaForSearchingHealingItem.getStatus(_item)) {
+            s_.getStatus().add(translatedStatus.getVal(status_));
+        }
+        s_.setNbStatistics(0);
+        if (_item instanceof Berry) {
+            Berry healing_ = (Berry) _item;
+            s_.setNbStatistics(healing_.getMultStat().size());
+            for (Statistic statis_ : healing_.getMultStat().getKeys()) {
+                s_.getStatistics()
+                        .add(translatedStatistics.getVal(statis_));
+            }
+        }
+        s_.setKo(false);
+        if (_item instanceof HealingStatus) {
+            HealingStatus healing_ = (HealingStatus) _item;
+            s_.setKo(healing_.getHealingKo());
+        }
+        s_.setPrice(_item.getPrice());
+        s_.setItemClass(_description);
+        return s_;
+    }
+
+    private void pp(long _maxPp, Item _item, SortingHealingItem _s) {
+        if (_item instanceof HealingPp) {
+            HealingPp healing_ = (HealingPp) _item;
+            long pp_ = 0;
+            if (healing_.getHealingMoveFullpp()) {
+                pp_ = _maxPp;
+                _s.setHealOneMove(true);
+            }
+            if (healing_.isHealingAllMovesPp()) {
+                pp_ = _maxPp;
+                _s.setHealOneMove(false);
+            }
+            if (pp_ == 0) {
+                _s.setRelativeRatePp(false);
+                pp_ = healing_.getHealedMovePp();
+                if (pp_ == 0) {
+                    _s.setHealOneMove(false);
+                    pp_ = healing_.getHealingAllMovesFullpp();
+                } else {
+                    _s.setHealOneMove(true);
+                }
+            } else {
+                _s.setRelativeRatePp(true);
+            }
+            _s.setPp(new Rate(pp_));
+        }
+    }
+
+    void search(Listable<String> _items) {
         if (!_items.isEmpty()) {
             setNumberPage(IndexConstants.FIRST_INDEX);
         } else {
@@ -252,7 +203,7 @@ public final class PaginationHealingItem extends
         return criteria;
     }
 
-    protected boolean match(String _item) {
+    boolean match(String _item) {
         return getCriteria().matchName(_item);
     }
 
@@ -263,125 +214,123 @@ public final class PaginationHealingItem extends
     protected boolean sortable() {
         Ints priorities_;
         priorities_ = new Ints();
-        if (cmpPrice.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpPrice.getPriority());
+        if (comparatorHealingItem.getCmpPrice().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpPrice().getPriority());
         }
-        if (cmpName.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpName.getPriority());
+        if (comparatorHealingItem.getCmpName().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpName().getPriority());
         }
-        if (cmpHealOneMove.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpHealOneMove.getPriority());
+        if (comparatorHealingItem.getCmpHealOneMove().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpHealOneMove().getPriority());
         }
-        if (cmpHp.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpHp.getPriority());
+        if (comparatorHealingItem.getCmpHp().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpHp().getPriority());
         }
-        if (cmpRateHp.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpRateHp.getPriority());
+        if (comparatorHealingItem.getCmpRateHp().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpRateHp().getPriority());
         }
-        if (cmpStatistics.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpStatistics.getPriority());
+        if (comparatorHealingItem.getCmpStatistics().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpStatistics().getPriority());
         }
-        if (cmpKo.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpKo.getPriority());
+        if (comparatorHealingItem.getCmpKo().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpKo().getPriority());
         }
-        if (cmpNbHealedStatus.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpNbHealedStatus.getPriority());
+        if (comparatorHealingItem.getCmpNbHealedStatus().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpNbHealedStatus().getPriority());
         }
-        if (cmpPp.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpPp.getPriority());
+        if (comparatorHealingItem.getCmpPp().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpPp().getPriority());
         }
-        if (cmpRelativeRateHp.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpRelativeRateHp.getPriority());
+        if (comparatorHealingItem.getCmpRelativeRateHp().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpRelativeRateHp().getPriority());
         }
-        if (cmpRelativeRatePp.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpRelativeRatePp.getPriority());
+        if (comparatorHealingItem.getCmpRelativeRatePp().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpRelativeRatePp().getPriority());
         }
-        if (cmpDescription.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpDescription.getPriority());
+        if (comparatorHealingItem.getCmpDescription().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpDescription().getPriority());
         }
-        if (cmpNumber.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpNumber.getPriority());
+        if (comparatorHealingItem.getCmpNumber().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorHealingItem.getCmpNumber().getPriority());
         }
         return !priorities_.hasDuplicates();
     }
 
     @Override
     protected void sort() {
+        comparatorHealingItem = new ComparatorHealingItem(ComparatorHealingItem.NB_COMPARATORS,comparatorHealingItem);
         TreeMap<SortingHealingItem, String> items_ = new TreeMap<SortingHealingItem, String>(
-                new ComparatorHealingItem(cmpName, cmpDescription, cmpPrice,
-                        cmpNbHealedStatus, cmpRelativeRateHp, cmpHp, cmpRateHp,
-                        cmpRelativeRatePp, cmpPp, cmpHealOneMove,
-                        cmpStatistics, cmpKo, cmpNumber, NB_COMPARATORS));
+                comparatorHealingItem);
         items_.putAllMap(items);
         items = items_;
     }
 
     public String currentObject() {
         int index_ = getIndex();
-        if (!getResults().getKeys().isValidIndex(index_)) {
+        if (!getItems().getKeys().isValidIndex(index_)) {
             return "";
         }
-        return getResults().getValue(index_);
+        return getItems().getValue(index_);
     }
     public StringFieldComparator getCmpName() {
-        return cmpName;
+        return comparatorHealingItem.getCmpName();
     }
 
     public LgIntFieldComparator getCmpNumber() {
-        return cmpNumber;
+        return comparatorHealingItem.getCmpNumber();
     }
 
     public StringFieldComparator getCmpDescription() {
-        return cmpDescription;
+        return comparatorHealingItem.getCmpDescription();
     }
 
     public LongFieldComparator getCmpPrice() {
-        return cmpPrice;
+        return comparatorHealingItem.getCmpPrice();
     }
 
     public LongFieldComparator getCmpNbHealedStatus() {
-        return cmpNbHealedStatus;
+        return comparatorHealingItem.getCmpNbHealedStatus();
     }
 
     public BooleanFieldComparator getCmpRelativeRateHp() {
-        return cmpRelativeRateHp;
+        return comparatorHealingItem.getCmpRelativeRateHp();
     }
 
     public RateFieldComparator getCmpHp() {
-        return cmpHp;
+        return comparatorHealingItem.getCmpHp();
     }
 
     public RateFieldComparator getCmpRateHp() {
-        return cmpRateHp;
+        return comparatorHealingItem.getCmpRateHp();
     }
 
     public BooleanFieldComparator getCmpRelativeRatePp() {
-        return cmpRelativeRatePp;
+        return comparatorHealingItem.getCmpRelativeRatePp();
     }
 
     public RateFieldComparator getCmpPp() {
-        return cmpPp;
+        return comparatorHealingItem.getCmpPp();
     }
 
     public BooleanFieldComparator getCmpHealOneMove() {
-        return cmpHealOneMove;
+        return comparatorHealingItem.getCmpHealOneMove();
     }
 
     public LongFieldComparator getCmpStatistics() {
-        return cmpStatistics;
+        return comparatorHealingItem.getCmpStatistics();
     }
 
     public BooleanFieldComparator getCmpKo() {
-        return cmpKo;
+        return comparatorHealingItem.getCmpKo();
     }
     protected void excludeResults() {
-        Listable<SortingHealingItem> list_ = getResults().getKeys();
+        Listable<SortingHealingItem> list_ = getItems().getKeys();
         for (SortingHealingItem k: list_) {
-            String value_ = getResults().getVal(k);
+            String value_ = getItems().getVal(k);
             if (match(value_)) {
                 continue;
             }
-            getResults().removeKey(k);
+            getItems().removeKey(k);
         }
     }
 
@@ -390,31 +339,31 @@ public final class PaginationHealingItem extends
         return getRendered().isEmpty();
     }
     protected boolean hasNoResult() {
-        return getResults().isEmpty();
+        return getItems().isEmpty();
     }
     protected void updateRendered(int _end) {
-        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), _end));
+        getRendered().addAllElts(getItems().getKeys().sub(getFullCount(), _end));
     }
     protected void clearResults() {
-        getResults().clear();
+        getItems().clear();
     }
     protected int getResultsSize() {
-        return getResults().size();
+        return getItems().size();
     }
 
     protected int getIndex(int _index) {
-        return getResults().getKey(_index).getIndex();
+        return getItems().getKey(_index).getIndex();
     }
 
     protected boolean isValidIndex(int _index) {
-        return getResults().getKeys().isValidIndex(_index);
+        return getItems().getKeys().isValidIndex(_index);
     }
 
-    protected TreeMap<SortingHealingItem, String> getResults() {
+    TreeMap<SortingHealingItem, String> getItems() {
         return items;
     }
 
-    protected CustList<SortingHealingItem> getRendered() {
+    CustList<SortingHealingItem> getRendered() {
         return rendered;
     }
 
