@@ -12,7 +12,6 @@ import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectCopyMove;
 import aiki.fight.moves.effects.EffectProtectFromTypes;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.Evolution;
@@ -68,7 +67,7 @@ public final class Fighter {
 
     public static final byte BACK = -100;
 
-    public static final String FIGHTER = "aiki.game.fight.fighter";
+    public static final String FIGHTER_ACCESS = "aiki.game.fight.fighter";
 
     private static final String WON_EV = "wonEv";
 
@@ -566,37 +565,7 @@ public final class Fighter {
     //This class is covered
     //byte _user, in back
     public boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
-        if (!_data.getPokedex().contains(name)) {
-            return false;
-        }
-        if (!_data.getPokedex().contains(currentName)) {
-            return false;
-        }
-        if (!_data.getAbilities().contains(ability)) {
-            return false;
-        }
-        if (!_data.getAbilities().contains(currentAbility)) {
-            return false;
-        }
-        if (!item.isEmpty()) {
-            if (!_data.getItems().contains(item)) {
-                return false;
-            }
-        }
-        if (!expItem.isEmpty()) {
-            if (!_data.isObjectUsedForExp(expItem)) {
-                return false;
-            }
-        }
-        if (!lastUsedItem.isEmpty()) {
-            if (!_data.getItems().contains(lastUsedItem)) {
-                return false;
-            }
-        }
-        if (height.isZeroOrLt()) {
-            return false;
-        }
-        if (weight.isZeroOrLt()) {
+        if (!_data.getPokedex().contains(name) || !_data.getPokedex().contains(currentName) || !_data.getAbilities().contains(ability) || !_data.getAbilities().contains(currentAbility) || !item.isEmpty() && !_data.getItems().contains(item) || !expItem.isEmpty() && !_data.isObjectUsedForExp(expItem) || !lastUsedItem.isEmpty() && !_data.getItems().contains(lastUsedItem) || height.isZeroOrLt() || weight.isZeroOrLt()) {
             return false;
         }
         for (String t: types) {
@@ -604,53 +573,11 @@ public final class Fighter {
                 return false;
             }
         }
-        if (moves.size() > _data.getNbMaxMoves()) {
-            return false;
-        }
-        for (String m: moves.getKeys()) {
-            if (StringUtil.quickEq(m, _data.getDefaultMove())) {
-                return false;
-            }
-            if (!_data.getMoves().contains(m)) {
-                return false;
-            }
-            UsesOfMove pp_ = moves.getVal(m);
-            if (pp_.getCurrent() < 0) {
-                return false;
-            }
-            if (pp_.getCurrent() > pp_.getMax()) {
-                return false;
-            }
-            if (pp_.getMax() == 0) {
-                return false;
-            }
-        }
-        if (moves.isEmpty()) {
-            return false;
-        }
-        if (currentMoves.size() > _data.getNbMaxMoves()) {
-            return false;
-        }
-        for (String m: currentMoves.getKeys()) {
-            if (StringUtil.quickEq(m, _data.getDefaultMove())) {
-                return false;
-            }
-            if (!_data.getMoves().contains(m)) {
-                return false;
-            }
-            UsesOfMove pp_ = currentMoves.getVal(m);
-            if (pp_.getCurrent() < 0) {
-                return false;
-            }
-            if (pp_.getCurrent() > pp_.getMax()) {
-                return false;
-            }
-            if (pp_.getMax() == 0) {
-                return false;
-            }
-        }
-        StringList moves_ = attaquesUtilisables();
-        if (moves_.hasDuplicates()) {
+        return okDefaultFourth(_data, _numberTeam, _fight);
+    }
+
+    private boolean okDefaultFourth(DataBase _data, byte _numberTeam, Fight _fight) {
+        if (koOwnedMoves(_data)) {
             return false;
         }
         for (String m: alreadyInvokedMovesRound) {
@@ -658,356 +585,216 @@ public final class Fighter {
                 return false;
             }
         }
-        Team team_ = _fight.getTeams().getVal(_numberTeam);
-        ByteMap< Fighter> members_ = team_.getMembers();
-        if (action instanceof ActionMove) {
-            ActionMove actionMove_ = (ActionMove) action;
-            if (!_data.getMoves().contains(actionMove_.getFirstChosenMove())) {
-                return false;
-            }
-            if (!NumberUtil.eq(actionMove_.getSubstitute(),BACK)) {
-                if (!members_.contains(actionMove_.getSubstitute())) {
-                    return false;
-                }
-            }
-            if (_data.getMove(actionMove_.getFirstChosenMove()).getTargetChoice().isWithChoice()) {
-                if (actionMove_.getChosenTargets().size() > DataBase.ONE_POSSIBLE_CHOICE) {
-                    return false;
-                }
-            } else {
-                if (!actionMove_.getChosenTargets().isEmpty()) {
-                    return false;
-                }
-            }
-            if (!actionMove_.getFinalChosenMove().isEmpty()) {
-                if (!_data.getMoves().contains(actionMove_.getFinalChosenMove())) {
-                    return false;
-                }
-            }
-        }
-        if (action instanceof ActionSwitch) {
-            ActionSwitch actionSwitch_ = (ActionSwitch) action;
-            if (NumberUtil.eq(actionSwitch_.getSubstitute(),BACK)) {
-                return false;
-            }
-            if (!members_.contains(actionSwitch_.getSubstitute())) {
-                return false;
-            }
-        }
-        if (action instanceof ActionHeal) {
-            ActionHeal actionHeal_ = (ActionHeal) action;
-            if (!(_data.getItem(actionHeal_.getChosenHealingItem()) instanceof Berry)) {
-                if (!(_data.getItem(actionHeal_.getChosenHealingItem()) instanceof HealingItem)) {
-                    return false;
-                }
-            }
-            if (action instanceof ActionHealMove) {
-                //one move
-                ActionHealMove actionHealMove_ = (ActionHealMove) action;
-                boolean instanceOf_ = false;
-                if (_data.getItem(actionHealMove_.getChosenHealingItem()) instanceof HealingPp) {
-                    instanceOf_ = true;
-                    HealingPp pp_ = (HealingPp) _data.getItem(actionHealMove_.getChosenHealingItem());
-                    if (!pp_.healOneMove()) {
-                        return false;
-                    }
-                }
-                if (_data.getItem(actionHealMove_.getChosenHealingItem()) instanceof Berry) {
-                    instanceOf_ = true;
-                    Berry berry_ = (Berry) _data.getItem(actionHealMove_.getChosenHealingItem());
-                    if (berry_.getHealPp() == 0) {
-                        return false;
-                    }
-                }
-                if (!instanceOf_) {
-                    return false;
-                }
-                if (!_data.getMoves().contains(actionHealMove_.getFirstChosenMove())) {
-                    return false;
-                }
-            } else {
-                if (_data.getItem(actionHeal_.getChosenHealingItem()) instanceof HealingPp) {
-                    HealingPp pp_ = (HealingPp) _data.getItem(actionHeal_.getChosenHealingItem());
-                    if (pp_.healOneMove()) {
-                        return false;
-                    }
-                }
-                if (_data.getItem(actionHeal_.getChosenHealingItem()) instanceof Berry) {
-                    Berry berry_ = (Berry) _data.getItem(actionHeal_.getChosenHealingItem());
-                    if (berry_.getHealPp() > 0) {
-                        return false;
-                    }
-                }
-            }
-        }
-        if (!nbRounds.isZeroOrGt()) {
+        if (koAction(_data, _numberTeam, _fight) || !nbRounds.isZeroOrGt() || level <= 0 || level > _data.getMaxLevel() || !Statistic.equalsSet(ev.getKeys(), Statistic.getStatisticsWithBase()) || !Statistic.equalsSet(statisBase.getKeys(), Statistic.getStatisticsWithBase()) || !Statistic.equalsSet(statisBoost.getKeys(), Statistic.getStatisticsWithBoost()) || koStatistic(_data) || !clone.isZeroOrGt() || !remainingHp.isZeroOrGt() || Rate.strGreater(remainingHp, pvMax()) || estKo() && !estArriere() || NumberUtil.eq(groundPlaceSubst, Fighter.BACK) && !estArriere() || isBelongingToPlayer() && (!_data.getItems().contains(usedBallCatching) || !(_data.getItem(usedBallCatching) instanceof Ball)) || !wonExp.isZeroOrGt() || !wonExpSinceLastLevel.isZeroOrGt() || happiness < 0 || happiness > _data.getHappinessMax() || koEnabled(_data) || !_data.getTypes().containsAllObj(protectedAgainstMoveTypes) || !StringUtil.equalsSet(_data.getMovesEffEndRoundIndiv(), enabledMovesEndRound.getKeys())) {
             return false;
         }
-        if (level <= 0) {
-            return false;
-        }
-        if (level > _data.getMaxLevel()) {
-            return false;
-        }
-        if (!Statistic.equalsSet(ev.getKeys(), Statistic.getStatisticsWithBase())) {
-            return false;
-        }
-        if (!Statistic.equalsSet(statisBase.getKeys(), Statistic.getStatisticsWithBase())) {
-            return false;
-        }
-        if (!Statistic.equalsSet(statisBoost.getKeys(), Statistic.getStatisticsWithBoost())) {
-            return false;
-        }
-        for (Statistic s: Statistic.getStatisticsWithBase()) {
-            if (ev.getVal(s) < 0) {
-                return false;
-            }
-            Rate stat_ = statisBase.getVal(s);
-            if (stat_.isZeroOrLt()) {
-                return false;
-            }
-        }
-        for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            byte boost_ = statisBoost.getVal(s);
-            if (boost_ < _data.getMinBoost()) {
-                return false;
-            }
-            if (boost_ > _data.getMaxBoost()) {
-                return false;
-            }
-        }
-        if (!clone.isZeroOrGt()) {
-            return false;
-        }
-        if (!remainingHp.isZeroOrGt()) {
-            return false;
-        }
-        if (Rate.strGreater(remainingHp, pvMax())) {
-            return false;
-        }
-        if (estKo()) {
-            if (!estArriere()) {
-                return false;
-            }
-        }
-        if (NumberUtil.eq(groundPlaceSubst, Fighter.BACK)) {
-            if (!estArriere()) {
-                return false;
-            }
-        }
-        if (isBelongingToPlayer()) {
-            if (!_data.getItems().contains(usedBallCatching)) {
-                return false;
-            }
-            if (!(_data.getItem(usedBallCatching) instanceof Ball)) {
-                return false;
-            }
-        }
-        if (!wonExp.isZeroOrGt()) {
-            return false;
-        }
-        if (!wonExpSinceLastLevel.isZeroOrGt()) {
-            return false;
-        }
-        if (happiness < 0) {
-            return false;
-        }
-        if (happiness > _data.getHappinessMax()) {
-            return false;
-        }
-        if (!StringUtil.equalsSet(_data.getMovesEffectIndiv(), enabledMoves.getKeys())) {
-            return false;
-        }
-        for (String m: enabledMoves.getKeys()) {
-            if (enabledMoves.getVal(m).getNbTurn() < 0) {
-                return false;
-            }
-        }
-        if (!StringUtil.equalsSet(_data.getMovesEffectUnprot(), enabledMovesUnprot.getKeys())) {
-            return false;
-        }
-        for (String m: enabledMovesUnprot.getKeys()) {
-            if (enabledMovesUnprot.getVal(m).getNbTurn() < 0) {
-                return false;
-            }
-        }
-        if (!StringUtil.equalsSet(_data.getMovesEffectProt(), enabledMovesProt.getKeys())) {
-            return false;
-        }
-        for (String m: enabledMovesProt.getKeys()) {
-            if (enabledMovesProt.getVal(m).getNbTurn() < 0) {
-                return false;
-            }
-        }
-        if (!_data.getTypes().containsAllObj(protectedAgainstMoveTypes)) {
-            return false;
-        }
-        if (!StringUtil.equalsSet(_data.getMovesEffEndRoundIndiv(), enabledMovesEndRound.getKeys())) {
-            return false;
-        }
+        return okDefaultThird(_data, _fight);
+    }
+
+    private boolean okDefaultThird(DataBase _data, Fight _fight) {
         for (String m: enabledMovesEndRound.getKeys()) {
             if (enabledMovesEndRound.getVal(m).getNbTurn() < 0) {
                 return false;
             }
         }
-        if (!StringUtil.equalsSet(_data.getMovesEffectAlly(), enabledMovesForAlly.getKeys())) {
+        if (!StringUtil.equalsSet(_data.getMovesEffectAlly(), enabledMovesForAlly.getKeys()) || !StringUtil.equalsSet(_data.getMovesConstChoices(), enabledMovesConstChoices.getKeys()) || !StringUtil.equalsSet(_data.getMovesChangingTypes(), enabledChangingTypesMoves.getKeys()) || !StringUtil.equalsSet(_data.getMovesCountering(), enabledCounteringMoves.getKeys()) || !StringUtil.equalsSet(_data.getTypes(), damageRateInflictedByType.getKeys())) {
             return false;
         }
-        if (!StringUtil.equalsSet(_data.getMovesConstChoices(), enabledMovesConstChoices.getKeys())) {
-            return false;
-        }
-        if (!StringUtil.equalsSet(_data.getMovesChangingTypes(), enabledChangingTypesMoves.getKeys())) {
-            return false;
-        }
-        if (!StringUtil.equalsSet(_data.getMovesCountering(), enabledCounteringMoves.getKeys())) {
-            return false;
-        }
-        if (!StringUtil.equalsSet(_data.getTypes(), damageRateInflictedByType.getKeys())) {
-            return false;
-        }
+        return okDefaultSec(_data, _fight);
+    }
+
+    private boolean okDefaultSec(DataBase _data, Fight _fight) {
         for (String m: damageRateInflictedByType.getKeys()) {
             if (!damageRateInflictedByType.getVal(m).isZeroOrGt()) {
                 return false;
             }
         }
-        if (!StringUtil.equalsSet(_data.getTypes(), damageRateSufferedByType.getKeys())) {
+        if (koSufferingMoves(_data) || koEnabled()) {
             return false;
+        }
+        for (String m:movesToBeLearnt) {
+            if (!_data.getMoves().contains(m) || moves.contains(m)) {
+                return false;
+            }
+        }
+        return okDefault(_data, _fight);
+    }
+
+    private boolean okDefault(DataBase _data, Fight _fight) {
+        return !koEvos(_data) && !koRelations(_data, _fight) && !koSpecMoves(_data) && (nbPrepaRound != 0 || !disappeared) && nbPrepaRound >= 0 && (nbPrepaRound <= 0 || !needingToRecharge) && nbRepeatingSuccessfulMoves.isZeroOrGt() && okLastUsedMove(_data) && (usedMoveLastRound.isEmpty() || (_data.getMoves().contains(usedMoveLastRound) && StringUtil.contains(attaquesUtilisables(), usedMoveLastRound))) && (lastSuccessfulMove.isEmpty() || _data.getMoves().contains(lastSuccessfulMove)) && (lastSufferedMove.isEmpty() || _data.getMoves().contains(lastSufferedMove)) && _data.getTypes().containsAllObj(lastSufferedMoveTypes) && (groundPlace == BACK || groundPlace >= 0) && (groundPlaceSubst == BACK || groundPlaceSubst >= 0);
+    }
+
+    private boolean okLastUsedMove(DataBase _data) {
+        return lastUsedMove.isEmpty() || _data.getMoves().contains(lastUsedMove);
+    }
+
+    private boolean koSufferingMoves(DataBase _data) {
+        if (!StringUtil.equalsSet(_data.getTypes(), damageRateSufferedByType.getKeys())) {
+            return true;
         }
         for (String m: damageRateSufferedByType.getKeys()) {
             if (!damageRateSufferedByType.getVal(m).isZeroOrGt()) {
-                return false;
+                return true;
             }
         }
         if (!StringUtil.equalsSet(_data.getCategories(), damageSufferedCateg.getKeys())) {
-            return false;
+            return true;
         }
         for (String m: damageSufferedCateg.getKeys()) {
             if (!damageSufferedCateg.getVal(m).isZeroOrGt()) {
-                return false;
+                return true;
             }
         }
         if (!StringUtil.equalsSet(_data.getCategories(), damageSufferedCategRound.getKeys())) {
-            return false;
+            return true;
         }
         for (String m: damageSufferedCategRound.getKeys()) {
             if (!damageSufferedCategRound.getVal(m).isZeroOrGt()) {
-                return false;
+                return true;
             }
         }
+        return false;
+    }
+
+    private boolean koStatistic(DataBase _data) {
+        for (Statistic s: Statistic.getStatisticsWithBase()) {
+            if (ev.getVal(s) < 0 || statisBase.getVal(s).isZeroOrLt()) {
+                return true;
+            }
+        }
+        for (Statistic s: Statistic.getStatisticsWithBoost()) {
+            byte boost_ = statisBoost.getVal(s);
+            if (boost_ < _data.getMinBoost() || boost_ > _data.getMaxBoost()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koOwnedMoves(DataBase _data) {
+        if (moves.size() > _data.getNbMaxMoves()) {
+            return true;
+        }
+        for (EntryCust<String, UsesOfMove> m: moves.entryList()) {
+            if (StringUtil.quickEq(m.getKey(), _data.getDefaultMove()) || !_data.getMoves().contains(m.getKey()) || m.getValue().getCurrent() < 0 || m.getValue().getCurrent() > m.getValue().getMax() || m.getValue().getMax() == 0) {
+                return true;
+            }
+        }
+        if (moves.isEmpty() || currentMoves.size() > _data.getNbMaxMoves()) {
+            return true;
+        }
+        for (EntryCust<String, UsesOfMove> m: currentMoves.entryList()) {
+            if (StringUtil.quickEq(m.getKey(), _data.getDefaultMove()) || !_data.getMoves().contains(m.getKey()) || m.getValue().getCurrent() < 0 || m.getValue().getCurrent() > m.getValue().getMax() || m.getValue().getMax() == 0) {
+                return true;
+            }
+        }
+        return attaquesUtilisables().hasDuplicates();
+    }
+
+    private boolean koEnabled(DataBase _data) {
+        if (!StringUtil.equalsSet(_data.getMovesEffectIndiv(), enabledMoves.getKeys())) {
+            return true;
+        }
+        for (String m: enabledMoves.getKeys()) {
+            if (enabledMoves.getVal(m).getNbTurn() < 0) {
+                return true;
+            }
+        }
+        if (!StringUtil.equalsSet(_data.getMovesEffectUnprot(), enabledMovesUnprot.getKeys())) {
+            return true;
+        }
+        for (String m: enabledMovesUnprot.getKeys()) {
+            if (enabledMovesUnprot.getVal(m).getNbTurn() < 0) {
+                return true;
+            }
+        }
+        if (!StringUtil.equalsSet(_data.getMovesEffectProt(), enabledMovesProt.getKeys())) {
+            return true;
+        }
+        for (String m: enabledMovesProt.getKeys()) {
+            if (enabledMovesProt.getVal(m).getNbTurn() < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koEnabled() {
         for (String m: enabledMovesConstChoices.getKeys()) {
             if (enabledMovesConstChoices.getVal(m).getNbTurn() < 0) {
-                return false;
+                return true;
             }
         }
         for (String m: enabledChangingTypesMoves.getKeys()) {
             if (enabledChangingTypesMoves.getVal(m).getNbTurn() < 0) {
-                return false;
+                return true;
             }
         }
         for (String m: enabledCounteringMoves.getKeys()) {
             if (enabledCounteringMoves.getVal(m).getNbTurn() < 0) {
-                return false;
+                return true;
             }
         }
-        for (String m:movesToBeLearnt) {
-            if (!_data.getMoves().contains(m)) {
-                return false;
-            }
-            if (moves.contains(m)) {
-                return false;
-            }
-        }
-        PokemonData fPk_ = fichePokemon(_data);
-        for (String e: movesAbilitiesEvos.getKeys()) {
-            if (!fPk_.getEvolutions().contains(e)) {
-                return false;
-            }
-            MovesAbilities movesAbilities_ = movesAbilitiesEvos.getVal(e);
-            for (String m: moves.getKeys()) {
-                if (StringUtil.contains(movesAbilities_.getMoves(), m)) {
-                    return false;
-                }
-            }
-            for (String m: movesAbilities_.getMoves()) {
-                if (!_data.getMoves().contains(m)) {
-                    return false;
-                }
-            }
-            for (String a: movesAbilities_.getAbilities()) {
-                if (!_data.getAbilities().contains(a)) {
-                    return false;
-                }
-            }
-        }
+        return false;
+    }
+
+    private boolean koRelations(DataBase _data, Fight _fight) {
         TeamPositionList fighters_ = FightOrder.fighters(_fight);
-        StringList relMoves_;
-        relMoves_ = new StringList();
-        relMoves_.addAllElts(_data.getMovesActingMoveUses());
-        CustList<MoveTeamPosition> relMovesTh_;
-        relMovesTh_ = new CustList<MoveTeamPosition>();
-        for (TeamPosition f: fighters_) {
-            for (String m: relMoves_) {
-                relMovesTh_.add(new MoveTeamPosition(m, f));
-            }
+        if (!MoveTeamPosition.equalsSet(trackingMoves.getKeys(), relMoves(fighters_, _data.getMovesActingMoveUses())) || !MoveTeamPosition.equalsSet(trappingMoves.getKeys(), relMoves(fighters_, _data.getTrappingMoves())) || !MoveTeamPosition.equalsSet(privateMoves.getKeys(), relMoves(fighters_, _data.getMovesForbidding())) || !MoveTeamPosition.equalsSet(incrUserAccuracy.getKeys(), relMoves(fighters_, _data.getMovesAccuracy()))) {
+            return true;
         }
-        if (!MoveTeamPosition.equalsSet(trackingMoves.getKeys(), relMovesTh_)) {
-            return false;
+        if (koTrackingTrappingPrivate(_data)) {
+            return true;
         }
-        relMoves_ = new StringList();
-        relMoves_.addAllElts(_data.getTrappingMoves());
-        relMovesTh_ = new CustList<MoveTeamPosition>();
-        for (TeamPosition f: fighters_) {
-            for (String m: relMoves_) {
-                relMovesTh_.add(new MoveTeamPosition(m, f));
-            }
-        }
-        if (!MoveTeamPosition.equalsSet(trappingMoves.getKeys(), relMovesTh_)) {
-            return false;
-        }
-        relMoves_ = new StringList();
-        relMoves_.addAllElts(_data.getMovesForbidding());
-        relMovesTh_ = new CustList<MoveTeamPosition>();
-        for (TeamPosition f: fighters_) {
-            for (String m: relMoves_) {
-                relMovesTh_.add(new MoveTeamPosition(m, f));
-            }
-        }
-        if (!MoveTeamPosition.equalsSet(privateMoves.getKeys(), relMovesTh_)) {
-            return false;
-        }
-        relMoves_ = new StringList();
-        relMoves_.addAllElts(_data.getMovesAccuracy());
-        relMovesTh_ = new CustList<MoveTeamPosition>();
-        for (TeamPosition f: fighters_) {
-            for (String m: relMoves_) {
-                relMovesTh_.add(new MoveTeamPosition(m, f));
-            }
-        }
-        if (!MoveTeamPosition.equalsSet(incrUserAccuracy.getKeys(), relMovesTh_)) {
-            return false;
-        }
+        return koStatus(_data, fighters_);
+    }
+
+    private boolean koTrackingTrappingPrivate(DataBase _data) {
         for (AffectedMove v: trackingMoves.values()) {
-            if (!v.getMove().isEmpty()) {
-                if (!_data.getMoves().contains(v.getMove())) {
-                    return false;
-                }
-            }
-            if (v.getActivity().getNbTurn() < 0) {
-                return false;
+            if (!v.getMove().isEmpty() && !_data.getMoves().contains(v.getMove()) || v.getActivity().getNbTurn() < 0) {
+                return true;
             }
         }
         for (ActivityOfMove k: trappingMoves.values()) {
             if (k.getNbTurn() < 0) {
-                return false;
+                return true;
             }
         }
         for (StringList k: privateMoves.values()) {
             for (String m: k) {
                 if (!_data.getMoves().contains(m)) {
-                    return false;
+                    return true;
                 }
             }
         }
+        return false;
+    }
+
+    private boolean koSpecMoves(DataBase _data) {
+        StringList attaques_ = new StringList();
+        attaques_.addAllElts(_data.getVarParamsMove(CIBLE_NB_UTILISATION));
+        attaques_.addAllElts(_data.getVarParamsMove(LANCEUR_NB_UTILISATION));
+        if (!StringUtil.equalsSet(attaques_, nbUsesMoves.getKeys())) {
+            return true;
+        }
+        for (String m: nbUsesMoves.getKeys()) {
+            if (nbUsesMoves.getVal(m) < 0) {
+                return true;
+            }
+        }
+        if (!StringUtil.equalsSet(copiedMoves.getKeys(), _data.getMovesCopyingTemp())) {
+            return true;
+        }
+        for (String m: copiedMoves.getKeys()) {
+            CopiedMove val_ = copiedMoves.getVal(m);
+            if (val_.getPp() < 0 || !val_.getMove().isEmpty() && !_data.getMoves().contains(val_.getMove())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koStatus(DataBase _data, TeamPositionList _fighters) {
         StringList statusSingle_;
         statusSingle_ = new StringList();
         StringList statusRelation_;
@@ -1019,106 +806,143 @@ public final class Fighter {
                 statusRelation_.add(s);
             }
         }
-        if (!StringUtil.equalsSet(status.getKeys(), statusSingle_)) {
-            return false;
-        }
-        relMoves_ = new StringList();
-        relMoves_.addAllElts(statusRelation_);
-        relMovesTh_ = new CustList<MoveTeamPosition>();
-        for (TeamPosition f: fighters_) {
-            for (String m: relMoves_) {
-                relMovesTh_.add(new MoveTeamPosition(m, f));
-            }
-        }
-        if (!MoveTeamPosition.equalsSet(statusRelat.getKeys(), relMovesTh_)) {
-            return false;
+        if (!StringUtil.equalsSet(status.getKeys(), statusSingle_) || !MoveTeamPosition.equalsSet(statusRelat.getKeys(), relMoves(_fighters, statusRelation_))) {
+            return true;
         }
         for (short s: status.values()) {
             if (s < 0) {
-                return false;
+                return true;
             }
         }
         for (short s: statusRelat.values()) {
             if (s < 0) {
-                return false;
+                return true;
             }
         }
-        StringList attaques_ = new StringList();
-        attaques_.addAllElts(_data.getVarParamsMove(CIBLE_NB_UTILISATION));
-        attaques_.addAllElts(_data.getVarParamsMove(LANCEUR_NB_UTILISATION));
-        if (!StringUtil.equalsSet(attaques_, nbUsesMoves.getKeys())) {
-            return false;
-        }
-        for (String m: nbUsesMoves.getKeys()) {
-            if (nbUsesMoves.getVal(m) < 0) {
-                return false;
+        return false;
+    }
+
+    private boolean koEvos(DataBase _data) {
+        PokemonData fPk_ = fichePokemon(_data);
+        for (EntryCust<String, MovesAbilities> e: movesAbilitiesEvos.entryList()) {
+            if (koEvo(_data, fPk_, e.getKey(), e.getValue())) {
+                return true;
             }
         }
-        if (!StringUtil.equalsSet(copiedMoves.getKeys(), _data.getMovesCopyingTemp())) {
-            return false;
+        return false;
+    }
+
+    private boolean koEvo(DataBase _data, PokemonData _fPk, String _e, MovesAbilities _movesAbilities) {
+        if (!_fPk.getEvolutions().contains(_e)) {
+            return true;
         }
-        for (String m: copiedMoves.getKeys()) {
-            CopiedMove val_ = copiedMoves.getVal(m);
-            if (val_.getPp() < 0) {
-                return false;
+        for (String m: moves.getKeys()) {
+            if (StringUtil.contains(_movesAbilities.getMoves(), m)) {
+                return true;
             }
-            if (!val_.getMove().isEmpty()) {
-                if (!_data.getMoves().contains(val_.getMove())) {
-                    return false;
+        }
+        for (String m: _movesAbilities.getMoves()) {
+            if (!_data.getMoves().contains(m)) {
+                return true;
+            }
+        }
+        for (String a: _movesAbilities.getAbilities()) {
+            if (!_data.getAbilities().contains(a)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koAction(DataBase _data, byte _numberTeam, Fight _fight) {
+        Team team_ = _fight.getTeams().getVal(_numberTeam);
+        ByteMap< Fighter> members_ = team_.getMembers();
+        if (action instanceof ActionMove) {
+            ActionMove actionMove_ = (ActionMove) action;
+            if (!_data.getMoves().contains(actionMove_.getFirstChosenMove()) || !NumberUtil.eq(actionMove_.getSubstitute(), BACK) && !members_.contains(actionMove_.getSubstitute())) {
+                return true;
+            }
+            if (_data.getMove(actionMove_.getFirstChosenMove()).getTargetChoice().isWithChoice()) {
+                if (actionMove_.getChosenTargets().size() > DataBase.ONE_POSSIBLE_CHOICE) {
+                    return true;
+                }
+            } else if (!actionMove_.getChosenTargets().isEmpty()) {
+                return true;
+            }
+            if (!actionMove_.getFinalChosenMove().isEmpty() && !_data.getMoves().contains(actionMove_.getFinalChosenMove())) {
+                return true;
+            }
+        }
+        return koActionSub(_data, members_);
+    }
+
+    private boolean koActionSub(DataBase _data, ByteMap<Fighter> _members) {
+        if (action instanceof ActionSwitch) {
+            ActionSwitch actionSwitch_ = (ActionSwitch) action;
+            if (NumberUtil.eq(actionSwitch_.getSubstitute(), BACK) || !_members.contains(actionSwitch_.getSubstitute())) {
+                return true;
+            }
+        }
+        return koActionSub(_data);
+    }
+
+    private boolean koActionSub(DataBase _data) {
+        if (action instanceof ActionHeal) {
+            ActionHeal actionHeal_ = (ActionHeal) action;
+            if (!(_data.getItem(actionHeal_.getChosenHealingItem()) instanceof Berry) && !(_data.getItem(actionHeal_.getChosenHealingItem()) instanceof HealingItem)) {
+                return true;
+            }
+            if (action instanceof ActionHealMove) {
+                //one move
+                ActionHealMove actionHealMove_ = (ActionHealMove) action;
+                return koActionHealMove(_data, actionHealMove_);
+            }
+            if (_data.getItem(actionHeal_.getChosenHealingItem()) instanceof HealingPp) {
+                HealingPp pp_ = (HealingPp) _data.getItem(actionHeal_.getChosenHealingItem());
+                if (pp_.healOneMove()) {
+                    return true;
                 }
             }
-        }
-        if (nbPrepaRound == 0) {
-            if (disappeared) {
-                return false;
+            if (_data.getItem(actionHeal_.getChosenHealingItem()) instanceof Berry) {
+                Berry berry_ = (Berry) _data.getItem(actionHeal_.getChosenHealingItem());
+                return berry_.getHealPp() > 0;
             }
         }
-        if (nbPrepaRound < 0) {
-            return false;
-        }
-        if (nbPrepaRound > 0) {
-            if (needingToRecharge) {
-                return false;
+        return false;
+    }
+
+    private boolean koActionHealMove(DataBase _data, ActionHealMove _actionHealMove) {
+        boolean instanceOf_ = false;
+        if (_data.getItem(_actionHealMove.getChosenHealingItem()) instanceof HealingPp) {
+            instanceOf_ = true;
+            HealingPp pp_ = (HealingPp) _data.getItem(_actionHealMove.getChosenHealingItem());
+            if (!pp_.healOneMove()) {
+                return true;
             }
         }
-        if (!nbRepeatingSuccessfulMoves.isZeroOrGt()) {
-            return false;
-        }
-        if (!lastUsedMove.isEmpty()) {
-            if (!_data.getMoves().contains(lastUsedMove)) {
-                return false;
+        if (_data.getItem(_actionHealMove.getChosenHealingItem()) instanceof Berry) {
+            instanceOf_ = true;
+            Berry berry_ = (Berry) _data.getItem(_actionHealMove.getChosenHealingItem());
+            if (berry_.getHealPp() == 0) {
+                return true;
             }
         }
-        if (!usedMoveLastRound.isEmpty()) {
-            if (!_data.getMoves().contains(usedMoveLastRound)) {
-                return false;
-            }
-            if (!StringUtil.contains(attaquesUtilisables(), usedMoveLastRound)) {
-                return false;
-            }
+        if (!instanceOf_) {
+            return true;
         }
-        if (!lastSuccessfulMove.isEmpty()) {
-            if (!_data.getMoves().contains(lastSuccessfulMove)) {
-                return false;
-            }
-        }
-        if (!lastSufferedMove.isEmpty()) {
-            if (!_data.getMoves().contains(lastSufferedMove)) {
-                return false;
+        return !_data.getMoves().contains(_actionHealMove.getFirstChosenMove());
+    }
+
+    private CustList<MoveTeamPosition> relMoves(TeamPositionList _fighters, StringList _moves) {
+        StringList relMoves_ = new StringList();
+        relMoves_.addAllElts(_moves);
+        CustList<MoveTeamPosition> relMovesTh_ = new CustList<MoveTeamPosition>();
+        for (TeamPosition f: _fighters) {
+            for (String m: relMoves_) {
+                relMovesTh_.add(new MoveTeamPosition(m, f));
             }
         }
-        if (!_data.getTypes().containsAllObj(lastSufferedMoveTypes)) {
-            return false;
-        }
-        if (groundPlace != BACK) {
-            if (groundPlace < 0) {
-                return false;
-            }
-        }
-        if (groundPlaceSubst != BACK) {
-            return groundPlaceSubst >= 0;
-        }
-        return true;
+        return relMovesTh_;
     }
 
     void ajouterRelationAutre(TeamPosition _cbt,DataBase _import){
@@ -1183,60 +1007,85 @@ public final class Fighter {
         PokemonData fPk_=fichePokemon(_import);
         for(String e:fPk_.getEvolutions().getKeys()){
             Evolution evo_=fPk_.getEvolution(e);
-            if(evo_ instanceof EvolutionMove){
-                EvolutionMove evoAtt_=(EvolutionMove)evo_;
-                if(moves.contains(evoAtt_.getMove())){
-                    evos_.add(e);
-                }
-                continue;
-            }
-            if(evo_ instanceof EvolutionMoveType){
-                EvolutionMoveType evoType_=(EvolutionMoveType)evo_;
-                for (String move_: moves.getKeys()) {
-                    for (String type_: _import.getMove(move_).getTypes()) {
-                        if (StringUtil.quickEq(type_, evoType_.getType())) {
-                            evos_.add(e);
-                        }
-                    }
-                }
-                evos_.removeDuplicates();
-            }
-            if(evo_ instanceof EvolutionHappiness){
-                if(happiness>=_import.getHappinessEvo()){
-                    evos_.add(e);
-                }
-                continue;
-            }
-            if(evo_ instanceof EvolutionLevelGender){
-                EvolutionLevelGender evoNivGenre_=(EvolutionLevelGender)evo_;
-                if(gender==evoNivGenre_.getGender()&&level>=evoNivGenre_.getLevel()){
-                    evos_.add(e);
-                }
-                continue;
-            }
-            if(evo_ instanceof EvolutionLevel){
-                EvolutionLevel evoNiv_=(EvolutionLevel)evo_;
-                if(level>=evoNiv_.getLevel()){
-                    evos_.add(e);
-                }
-                continue;
-            }
-            if(evo_ instanceof EvolutionItem){
-                EvolutionItem evoObjet_=(EvolutionItem)evo_;
-                if(StringUtil.quickEq(evoObjet_.getItem(),item)){
-                    evos_.add(e);
-                }
-                continue;
-            }
-            if(evo_ instanceof EvolutionTeam){
-                EvolutionTeam evoPlace_=(EvolutionTeam)evo_;
-                if(StringUtil.contains(_pkNamesBegin, evoPlace_.getPokemon())){
-                    evos_.add(e);
-                }
-                continue;
-            }
+            nomEvolution(_import, _pkNamesBegin, evos_, e, evo_);
         }
         return evos_;
+    }
+
+    private void nomEvolution(DataBase _import, StringList _pkNamesBegin, StringList _evos, String _e, Evolution _evo) {
+        if(_evo instanceof EvolutionMove){
+            evolutionMove(_evos, _e, (EvolutionMove) _evo);
+            return;
+        }
+        if(_evo instanceof EvolutionMoveType){
+            evolutionMoveType(_import, _evos, _e, (EvolutionMoveType) _evo);
+            _evos.removeDuplicates();
+        }
+        if(_evo instanceof EvolutionHappiness){
+            evolutionHappiness(_import, _evos, _e);
+            return;
+        }
+        if(_evo instanceof EvolutionLevelGender){
+            evolutionLevelGender(_evos, _e, (EvolutionLevelGender) _evo);
+            return;
+        }
+        if(_evo instanceof EvolutionLevel){
+            evolutionLevel(_evos, _e, (EvolutionLevel) _evo);
+            return;
+        }
+        if(_evo instanceof EvolutionItem){
+            evolutionItem(_evos, _e, (EvolutionItem) _evo);
+            return;
+        }
+        if(_evo instanceof EvolutionTeam){
+            evolutionTeam(_pkNamesBegin, _evos, _e, (EvolutionTeam) _evo);
+        }
+    }
+
+    private void evolutionTeam(StringList _pkNamesBegin, StringList _evos, String _e, EvolutionTeam _evo) {
+        if(StringUtil.contains(_pkNamesBegin, _evo.getPokemon())){
+            _evos.add(_e);
+        }
+    }
+
+    private void evolutionItem(StringList _evos, String _e, EvolutionItem _evo) {
+        if(StringUtil.quickEq(_evo.getItem(),item)){
+            _evos.add(_e);
+        }
+    }
+
+    private void evolutionLevel(StringList _evos, String _e, EvolutionLevel _evo) {
+        if(level>= _evo.getLevel()){
+            _evos.add(_e);
+        }
+    }
+
+    private void evolutionLevelGender(StringList _evos, String _e, EvolutionLevelGender _evo) {
+        if(gender== _evo.getGender()&&level>= _evo.getLevel()){
+            _evos.add(_e);
+        }
+    }
+
+    private void evolutionHappiness(DataBase _import, StringList _evos, String _e) {
+        if(happiness>= _import.getHappinessEvo()){
+            _evos.add(_e);
+        }
+    }
+
+    private void evolutionMove(StringList _evos, String _e, EvolutionMove _evoAtt) {
+        if(moves.contains(_evoAtt.getMove())){
+            _evos.add(_e);
+        }
+    }
+
+    private void evolutionMoveType(DataBase _import, StringList _evos, String _e, EvolutionMoveType _evoType) {
+        for (String move_: moves.getKeys()) {
+            for (String type_: _import.getMove(move_).getTypes()) {
+                if (StringUtil.quickEq(type_, _evoType.getType())) {
+                    _evos.add(_e);
+                }
+            }
+        }
     }
 
     boolean possedeObjet(){
@@ -1386,12 +1235,7 @@ public final class Fighter {
             UsesOfMove pps_ = currentMoves.getVal(_attaque);
             short ppAct_=pps_.getCurrent();
             if(changed){
-                if(ppAct_<_var){
-                    ppAct_=0;
-                }else{
-                    ppAct_=(short) (ppAct_-_var);
-                }
-                pps_.setCurrent(ppAct_);
+                changePpMovesEvo(_var, pps_, ppAct_);
                 return;
             }
             if(ppAct_<_var){
@@ -1406,14 +1250,28 @@ public final class Fighter {
         }
         if (moves.contains(_attaque)) {
             UsesOfMove pps_ = moves.getVal(_attaque);
-            short pp_=pps_.getCurrent();
-            if(pp_<_var){
-                pp_=0;
-            }else{
-                pp_=(short) (pp_-_var);
-            }
-            pps_.setCurrent(pp_);
+            changePpMoves(_var, pps_);
         }
+    }
+
+    private void changePpMovesEvo(short _var, UsesOfMove _pps, short _ppAct) {
+        short ppAct_ = _ppAct;
+        if(ppAct_ < _var){
+            ppAct_ =0;
+        }else{
+            ppAct_ =(short) (ppAct_ - _var);
+        }
+        _pps.setCurrent(ppAct_);
+    }
+
+    private void changePpMoves(short _var, UsesOfMove _pps) {
+        short pp_= _pps.getCurrent();
+        if(pp_< _var){
+            pp_=0;
+        }else{
+            pp_=(short) (pp_- _var);
+        }
+        _pps.setCurrent(pp_);
     }
 
     void effectBatonPass(Fighter _lanceur){
@@ -1645,10 +1503,8 @@ public final class Fighter {
     }
 
     void backUpObject(String _objet){
-        if(!item.isEmpty()){
-            if(_objet.isEmpty()){
-                lastUsedItem=item;
-            }
+        if (!item.isEmpty() && _objet.isEmpty()) {
+            lastUsedItem = item;
         }
         item=_objet;
     }
@@ -1705,20 +1561,7 @@ public final class Fighter {
     }
 
     void apprendreAttaqueEcrasant(String _nouvelleAttaque,String _ancienneAttaque,DataBase _import){
-        MoveData fAtt_=_import.getMove(_ancienneAttaque);
-        int nbEffets_=fAtt_.nbEffets();
-        short pp_=0;
-        for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-            Effect effet_=fAtt_.getEffet(i);
-            if(!(effet_ instanceof EffectCopyMove)){
-                continue;
-            }
-            EffectCopyMove effetCopieAtt_=(EffectCopyMove)effet_;
-            if(effetCopieAtt_.getCopyingMoveForUser()>0){
-                pp_=effetCopieAtt_.getCopyingMoveForUser();
-                break;
-            }
-        }
+        short pp_=_import.ppCopiedMove(_ancienneAttaque);
         if (!StringUtil.contains(_import.getMovesCopyingTemp(), _ancienneAttaque)) {
             return;
         }
@@ -1902,11 +1745,7 @@ public final class Fighter {
         Rate sommeDiffNiveaux_=numberNecessaryPointsForGrowingLevel(niveauTmp_,_import);
         niveauTmp_--;
         short maxNiveau_=(short) _import.getMaxLevel();
-        while(true){
-            Rate sum_ = Rate.plus(wonExp, wonExpSinceLastLevel);
-            if (Rate.strLower(sum_, sommeDiffNiveaux_)){
-                break;
-            }
+        while(!Rate.strLower(Rate.plus(wonExp, wonExpSinceLastLevel), sommeDiffNiveaux_)){
             niveauTmp_++;
             if (niveauTmp_ >= maxNiveau_) {
                 if (niveauTmp_ > maxNiveau_) {
@@ -1950,19 +1789,8 @@ public final class Fighter {
         StringList attaquesConnues_=new StringList(moves.getKeys());
         PokemonData fPk_=fichePokemon(_import);
         for(LevelMove nivAtt_: fPk_.getLevMoves()){
-            if(StringUtil.contains(attaquesConnues_, nivAtt_.getMove())){
+            if (StringUtil.contains(attaquesConnues_, nivAtt_.getMove()) || nivAtt_.getLevel() > _niveauTmp || nivAtt_.getLevel() < level || _diff.isSkipLearningMovesWhileNotGrowingLevel() && NumberUtil.eq(nivAtt_.getLevel(), level)) {
                 continue;
-            }
-            if(nivAtt_.getLevel()>_niveauTmp){
-                continue;
-            }
-            if(nivAtt_.getLevel()<level){
-                continue;
-            }
-            if (_diff.isSkipLearningMovesWhileNotGrowingLevel()) {
-                if(NumberUtil.eq(nivAtt_.getLevel(), level)){
-                    continue;
-                }
             }
             newMoves_.put(nivAtt_.getMove(), BoolVal.TRUE);
         }
@@ -2022,10 +1850,9 @@ public final class Fighter {
                 if(StringUtil.contains(_attaquesConnues, l.getMove())){
                     continue;
                 }
-                if(l.getLevel()>level){
-                    continue;
+                if (l.getLevel() <= level) {
+                    attaquesApprendreEvos_.add(l.getMove());
                 }
-                attaquesApprendreEvos_.add(l.getMove());
             }
             attaquesApprendreEvos_.removeDuplicates();
             StringList capacites_=new StringList(fPkEvo_.getAbilities());
@@ -2288,15 +2115,7 @@ public final class Fighter {
     }
 
     boolean noPowerPointForLastUsedMove() {
-        boolean pasPpAttaqueCible_=false;
-        if(usedMoveLastRound.isEmpty()){
-            pasPpAttaqueCible_=true;
-        }else if(!StringUtil.contains(attaquesUtilisables(), usedMoveLastRound)){
-            pasPpAttaqueCible_=true;
-        }else if(powerPointsMove(usedMoveLastRound) == 0){
-            pasPpAttaqueCible_=true;
-        }
-        return pasPpAttaqueCible_;
+        return usedMoveLastRound.isEmpty() || !StringUtil.contains(attaquesUtilisables(), usedMoveLastRound) || powerPointsMove(usedMoveLastRound) == 0;
     }
 
     StringList resistingTypes(DataBase _import) {

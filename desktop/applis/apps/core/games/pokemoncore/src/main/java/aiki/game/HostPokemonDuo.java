@@ -14,10 +14,7 @@ public final class HostPokemonDuo {
 
     public boolean validate(DataBase _data) {
         if (isFree()) {
-            if (nbSteps != 0) {
-                return false;
-            }
-            return true;
+            return nbSteps == 0;
         }
         if (!firstPokemon.validate(_data)) {
             return false;
@@ -30,10 +27,7 @@ public final class HostPokemonDuo {
         if (nbSteps < 0) {
             return false;
         }
-        if (Game.canStoreThesePokemonToHost(new Comment(), firstPokemon, secondPokemon, _data)) {
-            return true;
-        }
-        return false;
+        return Game.canStoreThesePokemonToHost(new Comment(), firstPokemon, secondPokemon, _data);
     }
     public boolean isFree() {
         return firstPokemon.hasJustBeenCreated() && secondPokemon.hasJustBeenCreated();

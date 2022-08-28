@@ -11,7 +11,6 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.util.Coords;
 import code.maths.LgInt;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -45,6 +44,58 @@ public final class GameProgression {
         partialFamiliesBaseCaught = new StringMap<CustList<StringList>>();
         partialFamiliesBaseNotCaught = new StringMap<CustList<StringList>>();
         fullFamiliesBase = new StringMap<CustList<StringList>>();
+        feedFamilies(_data, _game);
+        beatenImportantTrainers = new CustList<TrainerPlaceNames>();
+        for (Coords c: _game.getBeatenGymLeader()) {
+            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
+            beatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
+        }
+        unBeatenImportantTrainers = new CustList<TrainerPlaceNames>();
+        for (Coords c: _game.getUnBeatenGymLeader()) {
+            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
+            unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
+        }
+        remainingOtherTrainerPlaces = new ShortMap<Integer>();
+        for (NbFightCoords k: _game.getBeatTrainer().getKeys()) {
+            Coords coords_ = k.getCoords();
+            Campaign place_ = (Campaign) _data.getMap().getPlace(coords_.getNumberPlace());
+            LevelWithWildPokemon level_ = place_.getLevelCompaignByCoords(coords_);
+            TrainerMultiFights trainer_ = level_.getTrainers().getVal(coords_.getLevel().getPoint());
+            if (k.getNbFight() < trainer_.getTeamsRewards().getLastIndex()) {
+                continue;
+            }
+            boolean beaten_ = _game.getBeatTrainer().getVal(k) == BoolVal.TRUE;
+            if (!beaten_) {
+                incrRemainingOtherTrainerPlaces(coords_);
+            }
+        }
+        visitedPlaces = new StringList();
+        unVisitedPlaces = new StringList();
+        for (Coords c: _game.getVisited()) {
+            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
+            visitedPlaces.add(pl_.getName());
+        }
+        for (Coords c: _game.getUnVisited()) {
+            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
+            unVisitedPlaces.add(pl_.getName());
+        }
+        CustList<PokemonPlayer> pks_ = new CustList<PokemonPlayer>();
+        nbRemainingEggs = allPk(_game, pks_);
+        int nbRemainingNotMaxHappiness_ = 0;
+        int nbRemainingNotMaxLevel_ = 0;
+        for (PokemonPlayer p: pks_) {
+            if (p.getLevel() < _data.getMaxLevel()) {
+                nbRemainingNotMaxLevel_++;
+            }
+            if (p.getHappiness() < _data.getHappinessMax()) {
+                nbRemainingNotMaxHappiness_++;
+            }
+        }
+        nbRemainingNotMaxHappiness = nbRemainingNotMaxHappiness_;
+        nbRemainingNotMaxLevel = nbRemainingNotMaxLevel_;
+    }
+
+    private void feedFamilies(DataBase _data, Game _game) {
         for (String b: _data.getFamilies().getKeys()) {
             CustList<StringList> caughtPokemonStages_ = new CustList<StringList>();
             CustList<StringList> uncaughtPokemonStages_ = new CustList<StringList>();
@@ -67,79 +118,36 @@ public final class GameProgression {
             }
             if (caughtPokemon_.isEmpty()) {
                 notAtAllFamiliesBase.put(b,uncaughtPokemonStages_);
-                continue;
-            }
-            if (uncaughtPokemon_.isEmpty()) {
+            } else if (uncaughtPokemon_.isEmpty()) {
                 fullFamiliesBase.put(b,caughtPokemonStages_);
-                continue;
+            } else {
+                partialFamiliesBaseCaught.put(b, caughtPokemonStages_);
+                partialFamiliesBaseNotCaught.put(b, uncaughtPokemonStages_);
             }
-            partialFamiliesBaseCaught.put(b, caughtPokemonStages_);
-            partialFamiliesBaseNotCaught.put(b, uncaughtPokemonStages_);
         }
-        beatenImportantTrainers = new CustList<TrainerPlaceNames>();
-        for (Coords c: _game.getBeatenGymLeader()) {
-            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
-            beatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
-        }
-        unBeatenImportantTrainers = new CustList<TrainerPlaceNames>();
-        for (Coords c: _game.getUnBeatenGymLeader()) {
-            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
-            unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
-        }
-        remainingOtherTrainerPlaces = new ShortMap<Integer>();
-        for (NbFightCoords k: _game.getBeatTrainer().getKeys()) {
-            Coords coords_ = k.getCoords();
-            Campaign place_ = (Campaign) _data.getMap().getPlace(coords_.getNumberPlace());
-            LevelWithWildPokemon level_ = place_.getLevelCompaignByCoords(coords_);
-            TrainerMultiFights trainer_ = level_.getTrainers().getVal(coords_.getLevel().getPoint());
-            if (k.getNbFight() < trainer_.getTeamsRewards().getLastIndex()) {
-                continue;
-            }
-            boolean beaten_ = _game.getBeatTrainer().getVal(k) == BoolVal.TRUE;
-            if (beaten_) {
-                continue;
-            }
-            int rem_ = 0;
-            if (remainingOtherTrainerPlaces.contains(coords_.getNumberPlace())) {
-                rem_ = remainingOtherTrainerPlaces.getVal(coords_.getNumberPlace());
-            }
-            rem_++;
-            remainingOtherTrainerPlaces.put(coords_.getNumberPlace(), rem_);
-        }
-        visitedPlaces = new StringList();
-        unVisitedPlaces = new StringList();
-        for (Coords c: _game.getVisited()) {
-            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
-            visitedPlaces.add(pl_.getName());
-        }
-        for (Coords c: _game.getUnVisited()) {
-            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
-            unVisitedPlaces.add(pl_.getName());
-        }
+    }
+
+    private int allPk(Game _game, CustList<PokemonPlayer> _pks) {
         int nbRemainingEggs_ = _game.getPlayer().getEggsList().size();
-        CustList<PokemonPlayer> pks_ = new CustList<PokemonPlayer>();
-        pks_.addAllElts(_game.getPlayer().getPokemonPlayerList().values());
+        _pks.addAllElts(_game.getPlayer().getPokemonPlayerList().values());
         for (UsablePokemon u: _game.getPlayer().getBox()) {
             if (u instanceof Egg) {
                 nbRemainingEggs_++;
                 continue;
             }
             PokemonPlayer pk_ = (PokemonPlayer) u;
-            pks_.add(pk_);
+            _pks.add(pk_);
         }
-        nbRemainingEggs = nbRemainingEggs_;
-        int nbRemainingNotMaxHappiness_ = 0;
-        int nbRemainingNotMaxLevel_ = 0;
-        for (PokemonPlayer p: pks_) {
-            if (p.getLevel() < _data.getMaxLevel()) {
-                nbRemainingNotMaxLevel_++;
-            }
-            if (p.getHappiness() < _data.getHappinessMax()) {
-                nbRemainingNotMaxHappiness_++;
-            }
+        return nbRemainingEggs_;
+    }
+
+    private void incrRemainingOtherTrainerPlaces(Coords _coords) {
+        int rem_ = 0;
+        if (remainingOtherTrainerPlaces.contains(_coords.getNumberPlace())) {
+            rem_ = remainingOtherTrainerPlaces.getVal(_coords.getNumberPlace());
         }
-        nbRemainingNotMaxHappiness = nbRemainingNotMaxHappiness_;
-        nbRemainingNotMaxLevel = nbRemainingNotMaxLevel_;
+        rem_++;
+        remainingOtherTrainerPlaces.put(_coords.getNumberPlace(), rem_);
     }
 
     public boolean isFinishedGame() {

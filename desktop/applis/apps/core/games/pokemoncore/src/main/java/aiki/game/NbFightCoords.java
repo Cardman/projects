@@ -38,6 +38,10 @@ public final class NbFightCoords {
                 return false;
             }
         }
+        return contains(_list1, _list2);
+    }
+
+    private static boolean contains(Listable<NbFightCoords> _list1, Listable<NbFightCoords> _list2) {
         for (NbFightCoords a: _list1) {
             boolean contains_ = false;
             for (NbFightCoords b: _list2) {
@@ -53,7 +57,7 @@ public final class NbFightCoords {
         return true;
     }
 
-    
+
     public static NbFightCoords newNbFightCoords(String _string) {
         return new NbFightCoords(_string);
     }
