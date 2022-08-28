@@ -5321,6 +5321,43 @@ public class PlayerTest extends InitializationDataBase {
     }
 
     @Test
+    public void learnMovesByMoveTutor6Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        diff_.setIvPlayer((byte) 31);
+        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Pokemon pk_ = new WildPk();
+        pk_.setName(PIKACHU);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setItem(NULL_REF);
+        pk_.setAbility(ABSORB_EAU);
+        pk_.setLevel((short) 1);
+        PokemonPlayer pkPl_ = new PokemonPlayer(pk_, data_);
+        pkPl_.initIv(diff_);
+        pkPl_.initPvRestants(data_);
+        player_.getTeam().add(pkPl_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        player_.choosePokemonForMoveTutors((short) 0, data_);
+        assertEq(0, player_.getChosenTeamPokemon());
+        assertEq(1, player_.getChosenMoves().size());
+        assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
+        assertEq(2, player_.getSelectedMoves().size());
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.TRUE,player_.getSelectedMoves().getVal(JACKPOT));
+        player_.getSelectedMoves().put(JACKPOT, BoolVal.FALSE);
+        player_.learnMovesByMoveTutor(data_);
+        pkPl_ = (PokemonPlayer) player_.getTeam().first();
+        assertEq(1, pkPl_.getMoves().size());
+        assertEq(20, pkPl_.getMoves().getVal(JACKPOT).getMax());
+        assertEq(0, player_.getChosenTeamPokemon());
+        assertEq(1, player_.getChosenMoves().size());
+        assertTrue(player_.getChosenMoves().contains(VIVE_ATTAQUE));
+        assertEq(2, player_.getSelectedMoves().size());
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(VIVE_ATTAQUE));
+        assertSame(BoolVal.FALSE,player_.getSelectedMoves().getVal(JACKPOT));
+    }
+    @Test
     public void chooseMoveByObject1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();

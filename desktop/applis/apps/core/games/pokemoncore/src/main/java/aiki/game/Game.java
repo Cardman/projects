@@ -11,7 +11,6 @@ import aiki.game.fight.Fight;
 import aiki.game.fight.FightFacade;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.ActionType;
@@ -272,33 +271,60 @@ public final class Game {
         if (!player.validate(_data)) {
             return false;
         }
-        boolean existNonKoNonEggPok_ = false;
-        for (UsablePokemon u: player.getTeam()) {
-            if (!(u instanceof PokemonPlayer)) {
-                continue;
-            }
-            PokemonPlayer pk_ = (PokemonPlayer) u;
-            if (pk_.isKo()) {
-                continue;
-            }
-            existNonKoNonEggPok_ = true;
-            break;
-        }
+        boolean existNonKoNonEggPok_ = existNonKoNonEggPok();
         if (!existNonKoNonEggPok_) {
             return false;
         }
         DataMap map_ = _data.getMap();
-        if (!Coords.equalsSet(map_.getCities(), visitedPlaces.getKeys())) {
+        Condition accessCond_ = koVisited(map_);
+        if (accessCond_ == null) {
             return false;
         }
-        Condition accessCond_ = new Condition();
-        for (CustList<Coords> l: map_.getAccessCondition().values()) {
-            accessCond_.addAllElts(l);
+        if (koTrainer(map_, accessCond_)) {
+            return false;
         }
+        if (!Coords.equalsSet(takenObjects.getKeys(), map_.getTakenObjects())) {
+            return false;
+        }
+        if (!Coords.equalsSet(takenPokemon.getKeys(), map_.getTakenPokemon())) {
+            return false;
+        }
+        checkCoords(_data, accessCond_);
+        difficulty.validate(_data);
+        if (!FightFacade.validate(fight, _data, player, difficulty)) {
+            return false;
+        }
+        if (!fight.getFightType().isWild() && !isFrontOfTrainer(_data)) {
+            playerCoords.affect(map_.getBegin());
+            rankLeague = 0;
+//                return false;
+        }
+        if (koHost(_data, accessCond_)) {
+            return false;
+        }
+        if (badIndex()) {
+            return false;
+        }
+        Place currentPlace_ = map_.getPlace(playerCoords.getNumberPlace());
+        if (currentPlace_ instanceof League) {
+            if (rankLeague < playerCoords.getLevel().getLevelIndex()) {
+                return false;
+            }
+            return rankLeague <= playerCoords.getLevel().getLevelIndex() + 1;
+        } else {
+            return rankLeague == 0;
+        }
+    }
+
+    private Condition koVisited(DataMap _map) {
+        if (!Coords.equalsSet(_map.getCities(), visitedPlaces.getKeys())) {
+            return null;
+        }
+        Condition accessCond_ = accessCond(_map);
 //        for (Coords c: visitedPlaces.getKeys(true))
         for (Coords c: getVisited()) {
             Condition cond_ = new Condition();
-            for (CommonParam<Coords,Condition> e: map_.getAccessibility().entryList()) {
+            for (CommonParam<Coords,Condition> e: _map.getAccessibility().entryList()) {
                 if (!Coords.eq(e.getKey(),c)) {
                     continue;
                 }
@@ -310,91 +336,78 @@ public final class Game {
 //                return false;
 //            }
             if (!getBeatenGymLeader().containsAllObj(cond_)) {
-                return false;
+                return null;
             }
         }
-        if (!NumberUtil.equalsSetShorts(beatGymTrainer.getKeys(), map_.getBeatGymTrainer().getKeys())) {
-            return false;
+        return accessCond_;
+    }
+
+    private Condition accessCond(DataMap _map) {
+        Condition accessCond_ = new Condition();
+        for (CustList<Coords> l: _map.getAccessCondition().values()) {
+            accessCond_.addAllElts(l);
+        }
+        return accessCond_;
+    }
+
+    private boolean koTrainer(DataMap _map, Condition _accessCond) {
+        if (!NumberUtil.equalsSetShorts(beatGymTrainer.getKeys(), _map.getBeatGymTrainer().getKeys())) {
+            return true;
         }
         for (Short k: beatGymTrainer.getKeys()) {
-            if (!map_.getBeatGymTrainer().getVal(k).containsAllObj(beatGymTrainer.getVal(k))) {
-                return false;
+            if (!_map.getBeatGymTrainer().getVal(k).containsAllObj(beatGymTrainer.getVal(k))) {
+                return true;
             }
         }
-        if (!NbFightCoords.equalsSet(beatTrainer.getKeys(), map_.getBeatTrainer())) {
-            return false;
+        if (!NbFightCoords.equalsSet(beatTrainer.getKeys(), _map.getBeatTrainer())) {
+            return true;
         }
-        if (!Coords.equalsSet(beatGymLeader.getKeys(), map_.getBeatGymLeader())) {
-            return false;
+        if (!Coords.equalsSet(beatGymLeader.getKeys(), _map.getBeatGymLeader())) {
+            return true;
         }
 //        for (Coords c: beatGymLeader.getKeys(true))
         for (Coords c: getBeatenGymLeader()) {
-            Condition cond_ = new Condition();
-            Coords coords_ = new Coords(c);
-            if (coords_.isInside()) {
-                Point ext_ = new Point(coords_.getInsideBuilding());
-                ext_.moveTo(Direction.DOWN);
-                //not on the door of the building
-                coords_.getLevel().setPoint(ext_);
-                coords_.outside();
-            }
-            for (CommonParam<Coords,Condition> e: map_.getAccessibility().entryList()) {
-                if (!Coords.eq(e.getKey(),coords_)) {
-                    continue;
-                }
-                cond_.addAllElts(e.getValue());
-            }
-            cond_.retainAllElements(accessCond_);
+            Condition cond_ = conditionBeatenGymLeader(_map, _accessCond, c);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
 //                return false;
 //            }
             if (!getBeatenGymLeader().containsAllObj(cond_)) {
-                return false;
+                return true;
             }
         }
 //        for (Coords c: beatGymLeader.getKeys(true))
         for (Coords c: getBeatenGymLeader()) {
             if (beatGymTrainer.contains(c.getNumberPlace())) {
                 beatGymTrainer.getVal(c.getNumberPlace()).clear();
-                beatGymTrainer.getVal(c.getNumberPlace()).addAllElts(map_.getBeatGymTrainer().getVal(c.getNumberPlace()));
+                beatGymTrainer.getVal(c.getNumberPlace()).addAllElts(_map.getBeatGymTrainer().getVal(c.getNumberPlace()));
             }
         }
-        if (!Coords.equalsSet(takenObjects.getKeys(), map_.getTakenObjects())) {
-            return false;
+        return false;
+    }
+
+    private Condition conditionBeatenGymLeader(DataMap _map, Condition _accessCond, Coords _c) {
+        Condition cond_ = new Condition();
+        Coords coords_ = new Coords(_c);
+        if (coords_.isInside()) {
+            Point ext_ = new Point(coords_.getInsideBuilding());
+            ext_.moveTo(Direction.DOWN);
+            //not on the door of the building
+            coords_.getLevel().setPoint(ext_);
+            coords_.outside();
         }
-        if (!Coords.equalsSet(takenPokemon.getKeys(), map_.getTakenPokemon())) {
-            return false;
-        }
-        boolean correctCoords_ = true;
-        short numberPlace_ = playerCoords.getNumberPlace();
-        Place curPlace_ = null;
-        if (_data.getMap().getPlaces().isValidIndex(numberPlace_)) {
-            curPlace_ = _data.getMap().getPlace(numberPlace_);
-        }
-        if (curPlace_ == null) {
-            correctCoords_ = false;
-        } else {
-            if (playerCoords.isInside()) {
-                if (curPlace_ instanceof City) {
-                    Point bIncome_ = playerCoords.getInsideBuilding();
-                    if (!((City)curPlace_).getBuildings().contains(bIncome_)) {
-                        correctCoords_ = false;
-                    } else {
-                        Level lev_ = ((City) curPlace_).getBuildings().getVal(bIncome_).getLevel();
-                        correctCoords_ = checkLevel(lev_);
-                    }
-                } else {
-                    correctCoords_ = false;
-                }
-            } else {
-                if (!curPlace_.getLevelsList().isValidIndex(playerCoords.getLevel().getLevelIndex())) {
-                    correctCoords_ = false;
-                } else {
-                    Level curLevel_ = curPlace_.getLevelsList().get(playerCoords.getLevel().getLevelIndex());
-                    correctCoords_ = checkLevel(curLevel_);
-                }
+        for (CommonParam<Coords,Condition> e: _map.getAccessibility().entryList()) {
+            if (!Coords.eq(e.getKey(),coords_)) {
+                continue;
             }
+            cond_.addAllElts(e.getValue());
         }
+        cond_.retainAllElements(_accessCond);
+        return cond_;
+    }
+
+    private void checkCoords(DataBase _data, Condition _accessCond) {
+        DataMap map_ = _data.getMap();
+        boolean correctCoords_ = correctCoords(_data);
         Coords coords_ = new Coords(playerCoords);
         if (correctCoords_) {
             if (!isEmpty(_data.getMap(), playerCoords)) {
@@ -430,7 +443,7 @@ public final class Game {
             playerCoords.affect(map_.getBegin());
             rankLeague = 0;
         }
-        cond_.retainAllElements(accessCond_);
+        cond_.retainAllElements(_accessCond);
 //        if (!beatGymLeader.getKeys(true).containsAllObj(cond_))
         if (!getBeatenGymLeader().containsAllObj(cond_)) {
 //            if (fight.getFightType().isExisting()) {
@@ -439,28 +452,21 @@ public final class Game {
             playerCoords.affect(map_.getBegin());
             rankLeague = 0;
         }
-        difficulty.validate(_data);
-        if (!FightFacade.validate(fight, _data, player, difficulty)) {
-            return false;
-        }
-        if (!fight.getFightType().isWild()) {
-            if (!isFrontOfTrainer(_data)) {
-                playerCoords.affect(map_.getBegin());
-                rankLeague = 0;
-//                return false;
-            }
-        }
+    }
+
+    private boolean koHost(DataBase _data, Condition _accessCond) {
+        DataMap map_ = _data.getMap();
         if (!Coords.equalsSet(hostedPk.getKeys(), map_.getHostPokemons())) {
-            return false;
+            return true;
         }
         for (Coords c: hostedPk.getKeys()) {
             if (!hostedPk.getVal(c).validate(_data)) {
-                return false;
+                return true;
             }
             if (availableHosting(c)) {
                 continue;
             }
-            coords_ = new Coords(c);
+            Coords coords_ = new Coords(c);
             Point ext_ = new Point(coords_.getInsideBuilding());
             ext_.moveTo(Direction.DOWN);
             //not on the door of the building
@@ -472,171 +478,238 @@ public final class Game {
 //                coords_.getLevel().setPoint(ext_);
 //                coords_.outside();
 //            }
-            cond_ = new Condition();
+            Condition cond_ = new Condition();
             for (CommonParam<Coords,Condition> e: map_.getAccessibility().entryList()) {
                 if (!Coords.eq(e.getKey(),coords_)) {
                     continue;
                 }
                 cond_.addAllElts(e.getValue());
             }
-            cond_.retainAllElements(accessCond_);
+            cond_.retainAllElements(_accessCond);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
 //                return false;
 //            }
             if (!getBeatenGymLeader().containsAllObj(cond_)) {
-                return false;
+                return true;
             }
         }
-        if (indexStep < 0) {
-            return false;
+        return false;
+    }
+
+    private boolean badIndex() {
+        return indexStep < 0 || indexPeriod < 0 || indexPeriodFishing < 0;
+    }
+
+    private boolean correctCoords(DataBase _data) {
+        boolean correctCoords_;
+        short numberPlace_ = playerCoords.getNumberPlace();
+        Place curPlace_ = null;
+        if (_data.getMap().getPlaces().isValidIndex(numberPlace_)) {
+            curPlace_ = _data.getMap().getPlace(numberPlace_);
         }
-        if (indexPeriod < 0) {
-            return false;
-        }
-        if (indexPeriodFishing < 0) {
-            return false;
-        }
-        Place currentPlace_ = map_.getPlace(playerCoords.getNumberPlace());
-        if (currentPlace_ instanceof League) {
-            if (rankLeague < playerCoords.getLevel().getLevelIndex()) {
-                return false;
+        if (curPlace_ == null) {
+            correctCoords_ = false;
+        } else if (playerCoords.isInside()) {
+            if (curPlace_ instanceof City) {
+                Point bIncome_ = playerCoords.getInsideBuilding();
+                if (!((City) curPlace_).getBuildings().contains(bIncome_)) {
+                    correctCoords_ = false;
+                } else {
+                    Level lev_ = ((City) curPlace_).getBuildings().getVal(bIncome_).getLevel();
+                    correctCoords_ = checkLevel(lev_);
+                }
+            } else {
+                correctCoords_ = false;
             }
-            return rankLeague <= playerCoords.getLevel().getLevelIndex() + 1;
+        } else if (!curPlace_.getLevelsList().isValidIndex(playerCoords.getLevel().getLevelIndex())) {
+            correctCoords_ = false;
         } else {
-            return rankLeague == 0;
+            Level curLevel_ = curPlace_.getLevelsList().get(playerCoords.getLevel().getLevelIndex());
+            correctCoords_ = checkLevel(curLevel_);
         }
+        return correctCoords_;
+    }
+
+    private boolean existNonKoNonEggPok() {
+        boolean existNonKoNonEggPok_ = false;
+        for (UsablePokemon u: player.getTeam()) {
+            if (u instanceof PokemonPlayer && !((PokemonPlayer) u).isKo()) {
+                existNonKoNonEggPok_ = true;
+                break;
+            }
+        }
+        return existNonKoNonEggPok_;
     }
 
     private boolean checkLevel(Level _l) {
-        boolean correctCoords_ = true;
-        if (!_l.getEnvBlockByPoint(playerCoords.getLevel().getPoint()).isValid()) {
-            correctCoords_ = false;
-        }
-        return correctCoords_;
+        return _l.getEnvBlockByPoint(playerCoords.getLevel().getPoint()).isValid();
     }
     public void calculateImagesFromTiles(DataBase _data, int _dx, int _dy) {
         DataMap map_ = _data.getMap();
         for (ScreenCoords k: map_.getTiles().getKeys()) {
             Coords coords_ = map_.getTiles().getVal(k);
-            if (!coords_.isValid()) {
-                map_.getForegroundImages().put(k, new CustList<int[][]>());
-                continue;
-            }
-            Place place_ = map_.getPlace(coords_.getNumberPlace());
-            Level level_ = place_.getLevelByCoords(coords_);
-            CustList<int[][]> images_ = new CustList<int[][]>();
-            Point pt_ = coords_.getLevel().getPoint();
-            for (Place p: map_.getPlaces()) {
-                if (!(p instanceof League)) {
-                    continue;
-                }
-                Coords access_ = ((League)p).getAccessCoords();
-                if (Coords.eq(coords_, access_)) {
-                    images_.add(_data.getLink(((League)p).getFileName()));
-                    break;
-                }
-            }
-            if (level_ instanceof LevelLeague) {
-                LevelLeague lv_ = (LevelLeague) level_;
-                if (Point.eq(pt_, lv_.getTrainerCoords())) {
-                    Person person_ = lv_.getTrainer();
-                    images_.add(_data.getPerson(person_.getImageMiniFileName()));
-                }
-                if (Point.eq(pt_, lv_.getAccessPoint())) {
-                    images_.add(_data.getLink(lv_.getFileName()));
-                }
-            }
-            if (level_ instanceof LevelWithWildPokemon) {
-                LevelWithWildPokemon lv_ = (LevelWithWildPokemon) level_;
-                if (lv_.getCharacters().contains(pt_)) {
-                    Person person_ = lv_.getPerson(pt_);
-                    images_.add(_data.getPerson(person_.getImageMiniFileName()));
-                }
-                if (lv_.containsPokemon(pt_) && !isEmpty(map_, coords_)) {
-                    WildPk pk_ = lv_.getPokemon(pt_);
-                    images_.add(_data.getMiniPk().getVal(pk_.getName()));
-                }
-                if (lv_.getItems().contains(pt_) && !isEmpty(map_, coords_)) {
-                    images_.add(_data.getMiniItems().getVal(lv_.getItems().getVal(pt_)));
-                }
-                if (lv_.getTm().contains(pt_) && !isEmpty(map_, coords_)) {
-                    images_.add(_data.getImageTmHm());
-                }
-                if (lv_.getHm().contains(pt_) && !isEmpty(map_, coords_)) {
-                    images_.add(_data.getImageTmHm());
-                }
-                if (lv_.getDualFights().contains(pt_) && !isEmpty(map_, coords_)) {
-                    DualFight dual_ = lv_.getDualFights().getVal(pt_);
-                    TempTrainer tmp_ = dual_.getFoeTrainer();
-                    images_.add(_data.getPerson(tmp_.getImageMiniFileName()));
-                }
-                for (DualFight d: lv_.getDualFights().values()) {
-                    if (!Point.eq(d.getPt(), pt_)) {
-                        continue;
-                    }
-                    if (!isEmpty(map_, coords_)) {
-                        TempTrainer tmp_ = d.getFoeTrainer();
-                        images_.add(_data.getPerson(tmp_.getImageMiniSecondTrainerFileName()));
-                    }
-                    break;
-                }
-            }
-            if (coords_.isInside()) {
-                City city_ = (City) place_;
-                Building building_ = city_.getBuildings().getVal(coords_.getInsideBuilding());
-                if (Point.eq(building_.getExitCity(), pt_)) {
-                    images_.add(_data.getLink(building_.getImageFileName()));
-                }
-            }
-            if (level_ instanceof LevelIndoorPokemonCenter) {
-                LevelIndoorPokemonCenter lv_ = (LevelIndoorPokemonCenter) level_;
-                if (lv_.getGerants().contains(pt_)) {
-                    Person person_ = lv_.getGerants().getVal(pt_);
-                    images_.add(_data.getPerson(person_.getImageMiniFileName()));
-                }
-                if (Point.eq(lv_.getStorageCoords(), pt_)) {
-                    images_.add(_data.getStorage());
-                }
-            }
-            if (level_ instanceof LevelIndoorGym) {
-                LevelIndoorGym lv_ = (LevelIndoorGym) level_;
-                if (lv_.getGymTrainers().contains(pt_)) {
-                    Person person_ = lv_.getGymTrainers().getVal(pt_);
-                    images_.add(_data.getPerson(person_.getImageMiniFileName()));
-                }
-                if (Point.eq(pt_, lv_.getGymLeaderCoords())) {
-                    Person person_ = lv_.getGymLeader();
-                    images_.add(_data.getPerson(person_.getImageMiniFileName()));
-                }
-            }
-            if (place_ instanceof Cave) {
-                Cave cave_ = (Cave) place_;
-                LevelPoint lPoint_ = coords_.getLevel();
-                if (cave_.getLinksWithOtherPlaces().contains(lPoint_)) {
-                    Link link_ = cave_.getLinksWithOtherPlaces().getVal(lPoint_);
-                    images_.add(_data.getLink(link_.getFileName()));
-                }
-            }
-            if (level_ instanceof LevelCave) {
-                LevelCave lv_ = (LevelCave) level_;
-                if (lv_.getLinksOtherLevels().contains(pt_)) {
-                    Link link_ = lv_.getLinksOtherLevels().getVal(pt_);
-                    images_.add(_data.getLink(link_.getFileName()));
-                }
-            }
-            if (place_ instanceof InitializedPlace) {
-                InitializedPlace init_ = (InitializedPlace) place_;
-                if (init_.getLinksWithCaves().contains(pt_)) {
-                    Link link_ = init_.getLinksWithCaves().getVal(pt_);
-                    images_.add(_data.getLink(link_.getFileName()));
-                }
-            }
-            map_.getForegroundImages().put(k, images_);
+            calculateImagesFromTiles(_data, k, coords_);
         }
         ScreenCoords center_;
         center_ = new ScreenCoords(map_.getSpaceBetweenLeftAndHeros()+_dx,map_.getSpaceBetweenTopAndHeros()+_dy);
         CustList<int[][]> images_ = map_.getForegroundImages().getVal(center_);
         images_.add(getMiniHeros(_data));
+    }
+
+    private void calculateImagesFromTiles(DataBase _data, ScreenCoords _k, Coords _coords) {
+        DataMap map_ = _data.getMap();
+        if (!_coords.isValid()) {
+            map_.getForegroundImages().put(_k, new CustList<int[][]>());
+            return;
+        }
+        Place place_ = map_.getPlace(_coords.getNumberPlace());
+        Level level_ = place_.getLevelByCoords(_coords);
+        CustList<int[][]> images_ = new CustList<int[][]>();
+        Point pt_ = _coords.getLevel().getPoint();
+        possibleAccessLeague(_data, _coords, images_);
+        possibleLevelLeague(_data, level_, images_, pt_);
+        possibleLevelWithWildPokemon(_data, _coords, level_, images_);
+        possibleInside(_data, _coords, place_, images_);
+        possibleLevelIndoorPokemonCenter(_data, level_, images_, pt_);
+        possibleLevelIndoorGym(_data, level_, images_, pt_);
+        possibleCave(_data, _coords, place_, level_, images_);
+        if (place_ instanceof InitializedPlace) {
+            InitializedPlace init_ = (InitializedPlace) place_;
+            if (init_.getLinksWithCaves().contains(pt_)) {
+                Link link_ = init_.getLinksWithCaves().getVal(pt_);
+                images_.add(_data.getLink(link_.getFileName()));
+            }
+        }
+        map_.getForegroundImages().put(_k, images_);
+    }
+
+    private void possibleCave(DataBase _data, Coords _coords, Place _place, Level _level, CustList<int[][]> _images) {
+        Point pt_ = _coords.getLevel().getPoint();
+        if (_place instanceof Cave) {
+            Cave cave_ = (Cave) _place;
+            LevelPoint lPoint_ = _coords.getLevel();
+            if (cave_.getLinksWithOtherPlaces().contains(lPoint_)) {
+                Link link_ = cave_.getLinksWithOtherPlaces().getVal(lPoint_);
+                _images.add(_data.getLink(link_.getFileName()));
+            }
+        }
+        if (_level instanceof LevelCave) {
+            LevelCave lv_ = (LevelCave) _level;
+            if (lv_.getLinksOtherLevels().contains(pt_)) {
+                Link link_ = lv_.getLinksOtherLevels().getVal(pt_);
+                _images.add(_data.getLink(link_.getFileName()));
+            }
+        }
+    }
+
+    private void possibleLevelIndoorGym(DataBase _data, Level _level, CustList<int[][]> _images, Point _pt) {
+        if (_level instanceof LevelIndoorGym) {
+            LevelIndoorGym lv_ = (LevelIndoorGym) _level;
+            if (lv_.getGymTrainers().contains(_pt)) {
+                Person person_ = lv_.getGymTrainers().getVal(_pt);
+                _images.add(_data.getPerson(person_.getImageMiniFileName()));
+            }
+            if (Point.eq(_pt, lv_.getGymLeaderCoords())) {
+                Person person_ = lv_.getGymLeader();
+                _images.add(_data.getPerson(person_.getImageMiniFileName()));
+            }
+        }
+    }
+
+    private void possibleLevelIndoorPokemonCenter(DataBase _data, Level _level, CustList<int[][]> _images, Point _pt) {
+        if (_level instanceof LevelIndoorPokemonCenter) {
+            LevelIndoorPokemonCenter lv_ = (LevelIndoorPokemonCenter) _level;
+            if (lv_.getGerants().contains(_pt)) {
+                Person person_ = lv_.getGerants().getVal(_pt);
+                _images.add(_data.getPerson(person_.getImageMiniFileName()));
+            }
+            if (Point.eq(lv_.getStorageCoords(), _pt)) {
+                _images.add(_data.getStorage());
+            }
+        }
+    }
+
+    private void possibleInside(DataBase _data, Coords _coords, Place _place, CustList<int[][]> _images) {
+        Point pt_ = _coords.getLevel().getPoint();
+        if (_place instanceof City&& _coords.isInside()) {
+            City city_ = (City) _place;
+            Building building_ = city_.getBuildings().getVal(_coords.getInsideBuilding());
+            if (Point.eq(building_.getExitCity(), pt_)) {
+                _images.add(_data.getLink(building_.getImageFileName()));
+            }
+        }
+    }
+
+    private void possibleLevelWithWildPokemon(DataBase _data, Coords _coords, Level _level, CustList<int[][]> _images) {
+        Point pt_ = _coords.getLevel().getPoint();
+        DataMap map_ = _data.getMap();
+        if (!(_level instanceof LevelWithWildPokemon)) {
+            return;
+        }
+        LevelWithWildPokemon lv_ = (LevelWithWildPokemon) _level;
+        if (lv_.getCharacters().contains(pt_)) {
+            Person person_ = lv_.getPerson(pt_);
+            _images.add(_data.getPerson(person_.getImageMiniFileName()));
+        }
+        if (lv_.containsPokemon(pt_) && !isEmpty(map_, _coords)) {
+            WildPk pk_ = lv_.getPokemon(pt_);
+            _images.add(_data.getMiniPk().getVal(pk_.getName()));
+        }
+        if (lv_.getItems().contains(pt_) && !isEmpty(map_, _coords)) {
+            _images.add(_data.getMiniItems().getVal(lv_.getItems().getVal(pt_)));
+        }
+        if (lv_.getTm().contains(pt_) && !isEmpty(map_, _coords)) {
+            _images.add(_data.getImageTmHm());
+        }
+        if (lv_.getHm().contains(pt_) && !isEmpty(map_, _coords)) {
+            _images.add(_data.getImageTmHm());
+        }
+        possibleDualFight(_data, _coords, _images, lv_);
+    }
+
+    private void possibleDualFight(DataBase _data, Coords _coords, CustList<int[][]> _images, LevelWithWildPokemon _lv) {
+        DataMap map_ = _data.getMap();
+        Point pt_ = _coords.getLevel().getPoint();
+        if (_lv.getDualFights().contains(pt_) && !isEmpty(map_, _coords)) {
+            DualFight dual_ = _lv.getDualFights().getVal(pt_);
+            TempTrainer tmp_ = dual_.getFoeTrainer();
+            _images.add(_data.getPerson(tmp_.getImageMiniFileName()));
+        }
+        for (DualFight d: _lv.getDualFights().values()) {
+            if (Point.eq(d.getPt(), pt_)) {
+                if (!isEmpty(map_, _coords)) {
+                    TempTrainer tmp_ = d.getFoeTrainer();
+                    _images.add(_data.getPerson(tmp_.getImageMiniSecondTrainerFileName()));
+                }
+                break;
+            }
+        }
+    }
+
+    private void possibleLevelLeague(DataBase _data, Level _level, CustList<int[][]> _images, Point _pt) {
+        if (_level instanceof LevelLeague) {
+            LevelLeague lv_ = (LevelLeague) _level;
+            if (Point.eq(_pt, lv_.getTrainerCoords())) {
+                Person person_ = lv_.getTrainer();
+                _images.add(_data.getPerson(person_.getImageMiniFileName()));
+            }
+            if (Point.eq(_pt, lv_.getAccessPoint())) {
+                _images.add(_data.getLink(lv_.getFileName()));
+            }
+        }
+    }
+
+    private void possibleAccessLeague(DataBase _data, Coords _coords, CustList<int[][]> _images) {
+        DataMap map_ = _data.getMap();
+        for (Place p: map_.getPlaces()) {
+            if (p instanceof League) {
+                Coords access_ = ((League) p).getAccessCoords();
+                if (Coords.eq(_coords, access_)) {
+                    _images.add(_data.getLink(((League) p).getFileName()));
+                    break;
+                }
+            }
+        }
     }
 
     public int[][] getMiniHeros(DataBase _data) {
@@ -739,27 +812,11 @@ public final class Game {
         StringMap<String> mess_ = _d.getMessagesGame();
         if(Gender.getGendersWithSex().containsObj(_pkOne.getGender())){
             if(Gender.getGendersWithSex().containsObj(_pkTwo.getGender())){
-                boolean canStore_ = true;
-                if (_pkOne.getGender() == _pkTwo.getGender()) {
-                    canStore_ = false;
-                    _commentGame.addMessage(mess_.getVal(SAME_GENDER));
-                }
-                if (StringUtil.contains(groupsOne_, _d.getDefaultEggGroup())) {
+                boolean canStore_ = canStore(_d,_commentGame, _pkOne, _pkTwo);
+                if (matchDirectGroup(_d, pkDataOne_, pkDataTwo_)) {
                     return canStore_;
                 }
-                if (StringUtil.contains(groupsTwo_, _d.getDefaultEggGroup())) {
-                    return canStore_;
-                }
-                if (StringUtil.quickEq(pkDataOne_.getBaseEvo(), pkDataTwo_.getBaseEvo())) {
-                    return canStore_;
-                }
-                boolean vide_=true;
-                for(String e:groupsOne_){
-                    if(StringUtil.contains(groupsTwo_, e)){
-                        vide_=false;
-                        break;
-                    }
-                }
+                boolean vide_ = noIntersect(groupsOne_, groupsTwo_);
                 if (vide_) {
                     _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
                     return false;
@@ -779,14 +836,42 @@ public final class Game {
             _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
             return false;
         }
-        if (StringUtil.contains(groupsOne_, _d.getDefaultEggGroup())) {
-            return true;
-        }
-        if (StringUtil.contains(groupsTwo_, _d.getDefaultEggGroup())) {
+        if (atLeastOneDefaultGroup(_d, groupsOne_, groupsTwo_)) {
             return true;
         }
         _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
         return false;
+    }
+
+    private static boolean atLeastOneDefaultGroup(DataBase _d, StringList _groupsOne, StringList _groupsTwo) {
+        return StringUtil.contains(_groupsOne, _d.getDefaultEggGroup()) || StringUtil.contains(_groupsTwo, _d.getDefaultEggGroup());
+    }
+
+    private static boolean canStore(DataBase _d, Comment _commentGame, PokemonPlayer _pkOne, PokemonPlayer _pkTwo) {
+        StringMap<String> mess_ = _d.getMessagesGame();
+        boolean canStore_ = true;
+        if (_pkOne.getGender() == _pkTwo.getGender()) {
+            canStore_ = false;
+            _commentGame.addMessage(mess_.getVal(SAME_GENDER));
+        }
+        return canStore_;
+    }
+
+    private static boolean matchDirectGroup(DataBase _d, PokemonData _pkDataOne, PokemonData _pkDataTwo) {
+        StringList groupsOne_= _pkDataOne.getEggGroups();
+        StringList groupsTwo_= _pkDataTwo.getEggGroups();
+        return StringUtil.contains(groupsOne_, _d.getDefaultEggGroup()) || StringUtil.contains(groupsTwo_, _d.getDefaultEggGroup()) || StringUtil.quickEq(_pkDataOne.getBaseEvo(), _pkDataTwo.getBaseEvo());
+    }
+
+    private static boolean noIntersect(StringList _groupsOne, StringList _groupsTwo) {
+        boolean vide_=true;
+        for(String e: _groupsOne){
+            if(StringUtil.contains(_groupsTwo, e)){
+                vide_=false;
+                break;
+            }
+        }
+        return vide_;
     }
 
     void storePokemonToHost(short _pos1,short _pos2,Coords _coords){
@@ -851,16 +936,11 @@ public final class Game {
         HostPokemonDuo valeur_=hostedPk.getVal(_coords);
         PokemonPlayer firstPokemon_ = valeur_.getFirstPokemon();
         PokemonPlayer secondPokemon_ = valeur_.getSecondPokemon();
-        boolean oppositeSex_ = false;
-        if (Gender.getGendersWithSex().containsObj(firstPokemon_.getGender())) {
-            if (Gender.getGendersWithSex().containsObj(secondPokemon_.getGender())) {
-                //because firstPokemon_ and secondPokemon_ have a sex
-                //and pokemon with same sex cannot be stored to host
-                //so firstPokemon_ and secondPokemon_ have an opposite sex.
-                //i.e. firstPokemon_.getGender() != secondPokemon_.getGender()
-                oppositeSex_ = true;
-            }
-        }
+        boolean oppositeSex_ = Gender.getGendersWithSex().containsObj(firstPokemon_.getGender()) && Gender.getGendersWithSex().containsObj(secondPokemon_.getGender());
+        //because firstPokemon_ and secondPokemon_ have a sex
+        //and pokemon with same sex cannot be stored to host
+        //so firstPokemon_ and secondPokemon_ have an opposite sex.
+        //i.e. firstPokemon_.getGender() != secondPokemon_.getGender()
         if (oppositeSex_) {
             PokemonData fPk_ = _d.getPokemon(firstPokemon_.getName());
             String event_ = fPk_.getBaseEvo();
@@ -1014,10 +1094,8 @@ public final class Game {
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
         for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
-            if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint())) {
-                if (!Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
-                    continue;
-                }
+            if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint()) && !Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
+                continue;
             }
             FightFacade.initFight(fight,player,difficulty,dual_,_d);
             FightFacade.initTypeEnv(fight,playerCoords,difficulty,_d);
@@ -1053,10 +1131,7 @@ public final class Game {
                 Level l_ = pl_.getLevelByCoords(voisin_);
                 if (l_ instanceof LevelIndoorGym) {
                     LevelIndoorGym gym_ = (LevelIndoorGym) l_;
-                    if(gym_.getGymTrainers().contains(voisin_.getLevel().getPoint())) {
-                        return true;
-                    }
-                    return Point.eq(gym_.getGymLeaderCoords(),voisin_.getLevel().getPoint());
+                    return gym_.getGymTrainers().contains(voisin_.getLevel().getPoint()) || Point.eq(gym_.getGymLeaderCoords(), voisin_.getLevel().getPoint());
                 }
             }
             return false;
@@ -1064,12 +1139,9 @@ public final class Game {
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
         for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
-            if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint())) {
-                if (!Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
-                    continue;
-                }
+            if (Point.eq(e.getKey(), voisin_.getLevel().getPoint()) || Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
+                return true;
             }
-            return true;
         }
         if(l_.getCharacters().contains(voisin_.getLevel().getPoint())) {
             CharacterInRoadCave ch_ = l_.getCharacters().getVal(voisin_.getLevel().getPoint());
@@ -1103,10 +1175,8 @@ public final class Game {
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
         for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
-            if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint())) {
-                if (!Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
-                    continue;
-                }
+            if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint()) && !Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
+                continue;
             }
             return _d.getTrainer(dual_.getFoeTrainer().getImageMaxiFileName());
         }
@@ -1541,10 +1611,8 @@ public final class Game {
         commentGame.clearMessages();
         FightFacade.roundWhileKoPlayer(fight, difficulty, player, _import, _enableAnimation);
         commentGame.addComment(fight.getComment());
-        if (!_enableAnimation) {
-            if(FightFacade.koTeam(fight)){
-                endFight(_import);
-            }
+        if (!_enableAnimation && FightFacade.koTeam(fight)) {
+            endFight(_import);
         }
     }
 
@@ -1774,11 +1842,9 @@ public final class Game {
         player.affectEndFight(fight,difficulty,_import);
         player.catchWildPokemon(fight.wildPokemon(),_pseudo,fight.getCatchingBall(),difficulty,_import);
         PokemonData fPk_ = _import.getPokemon(fight.wildPokemon().getName());
-        if (fPk_.getGenderRep() == GenderRepartition.LEGENDARY) {
-            if (nextLegPk(_import)) {
-                Coords n_ = closestTile(_import.getMap());
-                takenPokemon.put(n_, BoolVal.TRUE);
-            }
+        if (fPk_.getGenderRep() == GenderRepartition.LEGENDARY && nextLegPk(_import)) {
+            Coords n_ = closestTile(_import.getMap());
+            takenPokemon.put(n_, BoolVal.TRUE);
         }
         FightFacade.endFight(fight);
         directInteraction(closestTile(_import.getMap()), _import.getMap());
@@ -2386,12 +2452,7 @@ public final class Game {
         DataMap d_ = _data.getMap();
         interfaceType = InterfaceType.RIEN;
         directInteraction(d_);
-        showEndGame = false;
-        if (!getFight().getFightType().isExisting()) {
-            if (endGame(_data)) {
-                showEndGame = true;
-            }
-        }
+        showEndGame = !getFight().getFightType().isExisting() && endGame(_data);
         return true;
     }
 

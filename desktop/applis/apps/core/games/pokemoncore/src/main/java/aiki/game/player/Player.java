@@ -869,7 +869,7 @@ public final class Player {
             }
         } else {
 //            if (!selectedMoves.getKeys(false).isEmpty())
-            if (!getUnCheckedMoves().isEmpty()) {
+            if (getCheckedMoves().isEmpty()||!getUnCheckedMoves().isEmpty()) {
                 String name_ = ((PokemonPlayer) team.get(chosenTeamPokemon)).getName();
                 name_ = _import.translatePokemon(name_);
                 commentGame.addMessage(mess_.getVal(MISS_MOVES), name_);
