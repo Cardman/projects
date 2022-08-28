@@ -138,7 +138,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setTargetChoice(TargetChoice.ANY_FOE);
         sorting_.setIndex(0);
         itemName_ = ECLAIR;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         sorting_ = new SortingMove();
         sorting_.setName(CHARGE);
         sorting_.setKeyName(CHARGE);
@@ -149,18 +149,18 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setPrice(25);
         sorting_.setIndex(1);
         itemName_ = CHARGE;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpPpp().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpPpp().setPriority(2);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getMoves().size());
         CustList<SortingMove> sorted_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(0));
         assertEq(CHARGE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(1));
         assertEq(ECLAIR, itemName_);
     }
 
@@ -182,7 +182,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setTargetChoice(TargetChoice.ANY_FOE);
         sorting_.setIndex(0);
         itemName_ = ECLAIR;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         sorting_ = new SortingMove();
         sorting_.setName(CHARGE);
         sorting_.setKeyName(CHARGE);
@@ -193,18 +193,18 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setPrice(25);
         sorting_.setIndex(1);
         itemName_ = CHARGE;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpPpp().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpPpp().setPriority(2);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getMoves().size());
         CustList<SortingMove> sorted_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(0));
         assertEq(ECLAIR, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(1));
         assertEq(CHARGE, itemName_);
     }
 
@@ -226,7 +226,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setTargetChoice(TargetChoice.ANY_FOE);
         sorting_.setIndex(0);
         itemName_ = ECLAIR;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         sorting_ = new SortingMove();
         sorting_.setName(CHARGE);
         sorting_.setKeyName(CHARGE);
@@ -237,18 +237,18 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setPrice(25);
         sorting_.setIndex(1);
         itemName_ = CHARGE;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpPrice().setPriority(2);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getMoves().size());
         CustList<SortingMove> sorted_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(0));
         assertEq(CHARGE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(1));
         assertEq(ECLAIR, itemName_);
     }
 
@@ -270,7 +270,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setTargetChoice(TargetChoice.ANY_FOE);
         sorting_.setIndex(0);
         itemName_ = ECLAIR;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         sorting_ = new SortingMove();
         sorting_.setName(CHARGE);
         sorting_.setKeyName(CHARGE);
@@ -281,18 +281,18 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setPrice(25);
         sorting_.setIndex(1);
         itemName_ = CHARGE;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpPrio().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpPrio().setPriority(2);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getMoves().size());
         CustList<SortingMove> sorted_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(0));
         assertEq(ECLAIR, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(1));
         assertEq(CHARGE, itemName_);
     }
 
@@ -314,7 +314,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setTargetChoice(TargetChoice.ANY_FOE);
         sorting_.setIndex(0);
         itemName_ = ECLAIR;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         sorting_ = new SortingMove();
         sorting_.setName(CHARGE);
         sorting_.setKeyName(CHARGE);
@@ -325,18 +325,18 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setPrice(25);
         sorting_.setIndex(1);
         itemName_ = CHARGE;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpDescription().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpDescription().setPriority(2);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getMoves().size());
         CustList<SortingMove> sorted_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(0));
         assertEq(CHARGE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(1));
         assertEq(ECLAIR, itemName_);
     }
 
@@ -358,7 +358,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setTargetChoice(TargetChoice.ANY_FOE);
         sorting_.setIndex(0);
         itemName_ = ECLAIR;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         sorting_ = new SortingMove();
         sorting_.setName(CHARGE);
         sorting_.setKeyName(CHARGE);
@@ -369,18 +369,18 @@ public class PaginationMoveTest extends InitializationDataBase {
         sorting_.setPrice(25);
         sorting_.setIndex(1);
         itemName_ = CHARGE;
-        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getMoves().put(sorting_, itemName_);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpTargetChoice().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpTargetChoice().setPriority(2);
         pagination_.sort();
-        assertEq(2, pagination_.getResults().size());
+        assertEq(2, pagination_.getMoves().size());
         CustList<SortingMove> sorted_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
-        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(0));
         assertEq(CHARGE, itemName_);
-        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        itemName_ = pagination_.getMoves().getVal(sorted_.get(1));
         assertEq(ECLAIR, itemName_);
     }
 
@@ -403,13 +403,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
         assertTrue(!pagination_.hasNoRendered());
-        assertEq(8, pagination_.getResults().size());
+        assertEq(8, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ECLAIR, itemName_);
         assertEq(ECLAIR, elt_.getName());
         assertEq(ECLAIR, elt_.getKeyName());
@@ -419,7 +419,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(50, elt_.getPp());
         elt_ = sorted_.get(1);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(CHARGE, itemName_);
         assertEq(CHARGE, elt_.getName());
         assertEq(CHARGE, elt_.getKeyName());
@@ -429,7 +429,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(2000, elt_.getPrice());
         assertEq(30, elt_.getPp());
         elt_ = sorted_.get(2);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(PISTOLET_A_O, itemName_);
         assertEq(PISTOLET_A_O, elt_.getName());
         assertEq(PISTOLET_A_O, elt_.getKeyName());
@@ -439,7 +439,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(3);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(SEISME, itemName_);
         assertEq(SEISME, elt_.getName());
         assertEq(SEISME, elt_.getKeyName());
@@ -449,7 +449,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(10, elt_.getPp());
         elt_ = sorted_.get(4);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ROUE_DE_FEU, itemName_);
         assertEq(ROUE_DE_FEU, elt_.getName());
         assertEq(ROUE_DE_FEU, elt_.getKeyName());
@@ -459,7 +459,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(5);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(RELAIS, itemName_);
         assertEq(RELAIS, elt_.getName());
         assertEq(RELAIS, elt_.getKeyName());
@@ -469,7 +469,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(40, elt_.getPp());
         elt_ = sorted_.get(6);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(FONCE, itemName_);
         assertEq(FONCE, elt_.getName());
         assertEq(FONCE, elt_.getKeyName());
@@ -479,7 +479,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(7);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(JACKPOT, itemName_);
         assertEq(JACKPOT, elt_.getName());
         assertEq(JACKPOT, elt_.getKeyName());
@@ -520,13 +520,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(1, pagination_.getResults().size());
+        assertEq(1, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(RELAIS, itemName_);
         assertEq(RELAIS, elt_.getName());
         assertEq(RELAIS, elt_.getKeyName());
@@ -562,13 +562,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(7, pagination_.getResults().size());
+        assertEq(7, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ECLAIR, itemName_);
         assertEq(ECLAIR, elt_.getName());
         assertEq(ECLAIR, elt_.getKeyName());
@@ -578,7 +578,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(50, elt_.getPp());
         elt_ = sorted_.get(1);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(CHARGE, itemName_);
         assertEq(CHARGE, elt_.getName());
         assertEq(CHARGE, elt_.getKeyName());
@@ -588,7 +588,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(2000, elt_.getPrice());
         assertEq(30, elt_.getPp());
         elt_ = sorted_.get(2);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(PISTOLET_A_O, itemName_);
         assertEq(PISTOLET_A_O, elt_.getName());
         assertEq(PISTOLET_A_O, elt_.getKeyName());
@@ -598,7 +598,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(3);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(SEISME, itemName_);
         assertEq(SEISME, elt_.getName());
         assertEq(SEISME, elt_.getKeyName());
@@ -608,7 +608,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(10, elt_.getPp());
         elt_ = sorted_.get(4);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ROUE_DE_FEU, itemName_);
         assertEq(ROUE_DE_FEU, elt_.getName());
         assertEq(ROUE_DE_FEU, elt_.getKeyName());
@@ -618,7 +618,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(5);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(FONCE, itemName_);
         assertEq(FONCE, elt_.getName());
         assertEq(FONCE, elt_.getKeyName());
@@ -628,7 +628,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(6);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(JACKPOT, itemName_);
         assertEq(JACKPOT, elt_.getName());
         assertEq(JACKPOT, elt_.getKeyName());
@@ -684,13 +684,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(1, pagination_.getResults().size());
+        assertEq(1, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(SEISME, itemName_);
         assertEq(SEISME, elt_.getName());
         assertEq(SEISME, elt_.getKeyName());
@@ -726,13 +726,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(7, pagination_.getResults().size());
+        assertEq(7, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ECLAIR, itemName_);
         assertEq(ECLAIR, elt_.getName());
         assertEq(ECLAIR, elt_.getKeyName());
@@ -742,7 +742,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(50, elt_.getPp());
         elt_ = sorted_.get(1);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(CHARGE, itemName_);
         assertEq(CHARGE, elt_.getName());
         assertEq(CHARGE, elt_.getKeyName());
@@ -752,7 +752,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(2000, elt_.getPrice());
         assertEq(30, elt_.getPp());
         elt_ = sorted_.get(2);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(PISTOLET_A_O, itemName_);
         assertEq(PISTOLET_A_O, elt_.getName());
         assertEq(PISTOLET_A_O, elt_.getKeyName());
@@ -762,7 +762,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(3);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ROUE_DE_FEU, itemName_);
         assertEq(ROUE_DE_FEU, elt_.getName());
         assertEq(ROUE_DE_FEU, elt_.getKeyName());
@@ -772,7 +772,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(4);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(RELAIS, itemName_);
         assertEq(RELAIS, elt_.getName());
         assertEq(RELAIS, elt_.getKeyName());
@@ -782,7 +782,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(40, elt_.getPp());
         elt_ = sorted_.get(5);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(FONCE, itemName_);
         assertEq(FONCE, elt_.getName());
         assertEq(FONCE, elt_.getKeyName());
@@ -792,7 +792,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(6);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(JACKPOT, itemName_);
         assertEq(JACKPOT, elt_.getName());
         assertEq(JACKPOT, elt_.getKeyName());
@@ -828,13 +828,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(7, pagination_.getResults().size());
+        assertEq(7, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ECLAIR, itemName_);
         assertEq(ECLAIR, elt_.getName());
         assertEq(ECLAIR, elt_.getKeyName());
@@ -844,7 +844,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(50, elt_.getPp());
         elt_ = sorted_.get(1);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(PISTOLET_A_O, itemName_);
         assertEq(PISTOLET_A_O, elt_.getName());
         assertEq(PISTOLET_A_O, elt_.getKeyName());
@@ -854,7 +854,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(2);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(SEISME, itemName_);
         assertEq(SEISME, elt_.getName());
         assertEq(SEISME, elt_.getKeyName());
@@ -864,7 +864,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(10, elt_.getPp());
         elt_ = sorted_.get(3);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ROUE_DE_FEU, itemName_);
         assertEq(ROUE_DE_FEU, elt_.getName());
         assertEq(ROUE_DE_FEU, elt_.getKeyName());
@@ -874,7 +874,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(4);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(RELAIS, itemName_);
         assertEq(RELAIS, elt_.getName());
         assertEq(RELAIS, elt_.getKeyName());
@@ -884,7 +884,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(40, elt_.getPp());
         elt_ = sorted_.get(5);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(FONCE, itemName_);
         assertEq(FONCE, elt_.getName());
         assertEq(FONCE, elt_.getKeyName());
@@ -894,7 +894,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(6);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(JACKPOT, itemName_);
         assertEq(JACKPOT, elt_.getName());
         assertEq(JACKPOT, elt_.getKeyName());
@@ -930,13 +930,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(7, pagination_.getResults().size());
+        assertEq(7, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ECLAIR, itemName_);
         assertEq(ECLAIR, elt_.getName());
         assertEq(ECLAIR, elt_.getKeyName());
@@ -946,7 +946,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(50, elt_.getPp());
         elt_ = sorted_.get(1);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(CHARGE, itemName_);
         assertEq(CHARGE, elt_.getName());
         assertEq(CHARGE, elt_.getKeyName());
@@ -956,7 +956,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(2000, elt_.getPrice());
         assertEq(30, elt_.getPp());
         elt_ = sorted_.get(2);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(PISTOLET_A_O, itemName_);
         assertEq(PISTOLET_A_O, elt_.getName());
         assertEq(PISTOLET_A_O, elt_.getKeyName());
@@ -966,7 +966,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(3);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(SEISME, itemName_);
         assertEq(SEISME, elt_.getName());
         assertEq(SEISME, elt_.getKeyName());
@@ -976,7 +976,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(10, elt_.getPp());
         elt_ = sorted_.get(4);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ROUE_DE_FEU, itemName_);
         assertEq(ROUE_DE_FEU, elt_.getName());
         assertEq(ROUE_DE_FEU, elt_.getKeyName());
@@ -986,7 +986,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(5);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(RELAIS, itemName_);
         assertEq(RELAIS, elt_.getName());
         assertEq(RELAIS, elt_.getKeyName());
@@ -996,7 +996,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(40, elt_.getPp());
         elt_ = sorted_.get(6);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(JACKPOT, itemName_);
         assertEq(JACKPOT, elt_.getName());
         assertEq(JACKPOT, elt_.getKeyName());
@@ -1033,13 +1033,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(3, pagination_.getResults().size());
+        assertEq(3, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(CHARGE, itemName_);
         assertEq(CHARGE, elt_.getName());
         assertEq(CHARGE, elt_.getKeyName());
@@ -1049,7 +1049,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(2000, elt_.getPrice());
         assertEq(30, elt_.getPp());
         elt_ = sorted_.get(1);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(RELAIS, itemName_);
         assertEq(RELAIS, elt_.getName());
         assertEq(RELAIS, elt_.getKeyName());
@@ -1059,7 +1059,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(40, elt_.getPp());
         elt_ = sorted_.get(2);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(JACKPOT, itemName_);
         assertEq(JACKPOT, elt_.getName());
         assertEq(JACKPOT, elt_.getKeyName());
@@ -1096,13 +1096,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(1, pagination_.getResults().size());
+        assertEq(1, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(JACKPOT, itemName_);
         assertEq(JACKPOT, elt_.getName());
         assertEq(JACKPOT, elt_.getKeyName());
@@ -1139,7 +1139,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(0, pagination_.getResults().size());
+        assertEq(0, pagination_.getMoves().size());
         CustList<SortingMove> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
@@ -1167,13 +1167,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(FONCE);
         moves_.add(JACKPOT);
         pagination_.search(moves_, data_);
-        assertEq(8, pagination_.getResults().size());
+        assertEq(8, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ECLAIR, itemName_);
         assertEq(ECLAIR, elt_.getName());
         assertEq(ECLAIR, elt_.getKeyName());
@@ -1183,7 +1183,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(50, elt_.getPp());
         elt_ = sorted_.get(1);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(CHARGE, itemName_);
         assertEq(CHARGE, elt_.getName());
         assertEq(CHARGE, elt_.getKeyName());
@@ -1193,7 +1193,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(2000, elt_.getPrice());
         assertEq(30, elt_.getPp());
         elt_ = sorted_.get(2);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(PISTOLET_A_O, itemName_);
         assertEq(PISTOLET_A_O, elt_.getName());
         assertEq(PISTOLET_A_O, elt_.getKeyName());
@@ -1203,7 +1203,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(3);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(SEISME, itemName_);
         assertEq(SEISME, elt_.getName());
         assertEq(SEISME, elt_.getKeyName());
@@ -1213,7 +1213,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(10, elt_.getPp());
         elt_ = sorted_.get(4);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ROUE_DE_FEU, itemName_);
         assertEq(ROUE_DE_FEU, elt_.getName());
         assertEq(ROUE_DE_FEU, elt_.getKeyName());
@@ -1223,7 +1223,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(5);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(RELAIS, itemName_);
         assertEq(RELAIS, elt_.getName());
         assertEq(RELAIS, elt_.getKeyName());
@@ -1233,7 +1233,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(40, elt_.getPp());
         elt_ = sorted_.get(6);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(FONCE, itemName_);
         assertEq(FONCE, elt_.getName());
         assertEq(FONCE, elt_.getKeyName());
@@ -1243,7 +1243,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(7);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(JACKPOT, itemName_);
         assertEq(JACKPOT, elt_.getName());
         assertEq(JACKPOT, elt_.getKeyName());
@@ -1281,13 +1281,13 @@ public class PaginationMoveTest extends InitializationDataBase {
         pagination_.getCriteria().setSearchModeName(SearchingMode.SUBSTRING);
         pagination_.getCriteria().setContentOfName("E");
         pagination_.newSearch();
-        assertEq(7, pagination_.getResults().size());
+        assertEq(7, pagination_.getMoves().size());
         String itemName_;
         CustList<SortingMove> sorted_;
         SortingMove elt_;
-        sorted_ = new CustList<SortingMove>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingMove>(pagination_.getMoves().getKeys());
         elt_ = sorted_.get(0);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ECLAIR, itemName_);
         assertEq(ECLAIR, elt_.getName());
         assertEq(ECLAIR, elt_.getKeyName());
@@ -1297,7 +1297,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(50, elt_.getPp());
         elt_ = sorted_.get(1);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(CHARGE, itemName_);
         assertEq(CHARGE, elt_.getName());
         assertEq(CHARGE, elt_.getKeyName());
@@ -1307,7 +1307,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(2000, elt_.getPrice());
         assertEq(30, elt_.getPp());
         elt_ = sorted_.get(2);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(PISTOLET_A_O, itemName_);
         assertEq(PISTOLET_A_O, elt_.getName());
         assertEq(PISTOLET_A_O, elt_.getKeyName());
@@ -1317,7 +1317,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(3);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(SEISME, itemName_);
         assertEq(SEISME, elt_.getName());
         assertEq(SEISME, elt_.getKeyName());
@@ -1327,7 +1327,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(10, elt_.getPp());
         elt_ = sorted_.get(4);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(ROUE_DE_FEU, itemName_);
         assertEq(ROUE_DE_FEU, elt_.getName());
         assertEq(ROUE_DE_FEU, elt_.getKeyName());
@@ -1337,7 +1337,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(20, elt_.getPp());
         elt_ = sorted_.get(5);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(RELAIS, itemName_);
         assertEq(RELAIS, elt_.getName());
         assertEq(RELAIS, elt_.getKeyName());
@@ -1347,7 +1347,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(0, elt_.getPrice());
         assertEq(40, elt_.getPp());
         elt_ = sorted_.get(6);
-        itemName_ = pagination_.getResults().getVal(elt_);
+        itemName_ = pagination_.getMoves().getVal(elt_);
         assertEq(FONCE, itemName_);
         assertEq(FONCE, elt_.getName());
         assertEq(FONCE, elt_.getKeyName());

@@ -267,10 +267,10 @@ public final class PaginationHealingItem extends
 
     public String currentObject() {
         int index_ = getIndex();
-        if (!getItems().getKeys().isValidIndex(index_)) {
+        if (!getHealingItems().getKeys().isValidIndex(index_)) {
             return "";
         }
-        return getItems().getValue(index_);
+        return getHealingItems().getValue(index_);
     }
     public StringFieldComparator getCmpName() {
         return comparatorHealingItem.getCmpName();
@@ -324,13 +324,13 @@ public final class PaginationHealingItem extends
         return comparatorHealingItem.getCmpKo();
     }
     protected void excludeResults() {
-        Listable<SortingHealingItem> list_ = getItems().getKeys();
+        Listable<SortingHealingItem> list_ = getHealingItems().getKeys();
         for (SortingHealingItem k: list_) {
-            String value_ = getItems().getVal(k);
+            String value_ = getHealingItems().getVal(k);
             if (match(value_)) {
                 continue;
             }
-            getItems().removeKey(k);
+            getHealingItems().removeKey(k);
         }
     }
 
@@ -339,27 +339,27 @@ public final class PaginationHealingItem extends
         return getRendered().isEmpty();
     }
     protected boolean hasNoResult() {
-        return getItems().isEmpty();
+        return getHealingItems().isEmpty();
     }
     protected void updateRendered(int _end) {
-        getRendered().addAllElts(getItems().getKeys().sub(getFullCount(), _end));
+        getRendered().addAllElts(getHealingItems().getKeys().sub(getFullCount(), _end));
     }
     protected void clearResults() {
-        getItems().clear();
+        getHealingItems().clear();
     }
     protected int getResultsSize() {
-        return getItems().size();
+        return getHealingItems().size();
     }
 
     protected int getIndex(int _index) {
-        return getItems().getKey(_index).getIndex();
+        return getHealingItems().getKey(_index).getIndex();
     }
 
     protected boolean isValidIndex(int _index) {
-        return getItems().getKeys().isValidIndex(_index);
+        return getHealingItems().getKeys().isValidIndex(_index);
     }
 
-    TreeMap<SortingHealingItem, String> getItems() {
+    TreeMap<SortingHealingItem, String> getHealingItems() {
         return items;
     }
 

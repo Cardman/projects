@@ -169,10 +169,10 @@ public final class PaginationMove extends
 
     public String currentObject() {
         int index_ = getIndex();
-        if (!getResults().getKeys().isValidIndex(index_)) {
+        if (!getMoves().getKeys().isValidIndex(index_)) {
             return "";
         }
-        return getResults().getValue(index_);
+        return getMoves().getValue(index_);
     }
     public StringFieldComparator getCmpName() {
         return cmpName;
@@ -198,13 +198,13 @@ public final class PaginationMove extends
         return cmpTargetChoice;
     }
     protected void excludeResults() {
-        Listable<SortingMove> list_ = getResults().getKeys();
+        Listable<SortingMove> list_ = getMoves().getKeys();
         for (SortingMove k: list_) {
-            String value_ = getResults().getVal(k);
+            String value_ = getMoves().getVal(k);
             if (match(value_)) {
                 continue;
             }
-            getResults().removeKey(k);
+            getMoves().removeKey(k);
         }
     }
 
@@ -213,27 +213,27 @@ public final class PaginationMove extends
         return getRendered().isEmpty();
     }
     protected boolean hasNoResult() {
-        return getResults().isEmpty();
+        return getMoves().isEmpty();
     }
     protected void updateRendered(int _end) {
-        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), _end));
+        getRendered().addAllElts(getMoves().getKeys().sub(getFullCount(), _end));
     }
     protected void clearResults() {
-        getResults().clear();
+        getMoves().clear();
     }
     protected int getResultsSize() {
-        return getResults().size();
+        return getMoves().size();
     }
 
     protected int getIndex(int _index) {
-        return getResults().getKey(_index).getIndex();
+        return getMoves().getKey(_index).getIndex();
     }
 
     protected boolean isValidIndex(int _index) {
-        return getResults().getKeys().isValidIndex(_index);
+        return getMoves().getKeys().isValidIndex(_index);
     }
 
-    TreeMap<SortingMove, String> getResults() {
+    TreeMap<SortingMove, String> getMoves() {
         return moves;
     }
 
