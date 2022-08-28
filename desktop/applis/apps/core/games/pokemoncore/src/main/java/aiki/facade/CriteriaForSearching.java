@@ -7,6 +7,8 @@ import code.util.core.StringUtil;
 
 public abstract class CriteriaForSearching {
 
+    protected CriteriaForSearching() {
+    }
     protected static boolean match(SearchingMode _searchMode, String _typedString, String _string) {
         if (_typedString == null) {
             return true;
@@ -14,30 +16,20 @@ public abstract class CriteriaForSearching {
         if (_string == null) {
             return false;
         }
-        if (_searchMode == SearchingMode.WHOLE_STRING) {
-            if (!StringUtil.quickEq(_string,_typedString)) {
-                return false;
-            }
+        if (_searchMode == SearchingMode.WHOLE_STRING && !StringUtil.quickEq(_string, _typedString)) {
+            return false;
         }
-        if (_searchMode == SearchingMode.SUBSTRING) {
-            if (!_string.contains(_typedString)) {
-                return false;
-            }
+        if (_searchMode == SearchingMode.SUBSTRING && !_string.contains(_typedString)) {
+            return false;
         }
-        if (_searchMode == SearchingMode.MATCH_SPACE) {
-            if (!StringUtil.matchSpace(_string, _typedString)) {
-                return false;
-            }
+        if (_searchMode == SearchingMode.MATCH_SPACE && !StringUtil.matchSpace(_string, _typedString)) {
+            return false;
         }
-        if (_searchMode == SearchingMode.BEGIN) {
-            if (!StringUtil.startsWith(_string, _typedString)) {
-                return false;
-            }
+        if (_searchMode == SearchingMode.BEGIN && !StringUtil.startsWith(_string, _typedString)) {
+            return false;
         }
-        if (_searchMode == SearchingMode.END) {
-            if (!StringUtil.endsWith(_string, _typedString)) {
-                return false;
-            }
+        if (_searchMode == SearchingMode.END && !StringUtil.endsWith(_string, _typedString)) {
+            return false;
         }
         if (_searchMode == SearchingMode.META_CHARACTER) {
             return StringUtil.match(_string, _typedString);
@@ -52,10 +44,8 @@ public abstract class CriteriaForSearching {
             }
             return NumberUtil.compareLg(_max, _number) >= 0;
         }
-        if (_max != null) {
-            if (NumberUtil.compareLg(_max,_number) < 0) {
-                return false;
-            }
+        if (_max != null && NumberUtil.compareLg(_max, _number) < 0) {
+            return false;
         }
         return NumberUtil.compareLg(_min, _number) <= 0;
     }
@@ -74,84 +64,76 @@ public abstract class CriteriaForSearching {
         if (_typedString == null || _typedString.isEmpty()) {
             return true;
         }
-        if (_searchMode == SearchingMode.WHOLE_STRING) {
-            boolean contained_ = false;
-            for (String s: _list) {
-                if (s == null) {
-                    continue;
-                }
-                if (StringUtil.quickEq(s,_typedString)) {
-                    contained_ = true;
-                    break;
-                }
-            }
-            if (!contained_) {
-                return false;
+        if (_searchMode == SearchingMode.WHOLE_STRING && !wholeString(_typedString, _list)) {
+            return false;
+        }
+        if (_searchMode == SearchingMode.SUBSTRING && !substring(_typedString, _list)) {
+            return false;
+        }
+        if (_searchMode == SearchingMode.BEGIN && !begin(_typedString, _list)) {
+            return false;
+        }
+        if (_searchMode == SearchingMode.END && !end(_typedString, _list)) {
+            return false;
+        }
+        if (_searchMode == SearchingMode.MATCH_SPACE && !space(_typedString, _list)) {
+            return false;
+        }
+        return _searchMode != SearchingMode.META_CHARACTER || !_list.filterByMultiWords(_typedString).isEmpty();
+    }
+
+    private static boolean space(String _typedString, StringList _list) {
+        boolean contained_ = false;
+        for (String s: _list) {
+            if (s != null && StringUtil.matchSpace(s, _typedString)) {
+                contained_ = true;
+                break;
             }
         }
-        if (_searchMode == SearchingMode.SUBSTRING) {
-            boolean contained_ = false;
-            for (String s: _list) {
-                if (s == null) {
-                    continue;
-                }
-                if (s.contains(_typedString)) {
-                    contained_ = true;
-                    break;
-                }
-            }
-            if (!contained_) {
-                return false;
+        return contained_;
+    }
+
+    private static boolean end(String _typedString, StringList _list) {
+        boolean contained_ = false;
+        for (String s: _list) {
+            if (s != null && StringUtil.endsWith(s, _typedString)) {
+                contained_ = true;
+                break;
             }
         }
-        if (_searchMode == SearchingMode.BEGIN) {
-            boolean contained_ = false;
-            for (String s: _list) {
-                if (s == null) {
-                    continue;
-                }
-                if (StringUtil.startsWith(s, _typedString)) {
-                    contained_ = true;
-                    break;
-                }
-            }
-            if (!contained_) {
-                return false;
+        return contained_;
+    }
+
+    private static boolean begin(String _typedString, StringList _list) {
+        boolean contained_ = false;
+        for (String s: _list) {
+            if (s != null && StringUtil.startsWith(s, _typedString)) {
+                contained_ = true;
+                break;
             }
         }
-        if (_searchMode == SearchingMode.END) {
-            boolean contained_ = false;
-            for (String s: _list) {
-                if (s == null) {
-                    continue;
-                }
-                if (StringUtil.endsWith(s, _typedString)) {
-                    contained_ = true;
-                    break;
-                }
-            }
-            if (!contained_) {
-                return false;
+        return contained_;
+    }
+
+    private static boolean substring(String _typedString, StringList _list) {
+        boolean contained_ = false;
+        for (String s: _list) {
+            if (s != null && s.contains(_typedString)) {
+                contained_ = true;
+                break;
             }
         }
-        if (_searchMode == SearchingMode.MATCH_SPACE) {
-            boolean contained_ = false;
-            for (String s: _list) {
-                if (s == null) {
-                    continue;
-                }
-                if (StringUtil.matchSpace(s, _typedString)) {
-                    contained_ = true;
-                    break;
-                }
-            }
-            if (!contained_) {
-                return false;
+        return contained_;
+    }
+
+    private static boolean wholeString(String _typedString, StringList _list) {
+        boolean contained_ = false;
+        for (String s: _list) {
+            if (s != null && StringUtil.quickEq(s, _typedString)) {
+                contained_ = true;
+                break;
             }
         }
-        if (_searchMode == SearchingMode.META_CHARACTER) {
-            return !_list.filterByMultiWords(_typedString).isEmpty();
-        }
-        return true;
+        return contained_;
     }
 }

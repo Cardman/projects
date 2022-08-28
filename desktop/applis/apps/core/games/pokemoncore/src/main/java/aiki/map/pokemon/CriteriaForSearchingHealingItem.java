@@ -116,111 +116,128 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
     public boolean matchPp(Item _item) {
         if (_item instanceof HealingPp) {
             HealingPp healing_ = (HealingPp) _item;
-            if (relativeRatePp == SelectedBoolean.YES) {
-                if (healOneMove == SelectedBoolean.YES_AND_NO) {
-                    if (healing_.getHealingMoveFullpp()) {
-                        return true;
-                    }
-                    return healing_.isHealingAllMovesPp();
-                }
-                if (match(healOneMove, healing_.getHealingMoveFullpp())) {
-                    return true;
-                }
-                if (healOneMove == SelectedBoolean.YES) {
-                    return match(SelectedBoolean.NO, healing_.isHealingAllMovesPp());
-                }
-                return match(SelectedBoolean.YES, healing_.isHealingAllMovesPp());
-            }
-            if (relativeRatePp == SelectedBoolean.NO) {
-                if (healOneMove == SelectedBoolean.YES) {
-                    long pp_ = healing_.getHealedMovePp();
-                    if (pp_ == 0) {
-                        return false;
-                    }
-                    return CriteriaForSearching.match(minPp, maxPp, pp_);
-                }
-                if (healOneMove == SelectedBoolean.NO) {
-                    long pp_ = healing_.getHealingAllMovesFullpp();
-                    if (pp_ == 0) {
-                        return false;
-                    }
-                    return CriteriaForSearching.match(minPp, maxPp, pp_);
-                }
-                Longs values_ = new Longs();
-                values_.add(healing_.getHealedMovePp());
-                values_.add(healing_.getHealingAllMovesFullpp());
-                values_.removeDuplicates();
-                values_.sort();
-                if (values_.last() == 0) {
-                    return false;
-                }
-                for (long v: values_) {
-                    if (CriteriaForSearching.match(minPp, maxPp, v)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            if (healOneMove == SelectedBoolean.YES) {
-                if (healing_.getHealingMoveFullpp()) {
-                    return true;
-                }
-                long pp_ = healing_.getHealedMovePp();
-                if (pp_ == 0) {
-                    return false;
-                }
-                return CriteriaForSearching.match(minPp, maxPp, pp_);
-            }
-            if (healOneMove == SelectedBoolean.NO) {
-                if (healing_.isHealingAllMovesPp()) {
-                    return true;
-                }
-                long pp_ = healing_.getHealingAllMovesFullpp();
-                if (pp_ == 0) {
-                    return false;
-                }
-                return CriteriaForSearching.match(minPp, maxPp, pp_);
-            }
-            if (healing_.getHealingMoveFullpp()) {
-                return true;
-            }
-            if (healing_.isHealingAllMovesPp()) {
-                return true;
-            }
-            Longs values_ = new Longs();
-            values_.add(healing_.getHealedMovePp());
-            values_.add(healing_.getHealingAllMovesFullpp());
-            values_.removeDuplicates();
-            values_.sort();
-            for (long v: values_) {
-                if (CriteriaForSearching.match(minPp, maxPp, v)) {
-                    return true;
-                }
-            }
-            return false;
+            return healingPp(healing_);
         }
         if (_item instanceof Berry) {
             Berry healing_ = (Berry) _item;
-            long pp_ = healing_.getHealPp();
-            if (pp_ == 0) {
-                if (relativeRatePp == SelectedBoolean.YES_AND_NO) {
-                    return CriteriaForSearching.match(minPp, maxPp, pp_);
-                }
-                return false;
-            }
-            if (healOneMove == SelectedBoolean.NO) {
-                return false;
-            }
-            if (relativeRatePp == SelectedBoolean.YES) {
-                return false;
-            }
-            return CriteriaForSearching.match(minPp, maxPp, pp_);
+            return berry(healing_);
         }
         if (relativeRatePp == SelectedBoolean.YES_AND_NO) {
             long pp_ = 0;
             return CriteriaForSearching.match(minPp, maxPp, pp_);
         }
         return false;
+    }
+
+    private boolean healingPp(HealingPp _healing) {
+        if (relativeRatePp == SelectedBoolean.YES) {
+            return relativeRatePpYes(_healing);
+        }
+        if (relativeRatePp == SelectedBoolean.NO) {
+            return relativeRatePpNo(_healing);
+        }
+        if (healOneMove == SelectedBoolean.YES) {
+            if (_healing.getHealingMoveFullpp()) {
+                return true;
+            }
+            long pp_ = _healing.getHealedMovePp();
+            if (pp_ == 0) {
+                return false;
+            }
+            return CriteriaForSearching.match(minPp, maxPp, pp_);
+        }
+        if (healOneMove == SelectedBoolean.NO) {
+            if (_healing.isHealingAllMovesPp()) {
+                return true;
+            }
+            long pp_ = _healing.getHealingAllMovesFullpp();
+            if (pp_ == 0) {
+                return false;
+            }
+            return CriteriaForSearching.match(minPp, maxPp, pp_);
+        }
+        if (_healing.getHealingMoveFullpp() || _healing.isHealingAllMovesPp()) {
+            return true;
+        }
+        return matchAny(_healing);
+    }
+
+    private boolean matchAny(HealingPp _healing) {
+        Longs values_ = new Longs();
+        values_.add(_healing.getHealedMovePp());
+        values_.add(_healing.getHealingAllMovesFullpp());
+        values_.removeDuplicates();
+        values_.sort();
+        for (long v: values_) {
+            if (CriteriaForSearching.match(minPp, maxPp, v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean relativeRatePpNo(HealingPp _healing) {
+        if (healOneMove == SelectedBoolean.YES) {
+            long pp_ = _healing.getHealedMovePp();
+            if (pp_ == 0) {
+                return false;
+            }
+            return CriteriaForSearching.match(minPp, maxPp, pp_);
+        }
+        if (healOneMove == SelectedBoolean.NO) {
+            long pp_ = _healing.getHealingAllMovesFullpp();
+            if (pp_ == 0) {
+                return false;
+            }
+            return CriteriaForSearching.match(minPp, maxPp, pp_);
+        }
+        Longs values_ = new Longs();
+        values_.add(_healing.getHealedMovePp());
+        values_.add(_healing.getHealingAllMovesFullpp());
+        values_.removeDuplicates();
+        values_.sort();
+        if (values_.last() == 0) {
+            return false;
+        }
+        for (long v: values_) {
+            if (CriteriaForSearching.match(minPp, maxPp, v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean relativeRatePpYes(HealingPp _healing) {
+        if (healOneMove == SelectedBoolean.YES_AND_NO) {
+            if (_healing.getHealingMoveFullpp()) {
+                return true;
+            }
+            return _healing.isHealingAllMovesPp();
+        }
+        if (match(healOneMove, _healing.getHealingMoveFullpp())) {
+            return true;
+        }
+        if (healOneMove == SelectedBoolean.YES) {
+            return match(SelectedBoolean.NO, _healing.isHealingAllMovesPp());
+        }
+        return match(SelectedBoolean.YES, _healing.isHealingAllMovesPp());
+    }
+
+    private boolean berry(Berry _healing) {
+        long pp_ = _healing.getHealPp();
+        if (pp_ == 0) {
+            if (relativeRatePp == SelectedBoolean.YES_AND_NO) {
+                return CriteriaForSearching.match(minPp, maxPp, pp_);
+            }
+            return false;
+        }
+        if (healOneMove == SelectedBoolean.NO) {
+            return false;
+        }
+        if (relativeRatePp == SelectedBoolean.YES) {
+            return false;
+        }
+        return CriteriaForSearching.match(minPp, maxPp, pp_);
     }
 
     public boolean matchStatistic(Item _item) {
@@ -308,10 +325,8 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
 
     @Override
     public boolean matchClass(Item _item) {
-        if (StringUtil.quickEq(getSelectedClass(), HealingStatus.ITEM)) {
-            if (StringUtil.quickEq(HealingHpStatus.ITEM, _item.getItemType())) {
-                return true;
-            }
+        if (StringUtil.quickEq(getSelectedClass(), HealingStatus.ITEM) && StringUtil.quickEq(HealingHpStatus.ITEM, _item.getItemType())) {
+            return true;
         }
         return super.matchClass(_item);
     }
