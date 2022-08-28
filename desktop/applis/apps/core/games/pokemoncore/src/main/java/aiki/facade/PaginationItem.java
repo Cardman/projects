@@ -8,7 +8,6 @@ import aiki.map.pokemon.CriteriaForSearchingItem;
 import aiki.util.SortingItem;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
@@ -73,23 +72,12 @@ public final class PaginationItem extends
             s_.setItemClass(description_);
             items.put(s_, _list.get(i));
         }
-        search(new StringList(items.values()));
+        search();
     }
 
-    void search(Listable<String> _items) {
-        if (!_items.isEmpty()) {
-            setNumberPage(IndexConstants.FIRST_INDEX);
-        } else {
-            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
-            getRendered().clear();
-            return;
-        }
-        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-        if (sortable()) {
-            sort();
-        }
-        calculateRendered();
+    @Override
+    protected boolean isEmpty() {
+        return items.isEmpty();
     }
 
     boolean match(String _item) {

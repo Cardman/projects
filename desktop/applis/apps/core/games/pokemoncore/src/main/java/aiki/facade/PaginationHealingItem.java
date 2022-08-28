@@ -3,25 +3,14 @@ package aiki.facade;
 import aiki.comparators.ComparatorHealingItem;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
-import aiki.fight.items.Berry;
-import aiki.fight.items.HealingHp;
-import aiki.fight.items.HealingHpStatus;
-import aiki.fight.items.HealingItem;
-import aiki.fight.items.HealingPp;
-import aiki.fight.items.HealingStatus;
-import aiki.fight.items.Item;
+import aiki.fight.items.*;
 import aiki.fight.moves.MoveData;
 import aiki.game.player.Inventory;
 import aiki.map.pokemon.CriteriaForSearchingHealingItem;
 import aiki.util.SortingHealingItem;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.AbsMap;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.ints.Listable;
 
@@ -41,7 +30,7 @@ public final class PaginationHealingItem extends
     private AbsMap<Statistic, String> translatedStatistics;
 
     private Inventory inventory;
-    private TreeMap<SortingHealingItem, String> items = new TreeMap<SortingHealingItem, String>(
+    private TreeMap<SortingHealingItem, String> healingItems = new TreeMap<SortingHealingItem, String>(
             comparatorHealingItem);
 
     private final CustList<SortingHealingItem> rendered = new CustList<SortingHealingItem>();
@@ -68,7 +57,7 @@ public final class PaginationHealingItem extends
     }
 
     public void search(CustList<String> _list, DataBase _data) {
-        items.clear();
+        healingItems.clear();
         Shorts pps_ = new Shorts();
         for (MoveData f : _data.getMoves().values()) {
             pps_.add(f.getPp());
@@ -84,10 +73,10 @@ public final class PaginationHealingItem extends
                     .getVal(i_.getItemType());
             if (getCriteria().matchPrice(i_.getPrice()) && getCriteria().matchDescription(description_) && getCriteria().matchHp(i_) && getCriteria().matchRateHp(i_) && getCriteria().matchKo(i_) && getCriteria().matchPp(i_) && getCriteria().matchStatus(i_) && getCriteria().matchStatistic(i_) && getCriteria().matchClass(i_) && getCriteria().matchNumber(inventory.getNumber(_list.get(i))) && match(_list.get(i))) {
                 SortingHealingItem s_ = sortingHealingItem(_list, maxPp_, i, i_, description_);
-                items.put(s_, _list.get(i));
+                healingItems.put(s_, _list.get(i));
             }
         }
-        search(new StringList(items.values()));
+        search();
     }
 
     private SortingHealingItem sortingHealingItem(CustList<String> _list, long _maxPp, int _i, Item _item, String _description) {
@@ -183,20 +172,9 @@ public final class PaginationHealingItem extends
         }
     }
 
-    void search(Listable<String> _items) {
-        if (!_items.isEmpty()) {
-            setNumberPage(IndexConstants.FIRST_INDEX);
-        } else {
-            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
-            getRendered().clear();
-            return;
-        }
-        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-        if (sortable()) {
-            sort();
-        }
-        calculateRendered();
+    @Override
+    protected boolean isEmpty() {
+        return healingItems.isEmpty();
     }
 
     public CriteriaForSearchingHealingItem getCriteria() {
@@ -261,8 +239,8 @@ public final class PaginationHealingItem extends
         comparatorHealingItem = new ComparatorHealingItem(ComparatorHealingItem.NB_COMPARATORS,comparatorHealingItem);
         TreeMap<SortingHealingItem, String> items_ = new TreeMap<SortingHealingItem, String>(
                 comparatorHealingItem);
-        items_.putAllMap(items);
-        items = items_;
+        items_.putAllMap(healingItems);
+        healingItems = items_;
     }
 
     public String currentObject() {
@@ -360,7 +338,7 @@ public final class PaginationHealingItem extends
     }
 
     TreeMap<SortingHealingItem, String> getHealingItems() {
-        return items;
+        return healingItems;
     }
 
     CustList<SortingHealingItem> getRendered() {

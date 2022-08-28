@@ -91,19 +91,12 @@ public final class PaginationPokemonPlayer
                 pokemon.put(s_, pk_);
             }
         }
-        if (!pokemon.isEmpty()) {
-            setNumberPage(IndexConstants.FIRST_INDEX);
-        } else {
-            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
-            rendered.clear();
-            return;
-        }
-        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-        if (sortable()) {
-            sort();
-        }
-        calculateRendered();
+        search();
+    }
+
+    @Override
+    protected boolean isEmpty() {
+        return pokemon.isEmpty();
     }
 
     boolean match(PokemonPlayer _pk) {

@@ -57,19 +57,12 @@ public final class PaginationEgg extends
                 eggs.put(s_, pk_);
             }
         }
-        if (!eggs.isEmpty()) {
-            setNumberPage(IndexConstants.FIRST_INDEX);
-        } else {
-            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
-            getRendered().clear();
-            return;
-        }
-        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-        if (sortable()) {
-            sort();
-        }
-        calculateRendered();
+        search();
+    }
+
+    @Override
+    protected boolean isEmpty() {
+        return eggs.isEmpty();
     }
 
     boolean match(Egg _egg) {

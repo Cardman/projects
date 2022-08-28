@@ -82,7 +82,7 @@ public final class PaginationMove extends
             s_.setMoveClass(translatedDescription.getVal(i_.getMoveType()));
             moves.put(s_, _list.get(i));
         }
-        search(new StringList(moves.values()));
+        search();
     }
 
     private StringList types(MoveData _i) {
@@ -106,20 +106,9 @@ public final class PaginationMove extends
         return price_;
     }
 
-    void search(Listable<String> _list) {
-        if (!_list.isEmpty()) {
-            setNumberPage(IndexConstants.FIRST_INDEX);
-        } else {
-            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
-            getRendered().clear();
-            return;
-        }
-        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
-        if (sortable()) {
-            sort();
-        }
-        calculateRendered();
+    @Override
+    protected boolean isEmpty() {
+        return moves.isEmpty();
     }
 
     boolean match(String _move) {

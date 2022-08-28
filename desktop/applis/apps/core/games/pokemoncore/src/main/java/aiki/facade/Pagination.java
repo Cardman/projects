@@ -15,6 +15,24 @@ public abstract class Pagination {
 
     private int delta = 1;
 
+    void search() {
+        if (!isEmpty()) {
+            setNumberPage(IndexConstants.FIRST_INDEX);
+        } else {
+            setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
+            setNumberPage(IndexConstants.INDEX_NOT_FOUND_ELT);
+            clearRendered();
+            return;
+        }
+        setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
+        if (sortable()) {
+            sort();
+        }
+        calculateRendered();
+    }
+
+    protected abstract boolean isEmpty();
+
     public void clear() {
         clearResults();
         setLine(IndexConstants.INDEX_NOT_FOUND_ELT);
