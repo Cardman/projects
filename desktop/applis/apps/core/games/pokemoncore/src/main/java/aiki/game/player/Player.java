@@ -52,7 +52,7 @@ import code.util.core.StringUtil;
 
 public final class Player {
 
-    public static final String PLAYER = "aiki.game.player.player";
+    public static final String PLAYER_ACCESS = "aiki.game.player.player";
 
     private static final String DEFAULT_NICKNAME_PREFIX = "TRUMP_";
 
@@ -213,10 +213,7 @@ public final class Player {
     }
 
     public boolean validate(DataBase _data) {
-        if (team.isEmpty()) {
-            return false;
-        }
-        if (team.size() > _data.getNbMaxTeam()) {
+        if (badTeamCount(_data)) {
             return false;
         }
         int nbPkPlayers_ = IndexConstants.SIZE_EMPTY;
@@ -251,18 +248,18 @@ public final class Player {
         return remainingRepelSteps >= 0;
     }
 
+    private boolean badTeamCount(DataBase _data) {
+        return team.isEmpty() || team.size() > _data.getNbMaxTeam();
+    }
+
     public boolean existBall(DataBase _import) {
         boolean existBall_ = false;
         for (String o: _import.getItems().getKeys()) {
             Item obj_ = _import.getItem(o);
-            if (!(obj_ instanceof Ball)) {
-                continue;
+            if (obj_ instanceof Ball && !getInventory().getNumber(o).isZero()) {
+                existBall_ = true;
+                break;
             }
-            if (getInventory().getNumber(o).isZero()) {
-                continue;
-            }
-            existBall_ = true;
-            break;
         }
         return existBall_;
     }
@@ -330,19 +327,18 @@ public final class Player {
             }
             Egg oeuf_=(Egg)usPk_;
             PokemonData fPk_ = _import.getPokemon(oeuf_.getName());
-            if (oeuf_.getSteps() < fPk_.getHatchingSteps().ll()) {
-                continue;
-            }
-            PokemonPlayer pk_ = new PokemonPlayer(oeuf_,_import);
-            pk_.initIv(_diff);
-            pk_.initPvRestants(_import);
+            if (oeuf_.getSteps() >= fPk_.getHatchingSteps().ll()) {
+                PokemonPlayer pk_ = new PokemonPlayer(oeuf_, _import);
+                pk_.initIv(_diff);
+                pk_.initPvRestants(_import);
 //            team.set(k, new PokemonPlayer(oeuf_,_import));
-            team.set(k, pk_);
-            StringMap<String> mess_ = _import.getMessagesPlayer();
-            commentGame.addMessage(mess_.getVal(HATCH), _import.translatePokemon(oeuf_.getName()));
-            boolean alreadyCaught_ = estAttrape(oeuf_.getName());
-            attrapePk(oeuf_.getName());
-            addMessageNewPk(oeuf_.getName(), alreadyCaught_, _import);
+                team.set(k, pk_);
+                StringMap<String> mess_ = _import.getMessagesPlayer();
+                commentGame.addMessage(mess_.getVal(HATCH), _import.translatePokemon(oeuf_.getName()));
+                boolean alreadyCaught_ = estAttrape(oeuf_.getName());
+                attrapePk(oeuf_.getName());
+                addMessageNewPk(oeuf_.getName(), alreadyCaught_, _import);
+            }
         }
     }
 
@@ -437,7 +433,7 @@ public final class Player {
 
     public void storeIntoBox(DataBase _import){
         UsablePokemon pk_ = team.get(chosenTeamPokemon);
-        team.remove((int) chosenTeamPokemon);
+        team.remove(chosenTeamPokemon);
         //        UsablePokemon pk_=team.removeAtAndGet(chosenTeamPokemon);
         if (pk_ instanceof PokemonPlayer) {
             ((PokemonPlayer) pk_).fullHeal(_import);
@@ -528,11 +524,7 @@ public final class Player {
         int nbPks_ = team.size();
         for (byte k = IndexConstants.FIRST_INDEX; k<nbPks_; k++) {
             UsablePokemon us_ = team.get(k);
-            if (!(us_ instanceof Pokemon)) {
-                continue;
-            }
-            Pokemon pk_ = (Pokemon) us_;
-            if (!pk_.getItem().isEmpty()) {
+            if (!(us_ instanceof Pokemon) || !((Pokemon) us_).getItem().isEmpty()) {
                 continue;
             }
             indexesOfPokemonTeam.add(k);
@@ -572,96 +564,118 @@ public final class Player {
         if (!indexesOfPokemonTeam.contains(_chosenTeamPokemon)) {
             return;
         }
-        StringMap<String> mess_ = _import.getMessagesPlayer();
         boolean consommer_=false;
         PokemonPlayer pkSoigne_=(PokemonPlayer) team.get(_chosenTeamPokemon);
         Item objet_=_import.getItem(selectedObject);
         if(objet_ instanceof Berry){
-            Berry baie_=(Berry)objet_;
-            if(!baie_.getHealHp().isZero()||!baie_.getHealHpRate().isZero()||!baie_.getHealHpBySuperEffMove().isZero()){
-                Rate pvRestaures_=pkSoigne_.pvSoignesBaie(baie_,_import);
-                pkSoigne_.variationPvRestants(pvRestaures_);
-                if(!pvRestaures_.isZero()){
-                    consommer_=true;
-                    String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
-                }
-            }
-            StringList statuts_=new StringList(pkSoigne_.getStatus());
-            pkSoigne_.soinStatuts(baie_.getHealStatus());
-            if(!StringUtil.equalsSet(statuts_,pkSoigne_.getStatus())){
-                StringUtil.removeAllElements(statuts_, pkSoigne_.getStatus());
-                for (String s: statuts_) {
-                    String st_ = _import.translateStatus(s);
-                    String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(mess_.getVal(HEAL_STATUS), st_, pk_);
-                }
-                consommer_=true;
-            }
+            consommer_ = healByBerry(_import, pkSoigne_, (Berry) objet_);
         }
         if(objet_ instanceof HealingPp){
-            HealingPp soin_=(HealingPp)objet_;
-            StringMap<Short> attaquesRestaures_=pkSoigne_.ppSoignesAttaques(soin_);
-            if (soin_.isHealingAllMovesPp()) {
-                pkSoigne_.soinPpAttaques(attaquesRestaures_);
-            } else if (soin_.getHealingAllMovesFullpp() > 0) {
-                pkSoigne_.soinPpAttaques(attaquesRestaures_);
-            }
-            for(String c:attaquesRestaures_.getKeys()){
-                if (attaquesRestaures_.getVal(c) > 0) {
-                    String move_ = _import.translateMove(c);
-                    String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(mess_.getVal(RESTORED_MOVE), move_, pk_, Long.toString(attaquesRestaures_.getVal(c)));
-                }
-            }
-            for(String c:attaquesRestaures_.getKeys()){
-                if(attaquesRestaures_.getVal(c)>0){
-                    consommer_=true;
-                    break;
-                }
-            }
+            consommer_ = healByPp(_import, pkSoigne_, (HealingPp) objet_);
         }
         if(objet_ instanceof HealingHp){
-            HealingHp soin_=(HealingHp)objet_;
-            Rate pvRestaures_=pkSoigne_.pvSoignesSansStatut(soin_,_import);
-            pkSoigne_.variationPvRestants(pvRestaures_);
-            short happinessIncrease_ = pkSoigne_.pointBonheurGagnes(soin_, _import);
-            pkSoigne_.variationBonheur(happinessIncrease_, _import);
-            commentGame.addComment(pkSoigne_.getCommentPk());
-            if(!pvRestaures_.isZero()){
-                consommer_=true;
-                String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
-            }
+            consommer_ = healByHp(_import, pkSoigne_, (HealingHp) objet_);
         }
         if(objet_ instanceof HealingStatus){
-            if(objet_ instanceof HealingHpStatus){
-                HealingHpStatus soin_=(HealingHpStatus)objet_;
-                Rate pvRestaures_=pkSoigne_.pvSoignesAvecStatut(soin_,_import);
-                pkSoigne_.variationPvRestants(pvRestaures_);
-                if(!pvRestaures_.isZero()){
-                    consommer_=true;
-                    String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
-                }
-            }
-            HealingStatus soin_=(HealingStatus)objet_;
-            StringList statuts_=new StringList(pkSoigne_.getStatus());
-            pkSoigne_.soinStatuts(soin_.getStatus());
-            if(!StringUtil.equalsSet(statuts_,pkSoigne_.getStatus())){
-                StringUtil.removeAllElements(statuts_, pkSoigne_.getStatus());
-                for (String s: statuts_) {
-                    String st_ = _import.translateStatus(s);
-                    String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(mess_.getVal(HEAL_STATUS), st_, pk_);
-                }
-                consommer_=true;
-            }
+            consommer_ = healByByStatus(_import, pkSoigne_, objet_);
         }
         if(consommer_){
             inventory.use(selectedObject);
             selectedObject = DataBase.EMPTY_STRING;
         }
+    }
+
+    private boolean healByByStatus(DataBase _import, PokemonPlayer _pkSoigne, Item _objet) {
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        boolean consommer_=false;
+        if(_objet instanceof HealingHpStatus){
+            HealingHpStatus soin_=(HealingHpStatus) _objet;
+            Rate pvRestaures_= _pkSoigne.pvSoignesAvecStatut(soin_, _import);
+            _pkSoigne.variationPvRestants(pvRestaures_);
+            if(!pvRestaures_.isZero()){
+                consommer_ =true;
+                String pk_ = _import.translatePokemon(_pkSoigne.getName());
+                commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
+            }
+        }
+        HealingStatus soin_=(HealingStatus) _objet;
+        StringList statuts_=new StringList(_pkSoigne.getStatus());
+        _pkSoigne.soinStatuts(soin_.getStatus());
+        if(!StringUtil.equalsSet(statuts_, _pkSoigne.getStatus())){
+            StringUtil.removeAllElements(statuts_, _pkSoigne.getStatus());
+            for (String s: statuts_) {
+                String st_ = _import.translateStatus(s);
+                String pk_ = _import.translatePokemon(_pkSoigne.getName());
+                commentGame.addMessage(mess_.getVal(HEAL_STATUS), st_, pk_);
+            }
+            consommer_ =true;
+        }
+        return consommer_;
+    }
+
+    private boolean healByHp(DataBase _import, PokemonPlayer _pkSoigne, HealingHp _objet) {
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        boolean consommer_=false;
+        Rate pvRestaures_= _pkSoigne.pvSoignesSansStatut(_objet, _import);
+        _pkSoigne.variationPvRestants(pvRestaures_);
+        short happinessIncrease_ = _pkSoigne.pointBonheurGagnes(_objet, _import);
+        _pkSoigne.variationBonheur(happinessIncrease_, _import);
+        commentGame.addComment(_pkSoigne.getCommentPk());
+        if(!pvRestaures_.isZero()){
+            consommer_ =true;
+            String pk_ = _import.translatePokemon(_pkSoigne.getName());
+            commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
+        }
+        return consommer_;
+    }
+
+    private boolean healByPp(DataBase _import, PokemonPlayer _pkSoigne, HealingPp _objet) {
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        boolean consommer_=false;
+        StringMap<Short> attaquesRestaures_= _pkSoigne.ppSoignesAttaques(_objet);
+        if (_objet.isHealingAllMovesPp() || _objet.getHealingAllMovesFullpp() > 0) {
+            _pkSoigne.soinPpAttaques(attaquesRestaures_);
+        }
+        for(String c:attaquesRestaures_.getKeys()){
+            if (attaquesRestaures_.getVal(c) > 0) {
+                String move_ = _import.translateMove(c);
+                String pk_ = _import.translatePokemon(_pkSoigne.getName());
+                commentGame.addMessage(mess_.getVal(RESTORED_MOVE), move_, pk_, Long.toString(attaquesRestaures_.getVal(c)));
+            }
+        }
+        for(String c:attaquesRestaures_.getKeys()){
+            if(attaquesRestaures_.getVal(c)>0){
+                consommer_ =true;
+                break;
+            }
+        }
+        return consommer_;
+    }
+
+    private boolean healByBerry(DataBase _import, PokemonPlayer _pkSoigne, Berry _objet) {
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        boolean consommer_=false;
+        if(!_objet.getHealHp().isZero()||!_objet.getHealHpRate().isZero()||!_objet.getHealHpBySuperEffMove().isZero()){
+            Rate pvRestaures_= _pkSoigne.pvSoignesBaie(_objet, _import);
+            _pkSoigne.variationPvRestants(pvRestaures_);
+            if(!pvRestaures_.isZero()){
+                consommer_ =true;
+                String pk_ = _import.translatePokemon(_pkSoigne.getName());
+                commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
+            }
+        }
+        StringList statuts_=new StringList(_pkSoigne.getStatus());
+        _pkSoigne.soinStatuts(_objet.getHealStatus());
+        if(!StringUtil.equalsSet(statuts_, _pkSoigne.getStatus())){
+            StringUtil.removeAllElements(statuts_, _pkSoigne.getStatus());
+            for (String s: statuts_) {
+                String st_ = _import.translateStatus(s);
+                String pk_ = _import.translatePokemon(_pkSoigne.getName());
+                commentGame.addMessage(mess_.getVal(HEAL_STATUS), st_, pk_);
+            }
+            consommer_ =true;
+        }
+        return consommer_;
     }
 
     void initializeMovesToBeHealed(short _chosenTeamPokemon, DataBase _import) {
@@ -923,37 +937,11 @@ public final class Player {
         selectedMove = _move;
 //        if (_import.getHm().values().containsObj(_move))
         if (!_import.getHmByMove(_move).isEmpty()) {
-            for (byte i: getPokemonPlayerList().getKeys()) {
-                PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
-                if (pk_.getMoves().contains(_move)) {
-                    continue;
-                }
-                PokemonData fPk_ = _import.getPokemon(pk_.getName());
-//                for (short c: _import.getHm().getKeys(_move))
-                for (short c: _import.getHmByMove(_move)) {
-                    if (fPk_.getHiddenMoves().containsObj(c)) {
-                        indexesOfPokemonTeam.add(i);
-                        break;
-                    }
-                }
-            }
+            chooseMoveByHm(_move, _import);
         }
 //        if (_import.getTm().values().containsObj(_move))
         if (!_import.getTmByMove(_move).isEmpty()) {
-            for (byte i: getPokemonPlayerList().getKeys()) {
-                PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
-                if (pk_.getMoves().contains(_move)) {
-                    continue;
-                }
-                PokemonData fPk_ = _import.getPokemon(pk_.getName());
-//                for (short c: _import.getTm().getKeys(_move))
-                for (short c: _import.getTmByMove(_move)) {
-                    if (fPk_.getTechnicalMoves().containsObj(c)) {
-                        indexesOfPokemonTeam.add(i);
-                        break;
-                    }
-                }
-            }
+            chooseMoveByTm(_move, _import);
         }
         indexesOfPokemonTeam.removeDuplicates();
         indexesOfPokemonTeamMoves.clear();
@@ -966,6 +954,40 @@ public final class Player {
         }
         if (indexesOfPokemonTeam.isEmpty()) {
             selectedMove = DataBase.EMPTY_STRING;
+        }
+    }
+
+    private void chooseMoveByTm(String _move, DataBase _import) {
+        for (byte i: getPokemonPlayerList().getKeys()) {
+            PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
+            if (pk_.getMoves().contains(_move)) {
+                continue;
+            }
+            PokemonData fPk_ = _import.getPokemon(pk_.getName());
+//                for (short c: _import.getTm().getKeys(_move))
+            for (short c: _import.getTmByMove(_move)) {
+                if (fPk_.getTechnicalMoves().containsObj(c)) {
+                    indexesOfPokemonTeam.add(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void chooseMoveByHm(String _move, DataBase _import) {
+        for (byte i: getPokemonPlayerList().getKeys()) {
+            PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
+            if (pk_.getMoves().contains(_move)) {
+                continue;
+            }
+            PokemonData fPk_ = _import.getPokemon(pk_.getName());
+//                for (short c: _import.getHm().getKeys(_move))
+            for (short c: _import.getHmByMove(_move)) {
+                if (fPk_.getHiddenMoves().containsObj(c)) {
+                    indexesOfPokemonTeam.add(i);
+                    break;
+                }
+            }
         }
     }
 
@@ -1138,12 +1160,10 @@ public final class Player {
 
     void useObjectForHealing(DataBase _import) {
         Item info_ = _import.getItem(selectedObject);
-        if (info_ instanceof HealingItem) {
-            if (((HealingItem)info_).getHealingTeam()) {
-                healTeam(selectedObject, _import);
-                selectedObject = DataBase.EMPTY_STRING;
-                return;
-            }
+        if (info_ instanceof HealingItem && ((HealingItem) info_).getHealingTeam()) {
+            healTeam(selectedObject, _import);
+            selectedObject = DataBase.EMPTY_STRING;
+            return;
         }
         indexesOfPokemonTeam.addAllElts(getPokemonPlayerList().getKeys());
     }
@@ -1184,11 +1204,7 @@ public final class Player {
             return false;
         }
         Item info_ = _import.getItem(selectedObject);
-        boolean usableObject_ = false;
-        if (info_ instanceof Repel) {
-            usableObject_ = true;
-        }
-        return usableObject_;
+        return info_ instanceof Repel;
     }
 
     public boolean usedObjectForBoosting(DataBase _import) {
@@ -1196,11 +1212,7 @@ public final class Player {
             return false;
         }
         Item info_ = _import.getItem(selectedObject);
-        boolean usableObject_ = false;
-        if (info_ instanceof Boost) {
-            usableObject_ = true;
-        }
-        return usableObject_;
+        return info_ instanceof Boost;
     }
 
     public boolean usedObjectForBoostingMove(DataBase _import) {
@@ -1208,11 +1220,7 @@ public final class Player {
             return false;
         }
         Item info_ = _import.getItem(selectedObject);
-        boolean usableObject_ = false;
-        if (info_ instanceof Boost) {
-            usableObject_ = !((Boost)info_).getWinPp().isZero();
-        }
-        return usableObject_;
+        return info_ instanceof Boost && !((Boost) info_).getWinPp().isZero();
     }
 
     public boolean usedObject(DataBase _import) {
@@ -1233,14 +1241,7 @@ public final class Player {
             return false;
         }
         Item info_ = _import.getItem(selectedObject);
-        boolean usableObject_ = false;
-        if (info_ instanceof Berry) {
-            usableObject_ = true;
-        }
-        if (info_ instanceof HealingItem) {
-            usableObject_ = true;
-        }
-        return usableObject_;
+        return info_ instanceof HealingItem || info_ instanceof Berry;
     }
 
     public boolean usedObjectForHealingAmove(DataBase _import) {
@@ -1272,11 +1273,7 @@ public final class Player {
             return false;
         }
         Item info_ = _import.getItem(selectedObject);
-        boolean usableObject_ = false;
-        if (info_ instanceof EvolvingStone) {
-            usableObject_ = true;
-        }
-        return usableObject_;
+        return info_ instanceof EvolvingStone;
     }
 
     public boolean usableObject(DataBase _import) {

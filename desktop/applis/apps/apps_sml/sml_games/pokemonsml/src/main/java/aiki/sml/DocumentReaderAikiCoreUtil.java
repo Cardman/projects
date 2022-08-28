@@ -1017,7 +1017,7 @@ public final class DocumentReaderAikiCoreUtil {
     public static void initMessages(DataBase _d,String _lg) {
         StringMap<String> map_ = MessPkGr.ms();
         _d.setMessagesPokemonPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, PokemonPlayer.POKEMON_PLAYER));
-        _d.setMessagesPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Player.PLAYER));
+        _d.setMessagesPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Player.PLAYER_ACCESS));
         _d.setMessagesFighter(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fighter.FIGHTER));
         _d.setMessagesTeam(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Team.TEAM));
         _d.setMessagesFight(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fight.FIGHT));
