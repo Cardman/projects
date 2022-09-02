@@ -33,7 +33,6 @@ import aiki.beans.help.GeneralHelpBean;
 import aiki.beans.help.LangsBean;
 import aiki.beans.items.*;
 import aiki.beans.items.effects.AikiBeansItemsEffectsStd;
-import aiki.beans.items.effects.EffectEndRoundItemBean;
 import aiki.beans.map.AikiBeansMapStd;
 import aiki.beans.map.MapBean;
 import aiki.beans.map.MapLevelBean;
@@ -472,7 +471,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
             
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsEffectsStd.TYPE_EFFECT_END_ROUND_ITEM_BEAN)) {
-            EffectEndRoundItemBean bean_ = new EffectEndRoundItemBean();
+            EmptyBean bean_ = new EmptyBean();
             bean_.setClassName(AikiBeansItemsEffectsStd.TYPE_EFFECT_END_ROUND_ITEM_BEAN);
             return(new PokemonBeanStruct(bean_));
             
@@ -586,7 +585,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
             
         }
         if (StringUtil.quickEq(name_,AikiBeansMapCharactersStd.TYPE_TRAINER_ONE_FIGHT_BEAN)) {
-            TrainerOneFightBean bean_ = new TrainerOneFightBean();
+            EmptyBean bean_ = new EmptyBean();
             bean_.setClassName(AikiBeansMapCharactersStd.TYPE_TRAINER_ONE_FIGHT_BEAN);
             return(new PokemonBeanStruct(bean_));
             
