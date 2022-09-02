@@ -1,7 +1,7 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsMenu;
-import code.gui.AbsMenuItemCommon;
+import code.gui.AbsMenuItem;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
 import code.util.IdMap;
@@ -10,7 +10,7 @@ import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
 
-public abstract class AbsMenuItemImpl extends CustComponent implements AbsMenuItemCommon {
+public abstract class AbsMenuItemImpl extends CustComponent implements AbsMenuItem {
 
     private AbsMenu parentMenu;
     private final JMenuItem menu;

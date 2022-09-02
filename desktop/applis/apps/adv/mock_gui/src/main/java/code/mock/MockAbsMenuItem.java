@@ -1,11 +1,11 @@
 package code.mock;
 
-import code.gui.AbsMenuItemCommon;
+import code.gui.AbsMenuItem;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
 import code.util.CustList;
 
-public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenuItemCommon {
+public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenuItem {
     private final CustList<AbsActionListener> actionListeners = new CustList<AbsActionListener>();
     private final CustList<AbsAdvActionListener> advActionListeners = new CustList<AbsAdvActionListener>();
 
