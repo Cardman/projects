@@ -29,7 +29,7 @@ public final class NatRendInput extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
         Argument arg_ = processIndexes(_cont, _read, elt_, _rendStack);
         if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()), _cont.getRendKeyWords().getValueRadio())) {
@@ -37,6 +37,7 @@ public final class NatRendInput extends NatRendElement {
             String strObj_ = RendBlockHelp.getStringKey(res_);
             RendRadio.procDefValue(_cont,elt_,strObj_);
         }
+        return this;
     }
 
     Argument processIndexes(Configuration _cont, Element _read, Element _write, NatRendStackCall _rendStackCall) {

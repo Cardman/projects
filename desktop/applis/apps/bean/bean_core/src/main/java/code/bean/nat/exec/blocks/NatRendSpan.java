@@ -9,7 +9,7 @@ import code.util.StringMap;
 
 public final class NatRendSpan extends NatRendElement {
     private final NatExecTextPart result;
-    private StringMap<String> formatted=new StringMap<String>();
+    private final StringMap<String> formatted;
 
     public NatRendSpan(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, NatExecTextPart _result, StringMap<String> _formatted) {
         super(_read, _execAttributes, _execAttributesText);
@@ -18,9 +18,10 @@ public final class NatRendSpan extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
         String txt_ = NatRenderingText.renderNat(result, _rendStack);
         RendSpan.setupTxt(_cont,_nextWrite, txt_,formatted, _rendStack.getFormParts());
+        return this;
     }
 
 }

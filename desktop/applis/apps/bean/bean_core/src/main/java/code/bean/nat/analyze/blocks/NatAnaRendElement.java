@@ -35,8 +35,7 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
             r_.buildIdAna(groupId_, _anaDoc, _page);
             attributesText.put(prefGr_,r_);
         }
-        processAttributes(_doc,read,attributesNames_, _anaDoc, _page);
-        for (String a: attributesNames_) {
+        for (String a: processAttributes(_doc,read,attributesNames_, _anaDoc, _page)) {
             String attr_ = read.getAttribute(a);
             NatResultText r_ = new NatResultText();
             r_.buildIdAna(attr_, _anaDoc, _page);
@@ -55,7 +54,7 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
         return attributesNames_;
     }
 
-    protected abstract void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page);
+    protected abstract StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page);
 
     public final Element getRead() {
         return read;

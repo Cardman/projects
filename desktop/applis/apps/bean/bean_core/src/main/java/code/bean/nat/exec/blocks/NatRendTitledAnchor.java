@@ -13,7 +13,7 @@ import code.util.core.StringUtil;
 
 public final class NatRendTitledAnchor extends NatRendElement {
     private final CustList<NatExecOperationNode> opExpAnch;
-    private StringList varNames = new StringList();
+    private final StringList varNames;
 
     private final StringMap<String> preformatted;
     private final NatExecTextPart textPart;
@@ -29,7 +29,7 @@ public final class NatRendTitledAnchor extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
@@ -43,6 +43,7 @@ public final class NatRendTitledAnchor extends NatRendElement {
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
         RendBlockHelp.feed(varNames, opExpAnch, _rendStack);
         RendBlockHelp.processLink(_cont, curWr_, _read, textPart, _rendStack);
+        return this;
     }
 
 }

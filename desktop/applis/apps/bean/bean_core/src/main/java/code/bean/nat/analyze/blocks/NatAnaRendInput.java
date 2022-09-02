@@ -20,9 +20,10 @@ public final class NatAnaRendInput extends NatAnaRendElement {
     }
 
     @Override
-    protected void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    protected StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         processAnaInput(_read, _anaDoc, _page);
         removeAttrs(_list, _anaDoc);
+        return _list;
     }
 
     private static void removeAttrs(StringList _ls, AnalyzingDoc _anaDoc) {

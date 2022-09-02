@@ -19,12 +19,13 @@ public final class NatAnaRendAnchor extends NatAnaRendElement {
     }
 
     @Override
-    protected void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    protected StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultText res_ = NatResultText.buildAnchor(_read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();
         root = res_.getOpExpAnchorRoot();
         roots = res_.getOpExpRoot();
         texts = res_.getTexts();
+        return _list;
     }
 
     public StringList getVarNames() {

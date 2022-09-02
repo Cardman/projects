@@ -14,7 +14,7 @@ public final class NatRendStdElement extends NatRendElement implements RendElem 
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
-        //
+    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+        return this;
     }
 }

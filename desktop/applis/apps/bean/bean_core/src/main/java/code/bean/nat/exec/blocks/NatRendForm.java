@@ -28,7 +28,7 @@ public final class NatRendForm extends NatRendElement implements RendElem {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
         NatFormParts formParts_ = _rendStack.getFormParts();
         formParts_.getContainersMapStack().add(new LongTreeMap<NatNodeContainer>());
         formParts_.getCallsFormExps().add(opForm);
@@ -38,7 +38,7 @@ public final class NatRendForm extends NatRendElement implements RendElem {
         Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(RendBlockHelp.CALL_METHOD)) {
             procCstRef(_cont, elt_, _rendStack.getFormParts());
-            return;
+            return this;
         }
         StringList alt_ = NatRenderingText.renderAltListNat(textPart, _rendStack);
         StringList arg_ = new StringList();
@@ -49,6 +49,7 @@ public final class NatRendForm extends NatRendElement implements RendElem {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), RendBlockHelp.EMPTY_STRING);
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+        return this;
     }
 
     public static void procCstRef(Configuration _cont, Element _elt, NatFormParts _formParts) {

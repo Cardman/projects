@@ -15,7 +15,7 @@ public final class NatAnaRendSubmit extends NatAnaRendElement {
     }
 
     @Override
-    protected void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    protected StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrMessage());
         String value_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrMessage());
         preformatted = AnaRendBlockHelp.getPre(value_, _anaDoc);
@@ -24,6 +24,7 @@ public final class NatAnaRendSubmit extends NatAnaRendElement {
         }
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
+        return _list;
     }
 
     public StringMap<String> getPreformatted() {

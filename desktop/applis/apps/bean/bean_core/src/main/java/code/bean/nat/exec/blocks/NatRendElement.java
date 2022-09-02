@@ -42,13 +42,13 @@ public abstract class NatRendElement extends NatParentBlock implements RendElem 
             String txt_ = NatRenderingText.renderNat(res_, _rendStack);
             created_.setAttribute(e.getKey(),txt_);
         }
-        processExecAttr(_cont,created_,read, _rendStack);
+        NatParentBlock next_ = processExecAttr(_cont, created_, read, _rendStack);
         for (EntryCust<String, NatExecTextPart> e: natAttributes.entryList()) {
             NatExecTextPart res_ = e.getValue();
             String txt_ = NatRenderingText.renderNat(res_, _rendStack);
             created_.setAttribute(e.getKey(),txt_);
         }
-        addEltStack(ip_,rw_,created_,this);
+        addEltStack(ip_,rw_,created_,next_);
     }
 
     public static void addEltStack(NatImportingPage _nip, NatRendReadWrite _rw, Element _created, NatParentBlock _block) {
@@ -61,6 +61,6 @@ public abstract class NatRendElement extends NatParentBlock implements RendElem 
         _rw.setRead(_block.getFirstChild());
         _rw.setWrite(_created);
     }
-    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack);
+    protected abstract NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack);
 
 }
