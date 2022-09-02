@@ -5,6 +5,6 @@ public class EffectEndRoundItemBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        //impl
+        setClassName(getClassName());
     }
 }

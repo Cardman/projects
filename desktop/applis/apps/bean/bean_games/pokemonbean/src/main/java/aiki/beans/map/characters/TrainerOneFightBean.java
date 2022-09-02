@@ -5,6 +5,6 @@ public class TrainerOneFightBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        //impl
+        setLanguage(getLanguage());
     }
 }
