@@ -187,8 +187,8 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
 //    }
     protected static GameTarotBeginTrickClassic newGameTarotBeginTrickClassicDeal(GameTarot _g,GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
                                                                               HandTarot _calledCards, HandTarot _currentHand) {
-        CheckerGameTarotWithRules.check(_g);
-        assertTrue("Error",_g.getError().isEmpty());
+//        CheckerGameTarotWithRules.check(_g);
+//        assertTrue("Error",_g.getError().isEmpty());
         return new GameTarotBeginTrickClassic(_done,_teamsRelation,_calledCards,_currentHand);
     }
 //    protected static GameTarotMisere newGameTarotMisere(GameTarot _g, GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
@@ -198,8 +198,8 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
 //    }
     protected static GameTarotMisere newGameTarotMisereDeal(GameTarot _g, GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
                                                         HandTarot _currentHand) {
-        CheckerGameTarotWithRules.check(_g);
-        assertTrue("Error",_g.getError().isEmpty());
+//        CheckerGameTarotWithRules.check(_g);
+//        assertTrue("Error",_g.getError().isEmpty());
         return new GameTarotMisere(_done,_teamsRelation,_currentHand);
     }
 //    private static void check(GameTarot _g,
@@ -366,8 +366,8 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         return gameTarotTrickInfo_;
     }
     protected static GameTarotTrickInfo newGameTarotTrickInfoDeal(GameTarot _g, HandTarot _currentHand) {
-        CheckerGameTarotWithRules.check(_g);
-        assertTrue("Error",_g.getError().isEmpty());
+//        CheckerGameTarotWithRules.check(_g);
+//        assertTrue("Error",_g.getError().isEmpty());
         Ints handLengths_ = new Ints();
         int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
         int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
