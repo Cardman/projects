@@ -471,7 +471,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
             
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsEffectsStd.TYPE_EFFECT_END_ROUND_ITEM_BEAN)) {
-            EmptyBean bean_ = new EmptyBean();
+            EndRoundBean bean_ = new EndRoundBean();
             bean_.setClassName(AikiBeansItemsEffectsStd.TYPE_EFFECT_END_ROUND_ITEM_BEAN);
             return(new PokemonBeanStruct(bean_));
             
@@ -585,7 +585,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
             
         }
         if (StringUtil.quickEq(name_,AikiBeansMapCharactersStd.TYPE_TRAINER_ONE_FIGHT_BEAN)) {
-            EmptyBean bean_ = new EmptyBean();
+            EndRoundBean bean_ = new EndRoundBean();
             bean_.setClassName(AikiBeansMapCharactersStd.TYPE_TRAINER_ONE_FIGHT_BEAN);
             return(new PokemonBeanStruct(bean_));
             
