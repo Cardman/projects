@@ -7,8 +7,6 @@ import code.util.ints.Comparing;
 
 public final class ComparatorHealingItem implements Comparing<SortingHealingItem> {
 
-    public static final int NB_COMPARATORS = 13;
-
     private final StringFieldComparator cmpName;
 
     private final StringFieldComparator cmpDescription;
@@ -37,8 +35,8 @@ public final class ComparatorHealingItem implements Comparing<SortingHealingItem
 
     private final int nbComparators;
 
-    public ComparatorHealingItem(int _nb) {
-        nbComparators = _nb;
+    public ComparatorHealingItem() {
+        nbComparators = 0;
         cmpName = new StringFieldComparator();
         cmpDescription = new StringFieldComparator();
         cmpPrice = new LongFieldComparator();
@@ -54,8 +52,8 @@ public final class ComparatorHealingItem implements Comparing<SortingHealingItem
         cmpNumber = new LgIntFieldComparator();
     }
 
-    public ComparatorHealingItem(int _nb, ComparatorHealingItem _other) {
-        nbComparators = _nb;
+    public ComparatorHealingItem(ComparatorHealingItem _other) {
+        nbComparators = PaginationHealingItem.NB_COMPARATORS;
         cmpName = _other.cmpName;
         cmpDescription = _other.cmpDescription;
         cmpPrice = _other.cmpPrice;

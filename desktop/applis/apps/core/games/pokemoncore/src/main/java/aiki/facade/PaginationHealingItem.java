@@ -19,7 +19,7 @@ public final class PaginationHealingItem extends
 
     public static final int NB_COMPARATORS = 13;
 
-    private ComparatorHealingItem comparatorHealingItem = new ComparatorHealingItem(0);
+    private final ComparatorHealingItem comparatorHealingItem = new ComparatorHealingItem();
 
     private StringMap<String> translatedItem;
 
@@ -236,9 +236,8 @@ public final class PaginationHealingItem extends
 
     @Override
     protected void sort() {
-        comparatorHealingItem = new ComparatorHealingItem(ComparatorHealingItem.NB_COMPARATORS,comparatorHealingItem);
         TreeMap<SortingHealingItem, String> items_ = new TreeMap<SortingHealingItem, String>(
-                comparatorHealingItem);
+                new ComparatorHealingItem(comparatorHealingItem));
         items_.putAllMap(healingItems);
         healingItems = items_;
     }
