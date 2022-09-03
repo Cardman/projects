@@ -21,26 +21,15 @@ public final class PaginationMove extends
 
     public static final int NB_CMPARATORS = 6;
 
-    private final StringFieldComparator cmpName = new StringFieldComparator();
-
-    private final LongFieldComparator cmpPrice = new LongFieldComparator();
-
-    private final LongFieldComparator cmpDescription = new LongFieldComparator();
-
-    private final LongFieldComparator cmpPpp = new LongFieldComparator();
-
-    private final LongFieldComparator cmpPrio = new LongFieldComparator();
-
-    private final EnumFieldComparator<TargetChoice> cmpTargetChoice = new EnumFieldComparator<TargetChoice>();
-
     private StringMap<String> translatedMove;
 
     private StringMap<String> translatedType;
 
     private StringMap<Integer> translatedDescription;
 
+    private final ComparatorMove comparatorMove = new ComparatorMove();
     private TreeMap<SortingMove, String> moves = new TreeMap<SortingMove, String>(
-            new ComparatorMove());
+            comparatorMove);
 
     private final CustList<SortingMove> rendered = new CustList<SortingMove>();
 
@@ -51,7 +40,7 @@ public final class PaginationMove extends
     }
 
     public void setTranslation(DataBase _data, String _language) {
-        cmpTargetChoice.setTranslations(_data.getTranslatedTargets().getVal(
+        comparatorMove.getCmpTargetChoice().setTranslations(_data.getTranslatedTargets().getVal(
                 _language));
         translatedMove = _data.getTranslatedMoves().getVal(_language);
         translatedType = _data.getTranslatedTypes().getVal(_language);
@@ -80,7 +69,7 @@ public final class PaginationMove extends
             s_.setPriority(i_.getPriority());
             s_.setTargetChoice(i_.getTargetChoice());
             s_.setMoveClass(translatedDescription.getVal(i_.getMoveType()));
-            moves.put(s_, _list.get(i));
+            moves.addEntry(s_, _list.get(i));
         }
         search();
     }
@@ -126,23 +115,23 @@ public final class PaginationMove extends
     protected boolean sortable() {
         Ints priorities_;
         priorities_ = new Ints();
-        if (cmpPrice.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpPrice.getPriority());
+        if (comparatorMove.getCmpPrice().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorMove.getCmpPrice().getPriority());
         }
-        if (cmpName.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpName.getPriority());
+        if (comparatorMove.getCmpName().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorMove.getCmpName().getPriority());
         }
-        if (cmpDescription.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpDescription.getPriority());
+        if (comparatorMove.getCmpDescription().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorMove.getCmpDescription().getPriority());
         }
-        if (cmpPpp.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpPpp.getPriority());
+        if (comparatorMove.getCmpPpp().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorMove.getCmpPpp().getPriority());
         }
-        if (cmpPrio.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpPrio.getPriority());
+        if (comparatorMove.getCmpPrio().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorMove.getCmpPrio().getPriority());
         }
-        if (cmpTargetChoice.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpTargetChoice.getPriority());
+        if (comparatorMove.getCmpTargetChoice().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorMove.getCmpTargetChoice().getPriority());
         }
         return !priorities_.hasDuplicates();
     }
@@ -150,8 +139,7 @@ public final class PaginationMove extends
     @Override
     protected void sort() {
         TreeMap<SortingMove, String> items_ = new TreeMap<SortingMove, String>(
-                new ComparatorMove(cmpName, cmpPrice, cmpDescription, cmpPpp,
-                        cmpPrio, cmpTargetChoice, NB_CMPARATORS));
+                comparatorMove);
         items_.putAllMap(moves);
         moves = items_;
     }
@@ -164,27 +152,27 @@ public final class PaginationMove extends
         return getMoves().getValue(index_);
     }
     public StringFieldComparator getCmpName() {
-        return cmpName;
+        return comparatorMove.getCmpName();
     }
 
     public LongFieldComparator getCmpPrice() {
-        return cmpPrice;
+        return comparatorMove.getCmpPrice();
     }
 
     public LongFieldComparator getCmpDescription() {
-        return cmpDescription;
+        return comparatorMove.getCmpDescription();
     }
 
     public LongFieldComparator getCmpPpp() {
-        return cmpPpp;
+        return comparatorMove.getCmpPpp();
     }
 
     public LongFieldComparator getCmpPrio() {
-        return cmpPrio;
+        return comparatorMove.getCmpPrio();
     }
 
     public EnumFieldComparator<TargetChoice> getCmpTargetChoice() {
-        return cmpTargetChoice;
+        return comparatorMove.getCmpTargetChoice();
     }
     protected void excludeResults() {
         Listable<SortingMove> list_ = getMoves().getKeys();

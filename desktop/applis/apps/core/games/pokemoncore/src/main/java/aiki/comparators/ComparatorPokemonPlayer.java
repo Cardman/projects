@@ -1,8 +1,5 @@
 package aiki.comparators;
-import aiki.facade.EnumFieldComparator;
-import aiki.facade.LongFieldComparator;
-import aiki.facade.Pagination;
-import aiki.facade.StringFieldComparator;
+import aiki.facade.*;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.util.core.NumberUtil;
@@ -12,42 +9,21 @@ import code.util.ints.Comparing;
 public final class ComparatorPokemonPlayer implements
         Comparing<SortingPokemonPlayer> {
 
-    private LongFieldComparator cmpLevel = new LongFieldComparator();
+    private final LongFieldComparator cmpLevel = new LongFieldComparator();
 
-    private StringFieldComparator cmpName = new StringFieldComparator();
+    private final StringFieldComparator cmpName = new StringFieldComparator();
 
-    private StringFieldComparator cmpAbility = new StringFieldComparator();
+    private final StringFieldComparator cmpAbility = new StringFieldComparator();
 
-    private StringFieldComparator cmpItem = new StringFieldComparator();
+    private final StringFieldComparator cmpItem = new StringFieldComparator();
 
-    private EnumFieldComparator<Gender> cmpGender = new EnumFieldComparator<Gender>();
+    private final EnumFieldComparator<Gender> cmpGender = new EnumFieldComparator<Gender>();
 
-    private LongFieldComparator cmpPossEvos = new LongFieldComparator();
-
-    private final int nbComparators;
-
-    public ComparatorPokemonPlayer() {
-        nbComparators = 0;
-    }
-
-    public ComparatorPokemonPlayer(LongFieldComparator _cmpLevel,
-            StringFieldComparator _cmpName,
-            StringFieldComparator _cmpAbility,
-            StringFieldComparator _cmpItem,
-            EnumFieldComparator<Gender> _cmpGender,
-            LongFieldComparator _cmpPossEvos, int _nbComparators) {
-        cmpLevel = _cmpLevel;
-        cmpName = _cmpName;
-        cmpAbility = _cmpAbility;
-        cmpItem = _cmpItem;
-        cmpGender = _cmpGender;
-        cmpPossEvos = _cmpPossEvos;
-        nbComparators = _nbComparators;
-    }
+    private final LongFieldComparator cmpPossEvos = new LongFieldComparator();
 
     @Override
     public int compare(SortingPokemonPlayer _o1, SortingPokemonPlayer _o2) {
-        for (int i = nbComparators; i >= Pagination.MIN_PRIORITY; i--) {
+        for (int i = PaginationPokemonPlayer.NB_COMPARATORS; i >= Pagination.MIN_PRIORITY; i--) {
             int res_ = res(_o1,_o2,i);
             if (res_ != SortConstants.EQ_CMP) {
                 return res_;
@@ -70,5 +46,29 @@ public final class ComparatorPokemonPlayer implements
             return cmpPossEvos.compare(_o1.getNbPossEvos(), _o2.getNbPossEvos());
         }
         return SortConstants.EQ_CMP;
+    }
+
+    public StringFieldComparator getCmpName() {
+        return cmpName;
+    }
+
+    public EnumFieldComparator<Gender> getCmpGender() {
+        return cmpGender;
+    }
+
+    public LongFieldComparator getCmpLevel() {
+        return cmpLevel;
+    }
+
+    public LongFieldComparator getCmpPossEvos() {
+        return cmpPossEvos;
+    }
+
+    public StringFieldComparator getCmpAbility() {
+        return cmpAbility;
+    }
+
+    public StringFieldComparator getCmpItem() {
+        return cmpItem;
     }
 }

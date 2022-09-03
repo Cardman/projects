@@ -18,14 +18,11 @@ public final class PaginationEgg extends
 
     public static final int NB_COMPARATORS = 2;
 
-    private final LongFieldComparator cmpSteps = new LongFieldComparator();
-
-    private final StringFieldComparator cmpName = new StringFieldComparator();
-
     private StringMap<String> translatedPokemon;
 
+    private final ComparatorEgg comparatorEgg = new ComparatorEgg();
     private TreeMap<SortingEgg, Egg> eggs = new TreeMap<SortingEgg, Egg>(
-            new ComparatorEgg());
+            comparatorEgg);
 
     private final CustList<SortingEgg> rendered = new CustList<SortingEgg>();
 
@@ -54,7 +51,7 @@ public final class PaginationEgg extends
                 s_.setKeyName(pk_.getName());
                 s_.setName(translatedPokemon.getVal(pk_.getName()));
                 s_.setSteps(pk_.getSteps());
-                eggs.put(s_, pk_);
+                eggs.addEntry(s_, pk_);
             }
         }
         search();
@@ -83,11 +80,11 @@ public final class PaginationEgg extends
     protected boolean sortable() {
         Ints priorities_;
         priorities_ = new Ints();
-        if (cmpSteps.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpSteps.getPriority());
+        if (comparatorEgg.getCmpSteps().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorEgg.getCmpSteps().getPriority());
         }
-        if (cmpName.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpName.getPriority());
+        if (comparatorEgg.getCmpName().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorEgg.getCmpName().getPriority());
         }
         return !priorities_.hasDuplicates();
     }
@@ -95,7 +92,7 @@ public final class PaginationEgg extends
     @Override
     protected void sort() {
         TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<SortingEgg, Egg>(
-                new ComparatorEgg(cmpSteps, cmpName, NB_COMPARATORS));
+                comparatorEgg);
         eggs_.putAllMap(eggs);
         eggs = eggs_;
     }
@@ -108,11 +105,11 @@ public final class PaginationEgg extends
         return getEggs().getValue(index_);
     }
     public LongFieldComparator getCmpSteps() {
-        return cmpSteps;
+        return comparatorEgg.getCmpSteps();
     }
 
     public StringFieldComparator getCmpName() {
-        return cmpName;
+        return comparatorEgg.getCmpName();
     }
     protected void excludeResults() {
         Listable<SortingEgg> list_ = getEggs().getKeys();

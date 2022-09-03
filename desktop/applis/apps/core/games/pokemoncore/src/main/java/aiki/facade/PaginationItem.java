@@ -27,7 +27,7 @@ public final class PaginationItem extends
     private Inventory inventory;
 
     private TreeMap<SortingItem, String> items = new TreeMap<SortingItem, String>(
-            new ComparatorItem());
+            comparatorItem);
 
     private final CustList<SortingItem> rendered = new CustList<SortingItem>();
 

@@ -21,18 +21,6 @@ public final class PaginationPokemonPlayer
 
     public static final int NB_COMPARATORS = 6;
 
-    private final LongFieldComparator cmpLevel = new LongFieldComparator();
-
-    private final StringFieldComparator cmpName = new StringFieldComparator();
-
-    private final StringFieldComparator cmpAbility = new StringFieldComparator();
-
-    private final StringFieldComparator cmpItem = new StringFieldComparator();
-
-    private final EnumFieldComparator<Gender> cmpGender = new EnumFieldComparator<Gender>();
-
-    private final LongFieldComparator cmpPossEvos = new LongFieldComparator();
-
     private DataBase data;
 
     private StringMap<String> translatedPokemon;
@@ -43,8 +31,9 @@ public final class PaginationPokemonPlayer
 
     private StringMap<String> translatedAbilities;
 
+    private final ComparatorPokemonPlayer comparatorPokemonPlayer = new ComparatorPokemonPlayer();
     private TreeMap<SortingPokemonPlayer, PokemonPlayer> pokemon = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
-            new ComparatorPokemonPlayer());
+            comparatorPokemonPlayer);
 
     private final CustList<SortingPokemonPlayer> rendered = new CustList<SortingPokemonPlayer>();
 
@@ -56,7 +45,7 @@ public final class PaginationPokemonPlayer
 
     public void setTranslation(DataBase _data, String _language) {
         data = _data;
-        cmpGender.setTranslations(_data.getTranslatedGenders()
+        comparatorPokemonPlayer.getCmpGender().setTranslations(_data.getTranslatedGenders()
                 .getVal(_language));
         translatedPokemon = _data.getTranslatedPokemon().getVal(_language);
         translatedMoves = _data.getTranslatedMoves().getVal(_language);
@@ -88,7 +77,7 @@ public final class PaginationPokemonPlayer
                 s_.setLevel(pk_.getLevel());
                 s_.setNbPossEvos((short) pk_.getDirectEvolutions(data).size());
                 s_.setGender(pk_.getGender());
-                pokemon.put(s_, pk_);
+                pokemon.addEntry(s_, pk_);
             }
         }
         search();
@@ -144,23 +133,23 @@ public final class PaginationPokemonPlayer
     protected boolean sortable() {
         Ints priorities_;
         priorities_ = new Ints();
-        if (cmpLevel.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpLevel.getPriority());
+        if (comparatorPokemonPlayer.getCmpLevel().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorPokemonPlayer.getCmpLevel().getPriority());
         }
-        if (cmpName.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpName.getPriority());
+        if (comparatorPokemonPlayer.getCmpName().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorPokemonPlayer.getCmpName().getPriority());
         }
-        if (cmpAbility.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpAbility.getPriority());
+        if (comparatorPokemonPlayer.getCmpAbility().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorPokemonPlayer.getCmpAbility().getPriority());
         }
-        if (cmpItem.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpItem.getPriority());
+        if (comparatorPokemonPlayer.getCmpItem().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorPokemonPlayer.getCmpItem().getPriority());
         }
-        if (cmpGender.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpGender.getPriority());
+        if (comparatorPokemonPlayer.getCmpGender().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorPokemonPlayer.getCmpGender().getPriority());
         }
-        if (cmpPossEvos.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpPossEvos.getPriority());
+        if (comparatorPokemonPlayer.getCmpPossEvos().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorPokemonPlayer.getCmpPossEvos().getPriority());
         }
         return !priorities_.hasDuplicates();
     }
@@ -168,8 +157,7 @@ public final class PaginationPokemonPlayer
     @Override
     protected void sort() {
         TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
-                new ComparatorPokemonPlayer(cmpLevel, cmpName, cmpAbility,
-                        cmpItem, cmpGender, cmpPossEvos, NB_COMPARATORS));
+                comparatorPokemonPlayer);
         eggs_.putAllMap(pokemon);
         pokemon = eggs_;
     }
@@ -182,27 +170,27 @@ public final class PaginationPokemonPlayer
         return getPokemon().getValue(index_);
     }
     public LongFieldComparator getCmpLevel() {
-        return cmpLevel;
+        return comparatorPokemonPlayer.getCmpLevel();
     }
 
     public StringFieldComparator getCmpName() {
-        return cmpName;
+        return comparatorPokemonPlayer.getCmpName();
     }
 
     public StringFieldComparator getCmpAbility() {
-        return cmpAbility;
+        return comparatorPokemonPlayer.getCmpAbility();
     }
 
     public StringFieldComparator getCmpItem() {
-        return cmpItem;
+        return comparatorPokemonPlayer.getCmpItem();
     }
 
     public EnumFieldComparator<Gender> getCmpGender() {
-        return cmpGender;
+        return comparatorPokemonPlayer.getCmpGender();
     }
 
     public LongFieldComparator getCmpPossEvos() {
-        return cmpPossEvos;
+        return comparatorPokemonPlayer.getCmpPossEvos();
     }
     protected void excludeResults() {
         Listable<SortingPokemonPlayer> list_ = getPokemon().getKeys();

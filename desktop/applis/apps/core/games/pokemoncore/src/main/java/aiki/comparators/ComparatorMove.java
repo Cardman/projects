@@ -1,8 +1,5 @@
 package aiki.comparators;
-import aiki.facade.EnumFieldComparator;
-import aiki.facade.LongFieldComparator;
-import aiki.facade.Pagination;
-import aiki.facade.StringFieldComparator;
+import aiki.facade.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.SortingMove;
 import code.util.core.NumberUtil;
@@ -11,42 +8,21 @@ import code.util.ints.Comparing;
 
 public final class ComparatorMove implements Comparing<SortingMove> {
 
-    private StringFieldComparator cmpName = new StringFieldComparator();
+    private final StringFieldComparator cmpName = new StringFieldComparator();
 
-    private LongFieldComparator cmpPrice = new LongFieldComparator();
+    private final LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private LongFieldComparator cmpDescription = new LongFieldComparator();
+    private final LongFieldComparator cmpDescription = new LongFieldComparator();
 
-    private LongFieldComparator cmpPpp = new LongFieldComparator();
+    private final LongFieldComparator cmpPpp = new LongFieldComparator();
 
-    private LongFieldComparator cmpPrio = new LongFieldComparator();
+    private final LongFieldComparator cmpPrio = new LongFieldComparator();
 
-    private EnumFieldComparator<TargetChoice> cmpTargetChoice = new EnumFieldComparator<TargetChoice>();
-
-    private final int nbComparators;
-
-    public ComparatorMove() {
-        nbComparators = 0;
-    }
-
-    public ComparatorMove(StringFieldComparator _cmpName,
-            LongFieldComparator _cmpPrice,
-            LongFieldComparator _cmpDescription,
-            LongFieldComparator _cmpPpp, LongFieldComparator _cmpPrio,
-            EnumFieldComparator<TargetChoice> _cmpTargetChoice,
-            int _nbComparators) {
-        cmpName = _cmpName;
-        cmpPrice = _cmpPrice;
-        cmpDescription = _cmpDescription;
-        cmpPpp = _cmpPpp;
-        cmpPrio = _cmpPrio;
-        cmpTargetChoice = _cmpTargetChoice;
-        nbComparators = _nbComparators;
-    }
+    private final EnumFieldComparator<TargetChoice> cmpTargetChoice = new EnumFieldComparator<TargetChoice>();
 
     @Override
     public int compare(SortingMove _o1, SortingMove _o2) {
-        for (int i = nbComparators; i >= Pagination.MIN_PRIORITY; i--) {
+        for (int i = PaginationMove.NB_CMPARATORS; i >= Pagination.MIN_PRIORITY; i--) {
             int res_ = res(_o1,_o2,i);
             if (res_ != SortConstants.EQ_CMP) {
                 return res_;
@@ -70,5 +46,29 @@ public final class ComparatorMove implements Comparing<SortingMove> {
             return cmpDescription.compare(_o1.getMoveClass(), _o2.getMoveClass());
         }
         return SortConstants.EQ_CMP;
+    }
+
+    public LongFieldComparator getCmpPrice() {
+        return cmpPrice;
+    }
+
+    public StringFieldComparator getCmpName() {
+        return cmpName;
+    }
+
+    public EnumFieldComparator<TargetChoice> getCmpTargetChoice() {
+        return cmpTargetChoice;
+    }
+
+    public LongFieldComparator getCmpDescription() {
+        return cmpDescription;
+    }
+
+    public LongFieldComparator getCmpPpp() {
+        return cmpPpp;
+    }
+
+    public LongFieldComparator getCmpPrio() {
+        return cmpPrio;
     }
 }

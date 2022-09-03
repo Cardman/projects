@@ -1,6 +1,7 @@
 package aiki.comparators;
 import aiki.facade.LongFieldComparator;
 import aiki.facade.Pagination;
+import aiki.facade.PaginationEgg;
 import aiki.facade.StringFieldComparator;
 import aiki.util.SortingEgg;
 import code.util.core.NumberUtil;
@@ -9,27 +10,13 @@ import code.util.ints.Comparing;
 
 public final class ComparatorEgg implements Comparing<SortingEgg> {
 
-    private LongFieldComparator cmpSteps = new LongFieldComparator();
+    private final LongFieldComparator cmpSteps = new LongFieldComparator();
 
-    private StringFieldComparator cmpName = new StringFieldComparator();
-
-    private final int nbComparators;
-
-    public ComparatorEgg() {
-        nbComparators = 0;
-    }
-
-    public ComparatorEgg(LongFieldComparator _cmpSteps,
-            StringFieldComparator _cmpName,
-            int _nbComparators) {
-        cmpSteps = _cmpSteps;
-        cmpName = _cmpName;
-        nbComparators = _nbComparators;
-    }
+    private final StringFieldComparator cmpName = new StringFieldComparator();
 
     @Override
     public int compare(SortingEgg _o1, SortingEgg _o2) {
-        for (int i = nbComparators; i >= Pagination.MIN_PRIORITY; i--) {
+        for (int i = PaginationEgg.NB_COMPARATORS; i >= Pagination.MIN_PRIORITY; i--) {
             if (cmpSteps.getPriority() == i) {
                 int res_ = cmpSteps.compare(_o1.getSteps(), _o2.getSteps());
                 if (res_ != SortConstants.EQ_CMP) {
@@ -45,4 +32,11 @@ public final class ComparatorEgg implements Comparing<SortingEgg> {
         return NumberUtil.compareLg(_o1.getIndex(), _o2.getIndex());
     }
 
+    public StringFieldComparator getCmpName() {
+        return cmpName;
+    }
+
+    public LongFieldComparator getCmpSteps() {
+        return cmpSteps;
+    }
 }
