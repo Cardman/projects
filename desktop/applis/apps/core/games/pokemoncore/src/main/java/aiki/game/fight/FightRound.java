@@ -1391,6 +1391,7 @@ final class FightRound {
                 break;
             }
         }
+        allKo_ = changeKo(_fight, _import, allKo_);
         if (allKo_) {
             if(FightEndRound.proponedSwitch(_fight)){
                 FightArtificialIntelligence.choiceForSubstituing(_fight, _import);
@@ -1403,6 +1404,7 @@ final class FightRound {
         if(_fight.getState()!=FightState.APPRENDRE_EVOLUER){
             if (FightKo.endedFight(_fight,_diff)) {
                 return;
+                //////fighter_.fullHeal(_import);
             }
             if(FightEndRound.proponedSwitch(_fight)){
                 FightArtificialIntelligence.choiceForSubstituing(_fight, _import);
@@ -1414,6 +1416,18 @@ final class FightRound {
                 //init places if no substitute for achieving far targets
             }
         }
+    }
+
+    static boolean changeKo(Fight _fight, DataBase _import, boolean _allKo) {
+        boolean allKo_ = _allKo;
+        if (FightFacade.win(_fight)&& allKo_) {
+            for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
+                Fighter fighter_ = _fight.getFighter(f);
+                fighter_.fullHeal(_import);
+            }
+            allKo_ = false;
+        }
+        return allKo_;
     }
 
     static Rate calculateCatchingRate(Fight _fight,String _nomBall,boolean _dejaCapture,Difficulty _diff,DataBase _import){

@@ -9514,6 +9514,42 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(!FightKo.endedFight(fight_, diff_));
     }
 
+    @Test
+    public void changeKo() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 17);
+        StringMap<Short> map_ = new StringMap<Short>();
+        map_.put(DEMI_TOUR,(short) 20);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        player_.recupererOeufPensions(new Egg(PTITARD));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
+        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
+        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
+        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
+        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
+        assertFalse(FightRound.changeKo(fight_, data_,true));
+    }
+
     private static Fight nextFightersSending(CustList<LevelMoves> _partnerMoves, CustList<LevelMoves> _foeMoves, Player _user, Difficulty _diff, int[] _mult, DataBase _data) {
         Fight fight_ = nextFighters(_partnerMoves, _foeMoves, _user, _diff, _data, _mult);
         FightSending.firstEffectWhileSendingTeams(fight_, _diff, _data);
