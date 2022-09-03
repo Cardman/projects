@@ -327,7 +327,6 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         trs_.add(t_);
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur(),true);
         HandTarot calledCards_ = new HandTarot();
-        calledCards_.ajouter(CardTarot.CLUB_KING);
         DealTarot deal_ = new DealTarot(new CustList<HandTarot>(),d_);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_1,CardTarot.DIAMOND_KING,CardTarot.CLUB_KING));
         deal_.getDeal().add(create(CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_9,CardTarot.SPADE_KING));

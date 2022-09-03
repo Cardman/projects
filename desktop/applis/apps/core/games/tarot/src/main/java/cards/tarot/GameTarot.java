@@ -814,7 +814,7 @@ public final class GameTarot {
     */
     Bytes joueursAyantCarteAppelee() {
         Bytes joueurs_ = new Bytes();
-        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+        byte nombreDeJoueurs_ = (byte) Math.min(deal.nombreDeMains(),getNombreDeJoueurs());
         for (byte b = IndexConstants.FIRST_INDEX; b < nombreDeJoueurs_; b++) {
             for(CardTarot c: calledCards) {
                 if (deal.hand(b).contient(c)) {
