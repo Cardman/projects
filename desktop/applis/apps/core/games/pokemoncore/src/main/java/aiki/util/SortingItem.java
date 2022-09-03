@@ -2,29 +2,13 @@ package aiki.util;
 import aiki.facade.Sorting;
 import code.maths.LgInt;
 
-public class SortingItem implements Sorting {
-
-    private int index;
+public class SortingItem extends Sorting {
 
     private String itemClass;
-
-    private String name;
-
-    private String keyName;
 
     private int price;
 
     private LgInt number = LgInt.zero();
-
-    @Override
-    public int getIndex() {
-        return index;
-    }
-
-    @Override
-    public void setIndex(int _index) {
-        index = _index;
-    }
 
     public String getItemClass() {
         return itemClass;
@@ -32,22 +16,6 @@ public class SortingItem implements Sorting {
 
     public void setItemClass(String _itemClass) {
         itemClass = _itemClass;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String _name) {
-        name = _name;
-    }
-
-    public String getKeyName() {
-        return keyName;
-    }
-
-    public void setKeyName(String _keyName) {
-        keyName = _keyName;
     }
 
     public int getPrice() {

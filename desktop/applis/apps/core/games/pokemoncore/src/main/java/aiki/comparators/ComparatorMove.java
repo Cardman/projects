@@ -6,9 +6,7 @@ import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
-public final class ComparatorMove implements Comparing<SortingMove> {
-
-    private final StringFieldComparator cmpName = new StringFieldComparator();
+public final class ComparatorMove extends ComparatorCommon implements Comparing<SortingMove> {
 
     private final LongFieldComparator cmpPrice = new LongFieldComparator();
 
@@ -40,8 +38,8 @@ public final class ComparatorMove implements Comparing<SortingMove> {
             return cmpPrio.compare(_o1.getPriority(), _o2.getPriority());
         } else if (cmpTargetChoice.getPriority() == _i) {
             return cmpTargetChoice.compare(_o1.getTargetChoice(), _o2.getTargetChoice());
-        } else if (cmpName.getPriority() == _i) {
-            return cmpName.compare(_o1.getName(), _o2.getName());
+        } else if (getCmpName().getPriority() == _i) {
+            return getCmpName().compare(_o1.getName(), _o2.getName());
         } else if (cmpDescription.getPriority() == _i) {
             return cmpDescription.compare(_o1.getMoveClass(), _o2.getMoveClass());
         }
@@ -50,10 +48,6 @@ public final class ComparatorMove implements Comparing<SortingMove> {
 
     public LongFieldComparator getCmpPrice() {
         return cmpPrice;
-    }
-
-    public StringFieldComparator getCmpName() {
-        return cmpName;
     }
 
     public EnumFieldComparator<TargetChoice> getCmpTargetChoice() {

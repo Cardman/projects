@@ -15,7 +15,6 @@ import aiki.util.TeamPositionList;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -31,7 +30,7 @@ public final class Team {
     public static final String EQUIPE_ADV_NB_UTILISATION = "EQUIPE_ADV_NB_UTILISATION";
     public static final String NB_UTILI_ATT_EQ_TOUR = "NB_UTILI_ATT_EQ_TOUR";
 
-    public static final String TEAM = "aiki.game.fight.team";
+    public static final String TEAM_ACCESS = "aiki.game.fight.team";
 
     private static final String CANCEL_USE_ITEM = "cancelUseItem";
 
@@ -129,24 +128,14 @@ public final class Team {
         playerFightersAgainstFoe = new ByteMap<Bytes>();
         byte nbPks_=(byte) _utilisateur.getTeam().size();
         byte i_= IndexConstants.FIRST_INDEX;
-        byte place_;
-        byte back_ = Fighter.BACK;
         int max_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         for(byte i = IndexConstants.FIRST_INDEX; i<nbPks_; i++){
             if (!(_utilisateur.getTeam().get(i) instanceof PokemonPlayer)){
                 continue;
             }
             PokemonPlayer posPk_=(PokemonPlayer) _utilisateur.getTeam().get(i);
-            if(!posPk_.isKo()){
-                if (i_<_maxNumberFrontFighters) {
-                    place_=i_;
-                    i_++;
-                }else{
-                    place_=back_;
-                }
-            }else{
-                place_=back_;
-            }
+            byte place_ = place(_maxNumberFrontFighters, i_, posPk_);
+            i_ = incrIfPossible(i_, place_);
             Fighter creatureCbt_= new Fighter(posPk_,_import,place_);
             creatureCbt_.initIvUt(_diff);
             max_ = i;
@@ -159,12 +148,13 @@ public final class Team {
         byte diff_ = (byte) (_mult - _maxNumberFrontFighters);
         for(byte i = IndexConstants.FIRST_INDEX; i<nbPks_; i++){
             PkTrainer posPk_= _team.get(i);
+            byte place_;
             if(i_<diff_){
                 place_=(byte) (i_+_maxNumberFrontFighters);
-                i_++;
             }else{
-                place_=back_;
+                place_=Fighter.BACK;
             }
+            i_ = incrIfPossible(i_, place_);
             Fighter creatureCbt_= new Fighter(posPk_,_import,place_);
             int nbPossibleGenders_ = _import.getPokemon(creatureCbt_.getName()).getGenderRep().getPossibleGenders().size();
             if (nbPossibleGenders_ > DataBase.ONE_POSSIBLE_CHOICE) {
@@ -175,66 +165,41 @@ public final class Team {
             creatureCbt_.setRemainingHp(creatureCbt_.pvMax());
             members.put((byte) (i+dec_),creatureCbt_);
         }
-        for (String e: _import.getMovesHealingAfter()) {
-            ByteMap<StacksOfUses> map_;
-            map_ = new ByteMap<StacksOfUses>();
-            for(byte i = IndexConstants.FIRST_INDEX; i<_mult; i++){
-                map_.put(i,new StacksOfUses());
-            }
-            healAfter.put(e, map_);
+        initHealAfterMovesAnticipation(_import, _mult);
+    }
+
+    private byte incrIfPossible(byte _i, byte _place) {
+        byte i_ = _i;
+        if (_place != Fighter.BACK) {
+            i_++;
         }
-        for (String e: _import.getMovesAnticipation()) {
-            ByteMap<Anticipation> map_;
-            map_ = new ByteMap<Anticipation>();
-            for(byte i = IndexConstants.FIRST_INDEX; i<_mult; i++){
-                Anticipation ant_ = new Anticipation();
-                ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
-                map_.put(i,ant_);
-            }
-            movesAnticipation.put(e, map_);
-        }
+        return i_;
     }
 
     void initEquipeUtilisateur(Player _utilisateur,Difficulty _diff,short _multiplicite,DataBase _import){
         playerFightersAgainstFoe = new ByteMap<Bytes>();
         byte nbPks_=(byte) _utilisateur.getTeam().size();
         byte i_= IndexConstants.FIRST_INDEX;
-        byte place_;
-        byte back_ = Fighter.BACK;
         for(byte i = IndexConstants.FIRST_INDEX; i<nbPks_; i++){
             if (!(_utilisateur.getTeam().get(i) instanceof PokemonPlayer)){
                 continue;
             }
             PokemonPlayer posPk_=(PokemonPlayer) _utilisateur.getTeam().get(i);
-            if(i_<_multiplicite&&!posPk_.isKo()){
-                place_=i_;
-                i_++;
-            }else{
-                place_=back_;
-            }
+            byte place_ = place(_multiplicite, i_, posPk_);
+            i_ = incrIfPossible(i_, place_);
             Fighter creatureCbt_= new Fighter(posPk_,_import,place_);
             creatureCbt_.initIvUt(_diff);
             members.put(i,creatureCbt_);
             playerFightersAgainstFoe.put(i,new Bytes());
         }
-        for (String e: _import.getMovesHealingAfter()) {
-            ByteMap<StacksOfUses> map_;
-            map_ = new ByteMap<StacksOfUses>();
-            for(byte i = IndexConstants.FIRST_INDEX; i<_multiplicite; i++){
-                map_.put(i,new StacksOfUses());
-            }
-            healAfter.put(e, map_);
+        initHealAfterMovesAnticipation(_import, _multiplicite);
+    }
+
+    private byte place(short _multiplicite, byte _i, PokemonPlayer _posPk) {
+        if (_i < _multiplicite && !_posPk.isKo()) {
+            return _i;
         }
-        for (String e: _import.getMovesAnticipation()) {
-            ByteMap<Anticipation> map_;
-            map_ = new ByteMap<Anticipation>();
-            for(byte i = IndexConstants.FIRST_INDEX; i<_multiplicite; i++){
-                Anticipation ant_ = new Anticipation();
-                ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
-                map_.put(i,ant_);
-            }
-            movesAnticipation.put(e, map_);
-        }
+        return Fighter.BACK;
     }
 
     void initPokemonSauvage(Player _utilisateur,Difficulty _diff, int _index, WildPk _pokemon,DataBase _import){
@@ -246,20 +211,7 @@ public final class Team {
             creatureCbt_.initIvAdv(_diff,DataBase.EMPTY_STRING);
         }
         members.put((byte)_index,creatureCbt_);
-        for (String e: _import.getMovesHealingAfter()) {
-            ByteMap<StacksOfUses> map_;
-            map_ = new ByteMap<StacksOfUses>();
-            map_.put((byte)_index,new StacksOfUses());
-            healAfter.put(e, map_);
-        }
-        for (String e: _import.getMovesAnticipation()) {
-            ByteMap<Anticipation> map_;
-            map_ = new ByteMap<Anticipation>();
-            Anticipation ant_ = new Anticipation();
-            ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
-            map_.put((byte)_index,ant_);
-            movesAnticipation.put(e, map_);
-        }
+        initHealAfterMovesAnticipation(_import, (short) 1);
     }
 
     void initEquipeAdversaire(Player _utilisateur,CustList<PkTrainer> _equipe,Difficulty _diff, short _multiplicite,DataBase _import){
@@ -282,10 +234,14 @@ public final class Team {
             }
             members.put(i,creatureCbt_);
         }
+        initHealAfterMovesAnticipation(_import, _multiplicite);
+    }
+
+    private void initHealAfterMovesAnticipation(DataBase _import, short _mult) {
         for (String e: _import.getMovesHealingAfter()) {
             ByteMap<StacksOfUses> map_;
             map_ = new ByteMap<StacksOfUses>();
-            for(byte i = IndexConstants.FIRST_INDEX; i<_multiplicite; i++){
+            for(byte i = IndexConstants.FIRST_INDEX; i< _mult; i++){
                 map_.put(i,new StacksOfUses());
             }
             healAfter.put(e, map_);
@@ -293,7 +249,7 @@ public final class Team {
         for (String e: _import.getMovesAnticipation()) {
             ByteMap<Anticipation> map_;
             map_ = new ByteMap<Anticipation>();
-            for(byte i = IndexConstants.FIRST_INDEX; i<_multiplicite; i++){
+            for(byte i = IndexConstants.FIRST_INDEX; i< _mult; i++){
                 Anticipation ant_ = new Anticipation();
                 ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
                 map_.put(i,ant_);
@@ -313,47 +269,24 @@ public final class Team {
     //This class is full tested
     public boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
         int mult_ = _fight.getMult();
-        for (byte k: members.getKeys()) {
-            if (!members.getVal(k).validate(_data, _numberTeam, _fight)) {
-                return false;
-            }
-            if (members.getVal(k).getGroundPlaceSubst() >= _fight.getMult()) {
-                return false;
-            }
-            if (members.getVal(k).getGroundPlace() >= _fight.getMult()) {
-                return false;
-            }
+        if (koMembers(_data, _numberTeam, _fight)) {
+            return false;
         }
         //later places_.getMin >= 0 && places_.getMax < _fight.getMult()
         // && places_.duplicates == 0 => places_.size <= _fight.getMult()
         //later placesSubst_.getMin >= 0 && placesSubst_.getMax <= _fight.getMult()
         // && placesSubst_.duplicates == 0 => placesSubst_.size <= _fight.getMult()
-        if (!StringUtil.equalsSet(_data.getMovesEffectTeam(), enabledMoves.getKeys())) {
+        if (koEnabledMoves(_data)) {
             return false;
-        }
-        for (String m: enabledMoves.getKeys()) {
-            if (enabledMoves.getVal(m).getNbTurn() < 0) {
-                return false;
-            }
         }
         if (!StringUtil.equalsSet(_data.getMovesEffectWhileSending(), enabledMovesWhileSendingFoe.getKeys())) {
             return false;
         }
-        if (!StringUtil.equalsSet(_data.getMovesEffectWhileSending(), enabledMovesWhileSendingFoeUses.getKeys())) {
+        if (koEnabledMovesWhileSendingFoeUses(_data)) {
             return false;
         }
-        for (String m: enabledMovesWhileSendingFoeUses.getKeys()) {
-            if (!enabledMovesWhileSendingFoeUses.getVal(m).isZeroOrGt()) {
-                return false;
-            }
-        }
-        if (!StringUtil.equalsStringListSet(_data.getCombos().getEffects().getKeys(), enabledMovesByGroup.getKeys())) {
+        if (koEnabledMovesByGroup(_data)) {
             return false;
-        }
-        for (StringList m: enabledMovesByGroup.getKeys()) {
-            if (enabledMovesByGroup.getVal(m).getNbTurn() < 0) {
-                return false;
-            }
         }
         if (nbKoRound < 0) {
             return false;
@@ -361,96 +294,17 @@ public final class Team {
         if (nbKoPreviousRound < 0) {
             return false;
         }
-        StringList attaques_ = new StringList();
-        attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_NB_UTILISATION));
-        attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_ADV_NB_UTILISATION));
-        if (!StringUtil.equalsSet(attaques_, nbUsesMoves.getKeys())) {
+        if (koNbUsesMoves(_data)) {
             return false;
         }
-        for (String m: nbUsesMoves.getKeys()) {
-            if (nbUsesMoves.getVal(m) < 0) {
-                return false;
-            }
-        }
-        attaques_.clear();
-        attaques_.addAllElts(_data.getVarParamsMove(NB_UTILI_ATT_EQ_TOUR));
-        if (!StringUtil.equalsSet(attaques_, nbUsesMovesRound.getKeys())) {
+        if (koNbUsesMovesRound(_data)) {
             return false;
         }
-        for (String m: nbUsesMovesRound.getKeys()) {
-            if (nbUsesMovesRound.getVal(m) < 0) {
-                return false;
-            }
-        }
-        Bytes keysMovesLatter_ = new Bytes();
-        for (byte i = IndexConstants.FIRST_INDEX; i<mult_; i++) {
-            keysMovesLatter_.add(i);
-        }
-        StringList movesTeam_ = new StringList();
-        CustList<MoveUsesTeam> relMovesTh_;
-        CustList<MoveUsesTeam> relMovesExp_;
-        relMovesTh_ = new CustList<MoveUsesTeam>();
-        movesTeam_.addAllElts(_data.getMovesHealingAfter());
-        for (byte f: keysMovesLatter_) {
-            for (String m: movesTeam_) {
-                relMovesTh_.add(new MoveUsesTeam(m, f));
-            }
-        }
-        relMovesExp_ = new CustList<MoveUsesTeam>();
-        for (EntryCust<String,ByteMap<StacksOfUses>> k: healAfter.entryList()) {
-            for (byte b: k.getValue().getKeys()) {
-                relMovesExp_.add(new MoveUsesTeam(k.getKey(),b));
-            }
-        }
-        if (!MoveUsesTeam.equalsSet(relMovesTh_, relMovesExp_)) {
+        if (koTeamMoves(_data, mult_)) {
             return false;
         }
-        relMovesTh_ = new CustList<MoveUsesTeam>();
-        relMovesExp_ = new CustList<MoveUsesTeam>();
-        movesTeam_.clear();
-        movesTeam_.addAllElts(_data.getMovesAnticipation());
-        for (byte f: keysMovesLatter_) {
-            for (String m: movesTeam_) {
-                relMovesTh_.add(new MoveUsesTeam(m, f));
-            }
-        }
-        for (EntryCust<String,ByteMap<Anticipation>> k: movesAnticipation.entryList()) {
-            for (byte b: k.getValue().getKeys()) {
-                relMovesExp_.add(new MoveUsesTeam(k.getKey(),b));
-            }
-        }
-        if (!MoveUsesTeam.equalsSet(relMovesTh_, relMovesExp_)) {
+        if (koPlayerFightersAgainstFoe(_numberTeam, _fight)) {
             return false;
-        }
-        for (ByteMap<StacksOfUses> k: healAfter.values()) {
-            for (StacksOfUses s: k.values()) {
-                if (!s.isValid()) {
-                    return false;
-                }
-            }
-        }
-        for (ByteMap<Anticipation> k: movesAnticipation.values()) {
-            for (Anticipation s: k.values()) {
-                if (!s.isValid()) {
-                    return false;
-                }
-                if (!NumberUtil.eq(s.getTargetPosition().getPosition(),Fighter.BACK)) {
-                    if (s.getTargetPosition().getPosition() < 0) {
-                        return false;
-                    }
-                }
-            }
-        }
-        ByteMap< Fighter> members_ = _fight.getFoeTeam().getMembers();
-        if (_numberTeam == Fight.CST_PLAYER) {
-            for (byte b:_fight.getUserTeam().getMembers().getKeys()) {
-                if (!_fight.getUserTeam().getMembers().getVal(b).isBelongingToPlayer()) {
-                    continue;
-                }
-                if (!members_.containsAllAsKeys(playerFightersAgainstFoe.getVal(b))) {
-                    return false;
-                }
-            }
         }
         for (String m: successfulMovesRound) {
             if (!_data.getMoves().contains(m)) {
@@ -458,6 +312,167 @@ public final class Team {
             }
         }
         return !this.members.isEmpty();
+    }
+
+    private boolean koPlayerFightersAgainstFoe(byte _numberTeam, Fight _fight) {
+        ByteMap< Fighter> members_ = _fight.getFoeTeam().getMembers();
+        if (_numberTeam == Fight.CST_PLAYER) {
+            for (byte b: _fight.getUserTeam().getMembers().getKeys()) {
+                if (!_fight.getUserTeam().getMembers().getVal(b).isBelongingToPlayer()) {
+                    continue;
+                }
+                if (!members_.containsAllAsKeys(playerFightersAgainstFoe.getVal(b))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean koMembers(DataBase _data, byte _numberTeam, Fight _fight) {
+        for (byte k: members.getKeys()) {
+            if (!members.getVal(k).validate(_data, _numberTeam, _fight)) {
+                return true;
+            }
+            if (members.getVal(k).getGroundPlaceSubst() >= _fight.getMult()) {
+                return true;
+            }
+            if (members.getVal(k).getGroundPlace() >= _fight.getMult()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koEnabledMoves(DataBase _data) {
+        if (!StringUtil.equalsSet(_data.getMovesEffectTeam(), enabledMoves.getKeys())) {
+            return true;
+        }
+        for (String m: enabledMoves.getKeys()) {
+            if (enabledMoves.getVal(m).getNbTurn() < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koEnabledMovesWhileSendingFoeUses(DataBase _data) {
+        if (!StringUtil.equalsSet(_data.getMovesEffectWhileSending(), enabledMovesWhileSendingFoeUses.getKeys())) {
+            return true;
+        }
+        for (String m: enabledMovesWhileSendingFoeUses.getKeys()) {
+            if (!enabledMovesWhileSendingFoeUses.getVal(m).isZeroOrGt()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koEnabledMovesByGroup(DataBase _data) {
+        if (!StringUtil.equalsStringListSet(_data.getCombos().getEffects().getKeys(), enabledMovesByGroup.getKeys())) {
+            return true;
+        }
+        for (StringList m: enabledMovesByGroup.getKeys()) {
+            if (enabledMovesByGroup.getVal(m).getNbTurn() < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koNbUsesMoves(DataBase _data) {
+        StringList attaques_ = new StringList();
+        attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_NB_UTILISATION));
+        attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_ADV_NB_UTILISATION));
+        if (!StringUtil.equalsSet(attaques_, nbUsesMoves.getKeys())) {
+            return true;
+        }
+        for (String m: nbUsesMoves.getKeys()) {
+            if (nbUsesMoves.getVal(m) < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koNbUsesMovesRound(DataBase _data) {
+        if (!StringUtil.equalsSet(_data.getVarParamsMove(NB_UTILI_ATT_EQ_TOUR), nbUsesMovesRound.getKeys())) {
+            return true;
+        }
+        for (String m: nbUsesMovesRound.getKeys()) {
+            if (nbUsesMovesRound.getVal(m) < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koTeamMoves(DataBase _data, int _mult) {
+        Bytes keysMovesLatter_ = keysMovesLatter(_mult);
+        if (koHealAfter(_data, keysMovesLatter_)) {
+            return true;
+        }
+        if (koAnticipation(_data, keysMovesLatter_)) {
+            return true;
+        }
+        for (ByteMap<StacksOfUses> k: healAfter.values()) {
+            for (StacksOfUses s: k.values()) {
+                if (!s.isValid()) {
+                    return true;
+                }
+            }
+        }
+        for (ByteMap<Anticipation> k: movesAnticipation.values()) {
+            for (Anticipation s: k.values()) {
+                if (!s.isValid() || TargetCoords.koPosition(s.getTargetPosition().getPosition())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean koHealAfter(DataBase _data, Bytes _keysMovesLatter) {
+        CustList<MoveUsesTeam> relMovesTh_;
+        relMovesTh_ = relMovesTh(_keysMovesLatter, _data.getMovesHealingAfter());
+        CustList<MoveUsesTeam> relMovesExp_ = new CustList<MoveUsesTeam>();
+        for (EntryCust<String,ByteMap<StacksOfUses>> k: healAfter.entryList()) {
+            for (byte b: k.getValue().getKeys()) {
+                relMovesExp_.add(new MoveUsesTeam(k.getKey(),b));
+            }
+        }
+        return !MoveUsesTeam.equalsSet(relMovesTh_, relMovesExp_);
+    }
+
+    private boolean koAnticipation(DataBase _data, Bytes _keysMovesLatter) {
+        CustList<MoveUsesTeam> relMovesExp_;
+        CustList<MoveUsesTeam> relMovesTh_;
+        relMovesExp_ = new CustList<MoveUsesTeam>();
+        relMovesTh_ = relMovesTh(_keysMovesLatter, _data.getMovesAnticipation());
+        for (EntryCust<String,ByteMap<Anticipation>> k: movesAnticipation.entryList()) {
+            for (byte b: k.getValue().getKeys()) {
+                relMovesExp_.add(new MoveUsesTeam(k.getKey(),b));
+            }
+        }
+        return !MoveUsesTeam.equalsSet(relMovesTh_, relMovesExp_);
+    }
+
+    private CustList<MoveUsesTeam> relMovesTh(Bytes _keysMovesLatter, StringList _movesTeam) {
+        CustList<MoveUsesTeam> relMovesTh_ = new CustList<MoveUsesTeam>();
+        for (byte f: _keysMovesLatter) {
+            for (String m: _movesTeam) {
+                relMovesTh_.add(new MoveUsesTeam(m, f));
+            }
+        }
+        return relMovesTh_;
+    }
+
+    private Bytes keysMovesLatter(int _mult) {
+        Bytes keysMovesLatter_ = new Bytes();
+        for (byte i = IndexConstants.FIRST_INDEX; i< _mult; i++) {
+            keysMovesLatter_.add(i);
+        }
+        return keysMovesLatter_;
     }
 
     void initRoundTeam() {
@@ -545,38 +560,34 @@ public final class Team {
                 continue;
             }
             Fighter fighter_ = members.getVal(c);
-            if (fighter_.estKo()) {
-                continue;
+            if (!fighter_.estKo() && withoutStatus(fighter_)) {
+                list_.add(c);
             }
-            boolean ok_=true;
-            for(String c2_:fighter_.getStatusSet()){
-                if(!NumberUtil.eq(fighter_.getStatusNbRoundShort(c2_), 0)){
-                    ok_=false;
-                    break;
-                }
-            }
-            if(!ok_){
-                continue;
-            }
-            list_.add(c);
         }
         return list_;
+    }
+
+    private static boolean withoutStatus(Fighter _fighter) {
+        boolean ok_=true;
+        for(String c2_: _fighter.getStatusSet()){
+            if(!NumberUtil.eq(_fighter.getStatusNbRoundShort(c2_), 0)){
+                ok_=false;
+                break;
+            }
+        }
+        return ok_;
     }
 
     void useItemsEndRound(DataBase _import) {
         boolean cancelUsingItems_ = false;
         for (byte f_: members.getKeys()) {
             Fighter fighter_= refPartMembres(f_);
-            if (fighter_.estArriere()) {
-                continue;
-            }
-            if (!fighter_.capaciteActive()) {
-                continue;
-            }
-            AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
-            if (ab_.isGiveItemToAllyHavingUsed()) {
-                cancelUsingItems_ = true;
-                break;
+            if (!fighter_.estArriere() && fighter_.capaciteActive()) {
+                AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
+                if (ab_.isGiveItemToAllyHavingUsed()) {
+                    cancelUsingItems_ = true;
+                    break;
+                }
             }
         }
         StringMap<String> mess_ = _import.getMessagesTeam();
@@ -723,14 +734,13 @@ public final class Team {
         int i_ = IndexConstants.FIRST_INDEX;
         for (byte b: list_) {
             Fighter f_ = members.getVal(b);
-            if (!f_.estArriere()) {
-                continue;
+            if (f_.estArriere()) {
+                if (NumberUtil.eq(b, _sub)) {
+                    ind_ = i_;
+                    break;
+                }
+                i_++;
             }
-            if (NumberUtil.eq(b, _sub)) {
-                ind_ = i_;
-                break;
-            }
-            i_++;
         }
         return ind_;
     }
@@ -741,14 +751,13 @@ public final class Team {
         Bytes list_ = new Bytes(members.getKeys());
         list_.sort();
         for (byte k: list_) {
-            if (!members.getVal(k).isBelongingToPlayer()) {
-                continue;
+            if (members.getVal(k).isBelongingToPlayer()) {
+                if (NumberUtil.eq(i_, _index)) {
+                    index_ = k;
+                    break;
+                }
+                i_++;
             }
-            if (NumberUtil.eq(i_, _index)) {
-                index_ = k;
-                break;
-            }
-            i_++;
         }
         return index_;
     }

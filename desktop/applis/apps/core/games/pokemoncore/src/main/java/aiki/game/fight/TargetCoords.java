@@ -29,6 +29,9 @@ public final class TargetCoords {
         position = (short) NumberUtil.parseInt(elts_.last());
     }
 
+    public static boolean koPosition(short _pos) {
+        return !NumberUtil.eq(_pos, Fighter.BACK) && _pos < 0;
+    }
     
     public static TargetCoords newTargetCoords(String _string) {
         return new TargetCoords(_string);

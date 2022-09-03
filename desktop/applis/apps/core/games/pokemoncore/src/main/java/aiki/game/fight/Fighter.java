@@ -621,7 +621,7 @@ public final class Fighter {
     }
 
     private boolean okDefault(DataBase _data, Fight _fight) {
-        return !koEvos(_data) && !koRelations(_data, _fight) && !koSpecMoves(_data) && (nbPrepaRound != 0 || !disappeared) && nbPrepaRound >= 0 && (nbPrepaRound <= 0 || !needingToRecharge) && nbRepeatingSuccessfulMoves.isZeroOrGt() && okLastUsedMove(_data) && (usedMoveLastRound.isEmpty() || (_data.getMoves().contains(usedMoveLastRound) && StringUtil.contains(attaquesUtilisables(), usedMoveLastRound))) && (lastSuccessfulMove.isEmpty() || _data.getMoves().contains(lastSuccessfulMove)) && (lastSufferedMove.isEmpty() || _data.getMoves().contains(lastSufferedMove)) && _data.getTypes().containsAllObj(lastSufferedMoveTypes) && (groundPlace == BACK || groundPlace >= 0) && (groundPlaceSubst == BACK || groundPlaceSubst >= 0);
+        return !koEvos(_data) && !koRelations(_data, _fight) && !koSpecMoves(_data) && (nbPrepaRound != 0 || !disappeared) && nbPrepaRound >= 0 && (nbPrepaRound <= 0 || !needingToRecharge) && nbRepeatingSuccessfulMoves.isZeroOrGt() && okLastUsedMove(_data) && (usedMoveLastRound.isEmpty() || (_data.getMoves().contains(usedMoveLastRound) && StringUtil.contains(attaquesUtilisables(), usedMoveLastRound))) && (lastSuccessfulMove.isEmpty() || _data.getMoves().contains(lastSuccessfulMove)) && (lastSufferedMove.isEmpty() || _data.getMoves().contains(lastSufferedMove)) && _data.getTypes().containsAllObj(lastSufferedMoveTypes) && !TargetCoords.koPosition(groundPlace) && !TargetCoords.koPosition(groundPlaceSubst);
     }
 
     private boolean okLastUsedMove(DataBase _data) {

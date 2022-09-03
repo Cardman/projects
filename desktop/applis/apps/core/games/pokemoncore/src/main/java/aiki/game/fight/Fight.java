@@ -15,7 +15,6 @@ import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
 import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.MoveTarget;
-import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.util.MoveTargets;
 import aiki.util.NbEffectFighterCoordss;
@@ -23,11 +22,9 @@ import aiki.util.TeamPositionList;
 import aiki.util.TeamPositionsRate;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
 
@@ -48,7 +45,7 @@ public final class Fight {
     /***/
     public static final byte CST_FOE = 1;
 
-    public static final String FIGHT = "aiki.game.fight.fight";
+    public static final String FIGHT_ACCESS = "aiki.game.fight.fight";
 
     public static final String LANCEUR_PV_RESTANTS = "LANCEUR_PV_RESTANTS";
     public static final String CIBLE_PV_RESTANTS = "CIBLE_PV_RESTANTS";

@@ -2,15 +2,9 @@ package aiki.util;
 import aiki.facade.Sorting;
 import aiki.fight.moves.enums.TargetChoice;
 
-public final class SortingMove implements Sorting {
-
-    private int index;
+public final class SortingMove extends Sorting {
 
     private int moveClass;
-
-    private String name;
-
-    private String keyName;
 
     private short pp;
 
@@ -20,38 +14,12 @@ public final class SortingMove implements Sorting {
 
     private int price;
 
-    @Override
-    public int getIndex() {
-        return index;
-    }
-
-    @Override
-    public void setIndex(int _index) {
-        index = _index;
-    }
-
     public int getMoveClass() {
         return moveClass;
     }
 
     public void setMoveClass(int _moveClass) {
         moveClass = _moveClass;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String _name) {
-        name = _name;
-    }
-
-    public String getKeyName() {
-        return keyName;
-    }
-
-    public void setKeyName(String _keyName) {
-        keyName = _keyName;
     }
 
     public short getPp() {

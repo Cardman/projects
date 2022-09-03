@@ -6,12 +6,10 @@ import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
-public final class ComparatorPokemonPlayer implements
+public final class ComparatorPokemonPlayer extends ComparatorCommon implements
         Comparing<SortingPokemonPlayer> {
 
     private final LongFieldComparator cmpLevel = new LongFieldComparator();
-
-    private final StringFieldComparator cmpName = new StringFieldComparator();
 
     private final StringFieldComparator cmpAbility = new StringFieldComparator();
 
@@ -34,8 +32,8 @@ public final class ComparatorPokemonPlayer implements
     private int res(SortingPokemonPlayer _o1, SortingPokemonPlayer _o2, int _i){
         if (cmpLevel.getPriority() == _i) {
             return cmpLevel.compare(_o1.getLevel(), _o2.getLevel());
-        } else if (cmpName.getPriority() == _i) {
-            return cmpName.compare(_o1.getName(), _o2.getName());
+        } else if (getCmpName().getPriority() == _i) {
+            return getCmpName().compare(_o1.getName(), _o2.getName());
         } else if (cmpAbility.getPriority() == _i) {
             return cmpAbility.compare(_o1.getAbility(), _o2.getAbility());
         } else if (cmpItem.getPriority() == _i) {
@@ -46,10 +44,6 @@ public final class ComparatorPokemonPlayer implements
             return cmpPossEvos.compare(_o1.getNbPossEvos(), _o2.getNbPossEvos());
         }
         return SortConstants.EQ_CMP;
-    }
-
-    public StringFieldComparator getCmpName() {
-        return cmpName;
     }
 
     public EnumFieldComparator<Gender> getCmpGender() {
