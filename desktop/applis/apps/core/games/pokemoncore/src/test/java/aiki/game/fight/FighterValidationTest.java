@@ -24,7 +24,7 @@ import code.util.StringList;
 public class FighterValidationTest extends InitializationDataBase {
 
 
-    private static final byte BAD_GROUND_PLACE = (byte) (Fighter.BACK / 2)-1;
+    private static final byte BAD_GROUND_PLACE = (byte) (Fighter.BACK / 2)-2;
 
     @Test
     public void validate1Test(){
