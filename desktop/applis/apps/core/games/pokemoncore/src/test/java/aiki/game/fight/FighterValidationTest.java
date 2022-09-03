@@ -24,6 +24,8 @@ import code.util.StringList;
 public class FighterValidationTest extends InitializationDataBase {
 
 
+    private static final byte BAD_GROUND_PLACE = (byte) (Fighter.BACK / 2)-1;
+
     @Test
     public void validate1Test(){
         DataBase data_ = initDb();
@@ -2325,7 +2327,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.GIRL, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.setGroundPlace((byte) (Fighter.BACK/2));
+        figther_.setGroundPlace(BAD_GROUND_PLACE);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2335,7 +2337,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.BOY, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.setGroundPlace((byte) (Fighter.BACK/2));
+        figther_.setGroundPlace(BAD_GROUND_PLACE);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2345,7 +2347,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.GIRL, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.setGroundPlaceSubst((byte) (Fighter.BACK/2));
+        figther_.setGroundPlaceSubst(BAD_GROUND_PLACE);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2355,7 +2357,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.BOY, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.setGroundPlaceSubst((byte) (Fighter.BACK/2));
+        figther_.setGroundPlaceSubst(BAD_GROUND_PLACE);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
