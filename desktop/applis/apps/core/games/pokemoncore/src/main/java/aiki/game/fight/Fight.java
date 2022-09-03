@@ -520,7 +520,7 @@ public final class Fight {
     private NatStringTreeMap<BoolVal> moves = new NatStringTreeMap<BoolVal>();
 
     /***/
-    private TreeMap<String,BoolVal> evolutions = new TreeMap<String,BoolVal>(new NaturalComparator());
+    private EvolutionChoiceMap evolutions = new EvolutionChoiceMap(new NaturalComparator());
 
     /***/
     private StringList abilities = new StringList();
@@ -1098,11 +1098,11 @@ public final class Fight {
         moves = _moves;
     }
 
-    public TreeMap<String, BoolVal> getEvolutions() {
+    public EvolutionChoiceMap getEvolutions() {
         return evolutions;
     }
 
-    void setEvolutions(TreeMap<String, BoolVal> _evolutions) {
+    void setEvolutions(EvolutionChoiceMap _evolutions) {
         evolutions = _evolutions;
     }
 

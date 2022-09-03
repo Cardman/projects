@@ -24,7 +24,6 @@ import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
 import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.MoveTarget;
-import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.DataMap;
@@ -42,8 +41,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.AbsMap;
-import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
 
@@ -264,11 +261,8 @@ public final class FightFacade {
         if (!NumberUtil.equalsSetBytes(_fight.getFirstPositPlayerFighters().getKeys(), _fight.getUserTeam().getMembers().getKeys())) {
             return false;
         }
-        Bytes possiblePlaces_ = new Bytes();
         int m_ = _fight.getMult();
-        for (byte i = IndexConstants.FIRST_INDEX; i < m_; i++) {
-            possiblePlaces_.add(i);
-        }
+        Bytes possiblePlaces_ = Team.keysMovesLatter(m_);
         for (byte p: _fight.getFirstPositPlayerFighters().values()) {
             if (!NumberUtil.eq(p, Fighter.BACK)) {
                 if (!possiblePlaces_.containsObj(p)) {
@@ -303,11 +297,7 @@ public final class FightFacade {
         boolean onlyDistinctFoeCheckSubst_ = false;
         boolean atLeastOneFrontPk_ = false;
         boolean validSwitchTeam_ = true;
-        if (_fight.getState() == FightState.ATTAQUES) {
-            distinctPlacesGroundCheck_ = true;
-            distinctPlacesGroundSubtCheck_ = true;
-            atLeastOneFrontPk_ = true;
-        } else if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
+        if (_fight.getState() == FightState.ATTAQUES || _fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
             distinctPlacesGroundCheck_ = true;
             distinctPlacesGroundSubtCheck_ = true;
             atLeastOneFrontPk_ = true;
@@ -527,9 +517,6 @@ public final class FightFacade {
 //                if (part_.isBelongingToPlayer() != f_.isBelongingToPlayer()) {
 //                    return false;
 //                }
-                if (ComparatorBoolean.diff(part_.isBelongingToPlayer(), f_.isBelongingToPlayer())) {
-                    return false;
-                }
                 if (!part_.estArriere()) {
                     return false;
                 }
@@ -712,7 +699,6 @@ public final class FightFacade {
         return !replace_.hasDuplicates();
     }
     static boolean validSubstitutingTeam(Fight _fight, TeamPositionList _pseusoTeam) {
-        Bytes replace_ = new Bytes();
         Bytes replaceNoPlayer_ = new Bytes();
         byte teamNo_ = _pseusoTeam.first().getTeam();
         ByteMap<Byte> subst_;
@@ -735,11 +721,8 @@ public final class FightFacade {
                 if (!membre_.isBelongingToPlayer()) {
                     nbNotKoNpc_++;
                 }
-                if (!NumberUtil.eq(substLoc_, Fighter.BACK)) {
-                    replace_.add(substLoc_);
-                    if (!membre_.isBelongingToPlayer()) {
-                        replaceNoPlayer_.add(substLoc_);
-                    }
+                if (!NumberUtil.eq(substLoc_, Fighter.BACK) && !membre_.isBelongingToPlayer()) {
+                    replaceNoPlayer_.add(substLoc_);
                 }
             }
         }
@@ -1716,7 +1699,7 @@ public final class FightFacade {
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         if (NumberUtil.eq(key_, Fighter.BACK)) {
             _fight.setMoves(new NatStringTreeMap<BoolVal>());
-            _fight.setEvolutions(new TreeMap<String,BoolVal>(new NaturalComparator()));
+            _fight.setEvolutions(new EvolutionChoiceMap(new NaturalComparator()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
             _fight.setChosenIndex(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -1743,7 +1726,7 @@ public final class FightFacade {
         } else {
             _fight.setChosenIndex(IndexConstants.INDEX_NOT_FOUND_ELT);
             _fight.setMoves(new NatStringTreeMap<BoolVal>());
-            _fight.setEvolutions(new TreeMap<String, BoolVal>(new NaturalComparator()));
+            _fight.setEvolutions(new EvolutionChoiceMap(new NaturalComparator()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
         }
@@ -1757,13 +1740,13 @@ public final class FightFacade {
         return map_;
     }
 
-    static TreeMap<String,BoolVal> getEvolutions(Fight _fight, byte _key, DataBase _d) {
+    static EvolutionChoiceMap getEvolutions(Fight _fight, byte _key, DataBase _d) {
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         Fighter fighter_ = _fight.getUserTeam().getMembers().getVal(key_);
         String lg_ = _d.getLanguage();
         StringMap<String> m_ = _d.getTranslatedPokemonCurLanguage(lg_);
-        TreeMap<String,BoolVal> map_;
-        map_ = new TreeMap<String, BoolVal>(new ComparatorTrStrings(m_));
+        EvolutionChoiceMap map_;
+        map_ = new EvolutionChoiceMap(new ComparatorTrStrings(m_));
         map_.put(DataBase.EMPTY_STRING, BoolVal.TRUE);
         for (String e: fighter_.getMovesAbilitiesEvos().getKeys()) {
             map_.put(e, BoolVal.FALSE);
@@ -2611,7 +2594,7 @@ public final class FightFacade {
         _fight.setChosenSubstitute(Fighter.BACK);
         _fight.setChosenIndex(Fighter.BACK);
         _fight.setMoves(new NatStringTreeMap<BoolVal>());
-        _fight.setEvolutions(new TreeMap<String,BoolVal>(new NaturalComparator()));
+        _fight.setEvolutions(new EvolutionChoiceMap(new NaturalComparator()));
         _fight.setAbilities(new StringList());
         _fight.setAbility(DataBase.EMPTY_STRING);
         _fight.setKeepRound(true);

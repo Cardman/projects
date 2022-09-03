@@ -2,6 +2,7 @@ package aiki.facade;
 
 import aiki.db.DataBase;
 import aiki.game.Game;
+import aiki.game.fight.EvolutionChoiceMap;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.map.enums.Direction;
@@ -79,7 +80,7 @@ public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
         assertSame(BoolVal.TRUE,moves_.getVal(TELLURIFORCE));
         assertSame(BoolVal.FALSE,moves_.getVal(TEMPETESABLE));
         assertSame(BoolVal.FALSE,moves_.getVal(VOL_MAGNETIK));
-        TreeMap<String, BoolVal> evolutions_ = facadeGame_.getEvolutions();
+        EvolutionChoiceMap evolutions_ = facadeGame_.getEvolutions();
         assertEq(2, evolutions_.size());
         assertSame(BoolVal.FALSE,evolutions_.getVal(NULL_REF));
         assertSame(BoolVal.TRUE,evolutions_.getVal(TARINORME));

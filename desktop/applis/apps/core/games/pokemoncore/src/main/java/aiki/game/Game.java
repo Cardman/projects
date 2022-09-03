@@ -5,12 +5,7 @@ import aiki.db.ImageHeroKey;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.enums.InterfaceType;
-import aiki.game.fight.BallNumberRate;
-import aiki.game.fight.ChoiceOfEvolutionAndMoves;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.Team;
+import aiki.game.fight.*;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.ActionType;
@@ -1729,7 +1724,7 @@ public final class Game {
         return fight.getMoves();
     }
 
-    public TreeMap<String,BoolVal> getEvolutions() {
+    public EvolutionChoiceMap getEvolutions() {
         return fight.getEvolutions();
     }
 

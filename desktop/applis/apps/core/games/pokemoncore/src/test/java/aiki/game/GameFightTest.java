@@ -995,7 +995,7 @@ public class GameFightTest extends InitializationDataBase {
         assertSame(BoolVal.TRUE,moves_.getVal(GRIFFE_ACIER));
         assertSame(BoolVal.TRUE,moves_.getVal(SEISME));
         assertSame(BoolVal.TRUE,moves_.getVal(TUNNEL));
-        TreeMap<String, BoolVal> evolutions_ = game_.getEvolutions();
+        EvolutionChoiceMap evolutions_ = game_.getEvolutions();
         assertEq(3, evolutions_.size());
         assertSame(BoolVal.TRUE,evolutions_.getVal(NULL_REF));
         assertSame(BoolVal.FALSE,evolutions_.getVal(NINJASK));
@@ -1055,7 +1055,7 @@ public class GameFightTest extends InitializationDataBase {
         assertSame(BoolVal.FALSE,moves_.getVal(TRANCHE));
         assertSame(BoolVal.TRUE,moves_.getVal(TUNNEL));
         assertSame(BoolVal.FALSE,moves_.getVal(VAMPIRISME));
-        TreeMap<String, BoolVal> evolutions_ = game_.getEvolutions();
+        EvolutionChoiceMap evolutions_ = game_.getEvolutions();
         assertEq(3, evolutions_.size());
         assertSame(BoolVal.FALSE,evolutions_.getVal(NULL_REF));
         assertSame(BoolVal.TRUE,evolutions_.getVal(NINJASK));
@@ -1115,7 +1115,7 @@ public class GameFightTest extends InitializationDataBase {
         assertSame(BoolVal.TRUE,moves_.getVal(TELLURIFORCE));
         assertSame(BoolVal.FALSE,moves_.getVal(TEMPETESABLE));
         assertSame(BoolVal.FALSE,moves_.getVal(VOL_MAGNETIK));
-        TreeMap<String, BoolVal> evolutions_ = game_.getEvolutions();
+        EvolutionChoiceMap evolutions_ = game_.getEvolutions();
         assertEq(2, evolutions_.size());
         assertSame(BoolVal.FALSE,evolutions_.getVal(NULL_REF));
         assertSame(BoolVal.TRUE,evolutions_.getVal(TARINORME));
@@ -1177,7 +1177,7 @@ public class GameFightTest extends InitializationDataBase {
         assertSame(BoolVal.FALSE,moves_.getVal(TRANCHE));
         assertSame(BoolVal.TRUE,moves_.getVal(TUNNEL));
         assertSame(BoolVal.FALSE,moves_.getVal(VAMPIRISME));
-        TreeMap<String, BoolVal> evolutions_ = game_.getEvolutions();
+        EvolutionChoiceMap evolutions_ = game_.getEvolutions();
         assertEq(3, evolutions_.size());
         assertSame(BoolVal.FALSE,evolutions_.getVal(NULL_REF));
         assertSame(BoolVal.TRUE,evolutions_.getVal(NINJASK));

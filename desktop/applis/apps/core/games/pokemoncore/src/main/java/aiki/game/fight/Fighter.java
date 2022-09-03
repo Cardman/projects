@@ -50,6 +50,7 @@ import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -856,10 +857,10 @@ public final class Fighter {
 
     private boolean koAction(DataBase _data, byte _numberTeam, Fight _fight) {
         Team team_ = _fight.getTeams().getVal(_numberTeam);
-        ByteMap< Fighter> members_ = team_.getMembers();
+        TeamPositionList members_ = fightersBelongingToUser(team_,_numberTeam,isBelongingToPlayer());
         if (action instanceof ActionMove) {
             ActionMove actionMove_ = (ActionMove) action;
-            if (!_data.getMoves().contains(actionMove_.getFirstChosenMove()) || !NumberUtil.eq(actionMove_.getSubstitute(), BACK) && !members_.contains(actionMove_.getSubstitute())) {
+            if (!_data.getMoves().contains(actionMove_.getFirstChosenMove()) || !NumberUtil.eq(actionMove_.getSubstitute(), BACK) && !members_.containsObj(new TeamPosition(_numberTeam,actionMove_.getSubstitute()))) {
                 return true;
             }
             if (_data.getMove(actionMove_.getFirstChosenMove()).getTargetChoice().isWithChoice()) {
@@ -873,17 +874,29 @@ public final class Fighter {
                 return true;
             }
         }
-        return koActionSub(_data, members_);
+        return koActionSub(_data,_numberTeam, members_);
     }
 
-    private boolean koActionSub(DataBase _data, ByteMap<Fighter> _members) {
+    private boolean koActionSub(DataBase _data, byte _numberTeam, TeamPositionList _members) {
         if (action instanceof ActionSwitch) {
             ActionSwitch actionSwitch_ = (ActionSwitch) action;
-            if (NumberUtil.eq(actionSwitch_.getSubstitute(), BACK) || !_members.contains(actionSwitch_.getSubstitute())) {
+            if (NumberUtil.eq(actionSwitch_.getSubstitute(), BACK) || !_members.containsObj(new TeamPosition(_numberTeam,actionSwitch_.getSubstitute()))) {
                 return true;
             }
         }
         return koActionSub(_data);
+    }
+
+    static TeamPositionList fightersBelongingToUser(Team _team, byte _nb, boolean _user) {
+        TeamPositionList list_ = new TeamPositionList();
+        ByteMap<Fighter> map_ = _team.getMembers();
+        for(byte c:map_.getKeys()){
+            if (ComparatorBoolean.diff(map_.getVal(c).isBelongingToPlayer(), _user)) {
+                continue;
+            }
+            list_.add(new TeamPosition(_nb,c));
+        }
+        return list_;
     }
 
     private boolean koActionSub(DataBase _data) {

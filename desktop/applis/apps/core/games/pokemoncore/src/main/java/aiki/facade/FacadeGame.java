@@ -16,10 +16,7 @@ import aiki.game.Game;
 import aiki.game.GameProgression;
 import aiki.game.HostPokemonDuo;
 import aiki.game.enums.InterfaceType;
-import aiki.game.fight.BallNumberRate;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.TeamPosition;
+import aiki.game.fight.*;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
@@ -2414,7 +2411,7 @@ public class FacadeGame {
         return game.getMoves();
     }
 
-    public TreeMap<String, BoolVal> getEvolutions() {
+    public EvolutionChoiceMap getEvolutions() {
         return game.getEvolutions();
     }
 

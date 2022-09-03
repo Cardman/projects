@@ -7904,7 +7904,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
-        TreeMap<String, BoolVal> map_ = FightFacade.getEvolutions(fight_, (byte) 0, data_);
+        EvolutionChoiceMap map_ = FightFacade.getEvolutions(fight_, (byte) 0, data_);
         assertEq(2, map_.size());
         assertSame(BoolVal.TRUE,map_.getVal(NULL_REF));
         assertSame(BoolVal.FALSE,map_.getVal(TARINORME));

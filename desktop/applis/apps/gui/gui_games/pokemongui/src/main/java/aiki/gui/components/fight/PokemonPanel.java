@@ -3,6 +3,7 @@ package aiki.gui.components.fight;
 
 
 import aiki.facade.FacadeGame;
+import aiki.game.fight.EvolutionChoiceMap;
 import aiki.gui.WindowAiki;
 import aiki.gui.listeners.PokemonSelection;
 import code.gui.*;
@@ -52,7 +53,7 @@ public final class PokemonPanel {
 
     public void initEvos() {
         liste.clear();
-        TreeMap<String, BoolVal> map_ = facade.getEvolutions();
+        EvolutionChoiceMap map_ = facade.getEvolutions();
         for (String b: map_.getKeys()) {
             liste.add(b);
         }

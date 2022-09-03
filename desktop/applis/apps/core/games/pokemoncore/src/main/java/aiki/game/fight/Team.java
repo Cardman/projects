@@ -467,7 +467,7 @@ public final class Team {
         return relMovesTh_;
     }
 
-    private Bytes keysMovesLatter(int _mult) {
+    static Bytes keysMovesLatter(int _mult) {
         Bytes keysMovesLatter_ = new Bytes();
         for (byte i = IndexConstants.FIRST_INDEX; i< _mult; i++) {
             keysMovesLatter_.add(i);
