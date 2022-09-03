@@ -18,13 +18,7 @@ public final class PaginationItem extends
 
     public static final int NB_CMPARATORS = 4;
 
-    private final StringFieldComparator cmpName = new StringFieldComparator();
-
-    private final LongFieldComparator cmpPrice = new LongFieldComparator();
-
-    private final StringFieldComparator cmpDescription = new StringFieldComparator();
-
-    private final LgIntFieldComparator cmpNumber = new LgIntFieldComparator();
+    private final ComparatorItem comparatorItem = new ComparatorItem();
 
     private StringMap<String> translatedItem;
 
@@ -70,7 +64,7 @@ public final class PaginationItem extends
             s_.setNumber(inventory.getNumber(_list.get(i)));
             s_.setPrice(i_.getPrice());
             s_.setItemClass(description_);
-            items.put(s_, _list.get(i));
+            items.addEntry(s_, _list.get(i));
         }
         search();
     }
@@ -95,17 +89,17 @@ public final class PaginationItem extends
     protected boolean sortable() {
         Ints priorities_;
         priorities_ = new Ints();
-        if (cmpPrice.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpPrice.getPriority());
+        if (comparatorItem.getCmpPrice().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorItem.getCmpPrice().getPriority());
         }
-        if (cmpNumber.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpNumber.getPriority());
+        if (comparatorItem.getCmpNumber().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorItem.getCmpNumber().getPriority());
         }
-        if (cmpName.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpName.getPriority());
+        if (comparatorItem.getCmpName().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorItem.getCmpName().getPriority());
         }
-        if (cmpDescription.getPriority() != NO_PRIORITY) {
-            priorities_.add(cmpDescription.getPriority());
+        if (comparatorItem.getCmpDescription().getPriority() != NO_PRIORITY) {
+            priorities_.add(comparatorItem.getCmpDescription().getPriority());
         }
         return !priorities_.hasDuplicates();
     }
@@ -113,8 +107,7 @@ public final class PaginationItem extends
     @Override
     protected void sort() {
         TreeMap<SortingItem, String> items_ = new TreeMap<SortingItem, String>(
-                new ComparatorItem(cmpName, cmpPrice, cmpDescription,
-                        cmpNumber, NB_CMPARATORS));
+                comparatorItem);
         items_.putAllMap(items);
         items = items_;
     }
@@ -127,19 +120,19 @@ public final class PaginationItem extends
         return getItems().getValue(index_);
     }
     public StringFieldComparator getCmpName() {
-        return cmpName;
+        return comparatorItem.getCmpName();
     }
 
     public LongFieldComparator getCmpPrice() {
-        return cmpPrice;
+        return comparatorItem.getCmpPrice();
     }
 
     public StringFieldComparator getCmpDescription() {
-        return cmpDescription;
+        return comparatorItem.getCmpDescription();
     }
 
     public LgIntFieldComparator getCmpNumber() {
-        return cmpNumber;
+        return comparatorItem.getCmpNumber();
     }
     protected void excludeResults() {
         Listable<SortingItem> list_ = getItems().getKeys();

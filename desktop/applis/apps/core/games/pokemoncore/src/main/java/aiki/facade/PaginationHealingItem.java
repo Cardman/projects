@@ -73,7 +73,7 @@ public final class PaginationHealingItem extends
                     .getVal(i_.getItemType());
             if (getCriteria().matchPrice(i_.getPrice()) && getCriteria().matchDescription(description_) && getCriteria().matchHp(i_) && getCriteria().matchRateHp(i_) && getCriteria().matchKo(i_) && getCriteria().matchPp(i_) && getCriteria().matchStatus(i_) && getCriteria().matchStatistic(i_) && getCriteria().matchClass(i_) && getCriteria().matchNumber(inventory.getNumber(_list.get(i))) && match(_list.get(i))) {
                 SortingHealingItem s_ = sortingHealingItem(_list, maxPp_, i, i_, description_);
-                healingItems.put(s_, _list.get(i));
+                healingItems.addEntry(s_, _list.get(i));
             }
         }
         search();
@@ -237,7 +237,7 @@ public final class PaginationHealingItem extends
     @Override
     protected void sort() {
         TreeMap<SortingHealingItem, String> items_ = new TreeMap<SortingHealingItem, String>(
-                new ComparatorHealingItem(comparatorHealingItem));
+                comparatorHealingItem);
         items_.putAllMap(healingItems);
         healingItems = items_;
     }
