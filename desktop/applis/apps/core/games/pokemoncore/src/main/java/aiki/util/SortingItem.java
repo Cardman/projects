@@ -2,7 +2,7 @@ package aiki.util;
 import aiki.facade.Sorting;
 import code.maths.LgInt;
 
-public final class SortingItem implements Sorting {
+public class SortingItem implements Sorting {
 
     private int index;
 
