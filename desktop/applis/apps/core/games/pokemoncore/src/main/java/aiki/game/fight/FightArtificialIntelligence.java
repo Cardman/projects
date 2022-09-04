@@ -18,10 +18,8 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.AbsMap;
-import code.util.EqList;
 import code.util.*;
 
-import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -702,7 +700,6 @@ final class FightArtificialIntelligence {
             Team userTeam_=_fight.getUserTeam();
             remplacantsPotentiels_=new Bytes();
             pksKo_=new Bytes();
-            Bytes frontPk_ = new Bytes();
             for(TeamPosition c:FightOrder.fightersBelongingToUser(_fight,false)){
                 Fighter membre_=userTeam_.getMembers().getVal(c.getPosition());
                 if(membre_.estKo()&&!NumberUtil.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){
@@ -711,15 +708,13 @@ final class FightArtificialIntelligence {
                 if(!membre_.estKo()&&membre_.estArriere()){
                     remplacantsPotentiels_.add(c.getPosition());
                 }
-                if (!membre_.estArriere()) {
-                    frontPk_.add(membre_.getGroundPlace());
-                }
             }
             nbPksKo_=pksKo_.size();
             for(int i = IndexConstants.FIRST_INDEX; i < nbPksKo_; i++){
                 _fight.getFirstPositPlayerFighters().put(pksKo_.get(i), Fighter.BACK);
             }
-            if (frontPk_.isEmpty()) {
+            boolean existFree_ = existFree(_fight);
+            if (existFree_) {
                 //switch if possible
                 if (!remplacantsPotentiels_.isEmpty()) {
                     //Fighter partner_ = userTeam_.getMembers().getVal(remplacantsPotentiels_.first());
@@ -782,5 +777,20 @@ final class FightArtificialIntelligence {
                 _fight.addMessage(_import,Fight.SEND_SUBSTITUTE, name_);
             }
         }
+    }
+
+    static boolean existFree(Fight _fight) {
+        int mult_ = _fight.getMult();
+        Bytes allPlayer_ = new Bytes();
+        for(TeamPosition c:FightOrder.fightersBelongingToUser(_fight,true)){
+            allPlayer_.add(_fight.getFighter(c).getGroundPlaceSubst());
+        }
+        boolean existFree_ = false;
+        for (byte i = IndexConstants.FIRST_INDEX; i< mult_; i++) {
+            if (!_fight.isUsedAt(i)&&!allPlayer_.containsObj(i)) {
+                existFree_ = true;
+            }
+        }
+        return existFree_;
     }
 }

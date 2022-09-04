@@ -750,6 +750,14 @@ public final class FightFacade {
             }
             return nb_ == nbNotKo_;
         }
+        if (!FightArtificialIntelligence.existFree(_fight)) {
+            int diff_ = _fight.getMult() - _fight.getPlayerMaxNumberFrontFighters();
+            if (nbNotKoNpc_ > diff_) {
+                return replaceNoPlayer_.size() <= diff_;
+            }
+            //replaceNoPlayer_.size() <= nbNotKoNpc_
+            return true;
+        }
         int diff_ = _fight.getMult() - _fight.getPlayerMaxNumberFrontFighters();
         if (nbNotKoNpc_ > diff_) {
             return replaceNoPlayer_.size() == diff_;
