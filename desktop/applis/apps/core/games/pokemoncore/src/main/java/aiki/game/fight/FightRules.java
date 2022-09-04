@@ -214,7 +214,6 @@ final class FightRules {
         boolean error_ = false;
         boolean autoriseEchangePositionFinTour_=_diff.getAllowedSwitchPlacesEndRound();
         Bytes places_ = new Bytes();
-        Bytes usedPlaces_ = new Bytes();
         Bytes playerPlaces_ = new Bytes();
         byte nbPkNonKo_=0;
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
@@ -230,7 +229,7 @@ final class FightRules {
             }
             nbPkNonKo_++;
             if (!NumberUtil.eq(currentPos_, Fighter.BACK)) {
-                error_ = lookForError(_fight, _import, error_, autoriseEchangePositionFinTour_, usedPlaces_, creature_, currentPos_);
+                error_ = lookForError(_fight, _import, error_, autoriseEchangePositionFinTour_, creature_, currentPos_);
                 places_.add(currentPos_);
                 playerPlaces_.add(currentPos_);
             }
@@ -278,9 +277,9 @@ final class FightRules {
         return !error_;
     }
 
-    private static boolean lookForError(Fight _fight, DataBase _import, boolean _error, boolean _autoriseEchangePositionFinTour, Bytes _usedPlaces, Fighter _creature, byte _currentPos) {
+    private static boolean lookForError(Fight _fight, DataBase _import, boolean _error, boolean _autoriseEchangePositionFinTour, Fighter _creature, byte _currentPos) {
         boolean error_ = _error;
-        boolean belong_ = belong(_fight, _usedPlaces, _currentPos);
+        boolean belong_ = belong(_fight, _currentPos);
         if (!belong_) {
             _fight.addMessage(_import, Fight.ERR_SUBSTITUTE_BELONG);
             error_ = true;
@@ -292,19 +291,15 @@ final class FightRules {
         return error_;
     }
 
-    private static boolean belong(Fight _fight, Bytes _usedPlaces, byte _currentPos) {
+    private static boolean belong(Fight _fight, byte _currentPos) {
         boolean belong_ = true;
         for(TeamPosition k: FightOrder.fightersBelongingToUser(_fight,false)){
             byte currentPosPart_ = _fight.getFirstPositPlayerFighters().getVal(k.getPosition());
-            Fighter partner_ = _fight.getFighter(k);
 //                if (Numbers.eq(partner_.getGroundPlaceSubst(), c_)) {
 //                    belong_ = false;
 //                }
             if (NumberUtil.eq(currentPosPart_, _currentPos)) {
                 belong_ = false;
-            }
-            if (!NumberUtil.eq(partner_.getGroundPlaceSubst(), Fighter.BACK)) {
-                _usedPlaces.add(partner_.getGroundPlaceSubst());
             }
         }
         return belong_;

@@ -62,7 +62,7 @@ final class FightEndRound {
         for (TeamPosition f: FightOrder.fighters(_fight)) {
             Fighter f_ = _fight.getFighter(f);
             if (f_.estKo()) {
-                f_.setGroundPlaceSubst(Fighter.BACK);
+                f_.exitFrontBattleForBeingSubstitued();
             }
         }
     }
@@ -111,7 +111,7 @@ final class FightEndRound {
         return false;
     }
 
-    static void setPlacesForFighters(Fight _fight, boolean _switchDone) {
+    static void setPlacesForFighters(Fight _fight, boolean _switchWhileKoUserDone) {
         if (existSubstitute(_fight)) {
             if (_fight.getState() != FightState.SWITCH_WHILE_KO_USER) {
                 for(TeamPosition c:FightOrder.fighters(_fight)){
@@ -129,7 +129,7 @@ final class FightEndRound {
                 for(TeamPosition c:FightOrder.fighters(_fight)){
                     Fighter creature_=_fight.getFighter(c);
                     if (!creature_.isBelongingToPlayer()) {
-                        if (_switchDone) {
+                        if (_switchWhileKoUserDone) {
                             if (creature_.estKo()) {
                                 creature_.exitFrontBattleForBeingSubstitued();
                                 if (c.getTeam() == Fight.CST_PLAYER) {

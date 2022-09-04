@@ -155,243 +155,107 @@ public final class FightFacade {
         if (!_fight.getFightType().isExisting()) {
             return true;
         }
-        if (!_fight.getFightType().isWild()) {
-            if (_fight.getState() == FightState.SURNOM) {
-                return false;
-            }
-            if (_fight.getState() == FightState.CAPTURE_KO) {
-                return false;
-            }
-        }
-        if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
-            if (_fight.getFightType() != FightType.TMP_TRAINER) {
-                return false;
-            }
-        }
-        if (_fight.getMult() < 1) {
+        if (koMult(_fight)) {
             return false;
         }
-        if (_fight.getFightType().isWild()) {
-            if (_fight.getMult() != 1) {
-                return false;
-            }
-        }
-        if (_fight.getFightType() == FightType.TMP_TRAINER) {
-            if (_fight.getMult() != 2) {
-                return false;
-            }
-            if (_fight.getPlayerMaxNumberFrontFighters() != 1) {
-                return false;
-            }
-        } else {
-            if (_fight.getPlayerMaxNumberFrontFighters() != _fight.getMult()) {
-                return false;
-            }
-        }
-        Bytes noTeams_ = new Bytes();
-        noTeams_.add(Fight.CST_FOE);
-        noTeams_.add(Fight.CST_PLAYER);
-        if (!NumberUtil.equalsSetBytes(_fight.getTeams().getKeys(), noTeams_)) {
+        if (koBasic(_fight, _data)) {
             return false;
         }
-        if (_fight.getFightType().isWild()) {
-            if (!NumberUtil.eq(_fight.getFoeTeam().getMembers().size(), DataBase.ONE_POSSIBLE_CHOICE)) {
-                return false;
-            }
-        }
-        if (_fight.getNbFleeAttempt() < 0) {
+        if (koTeams(_fight, _data, _user)) {
             return false;
         }
-        if (!_fight.getNbRounds().isZeroOrGt()) {
+        disableEffectsExceptHp(_fight, _data);
+        if (koFirstPositFighters(_fight)) {
             return false;
         }
-        if (!_fight.getWinningMoney().isZeroOrGt()) {
+        if (koCommon(_fight, _data)) {
             return false;
         }
-        if (!_data.getPokedex().containsAllAsKeys(_fight.getCaughtEvolutions())) {
+        if (koPositionsOnGround(_fight)) {
             return false;
         }
-        if (!_data.getItems().containsAllAsKeys(_fight.getLostObjects())) {
-            return false;
-        }
-        if (!_data.getItems().containsAllAsKeys(_fight.getUsedItemsWhileRound().getKeys())) {
-            return false;
-        }
-        for (Short v: _fight.getUsedItemsWhileRound().values()) {
-            if (v < 0) {
-                return false;
-            }
-        }
-        for (byte t: _fight.getTeams().getKeys()) {
-            if (!_fight.getTeams().getVal(t).validate(_data, t, _fight)) {
-                return false;
-            }
-            if (NumberUtil.eq(t, Fight.CST_FOE)) {
-                continue;
-            }
-            Bytes posInit_ = new Bytes();
-            int nbMembers_ = _user.getTeam().size();
-            for(byte i = IndexConstants.FIRST_INDEX; i<nbMembers_; i++){
-                if (!(_user.getTeam().get(i) instanceof PokemonPlayer)) {
-                    continue;
-                }
-                posInit_.add(i);
-            }
-            Bytes pos_ = new Bytes();
-            for (byte b: _fight.getTeams().getVal(t).getMembers().getKeys()) {
-                Fighter f_ = _fight.getTeams().getVal(t).refPartMembres(b);
-                if (!f_.isBelongingToPlayer()) {
-                    continue;
-                }
-                pos_.add(b);
-            }
-            if (!NumberUtil.equalsSetBytes(pos_, posInit_)) {
-                return false;
-            }
-            if (!NumberUtil.equalsSetBytes(_fight.getTeams().getVal(t).getPlayerFightersAgainstFoe().getKeys(), posInit_)) {
-                return false;
-            }
-        }
-        for (TeamPosition f: FightOrder.fighters(_fight)) {
-            Fighter f_ = _fight.getFighter(f);
-            if (f_.estArriere()) {
-                FightSending.disableEffectsExceptHp(_fight, f, _data);
-            }
-        }
-        if (!NumberUtil.equalsSetBytes(_fight.getFirstPositPlayerFighters().getKeys(), _fight.getUserTeam().getMembers().getKeys())) {
-            return false;
-        }
-        int m_ = _fight.getMult();
-        Bytes possiblePlaces_ = Team.keysMovesLatter(m_);
-        for (byte p: _fight.getFirstPositPlayerFighters().values()) {
-            if (!NumberUtil.eq(p, Fighter.BACK)) {
-                if (!possiblePlaces_.containsObj(p)) {
-                    return false;
-                }
-            }
-        }
-        if (!NumberUtil.equalsSetBytes(_fight.getFirstPositFoeFighters().getKeys(), _fight.getFoeTeam().getMembers().getKeys())) {
-            return false;
-        }
-        for (byte p: _fight.getFirstPositFoeFighters().values()) {
-            if (!NumberUtil.eq(p, Fighter.BACK)) {
-                if (!possiblePlaces_.containsObj(p)) {
-                    return false;
-                }
-            }
-        }
-        if (!StringUtil.equalsSet(_data.getMovesEffectGlobal(), _fight.getEnabledMoves().getKeys())) {
-            return false;
-        }
-        for (String m: _fight.getEnabledMoves().getKeys()) {
-            if (_fight.getEnabledMoves().getVal(m).getNbTurn() < 0) {
-                return false;
-            }
-        }
-        if (!StringUtil.equalsSet(_data.getMovesEffectGlobalWeather(), _fight.getStillEnabledMoves().getKeys())) {
-            return false;
-        }
-        //never mind places for catching a wild pokemon at the moment of using a ball
-        boolean distinctPlacesGroundCheck_ = false;
-        boolean distinctPlacesGroundSubtCheck_ = false;
-        boolean onlyDistinctFoeCheckSubst_ = false;
-        boolean atLeastOneFrontPk_ = false;
-        boolean validSwitchTeam_ = true;
-        if (_fight.getState() == FightState.ATTAQUES || _fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
-            distinctPlacesGroundCheck_ = true;
-            distinctPlacesGroundSubtCheck_ = true;
-            atLeastOneFrontPk_ = true;
-        } else if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
-            if (!FightEndRound.proponedSwitchWhileKoPlayer(_fight)) {
-                distinctPlacesGroundCheck_ = true;
-                atLeastOneFrontPk_ = true;
-            } else {
-                validSwitchTeam_ = false;
-            }
-            distinctPlacesGroundSubtCheck_ = true;
-            onlyDistinctFoeCheckSubst_ = true;
-        } else if (_fight.getState() == FightState.SWITCH_PROPOSE) {
-            distinctPlacesGroundSubtCheck_ = true;
-            validSwitchTeam_ = false;
+        return okDefault(_fight, _data, _user, _diff);
+    }
+
+    private static boolean okDefault(Fight _fight, DataBase _data, Player _user, Difficulty _diff) {
+        if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
+            return validSwitchAfterUsingMove(_fight, _data);
         } else if (_fight.getState() == FightState.APPRENDRE_EVOLUER) {
-            distinctPlacesGroundSubtCheck_ = true;
+            return validLearnEvolve(_fight, _diff);
+        } else if (_fight.getState() == FightState.ATTAQUES) {
+            return validAttaques(_fight, _data, _diff);
+        } else if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
+            return validSwitchWhileKoPlayer(_fight);
+        } else if (_fight.getState() == FightState.SWITCH_PROPOSE) {
+            return validSwitchPropose(_fight);
+        } else if (_fight.getState() == FightState.SURNOM) {
+            return validSurnom(_fight, _data);
+        } else if (_fight.getState() == FightState.CAPTURE_KO) {
+            return validCaptureKo(_fight, _data, _user);
+        } else {
+            return false;
         }
-        if (atLeastOneFrontPk_) {
-            Bytes fighters_ = new Bytes();
-            int mult_ = _fight.getMult();
-            for (short i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
-                fighters_.addAllElts(_fight.getUserTeam().fightersAtCurrentPlace(i));
-            }
-            if (fighters_.isEmpty()) {
-                return false;
-            }
-            fighters_.clear();
-            for (short i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
-                fighters_.addAllElts(_fight.getFoeTeam().fightersAtCurrentPlace(i));
-            }
-            if (fighters_.isEmpty()) {
-                return false;
-            }
+    }
+
+    private static boolean validCaptureKo(Fight _fight, DataBase _data, Player _user) {
+        _fight.getChoices().clear();
+        if (!_user.existBall(_data)) {
+            return false;
         }
-        if (_fight.getFightType() == FightType.TMP_TRAINER) {
-            int nbFrontPl_ = 0;
-            int nbFrontAlly_ = 0;
-            for (TeamPosition f: FightOrder.frontFighters(_fight)) {
-                if (f.getTeam() != Fight.CST_PLAYER) {
-                    continue;
-                }
-                if (_fight.getFighter(f).isBelongingToPlayer()) {
-                    nbFrontPl_++;
-                } else {
-                    nbFrontAlly_++;
-                }
-            }
-            if (nbFrontPl_ > DataBase.ONE_POSSIBLE_CHOICE) {
-                return false;
-            }
-            if (nbFrontAlly_ > DataBase.ONE_POSSIBLE_CHOICE) {
-                return false;
-            }
+        return FightFacade.win(_fight);
+    }
+
+    private static boolean validSurnom(Fight _fight, DataBase _data) {
+        _fight.getChoices().clear();
+        if (!_data.getItems().contains(_fight.getCatchingBall())) {
+            return false;
         }
-        if (validSwitchTeam_) {
-            TeamPositionList team_;
-            team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
-            for (TeamPosition t: team_) {
-                Fighter f_ = _fight.getFighter(t);
-                _fight.getFirstPositFoeFighters().put(t.getPosition(), f_.getGroundPlaceSubst());
-            }
-            team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
-            for (TeamPosition t: team_) {
-                Fighter f_ = _fight.getFighter(t);
-                _fight.getFirstPositPlayerFighters().put(t.getPosition(), f_.getGroundPlaceSubst());
-            }
-            if (!validSwitchTeam(_fight, Fight.CST_PLAYER)) {
-                return false;
-            }
-            if (!validSwitchTeam(_fight, Fight.CST_FOE)) {
+        if (!(_data.getItem(_fight.getCatchingBall()) instanceof Ball)) {
+            return false;
+        }
+        return _fight.getKos().getVal(Fight.CST_PLAYER) != BoolVal.TRUE;
+    }
+
+    private static boolean validSwitchPropose(Fight _fight) {
+        _fight.getChoices().clear();
+        if (koTeam(_fight)) {
+            return false;
+        }
+        if (!FightEndRound.proponedSwitch(_fight)) {
+            return false;
+        }
+        if (!_fight.getFightType().isWild()) {
+            return validSubstitutingTeam(_fight);
+        }
+        return true;
+    }
+
+    private static boolean validSwitchWhileKoPlayer(Fight _fight) {
+        _fight.getChoices().clear();
+        for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
+            if (!_fight.getFighter(f).estKo()) {
                 return false;
             }
         }
-        if (distinctPlacesGroundSubtCheck_) {
-            if (!FightEndRound.existSubstitute(_fight)) {
-                FightEndRound.exitKoFighters(_fight);
-            }
+        if(koTeam(_fight)){
+            return false;
         }
-        if (distinctPlacesGroundCheck_) {
-            if (!validPlaces(_fight, Fight.CST_FOE)) {
-                return false;
-            }
-            if (!validPlaces(_fight, Fight.CST_PLAYER)) {
-                return false;
-            }
+        if (FightEndRound.proponedSwitchWhileKoPlayer(_fight)) {
+            return validSubstitutingTeam(_fight);
         }
-        if (distinctPlacesGroundSubtCheck_) {
-            if (!validPlacesSubst(_fight, Fight.CST_FOE, false)) {
-                return false;
-            }
-            if (!validPlacesSubst(_fight, Fight.CST_PLAYER, onlyDistinctFoeCheckSubst_)) {
-                return false;
-            }
+        return true;
+    }
+
+    private static boolean validAttaques(Fight _fight, DataBase _data, Difficulty _diff) {
+        _fight.getChoices().clear();
+        if(FightKo.endedFight(_fight, _diff)){
+            return false;
+        }
+        if (FightEndRound.proponedSwitch(_fight)) {
+            return false;
+        }
+        if (!validAllyChoices(_fight, _data)) {
+            return false;
         }
         for (TeamPosition t: FightOrder.fighters(_fight)) {
             Fighter f_ = _fight.getFighter(t);
@@ -399,194 +263,389 @@ public final class FightFacade {
             if (!(action_ instanceof ActionMove)) {
                 continue;
             }
-            TargetCoordsList targets_ = ((ActionMove)action_).getChosenTargets();
-            if (targets_.isEmpty()) {
+            if (f_.estArriere()) {
+                return false;
+            }
+        }
+        for (byte b: _fight.getFoeTeam().getMembers().getKeys()) {
+            Fighter f_ = _fight.getFoeTeam().getMembers().getVal(b);
+            AbstractAction action_ = f_.getAction();
+            if (!(action_ instanceof ActionMove)) {
                 continue;
             }
-            short pos_ = ((ActionMove)action_).getChosenTargets().first().getPosition();
-            if (pos_ < 0) {
-                return false;
-            }
-            if (pos_ >= _fight.getMult()) {
+            String move_ = ((ActionMove)action_).getFirstChosenMove();
+            if (!StringUtil.contains(FightFacade.allowedMovesNotEmpty(_fight, Fight.toFoeFighter(b), _data), move_)) {
                 return false;
             }
         }
-        if (koSubstituteState(_fight)) {
+        return true;
+    }
+
+    private static boolean validLearnEvolve(Fight _fight, Difficulty _diff) {
+        if (_fight.getChoices().isEmpty()) {
             return false;
         }
-        if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
-            //The substituted can be KO
-            _fight.getChoices().clear();
-            if (!NumberUtil.eq(_fight.getCurrentUser().getTeam(), Fight.CST_PLAYER)) {
-                return false;
-            }
-            if (!validAllyChoices(_fight, _data)) {
-                return false;
-            }
-            Team equipe_=_fight.getUserTeam();
-            Fighter creature_=equipe_.refPartMembres(_fight.getCurrentUser().getPosition());
-            if (creature_ == null) {
-                return false;
-            }
-            MoveData fAtt_=_data.getMove(creature_.getFinalChosenMove());
-            if (fAtt_ == null) {
-                return false;
-            }
-            if(fAtt_.getSwitchType() != SwitchType.LANCEUR){
-                return false;
-            }
-            if (!creature_.isActed()) {
-                return false;
-            }
-            if (!creature_.isBelongingToPlayer()) {
-                return false;
-            }
-            return !FightOrder.notKoBackFightersBelongingToUser(_fight, true).isEmpty();
-        } else if (_fight.getState() == FightState.APPRENDRE_EVOLUER) {
-            if (_fight.getChoices().isEmpty()) {
-                return false;
-            }
-            Bytes list_ = new Bytes();
-            for (byte b: _fight.getUserTeam().getMembers().getKeys()) {
-                Fighter fighter_ = _fight.getUserTeam().refPartMembres(b);
-                if (!fighter_.isBelongingToPlayer()) {
-                    continue;
-                }
-                if (fighter_.getMovesToBeLearnt().isEmpty()) {
-                    if (fighter_.getMovesAbilitiesEvos().isEmpty()) {
-                        continue;
-                    }
-                }
+        Bytes list_ = new Bytes();
+        for (byte b: _fight.getUserTeam().getMembers().getKeys()) {
+            Fighter fighter_ = _fight.getUserTeam().refPartMembres(b);
+            if (fighter_.isBelongingToPlayer() && (!fighter_.getMovesToBeLearnt().isEmpty() || !fighter_.getMovesAbilitiesEvos().isEmpty())) {
                 list_.add(b);
             }
-            if (!NumberUtil.equalsSetBytes(list_, _fight.getChoices().getKeys())) {
-                return false;
-            }
-            for (byte b: _fight.getChoices().getKeys()) {
-                Fighter fighter_ = _fight.getUserTeam().refPartMembres(b);
-                ChoiceOfEvolutionAndMoves choice_ = _fight.getChoices().getVal(b);
-                if (choice_.getName().isEmpty()) {
-                    StringList possible_ = new StringList();
-                    possible_.addAllElts(fighter_.getMovesToBeLearnt());
-                    possible_.addAllElts(fighter_.getMovesSet());
-                    for (String m: choice_.getKeptMoves()) {
-                        if (!StringUtil.contains(possible_, m)) {
-                            return false;
-                        }
-                    }
-                } else {
-                    if (!fighter_.getMovesAbilitiesEvos().contains(choice_.getName())) {
+        }
+        if (!NumberUtil.equalsSetBytes(list_, _fight.getChoices().getKeys())) {
+            return false;
+        }
+        for (byte b: _fight.getChoices().getKeys()) {
+            Fighter fighter_ = _fight.getUserTeam().refPartMembres(b);
+            ChoiceOfEvolutionAndMoves choice_ = _fight.getChoices().getVal(b);
+            if (choice_.getName().isEmpty()) {
+                StringList possible_ = new StringList();
+                possible_.addAllElts(fighter_.getMovesToBeLearnt());
+                possible_.addAllElts(fighter_.getMovesSet());
+                for (String m: choice_.getKeptMoves()) {
+                    if (!StringUtil.contains(possible_, m)) {
                         return false;
                     }
-                    StringList possible_ = new StringList();
-                    possible_.addAllElts(fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getMoves());
-                    possible_.addAllElts(fighter_.getMovesSet());
-                    for (String m: choice_.getKeptMoves()) {
-                        if (!StringUtil.contains(possible_, m)) {
-                            return false;
-                        }
-                    }
-                    possible_.clear();
-                    possible_.addAllElts(fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getAbilities());
-                    if (possible_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
-                        if (!StringUtil.contains(possible_, choice_.getAbility())) {
-                            return false;
-                        }
+                }
+            } else {
+                if (!fighter_.getMovesAbilitiesEvos().contains(choice_.getName())) {
+                    return false;
+                }
+                StringList possible_ = new StringList();
+                possible_.addAllElts(fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getMoves());
+                possible_.addAllElts(fighter_.getMovesSet());
+                for (String m: choice_.getKeptMoves()) {
+                    if (!StringUtil.contains(possible_, m)) {
+                        return false;
                     }
                 }
-            }
-            return FightFacade.win(_fight) || !FightKo.endedFight(_fight, _diff);
-        } else if (_fight.getState() == FightState.ATTAQUES) {
-            _fight.getChoices().clear();
-            if(FightKo.endedFight(_fight,_diff)){
-                return false;
-            }
-            if (FightEndRound.proponedSwitch(_fight)) {
-                return false;
-            }
-            if (!validAllyChoices(_fight, _data)) {
-                return false;
-            }
-            for (TeamPosition t: FightOrder.fighters(_fight)) {
-                Fighter f_ = _fight.getFighter(t);
-                AbstractAction action_ = f_.getAction();
-                if (!(action_ instanceof ActionMove)) {
-                    continue;
-                }
-                if (f_.estArriere()) {
+                possible_.clear();
+                possible_.addAllElts(fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getAbilities());
+                if (possible_.size() > DataBase.ONE_POSSIBLE_CHOICE && !StringUtil.contains(possible_, choice_.getAbility())) {
                     return false;
                 }
             }
-            for (byte b: _fight.getFoeTeam().getMembers().getKeys()) {
-                Fighter f_ = _fight.getFoeTeam().getMembers().getVal(b);
-                AbstractAction action_ = f_.getAction();
-                if (!(action_ instanceof ActionMove)) {
-                    continue;
-                }
-                String move_ = ((ActionMove)action_).getFirstChosenMove();
-                if (!StringUtil.contains(FightFacade.allowedMovesNotEmpty(_fight, Fight.toFoeFighter(b), _data), move_)) {
-                    return false;
-                }
-            }
-            return true;
-        } else if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
-            _fight.getChoices().clear();
-            for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
-                if (!_fight.getFighter(f).estKo()) {
-                    return false;
-                }
-            }
-            if(koTeam(_fight)){
-                return false;
-            }
-            if (FightEndRound.proponedSwitchWhileKoPlayer(_fight)) {
-                TeamPositionList team_;
-                team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
-                if (!validSubstitutingTeam(_fight, team_)) {
-                    return false;
-                }
-                team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
-                return validSubstitutingTeam(_fight, team_);
-            }
-            return true;
-        } else if (_fight.getState() == FightState.SWITCH_PROPOSE) {
-            _fight.getChoices().clear();
-            if (koTeam(_fight)) {
-                return false;
-            }
-            if (!FightEndRound.proponedSwitch(_fight)) {
-                return false;
-            }
-            if (!_fight.getFightType().isWild()) {
-                TeamPositionList team_;
-                team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
-                if (!validSubstitutingTeam(_fight, team_)) {
-                    return false;
-                }
-                team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
-                return validSubstitutingTeam(_fight, team_);
-            }
-            return true;
-        } else if (_fight.getState() == FightState.SURNOM) {
-            _fight.getChoices().clear();
-            if (!_data.getItems().contains(_fight.getCatchingBall())) {
-                return false;
-            }
-            if (!(_data.getItem(_fight.getCatchingBall()) instanceof Ball)) {
-                return false;
-            }
-            return _fight.getKos().getVal(Fight.CST_PLAYER) != BoolVal.TRUE;
-        } else if (_fight.getState() == FightState.CAPTURE_KO) {
-            _fight.getChoices().clear();
-            if (!_user.existBall(_data)) {
-                return false;
-            }
-            return FightFacade.win(_fight);
-        } else {
+        }
+        return FightFacade.win(_fight) || !FightKo.endedFight(_fight, _diff);
+    }
+
+    private static boolean validSwitchAfterUsingMove(Fight _fight, DataBase _data) {
+        //The substituted can be KO
+        _fight.getChoices().clear();
+        if (!NumberUtil.eq(_fight.getCurrentUser().getTeam(), Fight.CST_PLAYER)) {
             return false;
+        }
+        if (!validAllyChoices(_fight, _data)) {
+            return false;
+        }
+        Team equipe_= _fight.getUserTeam();
+        Fighter creature_=equipe_.refPartMembres(_fight.getCurrentUser().getPosition());
+        if (creature_ == null) {
+            return false;
+        }
+        MoveData fAtt_= _data.getMove(creature_.getFinalChosenMove());
+        if (fAtt_ == null) {
+            return false;
+        }
+        if(fAtt_.getSwitchType() != SwitchType.LANCEUR){
+            return false;
+        }
+        if (!creature_.isActed()) {
+            return false;
+        }
+        if (!creature_.isBelongingToPlayer()) {
+            return false;
+        }
+        return !FightOrder.notKoBackFightersBelongingToUser(_fight, true).isEmpty();
+    }
+
+    private static boolean koPositionsOnGround(Fight _fight) {
+        if (_fight.getFightType() == FightType.TMP_TRAINER && koAtMostOneFrontPkPerUserGroupTeam(_fight)) {
+            return true;
+        }
+        //never mind places for catching a wild pokemon at the moment of using a ball
+        if (atLeastOneFrontPk(_fight) && koAtLeastOneFrontPkForEachTeam(_fight)) {
+            return true;
+        }
+        if (validSwitchTeam(_fight)) {
+            adjustFirstPosit(_fight);
+            if (invalidSwitchTeam(_fight)) {
+                return true;
+            }
+        }
+        if (distinctPlacesGroundSubtCheck(_fight)) {
+            exitKoFighters(_fight);
+        }
+        if (distinctPlacesGroundCheck(_fight) && invalidPlaces(_fight)) {
+            return true;
+        }
+        if (distinctPlacesGroundSubtCheck(_fight) && invalidPlacesSubst(_fight)) {
+            return true;
+        }
+        return koSubstituteState(_fight);
+    }
+
+    private static boolean koCommon(Fight _fight, DataBase _data) {
+        if (!StringUtil.equalsSet(_data.getMovesEffectGlobal(), _fight.getEnabledMoves().getKeys())) {
+            return true;
+        }
+        for (String m: _fight.getEnabledMoves().getKeys()) {
+            if (_fight.getEnabledMoves().getVal(m).getNbTurn() < 0) {
+                return true;
+            }
+        }
+        if (!StringUtil.equalsSet(_data.getMovesEffectGlobalWeather(), _fight.getStillEnabledMoves().getKeys())) {
+            return true;
+        }
+        return koChosenTargets(_fight);
+    }
+
+    private static boolean koFirstPositFighters(Fight _fight) {
+        if (!NumberUtil.equalsSetBytes(_fight.getFirstPositPlayerFighters().getKeys(), _fight.getUserTeam().getMembers().getKeys())) {
+            return true;
+        }
+        int m_ = _fight.getMult();
+        Bytes possiblePlaces_ = Team.keysMovesLatter(m_);
+        for (byte p: _fight.getFirstPositPlayerFighters().values()) {
+            if (Fighter.notBackOrInList(possiblePlaces_,p)) {
+                return true;
+            }
+        }
+        if (!NumberUtil.equalsSetBytes(_fight.getFirstPositFoeFighters().getKeys(), _fight.getFoeTeam().getMembers().getKeys())) {
+            return true;
+        }
+        for (byte p: _fight.getFirstPositFoeFighters().values()) {
+            if (Fighter.notBackOrInList(possiblePlaces_,p)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean koBasic(Fight _fight, DataBase _data) {
+        if (_fight.getNbFleeAttempt() < 0) {
+            return true;
+        }
+        if (!_fight.getNbRounds().isZeroOrGt()) {
+            return true;
+        }
+        if (!_fight.getWinningMoney().isZeroOrGt()) {
+            return true;
+        }
+        if (!_data.getPokedex().containsAllAsKeys(_fight.getCaughtEvolutions())) {
+            return true;
+        }
+        if (!_data.getItems().containsAllAsKeys(_fight.getLostObjects())) {
+            return true;
+        }
+        if (!_data.getItems().containsAllAsKeys(_fight.getUsedItemsWhileRound().getKeys())) {
+            return true;
+        }
+        for (Short v: _fight.getUsedItemsWhileRound().values()) {
+            if (v < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean koTeams(Fight _fight, DataBase _data, Player _user) {
+        Bytes noTeams_ = new Bytes();
+        noTeams_.add(Fight.CST_FOE);
+        noTeams_.add(Fight.CST_PLAYER);
+        if (!NumberUtil.equalsSetBytes(_fight.getTeams().getKeys(), noTeams_)) {
+            return true;
+        }
+        if (_fight.getFightType().isWild() && !NumberUtil.eq(_fight.getFoeTeam().getMembers().size(), DataBase.ONE_POSSIBLE_CHOICE)) {
+            return true;
+        }
+        for (byte t: _fight.getTeams().getKeys()) {
+            if (!_fight.getTeams().getVal(t).validate(_data, t, _fight)) {
+                return true;
+            }
+        }
+        Bytes posInit_ = new Bytes();
+        int nbMembers_ = _user.getTeam().size();
+        for(byte i = IndexConstants.FIRST_INDEX; i<nbMembers_; i++){
+            if (!(_user.getTeam().get(i) instanceof PokemonPlayer)) {
+                continue;
+            }
+            posInit_.add(i);
+        }
+        Bytes pos_ = new Bytes();
+        for (byte b: _fight.getUserTeam().getMembers().getKeys()) {
+            Fighter f_ = _fight.getUserTeam().refPartMembres(b);
+            if (!f_.isBelongingToPlayer()) {
+                continue;
+            }
+            pos_.add(b);
+        }
+        if (!NumberUtil.equalsSetBytes(pos_, posInit_)) {
+            return true;
+        }
+        return !NumberUtil.equalsSetBytes(_fight.getUserTeam().getPlayerFightersAgainstFoe().getKeys(), posInit_);
+    }
+
+    private static boolean koMult(Fight _fight) {
+        if (!_fight.getFightType().isWild()) {
+            if (_fight.getState() == FightState.SURNOM) {
+                return true;
+            }
+            if (_fight.getState() == FightState.CAPTURE_KO) {
+                return true;
+            }
+        }
+        if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER && _fight.getFightType() != FightType.TMP_TRAINER) {
+            return true;
+        }
+        if (_fight.getMult() < 1) {
+            return true;
+        }
+        if (_fight.getFightType().isWild() && _fight.getMult() != 1) {
+            return true;
+        }
+        if (_fight.getFightType() == FightType.TMP_TRAINER) {
+            if (_fight.getMult() != 2) {
+                return true;
+            }
+            return _fight.getPlayerMaxNumberFrontFighters() != 1;
+        } else {
+            return _fight.getPlayerMaxNumberFrontFighters() != _fight.getMult();
         }
     }
 
+    private static boolean validSubstitutingTeam(Fight _fight) {
+        TeamPositionList team_;
+        team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
+        if (!validSubstitutingTeam(_fight, team_)) {
+            return false;
+        }
+        team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
+        return validSubstitutingTeam(_fight, team_);
+    }
+
+    private static boolean koChosenTargets(Fight _fight) {
+        for (TeamPosition t: FightOrder.fighters(_fight)) {
+            Fighter f_ = _fight.getFighter(t);
+            AbstractAction action_ = f_.getAction();
+            if (!(action_ instanceof ActionMove)) {
+                continue;
+            }
+            TargetCoordsList targets_ = ((ActionMove)action_).getChosenTargets();
+            if (!targets_.isEmpty()) {
+                short pos_ = targets_.first().getPosition();
+                if (pos_ < 0 || pos_ >= _fight.getMult()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean invalidPlacesSubst(Fight _fight) {
+        if (!validPlacesSubst(_fight, Fight.CST_FOE, false)) {
+            return true;
+        }
+        return !validPlacesSubst(_fight, Fight.CST_PLAYER, onlyDistinctFoeCheckSubst(_fight));
+    }
+
+    private static boolean invalidPlaces(Fight _fight) {
+        if (!validPlaces(_fight, Fight.CST_FOE)) {
+            return true;
+        }
+        return !validPlaces(_fight, Fight.CST_PLAYER);
+    }
+
+    private static void exitKoFighters(Fight _fight) {
+        if (!FightEndRound.existSubstitute(_fight)) {
+            FightEndRound.exitKoFighters(_fight);
+        }
+    }
+
+    private static boolean invalidSwitchTeam(Fight _fight) {
+        if (!validSwitchTeam(_fight, Fight.CST_PLAYER)) {
+            return true;
+        }
+        return !validSwitchTeam(_fight, Fight.CST_FOE);
+    }
+
+    private static void adjustFirstPosit(Fight _fight) {
+        TeamPositionList team_;
+        team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
+        for (TeamPosition t: team_) {
+            Fighter f_ = _fight.getFighter(t);
+            _fight.getFirstPositFoeFighters().put(t.getPosition(), f_.getGroundPlaceSubst());
+        }
+        team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
+        for (TeamPosition t: team_) {
+            Fighter f_ = _fight.getFighter(t);
+            _fight.getFirstPositPlayerFighters().put(t.getPosition(), f_.getGroundPlaceSubst());
+        }
+    }
+
+    private static boolean koAtMostOneFrontPkPerUserGroupTeam(Fight _fight) {
+        int nbFrontPl_ = 0;
+        int nbFrontAlly_ = 0;
+        for (TeamPosition f: FightOrder.frontFighters(_fight)) {
+            if (f.getTeam() != Fight.CST_PLAYER) {
+                continue;
+            }
+            if (_fight.getFighter(f).isBelongingToPlayer()) {
+                nbFrontPl_++;
+            } else {
+                nbFrontAlly_++;
+            }
+        }
+        if (nbFrontPl_ > DataBase.ONE_POSSIBLE_CHOICE) {
+            return true;
+        }
+        return nbFrontAlly_ > DataBase.ONE_POSSIBLE_CHOICE;
+    }
+
+    private static void disableEffectsExceptHp(Fight _fight, DataBase _data) {
+        for (TeamPosition f: FightOrder.fighters(_fight)) {
+            Fighter f_ = _fight.getFighter(f);
+            if (f_.estArriere()) {
+                FightSending.disableEffectsExceptHp(_fight, f, _data);
+            }
+        }
+    }
+
+    private static boolean koAtLeastOneFrontPkForEachTeam(Fight _fight) {
+        Bytes fighters_ = new Bytes();
+        int mult_ = _fight.getMult();
+        for (short i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
+            fighters_.addAllElts(_fight.getUserTeam().fightersAtCurrentPlace(i));
+        }
+        if (fighters_.isEmpty()) {
+            return true;
+        }
+        fighters_.clear();
+        for (short i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
+            fighters_.addAllElts(_fight.getFoeTeam().fightersAtCurrentPlace(i));
+        }
+        return fighters_.isEmpty();
+    }
+
+    private static boolean distinctPlacesGroundCheck(Fight _fight) {
+        return _fight.getState() == FightState.ATTAQUES || _fight.getState() == FightState.SWITCH_APRES_ATTAQUE || _fight.getState() == FightState.SWITCH_WHILE_KO_USER && !FightEndRound.proponedSwitchWhileKoPlayer(_fight);
+    }
+
+    private static boolean distinctPlacesGroundSubtCheck(Fight _fight) {
+        return _fight.getState() == FightState.ATTAQUES || _fight.getState() == FightState.SWITCH_APRES_ATTAQUE || _fight.getState() == FightState.SWITCH_WHILE_KO_USER || _fight.getState() == FightState.SWITCH_PROPOSE || _fight.getState() == FightState.APPRENDRE_EVOLUER;
+    }
+
+    private static boolean onlyDistinctFoeCheckSubst(Fight _fight) {
+        return _fight.getState() == FightState.SWITCH_WHILE_KO_USER;
+    }
+
+    private static boolean atLeastOneFrontPk(Fight _fight) {
+        return _fight.getState() == FightState.ATTAQUES || _fight.getState() == FightState.SWITCH_APRES_ATTAQUE || _fight.getState() == FightState.SWITCH_WHILE_KO_USER && !FightEndRound.proponedSwitchWhileKoPlayer(_fight);
+    }
+
+    private static boolean validSwitchTeam(Fight _fight) {
+        return _fight.getState() != FightState.SWITCH_WHILE_KO_USER && _fight.getState() != FightState.SWITCH_PROPOSE;
+    }
     private static boolean koSubstituteState(Fight _fight) {
         return (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE || _fight.getState() == FightState.ATTAQUES) && koSubstitute(_fight);
     }
@@ -618,45 +677,30 @@ public final class FightFacade {
         noTeams_.add(Fight.CST_FOE);
         if (_fight.getAllyChoiceSet().size() != DataBase.ONE_POSSIBLE_CHOICE) {
             for (MoveTarget p: _fight.getAllyChoiceSet()) {
-                if (!_data.getMoves().contains(p.getMove())) {
-                    return false;
-                }
-                if (p.getTarget().getPosition() == Fighter.BACK) {
-                    return false;
-                }
-                if (p.getTarget().getPosition() < 0) {
-                    return false;
-                }
-                if (!noTeams_.containsObj((byte) p.getTarget().getTeam())) {
-                    return false;
-                }
-                if (p.getTarget().getPosition() >= _fight.getMult()) {
+                if (!_data.getMoves().contains(p.getMove()) || koTargetByAlly(_fight, p.getTarget(), noTeams_)) {
                     return false;
                 }
             }
         }
         for (MoveTarget p: _fight.getAllyChoiceValuesSet()) {
-            if (!p.getMove().isEmpty()) {
-                if (!_data.getMoves().contains(p.getMove())) {
-                    return false;
-                }
-                if (_data.getMove(p.getMove()).getTargetChoice().isWithChoice()) {
-                    if (p.getTarget().getPosition() == Fighter.BACK) {
-                        return false;
-                    }
-                    if (p.getTarget().getPosition() < 0) {
-                        return false;
-                    }
-                    if (!noTeams_.containsObj((byte) p.getTarget().getTeam())) {
-                        return false;
-                    }
-                    if (p.getTarget().getPosition() >= _fight.getMult()) {
-                        return false;
-                    }
-                }
+            if (!p.getMove().isEmpty() && (!_data.getMoves().contains(p.getMove()) || _data.getMove(p.getMove()).getTargetChoice().isWithChoice() && koTargetByAlly(_fight, p.getTarget(), noTeams_))) {
+                return false;
             }
         }
         return true;
+    }
+
+    private static boolean koTargetByAlly(Fight _fight, TargetCoords _target, Bytes _noTeams) {
+        if (_target.getPosition() == Fighter.BACK) {
+            return true;
+        }
+        if (_target.getPosition() < 0) {
+            return true;
+        }
+        if (!_noTeams.containsObj((byte) _target.getTeam())) {
+            return true;
+        }
+        return _target.getPosition() >= _fight.getMult();
     }
 
     static boolean validPlacesSubst(Fight _fight, byte _team, boolean _onlyDistinctFoeCheckSubst) {
@@ -678,10 +722,8 @@ public final class FightFacade {
         if (distinct_.hasDuplicates()) {
             return false;
         }
-        if (!_onlyDistinctFoeCheckSubst) {
-            if (!FightEndRound.existSubstitute(_fight)) {
-                return distinct_.size() == nbNotKo_;
-            }
+        if (!_onlyDistinctFoeCheckSubst && !FightEndRound.existSubstitute(_fight)) {
+            return distinct_.size() == nbNotKo_;
         }
         return true;
     }
@@ -710,25 +752,68 @@ public final class FightFacade {
         return !replace_.hasDuplicates();
     }
     static boolean validSubstitutingTeam(Fight _fight, TeamPositionList _pseusoTeam) {
-        Bytes replaceNoPlayer_ = new Bytes();
+        if (!validSubstitutingCommonTeam(_fight, _pseusoTeam)) {
+            return false;
+        }
         byte teamNo_ = _pseusoTeam.first().getTeam();
+        if (NumberUtil.eq(teamNo_, Fight.CST_FOE)) {
+            return validSubstitutingFoeTeam(_fight, _pseusoTeam);
+        } else {
+            return validSubstitutingUserTeam(_fight, _pseusoTeam);
+        }
+    }
+
+    static boolean validSubstitutingCommonTeam(Fight _fight, TeamPositionList _pseusoTeam) {
         ByteMap<Byte> subst_;
+        byte teamNo_ = _pseusoTeam.first().getTeam();
         if (NumberUtil.eq(teamNo_, Fight.CST_FOE)) {
             subst_ = _fight.getFirstPositFoeFighters();
         } else {
             subst_ = _fight.getFirstPositPlayerFighters();
         }
+        for(TeamPosition c:_pseusoTeam){
+            Fighter membre_= _fight.getFighter(c);
+            byte substLoc_ = subst_.getVal(c.getPosition());
+            if (membre_.estKo() && !NumberUtil.eq(substLoc_, Fighter.BACK)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static boolean validSubstitutingFoeTeam(Fight _fight, TeamPositionList _pseusoTeam) {
+        Bytes replaceNoPlayer_ = new Bytes();
+        ByteMap<Byte> subst_;
+        subst_ = _fight.getFirstPositFoeFighters();
         int nbNotKo_ = 0;
+        for(TeamPosition c:_pseusoTeam){
+            Fighter membre_= _fight.getFighter(c);
+            byte substLoc_ = subst_.getVal(c.getPosition());
+            if (!membre_.estKo()) {
+                nbNotKo_++;
+                if (!NumberUtil.eq(substLoc_, Fighter.BACK)) {
+                    replaceNoPlayer_.add(substLoc_);
+                }
+            }
+        }
+        if (duplicatesOrTooMuch(_fight, replaceNoPlayer_)) {
+            return false;
+        }
+        int nb_ = replaceNoPlayer_.size();
+        if (nbNotKo_ > _fight.getMult()) {
+            return nb_ == _fight.getMult();
+        }
+        return nb_ == nbNotKo_;
+    }
+    static boolean validSubstitutingUserTeam(Fight _fight, TeamPositionList _pseusoTeam) {
+        Bytes replaceNoPlayer_ = new Bytes();
+        ByteMap<Byte> subst_;
+        subst_ = _fight.getFirstPositPlayerFighters();
         int nbNotKoNpc_ = 0;
         for(TeamPosition c:_pseusoTeam){
             Fighter membre_= _fight.getFighter(c);
             byte substLoc_ = subst_.getVal(c.getPosition());
-            if(membre_.estKo()) {
-                if (!NumberUtil.eq(substLoc_, Fighter.BACK)) {
-                    return false;
-                }
-            } else {
-                nbNotKo_++;
+            if (!membre_.estKo()) {
                 if (!membre_.isBelongingToPlayer()) {
                     nbNotKoNpc_++;
                 }
@@ -737,32 +822,30 @@ public final class FightFacade {
                 }
             }
         }
-        if (replaceNoPlayer_.hasDuplicates()) {
+        return duplicatesOrTooMuchUser(_fight, replaceNoPlayer_, nbNotKoNpc_);
+    }
+
+    private static boolean duplicatesOrTooMuchUser(Fight _fight, Bytes _replaceNoPlayer, int _nbNotKoNpc) {
+        if (duplicatesOrTooMuch(_fight, _replaceNoPlayer)) {
             return false;
-        }
-        int nb_ = replaceNoPlayer_.size();
-        if (nb_ > _fight.getMult()) {
-            return false;
-        }
-        if (NumberUtil.eq(teamNo_, Fight.CST_FOE)) {
-            if (nbNotKo_ > _fight.getMult()) {
-                return nb_ == _fight.getMult();
-            }
-            return nb_ == nbNotKo_;
         }
         if (!FightArtificialIntelligence.existFree(_fight)) {
             int diff_ = _fight.getMult() - _fight.getPlayerMaxNumberFrontFighters();
-            if (nbNotKoNpc_ > diff_) {
-                return replaceNoPlayer_.size() <= diff_;
+            if (_nbNotKoNpc > diff_) {
+                return _replaceNoPlayer.size() <= diff_;
             }
             //replaceNoPlayer_.size() <= nbNotKoNpc_
             return true;
         }
         int diff_ = _fight.getMult() - _fight.getPlayerMaxNumberFrontFighters();
-        if (nbNotKoNpc_ > diff_) {
-            return replaceNoPlayer_.size() == diff_;
+        if (_nbNotKoNpc > diff_) {
+            return _replaceNoPlayer.size() == diff_;
         }
-        return replaceNoPlayer_.size() == nbNotKoNpc_;
+        return _replaceNoPlayer.size() == _nbNotKoNpc;
+    }
+
+    private static boolean duplicatesOrTooMuch(Fight _fight, Bytes _replaceNoPlayer) {
+        return _replaceNoPlayer.hasDuplicates() || _replaceNoPlayer.size() > _fight.getMult();
     }
 
     public static void chooseFrontFighter(Fight _fight, byte _place, Difficulty _diff, DataBase _import) {
@@ -1885,11 +1968,9 @@ public final class FightFacade {
             if (choice_.getName().isEmpty()) {
                 continue;
             }
-            if (fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getAbilities().size() > DataBase.ONE_POSSIBLE_CHOICE) {
-                if (choice_.getAbility().isEmpty()) {
-                    valid_ = false;
-                    _fight.addMessage(_import,Fight.ERR_EVOLVING_AB, name_);
-                }
+            if (fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getAbilities().size() > DataBase.ONE_POSSIBLE_CHOICE && choice_.getAbility().isEmpty()) {
+                valid_ = false;
+                _fight.addMessage(_import, Fight.ERR_EVOLVING_AB, name_);
             }
         }
         _fight.setError(!valid_);

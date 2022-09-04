@@ -10,7 +10,6 @@ import aiki.game.params.Difficulty;
 import aiki.util.TeamPositionList;
 import code.maths.Rate;
 import code.util.AbsMap;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
@@ -253,10 +252,8 @@ final class FightKo {
             a_ = nbCombattantsAvantUt_;
         }
         byte c_ = 0;
-        byte d_ = 0;
-        while (a_ - d_ > c_ + 1) {
+        while (a_ > 2 * c_ + 1) {
             c_++;
-            d_++;
         }
         if(nbCombattantsAvantAdv_>nbCombattantsAvantUt_){
             equipeUt_.move(c_);

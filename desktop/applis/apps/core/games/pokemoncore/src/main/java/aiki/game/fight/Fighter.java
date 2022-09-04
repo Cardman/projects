@@ -859,7 +859,7 @@ public final class Fighter {
         Bytes members_ = new Bytes(team_.getMembers().getKeys());
         if (action instanceof ActionMove) {
             ActionMove actionMove_ = (ActionMove) action;
-            if (!_data.getMoves().contains(actionMove_.getFirstChosenMove()) || !NumberUtil.eq(actionMove_.getSubstitute(), BACK) && !members_.containsObj(actionMove_.getSubstitute())) {
+            if (!_data.getMoves().contains(actionMove_.getFirstChosenMove()) || notBackOrInList(members_, actionMove_.getSubstitute())) {
                 return true;
             }
             if (_data.getMove(actionMove_.getFirstChosenMove()).getTargetChoice().isWithChoice()) {
@@ -874,6 +874,14 @@ public final class Fighter {
             }
         }
         return koActionSub(_data, members_);
+    }
+
+    static boolean notBackOrInList(Bytes _members, byte _value) {
+        return !backOrInList(_members, _value);
+    }
+
+    static boolean backOrInList(Bytes _members, byte _value) {
+        return NumberUtil.eq(_value, BACK) || _members.containsObj(_value);
     }
 
     private boolean koActionSub(DataBase _data, Bytes _members) {
