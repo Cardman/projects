@@ -21,8 +21,7 @@ public final class NatAnaRendTitledAnchor extends NatAnaRendElement {
         super(_elt);
     }
 
-    @Override
-    protected StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void titled(Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         roots = new CustList<NatOperationNode>();
         NatResultText res_ = NatResultText.buildAnchor(_read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();
@@ -36,7 +35,6 @@ public final class NatAnaRendTitledAnchor extends NatAnaRendElement {
             e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscapedAmp())));
         }
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrTitle());
-        return _list;
     }
 
     public StringMap<String> getPreformatted() {

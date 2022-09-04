@@ -16,11 +16,9 @@ public final class NatRendImg extends NatRendElement {
         this.textPart = _textPart;
     }
 
-    @Override
-    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    void img(Configuration _cont, Node _nextWrite, NatRendStackCall _rendStack) {
         String pageName_ = NatRenderingText.renderNat(textPart, _rendStack);
         prImg(_cont, (Element) _nextWrite, pageName_);
-        return this;
     }
 
     public static void prImg(Configuration _cont, Element _nextWrite, String _pageName) {

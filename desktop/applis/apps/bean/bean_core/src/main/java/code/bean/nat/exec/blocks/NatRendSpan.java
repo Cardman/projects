@@ -17,11 +17,9 @@ public final class NatRendSpan extends NatRendElement {
         this.formatted = _formatted;
     }
 
-    @Override
-    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    void span(Configuration _cont, Node _nextWrite, NatRendStackCall _rendStack) {
         String txt_ = NatRenderingText.renderNat(result, _rendStack);
         RendSpan.setupTxt(_cont,_nextWrite, txt_,formatted, _rendStack.getFormParts());
-        return this;
     }
 
 }

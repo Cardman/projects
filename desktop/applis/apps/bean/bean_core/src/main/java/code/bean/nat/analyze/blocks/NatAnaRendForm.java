@@ -20,8 +20,7 @@ public final class NatAnaRendForm extends NatAnaRendElement {
         super(_elt);
     }
 
-    @Override
-    protected StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void form(Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrAction());
         roots = new CustList<NatOperationNode>();
@@ -38,7 +37,6 @@ public final class NatAnaRendForm extends NatAnaRendElement {
             pref_ = StringUtil.concat(pref_, AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
             root = NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
         }
-        return _list;
     }
 
     public StringList getTexts() {

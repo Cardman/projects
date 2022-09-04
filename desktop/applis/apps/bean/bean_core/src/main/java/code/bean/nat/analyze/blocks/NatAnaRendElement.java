@@ -35,7 +35,26 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
             r_.buildIdAna(groupId_, _anaDoc, _page);
             attributesText.put(prefGr_,r_);
         }
-        for (String a: processAttributes(_doc,read,attributesNames_, _anaDoc, _page)) {
+        if (this instanceof NatAnaRendAnchor) {
+            ((NatAnaRendAnchor)this).anchor(read,attributesNames_, _anaDoc, _page);
+        } else if (this instanceof NatAnaRendForm) {
+            ((NatAnaRendForm)this).form(read,attributesNames_, _anaDoc, _page);
+        } else if (this instanceof NatAnaRendImg) {
+            ((NatAnaRendImg)this).img(read,attributesNames_, _anaDoc, _page);
+        } else if (this instanceof NatAnaRendInput) {
+            ((NatAnaRendInput)this).input(read,attributesNames_, _anaDoc, _page);
+        } else if (this instanceof NatAnaRendLink) {
+            ((NatAnaRendLink)this).link(read,attributesNames_, _anaDoc);
+        } else if (this instanceof NatAnaRendSpan) {
+            ((NatAnaRendSpan)this).span(read,attributesNames_, _anaDoc, _page);
+        } else if (this instanceof NatAnaRendStdElement) {
+            ((NatAnaRendStdElement)this).sdtElement(attributesNames_, _anaDoc);
+        } else if (this instanceof NatAnaRendSubmit) {
+            ((NatAnaRendSubmit)this).submit(read,attributesNames_, _anaDoc);
+        } else if (this instanceof NatAnaRendTitledAnchor) {
+            ((NatAnaRendTitledAnchor)this).titled(read,attributesNames_, _anaDoc, _page);
+        }
+        for (String a: attributesNames_) {
             String attr_ = read.getAttribute(a);
             NatResultText r_ = new NatResultText();
             r_.buildIdAna(attr_, _anaDoc, _page);
@@ -53,8 +72,6 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
         attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getAttrId());
         return attributesNames_;
     }
-
-    protected abstract StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page);
 
     public final Element getRead() {
         return read;

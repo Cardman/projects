@@ -24,12 +24,9 @@ public final class NatRendAnchor extends NatRendElement {
         this.textPart = _textPart;
     }
 
-
-    @Override
-    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    void anchor(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
         RendBlockHelp.feed(varNames, opExpAnch, _rendStack);
         RendBlockHelp.processLink(_cont, (Element) _nextWrite, _read, textPart, _rendStack);
-        return this;
     }
 
 }

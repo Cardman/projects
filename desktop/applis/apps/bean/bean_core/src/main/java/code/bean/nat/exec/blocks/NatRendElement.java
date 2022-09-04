@@ -8,7 +8,6 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendElem;
 import code.sml.Document;
 import code.sml.Element;
-import code.sml.Node;
 import code.util.EntryCust;
 import code.util.StringMap;
 
@@ -42,13 +41,31 @@ public abstract class NatRendElement extends NatParentBlock implements RendElem 
             String txt_ = NatRenderingText.renderNat(res_, _rendStack);
             created_.setAttribute(e.getKey(),txt_);
         }
-        NatParentBlock next_ = processExecAttr(_cont, created_, read, _rendStack);
+        if (this instanceof NatRendAnchor) {
+            ((NatRendAnchor)this).anchor(_cont, created_, read, _rendStack);
+        } else if (this instanceof NatRendEscImg) {
+            ((NatRendEscImg)this).escImg(_cont, created_);
+        } else if (this instanceof NatRendForm) {
+            ((NatRendForm)this).form(_cont, created_, read, _rendStack);
+        } else if (this instanceof NatRendImg) {
+            ((NatRendImg)this).img(_cont, created_, _rendStack);
+        } else if (this instanceof NatRendInput) {
+            ((NatRendInput)this).input(_cont, created_, read, _rendStack);
+        } else if (this instanceof NatRendLink) {
+            ((NatRendLink)this).link(_cont, created_);
+        } else if (this instanceof NatRendSpan) {
+            ((NatRendSpan)this).span(_cont, created_, _rendStack);
+        } else if (this instanceof NatRendSubmit) {
+            ((NatRendSubmit)this).submit(_cont, created_);
+        } else if (this instanceof NatRendTitledAnchor) {
+            ((NatRendTitledAnchor)this).titled(_cont, created_, read, _rendStack);
+        }
         for (EntryCust<String, NatExecTextPart> e: natAttributes.entryList()) {
             NatExecTextPart res_ = e.getValue();
             String txt_ = NatRenderingText.renderNat(res_, _rendStack);
             created_.setAttribute(e.getKey(),txt_);
         }
-        addEltStack(ip_,rw_,created_,next_);
+        addEltStack(ip_,rw_,created_,this);
     }
 
     public static void addEltStack(NatImportingPage _nip, NatRendReadWrite _rw, Element _created, NatParentBlock _block) {
@@ -61,6 +78,5 @@ public abstract class NatRendElement extends NatParentBlock implements RendElem 
         _rw.setRead(_block.getFirstChild());
         _rw.setWrite(_created);
     }
-    protected abstract NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack);
 
 }

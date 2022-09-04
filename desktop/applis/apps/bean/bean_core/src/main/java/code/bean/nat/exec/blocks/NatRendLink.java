@@ -1,6 +1,5 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendLink;
 import code.sml.Document;
@@ -16,12 +15,10 @@ public final class NatRendLink extends NatRendElement {
         this.content = _content;
     }
 
-    @Override
-    protected NatParentBlock processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    void link(Configuration _cont, Node _nextWrite) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
         RendLink.procLink(_cont, content,ownerDocument_);
-        return this;
     }
 
 }

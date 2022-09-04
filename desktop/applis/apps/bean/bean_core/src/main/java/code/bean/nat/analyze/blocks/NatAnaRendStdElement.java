@@ -10,9 +10,7 @@ public final class NatAnaRendStdElement extends NatAnaRendElement {
         super(_elt);
     }
 
-    @Override
-    protected StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void sdtElement(StringList _list, AnalyzingDoc _anaDoc) {
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
-        return _list;
     }
 }

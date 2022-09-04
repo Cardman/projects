@@ -12,14 +12,12 @@ public final class NatAnaRendLink extends NatAnaRendElement {
         super(_elt);
     }
 
-    @Override
-    protected StringList processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void link(Element _read, StringList _list, AnalyzingDoc _anaDoc) {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrRel());
         String href_ = AnaRendBlockHelp.getCssHref(_read, _anaDoc.getRendKeyWords());
         StringMap<String> files_ = _anaDoc.getFiles();
         content = files_.getVal(href_);
-        return _list;
     }
 
     public String getContent() {
