@@ -411,6 +411,9 @@ public final class FightFacade {
                 return false;
             }
         }
+        if (koSubstituteState(_fight)) {
+            return false;
+        }
         if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
             //The substituted can be KO
             _fight.getChoices().clear();
@@ -506,23 +509,6 @@ public final class FightFacade {
             }
             for (TeamPosition t: FightOrder.fighters(_fight)) {
                 Fighter f_ = _fight.getFighter(t);
-                byte subst_ = f_.getSubstistute();
-                if (subst_ == Fighter.BACK) {
-                    continue;
-                }
-                Fighter part_ = _fight.getTeams().getVal(t.getTeam()).getMembers().getVal(subst_);
-                if (part_.estKo()) {
-                    return false;
-                }
-//                if (part_.isBelongingToPlayer() != f_.isBelongingToPlayer()) {
-//                    return false;
-//                }
-                if (!part_.estArriere()) {
-                    return false;
-                }
-            }
-            for (TeamPosition t: FightOrder.fighters(_fight)) {
-                Fighter f_ = _fight.getFighter(t);
                 AbstractAction action_ = f_.getAction();
                 if (!(action_ instanceof ActionMove)) {
                     continue;
@@ -599,6 +585,31 @@ public final class FightFacade {
         } else {
             return false;
         }
+    }
+
+    private static boolean koSubstituteState(Fight _fight) {
+        return (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE || _fight.getState() == FightState.ATTAQUES) && koSubstitute(_fight);
+    }
+
+    private static boolean koSubstitute(Fight _fight) {
+        for (TeamPosition t: FightOrder.fighters(_fight)) {
+            Fighter f_ = _fight.getFighter(t);
+            byte subst_ = f_.getSubstistute();
+            if (subst_ == Fighter.BACK) {
+                continue;
+            }
+            Fighter part_ = _fight.getTeams().getVal(t.getTeam()).getMembers().getVal(subst_);
+            if (part_.estKo()) {
+                return true;
+            }
+            if (part_.isBelongingToPlayer() != f_.isBelongingToPlayer()) {
+                return true;
+            }
+            if (!part_.estArriere()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static boolean validAllyChoices(Fight _fight, DataBase _data) {
