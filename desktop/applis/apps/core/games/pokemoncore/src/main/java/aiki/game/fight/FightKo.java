@@ -246,13 +246,16 @@ final class FightKo {
         equipeAdv_.move((byte) 0);
         //preliminaire deplacer tous les combattants vers la gauche
         byte a_;
+        byte b_;
         if(nbCombattantsAvantAdv_>nbCombattantsAvantUt_){
             a_ = nbCombattantsAvantAdv_;
+            b_ = nbCombattantsAvantUt_;
         }else{
             a_ = nbCombattantsAvantUt_;
+            b_ = nbCombattantsAvantAdv_;
         }
         byte c_ = 0;
-        while (a_ > 2 * c_ + 1) {
+        while (a_ > 2 * c_ + b_) {
             c_++;
         }
         if(nbCombattantsAvantAdv_>nbCombattantsAvantUt_){
