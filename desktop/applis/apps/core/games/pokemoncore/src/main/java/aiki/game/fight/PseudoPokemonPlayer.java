@@ -4,7 +4,7 @@ import code.maths.Rate;
 
 public class PseudoPokemonPlayer {
 
-    private Rate wonPointsSinceLastLevel;
+    private final Rate wonPointsSinceLastLevel;
 
     private short level;
 
@@ -17,6 +17,14 @@ public class PseudoPokemonPlayer {
         level = _pokemon.getLevel();
         name = _pokemon.getName();
         item = _pokemon.getItem();
+    }
+
+    public void affectWonPointsSinceLastLevel(Rate _other) {
+        wonPointsSinceLastLevel.affect(_other);
+    }
+
+    public Rate copyWonPointsSinceLastLevel() {
+        return new Rate(wonPointsSinceLastLevel);
     }
 
     public Rate getWonPointsSinceLastLevel() {

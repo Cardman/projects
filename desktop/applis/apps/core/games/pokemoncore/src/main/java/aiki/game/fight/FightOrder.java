@@ -421,24 +421,19 @@ final class FightOrder {
         }
         return nbPartenairesArriere_;
     }
-
-    static TeamPositionList fightersWearingExpObject(
+    static Bytes fightersWearingExpObject(
             Fight _fight,
             TeamPositionList _list, DataBase _import) {
-        TeamPositionList list_ = new TeamPositionList();
+        Bytes list_ = new Bytes();
         for (TeamPosition f: _list) {
             Fighter membre_= _fight.getFighter(f);
             if(membre_.estKo()){
                 continue;
             }
-            if(!membre_.hasExpObject()){
-                continue;
+            ItemForBattle objet_ = membre_.dataExpObject(_import);
+            if (objet_ != null && objet_.getBoostExp()) {
+                list_.add(f.getPosition());
             }
-            ItemForBattle objet_=(ItemForBattle) membre_.dataExpObject(_import);
-            if(!objet_.getBoostExp()){
-                continue;
-            }
-            list_.add(f);
         }
         return list_;
     }

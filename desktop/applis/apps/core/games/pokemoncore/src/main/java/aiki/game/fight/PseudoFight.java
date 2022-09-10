@@ -7,20 +7,18 @@ import aiki.map.pokemon.PkTrainer;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.*;
-import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public class PseudoFight {
 
-    private CustList<PseudoFoeFighter> foes;
+    private final CustList<PseudoFoeFighter> foes;
 
-    private CustList<PseudoPlayerFighter> playerFighters;
+    private final CustList<PseudoPlayerFighter> playerFighters;
 
-    private byte mult;
+    private final byte mult;
 
-    private CustList<ByteMap<Byte>> actions;
+    private final CustList<ByteMap<Byte>> actions;
 
     public PseudoFight(CustList<PkTrainer> _foes,
             PseudoPlayer _pseudoPlayer,
@@ -37,16 +35,15 @@ public class PseudoFight {
             map_ = new ByteMap<Byte>(a);
             actions.add(map_);
         }
-        byte index_ = IndexConstants.FIRST_INDEX;
-        for (PseudoPokemonPlayer p: _pseudoPlayer.getTeam()) {
-            boolean front_;
-            front_ = !NumberUtil.eq(actions.first().getVal(index_), Fighter.BACK);
+        CustList<PseudoPokemonPlayer> team_ = _pseudoPlayer.getTeam();
+        int nb_ = team_.size();
+        for (byte i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
+            boolean front_ = !NumberUtil.eq(actions.first().getVal(i), Fighter.BACK);
             CustList<NameLevel> copy_ = new CustList<NameLevel>();
-            for (NameLevel e2_: _pseudoPlayer.getEvolutions().get(index_)) {
+            for (NameLevel e2_: _pseudoPlayer.getEvolutions().get(i)) {
                 copy_.add(new NameLevel(e2_));
             }
-            playerFighters.add(new PseudoPlayerFighter(p, front_, copy_));
-            index_++;
+            playerFighters.add(new PseudoPlayerFighter(team_.get(i), front_, copy_));
         }
         mult = (byte) _mult;
         for (PseudoPlayerFighter p: playerFighters) {
@@ -83,57 +80,21 @@ public class PseudoFight {
                 PseudoPlayerFighter s_ = playerFighters.get(k);
                 s_.setFront(true);
             }*/
-            int maxIndex_ = indexRound_ + mult;
-            for (byte i = indexRound_; i < maxIndex_; i++) {
+            int maxIndexRound_ = indexRound_ + mult;
+            for (byte i = indexRound_; i < maxIndexRound_; i++) {
                 if (i >= foes.size()) {
                     continue;
                 }
-                Bytes playerFighters_;
-                playerFighters_ = new Bytes();
-                byte indexPlayer_ = IndexConstants.FIRST_INDEX;
-                for (PseudoPlayerFighter p: playerFighters) {
-                    if (p.getFoes().containsObj(i)) {
-                        playerFighters_.add(indexPlayer_);
-                    }
-                    indexPlayer_++;
-                }
-                addExpFighters(playerFighters_, i, _diff, _data);
-                for (PseudoPlayerFighter p: playerFighters) {
-                    p.setFront(false);
-                    p.getFoes().removeObj(i);
-                }
-                foes.get(i).setFought(true);
+                useFoeFightAndRemoveIt(_diff, _data, i);
             }
             for (PseudoPlayerFighter p: playerFighters) {
                 p.calculateNewLevel(indexRound_, _data);
             }
-            byte indexFoe_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-            int nbFoes_ = foes.size();
-            for (byte i = IndexConstants.FIRST_INDEX; i < nbFoes_; i++) {
-                if (foes.get(i).isFought()) {
-                    continue;
-                }
-                indexFoe_ = i;
+            Bytes foes_ = nextFoesFrom();
+            if (indexAction_ >= actions.size()) {
                 break;
             }
-            if (indexFoe_ < IndexConstants.FIRST_INDEX) {
-                break;
-            }
-            Bytes foes_ = new Bytes();
-            maxIndex_ = indexFoe_ + mult;
-            for (byte i = indexFoe_; i < maxIndex_; i++) {
-                if (i >= foes.size()) {
-                    continue;
-                }
-                foes_.add(i);
-            }
-            Bytes fronts_ = new Bytes();
-            for (byte k: actions.get(indexAction_).getKeys()) {
-                if (NumberUtil.eq(actions.get(indexAction_).getVal(k), Fighter.BACK)) {
-                    continue;
-                }
-                fronts_.add(k);
-            }
+            Bytes fronts_ = nextFronts(indexAction_);
             for (byte k: fronts_) {
                 PseudoPlayerFighter f_ = playerFighters.get(k);
                 f_.setFront(true);
@@ -143,6 +104,60 @@ public class PseudoFight {
             indexAction_++;
             indexRound_ += mult;
         }
+    }
+
+    private Bytes nextFoesFrom() {
+        int nbFoes_ = foes.size();
+        for (byte i = IndexConstants.FIRST_INDEX; i < nbFoes_; i++) {
+            if (!foes.get(i).isFought()) {
+                return nextFoesFrom(i);
+            }
+        }
+        return new Bytes();
+    }
+
+    private void useFoeFightAndRemoveIt(Difficulty _diff, DataBase _data, byte _i) {
+        Bytes playerFighters_ = playerFightersContainingFoeIndex(_i);
+        addExpFighters(playerFighters_, _i, _diff, _data);
+        for (PseudoPlayerFighter p: playerFighters) {
+            p.setFront(false);
+            p.getFoes().removeObj(_i);
+        }
+        foes.get(_i).setFought(true);
+    }
+
+    private Bytes nextFronts(int _indexAction) {
+        Bytes fronts_ = new Bytes();
+        for (byte k: actions.get(_indexAction).getKeys()) {
+            if (NumberUtil.eq(actions.get(_indexAction).getVal(k), Fighter.BACK)) {
+                continue;
+            }
+            fronts_.add(k);
+        }
+        return fronts_;
+    }
+
+    private Bytes nextFoesFrom(byte _indexFoe) {
+        Bytes foes_ = new Bytes();
+        int maxIndexFoe_ = _indexFoe + mult;
+        for (byte i = _indexFoe; i < maxIndexFoe_; i++) {
+            if (i >= foes.size()) {
+                continue;
+            }
+            foes_.add(i);
+        }
+        return foes_;
+    }
+
+    private Bytes playerFightersContainingFoeIndex(byte _i) {
+        Bytes playerFighters_ = new Bytes();
+        int nb_ = playerFighters.size();
+        for (byte indexPlayer_ = IndexConstants.FIRST_INDEX; indexPlayer_ < nb_; indexPlayer_++) {
+            if (playerFighters.get(indexPlayer_).getFoes().containsObj(_i)) {
+                playerFighters_.add(indexPlayer_);
+            }
+        }
+        return playerFighters_;
     }
 
     void addExpFighters(Bytes _membres,byte _adv,Difficulty _diff,DataBase _import){
@@ -185,14 +200,10 @@ public class PseudoFight {
             if (membre_.getItem().isEmpty()) {
                 continue;
             }
-            if (!_import.isObjectUsedForExp(membre_.getItem())) {
-                continue;
+            ItemForBattle obj_ = _import.usedObjectUsedForExp(membre_.getItem());
+            if (obj_ != null && obj_.getBoostExp()) {
+                list_.add(f);
             }
-            ItemForBattle objet_=(ItemForBattle) _import.getItem(membre_.getItem());
-            if(!objet_.getBoostExp()){
-                continue;
-            }
-            list_.add(f);
         }
         return list_;
     }
@@ -201,53 +212,16 @@ public class PseudoFight {
             Bytes _membres, Bytes _porteursMultExp,
             byte _foe, Rate _points,
             Difficulty _diff, DataBase _import) {
-        byte nbPorteursMultExp_=(byte) _porteursMultExp.size();
-        PseudoPlayerFighter membre_=playerFighters.get(_fighter);
-        byte presCbt_=0;
-        if(_membres.containsObj(_fighter)){
-            presCbt_=1;
-        }
-        byte portMultExp_=0;
-        if(_porteursMultExp.containsObj(_fighter)){
-            portMultExp_=1;
-        }
-        Rate a_;
-        if(nbPorteursMultExp_>0){
-            a_=new Rate(portMultExp_,2*nbPorteursMultExp_);
-        } else {
-            a_=Rate.zero();
-        }
-        Rate b_;
-        if(!_membres.isEmpty()){
-            if(nbPorteursMultExp_>0){
-                b_=new Rate(presCbt_,_membres.size()*2);
-            } else {
-                b_=new Rate(presCbt_,_membres.size());
-            }
-        } else {
-            b_=Rate.zero();
-        }
-        Rate gainBase_=Rate.plus(a_,b_);
-        gainBase_.multiplyBy(_points);
-        Rate rate_ = rateWonPoint(_fighter, _foe, _diff, _import);
-        gainBase_.multiplyBy(rate_);
-        if (_import.isObjectUsedForExp(membre_.getItem())) {
-            ItemForBattle obj_ = (ItemForBattle) _import.getItem(membre_.getItem());
-            if (!obj_.getMultWinningExp().isZero()) {
-                gainBase_.multiplyBy(obj_.getMultWinningExp());
-            }
-        }
-        membre_.getWonExp().addNb(gainBase_);
+        PseudoPlayerFighter winner_ = playerFighters.get(_fighter);
+        PseudoFoeFighter looser_ = foes.get(_foe);
+        Rate gainBase_ = FightFacade.gainBase(new PointFoeExpObject(_membres,_porteursMultExp,_points,_foe),_diff,_import,winner_.getItem(),winner_.getLevel(), looser_.getLevel(),_fighter);
+        winner_.getWonExp().addNb(gainBase_);
     }
 
     Rate rateWonPoint(byte _winner, byte _looser, Difficulty _diff, DataBase _import) {
         PseudoPlayerFighter winner_ = playerFighters.get(_winner);
         PseudoFoeFighter looser_ = foes.get(_looser);
-        StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Long.toString(winner_.getLevel()));
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Long.toString(looser_.getLevel()));
-        String exp_ = _import.getRates().getVal(_diff.getDiffWinningExpPtsFight());
-        return _import.evaluatePositiveExp(exp_, vars_, Rate.one());
+        return FightFacade.rateWonPoint(_diff,_import,winner_.getLevel(),looser_.getLevel());
     }
 
     CustList<PseudoFoeFighter> getFoes() {

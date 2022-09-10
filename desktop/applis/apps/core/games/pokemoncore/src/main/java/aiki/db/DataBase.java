@@ -2849,16 +2849,19 @@ public class DataBase {
         return relais_;
     }
 
-    public boolean isObjectUsedForExp(String _obj) {
+    public ItemForBattle usedObjectUsedForExp(String _obj) {
         if (!items.contains(_obj)) {
-            return false;
+            return null;
         }
         Item obj_ = items.getVal(_obj);
         if (!(obj_ instanceof ItemForBattle)) {
-            return false;
+            return null;
         }
         ItemForBattle f_ = (ItemForBattle) obj_;
-        return f_.isUsedForExp();
+        if (f_.isUsedForExp()) {
+            return f_;
+        }
+        return null;
     }
 
     public StringList getTypes() {

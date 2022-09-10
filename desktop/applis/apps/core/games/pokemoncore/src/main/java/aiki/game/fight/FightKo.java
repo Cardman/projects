@@ -64,10 +64,7 @@ final class FightKo {
     }
 
     static boolean endedFight(Fight _fight, Difficulty _diff){
-        if (_fight.getEndRound()) {
-            return FightFacade.koTeam(_fight);
-        }
-        if (_diff.getEndFightIfOneTeamKo()) {
+        if (_fight.getEndRound() || _diff.getEndFightIfOneTeamKo()) {
             return FightFacade.koTeam(_fight);
         }
         return false;
@@ -75,8 +72,9 @@ final class FightKo {
 
     static void addExpEvsFighters(Fight _fight,Bytes _membres,byte _adv,Difficulty _diff,DataBase _import){
         TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(_fight,true);
-        TeamPositionList porteursMultExp_ = FightOrder.fightersWearingExpObject(_fight,fightersBelongingToUser_, _import);
+        Bytes porteursMultExp_ = FightOrder.fightersWearingExpObject(_fight,fightersBelongingToUser_, _import);
         Rate points_ = pointsFoe(_fight,_adv, _diff, _import);
+        PointFoeExpObject pointFoeExpObject_ = new PointFoeExpObject(_membres,porteursMultExp_,points_,_adv);
         Rate sumMaxLevel_ = Rate.zero();
         short levelMax_ = (short) _import.getMaxLevel();
         short nbMax_ = 0;
@@ -86,7 +84,7 @@ final class FightKo {
                 continue;
             }
             nbMax_++;
-            addExp(_fight,c, _membres, porteursMultExp_, Fight.toFoeFighter(_adv), points_, _diff, false, _import);
+            addExp(_fight,c, pointFoeExpObject_, _diff, false, _import);
             sumMaxLevel_.addNb(fighter_.getWonExp());
             fighter_.getWonExp().affectZero();
         }
@@ -99,7 +97,7 @@ final class FightKo {
                 fighter_.variationGainExperience(Rate.divide(sumMaxLevel_, new Rate(nbMax_)), _import);
                 _fight.addComment(fighter_.getComment());
             }
-            addExp(_fight,c, _membres, porteursMultExp_, Fight.toFoeFighter(_adv), points_, _diff, true, _import);
+            addExp(_fight,c, pointFoeExpObject_, _diff, true, _import);
         }
         for(TeamPosition c: fightersBelongingToUser_){
             addEv(_fight,c, _membres, _adv, _import);
@@ -115,16 +113,14 @@ final class FightKo {
         PokemonData fPk_=creatureAdv_.fichePokemon(_import);
         if(_membres.containsObj(_fighter.getPosition())){
             Rate gainEv_=DataBase.defRateProduct();
-            if(membre_.hasExpObject()){
-                ItemForBattle objet_=(ItemForBattle) membre_.dataExpObject(_import);
-                if(!objet_.getMultWinningEv().isZero()){
-                    gainEv_.multiplyBy(objet_.getMultWinningEv());
-                }
+            ItemForBattle objet_ = membre_.dataExpObject(_import);
+            if (objet_ != null && !objet_.getMultWinningEv().isZero()) {
+                gainEv_.multiplyBy(objet_.getMultWinningEv());
             }
             addEvStatistics(_fight,_fighter, gainEv_, fPk_.getEvs(), _import);
         }
-        if(membre_.hasExpObject()){
-            ItemForBattle objet_=(ItemForBattle) membre_.dataExpObject(_import);
+        ItemForBattle objet_ = membre_.dataExpObject(_import);
+        if(objet_ != null){
             Rate gainEv_=DataBase.defRateProduct();
             if(!objet_.getMultWinningEv().isZero()){
                 gainEv_.multiplyBy(objet_.getMultWinningEv());
@@ -146,20 +142,41 @@ final class FightKo {
         }
     }
 
-    static void addExp(Fight _fight,TeamPosition _fighter,
-            Bytes _members, TeamPositionList _porteursMultExp,
-            TeamPosition _foe, Rate _points,
-            Difficulty _diff, boolean _showMessage, DataBase _import) {
+    static void addExp(Fight _fight, TeamPosition _fighter,
+                       PointFoeExpObject _pointsFoeExp,
+                       Difficulty _diff, boolean _showMessage, DataBase _import) {
         //If the fighter _fighter is KO then it cannot win exp even by MULTI_EXP
         // the KO fighter checks !_porteursMultExp.containsObj(_fighter)
         // _members == FightOrder.fightersBelongingToUserHavingBeaten(_fight,_foe.getPosition())
         // The ref fought foe of A KO fighter are deleted
         // ==> the field wonExp does not vary
-        byte nbPorteursMultExp_=(byte) _porteursMultExp.size();
         Team equipeUt_ = _fight.getUserTeam();
         Fighter membre_=equipeUt_.refPartMembres(_fighter.getPosition());
+        String expItem_ = membre_.getExpItem();
+        Rate gainBase_ = gainBase(_pointsFoeExp, _diff, _import, expItem_, _fight.getUserTeam().refPartMembres(_fighter.getPosition()).getLevel(), _fight.getFoeTeam().refPartMembres(_pointsFoeExp.getFoe().getPosition()).getLevel(), _fighter.getPosition());
+        membre_.variationGainExperience(gainBase_, _import);
+        if (_showMessage) {
+            _fight.addComment(membre_.getComment());
+        }
+    }
+
+    static Rate gainBase(PointFoeExpObject _pointsFoeExp, Difficulty _diff, DataBase _import, String _expItem, short _winner, short _looser, byte _position) {
+        Rate gainBase_=rateExp(_position, _pointsFoeExp.getMembers(), _pointsFoeExp.getPorteursMultExp());
+        gainBase_.multiplyBy(_pointsFoeExp.getPoints());
+        Rate rate_ = rateWonPoint(_diff, _import, _winner, _looser);
+        gainBase_.multiplyBy(rate_);
+        ItemForBattle objet_ = _import.usedObjectUsedForExp(_expItem);
+        if (objet_ != null && !objet_.getMultWinningExp().isZero()) {
+            gainBase_.multiplyBy(objet_.getMultWinningExp());
+        }
+        return gainBase_;
+    }
+
+    private static Rate rateExp(byte _fighter,
+                        Bytes _members, Bytes _porteursMultExp) {
+        byte nbPorteursMultExp_=(byte) _porteursMultExp.size();
         byte presCbt_=0;
-        if(_members.containsObj(_fighter.getPosition())){
+        if(_members.containsObj(_fighter)){
             presCbt_=1;
         }
         byte portMultExp_=0;
@@ -168,42 +185,31 @@ final class FightKo {
         }
         Rate a_;
         if(nbPorteursMultExp_>0){
-            a_=new Rate(portMultExp_,2*nbPorteursMultExp_);
+            a_=new Rate(portMultExp_,2L*nbPorteursMultExp_);
         } else {
             a_=Rate.zero();
         }
         Rate b_;
         if(!_members.isEmpty()){
             if(nbPorteursMultExp_>0){
-                b_=new Rate(presCbt_,_members.size()*2);
+                b_=new Rate(presCbt_,_members.size()*2L);
             } else {
                 b_=new Rate(presCbt_,_members.size());
             }
         } else {
             b_=Rate.zero();
         }
-        Rate gainBase_=Rate.plus(a_,b_);
-        gainBase_.multiplyBy(_points);
-        Rate rate_ = rateWonPoint(_fight,_fighter, _foe, _diff, _import);
-        gainBase_.multiplyBy(rate_);
-        if (membre_.hasExpObject()) {
-            ItemForBattle obj_ = (ItemForBattle) membre_.dataExpObject(_import);
-            if (!obj_.getMultWinningExp().isZero()) {
-                gainBase_.multiplyBy(obj_.getMultWinningExp());
-            }
-        }
-        membre_.variationGainExperience(gainBase_, _import);
-        if (_showMessage) {
-            _fight.addComment(membre_.getComment());
-        }
+        return Rate.plus(a_,b_);
     }
 
-    static Rate rateWonPoint(Fight _fight,TeamPosition _winner, TeamPosition _looser, Difficulty _diff, DataBase _import) {
-        Fighter winner_ = _fight.getUserTeam().refPartMembres(_winner.getPosition());
-        Fighter looser_ = _fight.getFoeTeam().refPartMembres(_looser.getPosition());
+    static Rate rateWonPoint(Difficulty _diff, DataBase _import, Fighter _fighterWinner, Fighter _fighterLooser) {
+        return rateWonPoint(_diff, _import, _fighterWinner.getLevel(), _fighterLooser.getLevel());
+    }
+
+    static Rate rateWonPoint(Difficulty _diff, DataBase _import, short _winner, short _looser) {
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Long.toString(winner_.getLevel()));
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Long.toString(looser_.getLevel()));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Long.toString(_winner));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Long.toString(_looser));
         String exp_ = _import.getRates().getVal(_diff.getDiffWinningExpPtsFight());
         return _import.evaluatePositiveExp(exp_, vars_, Rate.one());
     }

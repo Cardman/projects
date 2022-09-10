@@ -177,22 +177,7 @@ public final class Team {
     }
 
     void initEquipeUtilisateur(Player _utilisateur,Difficulty _diff,short _multiplicite,DataBase _import){
-        playerFightersAgainstFoe = new ByteMap<Bytes>();
-        byte nbPks_=(byte) _utilisateur.getTeam().size();
-        byte i_= IndexConstants.FIRST_INDEX;
-        for(byte i = IndexConstants.FIRST_INDEX; i<nbPks_; i++){
-            if (!(_utilisateur.getTeam().get(i) instanceof PokemonPlayer)){
-                continue;
-            }
-            PokemonPlayer posPk_=(PokemonPlayer) _utilisateur.getTeam().get(i);
-            byte place_ = place(_multiplicite, i_, posPk_);
-            i_ = incrIfPossible(i_, place_);
-            Fighter creatureCbt_= new Fighter(posPk_,_import,place_);
-            creatureCbt_.initIvUt(_diff);
-            members.put(i,creatureCbt_);
-            playerFightersAgainstFoe.put(i,new Bytes());
-        }
-        initHealAfterMovesAnticipation(_import, _multiplicite);
+        initEquipeUtilisateur(_utilisateur,_diff,(byte)_multiplicite,(byte)_multiplicite,_import,new CustList<PkTrainer>());
     }
 
     private byte place(short _multiplicite, byte _i, PokemonPlayer _posPk) {

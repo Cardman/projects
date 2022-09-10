@@ -152,7 +152,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(!fight_.getAcceptableChoices());
         assertEq(IssueSimulation.NOT_KO_FOE,fight_.getIssue());
     }
@@ -222,7 +222,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(!fight_.getAcceptableChoices());
         assertEq(IssueSimulation.KO_PLAYER,fight_.getIssue());
     }
@@ -292,7 +292,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(!fight_.getAcceptableChoices());
         assertEq(IssueSimulation.KO_PLAYER,fight_.getIssue());
     }
@@ -362,7 +362,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(!fight_.getAcceptableChoices());
         assertEq(IssueSimulation.RULES_LEARN,fight_.getIssue());
     }
@@ -432,7 +432,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightFacade.win(fight_));
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
@@ -503,7 +503,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightFacade.win(fight_));
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
@@ -574,7 +574,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getAcceptableChoices());
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
     }
@@ -679,7 +679,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getAcceptableChoices());
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
     }
@@ -809,7 +809,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(ABSORB_EAU);
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
 //        assertTrue(!fight_.getAcceptableChoices());
         assertTrue(fight_.getAcceptableChoices());
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
@@ -917,7 +917,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getAcceptableChoices());
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
     }
@@ -988,7 +988,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(!fight_.getAcceptableChoices());
         assertEq(IssueSimulation.RULES_MOVES,fight_.getIssue());
     }
@@ -1093,7 +1093,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getAcceptableChoices());
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
     }
@@ -1234,7 +1234,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getAcceptableChoices());
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
     }
@@ -1375,7 +1375,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(!fight_.getAcceptableChoices());
         assertEq(IssueSimulation.NOT_KO_FOE,fight_.getIssue());
     }
@@ -1517,7 +1517,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
         actionsRound_.clear();
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getSimulation());
     }
 
@@ -1659,7 +1659,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evolutions_.add(evos_);
         fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         fight_.getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getSimulation());
     }
 
@@ -1769,7 +1769,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        evolutions_.add(evos_);
 //        fight_.getKos().put(Fight.FOE, true);
 //        fight_.getKos().put(Fight.PLAYER, false);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(!fight_.getAcceptableChoices());
         assertEq(IssueSimulation.KO_PLAYER,fight_.getIssue());
     }
@@ -1876,7 +1876,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(!fight_.getAcceptableChoices());
         assertEq(IssueSimulation.RULES_SWITCH,fight_.getIssue());
     }
@@ -1963,7 +1963,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 2, choice_);
         evolutions_.add(evos_);
-        FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
+        simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightFacade.win(fight_));
         assertEq(IssueSimulation.NOTHING,fight_.getIssue());
@@ -3721,6 +3721,15 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         assertEq(1, fightSimulation_.getKoFoes().size());
         assertEq(1, fightSimulation_.getNotKoFrontFoes().size());
         assertEq(0, fightSimulation_.getKoPlayers().size());
+    }
+
+    private void simulate(Fight _fight, CustList<CustList<ActionMove>> _actionsRound, CustList<CustList<ActionSwitch>> _actionsSubstitutingFront, CustList<CustList<ActionSwitch>> _actionsSubstitutingBack, CustList<ByteMap<ChoiceOfEvolutionAndMoves>> _evolutions, Player _player, Difficulty _diff, DataBase _data) {
+        FightSimulationActions fightSimulationActions_ = new FightSimulationActions();
+        fightSimulationActions_.getActionsBeforeRound().add(_actionsRound);
+        fightSimulationActions_.getActionsSubstitutingFront().add(_actionsSubstitutingFront);
+        fightSimulationActions_.getActionsSubstitutingBack().add(_actionsSubstitutingBack);
+        fightSimulationActions_.getMovesAbilities().add(_evolutions);
+        FightFacade.simulate(_fight, fightSimulationActions_,0, _player, _diff, _data);
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

@@ -9,9 +9,7 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class PseudoPlayerFighter extends PseudoFighter {
@@ -40,7 +38,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         super(_pseudo.getName(), _pseudo.getLevel());
         item = _pseudo.getItem();
         wonExp = Rate.zero();
-        wonExpSinceLastLevel = new Rate(_pseudo.getWonPointsSinceLastLevel());
+        wonExpSinceLastLevel = _pseudo.copyWonPointsSinceLastLevel();
         front = _front;
         foes = new Bytes();
         evoLevels = _evoLevels;
@@ -79,76 +77,22 @@ public class PseudoPlayerFighter extends PseudoFighter {
     }
 
     LevelExpPoints newLevelWonPoints(DataBase _import) {
-        short niveauTmp_=getLevel();
-        niveauTmp_++;
-        Rate sommeDiffNiveaux_=numberNecessaryPointsForGrowingLevel(niveauTmp_,_import);
-        niveauTmp_--;
-        short maxNiveau_=(short) _import.getMaxLevel();
-        while(true){
-            Rate sum_ = Rate.plus(getWonExp(), getWonExpSinceLastLevel());
-            if (Rate.strLower(sum_, sommeDiffNiveaux_)){
-                break;
-            }
-            niveauTmp_++;
-            if (niveauTmp_ >= maxNiveau_) {
-                if (niveauTmp_ > maxNiveau_) {
-                    niveauTmp_--;
-                }
-                break;
-            }
-            sommeDiffNiveaux_.addNb(numberNecessaryPointsForGrowingLevel((short) (niveauTmp_+1),_import));
-        }
-        return new LevelExpPoints(niveauTmp_,sommeDiffNiveaux_);
+        return Fighter.newLevelWonPoints(_import, getName(), getLevel(), getWonExp(), getWonExpSinceLastLevel());
     }
 
     Rate numberNecessaryPointsForGrowingLevel(short _niveau,DataBase _import){
-        PokemonData fPk_=_import.getPokemon(getName());
-        String expLitt_=_import.getExpGrowth().getVal(fPk_.getExpEvo());
-        StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(_niveau));
-        Rate next_;
-        next_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
-        Rate current_;
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(_niveau - 1L));
-        current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
-        vars_.clear();
-        return _import.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
+        return Fighter.numberNecessaryPointsForGrowingLevel(getName(),_niveau,_import);
     }
 
     void changeWonPoints(short _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
-        short maxNiveau_=(short) _import.getMaxLevel();
-        if(NumberUtil.eq(_niveauTmp,maxNiveau_)){
-            //cas gainExperience+gainExperienceDepuisDernierNiveau>=sommeDiffNiveaux_:
-            //==> gainExperience+gainExperienceDepuisDernierNiveau-sommeDiffNiveaux_>=0
-            //==> apres affectation gainExperience>=0
-            //gainExperience+gainExperienceDepuisDernierNiveau-sommeDiffNiveaux_>=0
-            getWonExp().addNb(Rate.minus(getWonExpSinceLastLevel(), _sommeDiffNiveaux));
-            getWonExpSinceLastLevel().affectZero();
-        }else{
-            //cas niveauTmp_ ne change pas:
-            //gainExperience>=0 et sommeDiffNiveaux_==nombrePointsExpNecessPourMonterNiveauDepart(niveauTmp_)
-            //==> gainExperience-sommeDiffNiveaux_+nombrePointsExpNecessPourMonterNiveauDepart(niveauTmp_)>=0
-            //cas niveauTmp_ change:
-            //gainExperienceDepuisDernierNiveau+gainExperience<sommeDiffNiveaux_(n_i,niveauTmp_) fin
-            //==> gainExperienceDepuisDernierNiveau+gainExperience>=sommeDiffNiveaux_(n_i,niveauTmp_-1)
-            //==> gainExperienceDepuisDernierNiveau+gainExperience-sommeDiffNiveaux_(n_i,niveauTmp_)>=sommeDiffNiveaux_(n_i,niveauTmp_-1)-sommeDiffNiveaux_(n_i,niveauTmp_)
-            //==> gainExperienceDepuisDernierNiveau+gainExperience-sommeDiffNiveaux_(n_i,niveauTmp_)>=-nombrePointsExpNecessPourMonterNiveauDepart(niveauTmp_)
-            //==> gainExperienceDepuisDernierNiveau+gainExperience-sommeDiffNiveaux_(n_i,niveauTmp_)+nombrePointsExpNecessPourMonterNiveauDepart(niveauTmp_)>=0
-            //==> apres affectation gainExperienceDepuisDernierNiveau>=0
-            getWonExpSinceLastLevel().addNb(Rate.minus(getWonExp(), _sommeDiffNiveaux));
-            getWonExpSinceLastLevel().addNb(numberNecessaryPointsForGrowingLevel((short) (_niveauTmp+1),_import));
-            getWonExp().affectZero();
-        }
+        Fighter.changeWonPoints(_niveauTmp, _sommeDiffNiveaux, _import, getName(), getWonExp(), getWonExpSinceLastLevel());
     }
 
     StringList newMoves(short _tmpLevel, DataBase _import) {
         StringList newMoves_ = new StringList();
         PokemonData fPk_ = _import.getPokemon(getName());
         for(LevelMove nivAtt_: fPk_.getLevMoves()){
-            if(nivAtt_.getLevel()>_tmpLevel){
-                continue;
-            }
-            if(nivAtt_.getLevel()<getLevel()){
+            if (nivAtt_.getLevel() > _tmpLevel || nivAtt_.getLevel() < getLevel()) {
                 continue;
             }
             newMoves_.add(nivAtt_.getMove());

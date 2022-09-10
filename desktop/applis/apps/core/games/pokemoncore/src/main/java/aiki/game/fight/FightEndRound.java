@@ -153,7 +153,7 @@ final class FightEndRound {
 //            if (creature_.estArriere()) {
 //                continue;
 //            }
-            creature_.setGroundPlaceSubst(creature_.getGroundPlace());
+            creature_.affectGroundPlaceSubst();
             if (c.getTeam() == Fight.CST_PLAYER) {
                 _fight.getFirstPositPlayerFighters().put(c.getPosition(), creature_.getGroundPlace());
             } else {

@@ -2484,9 +2484,9 @@ public class FightOrderTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         TeamPositionList fighters_ = FightOrder.fightersBelongingToUser(fight_,true);
-        fighters_ = FightOrder.fightersWearingExpObject(fight_,fighters_, data_);
-        assertEq(1, fighters_.size());
-        assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        Bytes fightersExpObject_ = FightOrder.fightersWearingExpObject(fight_, fighters_, data_);
+        assertEq(1, fightersExpObject_.size());
+        assertTrue(fightersExpObject_.containsObj(0));
     }
 
     @Test

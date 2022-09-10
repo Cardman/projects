@@ -1172,7 +1172,7 @@ final class FightRound {
                         ally_.addAllElts(_fight.getUserTeam().fightersAtCurrentPlace(m));
                     }
                     Fighter allyPk_ = _fight.getFighter(Fight.toUserFighter(ally_.first()));
-                    allyPk_.setGroundPlaceSubst(allyPk_.getGroundPlace());
+                    allyPk_.affectGroundPlaceSubst();
                     _fight.getFirstPositPlayerFighters().put(ally_.first(), allyPk_.getGroundPlace());
                     //_fight.getPlayerMaxNumberFrontFighters() == 1, but it is better to store in a variable
                     //allyPk_.getGroundPlace() == 0 or allyPk_.getGroundPlace() == 1
@@ -1180,8 +1180,7 @@ final class FightRound {
                     Fighter fighter_ = _fight.getFighter(pkPlayers_.first());
                     FightSending.sending(_fight, pkPlayers_.first(), _diff, _import);
                     fighter_.fullHeal(_import);
-                    fighter_.setGroundPlace(pl_);
-                    fighter_.setGroundPlaceSubst(pl_);
+                    fighter_.groundPlaceSubst(pl_);
                     _fight.getFirstPositPlayerFighters().put(pkPlayers_.first().getPosition(), pl_);
                     _fight.setFullHealing(false);
                     AnimationSwitch animation_;

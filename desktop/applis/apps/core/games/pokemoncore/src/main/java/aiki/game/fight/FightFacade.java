@@ -86,41 +86,35 @@ public final class FightFacade {
 
     public static void initFight(Fight _fight, Player _utilisateur,Difficulty _diff,GymLeader _dresseur,DataBase _import) {
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dresseur, _import);
-        FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
+        beginFight(_fight, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,GymTrainer _dresseur,DataBase _import) {
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dresseur, _import);
-        FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
+        beginFight(_fight, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,TrainerMultiFights _dresseur,int _numero,DataBase _import){
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dresseur, _numero, _import);
-        FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
+        beginFight(_fight, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,TrainerLeague _dresseur,DataBase _import){
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dresseur, _import);
-        FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
+        beginFight(_fight, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur, Difficulty _diff, DualFight _dual,DataBase _import){
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dual, _import);
-        FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
+        beginFight(_fight, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,WildPk _pokemon, DataBase _import){
         FightInitialization.initFight(_fight, _utilisateur, _diff, _pokemon, _import);
+        beginFight(_fight, _import);
+    }
+
+    public static void beginFight(Fight _fight, DataBase _import) {
         FightInitialization.initFight(_fight,_import);
         FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
         FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
@@ -1989,7 +1983,7 @@ public final class FightFacade {
 //                continue;
 //            }
             fighter_.fullHeal(_import);
-            fighter_.setGroundPlace(fighter_.getGroundPlaceSubst());
+            fighter_.affectGroundPlaceBySubst();
         }
         for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, false)) {
             Fighter fighter_ = _fight.getFighter(f);
@@ -2000,7 +1994,7 @@ public final class FightFacade {
 //                continue;
 //            }
             fighter_.fullHeal(_import);
-            fighter_.setGroundPlace(fighter_.getGroundPlaceSubst());
+            fighter_.affectGroundPlaceBySubst();
         }
         if(FightKo.endedFight(_fight,_diff)){
             return;
@@ -2437,66 +2431,42 @@ public final class FightFacade {
             creature_.setChosenHealingObjectMove(_fight.getChosenHealingMove(),_move);
         }
     }
+    public static Rate gainBase(PointFoeExpObject _pointsFoeExp, Difficulty _diff, DataBase _import, String _expItem, short _winner, short _looser, byte _position) {
+        return FightKo.gainBase(_pointsFoeExp, _diff, _import, _expItem, _winner, _looser, _position);
+    }
 
-    public static void simulate(Fight _fight,
-            CustList<CustList<ActionMove>> _actionsRound,
-            CustList<CustList<ActionSwitch>> _actionsSubstitutingFront,
-            CustList<CustList<ActionSwitch>> _actionsSubstitutingBack,
-            CustList<ByteMap<ChoiceOfEvolutionAndMoves>> _evolutions,
-            Player _utilisateur,Difficulty _diff,DataBase _import){
+    public static Rate rateWonPoint(Difficulty _diff, DataBase _import, short _winner, short _looser) {
+        return FightKo.rateWonPoint(_diff, _import, _winner, _looser);
+    }
+
+    public static void simulate(Fight _fight,FightSimulationActions _fightSimulationActions, int _index,
+                                Player _utilisateur,Difficulty _diff,DataBase _import){
         _fight.setSimulation(true);
         int round_ = IndexConstants.FIRST_INDEX;
-        while (true) {
-            if (round_ >= _actionsRound.size()) {
-                break;
-            }
+        while (round_ < _fightSimulationActions.getActionsBeforeRound(_index).size()) {
             if (stopSimulation(_fight)) {
                 return;
             }
-            CustList<ActionMove> actions_=_actionsRound.get(round_);
-            ByteMap<ChoiceOfEvolutionAndMoves> evolutions_ = _evolutions.get(round_);
-            int nbActions_=actions_.size();
-            for(byte i2_ = IndexConstants.FIRST_INDEX; i2_<nbActions_; i2_++){
-                ActionMove action_=actions_.get(i2_);
-                chooseFrontFighter(_fight, i2_, _diff, _import);
-                String move_ = action_.getFirstChosenMove();
-                chooseMove(_fight, move_, _diff, _import);
-                if (!_fight.getChosableFoeTargets().isEmpty()) {
-                    //!_fight.getChosableFoeTargets().isEmpty() <==> !_fight.getChosablePlayerTargets().isEmpty()
-                    if (NumberUtil.eq(action_.getChosenTargets().first().getTeam(), Fight.CST_FOE)) {
-                        setFirstChosenMoveFoeTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
-                    } else {
-                        setFirstChosenMovePlayerTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
-                    }
-                }
-//                if (!_fight.getChosableFoeTargets().isEmpty()) {
-//                    setFirstChosenMoveFoeTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
-//                }
-//                if (!_fight.getChosablePlayerTargets().isEmpty()) {
-//                    setFirstChosenMovePlayerTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
-//                }
-                /*MoveData fAtt_=_import.getMove(move_);
-                if (fAtt_.getTargetChoice().isWithChoice()) {
-                    setFirstChosenMoveFoeTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
-                } else {
-                    setFirstChosenMove(_fight, i2, move_);
-                }*/
-            }
-            if(!FightRules.playable(_fight,_utilisateur,_diff,_import)){
+            ByteMap<ChoiceOfEvolutionAndMoves> evolutions_ = _fightSimulationActions.getMovesAbilities(_index).get(round_);
+            beforeRound(_fight, _fightSimulationActions, _index, _diff, _import, round_);
+            if (!FightRules.playable(_fight, _utilisateur, _diff, _import)) {
                 _fight.setIssue(IssueSimulation.RULES_MOVES);
                 _fight.setAcceptableChoices(false);
                 return;
             }
-            while (true) {
-                roundAllThrowersChooseActionsFoe(_fight,_diff,_utilisateur,_import);
-                if(FightKo.endedFight(_fight,_diff)){
-                    _fight.setAcceptableChoices(win(_fight));
-                    return;
-                }
-                if (_fight.getState() != FightState.SWITCH_APRES_ATTAQUE) {
-                    break;
-                }
+            if (!endedFullRound(_fight, _utilisateur, _diff, _import)) {
+                return;
             }
+//            while (true) {
+//                roundAllThrowersChooseActionsFoe(_fight, _diff, _utilisateur, _import);
+//                if (FightKo.endedFight(_fight, _diff)) {
+//                    _fight.setAcceptableChoices(win(_fight));
+//                    return;
+//                }
+//                if (_fight.getState() != FightState.SWITCH_APRES_ATTAQUE) {
+//                    break;
+//                }
+//            }
 //            do {
 //                roundAllThrowersChooseActionsFoe(_fight,_diff,_utilisateur,_import);
 //                if(FightKo.endedFight(_fight,_diff)){
@@ -2504,12 +2474,28 @@ public final class FightFacade {
 //                    return;
 //                }
 //            } while (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE);
-            if(_fight.getState()==FightState.APPRENDRE_EVOLUER){
-                ByteMap<ChoiceOfEvolutionAndMoves> choices_ = _fight.getChoices();
-                for(byte c: _fight.getChoices().getKeys()){
+            if (_fight.getState() == FightState.APPRENDRE_EVOLUER && issueEvolve(_fight, _diff, _import, evolutions_)) {
+                return;
+            }
+            if (existPlayerFaintedOrFoeNotFainted(_fight)) {
+                return;
+            }
+//            if(win(_fight)){
+//                return;
+//            }
+            if (notSubsti(_fight, _fightSimulationActions, _index, _utilisateur, _diff, _import, round_)) {
+                return;
+            }
+            round_++;
+        }
+    }
+
+    private static boolean issueEvolve(Fight _fight, Difficulty _diff, DataBase _import, ByteMap<ChoiceOfEvolutionAndMoves> _evolutions) {
+        ByteMap<ChoiceOfEvolutionAndMoves> choices_ = _fight.getChoices();
+        for (byte c : _fight.getChoices().getKeys()) {
 //                    ChoiceOfEvolutionAndMoves calculated_;
 //                    calculated_ = _fight.getChoices().getVal(c);
-                    //_fight.setChosenIndex(c);
+            //_fight.setChosenIndex(c);
 //                    for (String m: new StringList(calculated_.getKeptMoves())) {
 //                        byte key_ = _fight.getUserTeam().fighterAtIndex(_fight.getChosenIndex());
 //                        ChoiceOfEvolutionAndMoves choice_ = choices_.getVal(key_);
@@ -2519,78 +2505,64 @@ public final class FightFacade {
 //                        //setEvolution(_fight, evolutions_.getVal(c).getName());
 //                        //setAbility(_fight, evolutions_.getVal(c).getAbility());
 //                    }
-                    byte key_ = _fight.getUserTeam().fighterAtIndex(c);
-                    ChoiceOfEvolutionAndMoves choice_ = choices_.getVal(key_);
-                    if (!evolutions_.getVal(c).getName().isEmpty()) {
-                        choice_.setName(evolutions_.getVal(c).getName());
-                        choice_.setAbility(evolutions_.getVal(c).getAbility());
-                    }
-                    choice_.getKeptMoves().clear();
-                    choice_.getKeptMoves().addAllElts(evolutions_.getVal(c).getKeptMoves());
+            byte key_ = _fight.getUserTeam().fighterAtIndex(c);
+            ChoiceOfEvolutionAndMoves choice_ = choices_.getVal(key_);
+            if (!_evolutions.getVal(c).getName().isEmpty()) {
+                choice_.setName(_evolutions.getVal(c).getName());
+                choice_.setAbility(_evolutions.getVal(c).getAbility());
+            }
+            choice_.getKeptMoves().clear();
+            choice_.getKeptMoves().addAllElts(_evolutions.getVal(c).getKeptMoves());
 //                    for (String m: evolutions_.getVal(c).getKeptMoves()) {
 //                        choice_.getKeptMoves().add(m);
 //                    }
-                }
-                if (!possibleChoices(_fight, _import)) {
-                    _fight.setIssue(IssueSimulation.RULES_LEARN);
-                    _fight.setAcceptableChoices(false);
-                    return;
-                }
-                learnAndEvolveAttack(_fight, _diff, _import);
+        }
+        if (!possibleChoices(_fight, _import)) {
+            _fight.setIssue(IssueSimulation.RULES_LEARN);
+            _fight.setAcceptableChoices(false);
+            return true;
+        }
+        learnAndEvolveAttack(_fight, _diff, _import);
+        return false;
+    }
+
+    private static boolean existPlayerFaintedOrFoeNotFainted(Fight _fight) {
+        Team equipeUt_ = _fight.getUserTeam();
+        for (byte c : equipeUt_.getMembers().getKeys()) {
+            Fighter creatureLanceur_ = equipeUt_.getMembers().getVal(c);
+            if (!creatureLanceur_.estKo()) {
+                continue;
             }
-            Team equipeUt_=_fight.getUserTeam();
-            for(byte c:equipeUt_.getMembers().getKeys()){
-                Fighter creatureLanceur_=equipeUt_.getMembers().getVal(c);
-                if(!creatureLanceur_.estKo()){
-                    continue;
-                }
-                _fight.setIssue(IssueSimulation.KO_PLAYER);
+            _fight.setIssue(IssueSimulation.KO_PLAYER);
+            _fight.setAcceptableChoices(false);
+            return true;
+        }
+        Team equipeAdv_ = _fight.getFoeTeam();
+        for (byte c : equipeAdv_.getMembers().getKeys()) {
+            Fighter creatureLanceur_ = equipeAdv_.getMembers().getVal(c);
+            if (creatureLanceur_.estKo() || creatureLanceur_.estArriere()) {
+                continue;
+            }
+            _fight.setIssue(IssueSimulation.NOT_KO_FOE);
+            _fight.setAcceptableChoices(false);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean notSubsti(Fight _fight, FightSimulationActions _fightSimulationActions, int _index, Player _utilisateur, Difficulty _diff, DataBase _import, int _round) {
+        FightArtificialIntelligence.choiceForSubstituing(_fight, _import);
+        _fight.setState(FightState.SWITCH_PROPOSE);
+        boolean test_ = false;
+        //_fight.getState() != FightState.ATTAQUES
+        while (keepLoop(_fight, test_)) {
+            simuSubsti(_fight, _fightSimulationActions, _index, _diff, _import, _round);
+            if (!FightRules.substitutable(_fight, _diff, _import)) {
+                _fight.setIssue(IssueSimulation.RULES_SWITCH);
                 _fight.setAcceptableChoices(false);
-                return;
+                return true;
             }
-            Team equipeAdv_=_fight.getFoeTeam();
-            for(byte c:equipeAdv_.getMembers().getKeys()){
-                Fighter creatureLanceur_=equipeAdv_.getMembers().getVal(c);
-                if(creatureLanceur_.estKo()){
-                    continue;
-                }
-                if(creatureLanceur_.estArriere()){
-                    continue;
-                }
-                _fight.setIssue(IssueSimulation.NOT_KO_FOE);
-                _fight.setAcceptableChoices(false);
-                return;
-            }
-//            if(win(_fight)){
-//                return;
-//            }
-            FightArtificialIntelligence.choiceForSubstituing(_fight, _import);
-            _fight.setState(FightState.SWITCH_PROPOSE);
-            boolean test_ = false;
-            //_fight.getState() != FightState.ATTAQUES
-            while (true) {
-                if (!keepLoop(_fight, test_)) {
-                    break;
-                }
-                CustList<ActionSwitch> backActions_ = _actionsSubstitutingBack.get(round_);
-                CustList<ActionSwitch> frontActions_ = _actionsSubstitutingFront.get(round_);
-                int nbActionsLen_;
-                nbActionsLen_ = frontActions_.size();
-                for (byte f = IndexConstants.FIRST_INDEX; f < nbActionsLen_; f++) {
-                    chooseFrontFighter(_fight, f, _diff, _import);
-                    setSubstituteFront(_fight, frontActions_.get(f).getSubstitute());
-                }
-                nbActionsLen_ = backActions_.size();
-                for (byte f = IndexConstants.FIRST_INDEX; f < nbActionsLen_; f++) {
-                    chooseBackFighter(_fight, f, _import);
-                    setSubstituteBack(_fight, backActions_.get(f).getSubstitute());
-                }
-                if (!FightRules.substitutable(_fight, _diff, _import)) {
-                    _fight.setIssue(IssueSimulation.RULES_SWITCH);
-                    _fight.setAcceptableChoices(false);
-                    return;
-                }
-                FightSending.sendSubstitutes(_fight,_diff, _utilisateur,_import);
+            FightSending.sendSubstitutes(_fight, _diff, _utilisateur, _import);
 //                if (!keepLoop(_fight)) {
 //                    break;
 //                }
@@ -2608,9 +2580,69 @@ public final class FightFacade {
 //                if (_fight.getState() != FightState.ATTAQUES) {
 //                    round_++;
 //                }
-                test_ = true;
+            test_ = true;
+        }
+        return false;
+    }
+
+    private static void simuSubsti(Fight _fight, FightSimulationActions _fightSimulationActions, int _index, Difficulty _diff, DataBase _import, int _round) {
+        CustList<ActionSwitch> backActions_ = _fightSimulationActions.getActionsSubstitutingBack(_index).get(_round);
+        CustList<ActionSwitch> frontActions_ = _fightSimulationActions.getActionsSubstitutingFront(_index).get(_round);
+        int nbActionsLen_;
+        nbActionsLen_ = frontActions_.size();
+        for (byte f = IndexConstants.FIRST_INDEX; f < nbActionsLen_; f++) {
+            chooseFrontFighter(_fight, f, _diff, _import);
+            setSubstituteFront(_fight, frontActions_.get(f).getSubstitute());
+        }
+        nbActionsLen_ = backActions_.size();
+        for (byte f = IndexConstants.FIRST_INDEX; f < nbActionsLen_; f++) {
+            chooseBackFighter(_fight, f, _import);
+            setSubstituteBack(_fight, backActions_.get(f).getSubstitute());
+        }
+    }
+
+    private static boolean endedFullRound(Fight _fight,
+                                          Player _utilisateur,Difficulty _diff,DataBase _import) {
+        while (true) {
+            roundAllThrowersChooseActionsFoe(_fight, _diff, _utilisateur, _import);
+            if (FightKo.endedFight(_fight, _diff)) {
+                _fight.setAcceptableChoices(win(_fight));
+                return false;
             }
-            round_++;
+            if (_fight.getState() != FightState.SWITCH_APRES_ATTAQUE) {
+                return true;
+            }
+        }
+    }
+
+    private static void beforeRound(Fight _fight, FightSimulationActions _fightSimulationActions, int _index, Difficulty _diff, DataBase _import, int _round) {
+        CustList<ActionMove> actions_ = _fightSimulationActions.getActionsBeforeRound(_index).get(_round);
+        int nbActions_ = actions_.size();
+        for (byte i2_ = IndexConstants.FIRST_INDEX; i2_ < nbActions_; i2_++) {
+            ActionMove action_ = actions_.get(i2_);
+            chooseFrontFighter(_fight, i2_, _diff, _import);
+            String move_ = action_.getFirstChosenMove();
+            chooseMove(_fight, move_, _diff, _import);
+            if (!_fight.getChosableFoeTargets().isEmpty()) {
+                //!_fight.getChosableFoeTargets().isEmpty() <==> !_fight.getChosablePlayerTargets().isEmpty()
+                if (NumberUtil.eq(action_.getChosenTargets().first().getTeam(), Fight.CST_FOE)) {
+                    setFirstChosenMoveFoeTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
+                } else {
+                    setFirstChosenMovePlayerTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
+                }
+            }
+//                if (!_fight.getChosableFoeTargets().isEmpty()) {
+//                    setFirstChosenMoveFoeTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
+//                }
+//                if (!_fight.getChosablePlayerTargets().isEmpty()) {
+//                    setFirstChosenMovePlayerTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
+//                }
+            /*MoveData fAtt_=_import.getMove(move_);
+            if (fAtt_.getTargetChoice().isWithChoice()) {
+                setFirstChosenMoveFoeTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
+            } else {
+                setFirstChosenMove(_fight, i2, move_);
+            }*/
         }
     }
 
@@ -2725,23 +2757,26 @@ public final class FightFacade {
             f.initIvUt(_diff);
             f.initHp();
         }
-        if (_fight.getState() == FightState.ATTAQUES || _fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
-            for (TeamPosition f: FightOrder.fighters(_fight)) {
-                Fighter fighter_ = _fight.getFighter(f);
-                AbstractAction action_ = fighter_.getAction();
-                if (!(action_ instanceof ActionMove)) {
-                    continue;
-                }
-                String move_ = ((ActionMove)action_).getFirstChosenMove();
-                if (move_.isEmpty()) {
+        fixUserTeamFront(_fight, _data);
+    }
+
+    private static void fixUserTeamFront(Fight _fight, DataBase _data) {
+        if (_fight.getState() != FightState.ATTAQUES && _fight.getState() != FightState.SWITCH_APRES_ATTAQUE) {
+            return;
+        }
+        for (TeamPosition f: FightOrder.fighters(_fight)) {
+            Fighter fighter_ = _fight.getFighter(f);
+            AbstractAction action_ = fighter_.getAction();
+            if (action_ instanceof ActionMove) {
+                String move_ = ((ActionMove) action_).getFirstChosenMove();
+                MoveData fAtt_ = _data.getMove(move_);
+                if (fAtt_ == null) {
                     fighter_.cancelActions();
                     continue;
                 }
-                MoveData fAtt_=_data.getMove(move_);
-                if (fAtt_.getTargetChoice().isWithChoice()) {
-                    continue;
+                if (!fAtt_.getTargetChoice().isWithChoice()) {
+                    fighter_.getChosenTargets().clear();
                 }
-                fighter_.getChosenTargets().clear();
             }
         }
     }

@@ -2,26 +2,29 @@ package aiki.game.fight;
 import aiki.fight.pokemon.NameLevel;
 import aiki.map.pokemon.PokemonPlayer;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 
 public class PseudoPlayer {
 
-    private CustList<PseudoPokemonPlayer> team;
+    private final CustList<PseudoPokemonPlayer> team;
 
-    private CustList<StringList> items;
+    private final CustList<StringList> items;
 
-    private CustList<CustList<StringList>> usedStones;
+    private final CustList<CustList<StringList>> usedStones;
 
-    private CustList<CustList<NameLevel>> evolutions;
+    private final CustList<CustList<NameLevel>> evolutions;
 
     public PseudoPlayer(CustList<PokemonPlayer> _team,
-            CustList<CustList<NameLevel>> _evolutions) {
+                        CustList<CustList<NameLevel>> _evolutions) {
+        this(_team,_evolutions,new CustList<StringList>());
+    }
+    public PseudoPlayer(CustList<PokemonPlayer> _team,
+            CustList<CustList<NameLevel>> _evolutions, CustList<StringList> _it) {
         team = new CustList<PseudoPokemonPlayer>();
         for (PokemonPlayer p: _team) {
             team.add(new PseudoPokemonPlayer(p));
         }
-        items = new CustList<StringList>();
+        items = _it;
         usedStones = new CustList<CustList<StringList>>();
         evolutions = new CustList<CustList<NameLevel>>();
         for (CustList<NameLevel> l: _evolutions) {
@@ -40,10 +43,6 @@ public class PseudoPlayer {
 
     public CustList<StringList> getItems() {
         return items;
-    }
-
-    public void setItems(CustList<StringList> _items) {
-        items = _items;
     }
 
     public CustList<CustList<StringList>> getUsedStones() {

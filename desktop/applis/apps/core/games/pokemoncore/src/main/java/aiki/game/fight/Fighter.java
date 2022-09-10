@@ -333,7 +333,7 @@ public final class Fighter {
     void initCreatureUser(PokemonPlayer _pokemon,DataBase _import){
         belongingToPlayer = true;
         initCreature(_pokemon);
-        if (_import.isObjectUsedForExp(item)) {
+        if (_import.usedObjectUsedForExp(item) != null) {
             expItem = item;
         } else {
             expItem = DataBase.EMPTY_STRING;
@@ -565,19 +565,7 @@ public final class Fighter {
     //This class is covered
     //byte _user, in back
     public boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
-        if (!_data.getPokedex().contains(name) || !_data.getPokedex().contains(currentName) || !_data.getAbilities().contains(ability) || !_data.getAbilities().contains(currentAbility) || !item.isEmpty() && !_data.getItems().contains(item) || !expItem.isEmpty() && !_data.isObjectUsedForExp(expItem) || !lastUsedItem.isEmpty() && !_data.getItems().contains(lastUsedItem) || height.isZeroOrLt() || weight.isZeroOrLt()) {
-            return false;
-        }
-        for (String t: types) {
-            if (!StringUtil.contains(_data.getTypes(), t)) {
-                return false;
-            }
-        }
-        return okDefaultFourth(_data, _numberTeam, _fight);
-    }
-
-    private boolean okDefaultFourth(DataBase _data, byte _numberTeam, Fight _fight) {
-        if (koOwnedMoves(_data)) {
+        if (koNames(_data) || koAbilities(_data) || koItems(_data) || koHeightWeight() || koTypes(_data) || koOwnedMoves(_data)) {
             return false;
         }
         for (String m: alreadyInvokedMovesRound) {
@@ -585,43 +573,152 @@ public final class Fighter {
                 return false;
             }
         }
-        if (koAction(_data, _numberTeam, _fight) || !nbRounds.isZeroOrGt() || level <= 0 || level > _data.getMaxLevel() || !Statistic.equalsSet(ev.getKeys(), Statistic.getStatisticsWithBase()) || !Statistic.equalsSet(statisBase.getKeys(), Statistic.getStatisticsWithBase()) || !Statistic.equalsSet(statisBoost.getKeys(), Statistic.getStatisticsWithBoost()) || koStatistic(_data) || !clone.isZeroOrGt() || !remainingHp.isZeroOrGt() || Rate.strGreater(remainingHp, pvMax()) || estKo() && !estArriere() || NumberUtil.eq(groundPlaceSubst, Fighter.BACK) && !estArriere() || isBelongingToPlayer() && (!_data.getItems().contains(usedBallCatching) || !(_data.getItem(usedBallCatching) instanceof Ball)) || !wonExp.isZeroOrGt() || !wonExpSinceLastLevel.isZeroOrGt() || happiness < 0 || happiness > _data.getHappinessMax() || koEnabled(_data) || !_data.getTypes().containsAllObj(protectedAgainstMoveTypes) || !StringUtil.equalsSet(_data.getMovesEffEndRoundIndiv(), enabledMovesEndRound.getKeys())) {
+        if (koAction(_data, _numberTeam, _fight) || !nbRounds.isZeroOrGt() || koLevel(_data) || koStatisticMaps(_data) || invalidUsedBallCatchingBelongToUser(_data) || koWonPoints() || koHappiness(_data) || koEnabledList(_data, _fight)) {
             return false;
         }
-        return okDefaultThird(_data, _fight);
+        return !koMovesToBeLearntEvos(_data) && !koSpecMoves(_data) && okAbsentForRound() && nbRepeatingSuccessfulMoves.isZeroOrGt() && okLastUsedMove(_data) && okUsedMoveLastRound(_data) && okLastSuccessfulMove(_data) && okLastSufferedMove(_data) && _data.getTypes().containsAllObj(lastSufferedMoveTypes) && okGroundPositionsHp();
     }
 
-    private boolean okDefaultThird(DataBase _data, Fight _fight) {
+    private boolean koTypes(DataBase _data) {
+        for (String t: types) {
+            if (!StringUtil.contains(_data.getTypes(), t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean koHeightWeight() {
+        return height.isZeroOrLt() || weight.isZeroOrLt();
+    }
+
+    private boolean koItems(DataBase _data) {
+        return invalidItem(_data) || invalidExpItem(_data) || invalidLastUsedItem(_data);
+    }
+
+    private boolean koAbilities(DataBase _data) {
+        return !_data.getAbilities().contains(ability) || !_data.getAbilities().contains(currentAbility);
+    }
+
+    private boolean koNames(DataBase _data) {
+        return !_data.getPokedex().contains(name) || !_data.getPokedex().contains(currentName);
+    }
+
+    private boolean invalidLastUsedItem(DataBase _data) {
+        return !lastUsedItem.isEmpty() && !_data.getItems().contains(lastUsedItem);
+    }
+
+    private boolean invalidItem(DataBase _data) {
+        return !item.isEmpty() && !_data.getItems().contains(item);
+    }
+
+    private boolean invalidExpItem(DataBase _data) {
+        return !expItem.isEmpty() && dataExpObject(_data) == null;
+    }
+
+    private boolean invalidUsedBallCatchingBelongToUser(DataBase _data) {
+        return isBelongingToPlayer() && invalidUsedBallCatching(_data);
+    }
+
+    private boolean koWonPoints() {
+        return !wonExp.isZeroOrGt() || !wonExpSinceLastLevel.isZeroOrGt();
+    }
+
+    private boolean koHappiness(DataBase _data) {
+        return happiness < 0 || happiness > _data.getHappinessMax();
+    }
+
+    private boolean koLevel(DataBase _data) {
+        return level <= 0 || level > _data.getMaxLevel();
+    }
+
+    private boolean koStatisticMaps(DataBase _data) {
+        return !Statistic.equalsSet(ev.getKeys(), Statistic.getStatisticsWithBase()) || !Statistic.equalsSet(statisBase.getKeys(), Statistic.getStatisticsWithBase()) || !Statistic.equalsSet(statisBoost.getKeys(), Statistic.getStatisticsWithBoost()) || koStatistic(_data);
+    }
+
+    private boolean invalidUsedBallCatching(DataBase _data) {
+        return !_data.getItems().contains(usedBallCatching) || !(_data.getItem(usedBallCatching) instanceof Ball);
+    }
+
+    private boolean koEnabledList(DataBase _data, Fight _fight) {
+        if (!_data.getTypes().containsAllObj(protectedAgainstMoveTypes)) {
+            return true;
+        }
+        if (koRelations(_data, _fight)) {
+            return true;
+        }
+        if (koDamageRateInflictedByType(_data)) {
+            return true;
+        }
+        if (koSufferingMoves(_data)) {
+            return true;
+        }
+        if (koEnabled(_data)) {
+            return true;
+        }
+        if (koEnabledMovesEndRound(_data)) {
+            return true;
+        }
+        return !StringUtil.equalsSet(_data.getMovesEffectAlly(), enabledMovesForAlly.getKeys()) || !StringUtil.equalsSet(_data.getMovesConstChoices(), enabledMovesConstChoices.getKeys()) || !StringUtil.equalsSet(_data.getMovesChangingTypes(), enabledChangingTypesMoves.getKeys()) || !StringUtil.equalsSet(_data.getMovesCountering(), enabledCounteringMoves.getKeys());
+    }
+
+    private boolean koEnabledMovesEndRound(DataBase _data) {
+        if (!StringUtil.equalsSet(_data.getMovesEffEndRoundIndiv(), enabledMovesEndRound.getKeys())) {
+            return true;
+        }
         for (String m: enabledMovesEndRound.getKeys()) {
             if (enabledMovesEndRound.getVal(m).getNbTurn() < 0) {
-                return false;
+                return true;
             }
         }
-        if (!StringUtil.equalsSet(_data.getMovesEffectAlly(), enabledMovesForAlly.getKeys()) || !StringUtil.equalsSet(_data.getMovesConstChoices(), enabledMovesConstChoices.getKeys()) || !StringUtil.equalsSet(_data.getMovesChangingTypes(), enabledChangingTypesMoves.getKeys()) || !StringUtil.equalsSet(_data.getMovesCountering(), enabledCounteringMoves.getKeys()) || !StringUtil.equalsSet(_data.getTypes(), damageRateInflictedByType.getKeys())) {
-            return false;
-        }
-        return okDefaultSec(_data, _fight);
+        return false;
     }
 
-    private boolean okDefaultSec(DataBase _data, Fight _fight) {
-        for (String m: damageRateInflictedByType.getKeys()) {
-            if (!damageRateInflictedByType.getVal(m).isZeroOrGt()) {
-                return false;
-            }
-        }
-        if (koSufferingMoves(_data) || koEnabled()) {
-            return false;
-        }
+    private boolean koMovesToBeLearnt(DataBase _data) {
         for (String m:movesToBeLearnt) {
             if (!_data.getMoves().contains(m) || moves.contains(m)) {
-                return false;
+                return true;
             }
         }
-        return okDefault(_data, _fight);
+        return false;
     }
 
-    private boolean okDefault(DataBase _data, Fight _fight) {
-        return !koEvos(_data) && !koRelations(_data, _fight) && !koSpecMoves(_data) && (nbPrepaRound != 0 || !disappeared) && nbPrepaRound >= 0 && (nbPrepaRound <= 0 || !needingToRecharge) && nbRepeatingSuccessfulMoves.isZeroOrGt() && okLastUsedMove(_data) && (usedMoveLastRound.isEmpty() || (_data.getMoves().contains(usedMoveLastRound) && StringUtil.contains(attaquesUtilisables(), usedMoveLastRound))) && (lastSuccessfulMove.isEmpty() || _data.getMoves().contains(lastSuccessfulMove)) && (lastSufferedMove.isEmpty() || _data.getMoves().contains(lastSufferedMove)) && _data.getTypes().containsAllObj(lastSufferedMoveTypes) && !TargetCoords.koPosition(groundPlace) && !TargetCoords.koPosition(groundPlaceSubst);
+    private boolean koDamageRateInflictedByType(DataBase _data) {
+        if (!StringUtil.equalsSet(_data.getTypes(), damageRateInflictedByType.getKeys())) {
+            return true;
+        }
+        for (String m: damageRateInflictedByType.getKeys()) {
+            if (!damageRateInflictedByType.getVal(m).isZeroOrGt()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean okGroundPositionsHp() {
+        if (!clone.isZeroOrGt() || !remainingHp.isZeroOrGt() || Rate.strGreater(remainingHp, pvMax())) {
+            return false;
+        }
+        if (estKo() && !estArriere() || NumberUtil.eq(groundPlaceSubst, Fighter.BACK) && !estArriere()) {
+            return false;
+        }
+        return !TargetCoords.koPosition(groundPlace) && !TargetCoords.koPosition(groundPlaceSubst);
+    }
+
+    private boolean okAbsentForRound() {
+        return (nbPrepaRound != 0 || !disappeared) && nbPrepaRound >= 0 && (nbPrepaRound <= 0 || !needingToRecharge);
+    }
+
+    private boolean okUsedMoveLastRound(DataBase _data) {
+        return usedMoveLastRound.isEmpty() || (_data.getMoves().contains(usedMoveLastRound) && StringUtil.contains(attaquesUtilisables(), usedMoveLastRound));
+    }
+
+    private boolean okLastSuccessfulMove(DataBase _data) {
+        return lastSuccessfulMove.isEmpty() || _data.getMoves().contains(lastSuccessfulMove);
+    }
+
+    private boolean okLastSufferedMove(DataBase _data) {
+        return lastSufferedMove.isEmpty() || _data.getMoves().contains(lastSufferedMove);
     }
 
     private boolean okLastUsedMove(DataBase _data) {
@@ -716,7 +813,7 @@ public final class Fighter {
                 return true;
             }
         }
-        return false;
+        return koEnabled();
     }
 
     private boolean koEnabled() {
@@ -822,7 +919,10 @@ public final class Fighter {
         return false;
     }
 
-    private boolean koEvos(DataBase _data) {
+    private boolean koMovesToBeLearntEvos(DataBase _data) {
+        if (koMovesToBeLearnt(_data)) {
+            return true;
+        }
         PokemonData fPk_ = fichePokemon(_data);
         for (EntryCust<String, MovesAbilities> e: movesAbilitiesEvos.entryList()) {
             if (koEvo(_data, fPk_, e.getKey(), e.getValue())) {
@@ -991,7 +1091,11 @@ public final class Fighter {
     }
 
     Rate numberNecessaryPointsForGrowingLevel(short _niveau,DataBase _import){
-        PokemonData fPk_=fichePokemon(_import);
+        return numberNecessaryPointsForGrowingLevel(name, _niveau, _import);
+    }
+
+    public static Rate numberNecessaryPointsForGrowingLevel(String _name, short _niveau, DataBase _import) {
+        PokemonData fPk_= _import.getPokemon(_name);
         String expLitt_=_import.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,NIVEAU),Long.toString(_niveau));
@@ -1006,11 +1110,9 @@ public final class Fighter {
 
     StringList nomEvolutions(DataBase _import,StringList _pkNamesBegin){
         StringList evos_ = new StringList();
-        if(hasExpObject()){
-            ItemForBattle objet_=(ItemForBattle) dataExpObject(_import);
-            if(objet_.getAgainstEvo()){
-                return evos_;
-            }
+        ItemForBattle objet_ = dataExpObject(_import);
+        if (objet_ != null && objet_.getAgainstEvo()) {
+            return evos_;
         }
         PokemonData fPk_=fichePokemon(_import);
         for(String e:fPk_.getEvolutions().getKeys()){
@@ -1100,16 +1202,12 @@ public final class Fighter {
         return !item.isEmpty();
     }
 
-    boolean hasExpObject(){
-        return !expItem.isEmpty();
-    }
-
     Item ficheObjet(DataBase _import){
         return _import.getItem(item);
     }
 
-    Item dataExpObject(DataBase _import){
-        return _import.getItem(expItem);
+    ItemForBattle dataExpObject(DataBase _import){
+        return _import.usedObjectUsedForExp(expItem);
     }
 
     public LgInt rateRemainHp() {
@@ -1337,6 +1435,18 @@ public final class Fighter {
         lastSuccessfulMove=((ActionMove)action).getFinalChosenMove();
     }
 
+    public void groundPlaceSubst(byte _pos) {
+        groundPlace = _pos;
+        groundPlaceSubst = _pos;
+    }
+
+    public void affectGroundPlaceBySubst() {
+        groundPlace = groundPlaceSubst;
+    }
+
+    public void affectGroundPlaceSubst() {
+        groundPlaceSubst = groundPlace;
+    }
     void exitFrontBattle(){
         groundPlace=BACK;
     }
@@ -1748,12 +1858,16 @@ public final class Fighter {
     }
 
     LevelExpPoints newLevelWonPoints(DataBase _import) {
-        short niveauTmp_=level;
+        return newLevelWonPoints(_import, name, level, wonExp, wonExpSinceLastLevel);
+    }
+
+    public static LevelExpPoints newLevelWonPoints(DataBase _import, String _name, short _level, Rate _wonExp, Rate _wonExpSinceLastLevel) {
+        short niveauTmp_= _level;
         niveauTmp_++;
-        Rate sommeDiffNiveaux_=numberNecessaryPointsForGrowingLevel(niveauTmp_,_import);
+        Rate sommeDiffNiveaux_= numberNecessaryPointsForGrowingLevel(_name, niveauTmp_, _import);
         niveauTmp_--;
         short maxNiveau_=(short) _import.getMaxLevel();
-        while(!Rate.strLower(Rate.plus(wonExp, wonExpSinceLastLevel), sommeDiffNiveaux_)){
+        while(!Rate.strLower(Rate.plus(_wonExp, _wonExpSinceLastLevel), sommeDiffNiveaux_)){
             niveauTmp_++;
             if (niveauTmp_ >= maxNiveau_) {
                 if (niveauTmp_ > maxNiveau_) {
@@ -1761,20 +1875,24 @@ public final class Fighter {
                 }
                 break;
             }
-            sommeDiffNiveaux_.addNb(numberNecessaryPointsForGrowingLevel((short) (niveauTmp_+1),_import));
+            sommeDiffNiveaux_.addNb(numberNecessaryPointsForGrowingLevel(_name, (short) (niveauTmp_ + 1), _import));
         }
         return new LevelExpPoints(niveauTmp_,sommeDiffNiveaux_);
     }
 
     void changeWonPoints(short _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
+        changeWonPoints(_niveauTmp, _sommeDiffNiveaux, _import, name, wonExp, wonExpSinceLastLevel);
+    }
+
+    public static void changeWonPoints(short _niveauTmp, Rate _sommeDiffNiveaux, DataBase _import, String _name, Rate _wonExp, Rate _wonExpSinceLastLevel) {
         short maxNiveau_=(short) _import.getMaxLevel();
         if(NumberUtil.eq(_niveauTmp,maxNiveau_)){
             //cas wonExp+wonExpSinceLastLevel>=sommeDiffNiveaux_:
             //==> wonExp+wonExpSinceLastLevel-sommeDiffNiveaux_>=0
             //==> apres affectation wonExp>=0
             //wonExp+wonExpSinceLastLevel-sommeDiffNiveaux_>=0
-            wonExp.addNb(Rate.minus(wonExpSinceLastLevel, _sommeDiffNiveaux));
-            wonExpSinceLastLevel.affectZero();
+            _wonExp.addNb(Rate.minus(_wonExpSinceLastLevel, _sommeDiffNiveaux));
+            _wonExpSinceLastLevel.affectZero();
         }else{
             //cas niveauTmp_ ne change pas:
             //wonExp>=0 et sommeDiffNiveaux_==nombrePointsExpNecessPourMonterNiveauDepart(niveauTmp_)
@@ -1786,9 +1904,9 @@ public final class Fighter {
             //==> wonExpSinceLastLevel+wonExp-sommeDiffNiveaux_(n_i,niveauTmp_)>=-nombrePointsExpNecessPourMonterNiveauDepart(niveauTmp_)
             //==> wonExpSinceLastLevel+wonExp-sommeDiffNiveaux_(n_i,niveauTmp_)+nombrePointsExpNecessPourMonterNiveauDepart(niveauTmp_)>=0
             //==> apres affectation wonExpSinceLastLevel>=0
-            wonExpSinceLastLevel.addNb(Rate.minus(wonExp, _sommeDiffNiveaux));
-            wonExpSinceLastLevel.addNb(numberNecessaryPointsForGrowingLevel((short) (_niveauTmp+1),_import));
-            wonExp.affectZero();
+            _wonExpSinceLastLevel.addNb(Rate.minus(_wonExp, _sommeDiffNiveaux));
+            _wonExpSinceLastLevel.addNb(numberNecessaryPointsForGrowingLevel(_name, (short) (_niveauTmp + 1), _import));
+            _wonExp.affectZero();
         }
     }
 
@@ -1895,11 +2013,9 @@ public final class Fighter {
 
     void winHappinessByGrowingLevel(short _diffNiv,DataBase _import){
         Rate mult_=DataBase.defRateProduct();
-        if(hasExpObject()){
-            ItemForBattle objet_=(ItemForBattle) dataExpObject(_import);
-            if(!objet_.getMultWinningHappiness().isZero()){
-                mult_.multiplyBy(objet_.getMultWinningHappiness());
-            }
+        ItemForBattle objet_ = dataExpObject(_import);
+        if (objet_ != null && !objet_.getMultWinningHappiness().isZero()) {
+            mult_.multiplyBy(objet_.getMultWinningHappiness());
         }
         mult_.multiplyBy(_import.getWonHappinessByGrowLevel());
         mult_.multiplyBy(new Rate(_diffNiv));

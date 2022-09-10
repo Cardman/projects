@@ -1908,15 +1908,12 @@ public final class Game {
         return true;
     }
 
-    public void simuler(CustList<CustList<ActionMove>> _actionsTour,
-            CustList<CustList<ActionSwitch>> _actionsSubstitutingFront,
-            CustList<CustList<ActionSwitch>> _actionsSubstitutingBack,
-            CustList<ByteMap<ChoiceOfEvolutionAndMoves>> _evolutions,
+
+    public void simuler(FightSimulationActions _fightSimulationActions,
+            int _index,
             DataBase _import){
         //_evolutions for each round: key position before fight, value choices
-        FightFacade.simulate(fight,_actionsTour,
-                _actionsSubstitutingFront,_actionsSubstitutingBack,
-                _evolutions,
+        FightFacade.simulate(fight,_fightSimulationActions,_index,
                 player,difficulty,_import);
     }
 

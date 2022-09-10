@@ -188,7 +188,7 @@ final class FightSending {
         for(byte c:equipeAdv_.getMembers().getKeys()){
             Fighter membre_=equipeAdv_.refPartMembres(c);
             if (!membre_.estKo()) {
-                membre_.setGroundPlace(membre_.getGroundPlaceSubst());
+                membre_.affectGroundPlaceBySubst();
             }
         }
         for(byte c:equipeAdv_.getMembers().getKeys()){
@@ -209,8 +209,7 @@ final class FightSending {
                 //not sent
                 continue;
             }
-            membre_.setGroundPlaceSubst(pos_);
-            membre_.setGroundPlace(pos_);
+            membre_.groundPlaceSubst(pos_);
             sending(_fight,Fight.toFoeFighter(c),_diff,_import);
             if (FightKo.endedFight(_fight,_diff)) {
                 FightEndRound.proponeMovesEvolutions(_fight,_user,_diff,_import);
@@ -223,7 +222,7 @@ final class FightSending {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
             Fighter membre_=_fight.getFighter(c);
             if (!membre_.estKo()) {
-                membre_.setGroundPlace(membre_.getGroundPlaceSubst());
+                membre_.affectGroundPlaceBySubst();
             }
         }
 
@@ -245,8 +244,7 @@ final class FightSending {
                 //not sent
                 continue;
             }
-            membre_.setGroundPlaceSubst(pos_);
-            membre_.setGroundPlace(pos_);
+            membre_.groundPlaceSubst(pos_);
             sending(_fight,c,_diff,_import);
             if (FightKo.endedFight(_fight,_diff)) {
                 return;
@@ -279,8 +277,7 @@ final class FightSending {
             if (membre_.estArriere()) {
                 continue;
             }
-            membre_.setGroundPlace(pos_);
-            membre_.setGroundPlaceSubst(pos_);
+            membre_.groundPlaceSubst(pos_);
         }
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter membre_=_fight.getFighter(c);
@@ -291,8 +288,7 @@ final class FightSending {
             if (!membre_.estArriere()) {
                 continue;
             }
-            membre_.setGroundPlaceSubst(pos_);
-            membre_.setGroundPlace(pos_);
+            membre_.groundPlaceSubst(pos_);
             sending(_fight,c,_diff,_import);
             if (FightKo.endedFight(_fight,_diff)) {
                 return;
