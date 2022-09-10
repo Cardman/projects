@@ -1297,13 +1297,13 @@ public class FightSimulation {
     }
 
     private void movesAbilitiesInit() {
-        int nb_ = foeTeams.size();
+        int nbFrontFighters_ = frontFighters.size();
         fightSimulationActions.getMovesAbilities().clear();
-        for (byte i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
+        for (byte i = IndexConstants.FIRST_INDEX; i < nbFrontFighters_; i++) {
+            int nbFrontFightersFight_ = frontFighters.get(i).size();
             Bytes indexes_ = indexesFight(i);
-            int nbRounds_ = nbRound(mult.get(i), foeTeams.get(i).size());
             CustList<ByteMap<ChoiceOfEvolutionAndMoves>> list_ = new CustList<ByteMap<ChoiceOfEvolutionAndMoves>>();
-            for (byte j = IndexConstants.FIRST_INDEX; j < nbRounds_; j++) {
+            for (byte j = IndexConstants.FIRST_INDEX; j < nbFrontFightersFight_; j++) {
                 ByteMap<ChoiceOfEvolutionAndMoves> map_ = new ByteMap<ChoiceOfEvolutionAndMoves>();
                 for (byte k: keptMoves.getKeys()) {
                     ChoiceOfEvolutionAndMoves choice_ = new ChoiceOfEvolutionAndMoves();

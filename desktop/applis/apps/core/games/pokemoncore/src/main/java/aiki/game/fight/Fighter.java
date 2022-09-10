@@ -2192,6 +2192,9 @@ public final class Fighter {
         comment.clearMessages();
     }
 
+    public void cancelSubstituteForMove() {
+        setSubstituteForMove(BACK);
+    }
     public void setSubstituteForMove(byte _remplacant) {
         if (action instanceof ChosenReplacing) {
             ((ChosenReplacing)action).setSubstitute(_remplacant);
