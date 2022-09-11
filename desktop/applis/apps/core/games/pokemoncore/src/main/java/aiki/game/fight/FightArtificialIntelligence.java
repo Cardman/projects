@@ -427,9 +427,10 @@ final class FightArtificialIntelligence {
             TeamPosition f_ = Fight.toUserFighter(pos_);
             if (reachable(_fight, _c, f_, _diff, _import, _m.getValue())) {
                 AbsMap<UsefulValueLaw, Rate> statistiquesLoc_ = statistiquesLoc(_fight, _diff, _import, _c, _m, f_);
-                for (UsefulValueLaw u : UsefulValueLaw.values()) {
-                    statistiques_.getVal(u).addNb(statistiquesLoc_.getVal(u));
-                }
+                statistiques_.getVal(UsefulValueLaw.MINI).addNb(statistiquesLoc_.getVal(UsefulValueLaw.MINI));
+                statistiques_.getVal(UsefulValueLaw.MAXI).addNb(statistiquesLoc_.getVal(UsefulValueLaw.MAXI));
+                statistiques_.getVal(UsefulValueLaw.MOY).addNb(statistiquesLoc_.getVal(UsefulValueLaw.MOY));
+                statistiques_.getVal(UsefulValueLaw.VAR).addNb(statistiquesLoc_.getVal(UsefulValueLaw.VAR));
             }
         }
         return statistiques_;
