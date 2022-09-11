@@ -13,6 +13,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>util</module>
+		<module>graphs</module>
 		<module>sml</module>
 		<module>maths</module>
 		<module>expressionlanguage</module>

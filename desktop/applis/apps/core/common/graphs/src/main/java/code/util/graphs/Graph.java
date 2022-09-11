@@ -1,54 +1,41 @@
 package code.util.graphs;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.core.IndexConstants;
-import code.util.ints.GraphElement;
 
-public final class Graph<T extends GraphElement<T>> {
+public final class Graph {
 
-    private final CustList<ArrowedSegment<T>> segments = new CustList<ArrowedSegment<T>>();
-    private final EqList<T> elements = new EqList<T>();
+    private final CustList<ArrowedSegment> segments = new CustList<ArrowedSegment>();
+    private final CustList<SortedNumberedNode> elements = new CustList<SortedNumberedNode>();
 
-//    private final List<T> froms = new List<T>();
+    public static boolean containsNode(CustList<SortedNumberedNode> _list, SortedNumberedNode _node) {
+        for (SortedNumberedNode n: _list) {
+            if (_node.eq(n)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //    private final List<T> froms = new List<T>();
 
 //    private final List<T> tos = new List<T>();
 
 //    private final List<T> separations = new List<T>();
 
-    public void addSegment(T _from, T _to) {
-        addSegment(new ArrowedSegment<T>(_from, _to));
+    public void addSegment(SortedNumberedNode _from, SortedNumberedNode _to) {
+        addSegment(new ArrowedSegment(_from, _to));
     }
-    public void addReversedSegment(ArrowedSegment<T> _seg) {
-        addSegment(new ArrowedSegment<T>(_seg.getTo(), _seg.getFrom()));
+    public void addReversedSegment(ArrowedSegment _seg) {
+        addSegment(new ArrowedSegment(_seg.getTo(), _seg.getFrom()));
     }
 
-    public void addSegment(ArrowedSegment<T> _seg) {
+    public void addSegment(ArrowedSegment _seg) {
         segments.add(_seg);
-        boolean addFrom_ = true;
-        boolean addTo_ = true;
-        T e_ = _seg.getFrom();
-        for (T e: elements) {
-            if (e.eq(e_)) {
-                addFrom_ = false;
-                break;
-            }
-        }
-        if (addFrom_) {
-//            froms.add(e_);
-            elements.add(e_);
-        }
+        SortedNumberedNode e_ = _seg.getFrom();
+        addIfPossible(elements, e_);
         e_ = _seg.getTo();
-        for (T e: elements) {
-            if (e.eq(e_)) {
-                addTo_ = false;
-                break;
-            }
-        }
-        if (addTo_) {
-//            tos.add(e_);
-            elements.add(e_);
-        }
-        /*if (!addFrom_ && !addTo_) {
+        addIfPossible(elements, e_);
+    /*if (!addFrom_ && !addTo_) {
             boolean sep_ = false;
             for (T e: separations) {
                 if (e.eq(e_)) {
@@ -68,42 +55,42 @@ public final class Graph<T extends GraphElement<T>> {
         }
         return getReverse().isDirectTrees();
     }
-    public EqList<T> getTreeFrom(T _elt) {
-        EqList<T> current_ = new EqList<T>();
-        current_.add(_elt);
-        EqList<T> visited_ = new EqList<T>();
-        visited_.add(_elt);
-        EqList<T> new_ = new EqList<T>();
+    public CustList<SortedNumberedNode> getTreeFrom(SortedNumberedNode _elt) {
+        CustList<SortedNumberedNode> current_ = oneElement(_elt);
+        CustList<SortedNumberedNode> visited_ = oneElement(_elt);
+        CustList<SortedNumberedNode> new_ = new CustList<SortedNumberedNode>();
         while (true) {
-            for (T t: current_) {
-                for (ArrowedSegment<T> u: getChildrenSegments(t)) {
-                    addVisited(visited_, new_, u);
+            for (SortedNumberedNode t: current_) {
+                for (ArrowedSegment u: getChildrenSegments(t)) {
+                    tryAddVisited(visited_, new_, u.getTo());
                 }
             }
             if (new_.isEmpty()) {
                 break;
             }
             current_ = new_;
-            new_ = new EqList<T>();
+            new_ = new CustList<SortedNumberedNode>();
         }
         return visited_;
     }
 
-    private boolean match(EqList<T> _visited, ArrowedSegment<T> _u) {
-        return visited(_visited, _u.getTo());
+    private CustList<SortedNumberedNode> oneElement(SortedNumberedNode _elt) {
+        CustList<SortedNumberedNode> current_ = new CustList<SortedNumberedNode>();
+        current_.add(_elt);
+        return current_;
     }
 
-    public EqList<T> elementsCycle() {
+    public CustList<SortedNumberedNode> elementsCycle() {
 //        if (segments.isEmpty()) {
 //            return new List<T>();
 //        }
-        EqList<T> sep_ = getDynamicSeparations();
+        CustList<SortedNumberedNode> sep_ = getDynamicSeparations();
 //        if (!hasPseudoRoots()) {
 //            if (sep_.isEmpty()) {
 //                return getElements();
 //            }
 //        }
-        EqList<T> l_ = new EqList<T>();
+        CustList<SortedNumberedNode> l_ = new CustList<SortedNumberedNode>();
 //        if (!hasPseudoRoots()) {
 //            int i_ = List.FIRST_INDEX;
 //            if (sep_.isEmpty()) {
@@ -176,31 +163,29 @@ public final class Graph<T extends GraphElement<T>> {
 //            }
 //            return l_;
 //        }
-        for (T s: sep_) {
+        for (SortedNumberedNode s: sep_) {
             if (found(s,l_)) {
                 break;
             }
         }
         return l_;
     }
-    private boolean found(T _s, EqList<T> _l) {
-        EqList<T> current_ = new EqList<T>();
-        current_.add(_s);
-        EqList<T> visited_ = new EqList<T>();
-        visited_.add(_s);
+    private boolean found(SortedNumberedNode _s, CustList<SortedNumberedNode> _l) {
+        CustList<SortedNumberedNode> current_ = oneElement(_s);
+        CustList<SortedNumberedNode> visited_ = oneElement(_s);
         boolean found_ = false;
-        CustList<ArrowedSegment<T>> lines_ = new CustList<ArrowedSegment<T>>();
+        CustList<ArrowedSegment> lines_ = new CustList<ArrowedSegment>();
         while (true) {
-            EqList<T> new_ = new EqList<T>();
-            for (T t: current_) {
-                for (ArrowedSegment<T> u: getChildrenSegments(t)) {
+            CustList<SortedNumberedNode> new_ = new CustList<SortedNumberedNode>();
+            for (SortedNumberedNode t: current_) {
+                for (ArrowedSegment u: getChildrenSegments(t)) {
                     lines_.add(u);
                     if (u.getTo().eq(_s)) {
                         addSegs(_l, _s, lines_);
                         found_ = true;
                         break;
                     }
-                    addVisited(visited_, new_, u);
+                    tryAddVisited(visited_, new_, u.getTo());
                 }
                 if (found_) {
                     break;
@@ -214,69 +199,49 @@ public final class Graph<T extends GraphElement<T>> {
         return found_;
     }
 
-    private boolean stop(EqList<T> _new, boolean _found) {
+    private boolean stop(CustList<SortedNumberedNode> _new, boolean _found) {
         return _found || _new.isEmpty();
     }
 
-    private void addVisited(EqList<T> _visited, EqList<T> _new, ArrowedSegment<T> _u) {
-        boolean ex_ = match(_visited, _u);
-        if (ex_) {
-            return;
-        }
-        _new.add(_u.getTo());
-        _visited.add(_u.getTo());
-    }
-
-    private void addSegs(EqList<T> _l, T _s, CustList<ArrowedSegment<T>> _lines) {
-        Graph<T> gLoc_ = new Graph<T>();
-        for (ArrowedSegment<T> l: _lines) {
+    private void addSegs(CustList<SortedNumberedNode> _l, SortedNumberedNode _s, CustList<ArrowedSegment> _lines) {
+        Graph gLoc_ = new Graph();
+        for (ArrowedSegment l: _lines) {
             gLoc_.addReversedSegment(l);
         }
-        for (ArrowedSegment<T> m: gLoc_.getLines(_s)) {
-            T to_ = m.getTo();
-            boolean add_ = add(_l, to_);
-            if (!add_) {
-                continue;
-            }
-            _l.add(to_);
+        for (ArrowedSegment m: gLoc_.getLines(_s)) {
+            SortedNumberedNode to_ = m.getTo();
+            addIfPossible(_l, to_);
         }
     }
 
-    private boolean add(EqList<T> _l, T _to) {
-        boolean add_ = true;
-        for (T e: _l) {
-            if (e.eq(_to)) {
-                add_ = false;
-                break;
-            }
+    private void addIfPossible(CustList<SortedNumberedNode> _l, SortedNumberedNode _elt) {
+        if (!containsNode(_l, _elt)) {
+            _l.add(_elt);
         }
-        return add_;
     }
 
-    public CustList<ArrowedSegment<T>> getLines(T _root) {
-        EqList<T> current_ = new EqList<T>();
-        current_.add(_root);
-        EqList<T> visited_ = new EqList<T>();
-        visited_.add(_root);
-        EqList<T> new_ = new EqList<T>();
-        CustList<ArrowedSegment<T>> lines_ = new CustList<ArrowedSegment<T>>();
+    public CustList<ArrowedSegment> getLines(SortedNumberedNode _root) {
+        CustList<SortedNumberedNode> current_ = oneElement(_root);
+        CustList<SortedNumberedNode> visited_ = oneElement(_root);
+        CustList<SortedNumberedNode> new_ = new CustList<SortedNumberedNode>();
+        CustList<ArrowedSegment> lines_ = new CustList<ArrowedSegment>();
         while (true) {
-            for (T t: current_) {
+            for (SortedNumberedNode t: current_) {
                 addNewVisit(visited_, new_, lines_, t);
             }
             if (new_.isEmpty()) {
                 break;
             }
             current_ = new_;
-            new_ = new EqList<T>();
+            new_ = new CustList<SortedNumberedNode>();
         }
         return lines_;
     }
 
-    private void addNewVisit(EqList<T> _visited, EqList<T> _new, CustList<ArrowedSegment<T>> _lines, T _t) {
-        for (ArrowedSegment<T> u: getChildrenSegments(_t)) {
+    private void addNewVisit(CustList<SortedNumberedNode> _visited, CustList<SortedNumberedNode> _new, CustList<ArrowedSegment> _lines, SortedNumberedNode _t) {
+        for (ArrowedSegment u: getChildrenSegments(_t)) {
             _lines.add(u);
-            addVisited(_visited, _new, u);
+            tryAddVisited(_visited, _new, u.getTo());
         }
     }
 
@@ -383,7 +348,7 @@ public final class Graph<T extends GraphElement<T>> {
     }
 
     private boolean hasCycleDef() {
-        for (T s: getDynamicSeparations()) {
+        for (SortedNumberedNode s: getDynamicSeparations()) {
             if (hasCycleOne(s)) {
                 return true;
             }
@@ -391,15 +356,13 @@ public final class Graph<T extends GraphElement<T>> {
         return false;
     }
 
-    private boolean hasCycleOne(T _s) {
-        EqList<T> current_ = new EqList<T>();
-        current_.add(_s);
-        EqList<T> visited_ = new EqList<T>();
-        visited_.add(_s);
+    private boolean hasCycleOne(SortedNumberedNode _s) {
+        CustList<SortedNumberedNode> current_ = oneElement(_s);
+        CustList<SortedNumberedNode> visited_ = oneElement(_s);
         while (true) {
-            EqList<T> new_ = new EqList<T>();
-            for (T t: current_) {
-                for (T u: getChildren(t)) {
+            CustList<SortedNumberedNode> new_ = new CustList<SortedNumberedNode>();
+            for (SortedNumberedNode t: current_) {
+                for (SortedNumberedNode u: getChildren(t)) {
                     if (u.eq(_s)) {
                         return true;
                     }
@@ -413,39 +376,26 @@ public final class Graph<T extends GraphElement<T>> {
         }
         return false;
     }
-    private void tryAddVisited(EqList<T> _visited, EqList<T> _new, T _u) {
-        boolean ex_ = visited(_visited, _u);
+
+    private void tryAddVisited(CustList<SortedNumberedNode> _visited, CustList<SortedNumberedNode> _new, SortedNumberedNode _node) {
+        boolean ex_ = containsNode(_visited, _node);
         if (ex_) {
             return;
         }
-        _new.add(_u);
-        _visited.add(_u);
+        _new.add(_node);
+        _visited.add(_node);
     }
 
-    private boolean visited(EqList<T> _visited, T _u) {
-        boolean ex_ = false;
-        for (T e: _visited) {
-            if (e.eq(_u)) {
-                //!e.eq(s)
-                ex_ = true;
-                break;
-            }
-        }
-        return ex_;
-    }
-
-    public EqList<T> getChildren(T _element) {
-        EqList<T> c_ = new EqList<T>();
-        for (ArrowedSegment<T> s: segments) {
-            if (s.getFrom().eq(_element)) {
-                c_.add(s.getTo());
-            }
+    public CustList<SortedNumberedNode> getChildren(SortedNumberedNode _element) {
+        CustList<SortedNumberedNode> c_ = new CustList<SortedNumberedNode>();
+        for (ArrowedSegment s: getChildrenSegments(_element)) {
+            c_.add(s.getTo());
         }
         return c_;
     }
-    public CustList<ArrowedSegment<T>> getChildrenSegments(T _element) {
-        CustList<ArrowedSegment<T>> c_ = new CustList<ArrowedSegment<T>>();
-        for (ArrowedSegment<T> s: segments) {
+    public CustList<ArrowedSegment> getChildrenSegments(SortedNumberedNode _element) {
+        CustList<ArrowedSegment> c_ = new CustList<ArrowedSegment>();
+        for (ArrowedSegment s: segments) {
             if (s.getFrom().eq(_element)) {
                 c_.add(s);
             }
@@ -504,29 +454,14 @@ public final class Graph<T extends GraphElement<T>> {
 ////        }
 ////        return r_;
 //    }
-    public EqList<T> getDynamicSeparations() {
-        EqList<T> r_ = new EqList<T>();
-        EqList<T> elts_ = getElements();
-        for (T e: elts_) {
-            int nbOne_ = IndexConstants.SIZE_EMPTY;
-            for (ArrowedSegment<T> s: segments) {
-                if (s.getTo().eq(e)) {
-                    nbOne_++;
-                }
-            }
-            if (nbOne_ == IndexConstants.SIZE_EMPTY) {
+    public CustList<SortedNumberedNode> getDynamicSeparations() {
+        CustList<SortedNumberedNode> r_ = new CustList<SortedNumberedNode>();
+        CustList<SortedNumberedNode> elts_ = getElements();
+        for (SortedNumberedNode e: elts_) {
+            if (notFullBound(e)) {
                 continue;
             }
-            int nbTwo_ = IndexConstants.SIZE_EMPTY;
-            for (ArrowedSegment<T> s: segments) {
-                if (s.getFrom().eq(e)) {
-                    nbTwo_++;
-                }
-            }
-            if (nbTwo_ == IndexConstants.SIZE_EMPTY) {
-                continue;
-            }
-//            if (nbOne_ <= List.ONE_ELEMENT) {
+            //            if (nbOne_ <= List.ONE_ELEMENT) {
 //                if (nbTwo_ <= List.ONE_ELEMENT) {
 //                    continue;
 //                }
@@ -535,56 +470,52 @@ public final class Graph<T extends GraphElement<T>> {
         }
         return r_;
     }
+
+    private boolean notFullBound(SortedNumberedNode _e) {
+        return nbTo(_e) == IndexConstants.SIZE_EMPTY || nbFrom(_e) == IndexConstants.SIZE_EMPTY;
+    }
+
     public boolean hasPseudoRoots() {
-        EqList<T> elts_ = getElements();
-        for (T e: elts_) {
-            int nb_ = IndexConstants.SIZE_EMPTY;
-            for (ArrowedSegment<T> s: segments) {
-                if (s.getTo().eq(e)) {
-                    nb_++;
-                }
-            }
-            if (nb_ == IndexConstants.SIZE_EMPTY) {
-                return true;
-            }
-            nb_ = IndexConstants.SIZE_EMPTY;
-            for (ArrowedSegment<T> s: segments) {
-                if (s.getFrom().eq(e)) {
-                    nb_++;
-                }
-            }
-            if (nb_ == IndexConstants.SIZE_EMPTY) {
+        CustList<SortedNumberedNode> elts_ = getElements();
+        for (SortedNumberedNode e: elts_) {
+            if (notFullBound(e)) {
                 return true;
             }
         }
         return false;
     }
-    public EqList<T> pseudoRoots() {
-        EqList<T> r_ = new EqList<T>();
-        EqList<T> elts_ = getElements();
-        for (T e: elts_) {
-            int nb_ = IndexConstants.SIZE_EMPTY;
-            for (ArrowedSegment<T> s: segments) {
-                if (s.getTo().eq(e)) {
-                    nb_++;
-                }
+
+    private int nbFrom(SortedNumberedNode _e) {
+        int nb_ = IndexConstants.SIZE_EMPTY;
+        for (ArrowedSegment s: segments) {
+            if (s.getFrom().eq(_e)) {
+                nb_++;
             }
-            if (nb_ == IndexConstants.SIZE_EMPTY) {
-                r_.add(e);
-                continue;
+        }
+        return nb_;
+    }
+
+    private int nbTo(SortedNumberedNode _e) {
+        int nb_ = IndexConstants.SIZE_EMPTY;
+        for (ArrowedSegment s: segments) {
+            if (s.getTo().eq(_e)) {
+                nb_++;
             }
-            nb_ = IndexConstants.SIZE_EMPTY;
-            for (ArrowedSegment<T> s: segments) {
-                if (s.getFrom().eq(e)) {
-                    nb_++;
-                }
-            }
-            if (nb_ == IndexConstants.SIZE_EMPTY) {
+        }
+        return nb_;
+    }
+
+    public CustList<SortedNumberedNode> pseudoRoots() {
+        CustList<SortedNumberedNode> r_ = new CustList<SortedNumberedNode>();
+        CustList<SortedNumberedNode> elts_ = getElements();
+        for (SortedNumberedNode e: elts_) {
+            if (notFullBound(e)) {
                 r_.add(e);
             }
         }
         return r_;
     }
+
     public boolean isDirectTrees() {
         if (segments.isEmpty()) {
             return true;
@@ -592,15 +523,10 @@ public final class Graph<T extends GraphElement<T>> {
         if (!hasPseudoRoots()) {
             return false;
         }
-        EqList<T> elts_ = getElements();
+        CustList<SortedNumberedNode> elts_ = getElements();
 //        boolean exist_ = false;
-        for (T e: elts_) {
-            int nb_ = IndexConstants.SIZE_EMPTY;
-            for (ArrowedSegment<T> s: segments) {
-                if (s.getTo().eq(e)) {
-                    nb_++;
-                }
-            }
+        for (SortedNumberedNode e: elts_) {
+            int nb_ = nbTo(e);
 //            if (nb_ == List.SIZE_EMPTY) {
 //                exist_ = true;
 //            }
@@ -615,19 +541,19 @@ public final class Graph<T extends GraphElement<T>> {
         return true;
     }
 
-    public Graph<T> getReverse() {
-        Graph<T> r_ = new Graph<T>();
-        for (ArrowedSegment<T> s: segments) {
+    public Graph getReverse() {
+        Graph r_ = new Graph();
+        for (ArrowedSegment s: segments) {
             r_.addReversedSegment(s);
         }
         return r_;
     }
 
-    public EqList<T> getElementsListCopy() {
-        return new EqList<T>(elements);
+    public CustList<SortedNumberedNode> getElementsListCopy() {
+        return new CustList<SortedNumberedNode>(elements);
     }
 
-    EqList<T> getElements() {
+    CustList<SortedNumberedNode> getElements() {
         return elements;
 //        List<T> l_ = new List<T>();
 //        for (Segment<T> s: segments) {

@@ -1,21 +1,19 @@
 package code.util.graphs;
 
 import code.util.CustList;
-import code.util.EqList;
 import code.util.core.IndexConstants;
-import code.util.ints.SortedEdge;
 
-public final class SortedGraph<T extends SortedEdge<T>> {
+public final class SortedGraph {
 
-    private final Graph<T> graph = new Graph<T>();
+    private final Graph graph = new Graph();
 
-    public EqList<T> process() {
-        EqList<T> elts_ = graph.getElements();
-        EqList<T> result_ = new EqList<T>();
+    public CustList<SortedNumberedNode> process() {
+        CustList<SortedNumberedNode> elts_ = graph.getElements();
+        CustList<SortedNumberedNode> result_ = new CustList<SortedNumberedNode>();
         int order_ = 0;
         while (true) {
-            EqList<T> next_ = new EqList<T>();
-            for (T e: elts_) {
+            CustList<SortedNumberedNode> next_ = new CustList<SortedNumberedNode>();
+            for (SortedNumberedNode e: elts_) {
                 if (e.getOrder() > IndexConstants.INDEX_NOT_FOUND_ELT) {
                     continue;
                 }
@@ -26,7 +24,7 @@ public final class SortedGraph<T extends SortedEdge<T>> {
             if (next_.isEmpty()) {
                 break;
             }
-            for (T o: next_) {
+            for (SortedNumberedNode o: next_) {
                 o.setOrder(order_);
                 result_.add(o);
                 order_++;
@@ -35,9 +33,9 @@ public final class SortedGraph<T extends SortedEdge<T>> {
         return result_;
     }
 
-    private boolean allNumbered(EqList<T> _list) {
+    private boolean allNumbered(CustList<SortedNumberedNode> _list) {
         boolean allNb_ = true;
-        for (T s: _list) {
+        for (SortedNumberedNode s: _list) {
             if (s.getOrder() == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 allNb_ = false;
                 break;
@@ -46,19 +44,19 @@ public final class SortedGraph<T extends SortedEdge<T>> {
         return allNb_;
     }
 
-    public EqList<T> getTreeFrom(T _elt) {
+    public CustList<SortedNumberedNode> getTreeFrom(SortedNumberedNode _elt) {
         return graph.getTreeFrom(_elt);
     }
 
-    public void addSegment(T _from, T _to) {
+    public void addSegment(SortedNumberedNode _from, SortedNumberedNode _to) {
         graph.addSegment(_from, _to);
     }
 
-    public void addReversedSegment(ArrowedSegment<T> _seg) {
+    public void addReversedSegment(ArrowedSegment _seg) {
         graph.addReversedSegment(_seg);
     }
 
-    public void addSegment(ArrowedSegment<T> _seg) {
+    public void addSegment(ArrowedSegment _seg) {
         graph.addSegment(_seg);
     }
 
@@ -66,11 +64,11 @@ public final class SortedGraph<T extends SortedEdge<T>> {
         return graph.isTrees();
     }
 
-    public EqList<T> elementsCycle() {
+    public CustList<SortedNumberedNode> elementsCycle() {
         return graph.elementsCycle();
     }
 
-    public CustList<ArrowedSegment<T>> getLines(T _root) {
+    public CustList<ArrowedSegment> getLines(SortedNumberedNode _root) {
         return graph.getLines(_root);
     }
 
@@ -78,15 +76,15 @@ public final class SortedGraph<T extends SortedEdge<T>> {
         return graph.hasCycle();
     }
 
-    public EqList<T> getChildren(T _element) {
+    public CustList<SortedNumberedNode> getChildren(SortedNumberedNode _element) {
         return graph.getChildren(_element);
     }
 
-    public CustList<ArrowedSegment<T>> getChildrenSegments(T _element) {
+    public CustList<ArrowedSegment> getChildrenSegments(SortedNumberedNode _element) {
         return graph.getChildrenSegments(_element);
     }
 
-    public EqList<T> getDynamicSeparations() {
+    public CustList<SortedNumberedNode> getDynamicSeparations() {
         return graph.getDynamicSeparations();
     }
 
@@ -94,7 +92,7 @@ public final class SortedGraph<T extends SortedEdge<T>> {
         return graph.hasPseudoRoots();
     }
 
-    public EqList<T> pseudoRoots() {
+    public CustList<SortedNumberedNode> pseudoRoots() {
         return graph.pseudoRoots();
     }
 
@@ -103,11 +101,11 @@ public final class SortedGraph<T extends SortedEdge<T>> {
     }
 
 
-    public Graph<T> getReverse() {
+    public Graph getReverse() {
         return graph.getReverse();
     }
 
-    public EqList<T> getElementsListCopy() {
+    public CustList<SortedNumberedNode> getElementsListCopy() {
         return graph.getElementsListCopy();
     }
 

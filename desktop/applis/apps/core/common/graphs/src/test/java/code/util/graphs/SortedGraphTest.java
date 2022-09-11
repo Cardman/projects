@@ -1,13 +1,13 @@
 package code.util.graphs;
 
-import code.util.EqList;
-import code.util.EquallableExUtil;
+import code.util.CustList;
 import org.junit.Test;
 
-public final class SortedGraphTest extends EquallableExUtil {
+public final class SortedGraphTest extends EquallableExGraph {
+
     @Test
     public void process1Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -26,7 +26,7 @@ public final class SortedGraphTest extends EquallableExUtil {
         assertTrue(!g_.hasCycle());
         assertTrue(g_.elementsCycle().isEmpty());
         assertTrue(g_.hasPseudoRoots());
-        EqList<SortedNumberedNode> out_ = g_.process();
+        CustList<SortedNumberedNode> out_ = g_.process();
         assertEq(7, out_.size());
         assertEq(4, out_.get(0).getNumber());
         assertEq(0, out_.get(0).getOrder());
@@ -45,7 +45,7 @@ public final class SortedGraphTest extends EquallableExUtil {
     }
     @Test
     public void getTreeFrom1Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -61,18 +61,18 @@ public final class SortedGraphTest extends EquallableExUtil {
         g_.addSegment(one_, four_);
         g_.addSegment(five_, one_);
         g_.addSegment(three_, six_);
-        EqList<SortedNumberedNode> nodes_ = g_.getTreeFrom(one_);
+        CustList<SortedNumberedNode> nodes_ = g_.getTreeFrom(one_);
         assertEq(6,nodes_.size());
-        assertTrue(nodes_.containsObj(one_));
-        assertTrue(nodes_.containsObj(two_));
-        assertTrue(nodes_.containsObj(three_));
-        assertTrue(nodes_.containsObj(four_));
-        assertTrue(nodes_.containsObj(six_));
-        assertTrue(nodes_.containsObj(seven_));
+        assertTrue(contains(nodes_, one_));
+        assertTrue(contains(nodes_, two_));
+        assertTrue(contains(nodes_, three_));
+        assertTrue(contains(nodes_, four_));
+        assertTrue(contains(nodes_, six_));
+        assertTrue(contains(nodes_, seven_));
     }
     @Test
     public void pseudoRoots1Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -88,16 +88,16 @@ public final class SortedGraphTest extends EquallableExUtil {
         g_.addSegment(one_, four_);
         g_.addSegment(five_, one_);
         g_.addSegment(three_, six_);
-        EqList<SortedNumberedNode> nodes_ = g_.pseudoRoots();
+        CustList<SortedNumberedNode> nodes_ = g_.pseudoRoots();
         assertEq(3,nodes_.size());
-        assertTrue(nodes_.containsObj(four_));
-        assertTrue(nodes_.containsObj(five_));
-        assertTrue(nodes_.containsObj(six_));
+        assertTrue(contains(nodes_, four_));
+        assertTrue(contains(nodes_, five_));
+        assertTrue(contains(nodes_, six_));
     }
 
     @Test
     public void hasCycleTest() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -111,24 +111,24 @@ public final class SortedGraphTest extends EquallableExUtil {
         g_.addSegment(four_, one_);
         assertTrue(g_.hasCycle());
         assertTrue(!g_.hasPseudoRoots());
-        EqList<SortedNumberedNode> es_ = g_.elementsCycle();
+        CustList<SortedNumberedNode> es_ = g_.elementsCycle();
         assertEq(5, es_.size());
-        assertTrue(es_.containsObj(one_));
-        assertTrue(es_.containsObj(two_));
-        assertTrue(es_.containsObj(three_));
-        assertTrue(es_.containsObj(four_));
-        assertTrue(es_.containsObj(seven_));
+        assertTrue(contains(es_, one_));
+        assertTrue(contains(es_, two_));
+        assertTrue(contains(es_, three_));
+        assertTrue(contains(es_, four_));
+        assertTrue(contains(es_, seven_));
     }
 
     @Test
     public void isDirectTrees1Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         assertTrue(g_.isDirectTrees());
     }
 
     @Test
     public void isDirectTrees2Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -139,7 +139,7 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isDirectTrees3Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -155,7 +155,7 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isDirectTrees4Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -169,7 +169,7 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isDirectTrees5Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -183,7 +183,7 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isDirectTrees6Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -194,13 +194,13 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isTrees1Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         assertTrue(g_.isTrees());
     }
 
     @Test
     public void isTrees2Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -211,7 +211,7 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isTrees3Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -227,7 +227,7 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isTrees4Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -241,7 +241,7 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isTrees5Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -255,7 +255,7 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void isTrees6Test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
@@ -266,12 +266,12 @@ public final class SortedGraphTest extends EquallableExUtil {
 
     @Test
     public void test() {
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
+        SortedGraph g_ = new SortedGraph();
         SortedNumberedNode one_ = new SortedNumberedNode(1);
         SortedNumberedNode two_ = new SortedNumberedNode(2);
         SortedNumberedNode three_ = new SortedNumberedNode(3);
-        g_.addReversedSegment(new ArrowedSegment<SortedNumberedNode>(one_,two_));
-        g_.addSegment(new ArrowedSegment<SortedNumberedNode>(three_, one_));
+        g_.addReversedSegment(new ArrowedSegment(one_,two_));
+        g_.addSegment(new ArrowedSegment(three_, one_));
         assertTrue(g_.isTrees());
         assertEq(1,g_.getLines(two_).size());
         assertEq(1,g_.getChildren(two_).size());

@@ -1,7 +1,6 @@
 package code.util.graphs;
-import code.util.ints.SortedEdge;
 
-public final class SortedNumberedNode implements SortedEdge<SortedNumberedNode> {
+public final class SortedNumberedNode {
 
     private final int number;
     private int order = -1;
@@ -14,17 +13,14 @@ public final class SortedNumberedNode implements SortedEdge<SortedNumberedNode> 
         return number;
     }
 
-    @Override
     public boolean eq(SortedNumberedNode _g) {
         return number == _g.number;
     }
 
-    @Override
     public void setOrder(int _o) {
         order = _o;
     }
 
-    @Override
     public int getOrder() {
         return order;
     }

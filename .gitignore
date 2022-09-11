@@ -139,6 +139,11 @@
 !/desktop/applis/apps/core/common/formathtml/src/
 !/desktop/applis/apps/core/common/formathtml/src/**/
 !/desktop/applis/apps/core/common/formathtml/src/**/*.java
+!/desktop/applis/apps/core/common/graphs/
+!/desktop/applis/apps/core/common/graphs/pom.xml
+!/desktop/applis/apps/core/common/graphs/src/
+!/desktop/applis/apps/core/common/graphs/src/**/
+!/desktop/applis/apps/core/common/graphs/src/**/*.java
 !/desktop/applis/apps/core/common/images/
 !/desktop/applis/apps/core/common/images/pom.xml
 !/desktop/applis/apps/core/common/images/src/
