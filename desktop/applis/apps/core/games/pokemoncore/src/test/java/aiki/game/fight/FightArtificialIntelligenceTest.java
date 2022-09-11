@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.fight.moves.DamagingMoveData;
 import aiki.util.*;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -24,7 +25,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
 
 import code.util.StringList;
 import code.util.StringMap;
@@ -1133,7 +1133,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
-        assertTrue(FightArtificialIntelligence.reachable(fight_, thrower_, target_, SACRIFICE, diff_, data_));
+        assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SACRIFICE));
     }
 
     @Test
@@ -1172,7 +1172,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
-        assertTrue(FightArtificialIntelligence.reachable(fight_, thrower_, target_, SIPHON, diff_, data_));
+        assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SIPHON));
     }
 
     @Test
@@ -1211,7 +1211,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
-        assertTrue(FightArtificialIntelligence.reachable(fight_, thrower_, target_, SEISME, diff_, data_));
+        assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SEISME));
     }
 
     @Test
@@ -1247,7 +1247,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_TWO;
-        assertTrue(!FightArtificialIntelligence.reachable(fight_, thrower_, target_, SIPHON, diff_, data_));
+        assertTrue(!reachable(data_, diff_, fight_, thrower_, target_, SIPHON));
     }
 
     @Test
@@ -1283,7 +1283,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_TWO;
-        assertTrue(!FightArtificialIntelligence.reachable(fight_, thrower_, target_, COUPE_VENT, diff_, data_));
+        assertTrue(!reachable(data_, diff_, fight_, thrower_, target_, COUPE_VENT));
     }
 
     @Test
@@ -4595,6 +4595,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
 
     private static boolean noAction(Fighter _fighter) {
         return _fighter.getAction() == null;
+    }
+
+    private boolean reachable(DataBase _data, Difficulty _diff, Fight _fight, TeamPosition _thrower, TeamPosition _target, String _move) {
+        return FightArtificialIntelligence.reachable(_fight, _thrower, _target, _diff, _data, (DamagingMoveData) _data.getMove(_move));
     }
 
 }
