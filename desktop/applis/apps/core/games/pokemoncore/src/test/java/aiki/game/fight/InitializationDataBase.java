@@ -13,21 +13,15 @@ import aiki.fight.util.TypesDuo;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.DataMap;
-import aiki.map.characters.CharacterInRoadCave;
-import aiki.map.characters.DualFight;
 import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.InitializedPlace;
 import aiki.map.places.Place;
-import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsList;
-import aiki.map.util.TileMiniMap;
 import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -1351,14 +1345,14 @@ public class InitializationDataBase extends EquallablePkUtil {
         _data.addConstNumTest(DataBase.BONUS_BOOST, new Rate("3/2"));
         _data.addConstNumTest(DataBase.MAX_STEPS, new Rate("1024"));
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
-        _data.initDefaultConsts(POKE_BALL,
+        initDefaultConsts(POKE_BALL,
                 "caracdroiteferme(div(FOE_PK_MAX_HP,FOE_PK_REMOTE_HP),2)",
                 "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
                 "div(2*caracgaucheouvert(VAR__BOOST,0),max(2-VAR__BOOST,1))+div((2+VAR__BOOST)*caracdroiteferme(VAR__BOOST,0),2)",
                 "puis(2,VAR__BOOST-4)",
                 "div((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))",
                 LUTTE,
-                "METAMORPH");
+                "METAMORPH", _data);
 //        _data.addConstNotNumTest("BALL_DEF", "POKE_BALL");
 //        _data.addConstNotNumTest(DataBase.RATE_CATCHING, "caracdroiteferme(div(FOE_PK_MAX_HP,FOE_PK_REMOTE_HP),2)");
 //        _data.addConstNotNumTest(DataBase.RATE_FLEEING, "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)");

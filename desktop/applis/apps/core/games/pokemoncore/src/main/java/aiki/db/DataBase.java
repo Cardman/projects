@@ -3118,20 +3118,6 @@ public class DataBase {
         constNum.put(_key, _value);
     }
 
-    public void initDefaultConsts(String _ballDef, String _rateCatching,
-            String _rateFleeing, String _rateBoost,
-            String _rateBoostCriticalHit, String _damageFormula,
-            String _defMove, String _defaultEggGoup) {
-        ballDef = _ballDef;
-        rateCatching = _rateCatching;
-        rateFleeing = _rateFleeing;
-        rateBoost = _rateBoost;
-        rateBoostCriticalHit = _rateBoostCriticalHit;
-        damageFormula = _damageFormula;
-        defMove = _defMove;
-        defaultEggGroup = _defaultEggGoup;
-    }
-
     /** USED */
     public Rate getStrongMovePower() {
         return constNum(STRONG_MOVE);

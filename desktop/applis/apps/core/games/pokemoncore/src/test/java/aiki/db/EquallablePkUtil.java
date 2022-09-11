@@ -208,4 +208,17 @@ public abstract class EquallablePkUtil {
         Assert.assertSame(_expected, _result);
     }
 
+    public static void initDefaultConsts(String _ballDef, String _rateCatching,
+                                  String _rateFleeing, String _rateBoost,
+                                  String _rateBoostCriticalHit, String _damageFormula,
+                                  String _defMove, String _defaultEggGoup, DataBase _db) {
+        _db.setBallDef(_ballDef);
+        _db.setRateCatching(_rateCatching);
+        _db.setRateFleeing(_rateFleeing);
+        _db.setRateBoost(_rateBoost);
+        _db.setRateBoostCriticalHit(_rateBoostCriticalHit);
+        _db.setDamageFormula(_damageFormula);
+        _db.setDefMove(_defMove);
+        _db.setDefaultEggGroup(_defaultEggGoup);
+    }
 }
