@@ -41,7 +41,6 @@ import code.util.*;
 
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.TreeMap;
 
 
 public class FightFacadeTest extends InitializationDataBase {
@@ -3338,7 +3337,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         fight_.getFighter(userOne_).setFirstChosenMove(RELAIS);
-        FightFacade.setSubstituteForMove(fight_, (byte) 1, fight_.getUserTeam().substituteAtIndex((byte) 0).first());
+        setSubstituteForMove(fight_);
         assertTrue(!fight_.isError());
         Fighter fighter_ = fight_.getFighter(userOne_);
         AbstractAction action_ = fighter_.getAction();
@@ -4814,7 +4813,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        FightFacade.setFirstChosenMove(fight_, (byte) 1, SEISME);
+        setFirstChosenMove(fight_, 1);
         Fighter fighter_ = fight_.getFighter(userOne_);
         AbstractAction action_ = fighter_.getAction();
         assertTrue(action_ instanceof ActionMove);
@@ -4866,7 +4865,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        FightFacade.setFirstChosenMove(fight_, (byte) 2, SEISME);
+        setFirstChosenMove(fight_, 2);
         Fighter fighter_ = fight_.getFighter(userOne_);
         AbstractAction action_ = fighter_.getAction();
         assertTrue(noAction(action_));
@@ -6989,8 +6988,8 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
-        FightFacade.setFirstChosenMove(fight_, (byte) 0, SEISME);
-        FightFacade.setFirstChosenMove(fight_, (byte) 1, SEISME);
+        setFirstChosenMove(fight_, 0);
+        setFirstChosenMove(fight_, 1);
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
@@ -7057,7 +7056,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
-        FightFacade.setFirstChosenMove(fight_, (byte) 0, SEISME);
+        setFirstChosenMove(fight_, 0);
         fight_.getAllyChoice().put(new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)), new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)));
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
@@ -7120,8 +7119,8 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
-        FightFacade.setFirstChosenMove(fight_, (byte) 0, SEISME);
-        FightFacade.setFirstChosenMove(fight_, (byte) 1, SEISME);
+        setFirstChosenMove(fight_, 0);
+        setFirstChosenMove(fight_, 1);
         TeamPositionList tree_;
         tree_ = FightFacade.sortedFightersBeginRound(fight_, data_);
         assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.get(0));
@@ -7183,7 +7182,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
-        FightFacade.setFirstChosenMove(fight_, (byte) 0, SEISME);
+        setFirstChosenMove(fight_, 0);
         fight_.getAllyChoice().put(new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)), new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)));
         TeamPositionList tree_;
         tree_ = FightFacade.sortedFightersBeginRound(fight_, data_);
@@ -7245,7 +7244,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending(partnersMoves_, foesMoves_, player_, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
-        FightFacade.setFirstChosenMove(fight_, (byte) 0, SEISME);
+        setFirstChosenMove(fight_, 0);
         fight_.getAllyChoice().put(new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)), new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)));
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
@@ -13779,6 +13778,14 @@ public class FightFacadeTest extends InitializationDataBase {
 
     private EvolutionChoiceMap getEvolutions(DataBase _data, Fight _fight) {
         return FightFacade.getEvolutions(_fight, _data, _fight.getUserTeam().fighterAtIndex((byte) 0));
+    }
+
+    private void setFirstChosenMove(Fight _fight, int _x) {
+        FightFacade.setFirstChosenMove(SEISME, _fight.getUserTeam().playerFighterAtIndex((byte) _x));
+    }
+
+    private void setSubstituteForMove(Fight _fight) {
+        FightFacade.setSubstituteForMove(_fight.getUserTeam().substituteAtIndex((byte) 0).first(), _fight.getUserTeam().playerFighterAtIndex((byte) 1).first().getFighter());
     }
 
 }
