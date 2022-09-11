@@ -1,9 +1,9 @@
 package cards.president;
 
+import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
 import code.util.ByteTreeMap;
 import code.util.CustList;
-import code.util.TreeMap;
 import org.junit.Test;
 
 public final class GamePresidentBeginTest extends CommonGamePresident {
@@ -45,7 +45,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         ByteTreeMap<HandPresident> m_ = cur_.getCardsByStrength(false);
         CustList<HandPresident> seqs_ = GamePresidentBegin.getLeadingCardsPlayer(false, r_, m_, pl_);
         assertEq(1,seqs_.size());
@@ -92,7 +92,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         ByteTreeMap<HandPresident> m_ = cur_.getCardsByStrength(false);
         CustList<HandPresident> seqs_ = GamePresidentBegin.getLeadingCardsPlayer(false, r_, m_, pl_);
         assertEq(1,seqs_.size());

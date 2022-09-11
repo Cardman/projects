@@ -6991,7 +6991,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
         FightFacade.setFirstChosenMove(fight_, (byte) 0, SEISME);
         FightFacade.setFirstChosenMove(fight_, (byte) 1, SEISME);
-        TreeMap<TeamPosition,ActionMove> tree_;
+        TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
         assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.getKey(0));
@@ -7059,7 +7059,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
         FightFacade.setFirstChosenMove(fight_, (byte) 0, SEISME);
         fight_.getAllyChoice().put(new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)), new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)));
-        TreeMap<TeamPosition,ActionMove> tree_;
+        TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
         assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.getKey(0));
@@ -7247,7 +7247,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
         FightFacade.setFirstChosenMove(fight_, (byte) 0, SEISME);
         fight_.getAllyChoice().put(new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)), new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)));
-        TreeMap<TeamPosition,ActionMove> tree_;
+        TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
         assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.getKey(0));

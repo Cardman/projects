@@ -1,6 +1,7 @@
 package cards.president;
 
 import cards.president.comparators.GameStrengthCardPresidentComparator;
+import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
@@ -35,7 +36,7 @@ final class GamePresidentCommon {
         return cardsToBePlayed_;
     }
 
-    static HandPresident dominantHand(boolean _reversed, RulesPresident _rules, HandPresident _h, TreeMap<CardPresident, Byte> _playedCards) {
+    static HandPresident dominantHand(boolean _reversed, RulesPresident _rules, HandPresident _h, HandPresidentRepartition _playedCards) {
         HandPresident c_ = new HandPresident(_h);
         ByteTreeMap<HandPresident> gl_ = _h.getCardsByStrength(_reversed);
         CustList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrengthReduce(_reversed, _rules, c_);
@@ -99,7 +100,7 @@ final class GamePresidentCommon {
         }
     }
 
-    private static void completeRepLoc(boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _playedCards, HandPresident _c, ByteTreeMap<HandPresident> _gl, int _i, HandPresident _repLoc) {
+    private static void completeRepLoc(boolean _reversed, RulesPresident _rules, HandPresidentRepartition _playedCards, HandPresident _c, ByteTreeMap<HandPresident> _gl, int _i, HandPresident _repLoc) {
         for (HandPresident h: _c.getCardsByStrength(_reversed).values()) {
             if (h.estVide() || h.total() == _i) {
                 continue;
@@ -123,9 +124,9 @@ final class GamePresidentCommon {
         }
     }
 
-    static TreeMap<CardPresident, Byte> getNotFullPlayedCardsByStrength(boolean _reversed, CustList<TrickPresident> _tricks, TrickPresident _progressingTrick, int _max) {
-        TreeMap<CardPresident,Byte> tree_;
-        tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(_reversed, true));
+    static HandPresidentRepartition getNotFullPlayedCardsByStrength(boolean _reversed, CustList<TrickPresident> _tricks, TrickPresident _progressingTrick, int _max) {
+        HandPresidentRepartition tree_;
+        tree_ = new HandPresidentRepartition(_reversed);
         for (EntryCust<CardPresident, Byte> e:getPlayedCardsByStrength(_reversed,_tricks,_progressingTrick).entryList()) {
             Byte count_ = e.getValue();
             if (count_ == _max) {
@@ -135,7 +136,7 @@ final class GamePresidentCommon {
         }
         return tree_;
     }
-    static TreeMap<CardPresident, Byte> getPlayedCardsByStrength(boolean _reversed, CustList<TrickPresident> _tricks, TrickPresident _progressingTrick) {
+    static HandPresidentRepartition getPlayedCardsByStrength(boolean _reversed, CustList<TrickPresident> _tricks, TrickPresident _progressingTrick) {
         HandPresident playedCards_ = new HandPresident();
         for (TrickPresident t: _tricks) {
             for (HandPresident h: t) {
@@ -148,9 +149,9 @@ final class GamePresidentCommon {
         return getPlayedCardsByStrength(_reversed, playedCards_);
     }
 
-    static TreeMap<CardPresident, Byte> getPlayedCardsByStrength(boolean _reversed, HandPresident _playedCards) {
-        TreeMap<CardPresident,Byte> tree_;
-        tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(_reversed, true));
+    static HandPresidentRepartition getPlayedCardsByStrength(boolean _reversed, HandPresident _playedCards) {
+        HandPresidentRepartition tree_;
+        tree_ = new HandPresidentRepartition(_reversed);
         for (CardPresident c: _playedCards) {
             boolean eqStrPres_ = false;
             for (CardPresident s: tree_.getKeys()) {
@@ -176,7 +177,7 @@ final class GamePresidentCommon {
         return tree_;
     }
 
-    private static boolean foundEqStrength(boolean _reversed, TreeMap<CardPresident, Byte> _tree, CardPresident _c) {
+    private static boolean foundEqStrength(boolean _reversed, HandPresidentRepartition _tree, CardPresident _c) {
         boolean eqStrPres_ = false;
         for (CardPresident s: _tree.getKeys()) {
             byte str_ = s.strength(_reversed);
@@ -188,13 +189,13 @@ final class GamePresidentCommon {
         return eqStrPres_;
     }
 
-    static boolean dominantGroup(boolean _reversed, RulesPresident _rules, HandPresident _h, int _nb, TreeMap<CardPresident, Byte> _playedCards, ByteTreeMap<HandPresident> _rep) {
+    static boolean dominantGroup(boolean _reversed, RulesPresident _rules, HandPresident _h, int _nb, HandPresidentRepartition _playedCards, ByteTreeMap<HandPresident> _rep) {
         int maxStack_ = _rules.getNbStacks() * NB_SUITS;
         if (_h.premiereCarte().strength(_reversed) == CardPresident.getMaxStrength(_reversed)) {
             return true;
         }
         int str_ = _h.premiereCarte().strength(_reversed);
-        TreeMap<CardPresident, Byte> tree_;
+        HandPresidentRepartition tree_;
         if (_rules.getEqualty() == EqualtyPlaying.FORBIDDEN) {
             tree_ = getTreeExcluding(_reversed, _playedCards, str_);
         } else {
@@ -215,9 +216,9 @@ final class GamePresidentCommon {
         return true;
     }
 
-    private static TreeMap<CardPresident, Byte> getTreeExcluding(boolean _reversed, TreeMap<CardPresident, Byte> _tree, int _str) {
-        TreeMap<CardPresident,Byte> tree_;
-        tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(_reversed, true));
+    private static HandPresidentRepartition getTreeExcluding(boolean _reversed, HandPresidentRepartition _tree, int _str) {
+        HandPresidentRepartition tree_;
+        tree_ = new HandPresidentRepartition(_reversed);
         for (EntryCust<CardPresident, Byte> e:_tree.entryList()) {
             if (e.getKey().strength(_reversed) == _str) {
                 continue;

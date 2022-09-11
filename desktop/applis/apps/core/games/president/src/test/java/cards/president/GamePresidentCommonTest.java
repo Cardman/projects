@@ -1,12 +1,12 @@
 package cards.president;
 
 import cards.president.comparators.GameStrengthCardPresidentComparator;
+import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.util.ByteTreeMap;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.TreeMap;
 import org.junit.Test;
 
 public final class GamePresidentCommonTest extends EquallablePresidentUtil {
@@ -59,7 +59,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, trs_, pr_);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, trs_, pr_);
         assertEq(13, pl_.size());
         assertSame(CardPresident.HEART_2, pl_.getKey(0));
         assertEq(1, pl_.getValue(0));
@@ -116,7 +116,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, trs_, pr_);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, trs_, pr_);
         assertEq(13, pl_.size());
         assertSame(CardPresident.HEART_2, pl_.getKey(0));
         assertEq(1, pl_.getValue(0));
@@ -173,7 +173,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         assertEq(12, pl_.size());
         assertSame(CardPresident.HEART_2, pl_.getKey(0));
         assertEq(1, pl_.getValue(0));
@@ -234,7 +234,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_2.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,1,pl_,rep_));
@@ -273,7 +273,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_1.strength(false),false);
         assertTrue(!GamePresidentCommon.dominantGroup(false,r_,group_,1,pl_,rep_));
@@ -315,7 +315,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(!GamePresidentCommon.dominantGroup(false,r_,group_,1,pl_,rep_));
@@ -339,9 +339,9 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresident rem_ = new HandPresident();
         rem_.ajouter(CardPresident.CLUB_4);
         p_.supprimerCartes(rem_);
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
-        TreeMap<CardPresident,Byte> tree_;
-        tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
+        HandPresidentRepartition tree_;
+        tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
             Byte count_ = e.getValue();
             if (count_ == 4) {
@@ -373,9 +373,9 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresident rem_ = new HandPresident();
         rem_.ajouter(CardPresident.CLUB_4);
         p_.supprimerCartes(rem_);
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
-        TreeMap<CardPresident,Byte> tree_;
-        tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
+        HandPresidentRepartition tree_;
+        tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
             Byte count_ = e.getValue();
             if (count_ == 4) {
@@ -409,9 +409,9 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresident rem_ = new HandPresident();
         rem_.ajouter(CardPresident.CLUB_4);
         p_.supprimerCartes(rem_);
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
-        TreeMap<CardPresident,Byte> tree_;
-        tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
+        HandPresidentRepartition tree_;
+        tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
             Byte count_ = e.getValue();
             if (count_ == 4) {
@@ -445,9 +445,9 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         rem_.ajouter(CardPresident.HEART_3);
         rem_.ajouter(CardPresident.SPADE_3);
         p_.supprimerCartes(rem_);
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
-        TreeMap<CardPresident,Byte> tree_;
-        tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
+        HandPresidentRepartition tree_;
+        tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
             Byte count_ = e.getValue();
             if (count_ == 4) {
@@ -480,9 +480,9 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         rem_.ajouter(CardPresident.HEART_3);
         rem_.ajouter(CardPresident.SPADE_3);
         p_.supprimerCartes(rem_);
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
-        TreeMap<CardPresident,Byte> tree_;
-        tree_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
+        HandPresidentRepartition tree_;
+        tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
             Byte count_ = e.getValue();
             if (count_ == 4) {
@@ -534,7 +534,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.SPADE_7);
         pr_.ajouter(h_);
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_1.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,3,pl_,rep_));
@@ -573,7 +573,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false, r_, cur_, pl_);
         assertEq(0,out_.total());
     }
@@ -615,7 +615,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(4,out_.total());
     }
@@ -661,7 +661,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
@@ -706,7 +706,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
@@ -748,7 +748,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(4,out_.total());
     }
@@ -789,7 +789,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
@@ -831,7 +831,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(4,out_.total());
         assertTrue(out_.containsCards(cur_.getCardsByStrength(CardPresident.DIAMOND_5.strength(false),false)));
@@ -874,7 +874,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
@@ -912,7 +912,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
@@ -955,7 +955,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(1,out_.total());
     }
@@ -993,7 +993,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
@@ -1032,7 +1032,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
@@ -1070,7 +1070,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(2,out_.total());
     }
@@ -1108,7 +1108,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
@@ -1145,7 +1145,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(1,out_.total());
     }
@@ -1182,7 +1182,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(1,out_.total());
         assertTrue(out_.containsCards(cur_.getCardsByStrength(CardPresident.DIAMOND_5.strength(false),false)));
@@ -1225,7 +1225,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(4,out_.total());
         assertTrue(out_.containsCards(cur_.getCardsByStrength(CardPresident.DIAMOND_5.strength(false),false)));
@@ -1260,7 +1260,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         t_.ajouter(h_);
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
-        TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
+        HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }

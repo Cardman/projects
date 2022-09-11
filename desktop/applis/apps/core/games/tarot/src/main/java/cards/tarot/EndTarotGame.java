@@ -3,8 +3,8 @@ package cards.tarot;
 import cards.consts.EndGameState;
 import cards.consts.Role;
 import cards.consts.Suit;
-import cards.tarot.comparators.HandfulComparator;
-import cards.tarot.comparators.MiseresComparator;
+import cards.tarot.comparators.SortedHandfuls;
+import cards.tarot.comparators.SortedMiseres;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.CallingCard;
@@ -20,7 +20,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.IdMap;
 import code.util.*;
-import code.util.TreeMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -489,12 +488,12 @@ public final class EndTarotGame {
         return -1;
     }
 
-    public CustList<TreeMap<Miseres,Short>> getMiseresPointsForTaker() {
+    public CustList<SortedMiseres> getMiseresPointsForTaker() {
 
-        CustList<TreeMap<Miseres,Short>> scores1_ = new CustList<TreeMap<Miseres,Short>>();
+        CustList<SortedMiseres> scores1_ = new CustList<SortedMiseres>();
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
-            TreeMap<Miseres, Short> miseresPlayer_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+            SortedMiseres miseresPlayer_ = new SortedMiseres();
             scores1_.add(miseresPlayer_);
             if (relations.aPourDefenseur(joueur_)) {
                 feedMiseres(miseresPlayer_,joueur_,-1);
@@ -505,28 +504,28 @@ public final class EndTarotGame {
         return scores1_;
 
     }
-    private void feedMiseres(TreeMap<Miseres, Short> _miseres,int _player, int _rate) {
+    private void feedMiseres(SortedMiseres _miseres,int _player, int _rate) {
         feedMiseres(_miseres, _player, _rate, declaresMiseres);
     }
 
-    static void feedMiseres(TreeMap<Miseres, Short> _miseres, int _player, int _rate, CustList<EnumList<Miseres>> _declaresMiseres) {
+    static void feedMiseres(SortedMiseres _miseres, int _player, int _rate, CustList<EnumList<Miseres>> _declaresMiseres) {
         for (Miseres m : _declaresMiseres.get(_player)) {
             _miseres.put(m,
                     (short) (_rate*m.getPoints()));
         }
     }
 
-    public CustList<TreeMap<Handfuls,Short>> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring) {
+    public CustList<SortedHandfuls> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring) {
 
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
         return getHandfulsPointsForTaker(_pointsTakerWithoutDeclaring, nombreDeJoueurs_, declaresHandfuls);
 
     }
 
-    static CustList<TreeMap<Handfuls, Short>> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring, byte _nombreDeJoueurs, CustList<EnumList<Handfuls>> _declaresHandfuls) {
-        CustList<TreeMap<Handfuls,Short>> scores1_ = new CustList<TreeMap<Handfuls,Short>>();
+    static CustList<SortedHandfuls> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring, byte _nombreDeJoueurs, CustList<EnumList<Handfuls>> _declaresHandfuls) {
+        CustList<SortedHandfuls> scores1_ = new CustList<SortedHandfuls>();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreDeJoueurs; joueur_++) {
-            scores1_.add(new TreeMap<Handfuls,Short>(new HandfulComparator()));
+            scores1_.add(new SortedHandfuls());
             for (Handfuls poignee_ : _declaresHandfuls.get(joueur_)) {
                 if (_pointsTakerWithoutDeclaring >= 0) {
                     scores1_.last().put(poignee_,
@@ -579,14 +578,14 @@ public final class EndTarotGame {
     }
 
     static short temporarySum(BidTarot _bid, short _scorePreneurSansAnnonces,
-                                     CustList<TreeMap<Miseres, Short>> _miseres,
-                                     CustList<TreeMap<Handfuls, Short>> _handfuls, short _primesSupplementairesAttack,
+                                     CustList<SortedMiseres> _miseres,
+                                     CustList<SortedHandfuls> _handfuls, short _primesSupplementairesAttack,
                                      short _primesSupplementairesDefense) {
         short sommeTemporaire_ = 0;
-        for (TreeMap<Miseres,Short> m: _miseres) {
+        for (SortedMiseres m: _miseres) {
             sommeTemporaire_ += sum(m.values());
         }
-        for (TreeMap<Handfuls,Short> h: _handfuls) {
+        for (SortedHandfuls h: _handfuls) {
             sommeTemporaire_ += sum(h.values());
         }
         sommeTemporaire_ += _primesSupplementairesAttack

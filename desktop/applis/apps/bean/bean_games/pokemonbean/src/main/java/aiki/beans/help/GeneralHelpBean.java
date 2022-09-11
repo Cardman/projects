@@ -11,6 +11,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsTile;
+import aiki.map.util.MiniMapCoordsTileInts;
 import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
@@ -19,7 +20,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class GeneralHelpBean extends CommonBean {
-    private TreeMap<MiniMapCoords, int[][]> miniMap;
+    private MiniMapCoordsTileInts miniMap;
 
     private TreeMap<MiniMapCoords, String> namesPlaces;
     private String unlockedCity;

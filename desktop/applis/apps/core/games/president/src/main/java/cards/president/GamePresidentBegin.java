@@ -1,10 +1,10 @@
 package cards.president;
 
 import cards.president.comparators.GameStrengthCardPresidentComparator;
+import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
 import code.util.ByteTreeMap;
 import code.util.CustList;
-import code.util.TreeMap;
 
 final class GamePresidentBegin {
 
@@ -27,7 +27,7 @@ final class GamePresidentBegin {
         int nbMaxLen_ = rules.getNbStacks() * GamePresidentCommon.NB_SUITS;
         ByteTreeMap<HandPresident> m_ = playable.getCardsByStrength(reversed);
         CustList<HandPresident> notEmpty_ = GamePresidentCommon.getNotEmpty(m_);
-        TreeMap<CardPresident,Byte> possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(reversed, tricks, progressingTrick,nbMaxLen_);
+        HandPresidentRepartition possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(reversed, tricks, progressingTrick,nbMaxLen_);
         if (notEmpty_.size() != 2) {
             return defBegin(m_, notEmpty_, possibleRep_);
         }
@@ -53,7 +53,7 @@ final class GamePresidentBegin {
         return defBegin(m_, notEmpty_, possibleRep_);
     }
 
-    private HandPresident defBegin(ByteTreeMap<HandPresident> _m, CustList<HandPresident> _notEmpty, TreeMap<CardPresident, Byte> _possibleRep) {
+    private HandPresident defBegin(ByteTreeMap<HandPresident> _m, CustList<HandPresident> _notEmpty, HandPresidentRepartition _possibleRep) {
         if (_notEmpty.size() == 1) {
             return _notEmpty.first();
         }
@@ -78,8 +78,8 @@ final class GamePresidentBegin {
         return _notEmpty.first();
     }
 
-    static CustList<HandPresident> getLeadingCardsPlayer(boolean _reversed, RulesPresident _rules, ByteTreeMap<HandPresident> _m, TreeMap<CardPresident, Byte> _playedCards) {
-        TreeMap<CardPresident,Byte> virtualPlayedCards_ = new TreeMap<CardPresident, Byte>(new GameStrengthCardPresidentComparator(_reversed, true));
+    static CustList<HandPresident> getLeadingCardsPlayer(boolean _reversed, RulesPresident _rules, ByteTreeMap<HandPresident> _m, HandPresidentRepartition _playedCards) {
+        HandPresidentRepartition virtualPlayedCards_ = new HandPresidentRepartition(_reversed);
         virtualPlayedCards_.putAllMap(_playedCards);
         for (byte s: _m.getKeys()) {
             HandPresident h_ = _m.getVal(s);
@@ -98,7 +98,7 @@ final class GamePresidentBegin {
         return getLeadingCards(_reversed, _rules, _m, virtualPlayedCards_);
     }
 
-    private static CustList<HandPresident> getLeadingCards(boolean _reversed, RulesPresident _rules, ByteTreeMap<HandPresident> _m, TreeMap<CardPresident, Byte> _playedCards) {
+    private static CustList<HandPresident> getLeadingCards(boolean _reversed, RulesPresident _rules, ByteTreeMap<HandPresident> _m, HandPresidentRepartition _playedCards) {
         CustList<HandPresident> hands_ = new CustList<HandPresident>();
         for (byte s: _m.getKeys()) {
             HandPresident h_ = _m.getVal(s);
@@ -117,7 +117,7 @@ final class GamePresidentBegin {
         return hands_;
     }
 
-    private static int maxRemGreater(boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _playedCards, byte _strength) {
+    private static int maxRemGreater(boolean _reversed, RulesPresident _rules, HandPresidentRepartition _playedCards, byte _strength) {
         int rem_ = 0;
         for (CardPresident c: _playedCards.getKeys()) {
             if (c.strength(_reversed) >= _strength) {

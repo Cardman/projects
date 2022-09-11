@@ -960,8 +960,8 @@ public final class DataMap {
         }
     }
 
-    public TreeMap<MiniMapCoords, int[][]> getImages(DataBase _data) {
-        TreeMap<MiniMapCoords, int[][]> map_ = new TreeMap<MiniMapCoords, int[][]>(
+    public MiniMapCoordsTileInts getImages(DataBase _data) {
+        MiniMapCoordsTileInts map_ = new MiniMapCoordsTileInts(
                 new ComparatorMiniMapCoords());
         for (MiniMapCoords m_ : miniMap.getKeys()) {
             int[][] image_ = _data.getMiniMap(miniMap.getVal(m_).getFile());

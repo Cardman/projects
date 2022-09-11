@@ -4,8 +4,8 @@ import cards.consts.Role;
 import cards.tarot.EndTarotGame;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
-import cards.tarot.comparators.HandfulComparator;
-import cards.tarot.comparators.MiseresComparator;
+import cards.tarot.comparators.SortedHandfuls;
+import cards.tarot.comparators.SortedMiseres;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.maths.Rate;
@@ -89,11 +89,11 @@ public final class DetailsResultsTarotBean extends TarotBean {
                 }
                 if(existeAnnonce_) {
                     int sumPlayers_ = 0;
-                    CustList<TreeMap<Handfuls,Short>> handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
-                    CustList<TreeMap<Miseres,Short>> miseresTaker_ = end_.getMiseresPointsForTaker();
+                    CustList<SortedHandfuls> handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
+                    CustList<SortedMiseres> miseresTaker_ = end_.getMiseresPointsForTaker();
                     for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
                         TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
-                        TreeMap<Handfuls,Short> handfulsTakerLoc_ = handfulsTaker_.get(p);
+                        SortedHandfuls handfulsTakerLoc_ = handfulsTaker_.get(p);
                         line_.setNickname(getNicknames().get(p));
                         line_.setStatus(toString(game_.getTeamsRelation().statutDe(p), res_.getRes().getGeneral()));
                         StringMap<Short> hands_ = new StringMap<Short>();
@@ -107,7 +107,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
                             sumPlayers_ += handfulsTakerLoc_.getVal(h);
                             sum_ += handfulsTakerLoc_.getVal(h);
                         }
-                        TreeMap<Miseres,Short> miseresTakerLoc_ = miseresTaker_.get(p);
+                        SortedMiseres miseresTakerLoc_ = miseresTaker_.get(p);
                         StringMap<Short> mis_ = new StringMap<Short>();
                         for (EntryCust<Miseres, Short> e: miseresTakerLoc_.entryList()) {
                             Miseres m_ = e.getKey();
@@ -191,7 +191,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
                 if (getGame().pasJeuMisere()) {
                     for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
                         TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
-                        TreeMap<Handfuls,Short> handfulsTakerLoc_ = new TreeMap<Handfuls,Short>(new HandfulComparator());
+                        SortedHandfuls handfulsTakerLoc_ = new SortedHandfuls();
                         for (Handfuls h: end_.calculHandfulsScorePlayer(p).get(p).getKeys()) {
                             handfulsTakerLoc_.put(h, (short)0);
                         }
@@ -202,7 +202,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
                             hands_.addEntry(toString(h_, res_.getRes().getSpecific()), e.getValue());
                         }
                         line_.setHandfuls(hands_);
-                        TreeMap<Miseres,Short> miseres_ = new TreeMap<Miseres,Short>(new MiseresComparator());
+                        SortedMiseres miseres_ = new SortedMiseres();
                         for (Miseres m: end_.calculMiseresScorePlayer(p).get(p).getKeys()) {
                             miseres_.put(m, (short)0);
                         }

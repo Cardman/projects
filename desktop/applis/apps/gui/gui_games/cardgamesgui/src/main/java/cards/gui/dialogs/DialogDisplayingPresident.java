@@ -151,7 +151,6 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for(Suit couleur_:couleurs_) {
-                listeChoix.getElements().put(couleur_, Games.toString(couleur_, lg_));
                 listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
             }
         } else {

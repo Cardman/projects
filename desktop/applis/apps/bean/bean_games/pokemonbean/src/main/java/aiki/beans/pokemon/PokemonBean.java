@@ -20,6 +20,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsTile;
+import aiki.map.util.MiniMapCoordsTileInts;
 import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
@@ -63,7 +64,7 @@ public class PokemonBean extends CommonBean {
     private StringList eggGroupsPk;
     private NatStringTreeMap<String> mapVars;
     private CustList<PlaceIndex> places;
-    private TreeMap<MiniMapCoords, int[][]> images;
+    private MiniMapCoordsTileInts images;
 
     private TreeMap<MiniMapCoords, String> namesPlaces;
 

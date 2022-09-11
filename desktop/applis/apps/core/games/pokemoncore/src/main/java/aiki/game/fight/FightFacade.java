@@ -1993,7 +1993,7 @@ public final class FightFacade {
         return _fight.getOrderedFighters();
     }
 
-    public static TreeMap<TeamPosition,ActionMove>
+    public static TeamPositionActionMoveMap
             sortedFightersUsingMoveDependingOnPlayerChoices(
                     Fight _fight, DataBase _data) {
         if (!_fight.getAllyChoiceSet().isEmpty()) {
@@ -2006,8 +2006,8 @@ public final class FightFacade {
             _fight.getFighter(f).choisirAttaqueFin();
         }
         FightOrder.sortFightersUsingMoveAmongList(_fight, _data);
-        TreeMap<TeamPosition,ActionMove> tree_;
-        tree_ = new TreeMap<TeamPosition, ActionMove>(new SortedFighterActsComparator(_fight));
+        TeamPositionActionMoveMap tree_;
+        tree_ = new TeamPositionActionMoveMap(new SortedFighterActsComparator(_fight));
         for (TeamPosition f: _fight.getOrderedFighters()) {
             tree_.put(f, (ActionMove) _fight.getFighter(f).getAction());
         }

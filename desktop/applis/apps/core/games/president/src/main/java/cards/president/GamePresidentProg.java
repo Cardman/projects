@@ -1,6 +1,7 @@
 package cards.president;
 
 import cards.president.comparators.GameStrengthCardPresidentComparator;
+import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -29,11 +30,11 @@ final class GamePresidentProg {
             return playable;
         }
         int nbMaxLen_ = rules.getNbStacks() * GamePresidentCommon.NB_SUITS;
-        TreeMap<CardPresident,Byte> possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(reversed, tricks, progressingTrick,nbMaxLen_);
+        HandPresidentRepartition possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(reversed, tricks, progressingTrick,nbMaxLen_);
         return progressTrick(possibleRep_, playable, fullHand, progressingTrick, reversed, rules);
     }
 
-    static HandPresident progressTrick(TreeMap<CardPresident, Byte> _possibleRep, HandPresident _playable,
+    static HandPresident progressTrick(HandPresidentRepartition _possibleRep, HandPresident _playable,
                                        HandPresident _fullHand, TrickPresident _progressingTrick,
                                        boolean _reversed, RulesPresident _rules) {
         if (_playable.total() == _fullHand.total()) {
@@ -71,7 +72,7 @@ final class GamePresidentProg {
         return getDefaultCards(_playable, _progressingTrick, _reversed);
     }
 
-    static HandPresident tryPlayWhenAllPossible(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep) {
+    static HandPresident tryPlayWhenAllPossible(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, HandPresidentRepartition _rep) {
         ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         CustList<HandPresident> notEmpty_ = GamePresidentCommon.getNotEmpty(m_);
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
@@ -92,7 +93,7 @@ final class GamePresidentProg {
         return new HandPresident();
     }
 
-    private static HandPresident oneElt(boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep, ByteTreeMap<HandPresident> _m, CustList<HandPresident> _notEmpty, int _nb) {
+    private static HandPresident oneElt(boolean _reversed, RulesPresident _rules, HandPresidentRepartition _rep, ByteTreeMap<HandPresident> _m, CustList<HandPresident> _notEmpty, int _nb) {
         if (_notEmpty.first().total() == _nb) {
             return _notEmpty.first();
         }
@@ -109,7 +110,7 @@ final class GamePresidentProg {
 
     private static HandPresident tryPlayDomHand(HandPresident _fullHand, HandPresident _playable,
                                                 TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules,
-                                                TreeMap<CardPresident, Byte> _rep) {
+                                                HandPresidentRepartition _rep) {
         ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         if (!GamePresidentCommon.dominantHand(_reversed, _rules, _fullHand, _rep).estVide()) {
             return lastGroup(_progressingTrick, m_);

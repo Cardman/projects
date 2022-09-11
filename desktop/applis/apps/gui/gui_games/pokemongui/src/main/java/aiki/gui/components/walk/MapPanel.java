@@ -6,13 +6,13 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.TileLabel;
 import aiki.gui.listeners.TileListener;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsTileInts;
 import aiki.map.util.TileMiniMap;
 import code.gui.AbsPanel;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
-import code.util.TreeMap;
 
 public class MapPanel {
 
@@ -22,7 +22,7 @@ public class MapPanel {
         AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
         container = compoFactory_.newGrid(_facade.getMapHeight(), _facade.getMapWidth());
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        TreeMap<MiniMapCoords, int[][]> images_;
+        MiniMapCoordsTileInts images_;
         images_ = _facade.getImages();
         int sideLength_ = _facade.getMap().getSideLength();
         for (MiniMapCoords t: images_.getKeys()) {

@@ -17,7 +17,7 @@ public final class ComboBox<T> extends AbsComboBox {
     public ComboBox(GraphicComboGrInt _combo) {
         super(_combo);
     }
-    public TreeMap<T, String> getElements() {
+    TreeMap<T, String> getElements() {
         return elements;
     }
 
@@ -64,9 +64,7 @@ public final class ComboBox<T> extends AbsComboBox {
     }
 
     public void addItem(T _t, String _dis) {
-        TreeMap<T, String> tr_;
-        tr_ = getElements();
-        tr_.put(_t, _dis);
+        getElements().put(_t, _dis);
         addItem(_dis);
     }
     public void setSelectedItem(T _t) {

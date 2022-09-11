@@ -15,7 +15,6 @@ import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Ints;
-import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -51,8 +50,8 @@ public final class ExecArrayTemplates {
     }
 
     public static ArrayStruct newCustomArray(String _className, Ints _dims, ContextEl _cont) {
-        TreeMap<Ints,Struct> indexesArray_;
-        indexesArray_ = new TreeMap<Ints,Struct>(new IndexesComparator());
+        ArrayStructSortedElementByIndexes indexesArray_;
+        indexesArray_ = new ArrayStructSortedElementByIndexes(new IndexesComparator());
         ArrayStruct output_ = new ArrayStruct(_dims.first(), StringExpUtil.getPrettyArrayType(_className, _dims.size()));
         Ints dims_ = new Ints();
         indexesArray_.put(new Ints(), output_);

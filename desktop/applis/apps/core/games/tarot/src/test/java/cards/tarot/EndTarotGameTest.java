@@ -4,6 +4,8 @@ import cards.consts.EndGameState;
 import cards.consts.GameType;
 import cards.consts.Role;
 import cards.tarot.comparators.MiseresComparator;
+import cards.tarot.comparators.SortedHandfuls;
+import cards.tarot.comparators.SortedMiseres;
 import cards.tarot.enumerations.*;
 import code.maths.Rate;
 import code.util.*;
@@ -181,7 +183,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         }
         m_.get(1).add(Miseres.TRUMP);
         EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_, dSlam_, small_);
-        CustList<TreeMap<Miseres, Short>> miseresPointsForTaker_ = endTarotGame_.getMiseresPointsForTaker();
+        CustList<SortedMiseres> miseresPointsForTaker_ = endTarotGame_.getMiseresPointsForTaker();
         assertEq(3, miseresPointsForTaker_.size());
     }
 
@@ -3647,7 +3649,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         hs_.add(h_);
         h_ = new EnumList<Handfuls>();
         hs_.add(h_);
-        CustList<TreeMap<Handfuls, Short>> out_ = EndTarotGame.getHandfulsPointsForTaker((short) 50, n_, hs_);
+        CustList<SortedHandfuls> out_ = EndTarotGame.getHandfulsPointsForTaker((short) 50, n_, hs_);
         assertEq(5, out_.size());
         assertEq(2, out_.get(0).size());
         assertEq(40, out_.get(0).getValue(0));
@@ -3669,7 +3671,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         hs_.add(h_);
         h_ = new EnumList<Handfuls>();
         hs_.add(h_);
-        CustList<TreeMap<Handfuls, Short>> out_ = EndTarotGame.getHandfulsPointsForTaker((short) -50, n_, hs_);
+        CustList<SortedHandfuls> out_ = EndTarotGame.getHandfulsPointsForTaker((short) -50, n_, hs_);
         assertEq(5, out_.size());
         assertEq(2, out_.get(0).size());
         assertEq(-40, out_.get(0).getValue(0));
@@ -3691,7 +3693,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         m_.add(h_);
         h_ = new EnumList<Miseres>();
         m_.add(h_);
-        TreeMap<Miseres, Short> tr_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        SortedMiseres tr_ = new SortedMiseres();
         EndTarotGame.feedMiseres(tr_,0,1,m_);
         assertEq(3, tr_.size());
         assertEq(10, tr_.getValue(0));
@@ -3766,13 +3768,13 @@ public final class EndTarotGameTest extends CommonGameTarot {
         miseres_.add(m_);
         m_ = new EnumList<Miseres>();
         miseres_.add(m_);
-        TreeMap<Miseres, Short> trOne_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        SortedMiseres trOne_ = new SortedMiseres();
         EndTarotGame.feedMiseres(trOne_,0,1,miseres_);
-        TreeMap<Miseres, Short> trTwo_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        SortedMiseres trTwo_ = new SortedMiseres();
         EndTarotGame.feedMiseres(trTwo_,1,-1,miseres_);
-        TreeMap<Miseres, Short> trThree_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        SortedMiseres trThree_ = new SortedMiseres();
         EndTarotGame.feedMiseres(trThree_,2,-1,miseres_);
-        CustList<TreeMap<Miseres, Short>> miseresList_ = new CustList<TreeMap<Miseres, Short>>();
+        CustList<SortedMiseres> miseresList_ = new CustList<SortedMiseres>();
         miseresList_.add(trOne_);
         miseresList_.add(trTwo_);
         miseresList_.add(trThree_);
@@ -3784,7 +3786,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         handfuls_.add(h_);
         h_ = new EnumList<Handfuls>();
         handfuls_.add(h_);
-        CustList<TreeMap<Handfuls, Short>> handfulsList_ = EndTarotGame.getHandfulsPointsForTaker((short) 100, (byte) 3, handfuls_);
+        CustList<SortedHandfuls> handfulsList_ = EndTarotGame.getHandfulsPointsForTaker((short) 100, (byte) 3, handfuls_);
         assertEq(295,EndTarotGame.temporarySum(BidTarot.GUARD,(short)100,miseresList_,handfulsList_,(short)100,(short)50));
     }
     @Test
@@ -3799,13 +3801,13 @@ public final class EndTarotGameTest extends CommonGameTarot {
         miseres_.add(m_);
         m_ = new EnumList<Miseres>();
         miseres_.add(m_);
-        TreeMap<Miseres, Short> trOne_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        SortedMiseres trOne_ = new SortedMiseres();
         EndTarotGame.feedMiseres(trOne_,0,1,miseres_);
-        TreeMap<Miseres, Short> trTwo_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        SortedMiseres trTwo_ = new SortedMiseres();
         EndTarotGame.feedMiseres(trTwo_,1,-1,miseres_);
-        TreeMap<Miseres, Short> trThree_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        SortedMiseres trThree_ = new SortedMiseres();
         EndTarotGame.feedMiseres(trThree_,2,-1,miseres_);
-        CustList<TreeMap<Miseres, Short>> miseresList_ = new CustList<TreeMap<Miseres, Short>>();
+        CustList<SortedMiseres> miseresList_ = new CustList<SortedMiseres>();
         miseresList_.add(trOne_);
         miseresList_.add(trTwo_);
         miseresList_.add(trThree_);
@@ -3817,7 +3819,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         handfuls_.add(h_);
         h_ = new EnumList<Handfuls>();
         handfuls_.add(h_);
-        CustList<TreeMap<Handfuls, Short>> handfulsList_ = EndTarotGame.getHandfulsPointsForTaker((short) 100, (byte) 3, handfuls_);
+        CustList<SortedHandfuls> handfulsList_ = EndTarotGame.getHandfulsPointsForTaker((short) 100, (byte) 3, handfuls_);
         assertEq(0,EndTarotGame.temporarySum(BidTarot.GUARD,(short)0,miseresList_,handfulsList_,(short)100,(short)50));
     }
     @Test

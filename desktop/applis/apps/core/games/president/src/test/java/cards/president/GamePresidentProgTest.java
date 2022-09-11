@@ -1,10 +1,10 @@
 package cards.president;
 
 import cards.president.comparators.GameStrengthCardPresidentComparator;
+import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.util.CustList;
-import code.util.TreeMap;
 import org.junit.Test;
 
 public final class GamePresidentProgTest extends CommonGamePresident {
@@ -134,7 +134,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.HEART_10);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(2, out_.total());
         assertTrue(checkStrength(out_,CardPresident.CLUB_2,false));
@@ -153,7 +153,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.HEART_10);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(2, out_.total());
         assertTrue(checkStrength(out_,CardPresident.CLUB_JACK,false));
@@ -174,7 +174,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.HEART_10);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         possibleRep_.put(CardPresident.DIAMOND_2, (byte) 3);
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(2, out_.total());
@@ -197,7 +197,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.HEART_10);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(0, out_.total());
     }
@@ -217,7 +217,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.HEART_10);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         possibleRep_.put(CardPresident.CLUB_2, (byte) 0);
         possibleRep_.put(CardPresident.CLUB_1, (byte) 0);
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
@@ -248,7 +248,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.SPADE_3);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_,pr_,false,r_,possibleRep_);
         assertEq(0, out_.total());
     }
@@ -720,7 +720,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
         int nbMaxLen_ = r_.getNbStacks() * GamePresidentCommon.NB_SUITS;
-        TreeMap<CardPresident,Byte> possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,nbMaxLen_);
+        HandPresidentRepartition possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,nbMaxLen_);
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(4,out_.total());
         assertTrue(checkStrength(out_,CardPresident.SPADE_2,false));
@@ -745,7 +745,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.DIAMOND_7);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         possibleRep_.put(CardPresident.DIAMOND_2, (byte) 3);
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(3,out_.total());
@@ -777,7 +777,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.HEART_10);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(2,out_.total());
         assertTrue(checkStrength(out_,CardPresident.SPADE_10,false));
@@ -799,7 +799,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.HEART_10);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(2, out_.total());
         assertTrue(checkStrength(out_,CardPresident.CLUB_2,false));
@@ -823,7 +823,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.HEART_10);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(2, out_.total());
         assertTrue(checkStrength(out_,CardPresident.SPADE_JACK,false));

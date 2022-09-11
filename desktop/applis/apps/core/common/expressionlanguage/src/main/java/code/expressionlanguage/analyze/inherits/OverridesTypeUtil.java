@@ -195,7 +195,7 @@ public final class OverridesTypeUtil {
         CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
         //r_ inherit the formatted method
         boolean found_ = false;
-        TreeMap<RootBlock,GeneStringOverridable> tree_ = new TreeMap<RootBlock,GeneStringOverridable>(new ComparingByTypeList(getAllGenericClasses(r_)));
+        TreeTypeMethodOverrides tree_ = new TreeTypeMethodOverrides(new ComparingByTypeList(getAllGenericClasses(r_)));
         //if the overridden types contain the type input, then look for the "most sub typed" super class of r_
         for (GeneStringOverridable t: getList(ov_,l_)) {
             RootBlock type_ = t.getType();

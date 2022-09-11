@@ -34,6 +34,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsTileInts;
 import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
 import aiki.util.*;
@@ -949,8 +950,8 @@ public class FacadeGame {
         return hostedPokemon;
     }
 
-    public TreeMap<MiniMapCoords, int[][]> getImages() {
-        TreeMap<MiniMapCoords, int[][]> miniMap_;
+    public MiniMapCoordsTileInts getImages() {
+        MiniMapCoordsTileInts miniMap_;
         miniMap_ = data.getMap().getImages(data);
         for (MiniMapCoords m : miniMap_.getKeys()) {
             TileMiniMap tile_ = data.getMap().getMiniMap().getVal(m);
@@ -1193,9 +1194,8 @@ public class FacadeGame {
         return moves_;
     }
 
-    public TreeMap<String, LgInt> getChosenItemsForBuyOrSell() {
-        TreeMap<String, LgInt> tr_;
-        tr_ = new TreeMap<String, LgInt>(new ComparatorTrStrings(data
+    public ItemsBuySellMap getChosenItemsForBuyOrSell() {
+        ItemsBuySellMap tr_ = new ItemsBuySellMap(new ComparatorTrStrings(data
                 .getTranslatedItems().getVal(language)));
         for (EntryCust<String, LgInt> e : chosenItemsForBuyOrSell.entryList()) {
             tr_.put(e.getKey(), e.getValue());
