@@ -86,6 +86,11 @@ public final class EffectDamage extends Effect {
         if (!_data.getCategories().containsAllObj(multDamageAgainst.getKeys())) {
             _data.setError(true);
         }
+        for (Rate r: multDamageAgainst.values()) {
+            if (r.isZeroOrLt()) {
+                _data.setError(true);
+            }
+        }
         if (!chLaw.events().isEmpty()) {
             Rate min_ = chLaw.minimum();
             if (min_.lowerThanOne()) {
