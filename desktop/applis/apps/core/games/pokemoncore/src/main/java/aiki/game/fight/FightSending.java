@@ -13,7 +13,6 @@ import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import aiki.fight.status.Status;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.IssueSimulation;
-import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.RandomBoolResults;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
@@ -22,7 +21,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumList;
 import code.util.AbsMap;
-import code.util.EqList;
 import code.util.*;
 
 import code.util.StringList;
@@ -61,45 +59,20 @@ final class FightSending {
                 continue;
             }
             FightAbilities.enableAbilityByWeather(_fight, e, _import);
-            AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
-            if(!fCapac_.enabledSending()){
 //                FightAbilities.enableAbility(_fight, e, _import);
-                continue;
+            EffectWhileSendingWithStatistic effetEnvoi_ = sendingEff(creatureCbt_, _import);
+            if (effetEnvoi_ != null) {
+                FightSending.effectWhileSendingAbility(_fight, e, effetEnvoi_, _diff, _import);
             }
-            EffectWhileSendingWithStatistic effetEnvoi_=fCapac_.getEffectSending().first();
-            FightSending.effectWhileSendingAbility(_fight,e,effetEnvoi_,_diff,_import);
         }
     }
 
     static void sendBegin(Fight _fight,TeamPosition _cbtEnvoye,DataBase _import) {
-        Team equipeCbtEnvoye_=_fight.getTeams().getVal(_cbtEnvoye.getTeam());
-        Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_cbtEnvoye.getTeam()));
         Fighter creatureCbt_=_fight.getFighter(_cbtEnvoye);
         creatureCbt_.formeNormale(_import);
-        if(creatureCbt_.isBelongingToPlayer()){
-            for(byte c:equipeAdvCbtEnvoye_.getMembers().getKeys()){
-                Fighter fighter_= equipeAdvCbtEnvoye_.getMembers().getVal(c);
-                if (fighter_.estArriere()) {
-                    continue;
-                }
-                equipeCbtEnvoye_.ajouterCombattantsContreAdv(_cbtEnvoye.getPosition(),c);
-            }
-        } else if (NumberUtil.eq(_cbtEnvoye.getTeam(), Fight.CST_FOE)){
-            Team team_=_fight.getUserTeam();
-            for(byte c:team_.getMembers().getKeys()){
-                Fighter creature_=team_.getMembers().getVal(c);
-                if(creature_.estArriere()){
-                    continue;
-                }
-                if(!creature_.isBelongingToPlayer()){
-                    continue;
-                }
-                _fight.getUserTeam().ajouterCombattantsContreAdv(c,_cbtEnvoye.getPosition());
-            }
-        }
-        AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
-        if(fCapac_.enabledSending()){
-            EffectWhileSendingWithStatistic effetEnvoi_=fCapac_.getEffectSending().first();
+        ajouterCombattantsContreAdv(_fight, _cbtEnvoye, creatureCbt_);
+        EffectWhileSendingWithStatistic effetEnvoi_ = sendingEff(creatureCbt_, _import);
+        if(effetEnvoi_ != null){
             effectWhileSendingBegin(_fight,_cbtEnvoye,effetEnvoi_,_import);
         }
 
@@ -117,31 +90,35 @@ final class FightSending {
             _fight.getEnabledMoves().getVal(climat_).reset();
             _fight.addEnabledWeatherMessage(climat_, _import);
             if(!FightMoves.existenceAntiClimatActif(_fight,_import)){
-                MoveData fAttGl_=_import.getMove(climat_);
-                int nbEffets_=fAttGl_.nbEffets();
-                for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                    Effect effet_=fAttGl_.getEffet(i);
-                    if(!(effet_ instanceof EffectGlobal)){
-                        continue;
-                    }
-                    EffectGlobal effetGlobal_=(EffectGlobal)effet_;
-                    for(String c:effetGlobal_.getCancelEffects()){
-                        _fight.getEnabledMoves().getVal(c).disable();
-                        _fight.getEnabledMoves().getVal(c).reset();
-                        _fight.addDisabledWeatherMessage(c, _import);
-                        if(_fight.getStillEnabledMoves().contains(c)){
-                            _fight.getStillEnabledMoves().put(c,BoolVal.FALSE);
-                        }
-                    }
-//                    if(effetGlobal_.getPriseEnComptePkLanceur()){
-//                        lanceursGlobaux.put(climat_,_cbtEnvoye);
-//                    }
-                }
+                weather(_fight, _import, climat_);
             }
         }
         if (!_effet.getMultWeight().isZero()) {
             Fighter creatureCbt_ = _fight.getFighter(_cbtEnvoye);
             creatureCbt_.getWeight().multiplyBy(_effet.getMultWeight());
+        }
+    }
+
+    private static void weather(Fight _fight, DataBase _import, String _climat) {
+        MoveData fAttGl_= _import.getMove(_climat);
+        int nbEffets_=fAttGl_.nbEffets();
+        for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+            Effect effet_=fAttGl_.getEffet(i);
+            if(!(effet_ instanceof EffectGlobal)){
+                continue;
+            }
+            EffectGlobal effetGlobal_=(EffectGlobal)effet_;
+            for(String c:effetGlobal_.getCancelEffects()){
+                _fight.getEnabledMoves().getVal(c).disable();
+                _fight.getEnabledMoves().getVal(c).reset();
+                _fight.addDisabledWeatherMessage(c, _import);
+                if(_fight.getStillEnabledMoves().contains(c)){
+                    _fight.getStillEnabledMoves().put(c,BoolVal.FALSE);
+                }
+            }
+//                    if(effetGlobal_.getPriseEnComptePkLanceur()){
+//                        lanceursGlobaux.put(climat_,_cbtEnvoye);
+//                    }
         }
     }
 
@@ -152,13 +129,9 @@ final class FightSending {
             Item objet_=creatureCbt_.ficheObjet(_import);
             if(objet_ instanceof ItemForBattle){
                 ItemForBattle plaque_=(ItemForBattle)objet_;
-                if (!plaque_.getTypesPk().isEmpty()) {
-                    if (creatureCbt_.capaciteActive()) {
-                        if (creatureCbt_.ficheCapaciteActuelle(_import).isPlate()) {
-                            creatureCbt_.affecterTypes(plaque_.getTypesPk());
-                            _fight.addChangedTypesMessage(_cbtEnvoye, plaque_.getTypesPk(), _import);
-                        }
-                    }
+                if (!plaque_.getTypesPk().isEmpty() && creatureCbt_.capaciteActive() && creatureCbt_.ficheCapaciteActuelle(_import).isPlate()) {
+                    creatureCbt_.affecterTypes(plaque_.getTypesPk());
+                    _fight.addChangedTypesMessage(_cbtEnvoye, plaque_.getTypesPk(), _import);
                 }
             }
         }
@@ -166,146 +139,103 @@ final class FightSending {
 
     static void effectSendingObjectBegin(Fight _fight,TeamPosition _cbtEnvoye,DataBase _import){
         Fighter creatureCbt_=_fight.getFighter(_cbtEnvoye);
-        if (!creatureCbt_.hasObjectEnabledBeingSent(_import)) {
+        EffectWhileSendingWithStatistic effetEnvoi_=creatureCbt_.effectWhileSendingWithStatistic(_import);
+        if (effetEnvoi_ == null) {
             return;
         }
-        Item objet_=creatureCbt_.ficheObjet(_import);
-        ItemForBattle objetAttachableCombat_=(ItemForBattle)objet_;
-        EffectWhileSendingWithStatistic effetEnvoi_=objetAttachableCombat_.getEffectSending().first();
         effectWhileSendingBegin(_fight,_cbtEnvoye,effetEnvoi_,_import);
     }
 
     static void sendSubstitutes(Fight _fight, Difficulty _diff,Player _user,DataBase _import){
         _fight.setError(false);
-        if (_fight.getState() != FightState.SWITCH_WHILE_KO_USER) {
-            if(!FightRules.substitutable(_fight,_diff, _import)){
-                _fight.setError(true);
-                return;
-            }
+        if (_fight.getState() != FightState.SWITCH_WHILE_KO_USER && !FightRules.substitutable(_fight, _diff, _import)) {
+            _fight.setError(true);
+            return;
         }
-        boolean tombeKo_=false;
+        _fight.setTombeKo(false);
         Team equipeAdv_=_fight.getFoeTeam();
-        for(byte c:equipeAdv_.getMembers().getKeys()){
-            Fighter membre_=equipeAdv_.refPartMembres(c);
-            if (!membre_.estKo()) {
-                membre_.affectGroundPlaceBySubst();
-            }
+        affectGroundPlaceBySubstFoe(equipeAdv_);
+        withdrawalFoe(_fight, _import, equipeAdv_);
+        if (endedFightFoe(_fight, _diff, _user, _import, equipeAdv_)) {
+            return;
         }
-        for(byte c:equipeAdv_.getMembers().getKeys()){
-            Fighter membre_=equipeAdv_.refPartMembres(c);
-            byte pos_ = _fight.getFirstPositFoeFighters().getVal(c);
-            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
-                //must stay at front
-                continue;
-            }
-            membre_.exitFrontBattleForBeingSubstitued();
-            membre_.exitFrontBattle();
-            withdrawal(_fight, Fight.toFoeFighter(c),_import);
-        }
-        for(byte c:equipeAdv_.getMembers().getKeys()){
-            Fighter membre_=equipeAdv_.refPartMembres(c);
-            byte pos_ = _fight.getFirstPositFoeFighters().getVal(c);
-            if (NumberUtil.eq(pos_,Fighter.BACK)) {
-                //not sent
-                continue;
-            }
-            membre_.groundPlaceSubst(pos_);
-            sending(_fight,Fight.toFoeFighter(c),_diff,_import);
-            if (FightKo.endedFight(_fight,_diff)) {
-                FightEndRound.proponeMovesEvolutions(_fight,_user,_diff,_import);
-                return;
-            }
-            if (membre_.estKo()) {
-                tombeKo_=true;
-            }
-        }
-        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
-            Fighter membre_=_fight.getFighter(c);
-            if (!membre_.estKo()) {
-                membre_.affectGroundPlaceBySubst();
-            }
-        }
+        affectGroundPlaceBySubstAlly(_fight);
 
-        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
-            Fighter membre_=_fight.getFighter(c);
+        withdrawalAlly(_fight, _import);
+        if (endedFightAlly(_fight, _diff, _import)) {
+            return;
+        }
+        withdrawalPlayer(_fight, _import);
+        chgPlayerGroundPos(_fight);
+        if (endedFightPlayer(_fight, _diff, _import)) {
+            return;
+        }
+        afterSwitch(_fight, _diff, _user, _import, _fight.isTombeKo());
+    }
+
+    private static boolean endedFightPlayer(Fight _fight, Difficulty _diff, DataBase _import) {
+        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
+            Fighter membre_= _fight.getFighter(c);
             byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
-            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
-                //must stay at front
+            if (NumberUtil.eq(pos_, Fighter.BACK) || !membre_.estArriere()) {
                 continue;
             }
-            membre_.exitFrontBattleForBeingSubstitued();
-            membre_.exitFrontBattle();
-            withdrawal(_fight, c,_import);
+            membre_.groundPlaceSubst(pos_);
+            sending(_fight,c, _diff, _import);
+            if (FightKo.endedFight(_fight, _diff)) {
+                return true;
+            }
+            if (membre_.estKo()) {
+                _fight.setTombeKo(true);
+            }
         }
+        return false;
+    }
+
+    private static boolean endedFightAlly(Fight _fight, Difficulty _diff, DataBase _import) {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
-            Fighter membre_=_fight.getFighter(c);
+            Fighter membre_= _fight.getFighter(c);
             byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
             if (NumberUtil.eq(pos_,Fighter.BACK)) {
                 //not sent
                 continue;
             }
             membre_.groundPlaceSubst(pos_);
-            sending(_fight,c,_diff,_import);
-            if (FightKo.endedFight(_fight,_diff)) {
-                return;
+            sending(_fight,c, _diff, _import);
+            if (FightKo.endedFight(_fight, _diff)) {
+                return true;
             }
             if (membre_.estKo()) {
-                tombeKo_=true;
+                _fight.setTombeKo(true);
             }
         }
-        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
-            Fighter membre_=_fight.getFighter(c);
-            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
-            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
-                //must stay at front
-                continue;
-            }
-            if (membre_.estArriere()) {
-                membre_.exitFrontBattleForBeingSubstitued();
-                continue;
-            }
-            membre_.exitFrontBattleForBeingSubstitued();
-            membre_.exitFrontBattle();
-            withdrawal(_fight, c,_import);
-        }
-        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
-            Fighter membre_=_fight.getFighter(c);
-            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+        return false;
+    }
+
+    private static boolean endedFightFoe(Fight _fight, Difficulty _diff, Player _user, DataBase _import, Team _equipeAdv) {
+        for(byte c: _equipeAdv.getMembers().getKeys()){
+            Fighter membre_= _equipeAdv.refPartMembres(c);
+            byte pos_ = _fight.getFirstPositFoeFighters().getVal(c);
             if (NumberUtil.eq(pos_,Fighter.BACK)) {
-                continue;
-            }
-            if (membre_.estArriere()) {
+                //not sent
                 continue;
             }
             membre_.groundPlaceSubst(pos_);
-        }
-        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
-            Fighter membre_=_fight.getFighter(c);
-            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
-            if (NumberUtil.eq(pos_,Fighter.BACK)) {
-                continue;
-            }
-            if (!membre_.estArriere()) {
-                continue;
-            }
-            membre_.groundPlaceSubst(pos_);
-            sending(_fight,c,_diff,_import);
-            if (FightKo.endedFight(_fight,_diff)) {
-                return;
+            sending(_fight,Fight.toFoeFighter(c), _diff, _import);
+            if (FightKo.endedFight(_fight, _diff)) {
+                FightEndRound.proponeMovesEvolutions(_fight, _user, _diff, _import);
+                return true;
             }
             if (membre_.estKo()) {
-                tombeKo_=true;
+                _fight.setTombeKo(true);
             }
         }
-        boolean allKoPlayer_ = true;
-        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
-            Fighter membre_=_fight.getFighter(c);
-            if (!membre_.estKo()) {
-                allKoPlayer_ = false;
-                break;
-            }
-        }
-        if(tombeKo_){
+        return false;
+    }
+
+    private static void afterSwitch(Fight _fight, Difficulty _diff, Player _user, DataBase _import, boolean _tombeKo) {
+        boolean allKoPlayer_ = allKoPlayer(_fight);
+        if(_tombeKo){
             if (allKoPlayer_) {
                 _fight.setState(FightState.SWITCH_WHILE_KO_USER);
                 FightEndRound.setPlacesForFighters(_fight, false);
@@ -316,7 +246,7 @@ final class FightSending {
                 }
                 return;
             }
-            FightEndRound.proponeMovesEvolutions(_fight,_user,_diff,_import);
+            FightEndRound.proponeMovesEvolutions(_fight, _user, _diff, _import);
             if (_fight.getState() != FightState.APPRENDRE_EVOLUER) {
                 FightArtificialIntelligence.choiceForSubstituing(_fight, _import);
             }
@@ -326,6 +256,93 @@ final class FightSending {
             _fight.setState(FightState.ATTAQUES);
         }
         FightEndRound.setPlacesForFighters(_fight, true);
+    }
+
+    private static boolean allKoPlayer(Fight _fight) {
+        boolean allKoPlayer_ = true;
+        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
+            Fighter membre_= _fight.getFighter(c);
+            if (!membre_.estKo()) {
+                allKoPlayer_ = false;
+                break;
+            }
+        }
+        return allKoPlayer_;
+    }
+
+    private static void chgPlayerGroundPos(Fight _fight) {
+        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
+            Fighter membre_= _fight.getFighter(c);
+            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            if (NumberUtil.eq(pos_, Fighter.BACK) || membre_.estArriere()) {
+                continue;
+            }
+            membre_.groundPlaceSubst(pos_);
+        }
+    }
+
+    private static void withdrawalPlayer(Fight _fight, DataBase _import) {
+        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
+            Fighter membre_= _fight.getFighter(c);
+            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
+                //must stay at front
+                continue;
+            }
+            if (membre_.estArriere()) {
+                membre_.exitFrontBattleForBeingSubstitued();
+            } else {
+                membre_.exitFrontBattleForBeingSubstitued();
+                membre_.exitFrontBattle();
+                withdrawal(_fight, c, _import);
+            }
+        }
+    }
+
+    private static void withdrawalAlly(Fight _fight, DataBase _import) {
+        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
+            Fighter membre_= _fight.getFighter(c);
+            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
+                //must stay at front
+                continue;
+            }
+            membre_.exitFrontBattleForBeingSubstitued();
+            membre_.exitFrontBattle();
+            withdrawal(_fight, c, _import);
+        }
+    }
+
+    private static void affectGroundPlaceBySubstAlly(Fight _fight) {
+        for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
+            Fighter membre_= _fight.getFighter(c);
+            if (!membre_.estKo()) {
+                membre_.affectGroundPlaceBySubst();
+            }
+        }
+    }
+
+    private static void withdrawalFoe(Fight _fight, DataBase _import, Team _equipeAdv) {
+        for(byte c: _equipeAdv.getMembers().getKeys()){
+            Fighter membre_= _equipeAdv.refPartMembres(c);
+            byte pos_ = _fight.getFirstPositFoeFighters().getVal(c);
+            if (!NumberUtil.eq(pos_,Fighter.BACK)) {
+                //must stay at front
+                continue;
+            }
+            membre_.exitFrontBattleForBeingSubstitued();
+            membre_.exitFrontBattle();
+            withdrawal(_fight, Fight.toFoeFighter(c), _import);
+        }
+    }
+
+    private static void affectGroundPlaceBySubstFoe(Team _equipeAdv) {
+        for(byte c: _equipeAdv.getMembers().getKeys()){
+            Fighter membre_= _equipeAdv.refPartMembres(c);
+            if (!membre_.estKo()) {
+                membre_.affectGroundPlaceBySubst();
+            }
+        }
     }
 
     static void withdrawal(Fight _fight, TeamPosition _cbtRetire,DataBase _import){
@@ -369,46 +386,50 @@ final class FightSending {
 
     static void endRelations(Fight _fight, TeamPosition _cbtRetire, DataBase _import) {
         for (TeamPosition t: FightOrder.fighters(_fight)) {
-            Fighter fighter_ = _fight.getFighter(t);
-            for (MoveTeamPosition m: fighter_.getStatusRelatSet()) {
-                if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
-                    short r_ = fighter_.getStatusRelatNbRoundShort(m);
-                    fighter_.supprimerPseudoStatutCombattant(_cbtRetire, m.getMove());
-                    _fight.addDisabledStatusRelMessage(m.getMove(), t, _cbtRetire, r_, _import);
-                }
+            endRelationsFighter(_fight, _cbtRetire, _import, t);
+        }
+    }
+
+    private static void endRelationsFighter(Fight _fight, TeamPosition _cbtRetire, DataBase _import, TeamPosition _t) {
+        Fighter fighter_ = _fight.getFighter(_t);
+        for (MoveTeamPosition m: fighter_.getStatusRelatSet()) {
+            if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
+                short r_ = fighter_.getStatusRelatNbRoundShort(m);
+                fighter_.supprimerPseudoStatutCombattant(_cbtRetire, m.getMove());
+                _fight.addDisabledStatusRelMessage(m.getMove(), _t, _cbtRetire, r_, _import);
             }
-            MoveTeamPositionsStringList privateMoves_ = fighter_.getPrivateMoves();
-            for (MoveTeamPosition m: privateMoves_.getKeys()) {
-                if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
-                    boolean wasEnabled_ = !privateMoves_.getVal(m).isEmpty();
-                    privateMoves_.getVal(m).clear();
-                    _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
-                }
+        }
+        MoveTeamPositionsStringList privateMoves_ = fighter_.getPrivateMoves();
+        for (MoveTeamPosition m: privateMoves_.getKeys()) {
+            if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
+                boolean wasEnabled_ = !privateMoves_.getVal(m).isEmpty();
+                privateMoves_.getVal(m).clear();
+                _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), _t, wasEnabled_, _import);
             }
-            MoveTeamPositionsAffectedMove tracking_ = fighter_.getTrackingMoves();
-            for (MoveTeamPosition m: tracking_.getKeys()) {
-                if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
-                    boolean wasEnabled_ = tracking_.getVal(m).getActivity().isEnabled();
-                    tracking_.getVal(m).getActivity().disable();
-                    tracking_.getVal(m).setMove(DataBase.EMPTY_STRING);
-                    _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
-                }
+        }
+        MoveTeamPositionsAffectedMove tracking_ = fighter_.getTrackingMoves();
+        for (MoveTeamPosition m: tracking_.getKeys()) {
+            if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
+                boolean wasEnabled_ = tracking_.getVal(m).getActivity().isEnabled();
+                tracking_.getVal(m).getActivity().disable();
+                tracking_.getVal(m).setMove(DataBase.EMPTY_STRING);
+                _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), _t, wasEnabled_, _import);
             }
-            MoveTeamPositionsActivityOfMove trapping_ = fighter_.getTrappingMoves();
-            for (MoveTeamPosition m: trapping_.getKeys()) {
-                if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
-                    boolean wasEnabled_ = trapping_.getVal(m).isEnabled();
-                    trapping_.getVal(m).disable();
-                    _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
-                }
+        }
+        MoveTeamPositionsActivityOfMove trapping_ = fighter_.getTrappingMoves();
+        for (MoveTeamPosition m: trapping_.getKeys()) {
+            if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
+                boolean wasEnabled_ = trapping_.getVal(m).isEnabled();
+                trapping_.getVal(m).disable();
+                _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), _t, wasEnabled_, _import);
             }
-            MoveTeamPositionsBoolVal accuracy_ = fighter_.getIncrUserAccuracy();
-            for (MoveTeamPosition m: accuracy_.getKeys()) {
-                if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
-                    boolean wasEnabled_ = accuracy_.getVal(m) == BoolVal.TRUE;
-                    accuracy_.put(m, BoolVal.FALSE);
-                    _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), t, wasEnabled_, _import);
-                }
+        }
+        MoveTeamPositionsBoolVal accuracy_ = fighter_.getIncrUserAccuracy();
+        for (MoveTeamPosition m: accuracy_.getKeys()) {
+            if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
+                boolean wasEnabled_ = accuracy_.getVal(m) == BoolVal.TRUE;
+                accuracy_.put(m, BoolVal.FALSE);
+                _fight.addDisabledMoveRelMessage(_cbtRetire, m.getMove(), _t, wasEnabled_, _import);
             }
         }
     }
@@ -418,9 +439,8 @@ final class FightSending {
         addFighterAgainstFoeTeam(_fight, _cbtEnvoye, _import);
         effectsTeamWhileSendingFoeFighter(_fight, _cbtEnvoye, _diff, _import);
         Fighter creatureCbt_=_fight.getFighter(_cbtEnvoye);
-        AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
-        if(fCapac_.enabledSending()){
-            EffectWhileSendingWithStatistic effetEnvoi_=fCapac_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effetEnvoi_ = sendingEff(creatureCbt_, _import);
+        if(effetEnvoi_ != null){
             effectWhileSending(_fight,_cbtEnvoye,effetEnvoi_,_diff,_import);
         }
 
@@ -433,11 +453,15 @@ final class FightSending {
     static void addFighterAgainstFoeTeam(Fight _fight, TeamPosition _cbtEnvoye,DataBase _import) {
         Fighter creatureCbt_=_fight.getFighter(_cbtEnvoye);
         creatureCbt_.initCreatureRelationsAutre(FightOrder.fighters(_fight), _import);
-        if(creatureCbt_.isBelongingToPlayer()){
+        ajouterCombattantsContreAdv(_fight, _cbtEnvoye, creatureCbt_);
+    }
+
+    private static void ajouterCombattantsContreAdv(Fight _fight, TeamPosition _cbtEnvoye, Fighter _cr) {
+        if(_cr.isBelongingToPlayer()){
             Team team_=_fight.getFoeTeam();
             for(byte c: team_.getMembers().getKeys()){
-                Fighter creature_=team_.getMembers().getVal(c);
-                if(creature_.estArriere()){
+                Fighter fighter_=team_.getMembers().getVal(c);
+                if(fighter_.estArriere()){
                     continue;
                 }
                 _fight.getUserTeam().ajouterCombattantsContreAdv(_cbtEnvoye.getPosition(),c);
@@ -446,10 +470,7 @@ final class FightSending {
             Team team_=_fight.getUserTeam();
             for(byte c:team_.getMembers().getKeys()){
                 Fighter creature_=team_.getMembers().getVal(c);
-                if(creature_.estArriere()){
-                    continue;
-                }
-                if(!creature_.isBelongingToPlayer()){
+                if (creature_.estArriere() || !creature_.isBelongingToPlayer()) {
                     continue;
                 }
                 _fight.getUserTeam().ajouterCombattantsContreAdv(c,_cbtEnvoye.getPosition());
@@ -478,14 +499,10 @@ final class FightSending {
             FightAbilities.disableAbility(_fight, _cbtEnvoye, ability_, _import);
             FightAbilities.enableAbility(_fight,_cbtEnvoye,_import);
             //y compris INTIMIDATION...
-            if(!creatureCbt_.capaciteActive()){
-                return;
-            }
-            AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
-            if (!fCapac_.enabledSending()) {
-                return;
-            }
-            effect_ = fCapac_.getEffectSending().first();
+            effect_ = sendingEff(creatureCbt_,_import);
+        }
+        if (effect_ == null) {
+            return;
         }
         EffectStatistic effetStatis_ = effect_.getEffect();
         if (effetStatis_ == null) {
@@ -497,11 +514,21 @@ final class FightSending {
                 //raisons echec
                 continue;
             }
-            FightEffects.effectStatisticRandom(_fight,_cbtEnvoye,c,effetStatis_,statistiques_,effetStatis_.getEvtRate(),true,_import);
+            FightEffects.effectStatisticRandom(_fight,_cbtEnvoye,c,effetStatis_,statistiques_, _import, FightSuccess.probaEffectStatistic(_fight, _cbtEnvoye, effetStatis_.getEvtRate(), true, _import));
             if (!_fight.getAcceptableChoices()) {
                 return;
             }
         }
+    }
+    static EffectWhileSendingWithStatistic sendingEff(Fighter _cr, DataBase _import) {
+        if(!_cr.capaciteActive()){
+            return null;
+        }
+        AbilityData fCapac_=_cr.ficheCapaciteActuelle(_import);
+        if (!fCapac_.enabledSending()) {
+            return null;
+        }
+        return fCapac_.getEffectSending().first();
     }
 
     static void effectWhileSendingObject(Fight _fight, TeamPosition _cbtEnvoye,Difficulty _diff,DataBase _import){
@@ -509,15 +536,10 @@ final class FightSending {
         if (!FightItems.canUseItsObject(_fight,_cbtEnvoye,_import)) {
             return;
         }
-        Item objet_=creatureCbt_.ficheObjet(_import);
-        if (!(objet_ instanceof ItemForBattle)) {
+        EffectWhileSendingWithStatistic effetEnvoi_=creatureCbt_.effectWhileSendingWithStatistic(_import);
+        if (effetEnvoi_ == null) {
             return;
         }
-        ItemForBattle objetAttachableCombat_=(ItemForBattle)objet_;
-        if(!objetAttachableCombat_.enabledSending()){
-            return;
-        }
-        EffectWhileSendingWithStatistic effetEnvoi_=objetAttachableCombat_.getEffectSending().first();
         effectWhileSending(_fight,_cbtEnvoye,effetEnvoi_,_diff,_import);
     }
 
@@ -536,28 +558,11 @@ final class FightSending {
             int nbEffets_=fAtt_.nbEffets();
             for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAtt_.getEffet(i);
-                if(!(effet_ instanceof EffectTeamWhileSendFoe)){
-                    continue;
-                }
-                EffectTeamWhileSendFoe effetEquipeEntreeAdv_=(EffectTeamWhileSendFoe)effet_;
-                boolean passerReussiteEffet_=false;
-                for(String e:creatureCbt_.getTypes()){
-                    if(StringUtil.contains(effetEquipeEntreeAdv_.getDeletedByFoeTypes(), e)){
-                        equipeAdvCbtEnvoye_.supprimerEffetEquipeEntreeAdv(c);
-                        passerReussiteEffet_=true;
-                        break;
-                    }
-                }
-                if(passerReussiteEffet_){
-                    continue;
-                }
-                _fight.setSending(true);
-                RandomBoolResults res_=FightSuccess.successfulMove(_fight,_cbt,_cbt,c,i,true,_import);
-                if(!res_.isSuccessful()){
+                if (!(effet_ instanceof EffectTeamWhileSendFoe) || passerReussiteEffet(creatureCbt_, equipeAdvCbtEnvoye_, c, (EffectTeamWhileSendFoe) effet_) || !successfulMove(_fight, _cbt, _import, c, i).isSuccessful()) {
                     continue;
                 }
                 //action picots,piege de roc,pics toxiks
-                effectTeamWhileSendingFoeFighter(_fight,_cbt,c,effetEquipeEntreeAdv_,_diff,_import);
+                effectTeamWhileSendingFoeFighter(_fight,_cbt,c,(EffectTeamWhileSendFoe)effet_,_diff,_import);
                 if(!_fight.getAcceptableChoices()){
                     return;
                 }
@@ -567,6 +572,24 @@ final class FightSending {
             }
         }
     }
+
+    private static RandomBoolResults successfulMove(Fight _fight, TeamPosition _cbt, DataBase _import, String _c, int _i) {
+        _fight.setSending(true);
+        return FightSuccess.successfulMove(_fight, _cbt, _cbt, _c, _i,true, _import);
+    }
+
+    private static boolean passerReussiteEffet(Fighter _creatureCbt, Team _equipeAdvCbtEnvoye, String _c, EffectTeamWhileSendFoe _effetEquipeEntreeAdv) {
+        boolean passerReussiteEffet_=false;
+        for(String e: _creatureCbt.getTypes()){
+            if(StringUtil.contains(_effetEquipeEntreeAdv.getDeletedByFoeTypes(), e)){
+                _equipeAdvCbtEnvoye.supprimerEffetEquipeEntreeAdv(_c);
+                passerReussiteEffet_=true;
+                break;
+            }
+        }
+        return passerReussiteEffet_;
+    }
+
     static void effectTeamWhileSendingFoeFighter(Fight _fight, TeamPosition _cbt,String _attaque,EffectTeamWhileSendFoe _effet,Difficulty _diff,DataBase _import){
         if(_fight.getFullHealing()){
             return;
@@ -575,15 +598,7 @@ final class FightSending {
         Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_cbt.getTeam()));
         StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        AbsMap<Statistic,Byte> vars_ = new IdMap<Statistic,Byte>();
-        for (Statistic s: _effet.getStatistics().getKeys()) {
-            byte varBase_ = _effet.getStatistics().getVal(s);
-            if (!FightSuccess.successChangedStatisticProtect(_fight, _cbt, s, varBase_, false, new StringList(), _import)) {
-                continue;
-            }
-            vars_.put(s, varBase_);
-        }
-        vars_ = FightEffects.deltaBoostStatisticMap(_fight, _cbt, vars_, _import);
+        AbsMap<Statistic, Byte> vars_ = varsStats(_fight, _cbt, _effet, _import);
         for (Statistic s: vars_.getKeys()) {
             creatureCbt_.variationBoostStatistique(s, vars_.getVal(s));
             _fight.addStatisticMessage(_cbt, s, vars_.getVal(s), _import);
@@ -612,34 +627,56 @@ final class FightSending {
             }
         }
         if(!_effet.getStatusByNbUses().isEmpty()){
-            LgInt utilisation_=nbUtilisationsEntreeAdv_.getVal(_attaque);
-            ShortMap<String> statutSiNb_=_effet.getStatusByNbUses();
-            short utilisationBis_=(short)utilisation_.ll();
-            if(statutSiNb_.contains(utilisationBis_)){
-                String statut_=statutSiNb_.getVal(utilisationBis_);
-                if(!FightSuccess.successfulAffectedStatusProtect(_fight,_cbt,statut_,false,new StringList(),_import)){
-                    return;
-                }
-                creatureCbt_.affecterStatut(statut_);
-                _fight.addStatusMessage(_cbt, statut_, _import);
-                return;
-            }
-            short indice_=utilisationBis_;
-            for(short i = utilisationBis_; i> IndexConstants.SIZE_EMPTY; i--){
-                if(statutSiNb_.contains(i)){
-                    indice_=i;
-                    break;
-                }
-            }
-            if(indice_==utilisationBis_){
-                return;
-            }
-            String statut_=_effet.getStatusByNbUses().getVal(indice_);
-            if(!FightSuccess.successfulAffectedStatusProtect(_fight,_cbt,statut_,false,new StringList(),_import)){
-                return;
-            }
-            creatureCbt_.affecterStatut(statut_);
-            _fight.addStatusMessage(_cbt, statut_, _import);
+            statusByNbUses(_fight, _cbt, _attaque, _effet, _import, nbUtilisationsEntreeAdv_, creatureCbt_);
         }
+    }
+
+    private static void statusByNbUses(Fight _fight, TeamPosition _cbt, String _attaque, EffectTeamWhileSendFoe _effet, DataBase _import, StringMap<LgInt> _nbUtilisationsEntreeAdv, Fighter _creatureCbt) {
+        LgInt utilisation_= _nbUtilisationsEntreeAdv.getVal(_attaque);
+        ShortMap<String> statutSiNb_= _effet.getStatusByNbUses();
+        short utilisationBis_=(short)utilisation_.ll();
+        if(statutSiNb_.contains(utilisationBis_)){
+            String statut_=statutSiNb_.getVal(utilisationBis_);
+            if(!FightSuccess.successfulAffectedStatusProtect(_fight, _cbt,statut_,false,new StringList(), _import)){
+                return;
+            }
+            _creatureCbt.affecterStatut(statut_);
+            _fight.addStatusMessage(_cbt, statut_, _import);
+            return;
+        }
+        short indice_ = indiceUt(statutSiNb_, utilisationBis_);
+        if(indice_==utilisationBis_){
+            return;
+        }
+        String statut_= _effet.getStatusByNbUses().getVal(indice_);
+        if(!FightSuccess.successfulAffectedStatusProtect(_fight, _cbt,statut_,false,new StringList(), _import)){
+            return;
+        }
+        _creatureCbt.affecterStatut(statut_);
+        _fight.addStatusMessage(_cbt, statut_, _import);
+    }
+
+    private static AbsMap<Statistic, Byte> varsStats(Fight _fight, TeamPosition _cbt, EffectTeamWhileSendFoe _effet, DataBase _import) {
+        AbsMap<Statistic,Byte> vars_ = new IdMap<Statistic,Byte>();
+        for (Statistic s: _effet.getStatistics().getKeys()) {
+            byte varBase_ = _effet.getStatistics().getVal(s);
+            if (!FightSuccess.successChangedStatisticProtect(_fight, _cbt, s, varBase_, false, new StringList(), _import)) {
+                continue;
+            }
+            vars_.put(s, varBase_);
+        }
+        vars_ = FightEffects.deltaBoostStatisticMap(_fight, _cbt, vars_, _import);
+        return vars_;
+    }
+
+    private static short indiceUt(ShortMap<String> _statutSiNb, short _utilisationBis) {
+        short indice_= _utilisationBis;
+        for(short i = _utilisationBis; i> IndexConstants.SIZE_EMPTY; i--){
+            if(_statutSiNb.contains(i)){
+                indice_=i;
+                break;
+            }
+        }
+        return indice_;
     }
 }

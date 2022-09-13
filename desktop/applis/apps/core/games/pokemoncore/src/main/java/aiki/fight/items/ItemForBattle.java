@@ -137,6 +137,9 @@ public final class ItemForBattle extends Item {
             if (!e.getKey().isBoost()) {
                 _data.setError(true);
             }
+            if (e.getValue() <= 0) {
+                _data.setError(true);
+            }
         }
         for (String t : boostStatisTypes.getKeys()) {
             if (!StringUtil.contains(_data.getTypes(), t)) {
@@ -145,6 +148,9 @@ public final class ItemForBattle extends Item {
             for (EntryCust<Statistic, Byte> s : boostStatisTypes.getVal(t)
                     .entryList()) {
                 if (!s.getKey().isBoost()) {
+                    _data.setError(true);
+                }
+                if (s.getValue() <= 0) {
                     _data.setError(true);
                 }
             }

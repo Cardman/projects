@@ -336,6 +336,8 @@ public final class Fight {
     static final String HELP_ALLY = "helpAlly";
 
     private static final String SEPARATOR_COMMENTS = ", ";
+    private boolean utilisationBaieLanceur;
+    private boolean tombeKo;
 
     /***/
     private FightType fightType;
@@ -2040,5 +2042,21 @@ public final class Fight {
 
     void setCurrentActivity(ActivityOfMove _currentActivity) {
         currentActivity = _currentActivity;
+    }
+
+    boolean isUtilisationBaieLanceur() {
+        return utilisationBaieLanceur;
+    }
+
+    void setUtilisationBaieLanceur(boolean _p) {
+        this.utilisationBaieLanceur = _p;
+    }
+
+    boolean isTombeKo() {
+        return tombeKo;
+    }
+
+    void setTombeKo(boolean _p) {
+        this.tombeKo = _p;
     }
 }

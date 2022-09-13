@@ -3474,6 +3474,22 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.getIncrUserAccuracy().clear();
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
+    @Test
+    public void validate367Test(){
+        DataBase data_ = initDb();
+        Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setCurrentAbility(NULL_REF);
+        assertTrue(figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate368Test(){
+        DataBase data_ = initDb();
+        Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.setCurrentAbility(NULL_REF);
+        assertTrue(figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
+    }
 
     private static Game newGameInFightTrainer2(Sex _sex, DataBase _data) {
         return newGameInFightTrainer2(_sex, new Difficulty(), _data);

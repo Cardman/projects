@@ -728,6 +728,7 @@ public final class LoadRes{
             }
             _d.getImagesTiles().addEntry(name_, tiles_);
         }
+        _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
         _perCentLoading.setPercent(100);
     }
 

@@ -316,6 +316,16 @@ public final class AbilityData {
         if (!_data.getTypes().containsAllObj(increasedPrioTypes.getKeys())) {
             _data.setError(true);
         }
+        for (String s : increasedPrio.getKeys()) {
+            if (increasedPrio.getVal(s) <= 0) {
+                _data.setError(true);
+            }
+        }
+        for (String s : increasedPrioTypes.getKeys()) {
+            if (increasedPrioTypes.getVal(s) <= 0) {
+                _data.setError(true);
+            }
+        }
         if (!typeForMoves.isEmpty()) {
             if (!StringUtil.contains(_data.getTypes(), typeForMoves)) {
                 _data.setError(true);
@@ -366,6 +376,26 @@ public final class AbilityData {
                 multStatIfKoFoe.getKeys())) {
             _data.setError(true);
         }
+        for (Statistic s : boostStatRankProtected.getKeys()) {
+            if (boostStatRankProtected.getVal(s) <= 0) {
+                _data.setError(true);
+            }
+        }
+        for (Statistic s : multStatIfKoFoe.getKeys()) {
+            if (multStatIfKoFoe.getVal(s) <= 0) {
+                _data.setError(true);
+            }
+        }
+        for (Statistic s : boostStatRankEndRound.getKeys()) {
+            if (boostStatRankEndRound.getVal(s) <= 0) {
+                _data.setError(true);
+            }
+        }
+        for (Statistic s : multStatIfLowStat.getKeys()) {
+            if (multStatIfLowStat.getVal(s) <= 0) {
+                _data.setError(true);
+            }
+        }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStatIfLowStat.getKeys())) {
             _data.setError(true);
@@ -377,6 +407,9 @@ public final class AbilityData {
             if (!_data.getStatus().contains(k.getStatus())) {
                 _data.setError(true);
             }
+            if (multStatIfStatutRank.getVal(k) <= 0) {
+                _data.setError(true);
+            }
         }
         for (StatisticCategory k : multStatIfDamageCat.getKeys()) {
             if (!k.getStatistic().isBoost()) {
@@ -385,12 +418,18 @@ public final class AbilityData {
             if (!StringUtil.contains(_data.getCategories(), k.getCategory())) {
                 _data.setError(true);
             }
+            if (multStatIfDamageCat.getVal(k) <= 0) {
+                _data.setError(true);
+            }
         }
         for (StatisticType k : multStatIfDamgeType.getKeys()) {
             if (!k.getStatistic().isBoost()) {
                 _data.setError(true);
             }
             if (!StringUtil.contains(_data.getTypes(), k.getType())) {
+                _data.setError(true);
+            }
+            if (multStatIfDamgeType.getVal(k) <= 0) {
                 _data.setError(true);
             }
         }

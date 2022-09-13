@@ -127,6 +127,7 @@ public class DataBase {
     public static final String MAX_STEPS = "MAX_STEPS";
     public static final String MIN_HP = "MIN_HP";
     public static final String BONUS_BOOST = "BONUS_BOOST";
+    public static final String DEF_BASE_MOVE = "DEF_BASE_MOVE";
 
     public static final String SEP_BETWEEN_KEYS = "__";
     public static final String IMG_FILES_RES_EXT = ".png";
@@ -519,20 +520,16 @@ public class DataBase {
         }
         _perCentLoading.setPercent(70);
         Rate power_ = getStrongMovePower();
-        if (power_ == null) {
+        if (Rate.strLower(power_, new Rate(90))) {
             setError(true);
-        } else {
-            if (Rate.strLower(power_, new Rate(90))) {
-                setError(true);
+        }
+        TypeStatistics strongMovesTypeStat_ = strongMoves(power_);
+        for (CommonParam<TypeStatistic, BoolVal> e : strongMovesTypeStat_
+                .entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
+                continue;
             }
-            TypeStatistics strongMovesTypeStat_ = strongMoves(power_);
-            for (CommonParam<TypeStatistic, BoolVal> e : strongMovesTypeStat_
-                    .entryList()) {
-                if (e.getValue() == BoolVal.TRUE) {
-                    continue;
-                }
-                setError(true);
-            }
+            setError(true);
         }
 
         if (!_loading.get()) {
@@ -906,6 +903,9 @@ public class DataBase {
         }
         if (!getStab().greaterThanOne()) {
             setError(true);
+        }
+        if (getDefBaseMove().isZeroOrLt()) {
+            getConstNum().put(DataBase.DEF_BASE_MOVE,getDefaultPower());
         }
         if (getNbMaxTeam() < 2) {
             setError(true);
@@ -3111,7 +3111,11 @@ public class DataBase {
     }
 
     private Rate constNum(String _key) {
-        return constNum.getVal(_key);
+        Rate rate_ = constNum.getVal(_key);
+        if (rate_ == null) {
+            return Rate.zero();
+        }
+        return rate_;
     }
 
     public void addConstNumTest(String _key, Rate _value) {
@@ -3216,6 +3220,9 @@ public class DataBase {
     /** USED */
     public Rate getStab() {
         return constNum(DataBase.BONUS_BOOST);
+    }
+    public Rate getDefBaseMove() {
+        return constNum(DataBase.DEF_BASE_MOVE);
     }
 
     /** USED */

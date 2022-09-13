@@ -882,6 +882,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         data_.getMap().initInteractiveElements();
         data_.completeVariables();
         initConstants(data_);
+        data_.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
         initRandomLaws(data_);
         initExpPoints(data_);
         initTmHm(data_);
@@ -1345,6 +1346,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         _data.addConstNumTest(DataBase.BONUS_BOOST, new Rate("3/2"));
         _data.addConstNumTest(DataBase.MAX_STEPS, new Rate("1024"));
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
+        _data.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("0"));
         initDefaultConsts(POKE_BALL,
                 "caracdroiteferme(div(FOE_PK_MAX_HP,FOE_PK_REMOTE_HP),2)",
                 "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",

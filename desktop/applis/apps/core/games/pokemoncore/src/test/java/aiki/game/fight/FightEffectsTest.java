@@ -3476,7 +3476,7 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
         EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(1, statistics_.size());
-        FightEffects.effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, DataBase.defRateProduct(), false, data_);
+        effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, DataBase.defRateProduct(), false, data_);
         Fighter fighter_ = fight_.getFighter(target_);
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
     }
@@ -3495,7 +3495,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
         EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
-        FightEffects.effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, Rate.zero(), false, data_);
+        effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, Rate.zero(), false, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
     }
@@ -3513,7 +3513,7 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
         EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(1, statistics_.size());
-        FightEffects.effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, DataBase.defRateProduct(), true, data_);
+        effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, DataBase.defRateProduct(), true, data_);
         Fighter fighter_ = fight_.getFighter(target_);
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
     }
@@ -3532,7 +3532,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
         EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
-        FightEffects.effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, Rate.zero(), true, data_);
+        effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, Rate.zero(), true, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
     }
@@ -6747,4 +6747,9 @@ public class FightEffectsTest extends InitializationDataBase {
         FightEffects.processEffectTarget(fight_, NUEE_DE_POUDRE, IndexConstants.SECOND_INDEX, thrower_, target_, diff_, data_);
         assertTrue(fighter_.isSuccessfulMove());
     }
+
+    private void effectStatisticRandom(Fight _fight, TeamPosition _thrower, TeamPosition _target, EffectStatistic _eff, EnumList<Statistic> _statistics, Rate _zero, boolean _begin, DataBase _data) {
+        FightEffects.effectStatisticRandom(_fight, _thrower, _target, _eff, _statistics, _data, FightSuccess.probaEffectStatistic(_fight, _thrower, _zero, _begin, _data));
+    }
+
 }

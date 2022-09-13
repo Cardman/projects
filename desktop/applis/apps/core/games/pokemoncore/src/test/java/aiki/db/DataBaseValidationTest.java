@@ -714,6 +714,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.addConstNumTest(DataBase.BONUS_BOOST, new Rate("-3/2"));
         data_.addConstNumTest(DataBase.MAX_STEPS, new Rate("-1024"));
         data_.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("-256"));
+        data_.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
         initDefaultConsts(POKE_BALL,
                 "",
                 "",

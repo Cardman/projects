@@ -79,7 +79,7 @@ public final class EffectDamage extends Effect {
             if (!s.isBoost()) {
                 _data.setError(true);
             }
-            if (boostStatisOnceKoFoe.getVal(s) < 0) {
+            if (boostStatisOnceKoFoe.getVal(s) <= 0) {
                 _data.setError(true);
             }
         }

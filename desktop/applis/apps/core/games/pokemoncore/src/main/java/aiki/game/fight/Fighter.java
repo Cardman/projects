@@ -597,7 +597,7 @@ public final class Fighter {
     }
 
     private boolean koAbilities(DataBase _data) {
-        return !_data.getAbilities().contains(ability) || !_data.getAbilities().contains(currentAbility);
+        return !_data.getAbilities().contains(ability) || !currentAbility.isEmpty()&&!_data.getAbilities().contains(currentAbility);
     }
 
     private boolean koNames(DataBase _data) {
@@ -1502,15 +1502,21 @@ public final class Fighter {
     }
 
     boolean hasObjectEnabledBeingSent(DataBase _import) {
+        return effectWhileSendingWithStatistic(_import) != null;
+    }
+    EffectWhileSendingWithStatistic effectWhileSendingWithStatistic(DataBase _import) {
         if (!possedeObjet()) {
-            return false;
+            return null;
         }
         Item objet_= ficheObjet(_import);
         if (!(objet_ instanceof ItemForBattle)) {
-            return false;
+            return null;
         }
         ItemForBattle objetAttachableCombat_=(ItemForBattle)objet_;
-        return objetAttachableCombat_.enabledSending();
+        if (objetAttachableCombat_.enabledSending()) {
+            return objetAttachableCombat_.getEffectSending().first();
+        }
+        return null;
     }
 
     void incrementPseudoStatutCombattant(TeamPosition _combattant,String _pseudoStatut) {

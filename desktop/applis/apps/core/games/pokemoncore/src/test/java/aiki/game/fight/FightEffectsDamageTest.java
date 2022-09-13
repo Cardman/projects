@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import aiki.util.TeamPositionsMonteCarloNumber;
-import code.maths.montecarlo.MonteCarloList;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -2521,7 +2520,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
-        assertEq(new Rate("0"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
+        assertEq(new Rate("0"), remainingHp(target_, fight_, data_, DRACO_RAGE));
     }
 
     @Test
@@ -2536,7 +2535,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fighter_.setFirstChosenMove(TENACITE);
         FightRound.initRound(fight_);
-        assertEq(new Rate("0"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
+        assertEq(new Rate("0"), remainingHp(target_, fight_, data_, DRACO_RAGE));
     }
 
     @Test
@@ -2553,7 +2552,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_ = fight_.getFighter(target_);
         fighter_.successUsingMove();
-        assertEq(new Rate("1"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
+        assertEq(new Rate("1"), remainingHp(target_, fight_, data_, DRACO_RAGE));
     }
 
     @Test
@@ -2570,7 +2569,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_ = fight_.getFighter(target_);
         fighter_.successUsingMove();
-        assertEq(new Rate("0"),FightEffects.remainingHp(fight_, target_, SACRIFICE, data_));
+        assertEq(new Rate("0"), remainingHp(target_, fight_, data_, SACRIFICE));
     }
 
     @Test
@@ -2583,7 +2582,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(BAIE_MEPO);
-        assertEq(new Rate("0"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
+        assertEq(new Rate("0"), remainingHp(target_, fight_, data_, DRACO_RAGE));
     }
 
     @Test
@@ -2596,7 +2595,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
-        assertEq(new Rate("1"),FightEffects.remainingHp(fight_, target_, FAUX_CHAGE, data_));
+        assertEq(new Rate("1"), remainingHp(target_, fight_, data_, FAUX_CHAGE));
     }
 
     @Test
@@ -2609,7 +2608,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(BOUE_NOIRE);
-        assertEq(new Rate("0"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
+        assertEq(new Rate("0"), remainingHp(target_, fight_, data_, DRACO_RAGE));
     }
 
     @Test
@@ -2622,7 +2621,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(BANDEAU);
-        assertEq(new Rate("1"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
+        assertEq(new Rate("1"), remainingHp(target_, fight_, data_, DRACO_RAGE));
     }
 
     @Test
@@ -2635,7 +2634,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(CEINT_FORCE);
-        assertEq(new Rate("1"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
+        assertEq(new Rate("1"), remainingHp(target_, fight_, data_, DRACO_RAGE));
     }
 
     @Test
@@ -2649,7 +2648,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(CEINT_FORCE);
         fighter_.setRemainedHp(new Rate("18"));
-        assertEq(new Rate("0"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
+        assertEq(new Rate("0"), remainingHp(target_, fight_, data_, DRACO_RAGE));
     }
 
     private static void initDamage(Fight _fight) {
@@ -3061,7 +3060,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getDamageKo().affectZero();
-        FightEffects.calculateDamageKo(fight_, target_, DRACO_RAGE, new LgInt("1"), diff_, data_);
+        calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
         assertEq(new Rate("92/5"), fight_.getDamageKo());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -3075,7 +3074,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getDamageKo().affectZero();
-        FightEffects.calculateDamageKo(fight_, target_, FAUX_CHAGE, new LgInt("1"), diff_, data_);
+        calculateDamageKo(fight_, target_, FAUX_CHAGE, "1", diff_, data_);
         assertEq(new Rate("87/5"), fight_.getDamageKo());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -3094,7 +3093,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.successUsingMove();
         fight_.getDamageKo().affectZero();
-        FightEffects.calculateDamageKo(fight_, target_, DRACO_RAGE, new LgInt("1"), diff_, data_);
+        calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
         assertEq(new Rate("87/5"), fight_.getDamageKo());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -3113,7 +3112,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.successUsingMove();
         fight_.getDamageKo().affectZero();
-        FightEffects.calculateDamageKo(fight_, target_, DRACO_RAGE, new LgInt("2"), diff_, data_);
+        calculateDamageKo(fight_, target_, DRACO_RAGE, "2", diff_, data_);
         assertEq(new Rate("92/5"), fight_.getDamageKo());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -3127,7 +3126,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getDamageKo().affectZero();
-        FightEffects.calculateDamageKo(fight_, target_, DRACO_RAGE, new LgInt("1"), diff_, data_);
+        calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
         assertEq(new Rate("1873/100"), fight_.getDamageKo());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -3142,7 +3141,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fight_.setSimulation(true);
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getDamageKo().affectZero();
-        FightEffects.calculateDamageKo(fight_, target_, DRACO_RAGE, new LgInt("1"), diff_, data_);
+        calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
         assertEq(new Rate("1873/100"), fight_.getDamageKo());
         assertTrue(!fight_.getAcceptableChoices());
     }
@@ -5556,6 +5555,15 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getDamage().isCriticalHit());
         assertTrue(fight_.getAcceptableChoices());
     }
+
+    private void calculateDamageKo(Fight _fight, TeamPosition _target, String _move, String _chaine, Difficulty _diff, DataBase _data) {
+        FightEffects.calculateDamageKo(_fight, _target, _move, new LgInt(_chaine), _diff, _data);
+    }
+
+    private Rate remainingHp(TeamPosition _target, Fight _fight, DataBase _data, String _move) {
+        return FightEffects.remainingHp(_fight, _target, _move, _data);
+    }
+
     private static int nbEvents(MonteCarloNumber _monte) {
         CustList<Rate> evts_ = new CustList<Rate>();
         for (Rate e: _monte.events()) {
