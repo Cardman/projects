@@ -3277,7 +3277,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(DEGUISEMENT);
-        FightEffects.enableTargetAbility(fight_, thrower_, target_, false, (byte) 1, move_, data_);
+        enableTargetAbility(fight_, thrower_, target_, false, 1, move_, data_);
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
@@ -3305,7 +3305,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(COLERIQUE);
-        FightEffects.enableTargetAbility(fight_, thrower_, target_, false, (byte) 1, move_, data_);
+        enableTargetAbility(fight_, thrower_, target_, false, 1, move_, data_);
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
@@ -3333,7 +3333,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(COLERIQUE);
-        FightEffects.enableTargetAbility(fight_, thrower_, target_, true, (byte) 1, move_, data_);
+        enableTargetAbility(fight_, thrower_, target_, true, 1, move_, data_);
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
@@ -3361,7 +3361,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(COEUR_NOBLE);
-        FightEffects.enableTargetAbility(fight_, thrower_, target_, false, (byte) 2, move_, data_);
+        enableTargetAbility(fight_, thrower_, target_, false, 2, move_, data_);
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
@@ -3389,7 +3389,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(ARMUROUILLEE);
-        FightEffects.enableTargetAbility(fight_, thrower_, target_, false, (byte) 2, move_, data_);
+        enableTargetAbility(fight_, thrower_, target_, false, 2, move_, data_);
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
@@ -3418,7 +3418,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(SYNCHRO);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(1, fighter_.getStatusNbRound(BRULURE));
         fighter_ = fight_.getFighter(target_);
@@ -3438,7 +3438,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(SYNCHRO);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, SEISME, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, SEISME);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
         fighter_ = fight_.getFighter(target_);
@@ -3458,7 +3458,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(METEO);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
         fighter_ = fight_.getFighter(target_);
@@ -3478,7 +3478,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
         fighter_ = fight_.getFighter(target_);
@@ -3498,7 +3498,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(target_);
         assertEq(TERA_VOLTAGE, fighter_.getCurrentAbility());
     }
@@ -3516,7 +3516,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, SEISME, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, SEISME);
         fighter_ = fight_.getFighter(target_);
         assertEq(GARDE_MAGIK, fighter_.getCurrentAbility());
     }
@@ -3534,7 +3534,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(METEO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(target_);
         assertEq(GARDE_MAGIK, fighter_.getCurrentAbility());
     }
@@ -3552,7 +3552,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, false, ROULADE, data_);
+        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, fight_.getFighter(thrower_).ficheCapaciteActuelle(data_), target_, null, ROULADE, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(TERA_VOLTAGE, fighter_.getCurrentAbility());
     }
@@ -3570,7 +3570,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(MULTITYPE);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(target_);
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
     }
@@ -3591,7 +3591,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(MULTITYPE);
         fighter_.setCurrentGender(Gender.FEMALE);
         fighter_.backUpObject(NOEUD_DESTIN);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, target_)));
     }
@@ -3612,7 +3612,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(MULTITYPE);
         fighter_.backUpObject(NOEUD_DESTIN);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, partner_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, target_)));
@@ -3632,7 +3632,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(MULTITYPE);
         fighter_.backUpObject(NULL_REF);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, target_)));
     }
@@ -3651,7 +3651,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(MULTITYPE);
         fighter_.backUpObject(BAIE_MEPO);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, target_)));
     }
@@ -3670,7 +3670,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BAIE_MEPO);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, target_)));
     }
@@ -3690,7 +3690,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.setItem(NULL_REF);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(BAIE_MEPO, fighter_.getItem());
         assertTrue(!fighter_.isUsingItem());
@@ -3714,7 +3714,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.setItem(NOEUD_DESTIN);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(BAIE_MEPO, fighter_.getItem());
         assertTrue(!fighter_.isUsingItem());
@@ -3738,7 +3738,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.setItem(NOEUD_DESTIN);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(NOEUD_DESTIN, fighter_.getItem());
         assertTrue(!fighter_.isUsingItem());
@@ -3760,7 +3760,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(POISSEUX);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(CORPS_SAIN);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPEED));
     }
 
@@ -3777,7 +3777,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(POISSEUX);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.SPEED));
     }
 
@@ -3795,13 +3795,33 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(SYNCHRO);
         FightKo.setKoMoveTeams(fight_, target_, diff_, data_);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, true, ROULADE, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
     }
 
+    @Test
+    public void enableFighterHavingToUseAbility21Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
+        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        Fighter fighter_ = fight_.getFighter(thrower_);
+        fighter_.setCurrentAbility(NULL_REF);
+        fighter_ = fight_.getFighter(target_);
+        fighter_.setCurrentAbility(SYNCHRO);
+        FightKo.setKoMoveTeams(fight_, target_, diff_, data_);
+        enableFighterHavingToUseAbilityEn(data_, fight_, thrower_, target_, ROULADE);
+        fighter_ = fight_.getFighter(thrower_);
+        assertEq(0, fighter_.getStatusNbRound(BRULURE));
+        fighter_ = fight_.getFighter(target_);
+        assertEq(0, fighter_.getStatusNbRound(BRULURE));
+    }
     @Test
     public void recoilAgainstTarget1Test() {
         DataBase data_ = initDb();
@@ -5562,6 +5582,14 @@ public class FightEffectsDamageTest extends InitializationDataBase {
 
     private Rate remainingHp(TeamPosition _target, Fight _fight, DataBase _data, String _move) {
         return FightEffects.remainingHp(_fight, _target, _move, _data);
+    }
+
+    private void enableFighterHavingToUseAbilityEn(DataBase _data, Fight _fight, TeamPosition _thrower, TeamPosition _target, String _move) {
+        FightEffects.enableFighterHavingToUseAbility(_fight, _thrower, _fight.getFighter(_thrower).ficheCapaciteActuelle(_data), _target, _fight.getFighter(_target).ficheCapaciteActuelle(_data), _move, _data);
+    }
+
+    private void enableTargetAbility(Fight _fight, TeamPosition _thrower, TeamPosition _target, boolean _criticalHit, int _x, String _move, DataBase _data) {
+        FightEffects.enableTargetAbility(_fight, _thrower, _target, _criticalHit, (byte) _x, _move, _data);
     }
 
     private static int nbEvents(MonteCarloNumber _monte) {

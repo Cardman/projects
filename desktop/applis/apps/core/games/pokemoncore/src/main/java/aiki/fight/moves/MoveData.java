@@ -170,9 +170,6 @@ public abstract class MoveData {
                     }
                 }
             }
-            if (i == indexOfPrimaryEffect_) {
-                continue;
-            }
             if (effect_.getTargetChoice() != targetChoice) {
                 if (effect_.getTargetChoice() != TargetChoice.LANCEUR) {
                     _data.setError(true);

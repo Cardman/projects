@@ -1099,6 +1099,15 @@ public class FightSuccessTest extends InitializationDataBase {
     }
 
     @Test
+    public void sufferingDamageTypes5Test() {
+        DataBase data_ = initDb();
+        Fight fight_ = sufferingDamageTypes(data_);
+        FightRound.initRound(fight_);
+        StringMap<Rate> map_;
+        map_ = FightSuccess.sufferingDamageTypes(fight_, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, PICO_DEFENSE, data_);
+        assertEq(0, map_.size());
+    }
+    @Test
     public void droppedStatis1Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);

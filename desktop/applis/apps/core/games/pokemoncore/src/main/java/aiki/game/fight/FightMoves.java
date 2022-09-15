@@ -27,10 +27,7 @@ final class FightMoves {
             return climats_;
         }
         for(String c:_fight.getEnabledMoves().getKeys()){
-            if(!_fight.getEnabledMoves().getVal(c).isEnabled()){
-                continue;
-            }
-            if(!StringUtil.contains(_import.getMovesEffectGlobalWeather(), c)){
+            if (!_fight.getEnabledMoves().getVal(c).isEnabled() || !StringUtil.contains(_import.getMovesEffectGlobalWeather(), c)) {
                 continue;
             }
             climats_.add(c);
@@ -54,10 +51,7 @@ final class FightMoves {
     static StringList enabledGlobalNonWeatherMove(Fight _fight,DataBase _import) {
         StringList list_ = new StringList();
         for(String m:_fight.getEnabledMoves().getKeys()){
-            if(!_fight.getEnabledMoves().getVal(m).isEnabled()){
-                continue;
-            }
-            if(StringUtil.contains(_import.getMovesEffectGlobalWeather(), m)){
+            if (!_fight.getEnabledMoves().getVal(m).isEnabled() || StringUtil.contains(_import.getMovesEffectGlobalWeather(), m)) {
                 continue;
             }
             list_.add(m);
@@ -96,31 +90,45 @@ final class FightMoves {
         if (!types_.isEmpty()) {
             return types_;
         }
-        if(!creatureCbtLanceur_.capaciteActive()){
-            types_.addAllElts(fAtt_.getTypes());
-        } else {
-            AbilityData fCapac_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
-            String type_=fCapac_.getTypeForMoves();
-            if(!type_.isEmpty()){
-                types_.add(type_);
-            } else {
-                StringList changedTypes_ = new StringList();
-                for (String t: fAtt_.getTypes()) {
-                    if (!fCapac_.getChangingBoostTypes().contains(t)) {
-                        continue;
-                    }
-                    changedTypes_.add(fCapac_.getChangingBoostTypes().getVal(t).getType());
+        changingBoostTypes(_import, fAtt_, creatureCbtLanceur_, types_);
+        replacingTypes(_import, creatureCbtLanceur_, types_);
+        changeTypes(_import, creatureCbtLanceur_, types_);
+        types_.removeDuplicates();
+        return types_;
+    }
+
+    private static void changeTypes(DataBase _import, Fighter _creatureCbtLanceur, StringList _types) {
+        for (String m: _creatureCbtLanceur.getEnabledChangingTypesMoves().getKeys()) {
+            if (!_creatureCbtLanceur.getEnabledChangingTypesMoves().getVal(m).isEnabled()) {
+                continue;
+            }
+            MoveData moveDta_ = _import.getMove(m);
+            for (Effect eff_: moveDta_.getEffects()) {
+                if (!(eff_ instanceof EffectSwitchMoveTypes)) {
+                    continue;
                 }
-                changedTypes_.removeDuplicates();
-                if (!changedTypes_.isEmpty()) {
-                    types_.addAllElts(changedTypes_);
-                } else {
-                    types_.addAllElts(fAtt_.getTypes());
-                }
+                EffectSwitchMoveTypes effect_ = (EffectSwitchMoveTypes) eff_;
+                transformTypes(_types, effect_.getChangeTypes());
             }
         }
-        for (String m: creatureCbtLanceur_.getEnabledChangingTypesMoves().getKeys()) {
-            if (!creatureCbtLanceur_.getEnabledChangingTypesMoves().getVal(m).isEnabled()) {
+    }
+
+    private static void transformTypes(StringList _types, StringMap<String> _convert) {
+        StringList newTypes_ = new StringList();
+        for (String t: _types) {
+            if (_convert.contains(t)) {
+                newTypes_.add(_convert.getVal(t));
+            } else {
+                newTypes_.add(t);
+            }
+        }
+        _types.clear();
+        _types.addAllElts(newTypes_);
+    }
+
+    private static void replacingTypes(DataBase _import, Fighter _creatureCbtLanceur, StringList _types) {
+        for (String m: _creatureCbtLanceur.getEnabledChangingTypesMoves().getKeys()) {
+            if (!_creatureCbtLanceur.getEnabledChangingTypesMoves().getVal(m).isEnabled()) {
                 continue;
             }
             MoveData moveDta_ = _import.getMove(m);
@@ -130,34 +138,36 @@ final class FightMoves {
                 }
                 EffectSwitchMoveTypes effect_ = (EffectSwitchMoveTypes) eff_;
                 if (!effect_.getReplacingTypes().isEmpty()) {
-                    types_.clear();
-                    types_.addAllElts(effect_.getReplacingTypes());
+                    _types.clear();
+                    _types.addAllElts(effect_.getReplacingTypes());
                 }
             }
         }
-        for (String m: creatureCbtLanceur_.getEnabledChangingTypesMoves().getKeys()) {
-            if (!creatureCbtLanceur_.getEnabledChangingTypesMoves().getVal(m).isEnabled()) {
-                continue;
-            }
-            MoveData moveDta_ = _import.getMove(m);
-            for (Effect eff_: moveDta_.getEffects()) {
-                if (!(eff_ instanceof EffectSwitchMoveTypes)) {
+    }
+
+    private static void changingBoostTypes(DataBase _import, MoveData _fAtt, Fighter _creatureCbtLanceur, StringList _types) {
+        AbilityData fCapac_= _creatureCbtLanceur.ficheCapaciteActuelle(_import);
+        if(fCapac_ == null){
+            _types.addAllElts(_fAtt.getTypes());
+            return;
+        }
+        String type_=fCapac_.getTypeForMoves();
+        if(!type_.isEmpty()){
+            _types.add(type_);
+        } else {
+            StringList changedTypes_ = new StringList();
+            for (String t: _fAtt.getTypes()) {
+                if (!fCapac_.getChangingBoostTypes().contains(t)) {
                     continue;
                 }
-                EffectSwitchMoveTypes effect_ = (EffectSwitchMoveTypes) eff_;
-                StringList newTypes_ = new StringList();
-                for (String t: types_) {
-                    if (effect_.getChangeTypes().contains(t)) {
-                        newTypes_.add(effect_.getChangeTypes().getVal(t));
-                    } else {
-                        newTypes_.add(t);
-                    }
-                }
-                types_.clear();
-                types_.addAllElts(newTypes_);
+                changedTypes_.add(fCapac_.getChangingBoostTypes().getVal(t).getType());
+            }
+            changedTypes_.removeDuplicates();
+            if (!changedTypes_.isEmpty()) {
+                _types.addAllElts(changedTypes_);
+            } else {
+                _types.addAllElts(_fAtt.getTypes());
             }
         }
-        types_.removeDuplicates();
-        return types_;
     }
 }

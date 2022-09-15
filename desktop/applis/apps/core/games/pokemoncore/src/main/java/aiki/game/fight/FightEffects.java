@@ -487,10 +487,10 @@ final class FightEffects {
 
     private static boolean effectSwitchObjectsUseObjectAsPossible(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, Fighter _creatureCible) {
         boolean storeTargetObject_ = false;
-        if (FightItems.canUseBerry(_fight, _lanceur, _import) && _creatureCible.possedeObjet()) {
+        if (FightItems.canUseBerry(_fight, _lanceur, _import)) {
             Item objet_ = _creatureCible.ficheObjet(_import);
             if (objet_ instanceof Berry) {
-                FightItems.enableBerry(_fight, _lanceur, _creatureCible.getItem(), _import);
+                FightItems.enableBerry(_fight, _lanceur, _creatureCible.getItem(), _import, (Berry) objet_);
                 _creatureCible.useObject();
                 storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
             }
@@ -760,18 +760,23 @@ final class FightEffects {
     }
 
     private static void notKoThrowerBerryIfPossible(Fight _fight, TeamPosition _lanceur, DataBase _import, Fighter _creatureLanceur) {
-        if(!_creatureLanceur.estKo()&&FightItems.canUseItsBerry(_fight, _lanceur, _import)){
-            FightItems.enableBerryHp(_fight, _lanceur, _creatureLanceur.getItem(), true, true, _import);
+        if (!_creatureLanceur.estKo()) {
+            Berry berry_ = FightItems.useItsBerry(_fight, _lanceur, _import);
+            if (berry_ != null) {
+                FightItems.enableBerryHp(_fight, _lanceur, true, true, _import, berry_);
+            }
         }
     }
 
     private static void notKoTargetBerryIfPossible(Fight _fight, TeamPosition _cible, DataBase _import, Fighter _creatureCible, MoveData _fAttaqueLanceur) {
-        if(!_creatureCible.estKo()&&FightItems.canUseItsBerry(_fight, _cible, _import)){
-            Berry berry_ = (Berry) _creatureCible.ficheObjet(_import);
-            if (StringUtil.quickEq(berry_.getCategoryBoosting(), _fAttaqueLanceur.getCategory())) {
-                boostTarget(_fight, _cible, _import, _creatureCible, berry_.getBoostStatis());
+        if (!_creatureCible.estKo()) {
+            Berry berry_ = FightItems.useItsBerry(_fight, _cible, _import);
+            if (berry_ != null) {
+                if (StringUtil.quickEq(berry_.getCategoryBoosting(), _fAttaqueLanceur.getCategory())) {
+                    boostTarget(_fight, _cible, _import, _creatureCible, berry_.getBoostStatis());
+                }
+                FightItems.enableBerryHp(_fight, _cible, true, true, _import, berry_);
             }
-            FightItems.enableBerryHp(_fight, _cible, _creatureCible.getItem(), true, true, _import);
         }
     }
 
@@ -824,33 +829,41 @@ final class FightEffects {
     private static void enableAbilties(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaqueLanceur, DataBase _import, Fighter _creatureCible) {
         boolean coupCritique_ = _fight.getDamage().isCriticalHit();
         byte nbCoupsTotal_ = _fight.getDamage().getHits();
-        boolean capaciteActiveCible_;
-        if(_creatureCible.estKo()){
-            capaciteActiveCible_=false;
-        }else{
-            capaciteActiveCible_=!FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import);
-        }
-        if(capaciteActiveCible_){
-            enableTargetAbility(
-                    _fight,
-                    _lanceur, _cible,
-                    coupCritique_, nbCoupsTotal_,
-                    _attaqueLanceur, _import);
-        }
-        boolean capaciteActiveLanceur_;
-        if(_creatureCible.estKo()){
-            capaciteActiveLanceur_=false;
-        }else{
-            capaciteActiveLanceur_=!FightAbilities.ignoreTargetAbility(_fight, _cible,_lanceur,_import);
-        }
+        AbilityData capaciteActiveCible_ = capaciteActiveCible(_fight, _lanceur, _cible, _import, _creatureCible);
+        enableTargetAbility(
+                _fight,
+                _lanceur, _cible,
+                coupCritique_, nbCoupsTotal_,
+                _attaqueLanceur, _import);
+        AbilityData capaciteActiveLanceur_ = capaciteActiveLanceur(_fight, _lanceur, _cible, _import, _creatureCible);
         //puanteur + //statut au contact de la part du lanceur (capacite ou objet cible)
-        if(capaciteActiveLanceur_){
+        if(capaciteActiveLanceur_ != null){
             enableFighterHavingToUseAbility(
                     _fight,
-                    _lanceur, _cible,
+                    _lanceur,capaciteActiveLanceur_, _cible,
                     capaciteActiveCible_,
                     _attaqueLanceur, _import);
         }
+    }
+
+    private static AbilityData capaciteActiveLanceur(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, Fighter _creatureCible) {
+        AbilityData capaciteActiveLanceur_;
+        if(_creatureCible.estKo()){
+            capaciteActiveLanceur_=null;
+        }else{
+            capaciteActiveLanceur_= FightAbilities.ignoredTargetAbility(_fight, _cible, _lanceur, _import);
+        }
+        return capaciteActiveLanceur_;
+    }
+
+    static AbilityData capaciteActiveCible(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, Fighter _creatureCible) {
+        AbilityData capaciteActiveCible_;
+        if(_creatureCible.estKo()){
+            capaciteActiveCible_=null;
+        }else{
+            capaciteActiveCible_= FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
+        }
+        return capaciteActiveCible_;
     }
 
     private static void boostTargetStats(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaqueLanceur, DataBase _import, Fighter _creatureCible) {
@@ -921,10 +934,10 @@ final class FightEffects {
             DataBase _import) {
         Fighter creatureCible_=_fight.getFighter(_cible);
         StringList typeAtt_=FightMoves.moveTypes(_fight, _lanceur,_attaqueLanceur,_import);
-        if(!FightItems.canUseItsBerry(_fight, _cible,_import)){
+        Berry baie_ = FightItems.useItsBerry(_fight, _cible, _import);
+        if(baie_ == null){
             return;
         }
-        Berry baie_=(Berry)creatureCible_.ficheObjet(_import);
         for (String t:typeAtt_) {
             if (baie_.getMultFoesDamage().contains(t) && !Rate.lowerEq(FightSuccess.rateEffAgainstTarget(_fight, _lanceur, _cible, t, _import), baie_.getMultFoesDamage().getVal(t).getEff())) {
                 creatureCible_.useObject();
@@ -1265,8 +1278,8 @@ final class FightEffects {
     static Rate rateAbilityPower(Fight _fight, TeamPosition _fighter, StringMap<String> _variables, DataBase _import) {
         Fighter fighter_ = _fight.getFighter(_fighter);
         Rate rate_ = DataBase.defRateProduct();
-        if(fighter_.capaciteActive()){
-            AbilityData ab_=fighter_.ficheCapaciteActuelle(_import);
+        AbilityData ab_=fighter_.ficheCapaciteActuelle(_import);
+        if(ab_ != null){
             StringMap<String> vars_ = new StringMap<String>(_variables);
             vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));
             rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(ab_.getMultPower(), vars_, _import));
@@ -1310,7 +1323,8 @@ final class FightEffects {
         StringMap<String> vars_ = new StringMap<String>(_variables);
         vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _thrower, _import));
         att_.multiplyBy(FightStatistic.statisticWithoutBase(_fight, _thrower, statis_, vars_, _import));
-        boolean priseEnCompteCapaciteCible_=!FightAbilities.ignoreTargetAbility(_fight, _thrower,_target,_import);
+        AbilityData ab_ = FightAbilities.ignoredTargetAbility(_fight, _thrower, _target, _import);
+        boolean priseEnCompteCapaciteCible_= ab_ != null;
         byte boost_=thrower_.getStatisBoost().getVal(statis_);
         boost_ += FightStatistic.bonusBoost(_fight, statis_, _thrower, _import);
         if(boost_<=baseBoost_){
@@ -1320,8 +1334,7 @@ final class FightEffects {
         }else if(!priseEnCompteCapaciteCible_){
             att_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
         }else{
-            AbilityData fCapaciteCible_=target_.ficheCapaciteActuelle(_import);
-            if(!fCapaciteCible_.isIgnFoeStatisBoost()){
+            if(!ab_.isIgnFoeStatisBoost()){
                 att_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
             }
         }
@@ -1343,7 +1356,8 @@ final class FightEffects {
         boost_ += FightStatistic.bonusBoost(_fight, statis_, _target, _import);
         if(boost_>=baseBoost_){
             if(!_effect.getIgnVarStatTargetPos().containsObj(statis_)){
-                boolean priseEnCompteBoost_= FightAbilities.ignoreTargetAbility(_fight, _target, _thrower, _import) || !thrower_.ficheCapaciteActuelle(_import).isIgnFoeStatisBoost();
+                AbilityData ab_ = FightAbilities.ignoredTargetAbility(_fight, _target, _thrower, _import);
+                boolean priseEnCompteBoost_= ab_ == null || !ab_.isIgnFoeStatisBoost();
                 if(priseEnCompteBoost_){
                     def_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
                 }
@@ -1359,11 +1373,10 @@ final class FightEffects {
     }
 
     static Rate rateDamageTargetAbility(Fight _fight, TeamPosition _thrower, TeamPosition _target, StringList _moveTypes, Rate _efficiency, DataBase _import) {
-        Fighter target_ = _fight.getFighter(_target);
         Rate rate_ = DataBase.defRateProduct();
-        boolean priseEnCompteCapaciteCible_=!FightAbilities.ignoreTargetAbility(_fight, _thrower,_target,_import);
+        AbilityData fCapaciteCible_ = FightAbilities.ignoredTargetAbility(_fight, _thrower, _target, _import);
+        boolean priseEnCompteCapaciteCible_= fCapaciteCible_ != null;
         if(priseEnCompteCapaciteCible_){
-            AbilityData fCapaciteCible_=target_.ficheCapaciteActuelle(_import);
             for (String t: _moveTypes) {
                 if(fCapaciteCible_.getMultDamageFoe().contains(t)){
                     rate_.multiplyBy(fCapaciteCible_.getMultDamageFoe().getVal(t));
@@ -1401,10 +1414,10 @@ final class FightEffects {
         Rate rate_ = DataBase.defRateProduct();
         for (TeamPosition f_: FightOrder.frontFighters(_fight)) {
             Fighter fighter_ = _fight.getFighter(f_);
-            if (!fighter_.capaciteActive()) {
+            AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
+            if (ab_ == null) {
                 continue;
             }
-            AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
             for (String t: _moveTypes) {
                 if(ab_.getMultPowerMovesTypesGlobal().contains(t)){
                     rate_.multiplyBy(ab_.getMultPowerMovesTypesGlobal().getVal(t));
@@ -1426,12 +1439,10 @@ final class FightEffects {
         boolean reverse_ = false;
         for (TeamPosition f_: FightOrder.frontFighters(_fight)) {
             Fighter fighter_ = _fight.getFighter(f_);
-            if (fighter_.capaciteActive()) {
-                AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
-                if (ab_.isReverseEffectsPowerMovesTypesGlobal()) {
-                    reverse_ = true;
-                    break;
-                }
+            AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
+            if (ab_ != null && ab_.isReverseEffectsPowerMovesTypesGlobal()) {
+                reverse_ = true;
+                break;
             }
         }
         return reverse_;
@@ -1475,8 +1486,8 @@ final class FightEffects {
     static Rate rateDamageThrowerAbility(Fight _fight, TeamPosition _fighter, StringMap<String> _variables, DataBase _import) {
         Rate rate_ = DataBase.defRateProduct();
         Fighter thrower_ = _fight.getFighter(_fighter);
-        if(thrower_.capaciteActive()){
-            AbilityData fCapac_=thrower_.ficheCapaciteActuelle(_import);
+        AbilityData fCapac_=thrower_.ficheCapaciteActuelle(_import);
+        if(fCapac_ != null){
             rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(fCapac_.getMultDamage(), _variables, _import));
         }
         return rate_;
@@ -1504,9 +1515,8 @@ final class FightEffects {
 
     static Rate rateDamageTargetBerry(Fight _fight, TeamPosition _thrower, TeamPosition _target, StringList _moveTypes, DataBase _import) {
         Rate rate_ = DataBase.defRateProduct();
-        Fighter target_ = _fight.getFighter(_target);
-        if(FightItems.canUseItsBerry(_fight, _target,_import)){
-            Berry baie_=(Berry)target_.ficheObjet(_import);
+        Berry baie_ = FightItems.useItsBerry(_fight, _target, _import);
+        if(baie_ != null){
             for (String t:_moveTypes) {
                 if(!baie_.getMultFoesDamage().contains(t)){
                     continue;
@@ -1597,11 +1607,9 @@ final class FightEffects {
                 continue;
             }
             rate_.multiplyBy(_import.getStab());
-            if (thrower_.capaciteActive()) {
-                AbilityData fCapac_ = thrower_.ficheCapaciteActuelle(_import);
-                if (!fCapac_.getMultStab().isZero()) {
-                    rate_.multiplyBy(fCapac_.getMultStab());
-                }
+            AbilityData fCapac_ = thrower_.ficheCapaciteActuelle(_import);
+            if (fCapac_ != null && !fCapac_.getMultStab().isZero()) {
+                rate_.multiplyBy(fCapac_.getMultStab());
             }
         }
         return rate_;
@@ -1610,11 +1618,9 @@ final class FightEffects {
     static Rate rateDamageThrowerTargetAbility(Fight _fight, TeamPosition _thrower, TeamPosition _target, DataBase _import) {
         Rate rate_ = DataBase.defRateProduct();
         Fighter thrower_ = _fight.getFighter(_thrower);
-        if (NumberUtil.eq(_thrower.getTeam(), _target.getTeam()) && thrower_.capaciteActive()) {
-            AbilityData fCapac_ = thrower_.ficheCapaciteActuelle(_import);
-            if (!fCapac_.getMultAllyDamage().isZero()) {
-                rate_.multiplyBy(fCapac_.getMultAllyDamage());
-            }
+        AbilityData fCapac_ = thrower_.ficheCapaciteActuelle(_import);
+        if (NumberUtil.eq(_thrower.getTeam(), _target.getTeam()) && fCapac_ != null && !fCapac_.getMultAllyDamage().isZero()) {
+            rate_.multiplyBy(fCapac_.getMultAllyDamage());
         }
         return rate_;
     }
@@ -1791,8 +1797,8 @@ final class FightEffects {
 
     private static MonteCarloNumber lawHits(DataBase _import, EffectDamage _effect, Fighter _thrower) {
         MonteCarloNumber law_;
-        if (_thrower.capaciteActive()) {
-            AbilityData ab_ = _thrower.ficheCapaciteActuelle(_import);
+        AbilityData ab_ = _thrower.ficheCapaciteActuelle(_import);
+        if (ab_ != null) {
             if (ab_.isNbHits()) {
                 law_ = new MonteCarloNumber();
                 Rate max_ = _effect.getHitsLaw().maximum();
@@ -1810,7 +1816,6 @@ final class FightEffects {
             DataBase _import) {
         boolean priseEnCompteCc_=true;
         Team equipeCible_=_fight.getTeams().getVal(_cible.getTeam());
-        Fighter creatureCible_ = _fight.getFighter(_cible);
         Fighter thrower_ = _fight.getFighter(_lanceur);
         for(String c:equipeCible_.enabledTeamMoves()){
             CustList<EffectTeam> list_ = effectsTeam(_import, thrower_, c);
@@ -1828,11 +1833,9 @@ final class FightEffects {
                 break;
             }
         }
-        if(!FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import)){
-            AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
-            if(fCapac_.isImmuCh()){
-                priseEnCompteCc_=false;
-            }
+        AbilityData fCapac_ = FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
+        if (fCapac_ != null && fCapac_.isImmuCh()) {
+            priseEnCompteCc_ = false;
         }
         return priseEnCompteCc_;
     }
@@ -1842,27 +1845,14 @@ final class FightEffects {
         if(!priseEnCompteEquipeCible_){
             return new CustList<EffectTeam>();
         }
-        CustList<EffectTeam> list_ = new CustList<EffectTeam>();
-        MoveData fAttEquipe_=_import.getMove(_c);
-        int nbEffets_=fAttEquipe_.nbEffets();
-        for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-            Effect effet_=fAttEquipe_.getEffet(i);
-            if(!(effet_ instanceof EffectTeam)){
-                continue;
-            }
-            EffectTeam effetEquipe_=(EffectTeam)effet_;
-            list_.add(effetEquipe_);
-        }
-        return list_;
+        return FightSuccess.effectsTeamMove(_import, _c);
     }
 
     private static boolean priseEnCompteEquipeCible(DataBase _import, Fighter _thrower, String _c) {
         boolean priseEnCompteEquipeCible_=true;
-        if(_thrower.capaciteActive()){
-            AbilityData fCapac_= _thrower.ficheCapaciteActuelle(_import);
-            if(StringUtil.contains(fCapac_.getIgnFoeTeamMove(), _c)){
-                priseEnCompteEquipeCible_=false;
-            }
+        AbilityData fCapac_= _thrower.ficheCapaciteActuelle(_import);
+        if (fCapac_ != null && StringUtil.contains(fCapac_.getIgnFoeTeamMove(), _c)) {
+            priseEnCompteEquipeCible_ = false;
         }
         return priseEnCompteEquipeCible_;
     }
@@ -1872,9 +1862,12 @@ final class FightEffects {
             TeamPosition _lanceur, TeamPosition _cible,
             boolean _criticalHit, byte _hitsCount,
             String _attaqueLanceur, DataBase _import) {
-        byte maxBoost_=(byte)_import.getMaxBoost();
         Fighter creatureCible_=_fight.getFighter(_cible);
-        AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
+        AbilityData fCapac_ = capaciteActiveCible(_fight, _lanceur, _cible, _import, creatureCible_);
+        if (fCapac_ == null) {
+            return;
+        }
+        byte maxBoost_=(byte)_import.getMaxBoost();
         StringList typeAttaque_=FightMoves.moveTypes(_fight, _lanceur,_attaqueLanceur,_import);
         MoveData fAttaqueLanceur_ = _import.getMove(_attaqueLanceur);
         String categorie_=fAttaqueLanceur_.getCategory();
@@ -1908,13 +1901,15 @@ final class FightEffects {
 
     static void enableFighterHavingToUseAbility(
             Fight _fight,
-            TeamPosition _lanceur, TeamPosition _cible,
-            boolean _enabledTargetAbility,
+            TeamPosition _lanceur, AbilityData _capaciteActiveLanceur, TeamPosition _cible,
+            AbilityData _enabledTargetAbility,
             String _attaqueLanceur, DataBase _import) {
         Fighter creatureCible_=_fight.getFighter(_cible);
+        if (_capaciteActiveLanceur == null) {
+            return;
+        }
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
-        AbilityData fCapacLanceur_=creatureLanceur_.ficheCapaciteActuelle(_import);
-        if (fCapacLanceur_.isTakeItemByDamagingMove() && !creatureLanceur_.possedeObjet()) {
+        if (_capaciteActiveLanceur.isTakeItemByDamagingMove() && !creatureLanceur_.possedeObjet()) {
             creatureLanceur_.backUpObject(creatureCible_.getItem());
             _fight.addSwitchItemsMessage(_lanceur, DataBase.EMPTY_STRING, creatureCible_.getItem(), _import);
             _fight.addSwitchItemsMessage(_cible, creatureCible_.getItem(), DataBase.EMPTY_STRING, _import);
@@ -1923,18 +1918,18 @@ final class FightEffects {
         if (creatureCible_.estKo()) {
             return;
         }
-        lowStatFoeHit(_fight, _lanceur, _cible, _import, creatureCible_, fCapacLanceur_);
+        lowStatFoeHit(_fight, _lanceur, _cible, _import, creatureCible_, _capaciteActiveLanceur);
         DamagingMoveData fAttaqueLanceur_ = (DamagingMoveData) _import.getMove(_attaqueLanceur);
-        if(!fCapacLanceur_.getSingleStatus().events().isEmpty()&&fAttaqueLanceur_.isDirect()){
-            MonteCarloString loi_=fCapacLanceur_.getSingleStatus();
+        if(!_capaciteActiveLanceur.getSingleStatus().events().isEmpty()&&fAttaqueLanceur_.isDirect()){
+            MonteCarloString loi_=_capaciteActiveLanceur.getSingleStatus();
             _fight.getSufferingTargetStatus().clear();
             _fight.addEffectStatus(_lanceur, _cible);
-            processStatusLaw(_fight,_lanceur,_cible,loi_,fCapacLanceur_.getFailStatus(),_import);
+            processStatusLaw(_fight,_lanceur,_cible,loi_,_capaciteActiveLanceur.getFailStatus(),_import);
             if(!_fight.getSufferingTargetStatus().isEmpty()){
                 synchronizeStatusDamage(_fight, _lanceur, _cible, _import, creatureCible_);
             }
         }
-        if (fCapacLanceur_.isMumy() && fAttaqueLanceur_.isDirect() && (!_enabledTargetAbility || !creatureCible_.ficheCapaciteActuelle(_import).isPlate())) {
+        if (_capaciteActiveLanceur.isMumy() && fAttaqueLanceur_.isDirect() && (_enabledTargetAbility == null || !_enabledTargetAbility.isPlate())) {
             FightAbilities.disableAbility(_fight, _cible, creatureLanceur_.getCurrentAbility(), _import);
             FightAbilities.enableAbility(_fight, _cible, _import);
         }
@@ -1942,8 +1937,9 @@ final class FightEffects {
 
     private static void synchronizeStatusDamage(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, Fighter _creatureCible) {
         StringMap<String> fails_ = new StringMap<String>();
-        if (_creatureCible.capaciteActive()) {
-            fails_ = _creatureCible.ficheCapaciteActuelle(_import).getFailStatus();
+        AbilityData ab_ = _creatureCible.ficheCapaciteActuelle(_import);
+        if (ab_ != null) {
+            fails_ = ab_.getFailStatus();
         }
         StringMap<String> failsObj_ = new StringMap<String>();
         if (FightItems.canUseItsObject(_fight, _cible, _import)) {
@@ -2011,11 +2007,9 @@ final class FightEffects {
 
     private static Rate degatsReculContreCible(Fight _fight, TeamPosition _lanceur, DataBase _import, Fighter _creatureLanceur, Fighter _creatureCible, DamagingMoveData _fAttaqueLanceur) {
         Rate degatsReculContreCible_=Rate.zero();
-        if(_creatureLanceur.capaciteActive()){
-            AbilityData fCapacLanceur_= _creatureLanceur.ficheCapaciteActuelle(_import);
-            if(!fCapacLanceur_.getRecoilDamageFoe().isZero()&& _fAttaqueLanceur.isDirect()){
-                degatsReculContreCible_.addNb(Rate.multiply(fCapacLanceur_.getRecoilDamageFoe(), _creatureCible.pvMax()));
-            }
+        AbilityData fCapacLanceur_= _creatureLanceur.ficheCapaciteActuelle(_import);
+        if (fCapacLanceur_ != null && !fCapacLanceur_.getRecoilDamageFoe().isZero() && _fAttaqueLanceur.isDirect()) {
+            degatsReculContreCible_.addNb(Rate.multiply(fCapacLanceur_.getRecoilDamageFoe(), _creatureCible.pvMax()));
         }
         boolean peutUtiliserObjetLanceur_=FightItems.canUseItsObject(_fight, _lanceur, _import);
         if(peutUtiliserObjetLanceur_){
@@ -2028,12 +2022,10 @@ final class FightEffects {
             }
         }
         _fight.setUtilisationBaieLanceur(false);
-        if(FightItems.canUseItsBerry(_fight, _lanceur, _import)){
-            Berry baie_=(Berry) _creatureLanceur.ficheObjet(_import);
-            if(baie_.getDamageRateRecoilFoe().contains(_fAttaqueLanceur.getCategory())){
-                degatsReculContreCible_.addNb(Rate.multiply(baie_.getDamageRateRecoilFoe().getVal(_fAttaqueLanceur.getCategory()), _creatureCible.pvMax()));
-                _fight.setUtilisationBaieLanceur(true);
-            }
+        Berry baie_ = FightItems.useItsBerry(_fight, _lanceur, _import);
+        if (baie_ != null && baie_.getDamageRateRecoilFoe().contains(_fAttaqueLanceur.getCategory())) {
+            degatsReculContreCible_.addNb(Rate.multiply(baie_.getDamageRateRecoilFoe().getVal(_fAttaqueLanceur.getCategory()), _creatureCible.pvMax()));
+            _fight.setUtilisationBaieLanceur(true);
         }
         return degatsReculContreCible_;
     }
@@ -2051,10 +2043,10 @@ final class FightEffects {
     }
     static void enableAbilityWhileKoTarget(Fight _fight, TeamPosition _lanceur, DataBase _import) {
         Fighter creatureLanceur_ = _fight.getFighter(_lanceur);
-        if (!creatureLanceur_.capaciteActive()) {
+        AbilityData fCapacLanceur_=creatureLanceur_.ficheCapaciteActuelle(_import);
+        if (fCapacLanceur_ == null) {
             return;
         }
-        AbilityData fCapacLanceur_=creatureLanceur_.ficheCapaciteActuelle(_import);
         for(Statistic c:creatureLanceur_.getStatisBoost().getKeys()){
             if(!fCapacLanceur_.getMultStatIfKoFoe().contains(c)){
                 continue;
@@ -2205,11 +2197,9 @@ final class FightEffects {
         }
         if(effetLoc_ instanceof EffectEndRoundSingleRelation){
             ActivityOfMove actifNbTour_=creatureLanceur_.getTrappingMoves().getVal(new MoveTeamPosition(_move,_finalTarget));
-            if(creatureCible_.capaciteActive()){
-                AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
-                if(fCapac_.isImmuDamageTrappingMoves()){
-                    return;
-                }
+            AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
+            if (fCapac_ != null && fCapac_.isImmuDamageTrappingMoves()) {
+                return;
             }
             if (!effetLoc_.getFail().isEmpty()) {
                 StringMap<String> values_;
@@ -2368,8 +2358,9 @@ final class FightEffects {
                 _fight.addAnimationStatistic(e, vars_.getVal(e), false);
                 _fight.addStatisticMessage(_cible, e, vars_.getVal(e), _import);
             }
-            if (FightItems.canUseItsBerry(_fight,_cible, _import)) {
-                FightItems.enableBerryStatistic(_fight,_cible, creatureCible_.getItem(), true, true, _import);
+            Berry berry_ = FightItems.useItsBerry(_fight, _cible, _import);
+            if (berry_ != null) {
+                FightItems.enableBerryStatistic(_fight,_cible, true, true, _import, berry_);
             }
         }
         otherChanges(_fight, _lanceur, _cible, _effet, _statistiques, _import, creatureCible_);
@@ -2536,7 +2527,8 @@ final class FightEffects {
             }
             varPv_.affect(varPvPositive(_fight, _cible, _effet, _import, creatureCible_));
         }else{
-            if (creatureCible_.capaciteActive() && creatureCible_.ficheCapaciteActuelle(_import).isImmuDamageRecoil()) {
+            AbilityData ab_ = creatureCible_.ficheCapaciteActuelle(_import);
+            if (ab_ != null && ab_.isImmuDamageRecoil()) {
                 return;
             }
             varPv_.affect(varPvNegative(_fight, _effet));
@@ -2801,14 +2793,15 @@ final class FightEffects {
             _fight.addStatusRelMessage(_cible, _statut, _lanceur, _import);
         }
         setStatusAbility(_fight, _cible, _import, creatureCible_);
-        if (FightItems.canUseItsBerry(_fight,_cible, _import)) {
-            FightItems.enableBerryStatus(_fight,_cible, creatureCible_.getItem(), true, _import);
+        Berry berry_ = FightItems.useItsBerry(_fight, _cible, _import);
+        if (berry_ != null) {
+            FightItems.enableBerryStatus(_fight,_cible, true, _import, berry_);
         }
     }
 
     private static void setStatusAbility(Fight _fight, TeamPosition _cible, DataBase _import, Fighter _creatureCible) {
-        if (_creatureCible.capaciteActive()) {
-            AbilityData fCapacCible_= _creatureCible.ficheCapaciteActuelle(_import);
+        AbilityData fCapacCible_= _creatureCible.ficheCapaciteActuelle(_import);
+        if (fCapacCible_ != null) {
             for(String e:_fight.getSufferingTargetStatus()){
                 for(Statistic c: _creatureCible.getStatisBoost().getKeys()){
                     if(fCapacCible_.getMultStatIfStatutRank().contains(new StatisticStatus(c,e))){
@@ -2856,11 +2849,10 @@ final class FightEffects {
     }
 
     private static void synchronizeStatusAbility(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, StringMap<String> _echecStatutsAb, DataBase _import) {
-        if(FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import)){
+        AbilityData fCapacCible_ = FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
+        if(fCapacCible_ == null){
             return;
         }
-        Fighter creatureCbtCible_=_fight.getFighter(_cible);
-        AbilityData fCapacCible_=creatureCbtCible_.ficheCapaciteActuelle(_import);
         //capacite SYNCHRO... (capacite ou objet)
         for(String e:_fight.getSufferingTargetStatus()){
             if(!fCapacCible_.getForwardStatus().contains(e)){
@@ -2905,11 +2897,8 @@ final class FightEffects {
             return map_;
         }
         Fighter fighter_ = _fight.getFighter(_combattant);
-        if (!fighter_.capaciteActive()) {
-            return map_;
-        }
         AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
-        if (ab_.getMultStatIfLowStat().isEmpty()) {
+        if (ab_ == null || ab_.getMultStatIfLowStat().isEmpty()) {
             return map_;
         }
         for (Statistic s: _varBase.getKeys()) {
@@ -2930,8 +2919,8 @@ final class FightEffects {
     static byte deltaBoostStatistic(Fight _fight, TeamPosition _combattant,Statistic _stat,byte _varBase,DataBase _import){
         Fighter creature_=_fight.getFighter(_combattant);
         Rate var_=new Rate(_varBase);
-        if(creature_.capaciteActive()){
-            AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+        AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+        if(fCapac_ != null){
             Rate rate_ = fCapac_.getMultVarBoost();
             if(!rate_.isZero()){
                 if(rate_.isZeroOrGt()){
@@ -2965,11 +2954,9 @@ final class FightEffects {
         if (rate_.greaterThanOne()) {
             event_.multiplyBy(rate_);
         }
-        if(user_.capaciteActive()){
-            AbilityData fCapac_=user_.ficheCapaciteActuelle(_import);
-            if(!fCapac_.getMultDamageCh().isZero()){
-                event_.multiplyBy(fCapac_.getMultDamageCh());
-            }
+        AbilityData fCapac_=user_.ficheCapaciteActuelle(_import);
+        if (fCapac_ != null && !fCapac_.getMultDamageCh().isZero()) {
+            event_.multiplyBy(fCapac_.getMultDamageCh());
         }
         return event_;
     }
@@ -2994,8 +2981,8 @@ final class FightEffects {
         if (creatureCible_.estKo()) {
             return false;
         }
-        if (!FightAbilities.ignoreTargetAbility(_fight, _thrower, _target, _import)) {
-            AbilityData ab_ = creatureCible_.ficheCapaciteActuelle(_import);
+        AbilityData ab_ = FightAbilities.ignoredTargetAbility(_fight, _thrower, _target, _import);
+        if (ab_ != null) {
             return ab_.isInflictingDamageInsteadOfSuffering();
         }
         return false;

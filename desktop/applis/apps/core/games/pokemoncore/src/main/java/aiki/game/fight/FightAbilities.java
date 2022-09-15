@@ -18,69 +18,81 @@ final class FightAbilities {
     }
 
     static boolean ignoreTargetAbility(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,DataBase _import){
+        return ignoredTargetAbility(_fight, _lanceur, _cible, _import) == null;
+    }
+
+    static AbilityData ignoredTargetAbility(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,DataBase _import){
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
         Fighter creatureCible_=_fight.getFighter(_cible);
-        if(!creatureCible_.capaciteActive()){
-            return true;
-        }
-        if(!creatureLanceur_.capaciteActive()){
-            return false;
+        AbilityData capacCible_ = creatureCible_.ficheCapaciteActuelle(_import);
+        if(capacCible_ == null){
+            return null;
         }
         AbilityData fCapac_=creatureLanceur_.ficheCapaciteActuelle(_import);
-        return StringUtil.contains(fCapac_.getIgnAbility(), creatureCible_.getCurrentAbility());
+        if(fCapac_ == null){
+            return capacCible_;
+        }
+        if (StringUtil.contains(fCapac_.getIgnAbility(), creatureCible_.getCurrentAbility())) {
+            return null;
+        }
+        return capacCible_;
     }
 
     static void enableAbility(Fight _fight,TeamPosition _cbt,DataBase _import){
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        if(!creatureCbt_.capaciteActive()){
+        AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
+        if(fCapac_ == null){
             return;
         }
+        enableAbility(_fight, _cbt, _import, creatureCbt_, fCapac_);
+    }
+
+    private static void enableAbility(Fight _fight, TeamPosition _cbt, DataBase _import, Fighter _creatureCbt, AbilityData _fCapac) {
         _fight.addEnabledAbilityMessage(_cbt, _import);
         long defStatistic_ = _import.getDefaultBoost();
-        AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
-        for(Statistic c:fCapac_.getImmuLowStat()){
+        for(Statistic c:_fCapac.getImmuLowStat()){
             //remise a zero du boost si negatif
-            byte boost_=creatureCbt_.getStatisBoost().getVal(c);
-            if(boost_<defStatistic_){
-                creatureCbt_.variationBoostStatistique(c,(byte) (defStatistic_-boost_));
-                _fight.addStatisticMessage(_cbt, c, defStatistic_-boost_, _import);
-            }
+            restoreBoost(_creatureCbt, c, defStatistic_, _fight, _cbt, _import);
         }
-        for(String c:creatureCbt_.getStatusSet()){
-            if(NumberUtil.eq(creatureCbt_.getStatusNbRoundShort(c), 0)){
+        for(String c:_creatureCbt.getStatusSet()){
+            if(NumberUtil.eq(_creatureCbt.getStatusNbRoundShort(c), 0)){
                 continue;
             }
-            for(StatisticStatus e:fCapac_.getImmuLowStatIfStatus()){
+            for(StatisticStatus e:_fCapac.getImmuLowStatIfStatus()){
                 if(StringUtil.quickEq(e.getStatus(),c)){
                     //remise a zero du boost si negatif en fonction du statut
-                    byte boost_=creatureCbt_.getStatisBoost().getVal(e.getStatistic());
-                    if(boost_<defStatistic_){
-                        creatureCbt_.variationBoostStatistique(e.getStatistic(),(byte) (defStatistic_-boost_));
-                        _fight.addStatisticMessage(_cbt, e.getStatistic(), defStatistic_-boost_, _import);
-                    }
+                    restoreBoost(_creatureCbt, e.getStatistic(), defStatistic_, _fight, _cbt, _import);
                 }
             }
         }
         enableAbilityByWeather(_fight, _cbt, _import);
         FightSending.effectPlate(_fight, _cbt, _import);
-        for(String c:creatureCbt_.getStatusSet()){
-            if(NumberUtil.eq(creatureCbt_.getStatusNbRoundShort(c), 0)){
-                continue;
-            }
-            if(!fCapac_.getDivideStatusRound().contains(c)){
+        enableAbilityStatus(_fight, _cbt, _import, _creatureCbt, _fCapac);
+    }
+
+    private static void restoreBoost(Fighter _creatureCbt, Statistic _s, long _defStatistic, Fight _fight, TeamPosition _cbt, DataBase _import) {
+        byte boost_= _creatureCbt.getStatisBoost().getVal(_s);
+        if(boost_< _defStatistic){
+            _creatureCbt.variationBoostStatistique(_s,(byte) (_defStatistic -boost_));
+            _fight.addStatisticMessage(_cbt, _s, _defStatistic -boost_, _import);
+        }
+    }
+
+    private static void enableAbilityStatus(Fight _fight, TeamPosition _cbt, DataBase _import, Fighter _creatureCbt, AbilityData _fCapac) {
+        for(String c: _creatureCbt.getStatusSet()){
+            if (NumberUtil.eq(_creatureCbt.getStatusNbRoundShort(c), 0) || !_fCapac.getDivideStatusRound().contains(c)) {
                 continue;
             }
             Status statut_=_import.getStatus().getVal(c);
-            if(!(statut_ instanceof StatusBeginRound)){
-                continue;
-            }
-            StatusBeginRound status_ = (StatusBeginRound) statut_;
-            short nbTour_=creatureCbt_.getStatusNbRoundShort(c);
-            MonteCarloNumber loi_=status_.getLawForUsingAMoveNbRound();
-            Rate coeffDivision_=fCapac_.getDivideStatusRound().getVal(c);
-            if(Rate.strLower(Rate.divide(loi_.maximum(),coeffDivision_),new Rate(nbTour_))){
-                creatureCbt_.supprimerStatut(c);
-                _fight.addDisabledStatusMessage(c, _cbt, _import);
+            if (statut_ instanceof StatusBeginRound) {
+                StatusBeginRound status_ = (StatusBeginRound) statut_;
+                short nbTour_ = _creatureCbt.getStatusNbRoundShort(c);
+                MonteCarloNumber loi_ = status_.getLawForUsingAMoveNbRound();
+                Rate coeffDivision_ = _fCapac.getDivideStatusRound().getVal(c);
+                if (Rate.strLower(Rate.divide(loi_.maximum(), coeffDivision_), new Rate(nbTour_))) {
+                    _creatureCbt.supprimerStatut(c);
+                    _fight.addDisabledStatusMessage(c, _cbt, _import);
+                }
             }
         }
     }
@@ -106,10 +118,10 @@ final class FightAbilities {
 
     static void disableAllStatusByEnabledWeather(Fight _fight,TeamPosition _cbt,String _weather, DataBase _data) {
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        if (!creatureCbt_.capaciteActive()) {
+        AbilityData fCapac_ = creatureCbt_.ficheCapaciteActuelle(_data);
+        if (fCapac_ == null) {
             return;
         }
-        AbilityData fCapac_ = creatureCbt_.ficheCapaciteActuelle(_data);
         if (fCapac_.getImmuStatus().contains(_weather)) {
             for(String e:fCapac_.getImmuStatus().getVal(_weather)){
                 if(_data.getStatus(e).getStatusType() == StatusType.INDIVIDUEL){

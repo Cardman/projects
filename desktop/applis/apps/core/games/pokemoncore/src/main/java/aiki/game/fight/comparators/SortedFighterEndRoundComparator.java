@@ -1,6 +1,5 @@
 package aiki.game.fight.comparators;
 import aiki.db.DataBase;
-import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.game.fight.Fight;
@@ -30,35 +29,13 @@ public final class SortedFighterEndRoundComparator implements Comparing<TeamPosi
     @Override
     public int compare(TeamPosition _fighterOne, TeamPosition _fighterTwo) {
         Fighter fighterOne_=fight.getFighter(_fighterOne);
-        boolean slowOne_=false;
-        boolean canAttackLastOne_=false;
-        if(fighterOne_.capaciteActive()){
-            AbilityData fCapac_=fighterOne_.ficheCapaciteActuelle(data);
-            slowOne_=fCapac_.isSlowing();
-        }
-        if(FightFacade.canUseItsObject(fight,_fighterOne,data)){
-            String it_ = fighterOne_.getItem();
-            Item objet_=data.getItem(it_);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                canAttackLastOne_=objetAttachable_.getAttackLast();
-            }
-        }
+        boolean slowOne_=fighterOne_.isSlowing(data);
+        Item it1_ = FightFacade.useItsObject(fight, _fighterOne, data);
+        boolean canAttackLastOne_ = it1_ instanceof ItemForBattle && ((ItemForBattle) it1_).getAttackLast();
         Fighter fighterTwo_=fight.getFighter(_fighterTwo);
-        boolean slowTwo_=false;
-        boolean canAttackLastTwo_=false;
-        if(fighterTwo_.capaciteActive()){
-            AbilityData fCapac_=fighterTwo_.ficheCapaciteActuelle(data);
-            slowTwo_=fCapac_.isSlowing();
-        }
-        if(FightFacade.canUseItsObject(fight,_fighterTwo,data)){
-            String it_ = fighterTwo_.getItem();
-            Item objet_=data.getItem(it_);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                canAttackLastTwo_=objetAttachable_.getAttackLast();
-            }
-        }
+        boolean slowTwo_=fighterTwo_.isSlowing(data);
+        Item it2_ = FightFacade.useItsObject(fight, _fighterTwo, data);
+        boolean canAttackLastTwo_ = it2_ instanceof ItemForBattle && ((ItemForBattle) it2_).getAttackLast();
         boolean permuter_=false;
         if(slowOne_&&!slowTwo_){
             permuter_=true;

@@ -27,14 +27,12 @@ import aiki.fight.util.TypesDuos;
 import aiki.fight.util.TypesDuo;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.game.fight.util.RandomBoolResults;
+import aiki.util.MoveTeamPositionsBoolVal;
+import aiki.util.NbEffectFighterCoordss;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.*;
-import code.util.EnumList;
-import code.util.AbsMap;
-import code.util.SortableCustList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -52,10 +50,8 @@ final class FightSuccess {
             if(isProtectedAgainstMove(_fight,_lanceur,_cible,_attaque,_import)){
                 return new RandomBoolResults(false,true);
             }
-        } else if (_fight.isSending()) {
-            if(isProtectedAgainstMove(_fight,_cible,_cible,_attaque,_import)){
-                return new RandomBoolResults(false,true);
-            }
+        } else if (_fight.isSending() && isProtectedAgainstMove(_fight, _cible, _cible, _attaque, _import)) {
+            return new RandomBoolResults(false, true);
         }
         Effect effet_=fAttaque_.getEffet(_noEffet);
         if (effet_.getTargetChoice() == fAttaque_.getTargetChoice()) {
@@ -63,37 +59,28 @@ final class FightSuccess {
                     _fight,
                     _lanceur, _cible, _attaque,
                     _noEffet, _withPreviousEffect, _import)) {
-                Fighter target_ = _fight.getFighter(_cible);
-                if (StringUtil.contains(_import.getMovesCountering(), target_.getFinalChosenMove())) {
-                    return new RandomBoolResults(false,target_.getEnabledCounteringMoves().getVal(target_.getFinalChosenMove()).isEnabled());
-                }
-                return new RandomBoolResults(false,false);
+                return failMoveSameTarget(_fight, _cible, _import);
             }
         } else {
-            boolean sucessful_ = true;
-            for (int e: effet_.getRequiredSuccessfulEffects()) {
-                boolean atLeastOneSuccessful_ = false;
-                NbEffectFighterCoords hit_ = new NbEffectFighterCoords(e, _cible);
-                if (_fight.getSuccessfulEffects().contains(hit_)) {
-                    atLeastOneSuccessful_ = _fight.getSuccessfulEffects().getVal(hit_) == BoolVal.TRUE;
-                }
-                if (!atLeastOneSuccessful_) {
-                    sucessful_ = false;
-                    break;
-                }
-            }
+            boolean sucessful_ = successfulEffect(_fight, _cible, effet_);
             if (!sucessful_ && _withPreviousEffect) {
                 return new RandomBoolResults(false, false);
             }
         }
-        String fail_;
-        StringMap<String> values_ = new StringMap<String>();
-        if (!_fight.isSending()) {
-            fail_ = effet_.getFail();
-        } else {
-            EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effet_;
-            fail_ = eff_.getFailSending();
+        return defSuccess(_fight, _lanceur, _cible, _attaque, _noEffet, _import, effet_);
+    }
+
+    private static RandomBoolResults failMoveSameTarget(Fight _fight, TeamPosition _cible, DataBase _import) {
+        Fighter target_ = _fight.getFighter(_cible);
+        if (StringUtil.contains(_import.getMovesCountering(), target_.getFinalChosenMove())) {
+            return new RandomBoolResults(false, target_.getEnabledCounteringMoves().getVal(target_.getFinalChosenMove()).isEnabled());
         }
+        return new RandomBoolResults(false, false);
+    }
+
+    private static RandomBoolResults defSuccess(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaque, int _noEffet, DataBase _import, Effect _effet) {
+        String fail_ = failEffect(_fight, _effet);
+        StringMap<String> values_ = new StringMap<String>();
         if (!fail_.isEmpty()) {
             if (_fight.isSending()) {
                 values_.putAllMap(FightValues.calculateSendingVariables(_fight,_lanceur, _import));
@@ -104,18 +91,42 @@ final class FightSuccess {
                 return new RandomBoolResults(false,false);
             }
         }
-        if (!successEffect(_fight,_lanceur, _cible, effet_, _import)) {
+        if (!successEffect(_fight,_lanceur, _cible, _effet, _import)) {
             return new RandomBoolResults(false,false);
         }
         return new RandomBoolResults(true,false);
     }
 
+    private static String failEffect(Fight _fight, Effect _effet) {
+        String fail_;
+        if (!_fight.isSending()) {
+            fail_ = _effet.getFail();
+        } else {
+            EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _effet;
+            fail_ = eff_.getFailSending();
+        }
+        return fail_;
+    }
+
+    private static boolean successfulEffect(Fight _fight, TeamPosition _cible, Effect _effet) {
+        boolean sucessful_ = true;
+        for (int e: _effet.getRequiredSuccessfulEffects()) {
+            boolean atLeastOneSuccessful_ = false;
+            NbEffectFighterCoords hit_ = new NbEffectFighterCoords(e, _cible);
+            if (_fight.getSuccessfulEffects().contains(hit_)) {
+                atLeastOneSuccessful_ = _fight.getSuccessfulEffects().getVal(hit_) == BoolVal.TRUE;
+            }
+            if (!atLeastOneSuccessful_) {
+                sucessful_ = false;
+                break;
+            }
+        }
+        return sucessful_;
+    }
+
     static boolean isProtectedAgainstMove(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _attaque,DataBase _import){
         MoveData move_ = _import.getMove(_attaque);
-        if (move_.getTargetChoice() == TargetChoice.ALLIE) {
-            return false;
-        }
-        if (move_.getTargetChoice() == TargetChoice.ALLIES) {
+        if (move_.getTargetChoice() == TargetChoice.ALLIE || move_.getTargetChoice() == TargetChoice.ALLIES) {
             return false;
         }
         StringList typeAttaque_=FightMoves.moveTypes(_fight,_lanceur,_attaque,_import);
@@ -129,34 +140,16 @@ final class FightSuccess {
                 continue;
             }
             Fighter f_ = _fight.getFighter(t_);
-            if (!f_.capaciteActive()) {
-                continue;
-            }
-            if (StringUtil.contains(f_.ficheCapaciteActuelle(_import).getImmuAllyFromMoves(), _attaque)) {
+            AbilityData ab_ = f_.ficheCapaciteActuelle(_import);
+            if (ab_ != null && StringUtil.contains(ab_.getImmuAllyFromMoves(), _attaque)) {
                 _fight.addProtectByAllyAbilityMessage(_cible, _attaque, f_.getCurrentAbility(), _import);
                 return true;
             }
         }
-        Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
-        boolean cancelImmu_ = false;
-        if(FightItems.canUseItsObject(_fight,_lanceur,_import)){
-            Item fObjetLanceur_=creatureCbtLanceur_.ficheObjet(_import);
-            if(fObjetLanceur_ instanceof ItemForBattle){
-                ItemForBattle fObjetCombatLanceur_=(ItemForBattle)fObjetLanceur_;
-                if(fObjetCombatLanceur_.getCancelImmuType()){
-                    cancelImmu_=true;
-                }
-            }
-        }
-        if(NumberUtil.eq(_lanceur.getTeam(),_cible.getTeam())){
-            if(creatureCbtCible_.capaciteActive()){
-                AbilityData fCapaciteCible_=creatureCbtCible_.ficheCapaciteActuelle(_import);
-                if(fCapaciteCible_.isImmuDamageAllyMoves() && move_ instanceof DamagingMoveData){
-                    _fight.addProtectByAbilityDamageAllyMessage(_cible, _attaque, creatureCbtCible_.getCurrentAbility(), _import);
-                    return true;
-                }
-            }
+        boolean cancelImmu_ = cancelImmu(_fight, _lanceur, _import);
+        if (protItAlly(_fight, _lanceur, _cible, _attaque, _import, move_, creatureCbtCible_)) {
+            return true;
         }
         if (cancelImmu_) {
             return false;
@@ -165,111 +158,76 @@ final class FightSuccess {
         for (String t: typeAttaque_) {
             coeffEff_.multiplyBy(rateEffAgainstTarget(_fight,_lanceur,_cible,t,_import));
         }
-        boolean ignoreCapaciteCible_=FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import);
-        if(!ignoreCapaciteCible_){
-            //la capacite de la cible l'immunise a l'attaque du lanceur
-            AbilityData fCapaciteCible_=creatureCbtCible_.ficheCapaciteActuelle(_import);
-            if(StringUtil.contains(fCapaciteCible_.getImmuMove(), _attaque)){
-                _fight.addProtectByAbilityMessage(_cible, _attaque, creatureCbtCible_.getCurrentAbility(), _import);
-                return true;
-            }
-            if(coeffEff_.lowerOrEqualsOne()&&fCapaciteCible_.isImmuSufferedDamageLowEff()){
-                _fight.addProtectByAbilityMessage(_cible, _attaque, creatureCbtCible_.getCurrentAbility(), _import);
-                return true;
-            }
+        if (proAbility(_fight, _lanceur, _cible, _attaque, _import, creatureCbtCible_, coeffEff_)) {
+            return true;
         }
-        if(FightItems.canUseItsBerry(_fight,_cible,_import)&&coeffEff_.greaterThanOne()){
-            Berry baie_=(Berry)creatureCbtCible_.ficheObjet(_import);
-            if(!baie_.getHealHpBySuperEffMove().isZero()){
-                _fight.addProtectByItemMessage(_cible, _attaque, creatureCbtCible_.getItem(), _import);
+        return proItem(_fight, _cible, _attaque, _import, creatureCbtCible_, coeffEff_);
+    }
+
+    private static boolean protItAlly(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaque, DataBase _import, MoveData _move, Fighter _creatureCbtCible) {
+        if(NumberUtil.eq(_lanceur.getTeam(), _cible.getTeam())){
+            AbilityData fCapaciteCible_= _creatureCbtCible.ficheCapaciteActuelle(_import);
+            if (fCapaciteCible_ != null && fCapaciteCible_.isImmuDamageAllyMoves() && _move instanceof DamagingMoveData) {
+                _fight.addProtectByAbilityDamageAllyMessage(_cible, _attaque, _creatureCbtCible.getCurrentAbility(), _import);
                 return true;
-            }
-        }
-        if (FightItems.canUseItsObject(_fight, _cible, _import)) {
-            Item it_ = creatureCbtCible_.ficheObjet(_import);
-            if (it_ instanceof ItemForBattle) {
-                ItemForBattle itDta_ = (ItemForBattle) it_;
-                if (StringUtil.contains(itDta_.getImmuMoves(), _attaque)) {
-                    _fight.addProtectByItemMessage(_cible, _attaque, creatureCbtCible_.getItem(), _import);
-                    return true;
-                }
             }
         }
         return false;
     }
 
+    private static boolean proItem(Fight _fight, TeamPosition _cible, String _attaque, DataBase _import, Fighter _creatureCbtCible, Rate _coeffEff) {
+        Berry baie_ = FightItems.useItsBerry(_fight, _cible, _import);
+        if (baie_ != null && _coeffEff.greaterThanOne() && !baie_.getHealHpBySuperEffMove().isZero()) {
+            _fight.addProtectByItemMessage(_cible, _attaque, _creatureCbtCible.getItem(), _import);
+            return true;
+        }
+        Item it_ = FightItems.useItsObject(_fight, _cible, _import);
+        if (it_ instanceof ItemForBattle && StringUtil.contains(((ItemForBattle) it_).getImmuMoves(), _attaque)) {
+            _fight.addProtectByItemMessage(_cible, _attaque, _creatureCbtCible.getItem(), _import);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean proAbility(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaque, DataBase _import, Fighter _creatureCbtCible, Rate _coeffEff) {
+        AbilityData fCapaciteCible_ = FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
+        boolean ignoreCapaciteCible_= fCapaciteCible_ == null;
+        if(!ignoreCapaciteCible_){
+            //la capacite de la cible l'immunise a l'attaque du lanceur
+            if(StringUtil.contains(fCapaciteCible_.getImmuMove(), _attaque)){
+                _fight.addProtectByAbilityMessage(_cible, _attaque, _creatureCbtCible.getCurrentAbility(), _import);
+                return true;
+            }
+            if(_coeffEff.lowerOrEqualsOne()&&fCapaciteCible_.isImmuSufferedDamageLowEff()){
+                _fight.addProtectByAbilityMessage(_cible, _attaque, _creatureCbtCible.getCurrentAbility(), _import);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean cancelImmu(Fight _fight, TeamPosition _lanceur, DataBase _import) {
+        boolean cancelImmu_ = false;
+        Item fObjetLanceur_ = FightItems.useItsObject(_fight, _lanceur, _import);
+        if (fObjetLanceur_ instanceof ItemForBattle) {
+            ItemForBattle fObjetCombatLanceur_ = (ItemForBattle) fObjetLanceur_;
+            if (fObjetCombatLanceur_.getCancelImmuType()) {
+                cancelImmu_ = true;
+            }
+        }
+        return cancelImmu_;
+    }
+
     static boolean isProtectedAgainstMoveType(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _type,DataBase _import){
-        Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
-        boolean ignoreCapaciteCible_=FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import);
-        if(FightItems.canUseItsObject(_fight,_lanceur,_import)){
-            Item fObjetLanceur_=creatureCbtLanceur_.ficheObjet(_import);
-            if(fObjetLanceur_ instanceof ItemForBattle){
-                ItemForBattle fObjetCombatLanceur_=(ItemForBattle)fObjetLanceur_;
-                if(fObjetCombatLanceur_.getCancelImmuType()){
-                    ignoreCapaciteCible_=true;
-                }
-            }
+        boolean ignoreCapaciteCible_ = ignoreCapaciteCibleMoveType(_fight, _lanceur, _cible, _import);
+        BoolVal immuAnnuleeGlobal_ = immuAnnuleeGlobal(_fight, _cible, _type, _import, creatureCbtCible_);
+        if (immuAnnuleeGlobal_ == null) {
+            return true;
         }
-        if(TeamPosition.eq(_lanceur,_cible)){
-            ignoreCapaciteCible_=false;
-        }
-        boolean immuAnnuleeGlobal_=false;
-        for(String c:FightMoves.enabledGlobalMoves(_fight,_import)){
-            MoveData fAttaque_=_import.getMove(c);
-            int nbEffets_=fAttaque_.nbEffets();
-            Rate coeff_=DataBase.defRateProduct();
-            boolean noNullSum_ = false;
-            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                Effect effet_=fAttaque_.getEffet(i);
-                if(!(effet_ instanceof EffectGlobal)){
-                    continue;
-                }
-                EffectGlobal effetGlobal_=(EffectGlobal)effet_;
-                for(String e:creatureCbtCible_.getTypes()){
-                    if (!effetGlobal_.getEfficiencyMoves().contains(new TypesDuo(_type,e))) {
-                        continue;
-                    }
-                    Rate rate_ = effetGlobal_.getEfficiencyMoves().getVal(new TypesDuo(_type,e));
-                    if (!rate_.isZero()) {
-                        coeff_.multiplyBy(rate_);
-                        noNullSum_ = true;
-                    } else {
-                        _fight.addProtectTypeByGlobalMoveMessage(_cible, _type, c, _import);
-                        return true;
-                    }
-                }
-            }
-            if(noNullSum_){
-                immuAnnuleeGlobal_=true;
-                break;
-            }
-        }
-        boolean immuTypeAttaque_=false;
-        boolean protectedTypes_ = true;
-        for(String e:creatureCbtCible_.getTypes()){
-            for(String e2_:creatureCbtCible_.enabledIndividualAntiImmuMoves()){
-                MoveData fAttaque_=_import.getMove(e2_);
-                int nbEffets_=fAttaque_.nbEffets();
-                for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                    Effect effet_=fAttaque_.getEffet(i);
-                    if (!(effet_ instanceof EffectUnprotectFromTypes)) {
-                        continue;
-                    }
-                    EffectUnprotectFromTypes effetAntiImmu_=(EffectUnprotectFromTypes)effet_;
-                    if(StringUtil.contains(effetAntiImmu_.getAttackTargetWithTypes(), _type)){
-                        protectedTypes_ = false;
-                    }
-                    if(TypesDuos.contains(effetAntiImmu_.getTypes(),new TypesDuo(_type,e))){
-                        protectedTypes_ = false;
-                    }
-                }
-            }
-        }
-        if (StringUtil.contains(creatureCbtCible_.getProtectedAgainstMoveTypes(), _type)) {
-            immuTypeAttaque_=true;
-        }
-        if(immuAnnuleeGlobal_){
+        boolean protectedTypes_ = protectedTypes(_type, _import, creatureCbtCible_);
+        boolean immuTypeAttaque_ = StringUtil.contains(creatureCbtCible_.getProtectedAgainstMoveTypes(), _type);
+        if(immuAnnuleeGlobal_ == BoolVal.TRUE){
             return false;
         }
         if(immuTypeAttaque_){
@@ -278,9 +236,46 @@ final class FightSuccess {
             }
             return protectedTypes_;
         }
+        StringList cancelledAbilities_ = cancelledAbilities(_fight, _import);
+        if (StringUtil.contains(cancelledAbilities_, creatureCbtCible_.getCurrentAbility())) {
+            return false;
+        }
+        AbilityData fCapaciteCible_=creatureCbtCible_.ficheCapaciteActuelle(_import);
+        if (ignoreCapaciteCible_ || fCapaciteCible_ == null) {
+            return false;
+        }
+        //la capacite de la cible l'immunise a l'attaque du lanceur
+        StringMap<StringList> immuAttaqueType_=fCapaciteCible_.getImmuMoveTypesByWeather();
+        StringList climats_=FightMoves.enabledGlobalMoves(_fight,_import);
+        for(String c: climats_){
+            if(!immuAttaqueType_.contains(c)){
+                continue;
+            }
+            if(StringUtil.contains(immuAttaqueType_.getVal(c), _type)){
+                _fight.addProtectTypeByAbilityWeatherMessage(_cible, _type, creatureCbtCible_.getCurrentAbility(), c, _import);
+                return true;
+            }
+        }
+        if (climats_.isEmpty() && immuAttaqueType_.contains(DataBase.EMPTY_STRING) && StringUtil.contains(immuAttaqueType_.getVal(DataBase.EMPTY_STRING), _type)) {
+            _fight.addProtectTypeByAbilityMessage(_cible, _type, creatureCbtCible_.getCurrentAbility(), _import);
+            return true;
+        }
+        return isProtectedAgainstMoveTypeItem(_fight, _cible, _type, _import, creatureCbtCible_);
+    }
+
+    private static boolean isProtectedAgainstMoveTypeItem(Fight _fight, TeamPosition _cible, String _type, DataBase _import, Fighter _creatureCbtCible) {
+        Item fObjetCible_ = FightItems.useItsObject(_fight, _cible, _import);
+        if (fObjetCible_ instanceof ItemForBattle && StringUtil.contains(((ItemForBattle) fObjetCible_).getImmuTypes(), _type)) {
+            _fight.addProtectTypeByItemMessage(_cible, _type, _creatureCbtCible.getItem(), _import);
+            return true;
+        }
+        return false;
+    }
+
+    private static StringList cancelledAbilities(Fight _fight, DataBase _import) {
         StringList cancelledAbilities_ = new StringList();
-        for(String c:FightMoves.enabledGlobalMoves(_fight,_import)){
-            MoveData fAttaque_=_import.getMove(c);
+        for(String c:FightMoves.enabledGlobalMoves(_fight, _import)){
+            MoveData fAttaque_= _import.getMove(c);
             int nbEffets_=fAttaque_.nbEffets();
             for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAttaque_.getEffet(i);
@@ -291,43 +286,62 @@ final class FightSuccess {
                 cancelledAbilities_.addAllElts(effetGlobal_.getCancelProtectingAbilities());
             }
         }
-        if (StringUtil.contains(cancelledAbilities_, creatureCbtCible_.getCurrentAbility())) {
-            return false;
-        }
-        if(!ignoreCapaciteCible_&&creatureCbtCible_.capaciteActive()){
-            //la capacite de la cible l'immunise a l'attaque du lanceur
-            AbilityData fCapaciteCible_=creatureCbtCible_.ficheCapaciteActuelle(_import);
-            StringMap<StringList> immuAttaqueType_=fCapaciteCible_.getImmuMoveTypesByWeather();
-            StringList climats_=FightMoves.enabledGlobalMoves(_fight,_import);
-            for(String c: climats_){
-                if(!immuAttaqueType_.contains(c)){
-                    continue;
-                }
-                if(StringUtil.contains(immuAttaqueType_.getVal(c), _type)){
-                    _fight.addProtectTypeByAbilityWeatherMessage(_cible, _type, creatureCbtCible_.getCurrentAbility(), c, _import);
-                    return true;
-                }
-            }
-            if(climats_.isEmpty()){
-                if(immuAttaqueType_.contains(DataBase.EMPTY_STRING)){
-                    if(StringUtil.contains(immuAttaqueType_.getVal(DataBase.EMPTY_STRING), _type)){
-                        _fight.addProtectTypeByAbilityMessage(_cible, _type, creatureCbtCible_.getCurrentAbility(), _import);
-                        return true;
+        return cancelledAbilities_;
+    }
+
+    private static boolean protectedTypes(String _type, DataBase _import, Fighter _creatureCbtCible) {
+        boolean protectedTypes_ = true;
+        for(String e: _creatureCbtCible.getTypes()){
+            for(String e2_: _creatureCbtCible.enabledIndividualAntiImmuMoves()){
+                MoveData fAttaque_= _import.getMove(e2_);
+                int nbEffets_=fAttaque_.nbEffets();
+                for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+                    Effect effet_=fAttaque_.getEffet(i);
+                    if (!(effet_ instanceof EffectUnprotectFromTypes)) {
+                        continue;
                     }
-                }
-            }
-            if(FightItems.canUseItsObject(_fight,_cible,_import)){
-                Item fObjetCible_=creatureCbtCible_.ficheObjet(_import);
-                if(fObjetCible_ instanceof ItemForBattle){
-                    ItemForBattle fObjetCombatCible_=(ItemForBattle)fObjetCible_;
-                    if(StringUtil.contains(fObjetCombatCible_.getImmuTypes(), _type)){
-                        _fight.addProtectTypeByItemMessage(_cible, _type, creatureCbtCible_.getItem(), _import);
-                        return true;
-                    }
+                    protectedTypes_ = protectedTypesChanged(_type, protectedTypes_, e, (EffectUnprotectFromTypes) effet_);
                 }
             }
         }
-        return false;
+        return protectedTypes_;
+    }
+
+    private static boolean protectedTypesChanged(String _type, boolean _protectedTypes, String _e, EffectUnprotectFromTypes _effet) {
+        boolean protectedTypes_ = _protectedTypes;
+        if(StringUtil.contains(_effet.getAttackTargetWithTypes(), _type)){
+            protectedTypes_ = false;
+        }
+        if(TypesDuos.contains(_effet.getTypes(),new TypesDuo(_type, _e))){
+            protectedTypes_ = false;
+        }
+        return protectedTypes_;
+    }
+
+    private static BoolVal immuAnnuleeGlobal(Fight _fight, TeamPosition _cible, String _type, DataBase _import, Fighter _creatureCbtCible) {
+        CustList<Rate> sums_ = new CustList<Rate>();
+        for(String e: _creatureCbtCible.getTypes()){
+            Rate coeff_=noNullSumRate(_fight,_cible,_type,_import,e,sums_);
+            if (coeff_.isZero()) {
+                return null;
+            }
+        }
+        if (!sums_.isEmpty()) {
+            return BoolVal.TRUE;
+        }
+        return BoolVal.FALSE;
+    }
+
+    private static boolean ignoreCapaciteCibleMoveType(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import) {
+        boolean ignoreCapaciteCible_=FightAbilities.ignoreTargetAbility(_fight, _lanceur, _cible, _import);
+        Item fObjetLanceur_ = FightItems.useItsObject(_fight, _lanceur, _import);
+        if (fObjetLanceur_ instanceof ItemForBattle && ((ItemForBattle) fObjetLanceur_).getCancelImmuType()) {
+            ignoreCapaciteCible_ = true;
+        }
+        if(TeamPosition.eq(_lanceur, _cible)){
+            ignoreCapaciteCible_=false;
+        }
+        return ignoreCapaciteCible_;
     }
 
     static Rate rateEffAgainstTargetMove(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,DataBase _import) {
@@ -354,96 +368,112 @@ final class FightSuccess {
     }
 
     static Rate rateEffAgainstTarget(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _typeOff,DataBase _import){
-        Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
-        StringMap<BoolVal> priseEnCompteCoeffNul_ = new StringMap<BoolVal>();
-        for(String e:creatureCbtCible_.getTypes()){
-            priseEnCompteCoeffNul_.put(e,BoolVal.TRUE);
-        }
         StringMap<Rate> coeffEffGl_ = new StringMap<Rate>();
         for(String e:creatureCbtCible_.getTypes()){
-            boolean continuer_=false;
-            Rate coeff_=DataBase.defRateProduct();
-            boolean noNullSum_ = false;
-            for(String e2_:FightMoves.enabledGlobalMoves(_fight,_import)){
-                MoveData fAtt_=_import.getMove(e2_);
-                int nbEffets_=fAtt_.nbEffets();
-                for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                    Effect effet_=fAtt_.getEffet(i);
-                    if(!(effet_ instanceof EffectGlobal)){
-                        continue;
-                    }
-                    EffectGlobal effetGlobal_=(EffectGlobal)effet_;
-                    if(!effetGlobal_.getEfficiencyMoves().contains(new TypesDuo(_typeOff,e))){
-                        continue;
-                    }
-                    Rate rate_ = effetGlobal_.getEfficiencyMoves().getVal(new TypesDuo(_typeOff,e));
-                    if (!rate_.isZero()) {
-                        coeff_.multiplyBy(rate_);
-                        noNullSum_ = true;
-                    } else {
-                        return Rate.zero();
-                    }
-                }
+            CustList<Rate> sums_ = new CustList<Rate>();
+            Rate coeff_ = noNullSumRate(_fight, _cible,_typeOff, _import, e,sums_);
+            if (coeff_.isZero()) {
+                return Rate.zero();
             }
-            if(noNullSum_){
-                priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
+            if(!sums_.isEmpty()){
                 coeffEffGl_.put(e,coeff_);
             }
-            for(String e2_:creatureCbtCible_.enabledIndividualAntiImmuMoves()){
-                MoveData fAtt_=_import.getMove(e2_);
-                int nbEffets_=fAtt_.nbEffets();
-                for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                    Effect effet_=fAtt_.getEffet(i);
-                    if(!(effet_ instanceof EffectUnprotectFromTypes)){
-                        continue;
-                    }
-                    EffectUnprotectFromTypes effetAntiImmu_=(EffectUnprotectFromTypes)effet_;
-                    if(StringUtil.contains(effetAntiImmu_.getAttackTargetWithTypes(), _typeOff)){
-                        priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
-                        continuer_=true;
-                        break;
-                    }
-                    if(TypesDuos.contains(effetAntiImmu_.getTypes(),new TypesDuo(_typeOff,e))){
-                        priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
-                        continuer_=true;
-                        break;
-                    }
-                }
-                if(continuer_){
-                    break;
-                }
-            }
         }
-        if(creatureCbtLanceur_.capaciteActive()){
-            AbilityData fCapacite_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
-            for(String e:creatureCbtCible_.getTypes()){
+        StringMap<BoolVal> priseEnCompteCoeffNul_ = priseEnCompteCoeffNul(_fight, _lanceur, _typeOff, _import, creatureCbtCible_, coeffEffGl_);
+        return concludeRateEffAgainstTarget(_typeOff, _import, creatureCbtCible_, priseEnCompteCoeffNul_, coeffEffGl_);
+    }
+
+    private static StringMap<BoolVal> priseEnCompteCoeffNul(Fight _fight, TeamPosition _lanceur, String _typeOff, DataBase _import, Fighter _creatureCbtCible, StringMap<Rate> _coeffEffGl) {
+        StringMap<BoolVal> priseEnCompteCoeffNul_ = priseEnCompteCoeffNulInit(_typeOff, _import, _creatureCbtCible);
+        for (EntryCust<String,Rate> e: _coeffEffGl.entryList()) {
+            priseEnCompteCoeffNul_.put(e.getKey(),BoolVal.FALSE);
+        }
+        Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
+        AbilityData fCapacite_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
+        if(fCapacite_ != null){
+            for(String e: _creatureCbtCible.getTypes()){
                 if(TypesDuos.contains(fCapacite_.getBreakFoeImmune(),new TypesDuo(_typeOff,e))){
                     priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
                 }
             }
         }
-        if(FightItems.canUseItsObject(_fight,_lanceur,_import)){
-            Item fObjetLanceur_=creatureCbtLanceur_.ficheObjet(_import);
-            if(fObjetLanceur_ instanceof ItemForBattle){
-                ItemForBattle fObjetCombatLanceur_=(ItemForBattle)fObjetLanceur_;
-                if(fObjetCombatLanceur_.getCancelImmuType()){
-                    for(String e:creatureCbtCible_.getTypes()){
-                        priseEnCompteCoeffNul_.put(e,BoolVal.FALSE);
-                    }
+        Item fObjetLanceur_ = FightItems.useItsObject(_fight, _lanceur, _import);
+        if (fObjetLanceur_ instanceof ItemForBattle && ((ItemForBattle) fObjetLanceur_).getCancelImmuType()) {
+            for (String e : _creatureCbtCible.getTypes()) {
+                priseEnCompteCoeffNul_.put(e, BoolVal.FALSE);
+            }
+        }
+        return priseEnCompteCoeffNul_;
+    }
+
+    private static StringMap<BoolVal> priseEnCompteCoeffNulInit(String _typeOff, DataBase _import, Fighter _creatureCbtCible) {
+        StringMap<BoolVal> priseEnCompteCoeffNul_ = new StringMap<BoolVal>();
+        for(String e: _creatureCbtCible.getTypes()){
+            priseEnCompteCoeffNul_.put(e,BoolVal.TRUE);
+            for(String e2_: _creatureCbtCible.enabledIndividualAntiImmuMoves()){
+                boolean continuer_ = foundAntiImmu(_typeOff, _import, e, e2_);
+                if(continuer_){
+                    priseEnCompteCoeffNul_.put(e, BoolVal.FALSE);
+                    break;
                 }
             }
         }
+        return priseEnCompteCoeffNul_;
+    }
+
+    private static Rate concludeRateEffAgainstTarget(String _typeOff, DataBase _import, Fighter _creatureCbtCible, StringMap<BoolVal> _priseEnCompteCoeffNul, StringMap<Rate> _coeffEffGl) {
         Rate coeff_=DataBase.defRateProduct();
-        for(String e:creatureCbtCible_.getTypes()){
+        for(String e:_creatureCbtCible.getTypes()){
             Rate efficacite_=_import.getTableTypes().getVal(new TypesDuo(_typeOff,e));
-            if(coeffEffGl_.contains(e)){
-                coeff_.multiplyBy(coeffEffGl_.getVal(e));
-            } else if(priseEnCompteCoeffNul_.getVal(e) == BoolVal.TRUE||!efficacite_.isZero()){
+            if(_coeffEffGl.contains(e)){
+                coeff_.multiplyBy(_coeffEffGl.getVal(e));
+            } else if(_priseEnCompteCoeffNul.getVal(e) == BoolVal.TRUE||!efficacite_.isZero()){
                 coeff_.multiplyBy(efficacite_);
             }
         }
         return coeff_;
+    }
+
+    private static Rate noNullSumRate(Fight _fight, TeamPosition _cible, String _typeOff, DataBase _import, String _t, CustList<Rate> _sums) {
+        Rate r_ = DataBase.defRateProduct();
+        for(String e2_:FightMoves.enabledGlobalMoves(_fight, _import)){
+            MoveData fAtt_= _import.getMove(e2_);
+            int nbEffets_=fAtt_.nbEffets();
+            Rate sum_ = Rate.zero();
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+                Effect effet_=fAtt_.getEffet(i);
+                if (!(effet_ instanceof EffectGlobal) || !((EffectGlobal) effet_).getEfficiencyMoves().contains(new TypesDuo(_typeOff, _t))) {
+                    continue;
+                }
+                Rate rate_ = ((EffectGlobal)effet_).getEfficiencyMoves().getVal(new TypesDuo(_typeOff, _t));
+                if (!rate_.isZero()) {
+                    sum_.addNb(rate_);
+                }
+                r_.multiplyBy(rate_);
+            }
+            if (!sum_.isZero()) {
+                _sums.add(sum_);
+            }
+            if (r_.isZero()) {
+                _fight.addProtectTypeByGlobalMoveMessage(_cible, _typeOff, e2_, _import);
+            }
+        }
+        return r_;
+    }
+
+    private static boolean foundAntiImmu(String _typeOff, DataBase _import, String _t, String _m) {
+        boolean continuer_ = false;
+        MoveData fAtt_= _import.getMove(_m);
+        int nbEffets_=fAtt_.nbEffets();
+        for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+            Effect effet_=fAtt_.getEffet(i);
+            if (effet_ instanceof EffectUnprotectFromTypes && (StringUtil.contains(((EffectUnprotectFromTypes) effet_).getAttackTargetWithTypes(), _typeOff) || TypesDuos.contains(((EffectUnprotectFromTypes) effet_).getTypes(), new TypesDuo(_typeOff, _t)))) {
+                continuer_ = true;
+                break;
+            }
+        }
+        return continuer_;
     }
 
     static boolean canUseDirectlyMove(Fight _fight,TeamPosition _lanceur, DataBase _import) {
@@ -452,11 +482,8 @@ final class FightSuccess {
         MoveData fAtt_=_import.getMove(attaqueLanceur_);
         short prepa_= fAtt_.getNbPrepaRound();
         if(prepa_>creature_.getNbPrepaRound()){
-            if(!FightItems.canUseItsObject(_fight,_lanceur,_import)){
-                return false;
-            }
-            Item objet_=creature_.ficheObjet(_import);
-            if(!(objet_ instanceof ItemForBattle)){
+            Item objet_ = FightItems.useItsObject(_fight, _lanceur, _import);
+            if (!(objet_ instanceof ItemForBattle)) {
                 return false;
             }
             ItemForBattle objetAttachable_=(ItemForBattle)objet_;
@@ -467,8 +494,8 @@ final class FightSuccess {
 
     static boolean canSkipRecharge(Fight _fight,TeamPosition _lanceur, DataBase _import) {
         Fighter creature_ = _fight.getFighter(_lanceur);
-        if(creature_.capaciteActive()){
-            AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+        AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+        if(fCapac_ != null){
             return fCapac_.isImmuRechargeRound();
         }
         return false;
@@ -498,61 +525,16 @@ final class FightSuccess {
 
         Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
-        if(creatureCbtLanceur_.capaciteActive()){
-            AbilityData fCapacite_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
-            if(fCapacite_.isBreakProtection()){
-                if(!protectedTargetAgainstMove(_fight,_lanceur,_cible, _attaque, _import)){
-                    return DataBase.determinatedRate();
-                }
-            }
+        AbilityData fCapaciteLoc_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
+        if (fCapaciteLoc_ != null && fCapaciteLoc_.isBreakProtection() && !protectedTargetAgainstMove(_fight, _lanceur, _cible, _attaque, _import)) {
+            return DataBase.determinatedRate();
         }
-        byte boost_=creatureCbtLanceur_.getStatisBoost().getVal(Statistic.ACCURACY);
-        byte baseBoost_=(byte)_import.getDefaultBoost();
-        boost_ += FightStatistic.bonusBoost(_fight, Statistic.ACCURACY, _lanceur, _import);
-        if(boost_>=baseBoost_){
-            precision_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
-        }else{
-            if(!fAttaque_.getIgnVarAccurUserNeg()){
-                precision_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
-            }
-        }
-        boost_=creatureCbtCible_.getStatisBoost().getVal(Statistic.EVASINESS);
-        boost_ += FightStatistic.bonusBoost(_fight, Statistic.EVASINESS, _cible, _import);
-        boolean ignorer_=true;
-        Rate evasiness_ = Rate.one();
-        if(!TeamPosition.eq(_lanceur,_cible)){
-            if(boost_<=baseBoost_){
-                evasiness_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
-                ignorer_=false;
-            }else{
-                if(!fAttaque_.getIgnVarEvasTargetPos()){
-                    evasiness_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
-                    ignorer_=FightAbilities.ignoreTargetAbility(_fight, _lanceur,_cible,_import);
-                }
-            }
-        }
-        if(!ignorer_){
-            evasiness_.multiplyBy(FightStatistic.statisticWithoutBase(_fight, _cible, Statistic.EVASINESS, FightValues.calculateValuesFighter(_fight, _cible, _import), _import));
-            if(creatureCbtCible_.capaciteActive()){
-                //PAUSE _d->val_non_affecte_poudre_claire().contains(_nom_att_l)
-                AbilityData fCapacite_=creatureCbtCible_.ficheCapaciteActuelle(_import);
-                String categ_ = fAttaque_.getCategory();
-                if(fCapacite_.getMultStatIfCat().contains(new StatisticCategory(Statistic.EVASINESS,categ_))){
-                    evasiness_.multiplyBy(fCapacite_.getMultStatIfCat().getVal(new StatisticCategory(Statistic.EVASINESS,categ_)));
-                }
-            }
-        }
+        multAcc(_fight, _lanceur, _import, fAttaque_, precision_, creatureCbtLanceur_);
+        Rate evasiness_ = evasiness(_fight, _lanceur, _cible, _import, fAttaque_, creatureCbtCible_);
         if (evasiness_.isZero()) {
             return DataBase.determinatedRate();
         }
-        if(creatureCbtLanceur_.capaciteActive()){
-            AbilityData fCapacite_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
-            String categ_ = fAttaque_.getCategory();
-            if(fCapacite_.getMultStatIfCat().contains(new StatisticCategory(Statistic.ACCURACY,categ_))){
-                precision_.multiplyBy(fCapacite_.getMultStatIfCat().getVal(new StatisticCategory(Statistic.ACCURACY,categ_)));
-            }
-        }
-        precision_.multiplyBy(FightStatistic.statisticWithoutBase(_fight, _lanceur, Statistic.ACCURACY, FightValues.calculateValuesFighter(_fight, _lanceur, _import), _import));
+        multStat(precision_, _fight, _lanceur, Statistic.ACCURACY, _import, creatureCbtLanceur_, fAttaque_);
         for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
             MoveData fAttGl_=_import.getMove(c);
             int nbEffets_=fAttGl_.nbEffets();
@@ -570,6 +552,55 @@ final class FightSuccess {
         return Rate.divide(precision_, evasiness_);
     }
 
+    private static void multAcc(Fight _fight, TeamPosition _lanceur, DataBase _import, MoveData _fAttaque, Rate _precision, Fighter _creatureCbtLanceur) {
+        byte boost_= _creatureCbtLanceur.getStatisBoost().getVal(Statistic.ACCURACY);
+        byte baseBoost_=(byte) _import.getDefaultBoost();
+        boost_ += FightStatistic.bonusBoost(_fight, Statistic.ACCURACY, _lanceur, _import);
+        if(boost_>=baseBoost_){
+            _precision.multiplyBy(FightStatistic.rateBoost(boost_, _import));
+        }else{
+            if(!_fAttaque.getIgnVarAccurUserNeg()){
+                _precision.multiplyBy(FightStatistic.rateBoost(boost_, _import));
+            }
+        }
+    }
+
+    private static Rate evasiness(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, MoveData _fAttaque, Fighter _creatureCbtCible) {
+        byte baseBoost_=(byte)_import.getDefaultBoost();
+        byte boost_;
+        boost_= _creatureCbtCible.getStatisBoost().getVal(Statistic.EVASINESS);
+        boost_ += FightStatistic.bonusBoost(_fight, Statistic.EVASINESS, _cible, _import);
+        boolean ignorer_=true;
+        Rate evasiness_ = Rate.one();
+        if(!TeamPosition.eq(_lanceur, _cible)){
+            if(boost_<= baseBoost_){
+                evasiness_.multiplyBy(FightStatistic.rateBoost(boost_, _import));
+                ignorer_=false;
+            }else{
+                if(!_fAttaque.getIgnVarEvasTargetPos()){
+                    evasiness_.multiplyBy(FightStatistic.rateBoost(boost_, _import));
+                    ignorer_=FightAbilities.ignoreTargetAbility(_fight, _lanceur, _cible, _import);
+                }
+            }
+        }
+        if(!ignorer_){
+            //PAUSE _d->val_non_affecte_poudre_claire().contains(_nom_att_l)
+            multStat(evasiness_, _fight, _cible, Statistic.EVASINESS, _import, _creatureCbtCible, _fAttaque);
+        }
+        return evasiness_;
+    }
+
+    private static void multStat(Rate _valueStat, Fight _fight, TeamPosition _cbt, Statistic _stat, DataBase _import, Fighter _creature, MoveData _fAttaque) {
+        _valueStat.multiplyBy(FightStatistic.statisticWithoutBase(_fight, _cbt, _stat, FightValues.calculateValuesFighter(_fight, _cbt, _import), _import));
+        AbilityData fCapacite_= _creature.ficheCapaciteActuelle(_import);
+        if(fCapacite_ != null){
+            String categ_ = _fAttaque.getCategory();
+            if(fCapacite_.getMultStatIfCat().contains(new StatisticCategory(_stat,categ_))){
+                _valueStat.multiplyBy(fCapacite_.getMultStatIfCat().getVal(new StatisticCategory(_stat,categ_)));
+            }
+        }
+    }
+
     static boolean successfulEffectWhileIfTargetIsNotThrower(
             Fight _fight,
             TeamPosition _lanceur,TeamPosition _cible,
@@ -577,63 +608,34 @@ final class FightSuccess {
         MoveData fAttaque_=_import.getMove(_attaque);
         Effect effet_=fAttaque_.getEffet(_noEffet);
         boolean primaire_= _noEffet == fAttaque_.indexOfPrimaryEffect();
-        boolean reussi_=true;
-        if (_withPreviousEffect) {
-            for(int e:effet_.getRequiredSuccessfulEffects()){
-                if (!_fight.getSuccessfulEffects().contains(new NbEffectFighterCoords(e,_cible))) {
-                    continue;
-                }
-                if(_fight.getSuccessfulEffects().getVal(new NbEffectFighterCoords(e,_cible)) != BoolVal.TRUE){
-                    reussi_=false;
-                    break;
-                }
-            }
-        }
+        boolean reussi_ = reussiEffet(_cible, _withPreviousEffect, effet_, _fight.getSuccessfulEffects());
         if(!reussi_){
             return false;
         }
-        if (fAttaque_.getTargetChoice() == TargetChoice.ALLIE) {
-            return true;
-        }
-        if (fAttaque_.getTargetChoice() == TargetChoice.ALLIES) {
+        if (fAttaque_.getTargetChoice() == TargetChoice.ALLIE || fAttaque_.getTargetChoice() == TargetChoice.ALLIES) {
             return true;
         }
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
         Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
-        boolean touchePseudoInvulnerable_=false;
-        boolean ignoreCapaciteCible_=FightAbilities.ignoreTargetAbility(_fight, _lanceur,_cible,_import);
-        if(creatureCbtLanceur_.capaciteActive()){
-            AbilityData fCapaciteLanceur_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
-            if(fCapaciteLanceur_.isAchievedDisappearedPk()){
-                touchePseudoInvulnerable_=true;
-            }
+        AbilityData ficheCapacite_ = FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
+        AbilityData fCapaciteLanceurLoc_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
+        boolean touchePseudoInvulnerable_ = fCapaciteLanceurLoc_ != null && fCapaciteLanceurLoc_.isAchievedDisappearedPk();
+        if (ficheCapacite_ != null && (!TeamPosition.eq(_lanceur, _cible) && ficheCapacite_.isCancelSecEffectOther() && !primaire_ || TeamPosition.eq(_lanceur, _cible) && ficheCapacite_.isCancelSecEffectOwner() && !primaire_)) {
+            _fight.addProtectedAgainstSecEffMessage(_cible, _attaque, creatureCbtCible_.getCurrentAbility(), _import);
+            return false;
         }
-        if(creatureCbtCible_.capaciteActive() && !ignoreCapaciteCible_){
-            AbilityData ficheCapacite_=creatureCbtCible_.ficheCapaciteActuelle(_import);
-            if(!TeamPosition.eq(_lanceur,_cible)){
-                if(ficheCapacite_.isCancelSecEffectOther()&&!primaire_){
-                    _fight.addProtectedAgainstSecEffMessage(_cible, _attaque, creatureCbtCible_.getCurrentAbility(), _import);
-                    return false;
-                }
-            }
-            if(TeamPosition.eq(_lanceur,_cible)){
-                if(ficheCapacite_.isCancelSecEffectOwner()&&!primaire_){
-                    _fight.addProtectedAgainstSecEffMessage(_cible, _attaque, creatureCbtCible_.getCurrentAbility(), _import);
-                    return false;
-                }
-            }
+        boolean precisionMaxCible_ = precisionMaxCible(_cible, creatureCbtLanceur_.getIncrUserAccuracy());
+        boolean touchePrepaTourGl_ = touchePrepaTourGl(_fight, _lanceur, _attaque, _import, creatureCbtCible_);
+        if (creatureCbtCible_.isDisappeared() && !touchePseudoInvulnerable_ && !touchePrepaTourGl_ && !precisionMaxCible_ && !StringUtil.contains(fAttaque_.getAchieveDisappearedPkUsingMove(), creatureCbtCible_.getFinalChosenMove())) {
+            _fight.addProtectedByDisappearingMessage(_cible, _import);
+            return false;
         }
-        boolean precisionMaxCible_=false;
-        for(MoveTeamPosition c:creatureCbtLanceur_.getIncrUserAccuracy().getKeys()){
-            if(!TeamPosition.eq(c.getTeamPosition(),_cible)){
-                continue;
-            }
-            if(creatureCbtLanceur_.getIncrUserAccuracy().getVal(c) != BoolVal.TRUE){
-                continue;
-            }
-            precisionMaxCible_=true;
-            break;
-        }
+        AbilityData fCapaciteLanceur_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
+        boolean passeAbri_ = fCapaciteLanceur_ != null && fCapaciteLanceur_.isBreakProtection() && !NumberUtil.eq(_lanceur.getTeam(), _cible.getTeam());
+        return passeAbri_ || !protectedTargetAgainstMove(_fight, _lanceur, _cible, _attaque, _import);
+    }
+
+    private static boolean touchePrepaTourGl(Fight _fight, TeamPosition _lanceur, String _attaque, DataBase _import, Fighter _creatureCbtCible) {
         boolean touchePrepaTourGl_=false;
         StringList typeAttaqueLanceur_=FightMoves.moveTypes(_fight,_lanceur,_attaque,_import);
         for(String c:FightMoves.enabledGlobalMoves(_fight,_import)){
@@ -646,34 +648,38 @@ final class FightSuccess {
                 }
                 EffectGlobal effetGlobal_=(EffectGlobal)effetLoc_;
                 for (String t: typeAttaqueLanceur_) {
-                    if(effetGlobal_.getMultDamagePrepaRound().contains(t)){
-                        if(StringUtil.contains(effetGlobal_.getMovesUsedByTargetedFighters(), creatureCbtCible_.getFinalChosenMove())){
-                            if(creatureCbtCible_.getNbPrepaRound()>0){
-                                touchePrepaTourGl_=true;
-                                break;
-                            }
-                        }
+                    if (effetGlobal_.getMultDamagePrepaRound().contains(t) && StringUtil.contains(effetGlobal_.getMovesUsedByTargetedFighters(), _creatureCbtCible.getFinalChosenMove()) && _creatureCbtCible.getNbPrepaRound() > 0) {
+                        touchePrepaTourGl_ = true;
+                        break;
                     }
                 }
             }
         }
-        if(creatureCbtCible_.isDisappeared()&&!touchePseudoInvulnerable_&&!touchePrepaTourGl_){
-            if(!precisionMaxCible_&&!StringUtil.contains(fAttaque_.getAchieveDisappearedPkUsingMove(), creatureCbtCible_.getFinalChosenMove())){
-                _fight.addProtectedByDisappearingMessage(_cible, _import);
-                return false;
+        return touchePrepaTourGl_;
+    }
+
+    private static boolean precisionMaxCible(TeamPosition _cible, MoveTeamPositionsBoolVal _incrUserAccuracy) {
+        boolean precisionMaxCible_=false;
+        for(MoveTeamPosition c: _incrUserAccuracy.getKeys()){
+            if (TeamPosition.eq(c.getTeamPosition(), _cible) && _incrUserAccuracy.getVal(c) == BoolVal.TRUE) {
+                precisionMaxCible_ = true;
+                break;
             }
         }
-        boolean passeAbri_=false;
-        if(creatureCbtLanceur_.capaciteActive()){
-            AbilityData fCapaciteLanceur_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
-            if(fCapaciteLanceur_.isBreakProtection()){
-                passeAbri_=!NumberUtil.eq(_lanceur.getTeam(), _cible.getTeam());
+        return precisionMaxCible_;
+    }
+
+    private static boolean reussiEffet(TeamPosition _cible, boolean _withPreviousEffect, Effect _effet, NbEffectFighterCoordss _successfulEffects) {
+        boolean reussi_=true;
+        if (_withPreviousEffect) {
+            for(int e: _effet.getRequiredSuccessfulEffects()){
+                if (_successfulEffects.contains(new NbEffectFighterCoords(e, _cible)) && _successfulEffects.getVal(new NbEffectFighterCoords(e, _cible)) != BoolVal.TRUE) {
+                    reussi_ = false;
+                    break;
+                }
             }
         }
-        if (!passeAbri_) {
-            return !protectedTargetAgainstMove(_fight, _lanceur, _cible, _attaque, _import);
-        }
-        return true;
+        return reussi_;
     }
 
     static boolean successEffect(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,
@@ -701,86 +707,77 @@ final class FightSuccess {
     }
 
     static EnumList<Statistic> successfulChangedStatistics(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import){
-        EnumList<Statistic> statistiques_ = successfulChangedBoostedStatistics(_fight,_lanceur, _cible, _effet, _import);
-        AbsMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
-        if(!varStatisCran_.isEmpty()){
-            if (statistiques_.isEmpty()) {
-                return statistiques_;
-            }
-            AbsMap<Statistic,String> raisonsEchec_=_effet.getLocalFailStatis();
-            EnumList<Statistic> statistiquesVariant_=new EnumList<Statistic>();
-            for(Statistic c:statistiques_){
-                if(!raisonsEchec_.contains(c)){
-                    statistiquesVariant_.add(c);
-                    continue;
-                }
-                StringMap<String> values_=FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-                if (!_import.evaluateBoolean(raisonsEchec_.getVal(c), values_, false)) {
-                    statistiquesVariant_.add(c);
-                }
-            }
-            return statistiquesVariant_;
+        if(!_effet.getStatisVarRank().isEmpty()){
+            return successfulChangedStatisticsCrans(_fight, _lanceur, _cible, _effet, _import);
         }
         if(!_effet.getCopyBoost().isEmpty()){
-            EnumList<Statistic> copieBoost_= _effet.getCopyBoost();
-            Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
-            Fighter creatureCbtCible_=_fight.getFighter(_cible);
-            EnumList<Statistic> statistiquesCopiees_= new EnumList<Statistic>();
-            for(Statistic c:copieBoost_){
-                byte boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
-                byte boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
-                if(successChangedStatistic(_fight,_lanceur,_lanceur,c,(byte) (boostCible_-boostLanceur_),_import)){
-                    statistiquesCopiees_.add(c);
-                }
-            }
-            return statistiquesCopiees_;
+            return successfulChangedStatisticsCopyBoost(_fight, _lanceur, _cible, _effet, _import);
         }
         if(!_effet.getCancelLowStat().isEmpty()){
-            EnumList<Statistic> annuleBaisse_= _effet.getCancelLowStat();
-            Fighter creatureCbtCible_=_fight.getFighter(_cible);
-            EnumList<Statistic> statistiquesBaisseAnnulees_=new EnumList<Statistic>();
-            for(Statistic c:annuleBaisse_){
-                byte boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
-                if(boostCible_<_import.getDefaultBoost()){
-                    statistiquesBaisseAnnulees_.add(c);
-                }
-            }
-            return statistiquesBaisseAnnulees_;
+            return successfulChangedStatisticsCancelLowStat(_fight, _cible, _effet, _import);
         }
         EnumList<Statistic> changedStatis_ = new EnumList<Statistic>();
-        if(!_effet.getCancelChgtStat().isEmpty()){
-            changedStatis_.addAllElts(_effet.getCancelChgtStat());
-        }
+        changedStatis_.addAllElts(_effet.getCancelChgtStat());
         EnumList<Statistic> echangeStatis_=_effet.getSwapBoostStatis();
-        if(!echangeStatis_.isEmpty()){
-            AbsMap<Statistic,String> raisonsEchec_=_effet.getLocalFailSwapBoostStatis();
-            Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
-            Fighter creatureCbtCible_=_fight.getFighter(_cible);
-            //CustList<Statistic> statistiquesEchangees_=new CustList<>();
-            for(Statistic c:echangeStatis_){
-                byte boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
-                byte boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
-                boolean passerIteration_=false;
-                if(!successChangedStatistic(_fight,_lanceur,_cible,c,(byte) (boostLanceur_-boostCible_),_import)){
-                    passerIteration_=true;
-                }
-                if(!successChangedStatistic(_fight,_cible,_lanceur,c,(byte) (boostCible_-boostLanceur_),_import)){
-                    passerIteration_=true;
-                }
-                if(passerIteration_){
-                    continue;
-                }
-                if(!raisonsEchec_.contains(c)){
-                    changedStatis_.add(c);
-                    continue;
-                }
-                StringMap<String> values_=FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-                if (!_import.evaluateBoolean(raisonsEchec_.getVal(c), values_, false)) {
-                    changedStatis_.add(c);
-                }
+        AbsMap<Statistic,String> raisonsEchec_=_effet.getLocalFailSwapBoostStatis();
+        Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
+        Fighter creatureCbtCible_=_fight.getFighter(_cible);
+        //CustList<Statistic> statistiquesEchangees_=new CustList<>();
+        for(Statistic c:echangeStatis_){
+            byte boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
+            byte boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
+            boolean passerIteration_= !successChangedStatistic(_fight, _lanceur, _cible, c, (byte) (boostLanceur_ - boostCible_), _import);
+            if(!successChangedStatistic(_fight,_cible,_lanceur,c,(byte) (boostCible_-boostLanceur_),_import)){
+                passerIteration_=true;
+            }
+            if(passerIteration_){
+                continue;
+            }
+            if (!raisonsEchec_.contains(c) || !_import.evaluateBoolean(raisonsEchec_.getVal(c), FightValues.calculateValues(_fight, _lanceur, _cible, _import), false)) {
+                changedStatis_.add(c);
             }
         }
         return changedStatis_;
+    }
+
+    private static EnumList<Statistic> successfulChangedStatisticsCancelLowStat(Fight _fight, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
+        EnumList<Statistic> annuleBaisse_= _effet.getCancelLowStat();
+        Fighter creatureCbtCible_= _fight.getFighter(_cible);
+        EnumList<Statistic> statistiquesBaisseAnnulees_=new EnumList<Statistic>();
+        for(Statistic c:annuleBaisse_){
+            byte boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
+            if(boostCible_< _import.getDefaultBoost()){
+                statistiquesBaisseAnnulees_.add(c);
+            }
+        }
+        return statistiquesBaisseAnnulees_;
+    }
+
+    private static EnumList<Statistic> successfulChangedStatisticsCopyBoost(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
+        EnumList<Statistic> copieBoost_= _effet.getCopyBoost();
+        Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
+        Fighter creatureCbtCible_= _fight.getFighter(_cible);
+        EnumList<Statistic> statistiquesCopiees_= new EnumList<Statistic>();
+        for(Statistic c:copieBoost_){
+            byte boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
+            byte boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
+            if(successChangedStatistic(_fight, _lanceur, _lanceur,c,(byte) (boostCible_-boostLanceur_), _import)){
+                statistiquesCopiees_.add(c);
+            }
+        }
+        return statistiquesCopiees_;
+    }
+
+    private static EnumList<Statistic> successfulChangedStatisticsCrans(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
+        EnumList<Statistic> statistiques_ = successfulChangedBoostedStatistics(_fight,_lanceur, _cible, _effet, _import);
+        AbsMap<Statistic,String> raisonsEchec_= _effet.getLocalFailStatis();
+        EnumList<Statistic> statistiquesVariant_=new EnumList<Statistic>();
+        for(Statistic c: statistiques_){
+            if (!raisonsEchec_.contains(c) || !_import.evaluateBoolean(raisonsEchec_.getVal(c), FightValues.calculateValues(_fight, _lanceur, _cible, _import), false)) {
+                statistiquesVariant_.add(c);
+            }
+        }
+        return statistiquesVariant_;
     }
 
     static EnumList<Statistic> successfulChangedBoostedStatistics(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import) {
@@ -798,11 +795,9 @@ final class FightSuccess {
         Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         boolean ignoreCapaciteCible_=FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import);
         StringList protectionsIgnorees_=new StringList();
-        if(creatureCbtLanceur_.capaciteActive()){
-            AbilityData fCapaciteLanceur_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
-            if(!NumberUtil.eq(_lanceur.getTeam(),_cible.getTeam())){
-                protectionsIgnorees_.addAllElts(fCapaciteLanceur_.getIgnFoeTeamMove());
-            }
+        AbilityData fCapaciteLanceur_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
+        if (fCapaciteLanceur_ != null && !NumberUtil.eq(_lanceur.getTeam(), _cible.getTeam())) {
+            protectionsIgnorees_.addAllElts(fCapaciteLanceur_.getIgnFoeTeamMove());
         }
         return successChangedStatisticProtect(_fight,_cible,_statistique,_variation,ignoreCapaciteCible_,protectionsIgnorees_,_import);
     }
@@ -810,87 +805,40 @@ final class FightSuccess {
     static boolean successChangedStatisticProtect(Fight _fight,TeamPosition _combattant,Statistic _statistique,byte _variation,
                                                   boolean _ignoreCapacite,StringList _protectionsIgnorees,DataBase _import){
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
-        boolean immuByType_ = false;
-        StringList immuneTypes_ = new StringList();
-        String abAlly_ = DataBase.EMPTY_STRING;
-        for (byte f_: equipe_.frontFighters()) {
-            Fighter part_ = _fight.getFighter(new TeamPosition(_combattant.getTeam(), f_));
-            if (!part_.capaciteActive()) {
-                continue;
-            }
-            abAlly_ = part_.getCurrentAbility();
-            AbilityData ab_ = part_.ficheCapaciteActuelle(_import);
-            for (String t: _import.getTypes()) {
-                if (!ab_.getImmuLowStatisTypes().contains(t)) {
-                    continue;
-                }
-                if (ab_.getImmuLowStatisTypes().getVal(t).containsObj(_statistique)) {
-                    immuneTypes_.add(t);
-                }
-            }
-        }
         Fighter creatureCbt_=_fight.getFighter(_combattant);
-        for (String t: immuneTypes_) {
-            if (StringUtil.contains(creatureCbt_.getTypes(), t)) {
-                immuByType_ = true;
-            }
-        }
-        if (immuByType_ && _variation < 0) {
-            _fight.addImmuLowStatAbilityAllyMessage(_combattant, _statistique, abAlly_, _import);
+        boolean immuByType_ = immuStatisByType(_fight, _combattant, _statistique, _variation, _import, equipe_, creatureCbt_);
+        if (immuByType_) {
             return false;
         }
-        byte boost_=creatureCbt_.getStatisBoost().getVal(_statistique);
-        byte maxBoost_=(byte)_import.getMaxBoost();
-        byte minBoost_=(byte)_import.getMinBoost();
-        for(String c:equipe_.enabledTeamMoves()){
-            if(StringUtil.contains(_protectionsIgnorees, c)){
-                continue;
+        if (immuStatisByTeam(_fight, _combattant, _statistique, _variation, _protectionsIgnorees, _import, equipe_)) {
+            return false;
+        }
+        AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
+        if (!_ignoreCapacite && fCapac_ != null && _variation < 0) {
+            if (fCapac_.getImmuLowStat().containsObj(_statistique)) {
+                _fight.addImmuLowStatAbilityMessage(_combattant, _statistique, creatureCbt_.getCurrentAbility(), _import);
+                return false;
             }
-            MoveData fAttaque_=_import.getMove(c);
-            int nbEffets_=fAttaque_.nbEffets();
-            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                Effect effet_=fAttaque_.getEffet(i);
-                if(!(effet_ instanceof EffectTeam)){
-                    continue;
-                }
-                EffectTeam effetEquipe_=(EffectTeam)effet_;
-                if(effetEquipe_.getProtectAgainstLowStat().containsObj(_statistique)&&_variation<0){
-                    _fight.addImmuLowStatTeamMessage(_combattant, _statistique, c, _import);
+            for (String c : creatureCbt_.getStatusSet()) {
+                if (!NumberUtil.eq(creatureCbt_.getStatusNbRoundShort(c), 0) && fCapac_.containsStatisticStatus(new StatisticStatus(_statistique, c))) {
+                    _fight.addImmuLowStatStAbilityMessage(_combattant, _statistique, creatureCbt_.getCurrentAbility(), c, _import);
                     return false;
                 }
             }
         }
-        if(!_ignoreCapacite&&creatureCbt_.capaciteActive()){
-            if(_variation<0){
-                AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
-                if(fCapac_.getImmuLowStat().containsObj(_statistique)){
-                    _fight.addImmuLowStatAbilityMessage(_combattant, _statistique, creatureCbt_.getCurrentAbility(), _import);
-                    return false;
-                }
-                for(String c:creatureCbt_.getStatusSet()){
-                    if(NumberUtil.eq(creatureCbt_.getStatusNbRoundShort(c), 0)){
-                        continue;
-                    }
-                    if(fCapac_.containsStatisticStatus(new StatisticStatus(_statistique,c))){
-                        _fight.addImmuLowStatStAbilityMessage(_combattant, _statistique, creatureCbt_.getCurrentAbility(), c, _import);
-                        return false;
-                    }
-                }
-            }
+        Item objet_ = FightItems.useItsObject(_fight, _combattant, _import);
+        if (objet_ instanceof ItemForBattle && ((ItemForBattle) objet_).getImmuLowStatis() && _variation < 0) {
+            _fight.addImmuLowStatItemMessage(_combattant, _statistique, creatureCbt_.getItem(), _import);
+            return false;
         }
-        if(FightItems.canUseItsObject(_fight,_combattant,_import)){
-            Item objet_=creatureCbt_.ficheObjet(_import);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                if(objetAttachable_.getImmuLowStatis()){
-                    if (_variation < 0) {
-                        _fight.addImmuLowStatItemMessage(_combattant, _statistique, creatureCbt_.getItem(), _import);
-                        return false;
-                    }
-                }
-            }
-        }
-        if(_variation>0){
+        return checkBoost(_fight, _combattant, _statistique, _variation, _import, creatureCbt_);
+    }
+
+    private static boolean checkBoost(Fight _fight, TeamPosition _combattant, Statistic _statistique, byte _variation, DataBase _import, Fighter _creatureCbt) {
+        byte boost_= _creatureCbt.getStatisBoost().getVal(_statistique);
+        byte maxBoost_=(byte) _import.getMaxBoost();
+        byte minBoost_=(byte) _import.getMinBoost();
+        if(_variation >0){
             if(boost_==maxBoost_){
                 _fight.addImmuChgtStatMaxMessage(_combattant, _statistique, _import);
                 return false;
@@ -904,50 +852,56 @@ final class FightSuccess {
         return true;
     }
 
+    private static boolean immuStatisByTeam(Fight _fight, TeamPosition _combattant, Statistic _statistique, byte _variation, StringList _protectionsIgnorees, DataBase _import, Team _equipe) {
+        StringMap<CustList<EffectTeam>> effectTeams_ = effectsTeamProt(_import, _equipe, _protectionsIgnorees);
+        int nbEffects_ = effectTeams_.size();
+        for (int c = 0; c < nbEffects_; c++) {
+            CustList<EffectTeam> ls_ = effectTeams_.getValue(c);
+            int nbEffets_= ls_.size();
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+                if(ls_.get(i).getProtectAgainstLowStat().containsObj(_statistique)&& _variation <0){
+                    _fight.addImmuLowStatTeamMessage(_combattant, _statistique, effectTeams_.getKey(c), _import);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean immuStatisByType(Fight _fight, TeamPosition _combattant, Statistic _statistique, byte _variation, DataBase _import, Team _equipe, Fighter _creatureCbt) {
+        boolean immuByType_ = false;
+        for (byte f_: _equipe.frontFighters()) {
+            Fighter part_ = _fight.getFighter(new TeamPosition(_combattant.getTeam(), f_));
+            AbilityData ab_ = part_.ficheCapaciteActuelle(_import);
+            if (ab_ == null) {
+                continue;
+            }
+            for (String t: _import.getTypes()) {
+                if (ab_.getImmuLowStatisTypes().contains(t) && ab_.getImmuLowStatisTypes().getVal(t).containsObj(_statistique) && StringUtil.contains(_creatureCbt.getTypes(), t) && _variation < 0) {
+                    _fight.addImmuLowStatAbilityAllyMessage(_combattant, _statistique, part_.getCurrentAbility(), _import);
+                    immuByType_ = true;
+                }
+            }
+        }
+        return immuByType_;
+    }
+
     static boolean protectedTargetAgainstMove(Fight _fight, TeamPosition _user, TeamPosition _target, String _move, DataBase _import) {
         Team equipeCible_=_fight.getTeams().getVal(_target.getTeam());
         Fighter creatureCbtCible_=_fight.getFighter(_target);
         MoveData fAttaque_=_import.getMove(_move);
         if (StringUtil.contains(_import.getMovesCountering(), creatureCbtCible_.getFinalChosenMove())) {
             String move_ = creatureCbtCible_.getFinalChosenMove();
-            if (creatureCbtCible_.getEnabledCounteringMoves().getVal(move_).isEnabled()) {
-                if (!sufferingDamageTypes(_fight, _user, _target, _move, _import).isEmpty()) {
-                    _fight.addProtectedByIndividualMoveMessage(_target, _move, move_, _import);
-                    return true;
-                }
-                if (droppedStatis(_fight, _user, _target, _move, true, _import)) {
-                    _fight.addProtectedByIndividualMoveMessage(_target, _move, move_, _import);
-                    return true;
-                }
-                if (sufferingDirectMoves(_fight, _user, _target, _move, true, _import)) {
-                    _fight.addProtectedByIndividualMoveMessage(_target, _move, move_, _import);
-                    return true;
-                }
+            if (creatureCbtCible_.getEnabledCounteringMoves().getVal(move_).isEnabled() && (!sufferingDamageTypes(_fight, _user, _target, _move, _import).isEmpty() || droppedStatis(_fight, _user, _target, _move, true, _import) || sufferingDirectMoves(_fight, _user, _target, _move, true, _import))) {
+                _fight.addProtectedByIndividualMoveMessage(_target, _move, move_, _import);
+                return true;
             }
         }
-        if (fAttaque_ instanceof DamagingMoveData) {
-            for(byte c:equipeCible_.getMembers().getKeys()){
-                Fighter creatureCbtMembre_=equipeCible_.getMembers().getVal(c);
-                if(creatureCbtMembre_.isSuccessfulMove()){
-                    String move_ = creatureCbtMembre_.getFinalChosenMove();
-                    if(StringUtil.contains(_import.getMovesProtAgainstDamageMoves(), move_)){
-                        _fight.addProtectedByTeamMoveMessage(_target, _move, move_, _import);
-                        return true;
-                    }
-                }
-            }
+        if (protectedTargetAgainstKindMove(fAttaque_ instanceof DamagingMoveData, equipeCible_, _import.getMovesProtAgainstDamageMoves(), _fight, _target, _move, _import)) {
+            return true;
         }
-        if (fAttaque_ instanceof StatusMoveData) {
-            for(byte c:equipeCible_.getMembers().getKeys()){
-                Fighter creatureCbtMembre_=equipeCible_.getMembers().getVal(c);
-                if(creatureCbtMembre_.isSuccessfulMove()){
-                    String move_ = creatureCbtMembre_.getFinalChosenMove();
-                    if(StringUtil.contains(_import.getMovesProtAgainstStatusMoves(), move_)){
-                        _fight.addProtectedByTeamMoveMessage(_target, _move, move_, _import);
-                        return true;
-                    }
-                }
-            }
+        if (protectedTargetAgainstKindMove(fAttaque_ instanceof StatusMoveData, equipeCible_, _import.getMovesProtAgainstStatusMoves(), _fight, _target, _move, _import)) {
+            return true;
         }
         if(fAttaque_.getStoppableMoveSolo()&&creatureCbtCible_.isSuccessfulMove()){
             String move_ = creatureCbtCible_.getFinalChosenMove();
@@ -956,25 +910,20 @@ final class FightSuccess {
                 return true;
             }
         }
-        if(fAttaque_.getStoppableMoveMulti()){
-            for(byte c:equipeCible_.getMembers().getKeys()){
-                Fighter creatureCbtMembre_=equipeCible_.getMembers().getVal(c);
-                if(creatureCbtMembre_.isSuccessfulMove()){
-                    String move_ = creatureCbtMembre_.getFinalChosenMove();
-                    if(StringUtil.contains(_import.getMovesProtAgainstMultiTarget(), move_)){
-                        _fight.addProtectedByTeamMoveMessage(_target, _move, move_, _import);
-                        return true;
-                    }
-                }
-            }
+        if (protectedTargetAgainstKindMove(fAttaque_.getStoppableMoveMulti(), equipeCible_, _import.getMovesProtAgainstMultiTarget(), _fight, _target, _move, _import)) {
+            return true;
         }
-        if(fAttaque_.getStoppableMovePrio()&&fAttaque_.getPriority()>0){
-            for(byte c:equipeCible_.getMembers().getKeys()){
-                Fighter creatureCbtMembre_=equipeCible_.getMembers().getVal(c);
+        return protectedTargetAgainstKindMove(fAttaque_.getStoppableMovePrio() && fAttaque_.getPriority() > 0, equipeCible_, _import.getMovesProtAgainstPrio(), _fight, _target, _move, _import);
+    }
+
+    private static boolean protectedTargetAgainstKindMove(boolean _condition, Team _equipeCible, StringList _moves, Fight _fight, TeamPosition _target, String _move, DataBase _data) {
+        if (_condition) {
+            for(byte c: _equipeCible.getMembers().getKeys()){
+                Fighter creatureCbtMembre_= _equipeCible.getMembers().getVal(c);
                 if(creatureCbtMembre_.isSuccessfulMove()){
                     String move_ = creatureCbtMembre_.getFinalChosenMove();
-                    if(StringUtil.contains(_import.getMovesProtAgainstPrio(), move_)){
-                        _fight.addProtectedByTeamMoveMessage(_target, _move, move_, _import);
+                    if(StringUtil.contains(_moves, move_)){
+                        _fight.addProtectedByTeamMoveMessage(_target, _move, move_, _data);
                         return true;
                     }
                 }
@@ -985,8 +934,12 @@ final class FightSuccess {
 
     static StringMap<Rate> sufferingDamageTypes(Fight _fight, TeamPosition _user, TeamPosition _target, String _move, DataBase _import) {
         Fighter creatureCbtCible_=_fight.getFighter(_target);
+        MoveData fAttaque_=_import.getMove(_move);
         MoveData counteringMove_ = _import.getMove(creatureCbtCible_.getFinalChosenMove());
         StringMap<Rate> sufferd_ = new StringMap<Rate>();
+        if (!(fAttaque_ instanceof DamagingMoveData)) {
+            return sufferd_;
+        }
         int nbEffects_ = counteringMove_.nbEffets();
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
             Effect eff_ = counteringMove_.getEffet(i);
@@ -994,15 +947,12 @@ final class FightSuccess {
                 continue;
             }
             EffectCounterAttack effectLoc_ = (EffectCounterAttack) eff_;
-            StringMap<String> values_ = new StringMap<String>();
-            values_.putAllMap(FightValues.calculateValues(_fight,_user,_target,_import));
-            values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_user, _target, _import));
-            if (_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
-                continue;
-            }
-            for (String t: FightMoves.moveTypes(_fight, _user, _move, _import)) {
-                if (effectLoc_.getSufferingDamageTypes().contains(t)) {
-                    sufferd_.put(t, effectLoc_.getSufferingDamageTypes().getVal(t));
+            StringMap<String> values_ = values(_fight, _user, _target, _import);
+            if (!_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
+                for (String t : FightMoves.moveTypes(_fight, _user, _move, _import)) {
+                    if (effectLoc_.getSufferingDamageTypes().contains(t)) {
+                        sufferd_.put(t, effectLoc_.getSufferingDamageTypes().getVal(t));
+                    }
                 }
             }
         }
@@ -1010,6 +960,79 @@ final class FightSuccess {
     }
 
     static boolean droppedStatis(Fight _fight, TeamPosition _user, TeamPosition _target, String _move, boolean _protect,DataBase _import) {
+        return sufferingCommon(_fight,_user,_target,_move,_protect,_import,new EffectCounterAttackCheckerDropStat());
+//        Fighter creatureCbtCible_=_fight.getFighter(_target);
+//        MoveData fAttaque_=_import.getMove(_move);
+//        MoveData counteringMove_ = _import.getMove(creatureCbtCible_.getFinalChosenMove());
+//        if (!(fAttaque_ instanceof DamagingMoveData)) {
+//            return false;
+//        }
+//        int nbEffects_ = counteringMove_.nbEffets();
+//        boolean success_ = false;
+//        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
+//            Effect eff_ = counteringMove_.getEffet(i);
+//            if (!(eff_ instanceof EffectCounterAttack)) {
+//                continue;
+//            }
+//            EffectCounterAttack effectLoc_ = (EffectCounterAttack) eff_;
+//            if (effectLoc_.getDroppedStatDirectMove().isEmpty()) {
+//                continue;
+//            }
+//            StringMap<String> values_ = new StringMap<String>();
+//            values_.putAllMap(FightValues.calculateValues(_fight,_user,_target,_import));
+//            values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_user, _target, _import));
+//            if (_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
+//                continue;
+//            }
+//            success_ = true;
+//        }
+//        if (success_) {
+//            if (_protect) {
+//                return true;
+//            }
+//            DamagingMoveData damMove_ = (DamagingMoveData) fAttaque_;
+//            return damMove_.isDirect();
+//        }
+//        return false;
+    }
+
+    static boolean sufferingDirectMoves(Fight _fight, TeamPosition _user, TeamPosition _target, String _move, boolean _protect, DataBase _import) {
+        return sufferingCommon(_fight,_user,_target,_move,_protect,_import,new EffectCounterAttackCheckerDirectMove());
+//        Fighter creatureCbtCible_=_fight.getFighter(_target);
+//        MoveData fAttaque_=_import.getMove(_move);
+//        MoveData counteringMove_ = _import.getMove(creatureCbtCible_.getFinalChosenMove());
+//        if (!(fAttaque_ instanceof DamagingMoveData)) {
+//            return false;
+//        }
+//        int nbEffects_ = counteringMove_.nbEffets();
+//        boolean success_ = false;
+//        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
+//            Effect eff_ = counteringMove_.getEffet(i);
+//            if (!(eff_ instanceof EffectCounterAttack)) {
+//                continue;
+//            }
+//            EffectCounterAttack effectLoc_ = (EffectCounterAttack) eff_;
+//            if (effectLoc_.getSufferingDamageDirectMove().isZero()) {
+//                continue;
+//            }
+//            StringMap<String> values_ = new StringMap<String>();
+//            values_.putAllMap(FightValues.calculateValues(_fight,_user,_target,_import));
+//            values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_user, _target, _import));
+//            if (_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
+//                continue;
+//            }
+//            success_ = true;
+//        }
+//        if (success_) {
+//            if (_protect) {
+//                return true;
+//            }
+//            DamagingMoveData damMove_ = (DamagingMoveData) fAttaque_;
+//            return damMove_.isDirect();
+//        }
+//        return false;
+    }
+    private static boolean sufferingCommon(Fight _fight, TeamPosition _user, TeamPosition _target, String _move, boolean _protect, DataBase _import, AbsEffectCounterAttackChecker _filter) {
         Fighter creatureCbtCible_=_fight.getFighter(_target);
         MoveData fAttaque_=_import.getMove(_move);
         MoveData counteringMove_ = _import.getMove(creatureCbtCible_.getFinalChosenMove());
@@ -1020,17 +1043,7 @@ final class FightSuccess {
         boolean success_ = false;
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
             Effect eff_ = counteringMove_.getEffet(i);
-            if (!(eff_ instanceof EffectCounterAttack)) {
-                continue;
-            }
-            EffectCounterAttack effectLoc_ = (EffectCounterAttack) eff_;
-            if (effectLoc_.getDroppedStatDirectMove().isEmpty()) {
-                continue;
-            }
-            StringMap<String> values_ = new StringMap<String>();
-            values_.putAllMap(FightValues.calculateValues(_fight,_user,_target,_import));
-            values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_user, _target, _import));
-            if (_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
+            if (!(eff_ instanceof EffectCounterAttack) || _filter.skip((EffectCounterAttack) eff_) || _import.evaluateBoolean(((EffectCounterAttack) eff_).getProtectFail(), values(_fight, _user, _target, _import), false)) {
                 continue;
             }
             success_ = true;
@@ -1045,79 +1058,39 @@ final class FightSuccess {
         return false;
     }
 
-    static boolean sufferingDirectMoves(Fight _fight, TeamPosition _user, TeamPosition _target, String _move, boolean _protect, DataBase _import) {
-        Fighter creatureCbtCible_=_fight.getFighter(_target);
-        MoveData fAttaque_=_import.getMove(_move);
-        MoveData counteringMove_ = _import.getMove(creatureCbtCible_.getFinalChosenMove());
-        if (!(fAttaque_ instanceof DamagingMoveData)) {
-            return false;
-        }
-        int nbEffects_ = counteringMove_.nbEffets();
-        boolean success_ = false;
-        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
-            Effect eff_ = counteringMove_.getEffet(i);
-            if (!(eff_ instanceof EffectCounterAttack)) {
-                continue;
-            }
-            EffectCounterAttack effectLoc_ = (EffectCounterAttack) eff_;
-            if (effectLoc_.getSufferingDamageDirectMove().isZero()) {
-                continue;
-            }
-            StringMap<String> values_ = new StringMap<String>();
-            values_.putAllMap(FightValues.calculateValues(_fight,_user,_target,_import));
-            values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_user, _target, _import));
-            if (_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
-                continue;
-            }
-            success_ = true;
-        }
-        if (success_) {
-            if (_protect) {
-                return true;
-            }
-            DamagingMoveData damMove_ = (DamagingMoveData) fAttaque_;
-            return damMove_.isDirect();
-        }
-        return false;
+    private static StringMap<String> values(Fight _fight, TeamPosition _user, TeamPosition _target, DataBase _import) {
+        StringMap<String> values_ = new StringMap<String>();
+        values_.putAllMap(FightValues.calculateValues(_fight, _user, _target, _import));
+        values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight, _user, _target, _import));
+        return values_;
     }
 
     static boolean successfulEffectStatus(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatus _effet,DataBase _import){
         if(_effet.getStatusFromUser()){
-            StringList statutsTranferes_=new StringList();
-            Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
-            for(String c:creatureCbtLanceur_.getStatusSet()){
-                if(NumberUtil.eq(creatureCbtLanceur_.getStatusNbRoundShort(c), 0)){
-                    continue;
-                }
-                if(successfulAffectedStatus(_fight,_lanceur,_cible,c,_import)){
-                    statutsTranferes_.add(c);
-                }
-            }
-            return !statutsTranferes_.isEmpty();
+            return successfulEffectStatusFromUser(_fight, _lanceur, _cible, _import);
         }
-        if(!_effet.getDeletedStatus().isEmpty()){
-            return true;
-        }
-        if(_effet.getKoUserHealSubst()){
+        if (!_effet.getDeletedStatus().isEmpty() || _effet.getKoUserHealSubst()) {
             return true;
         }
         MonteCarloString loiStatuts_=_effet.getLawStatus();
         StringMap<String> echecStatuts_=_effet.getLocalFailStatus();
         for(String c:loiStatuts_.events()){
-            if(StringUtil.quickEq(c,DataBase.EMPTY_STRING)){
-                continue;
-            }
-            if (echecStatuts_.contains(c) && !echecStatuts_.getVal(c).isEmpty()){
-                StringMap<String> values_=FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-                if (_import.evaluateBoolean(echecStatuts_.getVal(c), values_, false)) {
-                    continue;
-                }
-            }
-            if(successfulAffectedStatus(_fight,_lanceur,_cible,c,_import)){
+            if (!StringUtil.quickEq(c, DataBase.EMPTY_STRING) && (!echecStatuts_.contains(c) || echecStatuts_.getVal(c).isEmpty() || !_import.evaluateBoolean(echecStatuts_.getVal(c), FightValues.calculateValues(_fight, _lanceur, _cible, _import), false)) && successfulAffectedStatus(_fight, _lanceur, _cible, c, _import)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private static boolean successfulEffectStatusFromUser(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import) {
+        StringList statutsTranferes_=new StringList();
+        Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
+        for(String c:creatureCbtLanceur_.getStatusSet()){
+            if (!NumberUtil.eq(creatureCbtLanceur_.getStatusNbRoundShort(c), 0) && successfulAffectedStatus(_fight, _lanceur, _cible, c, _import)) {
+                statutsTranferes_.add(c);
+            }
+        }
+        return !statutsTranferes_.isEmpty();
     }
 
     static boolean successfulAffectedStatus(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _statut,DataBase _import){
@@ -1125,19 +1098,15 @@ final class FightSuccess {
         Status statut_=_import.getStatus().getVal(_statut);
         if(statut_.estActifPartenaire()){
             EffectPartnerStatus effet_=statut_.getEffectsPartner().first();
-            if(effet_.getWeddingAlly()){
-                if(NumberUtil.eq(_lanceur.getTeam(), _cible.getTeam())){
-                    return true;
-                }
+            if (effet_.getWeddingAlly() && NumberUtil.eq(_lanceur.getTeam(), _cible.getTeam())) {
+                return true;
             }
         }
         boolean ignoreCapaciteCible_=FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import);
         StringList protectionsIgnorees_=new StringList();
-        if(creatureCbtLanceur_.capaciteActive()){
-            AbilityData fCapaciteLanceur_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
-            if(!NumberUtil.eq(_lanceur.getTeam(),_cible.getTeam())){
-                protectionsIgnorees_.addAllElts(fCapaciteLanceur_.getIgnFoeTeamMove());
-            }
+        AbilityData fCapaciteLanceur_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
+        if (fCapaciteLanceur_ != null && !NumberUtil.eq(_lanceur.getTeam(), _cible.getTeam())) {
+            protectionsIgnorees_.addAllElts(fCapaciteLanceur_.getIgnFoeTeamMove());
         }
         return successfulAffectedStatusProtect(_fight,_cible,_statut,ignoreCapaciteCible_,protectionsIgnorees_,_import);
     }
@@ -1147,87 +1116,98 @@ final class FightSuccess {
             _fight.addImmuStatGlobalMoveMessage(_combattant, _statut, _import);
             return false;
         }
-        Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
-        String abAll_ = DataBase.EMPTY_STRING;
-        boolean immuByType_ = false;
-        StringList immuneTypes_ = new StringList();
-        for (byte f_: equipe_.frontFighters()) {
-            Fighter part_ = _fight.getFighter(new TeamPosition(_combattant.getTeam(), f_));
-            if (!part_.capaciteActive()) {
-                continue;
-            }
-            AbilityData ab_ = part_.ficheCapaciteActuelle(_import);
-            abAll_ = part_.getCurrentAbility();
-            for (String t: _import.getTypes()) {
-                if (!ab_.getImmuStatusTypes().contains(t)) {
-                    continue;
-                }
-                if (StringUtil.contains(ab_.getImmuStatusTypes().getVal(t), _statut)) {
-                    immuneTypes_.add(t);
-                }
-            }
-        }
-        Fighter creatureCbt_=_fight.getFighter(_combattant);
-        for (String t: immuneTypes_) {
-            if (StringUtil.contains(creatureCbt_.getTypes(), t)) {
-                immuByType_ = true;
-                break;
-            }
-        }
+        return successfulAffectedStatusProtectLocal(_fight, _combattant, _statut, _ignoreCapacite, _protectionsIgnorees, _import);
+    }
+
+    private static boolean successfulAffectedStatusProtectLocal(Fight _fight, TeamPosition _combattant, String _statut, boolean _ignoreCapacite, StringList _protectionsIgnorees, DataBase _import) {
+        Team equipe_= _fight.getTeams().getVal(_combattant.getTeam());
+        Fighter creatureCbt_= _fight.getFighter(_combattant);
+        boolean immuByType_ = immuStatusByType(_fight, _combattant, _statut, _import, equipe_, creatureCbt_);
         if (immuByType_) {
-            _fight.addImmuStatAbilityAllyMessage(_combattant, _statut, abAll_, _import);
             return false;
         }
-        for(String c: equipe_.enabledTeamMoves()){
-            if(StringUtil.contains(_protectionsIgnorees, c)){
-                continue;
-            }
-            MoveData fAttaque_=_import.getMove(c);
-            int nbEffets_=fAttaque_.nbEffets();
-            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                Effect effet_=fAttaque_.getEffet(i);
-                if(!(effet_ instanceof EffectTeam)){
-                    continue;
-                }
-                EffectTeam effetEquipe_=(EffectTeam)effet_;
-                if(StringUtil.contains(effetEquipe_.getProtectAgainstStatus(), _statut)){
-                    _fight.addImmuStatTeamMessage(_combattant, _statut, c, _import);
-                    return false;
-                }
-            }
+        if (immuStatusByTeam(_fight, _combattant, _statut, _protectionsIgnorees, _import, equipe_)) {
+            return false;
         }
-        if(!_ignoreCapacite&&creatureCbt_.capaciteActive()){
-            AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
-            StringList globalMoves_ = FightMoves.enabledGlobalMoves(_fight,_import);
+        AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
+        if(!_ignoreCapacite &&fCapac_ != null){
+            StringList globalMoves_ = FightMoves.enabledGlobalMoves(_fight, _import);
             for(String c: globalMoves_){
-                if (!fCapac_.getImmuStatus().contains(c)) {
-                    continue;
-                }
-                if(StringUtil.contains(fCapac_.getImmuStatus().getVal(c), _statut)){
+                if (fCapac_.getImmuStatus().contains(c) && StringUtil.contains(fCapac_.getImmuStatus().getVal(c), _statut)) {
                     _fight.addImmuStatGlobalMoveAbilityMessage(_combattant, _statut, creatureCbt_.getCurrentAbility(), c, _import);
                     return false;
                 }
             }
-            if (fCapac_.getImmuStatus().contains(DataBase.EMPTY_STRING)) {
-                if (globalMoves_.isEmpty()) {
-                    if (StringUtil.contains(fCapac_.getImmuStatus().getVal(DataBase.EMPTY_STRING), _statut)) {
-                        _fight.addImmuStatAbilityMessage(_combattant, _statut, creatureCbt_.getCurrentAbility(), _import);
-                        return false;
-                    }
-                }
+            if (fCapac_.getImmuStatus().contains(DataBase.EMPTY_STRING) && globalMoves_.isEmpty() && StringUtil.contains(fCapac_.getImmuStatus().getVal(DataBase.EMPTY_STRING), _statut)) {
+                _fight.addImmuStatAbilityMessage(_combattant, _statut, creatureCbt_.getCurrentAbility(), _import);
+                return false;
             }
         }
-        if(FightItems.canUseItsObject(_fight,_combattant,_import)){
-            Item objet_=creatureCbt_.ficheObjet(_import);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                if(StringUtil.contains(objetAttachable_.getImmuStatus(), _statut)){
-                    _fight.addImmuStatItemMessage(_combattant, _statut, creatureCbt_.getItem(), _import);
-                    return false;
-                }
-            }
+        Item objet_ = FightItems.useItsObject(_fight, _combattant, _import);
+        if (objet_ instanceof ItemForBattle && StringUtil.contains(((ItemForBattle) objet_).getImmuStatus(), _statut)) {
+            _fight.addImmuStatItemMessage(_combattant, _statut, creatureCbt_.getItem(), _import);
+            return false;
         }
         return true;
+    }
+
+    private static boolean immuStatusByTeam(Fight _fight, TeamPosition _combattant, String _statut, StringList _protectionsIgnorees, DataBase _import, Team _equipe) {
+        StringMap<CustList<EffectTeam>> effectTeams_ = effectsTeamProt(_import, _equipe, _protectionsIgnorees);
+        int nbEffects_ = effectTeams_.size();
+        for (int c = 0; c < nbEffects_; c++) {
+            CustList<EffectTeam> ls_ = effectTeams_.getValue(c);
+            int nbEffets_= ls_.size();
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+                if(StringUtil.contains(ls_.get(i).getProtectAgainstStatus(), _statut)){
+                    _fight.addImmuStatTeamMessage(_combattant, _statut, effectTeams_.getKey(c), _import);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean immuStatusByType(Fight _fight, TeamPosition _combattant, String _statut, DataBase _import, Team _equipe, Fighter _creatureCbt) {
+        boolean immuByType_ = false;
+        for (byte f_: _equipe.frontFighters()) {
+            Fighter part_ = _fight.getFighter(new TeamPosition(_combattant.getTeam(), f_));
+            AbilityData ab_ = part_.ficheCapaciteActuelle(_import);
+            if (ab_ == null) {
+                continue;
+            }
+            for (String t: _import.getTypes()) {
+                if (ab_.getImmuStatusTypes().contains(t) && StringUtil.contains(ab_.getImmuStatusTypes().getVal(t), _statut) && StringUtil.contains(_creatureCbt.getTypes(), t)) {
+                    _fight.addImmuStatAbilityAllyMessage(_combattant, _statut, part_.getCurrentAbility(), _import);
+                    immuByType_ = true;
+                }
+            }
+        }
+        return immuByType_;
+    }
+
+    static StringMap<CustList<EffectTeam>> effectsTeamProt(DataBase _import, Team _equipe,StringList _protectionsIgnorees) {
+        StringMap<CustList<EffectTeam>> effs_ = new StringMap<CustList<EffectTeam>>();
+        for(String c: _equipe.enabledTeamMoves()) {
+            if (StringUtil.contains(_protectionsIgnorees, c)) {
+                continue;
+            }
+            effs_.addEntry(c,effectsTeamMove(_import,c));
+        }
+        return effs_;
+    }
+    static CustList<EffectTeam> effectsTeamMove(DataBase _import, String _c) {
+        CustList<EffectTeam> list_ = new CustList<EffectTeam>();
+        MoveData fAttEquipe_=_import.getMove(_c);
+        int nbEffets_=fAttEquipe_.nbEffets();
+        for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+            Effect effet_=fAttEquipe_.getEffet(i);
+            if(!(effet_ instanceof EffectTeam)){
+                continue;
+            }
+            EffectTeam effetEquipe_=(EffectTeam)effet_;
+            list_.add(effetEquipe_);
+        }
+        return list_;
     }
 
     static StringList forbiddenStatus(Fight _fight, DataBase _import) {
@@ -1254,11 +1234,9 @@ final class FightSuccess {
         String rateBoos_ = _import.getRateBoostCriticalHit();
         rate_ = _import.evaluatePositiveExp(rateBoos_, vars_, Rate.one());
         Fighter fighter_ = _fight.getFighter(_thrower);
-        if(fighter_.capaciteActive()){
-            AbilityData fCapac_=fighter_.ficheCapaciteActuelle(_import);
-            if(!fCapac_.getMultEvtRateCh().isZero()){
-                rate_.multiplyBy(fCapac_.getMultEvtRateCh());
-            }
+        AbilityData fCapac_=fighter_.ficheCapaciteActuelle(_import);
+        if (fCapac_ != null && !fCapac_.getMultEvtRateCh().isZero()) {
+            rate_.multiplyBy(fCapac_.getMultEvtRateCh());
         }
         return rate_;
     }
@@ -1275,11 +1253,9 @@ final class FightSuccess {
             return proba_;
         }
         Fighter creature_=_fight.getFighter(_combattant);
-        if(creature_.capaciteActive()){
-            AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-            if(!fCapac_.getMultEvtRateSecEffectOwner().isZero()){
-                proba_.multiplyBy(fCapac_.getMultEvtRateSecEffectOwner());
-            }
+        AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+        if (fCapac_ != null && !fCapac_.getMultEvtRateSecEffectOwner().isZero()) {
+            proba_.multiplyBy(fCapac_.getMultEvtRateSecEffectOwner());
         }
         proba_.multiplyBy(multProbaByComboOfMoves(_fight,_combattant.getTeam(), _import));
         return proba_;
@@ -1305,12 +1281,10 @@ final class FightSuccess {
 //            sommePartielle_.addNb(new Rate(_loi.rate(e)));
 //        }
         Rate coeff_=DataBase.defRateProduct();
-        if(creature_.capaciteActive()){
-            AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-            if(!fCapac_.getMultEvtRateSecEffectOwner().isZero()){
-                sommePartielle_.multiplyBy(fCapac_.getMultEvtRateSecEffectOwner());
-                coeff_.multiplyBy(fCapac_.getMultEvtRateSecEffectOwner());
-            }
+        AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+        if (fCapac_ != null && !fCapac_.getMultEvtRateSecEffectOwner().isZero()) {
+            sommePartielle_.multiplyBy(fCapac_.getMultEvtRateSecEffectOwner());
+            coeff_.multiplyBy(fCapac_.getMultEvtRateSecEffectOwner());
         }
         Rate rate_ = multProbaByComboOfMoves(_fight,_combattant.getTeam(), _import);
         sommePartielle_.multiplyBy(rate_);
@@ -1392,11 +1366,9 @@ final class FightSuccess {
     }
 
     static boolean isBadSimulation(Fight _fight,IntMonteCarlo _law) {
-        if(_law.nbEvents() != DataBase.ONE_POSSIBLE_CHOICE){
-            if (_fight.getSimulation()) {
-                _fight.setAcceptableChoices(false);
-                return true;
-            }
+        if (_law.nbEvents() != DataBase.ONE_POSSIBLE_CHOICE && _fight.getSimulation()) {
+            _fight.setAcceptableChoices(false);
+            return true;
         }
         return false;
     }

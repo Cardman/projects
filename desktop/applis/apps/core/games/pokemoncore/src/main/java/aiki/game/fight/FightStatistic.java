@@ -36,33 +36,15 @@ final class FightStatistic {
     static Rate statisticWithoutBase(Fight _fight, TeamPosition _cbt, Statistic _statistic, StringMap<String> _variables, DataBase _import) {
         Fighter creatureCbt_=_fight.getFighter(_cbt);
         Rate statistic_ = Rate.one();
-        boolean peutUtiliserObjet_=FightItems.canUseItsObject(_fight,_cbt,_import);
-        if(peutUtiliserObjet_){
-            Item fObjet_=creatureCbt_.ficheObjet(_import);
-            if(fObjet_ instanceof ItemForBattle){
-                ItemForBattle fObjetCombat_=(ItemForBattle)fObjet_;
-                if (fObjetCombat_.getMultStat().contains(_statistic)) {
-                    String numericString_ = fObjetCombat_.getMultStat().getVal(_statistic);
-                    statistic_.multiplyBy(multiplyStringFighterVariables(numericString_,_variables, _import));
-                }
+        Item fObjet_ = FightItems.useItsObject(_fight, _cbt, _import);
+        if (fObjet_ instanceof ItemForBattle) {
+            ItemForBattle fObjetCombat_ = (ItemForBattle) fObjet_;
+            if (fObjetCombat_.getMultStat().contains(_statistic)) {
+                String numericString_ = fObjetCombat_.getMultStat().getVal(_statistic);
+                statistic_.multiplyBy(multiplyStringFighterVariables(numericString_, _variables, _import));
             }
         }
-        for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
-            MoveData fAttGlobal_=_import.getMove(c);
-            int nbEffets_=fAttGlobal_.nbEffets();
-            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                Effect effet_=fAttGlobal_.getEffet(i);
-                if(!(effet_ instanceof EffectGlobal)){
-                    continue;
-                }
-                EffectGlobal effetGlobal_=(EffectGlobal)effet_;
-                for(String e:creatureCbt_.getTypes()){
-                    if(effetGlobal_.getMultStatIfContainsType().contains(new StatisticType(_statistic,e))){
-                        statistic_.multiplyBy(effetGlobal_.getMultStatIfContainsType().getVal(new StatisticType(_statistic,e)));
-                    }
-                }
-            }
-        }
+        statisticWithoutBaseGlobal(_fight, _statistic, _import, creatureCbt_, statistic_);
         statistic_.multiplyBy(multiplyStatisticPartner(_fight, _statistic, _cbt.getTeam(), _import));
         Team equipeAdv_=_fight.getTeams().getVal(Fight.foe(_cbt.getTeam()));
         for(StringList c:equipeAdv_.enabledTeamGroupMoves()){
@@ -71,23 +53,39 @@ final class FightStatistic {
                 continue;
             }
             EffectTeam effetEquipe_=effet_.getTeamMove().first();
-            if(!effetEquipe_.getMultStatisticFoe().contains(_statistic)){
-                continue;
+            if (effetEquipe_.getMultStatisticFoe().contains(_statistic)) {
+                statistic_.multiplyBy(effetEquipe_.getMultStatisticFoe().getVal(_statistic));
+                //MULT_STATISTIQUE_ADV
             }
-            statistic_.multiplyBy(effetEquipe_.getMultStatisticFoe().getVal(_statistic));
-            //MULT_STATISTIQUE_ADV
         }
         statistic_.multiplyBy(multiplyStatisticFoeTeamMoveEffect(_fight, _statistic, Fight.foe(_cbt.getTeam()), _import));
         statistic_.multiplyBy(multiplyStatisticTeamMoveEffect(_fight, _statistic, _cbt.getTeam(), _import));
         statistic_.multiplyBy(coeffStatisticStatusImmu(_fight, _cbt, _statistic, _import));
-        if(creatureCbt_.capaciteActive()){
-            AbilityData fCapacite_=creatureCbt_.ficheCapaciteActuelle(_import);
-            if (fCapacite_.getMultStat().contains(_statistic)) {
-                String numericString_ = fCapacite_.getMultStat().getVal(_statistic);
-                statistic_.multiplyBy(multiplyStringFighterVariables(numericString_,_variables, _import));
-            }
+        AbilityData fCapacite_=creatureCbt_.ficheCapaciteActuelle(_import);
+        if (fCapacite_ != null && fCapacite_.getMultStat().contains(_statistic)) {
+            String numericString_ = fCapacite_.getMultStat().getVal(_statistic);
+            statistic_.multiplyBy(multiplyStringFighterVariables(numericString_, _variables, _import));
         }
         return statistic_;
+    }
+
+    private static void statisticWithoutBaseGlobal(Fight _fight, Statistic _statistic, DataBase _import, Fighter _creatureCbt, Rate _rate) {
+        for(String c: FightMoves.enabledGlobalMoves(_fight, _import)){
+            MoveData fAttGlobal_= _import.getMove(c);
+            int nbEffets_=fAttGlobal_.nbEffets();
+            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+                Effect effet_=fAttGlobal_.getEffet(i);
+                if(!(effet_ instanceof EffectGlobal)){
+                    continue;
+                }
+                EffectGlobal effetGlobal_=(EffectGlobal)effet_;
+                for(String e: _creatureCbt.getTypes()){
+                    if(effetGlobal_.getMultStatIfContainsType().contains(new StatisticType(_statistic,e))){
+                        _rate.multiplyBy(effetGlobal_.getMultStatIfContainsType().getVal(new StatisticType(_statistic,e)));
+                    }
+                }
+            }
+        }
     }
 
     static int criticalHit(Fight _fight, TeamPosition _fighter, int _rate, DataBase _import) {
@@ -101,35 +99,30 @@ final class FightStatistic {
     static int bonusBoost(Fight _fight, Statistic _statistic, TeamPosition _fighter, DataBase _import) {
         Fighter fighter_ = _fight.getFighter(_fighter);
         int bonus_ = 0;
-        boolean canUseItsObject_ = FightItems.canUseItsObject(_fight,_fighter, _import);
-        if(canUseItsObject_){
-            Item fObjet_=fighter_.ficheObjet(_import);
-            if(fObjet_ instanceof ItemForBattle){
-                ItemForBattle fObjetCombat_=(ItemForBattle)fObjet_;
-                AbsMap<Statistic,Byte> multStatisCran_=fObjetCombat_.getMultStatRank();
-                if(multStatisCran_.contains(_statistic)){
-                    bonus_+=multStatisCran_.getVal(_statistic);
-                }
-                StatisticPokemons multStatisPkCran_=fObjetCombat_.getMultStatPokemonRank();
-                if(multStatisPkCran_.contains(new StatisticPokemon(_statistic,fighter_.getCurrentName()))){
-                    bonus_+=multStatisPkCran_.getVal(new StatisticPokemon(_statistic,fighter_.getCurrentName()));
-                }
+        Item fObjet_ = FightItems.useItsObject(_fight, _fighter, _import);
+        if (fObjet_ instanceof ItemForBattle) {
+            ItemForBattle fObjetCombat_ = (ItemForBattle) fObjet_;
+            AbsMap<Statistic, Byte> multStatisCran_ = fObjetCombat_.getMultStatRank();
+            if (multStatisCran_.contains(_statistic)) {
+                bonus_ += multStatisCran_.getVal(_statistic);
+            }
+            StatisticPokemons multStatisPkCran_ = fObjetCombat_.getMultStatPokemonRank();
+            if (multStatisPkCran_.contains(new StatisticPokemon(_statistic, fighter_.getCurrentName()))) {
+                bonus_ += multStatisPkCran_.getVal(new StatisticPokemon(_statistic, fighter_.getCurrentName()));
             }
         }
-        if (fighter_.capaciteActive()) {
-            AbilityData ability_ = fighter_.ficheCapaciteActuelle(_import);
+        AbilityData ability_ = fighter_.ficheCapaciteActuelle(_import);
+        if (ability_ != null) {
             AbsMap<Statistic,Byte> multStatisCran_ = ability_.getBonusStatRank();
             if (multStatisCran_.contains(_statistic)) {
                 bonus_+=multStatisCran_.getVal(_statistic);
             }
         }
-        if(FightItems.canUseItsBerry(_fight, _fighter, _import)){
-            Berry berry_=(Berry) fighter_.ficheObjet(_import);
-            if(berry_.getMultStat().contains(_statistic)){
-                BoostHpRate statis_=berry_.getMultStat().getVal(_statistic);
-                if (Rate.lowerEq(fighter_.getRemainingHp(), Rate.multiply(statis_.getHpRate(), fighter_.pvMax()))) {
-                    bonus_ += statis_.getBoost();
-                }
+        Berry berry_ = FightItems.useItsBerry(_fight, _fighter, _import);
+        if (berry_ != null && berry_.getMultStat().contains(_statistic)) {
+            BoostHpRate statis_ = berry_.getMultStat().getVal(_statistic);
+            if (Rate.lowerEq(fighter_.getRemainingHp(), Rate.multiply(statis_.getHpRate(), fighter_.pvMax()))) {
+                bonus_ += statis_.getBoost();
             }
         }
         return bonus_;
@@ -143,11 +136,8 @@ final class FightStatistic {
             if(partenaire_.estArriere()){
                 continue;
             }
-            if(!partenaire_.capaciteActive()){
-                continue;
-            }
             AbilityData fCapacite_=partenaire_.ficheCapaciteActuelle(_import);
-            if(fCapacite_.getMultStatAlly().contains(_statistic)){
+            if (fCapacite_ != null && fCapacite_.getMultStatAlly().contains(_statistic)) {
                 rate_.multiplyBy(fCapacite_.getMultStatAlly().getVal(_statistic));
             }
         }
@@ -166,10 +156,9 @@ final class FightStatistic {
                     continue;
                 }
                 EffectTeam effetEquipe_=(EffectTeam)effet_;
-                if(!effetEquipe_.getMultStatistic().contains(_statistic)){
-                    continue;
+                if (effetEquipe_.getMultStatistic().contains(_statistic)) {
+                    rate_.multiplyBy(effetEquipe_.getMultStatistic().getVal(_statistic));
                 }
-                rate_.multiplyBy(effetEquipe_.getMultStatistic().getVal(_statistic));
             }
         }
         return rate_;
@@ -187,10 +176,9 @@ final class FightStatistic {
                     continue;
                 }
                 EffectTeam effetEquipe_=(EffectTeam)effet_;
-                if(!effetEquipe_.getMultStatisticFoe().contains(_statistic)){
-                    continue;
+                if (effetEquipe_.getMultStatisticFoe().contains(_statistic)) {
+                    rate_.multiplyBy(effetEquipe_.getMultStatisticFoe().getVal(_statistic));
                 }
-                rate_.multiplyBy(effetEquipe_.getMultStatisticFoe().getVal(_statistic));
             }
         }
         return rate_;
@@ -211,21 +199,12 @@ final class FightStatistic {
                 continue;
             }
             Status statut_=_import.getStatus().getVal(c);
-            if(!statut_.getMultStat().contains(_statistic)){
-                continue;
-            }
-            if(!fighter_.capaciteActive()){
-                rate_.multiplyBy(statut_.getMultStat().getVal(_statistic));
-                continue;
-            }
-            AbilityData fCapac_=fighter_.ficheCapaciteActuelle(_import);
-            boolean immuBaisse_=false;
-            if(fCapac_.containsStatisticStatus(new StatisticStatus(_statistic,c))){
-                immuBaisse_=true;
-            }
-            Rate taux_=statut_.getMultStat().getVal(_statistic);
-            if(!immuBaisse_ || taux_.greaterThanOne()){
-                rate_.multiplyBy(taux_);
+            if (statut_.getMultStat().contains(_statistic)) {
+                AbilityData fCapac_ = fighter_.ficheCapaciteActuelle(_import);
+                Rate taux_ = statut_.getMultStat().getVal(_statistic);
+                if (fCapac_ == null || !fCapac_.containsStatisticStatus(new StatisticStatus(_statistic, c)) || taux_.greaterThanOne()) {
+                    rate_.multiplyBy(taux_);
+                }
             }
         }
         return rate_;

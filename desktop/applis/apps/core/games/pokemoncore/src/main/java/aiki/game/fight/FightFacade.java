@@ -2588,10 +2588,9 @@ public final class FightFacade {
 
     //visible to the project only
 
-    public static boolean canUseItsObject(Fight _fight, TeamPosition _cbt,DataBase _import){
-        return FightItems.canUseItsObject(_fight,_cbt, _import);
+    public static Item useItsObject(Fight _fight, TeamPosition _cbt,DataBase _import){
+        return FightItems.useItsObject(_fight, _cbt, _import);
     }
-
     public static Rate speed(Fight _fight, TeamPosition _cbt,DataBase _import){
         return FightOrder.speed(_fight, _cbt, _import);
     }

@@ -1296,6 +1296,9 @@ public final class Fighter {
         }
         //moves.contains(_attaque) && currentMoves.contains(_attaque)
         Item objet_=_import.getItem(_objet);
+        if (objet_ == null) {
+            return 0;
+        }
         if(objet_ instanceof HealingPp){
             HealingPp soinPp_=(HealingPp)objet_;
             if(soinPp_.getHealingMoveFullpp()||soinPp_.isHealingAllMovesPp()){
@@ -1475,10 +1478,10 @@ public final class Fighter {
     }
 
     void disableAllStatusByEnabledWeather(String _weather, DataBase _data) {
-        if (!capaciteActive()) {
+        AbilityData fCapac_ = ficheCapaciteActuelle(_data);
+        if (fCapac_ == null) {
             return;
         }
-        AbilityData fCapac_ = ficheCapaciteActuelle(_data);
         if (fCapac_.getImmuStatus().contains(_weather)) {
             for(String e:fCapac_.getImmuStatus().getVal(_weather)){
                 if(_data.getStatus(e).getStatusType() == StatusType.INDIVIDUEL){
@@ -1491,10 +1494,10 @@ public final class Fighter {
     }
 
     StringList getAddedTypesByEnabledWeather(String _weather, DataBase _data) {
-        if (!capaciteActive()) {
+        AbilityData fCapac_ = ficheCapaciteActuelle(_data);
+        if (fCapac_ == null) {
             return new StringList();
         }
-        AbilityData fCapac_ = ficheCapaciteActuelle(_data);
         if(!fCapac_.getChgtTypeByWeather().contains(_weather)){
             return new StringList();
         }
@@ -2228,18 +2231,14 @@ public final class Fighter {
         return currentGender==Gender.NO_GENDER;
     }
 
-    public boolean capaciteActive(){
-        return !currentAbility.isEmpty();
-    }
-
     boolean canDisableWeather(DataBase _import) {
         if(estArriere()){
             return false;
         }
-        if(!capaciteActive()){
+        AbilityData fCapac_=ficheCapaciteActuelle(_import);
+        if (fCapac_ == null) {
             return false;
         }
-        AbilityData fCapac_=ficheCapaciteActuelle(_import);
         if(!fCapac_.enabledSending()){
             return false;
         }
@@ -2279,6 +2278,31 @@ public final class Fighter {
             return true;
         }
         return !StringUtil.quickEq(usedMoveLastRound, _move);
+    }
+    public byte varPrio(TeamPosition _fighter, String _move, Fight _fight,DataBase _data) {
+        byte varPrio_=0;
+        MoveData fAtt_=_data.getMove(_move);
+        String categOne_ = fAtt_.getCategory();
+        AbilityData fCapac_=ficheCapaciteActuelle(_data);
+        if(fCapac_ != null){
+            if(fCapac_.getIncreasedPrio().contains(categOne_)){
+                varPrio_+=fCapac_.getIncreasedPrio().getVal(categOne_);
+            }
+            for (String type_: FightFacade.moveTypes(_fight, _fighter, _move, _data)) {
+                if (fCapac_.getIncreasedPrioTypes().contains(type_)) {
+                    varPrio_ += fCapac_.getIncreasedPrioTypes().getVal(type_);
+                }
+            }
+        }
+        return varPrio_;
+    }
+    public boolean isSlowing(DataBase _data) {
+        boolean slowOne_=false;
+        AbilityData fCapacOne_=ficheCapaciteActuelle(_data);
+        if(fCapacOne_ != null){
+            slowOne_=fCapacOne_.isSlowing();
+        }
+        return slowOne_;
     }
 
     public AbilityData ficheCapaciteActuelle(DataBase _import){

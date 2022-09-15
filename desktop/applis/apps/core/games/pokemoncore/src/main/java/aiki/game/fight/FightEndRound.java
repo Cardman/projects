@@ -732,8 +732,8 @@ final class FightEndRound {
                 boolean ko_ = true;
                 boolean soinCapacite_=false;
                 boolean soinType_=false;
-                if(creature_.capaciteActive()){
-                    AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+                AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+                if(fCapac_ != null){
                     if(StringUtil.contains(fCapac_.getImmuWeather(), _attaqueClimat)){
                         immu_=true;
                     }
@@ -789,7 +789,6 @@ final class FightEndRound {
                     varPv_.addNb(Rate.multiply(effetGl_.getHealingEndRoundGround(), creature_.pvMax()));
                 }
                 if(soinCapacite_){
-                    AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
                     varPv_.addNb(Rate.multiply(fCapac_.getHealHpByWeather().getVal(_attaqueClimat),creature_.pvMax()));
                 }
                 _fight.addAnimationHealthPoints(c, varPv_);
@@ -841,11 +840,9 @@ final class FightEndRound {
             }
         }
         boolean recoil_ = true;
-        if (creature_.capaciteActive()) {
-            AbilityData ability_ = creature_.ficheCapaciteActuelle(_import);
-            if (ability_.isImmuDamageRecoil()) {
-                recoil_ = false;
-            }
+        AbilityData ability_ = creature_.ficheCapaciteActuelle(_import);
+        if (ability_ != null && ability_.isImmuDamageRecoil()) {
+            recoil_ = false;
         }
         if (recoil_) {
             if(!_effet.getRecoilDamage().isZero()){
@@ -889,11 +886,9 @@ final class FightEndRound {
         for(TeamPosition c: FightOrder.targetsEffect(_fight,_combattant,_effet,_diff,_import)){
             Fighter creature_=_fight.getFighter(c);
             boolean immu_=false;
-            if(creature_.capaciteActive()){
-                AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-                if(StringUtil.contains(fCapac_.getImmuAbility(), creatureLanceur_.getCurrentAbility())){
-                    immu_=!FightAbilities.ignoreTargetAbility(_fight,_combattant,c,_import);
-                }
+            AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+            if (fCapac_ != null && StringUtil.contains(fCapac_.getImmuAbility(), creatureLanceur_.getCurrentAbility())) {
+                immu_ = !FightAbilities.ignoreTargetAbility(_fight, _combattant, c, _import);
             }
             if(immu_){
                 continue;
@@ -1026,14 +1021,12 @@ final class FightEndRound {
             }
             ActivityOfMove actifNbTour_=creatureLanceur_.getTrappingMoves().getVal(c);
             Fighter creatureCible_=_fight.getFighter(c.getTeamPosition());
-            if(creatureCible_.capaciteActive()){
-                AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
-                if(fCapac_.isImmuDamageTrappingMoves()){
-                    actifNbTour_.disable();
-                    actifNbTour_.reset();
-                    _fight.addDisabledMoveRelMessage(c.getTeamPosition(), _attaque, _combattant, _import);
-                    continue;
-                }
+            AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
+            if (fCapac_ != null && fCapac_.isImmuDamageTrappingMoves()) {
+                actifNbTour_.disable();
+                actifNbTour_.reset();
+                _fight.addDisabledMoveRelMessage(c.getTeamPosition(), _attaque, _combattant, _import);
+                continue;
             }
             if (!_effet.getFailEndRound().isEmpty()) {
                 StringMap<String> values_;
@@ -1193,8 +1186,9 @@ final class FightEndRound {
         if (effet_.isIncrementingDamageByRounds()) {
             taux_.multiplyBy(new Rate(nbRounds_));
         }
-        if (creature_.capaciteActive()) {
-            CustList<EffectEndRound> effs_ = creature_.ficheCapaciteActuelle(_import).getEffectEndRound();
+        AbilityData abLoc_ = creature_.ficheCapaciteActuelle(_import);
+        if (abLoc_ != null) {
+            CustList<EffectEndRound> effs_ = abLoc_.getEffectEndRound();
             if (!effs_.isEmpty() && effs_.first() instanceof EffectEndRoundIndividual) {
                 EffectEndRoundIndividual eff_;
                 eff_ = (EffectEndRoundIndividual) effs_.first();
@@ -1305,11 +1299,9 @@ final class FightEndRound {
                     }
                 }
             }
-            if(!FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import)){
-                AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-                if(fCapac_.isInflictingDamageInsteadOfSuffering()){
-                    tauxAbs_.multiplyBy(DataBase.defRateProduct().opposNb());
-                }
+            AbilityData fCapac_ = FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
+            if (fCapac_ != null && fCapac_.isInflictingDamageInsteadOfSuffering()) {
+                tauxAbs_.multiplyBy(DataBase.defRateProduct().opposNb());
             }
             Rate varPv_;
             Rate prod_ = Rate.multiply(tauxAbs_.absNb(), creature_.pvMax());

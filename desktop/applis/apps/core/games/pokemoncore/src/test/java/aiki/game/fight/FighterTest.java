@@ -3786,6 +3786,31 @@ public class FighterTest extends InitializationDataBase {
     }
 
     @Test
+    public void healedPpMove13Test() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PIKACHU);
+        pokemon_.setItem(PIERRALLEGEE);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DEMI_TOUR, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 15);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 12);
+        assertEq(0, fighter_.healedPpMove(POURSUITE, NULL_REF, data_));
+    }
+
+    @Test
     public void healPowerPoints1Test() {
         DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();

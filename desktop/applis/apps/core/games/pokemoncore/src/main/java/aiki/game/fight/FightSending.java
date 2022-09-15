@@ -129,9 +129,12 @@ final class FightSending {
             Item objet_=creatureCbt_.ficheObjet(_import);
             if(objet_ instanceof ItemForBattle){
                 ItemForBattle plaque_=(ItemForBattle)objet_;
-                if (!plaque_.getTypesPk().isEmpty() && creatureCbt_.capaciteActive() && creatureCbt_.ficheCapaciteActuelle(_import).isPlate()) {
-                    creatureCbt_.affecterTypes(plaque_.getTypesPk());
-                    _fight.addChangedTypesMessage(_cbtEnvoye, plaque_.getTypesPk(), _import);
+                if (!plaque_.getTypesPk().isEmpty()) {
+                    AbilityData ab_ = creatureCbt_.ficheCapaciteActuelle(_import);
+                    if (ab_ != null && ab_.isPlate()) {
+                        creatureCbt_.affecterTypes(plaque_.getTypesPk());
+                        _fight.addChangedTypesMessage(_cbtEnvoye, plaque_.getTypesPk(), _import);
+                    }
                 }
             }
         }
@@ -348,8 +351,8 @@ final class FightSending {
     static void withdrawal(Fight _fight, TeamPosition _cbtRetire,DataBase _import){
         Fighter creatureCbt_=_fight.getFighter(_cbtRetire);
         _fight.addWithdrawMessage(_cbtRetire, _import);
-        if(creatureCbt_.capaciteActive()){
-            AbilityData fCapacite_=creatureCbt_.ficheCapaciteActuelle(_import);
+        AbilityData fCapacite_=creatureCbt_.ficheCapaciteActuelle(_import);
+        if(fCapacite_ != null){
             if(fCapacite_.isHealedStatusBySwitch()){
                 for(String c:creatureCbt_.getStatusSet()){
                     creatureCbt_.supprimerStatut(c);
@@ -521,10 +524,10 @@ final class FightSending {
         }
     }
     static EffectWhileSendingWithStatistic sendingEff(Fighter _cr, DataBase _import) {
-        if(!_cr.capaciteActive()){
+        AbilityData fCapac_=_cr.ficheCapaciteActuelle(_import);
+        if (fCapac_ == null) {
             return null;
         }
-        AbilityData fCapac_=_cr.ficheCapaciteActuelle(_import);
         if (!fCapac_.enabledSending()) {
             return null;
         }

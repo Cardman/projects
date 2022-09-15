@@ -47,7 +47,6 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloUtil;
-import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
@@ -371,12 +370,10 @@ final class FightRound {
             }
         }
         MoveData fAttFinal_=_import.getMove(attaqueLanceur_);
-        if (creature_.capaciteActive()) {
-            AbilityData ab_ = creature_.ficheCapaciteActuelle(_import);
-            if (ab_.isCopyMovesTypes()) {
-                creature_.affecterTypes(fAttFinal_.getTypes());
-                _fight.addChangedTypesMessage(_lanceur, fAttFinal_.getTypes(), _import);
-            }
+        AbilityData ab_ = creature_.ficheCapaciteActuelle(_import);
+        if (ab_ != null && ab_.isCopyMovesTypes()) {
+            creature_.affecterTypes(fAttFinal_.getTypes());
+            _fight.addChangedTypesMessage(_lanceur, fAttFinal_.getTypes(), _import);
         }
         _fight.addMoveTypesMessage(_lanceur, FightMoves.moveTypes(_fight, _lanceur, attaqueLanceur_, _import), attaqueLanceur_, _import);
         int nbEffets_=fAttFinal_.nbEffets();
@@ -669,11 +666,9 @@ final class FightRound {
             }
         }
         //immu "paralysie totale"
-        if(creature_.capaciteActive()){
-            AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-            if(StringUtil.contains(fCapac_.getImmuStatusBeginRound(), _nomStatut)){
-                tirageGuerison_=true;
-            }
+        AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+        if (fCapac_ != null && StringUtil.contains(fCapac_.getImmuStatusBeginRound(), _nomStatut)) {
+            tirageGuerison_ = true;
         }
         boolean attaquer_=true;
         if(!tirageGuerison_&&!lawUseMove_.events().isEmpty()){
@@ -829,9 +824,8 @@ final class FightRound {
             return;
         }
         short ppSuppl_=0;
-        if(!FightAbilities.ignoreTargetAbility(_fight,_thrower,_target,_import)){
-            Fighter creatureCible_=_fight.getFighter(_target);
-            AbilityData fCapacCible_=creatureCible_.ficheCapaciteActuelle(_import);
+        AbilityData fCapacCible_ = FightAbilities.ignoredTargetAbility(_fight, _thrower, _target, _import);
+        if(fCapacCible_ != null){
             ppSuppl_+=fCapacCible_.getNbUsedPp();
         }
         if(StringUtil.quickEq(creature_.getFirstChosenMove(),_move)){
@@ -906,10 +900,10 @@ final class FightRound {
                 }
             }
         }
-        if(!creatureCible_.capaciteActive()){
+        AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
+        if(fCapac_ == null){
             return;
         }
-        AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
         for(Statistic c:fCapac_.getBoostStatRankProtected().getKeys()){
             byte boost_=fCapac_.getBoostStatRankProtected().getVal(c);
             byte delta_ = FightEffects.deltaBoostStatistic(_fight,_target,c,boost_,_import);
@@ -992,8 +986,8 @@ final class FightRound {
             break;
         }
         boolean sansEchec_=false;
-        if(FightItems.canUseItsBerry(_fight,_thrower,_import)){
-            Berry baie_=(Berry)creature_.ficheObjet(_import);
+        Berry baie_ = FightItems.useItsBerry(_fight, _thrower, _import);
+        if(baie_ != null){
             sansEchec_=baie_.getWithoutFail();
         }
         Rate precision_= FightSuccess.accuracy(_fight,_thrower,_target,_move,_import);
@@ -1064,8 +1058,8 @@ final class FightRound {
             }
         }
         if (!creature_.estKo()) {
-            if(creature_.capaciteActive()){
-                AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+            AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
+            if(fCapac_ != null){
                 for(Statistic c:fCapac_.getBoostStatRankEndRound().getKeys()){
                     byte boost_=fCapac_.getBoostStatRankEndRound().getVal(c);
                     byte delta_ = FightEffects.deltaBoostStatistic(_fight,_lanceur,c,boost_,_import);

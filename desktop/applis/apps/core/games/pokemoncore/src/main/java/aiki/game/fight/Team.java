@@ -567,12 +567,10 @@ public final class Team {
         boolean cancelUsingItems_ = false;
         for (byte f_: members.getKeys()) {
             Fighter fighter_= refPartMembres(f_);
-            if (!fighter_.estArriere() && fighter_.capaciteActive()) {
-                AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
-                if (ab_.isGiveItemToAllyHavingUsed()) {
-                    cancelUsingItems_ = true;
-                    break;
-                }
+            AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
+            if (!fighter_.estArriere() && ab_ != null && ab_.isGiveItemToAllyHavingUsed()) {
+                cancelUsingItems_ = true;
+                break;
             }
         }
         StringMap<String> mess_ = _import.getMessagesTeam();

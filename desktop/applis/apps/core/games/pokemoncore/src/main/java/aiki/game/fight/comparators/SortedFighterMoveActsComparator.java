@@ -1,6 +1,5 @@
 package aiki.game.fight.comparators;
 import aiki.db.DataBase;
-import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.MoveData;
@@ -17,11 +16,11 @@ import code.util.ints.Comparing;
 public final class SortedFighterMoveActsComparator implements
         Comparing<TeamPosition> {
 
-    private Fight fight;
+    private final Fight fight;
 
-    private DataBase data;
+    private final DataBase data;
 
-    private boolean revertedSpeed;
+    private final boolean revertedSpeed;
 
     public SortedFighterMoveActsComparator(Fight _fight, DataBase _data,
             boolean _revertedSpeed) {
@@ -34,60 +33,20 @@ public final class SortedFighterMoveActsComparator implements
     public int compare(TeamPosition _fighterOne, TeamPosition _fighterTwo) {
         Fighter fighterOne_=fight.getFighter(_fighterOne);
         String moveOne_=fighterOne_.getFinalChosenMove();
-        boolean slowOne_=false;
-        boolean canAttackLastOne_=false;
-        byte varPrioOne_=0;
+        boolean slowOne_=fighterOne_.isSlowing(data);
+        byte varPrioOne_= fighterOne_.varPrio(_fighterOne,moveOne_,fight,data);
         MoveData fAtt_=data.getMove(moveOne_);
         byte prioOne_ = fAtt_.getPriority();
-        String categOne_ = fAtt_.getCategory();
-        if(fighterOne_.capaciteActive()){
-            AbilityData fCapac_=fighterOne_.ficheCapaciteActuelle(data);
-            slowOne_=fCapac_.isSlowing();
-            if(fCapac_.getIncreasedPrio().contains(categOne_)){
-                varPrioOne_+=fCapac_.getIncreasedPrio().getVal(categOne_);
-            }
-            for (String type_: FightFacade.moveTypes(fight, _fighterOne, moveOne_, data)) {
-                if (fCapac_.getIncreasedPrioTypes().contains(type_)) {
-                    varPrioOne_ += fCapac_.getIncreasedPrioTypes().getVal(type_);
-                }
-            }
-        }
-        if(FightFacade.canUseItsObject(fight,_fighterOne,data)){
-            String it_ = fighterOne_.getItem();
-            Item objet_=data.getItem(it_);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                canAttackLastOne_=objetAttachable_.getAttackLast();
-            }
-        }
+        Item it1_ = FightFacade.useItsObject(fight, _fighterOne, data);
+        boolean canAttackLastOne_ = it1_ instanceof ItemForBattle && ((ItemForBattle) it1_).getAttackLast();
         Fighter fighterTwo_=fight.getFighter(_fighterTwo);
         String moveTwo_=fighterTwo_.getFinalChosenMove();
-        boolean slowTwo_=false;
-        boolean canAttackLastTwo_=false;
-        byte varPrioTwo_=0;
+        boolean slowTwo_=fighterTwo_.isSlowing(data);
+        byte varPrioTwo_=fighterTwo_.varPrio(_fighterTwo,moveTwo_,fight,data);
         fAtt_=data.getMove(moveTwo_);
         byte prioTwo_ = fAtt_.getPriority();
-        String categTwo_ = fAtt_.getCategory();
-        if(fighterTwo_.capaciteActive()){
-            AbilityData fCapac_=fighterTwo_.ficheCapaciteActuelle(data);
-            slowTwo_=fCapac_.isSlowing();
-            if(fCapac_.getIncreasedPrio().contains(categTwo_)){
-                varPrioTwo_+=fCapac_.getIncreasedPrio().getVal(categTwo_);
-            }
-            for (String type_: FightFacade.moveTypes(fight, _fighterTwo, moveTwo_, data)) {
-                if (fCapac_.getIncreasedPrioTypes().contains(type_)) {
-                    varPrioTwo_ += fCapac_.getIncreasedPrioTypes().getVal(type_);
-                }
-            }
-        }
-        if(FightFacade.canUseItsObject(fight,_fighterTwo,data)){
-            String it_ = fighterTwo_.getItem();
-            Item objet_=data.getItem(it_);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                canAttackLastTwo_=objetAttachable_.getAttackLast();
-            }
-        }
+        Item it2_ = FightFacade.useItsObject(fight, _fighterTwo, data);
+        boolean canAttackLastTwo_ = it2_ instanceof ItemForBattle && ((ItemForBattle) it2_).getAttackLast();
         boolean permuter_=false;
 
         prioOne_+=varPrioOne_;
