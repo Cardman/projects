@@ -726,8 +726,7 @@ final class FightEndRound {
         boolean puttingKo_ = _effetGl.getPuttingKo();
         for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
             Fighter creature_= _fight.getFighter(c);
-            boolean noImm_ = notImmuKo(_attaqueClimat, _import, creature_);
-            if (puttingKo_ && Rate.greaterEq(new Rate(_fight.getEnabledMoves().getVal(_attaqueClimat).getNbTurn()), _import.getMove(_attaqueClimat).getRepeatRoundLaw().maximum()) && noImm_) {
+            if (puttingKo_ && Rate.greaterEq(new Rate(_fight.getEnabledMoves().getVal(_attaqueClimat).getNbTurn()), _import.getMove(_attaqueClimat).getRepeatRoundLaw().maximum()) && notImmuKo(_attaqueClimat, _import, creature_)) {
                 if (exitWhenKo(_fight, c, _import, _diff)) {
                     return true;
                 }
