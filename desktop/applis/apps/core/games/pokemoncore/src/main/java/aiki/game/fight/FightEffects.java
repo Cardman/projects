@@ -835,25 +835,12 @@ final class FightEffects {
                 _lanceur, _cible,
                 coupCritique_, nbCoupsTotal_,
                 _attaqueLanceur, _import);
-        AbilityData capaciteActiveLanceur_ = capaciteActiveLanceur(_fight, _lanceur, _cible, _import, _creatureCible);
         //puanteur + //statut au contact de la part du lanceur (capacite ou objet cible)
-        if(capaciteActiveLanceur_ != null){
-            enableFighterHavingToUseAbility(
-                    _fight,
-                    _lanceur,capaciteActiveLanceur_, _cible,
-                    capaciteActiveCible_,
-                    _attaqueLanceur, _import);
-        }
-    }
-
-    private static AbilityData capaciteActiveLanceur(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, Fighter _creatureCible) {
-        AbilityData capaciteActiveLanceur_;
-        if(_creatureCible.estKo()){
-            capaciteActiveLanceur_=null;
-        }else{
-            capaciteActiveLanceur_= FightAbilities.ignoredTargetAbility(_fight, _cible, _lanceur, _import);
-        }
-        return capaciteActiveLanceur_;
+        enableFighterHavingToUseAbility(
+                _fight,
+                _lanceur, _cible,
+                capaciteActiveCible_,
+                _attaqueLanceur, _import);
     }
 
     static AbilityData capaciteActiveCible(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, Fighter _creatureCible) {
@@ -1888,15 +1875,16 @@ final class FightEffects {
 
     static void enableFighterHavingToUseAbility(
             Fight _fight,
-            TeamPosition _lanceur, AbilityData _capaciteActiveLanceur, TeamPosition _cible,
+            TeamPosition _lanceur, TeamPosition _cible,
             AbilityData _enabledTargetAbility,
             String _attaqueLanceur, DataBase _import) {
-        Fighter creatureCible_=_fight.getFighter(_cible);
-        if (_capaciteActiveLanceur == null) {
+        AbilityData capaciteActiveLanceur_ = FightAbilities.ignoredTargetAbility(_fight, _cible, _lanceur, _import);
+        if (capaciteActiveLanceur_ == null) {
             return;
         }
+        Fighter creatureCible_=_fight.getFighter(_cible);
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
-        if (_capaciteActiveLanceur.isTakeItemByDamagingMove() && !creatureLanceur_.possedeObjet()) {
+        if (capaciteActiveLanceur_.isTakeItemByDamagingMove() && !creatureLanceur_.possedeObjet()) {
             creatureLanceur_.backUpObject(creatureCible_.getItem());
             _fight.addSwitchItemsMessage(_lanceur, DataBase.EMPTY_STRING, creatureCible_.getItem(), _import);
             _fight.addSwitchItemsMessage(_cible, creatureCible_.getItem(), DataBase.EMPTY_STRING, _import);
@@ -1905,18 +1893,18 @@ final class FightEffects {
         if (creatureCible_.estKo()) {
             return;
         }
-        lowStatFoeHit(_fight, _lanceur, _cible, _import, creatureCible_, _capaciteActiveLanceur);
+        lowStatFoeHit(_fight, _lanceur, _cible, _import, creatureCible_, capaciteActiveLanceur_);
         DamagingMoveData fAttaqueLanceur_ = (DamagingMoveData) _import.getMove(_attaqueLanceur);
-        if(!_capaciteActiveLanceur.getSingleStatus().events().isEmpty()&&fAttaqueLanceur_.isDirect()){
-            MonteCarloString loi_=_capaciteActiveLanceur.getSingleStatus();
+        if(!capaciteActiveLanceur_.getSingleStatus().events().isEmpty()&&fAttaqueLanceur_.isDirect()){
+            MonteCarloString loi_=capaciteActiveLanceur_.getSingleStatus();
             _fight.getSufferingTargetStatus().clear();
             _fight.addEffectStatus(_lanceur, _cible);
-            processStatusLaw(_fight,_lanceur,_cible,loi_,_capaciteActiveLanceur.getFailStatus(),_import);
+            processStatusLaw(_fight,_lanceur,_cible,loi_,capaciteActiveLanceur_.getFailStatus(),_import);
             if(!_fight.getSufferingTargetStatus().isEmpty()){
                 synchronizeStatusDamage(_fight, _lanceur, _cible, _import, creatureCible_);
             }
         }
-        if (_capaciteActiveLanceur.isMumy() && fAttaqueLanceur_.isDirect() && (_enabledTargetAbility == null || !_enabledTargetAbility.isPlate())) {
+        if (capaciteActiveLanceur_.isMumy() && fAttaqueLanceur_.isDirect() && (_enabledTargetAbility == null || !_enabledTargetAbility.isPlate())) {
             FightAbilities.disableAbility(_fight, _cible, creatureLanceur_.getCurrentAbility(), _import);
             FightAbilities.enableAbility(_fight, _cible, _import);
         }

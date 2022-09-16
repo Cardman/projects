@@ -1425,9 +1425,12 @@ public final class Fighter {
     }
 
     void invokeMove(){
+        invokeMove(alreadyInvokedMovesRound.last());
+    }
+    void invokeMove(String _move){
         //action instanceof ActionMove
-        ((ActionMove)action).setFinalChosenMove(alreadyInvokedMovesRound.last());
-        lastUsedMove = alreadyInvokedMovesRound.last();
+        ((ActionMove)action).setFinalChosenMove(_move);
+        lastUsedMove = _move;
     }
 
     void successUsingMove(){

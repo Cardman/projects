@@ -8,7 +8,6 @@ import aiki.fight.moves.effects.EffectInvoke;
 import aiki.game.params.Difficulty;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -28,15 +27,16 @@ final class FightInvoke {
         _fight.getSuccessfulEffects().clear();
         creature_.ajouterAttaquesDejaInvoqueesTour(creature_.getFinalChosenMove());
         creature_.setLastUsedMove(creature_.getFinalChosenMove());
+        StringList invoked_ = new StringList();
         while(true){
             String attaqueInvoque_=creature_.getFinalChosenMove();
             if (!StringUtil.contains(_import.getMovesInvoking(), attaqueInvoque_)) {
                 _fight.addFirstMoveMessage(_lanceur, attaqueInvoque_, _import);
-                break;
+                return;
             }
             _fight.addInvokeMoveMessage(_lanceur, attaqueInvoque_, _import);
             MoveData fAttInvoque_=_import.getMove(attaqueInvoque_);
-            boolean invoquer_=false;
+            String invoquer_="";
             EffectInvoke effet_=(EffectInvoke) fAttInvoque_.getEffet(IndexConstants.FIRST_INDEX);
             CustList<TeamPosition> targets_ = FightOrder.targetsEffect(_fight, _lanceur, effet_, _diff, _import);
             if (!targets_.isEmpty()) {
@@ -44,38 +44,53 @@ final class FightInvoke {
                 _fight.setSending(false);
                 if(FightSuccess.successfulMove(_fight,_lanceur,e_,attaqueInvoque_, IndexConstants.FIRST_INDEX,true,_import).isSuccessful()){
                     //debugger la chaine d'invocation d'attaques
-                    effectInvoke(_fight,_lanceur,e_,effet_,_import);
+                    invoquer_ = effectInvoke(_fight,_lanceur,e_,effet_,_import,invoked_);
                     if(!_fight.getAcceptableChoices()){
                         return;
                     }
-                    invoquer_=true;
                 }
             }
-            if(!invoquer_){
+            if(invoquer_.isEmpty()){
                 _fight.addInvokeMoveFailMessage(attaqueInvoque_, _import);
                 _fight.setSuccessfulInvokation(false);
-                break;
+                return;
             }
             _fight.setInvokedMove(true);
-            creature_.invokeMove();
+            creature_.invokeMove(invoquer_);
+            invoked_.add(invoquer_);
         }
     }
 
-    static void effectInvoke(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectInvoke _effet,DataBase _import){
+    static void effectInvoke(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, EffectInvoke _effet, DataBase _import){
+        Fighter creatureLanceur_=_fight.getFighter(_lanceur);
+        effectInvoke(_fight, _lanceur, _cible, _effet, _import, creatureLanceur_.getAlreadyInvokedMovesRound());
+    }
+    static String effectInvoke(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectInvoke _effet,DataBase _import, StringList _visited){
         Fighter creatureLanceur_ = _fight.getFighter(_lanceur);
-        StringList attaquesInvocables_=invokableMoves(_fight,_lanceur,_cible,_effet,_import);
+        StringList attaquesInvocables_=invokableMoves(_fight,_lanceur,_cible,_effet,_import,_visited);
         MonteCarloString loi_ = new MonteCarloString();
         for(String e:attaquesInvocables_){
             loi_.addQuickEvent(e,DataBase.defElementaryEvent());
         }
-        if (FightSuccess.isBadSimulation(_fight, loi_)) {
-            return;
+        String obj_ = invoked(_fight,_import,loi_);
+        if (obj_.isEmpty()) {
+            return "";
         }
-        String obj_ = FightSuccess.random(_import, loi_);
         creatureLanceur_.ajouterAttaquesDejaInvoqueesTour(obj_);
+        return obj_;
+    }
+    private static String invoked(Fight _fight,DataBase _import,MonteCarloString _loi) {
+        if (FightSuccess.isBadSimulation(_fight, _loi)) {
+            return "";
+        }
+        return FightSuccess.random(_import, _loi);
     }
 
     static StringList invokableMoves(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectInvoke _effet,DataBase _import){
+        Fighter creatureLanceur_=_fight.getFighter(_lanceur);
+        return invokableMoves(_fight, _lanceur, _cible, _effet, _import,creatureLanceur_.getAlreadyInvokedMovesRound());
+    }
+    static StringList invokableMoves(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectInvoke _effet,DataBase _import, StringList _visited){
         Team equipeLanceur_=_fight.getTeams().getVal(_lanceur.getTeam());
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
         Fighter creatureCible_=_fight.getFighter(_cible);
@@ -95,10 +110,8 @@ final class FightInvoke {
                 }
             }
         }
-        if (attaquesInvocables_.isEmpty()) {
-            if(_effet.getMoveFctEnv().contains(_fight.getEnvType())){
-                attaquesInvocables_.add(_effet.getMoveFctEnv().getVal(_fight.getEnvType()));
-            }
+        if (attaquesInvocables_.isEmpty() && _effet.getMoveFctEnv().contains(_fight.getEnvType())) {
+            attaquesInvocables_.add(_effet.getMoveFctEnv().getVal(_fight.getEnvType()));
         }
         if(_effet.getInvokingMoveButUser()){
             attaquesInvocables_.addAllElts(_import.getMoves().getKeys());
@@ -106,49 +119,49 @@ final class FightInvoke {
                 attaquesInvocables_.removeString(c);
             }
         }
-        if(_effet.getInvokingTargetChosenMove()){
-            if(!creatureCible_.getFinalChosenMove().isEmpty()){
-                attaquesInvocables_.add(creatureCible_.getFinalChosenMove());
-            }
-        }
+        invokeCondition(creatureCible_.getFinalChosenMove(), attaquesInvocables_, _effet.getInvokingTargetChosenMove());
         if(_effet.getInvokingUserMoveWhileSleep()){
             attaquesInvocables_.addAllElts(creatureLanceur_.attaquesUtilisables());
         }
-        if(_effet.getInvokingTargetSuccesfulMove()){
-            if(!creatureCible_.getLastSuccessfulMove().isEmpty()){
-                attaquesInvocables_.add(creatureCible_.getLastSuccessfulMove());
-            }
+        invokeCondition(creatureCible_.getLastSuccessfulMove(), attaquesInvocables_, _effet.getInvokingTargetSuccesfulMove());
+        invokeCondition(derniereAttaqueSubie_, attaquesInvocables_, _effet.getInvokingSufferedMove());
+        invokingAllyMove(_lanceur, _effet, equipeLanceur_, attaquesInvocables_);
+        invokingMoveByUserTypes(_effet, creatureLanceur_, attaquesInvocables_);
+        attaquesInvocables_.removeDuplicates();
+        StringUtil.removeAllElements(attaquesInvocables_, _effet.getMovesNotToBeInvoked());
+        StringUtil.removeAllElements(attaquesInvocables_, _visited);
+        return attaquesInvocables_;
+    }
+
+    private static void invokeCondition(String _move, StringList _attaquesInvocables, boolean _condition) {
+        if (_condition && !_move.isEmpty()) {
+            _attaquesInvocables.add(_move);
         }
-        if(_effet.getInvokingSufferedMove()){
-            if(!derniereAttaqueSubie_.isEmpty()){
-                attaquesInvocables_.add(derniereAttaqueSubie_);
-            }
-        }
+    }
+
+    private static void invokingAllyMove(TeamPosition _lanceur, EffectInvoke _effet, Team _equipeLanceur, StringList _attaquesInvocables) {
         if(_effet.getInvokingAllyMove()){
-            for(byte c:equipeLanceur_.getMembers().getKeys()){
+            for(byte c: _equipeLanceur.getMembers().getKeys()){
                 if(NumberUtil.eq(c,_lanceur.getPosition())){
                     continue;
                 }
-                Fighter partenaire_=equipeLanceur_.getMembers().getVal(c);
-                attaquesInvocables_.addAllElts(partenaire_.attaquesUtilisables());
+                Fighter partenaire_= _equipeLanceur.getMembers().getVal(c);
+                _attaquesInvocables.addAllElts(partenaire_.attaquesUtilisables());
             }
         }
+    }
+
+    private static void invokingMoveByUserTypes(EffectInvoke _effet, Fighter _creatureLanceur, StringList _attaquesInvocables) {
         boolean contenu_=false;
-        for(String e:creatureLanceur_.getTypes()){
+        for(String e: _creatureLanceur.getTypes()){
             if(_effet.getInvokingMoveByUserTypes().contains(e)){
-                attaquesInvocables_.add(_effet.getInvokingMoveByUserTypes().getVal(e));
+                _attaquesInvocables.add(_effet.getInvokingMoveByUserTypes().getVal(e));
                 contenu_=true;
             }
         }
-        if(!contenu_){
-            if(_effet.getInvokingMoveByUserTypes().contains(DataBase.EMPTY_STRING)){
-                attaquesInvocables_.add(_effet.getInvokingMoveByUserTypes().getVal(DataBase.EMPTY_STRING));
-            }
+        if (!contenu_ && _effet.getInvokingMoveByUserTypes().contains(DataBase.EMPTY_STRING)) {
+            _attaquesInvocables.add(_effet.getInvokingMoveByUserTypes().getVal(DataBase.EMPTY_STRING));
         }
-        attaquesInvocables_.removeDuplicates();
-        StringUtil.removeAllElements(attaquesInvocables_, _effet.getMovesNotToBeInvoked());
-        StringUtil.removeAllElements(attaquesInvocables_, creatureLanceur_.getAlreadyInvokedMovesRound());
-        return attaquesInvocables_;
     }
 
     static StringList copiableMoves(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectCopyMove _effet,DataBase _import){

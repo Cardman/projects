@@ -3552,7 +3552,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
-        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, fight_.getFighter(thrower_).ficheCapaciteActuelle(data_), target_, null, ROULADE, data_);
+        FightEffects.enableFighterHavingToUseAbility(fight_, thrower_, target_, null, ROULADE, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(TERA_VOLTAGE, fighter_.getCurrentAbility());
     }
@@ -5585,7 +5585,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     }
 
     private void enableFighterHavingToUseAbilityEn(DataBase _data, Fight _fight, TeamPosition _thrower, TeamPosition _target, String _move) {
-        FightEffects.enableFighterHavingToUseAbility(_fight, _thrower, _fight.getFighter(_thrower).ficheCapaciteActuelle(_data), _target, _fight.getFighter(_target).ficheCapaciteActuelle(_data), _move, _data);
+        FightEffects.enableFighterHavingToUseAbility(_fight, _thrower, _target, _fight.getFighter(_target).ficheCapaciteActuelle(_data), _move, _data);
     }
 
     private void enableTargetAbility(Fight _fight, TeamPosition _thrower, TeamPosition _target, boolean _criticalHit, int _x, String _move, DataBase _data) {

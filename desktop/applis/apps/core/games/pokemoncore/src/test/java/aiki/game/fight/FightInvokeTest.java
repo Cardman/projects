@@ -19,7 +19,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -97,7 +96,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(FORCE_NATURE);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, SEISME));
     }
@@ -114,7 +113,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(MOI_D_ABORD);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, IMPLORE));
     }
@@ -130,7 +129,7 @@ public class FightInvokeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setLastSufferedMove(IMPLORE);
         MoveData move_ = data_.getMove(MIMIQUE);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, IMPLORE));
     }
@@ -145,7 +144,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(MOI_D_ABORD);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(0, list_.size());
     }
 
@@ -159,7 +158,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(BLABLA_DODO);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(2, list_.size());
         assertTrue(StringUtil.contains(list_, GLAS_DE_SOIN));
         assertTrue(StringUtil.contains(list_, INTERVERSION));
@@ -178,7 +177,7 @@ public class FightInvokeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).successUsingMove();
         MoveData move_ = data_.getMove(PHOTOCOPIE);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, IMPLORE));
     }
@@ -193,7 +192,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(PHOTOCOPIE);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(0, list_.size());
     }
 
@@ -207,7 +206,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(MIMIQUE);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(0, list_.size());
     }
 
@@ -222,7 +221,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(MALEDICTION);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, BUEE_NOIRE));
     }
@@ -238,7 +237,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(MALEDICTION);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, MALEDICTION_2));
     }
@@ -253,7 +252,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(ASSISTANCE);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(3, list_.size());
         assertTrue(StringUtil.contains(list_, BROUHAHA));
         assertTrue(StringUtil.contains(list_, GLAS_DE_SOIN));
@@ -270,7 +269,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(METRONOME);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(252, list_.size());
         assertTrue(StringUtil.contains(list_, ABIME));
         assertTrue(StringUtil.contains(list_, ACUPRESSION));
@@ -537,7 +536,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         MoveData move_ = data_.getMove(FORCE_NATURE);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
-        StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, data_);
+        StringList list_ = invokableMoves(fight_, eff_, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, TOUR_RAPIDE));
     }
@@ -606,7 +605,7 @@ public class FightInvokeTest extends InitializationDataBase {
         TeamPositionList list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ZERO,effet_,diff_,data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        assertEq(1, FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, effet_, data_).size());
+        assertEq(1, invokableMoves(fight_, effet_, data_).size());
         assertTrue(FightSuccess.successfulMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO,MIMIQUE, IndexConstants.FIRST_INDEX,true,data_).isSuccessful());
         FightInvoke.effectInvoke(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO, effet_, data_);
         StringList invokedMoves_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAlreadyInvokedMovesRound();
@@ -685,7 +684,7 @@ public class FightInvokeTest extends InitializationDataBase {
         TeamPositionList list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ZERO,effet_,diff_,data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        assertEq(253, FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, effet_, data_).size());
+        assertEq(253, invokableMoves(fight_, effet_, data_).size());
         assertTrue(FightSuccess.successfulMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO,METRONOME, IndexConstants.FIRST_INDEX,true,data_).isSuccessful());
         FightInvoke.effectInvoke(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO, effet_, data_);
         StringList invokedMoves_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAlreadyInvokedMovesRound();
@@ -848,4 +847,9 @@ public class FightInvokeTest extends InitializationDataBase {
         assertTrue(fight_.isSuccessfulInvokation());
         assertTrue(!fight_.getAcceptableChoices());
     }
+
+    private StringList invokableMoves(Fight _fight, EffectInvoke _eff, DataBase _data) {
+        return FightInvoke.invokableMoves(_fight, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _eff, _data);
+    }
+
 }
