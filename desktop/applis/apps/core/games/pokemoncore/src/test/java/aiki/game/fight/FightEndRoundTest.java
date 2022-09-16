@@ -44,60 +44,6 @@ import code.util.StringMap;
 
 public class FightEndRoundTest extends InitializationDataBase {
 
-    private static Fight processActivity(
-            CustList<LevelMoves> _userMoves,
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        for (int i = IndexConstants.FIRST_INDEX; i < _userMoves.size(); i++) {
-            Pokemon pokemon_ = new WildPk();
-            pokemon_.setName(ARTIKODIN);
-            pokemon_.setItem(PLAQUE_DRACO);
-            pokemon_.setAbility(METEO);
-            pokemon_.setGender(Gender.NO_GENDER);
-            pokemon_.setLevel(_userMoves.get(i).getFirst());
-            PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, _userMoves.get(i).getMovesPp());
-            lasPk_.initIv(_diff);
-            lasPk_.initPvRestants(_data);
-            player_.getTeam().add(lasPk_);
-        }
-        DualFight dual_ = new DualFight();
-        Ally ally_ = new Ally();
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-            PkTrainer allyPokemon_ = new PkTrainer();
-            allyPokemon_.setName(TARTARD);
-            allyPokemon_.setItem(PLAQUE_DRACO);
-            allyPokemon_.setAbility(MULTITYPE);
-            allyPokemon_.setGender(Gender.NO_GENDER);
-            allyPokemon_.setLevel(_partnerMoves.get(i).getFirst());
-            allyPokemon_.setMoves(_partnerMoves.get(i).getSecond());
-            allyTeam_.add(allyPokemon_);
-        }
-        ally_.setTeam(allyTeam_);
-        dual_.setAlly(ally_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = new PkTrainer();
-            foePokemon_.setName(TARTARD);
-            foePokemon_.setItem(PLAQUE_DRACO);
-            foePokemon_.setAbility(MULTITYPE);
-            foePokemon_.setGender(Gender.NO_GENDER);
-            foePokemon_.setLevel(_foeMoves.get(i).getFirst());
-            foePokemon_.setMoves(_foeMoves.get(i).getSecond());
-            foeTeam_.add(foePokemon_);
-        }
-        TempTrainer trainer_ = new TempTrainer();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        dual_.setFoeTrainer(trainer_);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
     @Test
     public void processActivity1Test() {
         DataBase data_ = initDb();
@@ -107,16 +53,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMoves().getVal(EMBARGO);
         fight_.setCurrentActivity(activity_);
@@ -135,16 +72,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMoves().getVal(EMBARGO);
         activity_.enable();
@@ -165,16 +93,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesEndRound().getVal(ANNEAU_HYDRO);
         activity_.enable();
@@ -195,16 +114,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(RACINES);
         activity_.enable();
@@ -225,16 +135,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueImmu(VOL_MAGNETIK, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesProt().getVal(VOL_MAGNETIK);
@@ -257,16 +158,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueImmu(VOL_MAGNETIK, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesProt().getVal(VOL_MAGNETIK);
@@ -293,16 +185,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueImmu(TROU, data_);
         fight_.getFighter(thrower_).activerAttaqueAntiImmu(RACINES);
@@ -336,16 +219,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueBlocantLanceur(ROULADE);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesConstChoices().getVal(ROULADE);
@@ -365,16 +239,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getFighter(thrower_).enableCounteringMoves(NUEE_DE_POUDRE);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledCounteringMoves().getVal(NUEE_DE_POUDRE);
@@ -394,16 +259,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getFighter(thrower_).enableChangingMovesTypes(ELECTRISATION);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledChangingTypesMoves().getVal(ELECTRISATION);
@@ -423,16 +279,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
         affected_.setMove(SEISME);
@@ -458,16 +305,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
         affected_.setMove(SEISME);
@@ -494,16 +332,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
         affected_.setMove(SEISME);
@@ -530,16 +359,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(DANSE_PLUIE);
         FightEndRound.incrementNumberRounds(fight_, POKEMON_PLAYER_FIGHTER_ZERO, DANSE_PLUIE, data_);
         assertEq(0, fight_.getEnabledMoves().getVal(DANSE_PLUIE).getNbTurn());
@@ -554,16 +374,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         FightEndRound.incrementNumberRounds(fight_, thrower_, EMBARGO, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMoves().getVal(EMBARGO);
@@ -581,16 +392,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMoves().getVal(EMBARGO);
         activity_.enable();
@@ -610,16 +412,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesEndRound().getVal(ANNEAU_HYDRO);
         activity_.enable();
@@ -639,16 +432,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(RACINES);
         activity_.enable();
@@ -668,16 +452,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueImmu(VOL_MAGNETIK, data_);
         FightEndRound.incrementNumberRounds(fight_, thrower_, VOL_MAGNETIK, data_);
@@ -699,16 +474,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueImmu(VOL_MAGNETIK, data_);
         FightEndRound.incrementNumberRounds(fight_, thrower_, VOL_MAGNETIK, data_);
@@ -734,16 +500,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueImmu(TROU, data_);
         fight_.getFighter(thrower_).activerAttaqueAntiImmu(RACINES);
@@ -775,16 +532,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueBlocantLanceur(ROULADE);
         FightEndRound.incrementNumberRounds(fight_, thrower_, ROULADE, data_);
@@ -803,16 +551,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getFighter(thrower_).enableCounteringMoves(NUEE_DE_POUDRE);
         FightEndRound.incrementNumberRounds(fight_, thrower_, NUEE_DE_POUDRE, data_);
@@ -831,16 +570,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getFighter(thrower_).enableChangingMovesTypes(ELECTRISATION);
         FightEndRound.incrementNumberRounds(fight_, thrower_, ELECTRISATION, data_);
@@ -859,16 +589,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
         affected_.setMove(SEISME);
@@ -893,16 +614,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueBlocantLanceur(ROULADE);
@@ -922,16 +634,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueAntiImmu(ANTI_CROISEUR);
@@ -955,16 +658,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getFighter(thrower_).activerAttaqueAntiImmu(ANTI_CROISEUR);
@@ -988,16 +682,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(DANSE_PLUIE);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, DANSE_PLUIE, data_);
         assertEq(0, fight_.getEnabledMoves().getVal(DANSE_PLUIE).getNbTurn());
@@ -1012,16 +697,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, BRUME, data_);
         ActivityOfMove activity_ = fight_.getUserTeam().getEnabledMoves().getVal(BRUME);
         assertEq(0, activity_.getNbTurn());
@@ -1038,16 +714,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(BRUME);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, BRUME, data_);
         ActivityOfMove activity_ = fight_.getUserTeam().getEnabledMoves().getVal(BRUME);
@@ -1065,16 +732,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(BRUME);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, BRUME, data_);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, BRUME, data_);
@@ -1098,16 +756,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) 5);
         TeamPosition teamPosition_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -1129,16 +778,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) 5);
         TeamPosition teamPosition_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -1160,16 +800,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) 5);
         TeamPosition teamPosition_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -1191,16 +822,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) 8);
         TeamPosition teamPosition_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -1222,16 +844,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, MUR_LUMIERE, data_);
@@ -1250,16 +863,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         fight_.getUserTeam().activerEffetEquipe(VENT_ARRIERE_BIS);
         fight_.getUserTeam().getEnabledMoves().getVal(VENT_ARRIERE_BIS).increment();
@@ -1280,16 +884,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         fight_.getFoeTeam().activerEffetEquipe(VENT_ARRIERE_BIS);
         fight_.getFoeTeam().getEnabledMoves().getVal(VENT_ARRIERE_BIS).increment();
@@ -1310,16 +905,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         FightEndRound.incrementNumberRoundsTeamComboMoves(fight_, Fight.CST_PLAYER, movesGroup_, data_);
         ActivityOfMove activity_ = fight_.getUserTeam().getEnabledMovesByGroup().getVal(movesGroup_);
@@ -1337,16 +923,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_D_HERBE);
@@ -1366,16 +943,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_D_HERBE);
@@ -1397,16 +965,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
@@ -1427,16 +986,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_EAU);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
@@ -1459,16 +1009,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_EAU);
         fight_.getFoeTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
@@ -1491,16 +1032,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(BRUME);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
         FightEndRound.incrementNumberRoundsGlobal(fight_, BRUME, data_);
@@ -1518,16 +1050,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         FightEndRound.incrementNumberRoundsGlobal(fight_, ZENITH, data_);
         ActivityOfMove activity_ = fight_.getEnabledMoves().getVal(ZENITH);
         assertEq(0, activity_.getNbTurn());
@@ -1545,16 +1068,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setAbility(SECHERESSE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(SECHERESSE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 1);
@@ -1578,16 +1092,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(GRAVITE);
         FightEndRound.incrementNumberRoundsGlobal(fight_, GRAVITE, data_);
         ActivityOfMove activity_ = fight_.getEnabledMoves().getVal(GRAVITE);
@@ -1606,16 +1111,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).backUpObject(BAIE_MEPO);
@@ -1638,16 +1134,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).backUpObject(BAIE_MEPO);
@@ -1670,16 +1157,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).backUpObject(NULL_REF);
@@ -1702,16 +1180,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         fight_.enableGlobalMove(ORAGE_BIS);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
@@ -1731,16 +1200,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
@@ -1758,16 +1218,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
@@ -1785,16 +1236,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
@@ -1813,16 +1255,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
@@ -1841,16 +1274,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
@@ -1869,16 +1293,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(TIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -1923,16 +1338,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -1977,16 +1383,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2028,16 +1425,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2079,16 +1467,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2136,16 +1515,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2192,16 +1562,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2247,16 +1608,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2302,16 +1654,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2357,16 +1700,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2415,16 +1749,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2467,16 +1792,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2519,17 +1835,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom2(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2577,16 +1883,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2629,16 +1926,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2689,17 +1977,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(SIPHON);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom3(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2748,16 +2026,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(CHARGE, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2802,16 +2071,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -2851,16 +2111,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -2903,17 +2154,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom2(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -2957,17 +2198,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(SIPHON);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom3(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -3011,16 +2242,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = PEUR;
@@ -3039,16 +2261,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
@@ -3067,16 +2280,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = PEUR;
@@ -3094,16 +2298,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = TROUILLE;
@@ -3122,16 +2317,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = TROUILLE;
@@ -3150,16 +2336,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = TROUILLE;
@@ -3178,16 +2355,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = CRAME_BIS;
@@ -3206,16 +2374,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
@@ -3235,16 +2394,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
@@ -3264,16 +2414,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
@@ -3294,16 +2435,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
@@ -3324,16 +2456,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
@@ -3353,16 +2476,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
@@ -3387,16 +2501,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
@@ -3422,16 +2527,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
@@ -3457,16 +2553,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
@@ -3492,16 +2579,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
@@ -3527,16 +2605,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(POISON_ST);
@@ -3561,16 +2630,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
@@ -3596,16 +2656,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = POISON_GRAVE;
@@ -3632,16 +2683,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(POISON_ST);
@@ -3667,16 +2709,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = POISON_GRAVE;
@@ -3702,16 +2735,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(POISON_ST);
@@ -3736,16 +2760,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
@@ -3767,16 +2782,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(f_);
@@ -3798,16 +2804,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3826,16 +2823,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3854,16 +2842,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3883,16 +2862,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3912,16 +2882,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3944,16 +2905,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3972,16 +2924,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -4001,16 +2944,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -4030,16 +2964,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -4060,16 +2985,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -4093,16 +3009,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -4126,16 +3033,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -4156,16 +3054,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4197,16 +3086,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -4233,16 +3113,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4273,16 +3144,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4306,16 +3168,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4346,16 +3199,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4388,16 +3232,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4430,16 +3265,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4473,16 +3299,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4518,16 +3335,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4562,16 +3370,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4603,17 +3402,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom2(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4647,16 +3436,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -4684,16 +3464,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4729,16 +3500,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4772,17 +3534,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom2(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4816,16 +3568,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -4853,16 +3596,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(target_);
@@ -4885,16 +3619,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -4922,16 +3647,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -4959,16 +3675,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -4992,16 +3699,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(Rate.one());
@@ -5028,16 +3726,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = BOUE_NOIRE;
@@ -5066,16 +3755,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = BOUE_BLANCHE;
@@ -5101,16 +3781,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = BOUE_NOIRE;
@@ -5138,16 +3809,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = MUE;
@@ -5175,16 +3837,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = IGNIFUGE;
@@ -5212,16 +3865,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(Rate.one());
@@ -5247,16 +3891,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
@@ -5285,16 +3920,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
@@ -5323,16 +3949,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
@@ -5357,16 +3974,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
@@ -5400,16 +4008,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
@@ -5435,16 +4034,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(FEU);
@@ -5470,16 +4060,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
@@ -5513,16 +4094,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5550,16 +4122,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5587,16 +4150,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5622,16 +4176,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5657,16 +4202,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_TWO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5694,16 +4230,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_TWO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5731,16 +4258,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_TWO;
@@ -5769,16 +4287,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_TWO;
@@ -5807,17 +4316,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom2(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition partner_ = POKEMON_FOE_FIGHTER_ONE;
@@ -5846,17 +4345,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom2(data_, diff_, moves_);
         fight_.setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition partner_ = POKEMON_FOE_FIGHTER_ONE;
@@ -5885,16 +4374,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
         EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
@@ -5920,16 +4400,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
         EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
@@ -5955,16 +4426,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
         EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
@@ -5990,16 +4452,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
@@ -6021,16 +4474,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.setSimulation(true);
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
@@ -8749,13 +7193,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         FightEndRound.calculateNewLevel(fight_, player_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringMap<MovesAbilities> map_;
@@ -8784,13 +7222,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("18"));
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.calculateNewLevel(fight_, player_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
@@ -8822,13 +7254,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("25"));
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.calculateNewLevel(fight_, player_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
@@ -8869,13 +7295,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
@@ -8904,13 +7324,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertEq(FightState.APPRENDRE_EVOLUER, fight_.getState());
@@ -8940,13 +7354,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         fight_.setState(FightState.SWITCH_WHILE_KO_USER);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertEq(FightState.SWITCH_WHILE_KO_USER, fight_.getState());
@@ -8970,13 +7378,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_FOE));
     }
 
@@ -8998,13 +7400,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_PLAYER));
     }
 
@@ -9030,12 +7426,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 1);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_FOE));
     }
@@ -9062,12 +7453,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 1);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_PLAYER));
     }
@@ -9096,12 +7482,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.getRemainingHp().affectZero();
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
         FightRound.initRound(fight_);
         FightRound.roundThrowerHealing(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
@@ -9132,12 +7513,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.getRemainingHp().affectZero();
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
         FightRound.initRound(fight_);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_PLAYER));
     }
@@ -9164,12 +7540,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_FOE));
     }
 
@@ -9195,12 +7566,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_PLAYER));
     }
 
@@ -9222,13 +7588,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         assertTrue(!FightEndRound.proponedSwitch(fight_));
     }
 
@@ -9254,12 +7614,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 1);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         assertTrue(!FightEndRound.proponedSwitch(fight_));
     }
@@ -9286,12 +7641,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 1);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         assertTrue(FightEndRound.proponedSwitch(fight_));
     }
@@ -9320,12 +7670,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.getRemainingHp().affectZero();
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
         FightRound.initRound(fight_);
         FightRound.roundThrowerHealing(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
@@ -9356,12 +7701,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.getRemainingHp().affectZero();
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
         FightRound.initRound(fight_);
         assertTrue(!FightEndRound.proponedSwitch(fight_));
     }
@@ -9388,12 +7728,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).fullHeal(data_);
@@ -9422,13 +7757,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = calculateNewLevelCom4(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).fullHeal(data_);
@@ -9453,13 +7782,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         assertTrue(!FightEndRound.existSubstitute(fight_));
     }
 
@@ -9485,12 +7808,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 1);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         assertTrue(FightEndRound.existSubstitute(fight_));
     }
 
@@ -9516,12 +7834,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 1);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         assertTrue(FightEndRound.existSubstitute(fight_));
     }
@@ -9548,12 +7861,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 1);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         FightEndRound.setPlacesForFighters(fight_, true);
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
@@ -9591,13 +7899,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = calculateNewLevelCom4(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         FightEndRound.setPlacesForFighters(fight_, true);
@@ -9637,12 +7939,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         //After a switch, ko pokemon have their place for substituting set to back
@@ -9677,14 +7974,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom5(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         //After a switch, ko pokemon have their place for substituting set to back
@@ -9720,14 +8010,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom5(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         //After a switch, ko pokemon have their place for substituting set to back
@@ -9763,15 +8046,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
-        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom6(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
@@ -9817,13 +8092,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightEndRound.learnAndEvolve(fight_, data_);
@@ -9870,13 +8139,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         StringUtil.removeObj(fight_.getChoices().getVal((byte) 0).getKeptMoves(), HYPNOSE);
@@ -9922,13 +8185,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("25"));
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
@@ -9981,13 +8238,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("25"));
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
@@ -10019,23 +8270,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(MUNJA, fight_.getCaughtEvolutions().first());
     }
 
-    private static Fight proponedSwitchWhileKoPlayer(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data) {
-        Fight fight_ = calculateNewLevel(_partnerMoves, _foeMoves, _player, _diff, _data);
-        for (TeamPosition f: FightOrder.fighters(fight_, Fight.CST_PLAYER)) {
-            Fighter f_ = fight_.getFighter(f);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            FightKo.setKoMoveTeams(fight_, f, _diff, _data);
-        }
-        fight_.setState(FightState.SWITCH_WHILE_KO_USER);
-        return fight_;
-    }
-
     @Test
     public void proponedSwitchWhileKoPlayer1Test() {
         DataBase data_ = initDb();
@@ -10056,16 +8290,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom(data_, diff_, player_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_PLAYER, fight_.getMult() - fight_.getPlayerMaxNumberFrontFighters()));
     }
 
@@ -10089,17 +8314,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)1,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
         assertTrue(FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_PLAYER, fight_.getMult() - fight_.getPlayerMaxNumberFrontFighters()));
     }
@@ -10124,17 +8339,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)1,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom3(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_PLAYER, fight_.getMult() - fight_.getPlayerMaxNumberFrontFighters()));
     }
@@ -10159,14 +8364,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom4(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_FOE, fight_.getMult()));
     }
@@ -10191,14 +8389,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom4(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_));
     }
@@ -10223,17 +8414,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)1,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_FOE, fight_.getMult()));
     }
@@ -10258,17 +8439,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)1,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
         assertTrue(FightEndRound.proponedSwitchWhileKoPlayer(fight_));
     }
@@ -10293,17 +8464,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)1,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         assertTrue(FightEndRound.proponedSwitchWhileKoPlayer(fight_));
     }
@@ -10328,17 +8489,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)1,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).fullHeal(data_);
@@ -10365,71 +8516,236 @@ public class FightEndRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
+        Fight fight_ = calculateNewLevelCom7(data_, diff_, player_);
+        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightEndRound.exitKoFighters(fight_);
+        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
+    }
+
+    private Fight proponedSwitchWhileKoPlayerCom4(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = partnersMoves1();
+        CustList<LevelMoves> foesMoves_ = foesMoves2(CHARGE, 17, 17);
+        return proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, _player, _diff, _data);
+    }
+
+    private Fight proponedSwitchWhileKoPlayerCom3(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = foesMoves2(JACKPOT, 19, 1);
+        CustList<LevelMoves> foesMoves_ = foesMoves4();
+        return proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, _player, _diff, _data);
+    }
+
+    private Fight proponedSwitchWhileKoPlayerCom2(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = foesMoves2(JACKPOT, 1, 19);
+        CustList<LevelMoves> foesMoves_ = foesMoves4();
+        return proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, _player, _diff, _data);
+    }
+
+    private Fight proponedSwitchWhileKoPlayerCom(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = partnersMoves1();
+        CustList<LevelMoves> foesMoves_ = foesMoves4();
+        return proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, _player, _diff, _data);
+    }
+
+    private CustList<LevelMoves> partnersMoves1() {
         CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
         StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)1,partnerMoves_));
         partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
+        return partnersMoves_;
+    }
+
+    private static Fight proponedSwitchWhileKoPlayer(
+            CustList<LevelMoves> _partnerMoves,
+            CustList<LevelMoves> _foeMoves,
+            Player _player,
+            Difficulty _diff, DataBase _data) {
+        Fight fight_ = calculateNewLevel(_partnerMoves, _foeMoves, _player, _diff, _data);
+        return proponedSwitchWhileKoPlayer(_diff, _data, fight_);
+    }
+
+    private static Fight proponedSwitchWhileKoPlayer(Difficulty _diff, DataBase _data, Fight _fight) {
+        for (TeamPosition f: FightOrder.fighters(_fight, Fight.CST_PLAYER)) {
+            Fighter f_ = _fight.getFighter(f);
+            if (!f_.isBelongingToPlayer()) {
+                continue;
+            }
+            FightKo.setKoMoveTeams(_fight, f, _diff, _data);
+        }
+        _fight.setState(FightState.SWITCH_WHILE_KO_USER);
+        return _fight;
+    }
+
+    private Fight calculateNewLevelCom7(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = foesMoves2(JACKPOT, 1, 19);
+        CustList<LevelMoves> foesMoves_ = foesMoves4();
+        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data);
+    }
+
+    private CustList<LevelMoves> foesMoves4() {
         CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
         StringList foeMoves_ = new StringList(CHARGE);
         foesMoves_.add(new LevelMoves((short)17,foeMoves_));
         foesMoves_.add(new LevelMoves((short)17,foeMoves_));
         foesMoves_.add(new LevelMoves((short)17,foeMoves_));
         foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        Fight fight_ = calculateNewLevel(partnersMoves_, foesMoves_, player_, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        FightEndRound.exitKoFighters(fight_);
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
+        return foesMoves_;
+    }
+
+    private Fight calculateNewLevelCom6(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = partnersMoves2();
+        CustList<LevelMoves> foesMoves_ = foesMoves3(DETECTION, 3);
+        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data);
+    }
+
+    private CustList<LevelMoves> partnersMoves2() {
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
+        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
+        return partnersMoves_;
+    }
+
+    private Fight calculateNewLevelCom5(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = partnersMoves1_2();
+        CustList<LevelMoves> foesMoves_ = foesMoves3(DETECTION, 3);
+        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data);
+    }
+
+    private CustList<LevelMoves> partnersMoves1_2() {
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
+        return partnersMoves_;
+    }
+
+    private Fight calculateNewLevelCom4(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        CustList<LevelMoves> foesMoves_ = foesMoves3(DETECTION, 3);
+        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data, 2);
+    }
+
+    private CustList<LevelMoves> foesMoves3(String _move, int _x) {
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(_move);
+        foesMoves_.add(new LevelMoves((short) _x,foeMoves_));
+        foesMoves_.add(new LevelMoves((short) _x,foeMoves_));
+        foesMoves_.add(new LevelMoves((short) _x,foeMoves_));
+        return foesMoves_;
+    }
+
+    private Fight calculateNewLevelCom3(DataBase _data, Difficulty _diff, Player _player, int _i) {
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        CustList<LevelMoves> foesMoves_ = foesMoves2(DETECTION, 3, 3);
+        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data, _i);
+    }
+
+    private Fight calculateNewLevelCom(DataBase _data, Difficulty _diff, Player _player) {
+        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
+        CustList<LevelMoves> foesMoves_ = foesMoves1(DETECTION);
+        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data,1);
+    }
+
+    private Fight processActivityCom3(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
+        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
+        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
+        CustList<LevelMoves> foesMoves_ = foesMoves2(SIPHON, 3, 3);
+        return processActivity(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+    }
+
+    private Fight processActivityCom2(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
+        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
+        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
+        CustList<LevelMoves> foesMoves_ = foesMoves2(DETECTION, 3, 3);
+        return processActivity(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+    }
+
+    private Fight processActivityCom(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
+        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
+        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
+        CustList<LevelMoves> foesMoves_ = foesMoves1(DETECTION);
+        return processActivity(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+    }
+
+    private static Fight processActivity(
+            CustList<LevelMoves> _userMoves,
+            CustList<LevelMoves> _partnerMoves,
+            CustList<LevelMoves> _foeMoves,
+            Difficulty _diff, DataBase _data) {
+        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        for (int i = IndexConstants.FIRST_INDEX; i < _userMoves.size(); i++) {
+            PokemonPlayer lasPk_ = pkPlayer(_diff, _data, ARTIKODIN, _userMoves.get(i));
+            player_.getTeam().add(lasPk_);
+        }
+        DualFight dual_ = new DualFight();
+        Ally ally_ = new Ally();
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+            PkTrainer allyPokemon_ = pkTrainer(_partnerMoves.get(i));
+            allyTeam_.add(allyPokemon_);
+        }
+        ally_.setTeam(allyTeam_);
+        dual_.setAlly(ally_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
+            PkTrainer foePokemon_ = pkTrainer(_foeMoves.get(i));
+            foeTeam_.add(foePokemon_);
+        }
+        TempTrainer trainer_ = new TempTrainer();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        dual_.setFoeTrainer(trainer_);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     private Fight effectEndRoundPositionRelationCom(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3, _moves));
-        userMoves_.add(new LevelMoves((short)4, _moves));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
+        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
+        CustList<LevelMoves> foesMoves_ = foesMoves1(DETECTION);
         return effectEndRoundPositionRelation(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
     }
 
     private Fight effectEndRoundPositionRelationCom2(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3, _moves));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        return effectEndRoundPositionRelation(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, ARTIKODIN, (short)3, _moves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        Fight fight_ = FightFacade.newFight();
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(foeTeam_);
+        leader_.setReward((short) 200);
+        FightFacade.initFight(fight_, player_, _diff, leader_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     private Fight effectEndRoundPositionRelationCom3(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3, _moves));
-        userMoves_.add(new LevelMoves((short)4, _moves));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
+        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
+        CustList<LevelMoves> foesMoves_ = foesMoves2(DETECTION, 3, 3);
         return effectEndRoundPositionRelation(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
     }
 
     private Fight effectEndRoundPositionRelationCom4(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3, _moves));
-        userMoves_.add(new LevelMoves((short)4, _moves));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
+        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
+        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
+        CustList<LevelMoves> foesMoves_ = foesMoves2(DETECTION, 3, 2);
         return effectEndRoundPositionRelation(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+    }
+
+    private CustList<LevelMoves> foesMoves1(String _move) {
+        return new CustList<LevelMoves>(new LevelMoves[]{new LevelMoves((short)3, new StringList(_move))});
+    }
+
+    private CustList<LevelMoves> foesMoves2(String _move, int _one, int _two) {
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(_move);
+        foesMoves_.add(new LevelMoves((short) _one,foeMoves_));
+        foesMoves_.add(new LevelMoves((short) _two,foeMoves_));
+        return foesMoves_;
+    }
+
+    private CustList<LevelMoves> userMoves2(StringMap<Short> _moves) {
+        return new CustList<LevelMoves>(new LevelMoves[]{new LevelMoves((short)3, _moves),new LevelMoves((short)4, _moves)});
     }
 
     private static Fight effectEndRoundPositionRelation(
@@ -10440,19 +8756,40 @@ public class FightEndRoundTest extends InitializationDataBase {
             int... _mult) {
         Player player_ = new Player(NICKNAME,null,_diff,false, _data);
         for (int i = IndexConstants.FIRST_INDEX; i < _userMoves.size(); i++) {
-            Pokemon pokemon_ = new WildPk();
-            pokemon_.setName(ARTIKODIN);
-            pokemon_.setItem(PLAQUE_DRACO);
-            pokemon_.setAbility(METEO);
-            pokemon_.setGender(Gender.NO_GENDER);
-            pokemon_.setLevel(_userMoves.get(i).getFirst());
-            PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, _userMoves.get(i).getMovesPp());
-            lasPk_.initIv(_diff);
-            lasPk_.initPvRestants(_data);
+            PokemonPlayer lasPk_ = pkPlayer(_diff, _data, ARTIKODIN, _userMoves.get(i));
             player_.getTeam().add(lasPk_);
         }
-        Fight fight_ = calculateNewLevel(_partnerMoves, _foeMoves, player_, _diff, _data, _mult);
-        return fight_;
+        return calculateNewLevel(_partnerMoves, _foeMoves, player_, _diff, _data, _mult);
+    }
+
+    private static Fight effectEndRoundPositionRelation(
+            LevelMoves[] _userMoves,
+            LevelMoves[] _partnerMoves,
+            LevelMoves[] _foeMoves,
+            Difficulty _diff, DataBase _data,
+            int... _mult) {
+        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        for (LevelMoves i:_userMoves) {
+            player_.getTeam().add(pkPlayer(_diff, _data, ARTIKODIN, i));
+        }
+        return calculateNewLevel(_partnerMoves, _foeMoves, player_, _diff, _data, _mult);
+    }
+
+    private static PokemonPlayer pkPlayer(Difficulty _diff, DataBase _data, String _name, LevelMoves i) {
+        return pkPlayer(_diff, _data, _name, i.getFirst(), i.getMovesPp());
+    }
+
+    private static PokemonPlayer pkPlayer(Difficulty _diff, DataBase _data, String _name, short _level, StringMap<Short> _movesPp) {
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(_name);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel(_level);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, _movesPp);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        return lasPk_;
     }
 
     private static Fight calculateNewLevel(
@@ -10464,13 +8801,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = new PkTrainer();
-            foePokemon_.setName(TARTARD);
-            foePokemon_.setItem(PLAQUE_DRACO);
-            foePokemon_.setAbility(MULTITYPE);
-            foePokemon_.setGender(Gender.NO_GENDER);
-            foePokemon_.setLevel(_foeMoves.get(i).getFirst());
-            foePokemon_.setMoves(_foeMoves.get(i).getSecond());
+            PkTrainer foePokemon_ = pkTrainer(_foeMoves.get(i));
             foeTeam_.add(foePokemon_);
         }
         if (!_partnerMoves.isEmpty()) {
@@ -10478,13 +8809,7 @@ public class FightEndRoundTest extends InitializationDataBase {
             Ally ally_ = new Ally();
             CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
             for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-                PkTrainer allyPokemon_ = new PkTrainer();
-                allyPokemon_.setName(TARTARD);
-                allyPokemon_.setItem(PLAQUE_DRACO);
-                allyPokemon_.setAbility(MULTITYPE);
-                allyPokemon_.setGender(Gender.NO_GENDER);
-                allyPokemon_.setLevel(_partnerMoves.get(i).getFirst());
-                allyPokemon_.setMoves(_partnerMoves.get(i).getSecond());
+                PkTrainer allyPokemon_ = pkTrainer(_partnerMoves.get(i));
                 allyTeam_.add(allyPokemon_);
             }
             ally_.setTeam(allyTeam_);
@@ -10505,6 +8830,70 @@ public class FightEndRoundTest extends InitializationDataBase {
         }
         fight_.setEnvType(EnvironmentType.ROAD);
         return fight_;
+    }
+
+    private static Fight calculateNewLevel(
+            LevelMoves[] _partnerMoves,
+            LevelMoves[] _foeMoves,
+            Player _user,
+            Difficulty _diff, DataBase _data,
+            int... _mult) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        for (LevelMoves i:_foeMoves) {
+            foeTeam_.add(pkTrainer(i));
+        }
+        if (_partnerMoves.length>0) {
+            CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+            for (LevelMoves i:_partnerMoves) {
+                allyTeam_.add(pkTrainer(i));
+            }
+            return calculateNewLevelDual(_user, _diff, _data, foeTeam_, allyTeam_);
+        } else {
+            return calculateNewLevelGym(_user, _diff, _data, foeTeam_, _mult);
+        }
+    }
+
+    private static Fight calculateNewLevelGym(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> foeTeam_, int... _mult) {
+        Fight fight_ = FightFacade.newFight();
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(foeTeam_);
+        if (_mult.length > 0) {
+            leader_.setMultiplicityFight((byte) _mult[0]);
+        }
+        leader_.setReward((short) 200);
+        FightFacade.initFight(fight_, _user, _diff, leader_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
+    }
+
+    private static Fight calculateNewLevelDual(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, CustList<PkTrainer> _allyTeam) {
+        Fight fight_ = FightFacade.newFight();
+        DualFight dual_ = new DualFight();
+        Ally ally_ = new Ally();
+        ally_.setTeam(_allyTeam);
+        dual_.setAlly(ally_);
+        TempTrainer trainer_ = new TempTrainer();
+        trainer_.setTeam(_foeTeam);
+        trainer_.setReward((short) 200);
+        dual_.setFoeTrainer(trainer_);
+        FightFacade.initFight(fight_, _user, _diff, dual_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
+    }
+
+    private static PkTrainer pkTrainer(LevelMoves i) {
+        return pkTrainer(i.getFirst(), i.getSecond());
+    }
+
+    private static PkTrainer pkTrainer(short _level, StringList _moves) {
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel(_level);
+        foePokemon_.setMoves(_moves);
+        return foePokemon_;
     }
 
     private static boolean noAction(Fighter _fighter) {
