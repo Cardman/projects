@@ -1,8 +1,5 @@
-package aiki.game.fight.comparators;
+package aiki.game.fight;
 import aiki.db.DataBase;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
 import code.util.core.SortConstants;
 import code.util.ints.Comparing;
@@ -10,9 +7,9 @@ import code.util.ints.Comparing;
 public final class SortedFighterSwitchActsComparator implements
         Comparing<TeamPosition> {
 
-    private Fight fight;
+    private final Fight fight;
 
-    private DataBase data;
+    private final DataBase data;
 
     public SortedFighterSwitchActsComparator(Fight _fight, DataBase _data) {
         fight = _fight;
@@ -21,12 +18,9 @@ public final class SortedFighterSwitchActsComparator implements
 
     @Override
     public int compare(TeamPosition _fighterOne, TeamPosition _fighterTwo) {
-        boolean permuter_=false;
-        Rate vitesseOne_=FightFacade.speed(fight,_fighterOne,data);
-        Rate vitesseTwo_=FightFacade.speed(fight,_fighterTwo,data);
-        if(Rate.strLower(vitesseTwo_,vitesseOne_)){
-            permuter_=true;
-        }
+        Rate vitesseOne_= FightOrder.speed(fight, _fighterOne, data);
+        Rate vitesseTwo_= FightOrder.speed(fight, _fighterTwo, data);
+        boolean permuter_ = Rate.strLower(vitesseTwo_, vitesseOne_);
         if(permuter_){
             return SortConstants.SWAP_SORT;
         }

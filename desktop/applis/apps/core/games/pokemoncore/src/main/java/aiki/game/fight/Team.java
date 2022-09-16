@@ -252,7 +252,7 @@ public final class Team {
 
     //some tests with a clean data base with all type of move, ability, item, tree pokemon
     //This class is full tested
-    public boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
+    boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
         int mult_ = _fight.getMult();
         if (koMembers(_data, _numberTeam, _fight)) {
             return false;
@@ -681,7 +681,7 @@ public final class Team {
 //        }
 //        return new Bytes();
 //    }
-    public ByteTreeMap<FighterPosition> getFrontTeam() {
+    ByteTreeMap<FighterPosition> getFrontTeam() {
         ByteTreeMap<FighterPosition> tree_ = new ByteTreeMap<FighterPosition>();
         for (EntryCust<Byte,Fighter> k: members.entryList()) {
             Fighter f_ = k.getValue();
@@ -705,7 +705,7 @@ public final class Team {
 //        }
 //        return fs_;
 //    }
-    public ByteMap<Fighter> getBackTeam() {
+    ByteMap<Fighter> getBackTeam() {
         ByteMap<Fighter> fs_ = new ByteMap<Fighter>();
         Bytes list_ = new Bytes(members.getKeys());
         list_.sort();

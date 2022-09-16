@@ -564,7 +564,7 @@ public final class Fighter {
 
     //This class is covered
     //byte _user, in back
-    public boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
+    boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
         if (koNames(_data) || koAbilities(_data) || koItems(_data) || koHeightWeight() || koTypes(_data) || koOwnedMoves(_data)) {
             return false;
         }
@@ -1094,7 +1094,7 @@ public final class Fighter {
         return numberNecessaryPointsForGrowingLevel(name, _niveau, _import);
     }
 
-    public static Rate numberNecessaryPointsForGrowingLevel(String _name, short _niveau, DataBase _import) {
+    static Rate numberNecessaryPointsForGrowingLevel(String _name, short _niveau, DataBase _import) {
         PokemonData fPk_= _import.getPokemon(_name);
         String expLitt_=_import.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
@@ -1438,16 +1438,16 @@ public final class Fighter {
         lastSuccessfulMove=((ActionMove)action).getFinalChosenMove();
     }
 
-    public void groundPlaceSubst(byte _pos) {
+    void groundPlaceSubst(byte _pos) {
         groundPlace = _pos;
         groundPlaceSubst = _pos;
     }
 
-    public void affectGroundPlaceBySubst() {
+    void affectGroundPlaceBySubst() {
         groundPlace = groundPlaceSubst;
     }
 
-    public void affectGroundPlaceSubst() {
+    void affectGroundPlaceSubst() {
         groundPlaceSubst = groundPlace;
     }
     void exitFrontBattle(){
@@ -1870,7 +1870,7 @@ public final class Fighter {
         return newLevelWonPoints(_import, name, level, wonExp, wonExpSinceLastLevel);
     }
 
-    public static LevelExpPoints newLevelWonPoints(DataBase _import, String _name, short _level, Rate _wonExp, Rate _wonExpSinceLastLevel) {
+    static LevelExpPoints newLevelWonPoints(DataBase _import, String _name, short _level, Rate _wonExp, Rate _wonExpSinceLastLevel) {
         short niveauTmp_= _level;
         niveauTmp_++;
         Rate sommeDiffNiveaux_= numberNecessaryPointsForGrowingLevel(_name, niveauTmp_, _import);
@@ -1893,7 +1893,7 @@ public final class Fighter {
         changeWonPoints(_niveauTmp, _sommeDiffNiveaux, _import, name, wonExp, wonExpSinceLastLevel);
     }
 
-    public static void changeWonPoints(short _niveauTmp, Rate _sommeDiffNiveaux, DataBase _import, String _name, Rate _wonExp, Rate _wonExpSinceLastLevel) {
+    static void changeWonPoints(short _niveauTmp, Rate _sommeDiffNiveaux, DataBase _import, String _name, Rate _wonExp, Rate _wonExpSinceLastLevel) {
         short maxNiveau_=(short) _import.getMaxLevel();
         if(NumberUtil.eq(_niveauTmp,maxNiveau_)){
             //cas wonExp+wonExpSinceLastLevel>=sommeDiffNiveaux_:
@@ -2201,33 +2201,33 @@ public final class Fighter {
         comment.clearMessages();
     }
 
-    public void cancelSubstituteForMove() {
+    void cancelSubstituteForMove() {
         setSubstituteForMove(BACK);
     }
-    public void setSubstituteForMove(byte _remplacant) {
+    void setSubstituteForMove(byte _remplacant) {
         if (action instanceof ChosenReplacing) {
             ((ChosenReplacing)action).setSubstitute(_remplacant);
         }
     }
 
-    public void setSubstitute(byte _remplacant) {
+    void setSubstitute(byte _remplacant) {
         ActionSwitch action_ = new ActionSwitch();
         action_.setSubstitute(_remplacant);
         action = action_;
     }
 
-    public static Rate statistiqueGlobale(AbsMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,short _ev,short _iv, short _level){
+    static Rate statistiqueGlobale(AbsMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,short _ev,short _iv, short _level){
         return PokemonData.stat(_level, _statistiquesBase.getVal(_nomStat), _nomStat, _ev, _iv);
     }
 
-    public Rate statistiqueGlobaleEvIv(Statistic _nomStat){
+    Rate statistiqueGlobaleEvIv(Statistic _nomStat){
         return statistiqueGlobale(statisBase,_nomStat,ev.getVal(_nomStat),iv.getVal(_nomStat), level);
     }
 
     public Rate pvMax(){
         return statistiqueGlobaleEvIv(Statistic.HP);
     }
-    public boolean estAssexue(){
+    boolean estAssexue(){
         return currentGender==Gender.NO_GENDER;
     }
 
@@ -2279,7 +2279,7 @@ public final class Fighter {
         }
         return !StringUtil.quickEq(usedMoveLastRound, _move);
     }
-    public byte varPrio(TeamPosition _fighter, String _move, Fight _fight,DataBase _data) {
+    byte varPrio(TeamPosition _fighter, String _move, Fight _fight,DataBase _data) {
         byte varPrio_=0;
         MoveData fAtt_=_data.getMove(_move);
         String categOne_ = fAtt_.getCategory();
@@ -2288,7 +2288,7 @@ public final class Fighter {
             if(fCapac_.getIncreasedPrio().contains(categOne_)){
                 varPrio_+=fCapac_.getIncreasedPrio().getVal(categOne_);
             }
-            for (String type_: FightFacade.moveTypes(_fight, _fighter, _move, _data)) {
+            for (String type_: FightMoves.moveTypes(_fight, _fighter, _move, _data)) {
                 if (fCapac_.getIncreasedPrioTypes().contains(type_)) {
                     varPrio_ += fCapac_.getIncreasedPrioTypes().getVal(type_);
                 }
@@ -2296,7 +2296,7 @@ public final class Fighter {
         }
         return varPrio_;
     }
-    public boolean isSlowing(DataBase _data) {
+    boolean isSlowing(DataBase _data) {
         boolean slowOne_=false;
         AbilityData fCapacOne_=ficheCapaciteActuelle(_data);
         if(fCapacOne_ != null){
@@ -2305,19 +2305,19 @@ public final class Fighter {
         return slowOne_;
     }
 
-    public AbilityData ficheCapaciteActuelle(DataBase _import){
+    AbilityData ficheCapaciteActuelle(DataBase _import){
         return _import.getAbility(currentAbility);
     }
 
-    public AbilityData ficheCapacite(DataBase _import){
+    AbilityData ficheCapacite(DataBase _import){
         return _import.getAbility(ability);
     }
 
-    public PokemonData fichePokemonActuelle(DataBase _import){
+    PokemonData fichePokemonActuelle(DataBase _import){
         return _import.getPokemon(currentName);
     }
 
-    public PokemonData fichePokemon(DataBase _import){
+    PokemonData fichePokemon(DataBase _import){
         return _import.getPokemon(name);
     }
 
@@ -2365,7 +2365,7 @@ public final class Fighter {
         return list_;
     }
 
-    public AffectedMove refPartAttaquesSurCombatAtt(MoveTeamPosition _c) {
+    AffectedMove refPartAttaquesSurCombatAtt(MoveTeamPosition _c) {
         return trackingMoves.getVal(_c);
     }
 
@@ -2403,14 +2403,14 @@ public final class Fighter {
         return DataBase.EMPTY_STRING;
     }
 
-    public String getChosenHealingItem() {
+    String getChosenHealingItem() {
         if (action instanceof ActionHeal) {
             return ((ActionHeal)action).getChosenHealingItem();
         }
         return DataBase.EMPTY_STRING;
     }
 
-    public String getFinalChosenMove() {
+    String getFinalChosenMove() {
         if (action instanceof ActionMove) {
             return ((ActionMove)action).getFinalChosenMove();
         }
@@ -2424,7 +2424,7 @@ public final class Fighter {
         return new TargetCoordsList();
     }
 
-    public byte getSubstistute() {
+    byte getSubstistute() {
         if (action instanceof ChosenReplacing) {
             return ((ChosenReplacing)action).getSubstitute();
         }

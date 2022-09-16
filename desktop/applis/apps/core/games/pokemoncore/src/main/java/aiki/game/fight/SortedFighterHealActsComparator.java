@@ -1,7 +1,5 @@
-package aiki.game.fight.comparators;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.TeamPosition;
+package aiki.game.fight;
+
 import aiki.game.fight.actions.AbstractAction;
 import aiki.game.fight.actions.ActionHeal;
 import code.util.core.NumberUtil;
@@ -12,7 +10,7 @@ import code.util.ints.Comparing;
 public final class SortedFighterHealActsComparator implements
         Comparing<TeamPosition> {
 
-    private Fight fight;
+    private final Fight fight;
 
     public SortedFighterHealActsComparator(Fight _fight) {
         fight = _fight;
@@ -24,15 +22,10 @@ public final class SortedFighterHealActsComparator implements
         AbstractAction actionOne_=creatureOne_.getAction();
         Fighter creatureTwo_=fight.getFighter(_fighterTwo);
         AbstractAction actionTwo_=creatureTwo_.getAction();
-        boolean permuter_=false;
 
         ActionHeal ac1_ = (ActionHeal) actionOne_;
         ActionHeal ac2_ = (ActionHeal) actionTwo_;
-        if(ac2_.isTeam()&&!ac1_.isTeam()){
-            if(NumberUtil.eq(_fighterOne.getTeam(),_fighterTwo.getTeam())){
-                permuter_=true;
-            }
-        }
+        boolean permuter_ = ac2_.isTeam() && !ac1_.isTeam() && NumberUtil.eq(_fighterOne.getTeam(), _fighterTwo.getTeam());
         if(permuter_){
             return SortConstants.SWAP_SORT;
         }

@@ -1,8 +1,8 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.fight.items.ItemForBattle;
 import aiki.util.TeamPositionList;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -26,7 +26,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -203,13 +202,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -430,13 +423,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -493,13 +480,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -1323,13 +1304,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -1515,13 +1490,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -1553,6 +1522,78 @@ public class FightOrderTest extends InitializationDataBase {
         TeamPositionList fighters_ = FightOrder.fightersUsingMoveWithBerry(fight_,FightOrder.frontFighters(fight_), data_);
         assertEq(1,fighters_.size());
         assertTrue(fighters_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
+    }
+
+    @Test
+    public void fightersUsingMoveWithBerry2Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(YANMA);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(A_LA_QUEUE, (short) 10);
+        moves_.put(APRES_VOUS, (short) 10);
+        moves_.put(SEISME, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
+        player_.getTeam().add(pokemonUser_);
+        pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setItem(BAIE_MEPO);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
+        player_.getTeam().add(pokemonUser_);
+        pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
+        player_.getTeam().add(pokemonUser_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 2);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(BROUHAHA);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
+        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
+        FightRound.initRound(fight_);
+        TeamPositionList fighters_ = FightOrder.fightersUsingMoveWithBerry(fight_,FightOrder.frontFighters(fight_), data_);
+        assertEq(0,fighters_.size());
     }
 
     @Test
@@ -1594,13 +1635,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -1674,13 +1709,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -1753,13 +1782,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -1874,11 +1897,11 @@ public class FightOrderTest extends InitializationDataBase {
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
         list_.add(POKEMON_FOE_FIGHTER_ZERO);
         list_.add(POKEMON_FOE_FIGHTER_ONE);
-        assertEq(1, FightOrder.indexOfRemoving(fight_,list_, data_));
+        assertEq(1, FightOrder.indexOfRemovingItem(fight_,list_, data_).getIndiceTirage());
         list_.removeObj(POKEMON_PLAYER_FIGHTER_ONE);
-        assertEq(2, FightOrder.indexOfRemoving(fight_,list_, data_));
+        assertEq(2, FightOrder.indexOfRemovingItem(fight_,list_, data_).getIndiceTirage());
         list_.removeObj(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(-1, FightOrder.indexOfRemoving(fight_,list_, data_));
+        assertEq(-1, FightOrder.indexOfRemovingItem(fight_,list_, data_).getIndiceTirage());
     }
 
     @Test
@@ -1921,13 +1944,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -1960,12 +1977,12 @@ public class FightOrderTest extends InitializationDataBase {
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        TeamPositionList next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 2, data_);
+        TeamPositionList next_ = randomFigtherHavingToAct(2, data_, fight_, list_);
         assertEq(1, next_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, next_.get(0));
         assertTrue(fight_.getAcceptableChoices());
         list_.removeObj(POKEMON_PLAYER_FIGHTER_TWO);
-        next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 1, data_);
+        next_ = randomFigtherHavingToAct(1, data_, fight_, list_);
         assertEq(1, next_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, next_.get(0));
         assertTrue(fight_.getAcceptableChoices());
@@ -2010,13 +2027,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -2100,13 +2111,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -2185,13 +2190,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -2265,13 +2264,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -2350,13 +2343,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -2390,7 +2377,7 @@ public class FightOrderTest extends InitializationDataBase {
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        TeamPositionList next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 2, data_);
+        TeamPositionList next_ = randomFigtherHavingToAct(2, data_, fight_, list_);
         assertEq(0, next_.size());
         assertTrue(!fight_.getAcceptableChoices());
     }
@@ -2452,13 +2439,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -2525,13 +2506,7 @@ public class FightOrderTest extends InitializationDataBase {
         allyTeam_.add(allyPk_);
         ally_.setTeam(allyTeam_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(foeTeam_);
@@ -2583,13 +2558,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setRemainingHp(Rate.zero());
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
@@ -2637,13 +2606,7 @@ public class FightOrderTest extends InitializationDataBase {
         pokemonUser_.setRemainingHp(Rate.zero());
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PREVENTION, RELAIS));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
@@ -2697,9 +2660,9 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList());
+        TeamPositionList list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList());
         assertEq(0,list_.size());
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, Bytes.newList());
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ZERO, Bytes.newList());
         assertEq(0,list_.size());
     }
 
@@ -2743,10 +2706,10 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0));
+        TeamPositionList list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte) 0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte) 0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -2791,10 +2754,10 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 2);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
+        TeamPositionList list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -2839,10 +2802,10 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
+        TeamPositionList list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -2899,35 +2862,35 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)0,(byte)1,(byte)2));
+        TeamPositionList list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)0,(byte)1,(byte)2));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)0,(byte)1,(byte)2));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)0,(byte)1,(byte)2));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)2,(byte)1,(byte)0));
+        list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)2,(byte)1,(byte)0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)2,(byte)1,(byte)0));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)2,(byte)1,(byte)0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)2,(byte)0,(byte)1));
+        list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)2,(byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)2,(byte)0,(byte)1));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)2,(byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)0,(byte)2,(byte)1));
+        list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)0,(byte)2,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)0,(byte)2,(byte)1));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)0,(byte)2,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)0,(byte)2));
+        list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ONE, Bytes.newList((byte)0,(byte)2));
         assertEq(2,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_TWO));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)0,(byte)2));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)0,(byte)2));
         assertEq(2,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
@@ -2977,13 +2940,13 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 4);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1,(byte)2,(byte)3));
+        TeamPositionList list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1,(byte)2,(byte)3));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)3,(byte)2,(byte)1,(byte)0));
+        list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)3,(byte)2,(byte)1,(byte)0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte)0));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ONE, Bytes.newList((byte) 0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -3064,13 +3027,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -3121,13 +3078,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -3178,13 +3129,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -3264,13 +3209,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -3327,13 +3266,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -3392,13 +3325,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
@@ -3436,13 +3363,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -3515,13 +3436,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(_data);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PAR_ICI));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -3920,13 +3835,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(JACKPOT, PAR_ICI));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -3996,13 +3905,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.setRemainingHp(Rate.zero());
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(A_LA_QUEUE,APRES_VOUS,SEISME,BROUHAHA));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(A_LA_QUEUE, APRES_VOUS, SEISME, BROUHAHA));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -4065,13 +3968,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(A_LA_QUEUE,APRES_VOUS,SEISME,BROUHAHA));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(A_LA_QUEUE, APRES_VOUS, SEISME, BROUHAHA));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -4125,13 +4022,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(A_LA_QUEUE,APRES_VOUS,SEISME,BROUHAHA));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(A_LA_QUEUE, APRES_VOUS, SEISME, BROUHAHA));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -4184,13 +4075,7 @@ public class FightOrderTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(A_LA_QUEUE,APRES_VOUS,SEISME,BROUHAHA));
+        PkTrainer foePokemon_ = pkTrainer((short) 3, new StringList(A_LA_QUEUE, APRES_VOUS, SEISME, BROUHAHA));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
@@ -4212,61 +4097,6 @@ public class FightOrderTest extends InitializationDataBase {
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
-    private static Fight sortedFightersAmongListEndRound(
-            CustList<LevelMoves> _userMoves,
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        for (int i = IndexConstants.FIRST_INDEX; i < _userMoves.size(); i++) {
-            Pokemon pokemon_ = new WildPk();
-            pokemon_.setName(ARTIKODIN);
-            pokemon_.setItem(PLAQUE_DRACO);
-            pokemon_.setAbility(METEO);
-            pokemon_.setGender(Gender.NO_GENDER);
-            pokemon_.setLevel(_userMoves.get(i).getFirst());
-            PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, _userMoves.get(i).getMovesPp());
-            lasPk_.setUsedBallCatching(SUPER_BALL);
-            lasPk_.initIv(_diff);
-            lasPk_.initPvRestants(_data);
-            player_.getTeam().add(lasPk_);
-        }
-        DualFight dual_ = new DualFight();
-        Ally ally_ = new Ally();
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-            PkTrainer allyPokemon_ = new PkTrainer();
-            allyPokemon_.setName(TARTARD);
-            allyPokemon_.setItem(PLAQUE_DRACO);
-            allyPokemon_.setAbility(MULTITYPE);
-            allyPokemon_.setGender(Gender.NO_GENDER);
-            allyPokemon_.setLevel(_partnerMoves.get(i).getFirst());
-            allyPokemon_.setMoves(_partnerMoves.get(i).getSecond());
-            allyTeam_.add(allyPokemon_);
-        }
-        ally_.setTeam(allyTeam_);
-        dual_.setAlly(ally_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = new PkTrainer();
-            foePokemon_.setName(TARTARD);
-            foePokemon_.setItem(PLAQUE_DRACO);
-            foePokemon_.setAbility(MULTITYPE);
-            foePokemon_.setGender(Gender.NO_GENDER);
-            foePokemon_.setLevel(_foeMoves.get(i).getFirst());
-            foePokemon_.setMoves(_foeMoves.get(i).getSecond());
-            foeTeam_.add(foePokemon_);
-        }
-        TempTrainer trainer_ = new TempTrainer();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        dual_.setFoeTrainer(trainer_);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
     @Test
     public void sortedFightersAmongListEndRound1Test() {
         DataBase data_ = initDb();
@@ -4276,16 +4106,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4314,16 +4135,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4352,16 +4164,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4391,16 +4194,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4430,16 +4224,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4468,16 +4253,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4506,16 +4282,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4544,16 +4311,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4582,16 +4340,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4620,16 +4369,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound1(data_, diff_, moves_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.backUpObject(NULL_REF);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4658,17 +4398,7 @@ public class FightOrderTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
-        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
-        userMoves_.add(new LevelMoves((short)3,moves_));
-        userMoves_.add(new LevelMoves((short)4,moves_));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = sortedFightersAmongListEndRound(userMoves_, partnersMoves_, foesMoves_, diff_, data_);
+        Fight fight_ = sortedFightersAmongListEndRound2(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
         TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
@@ -4698,4 +4428,76 @@ public class FightOrderTest extends InitializationDataBase {
         assertTrue(sorted_.containsObj(POKEMON_FOE_FIGHTER_ONE));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, sorted_.get(3));
     }
+
+    private Fight sortedFightersAmongListEndRound2(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        return sortedFightersAmongListEndRoundInit(_diff, _data, player_, allyTeam_, foeTeam_);
+    }
+
+    private Fight sortedFightersAmongListEndRound1(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        return sortedFightersAmongListEndRoundInit(_diff, _data, player_, allyTeam_, foeTeam_);
+    }
+
+    private static Fight sortedFightersAmongListEndRoundInit(Difficulty _diff, DataBase _data, Player _player, CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam) {
+        DualFight dual_ = new DualFight();
+        Ally ally_ = new Ally();
+        ally_.setTeam(_allyTeam);
+        dual_.setAlly(ally_);
+        TempTrainer trainer_ = new TempTrainer();
+        trainer_.setTeam(_foeTeam);
+        trainer_.setReward((short) 200);
+        dual_.setFoeTrainer(trainer_);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_, _player, _diff, dual_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
+    }
+
+    private static PokemonPlayer pkPlayer(Difficulty _diff, DataBase _data, short _level, StringMap<Short> _moves) {
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel(_level);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, _moves);
+        lasPk_.setUsedBallCatching(SUPER_BALL);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        return lasPk_;
+    }
+
+    private static PkTrainer pkTrainer(short _level, StringList _moves) {
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel(_level);
+        foePokemon_.setMoves(_moves);
+        return foePokemon_;
+    }
+
+    private TeamPositionList closestFightersAmongList(Fight _fight, TeamPosition _tp, Bytes _ls) {
+        return FightOrder.closestFoeFightersAmongList(Fight.foe(_tp.getTeam()), FightOrder.fighters(_fight,Fight.foe(_tp.getTeam()),_ls), _fight.getFighter(_tp).getGroundPlace());
+    }
+
+    private TeamPositionList randomFigtherHavingToAct(int _ind, DataBase _data, Fight _fight, TeamPositionList _list) {
+        return FightOrder.randomFigtherHavingToAct(_fight, _list, new UsedItemForBattle((ItemForBattle) _fight.getFighter(_list.get(_ind)).ficheObjet(_data),_ind,_list.get(_ind)), _data);
+    }
+
 }

@@ -2586,16 +2586,4 @@ public final class FightFacade {
         }
     }
 
-    //visible to the project only
-
-    public static Item useItsObject(Fight _fight, TeamPosition _cbt,DataBase _import){
-        return FightItems.useItsObject(_fight, _cbt, _import);
-    }
-    public static Rate speed(Fight _fight, TeamPosition _cbt,DataBase _import){
-        return FightOrder.speed(_fight, _cbt, _import);
-    }
-
-    public static StringList moveTypes(Fight _fight, TeamPosition _lanceur,String _attaque,DataBase _import){
-        return FightMoves.moveTypes(_fight, _lanceur, _attaque, _import);
-    }
 }

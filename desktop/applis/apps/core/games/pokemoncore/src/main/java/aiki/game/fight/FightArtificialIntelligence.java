@@ -6,7 +6,6 @@ import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.effects.EffectStatus;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.game.fight.comparators.ComparatorLaws;
 import aiki.game.fight.enums.FightType;
 import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.fight.util.MoveTarget;

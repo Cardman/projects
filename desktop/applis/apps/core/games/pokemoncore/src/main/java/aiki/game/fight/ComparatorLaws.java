@@ -1,4 +1,4 @@
-package aiki.game.fight.comparators;
+package aiki.game.fight;
 import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.fight.util.StatisticsDamageMove;
 import code.maths.Rate;

@@ -1,14 +1,14 @@
 package aiki.game.fight.comparators;
+
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
 import aiki.util.TeamPositionList;
-import code.util.EqList;
 import code.util.core.NumberUtil;
 import code.util.ints.Comparing;
 
 public final class SortedFighterActsComparator implements Comparing<TeamPosition> {
 
-    private Fight fight;
+    private final Fight fight;
 
     public SortedFighterActsComparator(Fight _fight) {
         fight = _fight;
