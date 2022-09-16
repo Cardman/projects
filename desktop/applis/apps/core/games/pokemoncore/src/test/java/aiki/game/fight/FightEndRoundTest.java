@@ -3,7 +3,6 @@ package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.game.fight.animations.*;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -8523,42 +8522,50 @@ public class FightEndRoundTest extends InitializationDataBase {
     }
 
     private Fight proponedSwitchWhileKoPlayerCom4(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = partnersMoves1();
-        CustList<LevelMoves> foesMoves_ = foesMoves2(CHARGE, 17, 17);
-        return proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, _player, _diff, _data);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 19, new StringList(JACKPOT)));
+        Fight fight_ = calculateNewLevelDual(_player, _diff, _data, foeTeam_, allyTeam_);
+        return proponedSwitchWhileKoPlayer(_diff, _data, fight_);
     }
 
     private Fight proponedSwitchWhileKoPlayerCom3(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = foesMoves2(JACKPOT, 19, 1);
-        CustList<LevelMoves> foesMoves_ = foesMoves4();
-        return proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, _player, _diff, _data);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 19, new StringList(JACKPOT)));
+        allyTeam_.add(pkTrainer((short) 1, new StringList(JACKPOT)));
+        Fight fight_ = calculateNewLevelDual(_player, _diff, _data, foeTeam_, allyTeam_);
+        return proponedSwitchWhileKoPlayer(_diff, _data, fight_);
     }
 
     private Fight proponedSwitchWhileKoPlayerCom2(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = foesMoves2(JACKPOT, 1, 19);
-        CustList<LevelMoves> foesMoves_ = foesMoves4();
-        return proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, _player, _diff, _data);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 1, new StringList(JACKPOT)));
+        allyTeam_.add(pkTrainer((short) 19, new StringList(JACKPOT)));
+        Fight fight_ = calculateNewLevelDual(_player, _diff, _data, foeTeam_, allyTeam_);
+        return proponedSwitchWhileKoPlayer(_diff, _data, fight_);
     }
 
     private Fight proponedSwitchWhileKoPlayerCom(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = partnersMoves1();
-        CustList<LevelMoves> foesMoves_ = foesMoves4();
-        return proponedSwitchWhileKoPlayer(partnersMoves_, foesMoves_, _player, _diff, _data);
-    }
-
-    private CustList<LevelMoves> partnersMoves1() {
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)19,partnerMoves_));
-        return partnersMoves_;
-    }
-
-    private static Fight proponedSwitchWhileKoPlayer(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data) {
-        Fight fight_ = calculateNewLevel(_partnerMoves, _foeMoves, _player, _diff, _data);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 19, new StringList(JACKPOT)));
+        Fight fight_ = calculateNewLevelDual(_player, _diff, _data, foeTeam_, allyTeam_);
         return proponedSwitchWhileKoPlayer(_diff, _data, fight_);
     }
 
@@ -8575,213 +8582,157 @@ public class FightEndRoundTest extends InitializationDataBase {
     }
 
     private Fight calculateNewLevelCom7(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = foesMoves2(JACKPOT, 1, 19);
-        CustList<LevelMoves> foesMoves_ = foesMoves4();
-        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data);
-    }
-
-    private CustList<LevelMoves> foesMoves4() {
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        return foesMoves_;
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        foeTeam_.add(pkTrainer((short) 17, new StringList(CHARGE)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 1, new StringList(JACKPOT)));
+        allyTeam_.add(pkTrainer((short) 19, new StringList(JACKPOT)));
+        return calculateNewLevelDual(_player, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight calculateNewLevelCom6(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = partnersMoves2();
-        CustList<LevelMoves> foesMoves_ = foesMoves3(DETECTION, 3);
-        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data);
-    }
-
-    private CustList<LevelMoves> partnersMoves2() {
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
-        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
-        return partnersMoves_;
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        allyTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        return calculateNewLevelDual(_player, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight calculateNewLevelCom5(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = partnersMoves1_2();
-        CustList<LevelMoves> foesMoves_ = foesMoves3(DETECTION, 3);
-        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data);
-    }
-
-    private CustList<LevelMoves> partnersMoves1_2() {
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION)));
-        return partnersMoves_;
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        return calculateNewLevelDual(_player, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight calculateNewLevelCom4(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = foesMoves3(DETECTION, 3);
-        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data, 2);
-    }
-
-    private CustList<LevelMoves> foesMoves3(String _move, int _x) {
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(_move);
-        foesMoves_.add(new LevelMoves((short) _x,foeMoves_));
-        foesMoves_.add(new LevelMoves((short) _x,foeMoves_));
-        foesMoves_.add(new LevelMoves((short) _x,foeMoves_));
-        return foesMoves_;
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        return calculateNewLevelGymMult(_player, _diff, _data, foeTeam_,2);
     }
 
     private Fight calculateNewLevelCom3(DataBase _data, Difficulty _diff, Player _player, int _i) {
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = foesMoves2(DETECTION, 3, 3);
-        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data, _i);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        return calculateNewLevelGymMult(_player, _diff, _data, foeTeam_,_i);
     }
 
     private Fight calculateNewLevelCom(DataBase _data, Difficulty _diff, Player _player) {
-        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
-        CustList<LevelMoves> foesMoves_ = foesMoves1(DETECTION);
-        return calculateNewLevel(partnersMoves_, foesMoves_, _player, _diff, _data,1);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        return calculateNewLevelDual(_player, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight processActivityCom3(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
-        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
-        CustList<LevelMoves> foesMoves_ = foesMoves2(SIPHON, 3, 3);
-        return processActivity(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(SIPHON)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(SIPHON)));
+        return processActivityDual(_data, _diff, player_, allyTeam_, foeTeam_);
     }
 
     private Fight processActivityCom2(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
-        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
-        CustList<LevelMoves> foesMoves_ = foesMoves2(DETECTION, 3, 3);
-        return processActivity(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        return processActivityDual(_data, _diff, player_, allyTeam_, foeTeam_);
     }
 
     private Fight processActivityCom(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
-        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
-        CustList<LevelMoves> foesMoves_ = foesMoves1(DETECTION);
-        return processActivity(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        return processActivityDual(_data, _diff, player_, allyTeam_, foeTeam_);
     }
 
-    private static Fight processActivity(
-            CustList<LevelMoves> _userMoves,
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        for (int i = IndexConstants.FIRST_INDEX; i < _userMoves.size(); i++) {
-            PokemonPlayer lasPk_ = pkPlayer(_diff, _data, ARTIKODIN, _userMoves.get(i));
-            player_.getTeam().add(lasPk_);
-        }
+    private Fight processActivityDual(DataBase _data, Difficulty _diff, Player _player, CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam) {
         DualFight dual_ = new DualFight();
         Ally ally_ = new Ally();
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-            PkTrainer allyPokemon_ = pkTrainer(_partnerMoves.get(i));
-            allyTeam_.add(allyPokemon_);
-        }
-        ally_.setTeam(allyTeam_);
+        ally_.setTeam(_allyTeam);
         dual_.setAlly(ally_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = pkTrainer(_foeMoves.get(i));
-            foeTeam_.add(foePokemon_);
-        }
         TempTrainer trainer_ = new TempTrainer();
-        trainer_.setTeam(foeTeam_);
+        trainer_.setTeam(_foeTeam);
         trainer_.setReward((short) 200);
         dual_.setFoeTrainer(trainer_);
         Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
+        FightFacade.initFight(fight_, _player, _diff, dual_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
         return fight_;
     }
 
     private Fight effectEndRoundPositionRelationCom(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
-        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
-        CustList<LevelMoves> foesMoves_ = foesMoves1(DETECTION);
-        return effectEndRoundPositionRelation(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        return calculateNewLevelDual(player_, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight effectEndRoundPositionRelationCom2(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
         Player player_ = new Player(NICKNAME,null, _diff,false, _data);
-        player_.getTeam().add(pkPlayer(_diff, _data, ARTIKODIN, (short)3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
-        Fight fight_ = FightFacade.newFight();
-        GymLeader leader_ = new GymLeader();
-        leader_.setTeam(foeTeam_);
-        leader_.setReward((short) 200);
-        FightFacade.initFight(fight_, player_, _diff, leader_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
+        return calculateNewLevelGymNoMult(player_,_diff,_data,foeTeam_);
     }
 
     private Fight effectEndRoundPositionRelationCom3(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
-        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
-        CustList<LevelMoves> foesMoves_ = foesMoves2(DETECTION, 3, 3);
-        return effectEndRoundPositionRelation(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        return calculateNewLevelDual(player_, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight effectEndRoundPositionRelationCom4(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        CustList<LevelMoves> userMoves_ = userMoves2(_moves);
-        CustList<LevelMoves> partnersMoves_ = foesMoves1(JACKPOT);
-        CustList<LevelMoves> foesMoves_ = foesMoves2(DETECTION, 3, 2);
-        return effectEndRoundPositionRelation(userMoves_, partnersMoves_, foesMoves_, _diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short) 3, new StringList(DETECTION)));
+        foeTeam_.add(pkTrainer((short) 2, new StringList(DETECTION)));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short) 3, new StringList(JACKPOT)));
+        return calculateNewLevelDual(player_, _diff, _data, foeTeam_, allyTeam_);
     }
 
-    private CustList<LevelMoves> foesMoves1(String _move) {
-        return new CustList<LevelMoves>(new LevelMoves[]{new LevelMoves((short)3, new StringList(_move))});
-    }
-
-    private CustList<LevelMoves> foesMoves2(String _move, int _one, int _two) {
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(_move);
-        foesMoves_.add(new LevelMoves((short) _one,foeMoves_));
-        foesMoves_.add(new LevelMoves((short) _two,foeMoves_));
-        return foesMoves_;
-    }
-
-    private CustList<LevelMoves> userMoves2(StringMap<Short> _moves) {
-        return new CustList<LevelMoves>(new LevelMoves[]{new LevelMoves((short)3, _moves),new LevelMoves((short)4, _moves)});
-    }
-
-    private static Fight effectEndRoundPositionRelation(
-            CustList<LevelMoves> _userMoves,
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        for (int i = IndexConstants.FIRST_INDEX; i < _userMoves.size(); i++) {
-            PokemonPlayer lasPk_ = pkPlayer(_diff, _data, ARTIKODIN, _userMoves.get(i));
-            player_.getTeam().add(lasPk_);
-        }
-        return calculateNewLevel(_partnerMoves, _foeMoves, player_, _diff, _data, _mult);
-    }
-
-    private static Fight effectEndRoundPositionRelation(
-            LevelMoves[] _userMoves,
-            LevelMoves[] _partnerMoves,
-            LevelMoves[] _foeMoves,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        for (LevelMoves i:_userMoves) {
-            player_.getTeam().add(pkPlayer(_diff, _data, ARTIKODIN, i));
-        }
-        return calculateNewLevel(_partnerMoves, _foeMoves, player_, _diff, _data, _mult);
-    }
-
-    private static PokemonPlayer pkPlayer(Difficulty _diff, DataBase _data, String _name, LevelMoves i) {
-        return pkPlayer(_diff, _data, _name, i.getFirst(), i.getMovesPp());
-    }
-
-    private static PokemonPlayer pkPlayer(Difficulty _diff, DataBase _data, String _name, short _level, StringMap<Short> _movesPp) {
+    private static PokemonPlayer pkPlayer(Difficulty _diff, DataBase _data, short _level, StringMap<Short> _movesPp) {
         Pokemon pokemon_ = new WildPk();
-        pokemon_.setName(_name);
+        pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
@@ -8792,80 +8743,26 @@ public class FightEndRoundTest extends InitializationDataBase {
         return lasPk_;
     }
 
-    private static Fight calculateNewLevel(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _user,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        Fight fight_ = FightFacade.newFight();
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = pkTrainer(_foeMoves.get(i));
-            foeTeam_.add(foePokemon_);
-        }
-        if (!_partnerMoves.isEmpty()) {
-            DualFight dual_ = new DualFight();
-            Ally ally_ = new Ally();
-            CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-                PkTrainer allyPokemon_ = pkTrainer(_partnerMoves.get(i));
-                allyTeam_.add(allyPokemon_);
-            }
-            ally_.setTeam(allyTeam_);
-            dual_.setAlly(ally_);
-            TempTrainer trainer_ = new TempTrainer();
-            trainer_.setTeam(foeTeam_);
-            trainer_.setReward((short) 200);
-            dual_.setFoeTrainer(trainer_);
-            FightFacade.initFight(fight_,_user, _diff, dual_, _data);
-        } else {
-            GymLeader leader_ = new GymLeader();
-            leader_.setTeam(foeTeam_);
-            if (_mult.length > 0) {
-                leader_.setMultiplicityFight((byte) _mult[0]);
-            }
-            leader_.setReward((short) 200);
-            FightFacade.initFight(fight_,_user, _diff, leader_, _data);
-        }
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
-    private static Fight calculateNewLevel(
-            LevelMoves[] _partnerMoves,
-            LevelMoves[] _foeMoves,
-            Player _user,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (LevelMoves i:_foeMoves) {
-            foeTeam_.add(pkTrainer(i));
-        }
-        if (_partnerMoves.length>0) {
-            CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (LevelMoves i:_partnerMoves) {
-                allyTeam_.add(pkTrainer(i));
-            }
-            return calculateNewLevelDual(_user, _diff, _data, foeTeam_, allyTeam_);
-        } else {
-            return calculateNewLevelGym(_user, _diff, _data, foeTeam_, _mult);
-        }
-    }
-
-    private static Fight calculateNewLevelGym(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> foeTeam_, int... _mult) {
+    private static Fight calculateNewLevelGymNoMult(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam) {
         Fight fight_ = FightFacade.newFight();
         GymLeader leader_ = new GymLeader();
-        leader_.setTeam(foeTeam_);
-        if (_mult.length > 0) {
-            leader_.setMultiplicityFight((byte) _mult[0]);
-        }
+        leader_.setTeam(_foeTeam);
         leader_.setReward((short) 200);
         FightFacade.initFight(fight_, _user, _diff, leader_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
         return fight_;
     }
 
+    private static Fight calculateNewLevelGymMult(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, int _mult) {
+        Fight fight_ = FightFacade.newFight();
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(_foeTeam);
+        leader_.setMultiplicityFight((byte) _mult);
+        leader_.setReward((short) 200);
+        FightFacade.initFight(fight_, _user, _diff, leader_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
+    }
     private static Fight calculateNewLevelDual(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, CustList<PkTrainer> _allyTeam) {
         Fight fight_ = FightFacade.newFight();
         DualFight dual_ = new DualFight();
@@ -8879,10 +8776,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightFacade.initFight(fight_, _user, _diff, dual_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
         return fight_;
-    }
-
-    private static PkTrainer pkTrainer(LevelMoves i) {
-        return pkTrainer(i.getFirst(), i.getSecond());
     }
 
     private static PkTrainer pkTrainer(short _level, StringList _moves) {
