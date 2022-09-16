@@ -172,69 +172,81 @@ public class FightSimulation {
 
     public void initializeFights(Coords _foeCoords, int _index, DataBase _import) {
         foeCoords = _foeCoords;
-        freeTeams = false;
-        noFight = _index;
-        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
-        maxActions.clear();
-        mult.clear();
-        items.clear();
-        usedStones.clear();
-        foeTeams.clear();
-        allyTeam.clear();
+        Place place_ = place(_index, _import);
         if (place_ instanceof League) {
             for (Level l: place_.getLevelsList()) {
                 LevelLeague level_ = (LevelLeague) l;
-                byte mult_ = level_.getTrainer().getMultiplicityFight();
-                maxActions.add((int) mult_);
-                mult.add(mult_);
-                items.add(new StringList());
-                usedStones.add(new CustList<StringList>());
-                foeTeams.add(level_.getTrainer().getTeam());
+                initializeFightLeague(level_);
             }
             fightType = FightType.DRESSEUR_LIGUE;
         } else {
-            Level l_ = place_.getLevelByCoords(foeCoords);
-            byte mult_;
-            int nbMax_;
-            if (l_ instanceof LevelWithWildPokemon) {
-                if (((LevelWithWildPokemon)l_).containsDualFight(foeCoords.getLevel().getPoint())) {
-                    DualFight dual_ = ((LevelWithWildPokemon)l_).getDualFight(foeCoords.getLevel().getPoint());
-                    mult_ = dual_.getFoeTrainer().getMultiplicityFight();
-                    nbMax_ = 1;
-                    foeTeams.add(dual_.getFoeTrainer().getTeam());
-                    allyTeam.addAllElts(dual_.getAlly().getTeam());
-                    fightType = FightType.TMP_TRAINER;
-                } else {
-                    TrainerMultiFights tr_ = ((LevelWithWildPokemon)l_).getTrainers().getVal(foeCoords.getLevel().getPoint());
-                    CustList<PkTrainer> team_ = tr_.getTeamsRewards().get(noFight).getTeam();
-                    mult_ = tr_.getMultiplicityFight();
-                    nbMax_ = mult_;
-                    foeTeams.add(team_);
-                    fightType = FightType.DRESSEUR;
-                }
-            } else {
-                if (((LevelIndoorGym)l_).getGymTrainers().contains(foeCoords.getLevel().getPoint())) {
-                    GymTrainer tr_ = ((LevelIndoorGym)l_).getGymTrainers().getVal(foeCoords.getLevel().getPoint());
-                    mult_ = tr_.getMultiplicityFight();
-                    foeTeams.add(tr_.getTeam());
-                    fightType = FightType.DRESSEUR_GYM;
-                } else {
-                    GymLeader tr_ = ((LevelIndoorGym)l_).getGymLeader();
-                    mult_ = tr_.getMultiplicityFight();
-                    foeTeams.add(tr_.getTeam());
-                    fightType = FightType.GYM_LEADER;
-                }
-                nbMax_ = mult_;
-            }
-            mult.add(mult_);
-            maxActions.add(nbMax_);
-            items.add(new StringList());
-            usedStones.add(new CustList<StringList>());
+            initializeFightNonLeague(place_);
         }
     }
 
     public void initializeFight(Coords _foeCoords, int _index, DataBase _import) {
         foeCoords = new Coords(_foeCoords);
+        Place place_ = place(_index, _import);
+        if (place_ instanceof League) {
+            LevelLeague l_ = (LevelLeague) place_.getLevelsList().get(foeCoords.getLevel().getLevelIndex());
+            foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
+            initializeFightLeague(l_);
+            fightType = FightType.DRESSEUR_LIGUE;
+        } else {
+            initializeFightNonLeague(place_);
+        }
+    }
+
+    private void initializeFightLeague(LevelLeague _l) {
+        byte mult_ = _l.getTrainer().getMultiplicityFight();
+        maxActions.add((int) mult_);
+        mult.add(mult_);
+        items.add(new StringList());
+        usedStones.add(new CustList<StringList>());
+        foeTeams.add(new CustList<PkTrainer>(_l.getTrainer().getTeam()));
+    }
+
+    private void initializeFightNonLeague(Place _place) {
+        Level l_ = _place.getLevelByCoords(foeCoords);
+        byte mult_;
+        int nbMax_;
+        if (l_ instanceof LevelWithWildPokemon) {
+            if (((LevelWithWildPokemon)l_).containsDualFight(foeCoords.getLevel().getPoint())) {
+                DualFight dual_ = ((LevelWithWildPokemon)l_).getDualFight(foeCoords.getLevel().getPoint());
+                mult_ = dual_.getFoeTrainer().getMultiplicityFight();
+                nbMax_ = 1;
+                foeTeams.add(new CustList<PkTrainer>(dual_.getFoeTrainer().getTeam()));
+                allyTeam.addAllElts(dual_.getAlly().getTeam());
+                fightType = FightType.TMP_TRAINER;
+            } else {
+                TrainerMultiFights tr_ = ((LevelWithWildPokemon)l_).getTrainers().getVal(foeCoords.getLevel().getPoint());
+                CustList<PkTrainer> team_ = tr_.getTeamsRewards().get(noFight).getTeam();
+                mult_ = tr_.getMultiplicityFight();
+                nbMax_ = mult_;
+                foeTeams.add(new CustList<PkTrainer>(team_));
+                fightType = FightType.DRESSEUR;
+            }
+        } else {
+            if (((LevelIndoorGym)l_).getGymTrainers().contains(foeCoords.getLevel().getPoint())) {
+                GymTrainer tr_ = ((LevelIndoorGym)l_).getGymTrainers().getVal(foeCoords.getLevel().getPoint());
+                mult_ = tr_.getMultiplicityFight();
+                foeTeams.add(new CustList<PkTrainer>(tr_.getTeam()));
+                fightType = FightType.DRESSEUR_GYM;
+            } else {
+                GymLeader tr_ = ((LevelIndoorGym)l_).getGymLeader();
+                mult_ = tr_.getMultiplicityFight();
+                foeTeams.add(new CustList<PkTrainer>(tr_.getTeam()));
+                fightType = FightType.GYM_LEADER;
+            }
+            nbMax_ = mult_;
+        }
+        mult.add(mult_);
+        maxActions.add(nbMax_);
+        items.add(new StringList());
+        usedStones.add(new CustList<StringList>());
+    }
+
+    private Place place(int _index, DataBase _import) {
         freeTeams = false;
         noFight = _index;
         Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
@@ -244,55 +256,7 @@ public class FightSimulation {
         usedStones.clear();
         foeTeams.clear();
         allyTeam.clear();
-        if (place_ instanceof League) {
-            LevelLeague l_ = (LevelLeague) place_.getLevelsList().get(foeCoords.getLevel().getLevelIndex());
-            foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
-            byte mult_ = l_.getTrainer().getMultiplicityFight();
-            maxActions.add((int) mult_);
-            mult.add(mult_);
-            items.add(new StringList());
-            usedStones.add(new CustList<StringList>());
-            foeTeams.add(new CustList<PkTrainer>(l_.getTrainer().getTeam()));
-            fightType = FightType.DRESSEUR_LIGUE;
-        } else {
-            Level l_ = place_.getLevelByCoords(foeCoords);
-            byte mult_;
-            int nbMax_;
-            if (l_ instanceof LevelWithWildPokemon) {
-                if (((LevelWithWildPokemon)l_).containsDualFight(foeCoords.getLevel().getPoint())) {
-                    DualFight dual_ = ((LevelWithWildPokemon)l_).getDualFight(foeCoords.getLevel().getPoint());
-                    mult_ = dual_.getFoeTrainer().getMultiplicityFight();
-                    nbMax_ = 1;
-                    foeTeams.add(new CustList<PkTrainer>(dual_.getFoeTrainer().getTeam()));
-                    allyTeam.addAllElts(dual_.getAlly().getTeam());
-                    fightType = FightType.TMP_TRAINER;
-                } else {
-                    TrainerMultiFights tr_ = ((LevelWithWildPokemon)l_).getTrainers().getVal(foeCoords.getLevel().getPoint());
-                    CustList<PkTrainer> team_ = tr_.getTeamsRewards().get(noFight).getTeam();
-                    mult_ = tr_.getMultiplicityFight();
-                    nbMax_ = mult_;
-                    foeTeams.add(new CustList<PkTrainer>(team_));
-                    fightType = FightType.DRESSEUR;
-                }
-            } else {
-                if (((LevelIndoorGym)l_).getGymTrainers().contains(foeCoords.getLevel().getPoint())) {
-                    GymTrainer tr_ = ((LevelIndoorGym)l_).getGymTrainers().getVal(foeCoords.getLevel().getPoint());
-                    mult_ = tr_.getMultiplicityFight();
-                    foeTeams.add(new CustList<PkTrainer>(tr_.getTeam()));
-                    fightType = FightType.DRESSEUR_GYM;
-                } else {
-                    GymLeader tr_ = ((LevelIndoorGym)l_).getGymLeader();
-                    mult_ = tr_.getMultiplicityFight();
-                    foeTeams.add(new CustList<PkTrainer>(tr_.getTeam()));
-                    fightType = FightType.GYM_LEADER;
-                }
-                nbMax_ = mult_;
-            }
-            mult.add(mult_);
-            maxActions.add(nbMax_);
-            items.add(new StringList());
-            usedStones.add(new CustList<StringList>());
-        }
+        return place_;
     }
 
     public void setTeams(CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam, int _multiplicity, int _nbMaxActions, EnvironmentType _env, Coords _coords) {
@@ -1689,16 +1653,9 @@ public class FightSimulation {
                 FightInitialization.initEquipeUtilisateur(_import, player_, diff_, fight_.getPlayerMaxNumberFrontFighters(), fight_.getMult(), allyTeam_, fight_);
                 fight_.setFightType(fightType);
                 FightInitialization.initEquipeAdversaire(_import, player_, foeTeam_, diff_, fight_);
-                FightFacade.beginFight(fight_, _import);
-                FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
-                game.simuler(fightSimulationActions,i, _import);
-                if (!game.getFight().getAcceptableChoices()) {
-                    probleme = true;
+                if (issueFight(_import, i, fight_, player_, indexes_)) {
                     return;
                 }
-                FightFacade.endFight(game.getFight());
-                player_.affectEndFight(game.getFight(), game.getDifficulty(), _import);
-                player_.restore(indexes_);
             }
             return;
         }
@@ -1720,19 +1677,36 @@ public class FightSimulation {
             CustList<PkTrainer> foeTeam_ = foeTeams.get(i);
 //            CustList<PkTrainer> foeTeam_ = foeTeamMultiple(trainer_, fight_);
             FightInitialization.initEquipeAdversaire(_import, player_, foeTeam_, diff_, fight_);
-            FightFacade.beginFight(fight_, _import);
-            FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
-            game.simuler(fightSimulationActions,i, _import);
-            if (!game.getFight().getAcceptableChoices()) {
-                probleme = true;
+            if (issueFight(_import, i, fight_, player_, indexes_)) {
                 return;
             }
-            FightFacade.endFight(game.getFight());
-            player_.affectEndFight(game.getFight(), game.getDifficulty(), _import);
-            player_.restore(indexes_);
+//            FightFacade.beginFight(fight_, _import);
+//            FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
+//            game.simuler(fightSimulationActions,i, _import);
+//            if (!game.getFight().getAcceptableChoices()) {
+//                probleme = true;
+//                return;
+//            }
+//            FightFacade.endFight(game.getFight());
+//            player_.affectEndFight(game.getFight(), game.getDifficulty(), _import);
+//            player_.restore(indexes_);
 //            byte i_;
             afterFight(pps_, i, index_, player_);
         }
+    }
+
+    private boolean issueFight(DataBase _import, byte _i, Fight _fight, Player _player, Bytes _indexes) {
+        FightFacade.beginFight(_fight, _import);
+        FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
+        game.simuler(fightSimulationActions, _i, _import);
+        if (!game.getFight().getAcceptableChoices()) {
+            probleme = true;
+            return true;
+        }
+        FightFacade.endFight(game.getFight());
+        _player.affectEndFight(game.getFight(), game.getDifficulty(), _import);
+        _player.restore(_indexes);
+        return false;
     }
 
     private void afterFight(StringMap<Short> _pps, byte _i, int _index, Player _player) {

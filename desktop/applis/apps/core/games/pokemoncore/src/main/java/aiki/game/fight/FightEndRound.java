@@ -32,6 +32,7 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
+import aiki.util.CommonParam;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -79,31 +80,29 @@ final class FightEndRound {
                 if (creature_.estArriere()) {
                     sub_ = true;
                 }
-                continue;
+            } else if (!NumberUtil.eq(creature_.getGroundPlaceSubst(), Fighter.BACK)) {
+                proponed_ = true;
             }
-            if(NumberUtil.eq(creature_.getGroundPlaceSubst(),Fighter.BACK)){
-                continue;
-            }
-            proponed_ = true;
         }
         if (proponed_) {
             return sub_;
         }
+        return proponedSwitchWhileKoPlayerMissing(_fight, _team, _max);
+    }
+
+    private static boolean proponedSwitchWhileKoPlayerMissing(Fight _fight, byte _team, int _max) {
         int nbFrontPk_ = 0;
         boolean notFullTeam_ = false;
         for(TeamPosition c:FightOrder.fighters(_fight, _team)){
-            Fighter creature_=_fight.getFighter(c);
-            if (creature_.isBelongingToPlayer()) {
-                continue;
-            }
-            if(creature_.estKo()){
+            Fighter creature_= _fight.getFighter(c);
+            if (creature_.isBelongingToPlayer() || creature_.estKo()) {
                 continue;
             }
             if(!creature_.estArriere()){
                 nbFrontPk_++;
-                continue;
+            } else {
+                notFullTeam_ = true;
             }
-            notFullTeam_ = true;
         }
         if (notFullTeam_) {
             return nbFrontPk_ < _max;
@@ -112,66 +111,59 @@ final class FightEndRound {
     }
 
     static void setPlacesForFighters(Fight _fight, boolean _switchWhileKoUserDone) {
-        if (existSubstitute(_fight)) {
-            if (_fight.getState() != FightState.SWITCH_WHILE_KO_USER) {
-                for(TeamPosition c:FightOrder.fighters(_fight)){
-                    Fighter creature_=_fight.getFighter(c);
-                    if (creature_.estKo()) {
-                        creature_.exitFrontBattleForBeingSubstitued();
-                        if (c.getTeam() == Fight.CST_PLAYER) {
-                            _fight.getFirstPositPlayerFighters().put(c.getPosition(), Fighter.BACK);
-                        } else {
-                            _fight.getFirstPositFoeFighters().put(c.getPosition(), Fighter.BACK);
-                        }
-                    }
-                }
-            } else {
-                for(TeamPosition c:FightOrder.fighters(_fight)){
-                    Fighter creature_=_fight.getFighter(c);
-                    if (!creature_.isBelongingToPlayer()) {
-                        if (_switchWhileKoUserDone) {
-                            if (creature_.estKo()) {
-                                creature_.exitFrontBattleForBeingSubstitued();
-                                if (c.getTeam() == Fight.CST_PLAYER) {
-                                    _fight.getFirstPositPlayerFighters().put(c.getPosition(), Fighter.BACK);
-                                } else {
-                                    _fight.getFirstPositFoeFighters().put(c.getPosition(), Fighter.BACK);
-                                }
-                            }
-                        }
-                        continue;
-                    }
-                    creature_.exitFrontBattleForBeingSubstitued();
-                    _fight.getFirstPositPlayerFighters().put(c.getPosition(), Fighter.BACK);
-                }
+        if (!existSubstitute(_fight)) {
+            FightKo.moveTeams(_fight);
+            for (TeamPosition c : FightOrder.fighters(_fight)) {
+                Fighter creature_ = _fight.getFighter(c);
+    //            if (creature_.estArriere()) {
+    //                continue;
+    //            }
+                creature_.affectGroundPlaceSubst();
+                chgFirstPosit(c, _fight, creature_);
             }
             return;
         }
-        FightKo.moveTeams(_fight);
-        for(TeamPosition c:FightOrder.fighters(_fight)){
-            Fighter creature_=_fight.getFighter(c);
-//            if (creature_.estArriere()) {
-//                continue;
-//            }
-            creature_.affectGroundPlaceSubst();
-            if (c.getTeam() == Fight.CST_PLAYER) {
-                _fight.getFirstPositPlayerFighters().put(c.getPosition(), creature_.getGroundPlace());
-            } else {
-                _fight.getFirstPositFoeFighters().put(c.getPosition(), creature_.getGroundPlace());
+        if (_fight.getState() != FightState.SWITCH_WHILE_KO_USER) {
+            for (TeamPosition c : FightOrder.fighters(_fight)) {
+                Fighter creature_ = _fight.getFighter(c);
+                exitIfKo(creature_, c, _fight);
             }
+            return;
+        }
+        for (TeamPosition c : FightOrder.fighters(_fight)) {
+            Fighter creature_ = _fight.getFighter(c);
+            if (!creature_.isBelongingToPlayer()) {
+                if (_switchWhileKoUserDone) {
+                    exitIfKo(creature_, c, _fight);
+                }
+                continue;
+            }
+            creature_.exitFrontBattleForBeingSubstitued();
+            _fight.getFirstPositPlayerFighters().put(c.getPosition(), Fighter.BACK);
+        }
+    }
+
+    private static void exitIfKo(Fighter _creature, TeamPosition _c, Fight _fight) {
+        if (_creature.estKo()) {
+            _creature.exitFrontBattleForBeingSubstitued();
+            chgFirstPosit(_c, _fight, _creature);
+        }
+    }
+
+    private static void chgFirstPosit(TeamPosition _c, Fight _fight, Fighter _creature) {
+        if (_c.getTeam() == Fight.CST_PLAYER) {
+            _fight.getFirstPositPlayerFighters().put(_c.getPosition(), _creature.getGroundPlaceSubst());
+        } else {
+            _fight.getFirstPositFoeFighters().put(_c.getPosition(), _creature.getGroundPlaceSubst());
         }
     }
 
     static boolean existSubstitute(Fight _fight) {
         for(TeamPosition c:FightOrder.fighters(_fight)){
             Fighter creature_=_fight.getFighter(c);
-            if(creature_.estKo()){
-                continue;
+            if (!creature_.estKo() && creature_.estArriere()) {
+                return true;
             }
-            if (!creature_.estArriere()) {
-                continue;
-            }
-            return true;
         }
         return false;
     }
@@ -179,13 +171,9 @@ final class FightEndRound {
     static boolean proponedSwitch(Fight _fight){
         for(TeamPosition c:FightOrder.fighters(_fight)){
             Fighter creature_=_fight.getFighter(c);
-            if(!creature_.estKo()){
-                continue;
+            if (creature_.estKo() && !NumberUtil.eq(creature_.getGroundPlaceSubst(), Fighter.BACK)) {
+                return true;
             }
-            if(NumberUtil.eq(creature_.getGroundPlaceSubst(),Fighter.BACK)){
-                continue;
-            }
-            return true;
         }
         if (missingFighterInTeam(_fight, Fight.CST_PLAYER)) {
             return true;
@@ -203,9 +191,9 @@ final class FightEndRound {
             }
             if(!creature_.estArriere()){
                 nbFrontPk_++;
-                continue;
+            } else {
+                notFullTeam_ = true;
             }
-            notFullTeam_ = true;
         }
         if (notFullTeam_) {
             return nbFrontPk_ < _fight.getMult();
@@ -231,252 +219,8 @@ final class FightEndRound {
         CustList<EndRoundMainElements> liste_=_import.getEvtEndRound();
         int nb_=liste_.size();
         for(int i = IndexConstants.FIRST_INDEX; i<nb_; i++){
-            EndRoundMainElements elt_=liste_.get(i);
-            if(elt_.isIncrementNumberOfRounds()){
-                //Tirage du nombre de tour
-                if(elt_.getEndRoundType() == EndTurnType.ATTAQUE){
-                    String move_ = elt_.getElement();
-                    for(TeamPosition c:FightOrder.frontFighters(_fight)){
-                        incrementNumberRounds(_fight,c, move_, _import);
-                    }
-                    for(byte c:_fight.getTeams().getKeys()){
-                        incrementNumberRoundsTeam(_fight, c, move_, _import);
-                    }
-                    incrementNumberRoundsGlobal(_fight, move_, _import);
-                    if (!_fight.getAcceptableChoices()) {
-                        return;
-                    }
-                }
-                if(elt_.getEndRoundType() == EndTurnType.ATTAQUE_COMBI){
-                    for(byte c:_fight.getTeams().getKeys()){
-                        Team equipe_=_fight.getTeams().getVal(c);
-                        for(StringList c2_:equipe_.getEnabledMovesByGroup().getKeys()){
-                            if(!StringUtil.quickEq(StringUtil.join(c2_, DataBase.SEPARATOR_MOVES),elt_.getElement())){
-                                continue;
-                            }
-                            incrementNumberRoundsTeamComboMoves(_fight, c, c2_, _import);
-                        }
-                    }
-                }
-                continue;
-            }
-            if (elt_.getEndRoundType() == EndTurnType.ATTAQUE) {
-                for (Effect e: _import.getMove(elt_.getElement()).getEffects()) {
-                    if (!(e instanceof EffectEndRoundGlobal)) {
-                        continue;
-                    }
-                    effectEndRoundGlobal(_fight,elt_.getElement(),_diff,_import);
-                    if(!_fight.getAcceptableChoices()){
-                        return;
-                    }
-                    if(FightKo.endedFight(_fight,_diff)){
-                        return;
-                    }
-                }
-                for (Effect e: _import.getMove(elt_.getElement()).getEffects()) {
-                    if (!(e instanceof EffectEndRoundIndividual)) {
-                        continue;
-                    }
-                    EffectEndRoundIndividual effetFinTour_ = (EffectEndRoundIndividual) e;
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
-                        Fighter creature_=_fight.getFighter(c);
-                        if(!creature_.getEnabledMovesEndRound().getVal(elt_.getElement()).isEnabled()){
-                            continue;
-                        }
-                        _fight.addMoveEndRoundMessage(elt_.getElement(), c, _import);
-                        effectEndRoundIndividual(_fight,c,effetFinTour_,_diff,_import);
-                        if(!_fight.getAcceptableChoices()){
-                            return;
-                        }
-                        if(FightKo.endedFight(_fight,_diff)){
-                            return;
-                        }
-                    }
-                }
-                for (Effect e: _import.getMove(elt_.getElement()).getEffects()) {
-                    if (!(e instanceof EffectEndRoundPositionRelation)) {
-                        continue;
-                    }
-                    EffectEndRoundPositionRelation effetFinTour_ = (EffectEndRoundPositionRelation) e;
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
-                        effectEndRoundPositionRelation(_fight,c,effetFinTour_,elt_.getElement(), _import);
-                    }
-                }
-                for (Effect e: _import.getMove(elt_.getElement()).getEffects()) {
-                    if (!(e instanceof EffectEndRoundSingleRelation)) {
-                        continue;
-                    }
-                    EffectEndRoundSingleRelation effetFinTour_ = (EffectEndRoundSingleRelation) e;
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
-                        effectEndRoundSingleRelation(_fight,c,effetFinTour_,elt_.getElement(),_diff,_import);
-                        if(!_fight.getAcceptableChoices()){
-                            return;
-                        }
-                        if(FightKo.endedFight(_fight,_diff)){
-                            return;
-                        }
-                    }
-                }
-                for (Effect e: _import.getMove(elt_.getElement()).getEffects()) {
-                    if (!(e instanceof EffectEndRoundPositionTargetRelation)) {
-                        continue;
-                    }
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
-                        effectEndRoundPositionTargetRelation(_fight,c,elt_.getElement(),_diff,_import);
-                        if(!_fight.getAcceptableChoices()){
-                            return;
-                        }
-                        if(FightKo.endedFight(_fight,_diff)){
-                            return;
-                        }
-                    }
-                }
-                continue;
-            }
-            if(elt_.getEndRoundType() == EndTurnType.OBJET){
-                ItemForBattle fObjet_=(ItemForBattle)_import.getItem(elt_.getElement());
-                EffectEndRoundIndividual effetFinTour_ = (EffectEndRoundIndividual) fObjet_.getEffectEndRound().first();
-                for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
-                    Fighter creature_=_fight.getFighter(c);
-                    if(!StringUtil.quickEq(creature_.getItem(),elt_.getElement())) {
-                        continue;
-                    }
-                    if(!FightItems.canUseItsObject(_fight,c,_import)){
-                        continue;
-                    }
-                    _fight.addItemEndRoundMessage(elt_.getElement(), c, _import);
-                    effectEndRoundIndividual(_fight,c,effetFinTour_,_diff,_import);
-                    if(!_fight.getAcceptableChoices()){
-                        return;
-                    }
-                    if(FightKo.endedFight(_fight,_diff)){
-                        return;
-                    }
-                }
-                continue;
-            }
-            if(elt_.getEndRoundType() == EndTurnType.CAPACITE){
-                AbilityData fCapac_ = _import.getAbility(elt_.getElement());
-                EffectEndRound effect_ = fCapac_.getEffectEndRound().first();
-                if(effect_ instanceof EffectEndRoundIndividual){
-                    EffectEndRoundIndividual effetFinTour_ = (EffectEndRoundIndividual) effect_;
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
-                        Fighter creature_=_fight.getFighter(c);
-                        if(!StringUtil.quickEq(creature_.getCurrentAbility(),elt_.getElement())){
-                            continue;
-                        }
-                        _fight.addAbilityEndRoundMessage(elt_.getElement(), c, _import);
-                        effectEndRoundIndividual(_fight,c,effetFinTour_,_diff,_import);
-                        if(!_fight.getAcceptableChoices()){
-                            return;
-                        }
-                        if(FightKo.endedFight(_fight,_diff)){
-                            return;
-                        }
-                    }
-                }
-                if(effect_ instanceof EffectEndRoundTeam) {
-                    EffectEndRoundTeam effetFinTour_ = (EffectEndRoundTeam) effect_;
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
-                        Fighter creature_=_fight.getFighter(c);
-                        if(!StringUtil.quickEq(creature_.getCurrentAbility(),elt_.getElement())){
-                            continue;
-                        }
-                        effectEndRoundTeam(_fight,c,effetFinTour_, elt_.getElement(), _import);
-                    }
-                }
-                if(effect_ instanceof EffectEndRoundMultiRelation){
-                    EffectEndRoundMultiRelation effetFinTour_ = (EffectEndRoundMultiRelation) effect_;
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
-                        Fighter creature_=_fight.getFighter(c);
-                        if(!StringUtil.quickEq(creature_.getCurrentAbility(),elt_.getElement())){
-                            continue;
-                        }
-                        effectEndRoundMultiRelation(_fight,c,effetFinTour_, elt_.getElement(),_diff,_import);
-                        if(!_fight.getAcceptableChoices()){
-                            return;
-                        }
-                        if(FightKo.endedFight(_fight,_diff)){
-                            return;
-                        }
-                    }
-                }
-                continue;
-            }
-            if(elt_.getEndRoundType() == EndTurnType.STATUT){
-                Status fObjet_ = _import.getStatus(elt_.getElement());
-                if(fObjet_.getStatusType() == StatusType.INDIVIDUEL){
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
-                        Status statut_=_import.getStatus().getVal(elt_.getElement());
-                        effectEndRoundStatus(_fight,c,statut_,elt_.getElement(), _import);
-                    }
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
-                        Status statut_=_import.getStatus().getVal(elt_.getElement());
-                        effectEndRoundStatusHp(_fight,c,statut_,elt_.getElement(),_diff,_import);
-                        if(!_fight.getAcceptableChoices()){
-                            return;
-                        }
-                        if(FightKo.endedFight(_fight,_diff)){
-                            return;
-                        }
-                    }
-                }
-                if(fObjet_.getStatusType() == StatusType.RELATION_UNIQUE){
-                    for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
-                        Fighter creature_=_fight.getFighter(c);
-                        for(MoveTeamPosition c2_:creature_.getStatusRelatSet()){
-                            if(!StringUtil.quickEq(c2_.getMove(),elt_.getElement())){
-                                continue;
-                            }
-                            effectEndRoundStatusRelation(_fight,c,c2_.getTeamPosition(),c2_.getMove(),_import);
-                        }
-                    }
-                    for(TeamPosition c: FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
-                        Fighter creature_=_fight.getFighter(c);
-                        for(MoveTeamPosition c2_:creature_.getStatusRelatSet()){
-                            if(!StringUtil.quickEq(c2_.getMove(),elt_.getElement())){
-                                continue;
-                            }
-                            effectEndRoundStatusRelationHp(_fight,c,c2_.getTeamPosition(),c2_.getMove(),_diff,_import);
-                            if(!_fight.getAcceptableChoices()){
-                                return;
-                            }
-                            if(FightKo.endedFight(_fight,_diff)){
-                                return;
-                            }
-                        }
-                    }
-                }
-                continue;
-            }
-            //elt_.getEndRoundType() == EndTurnType.ATTAQUE_COMBI
-            StringList key_ = StringUtil.splitStrings(elt_.getElement(), DataBase.SEPARATOR_MOVES);
-            EffectCombo effet_ = _import.getCombos().getEffects().getVal(key_);
-            EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
-            if (_fight.getUserTeam().getEnabledMovesByGroup().getVal(key_).isEnabled()) {
-                for(TeamPosition c: FightOrder.frontFighters(_fight)){
-                    if (NumberUtil.eq(c.getTeam(), Fight.CST_PLAYER)) {
-                        continue;
-                    }
-                    effectEndRoundFoe(_fight,c, effetFinTour_, key_, _diff, _import);
-                    if(FightKo.endedFight(_fight,_diff)){
-                        return;
-                    }
-                }
-            }
-            if (_fight.getFoeTeam().getEnabledMovesByGroup().getVal(key_).isEnabled()) {
-                for(TeamPosition c: FightOrder.frontFighters(_fight)){
-                    if (NumberUtil.eq(c.getTeam(), Fight.CST_FOE)) {
-                        continue;
-                    }
-                    effectEndRoundFoe(_fight,c, effetFinTour_, key_, _diff, _import);
-                    if(!_fight.getAcceptableChoices()){
-                        return;
-                    }
-                    if(FightKo.endedFight(_fight,_diff)){
-                        return;
-                    }
-                }
+            if (exitEndRound(_fight, _diff, _import, liste_, i)) {
+                return;
             }
         }
         for(byte c:_fight.getTeams().getKeys()){
@@ -484,6 +228,306 @@ final class FightEndRound {
             equipe_.useItemsEndRound(_import);
             _fight.addComment(equipe_.getComment());
         }
+    }
+
+    private static boolean exitEndRound(Fight _fight, Difficulty _diff, DataBase _import, CustList<EndRoundMainElements> _liste, int _i) {
+        EndRoundMainElements elt_= _liste.get(_i);
+        if(elt_.isIncrementNumberOfRounds()){
+            //Tirage du nombre de tour
+            return exitEndRoundIncr(_fight, _import, elt_);
+        }
+        if (elt_.getEndRoundType() == EndTurnType.ATTAQUE) {
+            if (exitEndRoundMoveGlobal(_fight, _diff, _import, elt_)) {
+                return true;
+            }
+            if (exitEndRoundMoveIndividual(_fight, _diff, _import, elt_)) {
+                return true;
+            }
+            effectEndRoundPositionRelationAllFighters(_fight, _import, elt_);
+            if (exitEndRoundMoveSingleRelation(_fight, _diff, _import, elt_)) {
+                return true;
+            }
+            return exitEndRoundMoveTargetRelations(_fight, _diff, _import, elt_);
+        }
+        if(elt_.getEndRoundType() == EndTurnType.OBJET){
+            return exitEndRoundItem(_fight, _diff, _import, elt_);
+        }
+        if(elt_.getEndRoundType() == EndTurnType.CAPACITE){
+            return exitEndRoundAbility(_fight, _diff, _import, elt_);
+        }
+        if(elt_.getEndRoundType() == EndTurnType.STATUT){
+            return exitEndRoundStatus(_fight, _diff, _import, elt_);
+        }
+        //elt_.getEndRoundType() == EndTurnType.ATTAQUE_COMBI
+        return exitEndRoundCombo(_fight, _diff, _import, elt_);
+    }
+
+    private static boolean exitEndRoundCombo(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        StringList key_ = StringUtil.splitStrings(_elt.getElement(), DataBase.SEPARATOR_MOVES);
+        EffectCombo effet_ = _import.getCombos().getEffects().getVal(key_);
+        EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
+        if (_fight.getUserTeam().getEnabledMovesByGroup().getVal(key_).isEnabled()) {
+            for (TeamPosition c : FightOrder.frontFighters(_fight)) {
+                if (NumberUtil.eq(c.getTeam(), Fight.CST_PLAYER)) {
+                    continue;
+                }
+                effectEndRoundFoe(_fight, c, effetFinTour_, key_, _diff, _import);
+                if (FightKo.endedFight(_fight, _diff)) {
+                    return true;
+                }
+            }
+        }
+        return exitEndRoundComboFoe(_fight, _diff, _import, key_, effetFinTour_);
+    }
+
+    private static boolean exitEndRoundComboFoe(Fight _fight, Difficulty _diff, DataBase _import, StringList _key, EffectEndRoundFoe _effetFinTour) {
+        if (_fight.getFoeTeam().getEnabledMovesByGroup().getVal(_key).isEnabled()) {
+            for (TeamPosition c : FightOrder.frontFighters(_fight)) {
+                if (NumberUtil.eq(c.getTeam(), Fight.CST_FOE)) {
+                    continue;
+                }
+                effectEndRoundFoe(_fight, c, _effetFinTour, _key, _diff, _import);
+                if (exitEndRound(_diff, _fight)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundStatus(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        Status fObjet_ = _import.getStatus(_elt.getElement());
+        if (fObjet_.getStatusType() == StatusType.INDIVIDUEL && exitEndRoundStatusIndividual(_fight, _diff, _import, _elt, fObjet_)) {
+            return true;
+        }
+        if(fObjet_.getStatusType() == StatusType.RELATION_UNIQUE){
+            return exitEndRoundStatusRelation(_fight, _diff, _import, _elt);
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundStatusRelation(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        effectEndRoundStatusRelationAll(_fight, _import, _elt);
+        for(TeamPosition c: FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
+            Fighter creature_= _fight.getFighter(c);
+            for(MoveTeamPosition c2_:creature_.getStatusRelatSet()){
+                if(!StringUtil.quickEq(c2_.getMove(), _elt.getElement())){
+                    continue;
+                }
+                effectEndRoundStatusRelationHp(_fight,c,c2_.getTeamPosition(),c2_.getMove(), _diff, _import);
+                if (exitEndRound(_diff, _fight)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundStatusIndividual(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt, Status _fObjet) {
+        for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
+            effectEndRoundStatus(_fight,c, _fObjet, _elt.getElement(), _import);
+        }
+        for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
+            effectEndRoundStatusHp(_fight,c, _fObjet, _elt.getElement(), _diff, _import);
+            if (exitEndRound(_diff, _fight)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void effectEndRoundStatusRelationAll(Fight _fight, DataBase _import, EndRoundMainElements _elt) {
+        for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
+            Fighter creature_= _fight.getFighter(c);
+            for(MoveTeamPosition c2_:creature_.getStatusRelatSet()){
+                if(!StringUtil.quickEq(c2_.getMove(), _elt.getElement())){
+                    continue;
+                }
+                effectEndRoundStatusRelation(_fight,c,c2_.getTeamPosition(),c2_.getMove(), _import);
+            }
+        }
+    }
+
+    private static boolean exitEndRoundAbility(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        AbilityData fCapac_ = _import.getAbility(_elt.getElement());
+        EffectEndRound effect_ = fCapac_.getEffectEndRound().first();
+        if(effect_ instanceof EffectEndRoundIndividual){
+            EffectEndRoundIndividual effetFinTour_ = (EffectEndRoundIndividual) effect_;
+            if (exitEndRoundAbilityIndividual(_fight, _diff, _import, _elt, effetFinTour_)) {
+                return true;
+            }
+        }
+        if(effect_ instanceof EffectEndRoundTeam) {
+            EffectEndRoundTeam effetFinTour_ = (EffectEndRoundTeam) effect_;
+            effectEndRoundTeamAll(_fight, _import, _elt, effetFinTour_);
+        }
+        if(effect_ instanceof EffectEndRoundMultiRelation){
+            EffectEndRoundMultiRelation effetFinTour_ = (EffectEndRoundMultiRelation) effect_;
+            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
+                Fighter creature_= _fight.getFighter(c);
+                if(!StringUtil.quickEq(creature_.getCurrentAbility(), _elt.getElement())){
+                    continue;
+                }
+                effectEndRoundMultiRelation(_fight,c,effetFinTour_, _elt.getElement(), _diff, _import);
+                if (exitEndRound(_diff, _fight)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static void effectEndRoundTeamAll(Fight _fight, DataBase _import, EndRoundMainElements _elt, EffectEndRoundTeam _effetFinTour) {
+        for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
+            Fighter creature_= _fight.getFighter(c);
+            if(!StringUtil.quickEq(creature_.getCurrentAbility(), _elt.getElement())){
+                continue;
+            }
+            effectEndRoundTeam(_fight,c, _effetFinTour, _elt.getElement(), _import);
+        }
+    }
+
+    private static boolean exitEndRoundAbilityIndividual(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt, EffectEndRoundIndividual _effetFinTour) {
+        for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
+            Fighter creature_= _fight.getFighter(c);
+            if(!StringUtil.quickEq(creature_.getCurrentAbility(), _elt.getElement())){
+                continue;
+            }
+            _fight.addAbilityEndRoundMessage(_elt.getElement(), c, _import);
+            effectEndRoundIndividual(_fight,c, _effetFinTour, _diff, _import);
+            if (exitEndRound(_diff, _fight)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundItem(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        ItemForBattle fObjet_=(ItemForBattle) _import.getItem(_elt.getElement());
+        EffectEndRoundIndividual effetFinTour_ = (EffectEndRoundIndividual) fObjet_.getEffectEndRound().first();
+        for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
+            Fighter creature_= _fight.getFighter(c);
+            if (!StringUtil.quickEq(creature_.getItem(), _elt.getElement()) || !FightItems.canUseItsObject(_fight, c, _import)) {
+                continue;
+            }
+            _fight.addItemEndRoundMessage(_elt.getElement(), c, _import);
+            effectEndRoundIndividual(_fight,c,effetFinTour_, _diff, _import);
+            if (exitEndRound(_diff, _fight)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundMoveTargetRelations(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        for (Effect e: _import.getMove(_elt.getElement()).getEffects()) {
+            if (!(e instanceof EffectEndRoundPositionTargetRelation)) {
+                continue;
+            }
+            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
+                effectEndRoundPositionTargetRelation(_fight,c, _elt.getElement(), _diff, _import);
+                if (exitEndRound(_diff, _fight)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundMoveSingleRelation(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        for (Effect e: _import.getMove(_elt.getElement()).getEffects()) {
+            if (!(e instanceof EffectEndRoundSingleRelation)) {
+                continue;
+            }
+            EffectEndRoundSingleRelation effetFinTour_ = (EffectEndRoundSingleRelation) e;
+            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
+                effectEndRoundSingleRelation(_fight,c,effetFinTour_, _elt.getElement(), _diff, _import);
+                if (exitEndRound(_diff, _fight)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static void effectEndRoundPositionRelationAllFighters(Fight _fight, DataBase _import, EndRoundMainElements _elt) {
+        for (Effect e: _import.getMove(_elt.getElement()).getEffects()) {
+            if (!(e instanceof EffectEndRoundPositionRelation)) {
+                continue;
+            }
+            EffectEndRoundPositionRelation effetFinTour_ = (EffectEndRoundPositionRelation) e;
+            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
+                effectEndRoundPositionRelation(_fight,c,effetFinTour_, _elt.getElement(), _import);
+            }
+        }
+    }
+
+    private static boolean exitEndRoundMoveIndividual(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        for (Effect e: _import.getMove(_elt.getElement()).getEffects()) {
+            if (!(e instanceof EffectEndRoundIndividual)) {
+                continue;
+            }
+            EffectEndRoundIndividual effetFinTour_ = (EffectEndRoundIndividual) e;
+            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
+                Fighter creature_= _fight.getFighter(c);
+                if(!creature_.getEnabledMovesEndRound().getVal(_elt.getElement()).isEnabled()){
+                    continue;
+                }
+                _fight.addMoveEndRoundMessage(_elt.getElement(), c, _import);
+                effectEndRoundIndividual(_fight,c,effetFinTour_, _diff, _import);
+                if (exitEndRound(_diff, _fight)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundMoveGlobal(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
+        for (Effect e: _import.getMove(_elt.getElement()).getEffects()) {
+            if (!(e instanceof EffectEndRoundGlobal)) {
+                continue;
+            }
+            effectEndRoundGlobal(_fight, _elt.getElement(), _diff, _import);
+            if (exitEndRound(_diff, _fight)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundIncr(Fight _fight, DataBase _import, EndRoundMainElements _elt) {
+        if (_elt.getEndRoundType() == EndTurnType.ATTAQUE && exitEndRoundIncrMove(_fight, _import, _elt)) {
+            return true;
+        }
+        if(_elt.getEndRoundType() == EndTurnType.ATTAQUE_COMBI){
+            for(byte c: _fight.getTeams().getKeys()){
+                Team equipe_= _fight.getTeams().getVal(c);
+                for(StringList c2_:equipe_.getEnabledMovesByGroup().getKeys()){
+                    if(!StringUtil.quickEq(StringUtil.join(c2_, DataBase.SEPARATOR_MOVES), _elt.getElement())){
+                        continue;
+                    }
+                    incrementNumberRoundsTeamComboMoves(_fight, c, c2_, _import);
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean exitEndRoundIncrMove(Fight _fight, DataBase _import, EndRoundMainElements _elt) {
+        String move_ = _elt.getElement();
+        for(TeamPosition c:FightOrder.frontFighters(_fight)){
+            incrementNumberRounds(_fight,c, move_, _import);
+        }
+        for(byte c: _fight.getTeams().getKeys()){
+            incrementNumberRoundsTeam(_fight, c, move_, _import);
+        }
+        incrementNumberRoundsGlobal(_fight, move_, _import);
+        return !_fight.getAcceptableChoices();
+    }
+
+    private static boolean exitEndRound(Difficulty _diff, Fight _fight) {
+        return !_fight.getAcceptableChoices() || FightKo.endedFight(_fight, _diff);
     }
 
     static void incrementNumberRounds(Fight _fight,TeamPosition _fighter, String _move, DataBase _import) {
@@ -519,27 +563,13 @@ final class FightEndRound {
 
     static void processActivity(Fight _fight, TeamPosition _fighter, String _move, TeamPosition _other, boolean _relation, DataBase _import) {
         ActivityOfMove activity_ = _fight.getCurrentActivity();
-        if(!activity_.isEnabled()){
-            return;
-        }
-        if(!activity_.isIncrementCount()){
+        if (!activity_.isEnabled() || !activity_.isIncrementCount()) {
             return;
         }
         Fighter creature_=_fight.getFighter(_fighter);
         MoveData fAtt_=_import.getMove(_move);
         MonteCarloNumber loi_=fAtt_.getRepeatRoundLaw();
-        MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(activity_.getNbTurn()));
-        boolean resterActif_;
-        LgInt maxRd_ = _import.getMaxRd();
-        if(_fight.getSimulation()){
-            if(loiSachant_.events().size()==1){
-                resterActif_= FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-            }else{
-                resterActif_= NumberUtil.eq(_fighter.getTeam(), Fight.CST_FOE);
-            }
-        }else{
-            resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-        }
+        boolean resterActif_ = resterActif(_fight, _import, activity_.getNbTurn(), loi_, _fighter.getTeam(), Fight.CST_FOE);
         activity_.keepEnabled(resterActif_);
         if (!resterActif_) {
             if (creature_.getEnabledMovesProt().contains(_move)) {
@@ -565,19 +595,11 @@ final class FightEndRound {
             if (fighter_.estArriere()) {
                 continue;
             }
-            if (!FightItems.canUseItsObject(_fight,f,_import)) {
-                continue;
+            Item objet_ = FightItems.useItsObject(_fight, f, _import);
+            if (objet_ instanceof ItemForBattle && ((ItemForBattle) objet_).getIncreasingMaxNbRoundTeamMove().contains(_move)) {
+                tirer_ = false;
+                nbRounds_.addNb(new Rate(((ItemForBattle) objet_).getIncreasingMaxNbRoundTeamMove().getVal(_move)));
             }
-            Item objet_ = fighter_.ficheObjet(_import);
-            if (!(objet_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-            if (!objetAttachable_.getIncreasingMaxNbRoundTeamMove().contains(_move)) {
-                continue;
-            }
-            tirer_=false;
-            nbRounds_.addNb(new Rate(objetAttachable_.getIncreasingMaxNbRoundTeamMove().getVal(_move)));
         }
         MoveData dataMove_ = _import.getMove(_move);
         MonteCarloNumber law_=dataMove_.getRepeatRoundLaw();
@@ -588,18 +610,7 @@ final class FightEndRound {
             _fight.addDisabledTeamMoveMessage(_team, _move, activity_, _import);
             return;
         }
-        LgInt maxRd_ = _import.getMaxRd();
-        MonteCarloBoolean loiSachant_=law_.knowingGreater(new Rate(activity_.getNbTurn()));
-        boolean resterActif_;
-        if(_fight.getSimulation()){
-            if(loiSachant_.events().size()==1){
-                resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-            }else{
-                resterActif_= NumberUtil.eq(_team,Fight.CST_FOE);
-            }
-        }else{
-            resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-        }
+        boolean resterActif_ = resterActif(_fight, _import, activity_.getNbTurn(), law_, _team, Fight.CST_FOE);
         activity_.keepEnabled(resterActif_);
         _fight.addDisabledTeamMoveMessage(_team, _move, activity_, _import);
     }
@@ -608,10 +619,8 @@ final class FightEndRound {
         if (!_fight.getEnabledMoves().contains(_move)) {
             return;
         }
-        if (_fight.getStillEnabledMoves().contains(_move)){
-            if (_fight.getStillEnabledMoves().getVal(_move) == BoolVal.TRUE){
-                return;
-            }
+        if (_fight.getStillEnabledMoves().contains(_move) && _fight.getStillEnabledMoves().getVal(_move) == BoolVal.TRUE) {
+            return;
         }
         ActivityOfMove activity_ = _fight.getEnabledMoves().getVal(_move);
         if(!activity_.isEnabled()){
@@ -626,19 +635,11 @@ final class FightEndRound {
             if (fighter_.estArriere()) {
                 continue;
             }
-            if (!FightItems.canUseItsObject(_fight,f,_import)) {
-                continue;
+            Item objet_ = FightItems.useItsObject(_fight, f, _import);
+            if (objet_ instanceof ItemForBattle && ((ItemForBattle) objet_).getIncreasingMaxNbRoundGlobalMove().contains(_move)) {
+                tirer_ = false;
+                nbRounds_.addNb(new Rate(((ItemForBattle) objet_).getIncreasingMaxNbRoundGlobalMove().getVal(_move)));
             }
-            Item objet_ = fighter_.ficheObjet(_import);
-            if (!(objet_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-            if (!objetAttachable_.getIncreasingMaxNbRoundGlobalMove().contains(_move)) {
-                continue;
-            }
-            tirer_=false;
-            nbRounds_.addNb(new Rate(objetAttachable_.getIncreasingMaxNbRoundGlobalMove().getVal(_move)));
         }
         if (!tirer_) {
             Rate max_ = law_.maximum();
@@ -662,32 +663,18 @@ final class FightEndRound {
         if (!activity_.isEnabled()) {
             return;
         }
-        LgInt maxRd_ = _import.getMaxRd();
         EffectCombo effet_=_import.getCombos().getEffects().getVal(_key);
         MonteCarloNumber loi_ = effet_.getRepeatedRoundsLaw();
-        MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(activity_.getNbTurn()));
-        boolean resterActif_;
-        if(_fight.getSimulation()){
-            if(loiSachant_.events().size()==1){
-                resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-            }else{
-                resterActif_= NumberUtil.eq(_team,Fight.CST_FOE);
-            }
-        }else{
-            resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-        }
+        boolean resterActif_ = resterActif(_fight, _import, activity_.getNbTurn(), loi_, _team, Fight.CST_FOE);
         activity_.keepEnabled(resterActif_);
     }
 
     static void effectEndRoundTeam(Fight _fight,TeamPosition _combattant,EffectEndRoundTeam _effet, String _ability, DataBase _import){
-        Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
-        boolean testPositif_=false;
-        if(_fight.getSimulation()){
-            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)){
-                return;
-            }
-            testPositif_=true;
+        if (effectEndRoundTeamExit(_fight, _combattant)) {
+            return;
         }
+        Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
+        boolean testPositif_= _fight.getSimulation();
         if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatusAlly())){
             for(byte c:equipe_.getMembers().getKeys()){
                 if(NumberUtil.eq(c,_combattant.getPosition())){
@@ -711,6 +698,10 @@ final class FightEndRound {
         }
     }
 
+    private static boolean effectEndRoundTeamExit(Fight _fight, TeamPosition _combattant) {
+        return _fight.getSimulation() && NumberUtil.eq(_combattant.getTeam(), Fight.CST_PLAYER);
+    }
+
     static void effectEndRoundGlobal(Fight _fight,String _attaqueClimat,Difficulty _diff,DataBase _import){
         //classer les climats actifs par dominance
         if (!StringUtil.contains(FightMoves.enabledGlobalMoves(_fight, _import), _attaqueClimat)) {
@@ -725,130 +716,101 @@ final class FightEndRound {
                 continue;
             }
             EffectGlobal effetGl_=(EffectGlobal)effet_;
-            boolean puttingKo_ = effetGl_.getPuttingKo();
-            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
-                Fighter creature_=_fight.getFighter(c);
-                boolean immu_ = false;
-                boolean ko_ = true;
-                boolean soinCapacite_=false;
-                boolean soinType_=false;
-                AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-                if(fCapac_ != null){
-                    if(StringUtil.contains(fCapac_.getImmuWeather(), _attaqueClimat)){
-                        immu_=true;
-                    }
-                    ko_ = !StringUtil.contains(fCapac_.getImmuMove(), _attaqueClimat);
-                    if(fCapac_.getHealHpByWeather().contains(_attaqueClimat)){
-                        soinCapacite_=true;
-                    }
-                }
-                if (puttingKo_) {
-                    MoveData dataMove_ = _import.getMove(_attaqueClimat);
-                    MonteCarloNumber law_ = dataMove_.getRepeatRoundLaw();
-                    ActivityOfMove activity_ = _fight.getEnabledMoves().getVal(_attaqueClimat);
-                    if (Rate.greaterEq(new Rate(activity_.getNbTurn()), law_.maximum())) {
-                        if (ko_) {
-                            FightKo.setKoMoveTeams(_fight,c,_diff,_import);
-                            _fight.addAnimationKoFighter(c);
-                            if(NumberUtil.eq(c.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                                _fight.setAcceptableChoices(false);
-                                _fight.setIssue(IssueSimulation.KO_PLAYER);
-                                return;
-                            }
-                            if(FightKo.endedFight(_fight,_diff)){
-                                return;
-                            }
-                            continue;
-                        }
-                    }
-                }
-                if (FightItems.canUseItsObject(_fight, c, _import)) {
-                    Item it_ = creature_.ficheObjet(_import);
-                    if (it_ instanceof ItemForBattle) {
-                        ItemForBattle itBattle_ = (ItemForBattle) it_;
-                        if (StringUtil.contains(itBattle_.getImmuWeather(), _attaqueClimat)) {
-                            immu_=true;
-                        }
-                    }
-                }
-                for(String e:creature_.getTypes()){
-                    if(StringUtil.contains(effetGl_.getImmuneTypes(), e)){
-                        immu_=true;
-                        soinType_=true;
-                    }
-                }
-                Rate varPv_=Rate.zero();
-                Rate prod_ = Rate.multiply(effetGl_.getDamageEndRound(), creature_.pvMax());
-                if(!immu_){
-                    varPv_.addNb(prod_.opposNb());
-                }
-                if(soinType_){
-                    varPv_.addNb(Rate.multiply(effetGl_.getHealingEndRound(), creature_.pvMax()));
-                }
-                if (!creature_.isDisappeared()) {
-                    varPv_.addNb(Rate.multiply(effetGl_.getHealingEndRoundGround(), creature_.pvMax()));
-                }
-                if(soinCapacite_){
-                    varPv_.addNb(Rate.multiply(fCapac_.getHealHpByWeather().getVal(_attaqueClimat),creature_.pvMax()));
-                }
-                _fight.addAnimationHealthPoints(c, varPv_);
-                if (Rate.strGreater(creature_.getRemainingHp(), varPv_.opposNb())) {
-                    creature_.variationLeftHp(varPv_);
-                    _fight.addHpMessage(c, _import);
-                } else {
-                    FightKo.setKoMoveTeams(_fight,c,_diff,_import);
-                    _fight.addAnimationKoFighter(c);
-                    if(NumberUtil.eq(c.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                        _fight.setAcceptableChoices(false);
-                        _fight.setIssue(IssueSimulation.KO_PLAYER);
-                        return;
-                    }
-                    if(FightKo.endedFight(_fight,_diff)){
-                        return;
-                    }
-                }
+            if (effectEndRoundGlobalStop(_fight, _attaqueClimat, _diff, _import, effetGl_)) {
+                return;
             }
         }
+    }
+
+    private static boolean effectEndRoundGlobalStop(Fight _fight, String _attaqueClimat, Difficulty _diff, DataBase _import, EffectGlobal _effetGl) {
+        boolean puttingKo_ = _effetGl.getPuttingKo();
+        for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
+            Fighter creature_= _fight.getFighter(c);
+            boolean noImm_ = notImmuKo(_attaqueClimat, _import, creature_);
+            if (puttingKo_ && Rate.greaterEq(new Rate(_fight.getEnabledMoves().getVal(_attaqueClimat).getNbTurn()), _import.getMove(_attaqueClimat).getRepeatRoundLaw().maximum()) && noImm_) {
+                if (exitWhenKo(_fight, c, _import, _diff)) {
+                    return true;
+                }
+                continue;
+            }
+            Rate varPv_ = varPvGlobal(_fight, _attaqueClimat, _import, _effetGl, c, creature_);
+            _fight.addAnimationHealthPoints(c, varPv_);
+            if (varLeftHp(creature_, varPv_.opposNb(), _fight, c, _import, _diff)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean notImmuKo(String _attaqueClimat, DataBase _import, Fighter _creature) {
+        AbilityData fCapac_ = _creature.ficheCapaciteActuelle(_import);
+        return fCapac_ == null || !StringUtil.contains(fCapac_.getImmuMove(), _attaqueClimat);
+    }
+
+    private static Rate varPvGlobal(Fight _fight, String _attaqueClimat, DataBase _import, EffectGlobal _effetGl, TeamPosition _c, Fighter _creature) {
+        AbilityData fCapac_=_creature.ficheCapaciteActuelle(_import);
+        boolean immu_ = fCapac_ != null && StringUtil.contains(fCapac_.getImmuWeather(), _attaqueClimat);
+        Item it_ = FightItems.useItsObject(_fight, _c, _import);
+        if (it_ instanceof ItemForBattle) {
+            ItemForBattle itBattle_ = (ItemForBattle) it_;
+            if (StringUtil.contains(itBattle_.getImmuWeather(), _attaqueClimat)) {
+                immu_ = true;
+            }
+        }
+        boolean soinType_ = false;
+        for(String e: _creature.getTypes()){
+            if(StringUtil.contains(_effetGl.getImmuneTypes(), e)){
+                immu_=true;
+                soinType_=true;
+            }
+        }
+        Rate varPv_=Rate.zero();
+        if(!immu_){
+            Rate prod_ = Rate.multiply(_effetGl.getDamageEndRound(), _creature.pvMax());
+            varPv_.addNb(prod_.opposNb());
+        }
+        if(soinType_){
+            varPv_.addNb(Rate.multiply(_effetGl.getHealingEndRound(), _creature.pvMax()));
+        }
+        if (!_creature.isDisappeared()) {
+            varPv_.addNb(Rate.multiply(_effetGl.getHealingEndRoundGround(), _creature.pvMax()));
+        }
+        if(fCapac_ != null && fCapac_.getHealHpByWeather().contains(_attaqueClimat)){
+            varPv_.addNb(Rate.multiply(fCapac_.getHealHpByWeather().getVal(_attaqueClimat), _creature.pvMax()));
+        }
+        return varPv_;
+    }
+
+    private static boolean varLeftHp(Fighter _creature, Rate _varPv, Fight _fight, TeamPosition _c, DataBase _import, Difficulty _diff) {
+        if (Rate.strGreater(_creature.getRemainingHp(), _varPv)) {
+            _creature.variationLeftHp(_varPv.opposNb());
+            _fight.addHpMessage(_c, _import);
+        } else {
+            return exitWhenKo(_fight, _c, _import, _diff);
+        }
+        return false;
+    }
+
+    private static boolean exitWhenKo(Fight _fight, TeamPosition _c, DataBase _import, Difficulty _diff) {
+        FightKo.setKoMoveTeams(_fight, _c, _diff, _import);
+        _fight.addAnimationKoFighter(_c);
+        return exitAfterKo(_fight, _c, _diff);
+    }
+
+    private static boolean exitAfterKo(Fight _fight, TeamPosition _c, Difficulty _diff) {
+        if(NumberUtil.eq(_c.getTeam(),Fight.CST_PLAYER)&& _fight.getSimulation()){
+            _fight.setAcceptableChoices(false);
+            _fight.setIssue(IssueSimulation.KO_PLAYER);
+            return true;
+        }
+        return FightKo.endedFight(_fight, _diff);
     }
 
     static void effectEndRoundIndividual(Fight _fight,TeamPosition _combattant,EffectEndRoundIndividual _effet,Difficulty _diff,DataBase _import){
         Fighter creature_=_fight.getFighter(_combattant);
         //BAILLEMENT
         //ATTERRISSAGE
-        Rate varPv_=Rate.zero();
-        if(!_effet.getHealHp().isZero()){
-            varPv_.addNb(Rate.multiply(creature_.pvMax(),_effet.getHealHp()));
-        }
-        if(!_effet.getHealHpByOwnerTypes().isEmpty()){
-            boolean gainPv_=false;
-            for(String c:creature_.getTypes()){
-                if(_effet.getHealHpByOwnerTypes().contains(c)){
-                    gainPv_=true;
-                    break;
-                }
-            }
-            if(gainPv_){
-                for(String c:creature_.getTypes()){
-                    if(_effet.getHealHpByOwnerTypes().contains(c)){
-                        varPv_.addNb(Rate.multiply(creature_.pvMax(),_effet.getHealHpByOwnerTypes().getVal(c)));
-                    }
-                }
-            }else{
-                if(_effet.getHealHpByOwnerTypes().contains(DataBase.EMPTY_STRING)){
-                    varPv_.addNb(Rate.multiply(creature_.pvMax(),_effet.getHealHpByOwnerTypes().getVal(DataBase.EMPTY_STRING)));
-                }
-            }
-        }
-        boolean recoil_ = true;
-        AbilityData ability_ = creature_.ficheCapaciteActuelle(_import);
-        if (ability_ != null && ability_.isImmuDamageRecoil()) {
-            recoil_ = false;
-        }
-        if (recoil_) {
-            if(!_effet.getRecoilDamage().isZero()){
-                varPv_.removeNb(Rate.multiply(creature_.pvMax(),_effet.getRecoilDamage()));
-            }
-        }
+        Rate varPv_ = varPvIndiv(_effet, _import, creature_);
         if(_fight.getSimulation()){
             if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE)){
                 for(String c:creature_.getStatusSet()){
@@ -881,81 +843,111 @@ final class FightEndRound {
         }
     }
 
+    private static Rate varPvIndiv(EffectEndRoundIndividual _effet, DataBase _import, Fighter _creature) {
+        Rate varPv_=Rate.zero();
+        if(!_effet.getHealHp().isZero()){
+            varPv_.addNb(Rate.multiply(_creature.pvMax(), _effet.getHealHp()));
+        }
+        boolean gainPv_ = gainPv(_effet, _creature);
+        if(gainPv_){
+            for(String c: _creature.getTypes()){
+                if(_effet.getHealHpByOwnerTypes().contains(c)){
+                    varPv_.addNb(Rate.multiply(_creature.pvMax(), _effet.getHealHpByOwnerTypes().getVal(c)));
+                }
+            }
+        }else{
+            if(_effet.getHealHpByOwnerTypes().contains(DataBase.EMPTY_STRING)){
+                varPv_.addNb(Rate.multiply(_creature.pvMax(), _effet.getHealHpByOwnerTypes().getVal(DataBase.EMPTY_STRING)));
+            }
+        }
+        AbilityData ability_ = _creature.ficheCapaciteActuelle(_import);
+        boolean recoil_ = ability_ == null || !ability_.isImmuDamageRecoil();
+        if (recoil_ && !_effet.getRecoilDamage().isZero()) {
+            varPv_.removeNb(Rate.multiply(_creature.pvMax(), _effet.getRecoilDamage()));
+        }
+        return varPv_;
+    }
+
+    private static boolean gainPv(EffectEndRoundIndividual _effet, Fighter _creature) {
+        boolean gainPv_=false;
+        for(String c: _creature.getTypes()){
+            if(_effet.getHealHpByOwnerTypes().contains(c)){
+                gainPv_=true;
+                break;
+            }
+        }
+        return gainPv_;
+    }
+
     static void effectEndRoundMultiRelation(Fight _fight,TeamPosition _combattant,EffectEndRoundMultiRelation _effet, String _ability,Difficulty _diff,DataBase _import){
         Fighter creatureLanceur_=_fight.getFighter(_combattant);
         for(TeamPosition c: FightOrder.targetsEffect(_fight,_combattant,_effet,_diff,_import)){
             Fighter creature_=_fight.getFighter(c);
-            boolean immu_=false;
             AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-            if (fCapac_ != null && StringUtil.contains(fCapac_.getImmuAbility(), creatureLanceur_.getCurrentAbility())) {
-                immu_ = !FightAbilities.ignoreTargetAbility(_fight, _combattant, c, _import);
-            }
+            boolean immu_ = fCapac_ != null && StringUtil.contains(fCapac_.getImmuAbility(), creatureLanceur_.getCurrentAbility()) && !FightAbilities.ignoreTargetAbility(_fight, _combattant, c, _import);
             if(immu_){
                 continue;
             }
-            Rate varPv_=Rate.zero();
-            boolean status_ = false;
-            for(String c2_:creature_.getStatusSet()){
-                if(NumberUtil.eq(creature_.getStatusNbRoundShort(c2_), 0)){
-                    continue;
-                }
-                status_ = true;
-                if(_effet.getDamageByStatus().contains(c2_)){
-                    varPv_.addNb(Rate.multiply(_effet.getDamageByStatus().getVal(c2_),creature_.pvMax()));
-                }
-            }
-            if (status_) {
-                _fight.addAbilityEndRoundMessage(_ability, c, _import);
-            }
-            if (!varPv_.isZero()) {
-                _fight.addEffectRecoil(c);
-            }
-            if (Rate.strGreater(creature_.getRemainingHp(), varPv_)) {
-                creature_.variationLeftHp(varPv_.opposNb());
-                _fight.addHpMessage(c, _import);
-            } else {
-                FightKo.setKoMoveTeams(_fight,c,_diff,_import);
-                _fight.addAnimationKoFighter(c);
-                if(NumberUtil.eq(c.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                    _fight.setAcceptableChoices(false);
-                    _fight.setIssue(IssueSimulation.KO_PLAYER);
-                    return;
-                }
-                if(FightKo.endedFight(_fight,_diff)){
-                    return;
-                }
+            Rate varPv_ = effectEndRoundMultiRelationPv(_fight, _effet, _ability, _import, c, creature_);
+            if (varLeftHp(creature_, varPv_, _fight, c, _import, _diff)) {
+                return;
             }
         }
+    }
+
+    private static Rate effectEndRoundMultiRelationPv(Fight _fight, EffectEndRoundMultiRelation _effet, String _ability, DataBase _import, TeamPosition _c, Fighter _creature) {
+        Rate varPv_=Rate.zero();
+        boolean status_ = false;
+        for(String c2_: _creature.getStatusSet()){
+            if(NumberUtil.eq(_creature.getStatusNbRoundShort(c2_), 0)){
+                continue;
+            }
+            status_ = true;
+            if(_effet.getDamageByStatus().contains(c2_)){
+                varPv_.addNb(Rate.multiply(_effet.getDamageByStatus().getVal(c2_), _creature.pvMax()));
+            }
+        }
+        if (status_) {
+            _fight.addAbilityEndRoundMessage(_ability, _c, _import);
+        }
+        if (!varPv_.isZero()) {
+            _fight.addEffectRecoil(_c);
+        }
+        return varPv_;
     }
 
     static void effectEndRoundPositionRelation(Fight _fight,TeamPosition _combattant,EffectEndRoundPositionRelation _effet,String _attaque, DataBase _import){
         Team equipeLanceur_=_fight.getTeams().getVal(_combattant.getTeam());
         for(byte c:equipeLanceur_.getHealAfterSet(_attaque)){
-            StacksOfUses soinApres_=equipeLanceur_.getHealAfterVal(_attaque, c);
-            for(byte e:equipeLanceur_.fightersAtCurrentPlace(c)){
-                Fighter partenaire_=equipeLanceur_.refPartMembres(e);
-                if(soinApres_.isLastStacked()){
-                    soinApres_.setLastStacked(false);
-                    if(soinApres_.getNbRounds()<1){
-                        soinApres_.setNbRounds((byte) (soinApres_.getNbRounds()+1));
-                    }
-                    Rate varPv_=Rate.multiply(partenaire_.pvMax(),_effet.getHealHp());
+            effectEndRoundPositionRelationIt(_fight, _combattant, _effet, _attaque, _import, equipeLanceur_, c);
+        }
+    }
+
+    private static void effectEndRoundPositionRelationIt(Fight _fight, TeamPosition _combattant, EffectEndRoundPositionRelation _effet, String _attaque, DataBase _import, Team _equipeLanceur, byte _c) {
+        StacksOfUses soinApres_= _equipeLanceur.getHealAfterVal(_attaque, _c);
+        for(EntryCust<Byte, Fighter> e: _equipeLanceur.fightersListAtCurrentPlace(_c).entryList()){
+            Fighter partenaire_= e.getValue();
+            if(soinApres_.isLastStacked()){
+                soinApres_.setLastStacked(false);
+                if(soinApres_.getNbRounds()<1){
+                    soinApres_.setNbRounds((byte) (soinApres_.getNbRounds()+1));
+                }
+                Rate varPv_=Rate.multiply(partenaire_.pvMax(), _effet.getHealHp());
+                partenaire_.variationLeftHp(varPv_);
+                _fight.addAnimationHealthPoints(new TeamPosition(_combattant.getTeam(), e.getKey()), varPv_);
+                _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition(_combattant.getTeam(), e.getKey()), _combattant, _import);
+                _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e.getKey()), _import);
+            }else if(soinApres_.isFirstStacked()){
+                if(soinApres_.getNbRounds()<1){
+                    soinApres_.setNbRounds((byte) (soinApres_.getNbRounds()+1));
+                }else{
+                    soinApres_.setFirstStacked(false);
+                    soinApres_.setNbRounds((byte) 0);
+                    Rate varPv_=Rate.multiply(partenaire_.pvMax(), _effet.getHealHp());
                     partenaire_.variationLeftHp(varPv_);
-                    _fight.addAnimationHealthPoints(new TeamPosition(_combattant.getTeam(), e), varPv_);
-                    _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition(_combattant.getTeam(), e), _combattant, _import);
-                    _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e), _import);
-                }else if(soinApres_.isFirstStacked()){
-                    if(soinApres_.getNbRounds()<1){
-                        soinApres_.setNbRounds((byte) (soinApres_.getNbRounds()+1));
-                    }else{
-                        soinApres_.setFirstStacked(false);
-                        soinApres_.setNbRounds((byte) 0);
-                        Rate varPv_=Rate.multiply(partenaire_.pvMax(),_effet.getHealHp());
-                        partenaire_.variationLeftHp(varPv_);
-                        _fight.addAnimationHealthPoints(new TeamPosition(_combattant.getTeam(), e), varPv_);
-                        _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition(_combattant.getTeam(), e), _combattant, _import);
-                        _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e), _import);
-                    }
+                    _fight.addAnimationHealthPoints(new TeamPosition(_combattant.getTeam(), e.getKey()), varPv_);
+                    _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition(_combattant.getTeam(), e.getKey()), _combattant, _import);
+                    _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e.getKey()), _import);
                 }
             }
         }
@@ -970,150 +962,183 @@ final class FightEndRound {
                 continue;
             }
             attaqueAnticipe_.increment();
-            if (attaqueAnticipe_.isIncrementing()) {
-                continue;
-            }
-            TargetCoords target_ = attaqueAnticipe_.getTargetPosition();
-            Team equipeCible_=_fight.getTeams().getVal((byte) target_.getTeam());
-            for(byte e:equipeCible_.fightersAtCurrentPlace(target_.getPosition())){
-                _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition((byte) target_.getTeam(), e), _combattant, _import);
-                Fighter creatureCible_=equipeCible_.refPartMembres(e);
-                AnimationEffect animation_;
-                animation_ = new AnimationEffect();
-                animation_.setIndex(_fight.getEffects().size());
-                animation_.setFromFighter(new TargetCoords(_combattant.getTeam(), creatureLanceur_.getGroundPlaceSubst()));
-                animation_.setToFighter(new TargetCoords(target_.getTeam(),creatureCible_.getGroundPlaceSubst()));
-                if(creatureCible_.getClone().isZero()){
-                    if(Rate.greaterEq(attaqueAnticipe_.getDamage(),creatureCible_.getRemainingHp())){
-                        animation_.setKoToFighter(true);
-                        FightKo.setKoMoveTeams(_fight,new TeamPosition((byte) target_.getTeam(),e),_diff,_import);
-                        if(NumberUtil.eq(target_.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                            _fight.setAcceptableChoices(false);
-                            _fight.setIssue(IssueSimulation.KO_PLAYER);
-                            _fight.getEffects().add(animation_);
-                            return;
-                        }
-                        if(FightKo.endedFight(_fight,_diff)){
-                            _fight.getEffects().add(animation_);
-                            return;
-                        }
-                    }else{
-                        creatureCible_.variationLeftHp(attaqueAnticipe_.getDamage().opposNb());
-                        _fight.addHpMessage(new TeamPosition((byte) target_.getTeam(), e), _import);
-                    }
-                }else{
-                    creatureCible_.infligerDegatsClone(attaqueAnticipe_.getDamage());
-                    _fight.addHpCloneMessage(new TeamPosition((byte) target_.getTeam(), e), attaqueAnticipe_.getDamage(), _import);
-                }
-                _fight.getEffects().add(animation_);
-                attaqueAnticipe_.getDamage().affectZero();
-                attaqueAnticipe_.setTargetPosition(new TargetCoords((short) 0,Fighter.BACK));
+            if (!attaqueAnticipe_.isIncrementing() && effectEndRoundPositionTargetRelationExit(_fight, _combattant, _attaque, _diff, _import, creatureLanceur_, attaqueAnticipe_)) {
+                return;
             }
         }
     }
 
-    static void effectEndRoundSingleRelation(Fight _fight,TeamPosition _combattant,EffectEndRoundSingleRelation _effet,String _attaque,Difficulty _diff,DataBase _import){
-        Fighter creatureLanceur_=_fight.getFighter(_combattant);
-        LgInt maxRd_ = _import.getMaxRd();
-        for(MoveTeamPosition c:creatureLanceur_.enabledRelationsTraps()){
-            if(!StringUtil.quickEq(c.getMove(),_attaque)){
-                continue;
-            }
-            ActivityOfMove actifNbTour_=creatureLanceur_.getTrappingMoves().getVal(c);
-            Fighter creatureCible_=_fight.getFighter(c.getTeamPosition());
-            AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
-            if (fCapac_ != null && fCapac_.isImmuDamageTrappingMoves()) {
-                actifNbTour_.disable();
-                actifNbTour_.reset();
-                _fight.addDisabledMoveRelMessage(c.getTeamPosition(), _attaque, _combattant, _import);
-                continue;
-            }
-            if (!_effet.getFailEndRound().isEmpty()) {
-                StringMap<String> values_;
-                values_ = FightValues.calculateValues(_fight,_combattant,c.getTeamPosition(),_import);
-                if (_import.evaluateBoolean(_effet.getFailEndRound(), values_, false)) {
-                    actifNbTour_.disable();
-                    actifNbTour_.reset();
-                    _fight.addDisabledMoveRelMessage(c.getTeamPosition(), _attaque, _combattant, _import);
-                    continue;
-                }
-            }
-            boolean tirer_=true;
-            if(FightItems.canUseItsObject(_fight,_combattant,_import)){
-                Item objet_=creatureLanceur_.ficheObjet(_import);
-                if(objet_ instanceof ItemForBattle){
-                    ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                    if(objetAttachable_.getIncreasingMaxNbRoundTrap().contains(c.getMove())){
-                        tirer_=false;
-                    }
-                }
-            }
-            if(tirer_){
-                MonteCarloNumber loi_=_effet.getLawForEnablingEffect();
-                MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(actifNbTour_.getNbTurn()));
-                boolean resterActif_;
-                if(_fight.getSimulation()){
-                    if(loiSachant_.events().size()==1){
-                        resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-                    }else{
-                        resterActif_= NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE);
+    private static boolean effectEndRoundPositionTargetRelationExit(Fight _fight, TeamPosition _combattant, String _attaque, Difficulty _diff, DataBase _import, Fighter _creatureLanceur, Anticipation _attaqueAnticipe) {
+        TargetCoords target_ = _attaqueAnticipe.getTargetPosition();
+        Team equipeCible_= _fight.getTeams().getVal((byte) target_.getTeam());
+        for(EntryCust<Byte, Fighter> e:equipeCible_.fightersListAtCurrentPlace(target_.getPosition()).entryList()){
+            _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition((byte) target_.getTeam(), e.getKey()), _combattant, _import);
+            Fighter creatureCible_=e.getValue();
+            AnimationEffect animation_;
+            animation_ = new AnimationEffect();
+            animation_.setIndex(_fight.getEffects().size());
+            animation_.setFromFighter(new TargetCoords(_combattant.getTeam(), _creatureLanceur.getGroundPlaceSubst()));
+            animation_.setToFighter(new TargetCoords(target_.getTeam(),creatureCible_.getGroundPlaceSubst()));
+            if(creatureCible_.getClone().isZero()){
+                if(Rate.greaterEq(_attaqueAnticipe.getDamage(),creatureCible_.getRemainingHp())){
+                    animation_.setKoToFighter(true);
+                    FightKo.setKoMoveTeams(_fight,new TeamPosition((byte) target_.getTeam(),e.getKey()), _diff, _import);
+                    if (exitAfterKo(_fight,new TeamPosition((byte) target_.getTeam(),e.getKey()), _diff)) {
+                        _fight.getEffects().add(animation_);
+                        return true;
                     }
                 }else{
-                    resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
+                    creatureCible_.variationLeftHp(_attaqueAnticipe.getDamage().opposNb());
+                    _fight.addHpMessage(new TeamPosition((byte) target_.getTeam(), e.getKey()), _import);
                 }
-                actifNbTour_.keepEnabled(resterActif_);
-                _fight.messageDisabling(actifNbTour_, c.getTeamPosition(), _attaque, _combattant, _import);
             }else{
-                ItemForBattle objet_=(ItemForBattle)creatureLanceur_.ficheObjet(_import);
-                Rate taux_=Rate.plus(new Rate(objet_.getIncreasingMaxNbRoundTrap().getVal(c.getMove())),_effet.getLawForEnablingEffect().maximum());
-                actifNbTour_.keepEnabled(actifNbTour_.getNbTurn() < taux_.ll());
-                _fight.messageDisabling(actifNbTour_, c.getTeamPosition(), _attaque, _combattant, _import);
+                creatureCible_.infligerDegatsClone(_attaqueAnticipe.getDamage());
+                _fight.addHpCloneMessage(new TeamPosition((byte) target_.getTeam(), e.getKey()), _attaqueAnticipe.getDamage(), _import);
             }
-            if(actifNbTour_.getNbTurn()==0){
-                continue;
+            _fight.getEffects().add(animation_);
+            _attaqueAnticipe.getDamage().affectZero();
+            _attaqueAnticipe.setTargetPosition(new TargetCoords((short) 0,Fighter.BACK));
+        }
+        return false;
+    }
+
+    static void effectEndRoundSingleRelation(Fight _fight,TeamPosition _combattant,EffectEndRoundSingleRelation _effet,String _attaque,Difficulty _diff,DataBase _import){
+        Fighter creatureLanceur_=_fight.getFighter(_combattant);
+        for(CommonParam<MoveTeamPosition, ActivityOfMove> c:creatureLanceur_.enabledRelationsTraps().entryList()){
+            if (effectEndRoundSingleRelationMoveExit(_fight,_combattant,_effet,_attaque,_diff,_import,c)) {
+                return;
             }
-            _fight.addMoveEndRoundRelMessage(_attaque, c.getTeamPosition(), _combattant, _import);
-            Rate tauxDeg_=Rate.zero();
-            if(_effet.getRateDamageFunctionOfNbRounds().contains((long)actifNbTour_.getNbTurn())){
-                tauxDeg_.affect(_effet.getRateDamageFunctionOfNbRounds().getVal((long)actifNbTour_.getNbTurn()));
+//            if(!StringUtil.quickEq(c.getMove(),_attaque)){
+//                continue;
+//            }
+//            ActivityOfMove actifNbTour_=creatureLanceur_.getTrappingMoves().getVal(c);
+//            Fighter creatureCible_=_fight.getFighter(c.getTeamPosition());
+//            AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
+//            if (fCapac_ != null && fCapac_.isImmuDamageTrappingMoves() || !_effet.getFailEndRound().isEmpty() && _import.evaluateBoolean(_effet.getFailEndRound(), FightValues.calculateValues(_fight, _combattant, c.getTeamPosition(), _import), false)) {
+//                actifNbTour_.disable();
+//                actifNbTour_.reset();
+//                _fight.addDisabledMoveRelMessage(c.getTeamPosition(), _attaque, _combattant, _import);
+//                continue;
+//            }
+//            Item objet_ = effectEndRoundSingleRelationItem(_fight, _combattant, _effet, _attaque, _import, c, actifNbTour_);
+//            if(actifNbTour_.getNbTurn()==0){
+//                continue;
+//            }
+//            _fight.addMoveEndRoundRelMessage(_attaque, c.getTeamPosition(), _combattant, _import);
+//            Rate tauxDeg_ = tauxDeg(_effet, actifNbTour_, objet_);
+//            if(creatureCible_.getClone().isZero()){
+//                if(Rate.greaterEq(Rate.multiply(tauxDeg_, creatureCible_.pvMax()), creatureCible_.getRemainingHp())){
+//                    actifNbTour_.disable();
+//                    actifNbTour_.reset();
+//                    _fight.addDisabledMoveRelMessage(c.getTeamPosition(), _attaque, _combattant, _import);
+//                    if (exitWhenKo(_fight,c.getTeamPosition(),_import,_diff)){
+//                        return;
+//                    }
+////                    FightKo.setKoMoveTeams(_fight,c.getTeamPosition(),_diff,_import);
+////                    _fight.addAnimationKoFighter(c.getTeamPosition());
+////                    if(NumberUtil.eq(c.getTeamPosition().getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
+////                        _fight.setAcceptableChoices(false);
+////                        _fight.setIssue(IssueSimulation.KO_PLAYER);
+////                        return;
+////                    }
+////                    if(FightKo.endedFight(_fight,_diff)){
+////                        return;
+////                    }
+//                    continue;
+//                }
+//                creatureCible_.variationLeftHp(Rate.multiply(tauxDeg_, creatureCible_.pvMax()).opposNb());
+//                _fight.addHpMessage(c.getTeamPosition(), _import);
+//            }else{
+//                Rate cloneDamage_ = Rate.multiply(tauxDeg_, creatureCible_.pvMax());
+//                creatureCible_.infligerDegatsClone(cloneDamage_);
+//                _fight.addHpCloneMessage(c.getTeamPosition(), cloneDamage_, _import);
+//            }
+//            if (!tauxDeg_.isZero()) {
+//                _fight.addEffectRecoil(c.getTeamPosition());
+//            }
+        }
+    }
+    private static boolean effectEndRoundSingleRelationMoveExit(Fight _fight,TeamPosition _combattant,EffectEndRoundSingleRelation _effet,String _attaque,Difficulty _diff,DataBase _import,CommonParam<MoveTeamPosition, ActivityOfMove> _c) {
+        MoveTeamPosition k_ = _c.getKey();
+        if(!StringUtil.quickEq(k_.getMove(),_attaque)){
+            return false;
+        }
+        ActivityOfMove actifNbTour_=_c.getValue();
+        Fighter creatureCible_=_fight.getFighter(k_.getTeamPosition());
+        AbilityData fCapac_=creatureCible_.ficheCapaciteActuelle(_import);
+        if (fCapac_ != null && fCapac_.isImmuDamageTrappingMoves() || !_effet.getFailEndRound().isEmpty() && _import.evaluateBoolean(_effet.getFailEndRound(), FightValues.calculateValues(_fight, _combattant, k_.getTeamPosition(), _import), false)) {
+            actifNbTour_.disable();
+            actifNbTour_.reset();
+            _fight.addDisabledMoveRelMessage(k_.getTeamPosition(), _attaque, _combattant, _import);
+            return false;
+        }
+        Item objet_ = effectEndRoundSingleRelationItem(_fight, _combattant, _effet, _attaque, _import, k_, actifNbTour_);
+        if(actifNbTour_.getNbTurn()==0){
+            return false;
+        }
+        _fight.addMoveEndRoundRelMessage(_attaque, k_.getTeamPosition(), _combattant, _import);
+        Rate tauxDeg_ = tauxDeg(_effet, actifNbTour_, objet_);
+        if(creatureCible_.getClone().isZero()){
+            if(Rate.greaterEq(Rate.multiply(tauxDeg_, creatureCible_.pvMax()), creatureCible_.getRemainingHp())){
+                actifNbTour_.disable();
+                actifNbTour_.reset();
+                _fight.addDisabledMoveRelMessage(k_.getTeamPosition(), _attaque, _combattant, _import);
+                return exitWhenKo(_fight,k_.getTeamPosition(),_import,_diff);
+//                if (exitWhenKo(_fight,k_.getTeamPosition(),_import,_diff)){
+//                    return true;
+//                }
+////                    FightKo.setKoMoveTeams(_fight,c.getTeamPosition(),_diff,_import);
+////                    _fight.addAnimationKoFighter(c.getTeamPosition());
+////                    if(NumberUtil.eq(c.getTeamPosition().getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
+////                        _fight.setAcceptableChoices(false);
+////                        _fight.setIssue(IssueSimulation.KO_PLAYER);
+////                        return;
+////                    }
+////                    if(FightKo.endedFight(_fight,_diff)){
+////                        return;
+////                    }
+//                return false;
             }
-            if(FightItems.canUseItsObject(_fight,_combattant,_import)){
-                Item objet_=creatureLanceur_.ficheObjet(_import);
-                if(objet_ instanceof ItemForBattle){
-                    ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                    if(!objetAttachable_.getMultTrappingDamage().isZero()){
-                        tauxDeg_.multiplyBy(objetAttachable_.getMultTrappingDamage());
-                    }
-                }
-            }
-            if(creatureCible_.getClone().isZero()){
-                if(Rate.greaterEq(Rate.multiply(tauxDeg_, creatureCible_.pvMax()), creatureCible_.getRemainingHp())){
-                    actifNbTour_.disable();
-                    actifNbTour_.reset();
-                    _fight.addDisabledMoveRelMessage(c.getTeamPosition(), _attaque, _combattant, _import);
-                    FightKo.setKoMoveTeams(_fight,c.getTeamPosition(),_diff,_import);
-                    _fight.addAnimationKoFighter(c.getTeamPosition());
-                    if(NumberUtil.eq(c.getTeamPosition().getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                        _fight.setAcceptableChoices(false);
-                        _fight.setIssue(IssueSimulation.KO_PLAYER);
-                        return;
-                    }
-                    if(FightKo.endedFight(_fight,_diff)){
-                        return;
-                    }
-                    continue;
-                }
-                creatureCible_.variationLeftHp(Rate.multiply(tauxDeg_, creatureCible_.pvMax()).opposNb());
-                _fight.addHpMessage(c.getTeamPosition(), _import);
-            }else{
-                Rate cloneDamage_ = Rate.multiply(tauxDeg_, creatureCible_.pvMax());
-                creatureCible_.infligerDegatsClone(cloneDamage_);
-                _fight.addHpCloneMessage(c.getTeamPosition(), cloneDamage_, _import);
-            }
-            if (!tauxDeg_.isZero()) {
-                _fight.addEffectRecoil(c.getTeamPosition());
+            creatureCible_.variationLeftHp(Rate.multiply(tauxDeg_, creatureCible_.pvMax()).opposNb());
+            _fight.addHpMessage(k_.getTeamPosition(), _import);
+        }else{
+            Rate cloneDamage_ = Rate.multiply(tauxDeg_, creatureCible_.pvMax());
+            creatureCible_.infligerDegatsClone(cloneDamage_);
+            _fight.addHpCloneMessage(k_.getTeamPosition(), cloneDamage_, _import);
+        }
+        if (!tauxDeg_.isZero()) {
+            _fight.addEffectRecoil(k_.getTeamPosition());
+        }
+        return false;
+    }
+
+    private static Rate tauxDeg(EffectEndRoundSingleRelation _effet, ActivityOfMove _actifNbTour, Item _objet) {
+        Rate tauxDeg_=Rate.zero();
+        if(_effet.getRateDamageFunctionOfNbRounds().contains((long) _actifNbTour.getNbTurn())){
+            tauxDeg_.affect(_effet.getRateDamageFunctionOfNbRounds().getVal((long) _actifNbTour.getNbTurn()));
+        }
+        if(_objet instanceof ItemForBattle){
+            ItemForBattle objetAttachable_=(ItemForBattle) _objet;
+            if(!objetAttachable_.getMultTrappingDamage().isZero()){
+                tauxDeg_.multiplyBy(objetAttachable_.getMultTrappingDamage());
             }
         }
+        return tauxDeg_;
+    }
+
+    private static Item effectEndRoundSingleRelationItem(Fight _fight, TeamPosition _combattant, EffectEndRoundSingleRelation _effet, String _attaque, DataBase _import, MoveTeamPosition _c, ActivityOfMove _actifNbTour) {
+        Item objet_ = FightItems.useItsObject(_fight, _combattant, _import);
+        if(!(objet_ instanceof ItemForBattle) || !((ItemForBattle) objet_).getIncreasingMaxNbRoundTrap().contains(_c.getMove())){
+            MonteCarloNumber loi_= _effet.getLawForEnablingEffect();
+            boolean resterActif_ = resterActif(_fight, _import, _actifNbTour.getNbTurn(), loi_, _combattant.getTeam(), Fight.CST_FOE);
+            _actifNbTour.keepEnabled(resterActif_);
+            _fight.messageDisabling(_actifNbTour, _c.getTeamPosition(), _attaque, _combattant, _import);
+        }else{
+            Rate taux_=Rate.plus(new Rate(((ItemForBattle)objet_).getIncreasingMaxNbRoundTrap().getVal(_c.getMove())), _effet.getLawForEnablingEffect().maximum());
+            _actifNbTour.keepEnabled(_actifNbTour.getNbTurn() < taux_.ll());
+            _fight.messageDisabling(_actifNbTour, _c.getTeamPosition(), _attaque, _combattant, _import);
+        }
+        return objet_;
     }
 
     static void effectEndRoundFoe(Fight _fight,TeamPosition _combattant, EffectEndRoundFoe _effect, StringList _moves, Difficulty _diff, DataBase _import) {
@@ -1122,13 +1147,14 @@ final class FightEndRound {
         Rate taux_ = new Rate(_effect.getInflictedRateHpTarget());
         Rate lostHp_ = Rate.multiply(taux_, creature_.pvMax());
         if(Rate.greaterEq(lostHp_, creature_.getRemainingHp())){
-            FightKo.setKoMoveTeams(_fight,_combattant,_diff,_import);
-            _fight.addAnimationKoFighter(_combattant);
-            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                _fight.setAcceptableChoices(false);
-                _fight.setIssue(IssueSimulation.KO_PLAYER);
-                return;
-            }
+            exitWhenKo(_fight,_combattant,_import,_diff);
+//            FightKo.setKoMoveTeams(_fight,_combattant,_diff,_import);
+//            _fight.addAnimationKoFighter(_combattant);
+//            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
+//                _fight.setAcceptableChoices(false);
+//                _fight.setIssue(IssueSimulation.KO_PLAYER);
+//                return;
+//            }
         } else {
             _fight.addEffectRecoil(_combattant);
             creature_.variationLeftHp(lostHp_.opposNb());
@@ -1149,18 +1175,7 @@ final class FightEndRound {
             return;
         }
         MonteCarloNumber loi_=((StatusBeginRound)_statut).getLawForUsingAMoveNbRound();
-        MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(nbTour_));
-        boolean resterActif_;
-        LgInt maxRd_ = _import.getMaxRd();
-        if(_fight.getSimulation()){
-            if(loiSachant_.events().size()==1){
-                resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-            }else{
-                resterActif_= NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER);
-            }
-        }else{
-            resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-        }
+        boolean resterActif_ = resterActif(_fight, _import, nbTour_, loi_, _combattant.getTeam(), Fight.CST_PLAYER);
         if(!resterActif_){
             creature_.supprimerStatut(_nomStatut);
             _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
@@ -1225,36 +1240,17 @@ final class FightEndRound {
             return;
         }
         EffectEndRoundStatus effetFinTour_ = effectEndRound_.first();
-        boolean success_ = true;
-        if (!effetFinTour_.getFailEndRound().isEmpty()) {
-            StringMap<String> values_;
-            values_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-            success_ = !_import.evaluateBoolean(effetFinTour_.getFailEndRound(), values_, false);
-        }
+        boolean success_ = successEndRound(_fight, _lanceur, _cible, _import, effetFinTour_);
         if(!success_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
             _fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, nbTour_, _import);
             return;
         }
-        if(!(status_ instanceof StatusBeginRound)){
-            return;
-        }
-        if(!status_.getIncrementingEndRound()){
+        if (!(status_ instanceof StatusBeginRound) || !status_.getIncrementingEndRound()) {
             return;
         }
         MonteCarloNumber loi_=((StatusBeginRound)status_).getLawForUsingAMoveNbRound();
-        MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(nbTour_));
-        boolean resterActif_;
-        LgInt maxRd_ = _import.getMaxRd();
-        if(_fight.getSimulation()){
-            if(loiSachant_.events().size()==1){
-                resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-            }else{
-                resterActif_= NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER);
-            }
-        }else{
-            resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_,_import.getGenerator()));
-        }
+        boolean resterActif_ = resterActif(_fight, _import, nbTour_, loi_, _cible.getTeam(), Fight.CST_PLAYER);
         if(!resterActif_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
             _fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, nbTour_, _import);
@@ -1263,6 +1259,23 @@ final class FightEndRound {
             _fight.addIncrStatusRelMessage(_nomStatut, _cible, _lanceur, _import);
         }
     }
+
+    private static boolean resterActif(Fight _fight, DataBase _import, short _nbTour, MonteCarloNumber _loi, byte _team, byte _cst) {
+        MonteCarloBoolean loiSachant_= _loi.knowingGreater(new Rate(_nbTour));
+        LgInt maxRd_ = _import.getMaxRd();
+        boolean resterActif_;
+        if(_fight.getSimulation()){
+            if(loiSachant_.events().size()==1){
+                resterActif_= FightSuccess.tr(loiSachant_.editNumber(maxRd_, _import.getGenerator()));
+            }else{
+                resterActif_= NumberUtil.eq(_team, _cst);
+            }
+        }else{
+            resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_, _import.getGenerator()));
+        }
+        return resterActif_;
+    }
+
     static void effectEndRoundStatusRelationHp(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _nomStatut,Difficulty _diff,DataBase _import){
         Fighter creature_=_fight.getFighter(_cible);
         Status status_ = _import.getStatus(_nomStatut);
@@ -1274,12 +1287,7 @@ final class FightEndRound {
             return;
         }
         EffectEndRoundStatus effetFinTour_ = effectEndRound_.first();
-        boolean success_ = true;
-        if (!effetFinTour_.getFailEndRound().isEmpty()) {
-            StringMap<String> values_;
-            values_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-            success_ = !_import.evaluateBoolean(effetFinTour_.getFailEndRound(), values_, false);
-        }
+        boolean success_ = successEndRound(_fight, _lanceur, _cible, _import, effetFinTour_);
         if(!success_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
             //_fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, _import);
@@ -1287,93 +1295,117 @@ final class FightEndRound {
         }
         _fight.addStatusRelEndRoundMessage(_nomStatut, _cible, _lanceur, _import);
         EffectEndRoundStatusRelation effet_=(EffectEndRoundStatusRelation) effectEndRound_.first();
-        Rate tauxAbs_=new Rate(effet_.getThievedHpRateTargetToUser());
-        if(!tauxAbs_.isZero() && FightKo.canBeHealed(_fight,_lanceur.getTeam(),_import)){
-            Fighter creatureLanceur_=_fight.getFighter(_lanceur);
-            if(FightItems.canUseItsObject(_fight,_lanceur,_import)){
-                Item objet_=creatureLanceur_.ficheObjet(_import);
-                if(objet_ instanceof ItemForBattle){
-                    ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                    if(!objetAttachable_.getMultDrainedHp().isZero()){
-                        tauxAbs_.multiplyBy(objetAttachable_.getMultDrainedHp());
-                    }
-                }
-            }
-            AbilityData fCapac_ = FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
-            if (fCapac_ != null && fCapac_.isInflictingDamageInsteadOfSuffering()) {
-                tauxAbs_.multiplyBy(DataBase.defRateProduct().opposNb());
-            }
-            Rate varPv_;
-            Rate prod_ = Rate.multiply(tauxAbs_.absNb(), creature_.pvMax());
-            if(Rate.lowerEq(creature_.getRemainingHp(),prod_)){
-                varPv_=creature_.getRemainingHp();
-            }else{
-                varPv_=prod_;
-            }
-            if(Rate.eq(varPv_,creature_.getRemainingHp())){
-                FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
-                if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                    _fight.setAcceptableChoices(false);
-                    _fight.setIssue(IssueSimulation.KO_PLAYER);
-                    return;
-                }
-                if(FightKo.endedFight(_fight,_diff)){
-                    _fight.addAnimationKoFighter(_cible);
-                    return;
-                }
-            }else{
-                creature_.variationLeftHp(Rate.multiply(tauxAbs_.absNb(), creature_.pvMax()).opposNb());
-                _fight.addHpMessage(_cible, _import);
-            }
-            AnimationEffect animation_;
-            animation_ = new AnimationEffect(EffectKind.ABSORB);
-            animation_.setIndex(_fight.getEffects().size());
-            animation_.setFromFighter(new TargetCoords(_cible.getTeam(), creature_.getGroundPlaceSubst()));
-            animation_.setToFighter(new TargetCoords(_lanceur.getTeam(), creatureLanceur_.getGroundPlaceSubst()));
-            if(tauxAbs_.isZeroOrGt()){
-                //target hp absorbed to user hp
-                animation_.setKoFromFighter(creature_.estKo());
-                _fight.getEffects().add(animation_);
-                creatureLanceur_.variationLeftHp(varPv_);
-                _fight.addHpMessage(_lanceur, _import);
-            }else if(Rate.lowerEq(creatureLanceur_.getRemainingHp(),varPv_)){
-                _fight.addEffectRecoil(_cible);
-                creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
-                short nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
-                _fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, nbTour_, _import);
-                FightKo.setKoMoveTeams(_fight,_lanceur,_diff,_import);
-                _fight.addEffectRecoil(_lanceur);
-                if(NumberUtil.eq(_lanceur.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                    _fight.setAcceptableChoices(false);
-                    _fight.setIssue(IssueSimulation.KO_PLAYER);
-                    return;
-                }
-                if(FightKo.endedFight(_fight,_diff)){
-                    return;
-                }
-            }else{
-                creatureLanceur_.variationLeftHp(varPv_.opposNb());
-                _fight.addHpMessage(_lanceur, _import);
-                _fight.addEffectRecoil(_cible);
-                _fight.addEffectRecoil(_lanceur);
-            }
-        } else {
+        if (effet_.getThievedHpRateTargetToUser().isZero() || !FightKo.canBeHealed(_fight, _lanceur.getTeam(), _import)) {
             //target hp ==> user hp
             Rate taux_=effet_.getInflictedRateHpTarget();
             if(Rate.greaterEq(Rate.multiply(taux_, creature_.pvMax()), creature_.getRemainingHp())){
                 FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
                 _fight.addAnimationKoFighter(_cible);
-                if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                    _fight.setAcceptableChoices(false);
-                    _fight.setIssue(IssueSimulation.KO_PLAYER);
-                    return;
-                }
+                exitAfterKo(_fight,_cible, _diff);
+//                if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
+//                    _fight.setAcceptableChoices(false);
+//                    _fight.setIssue(IssueSimulation.KO_PLAYER);
+//                    return;
+//                }
             }else{
                 creature_.variationLeftHp(Rate.multiply(taux_,creature_.pvMax()).opposNb());
                 _fight.addHpMessage(_cible, _import);
                 _fight.addEffectRecoil(_cible);
             }
+            return;
         }
+        Rate tauxAbs_ = tauxAbsRelationHp(_fight, _lanceur, _cible, _import, effet_);
+        Rate varPv_ = varPvRelationHp(creature_, tauxAbs_);
+        if(Rate.eq(varPv_,creature_.getRemainingHp())){
+            FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
+            if (exitAfterKo(_fight,_cible, _diff)) {
+                _fight.addAnimationKoFighter(_cible);
+                return;
+            }
+//                if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
+//                    _fight.setAcceptableChoices(false);
+//                    _fight.setIssue(IssueSimulation.KO_PLAYER);
+//                    return;
+//                }
+//                if(FightKo.endedFight(_fight,_diff)){
+//                    _fight.addAnimationKoFighter(_cible);
+//                    return;
+//                }
+        }else{
+            creature_.variationLeftHp(Rate.multiply(tauxAbs_.absNb(), creature_.pvMax()).opposNb());
+            _fight.addHpMessage(_cible, _import);
+        }
+        AnimationEffect animation_;
+        animation_ = new AnimationEffect(EffectKind.ABSORB);
+        animation_.setIndex(_fight.getEffects().size());
+        animation_.setFromFighter(new TargetCoords(_cible.getTeam(), creature_.getGroundPlaceSubst()));
+        Fighter creatureLanceur_=_fight.getFighter(_lanceur);
+        animation_.setToFighter(new TargetCoords(_lanceur.getTeam(), creatureLanceur_.getGroundPlaceSubst()));
+        if(tauxAbs_.isZeroOrGt()){
+            //target hp absorbed to user hp
+            animation_.setKoFromFighter(creature_.estKo());
+            _fight.getEffects().add(animation_);
+            creatureLanceur_.variationLeftHp(varPv_);
+            _fight.addHpMessage(_lanceur, _import);
+        }else if(Rate.lowerEq(creatureLanceur_.getRemainingHp(),varPv_)){
+            _fight.addEffectRecoil(_cible);
+            creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
+            short nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
+            _fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, nbTour_, _import);
+            FightKo.setKoMoveTeams(_fight,_lanceur,_diff,_import);
+            _fight.addEffectRecoil(_lanceur);
+            exitAfterKo(_fight,_lanceur, _diff);
+//                if(NumberUtil.eq(_lanceur.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
+//                    _fight.setAcceptableChoices(false);
+//                    _fight.setIssue(IssueSimulation.KO_PLAYER);
+//                    return;
+//                }
+//                if(FightKo.endedFight(_fight,_diff)){
+//                    return;
+//                }
+        }else{
+            creatureLanceur_.variationLeftHp(varPv_.opposNb());
+            _fight.addHpMessage(_lanceur, _import);
+            _fight.addEffectRecoil(_cible);
+            _fight.addEffectRecoil(_lanceur);
+        }
+    }
+
+    private static Rate varPvRelationHp(Fighter _creature, Rate _tauxAbs) {
+        Rate varPv_;
+        Rate prod_ = Rate.multiply(_tauxAbs.absNb(), _creature.pvMax());
+        if(Rate.lowerEq(_creature.getRemainingHp(),prod_)){
+            varPv_= _creature.getRemainingHp();
+        }else{
+            varPv_=prod_;
+        }
+        return varPv_;
+    }
+
+    private static Rate tauxAbsRelationHp(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, EffectEndRoundStatusRelation _effet) {
+        Rate tauxAbs_=new Rate(_effet.getThievedHpRateTargetToUser());
+        Item objet_ = FightItems.useItsObject(_fight, _lanceur, _import);
+        if (objet_ instanceof ItemForBattle) {
+            ItemForBattle objetAttachable_ = (ItemForBattle) objet_;
+            if (!objetAttachable_.getMultDrainedHp().isZero()) {
+                tauxAbs_.multiplyBy(objetAttachable_.getMultDrainedHp());
+            }
+        }
+        AbilityData fCapac_ = FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
+        if (fCapac_ != null && fCapac_.isInflictingDamageInsteadOfSuffering()) {
+            tauxAbs_.multiplyBy(DataBase.defRateProduct().opposNb());
+        }
+        return tauxAbs_;
+    }
+
+    private static boolean successEndRound(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, EffectEndRoundStatus _effetFinTour) {
+        boolean success_ = true;
+        if (!_effetFinTour.getFailEndRound().isEmpty()) {
+            StringMap<String> values_;
+            values_ = FightValues.calculateValues(_fight, _lanceur, _cible, _import);
+            success_ = !_import.evaluateBoolean(_effetFinTour.getFailEndRound(), values_, false);
+        }
+        return success_;
     }
 
     static void processStatus(Fight _fight,TeamPosition _fighter,

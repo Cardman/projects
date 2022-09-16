@@ -440,7 +440,6 @@ final class FightSuccess {
         for(String e2_:FightMoves.enabledGlobalMoves(_fight, _import)){
             MoveData fAtt_= _import.getMove(e2_);
             int nbEffets_=fAtt_.nbEffets();
-            Rate sum_ = Rate.zero();
             for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
                 Effect effet_=fAtt_.getEffet(i);
                 if (!(effet_ instanceof EffectGlobal) || !((EffectGlobal) effet_).getEfficiencyMoves().contains(new TypesDuo(_typeOff, _t))) {
@@ -448,12 +447,9 @@ final class FightSuccess {
                 }
                 Rate rate_ = ((EffectGlobal)effet_).getEfficiencyMoves().getVal(new TypesDuo(_typeOff, _t));
                 if (!rate_.isZero()) {
-                    sum_.addNb(rate_);
+                    _sums.add(rate_);
                 }
                 r_.multiplyBy(rate_);
-            }
-            if (!sum_.isZero()) {
-                _sums.add(sum_);
             }
             if (r_.isZero()) {
                 _fight.addProtectTypeByGlobalMoveMessage(_cible, _typeOff, e2_, _import);

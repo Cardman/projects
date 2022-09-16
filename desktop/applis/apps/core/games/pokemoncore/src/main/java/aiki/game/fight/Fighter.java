@@ -2354,13 +2354,13 @@ public final class Fighter {
         return list_;
     }
 
-    CustList<MoveTeamPosition> enabledRelationsTraps() {
-        CustList<MoveTeamPosition> list_ = new CustList<MoveTeamPosition>();
-        for(MoveTeamPosition m:trappingMoves.getKeys()){
-            if(!trappingMoves.getVal(m).isEnabled()){
+    MoveTeamPositionsActivityOfMove enabledRelationsTraps() {
+        MoveTeamPositionsActivityOfMove list_ = new MoveTeamPositionsActivityOfMove();
+        for(CommonParam<MoveTeamPosition, ActivityOfMove> m:trappingMoves.entryList()){
+            if(!m.getValue().isEnabled()){
                 continue;
             }
-            list_.add(m);
+            list_.addEntry(m.getKey(),m.getValue());
         }
         return list_;
     }

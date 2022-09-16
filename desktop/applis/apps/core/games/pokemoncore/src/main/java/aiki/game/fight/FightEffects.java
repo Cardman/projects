@@ -867,17 +867,15 @@ final class FightEffects {
     }
 
     private static void boostTargetStats(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaqueLanceur, DataBase _import, Fighter _creatureCible) {
-        if (FightItems.canUseItsObject(_fight, _cible, _import)) {
-            Item it_ = _creatureCible.ficheObjet(_import);
-            if (it_ instanceof ItemForBattle) {
-                ItemForBattle item_ = (ItemForBattle) it_;
-                if (FightSuccess.rateEffAgainstTargetMove(_fight, _lanceur, _attaqueLanceur, _cible, _import).greaterThanOne()) {
-                    boostTarget(_fight, _cible, _import, _creatureCible, item_.getBoostStatisSuperEff());
-                }
-                for (String t: FightMoves.moveTypes(_fight, _lanceur, _attaqueLanceur, _import)) {
-                    if (item_.getBoostStatisTypes().contains(t)) {
-                        boostTarget(_fight, _cible, _import, _creatureCible, item_.getBoostStatisTypes().getVal(t));
-                    }
+        Item it_ = FightItems.useItsObject(_fight, _cible, _import);
+        if (it_ instanceof ItemForBattle) {
+            ItemForBattle item_ = (ItemForBattle) it_;
+            if (FightSuccess.rateEffAgainstTargetMove(_fight, _lanceur, _attaqueLanceur, _cible, _import).greaterThanOne()) {
+                boostTarget(_fight, _cible, _import, _creatureCible, item_.getBoostStatisSuperEff());
+            }
+            for (String t : FightMoves.moveTypes(_fight, _lanceur, _attaqueLanceur, _import)) {
+                if (item_.getBoostStatisTypes().contains(t)) {
+                    boostTarget(_fight, _cible, _import, _creatureCible, item_.getBoostStatisTypes().getVal(t));
                 }
             }
         }
@@ -910,15 +908,11 @@ final class FightEffects {
     }
 
     static Rate rateAbsorb(Fight _fight, TeamPosition _lanceur, DataBase _import) {
-        boolean peutUtiliserObjetLanceur_=FightItems.canUseItsObject(_fight,_lanceur,_import);
+        Item objet_ = FightItems.useItsObject(_fight, _lanceur, _import);
         Rate tauxPvAbsObj_=Rate.zero();
-        if(peutUtiliserObjetLanceur_){
-            Fighter creatureLanceur_=_fight.getFighter(_lanceur);
-            Item objet_=creatureLanceur_.ficheObjet(_import);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                tauxPvAbsObj_.affect(objetAttachable_.getDrainedHpByDamageRate());
-            }
+        if (objet_ instanceof ItemForBattle) {
+            ItemForBattle objetAttachable_ = (ItemForBattle) objet_;
+            tauxPvAbsObj_.affect(objetAttachable_.getDrainedHpByDamageRate());
         }
         if(tauxPvAbsObj_.isZero()){
             return Rate.zero();
@@ -1138,14 +1132,14 @@ final class FightEffects {
             pv_.affect(remainingHp(finalMove_, _import));
         } else if(move_.getCannotKo()){
             pv_.affect(_import.getMinHp());
-        } else if(FightItems.canUseItsObject(_fight,_cible,_import)){
-            Item objet_=creatureCible_.ficheObjet(_import);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                if(!objetAttachable_.getProtectAgainstKo().isZero()){
+        } else {
+            Item objet_ = FightItems.useItsObject(_fight, _cible, _import);
+            if (objet_ instanceof ItemForBattle) {
+                ItemForBattle objetAttachable_ = (ItemForBattle) objet_;
+                if (!objetAttachable_.getProtectAgainstKo().isZero()) {
                     pv_.affect(objetAttachable_.getProtectAgainstKo());
                 }
-                if(!objetAttachable_.getProtectAgainstKoIfFullHp().isZero()&&Rate.eq(creatureCible_.getRemainingHp(),creatureCible_.pvMax())){
+                if (!objetAttachable_.getProtectAgainstKoIfFullHp().isZero() && Rate.eq(creatureCible_.getRemainingHp(), creatureCible_.pvMax())) {
                     pv_.affect(objetAttachable_.getProtectAgainstKoIfFullHp());
                 }
             }
@@ -1261,16 +1255,13 @@ final class FightEffects {
     }
 
     static Rate rateObjectPower(Fight _fight, TeamPosition _fighter, StringMap<String> _variables, DataBase _import) {
-        Fighter fighter_ = _fight.getFighter(_fighter);
         Rate rate_ = DataBase.defRateProduct();
-        if(FightItems.canUseItsObject(_fight, _fighter,_import)){
-            Item objet_=fighter_.ficheObjet(_import);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                StringMap<String> vars_ = new StringMap<String>(_variables);
-                vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));
-                rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(objetAttachable_.getMultPower(), vars_, _import));
-            }
+        Item objet_ = FightItems.useItsObject(_fight, _fighter, _import);
+        if (objet_ instanceof ItemForBattle) {
+            ItemForBattle objetAttachable_ = (ItemForBattle) objet_;
+            StringMap<String> vars_ = new StringMap<String>(_variables);
+            vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));
+            rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(objetAttachable_.getMultPower(), vars_, _import));
         }
         return rate_;
     }
@@ -1471,14 +1462,10 @@ final class FightEffects {
 
     static Rate rateDamageThrowerObject(Fight _fight, TeamPosition _fighter, StringMap<String> _variables, DataBase _import) {
         Rate rate_ = DataBase.defRateProduct();
-        Fighter thrower_ = _fight.getFighter(_fighter);
-        boolean peutUtiliserObjetLanceur_=FightItems.canUseItsObject(_fight, _fighter,_import);
-        if(peutUtiliserObjetLanceur_){
-            Item objet_=thrower_.ficheObjet(_import);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(objetAttachable_.getMultDamage(), _variables, _import));
-            }
+        Item objet_ = FightItems.useItsObject(_fight, _fighter, _import);
+        if (objet_ instanceof ItemForBattle) {
+            ItemForBattle objetAttachable_ = (ItemForBattle) objet_;
+            rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(objetAttachable_.getMultDamage(), _variables, _import));
         }
         return rate_;
     }
@@ -1942,12 +1929,10 @@ final class FightEffects {
             fails_ = ab_.getFailStatus();
         }
         StringMap<String> failsObj_ = new StringMap<String>();
-        if (FightItems.canUseItsObject(_fight, _cible, _import)) {
-            Item obj_ = _creatureCible.ficheObjet(_import);
-            if (obj_ instanceof ItemForBattle) {
-                ItemForBattle o_ = (ItemForBattle) obj_;
-                failsObj_.putAllMap(o_.getFailStatus());
-            }
+        Item obj_ = FightItems.useItsObject(_fight, _cible, _import);
+        if (obj_ instanceof ItemForBattle) {
+            ItemForBattle o_ = (ItemForBattle) obj_;
+            failsObj_.putAllMap(o_.getFailStatus());
         }
         synchronizeStatus(_fight, _lanceur, _cible,failsObj_,fails_, _import);
     }
@@ -2011,14 +1996,11 @@ final class FightEffects {
         if (fCapacLanceur_ != null && !fCapacLanceur_.getRecoilDamageFoe().isZero() && _fAttaqueLanceur.isDirect()) {
             degatsReculContreCible_.addNb(Rate.multiply(fCapacLanceur_.getRecoilDamageFoe(), _creatureCible.pvMax()));
         }
-        boolean peutUtiliserObjetLanceur_=FightItems.canUseItsObject(_fight, _lanceur, _import);
-        if(peutUtiliserObjetLanceur_){
-            Item objet_= _creatureLanceur.ficheObjet(_import);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                if(!objetAttachable_.getDamageRecoil().isZero()&& _fAttaqueLanceur.isDirect()){
-                    degatsReculContreCible_.addNb(Rate.multiply(objetAttachable_.getDamageRecoil(), _creatureCible.pvMax()));
-                }
+        Item objet_ = FightItems.useItsObject(_fight, _lanceur, _import);
+        if (objet_ instanceof ItemForBattle) {
+            ItemForBattle objetAttachable_ = (ItemForBattle) objet_;
+            if (!objetAttachable_.getDamageRecoil().isZero() && _fAttaqueLanceur.isDirect()) {
+                degatsReculContreCible_.addNb(Rate.multiply(objetAttachable_.getDamageRecoil(), _creatureCible.pvMax()));
             }
         }
         _fight.setUtilisationBaieLanceur(false);
@@ -2525,7 +2507,7 @@ final class FightEffects {
             if(!FightKo.canBeHealed(_fight,_cible.getTeam(),_import)){
                 return;
             }
-            varPv_.affect(varPvPositive(_fight, _cible, _effet, _import, creatureCible_));
+            varPv_.affect(varPvPositive(_fight, _cible, _effet, _import));
         }else{
             AbilityData ab_ = creatureCible_.ficheCapaciteActuelle(_import);
             if (ab_ != null && ab_.isImmuDamageRecoil()) {
@@ -2561,15 +2543,13 @@ final class FightEffects {
         return Rate.multiply(somme_, coeff_);
     }
 
-    private static Rate varPvPositive(Fight _fight, TeamPosition _cible, EffectDamageRate _effet, DataBase _import, Fighter _creatureCible) {
+    private static Rate varPvPositive(Fight _fight, TeamPosition _cible, EffectDamageRate _effet, DataBase _import) {
         Rate coeff_=DataBase.defRateProduct();
-        if(FightItems.canUseItsObject(_fight, _cible, _import)){
-            Item objet_= _creatureCible.ficheObjet(_import);
-            if(objet_ instanceof ItemForBattle){
-                ItemForBattle objetAttachable_=(ItemForBattle)objet_;
-                if(!objetAttachable_.getMultDrainedHp().isZero()){
-                    coeff_.multiplyBy(objetAttachable_.getMultDrainedHp());
-                }
+        Item objet_ = FightItems.useItsObject(_fight, _cible, _import);
+        if (objet_ instanceof ItemForBattle) {
+            ItemForBattle objetAttachable_ = (ItemForBattle) objet_;
+            if (!objetAttachable_.getMultDrainedHp().isZero()) {
+                coeff_.multiplyBy(objetAttachable_.getMultDrainedHp());
             }
         }
         coeff_.multiplyBy(_effet.getRateDamage());
@@ -2833,17 +2813,14 @@ final class FightEffects {
     }
 
     private static void synchronizeStatusIteam(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, StringMap<String> _echecStatuts, DataBase _import) {
-        if (FightItems.canUseItsObject(_fight, _cible, _import)) {
-            Fighter creatureCbtCible_=_fight.getFighter(_cible);
-            Item obj_ = creatureCbtCible_.ficheObjet(_import);
-            if (obj_ instanceof ItemForBattle) {
-                ItemForBattle o_ = (ItemForBattle) obj_;
-                for(String e:_fight.getSufferingTargetStatus()){
-                    if(!StringUtil.contains(o_.getSynchroStatus(), e)){
-                        continue;
-                    }
-                    affectStatusToThrower(_fight, _lanceur, e, _cible, _echecStatuts, _import);
+        Item obj_ = FightItems.useItsObject(_fight, _cible, _import);
+        if (obj_ instanceof ItemForBattle) {
+            ItemForBattle o_ = (ItemForBattle) obj_;
+            for (String e : _fight.getSufferingTargetStatus()) {
+                if (!StringUtil.contains(o_.getSynchroStatus(), e)) {
+                    continue;
                 }
+                affectStatusToThrower(_fight, _lanceur, e, _cible, _echecStatuts, _import);
             }
         }
     }

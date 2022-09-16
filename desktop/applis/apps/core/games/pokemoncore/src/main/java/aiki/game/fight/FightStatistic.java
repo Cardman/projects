@@ -15,6 +15,7 @@ import aiki.fight.util.*;
 import code.maths.Rate;
 import code.util.AbsMap;
 
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -145,40 +146,22 @@ final class FightStatistic {
     }
 
     static Rate multiplyStatisticTeamMoveEffect(Fight _fight, Statistic _statistic, byte _noTeam, DataBase _import) {
-        Rate rate_ = Rate.one();
-        Team equipe_ = _fight.getTeams().getVal(_noTeam);
-        for(String c:equipe_.enabledTeamMoves()){
-            MoveData fAttaque_=_import.getMove(c);
-            int nbEffets_=fAttaque_.nbEffets();
-            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                Effect effet_=fAttaque_.getEffet(i);
-                if(!(effet_ instanceof EffectTeam)){
-                    continue;
-                }
-                EffectTeam effetEquipe_=(EffectTeam)effet_;
-                if (effetEquipe_.getMultStatistic().contains(_statistic)) {
-                    rate_.multiplyBy(effetEquipe_.getMultStatistic().getVal(_statistic));
-                }
-            }
-        }
-        return rate_;
+        return multiplyStatisticFoeTeamMoveEffectRet(_fight, _statistic, _noTeam, _import,new EffectTeamMultStatRetrieverTeam());
     }
 
     static Rate multiplyStatisticFoeTeamMoveEffect(Fight _fight, Statistic _statistic, byte _noTeam, DataBase _import) {
+        return multiplyStatisticFoeTeamMoveEffectRet(_fight, _statistic, _noTeam, _import,new EffectTeamMultStatRetrieverFoeTeam());
+    }
+
+    static Rate multiplyStatisticFoeTeamMoveEffectRet(Fight _fight, Statistic _statistic, byte _noTeam, DataBase _import, AbsEffectTeamMultStatRetriever _retr) {
         Rate rate_ = Rate.one();
         Team equipe_ = _fight.getTeams().getVal(_noTeam);
         for(String c:equipe_.enabledTeamMoves()){
-            MoveData fAttaque_=_import.getMove(c);
-            int nbEffets_=fAttaque_.nbEffets();
+            CustList<EffectTeam> list_ = FightSuccess.effectsTeamMove(_import,c);
+            int nbEffets_=list_.size();
             for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                Effect effet_=fAttaque_.getEffet(i);
-                if(!(effet_ instanceof EffectTeam)){
-                    continue;
-                }
-                EffectTeam effetEquipe_=(EffectTeam)effet_;
-                if (effetEquipe_.getMultStatisticFoe().contains(_statistic)) {
-                    rate_.multiplyBy(effetEquipe_.getMultStatisticFoe().getVal(_statistic));
-                }
+                EffectTeam effetEquipe_=list_.get(i);
+                rate_.multiplyBy(_retr.retrieve(effetEquipe_,_statistic));
             }
         }
         return rate_;

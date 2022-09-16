@@ -604,10 +604,18 @@ public final class Team {
 
     Bytes fightersAtCurrentPlace(short _place){
         Bytes cbts_ = new Bytes();
+        for (EntryCust<Byte,Fighter> e: fightersListAtCurrentPlace(_place).entryList()) {
+            cbts_.add(e.getKey());
+        }
+        return cbts_;
+    }
+
+    ByteMap<Fighter> fightersListAtCurrentPlace(short _place){
+        ByteMap<Fighter> cbts_ = new ByteMap<Fighter>();
         for(byte c:members.getKeys()){
             Fighter membre_=members.getVal(c);
             if(NumberUtil.eq(membre_.getGroundPlace(),_place)){
-                cbts_.add(c);
+                cbts_.addEntry(c,membre_);
             }
         }
         return cbts_;
