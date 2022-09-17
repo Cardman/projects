@@ -8539,43 +8539,39 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight nextFightersSending4(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
-        Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer((short)3, _foeMoves));
         foeTeam_.add(pkTrainer((short)3, _foeMoves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(pkTrainer((short)3, _partnerMoves));
-        Fight f_ = nextFightersDual(_player, _diff, _data, fight_, foeTeam_, allyTeam_);
+        Fight f_ = nextFightersDual(_player, _diff, _data, foeTeam_, allyTeam_);
         return firstEffectWhileSendingTeams(_diff, _data, f_);
     }
 
     private Fight nextFightersSending3(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
-        Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer((short)3, _foeMoves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(pkTrainer((short)3, _partnerMoves));
-        Fight f_ = nextFightersDual(_player, _diff, _data, fight_, foeTeam_, allyTeam_);
+        Fight f_ = nextFightersDual(_player, _diff, _data, foeTeam_, allyTeam_);
         return firstEffectWhileSendingTeams(_diff, _data, f_);
     }
 
     private Fight nextFightersSending2(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
-        Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer((short)12, _foeMoves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(pkTrainer((short)3, _partnerMoves));
-        Fight f_ = nextFightersDual(_player, _diff, _data, fight_, foeTeam_, allyTeam_);
+        Fight f_ = nextFightersDual(_player, _diff, _data, foeTeam_, allyTeam_);
         return firstEffectWhileSendingTeams(_diff, _data, f_);
     }
 
     private Fight nextFighters2(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
-        Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer((short)16, _foeMoves));
         foeTeam_.add(pkTrainer((short)15, _foeMoves));
         foeTeam_.add(pkTrainer((short)15, _foeMoves));
-        return nextFightersGym(_player, _diff, _data, fight_, foeTeam_, 2);
+        return nextFightersGym(_player, _diff, _data, foeTeam_, 2);
     }
 
     private static Fight firstEffectWhileSendingTeams(Difficulty _diff, DataBase _data, Fight _fight) {
@@ -8583,26 +8579,29 @@ public class FightRoundTest extends InitializationDataBase {
         return _fight;
     }
 
-    private static Fight nextFightersGym(Player _user, Difficulty _diff, DataBase _data, Fight _fight, CustList<PkTrainer> _foeTeam) {
+    private static Fight nextFightersGym(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam) {
+        Fight fight_ = FightFacade.newFight();
         GymLeader leader_ = new GymLeader();
         leader_.setTeam(_foeTeam);
         leader_.setReward((short) 200);
-        FightFacade.initFight(_fight, _user, _diff, leader_, _data);
-        _fight.setEnvType(EnvironmentType.ROAD);
-        return _fight;
+        FightFacade.initFight(fight_, _user, _diff, leader_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
-    private static Fight nextFightersGym(Player _user, Difficulty _diff, DataBase _data, Fight _fight, CustList<PkTrainer> _foeTeam, int _mult) {
+    private static Fight nextFightersGym(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, int _mult) {
+        Fight fight_ = FightFacade.newFight();
         GymLeader leader_ = new GymLeader();
         leader_.setTeam(_foeTeam);
         leader_.setMultiplicityFight((byte) _mult);
         leader_.setReward((short) 200);
-        FightFacade.initFight(_fight, _user, _diff, leader_, _data);
-        _fight.setEnvType(EnvironmentType.ROAD);
-        return _fight;
+        FightFacade.initFight(fight_, _user, _diff, leader_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
-    private static Fight nextFightersDual(Player _user, Difficulty _diff, DataBase _data, Fight _fight, CustList<PkTrainer> _foeTeam, CustList<PkTrainer> _allyTeam) {
+    private static Fight nextFightersDual(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, CustList<PkTrainer> _allyTeam) {
+        Fight fight_ = FightFacade.newFight();
         DualFight dual_ = new DualFight();
         Ally ally_ = new Ally();
         ally_.setTeam(_allyTeam);
@@ -8611,9 +8610,9 @@ public class FightRoundTest extends InitializationDataBase {
         trainer_.setTeam(_foeTeam);
         trainer_.setReward((short) 200);
         dual_.setFoeTrainer(trainer_);
-        FightFacade.initFight(_fight, _user, _diff, dual_, _data);
-        _fight.setEnvType(EnvironmentType.ROAD);
-        return _fight;
+        FightFacade.initFight(fight_, _user, _diff, dual_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     private Fight calculateCatchingRate1(DataBase _data, Difficulty _diff, StringMap<Short> _moves, String _name, int _level) {
@@ -8784,10 +8783,9 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight nextFightersSending1(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves, int _l) {
-        Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer((short)_l, _foeMoves));
-        Fight f_ = nextFightersGym(_player, _diff, _data, fight_, foeTeam_);
+        Fight f_ = nextFightersGym(_player, _diff, _data, foeTeam_);
         return firstEffectWhileSendingTeams(_diff, _data, f_);
     }
 
