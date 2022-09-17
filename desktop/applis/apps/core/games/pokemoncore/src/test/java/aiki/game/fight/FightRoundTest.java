@@ -5560,13 +5560,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -5624,13 +5618,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -5688,13 +5676,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -5755,13 +5737,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -5818,13 +5794,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.setSubstitute((byte) 2);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
@@ -5876,13 +5846,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.setSubstitute((byte) 2);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
@@ -5935,13 +5899,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         fight_.setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
@@ -5982,13 +5940,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertEq(FightState.ATTAQUES, fight_.getState());
         assertTrue(fight_.getAcceptableChoices());
@@ -6017,14 +5969,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending4(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertEq(FightState.APPRENDRE_EVOLUER, fight_.getState());
@@ -6054,14 +5999,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending4(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertEq(FightState.SWITCH_PROPOSE, fight_.getState());
@@ -6091,13 +6029,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
@@ -6122,13 +6054,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertEq(FightState.SWITCH_WHILE_KO_USER, fight_.getState());
@@ -6262,14 +6188,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("25"));
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending4(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
 //        assertEq(FightState.ATTAQUES, fight_.getState());
@@ -6637,13 +6556,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         fight_.setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
@@ -6698,13 +6611,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BULLES_D_O);
-        foesMoves_.add(new LevelMoves((short)16,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = nextFighters(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
         fight_.setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
@@ -6743,13 +6650,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         fight_.getAllyChoice().put(new MoveTarget(NULL_REF,new TargetCoords()), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
         FightRound.setAllyChoices(fight_, data_);
@@ -6781,13 +6682,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
         fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
@@ -6821,14 +6716,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ONE);
         fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
@@ -6864,14 +6752,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         fight_.getAllyChoice().put(new MoveTarget(SEISME,new TargetCoords()), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
@@ -6909,13 +6790,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -6958,13 +6833,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -6999,13 +6868,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -7045,13 +6908,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -7115,13 +6972,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -7183,13 +7034,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -7264,13 +7109,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -7390,13 +7229,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -7544,13 +7377,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -7626,13 +7453,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -7703,13 +7524,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -7907,13 +7722,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -7952,13 +7761,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -8016,13 +7819,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -8087,13 +7884,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
         fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         assertFalse(FightRound.changeKo(fight_, data_,true));
@@ -8117,13 +7908,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -8154,13 +7939,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -8194,13 +7973,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -8255,13 +8028,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -8335,13 +8102,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -8408,14 +8169,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -8461,14 +8215,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -8522,13 +8269,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION,CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = nextFightersSending(partnersMoves_, foesMoves_, player_, diff_, new int[]{}, data_);
+        Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
@@ -8797,50 +8538,82 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(!fight_.getAcceptableChoices());
     }
 
-    private static Fight nextFightersSending(CustList<LevelMoves> _partnerMoves, CustList<LevelMoves> _foeMoves, Player _user, Difficulty _diff, int[] _mult, DataBase _data) {
-        Fight fight_ = nextFighters(_partnerMoves, _foeMoves, _user, _diff, _data, _mult);
-        FightSending.firstEffectWhileSendingTeams(fight_, _diff, _data);
-        return fight_;
-    }
-
-    private static Fight nextFighters(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _user,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
+    private Fight nextFightersSending4(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
         Fight fight_ = FightFacade.newFight();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = pkTrainer(_foeMoves.get(i));
-            foeTeam_.add(foePokemon_);
-        }
-        if (!_partnerMoves.isEmpty()) {
-            DualFight dual_ = new DualFight();
-            Ally ally_ = new Ally();
-            CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-                PkTrainer allyPokemon_ = pkTrainer(_partnerMoves.get(i));
-                allyTeam_.add(allyPokemon_);
-            }
-            ally_.setTeam(allyTeam_);
-            dual_.setAlly(ally_);
-            TempTrainer trainer_ = new TempTrainer();
-            trainer_.setTeam(foeTeam_);
-            trainer_.setReward((short) 200);
-            dual_.setFoeTrainer(trainer_);
-            FightFacade.initFight(fight_,_user, _diff, dual_, _data);
-        } else {
-            GymLeader leader_ = new GymLeader();
-            leader_.setTeam(foeTeam_);
-            if (_mult.length > 0) {
-                leader_.setMultiplicityFight((byte) _mult[0]);
-            }
-            leader_.setReward((short) 200);
-            FightFacade.initFight(fight_,_user, _diff, leader_, _data);
-        }
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        Fight f_ = nextFightersDual(_player, _diff, _data, fight_, foeTeam_, allyTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, f_);
+    }
+
+    private Fight nextFightersSending3(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        Fight fight_ = FightFacade.newFight();
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        Fight f_ = nextFightersDual(_player, _diff, _data, fight_, foeTeam_, allyTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, f_);
+    }
+
+    private Fight nextFightersSending2(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        Fight fight_ = FightFacade.newFight();
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)12, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        Fight f_ = nextFightersDual(_player, _diff, _data, fight_, foeTeam_, allyTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, f_);
+    }
+
+    private Fight nextFighters2(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        Fight fight_ = FightFacade.newFight();
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)16, _foeMoves));
+        foeTeam_.add(pkTrainer((short)15, _foeMoves));
+        foeTeam_.add(pkTrainer((short)15, _foeMoves));
+        return nextFightersGym(_player, _diff, _data, fight_, foeTeam_, 2);
+    }
+
+    private static Fight firstEffectWhileSendingTeams(Difficulty _diff, DataBase _data, Fight _fight) {
+        FightSending.firstEffectWhileSendingTeams(_fight, _diff, _data);
+        return _fight;
+    }
+
+    private static Fight nextFightersGym(Player _user, Difficulty _diff, DataBase _data, Fight _fight, CustList<PkTrainer> _foeTeam) {
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(_foeTeam);
+        leader_.setReward((short) 200);
+        FightFacade.initFight(_fight, _user, _diff, leader_, _data);
+        _fight.setEnvType(EnvironmentType.ROAD);
+        return _fight;
+    }
+
+    private static Fight nextFightersGym(Player _user, Difficulty _diff, DataBase _data, Fight _fight, CustList<PkTrainer> _foeTeam, int _mult) {
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(_foeTeam);
+        leader_.setMultiplicityFight((byte) _mult);
+        leader_.setReward((short) 200);
+        FightFacade.initFight(_fight, _user, _diff, leader_, _data);
+        _fight.setEnvType(EnvironmentType.ROAD);
+        return _fight;
+    }
+
+    private static Fight nextFightersDual(Player _user, Difficulty _diff, DataBase _data, Fight _fight, CustList<PkTrainer> _foeTeam, CustList<PkTrainer> _allyTeam) {
+        DualFight dual_ = new DualFight();
+        Ally ally_ = new Ally();
+        ally_.setTeam(_allyTeam);
+        dual_.setAlly(ally_);
+        TempTrainer trainer_ = new TempTrainer();
+        trainer_.setTeam(_foeTeam);
+        trainer_.setReward((short) 200);
+        dual_.setFoeTrainer(trainer_);
+        FightFacade.initFight(_fight, _user, _diff, dual_, _data);
+        _fight.setEnvType(EnvironmentType.ROAD);
+        return _fight;
     }
 
     private Fight calculateCatchingRate1(DataBase _data, Difficulty _diff, StringMap<Short> _moves, String _name, int _level) {
@@ -9011,9 +8784,11 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight nextFightersSending1(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves, int _l) {
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>(new LevelMoves[]{new LevelMoves((short) _l, _foeMoves)});
-        return nextFightersSending(partnersMoves_, foesMoves_, _player, _diff, new int[]{}, _data);
+        Fight fight_ = FightFacade.newFight();
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)_l, _foeMoves));
+        Fight f_ = nextFightersGym(_player, _diff, _data, fight_, foeTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, f_);
     }
 
     private static Fight processEffectTargetsDual(Difficulty _diff, DataBase _data, Player _player, CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam) {
@@ -9042,10 +8817,6 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
         return lasPk_;
-    }
-
-    private static PkTrainer pkTrainer(LevelMoves _levelMoves) {
-        return pkTrainer(_levelMoves.getFirst(), _levelMoves.getSecond());
     }
 
     private static PkTrainer pkTrainer(short _level, StringList _moves) {
