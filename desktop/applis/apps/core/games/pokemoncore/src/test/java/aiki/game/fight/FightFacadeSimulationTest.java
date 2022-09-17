@@ -34,58 +34,6 @@ import code.util.StringMap;
 
 
 public class FightFacadeSimulationTest extends InitializationDataBase {
- 
-    private static Fight simulate(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        Fight fight_ = FightFacade.newFight();
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = new PkTrainer();
-            foePokemon_.setName(TARTARD);
-            foePokemon_.setItem(PLAQUE_DRACO);
-            foePokemon_.setAbility(MULTITYPE);
-            foePokemon_.setGender(Gender.NO_GENDER);
-            foePokemon_.setLevel(_foeMoves.get(i).getFirst());
-            foePokemon_.setMoves(_foeMoves.get(i).getSecond());
-            foeTeam_.add(foePokemon_);
-        }
-        if (!_partnerMoves.isEmpty()) {
-            DualFight dual_ = new DualFight();
-            Ally ally_ = new Ally();
-            CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-                PkTrainer allyPokemon_ = new PkTrainer();
-                allyPokemon_.setName(TARTARD);
-                allyPokemon_.setItem(PLAQUE_DRACO);
-                allyPokemon_.setAbility(MULTITYPE);
-                allyPokemon_.setGender(Gender.NO_GENDER);
-                allyPokemon_.setLevel(_partnerMoves.get(i).getFirst());
-                allyPokemon_.setMoves(_partnerMoves.get(i).getSecond());
-                allyTeam_.add(allyPokemon_);
-            }
-            ally_.setTeam(allyTeam_);
-            dual_.setAlly(ally_);
-            TempTrainer trainer_ = new TempTrainer();
-            trainer_.setTeam(foeTeam_);
-            trainer_.setReward((short) 200);
-            dual_.setFoeTrainer(trainer_);
-            FightFacade.initFight(fight_,_player, _diff, dual_, _data);
-        } else {
-            GymLeader leader_ = new GymLeader();
-            leader_.setTeam(foeTeam_);
-            if (_mult.length > 0) {
-                leader_.setMultiplicityFight((byte) _mult[0]);
-            }
-            leader_.setReward((short) 200);
-            FightFacade.initFight(fight_,_player, _diff, leader_, _data);
-        }
-        FightFacade.initTypeEnv(fight_, _data.getMap().getBegin(), _diff, _data);
-        return fight_;
-    }
 
     @Test
     public void simulate1Test() {
@@ -3721,6 +3669,58 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         assertEq(1, fightSimulation_.getKoFoes().size());
         assertEq(1, fightSimulation_.getNotKoFrontFoes().size());
         assertEq(0, fightSimulation_.getKoPlayers().size());
+    }
+
+    private static Fight simulate(
+            CustList<LevelMoves> _partnerMoves,
+            CustList<LevelMoves> _foeMoves,
+            Player _player,
+            Difficulty _diff, DataBase _data,
+            int... _mult) {
+        Fight fight_ = FightFacade.newFight();
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
+            PkTrainer foePokemon_ = new PkTrainer();
+            foePokemon_.setName(TARTARD);
+            foePokemon_.setItem(PLAQUE_DRACO);
+            foePokemon_.setAbility(MULTITYPE);
+            foePokemon_.setGender(Gender.NO_GENDER);
+            foePokemon_.setLevel(_foeMoves.get(i).getFirst());
+            foePokemon_.setMoves(_foeMoves.get(i).getSecond());
+            foeTeam_.add(foePokemon_);
+        }
+        if (!_partnerMoves.isEmpty()) {
+            DualFight dual_ = new DualFight();
+            Ally ally_ = new Ally();
+            CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
+                PkTrainer allyPokemon_ = new PkTrainer();
+                allyPokemon_.setName(TARTARD);
+                allyPokemon_.setItem(PLAQUE_DRACO);
+                allyPokemon_.setAbility(MULTITYPE);
+                allyPokemon_.setGender(Gender.NO_GENDER);
+                allyPokemon_.setLevel(_partnerMoves.get(i).getFirst());
+                allyPokemon_.setMoves(_partnerMoves.get(i).getSecond());
+                allyTeam_.add(allyPokemon_);
+            }
+            ally_.setTeam(allyTeam_);
+            dual_.setAlly(ally_);
+            TempTrainer trainer_ = new TempTrainer();
+            trainer_.setTeam(foeTeam_);
+            trainer_.setReward((short) 200);
+            dual_.setFoeTrainer(trainer_);
+            FightFacade.initFight(fight_,_player, _diff, dual_, _data);
+        } else {
+            GymLeader leader_ = new GymLeader();
+            leader_.setTeam(foeTeam_);
+            if (_mult.length > 0) {
+                leader_.setMultiplicityFight((byte) _mult[0]);
+            }
+            leader_.setReward((short) 200);
+            FightFacade.initFight(fight_,_player, _diff, leader_, _data);
+        }
+        FightFacade.initTypeEnv(fight_, _data.getMap().getBegin(), _diff, _data);
+        return fight_;
     }
 
     private void simulate(Fight _fight, CustList<CustList<ActionMove>> _actionsRound, CustList<CustList<ActionSwitch>> _actionsSubstitutingFront, CustList<CustList<ActionSwitch>> _actionsSubstitutingBack, CustList<ByteMap<ChoiceOfEvolutionAndMoves>> _evolutions, Player _player, Difficulty _diff, DataBase _data) {
