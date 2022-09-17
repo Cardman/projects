@@ -3,7 +3,6 @@ package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.util.*;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -32,58 +31,6 @@ import code.util.StringMap;
 
 public class FightArtificialIntelligenceTest extends InitializationDataBase {
 
-    private static Fight choiceForSubstituing(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        Fight fight_ = FightFacade.newFight();
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = new PkTrainer();
-            foePokemon_.setName(TARTARD);
-            foePokemon_.setItem(PLAQUE_DRACO);
-            foePokemon_.setAbility(MULTITYPE);
-            foePokemon_.setGender(Gender.NO_GENDER);
-            foePokemon_.setLevel(_foeMoves.get(i).getFirst());
-            foePokemon_.setMoves(_foeMoves.get(i).getSecond());
-            foeTeam_.add(foePokemon_);
-        }
-        if (!_partnerMoves.isEmpty()) {
-            DualFight dual_ = new DualFight();
-            Ally ally_ = new Ally();
-            CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-                PkTrainer allyPokemon_ = new PkTrainer();
-                allyPokemon_.setName(TARTARD);
-                allyPokemon_.setItem(PLAQUE_DRACO);
-                allyPokemon_.setAbility(MULTITYPE);
-                allyPokemon_.setGender(Gender.NO_GENDER);
-                allyPokemon_.setLevel(_partnerMoves.get(i).getFirst());
-                allyPokemon_.setMoves(_partnerMoves.get(i).getSecond());
-                allyTeam_.add(allyPokemon_);
-            }
-            ally_.setTeam(allyTeam_);
-            dual_.setAlly(ally_);
-            TempTrainer trainer_ = new TempTrainer();
-            trainer_.setTeam(foeTeam_);
-            trainer_.setReward((short) 200);
-            dual_.setFoeTrainer(trainer_);
-            FightFacade.initFight(fight_,_player, _diff, dual_, _data);
-        } else {
-            GymLeader leader_ = new GymLeader();
-            leader_.setTeam(foeTeam_);
-            if (_mult.length > 0) {
-                leader_.setMultiplicityFight((byte) _mult[0]);
-            }
-            leader_.setReward((short) 200);
-            FightFacade.initFight(fight_,_player, _diff, leader_, _data);
-        }
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
     @Test
     public void choiceForSubstituing1Test() {
         DataBase data_ = initDb();
@@ -106,12 +53,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing1(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -144,13 +86,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing2(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -186,14 +122,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = choiceForSubstituing3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -232,12 +161,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = choiceForSubstituing4(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -270,15 +194,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = choiceForSubstituing5(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
@@ -314,15 +230,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing6(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
@@ -356,16 +264,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
@@ -402,16 +301,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_THREE, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
@@ -449,16 +339,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_THREE, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
@@ -495,14 +376,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing8(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
@@ -533,15 +407,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing9(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
@@ -575,15 +441,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = choiceForSubstituing10(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).fullHeal(data_);
@@ -619,15 +477,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = choiceForSubstituing10(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).fullHeal(data_);
@@ -663,16 +513,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).exitFrontBattleForBeingSubstitued();
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).fullHeal(data_);
@@ -712,15 +553,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = choiceForSubstituing(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = choiceForSubstituing6(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte) 1);
@@ -761,14 +594,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DETECTION));
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, POKEMON_PLAYER_FIGHTER_TWO, INTERVERSION, POKEMON_PLAYER_TARGET_ZERO, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -800,14 +626,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SEISME);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(SEISME), new StringList(DETECTION));
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, POKEMON_PLAYER_FIGHTER_TWO, SEISME, POKEMON_FOE_TARGET_ZERO, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -838,14 +657,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DETECTION));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, INTERVERSION, POKEMON_PLAYER_TARGET_ZERO, data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, INTERVERSION, data_);
@@ -879,14 +691,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SEISME);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(SEISME), new StringList(DETECTION));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, SEISME, POKEMON_PLAYER_TARGET_ZERO, data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, SEISME, data_);
@@ -919,14 +724,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(BERCEUSE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(BERCEUSE), new StringList(DETECTION));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, BERCEUSE, POKEMON_FOE_TARGET_ZERO, data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, BERCEUSE, data_);
@@ -960,16 +758,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(RELAIS);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(RELAIS), new StringList(DETECTION), 3, 3, 3, 3, 3);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_THREE, diff_, data_);
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, RELAIS, POKEMON_PLAYER_TARGET_ZERO, data_);
@@ -1003,16 +792,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_FOUR, diff_, data_);
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, DANSE_LUNE, POKEMON_PLAYER_TARGET_ZERO, data_);
@@ -1042,14 +822,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION));
         //FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_FOUR, diff_, data_);
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, DANSE_LUNE, POKEMON_PLAYER_TARGET_ZERO, data_);
@@ -1079,14 +852,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(RELAIS);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(RELAIS), new StringList(DETECTION));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, RELAIS, POKEMON_PLAYER_TARGET_ZERO, data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, RELAIS, data_);
@@ -1121,16 +887,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SACRIFICE));
@@ -1160,16 +917,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SIPHON));
@@ -1199,16 +947,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SEISME));
@@ -1238,13 +977,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_TWO;
         assertTrue(!reachable(data_, diff_, fight_, thrower_, target_, SIPHON));
@@ -1274,13 +1007,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_TWO;
         assertTrue(!reachable(data_, diff_, fight_, thrower_, target_, COUPE_VENT));
@@ -1310,16 +1037,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
         TargetCoordssRate damages_;
@@ -1353,16 +1071,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterTypes(SOL);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_VOLT);
@@ -1401,13 +1110,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterTypes(SOL);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_VOLT);
@@ -1447,13 +1150,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
@@ -1491,13 +1188,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
         TargetCoordssRate damages_;
@@ -1536,13 +1227,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
         TargetCoordssRate damages_;
@@ -1581,12 +1266,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove7(data_, diff_, player_, new StringList(DETECTION));
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
         TargetCoordssRate damages_;
@@ -1620,16 +1300,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, SACRIFICE, diff_, data_);
         assertEq(5, list_.size());
@@ -1664,16 +1335,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(1, list_.size());
@@ -1704,16 +1366,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(5, list_.size());
@@ -1748,16 +1401,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, COUPE_VENT, diff_, data_);
         assertEq(5, list_.size());
@@ -1792,16 +1436,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, BROUHAHA, diff_, data_);
         assertEq(5, list_.size());
@@ -1840,13 +1475,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, PICORE, diff_, data_);
         assertEq(2, list_.size());
@@ -1878,13 +1507,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)15,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, PICORE, diff_, data_);
         assertEq(1, list_.size());
@@ -1915,16 +1538,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).affecterTypes(SOL);
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
@@ -1957,16 +1571,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
         TeamPositionList list_ = FightArtificialIntelligence.untouchablePartners(fight_, thrower_, TONNERRE, diff_, data_);
@@ -1999,16 +1604,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionsRate damages_;
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, SIPHON, diff_, data_);
@@ -2044,16 +1640,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionsRate damages_;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
@@ -2090,16 +1677,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)18,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)18,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 18, 18, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionsRate damages_;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
@@ -2136,16 +1714,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DANSE_LUNE);
-        partnersMoves_.add(new LevelMoves((short)1,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)18,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)4,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 1, 18, 17, 1, 4);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPositionsRate damages_;
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, ABIME, diff_, data_);
@@ -2181,16 +1750,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SIPHON);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         assertTrue(FightArtificialIntelligence.usableMove(fight_, thrower_, target_, true, SIPHON, diff_, data_));
@@ -2220,16 +1780,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SIPHON);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         assertTrue(!FightArtificialIntelligence.usableMove(fight_, thrower_, target_, false, SIPHON, diff_, data_));
@@ -2259,16 +1810,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         fight_.getFighter(target_).affecterTypes(SOL);
@@ -2299,16 +1841,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 3, 3, 3, 3, 3);
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         assertTrue(!FightArtificialIntelligence.usableMove(fight_, thrower_, target_, true, TONNERRE, diff_, data_));
@@ -2338,16 +1871,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         assertTrue(FightArtificialIntelligence.koFoeFighter(fight_, thrower_, TONNERRE, target_, diff_, data_));
@@ -2377,16 +1901,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 12, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         assertTrue(!FightArtificialIntelligence.koFoeFighter(fight_, thrower_, TONNERRE, target_, diff_, data_));
@@ -2416,16 +1931,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getFighter(target_).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
@@ -2456,16 +1962,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getFighter(target_).setCurrentAbility(ABSORB_VOLT);
@@ -2496,16 +1993,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         fight_.getFighter(target_).affecterTypes(SOL);
@@ -2536,16 +2024,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 17, 3);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         StringMap<TargetCoordsList> mapTargets_;
         mapTargets_ = new StringMap<TargetCoordsList>();
@@ -2577,15 +2056,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(COUPE_VENT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
 //        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
@@ -2624,15 +2095,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(COUPE_VENT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
 //        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         //fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
@@ -2672,15 +2135,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SIPHON);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3);
 //        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         //fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
@@ -2720,15 +2175,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SIPHON);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3);
 //        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("2"));
@@ -2767,15 +2214,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SIPHON);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3);
 //        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("2"));
@@ -2811,16 +2250,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 17, 3);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -2857,16 +2287,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 17, 3);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(SOL);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
@@ -2906,16 +2327,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -2952,16 +2364,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(TONNERRE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 17, 12);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(SOL);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
@@ -3003,16 +2406,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(COUPE_VENT);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 17, 3, 3, 17, 12);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -3053,16 +2447,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DOUBLE_PIED);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DOUBLE_PIED), new StringList(DETECTION), 17, 3, 3, 17, 3);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -3099,16 +2484,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DOUBLE_PIED);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)10,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DOUBLE_PIED), new StringList(DETECTION), 17, 3, 3, 17, 10);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -3149,16 +2525,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(PICORE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)10,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(PICORE), new StringList(DETECTION), 17, 3, 3, 17, 10);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -3199,16 +2566,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(PICORE);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(PICORE), new StringList(DETECTION), 17, 3, 3, 17, 13);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -3249,16 +2607,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(DETECTION);
-        partnersMoves_.add(new LevelMoves((short)17,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)17,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DETECTION), new StringList(DETECTION), 17, 3, 3, 17, 13);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -3296,13 +2645,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(JACKPOT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove2(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -3338,15 +2681,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(CHARGE);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)12,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(CHARGE), new StringList(DETECTION), 12);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_EAU);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
@@ -3380,15 +2715,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SIPHON);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("1"));
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
@@ -3426,15 +2753,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(COUPE_VENT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ABSORB_EAU);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("3"));
@@ -3473,15 +2792,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(COUPE_VENT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
 //        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
@@ -3518,32 +2829,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(COUPE_VENT);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
 //        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ONE, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(0, choices_.size());
-    }
-
-    private static Fight setFirstChosenMove(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        Fight fight_ = choiceForSubstituing(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
-        FightSending.firstEffectWhileSendingTeams(fight_, _diff, _data);
-        return fight_;
     }
 
     @Test
@@ -3568,14 +2860,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(INTERVERSION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(INTERVERSION));
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, INTERVERSION, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -3607,14 +2892,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SEISME);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(SEISME);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(SEISME), new StringList(SEISME));
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, SEISME, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -3645,14 +2923,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(SEISME);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(PISTOLET_A_O);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(SEISME), new StringList(PISTOLET_A_O));
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, PISTOLET_A_O, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -3684,14 +2955,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-//        StringList partnerMoves_ = new StringList(INTERVERSION);
-//        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(INTERVERSION);
-        //foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove9(data_, diff_, player_, new StringList(INTERVERSION));
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, INTERVERSION, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -3723,14 +2987,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(INTERVERSION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(INTERVERSION));
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, INTERVERSION, diff_, data_);
         FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, INTERVERSION, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -3763,15 +3020,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(RELAIS);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(INTERVERSION), new StringList(RELAIS), 3);
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, RELAIS, diff_, data_);
         FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, RELAIS, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -3803,16 +3052,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DANSE_LUNE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove8(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DANSE_LUNE));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, DANSE_LUNE, diff_, data_);
         FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, DANSE_LUNE, data_);
@@ -3845,15 +3085,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BERCEUSE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(INTERVERSION), new StringList(BERCEUSE), 3);
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, BERCEUSE, diff_, data_);
         FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, BERCEUSE, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -3886,14 +3118,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DANSE_LUNE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DANSE_LUNE));
         //FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, DANSE_LUNE, diff_, data_);
         FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, DANSE_LUNE, data_);
@@ -3926,14 +3151,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(RELAIS);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(RELAIS));
         FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, RELAIS, diff_, data_);
         FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, RELAIS, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -3965,14 +3183,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(INTERVERSION);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(INTERVERSION));
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4010,14 +3221,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(BERCEUSE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(BERCEUSE));
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4055,14 +3259,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        StringList partnerMoves_ = new StringList(INTERVERSION);
-        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(SIPHON,BERCEUSE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(SIPHON, BERCEUSE));
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4104,13 +3301,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(PISTOLET_A_O,SIPHON);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(PISTOLET_A_O, SIPHON), 3);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4158,13 +3349,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(PISTOLET_A_O,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(PISTOLET_A_O, CHARGE), 3);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4208,13 +3393,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(PISTOLET_A_O,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(PISTOLET_A_O, CHARGE), 3);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4258,13 +3437,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(PISTOLET_A_O,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = setFirstChosenMove6(data_, diff_, player_, new StringList(PISTOLET_A_O, CHARGE));
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, CHARGE, (short) 50);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
@@ -4346,13 +3519,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(EMPAL_KORNE,SIPHON);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(EMPAL_KORNE, SIPHON), 3);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4400,13 +3567,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(EMPAL_KORNE,GLACIATION);
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(EMPAL_KORNE, GLACIATION), 18);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4454,13 +3615,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(GUILLOTINE,GLACIATION);
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(GUILLOTINE, GLACIATION), 18);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4508,13 +3663,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(GUILLOTINE,RISQUE);
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(GUILLOTINE, RISQUE), 18);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -4562,13 +3711,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(ONDE_VIDE,STOCKAGE);
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)18,foeMoves_));
-        Fight fight_ = setFirstChosenMove(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(ONDE_VIDE, STOCKAGE), 18);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(SOL);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).affecterTypes(SOL);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).affecterTypes(SOL);
@@ -4591,6 +3734,236 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(1, action_.getChosenTargets().size());
         assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_TWO));
         assertEq(Fighter.BACK, action_.getSubstitute());
+    }
+
+    private Fight setFirstChosenMove9(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        Fight fight_ = choiceForSubstituingGym(_player, _diff, _data, foeTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private Fight setFirstChosenMove8(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        Fight fight_ = choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private Fight setFirstChosenMove7(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)15, _foeMoves));
+        foeTeam_.add(pkTrainer((short)15, _foeMoves));
+        Fight fight_ = choiceForSubstituingGym(_player, _diff, _data, foeTeam_, 3);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private Fight setFirstChosenMove6(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        Fight fight_ = choiceForSubstituingGym(_player, _diff, _data, foeTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private Fight setFirstChosenMove5(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves, int _f) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)_f, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_f, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_f, _foeMoves));
+        Fight fight_ = choiceForSubstituingGym(_player, _diff, _data, foeTeam_, 3);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private Fight setFirstChosenMove4(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        Fight fight_ = choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private Fight setFirstChosenMove3(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves, int _f2) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_f2, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        Fight fight_ = choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private Fight setFirstChosenMove2(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        Fight fight_ = choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private Fight setFirstChosenMove1(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves, int _p1, int _p2, int _p3, int _f1, int _f2) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)_f1, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_f2, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)_p1, _partnerMoves));
+        allyTeam_.add(pkTrainer((short)_p2, _partnerMoves));
+        allyTeam_.add(pkTrainer((short)_p3, _partnerMoves));
+        Fight fight_ = choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+        return firstEffectWhileSendingTeams(_diff, _data, fight_);
+    }
+
+    private static Fight firstEffectWhileSendingTeams(Difficulty _diff, DataBase _data, Fight _fight) {
+        FightSending.firstEffectWhileSendingTeams(_fight, _diff, _data);
+        return _fight;
+    }
+
+    private Fight choiceForSubstituing10(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        return choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+    }
+
+    private Fight choiceForSubstituing9(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        return choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+    }
+
+    private Fight choiceForSubstituing8(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        return choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+    }
+
+    private Fight choiceForSubstituing7(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        return choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+    }
+
+    private Fight choiceForSubstituing6(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        return choiceForSubstituingDual(_player, _diff, _data, foeTeam_, allyTeam_);
+    }
+
+    private Fight choiceForSubstituing5(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        return choiceForSubstituingGym(_player, _diff, _data, foeTeam_, 2);
+    }
+
+    private Fight choiceForSubstituing4(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        return choiceForSubstituingGym(_player, _diff, _data, foeTeam_, 2);
+    }
+
+    private Fight choiceForSubstituing3(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        return choiceForSubstituingGym(_player, _diff, _data, foeTeam_, 2);
+    }
+
+    private Fight choiceForSubstituing2(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        return choiceForSubstituingGym(_player, _diff, _data, foeTeam_);
+    }
+
+    private Fight choiceForSubstituing1(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        return choiceForSubstituingGym(_player, _diff, _data, foeTeam_);
+    }
+
+    private static Fight choiceForSubstituingGym(Player _player, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam) {
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(_foeTeam);
+        leader_.setReward((short) 200);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_, _player, _diff, leader_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
+    }
+
+    private static Fight choiceForSubstituingGym(Player _player, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, int _mult) {
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(_foeTeam);
+        leader_.setMultiplicityFight((byte) _mult);
+        leader_.setReward((short) 200);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_, _player, _diff, leader_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
+    }
+
+    private static Fight choiceForSubstituingDual(Player _player, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, CustList<PkTrainer> _allyTeam) {
+        DualFight dual_ = new DualFight();
+        Ally ally_ = new Ally();
+        ally_.setTeam(_allyTeam);
+        dual_.setAlly(ally_);
+        TempTrainer trainer_ = new TempTrainer();
+        trainer_.setTeam(_foeTeam);
+        trainer_.setReward((short) 200);
+        dual_.setFoeTrainer(trainer_);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_, _player, _diff, dual_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
+    }
+
+    private static PkTrainer pkTrainer(short _level, StringList _moves) {
+        PkTrainer allyPokemon_ = new PkTrainer();
+        allyPokemon_.setName(TARTARD);
+        allyPokemon_.setItem(PLAQUE_DRACO);
+        allyPokemon_.setAbility(MULTITYPE);
+        allyPokemon_.setGender(Gender.NO_GENDER);
+        allyPokemon_.setLevel(_level);
+        allyPokemon_.setMoves(_moves);
+        return allyPokemon_;
     }
 
     private static boolean noAction(Fighter _fighter) {
