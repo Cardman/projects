@@ -35,8 +35,6 @@ import code.maths.Rate;
 import code.maths.litteral.EvolvedBooleanString;
 import code.maths.litteral.EvolvedNumString;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -44,7 +42,37 @@ import code.util.core.StringUtil;
 
 public final class CheckNumericStringsFight {
 
-    private CheckNumericStringsFight() {
+    private final StringMap<String> variablesDiff;
+    private final StringMap<String> variablesFighter;
+    private final StringMap<String> variablesSame;
+    private final StringMap<String> boolVarsNotSending;
+    private final StringMap<String> boolVarsDiffNotSending;
+    private final StringMap<String> boolVarsSending;
+    private final StringMap<String> varsSending;
+    private final TeamPosition userFighter;
+    private final TeamPosition foeFighter;
+    private final Fight fight;
+    private final DataBase data;
+    private CheckNumericStringsFight(Fight _fight, TeamPosition _userFighter, TeamPosition _foeFighter, DataBase _data) {
+        fight = _fight;
+        data = _data;
+        userFighter = _userFighter;
+        foeFighter = _foeFighter;
+        variablesDiff = FightValues.calculateValues(_fight, _userFighter,
+                _foeFighter, _data);
+        variablesFighter = FightValues.calculateValuesFighter(_fight,
+                _userFighter, _data);
+        variablesSame = FightValues.calculateValues(_fight, _userFighter,
+                _userFighter, _data);
+        varsSending = FightValues.calculateSendingVariables(
+                _fight, _userFighter, _data);
+        boolVarsNotSending = calculateBooleanValuesForValidation(_fight,
+                _userFighter, _userFighter, false, _data);
+        boolVarsDiffNotSending = calculateBooleanValuesForValidation(_fight,
+                _userFighter, _foeFighter, false, _data);
+        boolVarsSending = calculateBooleanValuesForValidation(_fight,
+                _userFighter, _userFighter, true, _data);
+        boolVarsSending.putAllMap(varsSending);
     }
 
     public static void validateNumericBooleanStrings(DataBase _data) {
@@ -96,51 +124,23 @@ public final class CheckNumericStringsFight {
         fight_.setEnvType(EnvironmentType.ROAD);
         TeamPosition userFighter_ = Fight.toUserFighter((byte) 0);
         TeamPosition foeFighter_ = Fight.toFoeFighter((byte) 0);
-        StringMap<String> variablesDiff_;
-        StringMap<String> variablesFighter_;
-        StringMap<String> variablesSame_;
-        variablesDiff_ = FightValues.calculateValues(fight_, userFighter_,
-                foeFighter_, _data);
-        variablesFighter_ = FightValues.calculateValuesFighter(fight_,
-                userFighter_, _data);
-        variablesSame_ = FightValues.calculateValues(fight_, userFighter_,
-                userFighter_, _data);
-        StringMap<String> boolVarsNotSending_;
-        StringMap<String> boolVarsDiffNotSending_;
-        StringMap<String> boolVarsSending_;
-        StringMap<String> varsSending_ = FightValues.calculateSendingVariables(
-                fight_, userFighter_, _data);
-        boolVarsNotSending_ = calculateBooleanValuesForValidation(fight_,
-                userFighter_, userFighter_, false, _data);
-        boolVarsDiffNotSending_ = calculateBooleanValuesForValidation(fight_,
-                userFighter_, foeFighter_, false, _data);
-        boolVarsSending_ = calculateBooleanValuesForValidation(fight_,
-                userFighter_, userFighter_, true, _data);
-        boolVarsSending_.putAllMap(varsSending_);
-        checkMovesStr(_data, diff_, fight_, userFighter_, foeFighter_,
-                variablesDiff_, variablesSame_, boolVarsNotSending_,
-                boolVarsDiffNotSending_, boolVarsSending_, varsSending_);
-        checkAbilitiesStr(_data, diff_, fight_, userFighter_, foeFighter_,
-                variablesDiff_, variablesFighter_, variablesSame_,
-                boolVarsNotSending_, boolVarsDiffNotSending_);
-        checkCombosStr(_data, variablesDiff_, variablesSame_,
-                boolVarsNotSending_, boolVarsDiffNotSending_);
-        checkStatusStr(_data, variablesDiff_, variablesFighter_,
-                boolVarsDiffNotSending_);
-        checkItemsStr(_data, diff_, fight_, userFighter_, foeFighter_,
-                variablesDiff_, variablesFighter_, variablesSame_,
-                boolVarsNotSending_, boolVarsDiffNotSending_);
+        CheckNumericStringsFight checker_ = new CheckNumericStringsFight(fight_,userFighter_,foeFighter_, _data);
+        checker_.checkMovesStr(diff_);
+        checker_.checkAbilitiesStr(diff_);
+        checker_.checkCombosStr();
+        checker_.checkStatusStr();
+        checker_.checkItemsStr(diff_);
         FightFacade.endFight(fight_);
         FightFacade.initFight(fight_, user_, diff_, pk_, _data);
-        checkNumericStringsBalls(_data, fight_);
-        checkDamageStr(_data);
+        checker_.checkNumericStringsBalls();
+        checker_.checkDamageStr();
         // FightRound.calculateCatchingRate
         // NumericString.setCheckSyntax(false);
     }
 
-    private static void checkDamageStr(DataBase _data) {
+    private void checkDamageStr() {
         String numericExp_;
-        numericExp_ = _data.getDamageFormula();
+        numericExp_ = data.getDamageFormula();
         EvolvedNumString num_;
         StringMap<String> varLocs_ = new StringMap<String>();
         varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.ATTACK),
@@ -149,12 +149,12 @@ public final class CheckNumericStringsFight {
                 DataBase.defRateProduct().toNumberString());
         varLocs_.put(
                 StringUtil.concat(DataBase.VAR_PREFIX, Fight.LANCEUR_NIVEAU),
-                Long.toString(_data.getMinLevel()));
+                Long.toString(data.getMinLevel()));
         varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.POWER),
                 DataBase.getDefaultPower().toNumberString());
-        num_ = _data.createNumericableString(numericExp_, varLocs_);
+        num_ = data.createNumericableString(numericExp_, varLocs_);
         num_.evaluateExp(true);
-        checkValidNumeric(_data, num_);
+        checkValidNumeric(data, num_);
     }
 
     private static void checkValidNumeric(DataBase _data, EvolvedNumString _num) {
@@ -163,37 +163,32 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    private static void checkCombosStr(DataBase _data,
-            StringMap<String> _varsDiff, StringMap<String> _varsSame,
-            StringMap<String> _boolVarsNotSending,
-            StringMap<String> _boolVarsDiffNotSending) {
-        for (EffectCombo e : _data.getCombos().getEffects().values()) {
+    private void checkCombosStr() {
+        for (EffectCombo e : data.getCombos().getEffects().values()) {
             for (EffectEndRound effEndRound_ : e.getEffectEndRound()) {
-                checkBoolStrings(_data, _varsDiff, _boolVarsDiffNotSending,
+                checkBoolStrings(data, variablesDiff, boolVarsDiffNotSending,
                         effEndRound_.getFailEndRound());
-                checkBoolStrings(_data, _varsSame, _boolVarsNotSending,
+                checkBoolStrings(data, variablesSame, boolVarsNotSending,
                         effEndRound_.getFailEndRound());
             }
         }
     }
 
-    private static void checkStatusStr(DataBase _data,
-            StringMap<String> _varsDiff, StringMap<String> _varsFighter,
-            StringMap<String> _boolVarsDiffNotSending) {
-        for (Status s : _data.getStatus().values()) {
+    private void checkStatusStr() {
+        for (Status s : data.getStatus().values()) {
             for (EffectEndRound e : s.getEffectEndRound()) {
-                checkBoolStrings(_data, _varsDiff, _boolVarsDiffNotSending,
+                checkBoolStrings(data, variablesDiff, boolVarsDiffNotSending,
                         e.getFailEndRound());
             }
             String fail_ = s.getFail();
             if (!fail_.isEmpty()) {
                 EvolvedBooleanString chBool_;
                 StringMap<String> map_ = new StringMap<String>();
-                map_.putAllMap(_varsFighter);
-                chBool_ = _data.createBooleanString(fail_, map_);
-                checkTranslations(_data, chBool_.beforeEvaluated());
+                map_.putAllMap(variablesFighter);
+                chBool_ = data.createBooleanString(fail_, map_);
+                checkTranslations(data, chBool_.beforeEvaluated());
                 chBool_.evaluateExp(true);
-                checkValidBool(_data, chBool_);
+                checkValidBool(data, chBool_);
             }
         }
     }
@@ -204,50 +199,44 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    private static void checkItemsStr(DataBase _data, Difficulty _diff,
-            Fight _fight, TeamPosition _userFighter, TeamPosition _foeFighter,
-            StringMap<String> _varsDiff, StringMap<String> _varsFighter,
-            StringMap<String> _varsSame, StringMap<String> _boolVarsNotSending,
-            StringMap<String> _boolVarsDiffNotSending) {
-        for (Item o : _data.getItems().values()) {
-            if (o instanceof ItemForBattle) {
-                ItemForBattle o_ = (ItemForBattle) o;
-                if (!o_.getMultPower().isEmpty()) {
-                    StringMap<String> loc_ = getVariablesMultPower(_data, _fight, _userFighter, _varsDiff, _varsFighter);
-                    checkNumGeneString(_data, loc_, o_.getMultPower());
-                }
-                if (!o_.getMultDamage().isEmpty()) {
-                    StringMap<String> loc_ = getVariablesMultDamage(_data, _fight, _userFighter, _varsDiff);
-                    checkNumGeneString(_data, loc_, o_.getMultDamage());
-                }
-                for (Statistic s : o_.getMultStat().getKeys()) {
-                    String str_ = o_.getMultStat().getVal(s);
-                    StringMap<String> loc_ = getVariablesStatis(_data, _fight, _userFighter, _varsDiff, _varsFighter, s);
-                    checkNumGeneString(_data, loc_, str_);
-                }
-                for (String v : o_.getFailStatus().values()) {
-                    checkBoolStrings(_data, _varsDiff, _boolVarsDiffNotSending,
-                            v);
-                    checkBoolStrings(_data, _varsSame, _boolVarsNotSending, v);
-                }
-                for (EffectEndRound e : o_.getEffectEndRound()) {
-                    checkBoolStrings(_data, _varsDiff, _boolVarsDiffNotSending,
-                            e.getFailEndRound());
-                    checkBoolStrings(_data, _varsSame, _boolVarsNotSending,
-                            e.getFailEndRound());
-                }
-                for (EffectWhileSendingWithStatistic e : o_.getEffectSending()) {
-                    processWhenSend(_data, _diff, _fight, _userFighter, _foeFighter, _varsDiff, _varsSame, _boolVarsNotSending, _boolVarsDiffNotSending, e);
-                }
+    private void checkItemsStr(Difficulty _diff) {
+        for (Item o : data.getItems().values()) {
+            if (!(o instanceof ItemForBattle)) {
+                continue;
+            }
+            ItemForBattle o_ = (ItemForBattle) o;
+            if (!o_.getMultPower().isEmpty()) {
+                StringMap<String> loc_ = getVariablesMultPower();
+                checkNumGeneString(data, loc_, o_.getMultPower());
+            }
+            if (!o_.getMultDamage().isEmpty()) {
+                StringMap<String> loc_ = getVariablesMultDamage();
+                checkNumGeneString(data, loc_, o_.getMultDamage());
+            }
+            for (Statistic s : o_.getMultStat().getKeys()) {
+                String str_ = o_.getMultStat().getVal(s);
+                StringMap<String> loc_ = getVariablesStatis(s);
+                checkNumGeneString(data, loc_, str_);
+            }
+            for (String v : o_.getFailStatus().values()) {
+                checkBoolStrings(data, variablesDiff, boolVarsDiffNotSending,
+                        v);
+                checkBoolStrings(data, variablesSame, boolVarsNotSending, v);
+            }
+            for (EffectEndRound e : o_.getEffectEndRound()) {
+                checkBoolStrings(data, variablesDiff, boolVarsDiffNotSending,
+                        e.getFailEndRound());
+                checkBoolStrings(data, variablesSame, boolVarsNotSending,
+                        e.getFailEndRound());
+            }
+            for (EffectWhileSendingWithStatistic e : o_.getEffectSending()) {
+                processWhenSend(_diff, e);
             }
         }
     }
 
-    private static void processWhenSend(DataBase _data, Difficulty _diff,
-                                        Fight _fight, TeamPosition _userFighter,
-                                        TeamPosition _foeFighter, StringMap<String> _varsDiff, StringMap<String> _varsSame,
-                                        StringMap<String> _boolVarsNotSending, StringMap<String> _boolVarsDiffNotSending,
-                                        EffectWhileSendingWithStatistic _e) {
+    private void processWhenSend(Difficulty _diff,
+                                 EffectWhileSendingWithStatistic _e) {
         StringList fails_ = new StringList();
         EffectStatistic e_ = _e.getEffect();
         if (e_ == null) {
@@ -257,35 +246,35 @@ public final class CheckNumericStringsFight {
         fails_.addAllElts(e_.getLocalFailSwapBoostStatis()
                 .values());
         TeamPositionList listFighters_ = addIfEmpty(FightOrder
-                .targetsEffect(_fight, _userFighter, e_, _diff,
-                        _data),_foeFighter);
-        checkFailsWhenFighter(_data, _foeFighter, _varsDiff, _boolVarsDiffNotSending, fails_, listFighters_);
-        checkFailsWhenFighter(_data, _userFighter, _varsSame, _boolVarsNotSending, fails_, listFighters_);
+                .targetsEffect(fight, userFighter, e_, _diff,
+                        data),foeFighter);
+        checkFailsWhenFighter(data, foeFighter, variablesDiff, boolVarsDiffNotSending, fails_, listFighters_);
+        checkFailsWhenFighter(data, userFighter, variablesSame, boolVarsNotSending, fails_, listFighters_);
     }
 
-    private static StringMap<String> getVariablesStatis(DataBase _data, Fight _fight, TeamPosition _userFighter, StringMap<String> _varsDiff, StringMap<String> _varsFighter, Statistic _s) {
+    private StringMap<String> getVariablesStatis(Statistic _s) {
         StringMap<String> loc_;
         boolean special_ = isSpecialStat(_s);
         if (special_) {
-            loc_ = new StringMap<String>(_varsFighter);
+            loc_ = new StringMap<String>(variablesFighter);
         } else {
-            Fighter userFighterLoc_ = _fight
-                    .getFighter(_userFighter);
-            String cat_ = _data.getMove(_data.getDefaultMove())
+            Fighter userFighterLoc_ = fight
+                    .getFighter(userFighter);
+            String cat_ = data.getMove(data.getDefaultMove())
                     .getCategory();
-            StringList types_ = _data.getMove(
-                    _data.getDefaultMove()).getTypes();
-            loc_ = new StringMap<String>(_varsDiff);
-            loc_.putAllMap(_varsFighter);
+            StringList types_ = data.getMove(
+                    data.getDefaultMove()).getTypes();
+            loc_ = new StringMap<String>(variablesDiff);
+            loc_.putAllMap(variablesFighter);
             loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.ATTAQUE_CATEGORIE), cat_);
             loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.LANCEUR_NOM), userFighterLoc_.getName());
             loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.ATTAQUE_TYPES), StringUtil.join(types_, _data
+                    Fight.ATTAQUE_TYPES), StringUtil.join(types_, data
                     .getSepartorSetChar()));
             loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.ATTAQUE_NOM), _data.getDefaultMove());
+                    Fight.ATTAQUE_NOM), data.getDefaultMove());
             loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                     Fight.PUISSANCE_BASE), DataBase
                     .getDefaultPower().toNumberString());
@@ -300,78 +289,74 @@ public final class CheckNumericStringsFight {
         return loc_;
     }
 
-    private static StringMap<String> getVariablesMultPower(DataBase _data, Fight _fight, TeamPosition _userFighter, StringMap<String> _varsDiff, StringMap<String> _varsFighter) {
-        StringMap<String> loc_ = new StringMap<String>(_varsDiff);
-        loc_.putAllMap(_varsFighter);
-        Fighter userFighterLoc_ = _fight.getFighter(_userFighter);
-        String cat_ = _data.getMove(_data.getDefaultMove())
+    private StringMap<String> getVariablesMultPower() {
+        StringMap<String> loc_ = new StringMap<String>(variablesDiff);
+        loc_.putAllMap(variablesFighter);
+        Fighter userFighterLoc_ = fight.getFighter(userFighter);
+        String cat_ = data.getMove(data.getDefaultMove())
                 .getCategory();
-        StringList types_ = _data.getMove(_data.getDefaultMove())
+        StringList types_ = data.getMove(data.getDefaultMove())
                 .getTypes();
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.ATTAQUE_CATEGORIE), cat_);
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.LANCEUR_NOM), userFighterLoc_.getName());
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_TYPES), StringUtil.join(types_, _data
+                Fight.ATTAQUE_TYPES), StringUtil.join(types_, data
                 .getSepartorSetChar()));
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_NOM), _data.getDefaultMove());
+                Fight.ATTAQUE_NOM), data.getDefaultMove());
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.PUISSANCE_BASE), DataBase.getDefaultPower()
                 .toNumberString());
         return loc_;
     }
 
-    private static void checkAbilitiesStr(DataBase _data, Difficulty _diff,
-            Fight _fight, TeamPosition _userFighter, TeamPosition _foeFighter,
-            StringMap<String> _varsDiff, StringMap<String> _varsFighter,
-            StringMap<String> _varsSame, StringMap<String> _boolVarsNotSending,
-            StringMap<String> _boolVarsDiffNotSending) {
-        for (String ab_ : _data.getAbilities().getKeys()) {
-            AbilityData a = _data.getAbility(ab_);
+    private void checkAbilitiesStr(Difficulty _diff) {
+        for (String ab_ : data.getAbilities().getKeys()) {
+            AbilityData a = data.getAbility(ab_);
             if (!a.getMultPower().isEmpty()) {
-                StringMap<String> loc_ = getVariablesMultPower(_data, _fight, _userFighter, _varsDiff, _varsFighter);
-                checkNumGeneString(_data, loc_, a.getMultPower());
+                StringMap<String> loc_ = getVariablesMultPower();
+                checkNumGeneString(data, loc_, a.getMultPower());
             }
             if (!a.getMultDamage().isEmpty()) {
-                StringMap<String> loc_ = getVariablesMultDamage(_data, _fight, _userFighter, _varsDiff);
-                checkNumGeneString(_data, loc_, a.getMultDamage());
+                StringMap<String> loc_ = getVariablesMultDamage();
+                checkNumGeneString(data, loc_, a.getMultDamage());
             }
             for (Statistic s : a.getMultStat().getKeys()) {
                 String str_ = a.getMultStat().getVal(s);
-                StringMap<String> loc_ = getVariablesStatis(_data, _fight, _userFighter, _varsDiff, _varsFighter, s);
-                checkNumGeneString(_data, loc_, str_);
+                StringMap<String> loc_ = getVariablesStatis(s);
+                checkNumGeneString(data, loc_, str_);
             }
-            checkFails(_data,_varsDiff, _boolVarsDiffNotSending,a.getFailStatus().values());
+            checkFails(data,variablesDiff, boolVarsDiffNotSending,a.getFailStatus().values());
             for (EffectEndRound e : a.getEffectEndRound()) {
-                checkBoolStrings(_data, _varsDiff, _boolVarsDiffNotSending,
+                checkBoolStrings(data, variablesDiff, boolVarsDiffNotSending,
                         e.getFailEndRound());
-                checkBoolStrings(_data, _varsSame, _boolVarsNotSending,
+                checkBoolStrings(data, variablesSame, boolVarsNotSending,
                         e.getFailEndRound());
             }
             for (EffectWhileSendingWithStatistic e : a.getEffectSending()) {
-                processWhenSend(_data, _diff, _fight, _userFighter, _foeFighter, _varsDiff, _varsSame, _boolVarsNotSending, _boolVarsDiffNotSending, e);
+                processWhenSend(_diff, e);
             }
         }
     }
 
-    private static StringMap<String> getVariablesMultDamage(DataBase _data, Fight _fight, TeamPosition _userFighter, StringMap<String> _varsDiff) {
-        StringMap<String> loc_ = new StringMap<String>(_varsDiff);
-        Fighter userFighterLoc_ = _fight.getFighter(_userFighter);
-        String cat_ = _data.getMove(_data.getDefaultMove())
+    private StringMap<String> getVariablesMultDamage() {
+        StringMap<String> loc_ = new StringMap<String>(variablesDiff);
+        Fighter userFighterLoc_ = fight.getFighter(userFighter);
+        String cat_ = data.getMove(data.getDefaultMove())
                 .getCategory();
-        StringList types_ = _data.getMove(_data.getDefaultMove())
+        StringList types_ = data.getMove(data.getDefaultMove())
                 .getTypes();
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.ATTAQUE_CATEGORIE), cat_);
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.LANCEUR_NOM), userFighterLoc_.getName());
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_TYPES), StringUtil.join(types_, _data
+                Fight.ATTAQUE_TYPES), StringUtil.join(types_, data
                 .getSepartorSetChar()));
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_NOM), _data.getDefaultMove());
+                Fight.ATTAQUE_NOM), data.getDefaultMove());
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.PUISSANCE_BASE), DataBase.getDefaultPower()
                 .toNumberString());
@@ -395,144 +380,172 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    private static void checkMovesStr(DataBase _data, Difficulty _diff,
-            Fight _fight, TeamPosition _userFighter, TeamPosition _foeFighter,
-            StringMap<String> _varsDiff, StringMap<String> _varsSame,
-            StringMap<String> _boolVarsNotSending,
-            StringMap<String> _boolVarsDiffNotSending,
-            StringMap<String> _boolVarsSending, StringMap<String> _varsSending) {
-        EvolvedNumString chNum_;
-        for (String m : _data.getMoves().getKeys()) {
-            MoveData m_ = _data.getMove(m);
+    private void checkMovesStr(Difficulty _diff) {
+        for (String m : data.getMoves().getKeys()) {
+            MoveData m_ = data.getMove(m);
             int index_ = m_.indexOfPrimaryEffect();
             if (index_ < 0) {
-                _data.setError(true);
+                data.setError(true);
                 continue;
             }
-            for (TeamPosition t : addIfEmpty(FightOrder.targetsEffect(_fight,
-                    _userFighter, m_.getEffet(index_),
-                    _diff, _data),_foeFighter)) {
-                if (TeamPosition.eq(t, _userFighter)) {
-                    chNum_ = _data.createNumericableString(m_.getAccuracy(),
-                            _varsSame);
-                } else {
-                    chNum_ = _data.createNumericableString(m_.getAccuracy(),
-                            _varsDiff);
-                }
-                checkTranslations(_data, chNum_.beforeEvaluated());
+            checkMovesStrAccuracy(_diff, m_, index_);
+            checkMovesStrEffectFail(_diff, m_);
+            checkMovesStrEffectDamage(m_);
+            checkMovesStrEffectTeamWhileSendingFoe(m_);
+            checkMovesStrEffectFullHpRate(m_);
+            checkMovesStrEffectStatisticStatus(_diff, m_);
+            checkMovesStrEffectEndRound(m_);
+            checkMovesStrEffectCounterAttack(m_);
+        }
+    }
+
+    private void checkMovesStrEffectCounterAttack(MoveData _m) {
+        for (Effect e : _m.getEffects()) {
+            StringList fails_ = new StringList();
+            if (e instanceof EffectCounterAttack) {
+                EffectCounterAttack e_ = (EffectCounterAttack) e;
+                fails_.add(e_.getCounterFail());
+                fails_.add(e_.getProtectFail());
+            }
+            checkFails(data, variablesDiff, boolVarsDiffNotSending, fails_);
+        }
+    }
+
+    private void checkMovesStrEffectEndRound(MoveData _m) {
+        for (Effect e : _m.getEffects()) {
+            StringList fails_ = new StringList();
+            if (e instanceof EffectEndRound) {
+                EffectEndRound e_ = (EffectEndRound) e;
+                fails_.add(e_.getFailEndRound());
+            }
+            checkFails(data, variablesDiff, boolVarsDiffNotSending, fails_);
+        }
+    }
+
+    private void checkMovesStrEffectStatisticStatus(Difficulty _diff, MoveData _m) {
+        for (Effect e : _m.getEffects()) {
+            if (!(e instanceof EffectCommonStatistics)) {
+                continue;
+            }
+            EffectCommonStatistics eff_ = (EffectCommonStatistics) e;
+            for (String e2_ : eff_.getCommonValue().values()) {
+                checkNumString(data, variablesDiff, e2_);
+            }
+        }
+        for (Effect e : _m.getEffects()) {
+            StringList fails_ = new StringList();
+            if (e instanceof EffectStatistic) {
+                EffectStatistic e_ = (EffectStatistic) e;
+                fails_.addAllElts(e_.getLocalFailStatis().values());
+                fails_.addAllElts(e_.getLocalFailSwapBoostStatis().values());
+            }
+            if (e instanceof EffectStatus) {
+                EffectStatus e_ = (EffectStatus) e;
+                fails_.addAllElts(e_.getLocalFailStatus().values());
+            }
+            TeamPositionList listFighters_ = addIfEmpty(FightOrder.targetsEffect(
+                    fight, userFighter, e, _diff, data),foeFighter);
+            checkFailsWhenFighter(data, foeFighter, variablesDiff, boolVarsDiffNotSending, fails_, listFighters_);
+            checkFailsWhenFighter(data, userFighter, variablesSame, boolVarsNotSending, fails_, listFighters_);
+        }
+    }
+
+    private void checkMovesStrEffectFullHpRate(MoveData _m) {
+        for (Effect e : _m.getEffects()) {
+            if (!(e instanceof EffectFullHpRate)) {
+                continue;
+            }
+            EffectFullHpRate e_ = (EffectFullHpRate) e;
+            String string_ = e_.getRestoredHp();
+            checkNumGeneString(data, variablesSame, string_);
+        }
+    }
+
+    private void checkMovesStrEffectTeamWhileSendingFoe(MoveData _m) {
+        for (Effect e : _m.getEffects()) {
+            if (!(e instanceof EffectTeamWhileSendFoe)) {
+                continue;
+            }
+            EffectTeamWhileSendFoe e_ = (EffectTeamWhileSendFoe) e;
+            String fail_ = e_.getFailSending();
+            checkBoolStrings(data, variablesSame, boolVarsSending, fail_);
+        }
+        for (Effect e : _m.getEffects()) {
+            if (!(e instanceof EffectTeamWhileSendFoe)) {
+                continue;
+            }
+            EffectTeamWhileSendFoe e_ = (EffectTeamWhileSendFoe) e;
+            String string_ = e_.getDamageRateAgainstFoe();
+            StringMap<String> map_ = new StringMap<String>();
+            map_.putAllMap(variablesSame);
+            map_.putAllMap(varsSending);
+            checkNumGeneString(data, map_, string_);
+        }
+    }
+
+    private void checkMovesStrEffectDamage(MoveData _m) {
+        for (Effect e : _m.getEffects()) {
+            if (!(e instanceof EffectDamage)) {
+                continue;
+            }
+            EffectDamage eff_ = (EffectDamage) e;
+            EvolvedNumString chNum_;
+            if (!eff_.getConstDamage() && !eff_.getPower().isEmpty()) {
+                chNum_ = data.createNumericableString(eff_.getPower(),
+                        variablesDiff);
+                checkTranslations(data, chNum_.beforeEvaluated());
                 chNum_.evaluateExp(true);
-                checkValidNumeric(_data, chNum_);
+                checkValidNumeric(data, chNum_);
             }
-            for (Effect e : m_.getEffects()) {
-                String fail_ = e.getFail();
-                if (fail_.isEmpty()) {
-                    continue;
-                }
-                for (TeamPosition t : addIfEmpty(FightOrder.targetsEffect(_fight,
-                        _userFighter, e, _diff, _data),_foeFighter)) {
-                    EvolvedBooleanString chBool_;
-                    if (TeamPosition.eq(t, _userFighter)) {
-                        StringMap<String> map_ = new StringMap<String>();
-                        map_.putAllMap(_varsSame);
-                        map_.putAllMap(_boolVarsNotSending);
-                        chBool_ = _data.createBooleanString(fail_, map_);
-                    } else {
-                        StringMap<String> map_ = new StringMap<String>();
-                        map_.putAllMap(_varsDiff);
-                        map_.putAllMap(_boolVarsDiffNotSending);
-                        chBool_ = _data.createBooleanString(fail_, map_);
-                    }
-                    checkTranslations(_data, chBool_.beforeEvaluated());
-                    chBool_.evaluateExp(true);
-                    checkValidBool(_data, chBool_);
-                }
+            for (String e2_ : eff_.getDamageLaw().events()) {
+                // accept empty strings
+                checkNumGeneString(data, variablesDiff, e2_);
             }
-            for (Effect e : m_.getEffects()) {
-                if (!(e instanceof EffectDamage)) {
-                    continue;
-                }
-                EffectDamage eff_ = (EffectDamage) e;
-                if (!eff_.getConstDamage() && !eff_.getPower().isEmpty()) {
-                    chNum_ = _data.createNumericableString(eff_.getPower(),
-                            _varsDiff);
-                    checkTranslations(_data, chNum_.beforeEvaluated());
-                    chNum_.evaluateExp(true);
-                    checkValidNumeric(_data, chNum_);
-                }
-                for (String e2_ : eff_.getDamageLaw().events()) {
-                    // accept empty strings
-                    checkNumGeneString(_data, _varsDiff, e2_);
-                }
+        }
+    }
+
+    private void checkMovesStrEffectFail(Difficulty _diff, MoveData _m) {
+        for (Effect e : _m.getEffects()) {
+            String fail_ = e.getFail();
+            if (fail_.isEmpty()) {
+                continue;
             }
-            for (Effect e : m_.getEffects()) {
-                if (!(e instanceof EffectTeamWhileSendFoe)) {
-                    continue;
+            for (TeamPosition t : addIfEmpty(FightOrder.targetsEffect(fight,
+                    userFighter, e, _diff, data),foeFighter)) {
+                EvolvedBooleanString chBool_;
+                if (TeamPosition.eq(t, userFighter)) {
+                    StringMap<String> map_ = new StringMap<String>();
+                    map_.putAllMap(variablesSame);
+                    map_.putAllMap(boolVarsNotSending);
+                    chBool_ = data.createBooleanString(fail_, map_);
+                } else {
+                    StringMap<String> map_ = new StringMap<String>();
+                    map_.putAllMap(variablesDiff);
+                    map_.putAllMap(boolVarsDiffNotSending);
+                    chBool_ = data.createBooleanString(fail_, map_);
                 }
-                EffectTeamWhileSendFoe e_ = (EffectTeamWhileSendFoe) e;
-                String fail_ = e_.getFailSending();
-                checkBoolStrings(_data, _varsSame, _boolVarsSending, fail_);
+                checkTranslations(data, chBool_.beforeEvaluated());
+                chBool_.evaluateExp(true);
+                checkValidBool(data, chBool_);
             }
-            for (Effect e : m_.getEffects()) {
-                if (!(e instanceof EffectTeamWhileSendFoe)) {
-                    continue;
-                }
-                EffectTeamWhileSendFoe e_ = (EffectTeamWhileSendFoe) e;
-                String string_ = e_.getDamageRateAgainstFoe();
-                StringMap<String> map_ = new StringMap<String>();
-                map_.putAllMap(_varsSame);
-                map_.putAllMap(_varsSending);
-                checkNumGeneString(_data, map_, string_);
+        }
+    }
+
+    private void checkMovesStrAccuracy(Difficulty _diff, MoveData _m, int _index) {
+        for (TeamPosition t : addIfEmpty(FightOrder.targetsEffect(fight,
+                userFighter, _m.getEffet(_index),
+                _diff, data),foeFighter)) {
+            EvolvedNumString chNum_;
+            if (TeamPosition.eq(t, userFighter)) {
+                chNum_ = data.createNumericableString(_m.getAccuracy(),
+                        variablesSame);
+            } else {
+                chNum_ = data.createNumericableString(_m.getAccuracy(),
+                        variablesDiff);
             }
-            for (Effect e : m_.getEffects()) {
-                if (!(e instanceof EffectFullHpRate)) {
-                    continue;
-                }
-                EffectFullHpRate e_ = (EffectFullHpRate) e;
-                String string_ = e_.getRestoredHp();
-                checkNumGeneString(_data, _varsSame, string_);
-            }
-            for (Effect e : m_.getEffects()) {
-                if (!(e instanceof EffectCommonStatistics)) {
-                    continue;
-                }
-                EffectCommonStatistics eff_ = (EffectCommonStatistics) e;
-                for (String e2_ : eff_.getCommonValue().values()) {
-                    checkNumString(_data, _varsDiff, e2_);
-                }
-            }
-            for (Effect e : m_.getEffects()) {
-                StringList fails_ = new StringList();
-                if (e instanceof EffectStatistic) {
-                    EffectStatistic e_ = (EffectStatistic) e;
-                    fails_.addAllElts(e_.getLocalFailStatis().values());
-                    fails_.addAllElts(e_.getLocalFailSwapBoostStatis().values());
-                }
-                if (e instanceof EffectStatus) {
-                    EffectStatus e_ = (EffectStatus) e;
-                    fails_.addAllElts(e_.getLocalFailStatus().values());
-                }
-                TeamPositionList listFighters_ = addIfEmpty(FightOrder.targetsEffect(
-                        _fight, _userFighter, e, _diff, _data),_foeFighter);
-                checkFailsWhenFighter(_data, _foeFighter, _varsDiff, _boolVarsDiffNotSending, fails_, listFighters_);
-                checkFailsWhenFighter(_data, _userFighter, _varsSame, _boolVarsNotSending, fails_, listFighters_);
-            }
-            for (Effect e : m_.getEffects()) {
-                StringList fails_ = new StringList();
-                if (e instanceof EffectEndRound) {
-                    EffectEndRound e_ = (EffectEndRound) e;
-                    fails_.add(e_.getFailEndRound());
-                }
-                checkFails(_data, _varsDiff, _boolVarsDiffNotSending, fails_);
-            }
-            for (Effect e : m_.getEffects()) {
-                StringList fails_ = new StringList();
-                if (e instanceof EffectCounterAttack) {
-                    EffectCounterAttack e_ = (EffectCounterAttack) e;
-                    fails_.add(e_.getCounterFail());
-                    fails_.add(e_.getProtectFail());
-                }
-                checkFails(_data, _varsDiff, _boolVarsDiffNotSending, fails_);
-            }
+            checkTranslations(data, chNum_.beforeEvaluated());
+            chNum_.evaluateExp(true);
+            checkValidNumeric(data, chNum_);
         }
     }
 
@@ -589,10 +602,8 @@ public final class CheckNumericStringsFight {
                     rateBoost_, variables_);
             chNum_.evaluateExp(false);
             Rate res_ = defRate(chNum_,_data);
-            if (defBoost_ == b) {
-                if (!Rate.eq(res_, Rate.one())) {
-                    _data.setError(true);
-                }
+            if (defBoost_ == b && !Rate.eq(res_, Rate.one())) {
+                _data.setError(true);
             }
             checkIfNeg(_data, ratesBoost_, res_);
         }
@@ -678,44 +689,40 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    private static void checkNumericStringsBalls(DataBase _data, Fight _fight) {
+    private void checkNumericStringsBalls() {
         StringMap<String> vars_;
         vars_ = new StringMap<String>();
         vars_.put(Fight.BASE_CAPT_PK, LgInt.one().toNumberString());
         vars_.put(Fight.RATE_BALL_STATUS, LgInt.one().toNumberString());
         vars_.put(Fight.FOE_PK_MAX_HP, LgInt.one().toNumberString());
         vars_.put(Fight.FOE_PK_REMOTE_HP, LgInt.one().toNumberString());
-        String numericExp_ = _data.getCatchingFormula();
+        String numericExp_ = data.getCatchingFormula();
         EvolvedNumString num_;
-        num_ = _data.createNumericableString(numericExp_, vars_);
+        num_ = data.createNumericableString(numericExp_, vars_);
         num_.evaluateExp(true);
-        checkValidNumeric(_data, num_);
-        for (String b : _data.getItems().getKeys()) {
-            Item i_ = _data.getItem(b);
-            if (!(i_ instanceof Ball)) {
+        checkValidNumeric(data, num_);
+        for (String b : data.getItems().getKeys()) {
+            Item i_ = data.getItem(b);
+            if (!(i_ instanceof Ball) || ((Ball) i_).getCatchingRate().isEmpty()) {
                 continue;
             }
-            Ball b_ = (Ball) i_;
-            if (b_.getCatchingRate().isEmpty()) {
-                continue;
-            }
-            vars_ = FightRound.calculateCatchingVariables(_fight, false, _data);
-            num_ = _data.createNumericableString(b_.getCatchingRate(), vars_);
-            checkTranslations(_data, num_.beforeEvaluated());
+            vars_ = FightRound.calculateCatchingVariables(fight, false, data);
+            num_ = data.createNumericableString(((Ball) i_).getCatchingRate(), vars_);
+            checkTranslations(data, num_.beforeEvaluated());
             num_.evaluateExp(true);
-            checkValidNumeric(_data, num_);
-            vars_ = FightRound.calculateCatchingVariables(_fight, true, _data);
-            num_ = _data.createNumericableString(b_.getCatchingRate(), vars_);
-            checkTranslations(_data, num_.beforeEvaluated());
+            checkValidNumeric(data, num_);
+            vars_ = FightRound.calculateCatchingVariables(fight, true, data);
+            num_ = data.createNumericableString(((Ball) i_).getCatchingRate(), vars_);
+            checkTranslations(data, num_.beforeEvaluated());
             num_.evaluateExp(true);
-            checkValidNumeric(_data, num_);
+            checkValidNumeric(data, num_);
             vars_.clear();
         }
-        vars_ = FightRound.calculateFleeingVariable(_fight, _data);
-        numericExp_ = _data.getFleeingFormula();
-        num_ = _data.createNumericableString(numericExp_, vars_);
+        vars_ = FightRound.calculateFleeingVariable(fight, data);
+        numericExp_ = data.getFleeingFormula();
+        num_ = data.createNumericableString(numericExp_, vars_);
         num_.evaluateExp(true);
-        checkValidNumeric(_data, num_);
+        checkValidNumeric(data, num_);
     }
 
     private static StringMap<String> calculateBooleanValuesForValidation(
