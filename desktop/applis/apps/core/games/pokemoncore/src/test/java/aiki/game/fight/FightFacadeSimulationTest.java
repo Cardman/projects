@@ -27,7 +27,6 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -63,12 +62,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = simulate1(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -133,12 +127,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = simulate1(data_, diff_, player_, new StringList(DETECTION, CHARGE), 13, 13);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -203,12 +192,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = simulate1(data_, diff_, player_, new StringList(DETECTION, CHARGE), 13, 13);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -273,12 +257,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_);
+        Fight fight_ = simulate1(data_, diff_, player_, new StringList(DETECTION, CHARGE), 13, 13);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -343,12 +322,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate2(data_, diff_, player_, new StringList(DETECTION, CHARGE), 1, 1, 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -414,12 +388,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate2(data_, diff_, player_, new StringList(DETECTION, CHARGE), 1, 1, 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -485,12 +454,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)13,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate2(data_, diff_, player_, new StringList(DETECTION, CHARGE), 13, 13, 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -555,14 +519,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 20);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -668,14 +625,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 20);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -793,14 +743,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 20);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -899,12 +842,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate2(data_, diff_, player_, new StringList(DETECTION, CHARGE), 1, 1, 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -969,14 +907,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -1082,14 +1013,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -1223,14 +1147,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -1364,14 +1281,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -1505,14 +1415,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)2,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -1635,11 +1538,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(CHARGE);
-        foesMoves_.add(new LevelMoves((short)100,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 1);
+        Fight fight_ = simulate4(data_, diff_, player_, new StringList(CHARGE), 100, 1);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -1752,14 +1651,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)20,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 2);
+        Fight fight_ = simulate3(data_, diff_, player_, new StringList(DETECTION, CHARGE), 20);
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -1862,13 +1754,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
-        StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        foesMoves_.add(new LevelMoves((short)1,foeMoves_));
-        Fight fight_ = simulate(partnersMoves_, foesMoves_, player_, diff_, data_, 3);
+        Fight fight_ = simulate4(data_, diff_, player_, new StringList(DETECTION, CHARGE));
         CustList<CustList<ActionMove>> actionsRound_ = new CustList<CustList<ActionMove>>();
         CustList<ActionMove> round_ = new CustList<ActionMove>();
         ActionMove action_;
@@ -3671,56 +3557,73 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
-    private static Fight simulate(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        Fight fight_ = FightFacade.newFight();
+    private Fight simulate4(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        for (int i = IndexConstants.FIRST_INDEX; i < _foeMoves.size(); i++) {
-            PkTrainer foePokemon_ = new PkTrainer();
-            foePokemon_.setName(TARTARD);
-            foePokemon_.setItem(PLAQUE_DRACO);
-            foePokemon_.setAbility(MULTITYPE);
-            foePokemon_.setGender(Gender.NO_GENDER);
-            foePokemon_.setLevel(_foeMoves.get(i).getFirst());
-            foePokemon_.setMoves(_foeMoves.get(i).getSecond());
-            foeTeam_.add(foePokemon_);
-        }
-        if (!_partnerMoves.isEmpty()) {
-            DualFight dual_ = new DualFight();
-            Ally ally_ = new Ally();
-            CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-            for (int i = IndexConstants.FIRST_INDEX; i < _partnerMoves.size(); i++) {
-                PkTrainer allyPokemon_ = new PkTrainer();
-                allyPokemon_.setName(TARTARD);
-                allyPokemon_.setItem(PLAQUE_DRACO);
-                allyPokemon_.setAbility(MULTITYPE);
-                allyPokemon_.setGender(Gender.NO_GENDER);
-                allyPokemon_.setLevel(_partnerMoves.get(i).getFirst());
-                allyPokemon_.setMoves(_partnerMoves.get(i).getSecond());
-                allyTeam_.add(allyPokemon_);
-            }
-            ally_.setTeam(allyTeam_);
-            dual_.setAlly(ally_);
-            TempTrainer trainer_ = new TempTrainer();
-            trainer_.setTeam(foeTeam_);
-            trainer_.setReward((short) 200);
-            dual_.setFoeTrainer(trainer_);
-            FightFacade.initFight(fight_,_player, _diff, dual_, _data);
-        } else {
-            GymLeader leader_ = new GymLeader();
-            leader_.setTeam(foeTeam_);
-            if (_mult.length > 0) {
-                leader_.setMultiplicityFight((byte) _mult[0]);
-            }
-            leader_.setReward((short) 200);
-            FightFacade.initFight(fight_,_player, _diff, leader_, _data);
-        }
+        foeTeam_.add(pkTrainer((short)1, _foeMoves));
+        foeTeam_.add(pkTrainer((short)1, _foeMoves));
+        foeTeam_.add(pkTrainer((short)1, _foeMoves));
+        return simulateGym(_player, _diff, _data, foeTeam_, 3);
+    }
+
+    private Fight simulate4(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves, int _l, int _m) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)_l, _foeMoves));
+        return simulateGym(_player, _diff, _data, foeTeam_, _m);
+    }
+
+    private Fight simulate3(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves, int _f) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)_f, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_f, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_f, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_f, _foeMoves));
+        return simulateGym(_player, _diff, _data, foeTeam_, 2);
+    }
+
+    private Fight simulate2(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves, int _f1, int _f2, int _m) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)_f1, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_f2, _foeMoves));
+        return simulateGym(_player, _diff, _data, foeTeam_, _m);
+    }
+
+    private Fight simulate1(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves, int _f, int _s) {
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer((short)_f, _foeMoves));
+        foeTeam_.add(pkTrainer((short)_s, _foeMoves));
+        return simulateGym(_player, _diff, _data, foeTeam_);
+    }
+
+    private static Fight simulateGym(Player _player, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam) {
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(_foeTeam);
+        leader_.setReward((short) 200);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_, _player, _diff, leader_, _data);
         FightFacade.initTypeEnv(fight_, _data.getMap().getBegin(), _diff, _data);
         return fight_;
+    }
+
+    private static Fight simulateGym(Player _player, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, int _mult) {
+        GymLeader leader_ = new GymLeader();
+        leader_.setTeam(_foeTeam);
+        leader_.setMultiplicityFight((byte) _mult);
+        leader_.setReward((short) 200);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_, _player, _diff, leader_, _data);
+        FightFacade.initTypeEnv(fight_, _data.getMap().getBegin(), _diff, _data);
+        return fight_;
+    }
+
+    private static PkTrainer pkTrainer(short _level, StringList _moves) {
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel(_level);
+        foePokemon_.setMoves(_moves);
+        return foePokemon_;
     }
 
     private void simulate(Fight _fight, CustList<CustList<ActionMove>> _actionsRound, CustList<CustList<ActionSwitch>> _actionsSubstitutingFront, CustList<CustList<ActionSwitch>> _actionsSubstitutingBack, CustList<ByteMap<ChoiceOfEvolutionAndMoves>> _evolutions, Player _player, Difficulty _diff, DataBase _data) {
