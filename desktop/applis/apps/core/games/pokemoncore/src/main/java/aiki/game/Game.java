@@ -6,8 +6,6 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.enums.InterfaceType;
 import aiki.game.fight.*;
-import aiki.game.fight.actions.ActionMove;
-import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;

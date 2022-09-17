@@ -36,6 +36,10 @@ public final class MoveTeamPosition {
                 return false;
             }
         }
+        return containsAll(_list1, _list2);
+    }
+
+    private static boolean containsAll(Listable<MoveTeamPosition> _list1, Listable<MoveTeamPosition> _list2) {
         for (MoveTeamPosition a: _list1) {
             boolean contains_ = false;
             for (MoveTeamPosition b: _list2) {
@@ -51,7 +55,7 @@ public final class MoveTeamPosition {
         return true;
     }
 
-    
+
     public static MoveTeamPosition newMoveTeamPosition(String _string) {
         return new MoveTeamPosition(_string);
     }

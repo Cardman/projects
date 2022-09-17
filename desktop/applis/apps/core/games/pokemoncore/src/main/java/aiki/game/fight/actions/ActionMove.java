@@ -1,7 +1,5 @@
 package aiki.game.fight.actions;
-import aiki.game.fight.TargetCoords;
 import aiki.util.TargetCoordsList;
-import code.util.EqList;
 
 
 public final class ActionMove extends AbstractAction implements ChosenMove,ChosenReplacing{

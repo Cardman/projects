@@ -1,7 +1,5 @@
 package aiki.game.fight.util;
-import aiki.game.fight.TeamPosition;
 import aiki.util.TeamPositionList;
-import code.util.EqList;
 
 public final class NextUsers {
 

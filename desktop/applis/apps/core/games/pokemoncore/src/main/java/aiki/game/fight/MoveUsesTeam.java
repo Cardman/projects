@@ -27,6 +27,10 @@ public final class MoveUsesTeam {
                 return false;
             }
         }
+        return containsAll(_list1, _list2);
+    }
+
+    private static boolean containsAll(CustList<MoveUsesTeam> _list1, CustList<MoveUsesTeam> _list2) {
         for (MoveUsesTeam a: _list1) {
             boolean contains_ = false;
             for (MoveUsesTeam b: _list2) {
