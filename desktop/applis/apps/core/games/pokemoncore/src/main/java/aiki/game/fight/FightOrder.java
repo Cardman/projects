@@ -225,22 +225,15 @@ final class FightOrder {
     }
 
     static UsedItemForBattle indexOfRemovingItem(Fight _fight,TeamPositionList _cbts, DataBase _import) {
-        int indiceTirage_= IndexConstants.INDEX_NOT_FOUND_ELT;
-        ItemForBattle it_ = null;
-        TeamPosition tp_ = new TeamPosition();
         int nb_ = _cbts.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
-            Item objet_ = FightItems.useItsObject(_fight, _cbts.get(i), _import);
-            if (!(objet_ instanceof ItemForBattle) || ((ItemForBattle) objet_).getLawForAttackFirst().events().size() <= DataBase.ONE_POSSIBLE_CHOICE) {
-                continue;
-            }
-            if(indiceTirage_== IndexConstants.INDEX_NOT_FOUND_ELT){
-                indiceTirage_=i;
-                it_ = (ItemForBattle) objet_;
-                tp_ = _cbts.get(i);
+            TeamPosition cbt_ = _cbts.get(i);
+            Item objet_ = FightItems.useItsObject(_fight, cbt_, _import);
+            if (objet_ instanceof ItemForBattle && ((ItemForBattle) objet_).getLawForAttackFirst().events().size() > DataBase.ONE_POSSIBLE_CHOICE) {
+                return new UsedItemForBattle((ItemForBattle) objet_,i, cbt_);
             }
         }
-        return new UsedItemForBattle(it_,indiceTirage_, tp_);
+        return new UsedItemForBattle(null,IndexConstants.INDEX_NOT_FOUND_ELT, new TeamPosition());
     }
 
     static TeamPositionList randomFigtherHavingToAct(Fight _fight,
