@@ -1154,31 +1154,20 @@ final class FightEffects {
             }
             return somme_;
         }
-        StringMap<String> variables_;
-        variables_ = FightValues.calculateValues(_fight, _lanceur,_cible,_import);
-        Rate basePower_;
-        basePower_ = _import.evaluatePositiveExp(effect_.getPower(), variables_, DataBase.getDefaultPower());
+        StringMap<String> variables_ = FightValues.calculateValues(_fight, _lanceur, _cible, _import);
+        Rate basePower_ = _import.evaluatePositiveExp(effect_.getPower(), variables_, DataBase.getDefaultPower());
         StringList typeAtt_=FightMoves.moveTypes(_fight, _lanceur,_attaqueLanceur,_import);
-        String nomActuelLanceur_=creatureLanceur_.getCurrentName();
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), fAtt_.getCategory());
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), StringUtil.join(typeAtt_, _import.getSepartorSetChar()));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _attaqueLanceur);
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), basePower_.toNumberString());
+        FightValues.completeValuesWithThrower(_fight, _lanceur, variables_);
+        FightValues.completeValuesWithMoveInfo(_attaqueLanceur, variables_, basePower_, _import, typeAtt_, fAtt_.getCategory());
         Rate finalPower_ = new Rate(basePower_);
         finalPower_.multiplyBy(rateObjectPower(_fight, _lanceur, variables_, _import));
         finalPower_.multiplyBy(rateTypesPower(_fight, _lanceur, _cible, typeAtt_));
         finalPower_.multiplyBy(rateAbilityPower(_fight, _lanceur, variables_, _import));
         Rate att_ = attack(_fight, _lanceur, _cible, effect_, variables_, _import);
         Rate def_ = defense(_fight, _lanceur, _cible, effect_, variables_, _import);
-        Rate degats_;
-        StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTACK), att_.toNumberString());
-        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.DEFENSE), def_.toNumberString());
-        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), finalPower_.toNumberString());
-        varLocs_.putAllMap(variables_);
+        StringMap<String> varLocs_ = FightValues.calculateValuesWithStat(variables_,att_,def_,finalPower_);
         String damageFormula_ = _import.getDamageFormula();
-        degats_ = _import.evaluatePositiveExp(damageFormula_, varLocs_, finalPower_);
+        Rate degats_ = _import.evaluatePositiveExp(damageFormula_, varLocs_, finalPower_);
         degats_.multiplyBy(ratePartnerMove(creatureLanceur_, _import));
         Rate coeffEff_= FightSuccess.rateEffAgainstTargetMove(_fight, _lanceur, _attaqueLanceur, _cible, _import);
         degats_.multiplyBy(rateDamageTargetAbility(_fight, _lanceur, _cible, typeAtt_, coeffEff_, _import));
@@ -1186,8 +1175,7 @@ final class FightEffects {
         degats_.multiplyBy(rateDamageGlobalAbilities(_fight, typeAtt_, _import));
         degats_.multiplyBy(multBaseDamage(_fight, _attaqueLanceur, _import));
         degats_.multiplyBy(rateDamageGlobalMoves(_fight, typeAtt_, _import));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF), coeffEff_.toNumberString());
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF), creatureLanceur_.getNbRepeatingSuccessfulMoves().toNumberString());
+        FightValues.completeValuesWithRemaining(variables_,coeffEff_,creatureLanceur_.getNbRepeatingSuccessfulMoves());
         degats_.multiplyBy(rateDamageThrowerObject(_fight, _lanceur, variables_, _import));
         degats_.multiplyBy(rateDamageThrowerAbility(_fight, _lanceur, variables_, _import));
         degats_.multiplyBy(rateDamageInvokedMove(_fight, _lanceur, _cible, _import));
@@ -1261,7 +1249,7 @@ final class FightEffects {
             StringMap<String> vars_ = new StringMap<String>(_variables);
             vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));
             rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(ab_.getMultPower(), vars_, _import));
-            for (String t: StringUtil.splitChars(_variables.getVal(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES)), _import.getSepartorSetChar())) {
+            for (String t: StringUtil.splitChars(StringUtil.nullToEmpty(_variables.getVal(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES))), _import.getSepartorSetChar())) {
                 for (TypeDamageBoost tDamage_: ab_.getChangingBoostTypes().values()) {
                     if (!StringUtil.quickEq(tDamage_.getType(), t)) {
                         continue;
@@ -1302,19 +1290,14 @@ final class FightEffects {
         vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _thrower, _import));
         att_.multiplyBy(FightStatistic.statisticWithoutBase(_fight, _thrower, statis_, vars_, _import));
         AbilityData ab_ = FightAbilities.ignoredTargetAbility(_fight, _thrower, _target, _import);
-        boolean priseEnCompteCapaciteCible_= ab_ != null;
         byte boost_=thrower_.getStatisBoost().getVal(statis_);
         boost_ += FightStatistic.bonusBoost(_fight, statis_, _thrower, _import);
         if(boost_<=baseBoost_){
             if(!_effect.getIgnVarStatUserNeg().containsObj(statis_)){
                 att_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
             }
-        }else if(!priseEnCompteCapaciteCible_){
-            att_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
-        }else{
-            if(!ab_.isIgnFoeStatisBoost()){
-                att_.multiplyBy(FightStatistic.rateBoost(boost_,_import));
-            }
+        }else if (ab_ == null || !ab_.isIgnFoeStatisBoost()) {
+            att_.multiplyBy(FightStatistic.rateBoost(boost_, _import));
         }
         return att_;
     }

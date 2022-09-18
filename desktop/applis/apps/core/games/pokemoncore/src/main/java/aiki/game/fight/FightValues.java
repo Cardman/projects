@@ -150,6 +150,33 @@ final class FightValues {
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX, _nbKoEquipeAdv),Long.toString((long)equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
     }
 
+    static void completeValuesWithRemaining(StringMap<String> _variables, Rate _coeffEff, LgInt _nbRepeatingSuccessfulMoves) {
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF), _coeffEff.toNumberString());
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF), _nbRepeatingSuccessfulMoves.toNumberString());
+    }
+
+    static void completeValuesWithMoveInfo(String _attaqueLanceur, StringMap<String> _variables, Rate _basePower, DataBase _import, StringList _typeAtt, String _category) {
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), _category);
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), StringUtil.join(_typeAtt, _import.getSepartorSetChar()));
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _attaqueLanceur);
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), _basePower.toNumberString());
+    }
+
+    static void completeValuesWithThrower(Fight _fight, TeamPosition _lanceur, StringMap<String> _variables) {
+        Team equipeLanceur_= _fight.getTeams().getVal(_lanceur.getTeam());
+        Fighter creatureLanceur_=equipeLanceur_.getMembers().getVal(_lanceur.getPosition());
+        String nomActuelLanceur_=creatureLanceur_.getCurrentName();
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
+    }
+
+    static StringMap<String> calculateValuesWithStat(StringMap<String> _variables, Rate _att, Rate _def, Rate _finalPower) {
+        StringMap<String> varLocs_ = new StringMap<String>();
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTACK), _att.toNumberString());
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.DEFENSE), _def.toNumberString());
+        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), _finalPower.toNumberString());
+        varLocs_.putAllMap(_variables);
+        return varLocs_;
+    }
     static StringMap<String> calculateValues(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,DataBase _import){
         _fight.setEnabledMessages(false);
         Team equipeCible_=_fight.getTeams().getVal(_cible.getTeam());
@@ -160,9 +187,7 @@ final class FightValues {
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_GENRE), creatureCbtCible_.getCurrentGender().getGenderName());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_PV_RESTANTS),creatureCbtCible_.getRemainingHp().toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_PV_MAX),creatureCbtCible_.pvMax().toNumberString());
-        for(String c:creatureCbtCible_.getNbUsesMoves().getKeys()){
-            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(creatureCbtCible_.getNbUsesMoves().getVal(c)));
-        }
+        enabled(creatureCbtCible_, variables_, Fighter.CIBLE_NB_UTILISATION);
         for(Statistic c:creatureCbtCible_.getStatisBase().getKeys()){
             variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtCible_.getStatisBase().getVal(c).toNumberString());
         }

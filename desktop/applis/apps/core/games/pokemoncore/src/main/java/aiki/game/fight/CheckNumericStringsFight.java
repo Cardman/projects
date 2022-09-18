@@ -53,7 +53,9 @@ public final class CheckNumericStringsFight {
     private final TeamPosition foeFighter;
     private final Fight fight;
     private final DataBase data;
-    private final MoveData defMove;
+    private final StringMap<String> variablesMoves;
+    private final StringMap<String> variablesWithStat;
+    private final StringMap<String> variablesFull;
 
     private CheckNumericStringsFight(Fight _fight, TeamPosition _userFighter, TeamPosition _foeFighter, DataBase _data) {
         fight = _fight;
@@ -62,6 +64,12 @@ public final class CheckNumericStringsFight {
         foeFighter = _foeFighter;
         variablesDiff = FightValues.calculateValues(_fight, _userFighter,
                 _foeFighter, _data);
+        variablesMoves = new StringMap<String>(variablesDiff);
+        FightValues.completeValuesWithThrower(_fight, _userFighter, variablesMoves);
+        FightValues.completeValuesWithMoveInfo(data.getDefaultMove(), variablesMoves, Rate.one(), _data, new StringList(), DataBase.AUTRE);
+        variablesWithStat = FightValues.calculateValuesWithStat(variablesMoves,Rate.one(),Rate.one(),Rate.one());
+        variablesFull = new StringMap<String>(variablesWithStat);
+        FightValues.completeValuesWithRemaining(variablesFull,Rate.one(),LgInt.one());
         variablesFighter = FightValues.calculateValuesFighter(_fight,
                 _userFighter, _data);
         variablesSame = FightValues.calculateValues(_fight, _userFighter,
@@ -75,7 +83,6 @@ public final class CheckNumericStringsFight {
         boolVarsSending = calculateBooleanValuesForValidation(_fight,
                 _userFighter, _userFighter, true, _data);
         boolVarsSending.putAllMap(varsSending);
-        defMove = data.getMove(data.getDefaultMove());
     }
 
     public static void validateNumericBooleanStrings(DataBase _data) {
@@ -145,17 +152,7 @@ public final class CheckNumericStringsFight {
         String numericExp_;
         numericExp_ = data.getDamageFormula();
         EvolvedNumString num_;
-        StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.ATTACK),
-                DataBase.defRateProduct().toNumberString());
-        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.DEFENSE),
-                DataBase.defRateProduct().toNumberString());
-        varLocs_.put(
-                StringUtil.concat(DataBase.VAR_PREFIX, Fight.LANCEUR_NIVEAU),
-                Long.toString(data.getMinLevel()));
-        varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.POWER),
-                DataBase.getDefaultPower().toNumberString());
-        num_ = data.createNumericableString(numericExp_, varLocs_);
+        num_ = data.createNumericableString(numericExp_, variablesWithStat);
         num_.evaluateExp(true);
         checkValidNumeric(data, num_);
     }
@@ -213,8 +210,7 @@ public final class CheckNumericStringsFight {
                 checkNumGeneString(data, loc_, o_.getMultPower());
             }
             if (!o_.getMultDamage().isEmpty()) {
-                StringMap<String> loc_ = getVariablesMultDamage();
-                checkNumGeneString(data, loc_, o_.getMultDamage());
+                checkNumGeneString(data, variablesFull, o_.getMultDamage());
             }
             for (Statistic s : o_.getMultStat().getKeys()) {
                 String str_ = o_.getMultStat().getVal(s);
@@ -261,56 +257,15 @@ public final class CheckNumericStringsFight {
         if (special_) {
             loc_ = new StringMap<String>(variablesFighter);
         } else {
-            Fighter userFighterLoc_ = fight
-                    .getFighter(userFighter);
-            String cat_ = defMove
-                    .getCategory();
-            StringList types_ = defMove.getTypes();
-            loc_ = new StringMap<String>(variablesDiff);
+            loc_ = new StringMap<String>(variablesMoves);
             loc_.putAllMap(variablesFighter);
-            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.ATTAQUE_CATEGORIE), cat_);
-            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.LANCEUR_NOM), userFighterLoc_.getName());
-            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.ATTAQUE_TYPES), StringUtil.join(types_, data
-                    .getSepartorSetChar()));
-            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.ATTAQUE_NOM), data.getDefaultMove());
-            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.PUISSANCE_BASE), DataBase
-                    .getDefaultPower().toNumberString());
-            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.COEFF_EFF), DataBase.defRateProduct()
-                    .toNumberString());
-            loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.NB_UTILISATION_CONSECUTIF),
-                    userFighterLoc_.getNbRepeatingSuccessfulMoves()
-                            .toNumberString());
         }
         return loc_;
     }
 
     private StringMap<String> getVariablesMultPower() {
-        StringMap<String> loc_ = new StringMap<String>(variablesDiff);
+        StringMap<String> loc_ = new StringMap<String>(variablesMoves);
         loc_.putAllMap(variablesFighter);
-        Fighter userFighterLoc_ = fight.getFighter(userFighter);
-        String cat_ = defMove
-                .getCategory();
-        StringList types_ = defMove
-                .getTypes();
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_CATEGORIE), cat_);
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.LANCEUR_NOM), userFighterLoc_.getName());
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_TYPES), StringUtil.join(types_, data
-                .getSepartorSetChar()));
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_NOM), data.getDefaultMove());
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.PUISSANCE_BASE), DataBase.getDefaultPower()
-                .toNumberString());
         return loc_;
     }
 
@@ -322,8 +277,7 @@ public final class CheckNumericStringsFight {
                 checkNumGeneString(data, loc_, a.getMultPower());
             }
             if (!a.getMultDamage().isEmpty()) {
-                StringMap<String> loc_ = getVariablesMultDamage();
-                checkNumGeneString(data, loc_, a.getMultDamage());
+                checkNumGeneString(data, variablesFull, a.getMultDamage());
             }
             for (Statistic s : a.getMultStat().getKeys()) {
                 String str_ = a.getMultStat().getVal(s);
@@ -341,34 +295,6 @@ public final class CheckNumericStringsFight {
                 processWhenSend(_diff, e);
             }
         }
-    }
-
-    private StringMap<String> getVariablesMultDamage() {
-        StringMap<String> loc_ = new StringMap<String>(variablesDiff);
-        Fighter userFighterLoc_ = fight.getFighter(userFighter);
-        String cat_ = defMove
-                .getCategory();
-        StringList types_ = defMove
-                .getTypes();
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_CATEGORIE), cat_);
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.LANCEUR_NOM), userFighterLoc_.getName());
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_TYPES), StringUtil.join(types_, data
-                .getSepartorSetChar()));
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.ATTAQUE_NOM), data.getDefaultMove());
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.PUISSANCE_BASE), DataBase.getDefaultPower()
-                .toNumberString());
-        loc_.put(
-                StringUtil.concat(DataBase.VAR_PREFIX, Fight.COEFF_EFF),
-                DataBase.defRateProduct().toNumberString());
-        loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                Fight.NB_UTILISATION_CONSECUTIF), userFighterLoc_
-                .getNbRepeatingSuccessfulMoves().toNumberString());
-        return loc_;
     }
 
     private static boolean isSpecialStat(Statistic _s) {
