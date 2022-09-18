@@ -3,7 +3,6 @@ import aiki.fight.enums.Statistic;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
 public final class StatisticPokemon implements Displayable {
 
@@ -48,7 +47,7 @@ public final class StatisticPokemon implements Displayable {
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
-        str_.append(statistic.name());
+        str_.append(statistic.getStatName());
         str_.append(SEPARATOR);
         str_.append(pokemon);
         return str_.toString();

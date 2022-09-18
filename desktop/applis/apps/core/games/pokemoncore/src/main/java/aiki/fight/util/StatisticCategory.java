@@ -58,7 +58,7 @@ public final class StatisticCategory implements Displayable {
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
-        str_.append(statistic.name());
+        str_.append(statistic.getStatName());
         str_.append(SEPARATOR);
         str_.append(category);
         return str_.toString();

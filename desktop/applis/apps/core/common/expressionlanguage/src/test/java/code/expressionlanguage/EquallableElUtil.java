@@ -30,11 +30,7 @@ public abstract class EquallableElUtil {
 
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
-        int size_ = _expected.size();
-        Assert.assertEquals(size_, _result.size());
-        for (int i = 0; i < size_; i++) {
-            assertEq(_expected.get(i),_result.get(i));
-        }
+        Assert.assertTrue(_expected.eq(_result));
     }
 
     public static void assertEq(char _expected, char _result) {
@@ -48,14 +44,7 @@ public abstract class EquallableElUtil {
 
     public static void assertEq(MethodId _expected, MethodId _result) {
         Assert.assertNotNull(_result);
-        assertEq(_expected.getName(),_result.getName());
-        Assert.assertSame(_expected.getKind(),_result.getKind());
-        Assert.assertEquals(_expected.isVararg(),_result.isVararg());
-        int size_ = _expected.getParametersTypesLength();
-        Assert.assertEquals(size_, _result.getParametersTypesLength());
-        for (int i = 0; i < size_; i++) {
-            assertEq(_expected.getParametersType(i),_result.getParametersType(i));
-        }
+        Assert.assertTrue(_expected.eq(_result));
     }
     
     public static void assertEq(long _expected, long _result) {

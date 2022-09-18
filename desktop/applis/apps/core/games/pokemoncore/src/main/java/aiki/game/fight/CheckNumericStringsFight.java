@@ -53,6 +53,8 @@ public final class CheckNumericStringsFight {
     private final TeamPosition foeFighter;
     private final Fight fight;
     private final DataBase data;
+    private final MoveData defMove;
+
     private CheckNumericStringsFight(Fight _fight, TeamPosition _userFighter, TeamPosition _foeFighter, DataBase _data) {
         fight = _fight;
         data = _data;
@@ -73,6 +75,7 @@ public final class CheckNumericStringsFight {
         boolVarsSending = calculateBooleanValuesForValidation(_fight,
                 _userFighter, _userFighter, true, _data);
         boolVarsSending.putAllMap(varsSending);
+        defMove = data.getMove(data.getDefaultMove());
     }
 
     public static void validateNumericBooleanStrings(DataBase _data) {
@@ -260,10 +263,9 @@ public final class CheckNumericStringsFight {
         } else {
             Fighter userFighterLoc_ = fight
                     .getFighter(userFighter);
-            String cat_ = data.getMove(data.getDefaultMove())
+            String cat_ = defMove
                     .getCategory();
-            StringList types_ = data.getMove(
-                    data.getDefaultMove()).getTypes();
+            StringList types_ = defMove.getTypes();
             loc_ = new StringMap<String>(variablesDiff);
             loc_.putAllMap(variablesFighter);
             loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
@@ -293,9 +295,9 @@ public final class CheckNumericStringsFight {
         StringMap<String> loc_ = new StringMap<String>(variablesDiff);
         loc_.putAllMap(variablesFighter);
         Fighter userFighterLoc_ = fight.getFighter(userFighter);
-        String cat_ = data.getMove(data.getDefaultMove())
+        String cat_ = defMove
                 .getCategory();
-        StringList types_ = data.getMove(data.getDefaultMove())
+        StringList types_ = defMove
                 .getTypes();
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.ATTAQUE_CATEGORIE), cat_);
@@ -344,9 +346,9 @@ public final class CheckNumericStringsFight {
     private StringMap<String> getVariablesMultDamage() {
         StringMap<String> loc_ = new StringMap<String>(variablesDiff);
         Fighter userFighterLoc_ = fight.getFighter(userFighter);
-        String cat_ = data.getMove(data.getDefaultMove())
+        String cat_ = defMove
                 .getCategory();
-        StringList types_ = data.getMove(data.getDefaultMove())
+        StringList types_ = defMove
                 .getTypes();
         loc_.put(StringUtil.concat(DataBase.VAR_PREFIX,
                 Fight.ATTAQUE_CATEGORIE), cat_);
@@ -559,17 +561,22 @@ public final class CheckNumericStringsFight {
     }
 
     private static void checkRateGrowLevel(DataBase _data) {
-        for (DifficultyWinPointsFight d : DifficultyWinPointsFight.values()) {
-            StringMap<String> vars_ = new StringMap<String>();
-            vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.LEVEL_WINNER), LgInt.one().toNumberString());
-            vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,
-                    Fight.LEVEL_LOOSER), LgInt.one().toNumberString());
-            EvolvedNumString chNum_ = _data.createNumericableString(
-                    _data.getRates().getVal(d), vars_);
-            chNum_.evaluateExp(true);
-            checkValidNumeric(_data, chNum_);
-        }
+        checkRateGrowLevel(_data, DifficultyWinPointsFight.TRES_FACILE);
+        checkRateGrowLevel(_data, DifficultyWinPointsFight.FACILE);
+        checkRateGrowLevel(_data, DifficultyWinPointsFight.DIFFICILE);
+        checkRateGrowLevel(_data, DifficultyWinPointsFight.TRES_DIFFICILE);
+    }
+
+    private static void checkRateGrowLevel(DataBase _data, DifficultyWinPointsFight _d) {
+        StringMap<String> vars_ = new StringMap<String>();
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,
+                Fight.LEVEL_WINNER), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,
+                Fight.LEVEL_LOOSER), LgInt.one().toNumberString());
+        EvolvedNumString chNum_ = _data.createNumericableString(
+                _data.getRates().getVal(_d), vars_);
+        chNum_.evaluateExp(true);
+        checkValidNumeric(_data, chNum_);
     }
 
     private static void checkBoolStrings(DataBase _data,

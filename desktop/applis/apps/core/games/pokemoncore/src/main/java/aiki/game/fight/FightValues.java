@@ -24,7 +24,7 @@ final class FightValues {
         Team equipeLanceur_=_fight.getTeams().getVal(_fighter.getTeam());
         Fighter creatureCbtLanceur_=equipeLanceur_.getMembers().getVal(_fighter.getPosition());
         StringMap<String> variables_ = new StringMap<String>();
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_GENRE), creatureCbtLanceur_.getCurrentGender().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_GENRE), creatureCbtLanceur_.getCurrentGender().getGenderName());
         for(String c:equipeLanceur_.getNbUsesMovesRound().getKeys()){
             variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Team.NB_UTILI_ATT_EQ_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMovesRound().getVal(c)));
         }
@@ -32,7 +32,7 @@ final class FightValues {
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_PV_MAX),creatureCbtLanceur_.pvMax().toNumberString());
         enabled(creatureCbtLanceur_, variables_, Fighter.FIGHTER_NB_UTILISATION);
         for(Statistic c:creatureCbtLanceur_.getStatisBase().getKeys()){
-            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_STATIS,DataBase.SEP_BETWEEN_KEYS,c.name()),creatureCbtLanceur_.getStatisBase().getVal(c).toNumberString());
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtLanceur_.getStatisBase().getVal(c).toNumberString());
         }
         sommeLanceurBoostsPositifs(creatureCbtLanceur_, variables_, Fight.FIGHTER_BOOST, Fight.SOMME_BOOST_POS_FIGHTER);
         StringList attaquesGlobales_ = _import.getVarParamsMove(Fight.NB_TOUR_GLOBAL);
@@ -63,7 +63,7 @@ final class FightValues {
         //variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMAT_DOMINANT),climatDominant(_import));
         varsPp(_import, creatureCbtLanceur_, Fight.FIGHTER_PP, variables_);
         equipes(variables_, _fight, _fighter, Fight.NB_KO_EQUIPE_FIGHTER, Fight.NB_KO_EQUIPE_ADV_FIGHTER);
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().getEnvName());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_NIVEAU),Long.toString(creatureCbtLanceur_.getLevel()));
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_BONHEUR),Long.toString(creatureCbtLanceur_.getHappiness()));
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
@@ -132,7 +132,7 @@ final class FightValues {
             if(boost_>0){
                 sommeLanceurBoostsPositifs_.addNb(new Rate(boost_));
             }
-            _variables.put(StringUtil.concat(DataBase.VAR_PREFIX, _boost,DataBase.SEP_BETWEEN_KEYS,c.name()),Long.toString(boost_));
+            _variables.put(StringUtil.concat(DataBase.VAR_PREFIX, _boost,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),Long.toString(boost_));
         }
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX, _sommeBoostPos),sommeLanceurBoostsPositifs_.toNumberString());
     }
@@ -157,14 +157,14 @@ final class FightValues {
         Team equipeLanceur_=_fight.getTeams().getVal(_lanceur.getTeam());
         Fighter creatureCbtLanceur_=equipeLanceur_.getMembers().getVal(_lanceur.getPosition());
         StringMap<String> variables_ = new StringMap<String>();
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_GENRE), creatureCbtCible_.getCurrentGender().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_GENRE), creatureCbtCible_.getCurrentGender().getGenderName());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_PV_RESTANTS),creatureCbtCible_.getRemainingHp().toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_PV_MAX),creatureCbtCible_.pvMax().toNumberString());
         for(String c:creatureCbtCible_.getNbUsesMoves().getKeys()){
             variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(creatureCbtCible_.getNbUsesMoves().getVal(c)));
         }
         for(Statistic c:creatureCbtCible_.getStatisBase().getKeys()){
-            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_STATIS,DataBase.SEP_BETWEEN_KEYS,c.name()),creatureCbtCible_.getStatisBase().getVal(c).toNumberString());
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtCible_.getStatisBase().getVal(c).toNumberString());
         }
         sommeLanceurBoostsPositifs(creatureCbtCible_, variables_, Fight.CIBLE_BOOST, Fight.SOMME_BOOST_POS_CIBLE);
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.CIBLE_ATTAQUE_CHOISIE), creatureCbtCible_.getFinalChosenMove());
@@ -187,7 +187,7 @@ final class FightValues {
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_CIBLE),Long.toString((long)equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_ADV_CIBLE),Long.toString((long)equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
         rateEff(_import, Fight.COEFF_EFF_BASE_TYPES_CIBLE, variables_, creatureCbtCible_);
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_GENRE), creatureCbtLanceur_.getCurrentGender().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_GENRE), creatureCbtLanceur_.getCurrentGender().getGenderName());
         for(String c:equipeLanceur_.getNbUsesMovesRound().getKeys()){
             variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Team.NB_UTILI_ATT_EQ_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMovesRound().getVal(c)));
         }
@@ -195,7 +195,7 @@ final class FightValues {
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_PV_MAX),creatureCbtLanceur_.pvMax().toNumberString());
         enabled(creatureCbtLanceur_, variables_, Fighter.LANCEUR_NB_UTILISATION);
         for(Statistic c:creatureCbtLanceur_.getStatisBase().getKeys()){
-            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_STATIS,DataBase.SEP_BETWEEN_KEYS,c.name()),creatureCbtLanceur_.getStatisBase().getVal(c).toNumberString());
+            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtLanceur_.getStatisBase().getVal(c).toNumberString());
         }
         sommeLanceurBoostsPositifs(creatureCbtLanceur_, variables_, Fight.LANCEUR_BOOST, Fight.SOMME_BOOST_POS_LANCEUR);
         StringList attaquesGlobales_ = _import.getVarParamsMove(Fight.NB_TOUR_GLOBAL);
@@ -224,7 +224,7 @@ final class FightValues {
         //variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMAT_DOMINANT),climatDominant(_import));
         varsPp(_import, creatureCbtLanceur_, Fight.LANCEUR_PP, variables_);
         equipes(variables_, _fight, _lanceur, Fight.NB_KO_EQUIPE_LANCEUR, Fight.NB_KO_EQUIPE_ADV_LANCEUR);
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().getEnvName());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NIVEAU),Long.toString(creatureCbtLanceur_.getLevel()));
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_BONHEUR),Long.toString(creatureCbtLanceur_.getHappiness()));
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());

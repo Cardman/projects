@@ -152,7 +152,7 @@ public final class Player {
             if (_sexeHeros == null) {
                 nickname = DEFAULT_NICKNAME_PREFIX;
             } else {
-                nickname = StringUtil.concat(DEFAULT_NICKNAME_PREFIX, _sexeHeros.name());
+                nickname = StringUtil.concat(DEFAULT_NICKNAME_PREFIX, _sexeHeros.getSexName());
             }
         }
         sex=_sexeHeros;

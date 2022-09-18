@@ -47,7 +47,7 @@ public final class StatisticStatus implements Displayable {
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
-        str_.append(statistic.name());
+        str_.append(statistic.getStatName());
         str_.append(SEPARATOR);
         str_.append(status);
         return str_.toString();

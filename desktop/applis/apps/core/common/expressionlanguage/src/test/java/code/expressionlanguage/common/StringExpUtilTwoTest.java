@@ -1,6 +1,7 @@
 package code.expressionlanguage.common;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -20527,42 +20528,15 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     }
     @Test
     public void type() {
-        int max_ = -1;
-        int maxType_ = -1;
-        int min_ = 100;
-        int minType_ = 100;
-        int maxLetter_ = -1;
-        int minLetter_ = -1;
-        int maxLetterDigit_ = -1;
-        int minLetterDigit_ = -1;
-        for (int i = 0; i < 256*256;i++) {
-            int dir_ = StringDataUtil.getDirectionality((char) i);
-            int type_ = StringDataUtil.getType((char) i);
-            max_ = Math.max(dir_,max_);
-            min_ = Math.min(dir_,min_);
-            maxType_ = Math.max(type_,maxType_);
-            minType_ = Math.min(type_,minType_);
-            if (StringDataLetterUtil.isLetter((char) i)) {
-                if (minLetter_ == -1) {
-                    minLetter_ = i;
-                }
-                maxLetter_ = i;
-            }
-            if (StringDataUtil.isLetterOrDigit((char) i)) {
-                if (minLetterDigit_ == -1) {
-                    minLetterDigit_ = i;
-                }
-                maxLetterDigit_ = i;
-            }
-        }
-        assertEq(-1,min_);
-        assertEq(18,max_);
-        assertEq(0,minType_);
-        assertEq(30,maxType_);
-        assertEq('A',minLetter_);
-        assertEq(65500,maxLetter_);
-        assertEq('0',minLetterDigit_);
-        assertEq(65500,maxLetterDigit_);
+        TstsCharacters tsts_ = new TstsCharacters();
+        assertEq(-1, tsts_.getMin());
+        assertEq(18, tsts_.getMax());
+        assertEq(0, tsts_.getMinType());
+        assertEq(30, tsts_.getMaxType());
+        assertEq('A', tsts_.getMinLetter());
+        assertEq(65500, tsts_.getMaxLetter());
+        assertEq('0', tsts_.getMinLetterDigit());
+        assertEq(65500, tsts_.getMaxLetterDigit());
     }
     @Test
     public void toLowerCaseTest() {

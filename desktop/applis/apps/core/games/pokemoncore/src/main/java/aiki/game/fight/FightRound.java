@@ -1696,14 +1696,14 @@ final class FightRound {
     }
 
     private static StringMap<String> varsCatchFlee(Fight _fight, DataBase _import, Fighter _creatureUt, CustList<FighterPosition> _cbts, Fighter _creatureSauvage, StringMap<String> _variables) {
-        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT), _fight.getEnvType().name());
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT), _fight.getEnvType().getEnvName());
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.TEMPS_TOUR), _fight.getNbRounds().toNumberString());
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.MASSE_MOYENNE_PK), _import.getAvgWeight().toNumberString());
-        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_GENRE), _creatureUt.getGender().name());
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_GENRE), _creatureUt.getGender().getGenderName());
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_MASSE), _creatureUt.getWeight().toNumberString());
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_NIVEAU),Long.toString(_creatureUt.getLevel()));
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_UT_VITESSE),FightOrder.speed(_fight,Fight.toUserFighter(_cbts.first().getFirstPosit()), _import).toNumberString());
-        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_GENRE), _creatureSauvage.getGender().name());
+        _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_GENRE), _creatureSauvage.getGender().getGenderName());
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_MASSE), _creatureSauvage.getWeight().toNumberString());
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Long.toString(_creatureSauvage.getLevel()));
         _variables.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_VITESSE),FightOrder.speed(_fight,Fight.toFoeFighter(IndexConstants.FIRST_INDEX), _import).toNumberString());

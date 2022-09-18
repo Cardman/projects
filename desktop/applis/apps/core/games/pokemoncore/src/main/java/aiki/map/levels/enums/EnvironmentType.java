@@ -2,5 +2,12 @@ package aiki.map.levels.enums;
 
 
 public enum EnvironmentType {
-    BUILDING, DESERT, WATER, ICE, GRASS, SNOW, ROCK, ROAD, NOTHING
+    BUILDING("BUILDING"), DESERT("DESERT"), WATER("WATER"), ICE("ICE"), GRASS("GRASS"), SNOW("SNOW"), ROCK("ROCK"), ROAD("ROAD"), NOTHING("ROAD");
+    private final String envName;
+    EnvironmentType(String _k){
+        envName = _k;
+    }
+    public String getEnvName() {
+        return envName;
+    }
 }

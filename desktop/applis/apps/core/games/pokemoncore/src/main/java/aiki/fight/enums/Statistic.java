@@ -4,25 +4,32 @@ import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
 public enum Statistic {
-    HP(true,false,true),
-    ATTACK(true,true,false),
-    DEFENSE(true,true,false),
-    SPECIAL_ATTACK(true,true,false),
-    SPECIAL_DEFENSE(true,true,false),
-    SPEED(true,true,true),
-    ACCURACY(false,true,true),
-    EVASINESS(false,true,true),
-    CRITICAL_HIT(false,true,false),
-    PV_RESTANTS(false,false,true);
+    HP(true,false,true, "HP"),
+    ATTACK(true,true,false, "ATTACK"),
+    DEFENSE(true,true,false, "DEFENSE"),
+    SPECIAL_ATTACK(true,true,false, "SPECIAL_ATTACK"),
+    SPECIAL_DEFENSE(true,true,false, "SPECIAL_DEFENSE"),
+    SPEED(true,true,true, "SPEED"),
+    ACCURACY(false,true,true, "ACCURACY"),
+    EVASINESS(false,true,true, "EVASINESS"),
+    CRITICAL_HIT(false,true,false, "CRITICAL_HIT"),
+    PV_RESTANTS(false,false,true, "PV_RESTANTS");
     private final boolean withBaseStatistic;
     private final boolean boost;
     private final boolean special;
-    Statistic(boolean _withBaseStatistic, boolean _boost, boolean _special) {
+    private final String statName;
+    Statistic(boolean _withBaseStatistic, boolean _boost, boolean _special, String _s) {
         withBaseStatistic = _withBaseStatistic;
         boost = _boost;
         special = _special;
+        statName = _s;
     }
-    public static boolean equalsSet(Listable<Statistic> _list1,Listable<Statistic> _list2) {
+
+    public String getStatName() {
+        return statName;
+    }
+
+    public static boolean equalsSet(Listable<Statistic> _list1, Listable<Statistic> _list2) {
         for (Statistic a: _list2) {
             boolean contains_ = containsStatistic(_list1, a);
             if (!contains_) {
@@ -71,7 +78,7 @@ public enum Statistic {
     }
     public static Statistic getStatisticByName(String _env) {
         for (Statistic e: values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
+            if (StringUtil.quickEq(e.statName, _env)) {
                 return e;
             }
         }
