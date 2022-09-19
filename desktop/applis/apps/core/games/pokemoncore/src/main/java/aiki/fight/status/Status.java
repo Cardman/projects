@@ -30,12 +30,8 @@ public abstract class Status {
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStat.getKeys(),_data);
         DataInfoChecker.checkPositiveRates(multStat.values(),_data);
         DataInfoChecker.checkPositive(catchingRate,_data);
-        if (effectEndRound.size() > 1) {
-            _data.setError(true);
-        }
-        if (effectsPartner.size() > 1) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkGreater(1,effectEndRound.size(),_data);
+        DataInfoChecker.checkGreater(1,effectsPartner.size(),_data);
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
             if (statusType == StatusType.INDIVIDUEL) {

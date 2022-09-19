@@ -2,7 +2,6 @@ package aiki.beans.simulation;
 
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
-import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.beans.facade.dto.PokemonLine;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
@@ -33,7 +32,7 @@ public class SelectPokemonBean extends CommonBean {
         for (EntryCust<SelectedBoolean,String> s: translatedBooleans_.entryList()) {
             translated_.addEntry(s.getKey().name(),s.getValue());
         }
-        booleans = new TreeMap<String, String>(new ComparatorTrString(translated_));
+        booleans = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
         for (SelectedBoolean s: translatedBooleans_.getKeys()) {
             booleans.put(s.name(), translatedBooleans_.getVal(s));
         }

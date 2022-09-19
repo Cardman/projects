@@ -600,12 +600,12 @@ public class SimulationBean extends CommonBean {
         }
         if (freeTeams) {
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
-            environments = new TreeMap<String, String>(new ComparatorTrString(translated_));
+            environments = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
             environments.putAllMap(translated_);
             selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
             selectedAllyPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         } else {
-            environments = new TreeMap<String, String>(new ComparatorTrString(translated_));
+            environments = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
         }
     }
     public void cancelDiffChoice() {

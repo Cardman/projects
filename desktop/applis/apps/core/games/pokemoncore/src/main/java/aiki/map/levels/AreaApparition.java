@@ -2,6 +2,7 @@ package aiki.map.levels;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.WildPk;
+import aiki.util.DataInfoChecker;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
@@ -24,15 +25,9 @@ public final class AreaApparition {
     private MonteCarloList<WildPk> wildPokemonRandFishing;
 
     public void validate(DataBase _data) {
-        if (avgNbSteps < ALWAYS_APPARITION) {
-            _data.setError(true);
-        }
-        if (multFight < 1) {
-            _data.setError(true);
-        }
-        if (multFight > DataBase.MAX_MULT_FIGHT) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkLower(ALWAYS_APPARITION,avgNbSteps,_data);
+        DataInfoChecker.checkLower(1,multFight,_data);
+        DataInfoChecker.checkGreater(DataBase.MAX_MULT_FIGHT,multFight,_data);
         for (WildPk p : wildPokemon) {
             p.validateAsNpc(_data);
         }
@@ -51,6 +46,26 @@ public final class AreaApparition {
 
     static MonteCarloList<WildPk> random(CustList<WildPk> _wildPokemon,
             int _avgNbSteps) {
+        CustList<WildPk> wildPokemonCopy_ = distinct(_wildPokemon);
+        MonteCarloList<WildPk> wildPokemonRand_ = new MonteCarloList<WildPk>();
+        for (WildPk p : wildPokemonCopy_) {
+            int count_ = 0;
+            for (WildPk p2_ : _wildPokemon) {
+                if (!WildPk.eq(p2_, p)) {
+                    continue;
+                }
+                count_++;
+            }
+            wildPokemonRand_.addQuickEvent(p, new LgInt(count_));
+        }
+        if (_avgNbSteps > 1) {
+            wildPokemonRand_.addQuickEvent(new WildPk(), new LgInt((_avgNbSteps - 1L)
+                    * _wildPokemon.size()));
+        }
+        return wildPokemonRand_;
+    }
+
+    private static CustList<WildPk> distinct(CustList<WildPk> _wildPokemon) {
         CustList<WildPk> wildPokemonCopy_ = new CustList<WildPk>(_wildPokemon);
         int i_ = 0;
         while (i_ < wildPokemonCopy_.size()) {
@@ -65,22 +80,7 @@ public final class AreaApparition {
             }
             i_++;
         }
-        MonteCarloList<WildPk> wildPokemonRand_ = new MonteCarloList<WildPk>();
-        for (WildPk p : wildPokemonCopy_) {
-            int count_ = 0;
-            for (WildPk p2_ : _wildPokemon) {
-                if (!WildPk.eq(p2_, p)) {
-                    continue;
-                }
-                count_++;
-            }
-            wildPokemonRand_.addQuickEvent(p, new LgInt(count_));
-        }
-        if (_avgNbSteps > 1) {
-            wildPokemonRand_.addQuickEvent(new WildPk(), new LgInt((_avgNbSteps - 1)
-                    * _wildPokemon.size()));
-        }
-        return wildPokemonRand_;
+        return wildPokemonCopy_;
     }
 
     public boolean isVirtual() {

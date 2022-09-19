@@ -27,12 +27,8 @@ public final class EffectCombo {
         }
 
         DataInfoChecker.checkIntegers(repeatedRoundsLaw.events(),_data);
-        if (effectEndRound.size() > 1) {
-            _data.setError(true);
-        }
-        if (teamMove.size() > 1) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkGreater(1,effectEndRound.size(),_data);
+        DataInfoChecker.checkGreater(1,teamMove.size(),_data);
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
         }

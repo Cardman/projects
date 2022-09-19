@@ -1,6 +1,5 @@
 package aiki.beans.moves.effects;
 import aiki.beans.PokemonStandards;
-import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
@@ -37,7 +36,7 @@ public class EffectInvokeBean extends EffectBean {
             translated_.addEntry(s.getKey().name(),s.getValue());
         }
         TreeMap<String, String> moveFctEnv_;
-        moveFctEnv_ = new TreeMap<String, String>(new ComparatorTrString(translated_));
+        moveFctEnv_ = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
         for (EnvironmentType e: effect_.getMoveFctEnv().getKeys()) {
             moveFctEnv_.put(e.name(), effect_.getMoveFctEnv().getVal(e));
         }

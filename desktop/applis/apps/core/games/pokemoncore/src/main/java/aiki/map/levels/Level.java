@@ -18,8 +18,6 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
 
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -107,22 +105,7 @@ public abstract class Level {
         Place pl_ = _data.getMap().getPlace(_coords.getNumberPlace());
         Level lev_ = pl_.getLevelByCoords(_coords);
         Points< int[][]> frontTiles_ = new PointsArr();
-        Coords curCoords_ = new Coords(_coords);
-        curCoords_.getLevel().setPoint(new Point((short)0,(short)0));
-        for (Place p : _data.getMap().getPlaces()) {
-            if (!(p instanceof League)) {
-                continue;
-            }
-            Coords access_ = ((League) p).getAccessCoords();
-            Coords accessCoords_ = new Coords(access_);
-            accessCoords_.getLevel().setPoint(new Point((short)0,(short)0));
-            if (!Coords.eq(accessCoords_,curCoords_)) {
-                continue;
-            }
-            Point pt_ = access_.getLevel().getPoint();
-            frontTiles_.put(new Point(pt_),
-                    _data.getLink(((League) p).getFileName()));
-        }
+        feedLeague(_data, _coords, frontTiles_);
         if (lev_ instanceof LevelLeague) {
             LevelLeague lv_ = (LevelLeague) lev_;
             Person person_ = lv_.getTrainer();
@@ -131,86 +114,9 @@ public abstract class Level {
             frontTiles_.put(new Point(lv_.getAccessPoint()),
                     _data.getLink(lv_.getFileName()));
         }
-        if (lev_ instanceof LevelWithWildPokemon) {
-            LevelWithWildPokemon lv_ = (LevelWithWildPokemon) lev_;
-            for (Point p : lv_.getCharacters().getKeys()) {
-                Person person_ = lv_.getPerson(p);
-                frontTiles_.put(new Point(p),
-                        _data.getPerson(person_.getImageMiniFileName()));
-            }
-            for (Point p : lv_.getLegendaryPks().getKeys()) {
-                WildPk pk_ = lv_.getPokemon(p);
-                frontTiles_.put(new Point(p),
-                        _data.getMiniPk().getVal(pk_.getName()));
-            }
-            for (Point p : lv_.getItems().getKeys()) {
-                frontTiles_.put(new Point(p),
-                        _data.getMiniItems().getVal(lv_.getItems().getVal(p)));
-            }
-            for (Point p : lv_.getTm().getKeys()) {
-                frontTiles_.put(new Point(p), _data.getImageTmHm());
-            }
-            for (Point p : lv_.getHm().getKeys()) {
-                frontTiles_.put(new Point(p), _data.getImageTmHm());
-            }
-            for (Point p : lv_.getDualFights().getKeys()) {
-                DualFight dual_ = lv_.getDualFights().getVal(p);
-                TempTrainer tmp_ = dual_.getFoeTrainer();
-                frontTiles_.put(new Point(p),
-                        _data.getPerson(tmp_.getImageMiniFileName()));
-            }
-            for (DualFight d : lv_.getDualFights().values()) {
-                TempTrainer tmp_ = d.getFoeTrainer();
-                frontTiles_.put(new Point(d.getPt()), _data.getPerson(tmp_
-                        .getImageMiniSecondTrainerFileName()));
-            }
-        }
-        if (_coords.isInside()) {
-            City city_ = (City) pl_;
-            Building building_ = city_.getBuildings().getVal(
-                    _coords.getInsideBuilding());
-            frontTiles_.put(new Point(building_.getExitCity()),
-                    _data.getLink(building_.getImageFileName()));
-        }
-        if (lev_ instanceof LevelIndoorPokemonCenter) {
-            LevelIndoorPokemonCenter lv_ = (LevelIndoorPokemonCenter) lev_;
-            for (Point p : lv_.getGerants().getKeys()) {
-                Person person_ = lv_.getGerants().getVal(p);
-                frontTiles_.put(new Point(p),
-                        _data.getPerson(person_.getImageMiniFileName()));
-            }
-            frontTiles_.put(new Point(lv_.getStorageCoords()),
-                    _data.getStorage());
-        }
-        if (lev_ instanceof LevelIndoorGym) {
-            LevelIndoorGym lv_ = (LevelIndoorGym) lev_;
-            for (Point p : lv_.getGymTrainers().getKeys()) {
-                Person person_ = lv_.getGymTrainers().getVal(p);
-                frontTiles_.put(new Point(p),
-                        _data.getPerson(person_.getImageMiniFileName()));
-            }
-            Person person_ = lv_.getGymLeader();
-            frontTiles_.put(new Point(lv_.getGymLeaderCoords()),
-                    _data.getPerson(person_.getImageMiniFileName()));
-        }
-        if (pl_ instanceof Cave) {
-            Cave cave_ = (Cave) pl_;
-            for (LevelPoint lp_ : cave_.getLinksWithOtherPlaces().getKeys()) {
-                if (!NumberUtil.eq(lp_.getLevelIndex(), _coords.getLevel()
-                        .getLevelIndex())) {
-                    continue;
-                }
-                Link link_ = cave_.getLinksWithOtherPlaces().getVal(lp_);
-                frontTiles_.put(new Point(lp_.getPoint()),
-                        _data.getLink(link_.getFileName()));
-            }
-            LevelCave lv_ = cave_.getLevelCave(_coords.getLevel());
-            for (Point p : lv_.getLinksOtherLevels().getKeys()) {
-                Link link_ = lv_.getLinksOtherLevels().getVal(p);
-                frontTiles_.put(new Point(p),
-                        _data.getLink(link_.getFileName()));
-            }
-        }
+        feedLevelWithWildPokemon(_data, lev_, frontTiles_);
+        feedCity(_data, _coords, pl_, lev_, frontTiles_);
+        feedCave(_data, _coords, pl_, frontTiles_);
         if (pl_ instanceof InitializedPlace) {
             InitializedPlace init_ = (InitializedPlace) pl_;
             for (Point p : init_.getLinksWithCaves().getKeys()) {
@@ -220,6 +126,113 @@ public abstract class Level {
             }
         }
         return frontTiles_;
+    }
+
+    private static void feedCity(DataBase _data, Coords _coords, Place _pl, Level _lev, Points<int[][]> _frontTiles) {
+        if (_pl instanceof City&& _coords.isInside()) {
+            City city_ = (City) _pl;
+            Building building_ = city_.getBuildings().getVal(
+                    _coords.getInsideBuilding());
+            _frontTiles.put(new Point(building_.getExitCity()),
+                    _data.getLink(building_.getImageFileName()));
+        }
+        if (_lev instanceof LevelIndoorPokemonCenter) {
+            LevelIndoorPokemonCenter lv_ = (LevelIndoorPokemonCenter) _lev;
+            for (Point p : lv_.getGerants().getKeys()) {
+                Person person_ = lv_.getGerants().getVal(p);
+                _frontTiles.put(new Point(p),
+                        _data.getPerson(person_.getImageMiniFileName()));
+            }
+            _frontTiles.put(new Point(lv_.getStorageCoords()),
+                    _data.getStorage());
+        }
+        if (_lev instanceof LevelIndoorGym) {
+            LevelIndoorGym lv_ = (LevelIndoorGym) _lev;
+            for (Point p : lv_.getGymTrainers().getKeys()) {
+                Person person_ = lv_.getGymTrainers().getVal(p);
+                _frontTiles.put(new Point(p),
+                        _data.getPerson(person_.getImageMiniFileName()));
+            }
+            Person person_ = lv_.getGymLeader();
+            _frontTiles.put(new Point(lv_.getGymLeaderCoords()),
+                    _data.getPerson(person_.getImageMiniFileName()));
+        }
+    }
+
+    private static void feedCave(DataBase _data, Coords _coords, Place _pl, Points<int[][]> _frontTiles) {
+        if (_pl instanceof Cave) {
+            Cave cave_ = (Cave) _pl;
+            for (LevelPoint lp_ : cave_.getLinksWithOtherPlaces().getKeys()) {
+                if (!NumberUtil.eq(lp_.getLevelIndex(), _coords.getLevel()
+                        .getLevelIndex())) {
+                    continue;
+                }
+                Link link_ = cave_.getLinksWithOtherPlaces().getVal(lp_);
+                _frontTiles.put(new Point(lp_.getPoint()),
+                        _data.getLink(link_.getFileName()));
+            }
+            LevelCave lv_ = cave_.getLevelCave(_coords.getLevel());
+            for (Point p : lv_.getLinksOtherLevels().getKeys()) {
+                Link link_ = lv_.getLinksOtherLevels().getVal(p);
+                _frontTiles.put(new Point(p),
+                        _data.getLink(link_.getFileName()));
+            }
+        }
+    }
+
+    private static void feedLeague(DataBase _data, Coords _coords, Points<int[][]> _frontTiles) {
+        Coords curCoords_ = new Coords(_coords);
+        curCoords_.getLevel().setPoint(new Point((short)0,(short)0));
+        for (Place p : _data.getMap().getPlaces()) {
+            if (!(p instanceof League)) {
+                continue;
+            }
+            Coords access_ = ((League) p).getAccessCoords();
+            Coords accessCoords_ = new Coords(access_);
+            accessCoords_.getLevel().setPoint(new Point((short)0,(short)0));
+            if (Coords.eq(accessCoords_, curCoords_)) {
+                Point pt_ = access_.getLevel().getPoint();
+                _frontTiles.put(new Point(pt_),
+                        _data.getLink(((League) p).getFileName()));
+            }
+        }
+    }
+
+    private static void feedLevelWithWildPokemon(DataBase _data, Level _lev, Points<int[][]> _frontTiles) {
+        if (_lev instanceof LevelWithWildPokemon) {
+            LevelWithWildPokemon lv_ = (LevelWithWildPokemon) _lev;
+            for (Point p : lv_.getCharacters().getKeys()) {
+                Person person_ = lv_.getPerson(p);
+                _frontTiles.put(new Point(p),
+                        _data.getPerson(person_.getImageMiniFileName()));
+            }
+            for (Point p : lv_.getLegendaryPks().getKeys()) {
+                WildPk pk_ = lv_.getPokemon(p);
+                _frontTiles.put(new Point(p),
+                        _data.getMiniPk().getVal(pk_.getName()));
+            }
+            for (Point p : lv_.getItems().getKeys()) {
+                _frontTiles.put(new Point(p),
+                        _data.getMiniItems().getVal(lv_.getItems().getVal(p)));
+            }
+            for (Point p : lv_.getTm().getKeys()) {
+                _frontTiles.put(new Point(p), _data.getImageTmHm());
+            }
+            for (Point p : lv_.getHm().getKeys()) {
+                _frontTiles.put(new Point(p), _data.getImageTmHm());
+            }
+            for (Point p : lv_.getDualFights().getKeys()) {
+                DualFight dual_ = lv_.getDualFights().getVal(p);
+                TempTrainer tmp_ = dual_.getFoeTrainer();
+                _frontTiles.put(new Point(p),
+                        _data.getPerson(tmp_.getImageMiniFileName()));
+            }
+            for (DualFight d : lv_.getDualFights().values()) {
+                TempTrainer tmp_ = d.getFoeTrainer();
+                _frontTiles.put(new Point(d.getPt()), _data.getPerson(tmp_
+                        .getImageMiniSecondTrainerFileName()));
+            }
+        }
     }
 
     public static void translateShortLineData(Points< Short> _data,
@@ -233,27 +246,7 @@ public abstract class Level {
             }
             deplLinks_.put(c, new Point(c.getx(), (short) (c.gety() + _dir)));
         }
-        while (!links_.isEmpty()) {
-            for (Point c : links_) {
-                Point dest_ = deplLinks_.getVal(c);
-                if (!containsPt(links_,dest_)) {
-                    Short movedBlock_ = _data.getVal(c);
-                    _data.removeKey(c);
-                    _data.put(dest_, movedBlock_);
-                    deplLinks_.removeKey(c);
-                }
-            }
-            for (Point c : links_) {
-                if (!deplLinks_.contains(c)) {
-                    continue;
-                }
-                Point dest_ = deplLinks_.getVal(c);
-                if (Point.eq(c, dest_)) {
-                    deplLinks_.removeKey(c);
-                }
-            }
-            links_ = deplLinks_.getKeys();
-        }
+        translate(_data, links_, deplLinks_);
     }
 
     public static void translateShortColumnData(Points< Short> _data,
@@ -267,26 +260,31 @@ public abstract class Level {
             }
             deplLinks_.put(c, new Point((short) (c.getx() + _dir), c.gety()));
         }
+        translate(_data, links_, deplLinks_);
+    }
+
+    private static void translate(Points<Short> _data, CustList<Point> _links, Points<Point> _deplLinks) {
+        CustList<Point> links_ = _links;
         while (!links_.isEmpty()) {
             for (Point c : links_) {
-                Point dest_ = deplLinks_.getVal(c);
+                Point dest_ = _deplLinks.getVal(c);
                 if (!containsPt(links_,dest_)) {
                     Short movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
-                    deplLinks_.removeKey(c);
+                    _deplLinks.removeKey(c);
                 }
             }
             for (Point c : links_) {
-                if (!deplLinks_.contains(c)) {
+                if (!_deplLinks.contains(c)) {
                     continue;
                 }
-                Point dest_ = deplLinks_.getVal(c);
+                Point dest_ = _deplLinks.getVal(c);
                 if (Point.eq(c, dest_)) {
-                    deplLinks_.removeKey(c);
+                    _deplLinks.removeKey(c);
                 }
             }
-            links_ = deplLinks_.getKeys();
+            links_ = _deplLinks.getKeys();
         }
     }
 
@@ -298,20 +296,10 @@ public abstract class Level {
         ScreenCoords out_ = new ScreenCoords();
         for (Point i : blocks.getKeys()) {
             Block block_ = blocks.getVal(i);
-            short w_ = block_.getWidth();
-            short h_ = block_.getHeight();
-            short xi_ = i.getx();
-            short yi_ = i.gety();
-            int xr_ = xi_ + w_;
-            int yb_ = yi_ + h_;
-            short xp_ = _point.getx();
-            short yp_ = _point.gety();
-            if (inRange(xi_, xr_, xp_)) {
-                if (inRange(yi_, yb_, yp_)) {
-                    out_.setXcoords(_point.getx() - i.getx());
-                    out_.setYcoords(_point.gety() - i.gety());
-                    return out_;
-                }
+            if (inRangeBlock(_point, i, block_)) {
+                out_.setXcoords(_point.getx() - i.getx());
+                out_.setYcoords(_point.gety() - i.gety());
+                return out_;
             }
         }
         out_.setXcoords(-1);
@@ -330,21 +318,23 @@ public abstract class Level {
     public Block getBlockByPoint(Point _point) {
         for (Point i : blocks.getKeys()) {
             Block block_ = blocks.getVal(i);
-            short w_ = block_.getWidth();
-            short h_ = block_.getHeight();
-            short xi_ = i.getx();
-            short yi_ = i.gety();
-            int xr_ = xi_ + w_;
-            int yb_ = yi_ + h_;
-            short xp_ = _point.getx();
-            short yp_ = _point.gety();
-            if (inRange(xi_, xr_, xp_)) {
-                if (inRange(yi_, yb_, yp_)) {
-                    return block_;
-                }
+            if (inRangeBlock(_point, i, block_)) {
+                return block_;
             }
         }
         return new Block();
+    }
+
+    private boolean inRangeBlock(Point _point, Point _i, Block _block) {
+        short w_ = _block.getWidth();
+        short h_ = _block.getHeight();
+        short xi_ = _i.getx();
+        short yi_ = _i.gety();
+        int xr_ = xi_ + w_;
+        int yb_ = yi_ + h_;
+        short xp_ = _point.getx();
+        short yp_ = _point.gety();
+        return inRange(xi_, xr_, xp_) && inRange(yi_, yb_, yp_);
     }
 
     public static boolean inRange(short _min, int _max, short _xp) {

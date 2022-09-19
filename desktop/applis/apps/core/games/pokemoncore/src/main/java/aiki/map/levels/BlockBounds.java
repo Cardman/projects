@@ -13,10 +13,7 @@ public class BlockBounds {
     private short xRightBottom;
     private short yRightBottom;
     public void invalidate() {
-        boolean invalidate_ = false;
-        if (xLeftTop>xRightTop) {
-            invalidate_ = true;
-        }
+        boolean invalidate_ = xLeftTop > xRightTop;
         if (yLeftTop>yLeftBottom) {
             invalidate_ = true;
         }

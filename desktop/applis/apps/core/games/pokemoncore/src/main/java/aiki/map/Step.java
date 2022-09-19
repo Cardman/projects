@@ -1,4 +1,5 @@
 package aiki.map;
+
 import aiki.fight.pokemon.GenderName;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelIndoorGym;
@@ -15,8 +16,7 @@ import aiki.util.Coords;
 import aiki.util.CoordssCondition;
 import aiki.util.CoordssCustListGenderName;
 import aiki.util.PlaceLevelsCustListGenderName;
-import code.util.EqList;
-import code.util.*;
+import code.util.CustList;
 
 
 public class Step {
@@ -61,13 +61,9 @@ public class Step {
         step_.accessibleCoords = new Condition();
         boolean keep_ = true;
         for (Coords c: _accessibility.getKeys()) {
-            if (accessibleCoords.containsObj(c)) {
-                continue;
+            if (!accessibleCoords.containsObj(c) && allImportantsTrainers.containsAllObj(_accessibility.getVal(c))) {
+                step_.accessibleCoords.add(c);
             }
-            if (!allImportantsTrainers.containsAllObj(_accessibility.getVal(c))) {
-                continue;
-            }
-            step_.accessibleCoords.add(c);
         }
         if (step_.accessibleCoords.isEmpty()) {
             keep_ = false;
@@ -80,22 +76,7 @@ public class Step {
     }
 
     void calculatePkTrainers(CustList<Place> _places, Tree _tree) {
-        for (Coords c: accessibleCoords) {
-            PlaceArea plArea_ = _tree.getPlace(c.getNumberPlace());
-            LevelArea levArea_ = plArea_.getLevel(c.getLevel().getLevelIndex());
-            caughtPokemon.put(c, levArea_.getPokemon(c.getLevel().getPoint()));
-        }
-        for (Coords c: accessibleCoords) {
-            Place pl_ = _places.get(c.getNumberPlace());
-            Level level_ = pl_.getLevelByCoords(c);
-            if (level_ instanceof LevelWithWildPokemon) {
-                LevelWithWildPokemon lev_ = (LevelWithWildPokemon) level_;
-                if (lev_.containsPokemon(c.getLevel().getPoint())) {
-                    WildPk pk_ = lev_.getPokemon(c.getLevel().getPoint());
-                    caughtPokemon.getVal(c).add(new GenderName(pk_.getGender(), pk_.getName()));
-                }
-            }
-        }
+        caughtPk(_places, _tree);
         Condition empty_ = new Condition();
         for (Coords c: caughtPokemon.getKeys()) {
             if (!caughtPokemon.getVal(c).isEmpty()) {
@@ -115,6 +96,10 @@ public class Step {
                 caughtPokemonPlaceLevel.put(key_, new CustList<GenderName>(caughtPokemon.getVal(c)));
             }
         }
+        trainers(_places);
+    }
+
+    private void trainers(CustList<Place> _places) {
         for (Coords c: accessibleCoords) {
             Coords c_ = new Coords(c);
             Place pl_ = _places.get(c.getNumberPlace());
@@ -138,6 +123,25 @@ public class Step {
             }
         }
         importantsTrainers.removeDuplicates();
+    }
+
+    private void caughtPk(CustList<Place> _places, Tree _tree) {
+        for (Coords c: accessibleCoords) {
+            PlaceArea plArea_ = _tree.getPlace(c.getNumberPlace());
+            LevelArea levArea_ = plArea_.getLevel(c.getLevel().getLevelIndex());
+            caughtPokemon.put(c, levArea_.getPokemon(c.getLevel().getPoint()));
+        }
+        for (Coords c: accessibleCoords) {
+            Place pl_ = _places.get(c.getNumberPlace());
+            Level level_ = pl_.getLevelByCoords(c);
+            if (level_ instanceof LevelWithWildPokemon) {
+                LevelWithWildPokemon lev_ = (LevelWithWildPokemon) level_;
+                if (lev_.containsPokemon(c.getLevel().getPoint())) {
+                    WildPk pk_ = lev_.getPokemon(c.getLevel().getPoint());
+                    caughtPokemon.getVal(c).add(new GenderName(pk_.getGender(), pk_.getName()));
+                }
+            }
+        }
     }
 
     public boolean keepSteps() {

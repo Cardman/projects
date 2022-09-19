@@ -2,6 +2,7 @@ package aiki.map.pokemon;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.enums.Gender;
+import aiki.util.DataInfoChecker;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -35,16 +36,10 @@ public final class PkTrainer extends Pokemon {
             if (StringUtil.quickEq(m, _data.getDefaultMove())) {
                 _data.setError(true);
             }
-            if (!_data.getMoves().contains(m)) {
-                _data.setError(true);
-            }
         }
-        if (moves.size() > _data.getNbMaxMoves()) {
-            _data.setError(true);
-        }
-        if (moves.isEmpty()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),moves,_data);
+        DataInfoChecker.checkEmptyNotStringList(moves,_data);
+        DataInfoChecker.checkGreater(_data.getNbMaxMoves(),moves.size(),_data);
     }
 
 

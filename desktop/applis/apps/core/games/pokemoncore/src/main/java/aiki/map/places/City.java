@@ -12,12 +12,9 @@ import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
-import aiki.map.util.PlaceInterConnectCoords;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.*;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
 import code.util.*;
 
 import code.util.core.IndexConstants;
@@ -55,14 +52,10 @@ public final class City extends Place implements InitializedPlace {
             if (levelArea_.isAccessible(e.getKey())) {
                 _data.setError(true);
             }
-            if (!levelArea_.isValid(e.getKey(), false)) {
-                _data.setError(true);
-            }
+            checkAccess(_data, levelArea_, e.getKey(), false);
             Point pt_ = new Point(e.getKey());
             pt_.moveTo(Direction.DOWN);
-            if (!levelArea_.isValid(pt_, true)) {
-                _data.setError(true);
-            }
+            checkAccess(_data, levelArea_, pt_, true);
             ids_.add(pt_);
             Building building_ = e.getValue();
             building_.validate(_data,
@@ -78,37 +71,24 @@ public final class City extends Place implements InitializedPlace {
             _data.setError(true);
         }
         for (PlaceInterConnect p : linksPointsWithCitiesAndOtherRoads.getKeys()) {
-            if (!levelArea_.isValid(p.getSource(), false)) {
-                _data.setError(true);
-            }
+            checkAccess(_data, levelArea_, p.getSource(), false);
         }
         if (ids_.hasDuplicates()) {
             _data.setError(true);
         }
-        for (Point p : linksWithCaves.getKeys()) {
-            if (!levelArea_.isValid(p, false)) {
-                _data.setError(true);
-            }
-            Coords c_ = linksWithCaves.getVal(p).getCoords();
-            if (!_data.getMap().existCoords(c_)) {
-                _data.setError(true);
-                continue;
-            }
-            Place tar_ = _data.getMap().getPlace(c_.getNumberPlace());
-            Level tarLevel_ = tar_.getLevelByCoords(c_);
-            if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
-                _data.setError(true);
-            }
-        }
+        validateLinksWithCaves(_data, levelArea_, linksWithCaves);
         getLevelOutdoor().validate(_data, levelArea_);
+    }
+
+    private void checkAccess(DataBase _data, LevelArea _levelArea, Point _pt, boolean _accessible) {
+        if (!_levelArea.isValid(_pt, _accessible)) {
+            _data.setError(true);
+        }
     }
 
     @Override
     public boolean hasValidImage(DataBase _data) {
-        boolean val_ = true;
-        if (!super.hasValidImage(_data)) {
-            val_ = false;
-        }
+        boolean val_ = super.hasValidImage(_data);
         for (Building b : buildings.values()) {
             if (!b.hasValidImage(_data)) {
                 val_ = false;
@@ -125,19 +105,7 @@ public final class City extends Place implements InitializedPlace {
 
     @Override
     public boolean validLinks(short _place, Tree _tree) {
-        for (PlaceInterConnectCoords e : linksPointsWithCitiesAndOtherRoads
-                .entryList()) {
-            if (!_tree.isValid(e.getCoords(), false)) {
-                return false;
-            }
-        }
-        for (CommonParam<Point,Link> e : linksWithCaves.entryList()) {
-            Link link_ = e.getValue();
-            if (!_tree.isValid(link_.getCoords(), true)) {
-                return false;
-            }
-        }
-        return true;
+        return checkLinks(_tree, linksPointsWithCitiesAndOtherRoads, linksWithCaves);
     }
 
     @Override

@@ -1,6 +1,4 @@
 package aiki.map.places;
-import aiki.map.characters.DualFight;
-import aiki.map.characters.Person;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.util.Coords;
 

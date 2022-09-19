@@ -1,7 +1,6 @@
 package aiki.util;
 
 import aiki.instances.Instances;
-import aiki.map.characters.GymTrainer;
 import aiki.map.characters.Person;
 import code.util.CollCapacity;
 

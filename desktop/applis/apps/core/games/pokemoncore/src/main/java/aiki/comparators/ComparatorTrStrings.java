@@ -6,7 +6,7 @@ import code.util.ints.Comparing;
 
 public final class ComparatorTrStrings implements Comparing<String> {
 
-    private StringMap<String> translator;
+    private final StringMap<String> translator;
 
     public ComparatorTrStrings(StringMap<String> _translator) {
         translator = _translator;

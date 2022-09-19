@@ -2,6 +2,7 @@ package aiki.map.pokemon;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.enums.Gender;
+import aiki.util.DataInfoChecker;
 
 
 public abstract class Pokemon {
@@ -29,22 +30,12 @@ public abstract class Pokemon {
     }
 
     public void validateAsNpc(DataBase _data) {
-        if (getLevel() < _data.getMinLevel()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkLower(_data.getMinLevel(),getLevel(),_data);
+        DataInfoChecker.checkGreater(_data.getMaxLevel(),getLevel(),_data);
         // level >= 1
-        if (getLevel() > _data.getMaxLevel()) {
-            _data.setError(true);
-        }
-        if (!_data.getPokedex().contains(getName())) {
-            _data.setError(true);
-        }
-        if (!_data.getAbilities().contains(getAbility())) {
-            _data.setError(true);
-        }
-        if (!getItem().isEmpty() && !_data.getItems().contains(getItem())) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),getName(),_data);
+        DataInfoChecker.checkStringListContains(_data.getAbilities().getKeys(),getAbility(),_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getItems().getKeys(),getItem(),_data);
     }
 
     public String getName() {

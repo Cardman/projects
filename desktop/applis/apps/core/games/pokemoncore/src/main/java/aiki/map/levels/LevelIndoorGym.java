@@ -53,10 +53,7 @@ public final class LevelIndoorGym extends Level {
 
     @Override
     public boolean hasValidImage(DataBase _data) {
-        boolean val_ = true;
-        if (!super.hasValidImage(_data)) {
-            val_ = false;
-        }
+        boolean val_ = super.hasValidImage(_data);
         for (GymTrainer g : gymTrainers.values()) {
             if (!g.hasValidImage(_data)) {
                 val_ = false;

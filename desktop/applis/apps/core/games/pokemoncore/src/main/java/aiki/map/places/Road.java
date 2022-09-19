@@ -12,13 +12,11 @@ import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
-import aiki.map.util.PlaceInterConnectCoords;
 import aiki.map.util.PlaceInterConnects;
-import aiki.util.*;
+import aiki.util.Coords;
+import aiki.util.Points;
+import code.util.ByteMap;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.*;
-
 import code.util.core.IndexConstants;
 
 
@@ -47,21 +45,7 @@ public final class Road extends Campaign implements InitializedPlace {
                 _data.setError(true);
             }
         }
-        for (Point p : linksWithCaves.getKeys()) {
-            if (!levelArea_.isValid(p, false)) {
-                _data.setError(true);
-            }
-            Coords c_ = linksWithCaves.getVal(p).getCoords();
-            if (!_data.getMap().existCoords(c_)) {
-                _data.setError(true);
-                continue;
-            }
-            Place tar_ = _data.getMap().getPlace(c_.getNumberPlace());
-            Level tarLevel_ = tar_.getLevelByCoords(c_);
-            if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
-                _data.setError(true);
-            }
-        }
+        validateLinksWithCaves(_data,levelArea_,linksWithCaves);
         getLevelRoad().validate(_data, levelArea_);
     }
 
@@ -73,19 +57,7 @@ public final class Road extends Campaign implements InitializedPlace {
 
     @Override
     public boolean validLinks(short _place, Tree _tree) {
-        for (PlaceInterConnectCoords e : linksWithCitiesAndOtherRoads
-                .entryList()) {
-            if (!_tree.isValid(e.getCoords(), false)) {
-                return false;
-            }
-        }
-        for (CommonParam<Point,Link> e : linksWithCaves.entryList()) {
-            Link link_ = e.getValue();
-            if (!_tree.isValid(link_.getCoords(), true)) {
-                return false;
-            }
-        }
-        return true;
+        return checkLinks(_tree,linksWithCitiesAndOtherRoads,linksWithCaves);
     }
 
     @Override

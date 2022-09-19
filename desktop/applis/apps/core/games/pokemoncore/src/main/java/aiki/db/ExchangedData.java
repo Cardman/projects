@@ -1,12 +1,12 @@
 package aiki.db;
+
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
+import code.util.ByteTreeMap;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 
@@ -31,14 +31,13 @@ public final class ExchangedData {
 
     public ByteTreeMap<PokemonPlayer> getTeam(CustList<UsablePokemon> _otherTeam) {
         ByteTreeMap<PokemonPlayer> team_ = new ByteTreeMap<PokemonPlayer>();
-        byte i_ = IndexConstants.FIRST_INDEX;
-        i_--;
-        for (UsablePokemon u: _otherTeam) {
-            i_++;
-            setPokemon((PokemonPlayer) u);
+        int nb_ = _otherTeam.size();
+        for (byte i = 0; i < nb_; i++) {
+            PokemonPlayer pk_ = (PokemonPlayer) _otherTeam.get(i);
+            setPokemon(pk_);
             check();
             if (getPokemon() != null) {
-                team_.put(i_, (PokemonPlayer) u);
+                team_.put(i, pk_);
             }
         }
         return team_;
@@ -58,11 +57,8 @@ public final class ExchangedData {
             pokemon = null;
             return;
         }
-        if (!pokemon.getItem().isEmpty()) {
-            if (!StringUtil.contains(getItems(), pokemon.getItem())) {
-                pokemon = null;
-                return;
-            }
+        if (!pokemon.getItem().isEmpty() && !StringUtil.contains(getItems(), pokemon.getItem())) {
+            pokemon = null;
         }
     }
 

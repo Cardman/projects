@@ -43,18 +43,12 @@ public final class LevelLeague extends Level {
 
     @Override
     public boolean isEmptyForAdding(Point _point) {
-        if (Point.eq(trainerCoords, _point)) {
-            return false;
-        }
-        return true;
+        return !Point.eq(trainerCoords, _point);
     }
 
     @Override
     public boolean hasValidImage(DataBase _data) {
-        boolean val_ = true;
-        if (!super.hasValidImage(_data)) {
-            val_ = false;
-        }
+        boolean val_ = super.hasValidImage(_data);
         if (!trainer.hasValidImage(_data)) {
             val_ = false;
         }

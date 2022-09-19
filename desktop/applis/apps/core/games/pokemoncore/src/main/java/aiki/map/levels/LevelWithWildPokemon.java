@@ -10,8 +10,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.util.*;
-import code.util.*;
-import code.util.core.StringUtil;
+import code.util.CustList;
 
 
 public abstract class LevelWithWildPokemon extends Level {
@@ -31,58 +30,19 @@ public abstract class LevelWithWildPokemon extends Level {
     private Points< Short> hm;
 
     protected final void validateLevelWithWildPokemon(DataBase _data, LevelArea _level) {
-        int index_ = 0;
-        for (AreaApparition a : wildPokemonAreas) {
-            a.validate(_data);
-            boolean existBlock_ = false;
-            for (Block b : getBlocks().values()) {
-                if (b.getIndexApparition() == index_) {
-                    existBlock_ = true;
-                    break;
-                }
-            }
-            if (!existBlock_) {
-                _data.setError(true);
-            }
-            index_++;
-        }
-        for (CommonParam<Point,Block> e : getBlocks().entryList()) {
-            AreaApparition a_ = getAreaByBlockId(e.getKey());
-            if (a_.isVirtual()) {
-                continue;
-            }
-            if (!a_.getWildPokemonFishing().isEmpty()) {
-                if (e.getValue().getType() != EnvironmentType.WATER) {
-                    _data.setError(true);
-                }
-            }
-        }
+        checkAreasBlocks(_data);
         PointEqList keys_ = new PointEqList();
         for (CommonParam<Point,CharacterInRoadCave> e : characters.entryList()) {
-            if (!_level.isValid(e.getKey(), true)) {
-                _data.setError(true);
-            }
+            checkKey(_data, _level, e.getKey());
             e.getValue().validate(_data);
             keys_.add(e.getKey());
         }
         for (CommonParam<Point,DualFight> e : dualFights.entryList()) {
             Point id_ = e.getKey();
-            if (!_level.isValid(id_, true)) {
-                _data.setError(true);
-            }
+            checkKey(_data, _level, id_);
             DualFight dual_ = e.getValue();
-            if (!_level.isValid(dual_.getPt(), true)) {
-                _data.setError(true);
-            }
-            boolean isNext_ = false;
-            for (Direction d : Direction.values()) {
-                Point next_ = new Point(id_);
-                next_.moveTo(d);
-                if (Point.eq(next_, dual_.getPt())) {
-                    isNext_ = true;
-                    break;
-                }
-            }
+            checkKey(_data, _level, dual_.getPt());
+            boolean isNext_ = isNextDual(id_, dual_);
             if (!isNext_) {
                 _data.setError(true);
             }
@@ -91,40 +51,24 @@ public abstract class LevelWithWildPokemon extends Level {
             keys_.add(dual_.getPt());
         }
         for (CommonParam<Point,WildPk> e : legendaryPks.entryList()) {
-            if (!_level.isValid(e.getKey(), true)) {
-                _data.setError(true);
-            }
+            checkKey(_data, _level, e.getKey());
             e.getValue().validateAsNpc(_data);
-            if (!StringUtil.contains(_data.getLegPks(),e.getValue().getName())) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkStringListContains(_data.getLegPks(),e.getValue().getName(),_data);
             keys_.add(e.getKey());
         }
+        DataInfoChecker.checkStringListContains(_data.getItems().getKeys(),items.values(),_data);
         for (CommonParam<Point,String> e : items.entryList()) {
-            if (!_level.isValid(e.getKey(), true)) {
-                _data.setError(true);
-            }
-            if (!_data.getItems().contains(e.getValue())) {
-                _data.setError(true);
-            }
+            checkKey(_data, _level, e.getKey());
             keys_.add(e.getKey());
         }
+        DataInfoChecker.checkShortsContains(_data.getTm().getKeys(),tm.values(),_data);
         for (CommonParam<Point,Short> e : tm.entryList()) {
-            if (!_level.isValid(e.getKey(), true)) {
-                _data.setError(true);
-            }
-            if (!_data.getTm().contains(e.getValue())) {
-                _data.setError(true);
-            }
+            checkKey(_data, _level, e.getKey());
             keys_.add(e.getKey());
         }
+        DataInfoChecker.checkShortsContains(_data.getHm().getKeys(),hm.values(),_data);
         for (CommonParam<Point,Short> e : hm.entryList()) {
-            if (!_level.isValid(e.getKey(), true)) {
-                _data.setError(true);
-            }
-            if (!_data.getHm().contains(e.getValue())) {
-                _data.setError(true);
-            }
+            checkKey(_data, _level, e.getKey());
             keys_.add(e.getKey());
         }
         if (keys_.hasDuplicates()) {
@@ -132,12 +76,56 @@ public abstract class LevelWithWildPokemon extends Level {
         }
     }
 
+    private void checkAreasBlocks(DataBase _data) {
+        int nbAreas_ = wildPokemonAreas.size();
+        for (int i = 0; i < nbAreas_; i++) {
+            wildPokemonAreas.get(i).validate(_data);
+            boolean existBlock_ = existBlock(i);
+            if (!existBlock_) {
+                _data.setError(true);
+            }
+        }
+        for (CommonParam<Point,Block> e : getBlocks().entryList()) {
+            AreaApparition a_ = getAreaByBlockId(e.getKey());
+            if (!a_.isVirtual() && !a_.getWildPokemonFishing().isEmpty() && e.getValue().getType() != EnvironmentType.WATER) {
+                _data.setError(true);
+            }
+        }
+    }
+
+    private boolean isNextDual(Point _id, DualFight _dual) {
+        boolean isNext_ = false;
+        for (Direction d : Direction.values()) {
+            Point next_ = new Point(_id);
+            next_.moveTo(d);
+            if (Point.eq(next_, _dual.getPt())) {
+                isNext_ = true;
+                break;
+            }
+        }
+        return isNext_;
+    }
+
+    private boolean existBlock(int _index) {
+        boolean existBlock_ = false;
+        for (Block b : getBlocks().values()) {
+            if (b.getIndexApparition() == _index) {
+                existBlock_ = true;
+                break;
+            }
+        }
+        return existBlock_;
+    }
+
+    private void checkKey(DataBase _data, LevelArea _level, Point _key) {
+        if (!_level.isValid(_key, true)) {
+            _data.setError(true);
+        }
+    }
+
     @Override
     public boolean isEmptyForAdding(Point _point) {
-        boolean empt_ = true;
-        if (characters.contains(_point)) {
-            empt_ = false;
-        }
+        boolean empt_ = !characters.contains(_point);
         if (legendaryPks.contains(_point)) {
             empt_ = false;
         }
@@ -163,10 +151,7 @@ public abstract class LevelWithWildPokemon extends Level {
 
     @Override
     public boolean hasValidImage(DataBase _data) {
-        boolean val_ = true;
-        if (!super.hasValidImage(_data)) {
-            val_ = false;
-        }
+        boolean val_ = super.hasValidImage(_data);
         for (CommonParam<Point,DualFight> e : dualFights.entryList()) {
             if (!e.getValue().getFoeTrainer().hasValidImage(_data)) {
                 val_ = false;

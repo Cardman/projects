@@ -2,7 +2,8 @@ package aiki.map.characters;
 
 import aiki.db.DataBase;
 import aiki.map.characters.enums.SellType;
-import code.util.*;
+import aiki.util.DataInfoChecker;
+import code.util.Shorts;
 import code.util.StringList;
 
 
@@ -15,16 +16,10 @@ public final class Seller extends Person {
     private Shorts tm;
 
     public void validate(DataBase _data) {
-        if (!_data.getItems().containsAllAsKeys(items)) {
-            _data.setError(true);
-        }
-        if (!_data.getTmPrice().containsAllAsKeys(tm)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getItems().getKeys(),items,_data);
+        DataInfoChecker.checkShortsContains(_data.getTmPrice().getKeys(),tm,_data);
         if (sell == SellType.MOVE) {
-            if (!items.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyStringList(items,_data);
             if (!tm.isEmpty()) {
                 _data.setError(true);
             }
@@ -36,10 +31,7 @@ public final class Seller extends Person {
             }
             return;
         }
-        if (!items.isEmpty()) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkEmptyStringList(items,_data);
     }
 
     public SellType getSell() {

@@ -198,6 +198,18 @@ public final class DataInfoChecker {
         }
     }
 
+    public static void checkLower(long _min,long _value, DataBase _data) {
+        if (_value < _min) {
+            _data.setError(true);
+        }
+    }
+
+    public static void checkGreater(long _max,long _value, DataBase _data) {
+        if (_value > _max) {
+            _data.setError(true);
+        }
+    }
+
     public static void checkEmptyStatisticList(CustList<Statistic> _possible, DataBase _data) {
         if (!_possible.isEmpty()) {
             _data.setError(true);
@@ -310,9 +322,19 @@ public final class DataInfoChecker {
         }
     }
 
-    public static void checkShortsContains(ShortMap<String> _list, Shorts _field, DataBase _data) {
-        if (!_list.containsAllAsKeys(_field)) {
-            _data.setError(true);
+    public static void checkShortsContains(CustList<Short> _list, CustList<Short> _field, DataBase _data) {
+        for (short s: _field) {
+            checkShortsContains(_list,s,_data);
         }
+    }
+
+
+    public static void checkShortsContains(CustList<Short> _list, short _field, DataBase _data) {
+        for (short s: _list) {
+            if (s == _field) {
+                return;
+            }
+        }
+        _data.setError(true);
     }
 }

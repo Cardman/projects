@@ -60,6 +60,10 @@ public final class Coords {
                 return false;
             }
         }
+        return containsAll(_list1, _list2);
+    }
+
+    private static boolean containsAll(Listable<Coords> _list1, Listable<Coords> _list2) {
         for (Coords c: _list1) {
             boolean contains_ = false;
             for (Coords d: _list2) {
@@ -74,7 +78,7 @@ public final class Coords {
         }
         return true;
     }
-    
+
     public static Coords newCoords(String _string) {
         return new Coords(_string);
     }

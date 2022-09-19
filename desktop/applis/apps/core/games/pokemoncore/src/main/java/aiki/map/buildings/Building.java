@@ -27,10 +27,7 @@ public abstract class Building {
     }
 
     public boolean hasValidImage(DataBase _data) {
-        boolean val_ = true;
-        if (_data.getLink(imageFileName).length == 0) {
-            val_ = false;
-        }
+        boolean val_ = _data.getLink(imageFileName).length != 0;
         if (!getLevel().hasValidImage(_data)) {
             val_ = false;
         }

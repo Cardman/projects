@@ -9,7 +9,6 @@ import aiki.util.CommonParam;
 import aiki.util.Point;
 import aiki.util.PointEqList;
 import aiki.util.Points;
-import code.util.EqList;
 
 
 public final class LevelIndoorPokemonCenter extends Level {
@@ -30,10 +29,8 @@ public final class LevelIndoorPokemonCenter extends Level {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
             }
-            if (!(e.getValue() instanceof GerantPokemon)) {
-                if (!(e.getValue() instanceof Seller)) {
-                    _data.setError(true);
-                }
+            if (!(e.getValue() instanceof GerantPokemon) && !(e.getValue() instanceof Seller)) {
+                _data.setError(true);
             }
             if (e.getValue() instanceof Seller) {
                 ((Seller) e.getValue()).validate(_data);
@@ -60,10 +57,7 @@ public final class LevelIndoorPokemonCenter extends Level {
     }
     @Override
     public boolean hasValidImage(DataBase _data) {
-        boolean val_ = true;
-        if (!super.hasValidImage(_data)) {
-            val_ = false;
-        }
+        boolean val_ = super.hasValidImage(_data);
         for (Person p : gerants.values()) {
             if (!p.hasValidImage(_data)) {
                 val_ = false;

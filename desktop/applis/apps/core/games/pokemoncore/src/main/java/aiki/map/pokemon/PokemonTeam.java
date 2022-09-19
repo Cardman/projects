@@ -2,6 +2,7 @@ package aiki.map.pokemon;
 
 import aiki.db.DataBase;
 import aiki.map.characters.Rewardable;
+import aiki.util.DataInfoChecker;
 import code.util.CustList;
 
 
@@ -18,9 +19,7 @@ public final class PokemonTeam implements Rewardable {
         if (team.isEmpty()) {
             _data.setError(true);
         }
-        if (reward <= 0) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositive(reward,_data);
     }
 
     public CustList<PkTrainer> getTeam() {

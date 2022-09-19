@@ -2,7 +2,6 @@ package aiki.beans.simulation;
 
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
-import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.beans.facade.dto.PokemonLine;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
 import aiki.comparators.ComparatorTrStrings;
@@ -42,7 +41,7 @@ public class AddPokemonBean extends CommonBean {
         for (EntryCust<SelectedBoolean,String> s: translatedBooleans_.entryList()) {
             translated_.addEntry(s.getKey().name(),s.getValue());
         }
-        booleans = new TreeMap<String, String>(new ComparatorTrString(translated_));
+        booleans = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
         StringMap<String> translatedAbilities_;
         translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilities = new TreeMap<String, String>(new ComparatorTrStrings(translatedAbilities_));
@@ -52,7 +51,7 @@ public class AddPokemonBean extends CommonBean {
         for (EntryCust<Gender,String> s: translatedGenders_.entryList()) {
             translated_.addEntry(s.getKey().name(),s.getValue());
         }
-        genders = new TreeMap<String, String>(new ComparatorTrString(translated_));
+        genders = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
         for (SelectedBoolean s: translatedBooleans_.getKeys()) {
             booleans.put(s.name(), translatedBooleans_.getVal(s));
         }

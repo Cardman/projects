@@ -1,8 +1,6 @@
 package aiki.map.tree.util;
-import code.util.*;
-import code.util.ints.Displayable;
 
-public final class Dims implements Displayable {
+public final class Dims {
 
     private static final String SEPARATOR = ",";
 
@@ -34,7 +32,6 @@ public final class Dims implements Displayable {
         height = _height;
     }
 
-    @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(height);

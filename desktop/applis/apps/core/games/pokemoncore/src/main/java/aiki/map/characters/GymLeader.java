@@ -1,6 +1,7 @@
 package aiki.map.characters;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 
 
 public final class GymLeader extends TrainerOneFight {
@@ -14,9 +15,7 @@ public final class GymLeader extends TrainerOneFight {
     public void validate(DataBase _data) {
         super.validate(_data);
         validateTrainerOneFight(_data);
-        if (!_data.getTm().contains(tm)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkShortsContains(_data.getTm().getKeys(),tm,_data);
     }
 
     public short getTm() {

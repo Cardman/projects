@@ -1,15 +1,16 @@
 package aiki.map.places;
 
 import aiki.db.DataBase;
-import aiki.map.levels.*;
+import aiki.map.levels.Level;
+import aiki.map.levels.LevelCave;
+import aiki.map.levels.LevelWithWildPokemon;
+import aiki.map.levels.Link;
 import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.util.*;
+import code.util.ByteMap;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
@@ -36,41 +37,24 @@ public final class Cave extends Campaign {
             level_.validate(_data, _placeArea.getLevel(i));
             for (CommonParam<Point,Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
-                Link link_ = e.getValue();
-                if (!link_.isValid(_data)) {
-                    _data.setError(true);
-                }
-                if (!level_.isEmptyForAdding(e.getKey())) {
-                    _data.setError(true);
-                }
-                LevelPoint target_ = link_.getCoords().getLevel();
-                if (!_placeArea.isValidLevel(target_
-                        .getLevelIndex())) {
-                    _data.setError(true);
-                    continue;
-                }
-                LevelArea levelArea_ = _placeArea.getLevel(target_
-                        .getLevelIndex());
-                if (!levelArea_.isValid(target_.getPoint(), true)) {
-                    _data.setError(true);
-                }
-                LevelCave levelTarget_ = getLevelCave(target_);
-                if (!levelTarget_.isEmptyForAdding(target_.getPoint())) {
-                    _data.setError(true);
-                }
+                validateLinkLevels(_data, _placeArea, level_, e);
             }
         }
         for (LevelPointLink e : linksWithOtherPlaces.entryList()) {
-            Link link_ = e.getLink();
-            if (!link_.isValid(_data)) {
-                _data.setError(true);
-            }
-            LevelPoint k_ = e.getLevelPoint();
-            if (!_placeArea.isValidLevel(k_
-                    .getLevelIndex())) {
-                _data.setError(true);
-                continue;
-            }
+            validateLinkOtherPlaces(_data, _placeArea, e);
+        }
+    }
+
+    private void validateLinkOtherPlaces(DataBase _data, PlaceArea _placeArea, LevelPointLink _e) {
+        Link link_ = _e.getLink();
+        if (!link_.isValid(_data)) {
+            _data.setError(true);
+        }
+        LevelPoint k_ = _e.getLevelPoint();
+        if (!_placeArea.isValidLevel(k_
+                .getLevelIndex())) {
+            _data.setError(true);
+        } else {
             if (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(),
                     false)) {
                 _data.setError(true);
@@ -78,11 +62,36 @@ public final class Cave extends Campaign {
             Coords c_ = link_.getCoords();
             if (!_data.getMap().existCoords(c_)) {
                 _data.setError(true);
-                continue;
+            } else {
+                Place tar_ = _data.getMap().getPlace(c_.getNumberPlace());
+                Level tarLevel_ = tar_.getLevelByCoords(c_);
+                if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
+                    _data.setError(true);
+                }
             }
-            Place tar_ = _data.getMap().getPlace(c_.getNumberPlace());
-            Level tarLevel_ = tar_.getLevelByCoords(c_);
-            if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
+        }
+    }
+
+    private void validateLinkLevels(DataBase _data, PlaceArea _placeArea, LevelCave _level, CommonParam<Point, Link> _e) {
+        Link link_ = _e.getValue();
+        if (!link_.isValid(_data)) {
+            _data.setError(true);
+        }
+        if (!_level.isEmptyForAdding(_e.getKey())) {
+            _data.setError(true);
+        }
+        LevelPoint target_ = link_.getCoords().getLevel();
+        if (!_placeArea.isValidLevel(target_
+                .getLevelIndex())) {
+            _data.setError(true);
+        } else {
+            LevelArea levelArea_ = _placeArea.getLevel(target_
+                    .getLevelIndex());
+            if (!levelArea_.isValid(target_.getPoint(), true)) {
+                _data.setError(true);
+            }
+            LevelCave levelTarget_ = getLevelCave(target_);
+            if (!levelTarget_.isEmptyForAdding(target_.getPoint())) {
                 _data.setError(true);
             }
         }
@@ -103,45 +112,7 @@ public final class Cave extends Campaign {
             LevelCave level_ = levels.get(i);
             for (CommonParam<Point,Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
-                Link link_ = e.getValue();
-                Coords coords_ = link_.getCoords();
-                if (!NumberUtil.eq(coords_.getNumberPlace(), _place)) {
-                    valid_ = false;
-                }
-                LevelPoint lPoint_ = coords_.getLevel();
-                byte levelIndex_ = lPoint_.getLevelIndex();
-                if (!levels.isValidIndex(levelIndex_)) {
-                    valid_ = false;
-                    LevelPoint id_ = new LevelPoint();
-                    id_.setLevelIndex(i);
-                    id_.setPoint(e.getKey());
-                    ids_.add(id_);
-                    continue;
-                }
-                LevelCave otherLevel_ = levels.get(levelIndex_);
-                if (!otherLevel_.getLinksOtherLevels().contains(
-                        lPoint_.getPoint())) {
-                    valid_ = false;
-                    LevelPoint id_ = new LevelPoint();
-                    id_.setLevelIndex(i);
-                    id_.setPoint(e.getKey());
-                    ids_.add(id_);
-                    continue;
-                }
-                Link otherLink_ = otherLevel_.getLinksOtherLevels().getVal(
-                        lPoint_.getPoint());
-                Coords otherCoords_ = otherLink_.getCoords();
-                LevelPoint otherLevelPoint_ = otherCoords_.getLevel();
-                LevelPoint current_ = new LevelPoint();
-                current_.setLevelIndex(i);
-                current_.setPoint(e.getKey());
-                if (!LevelPoint.eq(otherLevelPoint_,current_)) {
-                    valid_ = false;
-                }
-                LevelPoint id_ = new LevelPoint();
-                id_.setLevelIndex(i);
-                id_.setPoint(e.getKey());
-                ids_.add(id_);
+                valid_ = checkIdOtherLevel(_place, ids_, valid_, i, e);
             }
         }
         for (LevelPointLink e : linksWithOtherPlaces.entryList()) {
@@ -155,6 +126,46 @@ public final class Cave extends Campaign {
             valid_ = false;
         }
         return valid_;
+    }
+
+    private boolean checkIdOtherLevel(short _place, LevelPointEqList _ids, boolean _valid, byte _i, CommonParam<Point, Link> _e) {
+        boolean valid_ = _valid;
+        Link link_ = _e.getValue();
+        Coords coords_ = link_.getCoords();
+        if (!NumberUtil.eq(coords_.getNumberPlace(), _place)) {
+            valid_ = false;
+        }
+        LevelPoint lPoint_ = coords_.getLevel();
+        byte levelIndex_ = lPoint_.getLevelIndex();
+        if (!levels.isValidIndex(levelIndex_)) {
+            addKey(_i, _e, _ids);
+            return false;
+        }
+        LevelCave otherLevel_ = levels.get(levelIndex_);
+        if (!otherLevel_.getLinksOtherLevels().contains(
+                lPoint_.getPoint())) {
+            addKey(_i, _e, _ids);
+            return false;
+        }
+        Link otherLink_ = otherLevel_.getLinksOtherLevels().getVal(
+                lPoint_.getPoint());
+        Coords otherCoords_ = otherLink_.getCoords();
+        LevelPoint otherLevelPoint_ = otherCoords_.getLevel();
+        LevelPoint current_ = new LevelPoint();
+        current_.setLevelIndex(_i);
+        current_.setPoint(_e.getKey());
+        if (!LevelPoint.eq(otherLevelPoint_,current_)) {
+            valid_ = false;
+        }
+        addKey(_i, _e, _ids);
+        return valid_;
+    }
+
+    private void addKey(byte _i, CommonParam<Point, Link> _e, LevelPointEqList _ids) {
+        LevelPoint id_ = new LevelPoint();
+        id_.setLevelIndex(_i);
+        id_.setPoint(_e.getKey());
+        _ids.add(id_);
     }
 
     @Override

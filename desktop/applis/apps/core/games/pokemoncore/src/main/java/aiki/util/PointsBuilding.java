@@ -2,7 +2,6 @@ package aiki.util;
 
 import aiki.instances.Instances;
 import aiki.map.buildings.Building;
-import aiki.map.characters.Person;
 import code.util.CollCapacity;
 
 public final class PointsBuilding extends Points<Building> {

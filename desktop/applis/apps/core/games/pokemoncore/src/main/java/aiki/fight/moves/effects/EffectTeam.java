@@ -40,12 +40,8 @@ public final class EffectTeam extends Effect {
         DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),disableFoeTeamStatus,_data);
         for (CategoryMult k : multDamage.getKeys()) {
             DataInfoChecker.checkStringListContains(_data.getCategories(),k.getCategory(),_data);
-            if (k.getMult() > DataBase.MAX_MULT_FIGHT) {
-                _data.setError(true);
-            }
-            if (k.getMult() < 1) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkGreater(DataBase.MAX_MULT_FIGHT, k.getMult(),_data);
+            DataInfoChecker.checkLower(1,k.getMult(),_data);
         }
         DataInfoChecker.checkPositiveOrZeroRates(multDamage.values(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatisticFoe.getKeys(),_data);

@@ -1,6 +1,5 @@
 package aiki.beans.moves.effects;
 import aiki.beans.PokemonStandards;
-import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
@@ -35,7 +34,7 @@ public class EffectSwitchTypesBean extends EffectBean {
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         TreeMap<String, String> chgtTypeByEnv_;
-        chgtTypeByEnv_ = new TreeMap<String, String>(new ComparatorTrString(translated_));
+        chgtTypeByEnv_ = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
         for (EnvironmentType env_: effect_.getChgtTypeByEnv().getKeys()) {
             String type_;
             type_ = effect_.getChgtTypeByEnv().getVal(env_);

@@ -2,9 +2,9 @@ package aiki.beans.simulation;
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorMoves;
-import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
@@ -76,7 +76,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         for (EntryCust<Gender,String> s: translatedGenders_.entryList()) {
             translated_.addEntry(s.getKey().name(),s.getValue());
         }
-        genders = new TreeMap<String, String>(new ComparatorTrString(translated_));
+        genders = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
         genders.putAllMap(translated_);
     }
     public String cancel() {

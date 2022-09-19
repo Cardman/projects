@@ -72,12 +72,8 @@ public final class ItemForBattle extends Item {
         super.validate(_data);
         DataInfoChecker.checkEvents(lawForAttackFirst,_data);
         hatching = StringUtil.intersect(hatching,_data.getPokedex().getKeys());
-        if (effectEndRound.size() > 1) {
-            _data.setError(true);
-        }
-        if (effectSending.size() > 1) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkGreater(1,effectEndRound.size(),_data);
+        DataInfoChecker.checkGreater(1,effectSending.size(),_data);
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
             if (!(effectEndRound.first() instanceof EffectEndRoundIndividual)) {

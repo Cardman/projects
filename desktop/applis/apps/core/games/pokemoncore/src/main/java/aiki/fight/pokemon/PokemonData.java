@@ -120,8 +120,8 @@ public final class PokemonData {
             _data.setError(true);
         }
         DataInfoChecker.checkStringListContains(_data.getAbilities().getKeys(),abilities,_data);
-        DataInfoChecker.checkShortsContains(_data.getHm(), hiddenMoves, _data);
-        DataInfoChecker.checkShortsContains(_data.getTm(), technicalMoves, _data);
+        DataInfoChecker.checkShortsContains(_data.getHm().getKeys(), hiddenMoves, _data);
+        DataInfoChecker.checkShortsContains(_data.getTm().getKeys(), technicalMoves, _data);
         DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),baseEvo,_data);
         DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),evolutions.getKeys(),_data);
         validateEvos(_data);
@@ -133,9 +133,7 @@ public final class PokemonData {
         patchLevelMoves(_data, min_);
         min_ = levMoves.first().getLevel();
         for (LevelMove p : levMoves) {
-            if (p.getLevel() < min_) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkLower(min_,p.getLevel(),_data);
             if (StringUtil.quickEq(p.getMove(), _data.getDefaultMove())) {
                 _data.setError(true);
             }

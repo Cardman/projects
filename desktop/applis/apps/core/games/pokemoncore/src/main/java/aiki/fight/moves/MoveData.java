@@ -50,9 +50,7 @@ public abstract class MoveData {
         DataInfoChecker.checkTargetNot(TargetChoice.NOTHING,targetChoice,_data);
         DataInfoChecker.checkPositiveOrZero(nbPrepaRound,_data);
         DataInfoChecker.checkPositive(pp,_data);
-        if (pp > _data.getMaxPp()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkGreater(_data.getMaxPp(),pp,_data);
         DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),achieveDisappearedPkUsingMove,_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),types,_data);
         DataInfoChecker.checkEmptyNotStringList(types,_data);
@@ -64,9 +62,7 @@ public abstract class MoveData {
         DataInfoChecker.checkStringListContains(_data.getTypes(),typesByOwnedItem.values(),_data);
         int indexOfPrimaryEffect_ = indexOfPrimaryEffect();
         for (Ints e : secEffectsByItem.values()) {
-            if (e.getMinimum(-2) <= indexOfPrimaryEffect_) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkLower(indexOfPrimaryEffect_+1L,e.getMinimum(-2),_data);
         }
         DataInfoChecker.checkStringListContainsOrEmpty(_data.getItems().getKeys(),secEffectsByItem.getKeys(),_data);
         DataInfoChecker.checkIfNotEmptyListHasDef(typesByWeather, _data);
@@ -122,12 +118,8 @@ public abstract class MoveData {
                 nbEndRoudEffects_++;
             }
         }
-        if (nbGlobalEffects_ > DataBase.ONE_POSSIBLE_CHOICE) {
-            _data.setError(true);
-        }
-        if (nbEndRoudEffects_ > DataBase.ONE_POSSIBLE_CHOICE) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkGreater(DataBase.ONE_POSSIBLE_CHOICE,nbGlobalEffects_,_data);
+        DataInfoChecker.checkGreater(DataBase.ONE_POSSIBLE_CHOICE,nbEndRoudEffects_,_data);
     }
 
     public int nbEffets() {

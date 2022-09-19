@@ -1,6 +1,7 @@
 package aiki.map.characters;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 
 
 public abstract class Trainer extends Person {
@@ -10,20 +11,13 @@ public abstract class Trainer extends Person {
     private String imageMaxiFileName;
 
     public void validate(DataBase _data) {
-        if (multiplicityFight < 1) {
-            _data.setError(true);
-        }
-        if (multiplicityFight > DataBase.MAX_MULT_FIGHT) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkGreater(DataBase.MAX_MULT_FIGHT,multiplicityFight,_data);
+        DataInfoChecker.checkLower(1,multiplicityFight,_data);
     }
 
     @Override
     public boolean hasValidImage(DataBase _data) {
-        boolean val_ = true;
-        if (!super.hasValidImage(_data)) {
-            val_ = false;
-        }
+        boolean val_ = super.hasValidImage(_data);
         if (_data.getTrainer(imageMaxiFileName).length == 0) {
             val_ = false;
         }

@@ -2,6 +2,7 @@ package aiki.map.characters;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.PkTrainer;
+import aiki.util.DataInfoChecker;
 import code.util.CustList;
 
 
@@ -24,9 +25,7 @@ public abstract class TrainerOneFight extends Trainer implements Rewardable {
         if (team.isEmpty()) {
             _data.setError(true);
         }
-        if (reward <= 0) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositive(reward,_data);
     }
 
     @Override

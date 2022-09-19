@@ -1,6 +1,7 @@
 package aiki.fight.items;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 
 
 public final class HealingPp extends HealingItem {
@@ -22,9 +23,7 @@ public final class HealingPp extends HealingItem {
         super.validate(_data);
         validateHealingItem(_data);
         if (healedMovePp > 0) {
-            if (healingAllMovesFullpp > 0) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkGreater(0,healingAllMovesFullpp,_data);
             checkFull(_data);
             return;
         }

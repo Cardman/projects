@@ -11,9 +11,6 @@ import aiki.map.tree.util.Dims;
 import aiki.map.util.Limits;
 import aiki.util.*;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-
 import code.util.core.IndexConstants;
 
 public class LevelArea {
@@ -57,6 +54,10 @@ public class LevelArea {
                 }
             }
         }
+        listPk(_level);
+    }
+
+    private void listPk(Level _level) {
         pokemon = new CustList<CustList<GenderName>>();
         if (_level instanceof LevelWithWildPokemon) {
             for (AreaApparition a : ((LevelWithWildPokemon) _level)
@@ -74,10 +75,8 @@ public class LevelArea {
     }
 
     public boolean isValid(Point _pt, boolean _accessible) {
-        if (_accessible) {
-            if (inacessiblePoints.containsObj(_pt)) {
-                return false;
-            }
+        if (_accessible && inacessiblePoints.containsObj(_pt)) {
+            return false;
         }
         if (_pt.getx() < leftTop.getx()) {
             return false;
@@ -113,26 +112,13 @@ public class LevelArea {
 
     public int getIndex(Point _pt) {
         for (Point k : dimsBlocks.getKeys()) {
-            if (_pt.getx() < k.getx()) {
-                continue;
-            }
-            if (_pt.gety() < k.gety()) {
-                continue;
-            }
-            if (_pt.getx() >= k.getx() + dimsBlocks.getVal(k).getWidth()) {
-                continue;
-            }
-            if (_pt.gety() >= k.gety() + dimsBlocks.getVal(k).getHeight()) {
-                continue;
-            }
-            if (!indexes.contains(k)) {
-                continue;
+            if (_pt.getx() >= k.getx() && _pt.gety() >= k.gety() && _pt.getx() < k.getx() + dimsBlocks.getVal(k).getWidth() && _pt.gety() < k.gety() + dimsBlocks.getVal(k).getHeight() && indexes.contains(k)) {
+                return indexes.getVal(k);
             }
             // _pt.getx() >= k.getx()
             // _pt.gety() >= k.gety()
             // _pt.getx() < k.getx() + width
             // _pt.gety() < k.gety() + height
-            return indexes.getVal(k);
         }
         return IndexConstants.INDEX_NOT_FOUND_ELT;
     }

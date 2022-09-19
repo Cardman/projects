@@ -20,10 +20,7 @@ public final class TempTrainer extends TrainerOneFight {
 
     @Override
     public boolean hasValidImage(DataBase _data) {
-        boolean val_ = true;
-        if (!super.hasValidImage(_data)) {
-            val_ = false;
-        }
+        boolean val_ = super.hasValidImage(_data);
         if (_data.getPerson(imageMiniSecondTrainerFileName).length == 0) {
             val_ = false;
         }

@@ -8,10 +8,7 @@ public abstract class Person {
     private String imageMiniFileName;
 
     public boolean hasValidImage(DataBase _data) {
-        if (_data.getPerson(imageMiniFileName).length == 0) {
-            return false;
-        }
-        return true;
+        return _data.getPerson(imageMiniFileName).length != 0;
     }
 
     public String getImageMiniFileName() {

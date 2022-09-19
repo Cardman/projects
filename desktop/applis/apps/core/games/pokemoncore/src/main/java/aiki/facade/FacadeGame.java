@@ -6,6 +6,8 @@ import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.db.ExchangedData;
 import aiki.db.ImageHeroKey;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.facade.enums.StorageActions;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Fossil;
@@ -16,7 +18,10 @@ import aiki.game.Game;
 import aiki.game.GameProgression;
 import aiki.game.HostPokemonDuo;
 import aiki.game.enums.InterfaceType;
-import aiki.game.fight.*;
+import aiki.game.fight.BallNumberRate;
+import aiki.game.fight.EvolutionChoiceMap;
+import aiki.game.fight.Fight;
+import aiki.game.fight.Fighter;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
@@ -35,24 +40,12 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsTileInts;
-import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
 import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.AbsMap;
-import code.util.EqList;
-import code.util.NatStringTreeMap;
 import code.util.*;
-
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import aiki.facade.enums.SearchingMode;
-import aiki.facade.enums.SelectedBoolean;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -67,23 +60,23 @@ public class FacadeGame {
 
     private Game game;
 
-    private Comment comment = new Comment();
+    private final Comment comment = new Comment();
 
-    private PaginationEgg paginationEgg = new PaginationEgg();
+    private final PaginationEgg paginationEgg = new PaginationEgg();
 
-    private PaginationPokemonPlayer firstPaginationPk = new PaginationPokemonPlayer();
+    private final PaginationPokemonPlayer firstPaginationPk = new PaginationPokemonPlayer();
 
-    private PaginationHealingItem paginationHealingItem = new PaginationHealingItem();
+    private final PaginationHealingItem paginationHealingItem = new PaginationHealingItem();
 
-    private PaginationItem paginationItem = new PaginationItem();
+    private final PaginationItem paginationItem = new PaginationItem();
 
     // change state if going to buy technical move and if exiting the
     // functionnality
-    private PaginationMove paginationMove = new PaginationMove();
+    private final PaginationMove paginationMove = new PaginationMove();
 
-    private StringMap<LgInt> chosenItemsForBuyOrSell = new StringMap<LgInt>();
+    private final StringMap<LgInt> chosenItemsForBuyOrSell = new StringMap<LgInt>();
 
-    private Shorts chosenTmForBuy = new Shorts();
+    private final Shorts chosenTmForBuy = new Shorts();
 
     private short firstSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
 
@@ -305,35 +298,15 @@ public class FacadeGame {
             game.initTrainerFight(data);
             comment.addComment(game.getCommentGame());
             setupMovingHeros();
-        } else if (game.getInterfaceType() == InterfaceType.OBJ_RAMAS) {
-            takeObject();
-        } else if (game.getInterfaceType() == InterfaceType.DON_OBJET) {
+        } else if (game.getInterfaceType() == InterfaceType.OBJ_RAMAS || game.getInterfaceType() == InterfaceType.DON_OBJET) {
             takeObject();
         } else if (game.getInterfaceType() == InterfaceType.SOIN_PK) {
             healTeamWithoutUsingObject();
-        } else if (game.getInterfaceType() == InterfaceType.ACHATS) {
-            enabledMovingHero = false;
-        } else if (game.getInterfaceType() == InterfaceType.PENSION) {
-            enabledMovingHero = false;
-        } else if (game.getInterfaceType() == InterfaceType.ECH_BOITE) {
-            enabledMovingHero = false;
-        } else if (game.getInterfaceType() == InterfaceType.MOVE_TUTORS) {
+        } else if (game.getInterfaceType() == InterfaceType.ACHATS || game.getInterfaceType() == InterfaceType.PENSION || game.getInterfaceType() == InterfaceType.ECH_BOITE || game.getInterfaceType() == InterfaceType.MOVE_TUTORS) {
             enabledMovingHero = false;
         } else if (game.getInterfaceType() == InterfaceType.FOSSILE) {
             comment.clearMessages();
-            for (String i : data.getItems().getKeys()) {
-                Item item_ = data.getItem(i);
-                if (!(item_ instanceof Fossil)) {
-                    continue;
-                }
-                LgInt nb_ = game.getPlayer().getInventory().getNumber(i);
-                LgInt incr_ = LgInt.zero();
-                while (LgInt.strLower(incr_, nb_)) {
-                    game.doRevivingFossil(i, data);
-                    comment.addComment(game.getPlayer().getCommentGame());
-                    incr_.increment();
-                }
-            }
+            fossilInteract();
             enabledMovingHero = false;
         } else if (game.getInterfaceType() == InterfaceType.GYM_LEADER) {
             comment.clearMessages();
@@ -341,6 +314,22 @@ public class FacadeGame {
         } else {
             comment.clearMessages();
             game.clearMessages();
+        }
+    }
+
+    private void fossilInteract() {
+        for (String i : data.getItems().getKeys()) {
+            Item item_ = data.getItem(i);
+            if (!(item_ instanceof Fossil)) {
+                continue;
+            }
+            LgInt nb_ = game.getPlayer().getInventory().getNumber(i);
+            LgInt incr_ = LgInt.zero();
+            while (LgInt.strLower(incr_, nb_)) {
+                game.doRevivingFossil(i, data);
+                comment.addComment(game.getPlayer().getCommentGame());
+                incr_.increment();
+            }
         }
     }
 
@@ -955,18 +944,13 @@ public class FacadeGame {
         miniMap_ = data.getMap().getImages(data);
         for (MiniMapCoords m : miniMap_.getKeys()) {
             TileMiniMap tile_ = data.getMap().getMiniMap().getVal(m);
-            if (NumberUtil.eq(tile_.getPlace(), IndexConstants.INDEX_NOT_FOUND_ELT)) {
-                continue;
-            }
-            Place pl_ = data.getMap().getPlace(tile_.getPlace());
-            if (!(pl_ instanceof City)) {
+            if (NumberUtil.eq(tile_.getPlace(), IndexConstants.INDEX_NOT_FOUND_ELT) || !(data.getMap().getPlace(tile_.getPlace()) instanceof City)) {
                 continue;
             }
             boolean visited_ =  game.getVisitedPlacesNb().getVal(tile_.getPlace()) == BoolVal.TRUE;
-            if (!visited_) {
-                continue;
+            if (visited_) {
+                miniMap_.put(m, data.getMiniMap(data.getMap().getUnlockedCity()));
             }
-            miniMap_.put(m, data.getMiniMap(data.getMap().getUnlockedCity()));
         }
         return miniMap_;
     }
