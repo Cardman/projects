@@ -121,7 +121,7 @@ public final class AbilityData {
 
     public void validate(DataBase _data) {
         DataInfoChecker.checkPositiveOrZero(maxHpForUsingBerry,_data);
-        DataInfoChecker.checkLowerOne(maxHpForUsingBerry,_data);
+        DataInfoChecker.checkLowerOneEq(maxHpForUsingBerry,_data);
         DataInfoChecker.checkEvents(singleStatus,_data);
         DataInfoChecker.checkStringListContainsOrEmpty(_data.getStatus().getKeys(),singleStatus.events(),_data);
         StringList events_ = new StringList(singleStatus.events());

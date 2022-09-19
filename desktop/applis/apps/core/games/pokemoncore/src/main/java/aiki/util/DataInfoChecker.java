@@ -124,8 +124,8 @@ public final class DataInfoChecker {
         }
     }
 
-    public static void checkLowerOne(Rate _value, DataBase _data) {
-        if (_value.greaterOrEqualsOne()) {
+    public static void checkLowerOneEq(Rate _value, DataBase _data) {
+        if (Rate.strGreater(_value,Rate.one())) {
             _data.setError(true);
         }
     }

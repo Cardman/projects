@@ -68,10 +68,10 @@ public final class Berry extends Item {
         DataInfoChecker.checkPositiveOrZero(healHpBySuperEffMove,_data);
         DataInfoChecker.checkPositiveOrZero(healHp,_data);
         DataInfoChecker.checkPositiveOrZero(maxHpHealingHp,_data);
-        DataInfoChecker.checkLowerOne(maxHpHealingHp,_data);
+        DataInfoChecker.checkLowerOneEq(maxHpHealingHp,_data);
         DataInfoChecker.checkPositiveOrZero(healHpRate,_data);
         DataInfoChecker.checkPositiveOrZero(maxHpHealingHpRate,_data);
-        DataInfoChecker.checkLowerOne(maxHpHealingHpRate,_data);
+        DataInfoChecker.checkLowerOneEq(maxHpHealingHpRate,_data);
         DataInfoChecker.checkPositiveOrZero(healPp,_data);
         DataInfoChecker.checkStringListContainsOrEmpty(_data.getAllCategories(), categoryBoosting,_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatis.getKeys(),_data);
