@@ -6,7 +6,6 @@ import aiki.map.places.City;
 import aiki.map.places.Place;
 import aiki.util.*;
 import code.util.CustList;
-import code.util.EntryCust;
 
 
 public class PlaceArea {

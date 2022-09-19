@@ -4,7 +4,6 @@ import aiki.map.levels.Link;
 import aiki.map.util.PlaceInterConnect;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.Coords;
-import aiki.util.Point;
 import aiki.util.Points;
 
 
