@@ -16,10 +16,7 @@ public final class EvolutionTeam extends Evolution {
         if (pk_ == null) {
             return true;
         }
-        boolean res_ = false;
-        if (!StringUtil.quickEq(pk_.getBaseEvo(),pokemon)) {
-            res_ = true;
-        }
+        boolean res_ = !StringUtil.quickEq(pk_.getBaseEvo(), pokemon);
         if (pk_.getGenderRep() == GenderRepartition.LEGENDARY) {
             res_ = true;
         }

@@ -7,10 +7,10 @@ import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
 import aiki.fight.util.StatisticPokemonByte;
 import aiki.fight.util.StatisticPokemons;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.AbsMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -70,9 +70,7 @@ public final class ItemForBattle extends Item {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!lawForAttackFirst.checkEvents()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEvents(lawForAttackFirst,_data);
         hatching = StringUtil.intersect(hatching,_data.getPokedex().getKeys());
         if (effectEndRound.size() > 1) {
             _data.setError(true);
@@ -91,125 +89,41 @@ public final class ItemForBattle extends Item {
         }
         for (StatisticPokemonByte e : multStatPokemonRank
                 .entryList()) {
-            if (!_data.getPokedex().contains(e.getStat().getPokemon())) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),e.getStat().getPokemon(),_data);
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                multStatRank.getKeys())) {
-            _data.setError(true);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatRank.getKeys(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStat.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getMovesEffectGlobal(),increasingMaxNbRoundGlobalMove.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroShorts(increasingMaxNbRoundGlobalMove.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getMovesEffectTeam(),increasingMaxNbRoundTeamMove.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroShorts(increasingMaxNbRoundTeamMove.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),typesPk,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),immuTypes,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),immuMoves,_data);
+        DataInfoChecker.checkStringListContains(_data.getMovesEffectGlobalWeather(),immuWeather,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatisSuperEff.getKeys(),_data);
+        DataInfoChecker.checkPositiveBytes(boostStatisSuperEff.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),boostStatisTypes.getKeys(),_data);
+        for (AbsMap<Statistic, Byte> t : boostStatisTypes.values()) {
+            DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),t.getKeys(),_data);
+            DataInfoChecker.checkPositiveBytes(t.values(),_data);
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                multStat.getKeys())) {
-            _data.setError(true);
-        }
-        if (!_data.getMovesEffectGlobal().containsAllObj(
-                increasingMaxNbRoundGlobalMove.getKeys())) {
-            _data.setError(true);
-        }
-        for (short s : increasingMaxNbRoundGlobalMove.values()) {
-            if (s < 0) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getMovesEffectTeam().containsAllObj(
-                increasingMaxNbRoundTeamMove.getKeys())) {
-            _data.setError(true);
-        }
-        for (short s : increasingMaxNbRoundTeamMove.values()) {
-            if (s < 0) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getTypes().containsAllObj(typesPk)) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(immuTypes)) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(immuMoves)) {
-            _data.setError(true);
-        }
-        if (!_data.getMovesEffectGlobalWeather().containsAllObj(immuWeather)) {
-            _data.setError(true);
-        }
-        for (EntryCust<Statistic, Byte> e : boostStatisSuperEff.entryList()) {
-            if (!e.getKey().isBoost()) {
-                _data.setError(true);
-            }
-            if (e.getValue() <= 0) {
-                _data.setError(true);
-            }
-        }
-        for (String t : boostStatisTypes.getKeys()) {
-            if (!StringUtil.contains(_data.getTypes(), t)) {
-                _data.setError(true);
-            }
-            for (EntryCust<Statistic, Byte> s : boostStatisTypes.getVal(t)
-                    .entryList()) {
-                if (!s.getKey().isBoost()) {
-                    _data.setError(true);
-                }
-                if (s.getValue() <= 0) {
-                    _data.setError(true);
-                }
-            }
-        }
-        if (!_data.getStatus().containsAllAsKeys(immuStatus)) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(synchroStatus)) {
-            _data.setError(true);
-        }
-        if (!synchroStatus.containsAllObj(failStatus.getKeys())) {
-            _data.setError(true);
-        }
-        if (!_data.getTrappingMoves().containsAllObj(
-                increasingMaxNbRoundTrap.getKeys())) {
-            _data.setError(true);
-        }
-        for (short s : increasingMaxNbRoundTrap.values()) {
-            if (s < 0) {
-                _data.setError(true);
-            }
-        }
-        if (!Statistic.getStatisticsWithBase().containsAllObj(
-                winEvFight.getKeys())) {
-            _data.setError(true);
-        }
-        for (Statistic s : winEvFight.getKeys()) {
-            if (winEvFight.getVal(s) < 0) {
-                _data.setError(true);
-            }
-        }
-        if (!protectAgainstKo.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!protectAgainstKoIfFullHp.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!drainedHpByDamageRate.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multTrappingDamage.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multWinningHappiness.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multWinningEv.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multWinningExp.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multDrainedHp.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!damageRecoil.isZeroOrGt()) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),immuStatus,_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),synchroStatus,_data);
+        DataInfoChecker.checkStringListContains(synchroStatus,failStatus.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTrappingMoves(),increasingMaxNbRoundTrap.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroShorts(increasingMaxNbRoundTrap.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),winEvFight.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroShorts(winEvFight.values(),_data);
+        DataInfoChecker.checkPositiveOrZero(protectAgainstKo,_data);
+        DataInfoChecker.checkPositiveOrZero(protectAgainstKoIfFullHp,_data);
+        DataInfoChecker.checkPositiveOrZero(drainedHpByDamageRate,_data);
+        DataInfoChecker.checkPositiveOrZero(multTrappingDamage,_data);
+        DataInfoChecker.checkPositiveOrZero(multWinningHappiness,_data);
+        DataInfoChecker.checkPositiveOrZero(multWinningEv,_data);
+        DataInfoChecker.checkPositiveOrZero(multWinningExp,_data);
+        DataInfoChecker.checkPositiveOrZero(multDrainedHp,_data);
+        DataInfoChecker.checkPositiveOrZero(damageRecoil,_data);
     }
 
     public boolean isUsedForExp() {

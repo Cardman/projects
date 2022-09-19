@@ -1,6 +1,7 @@
 package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 
 
@@ -13,17 +14,10 @@ public final class EffectFullHpRate extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!leftUserHp.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!closestFoeDamageRateHp.isZeroOrGt()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositiveOrZero(leftUserHp,_data);
+        DataInfoChecker.checkPositiveOrZero(closestFoeDamageRateHp,_data);
         if (!leftUserHp.isZero()) {
-            if (!restoredHp.isEmpty()) {
-                _data.setError(true);
-
-            }
+            DataInfoChecker.checkEmptyString(restoredHp,_data);
         }
     }
 

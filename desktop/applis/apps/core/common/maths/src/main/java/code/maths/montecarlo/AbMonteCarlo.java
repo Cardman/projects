@@ -33,6 +33,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         i_--;
         return getEvent(i_);
     }
+    @Override
     public boolean checkEvents() {
         int len_ = nbEvents();
         for (int i = 0; i < len_; i++){

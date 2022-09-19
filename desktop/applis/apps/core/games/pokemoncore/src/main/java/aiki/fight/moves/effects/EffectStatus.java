@@ -2,10 +2,10 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.util.DataInfoChecker;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 
 public final class EffectStatus extends Effect {
@@ -19,28 +19,16 @@ public final class EffectStatus extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!lawStatus.checkEvents()) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(localFailStatus.getKeys())) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(deletedStatus)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEvents(lawStatus,_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),localFailStatus.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),deletedStatus,_data);
         if (koUserHealSubst) {
             if (statusFromUser) {
                 _data.setError(true);
             }
-            if (!deletedStatus.isEmpty()) {
-                _data.setError(true);
-            }
-            if (!lawStatus.events().isEmpty()) {
-                _data.setError(true);
-            }
-            if (getTargetChoice() != TargetChoice.LANCEUR) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyStringList(deletedStatus,_data);
+            DataInfoChecker.checkEmptyStringList(lawStatus.events(),_data);
+            DataInfoChecker.checkTarget(TargetChoice.LANCEUR,getTargetChoice(),_data);
             return;
         }
         if (!deletedStatus.isEmpty()) {
@@ -55,22 +43,12 @@ public final class EffectStatus extends Effect {
             return;
         }
         if (statusFromUser) {
-            if (!lawStatus.events().isEmpty()) {
-                _data.setError(true);
-            }
-            if (getTargetChoice() == TargetChoice.LANCEUR) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyStringList(lawStatus.events(),_data);
+            DataInfoChecker.checkTargetNot(TargetChoice.LANCEUR,getTargetChoice(),_data);
             return;
         }
-        if (lawStatus.events().isEmpty()) {
-            _data.setError(true);
-        }
-        StringList events_ = new StringList(lawStatus.events());
-        StringUtil.removeObj(events_, DataBase.EMPTY_STRING);
-        if (!_data.getStatus().containsAllAsKeys(events_)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEmptyNotStringList(lawStatus.events(),_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getStatus().getKeys(),lawStatus.events(),_data);
     }
 
     public MonteCarloString getLawStatus() {

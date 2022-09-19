@@ -2,6 +2,7 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.StringMap;
@@ -22,29 +23,11 @@ public final class EffectCounterAttack extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!_data.getTypes().containsAllObj(sufferingDamageTypes.getKeys())) {
-            _data.setError(true);
-        }
-        for (Rate r : sufferingDamageTypes.values()) {
-            if (r.isZero()) {
-                _data.setError(true);
-            }
-            if (!r.isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        for (Statistic s : droppedStatDirectMove.getKeys()) {
-            if (!s.isBoost()) {
-                _data.setError(true);
-            }
-            if (droppedStatDirectMove.getVal(s) >= 0) {
-                _data.setError(true);
-            }
-        }
-        if (!sufferingDamageDirectMove.isZeroOrGt()) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkStringListContains(_data.getTypes(),sufferingDamageTypes.getKeys(),_data);
+        DataInfoChecker.checkPositiveRates(sufferingDamageTypes.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),droppedStatDirectMove.getKeys(),_data);
+        DataInfoChecker.checkNegativeBytes(droppedStatDirectMove.values(),_data);
+        DataInfoChecker.checkPositiveOrZero(sufferingDamageDirectMove,_data);
     }
 
     public StringMap<Rate> getSufferingDamageTypes() {

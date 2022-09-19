@@ -1,8 +1,8 @@
 package aiki.fight.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.core.StringUtil;
 
 
 public class EffectWhileSending {
@@ -13,19 +13,11 @@ public class EffectWhileSending {
     private Rate multWeight;
 
     public void validate(DataBase _data) {
-        if (!multWeight.isZeroOrGt()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositiveOrZero(multWeight,_data);
         if (disableWeather) {
-            if (!enabledWeather.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyString(enabledWeather,_data);
         } else {
-            if (!enabledWeather.isEmpty()) {
-                if (!StringUtil.contains(_data.getMovesEffectGlobalWeather(), enabledWeather)) {
-                    _data.setError(true);
-                }
-            }
+            DataInfoChecker.checkStringListContainsOrEmpty(_data.getMovesEffectGlobalWeather(), enabledWeather,_data);
         }
     }
 

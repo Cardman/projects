@@ -1,6 +1,7 @@
 package aiki.fight.status.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 
 
@@ -13,12 +14,8 @@ public final class EffectPartnerStatus {
     private Rate restoredHpRateLovedAlly;
 
     public void validate(DataBase _dataBase) {
-        if (!multDamageAgainstFoe.isZeroOrGt()) {
-            _dataBase.setError(true);
-        }
-        if (!restoredHpRateLovedAlly.isZeroOrGt()) {
-            _dataBase.setError(true);
-        }
+        DataInfoChecker.checkPositiveOrZero(multDamageAgainstFoe,_dataBase);
+        DataInfoChecker.checkPositiveOrZero(restoredHpRateLovedAlly,_dataBase);
     }
 
     public Rate getMultDamageAgainstFoe() {

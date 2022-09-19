@@ -1,6 +1,7 @@
 package aiki.fight.items;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 
 
@@ -19,13 +20,7 @@ public final class HealingHpStatus extends HealingStatus {
     public void validate(DataBase _data) {
         super.validate(_data);
         validateHealingStatus(_data);
-        if (healedHpRate.isZero()) {
-            _data.setError(true);
-        }
-        if (!healedHpRate.isZeroOrGt()) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkPositive(healedHpRate,_data);
     }
 
     public Rate getHealedHpRate() {

@@ -2,10 +2,10 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.util.TypesDuo;
+import aiki.fight.util.TypesDuos;
+import aiki.util.DataInfoChecker;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 
 public final class EffectUnprotectFromTypes extends Effect {
@@ -19,23 +19,10 @@ public final class EffectUnprotectFromTypes extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (TypesDuo t : types) {
-            if (!StringUtil.contains(_data.getTypes(), t.getDamageType())) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getTypes(), t.getPokemonType())) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getTypes().containsAllObj(disableImmuAgainstTypes)) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(disableImmuFromMoves)) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(attackTargetWithTypes)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getTypes(), TypesDuos.getTypesFrom(types), _data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(), disableImmuAgainstTypes, _data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(), disableImmuFromMoves, _data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(), attackTargetWithTypes, _data);
     }
 
     public CustList<TypesDuo> getTypes() {

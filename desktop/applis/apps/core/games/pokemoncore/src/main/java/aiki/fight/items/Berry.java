@@ -4,9 +4,12 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.*;
-import code.util.core.StringUtil;
+import code.util.AbsMap;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 
 public final class Berry extends Item {
@@ -47,110 +50,47 @@ public final class Berry extends Item {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!_data.getStatus().containsAllAsKeys(healStatus)) {
-            _data.setError(true);
-
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),healStatus,_data);
+        CustList<String> keysMultFoes_ = multFoesDamage.getKeys();
+        DataInfoChecker.checkStringListContains(_data.getTypes(), keysMultFoes_,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStat.getKeys(),_data);
+        for (EfficiencyRate s : multFoesDamage.values()) {
+            DataInfoChecker.checkPositiveOrZero(s.getEff(),_data);
+            DataInfoChecker.checkPositiveOrZero(s.getHpRate(),_data);
         }
-        for (String s : multFoesDamage.getKeys()) {
-            if (!StringUtil.contains(_data.getTypes(), s)) {
-                _data.setError(true);
-            }
-            if (!multFoesDamage.getVal(s).getEff().isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (!multFoesDamage.getVal(s).getHpRate().isZeroOrGt()) {
-                _data.setError(true);
-            }
+        for (BoostHpRate s : multStat.values()) {
+            DataInfoChecker.checkPositiveOrZero(s.getHpRate(),_data);
+            DataInfoChecker.checkPositiveOrZero(s.getBoost(),_data);
         }
-        for (Statistic s : multStat.getKeys()) {
-            if (!s.isBoost()) {
-                _data.setError(true);
-            }
-            if (!multStat.getVal(s).getHpRate().isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (multStat.getVal(s).getBoost() < 0) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getCategories()
-                .containsAllObj(damageRateRecoilFoe.getKeys())) {
-            _data.setError(true);
-        }
-        for (Rate v : damageRateRecoilFoe.values()) {
-            if (!v.isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        if (!healHpBySuperEffMove.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!healHp.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!maxHpHealingHp.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (maxHpHealingHp.greaterOrEqualsOne()) {
-            _data.setError(true);
-        }
-        if (!healHpRate.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!maxHpHealingHpRate.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (maxHpHealingHpRate.greaterOrEqualsOne()) {
-            _data.setError(true);
-        }
-        if (healPp < 0) {
-            _data.setError(true);
-        }
-        if (!categoryBoosting.isEmpty()) {
-            if (!StringUtil.contains(_data.getAllCategories(), categoryBoosting)) {
-                _data.setError(true);
-            }
-        }
-        for (EntryCust<Statistic, Byte> e : boostStatis.entryList()) {
-            if (!e.getKey().isBoost()) {
-                _data.setError(true);
-            }
-        }
+        CustList<String> keysMultRecoilFoes_ = damageRateRecoilFoe.getKeys();
+        DataInfoChecker.checkStringListContains(_data.getCategories(), keysMultRecoilFoes_,_data);
+        DataInfoChecker.checkPositiveOrZeroRates(damageRateRecoilFoe.values(),_data);
+        DataInfoChecker.checkPositiveOrZero(healHpBySuperEffMove,_data);
+        DataInfoChecker.checkPositiveOrZero(healHp,_data);
+        DataInfoChecker.checkPositiveOrZero(maxHpHealingHp,_data);
+        DataInfoChecker.checkLowerOne(maxHpHealingHp,_data);
+        DataInfoChecker.checkPositiveOrZero(healHpRate,_data);
+        DataInfoChecker.checkPositiveOrZero(maxHpHealingHpRate,_data);
+        DataInfoChecker.checkLowerOne(maxHpHealingHpRate,_data);
+        DataInfoChecker.checkPositiveOrZero(healPp,_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getAllCategories(), categoryBoosting,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatis.getKeys(),_data);
         if (!healHpBySuperEffMove.isZero()) {
-            if (!multFoesDamage.isEmpty()) {
-                _data.setError(true);
-            }
-            if (!damageRateRecoilFoe.isEmpty()) {
-                _data.setError(true);
-            }
-            if (!healHp.isZero()) {
-                _data.setError(true);
-            }
-            if (!healHpRate.isZero()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyStringList(keysMultFoes_,_data);
+            DataInfoChecker.checkEmptyStringList(keysMultRecoilFoes_,_data);
+            DataInfoChecker.checkZero(healHp,_data);
+            DataInfoChecker.checkZero(healHpRate,_data);
             return;
         }
         if (!healHp.isZero()) {
-            if (!multFoesDamage.isEmpty()) {
-                _data.setError(true);
-            }
-            if (!damageRateRecoilFoe.isEmpty()) {
-                _data.setError(true);
-            }
-            if (!healHpRate.isZero()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyStringList(keysMultFoes_,_data);
+            DataInfoChecker.checkEmptyStringList(keysMultRecoilFoes_,_data);
+            DataInfoChecker.checkZero(healHpRate,_data);
             return;
         }
         if (!healHpRate.isZero()) {
-            if (!multFoesDamage.isEmpty()) {
-                _data.setError(true);
-            }
-            if (!damageRateRecoilFoe.isEmpty()) {
-                _data.setError(true);
-
-            }
+            DataInfoChecker.checkEmptyStringList(keysMultFoes_,_data);
+            DataInfoChecker.checkEmptyStringList(keysMultRecoilFoes_,_data);
         }
     }
 

@@ -1,6 +1,7 @@
 package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 
 
@@ -11,12 +12,7 @@ public final class EffectWinMoney extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (winningRateBySumTargetUser.isZero()) {
-            _data.setError(true);
-        }
-        if (!winningRateBySumTargetUser.isZeroOrGt()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositive(winningRateBySumTargetUser,_data);
     }
 
     public Rate getWinningRateBySumTargetUser() {

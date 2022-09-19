@@ -1,6 +1,7 @@
 package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 
 
 public final class EffectVarPP extends Effect {
@@ -10,9 +11,7 @@ public final class EffectVarPP extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (deletePp <= 0) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositive(deletePp,_data);
     }
 
     public short getDeletePp() {

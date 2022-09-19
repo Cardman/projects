@@ -27,10 +27,31 @@ public final class TypesDuos {
         return false;
     }
 
+    public CustList<String> getTypes() {
+        return getTypesFrom(getKeys());
+    }
+
+    public static CustList<String> getTypesFrom(CustList<TypesDuo> _keys) {
+        CustList<String> l_ = new CustList<String>();
+        for (TypesDuo e: _keys) {
+            l_.add(e.getDamageType());
+            l_.add(e.getPokemonType());
+        }
+        return l_;
+    }
+
     public CustList<TypesDuo> getKeys() {
         CustList<TypesDuo> l_ = new CustList<TypesDuo>();
         for (TypesDuoRate e: entryList()) {
             l_.add(e.getStat());
+        }
+        return l_;
+    }
+
+    public CustList<Rate> values() {
+        CustList<Rate> l_ = new CustList<Rate>();
+        for (TypesDuoRate e: entryList()) {
+            l_.add(e.getValue());
         }
         return l_;
     }

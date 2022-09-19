@@ -2,9 +2,11 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.*;
-import code.util.core.StringUtil;
+import code.util.AbsMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 
 public final class EffectInvoke extends Effect {
@@ -23,25 +25,11 @@ public final class EffectInvoke extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!_data.getMoves().containsAllAsKeys(movesNotToBeInvoked)) {
-            _data.setError(true);
-        }
-        for (EntryCust<EnvironmentType, String> e : moveFctEnv.entryList()) {
-            if (!_data.getMoves().contains(e.getValue())) {
-                _data.setError(true);
-            }
-        }
-        for (String k : invokingMoveByUserTypes.getKeys()) {
-            if (!k.isEmpty() && !StringUtil.contains(_data.getTypes(), k)) {
-                _data.setError(true);
-            }
-            if (!_data.getMoves().contains(invokingMoveByUserTypes.getVal(k))) {
-                _data.setError(true);
-            }
-        }
-        if (!rateInvokationMove.isZeroOrGt()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),movesNotToBeInvoked,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),moveFctEnv.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),invokingMoveByUserTypes.values(),_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getTypes(),invokingMoveByUserTypes.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZero(rateInvokationMove,_data);
     }
 
     public AbsMap<EnvironmentType, String> getMoveFctEnv() {

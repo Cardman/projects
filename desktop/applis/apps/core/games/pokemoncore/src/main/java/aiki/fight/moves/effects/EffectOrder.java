@@ -1,6 +1,7 @@
 package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 
 
 public final class EffectOrder extends Effect {
@@ -10,9 +11,7 @@ public final class EffectOrder extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!getTargetChoice().isWithChoice()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkTargetWithChoice(getTargetChoice(),_data);
     }
 
     public boolean getTargetAttacksLast() {

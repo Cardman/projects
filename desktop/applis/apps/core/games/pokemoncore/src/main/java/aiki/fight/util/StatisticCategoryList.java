@@ -6,10 +6,10 @@ import code.util.core.IndexConstants;
 
 public abstract class StatisticCategoryList<T> {
     private final CustList<StatisticCategoryParam<T>> list;
-    public StatisticCategoryList() {
+    protected StatisticCategoryList() {
         list = new CustList<StatisticCategoryParam<T>>();
     }
-    public StatisticCategoryList(CollCapacity _cap) {
+    protected StatisticCategoryList(CollCapacity _cap) {
         list = new CustList<StatisticCategoryParam<T>>(_cap);
     }
 
@@ -18,6 +18,13 @@ public abstract class StatisticCategoryList<T> {
     }
 
 
+    public CustList<T> values() {
+        CustList<T> l_ = new CustList<T>();
+        for (StatisticCategoryParam<T> e: entryList()) {
+            l_.add(e.getValue());
+        }
+        return l_;
+    }
     public CustList<StatisticCategory> getKeys() {
         CustList<StatisticCategory> l_ = new CustList<StatisticCategory>();
         for (StatisticCategoryParam<T> e: entryList()) {

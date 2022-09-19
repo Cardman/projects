@@ -9,41 +9,7 @@ import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectAccuracy;
-import aiki.fight.moves.effects.EffectAlly;
-import aiki.fight.moves.effects.EffectBatonPass;
-import aiki.fight.moves.effects.EffectClone;
-import aiki.fight.moves.effects.EffectCommonStatistics;
-import aiki.fight.moves.effects.EffectCopyFighter;
-import aiki.fight.moves.effects.EffectCopyMove;
-import aiki.fight.moves.effects.EffectCounterAttack;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.moves.effects.EffectDamageRate;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundPositionRelation;
-import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import aiki.fight.moves.effects.EffectFullHpRate;
-import aiki.fight.moves.effects.EffectGlobal;
-import aiki.fight.moves.effects.EffectInvoke;
-import aiki.fight.moves.effects.EffectMultSufferedMovePower;
-import aiki.fight.moves.effects.EffectMultUsedMovePower;
-import aiki.fight.moves.effects.EffectProtectFromTypes;
-import aiki.fight.moves.effects.EffectProtection;
-import aiki.fight.moves.effects.EffectRemainedHpRate;
-import aiki.fight.moves.effects.EffectRestriction;
-import aiki.fight.moves.effects.EffectStatistic;
-import aiki.fight.moves.effects.EffectStatus;
-import aiki.fight.moves.effects.EffectSwitchAbilities;
-import aiki.fight.moves.effects.EffectSwitchItems;
-import aiki.fight.moves.effects.EffectSwitchMoveTypes;
-import aiki.fight.moves.effects.EffectSwitchPosition;
-import aiki.fight.moves.effects.EffectSwitchTypes;
-import aiki.fight.moves.effects.EffectTeam;
-import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
-import aiki.fight.moves.effects.EffectUnprotectFromTypes;
-import aiki.fight.moves.effects.EffectVarPP;
-import aiki.fight.moves.effects.EffectWinMoney;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
@@ -203,14 +169,9 @@ final class FightEffects {
             _fight.addEnabledMoveMessage(finalThrower_, _move, _import);
             return;
         }
-        if(_effet instanceof EffectMultUsedMovePower){
-            EffectMultUsedMovePower effetLoc_=(EffectMultUsedMovePower) _effet;
-            effectMultiplyUsedMovePower(_fight, finalThrower_,effetLoc_, _move, _import);
-            return;
-        }
-        if(_effet instanceof EffectMultSufferedMovePower){
-            EffectMultSufferedMovePower effetLoc_=(EffectMultSufferedMovePower) _effet;
-            effectMultiplyUndergoneMovePower(_fight, finalTarget_, effetLoc_, _move, _import);
+        if(_effet instanceof EffectMultMovePower){
+            EffectMultMovePower effetLoc_=(EffectMultMovePower) _effet;
+            effectMultiplyMovePoser(_fight, _move, _import, finalThrower_, finalTarget_, effetLoc_);
             return;
         }
         if(_effet instanceof EffectAlly){
@@ -260,6 +221,14 @@ final class FightEffects {
             EffectVarPP effetLoc_=(EffectVarPP) _effet;
             effectVarPp(_fight, finalTarget_,effetLoc_, _diff, _import);
         }
+    }
+
+    private static void effectMultiplyMovePoser(Fight _fight, String _move, DataBase _import, TeamPosition _finalThrower, TeamPosition _finalTarget, EffectMultMovePower _effetLoc) {
+        if(_effetLoc.isUsed()){
+            effectMultiplyUsedMovePower(_fight, _finalThrower, _effetLoc, _move, _import);
+            return;
+        }
+        effectMultiplyUndergoneMovePower(_fight, _finalTarget, _effetLoc, _move, _import);
     }
 
     private static void successUsingMove(Fight _fight, UserTarget _throwerTarget, Effect _effet) {
@@ -2536,7 +2505,7 @@ final class FightEffects {
         return Rate.multiply(somme_, coeff_);
     }
 
-    static void effectMultiplyUsedMovePower(Fight _fight,TeamPosition _cible,EffectMultUsedMovePower _effet, String _move, DataBase _import){
+    static void effectMultiplyUsedMovePower(Fight _fight, TeamPosition _cible, EffectMultMovePower _effet, String _move, DataBase _import){
         Fighter creatureCible_=_fight.getFighter(_cible);
         _fight.addEnabledMoveMessage(_cible, _move, _import);
         for(String c:_effet.getMultMovePowerFctType().getKeys()){
@@ -2544,7 +2513,7 @@ final class FightEffects {
         }
     }
 
-    static void effectMultiplyUndergoneMovePower(Fight _fight,TeamPosition _cible,EffectMultSufferedMovePower _effet, String _move, DataBase _import){
+    static void effectMultiplyUndergoneMovePower(Fight _fight,TeamPosition _cible,EffectMultMovePower _effet, String _move, DataBase _import){
         Fighter creatureCible_ = _fight.getFighter(_cible);
         _fight.addEnabledMoveMessage(_cible, _move, _import);
         for(String c:_effet.getMultMovePowerFctType().getKeys()){

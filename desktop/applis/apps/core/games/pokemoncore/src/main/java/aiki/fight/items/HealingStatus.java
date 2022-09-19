@@ -1,6 +1,7 @@
 package aiki.fight.items;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -18,9 +19,7 @@ public abstract class HealingStatus extends HealingItem {
 
     protected final void validateHealingStatus(DataBase _data) {
         validateHealingItem(_data);
-        if (!_data.getStatus().containsAllAsKeys(status)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),status,_data);
         if (healingKo) {
             return;
         }

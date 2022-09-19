@@ -3,8 +3,8 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.StatusType;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.EntryCust;
 import code.util.StringMap;
 
 
@@ -15,15 +15,7 @@ public final class EffectEndRoundMultiRelation extends EffectEndRound {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (EntryCust<String, Rate> e : damageByStatus.entryList()) {
-            if (!_data.getStatus().contains(e.getKey())) {
-                _data.setError(true);
-                continue;
-            }
-            if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
-                _data.setError(true);
-            }
-        }
+        DataInfoChecker.checkStringListContains(DataInfoChecker.filterStatusExclude(_data,StatusType.RELATION_UNIQUE).getKeys(),damageByStatus.getKeys(),_data);
     }
 
     @Override

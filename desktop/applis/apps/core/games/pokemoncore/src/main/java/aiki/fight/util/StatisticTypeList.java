@@ -1,15 +1,16 @@
 package aiki.fight.util;
 
+import aiki.fight.enums.Statistic;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public abstract class StatisticTypeList<T> {
     private final CustList<StatisticTypeParam<T>> list;
-    public StatisticTypeList() {
+    protected StatisticTypeList() {
         list = new CustList<StatisticTypeParam<T>>();
     }
-    public StatisticTypeList(CollCapacity _cap) {
+    protected StatisticTypeList(CollCapacity _cap) {
         list = new CustList<StatisticTypeParam<T>>(_cap);
     }
 
@@ -18,6 +19,21 @@ public abstract class StatisticTypeList<T> {
     }
 
 
+    public CustList<Statistic> getStatistics() {
+        CustList<Statistic> l_ = new CustList<Statistic>();
+        for (StatisticType e: getKeys()) {
+            l_.add(e.getStatistic());
+        }
+        return l_;
+    }
+
+    public CustList<String> getTypes() {
+        CustList<String> l_ = new CustList<String>();
+        for (StatisticType e: getKeys()) {
+            l_.add(e.getType());
+        }
+        return l_;
+    }
     public CustList<StatisticType> getKeys() {
         CustList<StatisticType> l_ = new CustList<StatisticType>();
         for (StatisticTypeParam<T> e: entryList()) {
@@ -26,6 +42,13 @@ public abstract class StatisticTypeList<T> {
         return l_;
     }
 
+    public CustList<T> values() {
+        CustList<T> l_ = new CustList<T>();
+        for (StatisticTypeParam<T> e: entryList()) {
+            l_.add(e.getValue());
+        }
+        return l_;
+    }
     public CustList<StatisticTypeParam<T>> getList() {
         return list;
     }

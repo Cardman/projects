@@ -8,10 +8,7 @@ public abstract class EvolutionLevel extends Evolution {
     private short level;
 
     protected final boolean validateEvolutionLevel(DataBase _dataBase) {
-        boolean res_ = false;
-        if (level <= 0) {
-            res_ = true;
-        }
+        boolean res_ = level <= 0;
         if (level > _dataBase.getMaxLevel()) {
             res_ = true;
         }

@@ -2,6 +2,7 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
+import aiki.util.DataInfoChecker;
 
 
 public abstract class EffectEndRound extends Effect {
@@ -12,9 +13,7 @@ public abstract class EffectEndRound extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (endRoundRank <= 0) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositive(endRoundRank,_data);
     }
 
     public String getFailEndRound() {

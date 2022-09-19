@@ -3,9 +3,9 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.EntryCust;
 import code.util.*;
 
 
@@ -17,33 +17,16 @@ public final class EffectEndRoundSingleRelation extends EffectEndRound {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!lawForEnablingEffect.checkEvents()) {
-            _data.setError(true);
-        }
-        if (getTargetChoice() == TargetChoice.LANCEUR) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEvents(lawForEnablingEffect,_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.LANCEUR,getTargetChoice(),_data);
         if (lawForEnablingEffect.events().isEmpty()) {
             _data.setError(true);
         } else {
             Rate min_ = lawForEnablingEffect.minimum();
-            if (!min_.isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (min_.isZero()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkPositive(min_,_data);
         }
-        for (Rate e : lawForEnablingEffect.events()) {
-            if (!e.isInteger()) {
-                _data.setError(true);
-            }
-        }
-        for (EntryCust<Long, Rate> e : rateDamageFunctionOfNbRounds.entryList()) {
-            if (!e.getValue().isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
+        DataInfoChecker.checkIntegers(lawForEnablingEffect.events(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(rateDamageFunctionOfNbRounds.values(),_data);
         if (!rateDamageFunctionOfNbRounds.isEmpty()) {
             return;
         }

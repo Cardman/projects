@@ -2,6 +2,7 @@ package aiki.fight.status;
 
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 
 
@@ -17,25 +18,11 @@ public final class StatusBeginRoundAutoDamage extends StatusBeginRound {
     public void validate(DataBase _data) {
         super.validate(_data);
         validateStatusBeginRound(_data);
-        if (!power.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (power.isZero()) {
-            _data.setError(true);
-        }
-        if (!attack.isBoost()) {
-            _data.setError(true);
-        }
-        if (!attack.isWithBaseStatistic()) {
-            _data.setError(true);
-        }
-        if (!defense.isBoost()) {
-            _data.setError(true);
-        }
-        if (!defense.isWithBaseStatistic()) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkPositive(power,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),attack,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),attack,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),defense,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),defense,_data);
     }
 
     public Rate getPower() {

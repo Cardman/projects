@@ -3,6 +3,7 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.util.DataInfoChecker;
 import code.util.CustList;
 import code.util.AbsMap;
 
@@ -24,13 +25,8 @@ public final class EffectCommonStatistics extends Effect {
                 keysFilt_.add(s);
             }
         }
-        if (!Statistic.getStatisticsWithBase().containsAllObj(keysFilt_)) {
-            _data.setError(true);
-        }
-        if (getTargetChoice() == TargetChoice.LANCEUR) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),keysFilt_,_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.LANCEUR,getTargetChoice(),_data);
     }
 
     public AbsMap<Statistic, String> getCommonValue() {

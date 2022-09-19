@@ -1,6 +1,7 @@
 package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.util.StringList;
 
 
@@ -11,12 +12,8 @@ public final class EffectProtectFromTypes extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (immuAgainstTypes.isEmpty()) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(immuAgainstTypes)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEmptyNotStringList(immuAgainstTypes,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),immuAgainstTypes,_data);
     }
 
     public StringList getImmuAgainstTypes() {

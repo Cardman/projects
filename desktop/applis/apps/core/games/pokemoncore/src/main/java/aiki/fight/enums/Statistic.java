@@ -1,4 +1,5 @@
 package aiki.fight.enums;
+import code.util.CustList;
 import code.util.EnumList;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
@@ -30,14 +31,12 @@ public enum Statistic {
     }
 
     public static boolean equalsSet(Listable<Statistic> _list1, Listable<Statistic> _list2) {
-        for (Statistic a: _list2) {
-            boolean contains_ = containsStatistic(_list1, a);
-            if (!contains_) {
-                return false;
-            }
-        }
-        for (Statistic a: _list1) {
-            boolean contains_ = containsStatistic(_list2, a);
+        return containsAll(_list1, _list2) && containsAll(_list2, _list1);
+    }
+
+    public static boolean containsAll(Listable<Statistic> _container, Listable<Statistic> _content) {
+        for (Statistic a: _content) {
+            boolean contains_ = containsStatistic(_container, a);
             if (!contains_) {
                 return false;
             }
@@ -58,8 +57,8 @@ public enum Statistic {
 
     public static EnumList<Statistic> getStatisticsWithBase() {
         EnumList<Statistic> list_ = new EnumList<Statistic>();
-        for (Statistic s: values()) {
-            if (!s.withBaseStatistic) {
+        for (Statistic s: all()) {
+            if (!s.isWithBaseStatistic()) {
                 continue;
             }
             list_.add(s);
@@ -68,8 +67,8 @@ public enum Statistic {
     }
     public static EnumList<Statistic> getStatisticsWithBoost() {
         EnumList<Statistic> list_ = new EnumList<Statistic>();
-        for (Statistic s: values()) {
-            if (!s.boost) {
+        for (Statistic s: all()) {
+            if (!s.isBoost()) {
                 continue;
             }
             list_.add(s);
@@ -77,12 +76,26 @@ public enum Statistic {
         return list_;
     }
     public static Statistic getStatisticByName(String _env) {
-        for (Statistic e: values()) {
+        for (Statistic e: all()) {
             if (StringUtil.quickEq(e.statName, _env)) {
                 return e;
             }
         }
         return SPEED;
+    }
+    private static CustList<Statistic> all() {
+        CustList<Statistic> ls_ = new CustList<Statistic>();
+        ls_.add(HP);
+        ls_.add(ATTACK);
+        ls_.add(DEFENSE);
+        ls_.add(SPECIAL_ATTACK);
+        ls_.add(SPECIAL_DEFENSE);
+        ls_.add(SPEED);
+        ls_.add(ACCURACY);
+        ls_.add(EVASINESS);
+        ls_.add(CRITICAL_HIT);
+        ls_.add(PV_RESTANTS);
+        return ls_;
     }
     public boolean isWithBaseStatistic() {
         return withBaseStatistic;

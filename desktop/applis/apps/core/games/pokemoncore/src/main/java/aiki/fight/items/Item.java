@@ -1,6 +1,7 @@
 package aiki.fight.items;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 
 
 public abstract class Item {
@@ -13,9 +14,7 @@ public abstract class Item {
      * @param _data
      */
     public void validate(DataBase _data) {
-        if (price < 0) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositiveOrZero(price,_data);
     }
 
     public abstract String getItemType();

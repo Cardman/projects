@@ -3,6 +3,7 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.util.DataInfoChecker;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -51,46 +52,18 @@ public final class EffectDamage extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!chLaw.checkEvents()) {
-            _data.setError(true);
-        }
-        if (!hitsLaw.checkEvents()) {
-            _data.setError(true);
-        }
-        if (!damageLaw.checkEvents()) {
-            _data.setError(true);
-        }
-        if (getTargetChoice() == TargetChoice.LANCEUR) {
-            _data.setError(true);
-        }
-        if (getTargetChoice() == TargetChoice.ALLIE) {
-            _data.setError(true);
-        }
-        if (getTargetChoice() == TargetChoice.ALLIES) {
-            _data.setError(true);
-        }
-        if (getTargetChoice() == TargetChoice.UNIQUE_IMPORTE) {
-            _data.setError(true);
-        }
-        if (getTargetChoice() == TargetChoice.GLOBALE) {
-            _data.setError(true);
-        }
-        for (Statistic s : boostStatisOnceKoFoe.getKeys()) {
-            if (!s.isBoost()) {
-                _data.setError(true);
-            }
-            if (boostStatisOnceKoFoe.getVal(s) <= 0) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getCategories().containsAllObj(multDamageAgainst.getKeys())) {
-            _data.setError(true);
-        }
-        for (Rate r: multDamageAgainst.values()) {
-            if (r.isZeroOrLt()) {
-                _data.setError(true);
-            }
-        }
+        DataInfoChecker.checkEvents(chLaw,_data);
+        DataInfoChecker.checkEvents(hitsLaw,_data);
+        DataInfoChecker.checkEvents(damageLaw,_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.LANCEUR,getTargetChoice(),_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.ALLIE,getTargetChoice(),_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.ALLIES,getTargetChoice(),_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.UNIQUE_IMPORTE,getTargetChoice(),_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.GLOBALE,getTargetChoice(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatisOnceKoFoe.getKeys(),_data);
+        DataInfoChecker.checkPositiveBytes(boostStatisOnceKoFoe.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getCategories(),multDamageAgainst.getKeys(),_data);
+        DataInfoChecker.checkPositiveRates(multDamageAgainst.values(),_data);
         if (!chLaw.events().isEmpty()) {
             Rate min_ = chLaw.minimum();
             if (min_.lowerThanOne()) {
@@ -101,62 +74,34 @@ public final class EffectDamage extends Effect {
         }
         if (!hitsLaw.events().isEmpty()) {
             Rate min_ = hitsLaw.minimum();
-            if (!min_.isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (min_.isZero()) {
-                _data.setError(true);
-            }
-            for (Rate e : hitsLaw.events()) {
-                if (!e.isInteger()) {
-                    _data.setError(true);
-                }
-            }
+            DataInfoChecker.checkPositive(min_,_data);
+            DataInfoChecker.checkIntegers(hitsLaw.events(),_data);
         } else {
             hitsLaw.addQuickEvent(Rate.one(),LgInt.one());
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                ignVarStatTargetPos)) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                ignVarStatUserNeg)) {
-            _data.setError(true);
-        }
-        if (statisAtt != Statistic.ATTACK) {
-            if (statisAtt != Statistic.SPECIAL_ATTACK) {
-                _data.setError(true);
-            }
-        }
-        if (statisDef != Statistic.DEFENSE) {
-            if (statisDef != Statistic.SPECIAL_DEFENSE) {
-                _data.setError(true);
-            }
-        }
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),ignVarStatTargetPos,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),ignVarStatUserNeg,_data);
+        DataInfoChecker.checkStatistics(Statistic.ATTACK,Statistic.SPECIAL_ATTACK,statisAtt,_data);
+        DataInfoChecker.checkStatistics(Statistic.DEFENSE,Statistic.SPECIAL_DEFENSE,statisDef,_data);
         if (constDamage) {
-            if (!Rate.isValid(power)) {
-                _data.setError(true);
-            }
+            checkConstDamage(_data);
             return;
         }
         if (!multDamageAgainst.isEmpty()) {
-            if (!damageLaw.events().isEmpty()) {
-                _data.setError(true);
-            }
-            if (!power.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyStringList(damageLaw.events(),_data);
+            DataInfoChecker.checkEmptyString(power,_data);
             return;
         }
         if (!damageLaw.events().isEmpty()) {
-            if (!power.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyString(power,_data);
             return;
         }
-        if (power.isEmpty()) {
-            _data.setError(true);
+        DataInfoChecker.checkEmptyNotString(power,_data);
+    }
 
+    private void checkConstDamage(DataBase _data) {
+        if (!Rate.isValid(power)) {
+            _data.setError(true);
         }
     }
 

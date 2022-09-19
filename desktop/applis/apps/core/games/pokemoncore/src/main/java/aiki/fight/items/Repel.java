@@ -1,6 +1,7 @@
 package aiki.fight.items;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 
 
 public final class Repel extends Item {
@@ -17,9 +18,7 @@ public final class Repel extends Item {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (steps <= 0) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositive(steps,_data);
     }
 
     public long getSteps() {

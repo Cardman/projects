@@ -58,6 +58,8 @@ public final class RecordsMapTest extends EquallablePkUtil {
         WeatherTypes c_ = new WeatherTypes();
         c_.addEntry(new WeatherType("SPEED;"), Rate.zero());
         assertNotNull(c_.getVal(new WeatherType("")));
+        assertNotNull(c_.getVal(new WeatherType("SPEED;")));
+        assertNotNull(c_.getVal(new WeatherType("SPEED;_")));
         assertTrue(!c_.isEmpty());
     }
     @Test

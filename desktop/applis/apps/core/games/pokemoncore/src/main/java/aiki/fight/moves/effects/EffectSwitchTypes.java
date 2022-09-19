@@ -5,10 +5,9 @@ import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
-import code.util.EntryCust;
+import aiki.util.DataInfoChecker;
 import code.util.AbsMap;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 
 public final class EffectSwitchTypes extends Effect {
@@ -22,45 +21,27 @@ public final class EffectSwitchTypes extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!_data.getTypes().containsAllObj(constTypes)) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(addedTypes)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getTypes(),constTypes,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),addedTypes,_data);
         if (!chgtTypeByEnv.isEmpty()) {
-            if (constValuesType != ConstValuesType.NOTHING) {
-                _data.setError(true);
-            }
-            for (EntryCust<EnvironmentType, String> e : chgtTypeByEnv
-                    .entryList()) {
-                if (!StringUtil.contains(_data.getTypes(), e.getValue())) {
-                    _data.setError(true);
-                }
-            }
+            checkConstValuesType(_data);
+            DataInfoChecker.checkStringListContains(_data.getTypes(),chgtTypeByEnv.values(),_data);
             return;
         }
         if (exchangeTypes != ExchangeType.NOTHING) {
-            if (constValuesType != ConstValuesType.NOTHING) {
-                _data.setError(true);
-            }
-            boolean checkTargetChoice_ = false;
-            if (exchangeTypes == ExchangeType.GIVE_TO_TARGET) {
-                checkTargetChoice_ = true;
-            } else if (exchangeTypes == ExchangeType.GIVE_TO_THROWER) {
-                checkTargetChoice_ = true;
-            } else if (exchangeTypes == ExchangeType.EXCHANGE) {
-                checkTargetChoice_ = true;
-            }
+            checkConstValuesType(_data);
+            boolean checkTargetChoice_ = exchangeTypes == ExchangeType.GIVE_TO_TARGET || exchangeTypes == ExchangeType.GIVE_TO_THROWER || exchangeTypes == ExchangeType.EXCHANGE;
             if (checkTargetChoice_) {
-                if (getTargetChoice() == TargetChoice.LANCEUR) {
-                    _data.setError(true);
-                }
+                DataInfoChecker.checkTargetNot(TargetChoice.LANCEUR,getTargetChoice(),_data);
                 return;
             }
-            if (constTypes.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyNotStringList(constTypes,_data);
+        }
+    }
+
+    private void checkConstValuesType(DataBase _data) {
+        if (constValuesType != ConstValuesType.NOTHING) {
+            _data.setError(true);
         }
     }
 

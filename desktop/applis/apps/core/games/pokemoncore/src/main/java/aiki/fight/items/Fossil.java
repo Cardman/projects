@@ -1,6 +1,7 @@
 package aiki.fight.items;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 
 
 public final class Fossil extends Item {
@@ -19,13 +20,8 @@ public final class Fossil extends Item {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!_data.getPokedex().contains(pokemon)) {
-            _data.setError(true);
-        }
-        if (level <= 0) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),pokemon,_data);
+        DataInfoChecker.checkPositive(level,_data);
     }
 
     public String getPokemon() {

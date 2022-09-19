@@ -4,9 +4,9 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
-import code.util.EntryCust;
+import aiki.util.DataInfoChecker;
 import code.util.AbsMap;
-import code.util.*;
+import code.util.ShortMap;
 import code.util.StringList;
 
 
@@ -22,26 +22,10 @@ public final class EffectTeamWhileSendFoe extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (getTargetChoice() != TargetChoice.LANCEUR) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(deletedByFoeTypes)) {
-            _data.setError(true);
-        }
-        for (EntryCust<Short, String> e : statusByNbUses.entryList()) {
-            if (!_data.getStatus().contains(e.getValue())) {
-                _data.setError(true);
-                continue;
-            }
-            if (_data.getStatus(e.getValue()).getStatusType() == StatusType.RELATION_UNIQUE) {
-                _data.setError(true);
-            }
-        }
-        for (EntryCust<Statistic, Byte> s : statistics.entryList()) {
-            if (!s.getKey().isBoost()) {
-                _data.setError(true);
-            }
-        }
+        DataInfoChecker.checkTarget(TargetChoice.LANCEUR,getTargetChoice(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),deletedByFoeTypes,_data);
+        DataInfoChecker.checkStringListContains(DataInfoChecker.filterStatusExclude(_data,StatusType.RELATION_UNIQUE).getKeys(),statusByNbUses.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),statistics.getKeys(),_data);
     }
 
     public String getFailSending() {

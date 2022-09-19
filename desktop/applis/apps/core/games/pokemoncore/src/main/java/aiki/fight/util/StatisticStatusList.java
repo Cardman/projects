@@ -17,6 +17,13 @@ public final class StatisticStatusList {
         return getList();
     }
 
+    public CustList<Byte> values() {
+        CustList<Byte> l_ = new CustList<Byte>();
+        for (StatisticStatusByte e: entryList()) {
+            l_.add(e.getValue());
+        }
+        return l_;
+    }
 
     public CustList<StatisticStatus> getKeys() {
         CustList<StatisticStatus> l_ = new CustList<StatisticStatus>();

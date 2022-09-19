@@ -14,31 +14,15 @@ public final class PokemonFamily {
         StringList currentEvolutions_ = new StringList();
         currentEvolutions_.add(_pokemonBase);
         evolutionsLevels_.add(_pokemonBase);
-        StringList newEvolutions_;
         while (true) {
-            newEvolutions_ = new StringList();
+            StringList newEvolutions_ = new StringList();
             for (String e: currentEvolutions_) {
                 PokemonData fPk_ = _data.getPokemon(e);
                 if (fPk_ == null) {
                     continue;
                 }
-                for (String e_: fPk_.getEvolutions().getKeys()) {
-                    PokemonData evo_ = _data.getPokemon(e_);
-                    if (evo_ == null) {
-                        continue;
-                    }
-                    if (!StringUtil.quickEq(evo_.getBaseEvo(), _pokemonBase)) {
-                        _data.setError(true);
-                    }
-                    if (StringUtil.contains(evolutionsLevels_, e_)) {
-                        _data.setError(true);
-                        return;
-                    }
-                    if (StringUtil.contains(newEvolutions_, e_)) {
-                        _data.setError(true);
-                        return;
-                    }
-                    newEvolutions_.add(e_);
+                if (exitBuild(_data, _pokemonBase, evolutionsLevels_, newEvolutions_, fPk_)) {
+                    return;
                 }
             }
             if (newEvolutions_.isEmpty()) {
@@ -48,6 +32,31 @@ public final class PokemonFamily {
             evolutionsLevels_.addAllElts(newEvolutions_);
             currentEvolutions_ = new StringList(newEvolutions_);
         }
+    }
+
+    private boolean exitBuild(DataBase _data, String _pokemonBase, StringList _evolutionsLevels, StringList _newEvolutions, PokemonData _fPk) {
+        for (String e_: _fPk.getEvolutions().getKeys()) {
+            PokemonData evo_ = _data.getPokemon(e_);
+            if (evo_ == null) {
+                continue;
+            }
+            if (exitBuildTree(_data, _pokemonBase, _evolutionsLevels, _newEvolutions, e_, evo_)) {
+                return true;
+            }
+            _newEvolutions.add(e_);
+        }
+        return false;
+    }
+
+    private boolean exitBuildTree(DataBase _data, String _pokemonBase, StringList _evolutionsLevels, StringList _newEvolutions, String _e, PokemonData _evo) {
+        if (!StringUtil.quickEq(_evo.getBaseEvo(), _pokemonBase)) {
+            _data.setError(true);
+        }
+        if (StringUtil.contains(_evolutionsLevels, _e) || StringUtil.contains(_newEvolutions, _e)) {
+            _data.setError(true);
+            return true;
+        }
+        return false;
     }
 
     public CustList<StringList> getStages() {

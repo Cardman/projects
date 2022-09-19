@@ -132,14 +132,6 @@ final class FightOrder {
         return randomFigtherHavingToActCh(_fight, _cbts, _import);
     }
 
-    static TeamPositionList randomFigtherHavingToActCh(Fight _fight, TeamPositionList _cbts, DataBase _import) {
-        UsedItemForBattle indexRemoving_= indexOfRemovingItem(_fight, _cbts, _import);
-        if(indexRemoving_.getItemForBattle() == null){
-            return TeamPositionList.newList(_cbts.first());
-        }
-        return randomFigtherHavingToAct(_fight, _cbts, indexRemoving_, _import);
-    }
-
     static TeamPositionList notKoFrontFightersBelongingToUser(Fight _fight, boolean _user) {
         TeamPositionList list_ = new TeamPositionList();
         for (TeamPosition f: fightersBelongingToUser(_fight, _user)) {
@@ -222,6 +214,14 @@ final class FightOrder {
             fighters_.add(cbtOne_);
         }
         return fighters_;
+    }
+
+    static TeamPositionList randomFigtherHavingToActCh(Fight _fight, TeamPositionList _cbts, DataBase _import) {
+        UsedItemForBattle indexRemoving_= indexOfRemovingItem(_fight, _cbts, _import);
+        if(indexRemoving_.getItemForBattle() == null){
+            return TeamPositionList.newList(_cbts.first());
+        }
+        return randomFigtherHavingToAct(_fight, _cbts, indexRemoving_, _import);
     }
 
     static UsedItemForBattle indexOfRemovingItem(Fight _fight,TeamPositionList _cbts, DataBase _import) {

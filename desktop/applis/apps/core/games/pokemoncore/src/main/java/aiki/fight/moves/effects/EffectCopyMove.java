@@ -2,6 +2,7 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.util.DataInfoChecker;
 import code.util.StringList;
 
 
@@ -14,22 +15,13 @@ public final class EffectCopyMove extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!_data.getMoves().containsAllAsKeys(movesNotToBeCopied)) {
-            _data.setError(true);
-        }
-        if (getTargetChoice() == TargetChoice.LANCEUR) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),movesNotToBeCopied,_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.LANCEUR,getTargetChoice(),_data);
         if (copyingMoveForUserDef) {
-            if (copyingMoveForUser != 0) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkZero(copyingMoveForUser,_data);
             return;
         }
-        if (copyingMoveForUser > 0) {
-            return;
-        }
-        _data.setError(true);
+        DataInfoChecker.checkPositive(copyingMoveForUser,_data);
 
     }
 

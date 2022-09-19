@@ -3,32 +3,18 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.util.StatisticType;
 import aiki.fight.util.StatisticTypeList;
 import aiki.fight.util.TypesDuos;
-import aiki.fight.util.TypesDuo;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.*;
-import code.util.core.StringUtil;
+import code.util.EnumList;
+import code.util.StringList;
+import code.util.StringMap;
 
 
 public final class EffectGlobal extends Effect {
 
-    private boolean weather;
-    private boolean canceledIfUsed;
-    private boolean reverseOrderOfSortBySpeed;
-    private boolean puttingKo;
-    private Rate multAccuracy;
-    private boolean unusableItem;
-    private StringList preventStatus;
-
-    private StringList immuneTypes;
-
-    private Rate damageEndRound;
-
-    private Rate healingEndRound;
-
-    private Rate healingEndRoundGround;
+    private final EffectGlobalCore effectGlobalCore = new EffectGlobalCore();
 
     private TypesDuos efficiencyMoves;
 
@@ -56,191 +42,120 @@ public final class EffectGlobal extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (getTargetChoice() != TargetChoice.LANCEUR) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(cancelChgtStat)) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(immuneTypes)) {
-            _data.setError(true);
-        }
-        if (!healingEndRound.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!healingEndRoundGround.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!damageEndRound.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        for (String k : multDamagePrepaRound.getKeys()) {
-            if (!StringUtil.contains(_data.getTypes(), k)) {
-                _data.setError(true);
-            }
-            if (!multDamagePrepaRound.getVal(k).isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        for (String k : multDamageTypesMoves.getKeys()) {
-            if (!StringUtil.contains(_data.getTypes(), k)) {
-                _data.setError(true);
-            }
-            if (!multDamageTypesMoves.getVal(k).isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        for (String k : multPowerMoves.getKeys()) {
-            if (!_data.getMoves().contains(k)) {
-                _data.setError(true);
-            }
-            if (!multPowerMoves.getVal(k).isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        for (TypesDuo k : efficiencyMoves.getKeys()) {
-            if (!StringUtil.contains(_data.getTypes(), k.getDamageType())) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getTypes(), k.getPokemonType())) {
-                _data.setError(true);
-            }
-            if (!efficiencyMoves.getVal(k).isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        for (StatisticType k : multStatIfContainsType.getKeys()) {
-            if (!k.getStatistic().isBoost()) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getTypes(), k.getType())) {
-                _data.setError(true);
-            }
-            if (!multStatIfContainsType.getVal(k).isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getTypes().containsAllObj(disableImmuAgainstTypes)) {
-            _data.setError(true);
-        }
-        if (!_data.getAbilities().containsAllAsKeys(cancelProtectingAbilities)) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(preventStatus)) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(unusableMoves)) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(movesUsedByTargetedFighters)) {
-            _data.setError(true);
-        }
-        if (!multAccuracy.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multEffectLovingAlly.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!_data.getMovesEffectGlobal().containsAllObj(cancelEffects)) {
-            _data.setError(true);
-        }
-        if (!invokedMoveTerrain.isEmpty()) {
-            if (!_data.getMoves().contains(invokedMoveTerrain)) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getTypes().containsAllObj(changedTypesTerrain)) {
-            _data.setError(true);
-
-        }
+        getEffectGlobalCore().validate(_data);
+        DataInfoChecker.checkTarget(TargetChoice.LANCEUR,getTargetChoice(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),cancelChgtStat,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),multDamagePrepaRound.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multDamagePrepaRound.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),multDamageTypesMoves.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multDamageTypesMoves.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),multPowerMoves.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multPowerMoves.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),efficiencyMoves.getTypes(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(efficiencyMoves.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatIfContainsType.getStatistics(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),multStatIfContainsType.getTypes(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multStatIfContainsType.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),disableImmuAgainstTypes,_data);
+        DataInfoChecker.checkStringListContains(_data.getAbilities().getKeys(),cancelProtectingAbilities,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),unusableMoves,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),movesUsedByTargetedFighters,_data);
+        DataInfoChecker.checkPositiveOrZero(multEffectLovingAlly,_data);
+        DataInfoChecker.checkStringListContains(_data.getMovesEffectGlobal(),cancelEffects,_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getMoves().getKeys(),invokedMoveTerrain,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),changedTypesTerrain,_data);
     }
 
     public boolean getWeather() {
-        return weather;
+        return effectGlobalCore.getWeather();
     }
 
     public void setWeather(boolean _weather) {
-        weather = _weather;
+        effectGlobalCore.setWeather(_weather);
     }
 
     public boolean getCanceledIfUsed() {
-        return canceledIfUsed;
+        return effectGlobalCore.getCanceledIfUsed();
     }
 
     public void setCanceledIfUsed(boolean _canceledIfUsed) {
-        canceledIfUsed = _canceledIfUsed;
+        effectGlobalCore.setCanceledIfUsed(_canceledIfUsed);
     }
 
     public boolean getReverseOrderOfSortBySpeed() {
-        return reverseOrderOfSortBySpeed;
+        return effectGlobalCore.getReverseOrderOfSortBySpeed();
     }
 
     public void setReverseOrderOfSortBySpeed(boolean _reverseOrderOfSortBySpeed) {
-        reverseOrderOfSortBySpeed = _reverseOrderOfSortBySpeed;
+        effectGlobalCore.setReverseOrderOfSortBySpeed(_reverseOrderOfSortBySpeed);
     }
 
     public boolean getPuttingKo() {
-        return puttingKo;
+        return effectGlobalCore.getPuttingKo();
     }
 
     public void setPuttingKo(boolean _puttingKo) {
-        puttingKo = _puttingKo;
+        effectGlobalCore.setPuttingKo(_puttingKo);
     }
 
     public Rate getMultAccuracy() {
-        return multAccuracy;
+        return effectGlobalCore.getMultAccuracy();
     }
 
     public void setMultAccuracy(Rate _multAccuracy) {
-        multAccuracy = _multAccuracy;
+        effectGlobalCore.setMultAccuracy(_multAccuracy);
     }
 
     public boolean getUnusableItem() {
-        return unusableItem;
+        return effectGlobalCore.getUnusableItem();
     }
 
     public void setUnusableItem(boolean _unusableItem) {
-        unusableItem = _unusableItem;
+        effectGlobalCore.setUnusableItem(_unusableItem);
     }
 
     public StringList getPreventStatus() {
-        return preventStatus;
+        return effectGlobalCore.getPreventStatus();
     }
 
     public void setPreventStatus(StringList _preventStatus) {
-        preventStatus = _preventStatus;
+        effectGlobalCore.setPreventStatus(_preventStatus);
     }
 
     public StringList getImmuneTypes() {
-        return immuneTypes;
+        return effectGlobalCore.getImmuneTypes();
     }
 
     public void setImmuneTypes(StringList _immuneTypes) {
-        immuneTypes = _immuneTypes;
+        effectGlobalCore.setImmuneTypes(_immuneTypes);
     }
 
     public Rate getDamageEndRound() {
-        return damageEndRound;
+        return effectGlobalCore.getDamageEndRound();
     }
 
     public void setDamageEndRound(Rate _damageEndRound) {
-        damageEndRound = _damageEndRound;
+        effectGlobalCore.setDamageEndRound(_damageEndRound);
     }
 
     public Rate getHealingEndRound() {
-        return healingEndRound;
+        return effectGlobalCore.getHealingEndRound();
     }
 
     public void setHealingEndRound(Rate _healingEndRound) {
-        healingEndRound = _healingEndRound;
+        effectGlobalCore.setHealingEndRound(_healingEndRound);
     }
 
     public Rate getHealingEndRoundGround() {
-        return healingEndRoundGround;
+        return effectGlobalCore.getHealingEndRoundGround();
     }
 
     public void setHealingEndRoundGround(Rate _healingEndRoundGround) {
-        healingEndRoundGround = _healingEndRoundGround;
+        effectGlobalCore.setHealingEndRoundGround(_healingEndRoundGround);
+    }
+
+    public EffectGlobalCore getEffectGlobalCore() {
+        return effectGlobalCore;
     }
 
     public TypesDuos getEfficiencyMoves() {

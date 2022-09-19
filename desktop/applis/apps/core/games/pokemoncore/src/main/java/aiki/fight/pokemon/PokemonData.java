@@ -9,6 +9,7 @@ import aiki.fight.pokemon.evolution.GenderConstraints;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import aiki.map.pokemon.enums.Gender;
+import aiki.util.DataInfoChecker;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
@@ -19,15 +20,15 @@ public final class PokemonData {
 
     private static final int RATE_BASE = 8;
 
-    private static final int RATE_EV = 1;
+    private static final long RATE_EV = 1;
 
-    private static final int RATE_IV = 4;
+    private static final long RATE_IV = 4;
 
     private static final int RATE_DIV_STAT = 400;
 
     private static final int BONUS_STAT = 5;
 
-    private static final int BONUS_HP = 5;
+    private static final long BONUS_HP = 5;
 
     /** DONE */
     private Rate weight;
@@ -88,42 +89,20 @@ public final class PokemonData {
 
     public void validate(DataBase _data) {
         eggGroups.removeDuplicates();
-        if (expRate <= 0) {
-            _data.setError(true);
-        }
-        if (catchingRate <= 0) {
-            _data.setError(true);
-        }
-        if (happiness <= 0) {
-            _data.setError(true);
-        }
-        if (happinessHatch <= 0) {
-            _data.setError(true);
-        }
-        if (!hatchingSteps.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!weight.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!height.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (types.isEmpty()) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(types)) {
-            _data.setError(true);
-        }
-        if (genderRep != GenderRepartition.NO_GENDER) {
-            if (genderRep != GenderRepartition.LEGENDARY) {
-                if (eggGroups.isEmpty()) {
-                    _data.setError(true);
-                }
-                PokemonData fPkBaseEvo_ = _data.getPokemon(baseEvo);
-                if (fPkBaseEvo_ == null || fPkBaseEvo_.genderRep == GenderRepartition.LEGENDARY) {
-                    _data.setError(true);
-                }
+        DataInfoChecker.checkPositive(expRate,_data);
+        DataInfoChecker.checkPositive(catchingRate,_data);
+        DataInfoChecker.checkPositive(happiness,_data);
+        DataInfoChecker.checkPositive(happinessHatch,_data);
+        DataInfoChecker.checkPositiveOrZero(hatchingSteps,_data);
+        DataInfoChecker.checkPositiveOrZero(weight,_data);
+        DataInfoChecker.checkPositiveOrZero(height,_data);
+        DataInfoChecker.checkEmptyNotStringList(types,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),types,_data);
+        if (genderRep != GenderRepartition.NO_GENDER && genderRep != GenderRepartition.LEGENDARY) {
+            DataInfoChecker.checkEmptyNotStringList(eggGroups,_data);
+            PokemonData fPkBaseEvo_ = _data.getPokemon(baseEvo);
+            if (fPkBaseEvo_ == null || fPkBaseEvo_.genderRep == GenderRepartition.LEGENDARY) {
+                _data.setError(true);
             }
         }
         if (!Statistic.equalsSet(statistics.getKeys(),
@@ -132,52 +111,26 @@ public final class PokemonData {
         }
         for (EntryCust<Statistic,StatBaseEv> e: statistics.entryList()) {
             StatBaseEv ev_ = e.getValue();
-            if (ev_.getBase() <= 0) {
-                _data.setError(true);
-            }
-            if (ev_.getEv() < 0) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkPositive(ev_.getBase(),_data);
+            DataInfoChecker.checkPositiveOrZero(ev_.getEv(),_data);
         }
-        if (levMoves.isEmpty()) {
-            _data.setError(true);
-        }
-        if (abilities.isEmpty()) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(moveTutors)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEmptyNotStringList(abilities,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),moveTutors,_data);
         if (StringUtil.contains(moveTutors, _data.getDefaultMove())) {
             _data.setError(true);
         }
-        if (!_data.getAbilities().containsAllAsKeys(abilities)) {
-            _data.setError(true);
-        }
-        if (!_data.getHm().containsAllAsKeys(hiddenMoves)) {
-            _data.setError(true);
-        }
-        if (!_data.getTm().containsAllAsKeys(technicalMoves)) {
-            _data.setError(true);
-        }
-        if (!_data.getPokedex().contains(baseEvo)) {
-            _data.setError(true);
-        }
-        for (String e : evolutions.getKeys()) {
-            if (!_data.getPokedex().contains(e)) {
-                _data.setError(true);
-            }
-            if (evolutions.getVal(e).validate(_data, this)) {
-                _data.setError(true);
-            }
-        }
+        DataInfoChecker.checkStringListContains(_data.getAbilities().getKeys(),abilities,_data);
+        DataInfoChecker.checkShortsContains(_data.getHm(), hiddenMoves, _data);
+        DataInfoChecker.checkShortsContains(_data.getTm(), technicalMoves, _data);
+        DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),baseEvo,_data);
+        DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),evolutions.getKeys(),_data);
+        validateEvos(_data);
         if (levMoves.isEmpty()) {
+            _data.setError(true);
             return;
         }
         short min_ = levMoves.first().getLevel();
-        if (min_ > _data.getMinLevel()) {
-            levMoves.first().setLevel((short) _data.getMinLevel());
-        }
+        patchLevelMoves(_data, min_);
         min_ = levMoves.first().getLevel();
         for (LevelMove p : levMoves) {
             if (p.getLevel() < min_) {
@@ -186,12 +139,25 @@ public final class PokemonData {
             if (StringUtil.quickEq(p.getMove(), _data.getDefaultMove())) {
                 _data.setError(true);
             }
-            if (!_data.getMoves().contains(p.getMove())) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),p.getMove(),_data);
             min_ = p.getLevel();
         }
     }
+
+    private void validateEvos(DataBase _data) {
+        for (Evolution e : evolutions.values()) {
+            if (e.validate(_data, this)) {
+                _data.setError(true);
+            }
+        }
+    }
+
+    private void patchLevelMoves(DataBase _data, short _min) {
+        if (_min > _data.getMinLevel()) {
+            levMoves.first().setLevel((short) _data.getMinLevel());
+        }
+    }
+
     public Evolution getEvolution(String _name) {
         return evolutions.getVal(_name);
     }
@@ -259,10 +225,9 @@ public final class PokemonData {
             if (list_.size() == _maxNumber) {
                 break;
             }
-            if (l.getLevel() > _level) {
-                continue;
+            if (l.getLevel() <= _level) {
+                list_.add(l.getMove());
             }
-            list_.add(l.getMove());
         }
         return list_;
     }

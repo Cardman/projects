@@ -2,7 +2,6 @@ package aiki.fight.util;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
 public final class TypesDuo implements Displayable {
 

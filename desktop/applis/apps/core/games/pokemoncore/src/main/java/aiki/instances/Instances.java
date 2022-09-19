@@ -21,53 +21,7 @@ import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectAccuracy;
-import aiki.fight.moves.effects.EffectAlly;
-import aiki.fight.moves.effects.EffectBatonPass;
-import aiki.fight.moves.effects.EffectClone;
-import aiki.fight.moves.effects.EffectCombo;
-import aiki.fight.moves.effects.EffectCommonStatistics;
-import aiki.fight.moves.effects.EffectCopyFighter;
-import aiki.fight.moves.effects.EffectCopyMove;
-import aiki.fight.moves.effects.EffectCounterAttack;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.moves.effects.EffectDamageRate;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundFoe;
-import aiki.fight.moves.effects.EffectEndRoundGlobal;
-import aiki.fight.moves.effects.EffectEndRoundIndividual;
-import aiki.fight.moves.effects.EffectEndRoundMultiRelation;
-import aiki.fight.moves.effects.EffectEndRoundPositionRelation;
-import aiki.fight.moves.effects.EffectEndRoundPositionTargetRelation;
-import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
-import aiki.fight.moves.effects.EffectEndRoundStatus;
-import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
-import aiki.fight.moves.effects.EffectEndRoundTeam;
-import aiki.fight.moves.effects.EffectFullHpRate;
-import aiki.fight.moves.effects.EffectGlobal;
-import aiki.fight.moves.effects.EffectInvoke;
-import aiki.fight.moves.effects.EffectMultSufferedMovePower;
-import aiki.fight.moves.effects.EffectMultUsedMovePower;
-import aiki.fight.moves.effects.EffectOrder;
-import aiki.fight.moves.effects.EffectProtectFromTypes;
-import aiki.fight.moves.effects.EffectProtection;
-import aiki.fight.moves.effects.EffectRemainedHpRate;
-import aiki.fight.moves.effects.EffectRestriction;
-import aiki.fight.moves.effects.EffectStatistic;
-import aiki.fight.moves.effects.EffectStatus;
-import aiki.fight.moves.effects.EffectSwitchAbilities;
-import aiki.fight.moves.effects.EffectSwitchItems;
-import aiki.fight.moves.effects.EffectSwitchMoveTypes;
-import aiki.fight.moves.effects.EffectSwitchPointView;
-import aiki.fight.moves.effects.EffectSwitchPosition;
-import aiki.fight.moves.effects.EffectSwitchTypes;
-import aiki.fight.moves.effects.EffectTeam;
-import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
-import aiki.fight.moves.effects.EffectUnprotectFromTypes;
-import aiki.fight.moves.effects.EffectVarPP;
-import aiki.fight.moves.effects.EffectWinMoney;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
@@ -96,16 +50,13 @@ import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.fight.util.*;
 import aiki.game.Game;
 import aiki.game.HostPokemonDuo;
-import aiki.game.NbFightCoords;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Anticipation;
 import aiki.game.fight.ChoiceOfEvolutionAndMoves;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
-import aiki.game.fight.MoveTeamPosition;
 import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.TargetCoords;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.actions.ActionHealMove;
@@ -120,17 +71,14 @@ import aiki.game.player.Inventory;
 import aiki.game.player.Player;
 import aiki.map.Condition;
 import aiki.map.DataMap;
-import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
 import aiki.map.characters.Ally;
-import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DealerItem;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
-import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.characters.TempTrainer;
 import aiki.map.characters.TrainerLeague;
@@ -146,7 +94,6 @@ import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.levels.LevelLeague;
 import aiki.map.levels.LevelOutdoor;
 import aiki.map.levels.LevelRoad;
-import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.City;
@@ -171,7 +118,6 @@ import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.AbsMap;
-import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
 
@@ -976,8 +922,7 @@ public final class Instances {
     }
 
     public static EvolutionHappiness newEvolutionHappiness() {
-        EvolutionHappiness object_ = new EvolutionHappiness();
-        return object_;
+        return new EvolutionHappiness();
     }
 
     public static EvolutionItem newEvolutionItem() {
@@ -993,8 +938,7 @@ public final class Instances {
     }
 
     public static EvolutionLevelSimple newEvolutionLevelSimple() {
-        EvolutionLevelSimple object_ = new EvolutionLevelSimple();
-        return object_;
+        return new EvolutionLevelSimple();
     }
 
     public static EvolutionMove newEvolutionMove() {
@@ -1241,8 +1185,7 @@ public final class Instances {
     }
 
     public static ActionSwitch newActionSwitch() {
-        ActionSwitch object_ = new ActionSwitch();
-        return object_;
+        return new ActionSwitch();
     }
 
     public static MovesAbilities newMovesAbilities() {
@@ -1254,8 +1197,7 @@ public final class Instances {
     }
 
     public static Difficulty newDifficulty() {
-        Difficulty object_ = new Difficulty();
-        return object_;
+        return new Difficulty();
     }
 
     public static Inventory newInventory() {
@@ -1280,8 +1222,7 @@ public final class Instances {
     }
 
     public static Condition newCondition() {
-        Condition object_ = new Condition();
-        return object_;
+        return new Condition();
     }
 
     public static DataMap newDataMap() {

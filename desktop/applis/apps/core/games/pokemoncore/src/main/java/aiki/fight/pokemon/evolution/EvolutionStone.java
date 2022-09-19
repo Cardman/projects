@@ -2,7 +2,6 @@ package aiki.fight.pokemon.evolution;
 
 import aiki.db.DataBase;
 import aiki.fight.items.EvolvingStone;
-import aiki.fight.pokemon.PokemonData;
 
 
 public abstract class EvolutionStone extends Evolution {

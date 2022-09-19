@@ -4,11 +4,10 @@ import aiki.db.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 
 public final class EffectEndRoundIndividual extends EffectEndRound {
@@ -23,47 +22,21 @@ public final class EffectEndRoundIndividual extends EffectEndRound {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (getTargetChoice() != TargetChoice.LANCEUR) {
-            _data.setError(true);
-        }
-        for (EntryCust<String, Rate> e : multDamageStatus.entryList()) {
-            if (!_data.getStatus().contains(e.getKey())) {
-                _data.setError(true);
-                continue;
-            }
-            if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
-                _data.setError(true);
-            }
-        }
+        DataInfoChecker.checkTarget(TargetChoice.LANCEUR,getTargetChoice(),_data);
+        CustList<String> mult_ = multDamageStatus.getKeys();
+        DataInfoChecker.checkStringListContains(DataInfoChecker.filterStatusExclude(_data,StatusType.RELATION_UNIQUE).getKeys(), mult_,_data);
         CustList<String> keys_ = healHpByOwnerTypes.getKeys();
-        StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
-        if (!_data.getTypes().containsAllObj(keys_)) {
-            _data.setError(true);
-        }
-        if (!deleteAllStatus.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!healHp.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!recoilDamage.isZeroOrGt()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getTypes(),keys_,_data);
+        DataInfoChecker.checkPositiveOrZero(deleteAllStatus,_data);
+        DataInfoChecker.checkPositiveOrZero(healHp,_data);
+        DataInfoChecker.checkPositiveOrZero(recoilDamage,_data);
         if (!healHp.isZero()) {
-            if (!healHpByOwnerTypes.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyStringList(keys_,_data);
         }
         if (!userStatusEndRound.isEmpty()) {
-            if (!deleteAllStatus.isZero()) {
-                _data.setError(true);
-            }
-            if (!_data.getStatus().contains(userStatusEndRound)) {
-                _data.setError(true);
-            }
-            if (!multDamageStatus.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkZero(deleteAllStatus,_data);
+            DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),userStatusEndRound,_data);
+            DataInfoChecker.checkEmptyStringList(mult_,_data);
         }
         if (!userStatusEndRound.isEmpty()) {
             return;
@@ -80,10 +53,7 @@ public final class EffectEndRoundIndividual extends EffectEndRound {
         if (!healHpByOwnerTypes.isEmpty()) {
             return;
         }
-        if (!multDamageStatus.isEmpty()) {
-            return;
-        }
-        _data.setError(true);
+        DataInfoChecker.checkEmptyNotStringList(mult_,_data);
 
     }
 

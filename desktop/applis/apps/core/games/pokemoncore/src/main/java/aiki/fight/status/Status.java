@@ -6,6 +6,7 @@ import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
 import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
 import aiki.fight.status.effects.EffectPartnerStatus;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.AbsMap;
@@ -26,24 +27,9 @@ public abstract class Status {
     public abstract void validate(DataBase _data);
 
     protected final void validateStatus(DataBase _data) {
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                multStat.getKeys())) {
-            _data.setError(true);
-        }
-        for (Rate v : multStat.values()) {
-            if (!v.isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (v.isZero()) {
-                _data.setError(true);
-            }
-        }
-        if (!catchingRate.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (catchingRate.isZero()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStat.getKeys(),_data);
+        DataInfoChecker.checkPositiveRates(multStat.values(),_data);
+        DataInfoChecker.checkPositive(catchingRate,_data);
         if (effectEndRound.size() > 1) {
             _data.setError(true);
         }
@@ -62,10 +48,8 @@ public abstract class Status {
                 }
             }
         }
-        if (!effectEndRound.isEmpty()) {
-            if (incrementEndRound == effectEndRound.first().getEndRoundRank()) {
-                _data.setError(true);
-            }
+        if (!effectEndRound.isEmpty() && incrementEndRound == effectEndRound.first().getEndRoundRank()) {
+            _data.setError(true);
         }
         if (!effectsPartner.isEmpty()) {
             effectsPartner.first().validate(_data);

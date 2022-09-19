@@ -1,5 +1,4 @@
 package aiki.fight.moves.enums;
-import code.util.StringList;
 
 
 public enum TargetChoice {

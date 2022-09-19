@@ -1,6 +1,7 @@
 package aiki.fight.status;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -18,28 +19,14 @@ public abstract class StatusBeginRound extends Status {
         validateStatus(_data);
     }
     protected final void validateStatusBeginRound(DataBase _data) {
-        if (!lawForUsingAMove.checkEvents()) {
-            _data.setError(true);
-        }
-        if (!lawForUsingAMoveNbRound.checkEvents()) {
-            _data.setError(true);
-        }
-        if (!lawForUsingAMoveIfFoe.checkEvents()) {
-            _data.setError(true);
-        }
-        if (!lawForFullHealIfMove.checkEvents()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEvents(lawForUsingAMove,_data);
+        DataInfoChecker.checkEvents(lawForUsingAMoveNbRound,_data);
+        DataInfoChecker.checkEvents(lawForUsingAMoveIfFoe,_data);
+        DataInfoChecker.checkEvents(lawForFullHealIfMove,_data);
         if (!lawForUsingAMoveNbRound.events().isEmpty()) {
             Rate min_ = lawForUsingAMoveNbRound.minimum();
-            if (!min_.isZeroOrGt()) {
-                _data.setError(true);
-            }
-            for (Rate e : lawForUsingAMoveNbRound.events()) {
-                if (!e.isInteger()) {
-                    _data.setError(true);
-                }
-            }
+            DataInfoChecker.checkPositiveOrZero(min_,_data);
+            DataInfoChecker.checkIntegers(lawForUsingAMoveNbRound.events(),_data);
             return;
         }
         if (!lawForUsingAMove.events().isEmpty()) {

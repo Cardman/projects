@@ -1,6 +1,7 @@
 package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
@@ -15,32 +16,17 @@ public final class EffectCombo {
     private CustList<EffectTeam> teamMove;
 
     public void validate(DataBase _data) {
-        if (!repeatedRoundsLaw.checkEvents()) {
-            _data.setError(true);
-
-        }
-        if (!multEvtRateSecEff.isZeroOrGt()) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkEvents(repeatedRoundsLaw,_data);
+        DataInfoChecker.checkPositiveOrZero(multEvtRateSecEff,_data);
         if (repeatedRoundsLaw.events().isEmpty()) {
             _data.setError(true);
 
         } else {
             Rate min_ = repeatedRoundsLaw.minimum();
-            if (!min_.isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (min_.isZero()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkPositive(min_,_data);
         }
 
-        for (Rate e : repeatedRoundsLaw.events()) {
-            if (!e.isInteger()) {
-                _data.setError(true);
-            }
-        }
+        DataInfoChecker.checkIntegers(repeatedRoundsLaw.events(),_data);
         if (effectEndRound.size() > 1) {
             _data.setError(true);
         }

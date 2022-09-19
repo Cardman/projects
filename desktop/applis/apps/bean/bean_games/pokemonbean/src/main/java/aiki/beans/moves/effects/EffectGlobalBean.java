@@ -6,10 +6,7 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectGlobal;
-import aiki.fight.moves.effects.EffectInvoke;
-import aiki.fight.moves.effects.EffectSwitchTypes;
+import aiki.fight.moves.effects.*;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
@@ -17,17 +14,9 @@ import code.util.*;
 import code.util.ints.Listable;
 
 public class EffectGlobalBean extends EffectBean {
-    private boolean weather;
-    private boolean canceledIfUsed;
-    private boolean reverseOrderOfSortBySpeed;
-    private boolean puttingKo;
-    private Rate multAccuracy;
-    private boolean unusableItem;
+    private EffectGlobalCore effectGlobalCore;
     private StringList preventStatus;
     private StringList immuneTypes;
-    private Rate damageEndRound;
-    private Rate healingEndRound;
-    private Rate healingEndRoundGround;
     private TreeMap<TypesDuo, Rate> efficiencyMoves;
     private StringList disableImmuAgainstTypes;
     private StringList cancelProtectingAbilities;
@@ -49,36 +38,16 @@ public class EffectGlobalBean extends EffectBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         EffectGlobal effect_ = (EffectGlobal) getEffect();
-        DataBase data_ = (DataBase) getDataBase();
+        effectGlobalCore = effect_.getEffectGlobalCore();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        weather = effect_.getWeather();
-        canceledIfUsed = effect_.getCanceledIfUsed();
-        reverseOrderOfSortBySpeed = effect_.getReverseOrderOfSortBySpeed();
-        puttingKo = effect_.getPuttingKo();
-        multAccuracy = effect_.getMultAccuracy();
-        unusableItem = effect_.getUnusableItem();
-        damageEndRound = effect_.getDamageEndRound();
-        healingEndRound = effect_.getHealingEndRound();
-        healingEndRoundGround = effect_.getHealingEndRoundGround();
         multEffectLovingAlly = effect_.getMultEffectLovingAlly();
-        StringList preventStatus_;
-        preventStatus_ = new StringList();
-        for (String s: effect_.getPreventStatus()) {
-            preventStatus_.add(s);
-        }
-        preventStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
-        preventStatus = preventStatus_;
-        StringList immuneTypes_;
-        immuneTypes_ = new StringList();
-        for (String t: effect_.getImmuneTypes()) {
-            immuneTypes_.add(translatedTypes_.getVal(t));
-        }
-        immuneTypes_.sort();
-        immuneTypes = immuneTypes_;
+        preventStatus = listTrStrings(effect_.getPreventStatus(), translatedStatus_);
+        immuneTypes = list(effect_.getImmuneTypes(), translatedTypes_);
 //        TreeMap<TypesDuo, Rate> efficiencyMoves_;
 //        efficiencyMoves_ = new TreeMap<new>(new NaturalComparator<TypesDuo>() {
 //            @Override
@@ -99,46 +68,17 @@ public class EffectGlobalBean extends EffectBean {
             efficiencyMoves_.put(t_, effect_.getEfficiencyMoves().getVal(t));
         }
         efficiencyMoves = efficiencyMoves_;
-        StringList disableImmuAgainstTypes_;
-        disableImmuAgainstTypes_ = new StringList();
-        for (String t: effect_.getDisableImmuAgainstTypes()) {
-            disableImmuAgainstTypes_.add(translatedTypes_.getVal(t));
-        }
-        disableImmuAgainstTypes_.sort();
-        disableImmuAgainstTypes = disableImmuAgainstTypes_;
-        StringList cancelProtectingAbilities_;
-        cancelProtectingAbilities_ = new StringList();
-        for (String t: effect_.getCancelProtectingAbilities()) {
-            cancelProtectingAbilities_.add(t);
-        }
-        cancelProtectingAbilities_.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        cancelProtectingAbilities = cancelProtectingAbilities_;
-        StringList unusableMoves_;
-        unusableMoves_ = new StringList();
-        for (String m: effect_.getUnusableMoves()) {
-            unusableMoves_.add(m);
-        }
-        unusableMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        unusableMoves = unusableMoves_;
-        StringList cancelEffects_;
-        cancelEffects_ = new StringList();
-        for (String m: effect_.getCancelEffects()) {
-            cancelEffects_.add(m);
-        }
-        cancelEffects_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        cancelEffects = cancelEffects_;
+        disableImmuAgainstTypes = list(effect_.getDisableImmuAgainstTypes(), translatedTypes_);
+        cancelProtectingAbilities = listTrStrings(effect_.getCancelProtectingAbilities(), translatedAbilities_);
+        unusableMoves = listTrStrings(effect_.getUnusableMoves(), translatedMoves_);
+        cancelEffects = listTrStrings(effect_.getCancelEffects(), translatedMoves_);
         TreeMap<String, Rate> multPowerMoves_;
         multPowerMoves_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedMoves_));
         for (String m: effect_.getMultPowerMoves().getKeys()) {
             multPowerMoves_.put(m, effect_.getMultPowerMoves().getVal(m));
         }
         multPowerMoves = multPowerMoves_;
-        NatStringTreeMap< Rate> multDamageTypesMoves_;
-        multDamageTypesMoves_ = new NatStringTreeMap< Rate>();
-        for (String m: effect_.getMultDamageTypesMoves().getKeys()) {
-            multDamageTypesMoves_.put(translatedTypes_.getVal(m), effect_.getMultDamageTypesMoves().getVal(m));
-        }
-        multDamageTypesMoves = multDamageTypesMoves_;
+        multDamageTypesMoves = map(effect_.getMultDamageTypesMoves(), translatedTypes_);
         StringList cancelChgtStat_;
         cancelChgtStat_ = new StringList();
         for (Statistic s: effect_.getCancelChgtStat()) {
@@ -147,20 +87,7 @@ public class EffectGlobalBean extends EffectBean {
         cancelChgtStat_.sort();
         cancelChgtStat = cancelChgtStat_;
         invokedMoveTerrain = effect_.getInvokedMoveTerrain();
-        StringList invokingMoves_;
-        invokingMoves_ = new StringList();
-        for (String m: data_.getMovesInvoking()) {
-            MoveData inv_ = data_.getMove(m);
-            for (Effect e: inv_.getEffects()) {
-                if (!(e instanceof EffectInvoke)) {
-                    continue;
-                }
-                EffectInvoke eff_ = (EffectInvoke) e;
-                if (!eff_.getMoveFctEnv().isEmpty()) {
-                    invokingMoves_.add(m);
-                }
-            }
-        }
+        StringList invokingMoves_ = invokingMoves(data_);
         invokingMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
         invokingMoves = invokingMoves_;
         StringList changedTypesTerrain_;
@@ -169,20 +96,7 @@ public class EffectGlobalBean extends EffectBean {
             changedTypesTerrain_.add(translatedTypes_.getVal(s));
         }
         changedTypesTerrain = changedTypesTerrain_;
-        StringList invokingMovesChangingTypes_;
-        invokingMovesChangingTypes_ = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData inv_ = data_.getMove(m);
-            for (Effect e: inv_.getEffects()) {
-                if (!(e instanceof EffectSwitchTypes)) {
-                    continue;
-                }
-                EffectSwitchTypes eff_ = (EffectSwitchTypes) e;
-                if (!eff_.getChgtTypeByEnv().isEmpty()) {
-                    invokingMovesChangingTypes_.add(m);
-                }
-            }
-        }
+        StringList invokingMovesChangingTypes_ = invokingMovesChangingTypes(data_);
         invokingMovesChangingTypes_.sortElts(new ComparatorTrStrings(translatedMoves_));
         invokingMovesChangingTypes = invokingMovesChangingTypes_;
         TreeMap<StatisticType, Rate> multStatIfContainsType_;
@@ -205,20 +119,73 @@ public class EffectGlobalBean extends EffectBean {
             multStatIfContainsType_.put(s, effect_.getMultStatIfContainsType().getVal(s));
         }
         multStatIfContainsType = multStatIfContainsType_;
-        NatStringTreeMap< Rate> multDamagePrepaRound_;
-        multDamagePrepaRound_ = new NatStringTreeMap< Rate>();
-        for (String m: effect_.getMultDamagePrepaRound().getKeys()) {
-            multDamagePrepaRound_.put(translatedTypes_.getVal(m), effect_.getMultDamagePrepaRound().getVal(m));
-        }
-        multDamagePrepaRound = multDamagePrepaRound_;
-        StringList movesUsedByTargetedFighters_;
-        movesUsedByTargetedFighters_ = new StringList();
-        for (String m: effect_.getMovesUsedByTargetedFighters()) {
-            movesUsedByTargetedFighters_.add(m);
-        }
-        movesUsedByTargetedFighters_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        movesUsedByTargetedFighters = movesUsedByTargetedFighters_;
+        multDamagePrepaRound = map(effect_.getMultDamagePrepaRound(), translatedTypes_);
+        movesUsedByTargetedFighters = listTrStrings(effect_.getMovesUsedByTargetedFighters(), translatedMoves_);
     }
+
+    public static StringList invokingMovesChangingTypes(DataBase _data) {
+        StringList invokingMovesChangingTypes_;
+        invokingMovesChangingTypes_ = new StringList();
+        for (String m: _data.getMoves().getKeys()) {
+            MoveData inv_ = _data.getMove(m);
+            for (Effect e: inv_.getEffects()) {
+                if (!(e instanceof EffectSwitchTypes)) {
+                    continue;
+                }
+                EffectSwitchTypes eff_ = (EffectSwitchTypes) e;
+                if (!eff_.getChgtTypeByEnv().isEmpty()) {
+                    invokingMovesChangingTypes_.add(m);
+                }
+            }
+        }
+        return invokingMovesChangingTypes_;
+    }
+
+    public static StringList invokingMoves(DataBase _data) {
+        StringList invokingMoves_;
+        invokingMoves_ = new StringList();
+        for (String m: _data.getMovesInvoking()) {
+            MoveData inv_ = _data.getMove(m);
+            for (Effect e: inv_.getEffects()) {
+                if (!(e instanceof EffectInvoke)) {
+                    continue;
+                }
+                EffectInvoke eff_ = (EffectInvoke) e;
+                if (!eff_.getMoveFctEnv().isEmpty()) {
+                    invokingMoves_.add(m);
+                }
+            }
+        }
+        return invokingMoves_;
+    }
+
+    private NatStringTreeMap<Rate> map(StringMap<Rate> _input, StringMap<String> _translated) {
+        NatStringTreeMap< Rate> multDamageTypesMoves_;
+        multDamageTypesMoves_ = new NatStringTreeMap< Rate>();
+        for (String m: _input.getKeys()) {
+            multDamageTypesMoves_.put(_translated.getVal(m), _input.getVal(m));
+        }
+        return multDamageTypesMoves_;
+    }
+
+    private StringList list(StringList _input, StringMap<String> _translated) {
+        StringList res_ = new StringList();
+        for (String t: _input) {
+            res_.add(_translated.getVal(t));
+        }
+        res_.sort();
+        return res_;
+    }
+
+    private static StringList listTrStrings(StringList _input, StringMap<String> _translated) {
+        StringList res_ = new StringList();
+        for (String s: _input) {
+            res_.add(s);
+        }
+        res_.sortElts(new ComparatorTrStrings(_translated));
+        return res_;
+    }
+
     public Listable<TypesDuo> getTypesDuos() {
         return efficiencyMoves.getKeys();
     }
@@ -228,7 +195,7 @@ public class EffectGlobalBean extends EffectBean {
         return CST_STATUS;
     }
     public String getTrPreventedStatus(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String st_ = preventStatus.get(_index);
         return translatedStatus_.getVal(st_);
@@ -239,7 +206,7 @@ public class EffectGlobalBean extends EffectBean {
         return CST_ABILITY;
     }
     public String getTrCancelledAbility(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         String st_ = cancelProtectingAbilities.get(_index);
         return translatedAbilities_.getVal(st_);
@@ -250,7 +217,7 @@ public class EffectGlobalBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrUnusableMoves(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = unusableMoves.get(_index);
         return translatedMoves_.getVal(st_);
@@ -261,7 +228,7 @@ public class EffectGlobalBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrCancelledEffect(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = cancelEffects.get(_index);
         return translatedMoves_.getVal(st_);
@@ -272,7 +239,7 @@ public class EffectGlobalBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrMultMovePower(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = multPowerMoves.getKey(_index);
         return translatedMoves_.getVal(st_);
@@ -282,7 +249,7 @@ public class EffectGlobalBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrInvokedMoveTerrain() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(invokedMoveTerrain);
     }
@@ -292,7 +259,7 @@ public class EffectGlobalBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrInvokingMove(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = invokingMoves.get(_index);
         return translatedMoves_.getVal(st_);
@@ -303,7 +270,7 @@ public class EffectGlobalBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrInvokingMoveTypes(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = invokingMovesChangingTypes.get(_index);
         return translatedMoves_.getVal(st_);
@@ -314,21 +281,21 @@ public class EffectGlobalBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrMovesTarget(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = movesUsedByTargetedFighters.get(_index);
         return translatedMoves_.getVal(st_);
     }
     public String getTrMultStatIfDamgeTypeFirst(int _index) {
         Statistic statis_ = multStatIfContainsType.getKey(_index).getStatistic();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(statis_);
     }
     public String getTrMultStatIfDamgeTypeSecond(int _index) {
         String type_ = multStatIfContainsType.getKey(_index).getType();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(type_);
@@ -338,39 +305,39 @@ public class EffectGlobalBean extends EffectBean {
     }
 
     public boolean getWeather() {
-        return weather;
+        return effectGlobalCore.getWeather();
     }
 
     public boolean getCanceledIfUsed() {
-        return canceledIfUsed;
+        return effectGlobalCore.getCanceledIfUsed();
     }
 
     public boolean getReverseOrderOfSortBySpeed() {
-        return reverseOrderOfSortBySpeed;
+        return effectGlobalCore.getReverseOrderOfSortBySpeed();
     }
 
     public boolean getUnusableItem() {
-        return unusableItem;
+        return effectGlobalCore.getUnusableItem();
     }
 
     public boolean getPuttingKo() {
-        return puttingKo;
+        return effectGlobalCore.getPuttingKo();
     }
 
     public Rate getMultAccuracy() {
-        return multAccuracy;
+        return effectGlobalCore.getMultAccuracy();
     }
 
     public Rate getDamageEndRound() {
-        return damageEndRound;
+        return effectGlobalCore.getDamageEndRound();
     }
 
     public Rate getHealingEndRoundGround() {
-        return healingEndRoundGround;
+        return effectGlobalCore.getHealingEndRoundGround();
     }
 
     public Rate getHealingEndRound() {
-        return healingEndRound;
+        return effectGlobalCore.getHealingEndRound();
     }
 
     public Rate getMultEffectLovingAlly() {

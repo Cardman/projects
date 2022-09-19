@@ -8,16 +8,10 @@ import aiki.fight.moves.effects.EffectEndRoundIndividual;
 import aiki.fight.moves.effects.EffectEndRoundMultiRelation;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
 import aiki.fight.util.*;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.AbsMap;
-import code.util.EqList;
-
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 
@@ -126,376 +120,113 @@ public final class AbilityData {
     private boolean giveItemToAllyHavingUsed;
 
     public void validate(DataBase _data) {
-        if (!maxHpForUsingBerry.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (maxHpForUsingBerry.greaterOrEqualsOne()) {
-            _data.setError(true);
-        }
-        if (!singleStatus.checkEvents()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositiveOrZero(maxHpForUsingBerry,_data);
+        DataInfoChecker.checkLowerOne(maxHpForUsingBerry,_data);
+        DataInfoChecker.checkEvents(singleStatus,_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getStatus().getKeys(),singleStatus.events(),_data);
         StringList events_ = new StringList(singleStatus.events());
         StringUtil.removeObj(events_, DataBase.EMPTY_STRING);
-        if (!_data.getStatus().containsAllAsKeys(events_)) {
-            _data.setError(true);
-        }
         if (!events_.isEmpty()) {
-            if (!events_.containsAllObj(failStatus.getKeys())) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkStringListContains(events_,failStatus.getKeys(),_data);
         }
-        for (WeatherType t : healHpByTypeIfWeather.getKeys()) {
-            if (!StringUtil.contains(_data.getMovesEffectGlobalWeather(), t.getWeather()) && !t.getWeather().isEmpty()) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getTypes(), t.getType())) {
-                _data.setError(true);
-            }
-            if (!healHpByTypeIfWeather.getVal(t).isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (healHpByTypeIfWeather.getVal(t).isZero()) {
-                _data.setError(true);
-            }
+        DataInfoChecker.checkPositiveRates(healHpByTypeIfWeather.values(),_data);
+        DataInfoChecker.checkWeatherTypes(healHpByTypeIfWeather.getKeys(), _data);
+        DataInfoChecker.checkPositiveOrZeroRates(multStatIfCat.values(),_data);
+        DataInfoChecker.checkStatisticCategory(_data.getAllCategories(), multStatIfCat.getKeys(), _data);
+        DataInfoChecker.checkStatisticStatus(immuLowStatIfStatus, _data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),TypesDuos.getTypesFrom(breakFoeImmune),_data);
+        DataInfoChecker.checkStringListContains(_data.getMovesEffectGlobalWeather(),immuWeather,_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getMovesEffectGlobalWeather(),chgtTypeByWeather.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),chgtTypeByWeather.values(),_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getMovesEffectGlobal(),immuStatus.getKeys(),_data);
+        DataInfoChecker.checkStringListContainsAll(_data.getStatus().getKeys(), immuStatus.values(), _data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getMovesEffectGlobal(),immuMoveTypesByWeather.getKeys(),_data);
+        DataInfoChecker.checkStringListContainsAll(_data.getTypes(), immuMoveTypesByWeather.values(), _data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getMovesEffectGlobal(),healHpByWeather.getKeys(),_data);
+        for (Rate v : healHpByWeather.values()) {
+            DataInfoChecker.checkNonZero(v,_data);
         }
-        for (StatisticCategory t : multStatIfCat.getKeys()) {
-            if (!t.getStatistic().isBoost()) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getAllCategories(), t.getCategory())) {
-                _data.setError(true);
-            }
-            if (!multStatIfCat.getVal(t).isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        for (StatisticStatus t : immuLowStatIfStatus) {
-            if (!t.getStatistic().isBoost()) {
-                _data.setError(true);
-            }
-            if (!_data.getStatus().contains(t.getStatus())) {
-                _data.setError(true);
-            }
-        }
-        for (TypesDuo t : breakFoeImmune) {
-            if (!StringUtil.contains(_data.getTypes(), t.getDamageType())) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getTypes(), t.getPokemonType())) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getMovesEffectGlobalWeather().containsAllObj(immuWeather)) {
-            _data.setError(true);
-        }
-        CustList<String> keys_ = chgtTypeByWeather.getKeys();
-        if (!keys_.isEmpty()) {
-            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
-            if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
-                _data.setError(true);
-            }
-            if (!_data.getTypes().containsAllObj(chgtTypeByWeather.values())) {
-                _data.setError(true);
-            }
-        }
-        keys_ = immuStatus.getKeys();
-        if (!keys_.isEmpty()) {
-            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
-            if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
-                _data.setError(true);
-            }
-            for (StringList k : immuStatus.values()) {
-                if (!_data.getStatus().containsAllAsKeys(k)) {
-                    _data.setError(true);
-                }
-            }
-        }
-        keys_ = immuMoveTypesByWeather.getKeys();
-        if (!keys_.isEmpty()) {
-            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
-            if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
-                _data.setError(true);
-            }
-            for (StringList k : immuMoveTypesByWeather.values()) {
-                if (!_data.getTypes().containsAllObj(k)) {
-                    _data.setError(true);
-                }
-            }
-        }
-        keys_ = healHpByWeather.getKeys();
-        if (!keys_.isEmpty()) {
-            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
-            if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
-                _data.setError(true);
-            }
-            for (Rate v : healHpByWeather.values()) {
-                if (v.isZero()) {
-                    _data.setError(true);
-                }
-            }
-        }
-        if (!_data.getStatus().containsAllAsKeys(immuStatusBeginRound)) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(divideStatusRound.getKeys())) {
-            _data.setError(true);
-        }
-        for (Rate v : divideStatusRound.values()) {
-            if (!v.isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (v.isZero()) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getAbilities().containsAllAsKeys(immuAbility)) {
-            _data.setError(true);
-        }
-        if (!_data.getAbilities().containsAllAsKeys(ignAbility)) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(ignFoeTeamMove)) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(immuMove)) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(multDamageFoe.getKeys())) {
-            _data.setError(true);
-        }
-        for (Rate v : multDamageFoe.values()) {
-            if (!v.isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (v.isZero()) {
-                _data.setError(true);
-            }
-        }
-        if (!multDamageCh.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multAllyDamage.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multSufferedDamageSuperEff.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multEvtRateCh.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!multEvtRateSecEffectOwner.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(immuLowStat)) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(forwardStatus.getKeys())) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(forwardStatus.values())) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),immuStatusBeginRound,_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),divideStatusRound.getKeys(),_data);
+        DataInfoChecker.checkPositiveRates(divideStatusRound.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getAbilities().getKeys(),immuAbility,_data);
+        DataInfoChecker.checkStringListContains(_data.getAbilities().getKeys(),ignAbility,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),ignFoeTeamMove,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),immuMove,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),multDamageFoe.getKeys(),_data);
+        DataInfoChecker.checkPositiveRates(multDamageFoe.values(),_data);
+        DataInfoChecker.checkPositiveOrZero(multDamageCh,_data);
+        DataInfoChecker.checkPositiveOrZero(multAllyDamage,_data);
+        DataInfoChecker.checkPositiveOrZero(multSufferedDamageSuperEff,_data);
+        DataInfoChecker.checkPositiveOrZero(multEvtRateCh,_data);
+        DataInfoChecker.checkPositiveOrZero(multEvtRateSecEffectOwner,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),immuLowStat,_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),forwardStatus.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),forwardStatus.values(),_data);
         if (!forwardStatus.isEmpty()) {
-            for (String k : failStatus.getKeys()) {
-                boolean appear_ = false;
-                for (String v : forwardStatus.values()) {
-                    if (StringUtil.quickEq(k, v)) {
-                        appear_ = true;
-                        break;
-                    }
-                }
-                if (!appear_) {
-                    _data.setError(true);
-                }
-            }
+            DataInfoChecker.checkStringListContains(forwardStatus.values(),failStatus.getKeys(),_data);
+//            for (String k : failStatus.getKeys()) {
+//                boolean appear_ = false;
+//                for (String v : forwardStatus.values()) {
+//                    if (StringUtil.quickEq(k, v)) {
+//                        appear_ = true;
+//                        break;
+//                    }
+//                }
+//                if (!appear_) {
+//                    _data.setError(true);
+//                }
+//            }
         }
-        if (!_data.getAllCategories().containsAllObj(increasedPrio.getKeys())) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(increasedPrioTypes.getKeys())) {
-            _data.setError(true);
-        }
-        for (String s : increasedPrio.getKeys()) {
-            if (increasedPrio.getVal(s) <= 0) {
+        DataInfoChecker.checkStringListContains(_data.getAllCategories(),increasedPrio.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),increasedPrioTypes.getKeys(),_data);
+        DataInfoChecker.checkPositiveShorts(increasedPrio.values(),_data);
+        DataInfoChecker.checkPositiveShorts(increasedPrioTypes.values(),_data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getTypes(), typeForMoves,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStat.getKeys(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatAlly.getKeys(),_data);
+        DataInfoChecker.checkPositiveRates(multStatAlly.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),maxStatisticsIfCh,_data);
+        DataInfoChecker.checkPositiveOrZero(multStab,_data);
+        DataInfoChecker.checkPositiveOrZero(healedHpRateBySwitch,_data);
+        DataInfoChecker.checkPositiveOrZero(nbUsedPp,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),bonusStatRank.getKeys(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatRankProtected.getKeys(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatRankEndRound.getKeys(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatIfKoFoe.getKeys(),_data);
+        DataInfoChecker.checkPositiveBytes(boostStatRankProtected.values(),_data);
+        DataInfoChecker.checkPositiveBytes(multStatIfKoFoe.values(),_data);
+        DataInfoChecker.checkPositiveBytes(boostStatRankEndRound.values(),_data);
+        DataInfoChecker.checkPositiveBytes(multStatIfLowStat.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatIfLowStat.getKeys(),_data);
+        DataInfoChecker.checkPositiveBytes(multStatIfStatutRank.values(),_data);
+        DataInfoChecker.checkStatisticStatus(multStatIfStatutRank.getKeys(), _data);
+        DataInfoChecker.checkPositiveBytes(multStatIfDamageCat.values(),_data);
+        DataInfoChecker.checkStatisticCategory(_data.getCategories(), multStatIfDamageCat.getKeys(), _data);
+        DataInfoChecker.checkPositiveBytes(multStatIfDamgeType.values(),_data);
+        DataInfoChecker.checkStatisticType(multStatIfDamgeType.getKeys(), _data);
+        DataInfoChecker.checkPositiveOrZero(recoilDamageFoe,_data);
+        DataInfoChecker.checkPositiveOrZero(decreaseNecStepsHatch,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),changingBoostTypes.getKeys(),_data);
+        for (TypeDamageBoost k : changingBoostTypes.values()) {
+            DataInfoChecker.checkStringListContains(_data.getTypes(),k.getType(),_data);
+            if (!k.getBoost().greaterOrEqualsOne()) {
                 _data.setError(true);
             }
         }
-        for (String s : increasedPrioTypes.getKeys()) {
-            if (increasedPrioTypes.getVal(s) <= 0) {
-                _data.setError(true);
-            }
-        }
-        if (!typeForMoves.isEmpty()) {
-            if (!StringUtil.contains(_data.getTypes(), typeForMoves)) {
-                _data.setError(true);
-            }
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                multStat.getKeys())) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                multStatAlly.getKeys())) {
-            _data.setError(true);
-        }
-        for (Rate v : multStatAlly.values()) {
-            if (!v.isZeroOrGt()) {
-                _data.setError(true);
-            }
-            if (v.isZero()) {
-                _data.setError(true);
-            }
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                maxStatisticsIfCh)) {
-            _data.setError(true);
-        }
-        if (!multStab.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (!healedHpRateBySwitch.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (nbUsedPp < 0) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                bonusStatRank.getKeys())) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                boostStatRankProtected.getKeys())) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                boostStatRankEndRound.getKeys())) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                multStatIfKoFoe.getKeys())) {
-            _data.setError(true);
-        }
-        for (Statistic s : boostStatRankProtected.getKeys()) {
-            if (boostStatRankProtected.getVal(s) <= 0) {
-                _data.setError(true);
-            }
-        }
-        for (Statistic s : multStatIfKoFoe.getKeys()) {
-            if (multStatIfKoFoe.getVal(s) <= 0) {
-                _data.setError(true);
-            }
-        }
-        for (Statistic s : boostStatRankEndRound.getKeys()) {
-            if (boostStatRankEndRound.getVal(s) <= 0) {
-                _data.setError(true);
-            }
-        }
-        for (Statistic s : multStatIfLowStat.getKeys()) {
-            if (multStatIfLowStat.getVal(s) <= 0) {
-                _data.setError(true);
-            }
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                multStatIfLowStat.getKeys())) {
-            _data.setError(true);
-        }
-        for (StatisticStatus k : multStatIfStatutRank.getKeys()) {
-            if (!k.getStatistic().isBoost()) {
-                _data.setError(true);
-            }
-            if (!_data.getStatus().contains(k.getStatus())) {
-                _data.setError(true);
-            }
-            if (multStatIfStatutRank.getVal(k) <= 0) {
-                _data.setError(true);
-            }
-        }
-        for (StatisticCategory k : multStatIfDamageCat.getKeys()) {
-            if (!k.getStatistic().isBoost()) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getCategories(), k.getCategory())) {
-                _data.setError(true);
-            }
-            if (multStatIfDamageCat.getVal(k) <= 0) {
-                _data.setError(true);
-            }
-        }
-        for (StatisticType k : multStatIfDamgeType.getKeys()) {
-            if (!k.getStatistic().isBoost()) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getTypes(), k.getType())) {
-                _data.setError(true);
-            }
-            if (multStatIfDamgeType.getVal(k) <= 0) {
-                _data.setError(true);
-            }
-        }
-        if (!recoilDamageFoe.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (decreaseNecStepsHatch < 0) {
-            _data.setError(true);
-        }
-        for (String k : changingBoostTypes.getKeys()) {
-            if (!StringUtil.contains(_data.getTypes(), k)) {
-                _data.setError(true);
-            }
-            TypeDamageBoost type_ = changingBoostTypes.getVal(k);
-            if (!StringUtil.contains(_data.getTypes(), type_.getType())) {
-                _data.setError(true);
-            }
-            if (!type_.getBoost().greaterOrEqualsOne()) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getMoves().containsAllAsKeys(immuAllyFromMoves)) {
-            _data.setError(true);
-        }
-        for (String k : immuStatusTypes.getKeys()) {
-            if (!StringUtil.contains(_data.getTypes(), k)) {
-                _data.setError(true);
-            }
-            if (!_data.getStatus().containsAllAsKeys(immuStatusTypes.getVal(k))) {
-                _data.setError(true);
-            }
-        }
-        for (EntryCust<String, EnumList<Statistic>> e : immuLowStatisTypes
-                .entryList()) {
-            if (!StringUtil.contains(_data.getTypes(), e.getKey())) {
-                _data.setError(true);
-            }
-        }
-        for (Statistic s : lowStatFoeHit.getKeys()) {
-            if (!s.isBoost()) {
-                _data.setError(true);
-            }
-            if (lowStatFoeHit.getVal(s) >= 0) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getTypes().containsAllObj(
-                multPowerMovesTypesGlobal.getKeys())) {
-            _data.setError(true);
-        }
-        for (Rate r : multPowerMovesTypesGlobal.values()) {
-            if (!r.isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        if (!healHpWhileUsingBerry.isZeroOrGt()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),immuAllyFromMoves,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),immuStatusTypes.getKeys(),_data);
+        DataInfoChecker.checkStringListContainsAll(_data.getStatus().getKeys(), immuStatusTypes.values(), _data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),immuLowStatisTypes.getKeys(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),lowStatFoeHit.getKeys(),_data);
+        DataInfoChecker.checkNegativeBytes(lowStatFoeHit.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),multPowerMovesTypesGlobal.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multPowerMovesTypesGlobal.values(),_data);
+        DataInfoChecker.checkPositiveOrZero(healHpWhileUsingBerry,_data);
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
-            if (!(effectEndRound.first() instanceof EffectEndRoundIndividual)) {
-                if (!(effectEndRound.first() instanceof EffectEndRoundTeam)) {
-                    if (!(effectEndRound.first() instanceof EffectEndRoundMultiRelation)) {
-                        _data.setError(true);
-                    }
-                }
+            if (!(effectEndRound.first() instanceof EffectEndRoundIndividual) && !(effectEndRound.first() instanceof EffectEndRoundTeam) && !(effectEndRound.first() instanceof EffectEndRoundMultiRelation)) {
+                _data.setError(true);
             }
         }
         if (!effectSending.isEmpty()) {

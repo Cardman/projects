@@ -27,6 +27,13 @@ public final class CategoryMults {
         return l_;
     }
 
+    public CustList<Rate> values() {
+        CustList<Rate> l_ = new CustList<Rate>();
+        for (CategoryMultRate e: entryList()) {
+            l_.add(e.getRate());
+        }
+        return l_;
+    }
     public CustList<CategoryMultRate> getList() {
         return list;
     }

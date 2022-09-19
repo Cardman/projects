@@ -1,6 +1,8 @@
 package aiki.fight.items;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
+import code.util.EntryCust;
 import code.util.StringMap;
 
 
@@ -17,14 +19,9 @@ public abstract class HealingItem extends Item {
     }
 
     protected final void validateHealingItem(DataBase _data) {
-        for (String k : happiness.getKeys()) {
-            if (happiness.getVal(k) < 0) {
-                _data.setError(true);
-            }
-            Item obj_ = _data.getItem(k);
-            if (!(obj_ instanceof Ball)) {
-                _data.setError(true);
-            }
+        DataInfoChecker.checkStringListContains(DataInfoChecker.itemsBall(_data).getKeys(),happiness.getKeys(),_data);
+        for (EntryCust<String, Short> k : happiness.entryList()) {
+            DataInfoChecker.checkPositiveOrZero(k.getValue(),_data);
         }
     }
 

@@ -19,6 +19,13 @@ public final class WeatherTypes {
     }
 
 
+    public CustList<Rate> values() {
+        CustList<Rate> l_ = new CustList<Rate>();
+        for (WeatherTypeRate e: entryList()) {
+            l_.add(e.getValue());
+        }
+        return l_;
+    }
     public CustList<WeatherType> getKeys() {
         CustList<WeatherType> l_ = new CustList<WeatherType>();
         for (WeatherTypeRate e: entryList()) {

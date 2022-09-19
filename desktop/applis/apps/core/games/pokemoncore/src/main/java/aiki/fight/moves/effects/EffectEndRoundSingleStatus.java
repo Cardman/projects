@@ -2,10 +2,7 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
-import aiki.fight.status.StatusType;
-import code.maths.Rate;
-import code.util.EntryCust;
-import code.util.StringMap;
+import aiki.util.DataInfoChecker;
 
 
 public final class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
@@ -15,9 +12,7 @@ public final class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (getInflictedRateHpTarget().isZeroOrLt()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositiveOrZero(getInflictedRateHpTarget(),_data);
     }
 
     @Override

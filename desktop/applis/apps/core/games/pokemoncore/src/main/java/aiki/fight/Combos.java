@@ -2,6 +2,7 @@ package aiki.fight;
 
 import aiki.db.DataBase;
 import aiki.fight.util.ListEffectCombos;
+import aiki.util.DataInfoChecker;
 import code.util.StringList;
 
 
@@ -11,12 +12,8 @@ public final class Combos {
 
     public void validate(DataBase _data) {
         for (StringList l : effects.getKeys()) {
-            if (l.isEmpty()) {
-                _data.setError(true);
-            }
-            if (!_data.getMoves().containsAllAsKeys(l)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyNotStringList(l,_data);
+            DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),l,_data);
             effects.getVal(l).validate(_data);
         }
     }

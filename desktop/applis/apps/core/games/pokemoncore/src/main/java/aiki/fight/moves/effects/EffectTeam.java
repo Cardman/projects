@@ -5,9 +5,11 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.CategoryMult;
 import aiki.fight.util.CategoryMults;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.*;
-import code.util.core.StringUtil;
+import code.util.AbsMap;
+import code.util.EnumList;
+import code.util.StringList;
 
 
 public final class EffectTeam extends Effect {
@@ -31,67 +33,29 @@ public final class EffectTeam extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (getTargetChoice() != TargetChoice.LANCEUR) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(unusableMoves)) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(protectAgainstStatus)) {
-            _data.setError(true);
-        }
-        if (!_data.getMoves().containsAllAsKeys(disableFoeTeamEffects)) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(disableFoeTeamStatus)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkTarget(TargetChoice.LANCEUR,getTargetChoice(),_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),unusableMoves,_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),protectAgainstStatus,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),disableFoeTeamEffects,_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),disableFoeTeamStatus,_data);
         for (CategoryMult k : multDamage.getKeys()) {
-            if (!StringUtil.contains(_data.getCategories(), k.getCategory())) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkStringListContains(_data.getCategories(),k.getCategory(),_data);
             if (k.getMult() > DataBase.MAX_MULT_FIGHT) {
                 _data.setError(true);
             }
             if (k.getMult() < 1) {
                 _data.setError(true);
             }
-            if (!multDamage.getVal(k).isZeroOrGt()) {
-                _data.setError(true);
-            }
         }
-        for (Statistic k : multStatisticFoe.getKeys()) {
-            if (!k.isBoost()) {
-                _data.setError(true);
-            }
-            if (!multStatisticFoe.getVal(k).isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        for (Statistic k : multStatistic.getKeys()) {
-            if (!k.isBoost()) {
-                _data.setError(true);
-            }
-            if (!multStatistic.getVal(k).isZeroOrGt()) {
-                _data.setError(true);
-            }
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                protectAgainstLowStat)) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(forbiddenBoost)) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                cancelChgtStatFoeTeam)) {
-            _data.setError(true);
-        }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(
-                cancelChgtStatTeam)) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkPositiveOrZeroRates(multDamage.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatisticFoe.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multStatisticFoe.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatistic.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multStatistic.values(),_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),protectAgainstLowStat,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),forbiddenBoost,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),cancelChgtStatFoeTeam,_data);
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),cancelChgtStatTeam,_data);
     }
 
     public boolean getForbiddingHealing() {

@@ -6,6 +6,7 @@ import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
@@ -13,7 +14,6 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 
 public abstract class MoveData {
@@ -46,95 +46,71 @@ public abstract class MoveData {
     private StringList requiredStatus;
 
     public void validate(DataBase _data) {
-        if (!repeatRoundLaw.checkEvents()) {
-            _data.setError(true);
-        }
-        if (targetChoice == TargetChoice.NOTHING) {
-            _data.setError(true);
-        }
-        if (nbPrepaRound < 0) {
-            _data.setError(true);
-        }
-        if (pp <= 0) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEvents(repeatRoundLaw,_data);
+        DataInfoChecker.checkTargetNot(TargetChoice.NOTHING,targetChoice,_data);
+        DataInfoChecker.checkPositiveOrZero(nbPrepaRound,_data);
+        DataInfoChecker.checkPositive(pp,_data);
         if (pp > _data.getMaxPp()) {
             _data.setError(true);
         }
-        if (!_data.getMoves().containsAllAsKeys(achieveDisappearedPkUsingMove)) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(types) || types.isEmpty()) {
-            _data.setError(true);
-        }
-        if (!_data.getTypes().containsAllObj(boostedTypes)) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(deletedStatus)) {
-            _data.setError(true);
-        }
-        if (!_data.getStatus().containsAllAsKeys(requiredStatus)) {
-            _data.setError(true);
-        }
-        if (!typesByOwnedItem.isEmpty()) {
-            if (!typesByOwnedItem.contains(DataBase.EMPTY_STRING)) {
-                _data.setError(true);
-            }
-            CustList<String> keys_ = typesByOwnedItem.getKeys();
-            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
-            if (!_data.getItems().containsAllAsKeys(keys_)) {
-                _data.setError(true);
-            }
-            if (!_data.getTypes().containsAllObj(typesByOwnedItem.values())) {
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),achieveDisappearedPkUsingMove,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),types,_data);
+        DataInfoChecker.checkEmptyNotStringList(types,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),boostedTypes,_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),deletedStatus,_data);
+        DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),requiredStatus,_data);
+        DataInfoChecker.checkIfNotEmptyListHasDef(typesByOwnedItem, _data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getItems().getKeys(),typesByOwnedItem.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),typesByOwnedItem.values(),_data);
+        int indexOfPrimaryEffect_ = indexOfPrimaryEffect();
+        for (Ints e : secEffectsByItem.values()) {
+            if (e.getMinimum(-2) <= indexOfPrimaryEffect_) {
                 _data.setError(true);
             }
         }
-        if (!secEffectsByItem.isEmpty()) {
-            CustList<String> keys_ = secEffectsByItem.getKeys();
-            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
-            if (!_data.getItems().containsAllAsKeys(keys_)) {
-                _data.setError(true);
-            }
-            int index_ = indexOfPrimaryEffect();
-            for (Ints e : secEffectsByItem.values()) {
-                if (e.getMinimum(-2) <= index_) {
-                    _data.setError(true);
-                }
-            }
-        }
-        if (!typesByWeather.isEmpty()) {
-            if (!typesByWeather.contains(DataBase.EMPTY_STRING)) {
-                _data.setError(true);
-            }
-            CustList<String> keys_ = typesByWeather.getKeys();
-            StringUtil.removeObj(keys_, DataBase.EMPTY_STRING);
-            if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
-                _data.setError(true);
-            }
-            if (!_data.getTypes().containsAllObj(typesByWeather.values())) {
-                _data.setError(true);
-            }
-        }
-        if (accuracy.isEmpty()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getItems().getKeys(),secEffectsByItem.getKeys(),_data);
+        DataInfoChecker.checkIfNotEmptyListHasDef(typesByWeather, _data);
+        DataInfoChecker.checkStringListContainsOrEmpty(_data.getMovesEffectGlobalWeather(),typesByWeather.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),typesByWeather.values(),_data);
+        DataInfoChecker.checkEmptyNotString(accuracy,_data);
         if (!repeatRoundLaw.events().isEmpty()) {
             Rate min_ = repeatRoundLaw.minimum();
-            if (!min_.isZeroOrGt()) {
+            DataInfoChecker.checkPositive(min_,_data);
+            DataInfoChecker.checkIntegers(repeatRoundLaw.events(),_data);
+            DataInfoChecker.checkPositive(rankIncrementNbRound,_data);
+        }
+        validateEffects(_data);
+        DataInfoChecker.checkPositiveOrZero(indexOfPrimaryEffect_,_data);
+        int nbEffects_ = nbEffets();
+        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
+            Effect effect_ = effects.get(i);
+            if (i <= indexOfPrimaryEffect_) {
+                DataInfoChecker.checkEmptyInts(effect_.getRequiredSuccessfulEffects(),_data);
+            } else if (!effect_.getRequiredSuccessfulEffects().isEmpty() && effect_.getRequiredSuccessfulEffects().getMaximum(nbEffects_) >= i) {
                 _data.setError(true);
             }
-            if (min_.isZero()) {
-                _data.setError(true);
+            DataInfoChecker.checkTargets(targetChoice, TargetChoice.LANCEUR, effect_.getTargetChoice(), _data);
+        }
+        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
+            if (i < indexOfPrimaryEffect_) {
+                continue;
             }
-            for (Rate e : repeatRoundLaw.events()) {
-                if (!e.isInteger()) {
-                    _data.setError(true);
-                }
-            }
-            if (rankIncrementNbRound <= 0) {
-                _data.setError(true);
+            Effect effect_ = effects.get(i);
+            if (effect_.getTargetChoice() != TargetChoice.LANCEUR) {
+                targetChoiceRequired(_data, effect_);
             }
         }
+    }
+
+    private void targetChoiceRequired(DataBase _data, Effect _effect) {
+        for (int e : _effect.getRequiredSuccessfulEffects()) {
+            if (effects.isValidIndex(e)) {
+                DataInfoChecker.checkTarget(targetChoice, effects.get(e).getTargetChoice(), _data);
+            }
+        }
+    }
+
+    private void validateEffects(DataBase _data) {
         int nbGlobalEffects_ = 0;
         int nbEndRoudEffects_ = 0;
         for (Effect e : effects) {
@@ -151,50 +127,6 @@ public abstract class MoveData {
         }
         if (nbEndRoudEffects_ > DataBase.ONE_POSSIBLE_CHOICE) {
             _data.setError(true);
-        }
-        int indexOfPrimaryEffect_ = indexOfPrimaryEffect();
-        if (indexOfPrimaryEffect_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            _data.setError(true);
-        }
-        int nbEffects_ = nbEffets();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
-            Effect effect_ = effects.get(i);
-            if (i <= indexOfPrimaryEffect_) {
-                if (!effect_.getRequiredSuccessfulEffects().isEmpty()) {
-                    _data.setError(true);
-                }
-            } else {
-                if (!effect_.getRequiredSuccessfulEffects().isEmpty()) {
-                    if (effect_.getRequiredSuccessfulEffects().getMaximum(nbEffects_) >= i) {
-                        _data.setError(true);
-                    }
-                }
-            }
-            if (effect_.getTargetChoice() != targetChoice) {
-                if (effect_.getTargetChoice() != TargetChoice.LANCEUR) {
-                    _data.setError(true);
-                }
-            }
-        }
-        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
-            if (i < indexOfPrimaryEffect_) {
-                continue;
-            }
-            Effect effect_ = effects.get(i);
-            if (effect_.getTargetChoice() == TargetChoice.LANCEUR) {
-                continue;
-            }
-            for (int e : effect_.getRequiredSuccessfulEffects()) {
-                if (e < 0) {
-                    continue;
-                }
-                if (e >= effects.size()) {
-                    continue;
-                }
-                if (effects.get(e).getTargetChoice() != targetChoice) {
-                    _data.setError(true);
-                }
-            }
         }
     }
 

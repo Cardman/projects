@@ -35,44 +35,10 @@ public final class DamagingMoveData extends MoveData {
     public void validate(DataBase _data) {
         super.validate(_data);
         int index_ = indexOfPrimaryEffect();
-        if (index_ < 0) {
-            _data.setError(true);
-        } else if (!(getEffet(index_) instanceof EffectDamage)) {
+        if (index_ < 0 || !(getEffet(index_) instanceof EffectDamage)) {
             _data.setError(true);
         }
-        int nbDamages_ = IndexConstants.SIZE_EMPTY;
-        for (Effect effect_ : getEffects()) {
-            if (effect_ instanceof EffectDamage) {
-                nbDamages_++;
-            }
-            if (effect_ instanceof EffectInvoke) {
-                _data.setError(true);
-            }
-            if (effect_ instanceof EffectSwitchPosition) {
-                _data.setError(true);
-            }
-            if (effect_ instanceof EffectOrder) {
-                _data.setError(true);
-            }
-            if (effect_ instanceof EffectProtection) {
-                _data.setError(true);
-            }
-            if (effect_ instanceof EffectBatonPass) {
-                _data.setError(true);
-            }
-            if (effect_ instanceof EffectSwitchPointView) {
-                _data.setError(true);
-            }
-            if (effect_ instanceof EffectCopyMove) {
-                _data.setError(true);
-            }
-            if (effect_ instanceof EffectCopyFighter) {
-                _data.setError(true);
-            }
-        }
-        if (nbDamages_ != DataBase.ONE_POSSIBLE_CHOICE) {
-            _data.setError(true);
-        }
+        checkEffects(_data);
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectDamage) {
                 break;
@@ -89,6 +55,46 @@ public final class DamagingMoveData extends MoveData {
             if (!eff_.getRequiredSuccessfulEffects().containsObj(index_)) {
                 _data.setError(true);
             }
+        }
+    }
+
+    private void checkEffects(DataBase _data) {
+        int nbDamages_ = IndexConstants.SIZE_EMPTY;
+        for (Effect effect_ : getEffects()) {
+            if (effect_ instanceof EffectDamage) {
+                nbDamages_++;
+            }
+            checkEffect(_data, effect_);
+        }
+        if (nbDamages_ != DataBase.ONE_POSSIBLE_CHOICE) {
+            _data.setError(true);
+        }
+    }
+
+    private void checkEffect(DataBase _data, Effect _effect) {
+        if (_effect instanceof EffectInvoke) {
+            _data.setError(true);
+        }
+        if (_effect instanceof EffectSwitchPosition) {
+            _data.setError(true);
+        }
+        if (_effect instanceof EffectOrder) {
+            _data.setError(true);
+        }
+        if (_effect instanceof EffectProtection) {
+            _data.setError(true);
+        }
+        if (_effect instanceof EffectBatonPass) {
+            _data.setError(true);
+        }
+        if (_effect instanceof EffectSwitchPointView) {
+            _data.setError(true);
+        }
+        if (_effect instanceof EffectCopyMove) {
+            _data.setError(true);
+        }
+        if (_effect instanceof EffectCopyFighter) {
+            _data.setError(true);
         }
     }
 

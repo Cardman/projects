@@ -2,6 +2,7 @@ package aiki.fight.items;
 
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.util.EntryCust;
 import code.util.AbsMap;
@@ -24,32 +25,17 @@ public final class Boost extends Item {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!winPp.isZeroOrGt()) {
-            _data.setError(true);
-
-        }
+        DataInfoChecker.checkPositiveOrZero(winPp,_data);
         if (!evs.isEmpty()) {
-            if (!winPp.isZero()) {
-                _data.setError(true);
-
-            }
+            DataInfoChecker.checkZero(winPp,_data);
         }
+        DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),evs.getKeys(),_data);
         for (EntryCust<Statistic, Short> s : evs.entryList()) {
-            if (!s.getKey().isWithBaseStatistic()) {
-                _data.setError(true);
-            }
-            if (s.getValue() < 0) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkPositiveOrZero(s.getValue(),_data);
         }
-        for (String k : happiness.getKeys()) {
-            if (happiness.getVal(k) < 0) {
-                _data.setError(true);
-            }
-            Item obj_ = _data.getItem(k);
-            if (!(obj_ instanceof Ball)) {
-                _data.setError(true);
-            }
+        DataInfoChecker.checkStringListContains(DataInfoChecker.itemsBall(_data).getKeys(),happiness.getKeys(),_data);
+        for (EntryCust<String, Short> k : happiness.entryList()) {
+            DataInfoChecker.checkPositiveOrZero(k.getValue(),_data);
         }
     }
 

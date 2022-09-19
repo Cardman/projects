@@ -2,6 +2,7 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 
 
@@ -12,12 +13,7 @@ public final class EffectEndRoundFoe extends EffectEndRound {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (!inflictedRateHpTarget.isZeroOrGt()) {
-            _data.setError(true);
-        }
-        if (inflictedRateHpTarget.isZero()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkPositive(inflictedRateHpTarget,_data);
     }
 
     @Override

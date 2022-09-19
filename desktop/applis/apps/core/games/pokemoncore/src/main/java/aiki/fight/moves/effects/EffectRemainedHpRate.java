@@ -1,6 +1,7 @@
 package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 
 
@@ -11,9 +12,7 @@ public final class EffectRemainedHpRate extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (rateHp.isZero()) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkNonZero(rateHp,_data);
     }
 
     public Rate getRateHp() {

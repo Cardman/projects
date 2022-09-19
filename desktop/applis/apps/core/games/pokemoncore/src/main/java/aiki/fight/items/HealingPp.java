@@ -25,21 +25,11 @@ public final class HealingPp extends HealingItem {
             if (healingAllMovesFullpp > 0) {
                 _data.setError(true);
             }
-            if (healingAllMovesPp) {
-                _data.setError(true);
-            }
-            if (healingMoveFullpp) {
-                _data.setError(true);
-            }
+            checkFull(_data);
             return;
         }
         if (healingAllMovesFullpp > 0) {
-            if (healingAllMovesPp) {
-                _data.setError(true);
-            }
-            if (healingMoveFullpp) {
-                _data.setError(true);
-            }
+            checkFull(_data);
             return;
         }
         if (healingAllMovesPp) {
@@ -49,6 +39,15 @@ public final class HealingPp extends HealingItem {
             return;
         }
         if (!healingMoveFullpp) {
+            _data.setError(true);
+        }
+    }
+
+    private void checkFull(DataBase _data) {
+        if (healingAllMovesPp) {
+            _data.setError(true);
+        }
+        if (healingMoveFullpp) {
             _data.setError(true);
         }
     }

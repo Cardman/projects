@@ -1,9 +1,9 @@
 package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
+import aiki.util.DataInfoChecker;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 
 public final class EffectSwitchMoveTypes extends Effect {
@@ -15,17 +15,9 @@ public final class EffectSwitchMoveTypes extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (String k : changeTypes.getKeys()) {
-            if (!StringUtil.contains(_data.getTypes(), k)) {
-                _data.setError(true);
-            }
-            if (!StringUtil.contains(_data.getTypes(), changeTypes.getVal(k))) {
-                _data.setError(true);
-            }
-        }
-        if (!_data.getTypes().containsAllObj(replacingTypes)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_data.getTypes(),changeTypes.getKeys(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),changeTypes.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),replacingTypes,_data);
     }
 
     public StringMap<String> getChangeTypes() {
