@@ -1,14 +1,14 @@
 package aiki.beans.facade.comparators;
+
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import code.util.AbsMap;
-import code.util.EnumMap;
 import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorTrStringStatistic implements Comparing<Statistic> {
 
-    private AbsMap<Statistic,String> translator;
+    private final AbsMap<Statistic,String> translator;
 
     public ComparatorTrStringStatistic(AbsMap<Statistic,String> _translator) {
         translator = _translator;
@@ -20,18 +20,18 @@ public final class ComparatorTrStringStatistic implements Comparing<Statistic> {
     }
 
     public static int compare(AbsMap<Statistic,String> _translator, Statistic _e1, Statistic _e2) {
-        String trOne_;
-        if (_translator.contains(_e1)) {
-            trOne_ = _translator.getVal(_e1);
-        } else {
-            trOne_ = DataBase.EMPTY_STRING;
-        }
-        String trTwo_;
-        if (_translator.contains(_e2)) {
-            trTwo_ = _translator.getVal(_e2);
-        } else {
-            trTwo_ = DataBase.EMPTY_STRING;
-        }
+        String trOne_ = tr(_translator, _e1);
+        String trTwo_ = tr(_translator, _e2);
         return StringUtil.compareStrings(trOne_,trTwo_);
+    }
+
+    private static String tr(AbsMap<Statistic, String> _translator, Statistic _e) {
+        String tr_;
+        if (_translator.contains(_e)) {
+            tr_ = _translator.getVal(_e);
+        } else {
+            tr_ = DataBase.EMPTY_STRING;
+        }
+        return tr_;
     }
 }
