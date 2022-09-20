@@ -1,5 +1,6 @@
 package aiki.beans.fight;
 
+import aiki.beans.facade.comparators.ComparatorKeyHypothesis;
 import aiki.beans.facade.comparators.ComparatorMoveTarget;
 import aiki.beans.facade.fight.KeyHypothesis;
 import aiki.db.DataBase;
@@ -10,9 +11,7 @@ import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.util.MoveTarget;
 import aiki.util.TeamPositionList;
-import aiki.util.TeamPositionsRate;
 import aiki.util.TeamPositionsStringMapTeamPositionsRate;
-import code.maths.Rate;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -22,7 +21,7 @@ public class FightCalculationBean extends CommonFightBean {
     private ByteTreeMap<MoveTarget> foeChoices;
 
     private ByteTreeMap<BoolVal> foeChoicesTargets;
-    private SortableCustList<KeyHypothesis> damage;
+    private CustList<KeyHypothesis> damage;
     private TeamPositionList sortedFighters;
     private NatStringTreeMap<TeamPositionList> sortedFightersWildFight;
 
@@ -31,7 +30,7 @@ public class FightCalculationBean extends CommonFightBean {
         FacadeGame dataBaseFight_ = getDataBase();
         TeamPositionsStringMapTeamPositionsRate resTh_;
         resTh_ = dataBaseFight_.remainingThrowersTargetsHp();
-        damage = new SortableCustList<KeyHypothesis>();
+        damage = new CustList<KeyHypothesis>();
         for (TeamPosition p: resTh_.getKeys()) {
             for (String m: resTh_.getVal(p).getKeys()) {
                 for (TeamPosition t: resTh_.getVal(p).getVal(m).getKeys()) {
@@ -42,7 +41,7 @@ public class FightCalculationBean extends CommonFightBean {
                 }
             }
         }
-        damage.sort();
+        damage.sortElts(new ComparatorKeyHypothesis());
         if (!dataBaseFight_.getGame().getFight().getFightType().isWild()) {
             sortedFighters = dataBaseFight_.sortedFightersBeginRound();
         } else {
@@ -170,7 +169,7 @@ public class FightCalculationBean extends CommonFightBean {
         return sortedFightersWildFight;
     }
 
-    public SortableCustList<KeyHypothesis> getDamage() {
+    public CustList<KeyHypothesis> getDamage() {
         return damage;
     }
 

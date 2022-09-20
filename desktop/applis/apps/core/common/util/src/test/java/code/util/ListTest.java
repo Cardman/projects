@@ -356,10 +356,9 @@ public class ListTest extends EquallableExUtil {
     public void clearTest() {
         CustList<Integer> integers_ = new CustList<Integer>();
         integers_.add(5);
-        assertNotNull(integers_.get(0));
         integers_.clear();
         assertTrue(integers_.isEmpty());
-        assertNotNull(integers_.getList());
+        integers_.getList().clear();
         assertEq(0,integers_.list().toArray().length);
     }
     @Test

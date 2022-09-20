@@ -1,8 +1,7 @@
 package cards.gui.panels;
-import code.util.ints.Cmp;
 
 
-public final class CoordsHands implements Cmp<CoordsHands> {
+public final class CoordsHands {
 
     private int xCoords;
 
@@ -21,12 +20,6 @@ public final class CoordsHands implements Cmp<CoordsHands> {
         return yCoords;
     }
 
-    @Override
-    public boolean eq(CoordsHands _obj) {
-        return cmp(_obj) == 0;
-    }
-
-    @Override
     public int cmp(CoordsHands _o) {
         if (yCoords < _o.yCoords) {
             return -1;

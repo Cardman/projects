@@ -1734,42 +1734,6 @@ public class StringListTest extends EquallableExUtil {
         assertEq("Hello\nevery\n\nbody\n", lines_);
     }
     @Test
-    public void replaceFinalFile1Test(){
-        String file_ = "word";
-        String finalFile_ = replaceFinalFile(file_);
-        assertEq("word", finalFile_);
-    }
-    @Test
-    public void replaceFinalFile2Test(){
-        String file_ = "word.txt";
-        String finalFile_ = replaceFinalFile(file_);
-        assertEq("word.txt", finalFile_);
-    }
-    @Test
-    public void replaceFinalFile3Test(){
-        String file_ = "word/txt";
-        String finalFile_ = replaceFinalFile(file_);
-        assertEq("word/txt", finalFile_);
-    }
-    @Test
-    public void replaceFinalFile4Test(){
-        String file_ = "folder/word.txt";
-        String finalFile_ = replaceFinalFile(file_);
-        assertEq("folder", finalFile_);
-    }
-    @Test
-    public void replaceFinalFile5Test(){
-        String file_ = "folder/word.txt.txt";
-        String finalFile_ = replaceFinalFile(file_);
-        assertEq("folder/word.txt.txt", finalFile_);
-    }
-    @Test
-    public void replaceFinalFile6Test(){
-        String file_ = "folder/.txt";
-        String finalFile_ = replaceFinalFile(file_);
-        assertEq("folder/.txt", finalFile_);
-    }
-    @Test
     public void replaceBkSlash1Test(){
         String file_ = "word/txt";
         String finalFile_ = StringUtil.replaceBackSlashDot(file_);
@@ -2595,50 +2559,5 @@ public class StringListTest extends EquallableExUtil {
     public void applyUniformString7(){
         DefaultUniformingString u_ = new DefaultUniformingString();
         assertEq("\nn", u_.apply("\nn"));
-    }
-    private static String replaceFinalFile(String _str) {
-        int lastIndexDot_ = _str.lastIndexOf('.');
-        if (lastIndexDot_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return _str;
-        }
-        int i_ = lastIndexDot_;
-        i_--;
-        while (i_ >= IndexConstants.FIRST_INDEX) {
-            if (_str.charAt(i_) == '/') {
-                if (i_ + 1 == lastIndexDot_) {
-                    return _str;
-                }
-                return _str.substring(IndexConstants.FIRST_INDEX, i_);
-            }
-            if (!isWordChar(_str.charAt(i_))) {
-                return _str;
-            }
-            i_--;
-        }
-        return _str;
-    }
-    static boolean isWordChar(char _char) {
-        if (_char == '_') {
-            return true;
-        }
-        if (_char < '0') {
-            return false;
-        }
-        if (_char <= '9') {
-            return true;
-        }
-        if (_char < 'A') {
-            return false;
-        }
-        if (_char <= 'Z') {
-            return true;
-        }
-        if (_char < 'a') {
-            return false;
-        }
-        if (_char <= 'z') {
-            return true;
-        }
-        return _char >= 160;
     }
 }

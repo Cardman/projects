@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EqList;
 
 
 public class MonteCarloTest extends EquallableMathUtil {
@@ -353,12 +352,6 @@ public class MonteCarloTest extends EquallableMathUtil {
         assertEq(1,l_.nbEvents());
         l_ = new MonteCarloEnum<SampleEnum>(new CollCapacity(1));
         l_.addEvent(SampleEnum.TWO,LgInt.one());
-        assertEq(1,l_.nbEvents());
-    }
-    @Test
-    public void new_MonteCarloEq_test() {
-        MonteCarloList<SampleEquallable> l_ = new MonteCarloList<SampleEquallable>();
-        l_.addEvent(new SampleEquallable(1),LgInt.one());
         assertEq(1,l_.nbEvents());
     }
     @Test

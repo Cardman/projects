@@ -32,7 +32,6 @@ import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.util.PlaceInterConnect;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 
 import code.util.StringList;

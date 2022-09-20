@@ -17,7 +17,6 @@ import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.AbsMap;
-import code.util.EqList;
 import code.util.*;
 
 import code.util.StringList;

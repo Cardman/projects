@@ -19,7 +19,6 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.Rate;
-import code.util.EqList;
 
 
 public class GameValidationTest extends InitializationDataBase {

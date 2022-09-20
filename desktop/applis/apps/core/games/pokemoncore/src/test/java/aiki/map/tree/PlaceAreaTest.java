@@ -26,7 +26,6 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.PlaceInterConnect;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 
 

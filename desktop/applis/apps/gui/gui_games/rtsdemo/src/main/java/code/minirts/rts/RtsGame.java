@@ -6,12 +6,10 @@ import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectMap;
 
 public final class RtsGame {
 
-    private final ObjectMap<UnitMapKey,Soldier> soldiers = new ObjectMap<UnitMapKey,Soldier>();
+    private final UnitMapKeyMap<Soldier> soldiers = new UnitMapKeyMap<Soldier>();
 
     private int xTopLeftSelect;
     private int yTopLeftSelect;
@@ -341,11 +339,11 @@ public final class RtsGame {
         yTopLeftScreen += deltay_;
     }
 
-    public EqList<UnitMapKey> getVisibleSoldiers(int _w, int _h, RtsDataBase _data) {
+    public CustList<UnitMapKey> getVisibleSoldiers(int _w, int _h, RtsDataBase _data) {
         SoldierPattern s_ = _data.getSoldierPattern();
 //        Rectangle rect_ = new Rectangle(-xTopLeftScreen, -yTopLeftScreen, _w, _h);
         Rect rect_ = newRect(xTopLeftScreen, yTopLeftScreen, _w, _h);
-        EqList<UnitMapKey> l_ = new EqList<UnitMapKey>();
+        CustList<UnitMapKey> l_ = new CustList<UnitMapKey>();
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             Soldier u_ = u.getValue();
             int xThisLeftTop_ = u_.getLocx();

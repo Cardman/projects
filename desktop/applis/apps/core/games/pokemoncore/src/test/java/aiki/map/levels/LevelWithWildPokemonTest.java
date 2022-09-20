@@ -10,7 +10,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.Point;
 import code.util.CustList;
-import code.util.EqList;
 
 
 

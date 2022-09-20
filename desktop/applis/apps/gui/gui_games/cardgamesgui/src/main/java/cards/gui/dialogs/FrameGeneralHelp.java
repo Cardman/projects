@@ -5,16 +5,12 @@ package cards.gui.dialogs;
 
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerClickTree;
-import cards.gui.dialogs.help.ComparatorListSizeElement;
-import cards.gui.dialogs.help.ElementHelp;
-import cards.gui.dialogs.help.HelpIndexes;
-import cards.gui.dialogs.help.NodeHelp;
+import cards.gui.dialogs.help.*;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -42,7 +38,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //    private static final String EMPTY_STRING = "";
     private StringMap<String> messages;
 
-    private ObjectMap<HelpIndexes,ElementHelp> elementsBis = new ObjectMap<HelpIndexes,ElementHelp>();
+    private HelpIndexesTree elementsBis = new HelpIndexesTree();
 
     private NodeHelp racineBis;
 

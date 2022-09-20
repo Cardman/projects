@@ -14,14 +14,13 @@ import code.maths.geo.Rect;
 import code.minirts.events.InteractClick;
 import code.minirts.rts.*;
 import code.util.EntryCust;
-import code.util.ObjectMap;
 
 
 
 
 public class PanelBattle {
 
-    private final ObjectMap<UnitMapKey,UnitSoldier> soldierLabels = new ObjectMap<UnitMapKey,UnitSoldier>();
+    private final UnitMapKeyMap<UnitSoldier> soldierLabels = new UnitMapKeyMap<UnitSoldier>();
     private final Facade facade;
 
     private boolean paintSelection;

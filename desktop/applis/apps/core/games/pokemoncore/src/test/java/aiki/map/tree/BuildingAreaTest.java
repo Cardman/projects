@@ -18,7 +18,6 @@ import aiki.map.places.City;
 import aiki.map.places.Place;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.PlaceInterConnect;
-import code.util.EqList;
 import code.util.*;
 
 

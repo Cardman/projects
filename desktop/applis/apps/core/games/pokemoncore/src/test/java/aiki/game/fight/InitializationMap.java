@@ -51,7 +51,6 @@ import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.TileMiniMap;
 import aiki.util.*;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 
 import code.util.StringList;

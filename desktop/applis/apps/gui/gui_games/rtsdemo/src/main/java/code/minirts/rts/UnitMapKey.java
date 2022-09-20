@@ -1,8 +1,6 @@
 package code.minirts.rts;
 
-import code.util.ints.Equallable;
-
-public final class UnitMapKey implements Equallable<UnitMapKey> {
+public final class UnitMapKey {
 
     private int curx;
 
@@ -43,7 +41,6 @@ public final class UnitMapKey implements Equallable<UnitMapKey> {
         millis = _millis;
     }
 
-    @Override
     public boolean eq(UnitMapKey _u) {
         if (_u.curx != curx) {
             return false;

@@ -6,7 +6,6 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.IdMap;
-import code.util.EqList;
 import code.util.*;
 import org.junit.Test;
 

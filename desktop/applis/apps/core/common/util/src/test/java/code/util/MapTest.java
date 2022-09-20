@@ -1,12 +1,8 @@
 package code.util;
 
 import code.util.classestest.MyEnum;
-import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
-import org.junit.Test;
-
-import code.util.classestest.KeyExample;
 import code.util.ints.Listable;
+import org.junit.Test;
 
 
 public class MapTest extends EquallableExUtil {
@@ -18,32 +14,20 @@ public class MapTest extends EquallableExUtil {
         assertEq(0, l_.size());
         map_.put("ONE", 1);
         assertEq(1, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
+        assertEq("ONE", map_.getKey(0));
+        assertEq(1, map_.getValue(0));
         map_.put("TWO", 2);
         assertEq(2, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
-        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("TWO", 2)));
+        assertEq("ONE", map_.getKey(0));
+        assertEq(1, map_.getValue(0));
+        assertEq("TWO", map_.getKey(1));
+        assertEq(2, map_.getValue(1));
         map_.put("TWO", 3);
         assertEq(2, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
-        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("TWO", 3)));
-        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
-        Listable<EntryCust<KeyExample,Integer>> lOther_ = otherMap_.getList();
-        KeyExample k1_ = new KeyExample(0, 0);
-        KeyExample k2_ = new KeyExample(0, 1);
-        KeyExample k3_ = new KeyExample(0, 1);
-        assertEq(0, lOther_.size());
-        otherMap_.put(k1_, 0);
-        assertEq(1, lOther_.size());
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k1_, 0)));
-        otherMap_.put(k2_, 1);
-        assertEq(2, lOther_.size());
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k1_, 0)));
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k2_, 1)));
-        otherMap_.put(k3_, 2);
-        assertEq(2, lOther_.size());
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k1_, 0)));
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k2_, 2)));
+        assertEq("ONE", map_.getKey(0));
+        assertEq(1, map_.getValue(0));
+        assertEq("TWO", map_.getKey(1));
+        assertEq(3, map_.getValue(1));
     }
 
     @Test
@@ -56,14 +40,6 @@ public class MapTest extends EquallableExUtil {
         assertEq(2,map_.size());
         map_.put("TWO", 3);
         assertEq(2,map_.size());
-        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
-        assertEq(0, otherMap_.size());
-        otherMap_.put(new KeyExample(0, 0), 0);
-        assertEq(1,otherMap_.size());
-        otherMap_.put(new KeyExample(0, 1), 1);
-        assertEq(2,otherMap_.size());
-        otherMap_.put(new KeyExample(0, 1), 2);
-        assertEq(2,otherMap_.size());
     }
 
     @Test
@@ -78,16 +54,6 @@ public class MapTest extends EquallableExUtil {
         map_.put("TWO", 3);
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("TWO"));
-        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
-        assertEq(0, otherMap_.size());
-        otherMap_.put(new KeyExample(0, 0), 0);
-        assertTrue(otherMap_.contains(new KeyExample(0, 0)));
-        otherMap_.put(new KeyExample(0, 1), 1);
-        assertTrue(otherMap_.contains(new KeyExample(0, 0)));
-        assertTrue(otherMap_.contains(new KeyExample(0, 1)));
-        otherMap_.put(new KeyExample(0, 1), 2);
-        assertTrue(otherMap_.contains(new KeyExample(0, 0)));
-        assertTrue(otherMap_.contains(new KeyExample(0, 1)));
     }
 
     @Test
@@ -102,15 +68,6 @@ public class MapTest extends EquallableExUtil {
         map_.put("TWO", 3);
         assertEq(1,map_.getVal("ONE"));
         assertEq(3,map_.getVal("TWO"));
-        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
-        otherMap_.put(new KeyExample(0, 0), 0);
-        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)));
-        otherMap_.put(new KeyExample(0, 1), 1);
-        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)));
-        assertEq(1, otherMap_.getVal(new KeyExample(0, 1)));
-        otherMap_.put(new KeyExample(0, 1), 2);
-        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)));
-        assertEq(2, otherMap_.getVal(new KeyExample(0, 1)));
     }
 
     @Test
@@ -126,17 +83,6 @@ public class MapTest extends EquallableExUtil {
         assertEq(1,map_.size());
         assertTrue(map_.contains("ONE"));
         assertTrue(!map_.contains("TWO"));
-        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
-        otherMap_.put(new KeyExample(0, 0), 0);
-        otherMap_.put(new KeyExample(0, 1), 1);
-        otherMap_.removeKey(new KeyExample(1, 1));
-        assertEq(2,otherMap_.size());
-        assertTrue(otherMap_.contains(new KeyExample(0, 0)));
-        assertTrue(otherMap_.contains(new KeyExample(0, 1)));
-        otherMap_.removeKey(new KeyExample(0, 1));
-        assertEq(1,otherMap_.size());
-        assertTrue(otherMap_.contains(new KeyExample(0, 0)));
-        assertTrue(!otherMap_.contains(new KeyExample(0, 1)));
     }
 
     @Test
@@ -196,43 +142,6 @@ public class MapTest extends EquallableExUtil {
         assertEq(4, map_.getVal("THREE"));
     }
 
-    @Test
-    public void putAllMap3Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>(new ObjectMap<KeyExample,Integer>(new CollCapacity(0)));
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        ObjectMap<KeyExample,Integer> mapToPut_ = new ObjectMap<KeyExample,Integer>();
-        mapToPut_.put(new KeyExample(1, 1), 2);
-        mapToPut_.put(new KeyExample(1, 0), 3);
-        map_.putAllMap(mapToPut_);
-        assertEq(4, map_.size());
-        assertTrue(map_.contains(new KeyExample(0, 0)));
-        assertTrue(map_.contains(new KeyExample(0, 1)));
-        assertTrue(map_.contains(new KeyExample(1, 1)));
-        assertTrue(map_.contains(new KeyExample(1, 0)));
-        assertEq(0, map_.getVal(new KeyExample(0, 0)));
-        assertEq(1, map_.getVal(new KeyExample(0, 1)));
-        assertEq(2, map_.getVal(new KeyExample(1, 1)));
-        assertEq(3, map_.getVal(new KeyExample(1, 0)));
-    }
-
-    @Test
-    public void putAllMap4Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        ObjectMap<KeyExample,Integer> mapToPut_ = new ObjectMap<KeyExample,Integer>();
-        mapToPut_.put(new KeyExample(1, 1), 2);
-        mapToPut_.put(new KeyExample(0, 1), 3);
-        map_.putAllMap(mapToPut_);
-        assertEq(3, map_.size());
-        assertTrue(map_.contains(new KeyExample(0, 0)));
-        assertTrue(map_.contains(new KeyExample(0, 1)));
-        assertTrue(map_.contains(new KeyExample(1, 1)));
-        assertEq(0, map_.getVal(new KeyExample(0, 0)));
-        assertEq(3, map_.getVal(new KeyExample(0, 1)));
-        assertEq(2, map_.getVal(new KeyExample(1, 1)));
-    }
 
     @Test
     public void putAllMap5Test() {
@@ -401,12 +310,11 @@ public class MapTest extends EquallableExUtil {
         assertTrue(map_.isValidIndex(0));
         assertTrue(!map_.isValidIndex(-1));
     }
-
     @Test
     public void valuesTest() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
         CustList<Integer> values_ = map_.values();
         assertEq(2, values_.size());
         assertEq(0, values_.first());
@@ -415,117 +323,117 @@ public class MapTest extends EquallableExUtil {
 
     @Test
     public void add1Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        map_.tryAdd(new KeyExample(0, 0), 2);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        map_.tryAdd("0, 0", 2);
         assertEq(2,map_.size());
-        assertTrue(map_.contains(new KeyExample(0, 0)));
-        assertTrue(map_.contains(new KeyExample(0, 1)));
-        assertEq(0, map_.getVal(new KeyExample(0, 0)));
-        assertEq(1, map_.getVal(new KeyExample(0, 1)));
+        assertTrue(map_.contains("0, 0"));
+        assertTrue(map_.contains("0, 1"));
+        assertEq(0, map_.getVal("0, 0"));
+        assertEq(1, map_.getVal("0, 1"));
     }
 
     @Test
     public void add2Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        map_.tryAdd(new KeyExample(0, 2), 2);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        map_.tryAdd("0, 2", 2);
         assertEq(3,map_.size());
-        assertTrue(map_.contains(new KeyExample(0, 0)));
-        assertTrue(map_.contains(new KeyExample(0, 1)));
-        assertTrue(map_.contains(new KeyExample(0, 2)));
-        assertEq(0, map_.getVal(new KeyExample(0, 0)));
-        assertEq(1, map_.getVal(new KeyExample(0, 1)));
-        assertEq(2, map_.getVal(new KeyExample(0, 2)));
+        assertTrue(map_.contains("0, 0"));
+        assertTrue(map_.contains("0, 1"));
+        assertTrue(map_.contains("0, 2"));
+        assertEq(0, map_.getVal("0, 0"));
+        assertEq(1, map_.getVal("0, 1"));
+        assertEq(2, map_.getVal("0, 2"));
     }
 
     @Test
     public void set1Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        map_.set(new KeyExample(0, 0), 2);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        map_.set("0, 0", 2);
         assertEq(2,map_.size());
-        assertTrue(map_.contains(new KeyExample(0, 0)));
-        assertTrue(map_.contains(new KeyExample(0, 1)));
-        assertEq(2, map_.getVal(new KeyExample(0, 0)));
-        assertEq(1, map_.getVal(new KeyExample(0, 1)));
+        assertTrue(map_.contains("0, 0"));
+        assertTrue(map_.contains("0, 1"));
+        assertEq(2, map_.getVal("0, 0"));
+        assertEq(1, map_.getVal("0, 1"));
     }
 
     @Test
     public void set2Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        map_.set(new KeyExample(0, 2), 2);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        map_.set("0, 2", 2);
         assertEq(2,map_.size());
-        assertTrue(map_.contains(new KeyExample(0, 0)));
-        assertTrue(map_.contains(new KeyExample(0, 1)));
-        assertTrue(!map_.contains(new KeyExample(0, 2)));
-        assertEq(0, map_.getVal(new KeyExample(0, 0)));
-        assertEq(1, map_.getVal(new KeyExample(0, 1)));
+        assertTrue(map_.contains("0, 0"));
+        assertTrue(map_.contains("0, 1"));
+        assertTrue(!map_.contains("0, 2"));
+        assertEq(0, map_.getVal("0, 0"));
+        assertEq(1, map_.getVal("0, 1"));
     }
     @Test
     public void containsAllAsKeys1Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        CustList<KeyExample> elts_ =new CustList<KeyExample>();
-        elts_.add(new KeyExample(0, 0));
-        elts_.add(new KeyExample(0, 2));
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        CustList<String> elts_ =new CustList<String>();
+        elts_.add("0, 0");
+        elts_.add("0, 2");
         assertTrue(!map_.containsAllAsKeys(elts_));
     }
     @Test
     public void containsAllAsKeys2Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        CustList<KeyExample> elts_ =new CustList<KeyExample>();
-        elts_.add(new KeyExample(0, 0));
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        CustList<String> elts_ =new CustList<String>();
+        elts_.add("0, 0");
         assertTrue(map_.containsAllAsKeys(elts_));
     }
     @Test
     public void containsAllAsKeys3Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        CustList<KeyExample> elts_ =new CustList<KeyExample>();
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        CustList<String> elts_ =new CustList<String>();
         assertTrue(map_.containsAllAsKeys(elts_));
     }
     @Test
     public void methods1Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
         assertTrue(!map_.isEmpty());
-        assertEq(new KeyExample(0, 0),map_.firstKey());
-        assertEq(new KeyExample(0, 1),map_.lastKey());
+        assertEq("0, 0",map_.firstKey());
+        assertEq("0, 1",map_.lastKey());
         assertEq(0,map_.firstValue());
         assertEq(1,map_.lastValue());
-        map_.setKey(0,new KeyExample(0, 2));
-        assertEq(new KeyExample(0, 2),map_.firstKey());
-        assertEq(new KeyExample(0, 2),map_.getKey(0));
-        assertEq(new KeyExample(0, 1),map_.lastKey());
+        map_.setKey(0,"0, 2");
+        assertEq("0, 2",map_.firstKey());
+        assertEq("0, 2",map_.getKey(0));
+        assertEq("0, 1",map_.lastKey());
     }
     @Test
     public void methods2Test() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
         map_.clear();
         assertTrue(map_.isEmpty());
     }
     @Test
     public void getKeysEqTest() {
-        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
-        map_.put(new KeyExample(0, 0), 0);
-        map_.put(new KeyExample(0, 1), 1);
-        CustList<KeyExample> elts_ = map_.getKeys();
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        CustList<String> elts_ = map_.getKeys();
         assertEq(2,elts_.size());
-        assertEq(new KeyExample(0, 0),elts_.first());
-        assertEq(new KeyExample(0, 1),elts_.last());
+        assertEq("0, 0",elts_.first());
+        assertEq("0, 1",elts_.last());
     }
     @Test
     public void getKeysNb1Test() {
@@ -607,25 +515,5 @@ public class MapTest extends EquallableExUtil {
         assertEq(2,elts_.size());
         assertSame(MyEnum.ZERO,elts_.first());
         assertSame(MyEnum.ONE,elts_.last());
-    }
-    private static boolean containsEntry(Listable<EntryCust<String,Integer>> _l, EntryCust<String,Integer> _e) {
-        for (EntryCust<String,Integer> e: _l) {
-            if (StringUtil.quickEq(e.getKey(), _e.getKey())) {
-                if (NumberUtil.eq(e.getValue(), _e.getValue())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    private static boolean containsEntryTwo(Listable<EntryCust<KeyExample,Integer>> _l, EntryCust<KeyExample,Integer> _e) {
-        for (EntryCust<KeyExample,Integer> e: _l) {
-            if (e.getKey().eq(_e.getKey())) {
-                if (NumberUtil.eq(e.getValue(), _e.getValue())) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

@@ -15,7 +15,6 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThread;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.StringUtil;

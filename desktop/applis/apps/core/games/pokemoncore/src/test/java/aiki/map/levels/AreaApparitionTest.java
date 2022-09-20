@@ -9,7 +9,6 @@ import org.junit.Test;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
-import code.util.EqList;
 
 
 public class AreaApparitionTest extends EquallablePkUtil {

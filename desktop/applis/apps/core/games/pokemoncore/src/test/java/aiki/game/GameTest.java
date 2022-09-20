@@ -30,7 +30,6 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 
 
 

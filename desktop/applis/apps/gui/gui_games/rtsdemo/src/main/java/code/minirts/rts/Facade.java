@@ -3,7 +3,6 @@ package code.minirts.rts;
 import code.maths.geo.CustPoint;
 import code.maths.geo.Rect;
 import code.util.CustList;
-import code.util.EqList;
 
 public final class Facade {
 
@@ -67,7 +66,7 @@ public final class Facade {
         game.moveCamera(_x, _y, _xBound, _yBound);
     }
 
-    public EqList<UnitMapKey> getVisibleSoldiers(int _w, int _h) {
+    public CustList<UnitMapKey> getVisibleSoldiers(int _w, int _h) {
         return game.getVisibleSoldiers(_w, _h, data);
     }
 

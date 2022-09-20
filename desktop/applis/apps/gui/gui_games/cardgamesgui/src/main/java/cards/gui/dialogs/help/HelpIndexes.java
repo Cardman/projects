@@ -2,9 +2,8 @@ package cards.gui.dialogs.help;
 
 import code.util.CustList;
 import code.util.Ints;
-import code.util.ints.Equallable;
 
-public final class HelpIndexes implements Equallable<HelpIndexes> {
+public final class HelpIndexes {
 
     private final Ints indexes;
 
@@ -16,7 +15,6 @@ public final class HelpIndexes implements Equallable<HelpIndexes> {
         indexes = new Ints(_cheminNumCourant.indexes);
     }
 
-    @Override
     public boolean eq(HelpIndexes _g) {
         int len_ = size();
         if (_g.size() != len_) {

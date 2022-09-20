@@ -16,7 +16,6 @@ import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
 import code.gui.*;
 import code.util.CustList;
-import code.util.NatCmpTreeMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -173,7 +172,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
     public void changeTrick() {
         String lg_ = window.getLanguageKey();
 //        Object o_ = trickNumber.getSelectedItem();
-        NatCmpTreeMap<CoordsHands, AbsCustComponent> panels_ = new NatCmpTreeMap<CoordsHands, AbsCustComponent>();
+        CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK, String.valueOf(o_)))
         if (trickNumber.isSelectNullCurrent()) {
             tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers);
@@ -343,7 +342,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
     @Override
     public void changeCard() {
         String lg_ = window.getLanguageKey();
-        NatCmpTreeMap<CoordsHands, AbsCustComponent> panels_ = new NatCmpTreeMap<CoordsHands, AbsCustComponent>();
+        CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK,String.valueOf(o_)))
         if (trickNumber.isSelectNullCurrent()) {
             Integer selected_ = cardNumberTrick.getCurrent();

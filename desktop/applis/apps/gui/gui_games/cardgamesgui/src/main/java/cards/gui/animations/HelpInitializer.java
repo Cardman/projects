@@ -3,6 +3,7 @@ package cards.gui.animations;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
+import cards.gui.dialogs.help.HelpIndexesTree;
 import code.bean.nat.NatDualConfigurationContext;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.blocks.AnaRendBlock;
@@ -18,7 +19,6 @@ import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -32,7 +32,7 @@ public final class HelpInitializer implements Runnable {
 
     private static final String TEXTE = "texte";
 
-    private final StringMap<ObjectMap<HelpIndexes,ElementHelp>> trees = new StringMap<ObjectMap<HelpIndexes, ElementHelp>>();
+    private final StringMap<HelpIndexesTree> trees = new StringMap<HelpIndexesTree>();
     private final AbsMenuItem generalHelp;
     private final StringMap<StringMap<String>> images;
 
@@ -48,7 +48,7 @@ public final class HelpInitializer implements Runnable {
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         AnaRendBlock.adjustMap(builtMs_);
         for (String l:Constants.getAvailableLanguages()) {
-            ObjectMap<HelpIndexes,ElementHelp> tree_ = new ObjectMap<HelpIndexes,ElementHelp>();
+            HelpIndexesTree tree_ = new HelpIndexesTree();
             Document doc_ = HelpScriptConfPages.infoLg().getVal(l);
             Element element_ = doc_.getDocumentElement();
             CustList<Node> noeudsActuels_ = new CustList<Node>();
@@ -125,7 +125,7 @@ public final class HelpInitializer implements Runnable {
         MenuItemUtils.setEnabledMenu(generalHelp,true);
     }
 
-    public StringMap<ObjectMap<HelpIndexes, ElementHelp>> getTrees() {
+    public StringMap<HelpIndexesTree> getTrees() {
         return trees;
     }
 

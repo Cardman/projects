@@ -19,7 +19,6 @@ import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.TreeMap;
 import code.util.core.StringUtil;
 

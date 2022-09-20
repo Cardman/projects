@@ -1,8 +1,6 @@
 package code.util;
 
-import code.util.classestest.MyCmp;
 import code.util.classestest.MyEnum;
-import code.util.classestest.MyEquallable;
 import code.util.comparators.NaturalComparator;
 import org.junit.Test;
 
@@ -153,92 +151,92 @@ public class AbEqListTest extends EquallableExUtil {
     }
     @Test
     public void indexEq1Test() {
-        EqList<MyEquallable> e_ = new EqList<MyEquallable>(new EqList<MyEquallable>());
-        e_.add(new MyEquallable(1));
-        e_.add(new MyEquallable(2));
-        e_.add(new MyEquallable(3));
-        e_.add(new MyEquallable(1));
-        int index_ = e_.indexOfObj(new MyEquallable(1),1);
+        StringList e_ = new StringList(new StringList());
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        int index_ = e_.indexOfObj("1",1);
         assertEq(3, index_);
     }
     @Test
     public void indexEq2Test() {
-        EqList<MyEquallable> e_ = new EqList<MyEquallable>(new EqList<MyEquallable>());
-        e_.add(new MyEquallable(1));
-        e_.add(new MyEquallable(2));
-        e_.add(new MyEquallable(3));
-        e_.add(new MyEquallable(1));
-        int index_ = e_.indexOfObj(new MyEquallable(2),2);
+        StringList e_ = new StringList(new StringList());
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        int index_ = e_.indexOfObj("2",2);
         assertEq(-1, index_);
     }
     @Test
     public void removeDuplatesEq1Test() {
-        EqList<MyEquallable> e_ = new EqList<MyEquallable>(new MyEquallable[0]);
-        e_.add(new MyEquallable(1));
-        e_.add(new MyEquallable(2));
-        e_.add(new MyEquallable(3));
-        e_.add(new MyEquallable(1));
+        StringList e_ = new StringList(new String[0]);
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
         e_.removeDuplicates();
         assertEq(3, e_.size());
-        assertEq(1, e_.get(0).getInfo());
-        assertEq(2, e_.get(1).getInfo());
-        assertEq(3, e_.get(2).getInfo());
+        assertEq("1", e_.get(0));
+        assertEq("2", e_.get(1));
+        assertEq("3", e_.get(2));
     }
     @Test
     public void hasDuplicatesEq1Test() {
-        EqList<MyEquallable> e_ = new EqList<MyEquallable>(new MyEquallable[0]);
-        e_.add(new MyEquallable(1));
-        e_.add(new MyEquallable(2));
-        e_.add(new MyEquallable(3));
-        e_.add(new MyEquallable(1));
+        StringList e_ = new StringList(new String[0]);
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
         assertTrue(e_.hasDuplicates());
     }
     @Test
     public void hasDuplicatesEq2Test() {
-        EqList<MyEquallable> e_ = new EqList<MyEquallable>(new MyEquallable[0]);
-        e_.add(new MyEquallable(1));
-        e_.add(new MyEquallable(2));
+        StringList e_ = new StringList(new String[0]);
+        e_.add("1");
+        e_.add("2");
         assertTrue(!e_.hasDuplicates());
     }
     @Test
     public void eqEq1Test() {
-        EqList<MyEquallable> e_ = new EqList<MyEquallable>(new CollCapacity(3));
-        e_.add(new MyEquallable(1));
-        e_.add(new MyEquallable(2));
-        e_.add(new MyEquallable(3));
-        e_.add(new MyEquallable(1));
-        EqList<MyEquallable> f_ = new EqList<MyEquallable>();
-        f_.add(new MyEquallable(1));
-        f_.add(new MyEquallable(2));
-        f_.add(new MyEquallable(3));
-        f_.add(new MyEquallable(1));
+        StringList e_ = new StringList(new CollCapacity(3));
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        StringList f_ = new StringList();
+        f_.add("1");
+        f_.add("2");
+        f_.add("3");
+        f_.add("1");
         assertTrue(e_.eq(f_));
     }
     @Test
     public void eqEq2Test() {
-        EqList<MyEquallable> e_ = new EqList<MyEquallable>();
-        e_.add(new MyEquallable(1));
-        e_.add(new MyEquallable(2));
-        e_.add(new MyEquallable(3));
-        EqList<MyEquallable> f_ = new EqList<MyEquallable>();
-        f_.add(new MyEquallable(1));
-        f_.add(new MyEquallable(2));
-        f_.add(new MyEquallable(3));
-        f_.add(new MyEquallable(1));
+        StringList e_ = new StringList();
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        StringList f_ = new StringList();
+        f_.add("1");
+        f_.add("2");
+        f_.add("3");
+        f_.add("1");
         assertTrue(!e_.eq(f_));
     }
     @Test
     public void eqEq3Test() {
-        EqList<MyEquallable> e_ = new EqList<MyEquallable>();
-        e_.add(new MyEquallable(1));
-        e_.add(new MyEquallable(2));
-        e_.add(new MyEquallable(3));
-        e_.add(new MyEquallable(3));
-        EqList<MyEquallable> f_ = new EqList<MyEquallable>();
-        f_.add(new MyEquallable(1));
-        f_.add(new MyEquallable(2));
-        f_.add(new MyEquallable(3));
-        f_.add(new MyEquallable(1));
+        StringList e_ = new StringList();
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("3");
+        StringList f_ = new StringList();
+        f_.add("1");
+        f_.add("2");
+        f_.add("3");
+        f_.add("1");
         assertTrue(!e_.eq(f_));
     }
     @Test
@@ -305,162 +303,87 @@ public class AbEqListTest extends EquallableExUtil {
         assertTrue(!e_.eq(f_));
     }
     @Test
-    public void indexCmp1Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>(new SortableCustList<MyCmp>());
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        int index_ = e_.indexOfObj(new MyCmp(1),1);
-        assertEq(3, index_);
-    }
-    @Test
-    public void indexCmp2Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>(new SortableCustList<MyCmp>());
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        int index_ = e_.indexOfObj(new MyCmp(2),2);
-        assertEq(-1, index_);
-    }
-    @Test
-    public void eqCmp1Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>(new MyCmp[0]);
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(2));
-        f_.add(new MyCmp(3));
-        f_.add(new MyCmp(1));
-        assertTrue(e_.eq(f_));
-    }
-    @Test
-    public void eqCmp2Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(2));
-        f_.add(new MyCmp(3));
-        f_.add(new MyCmp(1));
-        assertTrue(!e_.eq(f_));
-    }
-    @Test
-    public void eqCmp3Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(3));
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(2));
-        f_.add(new MyCmp(3));
-        f_.add(new MyCmp(1));
-        assertTrue(!e_.eq(f_));
-    }
-    @Test
-    public void sortTest() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        e_.sort();
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(2));
-        f_.add(new MyCmp(3));
-        assertTrue(e_.eq(f_));
-    }
-    @Test
     public void remove1Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        e_.removeAllObj(new MyCmp(1));
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(2));
-        f_.add(new MyCmp(3));
+        StringList e_ = new StringList();
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        e_.removeAllObj("1");
+        StringList f_ = new StringList();
+        f_.add("2");
+        f_.add("3");
         assertTrue(e_.eq(f_));
     }
     @Test
     public void remove2Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        e_.removeObj(new MyCmp(4));
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(2));
-        f_.add(new MyCmp(3));
-        f_.add(new MyCmp(1));
+        StringList e_ = new StringList();
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        e_.removeObj("4");
+        StringList f_ = new StringList();
+        f_.add("1");
+        f_.add("2");
+        f_.add("3");
+        f_.add("1");
         assertTrue(e_.eq(f_));
     }
     @Test
     public void remove3Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        SortableCustList<MyCmp> g_ = new SortableCustList<MyCmp>();
-        g_.add(new MyCmp(2));
-        g_.add(new MyCmp(3));
-        g_.add(new MyCmp(5));
+        StringList e_ = new StringList();
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        StringList g_ = new StringList();
+        g_.add("2");
+        g_.add("3");
+        g_.add("5");
         e_.removeAllElements(g_);
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(1));
+        StringList f_ = new StringList();
+        f_.add("1");
+        f_.add("1");
         assertTrue(e_.eq(f_));
     }
     @Test
     public void remove4Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        e_.removeObj(new MyCmp(1));
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(2));
-        f_.add(new MyCmp(3));
-        f_.add(new MyCmp(1));
+        StringList e_ = new StringList();
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        e_.removeObj("1");
+        StringList f_ = new StringList();
+        f_.add("2");
+        f_.add("3");
+        f_.add("1");
         assertTrue(e_.eq(f_));
     }
     @Test
     public void containsAllObj1Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(1));
+        AbEqList<String> e_ = new StringList();
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        CustList<String> f_ = new StringList();
+        f_.add("1");
+        f_.add("1");
         assertTrue(e_.containsAllObj(f_));
     }
     @Test
     public void containsAllObj2Test() {
-        SortableCustList<MyCmp> e_ = new SortableCustList<MyCmp>();
-        e_.add(new MyCmp(1));
-        e_.add(new MyCmp(2));
-        e_.add(new MyCmp(3));
-        e_.add(new MyCmp(1));
-        SortableCustList<MyCmp> f_ = new SortableCustList<MyCmp>();
-        f_.add(new MyCmp(1));
-        f_.add(new MyCmp(4));
+        AbEqList<String> e_ = new StringList();
+        e_.add("1");
+        e_.add("2");
+        e_.add("3");
+        e_.add("1");
+        CustList<String> f_ = new StringList();
+        f_.add("1");
+        f_.add("4");
         assertTrue(!e_.containsAllObj(f_));
     }
+
 }
