@@ -20,6 +20,7 @@ import aiki.fight.items.ItemForBattle;
 import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.fight.moves.DamagingMoveData;
+import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.ConstValuesType;
@@ -345,39 +346,31 @@ public final class Instances {
         DamagingMoveData object_ = new DamagingMoveData();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setCategory(DataBase.EMPTY_STRING);
-        object_.setTypes(new StringList(cap_));
-        object_.setBoostedTypes(new StringList(cap_));
-        object_.setAccuracy(DataBase.EMPTY_STRING);
-        object_.setEffects(new CustList<Effect>(cap_));
-        object_.setRepeatRoundLaw(new MonteCarloNumber(cap_));
-        object_.setSecEffectsByItem(new StringMap<Ints>(cap_));
-        object_.setAchieveDisappearedPkUsingMove(new StringList(cap_));
-        object_.setSwitchType(SwitchType.NOTHING);
-        object_.setTypesByOwnedItem(new StringMap<String>(cap_));
-        object_.setTypesByWeather(new StringMap<String>(cap_));
-        object_.setTargetChoice(TargetChoice.NOTHING);
-        object_.setDeletedStatus(new StringList(cap_));
-        object_.setRequiredStatus(new StringList(cap_));
+        feed(object_, cap_);
         return object_;
     }
 
     public static StatusMoveData newStatusMoveData() {
         StatusMoveData object_ = new StatusMoveData();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setTypes(new StringList(cap_));
-        object_.setBoostedTypes(new StringList(cap_));
-        object_.setAccuracy(DataBase.EMPTY_STRING);
-        object_.setEffects(new CustList<Effect>(cap_));
-        object_.setRepeatRoundLaw(new MonteCarloNumber(cap_));
-        object_.setSecEffectsByItem(new StringMap<Ints>(cap_));
-        object_.setAchieveDisappearedPkUsingMove(new StringList(cap_));
-        object_.setSwitchType(SwitchType.NOTHING);
-        object_.setTypesByOwnedItem(new StringMap<String>(cap_));
-        object_.setTypesByWeather(new StringMap<String>(cap_));
-        object_.setTargetChoice(TargetChoice.NOTHING);
-        object_.setDeletedStatus(new StringList(cap_));
-        object_.setRequiredStatus(new StringList(cap_));
+        feed(object_, cap_);
         return object_;
+    }
+
+    private static void feed(MoveData _object, CollCapacity _cap) {
+        _object.setTypes(new StringList(_cap));
+        _object.setBoostedTypes(new StringList(_cap));
+        _object.setAccuracy(DataBase.EMPTY_STRING);
+        _object.setEffects(new CustList<Effect>(_cap));
+        _object.setRepeatRoundLaw(new MonteCarloNumber(_cap));
+        _object.setSecEffectsByItem(new StringMap<Ints>(_cap));
+        _object.setAchieveDisappearedPkUsingMove(new StringList(_cap));
+        _object.setSwitchType(SwitchType.NOTHING);
+        _object.setTypesByOwnedItem(new StringMap<String>(_cap));
+        _object.setTypesByWeather(new StringMap<String>(_cap));
+        _object.setTargetChoice(TargetChoice.NOTHING);
+        _object.setDeletedStatus(new StringList(_cap));
+        _object.setRequiredStatus(new StringList(_cap));
     }
 
     public static EffectAccuracy newEffectAccuracy() {
