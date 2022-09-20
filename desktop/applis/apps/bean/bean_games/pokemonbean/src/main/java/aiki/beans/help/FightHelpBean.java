@@ -208,7 +208,7 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         wonHappinessPointsLevel = data_.getWonHappinessByGrowLevel();
         happinessPoints = data_.getHappinessEvo();
-        defaultMove = data_.getDefaultMove();
+        defaultMove = data_.getDefMove();
         defaultBoostValue = data_.getDefaultBoost();
         strongMove = data_.getStrongMovePower();
         StringMap<String> replace_ = new StringMap<String>();
@@ -1970,15 +1970,18 @@ public class FightHelpBean extends CommonBean {
 
     private void initFormulaElements() {
         DataBase data_ = getDataBase();
-        String catchingFormulaCopy_ = data_.getCatchingFormula();
+
+        String catchingFormulaCopy_ = data_.getRateCatching();
         StringBuilder str_ = getStringBuilder(catchingFormulaCopy_);
         catchingFormulaCopy_ = str_.toString();
         catchingFormula = data_.getFormula(catchingFormulaCopy_, getLanguage());
         varCatchingFormula = new NatStringTreeMap<String>();
         varCatchingFormula.putAllMap(data_.getDescriptions(catchingFormulaCopy_, getLanguage()));
-        fleeingFormula = data_.getFormula(data_.getFleeingFormula(), getLanguage());
+
+        fleeingFormula = data_.getFormula(data_.getRateFleeing(), getLanguage());
         varFleeingFormula = new NatStringTreeMap<String>();
-        varFleeingFormula.putAllMap(data_.getDescriptions(data_.getFleeingFormula(), getLanguage()));
+
+        varFleeingFormula.putAllMap(data_.getDescriptions(data_.getRateFleeing(), getLanguage()));
         rates = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
         for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
             rates.put(d.name(), data_.getFormula(data_.getRates().getVal(d), getLanguage()));

@@ -773,7 +773,7 @@ public final class Fighter {
             return true;
         }
         for (EntryCust<String, UsesOfMove> m: moves.entryList()) {
-            if (StringUtil.quickEq(m.getKey(), _data.getDefaultMove()) || !_data.getMoves().contains(m.getKey()) || m.getValue().getCurrent() < 0 || m.getValue().getCurrent() > m.getValue().getMax() || m.getValue().getMax() == 0) {
+            if (StringUtil.quickEq(m.getKey(), _data.getDefMove()) || !_data.getMoves().contains(m.getKey()) || m.getValue().getCurrent() < 0 || m.getValue().getCurrent() > m.getValue().getMax() || m.getValue().getMax() == 0) {
                 return true;
             }
         }
@@ -781,7 +781,7 @@ public final class Fighter {
             return true;
         }
         for (EntryCust<String, UsesOfMove> m: currentMoves.entryList()) {
-            if (StringUtil.quickEq(m.getKey(), _data.getDefaultMove()) || !_data.getMoves().contains(m.getKey()) || m.getValue().getCurrent() < 0 || m.getValue().getCurrent() > m.getValue().getMax() || m.getValue().getMax() == 0) {
+            if (StringUtil.quickEq(m.getKey(), _data.getDefMove()) || !_data.getMoves().contains(m.getKey()) || m.getValue().getCurrent() < 0 || m.getValue().getCurrent() > m.getValue().getMax() || m.getValue().getMax() == 0) {
                 return true;
             }
         }

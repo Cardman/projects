@@ -32,57 +32,7 @@ import aiki.map.tree.util.*;
 import code.maths.litteralcom.MathExpUtil;
 import code.sml.DocumentBuilder;
 public final class LoadRes{
-    public static final String EMPTY_STRING = "";
-    public static final String SEPARATOR_RAND = ";";
-    public static final String SEPARATOR_RAND_EVENTS = " ";
-    public static final String DEF_MOVE = "DEF_MOVE";
-    public static final String RATE_CATCHING = "RATE_CATCHING";
-    public static final String RATE_FLEEING = "RATE_FLEEING";
-    public static final String RATE_BOOST = "RATE_BOOST";
-    public static final String RATE_BOOST_CRITICAL_HIT = "RATE_BOOST_CRITICAL_HIT";
-    public static final String DAMAGE_FORMULA = "DAMAGE_FORMULA";
-    public static final String DEFAULT_EGG_GROUP = "DEFAULT_EGG_GROUP";
-    public static final String IMG_FILES_RES_EXT_TXT = ".txt";
-    public static final String FILES_RES_EXT = ".xml";
-    /**
-     * The custom beans can be modified but they must have a common base package
-     * Avoid to recompile classes in standard packages like java, javax, and
-     * even projects core, gui ...
-     */
 
-    public static final String IMAGES_FOLDER = "images";
-    public static final String LINKS_FOLDER = "links";
-    public static final String PEOPLE_FOLDER = "people";
-    public static final String TRAINERS_FOLDER = "trainers";
-    public static final String HERO_FOLDER = "heros";
-    public static final String MINI_MAP_FOLDER = "mini_map";
-    public static final String HERO_FRONT = "heros_front.txt";
-    public static final String HERO_BACK = "heros_back.txt";
-    public static final String HERO_MINI = "heros_mini.txt";
-    public static final String FRONT_IMAGES_FOLDER = "front";
-    public static final String BACK_IMAGES_FOLDER = "back";
-    public static final String MINI_IMAGES_FOLDER = "mini";
-
-    public static final String OBJECTS_IMAGES_FOLDER = "items_images";
-    public static final String TYPES_IMAGES_FOLDER = "types_images";
-    public static final String IMAGE_TM_HM_FILES = "hm_tm";
-    public static final String IMAGE_STORAGE_FILES = "storage";
-    public static final String TYPES_COLOR_CODE = "types_color";
-    public static final String SEPARATOR_FILES = "/";
-    public static final String END_GAME_IMAGE = "end_game";
-
-    public static final String ANIM_STATIS = "anim_statis";
-
-    public static final String ANIM_STATUS = "anim_status";
-
-    public static final String ANIM_ABSORB = "anim_absorb/absorb.txt";
-
-    private static final String POKEDEX_FOLDER = "pokedex";
-    private static final String MOVES_FOLDER = "moves";
-    private static final String ABILITIES_FOLDER = "abilities";
-    private static final String STATUS_FOLDER = "status";
-
-    private static final String ITEMS_FOLDER = "items";
     private static final String SEPARATOR_KEY_HEROS = ";";
 
     private static final char TAB_CHAR = '\t';
@@ -98,9 +48,6 @@ public final class LoadRes{
     private static final String LOIS_RANDOM = "lois_random.txt";
     private static final String COURBE_PTS_EXP = "courbe_pts_exp.txt";
     private static final String RATE_WON_POINTS = "rate_won_points.txt";
-    private static final String COMBOS = "combos.xml";
-    private static final String MAP_FILE = "map.xml";
-    private static final String TRANSLATION_FOLDER = "translations";
     private static final String TRANSLATION_CATEGORIES = "categories.txt";
     private static final String TRANSLATION_GENDERS = "genders.txt";
     private static final String TRANSLATION_ENVIRONMENTS = "environments.txt";
@@ -237,22 +184,22 @@ public final class LoadRes{
                 continue;
             }
             StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
-            if (StringUtil.quickEq(infos_.first(), DEF_MOVE)) {
+            if (StringUtil.quickEq(infos_.first(), DataBase.DEF_MOVE)) {
                 _d.setDefMove(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), RATE_BOOST)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_BOOST)) {
                 _d.setRateBoost(infos_.last());
             } else if (StringUtil.quickEq(infos_.first(),
-                    RATE_BOOST_CRITICAL_HIT)) {
+                    DataBase.RATE_BOOST_CRITICAL_HIT)) {
                 _d.setRateBoostCriticalHit(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), RATE_FLEEING)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_FLEEING)) {
                 _d.setRateFleeing(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), RATE_CATCHING)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_CATCHING)) {
                 _d.setRateCatching(infos_.last());
             } else if (StringUtil.quickEq(infos_.first(), BALL_DEF)) {
                 _d.setBallDef(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.DEFAULT_EGG_GROUP)) {
                 _d.setDefaultEggGroup(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DAMAGE_FORMULA)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.DAMAGE_FORMULA)) {
                 _d.setDamageFormula(infos_.last());
             }
 
@@ -262,12 +209,12 @@ public final class LoadRes{
                 RETURN_LINE_CHAR);
         String head_ = linesTableTypes_.first();
         StringList typesOff_ = StringUtil.splitChars(head_, TAB_CHAR);
-        typesOff_.removeString(EMPTY_STRING);
+        typesOff_.removeString(DataBase.EMPTY_STRING);
         StringList typesDef_ = new StringList();
         for (String l : linesTableTypes_.leftMinusOne(linesTableTypes_.size())) {
             typesDef_.add(StringUtil.getFirstToken(l, TAB_CHAR));
         }
-        typesDef_.removeString(EMPTY_STRING);
+        typesDef_.removeString(DataBase.EMPTY_STRING);
         for (String pkType_ : typesDef_) {
 
             String l_ = getElements(linesTableTypes_, pkType_).first();
@@ -299,9 +246,9 @@ public final class LoadRes{
             MonteCarloNumber law_ = new MonteCarloNumber();
 
             for (String evt_ : StringUtil.splitStrings(infos_.get(1),
-                    SEPARATOR_RAND)) {
+                    DataBase.SEPARATOR_RAND)) {
                 StringList infosLoc_ = StringUtil.splitStrings(evt_,
-                        SEPARATOR_RAND_EVENTS);
+                        DataBase.SEPARATOR_RAND_EVENTS);
                 boolean defaultLaw_ = false;
                 if (!Rate.isValid(infosLoc_.first())) {
                     defaultLaw_ = true;
@@ -351,7 +298,7 @@ public final class LoadRes{
                     .first()), infos_.get(1));
         }
         _d.setTypesColors(new StringMap<String>());
-        rates_ = StringUtil.splitChars(cts_.getVal(TYPES_COLOR_CODE+IMG_FILES_RES_EXT_TXT), RETURN_LINE_CHAR);
+        rates_ = StringUtil.splitChars(cts_.getVal(DataBase.TYPES_COLOR_CODE + DataBase.IMG_FILES_RES_EXT_TXT), RETURN_LINE_CHAR);
         for (String l : rates_) {
             if (l.isEmpty()) {
                 continue;
@@ -365,7 +312,7 @@ public final class LoadRes{
 		StringMap<String> trs_ = Trs.tr();
 		for (String l : _d.getLanguages()) {
 			EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_GENDERS),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_GENDERS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -376,7 +323,7 @@ public final class LoadRes{
             }
             _d.getTranslatedGenders().addEntry(l, genders_);
 			EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_BOOLEANS),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_BOOLEANS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -387,7 +334,7 @@ public final class LoadRes{
             }
             _d.getTranslatedBooleans().addEntry(l, booleans_);
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_DIFF_WIN_PTS),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_DIFF_WIN_PTS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -399,7 +346,7 @@ public final class LoadRes{
             }
             _d.getTranslatedDiffWinPts().addEntry(l, diffWinPts_);
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_DIFF_MODEL_LAW),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_DIFF_MODEL_LAW),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -410,7 +357,7 @@ public final class LoadRes{
             }
             _d.getTranslatedDiffModelLaw().addEntry(l, diffLaw_);
             EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_ENVIRONMENTS),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_ENVIRONMENTS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -421,7 +368,7 @@ public final class LoadRes{
             }
             _d.getTranslatedEnvironment().addEntry(l, environments_);
             EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_STATISTICS),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_STATISTICS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -432,7 +379,7 @@ public final class LoadRes{
             }
             _d.getTranslatedStatistics().addEntry(l, statistics_);
             EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_TARGETS),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_TARGETS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -444,7 +391,7 @@ public final class LoadRes{
             }
             _d.getTranslatedTargets().addEntry(l, targets_);
             StringMap<String> categories_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_CATEGORIES),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_CATEGORIES),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -455,7 +402,7 @@ public final class LoadRes{
             }
             _d.getTranslatedCategories().addEntry(l, categories_);
             StringMap<String> types_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_TYPES),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_TYPES),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -466,7 +413,7 @@ public final class LoadRes{
             }
             _d.getTranslatedTypes().addEntry(l, types_);
             StringMap<String> pokemon_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_POKEMON),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_POKEMON),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -477,7 +424,7 @@ public final class LoadRes{
             }
             _d.getTranslatedPokemon().addEntry(l, pokemon_);
             StringMap<String> moves_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_MOVES),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_MOVES),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -488,7 +435,7 @@ public final class LoadRes{
             }
             _d.getTranslatedMoves().addEntry(l, moves_);
             StringMap<String> items_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_ITEMS),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_ITEMS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -499,7 +446,7 @@ public final class LoadRes{
             }
             _d.getTranslatedItems().addEntry(l, items_);
             StringMap<String> abilities_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_ABILITIES),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_ABILITIES),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -510,7 +457,7 @@ public final class LoadRes{
             }
             _d.getTranslatedAbilities().addEntry(l, abilities_);
             StringMap<String> status_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_STATUS),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_STATUS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -521,7 +468,7 @@ public final class LoadRes{
             }
             _d.getTranslatedStatus().addEntry(l, status_);
             StringMap<String> fctsMath_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_MATH),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_MATH),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -532,7 +479,7 @@ public final class LoadRes{
             }
             _d.getTranslatedFctMath().addEntry(l, fctsMath_);
             StringMap<String> descrClasses_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_CLASSES),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_CLASSES),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -543,7 +490,7 @@ public final class LoadRes{
             }
             _d.getTranslatedClassesDescriptions().addEntry(l, descrClasses_);
             StringMap<String> litteral_ = new StringMap<String>();
-            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_LITTERAL),
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_LITTERAL),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -607,20 +554,21 @@ public final class LoadRes{
         filesNames_.clear();
         _d.sortEndRound();
         _perCentLoading.addPercent(delta_);
-        for (PokemonData pk_ : _d.getPokedex().values()) {
-            for (short hm_ : pk_.getHiddenMoves()) {
-                String move_ = _d.getHm().getVal(hm_);
-                pk_.getMoveTutors().add(move_);
-            }
-            for (short hm_ : pk_.getTechnicalMoves()) {
-                String move_ = _d.getTm().getVal(hm_);
-                pk_.getMoveTutors().add(move_);
-            }
-            for (LevelMove l : pk_.getLevMoves()) {
-                pk_.getMoveTutors().add(l.getMove());
-            }
-            pk_.getMoveTutors().removeDuplicates();
-        }
+        _d.completeMoveTutors();
+//        for (PokemonData pk_ : _d.getPokedex().values()) {
+//            for (short hm_ : pk_.getHiddenMoves()) {
+//                String move_ = _d.getHm().getVal(hm_);
+//                pk_.getMoveTutors().add(move_);
+//            }
+//            for (short hm_ : pk_.getTechnicalMoves()) {
+//                String move_ = _d.getTm().getVal(hm_);
+//                pk_.getMoveTutors().add(move_);
+//            }
+//            for (LevelMove l : pk_.getLevMoves()) {
+//                pk_.getMoveTutors().add(l.getMove());
+//            }
+//            pk_.getMoveTutors().removeDuplicates();
+//        }
         _d.setMaxiPkBack(new StringMap<int[][]>());
 		for (EntryCust<String,String> e: Bk.im().entryList()) {
             _d.getMaxiPkBack().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
@@ -710,24 +658,7 @@ public final class LoadRes{
             }
 
         }
-        int side_ = _d.getMap().getSideLength();
-        for (EntryCust<String, int[][]> i : _d.getImages().entryList()) {
-            int[][] img_ = i.getValue();
-            String name_ = i.getKey();
-            Dims d_ = new Dims();
-            d_.setWidth((short) (img_[0].length / side_));
-            d_.setHeight((short) (img_.length / side_));
-            ScreenCoordssInt tiles_;
-            tiles_ = new ScreenCoordssInt();
-            for (short x = 0; x < d_.getWidth(); x++) {
-                for (short y = 0; y < d_.getHeight(); y++) {
-                    ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.addEntry(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
-                            * side_, side_, side_));
-                }
-            }
-            _d.getImagesTiles().addEntry(name_, tiles_);
-        }
+        _d.setupPseudoImages();
         _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
         _perCentLoading.setPercent(100);
     }

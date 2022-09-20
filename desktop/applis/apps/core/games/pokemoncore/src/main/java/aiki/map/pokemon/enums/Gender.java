@@ -1,5 +1,7 @@
 package aiki.map.pokemon.enums;
-import code.util.EnumList;
+
+import code.util.CustList;
+import code.util.IdList;
 
 public enum Gender {
     FEMALE("FEMALE"),MALE("MALE"),NO_GENDER("NO_GENDER");
@@ -12,8 +14,16 @@ public enum Gender {
         return genderName;
     }
 
-    public static EnumList<Gender> getGendersWithSex() {
-        EnumList<Gender> genders_ = new EnumList<Gender>();
+    public static CustList<Gender> all() {
+        CustList<Gender> genders_ = new CustList<Gender>();
+        genders_.add(FEMALE);
+        genders_.add(MALE);
+        genders_.add(NO_GENDER);
+        return genders_;
+    }
+
+    public static IdList<Gender> getGendersWithSex() {
+        IdList<Gender> genders_ = new IdList<Gender>();
         genders_.add(FEMALE);
         genders_.add(MALE);
         return genders_;

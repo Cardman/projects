@@ -614,7 +614,7 @@ final class FightEffects {
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
         String first_ = creatureLanceur_.getFirstChosenMove();
         if(_effet.getCopyingMoveForUserDef()){
-            if (StringUtil.quickEq(_import.getDefaultMove(), first_)) {
+            if (StringUtil.quickEq(_import.getDefMove(), first_)) {
                 return;
             }
             creatureLanceur_.apprendreAttaqueEcrasantDef(derAttaqueCible_,first_,_import);

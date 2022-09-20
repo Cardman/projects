@@ -553,7 +553,8 @@ public class TeamTest extends InitializationDataBase {
         team_.initEquipeAdversaire(player_, foeTeam_, diff_, (short) 1, data_);
         assertEq(1, team_.getMembers().size());
         assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(POKE_BALL, data_.getDefaultBall());
+
+        assertEq(POKE_BALL, data_.getBallDef());
         assertEq(POKE_BALL, team_.getMembers().getVal((byte) 0).getUsedBallCatching());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
@@ -658,7 +659,8 @@ public class TeamTest extends InitializationDataBase {
         team_.initPokemonSauvage(player_, diff_, 0, pokemon_, data_);
         assertEq(1, team_.getMembers().size());
         assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(POKE_BALL, data_.getDefaultBall());
+
+        assertEq(POKE_BALL, data_.getBallDef());
         assertEq(POKE_BALL, team_.getMembers().getVal((byte) 0).getUsedBallCatching());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());

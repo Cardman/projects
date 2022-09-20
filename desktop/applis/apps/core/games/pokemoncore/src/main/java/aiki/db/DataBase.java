@@ -489,20 +489,7 @@ public class DataBase {
                 setError(true);
             }
         }
-        for (PokemonData pk_ : pokedex.values()) {
-            for (short hm_ : pk_.getHiddenMoves()) {
-                String move_ = hm.getVal(hm_);
-                pk_.getMoveTutors().add(move_);
-            }
-            for (short hm_ : pk_.getTechnicalMoves()) {
-                String move_ = tm.getVal(hm_);
-                pk_.getMoveTutors().add(move_);
-            }
-            for (LevelMove l : pk_.getLevMoves()) {
-                pk_.getMoveTutors().add(l.getMove());
-            }
-            pk_.getMoveTutors().removeDuplicates();
-        }
+        completeMoveTutors();
         validateCore(_perCentLoading);
         if (!_loading.get()) {
             return;
@@ -550,6 +537,23 @@ public class DataBase {
 
     }
 
+    public void completeMoveTutors() {
+        for (PokemonData pk_ : pokedex.values()) {
+            for (short hm_ : pk_.getHiddenMoves()) {
+                String move_ = hm.getVal(hm_);
+                pk_.getMoveTutors().add(move_);
+            }
+            for (short hm_ : pk_.getTechnicalMoves()) {
+                String move_ = tm.getVal(hm_);
+                pk_.getMoveTutors().add(move_);
+            }
+            for (LevelMove l : pk_.getLevMoves()) {
+                pk_.getMoveTutors().add(l.getMove());
+            }
+            pk_.getMoveTutors().removeDuplicates();
+        }
+    }
+
     TypeStatistics strongMoves(Rate _power) {
         TypeStatistics existDamageMoveWithTypeStatAttack_;
         existDamageMoveWithTypeStatAttack_ = new TypeStatistics();
@@ -560,177 +564,165 @@ public class DataBase {
                     Statistic.SPECIAL_ATTACK), BoolVal.FALSE);
         }
         for (EntryCust<String, MoveData> m : getMoves().entryList()) {
-            if (StringUtil.quickEq(m.getKey(),getDefaultMove())||StringUtil.contains(getMovesFullHeal(),m.getKey())||StringUtil.contains(getMovesAnticipation(),m.getKey())) {
+            DamagingMoveData resMove_ = tryGetDamagingMoveData(m);
+            if (resMove_ == null) {
                 continue;
             }
-            MoveData move_ = m.getValue();
-            int primaryEffect_ = move_.indexOfPrimaryEffect();
-            if (!(move_ instanceof DamagingMoveData)) {
-                continue;
-            }
-            if (move_.getPriority() < 0) {
-                continue;
-            }
-            if (move_.getNbPrepaRound() > 0) {
-                continue;
-            }
-            if (move_.getRechargeRound()) {
-                continue;
-            }
-            if (move_.getTypes().size() != DataBase.ONE_POSSIBLE_CHOICE) {
-                continue;
-            }
-            if (move_.getConstUserChoice()) {
-                continue;
-            }
-            if (move_.getTargetChoice() == TargetChoice.ADJ_MULT) {
-                continue;
-            }
-            if (move_.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE) {
-                continue;
-            }
-            if (move_.getEffects().size() > DataBase.ONE_POSSIBLE_CHOICE) {
-                boolean next_ = nextIteration(move_, primaryEffect_);
-                if (next_) {
-                    continue;
-                }
-            }
-            String accStr_ = move_.getAccuracy();
-            if (!Rate.isValid(accStr_)) {
-                continue;
-            }
-            Rate acc_ = new Rate(accStr_);
-            if (Rate.strLower(acc_, new Rate(1))) {
-                continue;
-            }
+            for (Effect e : resMove_.getEffects()) {
+                TypeStatistic res_ = tryGetTypeStatistic(resMove_, e, existDamageMoveWithTypeStatAttack_);
+                if (res_ != null) {
+                    String powStr_ = ((EffectDamage) e).getPower();
+                    if (Rate.isValid(powStr_) && !Rate.strLower(new Rate(powStr_), _power)) {
 
-            DamagingMoveData damageMove_ = (DamagingMoveData) move_;
-            for (Effect e : damageMove_.getEffects()) {
-                if (!(e instanceof EffectDamage)) {
-                    continue;
-                }
-                EffectDamage effect_ = (EffectDamage) e;
-                if (!effect_.getFail().isEmpty()) {
-                    continue;
-                }
-                TypeStatistic pair_;
-                pair_ = new TypeStatistic(move_.getTypes().first(),
-                        effect_.getStatisAtt());
-                if (existDamageMoveWithTypeStatAttack_.contains(pair_) && existDamageMoveWithTypeStatAttack_.getVal(pair_) == BoolVal.TRUE) {
-                    continue;
-                }
-                String powStr_ = effect_.getPower();
-                if (!Rate.isValid(powStr_)) {
+                        existDamageMoveWithTypeStatAttack_.put(res_, BoolVal.TRUE);
+                    }
                     break;
                 }
-                if (Rate.strLower(new Rate(powStr_), _power)) {
-                    break;
-                }
-
-                existDamageMoveWithTypeStatAttack_.put(pair_, BoolVal.TRUE);
-                break;
             }
         }
         return existDamageMoveWithTypeStatAttack_;
+    }
+    private DamagingMoveData tryGetDamagingMoveData(EntryCust<String, MoveData> _m) {
+        if (StringUtil.quickEq(_m.getKey(), getDefMove())||StringUtil.contains(getMovesFullHeal(),_m.getKey())||StringUtil.contains(getMovesAnticipation(),_m.getKey())) {
+            return null;
+        }
+        MoveData move_ = _m.getValue();
+        int primaryEffect_ = move_.indexOfPrimaryEffect();
+        if (!(move_ instanceof DamagingMoveData) || move_.getPriority() < 0 || move_.getNbPrepaRound() > 0 || move_.getRechargeRound() || move_.getTypes().size() != DataBase.ONE_POSSIBLE_CHOICE || move_.getConstUserChoice() || move_.getTargetChoice() == TargetChoice.ADJ_MULT || move_.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE || move_.getEffects().size() > DataBase.ONE_POSSIBLE_CHOICE && nextIteration(move_, primaryEffect_) || invalidAcc(move_)) {
+            return null;
+        }
+
+        return (DamagingMoveData) move_;
+    }
+    private static TypeStatistic tryGetTypeStatistic(MoveData _move,Effect _e,TypeStatistics _existDamageMoveWithTypeStatAttack) {
+        if (!(_e instanceof EffectDamage) || !_e.getFail().isEmpty()) {
+            return null;
+        }
+        TypeStatistic pair_ = new TypeStatistic(_move.getTypes().first(),
+                ((EffectDamage) _e).getStatisAtt());
+        if (_existDamageMoveWithTypeStatAttack.contains(pair_) && _existDamageMoveWithTypeStatAttack.getVal(pair_) == BoolVal.TRUE) {
+            return null;
+        }
+        return pair_;
+    }
+
+    private boolean invalidAcc(MoveData _move) {
+        String accStr_ = _move.getAccuracy();
+        return !Rate.isValid(accStr_) || Rate.strLower(new Rate(accStr_), new Rate(1));
     }
 
     static boolean nextIteration(MoveData _move, int _primaryEffect) {
         boolean next_ = false;
         for (Effect sec_ : _move.getEffects().mid(_primaryEffect + 1)) {
-            if (sec_ instanceof EffectDamageRate) {
-                if (!((EffectDamageRate) sec_).getRateDamage().isZeroOrGt()) {
-                    next_ = true;
-                    break;
-                }
+            if (nextIterationEffect(_move,sec_)) {
+                next_ = true;
+                break;
             }
-            if (sec_ instanceof EffectStatistic) {
-                boolean toBeTreated_ = procEffectMove(_move, sec_);
-                if (toBeTreated_) {
-                    EffectStatistic effect_ = (EffectStatistic) sec_;
-                    EnumList<Statistic> stats_ = new EnumList<Statistic>();
-                    stats_.add(Statistic.SPEED);
-                    stats_.add(Statistic.SPECIAL_ATTACK);
-                    stats_.add(Statistic.ATTACK);
-                    stats_.add(Statistic.ACCURACY);
-                    for (Statistic s: stats_) {
-                        if (negativeStat(effect_,s)) {
-                            next_ = true;
-                            break;
-                        }
-                    }
-                    if (next_) {
-                        break;
-                    }
-                }
-                if (sec_.getTargetChoice() == TargetChoice.ADJ_ADV) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.ADJ_MULT) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.ADJ_UNIQ) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.ANY_FOE) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.AUTRE_UNIQ) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.GLOBALE) {
-                    toBeTreated_ = true;
-                } else if (_move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE) {
-                    toBeTreated_ = true;
-                } else if (_move.getTargetChoice() == TargetChoice.TOUS_ADV) {
-                    toBeTreated_ = true;
-                }
-                if (toBeTreated_) {
-                    EffectStatistic effect_ = (EffectStatistic) sec_;
-                    if (negativeStat(effect_,Statistic.EVASINESS)) {
-                        next_ = true;
-                        break;
-                    }
-                }
-            }
-            if (sec_ instanceof EffectStatus) {
-                boolean toBeTreated_ = procEffectMove(_move, sec_);
-                if (toBeTreated_) {
-                    EffectStatus effect_ = (EffectStatus) sec_;
-                    if (!effect_.getLawStatus().events().isEmpty()) {
-                        next_ = true;
-                        break;
-                    }
-                }
-            }
+//            if (sec_ instanceof EffectDamageRate && !((EffectDamageRate) sec_).getRateDamage().isZeroOrGt()) {
+//                next_ = true;
+//                break;
+//            }
+//            if (sec_ instanceof EffectStatistic) {
+//                boolean toBeTreated_ = procEffectMove(_move, sec_);
+//                if (toBeTreated_ && nextIt((EffectStatistic) sec_)) {
+//                    next_ = true;
+//                    break;
+//                }
+//                if (sec_.getTargetChoice() == TargetChoice.ADJ_ADV || sec_.getTargetChoice() == TargetChoice.ADJ_MULT || sec_.getTargetChoice() == TargetChoice.ADJ_UNIQ || sec_.getTargetChoice() == TargetChoice.ANY_FOE || sec_.getTargetChoice() == TargetChoice.AUTRE_UNIQ || sec_.getTargetChoice() == TargetChoice.GLOBALE || _move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE || _move.getTargetChoice() == TargetChoice.TOUS_ADV) {
+//                    toBeTreated_ = true;
+//                }
+//                if (toBeTreated_) {
+//                    EffectStatistic effect_ = (EffectStatistic) sec_;
+//                    if (negativeStat(effect_,Statistic.EVASINESS)) {
+//                        next_ = true;
+//                        break;
+//                    }
+//                }
+//            }
+//            if (sec_ instanceof EffectStatus) {
+//                boolean toBeTreated_ = procEffectMove(_move, sec_);
+//                if (toBeTreated_) {
+//                    EffectStatus effect_ = (EffectStatus) sec_;
+//                    if (!effect_.getLawStatus().events().isEmpty()) {
+//                        next_ = true;
+//                        break;
+//                    }
+//                }
+//            }
         }
         return next_;
+    }
+    private static boolean nextIterationEffect(MoveData _move, Effect _sec) {
+        if (_sec instanceof EffectDamageRate && !((EffectDamageRate) _sec).getRateDamage().isZeroOrGt()) {
+            return true;
+        }
+        if (_sec instanceof EffectStatistic) {
+            boolean toBeTreated_ = procEffectMove(_move, _sec);
+            if (toBeTreated_ && nextIt((EffectStatistic) _sec)) {
+                return true;
+            }
+            if (_sec.getTargetChoice() == TargetChoice.ADJ_ADV || _sec.getTargetChoice() == TargetChoice.ADJ_MULT || _sec.getTargetChoice() == TargetChoice.ADJ_UNIQ || _sec.getTargetChoice() == TargetChoice.ANY_FOE || _sec.getTargetChoice() == TargetChoice.AUTRE_UNIQ || _sec.getTargetChoice() == TargetChoice.GLOBALE || _move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE || _move.getTargetChoice() == TargetChoice.TOUS_ADV) {
+                toBeTreated_ = true;
+            }
+            if (toBeTreated_ && negativeStat(((EffectStatistic) _sec), Statistic.EVASINESS)) {
+                return true;
+            }
+        }
+        if (_sec instanceof EffectStatus) {
+            boolean toBeTreated_ = procEffectMove(_move, _sec);
+            if (toBeTreated_) {
+                EffectStatus effect_ = (EffectStatus) _sec;
+                return !effect_.getLawStatus().events().isEmpty();
+            }
+        }
+        return false;
+    }
+
+    private static boolean nextIt(EffectStatistic _effect) {
+        EnumList<Statistic> stats_ = new EnumList<Statistic>();
+        stats_.add(Statistic.SPEED);
+        stats_.add(Statistic.SPECIAL_ATTACK);
+        stats_.add(Statistic.ATTACK);
+        stats_.add(Statistic.ACCURACY);
+        boolean nextIt_ = false;
+        for (Statistic s: stats_) {
+            if (negativeStat(_effect,s)) {
+                nextIt_ = true;
+                break;
+            }
+        }
+        return nextIt_;
     }
 
     private static boolean negativeStat(EffectStatistic _eff, Statistic _s) {
-        boolean next_ = false;
-        if (_eff.getStatisVarRank().contains(_s)) {
-            if (_eff.getStatisVarRank().getVal(_s) < 0) {
-                next_ = true;
-            }
-        }
-        return next_;
+        return _eff.getStatisVarRank().contains(_s) && _eff.getStatisVarRank().getVal(_s) < 0;
     }
     private static boolean procEffectMove(MoveData _move, Effect _sec) {
-        boolean toBeTreated_ = false;
-        if (_sec.getTargetChoice() == TargetChoice.LANCEUR) {
-            toBeTreated_ = true;
-        } else if (_sec.getTargetChoice() == TargetChoice.ALLIE) {
-            toBeTreated_ = true;
-        } else if (_sec.getTargetChoice() == TargetChoice.ALLIES) {
-            toBeTreated_ = true;
-        } else if (_move.getTargetChoice() == TargetChoice.ADJ_MULT) {
-            toBeTreated_ = true;
-        } else if (_move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE) {
-            toBeTreated_ = true;
-        } else if (_move.getTargetChoice() == TargetChoice.GLOBALE) {
-            toBeTreated_ = true;
-        }
-        return toBeTreated_;
+        return _sec.getTargetChoice() == TargetChoice.LANCEUR || _sec.getTargetChoice() == TargetChoice.ALLIE || _sec.getTargetChoice() == TargetChoice.ALLIES || _move.getTargetChoice() == TargetChoice.ADJ_MULT || _move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE || _move.getTargetChoice() == TargetChoice.GLOBALE;
     }
 
     public void validateCore(PerCent _perCentLoading) {
         initTypesByTable();
         _perCentLoading.setPercent(55);
+        checkTypesWithTable();
+        if (StringUtil.contains(getCategories(), AUTRE)) {
+            setError(true);
+        }
+        for (String s : getCategories()) {
+
+            if (!isCorrectIdentifier(s)) {
+                setError(true);
+            }
+        }
+        validateEntities();
+        checkEvolutionMove();
+        validateEvolutions();
+
+        checkHmTm();
+        checkNbRounds();
+    }
+
+    private void checkTypesWithTable() {
         for (String t1_ : types) {
             for (String t2_ : types) {
                 if (!tableTypes.contains(new TypesDuo(t1_, t2_))) {
@@ -742,67 +734,29 @@ public class DataBase {
                 }
             }
         }
-        if (StringUtil.contains(getCategories(), AUTRE)) {
+    }
+
+    private void checkNbRounds() {
+        Shorts incrementNbRound_ = new Shorts();
+        Shorts nonIncrementNbRound_ = new Shorts();
+        for (EndRoundMainElements e : getEvtEndRound()) {
+            if (e.isIncrementNumberOfRounds()) {
+                incrementNbRound_.add(e.getNumberIncrement());
+                continue;
+            }
+            nonIncrementNbRound_.add(e.getNumberIncrement());
+        }
+        if (nonIncrementNbRound_.hasDuplicates()) {
             setError(true);
         }
-        for (String s : getCategories()) {
-
-            if (!isCorrectIdentifier(s)) {
+        for (short e : incrementNbRound_) {
+            if (nonIncrementNbRound_.contains(e)) {
                 setError(true);
             }
         }
-        for (EntryCust<String, PokemonData> e : getPokedex().entryList()) {
-            e.getValue().validate(this);
-        }
-        for (EntryCust<String, MoveData> e : getMoves().entryList()) {
-            e.getValue().validate(this);
-        }
-        for (String m : movesFullHeal) {
-            MoveData move_ = getMove(m);
-            boolean foundAfter_ = false;
-            for (Effect e : move_.getEffects()) {
-                if (foundAfter_) {
-                    setError(true);
-                }
-                if (!(e instanceof EffectStatus)) {
-                    continue;
-                }
-                EffectStatus eff_ = (EffectStatus) e;
-                if (!eff_.getKoUserHealSubst()) {
-                    continue;
-                }
-                if (e.getTargetChoice() != TargetChoice.LANCEUR) {
-                    setError(true);
-                }
-                foundAfter_ = true;
-            }
-        }
-        combos.validate(this);
-        for (EntryCust<String, Item> e : getItems().entryList()) {
-            e.getValue().validate(this);
-        }
-        for (EntryCust<String, Status> e : getStatus().entryList()) {
-            e.getValue().validate(this);
-        }
-        for (EntryCust<String, AbilityData> e : getAbilities().entryList()) {
-            e.getValue().validate(this);
-        }
-        for (PokemonData d : getPokedex().values()) {
-            StringList moves_ = new StringList(d.getMoveTutors());
-            for (LevelMove p2_ : d.getLevMoves()) {
-                moves_.add(p2_.getMove());
-            }
-            for (Evolution e : d.getEvolutions().values()) {
-                if (!(e instanceof EvolutionMove)) {
-                    continue;
-                }
-                if (!StringUtil.contains(moves_, ((EvolutionMove) e).getMove())) {
-                    setError(true);
-                }
-            }
-        }
-        validateEvolutions();
+    }
 
+    private void checkHmTm() {
         if (hasDuplicates(tm.values())) {
             setError(true);
         }
@@ -824,28 +778,70 @@ public class DataBase {
             }
         }
         for (String m : tm.values()) {
-            if (StringUtil.quickEq(m, getDefaultMove())) {
+            if (StringUtil.quickEq(m, getDefMove())) {
                 setError(true);
             }
             if (!getMoves().contains(m)) {
                 setError(true);
             }
         }
-        Shorts incrementNbRound_ = new Shorts();
-        Shorts nonIncrementNbRound_ = new Shorts();
-        for (EndRoundMainElements e : getEvtEndRound()) {
-            if (e.isIncrementNumberOfRounds()) {
-                incrementNbRound_.add(e.getNumberIncrement());
+    }
+
+    private void validateEntities() {
+        for (EntryCust<String, PokemonData> e : getPokedex().entryList()) {
+            e.getValue().validate(this);
+        }
+        for (EntryCust<String, MoveData> e : getMoves().entryList()) {
+            e.getValue().validate(this);
+        }
+        for (String m : movesFullHeal) {
+            MoveData move_ = getMove(m);
+            checkKoUserHealSubst(move_);
+        }
+        combos.validate(this);
+        for (EntryCust<String, Item> e : getItems().entryList()) {
+            e.getValue().validate(this);
+        }
+        for (EntryCust<String, Status> e : getStatus().entryList()) {
+            e.getValue().validate(this);
+        }
+        for (EntryCust<String, AbilityData> e : getAbilities().entryList()) {
+            e.getValue().validate(this);
+        }
+    }
+
+    private void checkEvolutionMove() {
+        for (PokemonData d : getPokedex().values()) {
+            StringList moves_ = new StringList(d.getMoveTutors());
+            for (LevelMove p2_ : d.getLevMoves()) {
+                moves_.add(p2_.getMove());
+            }
+            for (Evolution e : d.getEvolutions().values()) {
+                if (!(e instanceof EvolutionMove)) {
+                    continue;
+                }
+                if (!StringUtil.contains(moves_, ((EvolutionMove) e).getMove())) {
+                    setError(true);
+                }
+            }
+        }
+    }
+
+    private void checkKoUserHealSubst(MoveData _move) {
+        boolean foundAfter_ = false;
+        for (Effect e : _move.getEffects()) {
+            if (foundAfter_) {
+                setError(true);
+            }
+            if (!(e instanceof EffectStatus)) {
                 continue;
             }
-            nonIncrementNbRound_.add(e.getNumberIncrement());
-        }
-        if (nonIncrementNbRound_.hasDuplicates()) {
-            setError(true);
-        }
-        for (short e : incrementNbRound_) {
-            if (nonIncrementNbRound_.contains(e)) {
-                setError(true);
+            EffectStatus eff_ = (EffectStatus) e;
+            if (eff_.getKoUserHealSubst()) {
+                if (e.getTargetChoice() != TargetChoice.LANCEUR) {
+                    setError(true);
+                }
+                foundAfter_ = true;
             }
         }
     }
@@ -907,45 +903,28 @@ public class DataBase {
         if (getDefBaseMove().isZeroOrLt()) {
             getConstNum().put(DataBase.DEF_BASE_MOVE,getDefaultPower());
         }
-        if (getNbMaxTeam() < 2) {
-            setError(true);
-        }
-        if (getNbMaxTeam() > 8) {
-            setError(true);
-        }
-        if (getMaxPp() <= 0) {
-            setError(true);
-        }
-        if (getMaxPp() > 255) {
-            setError(true);
-        }
+        nbPkTeam();
+        maxPp();
         if (getWonHappinessByGrowLevel().isZeroOrLt()) {
             setError(true);
         }
-        if (getMaxLevel() < 0) {
+        levelBounds();
+        stepBounds();
+        evIvHappinessBounds();
+        boostBounds();
+        if (getDefaultEggGroup().isEmpty()) {
             setError(true);
         }
-        if (getMinLevel() < 1) {
+
+        if (!(items.getVal(getBallDef()) instanceof Ball)) {
             setError(true);
         }
-        if (getMaxLevel() > 1023) {
+        if (!moves.contains(getDefMove())) {
             setError(true);
         }
-        if (getMinLevel() > getMaxLevel()) {
-            setError(true);
-        }
-        if (getNbMaxSteps() > 2048) {
-            setError(true);
-        }
-        if (getNbMaxSteps() <= 0) {
-            setError(true);
-        }
-        if (getNbMaxStepsSameEvoBase() >= getNbMaxSteps()) {
-            setError(true);
-        }
-        if (getNbMaxStepsSameEvoBase() <= 0) {
-            setError(true);
-        }
+    }
+
+    private void evIvHappinessBounds() {
         if (getMaxEv() < 0) {
             setError(true);
         }
@@ -973,34 +952,69 @@ public class DataBase {
         if (getHappinessMax() < getHappinessEvo()) {
             setError(true);
         }
+    }
+
+    private void boostBounds() {
         if (getMaxBoost() < getDefaultBoost()) {
             setError(true);
         }
         if (getDefaultBoost() < getMinBoost()) {
             setError(true);
         }
-        if (getDefaultEggGroup().isEmpty()) {
+    }
+
+    private void stepBounds() {
+        if (getNbMaxSteps() > 2048) {
             setError(true);
         }
-        if (!(items.getVal(getDefaultBall()) instanceof Ball)) {
+        if (getNbMaxSteps() <= 0) {
             setError(true);
         }
-        if (!moves.contains(getDefaultMove())) {
+        if (getNbMaxStepsSameEvoBase() >= getNbMaxSteps()) {
+            setError(true);
+        }
+        if (getNbMaxStepsSameEvoBase() <= 0) {
+            setError(true);
+        }
+    }
+
+    private void levelBounds() {
+        if (getMaxLevel() < 0) {
+            setError(true);
+        }
+        if (getMinLevel() < 1) {
+            setError(true);
+        }
+        if (getMaxLevel() > 1023) {
+            setError(true);
+        }
+        if (getMinLevel() > getMaxLevel()) {
+            setError(true);
+        }
+    }
+
+    private void maxPp() {
+        if (getMaxPp() <= 0) {
+            setError(true);
+        }
+        if (getMaxPp() > 255) {
+            setError(true);
+        }
+    }
+
+    private void nbPkTeam() {
+        if (getNbMaxTeam() < 2) {
+            setError(true);
+        }
+        if (getNbMaxTeam() > 8) {
             setError(true);
         }
     }
 
     public void validateImages() {
-        if (!animStatus.containsAllAsKeys(status.getKeys())) {
-            setError(true);
-        }
-        StringList statisNames_ = new StringList();
-        for (Statistic s : Statistic.getStatisticsWithBoost()) {
-            statisNames_.add(s.name());
-        }
-        if (!animStatis.containsAllAsKeys(statisNames_)) {
-            setError(true);
-        }
+        DataInfoChecker.checkStringListContains(animStatus.getKeys(),status.getKeys(),this);
+        StringList statisNames_ = statisNames();
+        DataInfoChecker.checkStringListContains(animStatis.getKeys(),statisNames_,this);
         if (!StringUtil.equalsSet(types, typesColors.getKeys())) {
             setError(true);
         }
@@ -1012,43 +1026,12 @@ public class DataBase {
                 setError(true);
             }
         }
-        for (Place p : map.getPlaces()) {
-            if (!p.hasValidImage(this)) {
-                setError(true);
-            }
-        }
-        for (int[][] i : links.values()) {
-            if (i.length == 0) {
-                setError(true);
-                continue;
-            }
-            if (i.length > map.getSideLength()) {
-                setError(true);
-            }
-            if (i[0].length > map.getSideLength()) {
-                setError(true);
-            }
-        }
-        for (int[][] i : people.values()) {
-            if (i.length == 0) {
-                setError(true);
-                continue;
-            }
-            if (i.length > map.getSideLength()) {
-                setError(true);
-            }
-            if (i[0].length > map.getSideLength()) {
-                setError(true);
-            }
-        }
-        for (int[][] i : trainers.values()) {
-            if (i.length == 0) {
-                setError(true);
-            }
-
-        }
-        for (Direction d : Direction.values()) {
-            for (Sex s : Sex.values()) {
+        checkPlacesImages();
+        checkInners(links.values());
+        checkInners(people.values());
+        notEmptyImages(trainers.values());
+        for (Direction d : Direction.all()) {
+            for (Sex s : Sex.all()) {
                 ImageHeroKey key_;
                 key_ = new ImageHeroKey(EnvironmentType.ROAD, d, s);
                 if (!overWorldHeros.contains(key_)) {
@@ -1056,44 +1039,46 @@ public class DataBase {
                 }
             }
         }
-        for (int[][] i : overWorldHeros.values()) {
-            if (i.length == 0) {
-                setError(true);
-                continue;
-            }
-            if (i.length > map.getSideLength()) {
-                setError(true);
-            }
-            if (i[0].length > map.getSideLength()) {
+        checkInners(overWorldHeros.values());
+        checkHeros(frontHeros);
+        checkHeros(backHeros);
+        notEmptyImages(frontHeros.values());
+        notEmptyImages(backHeros.values());
+        boundsPk();
+        notEmptyImages(typesImages.values());
+        checkInners(miniItems.values());
+        checkExact(miniMap.values());
+        checkExact(animStatis.values());
+        checkExact(animStatus.values());
+        checkExact(animAbsorb);
+        checkInners(miniPk.values());
+        checkInners(imageTmHm);
+        checkInners(storage);
+        DataInfoChecker.checkStringListContains(miniPk.getKeys(),pokedex.getKeys(),this);
+        DataInfoChecker.checkStringListContains(miniItems.getKeys(),items.getKeys(),this);
+        DataInfoChecker.checkStringListContains(maxiPkBack.getKeys(),pokedex.getKeys(),this);
+        DataInfoChecker.checkStringListContains(maxiPkFront.getKeys(),pokedex.getKeys(),this);
+        notEmptyImage(endGameImage);
+        for (TileMiniMap t : map.getMiniMap().values()) {
+            if (!miniMap.contains(t.getFile())) {
                 setError(true);
             }
         }
-        for (Sex s : Sex.values()) {
-            ImageHeroKey key_;
-            key_ = new ImageHeroKey(EnvironmentType.ROAD, s);
-            if (!frontHeros.contains(key_)) {
-                setError(true);
-            }
+        if (isError()) {
+            return;
         }
-        for (Sex s : Sex.values()) {
-            ImageHeroKey key_;
-            key_ = new ImageHeroKey(EnvironmentType.ROAD, s);
-            if (!backHeros.contains(key_)) {
-                setError(true);
-            }
-        }
-        for (int[][] i : frontHeros.values()) {
-            if (i.length == 0) {
-                setError(true);
-            }
+        setupPseudoImages();
+    }
 
-        }
-        for (int[][] i : backHeros.values()) {
-            if (i.length == 0) {
+    private void checkPlacesImages() {
+        for (Place p : map.getPlaces()) {
+            if (!p.hasValidImage(this)) {
                 setError(true);
             }
-
         }
+    }
+
+    private void boundsPk() {
         for (int[][] i : maxiPkBack.values()) {
             if (i.length == 0) {
                 setError(true);
@@ -1110,477 +1095,141 @@ public class DataBase {
             maxWidthPk = Math.max(maxWidthPk,i[0].length);
             maxHeightPk = Math.max(maxHeightPk,i.length);
         }
-        for (int[][] i : typesImages.values()) {
-            if (i.length == 0) {
+    }
+
+    private void checkHeros(ImageHeroKeys _images) {
+        for (Sex s : Sex.all()) {
+            ImageHeroKey key_;
+            key_ = new ImageHeroKey(EnvironmentType.ROAD, s);
+            if (!_images.contains(key_)) {
                 setError(true);
             }
+        }
+    }
+
+    private void checkExact(CustList<int[][]> _imgs) {
+        for (int[][] i : _imgs) {
+            checkExact(i);
+        }
+    }
+
+    private void checkExact(int[][] _i) {
+        if (_i.length != map.getSideLength()) {
+            setError(true);
+        }
+        if (_i.length != 0 && _i[0].length != map.getSideLength()) {
+            setError(true);
+        }
+    }
+
+    private void notEmptyImages(CustList<int[][]> _imgs) {
+        for (int[][] i : _imgs) {
+            notEmptyImage(i);
 
         }
-        for (int[][] i : miniItems.values()) {
-            if (i.length == 0) {
-                setError(true);
-                continue;
-            }
-            if (i.length > map.getSideLength()) {
-                setError(true);
-            }
-            if (i[0].length > map.getSideLength()) {
-                setError(true);
-            }
-        }
-        for (int[][] i : miniMap.values()) {
-            if (i.length != map.getSideLength()) {
-                setError(true);
-                continue;
-            }
-            if (i[0].length != map.getSideLength()) {
-                setError(true);
-            }
-        }
-        for (int[][] i : animStatis.values()) {
-            if (i.length != map.getSideLength()) {
-                setError(true);
-            }
-            if (i.length != 0 && i[0].length != map.getSideLength()) {
-                setError(true);
-            }
-        }
-        for (int[][] i : animStatus.values()) {
-            if (i.length != map.getSideLength()) {
-                setError(true);
-            }
-            if (i.length != 0 && i[0].length != map.getSideLength()) {
-                setError(true);
-            }
-        }
-        if (animAbsorb.length != map.getSideLength()) {
+    }
+
+    private void notEmptyImage(int[][] _i) {
+        if (_i.length == 0) {
             setError(true);
         }
-        if (animAbsorb.length != 0 && animAbsorb[0].length != map.getSideLength()) {
+    }
+
+    private void checkInners(CustList<int[][]> _imgs) {
+        for (int[][] i : _imgs) {
+            checkInners(i);
+        }
+    }
+
+    private void checkInners(int[][] _i) {
+        if (_i.length > map.getSideLength()) {
             setError(true);
         }
-        for (int[][] i : miniPk.values()) {
-            if (i.length == 0) {
-                setError(true);
-                continue;
-            }
-            if (i.length > map.getSideLength()) {
-                setError(true);
-            }
-            if (i[0].length > map.getSideLength()) {
-                setError(true);
-            }
-        }
-        if (imageTmHm.length > map.getSideLength()) {
+        if (_i.length == 0 || _i[0].length > map.getSideLength()) {
             setError(true);
         }
-        if (imageTmHm.length == 0) {
-            setError(true);
-        } else if (imageTmHm[0].length > map.getSideLength()) {
-            setError(true);
+    }
+
+    private StringList statisNames() {
+        StringList statisNames_ = new StringList();
+        for (Statistic s : Statistic.getStatisticsWithBoost()) {
+            statisNames_.add(s.getStatName());
         }
-        if (storage.length > map.getSideLength()) {
-            setError(true);
-        }
-        if (storage.length == 0) {
-            setError(true);
-        } else if (storage[0].length > map.getSideLength()) {
-            setError(true);
-        }
-        if (!miniPk.containsAllAsKeys(pokedex.getKeys())) {
-            setError(true);
-        }
-        if (!miniItems.containsAllAsKeys(items.getKeys())) {
-            setError(true);
-        }
-        if (!maxiPkBack.containsAllAsKeys(pokedex.getKeys())) {
-            setError(true);
-        }
-        if (!maxiPkFront.containsAllAsKeys(pokedex.getKeys())) {
-            setError(true);
-        }
-        if (endGameImage.length == 0) {
-            setError(true);
-        }
-        for (TileMiniMap t : map.getMiniMap().values()) {
-            if (!miniMap.contains(t.getFile())) {
-                setError(true);
-            }
-        }
-        if (isError()) {
-            return;
-        }
-        int side_ = map.getSideLength();
-        for (EntryCust<String, int[][]> i : images.entryList()) {
-            int[][] img_ = i.getValue();
-            String name_ = i.getKey();
-            Dims d_ = new Dims();
-            d_.setWidth((short) (img_[0].length / side_));
-            d_.setHeight((short) (img_.length / side_));
-            ScreenCoordssInt tiles_;
-            tiles_ = new ScreenCoordssInt();
-            for (short x = 0; x < d_.getWidth(); x++) {
-                for (short y = 0; y < d_.getHeight(); y++) {
-                    ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.put(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
-                            * side_, side_, side_));
-                }
-            }
-            imagesTiles.put(name_, tiles_);
-        }
+        return statisNames_;
     }
 
     public void validateTranslations() {
         StringList allCustKeys_ = new StringList();
         StringList allStandardKeys_ = new StringList();
-        if (!StringUtil.equalsSet(translatedGenders.getKeys(),
-                languages)) {
-            setError(true);
-        }
         StringList homonyms_ = new StringList();
         StringList distinct_ = new StringList();
-        for (AbsMap<Gender, String> v : translatedGenders.values()) {
-            for (Gender g : v.getKeys()) {
-                allStandardKeys_.add(g.name());
-            }
-            if (!new EnumList<Gender>(v.getKeys()).containsAllObj(new EnumList<Gender>(Gender.values()))) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (Gender g : Gender.values()) {
-            String name_ = g.name();
-            gearHomonyms(homonyms_, distinct_, name_);
-        }
-        if (!StringUtil.equalsSet(translatedBooleans.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        for (AbsMap<SelectedBoolean, String> v : translatedBooleans.values()) {
-            for (SelectedBoolean g : v.getKeys()) {
-                allStandardKeys_.add(g.name());
-            }
-            if (!new EnumList<SelectedBoolean>(v.getKeys()).containsAllObj(new EnumList<SelectedBoolean>(SelectedBoolean.values()))) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        if (!StringUtil.equalsSet(translatedDiffWinPts.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        for (AbsMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
-                .values()) {
-            for (DifficultyWinPointsFight g : v.getKeys()) {
-                allStandardKeys_.add(g.name());
-            }
-            if (!new EnumList<DifficultyWinPointsFight>(v.getKeys()).containsAllObj(new EnumList<DifficultyWinPointsFight>(DifficultyWinPointsFight.values()))) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        if (!StringUtil.equalsSet(translatedDiffModelLaw.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        for (AbsMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
-                .values()) {
-            for (DifficultyModelLaw g : v.getKeys()) {
-                allStandardKeys_.add(g.name());
-            }
-            if (!new EnumList<DifficultyModelLaw>(v.getKeys()).containsAllObj(new EnumList<DifficultyModelLaw>(DifficultyModelLaw.values()))) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        if (!StringUtil.equalsSet(translatedEnvironment.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        for (AbsMap<EnvironmentType, String> v : translatedEnvironment
-                .values()) {
-            for (EnvironmentType g : v.getKeys()) {
-                allStandardKeys_.add(g.name());
-            }
-            if (!new EnumList<EnvironmentType>(v.getKeys()).containsAllObj(new EnumList<EnvironmentType>(EnvironmentType.values()))) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (EnvironmentType g : EnvironmentType.values()) {
-            String name_ = g.name();
-            gearHomonyms(homonyms_, distinct_, name_);
-        }
-        if (!StringUtil.equalsSet(translatedStatistics.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        for (AbsMap<Statistic, String> v : translatedStatistics.values()) {
-            for (Statistic g : v.getKeys()) {
-                allStandardKeys_.add(g.name());
-            }
-            if (!new EnumList<Statistic>(v.getKeys()).containsAllObj(new EnumList<Statistic>(Statistic.values()))) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (Statistic g : Statistic.values()) {
-            String name_ = g.name();
-            gearHomonyms(homonyms_, distinct_, name_);
-        }
-        if (!StringUtil.equalsSet(translatedTypes.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        allCustKeys_.addAllElts(types);
-        for (StringMap<String> v : translatedTypes.values()) {
-            if (!StringUtil.equalsSet(v.getKeys(), types)) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (String g : types) {
-            gearHomonyms(homonyms_, distinct_, g);
-        }
-        if (!StringUtil.equalsSet(translatedCategories.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        allCustKeys_.addAllElts(allCategories);
-        for (StringMap<String> v : translatedCategories.values()) {
-            if (!StringUtil.equalsSet(v.getKeys(), allCategories)) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (String g : allCategories) {
-            gearHomonyms(homonyms_, distinct_, g);
-        }
-        if (!StringUtil.equalsSet(translatedPokemon.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        allCustKeys_.addAllElts(pokedex.getKeys());
-        for (StringMap<String> v : translatedPokemon.values()) {
-            if (!StringUtil.equalsSet(v.getKeys(), pokedex.getKeys())) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (String g : pokedex.getKeys()) {
-            gearHomonyms(homonyms_, distinct_, g);
-        }
-        if (!StringUtil.equalsSet(translatedItems.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        allCustKeys_.addAllElts(items.getKeys());
-        for (StringMap<String> v : translatedItems.values()) {
-            if (!StringUtil.equalsSet(v.getKeys(), items.getKeys())) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (String g : items.getKeys()) {
-            gearHomonyms(homonyms_, distinct_, g);
-        }
-        if (!StringUtil.equalsSet(translatedAbilities.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        allCustKeys_.addAllElts(abilities.getKeys());
-        for (StringMap<String> v : translatedAbilities.values()) {
-            if (!StringUtil.equalsSet(v.getKeys(), abilities.getKeys())) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (String g : abilities.getKeys()) {
-            gearHomonyms(homonyms_, distinct_, g);
-        }
-        if (!StringUtil.equalsSet(translatedMoves.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        allCustKeys_.addAllElts(moves.getKeys());
-        for (StringMap<String> v : translatedMoves.values()) {
-            if (!StringUtil.equalsSet(v.getKeys(), moves.getKeys())) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (String g : moves.getKeys()) {
-            gearHomonyms(homonyms_, distinct_, g);
-        }
-        if (!StringUtil.equalsSet(translatedStatus.getKeys(),
-                languages)) {
-            setError(true);
-        }
-        allCustKeys_.addAllElts(status.getKeys());
-        for (StringMap<String> v : translatedStatus.values()) {
-            if (!StringUtil.equalsSet(v.getKeys(), status.getKeys())) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
-            }
-        }
-        for (String g : status.getKeys()) {
-            gearHomonyms(homonyms_, distinct_, g);
-        }
+        standardKeysGenders(allStandardKeys_, homonyms_, distinct_);
+        standardKeysBooleans(allStandardKeys_);
+        standardKeysDiffWinPts(allStandardKeys_);
+        standardKeysDiffModelLaw(allStandardKeys_);
+        standardKeysEnvironment(allStandardKeys_, homonyms_, distinct_);
+        standardKeysStatistic(allStandardKeys_, homonyms_, distinct_);
+        custKeys(allCustKeys_, homonyms_, distinct_, translatedTypes, types);
+        custKeys(allCustKeys_, homonyms_, distinct_, translatedCategories, allCategories);
+        custKeys(allCustKeys_, homonyms_, distinct_, translatedPokemon, pokedex.getKeys());
+        custKeys(allCustKeys_, homonyms_, distinct_, translatedItems, items.getKeys());
+        custKeys(allCustKeys_, homonyms_, distinct_, translatedAbilities, abilities.getKeys());
+        custKeys(allCustKeys_, homonyms_, distinct_, translatedMoves, moves.getKeys());
+        custKeys(allCustKeys_, homonyms_, distinct_, translatedStatus, status.getKeys());
         homonyms_.removeDuplicates();
-        if (!StringUtil.equalsSet(translatedFctMath.getKeys(),
+        basicCheckFctMath();
+        checkHomonym(homonyms_);
+
+        checkClassesDescriptions();
+        standardKeysTargets(allStandardKeys_);
+        if (allCustKeys_.hasDuplicates()) {
+            setError(true);
+        }
+        for (String n : allStandardKeys_) {
+            if (StringUtil.contains(allCustKeys_, n)) {
+                setError(true);
+            }
+        }
+        if (!StringUtil.equalsSet(litterals.getKeys(),
                 languages)) {
             setError(true);
         }
-        for (StringMap<String> v : translatedFctMath.values()) {
-            if (!v.containsAllAsKeys(EvolvedMathFactory.getFunctions())) {
-                setError(true);
-            }
-            if (hasDuplicates(v.values())) {
-                setError(true);
+        for (String v: variables) {
+            for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
+                checkLittVar(v, m);
             }
         }
-        for (String l : languages) {
-            for (String s : homonyms_) {
-                StringList tr_ = new StringList();
-                for (EntryCust<String,StringMap<String>> e: translatedMoves.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(),l)) {
-                        continue;
-                    }
-                    for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringUtil.quickEq(f.getKey(),s)) {
-                            continue;
-                        }
-                        tr_.add(f.getValue());
-                    }
-                }
-                for (EntryCust<String,StringMap<String>> e: translatedTypes.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(),l)) {
-                        continue;
-                    }
-                    for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringUtil.quickEq(f.getKey(),s)) {
-                            continue;
-                        }
-                        tr_.add(f.getValue());
-                    }
-                }
-                for (EntryCust<String,StringMap<String>> e: translatedAbilities.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(),l)) {
-                        continue;
-                    }
-                    for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringUtil.quickEq(f.getKey(),s)) {
-                            continue;
-                        }
-                        tr_.add(f.getValue());
-                    }
-                }
-                for (EntryCust<String,StringMap<String>> e: translatedPokemon.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(),l)) {
-                        continue;
-                    }
-                    for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringUtil.quickEq(f.getKey(),s)) {
-                            continue;
-                        }
-                        tr_.add(f.getValue());
-                    }
-                }
-                for (EntryCust<String,StringMap<String>> e: translatedItems.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(),l)) {
-                        continue;
-                    }
-                    for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringUtil.quickEq(f.getKey(),s)) {
-                            continue;
-                        }
-                        tr_.add(f.getValue());
-                    }
-                }
-                for (EntryCust<String,StringMap<String>> e: translatedStatus.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(),l)) {
-                        continue;
-                    }
-                    for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringUtil.quickEq(f.getKey(),s)) {
-                            continue;
-                        }
-                        tr_.add(f.getValue());
-                    }
-                }
-                for (EntryCust<String,StringMap<String>> e: translatedCategories.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(),l)) {
-                        continue;
-                    }
-                    for (EntryCust<String,String> f: e.getValue().entryList()) {
-                        if (!StringUtil.quickEq(f.getKey(),s)) {
-                            continue;
-                        }
-                        tr_.add(f.getValue());
-                    }
-                }
-                for (Statistic s_ : Statistic.values()) {
-                    if (StringUtil.quickEq(s, s_.name())) {
-                        for (EntryCust<String,AbsMap<Statistic,String>> e: translatedStatistics.entryList()) {
-                            if (!StringUtil.quickEq(e.getKey(),l)) {
-                                continue;
-                            }
-                            for (EntryCust<Statistic,String> f: e.getValue().entryList()) {
-                                if (f.getKey() != s_) {
-                                    continue;
-                                }
-                                tr_.add(f.getValue());
-                            }
-                        }
-                    }
-                }
-                for (Gender g : Gender.values()) {
-                    if (StringUtil.quickEq(s, g.name())) {
-                        for (EntryCust<String,AbsMap<Gender,String>> e: translatedGenders.entryList()) {
-                            if (!StringUtil.quickEq(e.getKey(),l)) {
-                                continue;
-                            }
-                            for (EntryCust<Gender,String> f: e.getValue().entryList()) {
-                                if (f.getKey() != g) {
-                                    continue;
-                                }
-                                tr_.add(f.getValue());
-                            }
-                        }
-                    }
-                }
-                if (!tr_.onlyOneElt()) {
-                    setError(true);
-                }
-            }
-        }
+    }
 
+    private void checkLittVar(String _v, EntryCust<String, StringMap<String>> _m) {
+        boolean f_ = false;
+        String line_ = EMPTY_STRING;
+        StringList varParts_ = StringUtil.splitStrings(_v, SEP_BETWEEN_KEYS);
+        String var_ = StringUtil.join(varParts_.left( 2), SEP_BETWEEN_KEYS);
+        for (EntryCust<String,String> e: _m.getValue().entryList()) {
+            if (StringUtil.quickEq(var_, StringUtil.concat(VAR_PREFIX ,e.getKey()))) {
+                f_ = true;
+                line_ = e.getValue();
+                break;
+            }
+        }
+        if (!f_) {
+            setError(true);
+        } else {
+            StringList infos_ = StringUtil.splitStrings(line_, TAB);
+            if (infos_.size() < 3) {
+                setError(true);
+            } else {
+                CustList<String> infosVar_ = varParts_.mid(2);
+                if (!infosVar_.isEmpty()) {
+                    StringList kinds_ = StringUtil.splitChar(infos_.first(), getSepartorSetChar());
+                    checkVars(infosVar_, kinds_);
+                }
+            }
+        }
+    }
+
+    private void checkClassesDescriptions() {
         if (!StringUtil.equalsSet(translatedClassesDescriptions.getKeys(),
                 languages)) {
             setError(true);
@@ -1598,101 +1247,293 @@ public class DataBase {
                 setError(true);
             }
         }
-        if (!StringUtil.equalsSet(translatedTargets.getKeys(),
+    }
+
+    private void checkHomonym(StringList _homonyms) {
+        for (String l : languages) {
+            for (String s : _homonyms) {
+                StringList tr_ = new StringList();
+                valuesTr(l, s, tr_, translatedMoves);
+                valuesTr(l, s, tr_, translatedTypes);
+                valuesTr(l, s, tr_, translatedAbilities);
+                valuesTr(l, s, tr_, translatedPokemon);
+                valuesTr(l, s, tr_, translatedItems);
+                valuesTr(l, s, tr_, translatedStatus);
+                valuesTr(l, s, tr_, translatedCategories);
+                valuesTrStatistic(l, s, tr_);
+                valuesTrGenders(l, s, tr_);
+                if (!tr_.onlyOneElt()) {
+                    setError(true);
+                }
+            }
+        }
+    }
+
+    private void basicCheckFctMath() {
+        if (!StringUtil.equalsSet(translatedFctMath.getKeys(),
                 languages)) {
             setError(true);
         }
-        for (AbsMap<TargetChoice, String> v : translatedTargets.values()) {
-            for (TargetChoice g : v.getKeys()) {
-                allStandardKeys_.add(g.name());
-            }
-            if (!new EnumList<TargetChoice>(v.getKeys()).containsAllObj(new EnumList<TargetChoice>(TargetChoice.values()))) {
+        for (StringMap<String> v : translatedFctMath.values()) {
+            if (!v.containsAllAsKeys(EvolvedMathFactory.getFunctions())) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
             }
         }
-        if (allCustKeys_.hasDuplicates()) {
-            setError(true);
-        }
-        for (String n : allStandardKeys_) {
-            if (StringUtil.contains(allCustKeys_, n)) {
-                setError(true);
-            }
-        }
-        if (!StringUtil.equalsSet(litterals.getKeys(),
+    }
+
+    private void standardKeysStatistic(StringList _allStandardKeys, StringList _homonyms, StringList _distinct) {
+        if (!StringUtil.equalsSet(translatedStatistics.getKeys(),
                 languages)) {
             setError(true);
         }
-        for (String v: variables) {
-            for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
-                boolean f_ = false;
-                String line_ = EMPTY_STRING;
-                StringList varParts_ = StringUtil.splitStrings(v, SEP_BETWEEN_KEYS);
-                String var_ = StringUtil.join(varParts_.left( 2), SEP_BETWEEN_KEYS);
-                for (EntryCust<String,String> e: m.getValue().entryList()) {
-                    if (StringUtil.quickEq(var_, StringUtil.concat(VAR_PREFIX ,e.getKey()))) {
-                        f_ = true;
-                        line_ = e.getValue();
-                        break;
-                    }
-                }
-                if (!f_) {
-                    setError(true);
+        for (AbsMap<Statistic, String> v : translatedStatistics.values()) {
+            for (Statistic g : v.getKeys()) {
+                _allStandardKeys.add(g.getStatName());
+            }
+            if (!new EnumList<Statistic>(v.getKeys()).containsAllObj(new EnumList<Statistic>(Statistic.all()))) {
+                setError(true);
+            }
+            if (hasDuplicates(v.values())) {
+                setError(true);
+            }
+        }
+        for (Statistic g : Statistic.all()) {
+            String name_ = g.getStatName();
+            gearHomonyms(_homonyms, _distinct, name_);
+        }
+    }
+
+    private void standardKeysEnvironment(StringList _allStandardKeys, StringList _homonyms, StringList _distinct) {
+        if (!StringUtil.equalsSet(translatedEnvironment.getKeys(),
+                languages)) {
+            setError(true);
+        }
+        for (AbsMap<EnvironmentType, String> v : translatedEnvironment
+                .values()) {
+            for (EnvironmentType g : v.getKeys()) {
+                _allStandardKeys.add(g.getEnvName());
+            }
+            if (!new EnumList<EnvironmentType>(v.getKeys()).containsAllObj(new EnumList<EnvironmentType>(EnvironmentType.all()))) {
+                setError(true);
+            }
+            if (hasDuplicates(v.values())) {
+                setError(true);
+            }
+        }
+        for (EnvironmentType g : EnvironmentType.all()) {
+            String name_ = g.getEnvName();
+            gearHomonyms(_homonyms, _distinct, name_);
+        }
+    }
+
+    private void standardKeysDiffModelLaw(StringList _allStandardKeys) {
+        if (!StringUtil.equalsSet(translatedDiffModelLaw.getKeys(),
+                languages)) {
+            setError(true);
+        }
+        for (AbsMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
+                .values()) {
+            for (DifficultyModelLaw g : v.getKeys()) {
+                _allStandardKeys.add(g.getModelName());
+            }
+            if (!new EnumList<DifficultyModelLaw>(v.getKeys()).containsAllObj(new EnumList<DifficultyModelLaw>(DifficultyModelLaw.all()))) {
+                setError(true);
+            }
+            if (hasDuplicates(v.values())) {
+                setError(true);
+            }
+        }
+    }
+
+    private void standardKeysDiffWinPts(StringList _allStandardKeys) {
+        if (!StringUtil.equalsSet(translatedDiffWinPts.getKeys(),
+                languages)) {
+            setError(true);
+        }
+        for (AbsMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
+                .values()) {
+            for (DifficultyWinPointsFight g : v.getKeys()) {
+                _allStandardKeys.add(g.getWinName());
+            }
+            if (!new EnumList<DifficultyWinPointsFight>(v.getKeys()).containsAllObj(new EnumList<DifficultyWinPointsFight>(DifficultyWinPointsFight.all()))) {
+                setError(true);
+            }
+            if (hasDuplicates(v.values())) {
+                setError(true);
+            }
+        }
+    }
+
+    private void standardKeysBooleans(StringList _allStandardKeys) {
+        if (!StringUtil.equalsSet(translatedBooleans.getKeys(),
+                languages)) {
+            setError(true);
+        }
+        for (AbsMap<SelectedBoolean, String> v : translatedBooleans.values()) {
+            for (SelectedBoolean g : v.getKeys()) {
+                _allStandardKeys.add(g.getBoolName());
+            }
+            if (!new EnumList<SelectedBoolean>(v.getKeys()).containsAllObj(new EnumList<SelectedBoolean>(SelectedBoolean.all()))) {
+                setError(true);
+            }
+            if (hasDuplicates(v.values())) {
+                setError(true);
+            }
+        }
+    }
+
+    private void standardKeysGenders(StringList _allStandardKeys, StringList _homonyms, StringList _distinct) {
+        if (!StringUtil.equalsSet(translatedGenders.getKeys(),
+                languages)) {
+            setError(true);
+        }
+        for (AbsMap<Gender, String> v : translatedGenders.values()) {
+            for (Gender g : v.getKeys()) {
+                _allStandardKeys.add(g.getGenderName());
+            }
+            if (!new EnumList<Gender>(v.getKeys()).containsAllObj(new EnumList<Gender>(Gender.all()))) {
+                setError(true);
+            }
+            if (hasDuplicates(v.values())) {
+                setError(true);
+            }
+        }
+        for (Gender g : Gender.all()) {
+            String name_ = g.getGenderName();
+            gearHomonyms(_homonyms, _distinct, name_);
+        }
+    }
+
+    private void standardKeysTargets(StringList _allStandardKeys) {
+        if (!StringUtil.equalsSet(translatedTargets.getKeys(),
+                languages)) {
+            setError(true);
+        }
+        for (AbsMap<TargetChoice, String> v : translatedTargets.values()) {
+            for (TargetChoice g : v.getKeys()) {
+                _allStandardKeys.add(g.getTargetName());
+            }
+            if (!new EnumList<TargetChoice>(v.getKeys()).containsAllObj(new EnumList<TargetChoice>(TargetChoice.all()))) {
+                setError(true);
+            }
+            if (hasDuplicates(v.values())) {
+                setError(true);
+            }
+        }
+    }
+
+    private void checkVars(CustList<String> _infosVar, StringList _kinds) {
+        int len_ = _infosVar.size();
+        if (len_ != _kinds.size()) {
+            setError(true);
+            return;
+        }
+        for (int i = 0; i < len_; i++) {
+            checkVar(_infosVar, _kinds, i);
+        }
+    }
+
+    private void checkVar(CustList<String> _infosVar, StringList _kinds, int _i) {
+        String k_ = _kinds.get(_i);
+        if (StringUtil.quickEq(k_, MOVE_FORMULA) && !moves.contains(_infosVar.get(_i))) {
+            setError(true);
+        }
+        if (StringUtil.quickEq(k_, CAT_FORMULA) && !StringUtil.contains(categories, _infosVar.get(_i))) {
+            setError(true);
+        }
+        if (StringUtil.quickEq(k_, TYPE_FORMULA) && !StringUtil.contains(types, _infosVar.get(_i))) {
+            setError(true);
+        }
+        if (StringUtil.quickEq(k_, STATUS_FORMULA) && !status.contains(_infosVar.get(_i))) {
+            setError(true);
+        }
+        if (StringUtil.quickEq(k_, STATIS_FORMULA) && !notIn(_infosVar.get(_i))) {
+            setError(true);
+        }
+    }
+
+    private boolean notIn(String _value) {
+        boolean ok_ = false;
+        for (Statistic s: Statistic.all()) {
+            if (StringUtil.quickEq(s.getStatName(), _value)) {
+                ok_ = true;
+                break;
+            }
+        }
+        return ok_;
+    }
+
+    private void valuesTrGenders(String _l, String _s, StringList _tr) {
+        for (Gender g : Gender.all()) {
+            if (!StringUtil.quickEq(_s, g.getGenderName())) {
+                continue;
+            }
+            for (EntryCust<String,AbsMap<Gender,String>> e: translatedGenders.entryList()) {
+                if (!StringUtil.quickEq(e.getKey(), _l)) {
                     continue;
                 }
-                StringList infos_ = StringUtil.splitStrings(line_, TAB);
-                if (infos_.size() < 3) {
-                    setError(true);
-                    continue;
-                }
-                CustList<String> infosVar_ = varParts_.mid(2);
-                if (infosVar_.isEmpty()) {
-                    continue;
-                }
-                StringList kinds_ = StringUtil.splitChar(infos_.first(), getSepartorSetChar());
-                int len_ = infosVar_.size();
-                if (len_ != kinds_.size()) {
-                    setError(true);
-                    continue;
-                }
-                for (int i = 0; i < len_; i++) {
-                    String k_ = kinds_.get(i);
-                    if (StringUtil.quickEq(k_,MOVE_FORMULA)) {
-                        if (!moves.contains(infosVar_.get(i))) {
-                            setError(true);
-                        }
+                for (EntryCust<Gender,String> f: e.getValue().entryList()) {
+                    if (f.getKey() != g) {
+                        continue;
                     }
-                    if (StringUtil.quickEq(k_,CAT_FORMULA)) {
-                        if (!StringUtil.contains(categories, infosVar_.get(i))) {
-                            setError(true);
-                        }
-                    }
-                    if (StringUtil.quickEq(k_,TYPE_FORMULA)) {
-                        if (!StringUtil.contains(types, infosVar_.get(i))) {
-                            setError(true);
-                        }
-                    }
-                    if (StringUtil.quickEq(k_,STATUS_FORMULA)) {
-                        if (!status.contains(infosVar_.get(i))) {
-                            setError(true);
-                        }
-                    }
-                    if (StringUtil.quickEq(k_,STATIS_FORMULA)) {
-                        boolean ok_ = false;
-                        for (Statistic s: Statistic.values()) {
-                            if (StringUtil.quickEq(s.name(),infosVar_.get(i))) {
-                                ok_ = true;
-                                break;
-                            }
-                        }
-                        if (!ok_) {
-                            setError(true);
-                        }
-                    }
+                    _tr.add(f.getValue());
                 }
             }
+        }
+    }
+
+    private void valuesTrStatistic(String _l, String _s, StringList _tr) {
+        for (Statistic s_ : Statistic.all()) {
+            if (!StringUtil.quickEq(_s, s_.getStatName())) {
+                continue;
+            }
+            for (EntryCust<String,AbsMap<Statistic,String>> e: translatedStatistics.entryList()) {
+                if (!StringUtil.quickEq(e.getKey(), _l)) {
+                    continue;
+                }
+                for (EntryCust<Statistic,String> f: e.getValue().entryList()) {
+                    if (f.getKey() != s_) {
+                        continue;
+                    }
+                    _tr.add(f.getValue());
+                }
+            }
+        }
+    }
+
+    private void valuesTr(String _l, String _s, StringList _tr, StringMap<StringMap<String>> _translated) {
+        for (EntryCust<String,StringMap<String>> e: _translated.entryList()) {
+            if (!StringUtil.quickEq(e.getKey(), _l)) {
+                continue;
+            }
+            for (EntryCust<String,String> f: e.getValue().entryList()) {
+                if (!StringUtil.quickEq(f.getKey(), _s)) {
+                    continue;
+                }
+                _tr.add(f.getValue());
+            }
+        }
+    }
+
+    private void custKeys(StringList _allCustKeys, StringList _homonyms, StringList _distinct, StringMap<StringMap<String>> _translated, CustList<String> _keys) {
+        if (!StringUtil.equalsSet(_translated.getKeys(),
+                languages)) {
+            setError(true);
+        }
+        _allCustKeys.addAllElts(_keys);
+        for (StringMap<String> v : _translated.values()) {
+            if (!StringUtil.equalsSet(v.getKeys(), _keys)) {
+                setError(true);
+            }
+            if (hasDuplicates(v.values())) {
+                setError(true);
+            }
+        }
+        for (String g : _keys) {
+            gearHomonyms(_homonyms, _distinct, g);
         }
     }
 
@@ -1733,26 +1574,14 @@ public class DataBase {
         types = moveTypes_;
     }
 
-    private static boolean isCorrectIdentifier(String _string) {
+    public static boolean isCorrectIdentifier(String _string) {
         if (_string.trim().isEmpty()) {
             return false;
         }
         int len_ = _string.length();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             char curr_ = _string.charAt(i);
-            boolean ok_ = false;
-            if (curr_ >= 'a' && curr_ <= 'z') {
-                ok_ = true;
-            }
-            if (curr_ >= 'A' && curr_ <= 'Z') {
-                ok_ = true;
-            }
-            if (curr_ >= '0' && curr_ <= '9') {
-                ok_ = true;
-            }
-            if (curr_ == UNDERSCORE) {
-                ok_ = true;
-            }
+            boolean ok_ = okChar(curr_);
             if (!ok_) {
                 return false;
             }
@@ -1766,6 +1595,20 @@ public class DataBase {
             }
         }
         return true;
+    }
+
+    private static boolean okChar(char _curr) {
+        boolean ok_ = isLowerLetter(_curr);
+        if (_curr >= 'A' && _curr <= 'Z') {
+            ok_ = true;
+        }
+        if (_curr >= '0' && _curr <= '9') {
+            ok_ = true;
+        }
+        if (_curr == UNDERSCORE) {
+            ok_ = true;
+        }
+        return ok_;
     }
 
     public void setMiniPk(StringMap<int[][]> _miniPk) {
@@ -1945,7 +1788,7 @@ public class DataBase {
         StringBuilder str_ = new StringBuilder(len_);
         for (int i = 0; i < len_; i++) {
             char curr_ = _string.charAt(i);
-            if (curr_ >= 'a' && curr_ <= 'z') {
+            if (isLowerLetter(curr_)) {
                 int char_ = curr_ - 'a' + 'A';
                 str_.append((char)char_);
                 continue;
@@ -1953,6 +1796,10 @@ public class DataBase {
             str_.append(curr_);
         }
         return str_.toString();
+    }
+
+    private static boolean isLowerLetter(char _curr) {
+        return _curr >= 'a' && _curr <= 'z';
     }
 
     public void setMessages(DataBase _other) {
@@ -2037,11 +1884,11 @@ public class DataBase {
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.put(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
+                    tiles_.addEntry(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
                             * side_, side_, side_));
                 }
             }
-            imagesTiles.put(name_, tiles_);
+            imagesTiles.addEntry(name_, tiles_);
         }
 
     }
@@ -2166,194 +2013,231 @@ public class DataBase {
         }
         for (Effect e : _move.getEffects()) {
 
-            variables.addAllElts(getVariableWords(e.getFail()));
+            updateInfoEffect(_moveName, _move, e);
+        }
+        if (!StringUtil.contains(movesEffectIndiv, _moveName) && !StringUtil.contains(movesEffEndRoundIndiv, _moveName) && _move.getRepeatRoundLaw().events().size() > 0 && _move.getConstUserChoice()) {
+            movesConstChoices.add(_moveName);
+        }
+    }
 
-            if (e instanceof EffectCopyMove) {
-                if (((EffectCopyMove) e).getCopyingMoveForUser() > 0) {
-                    movesCopyingTemp.add(_moveName);
-                    movesCopyingTemp.removeDuplicates();
-                }
-            }
-            if (e instanceof EffectCounterAttack) {
-                EffectCounterAttack effectCounterAttack_;
-                effectCounterAttack_ = (EffectCounterAttack) e;
+    private void updateInfoEffect(String _moveName, MoveData _move, Effect _e) {
+        variables.addAllElts(getVariableWords(_e.getFail()));
 
-                variables.addAllElts(getVariableWords(effectCounterAttack_
-                        .getCounterFail()));
-                variables.addAllElts(getVariableWords(effectCounterAttack_
-                        .getProtectFail()));
-                movesCountering.add(_moveName);
-                movesCountering.removeDuplicates();
-            }
-            if (e instanceof EffectProtection) {
-                EffectProtection effetProtection_ = (EffectProtection) e;
-                if (effetProtection_.isProtTeamAgainstDamageMoves()) {
-                    movesProtAgainstDamageMoves.add(_moveName);
-                    movesProtAgainstDamageMoves.removeDuplicates();
-                }
-                if (effetProtection_.isProtTeamAgainstStatusMoves()) {
-                    movesProtAgainstStatusMoves.add(_moveName);
-                    movesProtAgainstStatusMoves.removeDuplicates();
-                }
-                if (effetProtection_.getProtTeamAgainstPrio()) {
-                    movesProtAgainstPrio.add(_moveName);
-                    movesProtAgainstPrio.removeDuplicates();
-                }
-                if (effetProtection_.getProtTeamAgainstMultTargets()) {
-                    movesProtAgainstMultiTarget.add(_moveName);
-                    movesProtAgainstMultiTarget.removeDuplicates();
-                }
-                if (effetProtection_.getProtSingle()) {
-                    movesProtSingleTarget.add(_moveName);
-                    movesProtSingleTarget.removeDuplicates();
-                }
-                if (!effetProtection_.getProtSingleAgainstKo().isZero()) {
-                    movesProtSingleTargetAgainstKo.add(_moveName);
-                    movesProtSingleTargetAgainstKo.removeDuplicates();
-                }
-            }
-            if (e instanceof EffectAccuracy) {
-                movesAccuracy.add(_moveName);
-                movesAccuracy.removeDuplicates();
-            }
-            if (e instanceof EffectAlly) {
-                movesEffectAlly.add(_moveName);
-                movesEffectAlly.removeDuplicates();
-            }
-            if (e instanceof EffectDamage) {
+        if (_e instanceof EffectCopyMove && ((EffectCopyMove) _e).getCopyingMoveForUser() > 0) {
+            movesCopyingTemp.add(_moveName);
+            movesCopyingTemp.removeDuplicates();
+        }
+        if (_e instanceof EffectCounterAttack) {
+            EffectCounterAttack effectCounterAttack_;
+            effectCounterAttack_ = (EffectCounterAttack) _e;
 
-                variables.addAllElts(getVariableWords(((EffectDamage) e)
-                        .getPower()));
+            variables.addAllElts(getVariableWords(effectCounterAttack_
+                    .getCounterFail()));
+            variables.addAllElts(getVariableWords(effectCounterAttack_
+                    .getProtectFail()));
+            movesCountering.add(_moveName);
+            movesCountering.removeDuplicates();
+        }
+        if (_e instanceof EffectProtection) {
+            EffectProtection effetProtection_ = (EffectProtection) _e;
+            updateInfoEffectProtection(_moveName, effetProtection_);
+        }
+        if (_e instanceof EffectAccuracy) {
+            movesAccuracy.add(_moveName);
+            movesAccuracy.removeDuplicates();
+        }
+        if (_e instanceof EffectAlly) {
+            movesEffectAlly.add(_moveName);
+            movesEffectAlly.removeDuplicates();
+        }
+        if (_e instanceof EffectDamage) {
 
-                for (String event_ : ((EffectDamage) e).getDamageLaw().events()) {
+            updateInfoEffectDamage((EffectDamage) _e);
+        }
+        updateInfoEffectDef(_moveName, _move, _e);
+    }
 
-                    variables.addAllElts(getVariableWords(event_));
+    private void updateInfoEffectDef(String _moveName, MoveData _move, Effect _e) {
+        if (_e instanceof EffectEndRound) {
+            EffectEndRound e_ = (EffectEndRound) _e;
+            updateInfoEffectEndRound(_moveName, _move, e_);
+        }
+        if (_e instanceof EffectUnprotectFromTypes
+                || _e instanceof EffectProtectFromTypes) {
+            updateInfoEffectChgtProtect(_moveName, _move, _e);
+        }
+        if (_e instanceof EffectSwitchMoveTypes) {
+            movesChangingTypes.add(_moveName);
+        }
+        if (_e instanceof EffectRestriction) {
+            EffectRestriction effetAntiChoix_ = (EffectRestriction) _e;
+            updateInfoEffectRestriction(_moveName, _move, effetAntiChoix_);
+        }
+        if (_e instanceof EffectTeam) {
+            movesEffectTeam.add(_moveName);
+        }
+        if (_e instanceof EffectGlobal) {
+            EffectGlobal effetGlobal_ = (EffectGlobal) _e;
+            updateInfoEffectGlobal(_moveName, effetGlobal_);
+        }
+        if (_e instanceof EffectStatistic) {
+            updateInfoEffectStatistic((EffectStatistic) _e);
+        }
+        if (_e instanceof EffectStatus) {
+            updateInfoEffectStatus(_moveName, (EffectStatus) _e);
+        }
+        if (_e instanceof EffectCommonStatistics) {
+            updateInfoEffectCommonStatistic((EffectCommonStatistics) _e);
+        }
+        if (_e instanceof EffectFullHpRate) {
 
-                }
-            }
-            if (e instanceof EffectEndRound) {
-                EffectEndRound e_ = (EffectEndRound) e;
-                endTurn_ = new EndRoundMainElements();
-                endTurn_.setNumberIncrement((short) e_.getEndRoundRank());
-                endTurn_.setIncrementNumberOfRounds(false);
-                endTurn_.setEndRoundType(EndTurnType.ATTAQUE);
-                endTurn_.setElement(_moveName);
-                endTurn_.setRelation(e_.getRelation());
-                evtEndRound.add(endTurn_);
-                if (e_ instanceof EffectEndRoundSingleRelation) {
-                    trappingMoves.add(_moveName);
-                }
-                if (e_ instanceof EffectEndRoundIndividual) {
-                    movesEffEndRoundIndiv.add(_moveName);
-                    if (_move.getRepeatRoundLaw().events().size() > 0) {
-                        movesEffEndRoundIndivIncr.add(_moveName);
-                    }
-                }
-                if (e_ instanceof EffectEndRoundPositionTargetRelation) {
-                    movesAnticipation.add(_moveName);
-                }
-                if (e_ instanceof EffectEndRoundPositionRelation) {
-                    movesHealingAfter.add(_moveName);
-                }
+            variables.addAllElts(getVariableWords(((EffectFullHpRate) _e)
+                    .getRestoredHp()));
+        }
+        if (_e instanceof EffectTeamWhileSendFoe) {
+            movesEffectWhileSending.add(_moveName);
 
-                variables.addAllElts(getVariableWords(e_.getFailEndRound()));
-            }
-            if (e instanceof EffectUnprotectFromTypes
-                    || e instanceof EffectProtectFromTypes) {
-                if (e instanceof EffectUnprotectFromTypes) {
-                    movesEffectUnprot.add(_moveName);
-                }
-                if (e instanceof EffectProtectFromTypes) {
-                    movesEffectProt.add(_moveName);
-                }
-                if (_move.getRepeatRoundLaw().events().size() > 0) {
-                    movesEffectIndivIncr.add(_moveName);
-                }
-            }
-            if (e instanceof EffectSwitchMoveTypes) {
-                movesChangingTypes.add(_moveName);
-            }
-            if (e instanceof EffectRestriction) {
-                EffectRestriction effetAntiChoix_ = (EffectRestriction) e;
-                if (effetAntiChoix_.getChoiceRestriction() == MoveChoiceRestrictionType.FORCE) {
-                    movesActingMoveUses.add(_moveName);
-                } else if (effetAntiChoix_.getChoiceRestriction() == MoveChoiceRestrictionType.FORBIDDEN) {
-                    movesActingMoveUses.add(_moveName);
-                } else if (effetAntiChoix_.getChoiceRestriction() == MoveChoiceRestrictionType.LANCEUR_ATTAQUES) {
-                    movesForbidding.add(_moveName);
-                } else {
-                    movesEffectIndiv.add(_moveName);
-                    if (_move.getRepeatRoundLaw().events().size() > 0) {
-                        movesEffectIndivIncr.add(_moveName);
-                    }
-                }
-            }
-            if (e instanceof EffectTeam) {
-                movesEffectTeam.add(_moveName);
-            }
-            if (e instanceof EffectGlobal) {
-                EffectGlobal effetGlobal_ = (EffectGlobal) e;
-                if (effetGlobal_.getWeather()) {
-                    movesEffectGlobalWeather.add(_moveName);
-                }
-                movesEffectGlobal.add(_moveName);
-            }
-            if (e instanceof EffectStatistic) {
-                for (String r : ((EffectStatistic) e).getLocalFailStatis()
-                        .values()) {
+            variables
+                    .addAllElts(getVariableWords(((EffectTeamWhileSendFoe) _e)
+                            .getDamageRateAgainstFoe()));
+            variables
+                    .addAllElts(getVariableWords(((EffectTeamWhileSendFoe) _e)
+                            .getFailSending()));
+        }
+        if (_e instanceof EffectInvoke) {
+            movesInvoking.add(_moveName);
+        }
+    }
 
-                    variables.addAllElts(getVariableWords(r));
-                }
-                for (String r : ((EffectStatistic) e)
-                        .getLocalFailSwapBoostStatis().values()) {
+    private void updateInfoEffectCommonStatistic(EffectCommonStatistics _e) {
+        for (String r : _e.getCommonValue()
+                .values()) {
 
-                    variables.addAllElts(getVariableWords(r));
-                }
-            }
-            if (e instanceof EffectStatus) {
-                for (String r : ((EffectStatus) e).getLocalFailStatus()
-                        .values()) {
+            variables.addAllElts(getVariableWords(r));
+        }
+    }
 
-                    variables.addAllElts(getVariableWords(r));
-                }
-                if (((EffectStatus) e).getKoUserHealSubst()) {
-                    movesFullHeal.add(_moveName);
-                }
-            }
-            if (e instanceof EffectCommonStatistics) {
-                for (String r : ((EffectCommonStatistics) e).getCommonValue()
-                        .values()) {
+    private void updateInfoEffectStatus(String _moveName, EffectStatus _e) {
+        for (String r : _e.getLocalFailStatus()
+                .values()) {
 
-                    variables.addAllElts(getVariableWords(r));
-                }
-            }
-            if (e instanceof EffectFullHpRate) {
+            variables.addAllElts(getVariableWords(r));
+        }
+        if (_e.getKoUserHealSubst()) {
+            movesFullHeal.add(_moveName);
+        }
+    }
 
-                variables.addAllElts(getVariableWords(((EffectFullHpRate) e)
-                        .getRestoredHp()));
-            }
-            if (e instanceof EffectTeamWhileSendFoe) {
-                movesEffectWhileSending.add(_moveName);
+    private void updateInfoEffectStatistic(EffectStatistic _e) {
+        for (String r : _e.getLocalFailStatis()
+                .values()) {
 
-                variables
-                        .addAllElts(getVariableWords(((EffectTeamWhileSendFoe) e)
-                                .getDamageRateAgainstFoe()));
-                variables
-                        .addAllElts(getVariableWords(((EffectTeamWhileSendFoe) e)
-                                .getFailSending()));
-            }
-            if (e instanceof EffectInvoke) {
-                movesInvoking.add(_moveName);
+            variables.addAllElts(getVariableWords(r));
+        }
+        for (String r : _e
+                .getLocalFailSwapBoostStatis().values()) {
+
+            variables.addAllElts(getVariableWords(r));
+        }
+    }
+
+    private void updateInfoEffectGlobal(String _moveName, EffectGlobal _effetGlobal) {
+        if (_effetGlobal.getWeather()) {
+            movesEffectGlobalWeather.add(_moveName);
+        }
+        movesEffectGlobal.add(_moveName);
+    }
+
+    private void updateInfoEffectRestriction(String _moveName, MoveData _move, EffectRestriction _effetAntiChoix) {
+        if (_effetAntiChoix.getChoiceRestriction() == MoveChoiceRestrictionType.FORCE) {
+            movesActingMoveUses.add(_moveName);
+        } else if (_effetAntiChoix.getChoiceRestriction() == MoveChoiceRestrictionType.FORBIDDEN) {
+            movesActingMoveUses.add(_moveName);
+        } else if (_effetAntiChoix.getChoiceRestriction() == MoveChoiceRestrictionType.LANCEUR_ATTAQUES) {
+            movesForbidding.add(_moveName);
+        } else {
+            movesEffectIndiv.add(_moveName);
+            if (_move.getRepeatRoundLaw().events().size() > 0) {
+                movesEffectIndivIncr.add(_moveName);
             }
         }
-        if (!StringUtil.contains(movesEffectIndiv, _moveName)) {
-            if (!StringUtil.contains(movesEffEndRoundIndiv, _moveName)) {
-                if (_move.getRepeatRoundLaw().events().size() > 0) {
-                    if (_move.getConstUserChoice()) {
-                        movesConstChoices.add(_moveName);
-                    }
-                }
+    }
+
+    private void updateInfoEffectChgtProtect(String _moveName, MoveData _move, Effect _e) {
+        if (_e instanceof EffectUnprotectFromTypes) {
+            movesEffectUnprot.add(_moveName);
+        }
+        if (_e instanceof EffectProtectFromTypes) {
+            movesEffectProt.add(_moveName);
+        }
+        if (_move.getRepeatRoundLaw().events().size() > 0) {
+            movesEffectIndivIncr.add(_moveName);
+        }
+    }
+
+    private void updateInfoEffectEndRound(String _moveName, MoveData _move, EffectEndRound _e) {
+        EndRoundMainElements endTurn_;
+        endTurn_ = new EndRoundMainElements();
+        endTurn_.setNumberIncrement((short) _e.getEndRoundRank());
+        endTurn_.setIncrementNumberOfRounds(false);
+        endTurn_.setEndRoundType(EndTurnType.ATTAQUE);
+        endTurn_.setElement(_moveName);
+        endTurn_.setRelation(_e.getRelation());
+        evtEndRound.add(endTurn_);
+        if (_e instanceof EffectEndRoundSingleRelation) {
+            trappingMoves.add(_moveName);
+        }
+        if (_e instanceof EffectEndRoundIndividual) {
+            movesEffEndRoundIndiv.add(_moveName);
+            if (_move.getRepeatRoundLaw().events().size() > 0) {
+                movesEffEndRoundIndivIncr.add(_moveName);
             }
+        }
+        if (_e instanceof EffectEndRoundPositionTargetRelation) {
+            movesAnticipation.add(_moveName);
+        }
+        if (_e instanceof EffectEndRoundPositionRelation) {
+            movesHealingAfter.add(_moveName);
+        }
+
+        variables.addAllElts(getVariableWords(_e.getFailEndRound()));
+    }
+
+    private void updateInfoEffectDamage(EffectDamage _e) {
+        variables.addAllElts(getVariableWords(_e
+                .getPower()));
+
+        for (String event_ : _e.getDamageLaw().events()) {
+
+            variables.addAllElts(getVariableWords(event_));
+
+        }
+    }
+
+    private void updateInfoEffectProtection(String _moveName, EffectProtection _effetProtection) {
+        if (_effetProtection.isProtTeamAgainstDamageMoves()) {
+            movesProtAgainstDamageMoves.add(_moveName);
+            movesProtAgainstDamageMoves.removeDuplicates();
+        }
+        if (_effetProtection.isProtTeamAgainstStatusMoves()) {
+            movesProtAgainstStatusMoves.add(_moveName);
+            movesProtAgainstStatusMoves.removeDuplicates();
+        }
+        if (_effetProtection.getProtTeamAgainstPrio()) {
+            movesProtAgainstPrio.add(_moveName);
+            movesProtAgainstPrio.removeDuplicates();
+        }
+        if (_effetProtection.getProtTeamAgainstMultTargets()) {
+            movesProtAgainstMultiTarget.add(_moveName);
+            movesProtAgainstMultiTarget.removeDuplicates();
+        }
+        if (_effetProtection.getProtSingle()) {
+            movesProtSingleTarget.add(_moveName);
+            movesProtSingleTarget.removeDuplicates();
+        }
+        if (!_effetProtection.getProtSingleAgainstKo().isZero()) {
+            movesProtSingleTargetAgainstKo.add(_moveName);
+            movesProtSingleTargetAgainstKo.removeDuplicates();
         }
     }
 
@@ -2542,34 +2426,16 @@ public class DataBase {
             char cur_ = _litt.charAt(i_);
             if (br_) {
                 boolean dig_ = MathExpUtil.isDigit(cur_);
-                int j_ = i_;
-                int delta_ = 0;
-                if (!MathExpUtil.isWordChar(cur_)) {
-                    j_++;
-                    cur_ = _litt.charAt(j_);
-                    delta_++;
-                }
-                while (MathExpUtil.isWordChar(cur_)) {
-                    j_++;
-                    cur_ = _litt.charAt(j_);
-                }
+                int j_ = possibleIncr(i_, cur_);
+                int delta_ = delta(cur_);
+                j_ = incr(_litt,j_);
+                cur_ = _litt.charAt(j_);
+//                while (MathExpUtil.isWordChar(cur_)) {
+//                    j_++;
+//                    cur_ = _litt.charAt(j_);
+//                }
                 String word_ = _litt.substring(i_+delta_, j_);
-                if (dig_) {
-                    list_.add(word_);
-                } else if (!word_.startsWith(VAR_PREFIX)) {
-                    list_.add(translate(word_, _language));
-                } else {
-                    String tok_ = word_.substring(VAR_PREFIX.length());
-                    StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
-                    String line_ = litt_.getVal(elts_.first());
-                    StringList infos_ = StringUtil.splitStrings(line_, TAB);
-                    StringList objDisplay_ = getVars(word_, _language);
-                    String pattern_ = infos_.get(1);
-
-                    String format_ = StringUtil.simpleStringsFormat(pattern_,
-                            objDisplay_);
-                    list_.add(format_);
-                }
+                formulaWord(_language, litt_, list_, dig_, word_);
                 if (cur_ == '}') {
                     list_.sort();
                     str_.append(StringUtil.join(list_, getSepartorSetChar()));
@@ -2577,59 +2443,128 @@ public class DataBase {
                     br_ = false;
                 }
                 i_ = j_;
-                continue;
-            }
-            if (cur_ == '{') {
+            } else if (cur_ == '{') {
                 str_.append(cur_);
                 i_++;
                 if (_litt.charAt(i_) != '}') {
                     br_ = true;
                 }
-                continue;
-            }
-            if (MathExpUtil.isWordChar(cur_)) {
+            } else if (MathExpUtil.isWordChar(cur_)) {
                 boolean dig_ = MathExpUtil.isDigit(cur_);
-                int j_ = i_;
-                while (MathExpUtil.isWordChar(cur_)) {
-                    j_++;
-                    if (j_ >= _litt.length()) {
-                        break;
-                    }
-                    cur_ = _litt.charAt(j_);
-                }
+//                int j_ = i_;
+//                while (MathExpUtil.isWordChar(cur_)) {
+//                    j_++;
+//                    if (j_ >= _litt.length()) {
+//                        break;
+//                    }
+//                    cur_ = _litt.charAt(j_);
+//                }
+                int j_ = incrAfterWord(_litt,i_);
                 String word_ = _litt.substring(i_, j_);
-                if (dig_) {
-                    str_.append(word_);
-                    i_ = j_;
-                    continue;
-                }
-                if (cur_ == '(' || StringUtil.quickEq(getTrueString(), word_)|| StringUtil.quickEq(getFalseString(), word_)) {
-                    str_.append(translatedFctMath.getVal(_language).getVal(word_));
-                    i_ = j_;
-                    continue;
-                }
-                if (!word_.startsWith(VAR_PREFIX)) {
-                    str_.append(translate(word_, _language));
-                    i_ = j_;
-                    continue;
-                }
-                String tok_ = word_.substring(VAR_PREFIX.length());
-                StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
-                String line_ = litt_.getVal(elts_.first());
-                StringList infos_ = StringUtil.splitStrings(line_, TAB);
-                StringList objDisplay_ = getVars(word_, _language);
-                String pattern_ = infos_.get(1);
-
-                String format_ = StringUtil.simpleStringsFormat(pattern_,
-                        objDisplay_);
-                str_.append(format_);
+                char used_ = used(_litt, j_);
+                trWordPart(_language, litt_, str_, used_, dig_, word_);
                 i_ = j_;
-                continue;
+            } else {
+                str_.append(cur_);
+                i_++;
             }
-            str_.append(cur_);
-            i_++;
         }
         return str_.toString();
+    }
+
+    private int delta(char _cur) {
+        int delta_ = 0;
+        if (!MathExpUtil.isWordChar(_cur)) {
+//                    cur_ = _litt.charAt(j_);
+            delta_++;
+        }
+        return delta_;
+    }
+
+    private int possibleIncr(int _i, char _cur) {
+        int j_ = _i;
+        if (!MathExpUtil.isWordChar(_cur)) {
+            j_++;
+        }
+        return j_;
+    }
+
+    private int incr(String _litt, int _j) {
+        int j_ = _j;
+        char cur_ = _litt.charAt(j_);
+        while (MathExpUtil.isWordChar(cur_)) {
+            j_++;
+            cur_ = _litt.charAt(j_);
+        }
+        return j_;
+    }
+    private char used(String _litt, int _j) {
+        char used_;
+        if (_j < _litt.length()) {
+            used_ = _litt.charAt(_j);
+        } else {
+            used_ = _litt.charAt(_litt.length()-1);
+        }
+        return used_;
+    }
+
+    private int incrAfterWord(String _litt, int _i) {
+        char cur_ = _litt.charAt(_i);
+        int j_ = _i;
+        while (MathExpUtil.isWordChar(cur_)) {
+            j_++;
+            if (j_ >= _litt.length()) {
+                break;
+            }
+            cur_ = _litt.charAt(j_);
+        }
+        return j_;
+    }
+
+    private void trWordPart(String _language, StringMap<String> _litt, StringBuilder _str, char _cur, boolean _dig, String _word) {
+        if (_dig) {
+            _str.append(_word);
+        } else {
+            trWord(_language, _litt, _str, _cur, _word);
+        }
+    }
+
+    private void trWord(String _language, StringMap<String> _litt, StringBuilder _str, char _cur, String _word) {
+        if (_cur == '(' || StringUtil.quickEq(getTrueString(), _word)|| StringUtil.quickEq(getFalseString(), _word)) {
+            _str.append(translatedFctMath.getVal(_language).getVal(_word));
+        } else if (!_word.startsWith(VAR_PREFIX)) {
+            _str.append(translate(_word, _language));
+        } else {
+            String tok_ = _word.substring(VAR_PREFIX.length());
+            StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
+            String line_ = _litt.getVal(elts_.first());
+            StringList infos_ = StringUtil.splitStrings(line_, TAB);
+            StringList objDisplay_ = getVars(_word, _language);
+            String pattern_ = infos_.get(1);
+
+            String format_ = StringUtil.simpleStringsFormat(pattern_,
+                    objDisplay_);
+            _str.append(format_);
+        }
+    }
+
+    private void formulaWord(String _language, StringMap<String> _litt, StringList _list, boolean _dig, String _word) {
+        if (_dig) {
+            _list.add(_word);
+        } else if (!_word.startsWith(VAR_PREFIX)) {
+            _list.add(translate(_word, _language));
+        } else {
+            String tok_ = _word.substring(VAR_PREFIX.length());
+            StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
+            String line_ = _litt.getVal(elts_.first());
+            StringList infos_ = StringUtil.splitStrings(line_, TAB);
+            StringList objDisplay_ = getVars(_word, _language);
+            String pattern_ = infos_.get(1);
+
+            String format_ = StringUtil.simpleStringsFormat(pattern_,
+                    objDisplay_);
+            _list.add(format_);
+        }
     }
 
     private static StringList getVariableWords(String _str) {
@@ -2643,8 +2578,6 @@ public class DataBase {
             }
             if (isVariable(t)) {
                 newList_.add(t);
-                i_++;
-                continue;
             }
             i_++;
         }
@@ -2737,27 +2670,28 @@ public class DataBase {
                     Character.toString(StringUtil.LEFT_BRACE)))) {
                 continue;
             }
-            String insideSet_ = s.substring(IndexConstants.SECOND_INDEX,
-                    s.length() - 1);
-            StringList words_ = MathExpUtil.getWordsSeparators(insideSet_);
-            for (String w : words_) {
-                if (!MathExpUtil.isWord(w)) {
-                    if (w.isEmpty()) {
-                        continue;
-                    }
-                    if (StringUtil.quickEq(w,
-                            Character.toString(getSepartorSetChar()))) {
-                        continue;
-                    }
-                    setError(true);
-                    continue;
+            checkTranslationsInsideSet(s);
+        }
+    }
+
+    private void checkTranslationsInsideSet(String _s) {
+        String insideSet_ = _s.substring(IndexConstants.SECOND_INDEX,
+                _s.length() - 1);
+        StringList words_ = MathExpUtil.getWordsSeparators(insideSet_);
+        for (String w : words_) {
+            if (!MathExpUtil.isWord(w)) {
+                if (!w.isEmpty() && !StringUtil.quickEq(w,
+                        Character.toString(getSepartorSetChar()))) {
+                            setError(true);
                 }
-                if (!isTranslatable(w)) {
-                    setError(true);
-                }
+                continue;
+            }
+            if (!isTranslatable(w)) {
+                setError(true);
             }
         }
     }
+
     private boolean isTranslatable(String _key) {
         for (String l : languages) {
             if (translate(_key, l).isEmpty()) {
@@ -2789,25 +2723,23 @@ public class DataBase {
         if (translatedAbilities.getVal(_language).contains(_key)) {
             return translatedAbilities.getVal(_language).getVal(_key);
         }
-        for (EnvironmentType s : EnvironmentType.values()) {
-            if (StringUtil.quickEq(_key, s.name())) {
-                if (translatedEnvironment.getVal(_language).contains(s)) {
-                    return translatedEnvironment.getVal(_language).getVal(s);
-                }
+        return translateEnum(_key, _language);
+    }
+
+    private String translateEnum(String _key, String _language) {
+        for (EnvironmentType s : EnvironmentType.all()) {
+            if (StringUtil.quickEq(_key, s.getEnvName()) && translatedEnvironment.getVal(_language).contains(s)) {
+                return translatedEnvironment.getVal(_language).getVal(s);
             }
         }
-        for (Statistic s : Statistic.values()) {
-            if (StringUtil.quickEq(_key, s.name())) {
-                if (translatedStatistics.getVal(_language).contains(s)) {
-                    return translatedStatistics.getVal(_language).getVal(s);
-                }
+        for (Statistic s : Statistic.all()) {
+            if (StringUtil.quickEq(_key, s.getStatName()) && translatedStatistics.getVal(_language).contains(s)) {
+                return translatedStatistics.getVal(_language).getVal(s);
             }
         }
-        for (Gender g : Gender.values()) {
-            if (StringUtil.quickEq(_key, g.name())) {
-                if (translatedGenders.getVal(_language).contains(g)) {
-                    return translatedGenders.getVal(_language).getVal(g);
-                }
+        for (Gender g : Gender.all()) {
+            if (StringUtil.quickEq(_key, g.getGenderName()) && translatedGenders.getVal(_language).contains(g)) {
+                return translatedGenders.getVal(_language).getVal(g);
             }
         }
         return EMPTY_STRING;
@@ -2819,12 +2751,8 @@ public class DataBase {
         short pp_ = 0;
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffets_; i++) {
             Effect effet_ = fAtt_.getEffet(i);
-            if (!(effet_ instanceof EffectCopyMove)) {
-                continue;
-            }
-            EffectCopyMove effetCopieAtt_ = (EffectCopyMove) effet_;
-            if (effetCopieAtt_.getCopyingMoveForUser() > 0) {
-                pp_ = effetCopieAtt_.getCopyingMoveForUser();
+            if (effet_ instanceof EffectCopyMove && ((EffectCopyMove) effet_).getCopyingMoveForUser() > 0) {
+                pp_ = ((EffectCopyMove) effet_).getCopyingMoveForUser();
                 break;
             }
         }
@@ -2840,11 +2768,10 @@ public class DataBase {
         int nbEffets_ = fAtt_.nbEffets();
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffets_; i++) {
             Effect effet_ = fAtt_.getEffet(i);
-            if (!(effet_ instanceof EffectBatonPass)) {
-                continue;
+            if (effet_ instanceof EffectBatonPass) {
+                relais_ = true;
+                break;
             }
-            relais_ = true;
-            break;
         }
         return relais_;
     }
@@ -3226,18 +3153,6 @@ public class DataBase {
     }
 
     /** USED */
-    public String getCatchingFormula() {
-
-        return rateCatching;
-    }
-
-    /** USED */
-    public String getFleeingFormula() {
-
-        return rateFleeing;
-    }
-
-    /** USED */
     public String getDamageFormula() {
 
         return damageFormula;
@@ -3259,17 +3174,6 @@ public class DataBase {
     public String getDefaultEggGroup() {
 
         return defaultEggGroup;
-    }
-
-    public String getDefaultBall() {
-
-        return ballDef;
-    }
-
-    /** USED */
-    public String getDefaultMove() {
-
-        return defMove;
     }
 
     public StringList getVarParamsMove(String _var) {

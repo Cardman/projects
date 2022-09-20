@@ -33,7 +33,7 @@ public final class PkTrainer extends Pokemon {
     public void validateAsNpc(DataBase _data) {
         super.validateAsNpc(_data);
         for (String m : moves) {
-            if (StringUtil.quickEq(m, _data.getDefaultMove())) {
+            if (StringUtil.quickEq(m, _data.getDefMove())) {
                 _data.setError(true);
             }
         }

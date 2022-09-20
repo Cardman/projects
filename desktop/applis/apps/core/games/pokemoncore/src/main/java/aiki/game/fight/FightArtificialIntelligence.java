@@ -357,7 +357,7 @@ final class FightArtificialIntelligence {
             }
             StringList attaquesUtilisables_=FightRules.allowedMoves(_fight,c,_import);
             if(attaquesUtilisables_.isEmpty()){
-                String move_ = _import.getDefaultMove();
+                String move_ = _import.getDefMove();
                 setFirstChosenMove(_fight, c, move_, _diff, _import);
                 setBatonPass(_fight, c, move_, _import);
             } else {

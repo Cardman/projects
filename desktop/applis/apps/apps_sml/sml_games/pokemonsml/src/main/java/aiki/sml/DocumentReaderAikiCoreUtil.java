@@ -201,51 +201,6 @@ import code.util.core.StringUtil;
 
 public final class DocumentReaderAikiCoreUtil {
 
-    public static final String EMPTY_STRING = "";
-    public static final String SEPARATOR_RAND = ";";
-    public static final String SEPARATOR_RAND_EVENTS = " ";
-    public static final String DEF_MOVE = "DEF_MOVE";
-    public static final String RATE_CATCHING = "RATE_CATCHING";
-    public static final String RATE_FLEEING = "RATE_FLEEING";
-    public static final String RATE_BOOST = "RATE_BOOST";
-    public static final String RATE_BOOST_CRITICAL_HIT = "RATE_BOOST_CRITICAL_HIT";
-    public static final String DAMAGE_FORMULA = "DAMAGE_FORMULA";
-    public static final String DEFAULT_EGG_GROUP = "DEFAULT_EGG_GROUP";
-    public static final String IMG_FILES_RES_EXT_TXT = ".txt";
-    public static final String FILES_RES_EXT = ".xml";
-    /**
-     * The custom beans can be modified but they must have a common base package
-     * Avoid to recompile classes in standard packages like java, javax, and
-     * even projects core, gui ...
-     */
-
-    public static final String IMAGES_FOLDER = "images";
-    public static final String LINKS_FOLDER = "links";
-    public static final String PEOPLE_FOLDER = "people";
-    public static final String TRAINERS_FOLDER = "trainers";
-    public static final String HERO_FOLDER = "heros";
-    public static final String MINI_MAP_FOLDER = "mini_map";
-    public static final String HERO_FRONT = "heros_front.txt";
-    public static final String HERO_BACK = "heros_back.txt";
-    public static final String HERO_MINI = "heros_mini.txt";
-    public static final String FRONT_IMAGES_FOLDER = "front";
-    public static final String BACK_IMAGES_FOLDER = "back";
-    public static final String MINI_IMAGES_FOLDER = "mini";
-
-    public static final String OBJECTS_IMAGES_FOLDER = "items_images";
-    public static final String TYPES_IMAGES_FOLDER = "types_images";
-    public static final String IMAGE_TM_HM_FILES = "hm_tm";
-    public static final String IMAGE_STORAGE_FILES = "storage";
-    public static final String TYPES_COLOR_CODE = "types_color";
-    public static final String SEPARATOR_FILES = "/";
-    public static final String END_GAME_IMAGE = "end_game";
-
-    public static final String ANIM_STATIS = "anim_statis";
-
-    public static final String ANIM_STATUS = "anim_status";
-
-    public static final String ANIM_ABSORB = "anim_absorb/absorb.txt";
-
     private static final String POKEDEX_FOLDER = "pokedex";
     private static final String MOVES_FOLDER = "moves";
     private static final String ABILITIES_FOLDER = "abilities";
@@ -1037,7 +992,7 @@ public final class DocumentReaderAikiCoreUtil {
         _d.initializeMembers();
         StringMap<String> files_;
         CustList<String> listRelativePaths_;
-        String common_ = EMPTY_STRING;
+        String common_ = DataBase.EMPTY_STRING;
         files_ = _files;
         listRelativePaths_ = files_.getKeys();
         StringList foldersBase_ = new StringList();
@@ -1053,7 +1008,7 @@ public final class DocumentReaderAikiCoreUtil {
             foldersBase_.add(strFolder_);
         }
         if (foldersBase_.onlyOneElt()) {
-            common_ = StringUtil.concat(foldersBase_.first(), SEPARATOR_FILES);
+            common_ = StringUtil.concat(foldersBase_.first(), DataBase.SEPARATOR_FILES);
             StringUtil.removePrefixInStrings(listRelativePaths_,common_);
         }
         StringList listCopy_ = new StringList();
@@ -1069,9 +1024,9 @@ public final class DocumentReaderAikiCoreUtil {
         filesNames_ = new StringList();
 
         for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(POKEDEX_FOLDER, SEPARATOR_FILES))) {
+                .concat(POKEDEX_FOLDER, DataBase.SEPARATOR_FILES))) {
 
-            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, DataBase.SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1087,9 +1042,9 @@ public final class DocumentReaderAikiCoreUtil {
         filesNames_.clear();
 
         for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(MOVES_FOLDER, SEPARATOR_FILES))) {
+                .concat(MOVES_FOLDER, DataBase.SEPARATOR_FILES))) {
 
-            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, DataBase.SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1130,9 +1085,9 @@ public final class DocumentReaderAikiCoreUtil {
         filesNames_.clear();
 
         for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(ITEMS_FOLDER, SEPARATOR_FILES))) {
+                .concat(ITEMS_FOLDER, DataBase.SEPARATOR_FILES))) {
 
-            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, DataBase.SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1147,9 +1102,9 @@ public final class DocumentReaderAikiCoreUtil {
         filesNames_.clear();
 
         for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(ABILITIES_FOLDER, SEPARATOR_FILES))) {
+                .concat(ABILITIES_FOLDER, DataBase.SEPARATOR_FILES))) {
 
-            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, DataBase.SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1164,9 +1119,9 @@ public final class DocumentReaderAikiCoreUtil {
         filesNames_.clear();
 
         for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(STATUS_FOLDER, SEPARATOR_FILES))) {
+                .concat(STATUS_FOLDER, DataBase.SEPARATOR_FILES))) {
 
-            String n_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(f, DataBase.SEPARATOR_FILES);
             if (n_.isEmpty()) {
                 continue;
             }
@@ -1186,11 +1141,11 @@ public final class DocumentReaderAikiCoreUtil {
         StringList images_;
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(IMAGES_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.IMAGES_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
 
-            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String key_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             _d.getImages().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
         filesNames_.clear();
@@ -1199,11 +1154,11 @@ public final class DocumentReaderAikiCoreUtil {
         StringList miniMap_;
 
         miniMap_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(MINI_MAP_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.MINI_MAP_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : miniMap_) {
             filesNames_.add(s);
 
-            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String key_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             _d.getMiniMap().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
 
@@ -1211,28 +1166,28 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setLinks(new StringMap<int[][]>());
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(LINKS_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.LINKS_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
 
-            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String key_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             _d.getLinks().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
         filesNames_.clear();
         _d.setPeople(new StringMap<int[][]>());
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(PEOPLE_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.PEOPLE_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
 
-            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String key_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             _d.getPeople().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
         filesNames_.clear();
         _d.setFrontHeros(new ImageHeroKeys());
         String frHeros_ = notNull(files_, StringUtil.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_FRONT));
+                common_, DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_FRONT));
         for (String l : StringUtil.splitChars(frHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
@@ -1249,7 +1204,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         _d.setBackHeros(new ImageHeroKeys());
         String bkHeros_ = notNull(files_, StringUtil.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_BACK));
+                common_, DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_BACK));
         for (String l : StringUtil.splitChars(bkHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
@@ -1266,7 +1221,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         _d.setOverWorldHeros(new ImageHeroKeys());
         String ovHeros_ = notNull(files_, StringUtil.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_MINI));
+                common_, DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_MINI));
         for (String l : StringUtil.splitChars(ovHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
@@ -1288,21 +1243,21 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setTrainers(new StringMap<int[][]>());
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(TRAINERS_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.TRAINERS_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
 
-            String key_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String key_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             _d.getTrainers().put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_, StringUtil.concat(common_, s))));
         }
         filesNames_.clear();
         _d.setMaxiPkBack(new StringMap<int[][]>());
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.BACK_IMAGES_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
 
-            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getMaxiPkBack().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
@@ -1313,10 +1268,10 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setMaxiPkFront(new StringMap<int[][]>());
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(FRONT_IMAGES_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.FRONT_IMAGES_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
 
-            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getMaxiPkFront().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
@@ -1327,10 +1282,10 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setMiniPk(new StringMap<int[][]>());
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(MINI_IMAGES_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.MINI_IMAGES_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
 
-            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getMiniPk().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
@@ -1342,13 +1297,13 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setMiniItems(new StringMap<int[][]>());
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(OBJECTS_IMAGES_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.OBJECTS_IMAGES_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
-            if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
+            if (!s.endsWith(DataBase.IMG_FILES_RES_EXT_TXT)) {
                 continue;
             }
 
-            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             _d.getMiniItems().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
@@ -1360,12 +1315,12 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setTypesImages(new StringMap<int[][]>());
 
         images_ = filterStrictBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(TYPES_IMAGES_FOLDER, SEPARATOR_FILES));
+                .concat(DataBase.TYPES_IMAGES_FOLDER, DataBase.SEPARATOR_FILES));
         for (String s : images_) {
-            if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
+            if (!s.endsWith(DataBase.IMG_FILES_RES_EXT_TXT)) {
                 continue;
             }
-            String n_ = StringUtil.skipStringUntil(s, SEPARATOR_FILES);
+            String n_ = StringUtil.skipStringUntil(s, DataBase.SEPARATOR_FILES);
 
             n_ = removeExtension(n_);
             filesNames_.add(n_);
@@ -1375,10 +1330,10 @@ public final class DocumentReaderAikiCoreUtil {
         }
 
         String imgHmTm_ = notNull(files_, StringUtil
-                .concat(common_, IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT));
+                .concat(common_, DataBase.IMAGE_TM_HM_FILES, DataBase.IMG_FILES_RES_EXT_TXT));
         _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(imgHmTm_));
         String storeImg_ = notNull(files_, StringUtil
-                .concat(common_, IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT));
+                .concat(common_, DataBase.IMAGE_STORAGE_FILES, DataBase.IMG_FILES_RES_EXT_TXT));
         _d.setStorage(BaseSixtyFourUtil.getImageByString(storeImg_));
         String combos_ = notNull(files_, StringUtil
                 .concat(common_, COMBOS));
@@ -1410,22 +1365,22 @@ public final class DocumentReaderAikiCoreUtil {
                 continue;
             }
             StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
-            if (StringUtil.quickEq(infos_.first(), DEF_MOVE)) {
+            if (StringUtil.quickEq(infos_.first(), DataBase.DEF_MOVE)) {
                 _d.setDefMove(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), RATE_BOOST)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_BOOST)) {
                 _d.setRateBoost(infos_.last());
             } else if (StringUtil.quickEq(infos_.first(),
-                    RATE_BOOST_CRITICAL_HIT)) {
+                    DataBase.RATE_BOOST_CRITICAL_HIT)) {
                 _d.setRateBoostCriticalHit(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), RATE_FLEEING)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_FLEEING)) {
                 _d.setRateFleeing(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), RATE_CATCHING)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_CATCHING)) {
                 _d.setRateCatching(infos_.last());
             } else if (StringUtil.quickEq(infos_.first(), BALL_DEF)) {
                 _d.setBallDef(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.DEFAULT_EGG_GROUP)) {
                 _d.setDefaultEggGroup(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DAMAGE_FORMULA)) {
+            } else if (StringUtil.quickEq(infos_.first(), DataBase.DAMAGE_FORMULA)) {
                 _d.setDamageFormula(infos_.last());
             }
 
@@ -1437,12 +1392,12 @@ public final class DocumentReaderAikiCoreUtil {
                 RETURN_LINE_CHAR);
         String head_ = linesTableTypes_.first();
         StringList typesOff_ = StringUtil.splitChars(head_, TAB_CHAR);
-        typesOff_.removeString(EMPTY_STRING);
+        typesOff_.removeString(DataBase.EMPTY_STRING);
         StringList typesDef_ = new StringList();
         for (String l : linesTableTypes_.leftMinusOne(linesTableTypes_.size())) {
             typesDef_.add(StringUtil.getFirstToken(l, TAB_CHAR));
         }
-        typesDef_.removeString(EMPTY_STRING);
+        typesDef_.removeString(DataBase.EMPTY_STRING);
         for (String pkType_ : typesDef_) {
 
             String l_ = getElements(linesTableTypes_, pkType_).first();
@@ -1475,9 +1430,9 @@ public final class DocumentReaderAikiCoreUtil {
             MonteCarloNumber law_ = new MonteCarloNumber();
 
             for (String evt_ : StringUtil.splitStrings(infos_.get(1),
-                    SEPARATOR_RAND)) {
+                    DataBase.SEPARATOR_RAND)) {
                 StringList infosLoc_ = StringUtil.splitStrings(evt_,
-                        SEPARATOR_RAND_EVENTS);
+                        DataBase.SEPARATOR_RAND_EVENTS);
                 boolean defaultLaw_ = false;
                 if (!Rate.isValid(infosLoc_.first())) {
                     defaultLaw_ = true;
@@ -1532,7 +1487,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         _d.setTypesColors(new StringMap<String>());
         String imgTypes_ = notNull(files_, StringUtil
-                .concat(common_, TYPES_COLOR_CODE, IMG_FILES_RES_EXT_TXT));
+                .concat(common_, DataBase.TYPES_COLOR_CODE, DataBase.IMG_FILES_RES_EXT_TXT));
         StringList colorTypes_ = StringUtil.splitChars(imgTypes_,
                 RETURN_LINE_CHAR);
         for (String l : colorTypes_) {
@@ -1543,15 +1498,15 @@ public final class DocumentReaderAikiCoreUtil {
             String colorStr_ = infos_.get(1);
             _d.getTypesColors().put(infos_.first(), colorStr_);
         }
-        String endGame_ = notNull(files_, StringUtil.concat(common_, END_GAME_IMAGE,
-                IMG_FILES_RES_EXT_TXT));
+        String endGame_ = notNull(files_, StringUtil.concat(common_, DataBase.END_GAME_IMAGE,
+                DataBase.IMG_FILES_RES_EXT_TXT));
         _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(endGame_));
         _d.initTranslations();
         _perCentLoading.setPercent(30);
         for (String l : _d.getLanguages()) {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_GENDERS);
             EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1565,8 +1520,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedGenders().put(l, genders_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_BOOLEANS);
             EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1580,8 +1535,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedBooleans().put(l, booleans_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1596,8 +1551,8 @@ public final class DocumentReaderAikiCoreUtil {
                         .transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffWinPts().put(l, diffWinPts_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil
                     .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
@@ -1612,8 +1567,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffModelLaw().put(l, diffLaw_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_ENVIRONMENTS);
             EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1627,8 +1582,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedEnvironment().put(l, environments_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATISTICS);
             EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1642,8 +1597,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedStatistics().put(l, statistics_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_TARGETS);
             EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1658,8 +1613,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedTargets().put(l, targets_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_CATEGORIES);
             StringMap<String> categories_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1673,8 +1628,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedCategories().put(l, categories_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_TYPES);
             StringMap<String> types_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1688,8 +1643,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedTypes().put(l, types_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_POKEMON);
             StringMap<String> pokemon_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1703,8 +1658,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedPokemon().put(l, pokemon_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_MOVES);
             StringMap<String> moves_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1718,8 +1673,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedMoves().put(l, moves_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_ITEMS);
             StringMap<String> items_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1733,8 +1688,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedItems().put(l, items_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_ABILITIES);
             StringMap<String> abilities_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1748,8 +1703,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedAbilities().put(l, abilities_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATUS);
             StringMap<String> status_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1763,8 +1718,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedStatus().put(l, status_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_MATH);
             StringMap<String> fctsMath_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1778,8 +1733,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedFctMath().put(l, fctsMath_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_CLASSES);
             StringMap<String> descrClasses_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1793,8 +1748,8 @@ public final class DocumentReaderAikiCoreUtil {
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedClassesDescriptions().put(l, descrClasses_);
-            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_LITTERAL);
             StringMap<String> litteral_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
@@ -1814,9 +1769,9 @@ public final class DocumentReaderAikiCoreUtil {
         _perCentLoading.setPercent(35);
 
         for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(ANIM_STATIS, SEPARATOR_FILES))) {
+                .concat(DataBase.ANIM_STATIS, DataBase.SEPARATOR_FILES))) {
 
-            String f_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
+            String f_ = StringUtil.skipStringUntil(f, DataBase.SEPARATOR_FILES);
             f_ = removeExtension(f_);
             if (f_.isEmpty()) {
                 continue;
@@ -1827,9 +1782,9 @@ public final class DocumentReaderAikiCoreUtil {
         }
 
         for (String f : filterBeginIgnoreCase(listRelativePaths_, StringUtil
-                .concat(ANIM_STATUS, SEPARATOR_FILES))) {
+                .concat(DataBase.ANIM_STATUS, DataBase.SEPARATOR_FILES))) {
 
-            String f_ = StringUtil.skipStringUntil(f, SEPARATOR_FILES);
+            String f_ = StringUtil.skipStringUntil(f, DataBase.SEPARATOR_FILES);
             f_ = removeExtension(f_);
             if (f_.isEmpty()) {
                 continue;
@@ -1838,7 +1793,7 @@ public final class DocumentReaderAikiCoreUtil {
                     .getImageByString(notNull(files_, StringUtil.concat(common_,
                             f))));
         }
-        String anAbs_ = notNull(files_, StringUtil.concat(common_, ANIM_ABSORB));
+        String anAbs_ = notNull(files_, StringUtil.concat(common_, DataBase.ANIM_ABSORB));
         _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(anAbs_));
         _perCentLoading.setPercent(40);
     }
@@ -2887,38 +2842,39 @@ public final class DocumentReaderAikiCoreUtil {
     }*/
 
     private static boolean isCorrectIdentifier(String _string) {
-        if (_string.trim().isEmpty()) {
-            return false;
-        }
-        int len_ = _string.length();
-        for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
-            char curr_ = _string.charAt(i);
-            boolean ok_ = false;
-            if (curr_ >= 'a' && curr_ <= 'z') {
-                ok_ = true;
-            }
-            if (curr_ >= 'A' && curr_ <= 'Z') {
-                ok_ = true;
-            }
-            if (curr_ >= '0' && curr_ <= '9') {
-                ok_ = true;
-            }
-            if (curr_ == UNDERSCORE) {
-                ok_ = true;
-            }
-            if (!ok_) {
-                return false;
-            }
-            if (curr_ == UNDERSCORE) {
-                if (i + 1 == len_) {
-                    continue;
-                }
-                if (_string.charAt(i + 1) == UNDERSCORE) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return DataBase.isCorrectIdentifier(_string);
+//        if (_string.trim().isEmpty()) {
+//            return false;
+//        }
+//        int len_ = _string.length();
+//        for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
+//            char curr_ = _string.charAt(i);
+//            boolean ok_ = false;
+//            if (curr_ >= 'a' && curr_ <= 'z') {
+//                ok_ = true;
+//            }
+//            if (curr_ >= 'A' && curr_ <= 'Z') {
+//                ok_ = true;
+//            }
+//            if (curr_ >= '0' && curr_ <= '9') {
+//                ok_ = true;
+//            }
+//            if (curr_ == UNDERSCORE) {
+//                ok_ = true;
+//            }
+//            if (!ok_) {
+//                return false;
+//            }
+//            if (curr_ == UNDERSCORE) {
+//                if (i + 1 == len_) {
+//                    continue;
+//                }
+//                if (_string.charAt(i + 1) == UNDERSCORE) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
     }
 
     public static StringList filterBeginIgnoreCase(CustList<String> _instance,String _regExp) {
@@ -2954,7 +2910,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
     private static String notNull(String _s) {
         if (_s == null) {
-            return EMPTY_STRING;
+            return DataBase.EMPTY_STRING;
         }
         return _s;
     }

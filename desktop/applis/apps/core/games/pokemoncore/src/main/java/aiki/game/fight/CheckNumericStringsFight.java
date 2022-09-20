@@ -66,7 +66,7 @@ public final class CheckNumericStringsFight {
                 _foeFighter, _data);
         variablesMoves = new StringMap<String>(variablesDiff);
         FightValues.completeValuesWithThrower(_fight, _userFighter, variablesMoves);
-        FightValues.completeValuesWithMoveInfo(data.getDefaultMove(), variablesMoves, Rate.one(), _data, new StringList(), DataBase.AUTRE);
+        FightValues.completeValuesWithMoveInfo(data.getDefMove(), variablesMoves, Rate.one(), _data, new StringList(), DataBase.AUTRE);
         variablesWithStat = FightValues.calculateValuesWithStat(variablesMoves,Rate.one(),Rate.one(),Rate.one());
         variablesFull = new StringMap<String>(variablesWithStat);
         FightValues.completeValuesWithRemaining(variablesFull,Rate.one(),LgInt.one());
@@ -629,7 +629,8 @@ public final class CheckNumericStringsFight {
         vars_.put(Fight.RATE_BALL_STATUS, LgInt.one().toNumberString());
         vars_.put(Fight.FOE_PK_MAX_HP, LgInt.one().toNumberString());
         vars_.put(Fight.FOE_PK_REMOTE_HP, LgInt.one().toNumberString());
-        String numericExp_ = data.getCatchingFormula();
+
+        String numericExp_ = data.getRateCatching();
         EvolvedNumString num_;
         num_ = data.createNumericableString(numericExp_, vars_);
         num_.evaluateExp(true);
@@ -652,7 +653,8 @@ public final class CheckNumericStringsFight {
             vars_.clear();
         }
         vars_ = FightRound.calculateFleeingVariable(fight, data);
-        numericExp_ = data.getFleeingFormula();
+
+        numericExp_ = data.getRateFleeing();
         num_ = data.createNumericableString(numericExp_, vars_);
         num_.evaluateExp(true);
         checkValidNumeric(data, num_);

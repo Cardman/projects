@@ -1074,7 +1074,7 @@ public final class FightFacade {
         }
         StringList attaquesAutorisees_ = FightRules.allowedMoves(_fight,_f,_import);
         if (attaquesAutorisees_.isEmpty()) {
-            String move_ = _import.getDefaultMove();
+            String move_ = _import.getDefMove();
             NatStringTreeMap<ChosenMoveInfos> map_ = new NatStringTreeMap<ChosenMoveInfos>();
             ChosenMoveInfos chosen_ = new ChosenMoveInfos();
             chosen_.setName(move_);
@@ -1258,7 +1258,7 @@ public final class FightFacade {
     static StringList allowedMovesNotEmpty(Fight _fight, TeamPosition _combattant, DataBase _import){
         StringList attaquesAutorisees_= FightRules.allowedMoves(_fight,_combattant,_import);
         if(attaquesAutorisees_.isEmpty()){
-            attaquesAutorisees_.add(_import.getDefaultMove());
+            attaquesAutorisees_.add(_import.getDefMove());
         }
         return attaquesAutorisees_;
     }
@@ -2549,7 +2549,8 @@ public final class FightFacade {
             f.setIv(new IdMap<Statistic,Short>());
             boolean isCaught_ = _user.estAttrape(f.getName());
             if (isCaught_) {
-                f.initIvAdv(_diff, _data.getDefaultBall());
+
+                f.initIvAdv(_diff, _data.getBallDef());
             } else {
                 f.initIvAdv(_diff, DataBase.EMPTY_STRING);
             }

@@ -77,7 +77,7 @@ final class FightRules {
         if (FightOrder.nbBackPartners(_fight,_combattant) == 0) {
             StringUtil.removeAllElements(liste_, _import.getMovesFullHeal());
         }
-        liste_.removeString(_import.getDefaultMove());
+        liste_.removeString(_import.getDefMove());
         StringUtil.retainAllElements(liste_, usablesMoves_);
         return liste_;
     }

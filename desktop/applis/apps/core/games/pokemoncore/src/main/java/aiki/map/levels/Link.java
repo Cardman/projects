@@ -81,7 +81,7 @@ public final class Link implements Displayable {
         str_.append(name);
         str_.append(SEPARATOR);
         if (isValidDir()) {
-            str_.append(dir.name());
+            str_.append(dir.getDirName());
             str_.append(SEPARATOR);
         }
         str_.append(coords.display());

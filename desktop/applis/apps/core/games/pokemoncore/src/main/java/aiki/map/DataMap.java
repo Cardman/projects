@@ -612,7 +612,8 @@ public final class DataMap {
             if (accessibility.getVal(c).isEmpty() && l_ instanceof LevelIndoorPokemonCenter) {
                 for (Person p : ((LevelIndoorPokemonCenter) l_).getGerants()
                         .values()) {
-                    if (p instanceof Seller && StringUtil.contains(((Seller) p).getItems(), _d.getDefaultBall())) {
+
+                    if (p instanceof Seller && StringUtil.contains(((Seller) p).getItems(), _d.getBallDef())) {
                         ball_ = true;
                     }
                 }

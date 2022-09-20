@@ -11,7 +11,6 @@ import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.instances.Instances;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.util.ScreenCoords;
 import aiki.util.ImageHeroKeys;
 import aiki.util.LawNumber;
 import aiki.util.ScreenCoordssInt;
@@ -67,7 +66,6 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
-import code.util.AbsMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -132,7 +130,8 @@ public class DataBaseTest extends EquallablePkUtil {
         assertEq(DataBase.EMPTY_STRING,data_.getRateFleeing());
         assertEq(DataBase.EMPTY_STRING,data_.getDefaultEggGroup());
         assertEq(DataBase.EMPTY_STRING,data_.getBallDef());
-        assertEq(DataBase.EMPTY_STRING,data_.getDefaultBall());
+
+        assertEq(DataBase.EMPTY_STRING, data_.getBallDef());
         assertEq(DataBase.EMPTY_STRING,data_.getDefMove());
         assertEq(0,data_.getImagesTiles().size());
         assertEq(0,data_.getDisplayLanguages().size());

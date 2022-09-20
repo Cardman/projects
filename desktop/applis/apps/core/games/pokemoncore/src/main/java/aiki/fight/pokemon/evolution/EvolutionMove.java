@@ -11,7 +11,7 @@ public final class EvolutionMove extends Evolution {
 
     @Override
     public boolean validate(DataBase _dataBase, PokemonData _fPk) {
-        boolean res_ = StringUtil.quickEq(move, _dataBase.getDefaultMove());
+        boolean res_ = StringUtil.quickEq(move, _dataBase.getDefMove());
         if (!StringUtil.contains(_fPk.getMoveTutors(), move)) {
             res_ = true;
         }

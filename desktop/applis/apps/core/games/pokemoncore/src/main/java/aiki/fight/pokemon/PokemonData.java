@@ -116,7 +116,7 @@ public final class PokemonData {
         }
         DataInfoChecker.checkEmptyNotStringList(abilities,_data);
         DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),moveTutors,_data);
-        if (StringUtil.contains(moveTutors, _data.getDefaultMove())) {
+        if (StringUtil.contains(moveTutors, _data.getDefMove())) {
             _data.setError(true);
         }
         DataInfoChecker.checkStringListContains(_data.getAbilities().getKeys(),abilities,_data);
@@ -134,7 +134,7 @@ public final class PokemonData {
         min_ = levMoves.first().getLevel();
         for (LevelMove p : levMoves) {
             DataInfoChecker.checkLower(min_,p.getLevel(),_data);
-            if (StringUtil.quickEq(p.getMove(), _data.getDefaultMove())) {
+            if (StringUtil.quickEq(p.getMove(), _data.getDefMove())) {
                 _data.setError(true);
             }
             DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),p.getMove(),_data);

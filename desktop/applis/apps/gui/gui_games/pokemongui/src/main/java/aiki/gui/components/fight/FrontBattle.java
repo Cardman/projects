@@ -145,7 +145,8 @@ public final class FrontBattle extends AbsMetaLabel {
             target_.setPercentExp(fighter_.wonExpRate(facade.getData()));
             boolean caught_ = facade.getPlayer().estAttrape(fighter_.getName());
             if (caught_) {
-                target_.setBall(facade.getData().getDefaultBall());
+
+                target_.setBall(facade.getData().getBallDef());
             }
             target_.set(this, false, facade, fighter_.getName());
             if (target_.getFinalWidth() > maxWidth) {
@@ -691,7 +692,8 @@ public final class FrontBattle extends AbsMetaLabel {
                             label_ = foeTargets.getVal((byte) animation_.getSubstituted().getPosition());
                             boolean caught_ = facade.getPlayer().estAttrape(animation_.getSubstituteName());
                             if (caught_) {
-                                label_.setBall(facade.getData().getDefaultBall());
+
+                                label_.setBall(facade.getData().getBallDef());
                             }
                         }
                         label_.setLevel(animation_.getLevel());

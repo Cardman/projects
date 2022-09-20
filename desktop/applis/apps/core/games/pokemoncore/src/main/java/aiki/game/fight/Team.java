@@ -191,7 +191,8 @@ public final class Team {
         playerFightersAgainstFoe = new ByteMap<Bytes>();
         Fighter creatureCbt_= new Fighter(_pokemon,_import, (byte) _index);
         if(_utilisateur.estAttrape(_pokemon.getName())){
-            creatureCbt_.initIvAdv(_diff,_import.getDefaultBall());
+
+            creatureCbt_.initIvAdv(_diff, _import.getBallDef());
         }else{
             creatureCbt_.initIvAdv(_diff,DataBase.EMPTY_STRING);
         }
@@ -213,7 +214,8 @@ public final class Team {
             }
             Fighter creatureCbt_= new Fighter(p_,_import,place_);
             if(_utilisateur.estAttrape(creatureCbt_.getName())){
-                creatureCbt_.initIvAdv(_diff,_import.getDefaultBall());
+
+                creatureCbt_.initIvAdv(_diff, _import.getBallDef());
             }else{
                 creatureCbt_.initIvAdv(_diff,DataBase.EMPTY_STRING);
             }

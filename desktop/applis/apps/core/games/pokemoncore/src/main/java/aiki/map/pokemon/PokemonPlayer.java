@@ -135,7 +135,8 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         initEvIv(_import,true);
         status = new StringList();
         nickname=getName();
-        usedBallCatching=_import.getDefaultBall();
+
+        usedBallCatching= _import.getBallDef();
         PokemonData fPk_ = _import.getPokemon(getName());
         happiness=fPk_.getHappiness();
         obtention();
@@ -154,7 +155,8 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         nickname=getName();
         initAttaques(_import,true);
         initAleaCapaciteGenre(_import);
-        usedBallCatching=_import.getDefaultBall();
+
+        usedBallCatching= _import.getBallDef();
         PokemonData fPk_ = _import.getPokemon(getName());
         happiness=fPk_.getHappiness();
         obtention();
@@ -174,7 +176,8 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         nickname=getName();
         initAttaques(_import,true);
         initAleaCapaciteGenre(_import);
-        usedBallCatching=_import.getDefaultBall();
+
+        usedBallCatching= _import.getBallDef();
         PokemonData fPk_ = _import.getPokemon(getName());
         happiness=fPk_.getHappinessHatch();
         obtention();
@@ -374,7 +377,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             return false;
         }
         for (EntryCust<String, UsesOfMove> m: moves.entryList()) {
-            if (StringUtil.quickEq(m.getKey(), _data.getDefaultMove()) || !_data.getMoves().contains(m.getKey()) || m.getValue().getCurrent() < 0 || m.getValue().getMax() < m.getValue().getCurrent() || m.getValue().getMax() > _data.getMaxPp() || m.getValue().getMax() == 0) {
+            if (StringUtil.quickEq(m.getKey(), _data.getDefMove()) || !_data.getMoves().contains(m.getKey()) || m.getValue().getCurrent() < 0 || m.getValue().getMax() < m.getValue().getCurrent() || m.getValue().getMax() > _data.getMaxPp() || m.getValue().getMax() == 0) {
                 return false;
             }
         }
@@ -409,7 +412,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         initIv();
         StringList existingMoves_ = new StringList();
         for (String m: moves.getKeys()) {
-            if (!_dateBase.getMoves().contains(m) || StringUtil.quickEq(m, _dateBase.getDefaultMove())) {
+            if (!_dateBase.getMoves().contains(m) || StringUtil.quickEq(m, _dateBase.getDefMove())) {
                 continue;
             }
             existingMoves_.add(m);

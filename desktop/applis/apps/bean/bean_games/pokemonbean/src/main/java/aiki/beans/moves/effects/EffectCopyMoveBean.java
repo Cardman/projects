@@ -33,7 +33,7 @@ public class EffectCopyMoveBean extends EffectBean {
         movesNotToBeCopied_.sortElts(new ComparatorTrStrings(translatedMoves_));
         movesNotToBeCopied = movesNotToBeCopied_;
         displayName = translatedMoves_.getVal(getMove());
-        defaultMove = data_.getDefaultMove();
+        defaultMove = data_.getDefMove();
         if (copyingMoveForUserDef) {
             StringList movesTransforming_;
             movesTransforming_ = new StringList();

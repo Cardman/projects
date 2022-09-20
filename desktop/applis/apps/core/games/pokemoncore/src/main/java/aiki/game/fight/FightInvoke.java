@@ -188,7 +188,7 @@ final class FightInvoke {
             }
         }
         StringUtil.removeAllElements(attaquesCopiables_, _effet.getMovesNotToBeCopied());
-        StringUtil.removeObj(attaquesCopiables_, _import.getDefaultMove());
+        StringUtil.removeObj(attaquesCopiables_, _import.getDefMove());
         return attaquesCopiables_;
     }
 }

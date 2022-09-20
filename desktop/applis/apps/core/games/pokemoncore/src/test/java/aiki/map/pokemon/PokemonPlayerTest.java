@@ -22,7 +22,6 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
-import code.util.AbsMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -320,7 +319,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(70, pk_.getHappiness());
         assertEq(Rate.zero(), pk_.getWonExpSinceLastLevel());
         assertEq(0, pk_.getNbStepsTeamLead());
-        assertEq(POKE_BALL, data_.getDefaultBall());
+
+        assertEq(POKE_BALL, data_.getBallDef());
         assertEq(POKE_BALL, pk_.getUsedBallCatching());
         assertEq(new Rate("3037/100"), fPk_.stat(pk_.getLevel(), Statistic.HP, pk_.getEv().getVal(Statistic.HP), pk_.getIv().getVal(Statistic.HP)));
         assertEq(new Rate("3037/100"), fPk_.statHp(pk_.getLevel(), pk_.getEv(), pk_.getIv()));
@@ -362,7 +362,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(70, pk_.getHappiness());
         assertEq(Rate.zero(), pk_.getWonExpSinceLastLevel());
         assertEq(0, pk_.getNbStepsTeamLead());
-        assertEq(POKE_BALL, data_.getDefaultBall());
+
+        assertEq(POKE_BALL, data_.getBallDef());
         assertEq(POKE_BALL, pk_.getUsedBallCatching());
         assertEq(new Rate("3037/100"), fPk_.stat(pk_.getLevel(), Statistic.HP, pk_.getEv().getVal(Statistic.HP), pk_.getIv().getVal(Statistic.HP)));
         assertEq(new Rate("3037/100"), fPk_.statHp(pk_.getLevel(), pk_.getEv(), pk_.getIv()));
@@ -474,7 +475,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(70, pk_.getHappiness());
         assertEq(Rate.zero(), pk_.getWonExpSinceLastLevel());
         assertEq(0, pk_.getNbStepsTeamLead());
-        assertEq(POKE_BALL, data_.getDefaultBall());
+
+        assertEq(POKE_BALL, data_.getBallDef());
         assertEq(POKE_BALL, pk_.getUsedBallCatching());
         assertEq(new Rate("3037/100"), fPk_.statHp(pk_.getLevel(), pk_.getEv(), pk_.getIv()));
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
@@ -509,7 +511,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(140, pk_.getHappiness());
         assertEq(Rate.zero(), pk_.getWonExpSinceLastLevel());
         assertEq(0, pk_.getNbStepsTeamLead());
-        assertEq(POKE_BALL, data_.getDefaultBall());
+
+        assertEq(POKE_BALL, data_.getBallDef());
         assertEq(POKE_BALL, pk_.getUsedBallCatching());
         assertEq(new Rate("1291/100"), fPk_.statHp(pk_.getLevel(), pk_.getEv(), pk_.getIv()));
         assertEq(new Rate("1291/100"), pk_.getRemainingHp());
@@ -778,7 +781,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setItem(GRELOT);
         HealingHp healingObject_ = new HealingHp();
         healingObject_.setHappiness(new StringMap<Short>());
-        healingObject_.getHappiness().put(data_.getDefaultBall(), (short) 3);
+
+        healingObject_.getHappiness().put(data_.getBallDef(), (short) 3);
         assertEq(6, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -798,7 +802,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         HealingHp healingObject_ = new HealingHp();
         healingObject_.setHappiness(new StringMap<Short>());
-        healingObject_.getHappiness().put(data_.getDefaultBall(), (short) 3);
+
+        healingObject_.getHappiness().put(data_.getBallDef(), (short) 3);
         assertEq(3, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -818,7 +823,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setItem(GRELOT);
         Boost healingObject_ = new Boost();
         healingObject_.setHappiness(new StringMap<Short>());
-        healingObject_.getHappiness().put(data_.getDefaultBall(), (short) 3);
+
+        healingObject_.getHappiness().put(data_.getBallDef(), (short) 3);
         assertEq(6, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -839,7 +845,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         Boost healingObject_ = new Boost();
         healingObject_.setHappiness(new StringMap<Short>());
-        healingObject_.getHappiness().put(data_.getDefaultBall(), (short) 3);
+
+        healingObject_.getHappiness().put(data_.getBallDef(), (short) 3);
         assertEq(3, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -851,7 +858,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setHappiness((short) 170);
         Boost healingObject_ = new Boost();
         healingObject_.setHappiness(new StringMap<Short>());
-        healingObject_.getHappiness().put(data_.getDefaultBall(), (short) 3);
+
+        healingObject_.getHappiness().put(data_.getBallDef(), (short) 3);
         assertEq(0, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -862,7 +870,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setItem(BAIE_ENIGMA);
         Boost healingObject_ = new Boost();
         healingObject_.setHappiness(new StringMap<Short>());
-        healingObject_.getHappiness().put(data_.getDefaultBall(), (short) 3);
+
+        healingObject_.getHappiness().put(data_.getBallDef(), (short) 3);
         assertEq(3, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -873,7 +882,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setItem(PT_DE_MIRE);
         Boost healingObject_ = new Boost();
         healingObject_.setHappiness(new StringMap<Short>());
-        healingObject_.getHappiness().put(data_.getDefaultBall(), (short) 3);
+
+        healingObject_.getHappiness().put(data_.getBallDef(), (short) 3);
         assertEq(3, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 

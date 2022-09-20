@@ -54,7 +54,7 @@ public final class PlaceInterConnect implements Displayable {
     public String display() {
         StringBuilder str_ = new StringBuilder(source.display());
         str_.append(SEPARATOR);
-        str_.append(dir.name());
+        str_.append(dir.getDirName());
         return str_.toString();
     }
 }

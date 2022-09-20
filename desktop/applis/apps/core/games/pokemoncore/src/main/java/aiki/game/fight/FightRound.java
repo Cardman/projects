@@ -1631,7 +1631,8 @@ final class FightRound {
         variables_.put(Fight.RATE_BALL_STATUS, taux_.toNumberString());
         variables_.put(Fight.FOE_PK_MAX_HP, creatureSauvage_.pvMax().toNumberString());
         variables_.put(Fight.FOE_PK_REMOTE_HP, creatureSauvage_.getRemainingHp().toNumberString());
-        String numericExp_ = _import.getCatchingFormula();
+
+        String numericExp_ = _import.getRateCatching();
         return _import.evaluateNumericable(numericExp_, variables_, Rate.one());
     }
 
@@ -1681,7 +1682,8 @@ final class FightRound {
 //            pierresEvo_.add(pierreEvo_.getStone());
 //        }
 //        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS),pierresEvo_.join(NumericString.SEPARATOR_SET));
-        String flee_ = _import.getFleeingFormula();
+
+        String flee_ = _import.getRateFleeing();
         return _import.evaluateNumericable(flee_, variables_, Rate.one());
     }
 
