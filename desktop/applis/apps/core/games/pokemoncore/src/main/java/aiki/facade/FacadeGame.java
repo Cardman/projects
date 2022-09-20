@@ -29,7 +29,6 @@ import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;
 import aiki.map.characters.Seller;
 import aiki.map.enums.Direction;
-import aiki.map.levels.Level;
 import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
@@ -1079,8 +1078,7 @@ public class FacadeGame {
         if (_buy) {
             Coords coords_;
             coords_ = game.closestTile(data.getMap());
-            City pl_ = (City) data.getMap().getPlace(coords_.getNumberPlace());
-            LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) pl_
+            LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) data.getMap()
                     .getLevelByCoords(coords_);
             Seller seller_ = (Seller) lev_.getGerants().getVal(
                     coords_.getLevel().getPoint());
@@ -1361,8 +1359,7 @@ public class FacadeGame {
     public void searchTmToBuy() {
         Coords coords_;
         coords_ = game.closestTile(data.getMap());
-        City pl_ = (City) data.getMap().getPlace(coords_.getNumberPlace());
-        LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) pl_
+        LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) data.getMap()
                 .getLevelByCoords(coords_);
         Seller seller_ = (Seller) lev_.getGerants().getVal(
                 coords_.getLevel().getPoint());
@@ -1819,9 +1816,9 @@ public class FacadeGame {
         if (!next_.isValid()) {
             return false;
         }
-        Place pl_ = data.getMap().getPlace(next_.getNumberPlace());
-        Level l_ = pl_.getLevelByCoords(next_);
-        return l_.getBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER;
+        return data.getMap().currentBlock(next_).getType() == EnvironmentType.WATER;
+//        Level l_ = data.getMap().getLevelByCoords(next_);
+//        return l_.getBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER;
     }
 
     public Coords closestTile() {

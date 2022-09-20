@@ -128,8 +128,7 @@ public final class FightFacade {
     public static void initTypeEnv(Fight _fight,Coords _coords, Difficulty _diff, DataBase _d){
         DataMap d_ = _d.getMap();
         if (_coords.isValid()) {
-            LevelPoint lp_ = _coords.getLevel();
-            Block bl_ = d_.getPlace(_coords.getNumberPlace()).getLevelByCoords(_coords).getBlockByPoint(lp_.getPoint());
+            Block bl_ = d_.currentBlock(_coords);
             if (bl_.isValid()) {
                 _fight.setEnvType(bl_.getType());
             } else {

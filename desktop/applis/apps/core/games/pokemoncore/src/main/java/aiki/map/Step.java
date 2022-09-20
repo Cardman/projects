@@ -3,7 +3,6 @@ package aiki.map;
 import aiki.fight.pokemon.GenderName;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelLeague;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.League;
 import aiki.map.places.Place;
@@ -103,13 +102,13 @@ public class Step {
         for (Coords c: accessibleCoords) {
             Coords c_ = new Coords(c);
             Place pl_ = _places.get(c.getNumberPlace());
-            Level level_ = pl_.getLevelByCoords(c);
+            Level level_ = DataMap.getLevelByCoords(_places,c);
             if (level_ instanceof LevelIndoorGym) {
                 LevelIndoorGym lev_ = (LevelIndoorGym) level_;
                 c_.getLevel().getPoint().affect(lev_.getGymLeaderCoords());
                 importantsTrainers.add(c_);
             }
-            if (level_ instanceof LevelLeague) {
+            if (pl_ instanceof League) {
                 League league_ = (League) pl_;
                 c_.getLevel().setLevelIndex((byte) 0);
                 c_.getLevel().getPoint().affect(league_.getBegin());
@@ -132,8 +131,7 @@ public class Step {
             caughtPokemon.put(c, levArea_.getPokemon(c.getLevel().getPoint()));
         }
         for (Coords c: accessibleCoords) {
-            Place pl_ = _places.get(c.getNumberPlace());
-            Level level_ = pl_.getLevelByCoords(c);
+            Level level_ = DataMap.getLevelByCoords(_places,c);
             if (level_ instanceof LevelWithWildPokemon) {
                 LevelWithWildPokemon lev_ = (LevelWithWildPokemon) level_;
                 if (lev_.containsPokemon(c.getLevel().getPoint())) {

@@ -556,7 +556,7 @@ public final class Game {
             return;
         }
         Place place_ = map_.getPlace(_coords.getNumberPlace());
-        Level level_ = place_.getLevelByCoords(_coords);
+        Level level_ = map_.getLevelByCoords(_coords);
         CustList<int[][]> images_ = new CustList<int[][]>();
         Point pt_ = _coords.getLevel().getPoint();
         possibleAccessLeague(_data, _coords, images_);
@@ -1022,8 +1022,7 @@ public final class Game {
     public void takeObject(DataBase _d) {
         DataMap d_=_d.getMap();
         Coords voisin_ = closestTile(d_);
-        Place pl_ = d_.getPlace(voisin_.getNumberPlace());
-        LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
+        LevelWithWildPokemon l_ = (LevelWithWildPokemon) d_.getLevelByCoords(voisin_);
         Point pt_ = voisin_.getLevel().getPoint();
         if (l_.getItems().contains(pt_)) {
             String obj_ = l_.getItems().getVal(pt_);
@@ -1198,8 +1197,7 @@ public final class Game {
     public void initLegendaryPokemonFight(DataBase _d){
         DataMap d_=_d.getMap();
         Coords voisin_= closestTile(d_);
-        Place place_ = d_.getPlace(voisin_.getNumberPlace());
-        Level level_ = place_.getLevelByCoords(voisin_);
+        Level level_ = d_.getLevelByCoords(voisin_);
         Point pt_ = voisin_.getLevel().getPoint();
         WildPk pkLeg_ = ((LevelWithWildPokemon)level_).getPokemon(pt_);
         initFight(_d, pkLeg_);
@@ -1848,8 +1846,7 @@ public final class Game {
         if (!n_.isValid()) {
             return false;
         }
-        Place place_ = _import.getMap().getPlace(n_.getNumberPlace());
-        Level level_ = place_.getLevelByCoords(n_);
+        Level level_ = _import.getMap().getLevelByCoords(n_);
         Point pt_ = n_.getLevel().getPoint();
         if (level_ instanceof LevelWithWildPokemon) {
             return ((LevelWithWildPokemon) level_).containsPokemon(pt_);
@@ -2032,8 +2029,6 @@ public final class Game {
     }
 
     private void movingHeroOtherThanLeague(DataMap _map, Coords _voisin, Place _nextPl) {
-        Level nextlevel_;
-        nextlevel_ = _nextPl.getLevelByCoords(_voisin);
         Point nextPt_ = _voisin.getLevel().getPoint();
         if(_nextPl instanceof City && !playerCoords.isInside()) {
             Points<Building> buildings_ = ((City) _nextPl).getBuildings();
@@ -2059,7 +2054,7 @@ public final class Game {
             placeChanged = true;
             return;
         }
-        if (nextlevel_.getBlockByPoint(nextPt_).getType() == EnvironmentType.NOTHING) {
+        if (_map.currentBlock(_voisin).getType() == EnvironmentType.NOTHING) {
             return;
         }
         if (_nextPl instanceof City && playerCoords.isInside()) {
@@ -2378,8 +2373,7 @@ public final class Game {
     }
 
     public boolean isEmpty(DataMap _map, Coords _coords) {
-        Place place_ = _map.getPlace(_coords.getNumberPlace());
-        Level level_ = place_.getLevelByCoords(_coords);
+        Level level_ = _map.getLevelByCoords(_coords);
         Point pt_ = _coords.getLevel().getPoint();
         if (!(level_ instanceof LevelWithWildPokemon)) {
             return level_.isEmpty(pt_);

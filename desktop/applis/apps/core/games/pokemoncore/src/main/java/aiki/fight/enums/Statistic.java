@@ -83,7 +83,7 @@ public enum Statistic {
         }
         return SPEED;
     }
-    private static CustList<Statistic> all() {
+    public static CustList<Statistic> all() {
         CustList<Statistic> ls_ = new CustList<Statistic>();
         ls_.add(HP);
         ls_.add(ATTACK);

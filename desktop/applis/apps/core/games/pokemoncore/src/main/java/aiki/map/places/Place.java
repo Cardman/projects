@@ -17,7 +17,7 @@ import code.util.*;
 public abstract class Place {
 
     public boolean hasValidImage(DataBase _data) {
-        for (Level l : getLevelsMap().values()) {
+        for (Level l : getLevelsList()) {
             if (!l.hasValidImage(_data)) {
                 return false;
             }
@@ -35,8 +35,7 @@ public abstract class Place {
                 _data.setError(true);
                 continue;
             }
-            Place tar_ = _data.getMap().getPlace(c_.getNumberPlace());
-            Level tarLevel_ = tar_.getLevelByCoords(c_);
+            Level tarLevel_ = _data.getMap().getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
                 _data.setError(true);
             }

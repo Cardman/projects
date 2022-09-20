@@ -95,7 +95,7 @@ public abstract class LevelWithWildPokemon extends Level {
 
     private boolean isNextDual(Point _id, DualFight _dual) {
         boolean isNext_ = false;
-        for (Direction d : Direction.values()) {
+        for (Direction d : Direction.all()) {
             Point next_ = new Point(_id);
             next_.moveTo(d);
             if (Point.eq(next_, _dual.getPt())) {
