@@ -484,4 +484,12 @@ public final class DocumentIndexer {
         }
         return indexes_;
     }
+
+    public static RowCol getOffset(String _attr, ElementOffsetsNext _e, StringMap<IntTreeMap<Integer>> _s, int _offset, int _tabWidth) {
+        StringMap<RowCol> attributes_ = _e.getAttributes();
+        if (!attributes_.contains(_attr)) {
+            return _e.getEndHeader();
+        }
+        return getOffset(_attr, attributes_, _s, _offset, _e.getOffsets(), _e.getTabs(), _tabWidth);
+    }
 }
