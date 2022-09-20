@@ -1743,43 +1743,43 @@ public class RateTest extends EquallableMathUtil {
         Rate rateTwo_ = new Rate("1/4");
         assertEq(new Rate("2"), Rate.powNb(rateOne_, rateTwo_));
     }
-    @Test
-    public void proba1(){
-        CustList<Rate> probas_ = new CustList<Rate>();
-        CustList<CustList<Rate>> tableProbas_ = new CustList<CustList<Rate>>();
-        for(long t=1;t<=18;t++) {
-            LgInt casFavorables_ = LgInt.zero();
-            for(long i=0;i<t;i++) {
-                casFavorables_.addNb(LgInt.multiply(LgInt.among(new LgInt(i), new LgInt(18)), LgInt.among(new LgInt(t-i-1), new LgInt(18))));
-            }
-            probas_.add(new Rate(casFavorables_,LgInt.among(new LgInt(t-1), new LgInt(53))));
-        }
-        tableProbas_.add(probas_);
-        for(long n=0;n<18;n++) {
-            CustList<Rate> probasLoc_ = tableProbas_.get((int)n);
-            CustList<Rate> probasAjoutees_ = new CustList<Rate>();
-            for(int i=0;i<=n;i++) {
-                probasAjoutees_.add(Rate.zero());
-            }
-            for(long t=n+1;t<=18;t++) {
-                Rate coeff_ = Rate.divide(Rate.multiply(new Rate(t), new Rate(18-n-1)), Rate.multiply(new Rate(n+1), new Rate(54-t)));
-                probasAjoutees_.add(Rate.multiply(coeff_, probasLoc_.get((int) t-1)));
-            }
-            tableProbas_.add(probasAjoutees_);
-        }
-        CustList<Rate> sumColumns_ = new CustList<Rate>();
-        for(short n=0;n<19;n++) {
-            Rate rate_ = Rate.zero();
-            for(short p=0;p<19;p++) {
-                if (n >= tableProbas_.get(p).size()) {
-                    continue;
-                }
-                rate_.addNb(tableProbas_.get(p).get(n));
-            }
-            sumColumns_.add(rate_);
-        }
-        assertEq(19, sumColumns_.size());
-    }
+//    @Test
+//    public void proba1(){
+//        CustList<Rate> probas_ = new CustList<Rate>();
+//        CustList<CustList<Rate>> tableProbas_ = new CustList<CustList<Rate>>();
+//        for(long t=1;t<=18;t++) {
+//            LgInt casFavorables_ = LgInt.zero();
+//            for(long i=0;i<t;i++) {
+//                casFavorables_.addNb(LgInt.multiply(LgInt.among(new LgInt(i), new LgInt(18)), LgInt.among(new LgInt(t-i-1), new LgInt(18))));
+//            }
+//            probas_.add(new Rate(casFavorables_,LgInt.among(new LgInt(t-1), new LgInt(53))));
+//        }
+//        tableProbas_.add(probas_);
+//        for(long n=0;n<18;n++) {
+//            CustList<Rate> probasLoc_ = tableProbas_.get((int)n);
+//            CustList<Rate> probasAjoutees_ = new CustList<Rate>();
+//            for(int i=0;i<=n;i++) {
+//                probasAjoutees_.add(Rate.zero());
+//            }
+//            for(long t=n+1;t<=18;t++) {
+//                Rate coeff_ = Rate.divide(Rate.multiply(new Rate(t), new Rate(18-n-1)), Rate.multiply(new Rate(n+1), new Rate(54-t)));
+//                probasAjoutees_.add(Rate.multiply(coeff_, probasLoc_.get((int) t-1)));
+//            }
+//            tableProbas_.add(probasAjoutees_);
+//        }
+//        CustList<Rate> sumColumns_ = new CustList<Rate>();
+//        for(short n=0;n<19;n++) {
+//            Rate rate_ = Rate.zero();
+//            for(short p=0;p<19;p++) {
+//                if (n >= tableProbas_.get(p).size()) {
+//                    continue;
+//                }
+//                rate_.addNb(tableProbas_.get(p).get(n));
+//            }
+//            sumColumns_.add(rate_);
+//        }
+//        assertEq(19, sumColumns_.size());
+//    }
     @Test
     public void evaluate1Test(){
         Rate rate_ = new Rate("0");

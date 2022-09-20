@@ -1,32 +1,73 @@
 package code.maths;
 
-import code.maths.geo.RatePoint;
-import code.maths.geo.RatePointThreeDims;
+import code.maths.geo.*;
 import code.maths.litteral.MathType;
+import code.maths.litteral.MbArgument;
+import code.maths.litteraladv.MaStruct;
+import code.maths.matrix.Diagonal;
+import code.maths.montecarlo.CustomSeedGene;
+import code.util.core.BoolVal;
 import org.junit.Assert;
 
-import code.maths.geo.CustPoint;
-import code.maths.geo.CustPointThreeDims;
 import code.util.*;
 
 public abstract class EquallableMathUtil {
 
-    public static void assertNotNull(Object _value) {
+    public static void assertNotNull(MbArgument _value) {
         Assert.assertNotNull(_value);
     }
-    public static void assertNull(Object _value) {
+    public static void assertNotNull(CustomSeedGene _value) {
+        Assert.assertNotNull(_value);
+    }
+    public static void assertNotNull(LgInt _value) {
+        Assert.assertNotNull(_value);
+    }
+    public static void assertNotNull(RatePointThreeDims _value) {
+        Assert.assertNotNull(_value);
+    }
+    public static void assertNotNull(String _value) {
+        Assert.assertNotNull(_value);
+    }
+    public static void assertNotNull(CustList<EdgeThreeDimensions> _value) {
+        Assert.assertNotNull(_value);
+    }
+
+    public static void assertNull(MaStruct _value) {
         Assert.assertNull(_value);
     }
+
+    public static void assertNull(RatePointThreeDims _value) {
+        Assert.assertNull(_value);
+    }
+
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
-    public static void assertSame(Object _expected, Object _result) {
+    public static void assertSame(RatePointThreeDims _expected, RatePointThreeDims _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(RatePoint _expected, RatePoint _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Diagonal _expected, Diagonal _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(BoolVal _expected, BoolVal _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(SitePointThreeDims _expected, SitePointThreeDims _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(MathType _expected, MathType _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertNotSame(Object _expected, Object _result) {
+    public static void assertNotSame(Rate _expected, Rate _result) {
+        Assert.assertNotSame(_expected, _result);
+    }
+    public static void assertNotSame(LgInt _expected, LgInt _result) {
+        Assert.assertNotSame(_expected, _result);
+    }
+    public static void assertNotSame(Longs _expected, Longs _result) {
         Assert.assertNotSame(_expected, _result);
     }
 
@@ -58,14 +99,13 @@ public abstract class EquallableMathUtil {
         Assert.assertNotNull(_result);
         Longs expDigits_ = _expected.getGrDigits();
         Longs resDigits_ = _result.getGrDigits();
-        int expSize_ = expDigits_.size();
         Assert.assertEquals(_expected.isSignum(), _result.isSignum());
-        Assert.assertEquals(expSize_, resDigits_.size());
-        for (int i = 0; i < expSize_; i++) {
-            Assert.assertEquals(expDigits_.get(i),resDigits_.get(i));
-        }
+        assertEqLongs(expDigits_,resDigits_);
     }
 
+    protected static void assertEqLongs(Longs _expected, Longs _result) {
+        Assert.assertEquals(_expected.getList(),_result.getList());
+    }
     public static void assertEq(Complex _expected, Complex _result) {
         Assert.assertNotNull(_result);
         assertEq(_expected.getImag(),_result.getImag());

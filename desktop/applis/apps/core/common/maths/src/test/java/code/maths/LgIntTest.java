@@ -181,11 +181,7 @@ public class LgIntTest extends EquallableMathUtil {
     }
 
     private static void assertEqDigits(Longs _expected, Longs _result) {
-        int expectedLen_ = _expected.size();
-        assertEq(expectedLen_,_result.size());
-        for (int i = 0; i < expectedLen_; i++) {
-            assertEq(_expected.get(i),_result.get(i));
-        }
+        assertEqLongs(_expected, _result);
     }
     @Test
     public void toString1Test(){
@@ -2158,36 +2154,27 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt sommeTotale_ = new LgInt(8);
         CustList<EventFreq<CustList<LgInt>>> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
         assertEq(15,combinatoire_.size());
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(), LgInt.zero(), LgInt.zero(), new LgInt(8))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(1),new LgInt(7))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(2),new LgInt(6))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(1),new LgInt(6))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(3),new LgInt(5))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(2),new LgInt(5))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(1),new LgInt(5))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(4),new LgInt(4))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),new LgInt(2),new LgInt(2),new LgInt(4))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(3),new LgInt(4))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(2),new LgInt(4))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(LgInt.zero(),new LgInt(2),new LgInt(3),new LgInt(3))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(3),new LgInt(3))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(new LgInt(1),new LgInt(2),new LgInt(2),new LgInt(3))));
-        assertTrue(hasEvent(combinatoire_, new CustList<LgInt>(new LgInt(2),new LgInt(2),new LgInt(2),new LgInt(2))));
-        repartitions_ = new CustList<LgInt>();
-        repartitions_.add(new LgInt(22));
-        repartitions_.add(new LgInt(14));
-        repartitions_.add(new LgInt(14));
-        repartitions_.add(new LgInt(14));
-        repartitions_.add(new LgInt(14));
-    }
-
-    private static boolean hasEvent(CustList<EventFreq<CustList<LgInt>>> _combinatoire, CustList<LgInt> _key) {
-        for (EventFreq<CustList<LgInt>> e: _combinatoire) {
-            if (LgInt.eq(_key,e.getEvent())){
-                return true;
-            }
-        }
-        return false;
+        assertTrue(LgInt.eq(combinatoire_.get(0).getEvent(), new CustList<LgInt>(LgInt.zero(), LgInt.zero(), LgInt.zero(), new LgInt(8))));
+        assertTrue(LgInt.eq(combinatoire_.get(1).getEvent(), new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(1),new LgInt(7))));
+        assertTrue(LgInt.eq(combinatoire_.get(2).getEvent(), new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(2),new LgInt(6))));
+        assertTrue(LgInt.eq(combinatoire_.get(3).getEvent(), new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(3),new LgInt(5))));
+        assertTrue(LgInt.eq(combinatoire_.get(4).getEvent(), new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(4),new LgInt(4))));
+        assertTrue(LgInt.eq(combinatoire_.get(5).getEvent(), new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(1),new LgInt(6))));
+        assertTrue(LgInt.eq(combinatoire_.get(6).getEvent(), new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(2),new LgInt(5))));
+        assertTrue(LgInt.eq(combinatoire_.get(7).getEvent(), new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(3),new LgInt(4))));
+        assertTrue(LgInt.eq(combinatoire_.get(8).getEvent(), new CustList<LgInt>(LgInt.zero(),new LgInt(2),new LgInt(2),new LgInt(4))));
+        assertTrue(LgInt.eq(combinatoire_.get(9).getEvent(), new CustList<LgInt>(LgInt.zero(),new LgInt(2),new LgInt(3),new LgInt(3))));
+        assertTrue(LgInt.eq(combinatoire_.get(10).getEvent(), new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(1),new LgInt(5))));
+        assertTrue(LgInt.eq(combinatoire_.get(11).getEvent(), new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(2),new LgInt(4))));
+        assertTrue(LgInt.eq(combinatoire_.get(12).getEvent(), new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(3),new LgInt(3))));
+        assertTrue(LgInt.eq(combinatoire_.get(13).getEvent(), new CustList<LgInt>(new LgInt(1),new LgInt(2),new LgInt(2),new LgInt(3))));
+        assertTrue(LgInt.eq(combinatoire_.get(14).getEvent(), new CustList<LgInt>(new LgInt(2),new LgInt(2),new LgInt(2),new LgInt(2))));
+//        repartitions_ = new CustList<LgInt>();
+//        repartitions_.add(new LgInt(22));
+//        repartitions_.add(new LgInt(14));
+//        repartitions_.add(new LgInt(14));
+//        repartitions_.add(new LgInt(14));
+//        repartitions_.add(new LgInt(14));
     }
 
     @Test
