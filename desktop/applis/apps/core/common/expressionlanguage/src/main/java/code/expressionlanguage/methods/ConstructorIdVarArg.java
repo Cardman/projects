@@ -3,8 +3,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.functionid.ConstructorId;
 
 public final class ConstructorIdVarArg {
-    private String className;
-    private ConstructorId constructorId;
+    private final String className;
+    private final ConstructorId constructorId;
     private final int naturalVararg;
 
     public ConstructorIdVarArg(String _className,ConstructorId _classMethodId, int _naturalVararg) {
@@ -27,10 +27,6 @@ public final class ConstructorIdVarArg {
 
     public boolean isVararg() {
         return constructorId.isVararg();
-    }
-
-    public String getName() {
-        return constructorId.getName();
     }
 
     public boolean isStaticMethod() {
