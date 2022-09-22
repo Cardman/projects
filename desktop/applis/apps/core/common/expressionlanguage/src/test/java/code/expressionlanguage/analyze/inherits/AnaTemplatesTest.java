@@ -24,8 +24,8 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -10283,7 +10283,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<java.lang.Number,java.lang.String>", false));
+        assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<java.lang.Number,java.lang.String>"));
     }
 
     @Test
@@ -10295,7 +10295,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(isCorrectTemplateAll(cont_, t_, "pkg.Ex<java.lang.Number>", false));
+        assertTrue(isCorrectTemplateAll(cont_, t_, "pkg.Ex<java.lang.Number>"));
     }
 
     @Test
@@ -10307,7 +10307,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.Ex<java.lang.String>", false));
+        assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.Ex<java.lang.String>"));
     }
 
     @Test
@@ -10319,7 +10319,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.Ex<pkg.Ex>", false));
+        assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.Ex<pkg.Ex>"));
     }
     @Test
     public void isCorrectTemplate84Test() {
@@ -10331,7 +10331,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<pkg.Ex,pkg.Ex<java.lang.Object>>", false));
+        assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<pkg.Ex,pkg.Ex<java.lang.Object>>"));
     }
     @Test
     public void isCorrectTemplate85Test() {
@@ -10343,8 +10343,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<pkg.Ex<java.lang.Object>>", true));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.ExTwo<pkg.Ex<java.lang.Object>>"));
     }
+
     @Test
     public void isCorrectTemplateAll1Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -10739,10 +10740,6 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
 
-    private static boolean isCorrectTemplateAllExact(AnalyzedPageEl _cont, StringMap<StringList> _t, String _className) {
-        return process(_cont, _t, _className, true);
-    }
-
     private static String tryInfer(AnalyzedPageEl _cont, String _s, String _s2, StringMap<String> _vars) {
         return AnaTemplates.tryInfer(_s, _vars, _s2, _cont);
     }
@@ -10780,10 +10777,6 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         return ResultTernary.getTernarySubclasses(_list, _map, _c);
     }
 
-    private static boolean isCorrectTemplateAll(AnalyzedPageEl _cont, StringMap<StringList> _t, String _className, boolean _exact) {
-        return process(_cont, _t, _className, _exact);
-    }
-
     private static String wildCardFormatParam(AnalyzedPageEl _context, String _first, String _second) {
         return AnaInherits.wildCardFormatParam(_first, _second, _context);
     }
@@ -10804,20 +10797,21 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         return AnaInherits.wildCardFormatReturn(_first, _second, _context);
     }
 
-    private static boolean process(AnalyzedPageEl _cont, StringMap<StringList> _t, String _className, boolean _exact) {
-        AnaResultPartType resType_;
-        _cont.getCurrentBadIndexes().clear();
-        _cont.getAvailableVariables().clear();
-        for (EntryCust<String,StringList> s: _t.entryList()) {
-            _cont.getAvailableVariables().addEntry(s.getKey(),0);
-        }
-        if (_exact) {
-            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false, null,null, -1, _cont);
-        } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className, "", null,null, -1, _cont);
-        }
-        assertTrue(!resType_.getResult().isEmpty());
-        return AnaPartTypeUtil.processAnalyzeConstraintsCore(resType_, _t, _exact, _cont);
+    private static boolean isCorrectTemplateAllExact(AnalyzedPageEl _cont, StringMap<StringList> _t, String _className) {
+        TstsCharacters.setAvailableVar(_cont, _t);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false, null, null, -1, _cont);
+        return processAnalyzeConstraintsCore(_cont, _t, true, resType_);
+    }
+
+    private static boolean isCorrectTemplateAll(AnalyzedPageEl _cont, StringMap<StringList> _t, String _className) {
+        TstsCharacters.setAvailableVar(_cont, _t);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeLine(_className, "", null, null, -1, _cont);
+        return processAnalyzeConstraintsCore(_cont, _t, false, resType_);
+    }
+
+    private static boolean processAnalyzeConstraintsCore(AnalyzedPageEl _cont, StringMap<StringList> _t, boolean _exact, AnaResultPartType _resType) {
+        assertTrue(!_resType.getResult().isEmpty());
+        return AnaPartTypeUtil.processAnalyzeConstraintsCore(_resType, _t, _exact, _cont);
     }
 
 }

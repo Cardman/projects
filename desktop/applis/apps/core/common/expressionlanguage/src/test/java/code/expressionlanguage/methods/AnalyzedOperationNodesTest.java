@@ -3235,7 +3235,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     private static boolean analyzeIndirectLocalVarsParamFirstFailValue(StringBuilder _xml, String _g, String _s) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_s, _g,"", "myvar"));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithoutParam(_s, _g, "myvar"));
         files_.put("pkg/Ex", _xml.toString());
         return hasErr(files_);
     }
@@ -4082,37 +4082,48 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     private static boolean analyzeIndirectLocalVarsParamFailValue(String _s) {
         String g_ = StringUtil.concat(MY_GENE_CLASS, "<?W>");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_s, g_, "W", "myvar"));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithParam(_s, g_, "W", "myvar"));
         files_.put("pkg/Ex", file());
         return hasErr(files_);
     }
 
     private static boolean analyzeIndirectLocalVarsFailCallValue(String _s) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_s, COMPOSITE,"", "composite"));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithoutParam(_s, COMPOSITE, "composite"));
         files_.put("pkg/Ex", file());
         return hasErr(files_);
     }
 
     private static boolean analyzeIndirectLocalVarsFileValue(StringBuilder _xml, String _s, String _s2) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_s, _s2,"", "myvar"));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithoutParam(_s, _s2, "myvar"));
         files_.put("pkg/Ex", _xml.toString());
         return hasErr(files_);
     }
 
 
-    private static String addonFileStaticResult(String _el, String _type, String _param, String _var) {
+    private static String addonFileStaticResultWithParam(String _el, String _type, String _param, String _var) {
         StringBuilder str_ = new StringBuilder();
-        if (_param.isEmpty()) {
-            str_.append("$public $class code.formathtml.classes.Apply {\n");
-        } else {
-            str_.append("$public $class code.formathtml.classes.Apply ");
-            str_.append("<");
-            str_.append(_param);
-            str_.append(">");
-            str_.append(" {\n");
-        }
+        str_.append("$public $class code.formathtml.classes.Apply ");
+        str_.append("<");
+        str_.append(_param);
+        str_.append(">");
+        str_.append(" {\n");
+        str_.append(" $public ");
+        str_.append(_type);
+        str_.append(" ");
+        str_.append(_var);
+        str_.append(";\n");
+        str_.append(" $public java.lang.Object result = ");
+        str_.append(_el);
+        str_.append(";\n");
+        str_.append("}");
+        return str_.toString();
+    }
+
+    private static String addonFileStaticResultWithoutParam(String _el, String _type, String _var) {
+        StringBuilder str_ = new StringBuilder();
+        str_.append("$public $class code.formathtml.classes.Apply {\n");
         str_.append(" $public ");
         str_.append(_type);
         str_.append(" ");
@@ -4495,35 +4506,35 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     private static ClassMethodIdVarArg getClassMethodId3(String _s, String _myvar, String _myClass) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_s, _myClass,"", _myvar));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithoutParam(_s, _myClass, _myvar));
         files_.put("pkg/Ex", file());
         return build(files_, "code.formathtml.classes.Apply");
     }
 
     private static ClassMethodIdVarArg getStaticFct2(StringBuilder _xml, String _g, String _s) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_s, _g,"", "myvar"));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithoutParam(_s, _g, "myvar"));
         files_.put("pkg/Ex", _xml.toString());
         return build(files_, "code.formathtml.classes.Apply");
     }
 
     private static ClassMethodIdVarArg getFct3(StringBuilder _xml, String _g, String _s) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_s, _g,"", "myvar"));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithoutParam(_s, _g, "myvar"));
         files_.put("pkg/Ex", _xml.toString());
         return build(files_, "code.formathtml.classes.Apply");
     }
 
     private static ClassMethodIdVarArg getFct4(String _g, String _s) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_s, _g, "W", "myvar"));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithParam(_s, _g, "W", "myvar"));
         files_.put("pkg/Ex", file());
         return build(files_, "code.formathtml.classes.Apply");
     }
 
     private static ClassMethodIdVarArg getFct6(StringBuilder _xml, String _g) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult("myvar.get($null)", _g,"", "myvar"));
+        files_.put("pkg/ExTwo", addonFileStaticResultWithoutParam("myvar.get($null)", _g, "myvar"));
         files_.put("pkg/Ex", _xml.toString());
         return build(files_, "code.formathtml.classes.Apply");
     }

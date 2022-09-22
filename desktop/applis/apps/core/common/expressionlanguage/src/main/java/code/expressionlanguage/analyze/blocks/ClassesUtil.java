@@ -1776,11 +1776,7 @@ public final class ClassesUtil {
         for (RootBlock i: _page.getFoundTypes()) {
             _page.setCurrentFile(i.getFile());
             CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.fetchAllGenericSuperTypes();
-            StringList allGenericSuperTypes_ = new StringList();
-            for (AnaFormattedRootBlock a: genericSuperTypes_) {
-                allGenericSuperTypes_.add(a.getFormatted());
-            }
-            checkDupl(_page, i, allGenericSuperTypes_);
+            checkDupl(_page, i, RootBlock.allGenericClasses(genericSuperTypes_));
             i.getAllGenericSuperTypesInfo().addAllElts(genericSuperTypes_);
             CustList<AnaFormattedRootBlock> genericClasses_ = i.fetchAllGenericClasses();
             i.getAllGenericClassesInfo().addAllElts(genericClasses_);

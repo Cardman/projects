@@ -17,6 +17,7 @@ import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -4325,12 +4326,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private static String getVal(StrTypes _opers, int _i) {
-        for (IndexStrPart e:_opers.getValues()) {
-            if (_i == e.getIndex()) {
-                return e.getPart();
-            }
-        }
-        return null;
+        return _opers.getValue(TstsCharacters.values(_opers).indexOfNb(_i));
     }
 
 

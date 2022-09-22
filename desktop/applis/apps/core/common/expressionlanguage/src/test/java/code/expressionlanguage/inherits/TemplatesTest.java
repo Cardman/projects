@@ -22,7 +22,7 @@ import org.junit.Test;
 
 
 public final class TemplatesTest extends ProcessMethodCommon {
-    @Test
+    /*@Test
     public void getAllInnerTypesSingleDotted1Test() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
@@ -318,7 +318,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("Ex<ExTwo>","Inner[]"),getAllInnerTypesSingleDotted("Ex<ExTwo>.Inner[]", context_));
-    }
+    }*/
 
     @Test
     public void quickFormat00Test() {
@@ -1249,9 +1249,9 @@ public final class TemplatesTest extends ProcessMethodCommon {
         return ExecInherits.format(_first, _second, _context);
     }
 
-    private static StringList getAllInnerTypesSingleDotted(String _type, AnalyzedPageEl _an) {
-        return Templates.getAllInnerTypesSingleDotted(_type, _an);
-    }
+//    private static StringList getAllInnerTypesSingleDotted(String _type, AnalyzedPageEl _an) {
+//        return Templates.getAllInnerTypesSingleDotted(_type, _an);
+//    }
 
     private static boolean correctNbParameters(ContextEl _cont, String _pkg) {
         return ExecInherits.correctNbParameters(_pkg, _cont);

@@ -4,20 +4,8 @@ import org.junit.Assert;
 
 public abstract class EquallableImageUtil {
 
-    public static void assertNotNull(Object _value) {
-        Assert.assertNotNull(_value);
-    }
-    public static void assertNull(Object _value) {
-        Assert.assertNull(_value);
-    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
-    }
-    public static void assertSame(Object _expected, Object _result) {
-        Assert.assertSame(_expected, _result);
-    }
-    public static void assertNotSame(Object _expected, Object _result) {
-        Assert.assertNotSame(_expected, _result);
     }
 
     public static void assertEq(String _expected, String _result) {
@@ -29,4 +17,7 @@ public abstract class EquallableImageUtil {
         Assert.assertEquals(_expected,_result);
     }
 
+    protected static void checkZero(int[] _array) {
+        Assert.assertArrayEquals(_array, new int[_array.length]);
+    }
 }

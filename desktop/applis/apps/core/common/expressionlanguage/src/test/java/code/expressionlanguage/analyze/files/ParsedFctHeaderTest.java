@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.EquallableElUtil;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -1039,35 +1040,19 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
 
     private CustList<Ints> getAnnotationsIndexesParams(ParsedFctHeader _p) {
-        CustList<Ints> ls_ = new CustList<Ints>();
-        for (ResultParsedAnnots r: _p.getAnnotationsParams()) {
-            ls_.add(getAnnotationsIndexes(r));
-        }
-        return ls_;
+        return TstsCharacters.annotationsIndexesParams(_p.getAnnotationsParams());
     }
 
     private CustList<StringList> getAnnotationsParams(ParsedFctHeader _p) {
-        CustList<StringList> ls_ = new CustList<StringList>();
-        for (ResultParsedAnnots r: _p.getAnnotationsParams()) {
-            ls_.add(getAnnotations(r));
-        }
-        return ls_;
+        return TstsCharacters.annotationsParams(_p.getAnnotationsParams());
     }
 
     private StringList getAnnotations(ResultParsedAnnots _p) {
-        StringList ls_ = new StringList();
-        for (ResultParsedAnnot i: _p.getAnnotations()) {
-            ls_.add(i.getAnnotation());
-        }
-        return ls_;
+        return TstsCharacters.annotations(_p.getAnnotations());
     }
 
     private Ints getAnnotationsIndexes(ResultParsedAnnots _p) {
-        Ints ls_ = new Ints();
-        for (ResultParsedAnnot i: _p.getAnnotations()) {
-            ls_.add(i.getIndex());
-        }
-        return ls_;
+        return TstsCharacters.annotationsIndexes(_p.getAnnotations());
     }
 
 }

@@ -10,9 +10,9 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.*;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 
@@ -9879,9 +9879,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         parseFile(_context, _myFile, _predefined, content_, _context);
     }
 
-    public static void parseFile(AnalyzedPageEl _context, String _fileName, boolean _predefined, String _file) {
-        parseFile(_context,_fileName,_predefined,_file, _context);
-    }
+//    public static void parseFile(AnalyzedPageEl _context, String _fileName, boolean _predefined, String _file) {
+//        parseFile(_context,_fileName,_predefined,_file, _context);
+//    }
 
     protected static void parseFile(AnalyzedPageEl _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
         FileBlock fileBlock_ = new FileBlock(0,_predefined, _fileName, new DefaultFileEscapedCalc());
@@ -9903,22 +9903,22 @@ public final class FileResolverTest extends ProcessMethodCommon {
 
 
     private static int countCustomTypes(AnalyzedPageEl _cont) {
-        int count_ = 0;
-        for (RootBlock r: _cont.getFoundTypes()) {
-            if (!r.getFile().isPredefined()) {
-                count_++;
-            }
-        }
-        return count_;
+//        int count_ = 0;
+//        for (RootBlock r: _cont.getFoundTypes()) {
+//            if (!r.getFile().isPredefined()) {
+//                count_++;
+//            }
+//        }
+        return TstsCharacters.customTypes(_cont).size();
     }
     private static int countFileTypes(AnalyzedPageEl _cont) {
-        int count_ = 0;
-        for (EntryCust<String, FileBlock> r: _cont.getFilesBodies().entryList()) {
-            if (!r.getValue().isPredefined()) {
-                count_++;
-            }
-        }
-        return count_;
+//        int count_ = 0;
+//        for (EntryCust<String, FileBlock> r: _cont.getFilesBodies().entryList()) {
+//            if (!r.getValue().isPredefined()) {
+//                count_++;
+//            }
+//        }
+        return TstsCharacters.customFiles(_cont).size();
     }
 
     private static RootBlock getClassBody(AnalyzedPageEl _cont, String _className) {
@@ -9927,17 +9927,18 @@ public final class FileResolverTest extends ProcessMethodCommon {
 
 
     private static RootBlock getCustomTypes(AnalyzedPageEl _cont, int _i) {
-        int count_ = 0;
-        for (RootBlock r: _cont.getFoundTypes()) {
-            if (r.getFile().isPredefined()) {
-                continue;
-            }
-            if (count_ == _i) {
-                return r;
-            }
-            count_++;
-        }
-        return null;
+        return TstsCharacters.customTypes(_cont).get(_i);
+//        int count_ = 0;
+//        for (RootBlock r: _cont.getFoundTypes()) {
+//            if (r.getFile().isPredefined()) {
+//                continue;
+//            }
+//            if (count_ == _i) {
+//                return r;
+//            }
+//            count_++;
+//        }
+//        return null;
     }
     private static CustList<OperatorBlock> getOperators(AnalyzedPageEl _context) {
         return _context.getAllOperators();
@@ -9968,75 +9969,48 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
 
     private static void parsePredefFiles(AnalyzedPageEl _cont) {
-        for (EntryCust<String, String> e: _cont.buildFiles().entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            FileResolverTest.parseFile(_cont, name_, true, content_);
-        }
+        ClassesUtil.tryBuildAllBracedClassesBodies(new StringMap<String>(),_cont);
+//        for (EntryCust<String, String> e: _cont.buildFiles().entryList()) {
+//            String name_ = e.getKey();
+//            String content_ = e.getValue();
+//            FileResolverTest.parseFile(_cont, name_, true, content_);
+//        }
     }
     private static StringList getDirectSuperTypes(RootBlock _r) {
-        StringList l_ = new StringList();
-        for (String p: _r.getDirectSuperTypes()) {
-            l_.add(StringExpUtil.removeDottedSpaces(p));
-        }
-        return l_;
+        return TstsCharacters.directSuperTypes(_r);
     }
 
     private StringList getAnnotations(NamedFunctionBlock _m) {
-        return getAnnotations(_m.getAnnotations());
+        return TstsCharacters.getAnnotations(_m.getAnnotations());
     }
 
     private CustList<StringList> getAnnotationsParams(NamedFunctionBlock _m) {
-        CustList<StringList> ls_ = new CustList<StringList>();
-        for (ResultParsedAnnots r: _m.getAnnotationsParams()) {
-            ls_.add(getAnnotations(r));
-        }
-        return ls_;
+        return TstsCharacters.annotationsParams(_m.getAnnotationsParams());
     }
 
     private CustList<Ints> getAnnotationsIndexesParams(NamedFunctionBlock _m) {
-        CustList<Ints> ls_ = new CustList<Ints>();
-        for (ResultParsedAnnots r: _m.getAnnotationsParams()) {
-            ls_.add(getAnnotationsIndexes(r));
-        }
-        return ls_;
+        return TstsCharacters.annotationsIndexesParams(_m.getAnnotationsParams());
     }
 
     private StringList getAnnotations(InfoBlock _m) {
-        return getAnnotations(_m.getAnnotations());
+        return TstsCharacters.getAnnotations(_m.getAnnotations());
     }
 
     private StringList getAnnotations(RootBlock _m) {
-        return getAnnotations(_m.getAnnotations());
+        return TstsCharacters.getAnnotations(_m.getAnnotations());
     }
 
     private Ints getAnnotationsIndexes(NamedFunctionBlock _m) {
-        return getAnnotationsIndexes(_m.getAnnotations());
+        return TstsCharacters.annotationsIndexes(_m.getAnnotations());
     }
 
     private Ints getAnnotationsIndexes(InfoBlock _m) {
-        return getAnnotationsIndexes(_m.getAnnotations());
+        return TstsCharacters.annotationsIndexes(_m.getAnnotations());
     }
 
     private Ints getAnnotationsIndexes(RootBlock _m) {
-        return getAnnotationsIndexes(_m.getAnnotations());
+        return TstsCharacters.annotationsIndexes(_m.getAnnotations());
     }
 
-
-    private StringList getAnnotations(ResultParsedAnnots _p) {
-        StringList ls_ = new StringList();
-        for (ResultParsedAnnot i: _p.getAnnotations()) {
-            ls_.add(i.getAnnotation());
-        }
-        return ls_;
-    }
-
-    private Ints getAnnotationsIndexes(ResultParsedAnnots _p) {
-        Ints ls_ = new Ints();
-        for (ResultParsedAnnot i: _p.getAnnotations()) {
-            ls_.add(i.getIndex());
-        }
-        return ls_;
-    }
 
 }

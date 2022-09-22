@@ -1,22 +1,11 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.analyze.instr.ParsedArgument;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -822,9 +811,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
-        
-        String solved_ = processAnalyze("pkg.Outer<$void>", "", context_, root_);
-        assertEq("", solved_);
+
+        assertFalse(state("pkg.Outer<$void>", "", context_, root_));
     }
     @Test
     public void process2FailTest() {
@@ -838,9 +826,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
-        
-        String solved_ = processAnalyze("$Fct<$void,$int>", "", context_, root_);
-        assertEq("", solved_);
+
+        assertFalse(state("$Fct<$void,$int>", "", context_, root_));
     }
     @Test
     public void process3FailTest() {
@@ -854,9 +841,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
-        
-        String solved_ = processAnalyze("java.lang.$Fct<!java.lang.Number,?java.lang.Number>", "", context_, root_);
-        assertEq("", solved_);
+
+        assertFalse(state("java.lang.$Fct<!java.lang.Number,?java.lang.Number>", "", context_, root_));
     }
     @Test
     public void process4FailTest() {
@@ -870,9 +856,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
-        
-        String solved_ = processAnalyze("java.lang.$Fct<java.lang.Number,?java.lang.Number>", "", context_, root_);
-        assertEq("", solved_);
+
+        assertFalse(state("java.lang.$Fct<java.lang.Number,?java.lang.Number>", "", context_, root_));
     }
     @Test
     public void process5FailTest() {
@@ -899,8 +884,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
-        String solved_ = processAnalyze("Outer<java.lang.Number,java.lang.Number>.InnerThree", "",context_, root_);
-        assertEq("", solved_);
+        assertFalse(state("Outer<java.lang.Number,java.lang.Number>.InnerThree", "", context_, root_));
     }
     @Test
     public void process6FailTest() {
@@ -927,8 +911,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
-        String solved_ = processAnalyze("Outer.InnerThree", "",context_, root_);
-        assertEq("", solved_);
+        assertFalse(state("Outer.InnerThree", "", context_, root_));
     }
     @Test
     public void process7FailTest() {
@@ -955,8 +938,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
-        String solved_ = processAnalyze("Outer.Inner", "",context_, root_);
-        assertEq("", solved_);
+        assertFalse(state("Outer.Inner", "", context_, root_));
     }
     @Test
     public void process8FailTest() {
@@ -975,8 +957,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
-        String solved_ = processAnalyze("Outer..Inner", "",context_, root_);
-        assertEq("", solved_);
+        assertFalse(state("Outer..Inner", "", context_, root_));
     }
     @Test
     public void process9FailTest() {
@@ -1003,8 +984,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
-        String solved_ = processAnalyze("Outer<java.lang.String>.InnerThree.InnerInnerThree", "",context_, root_);
-        assertEq("", solved_);
+        assertFalse(state("Outer<java.lang.String>.InnerThree.InnerInnerThree", "", context_, root_));
     }
     @Test
     public void process10FailTest() {
@@ -1031,7 +1011,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         
         RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
-        String solved_ = processAnalyze("?java.lang.String", "",context_, root_);
+        String solved_ = processAnalyzeNoResult("?java.lang.String", "",context_, root_);
         assertEq("", solved_);
     }
     @Test
@@ -1554,30 +1534,37 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     }
 
     private static String processAnalyze(String _input, String _globalType, AnalyzedPageEl _an, RootBlock _rooted) {
-        AnalyzedPageEl page_ = _an;
-        page_.setImportingTypes(_rooted);
-        AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, _globalType, _rooted, _rooted, 0, page_);
+        AnaResultPartType anaResultPartType_ = processAnalyzeImport(_rooted, _input, _globalType, _an);
         AnaPartType partType_ = anaResultPartType_.getPartType();
-        if (partType_ == null) {
-            return "";
-        }
-        if (!AnaPartTypeUtil.checkParametersCount(partType_, page_)){
-            return "";
-        }
+        assertTrue(AnaPartTypeUtil.checkParametersCount(partType_, _an));
         return anaResultPartType_.getResult();
     }
 
+    private static boolean state(String _input, String _globalType, AnalyzedPageEl _an, RootBlock _rooted) {
+        AnaResultPartType anaResultPartType_ = processAnalyzeImport(_rooted, _input, _globalType, _an);
+        AnaPartType partType_ = anaResultPartType_.getPartType();
+        return AnaPartTypeUtil.checkParametersCount(partType_, _an);
+    }
+
+    private static String processAnalyzeNoResult(String _input, String _globalType, AnalyzedPageEl _an, RootBlock _rooted) {
+        AnaResultPartType anaResultPartType_ = processAnalyzeImport(_rooted, _input, _globalType, _an);
+        return anaResultPartType_.getResult();
+    }
+
+    private static AnaResultPartType processAnalyzeImport(RootBlock _rooted, String _input, String _globalType, AnalyzedPageEl _page) {
+        _page.setImportingTypes(_rooted);
+        return AnaPartTypeUtil.processAnalyze(_input, _globalType, _rooted, _rooted, 0, _page);
+    }
+
     private static String processAnalyzeLine(String _input, AnalyzedPageEl _an, RootBlock _rooted) {
-        AnalyzedPageEl page_ = _an;
-        page_.setImportingTypes(_rooted);
-        return AnaPartTypeUtil.processAnalyzeLine(_input, "", _rooted, _rooted, 0, page_).getResult();
+        _an.setImportingTypes(_rooted);
+        return AnaPartTypeUtil.processAnalyzeLine(_input, "", _rooted, _rooted, 0, _an).getResult();
     }
 
     private static String processAnalyzeLineWithoutErr(String _input, AnalyzedPageEl _an, RootBlock _rooted) {
-        AnalyzedPageEl page_ = _an;
-        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_input, _rooted, _rooted, 0, page_).getResult();
+        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_input, _rooted, _rooted, 0, _an).getResult();
     }
-    protected static AnalyzedPageEl unfullValidateInheriting(StringMap<String> _files) {
+    private static AnalyzedPageEl unfullValidateInheriting(StringMap<String> _files) {
         Options opt_ = newOptions();
 
         LgNames lgName_ = getLgNames();

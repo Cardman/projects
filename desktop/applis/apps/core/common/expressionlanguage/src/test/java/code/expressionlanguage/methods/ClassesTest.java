@@ -33,6 +33,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -5738,16 +5739,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(1, countStaticFields(ctx_.getClasses().getStaticFields()));
     }
     private static int countStaticFields(StringMap<StringMap<Struct>> _staticFields) {
-        int sum_ = 0;
-        for (EntryCust<String, StringMap<Struct>> c: _staticFields.entryList()) {
-            for (EntryCust<String, Struct> e: c.getValue().entryList()) {
-                if (e.getValue() == null) {
-                    continue;
-                }
-                sum_++;
-            }
-        }
-        return sum_;
+        return TstsCharacters.countStaticFields(_staticFields);
     }
 
     @Test
@@ -7947,19 +7939,11 @@ public final class ClassesTest extends ProcessMethodCommon {
 
     private static StringList getAllGenericClasses(AnalyzedPageEl _context, String _className) {
         RootBlock anaClassBody_ = _context.getAnaClassBody(_className);
-        StringList allGenericClasses_ = new StringList();
-        for (AnaFormattedRootBlock a: anaClassBody_.getAllGenericClassesInfo()) {
-            allGenericClasses_.add(a.getFormatted());
-        }
-        return allGenericClasses_;
+        return RootBlock.allGenericClasses(anaClassBody_.getAllGenericClassesInfo());
     }
 
     private static StringList getImportedDirectSuperTypes(AnalyzedPageEl _ctx, String _className) {
-        StringList list_ = new StringList();
-        for (AnaFormattedRootBlock l:_ctx.getAnaClassBody(_className).getImportedDirectSuperTypesInfo()) {
-            list_.add(l.getFormatted());
-        }
-        return list_;
+        return RootBlock.allGenericClasses(_ctx.getAnaClassBody(_className).getImportedDirectSuperTypesInfo());
     }
     protected static AnalyzedPageEl unfullValidateInheriting(StringMap<String> _files) {
         Options opt_ = newOptions();

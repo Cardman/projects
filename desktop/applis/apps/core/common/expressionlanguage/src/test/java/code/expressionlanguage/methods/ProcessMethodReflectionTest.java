@@ -8,8 +8,10 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.fcts.FctMathMod0;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
@@ -6661,8 +6663,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void reflect1Test() {
         ContextEl cont_ = ctxOk(new StringMap<String>());
-        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
-        StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
+//        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
+//        StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
+        StandardMethod stdMeth_ = new StandardMethod("mod",new StringList("$int","$int"),"$int",false, MethodModifier.STATIC,new FctMathMod0());
         MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_, new ExecFormattedRootBlock((ExecRootBlock)null, "java.lang.$math"));
         ArrayStruct s_ = args();
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_));
@@ -6676,8 +6679,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void reflect2Test() {
         ContextEl cont_ = ctxOk(new StringMap<String>());
-        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
-        StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
+//        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
+        StandardMethod stdMeth_ = new StandardMethod("mod",new StringList("$int","$int"),"$int",false, MethodModifier.STATIC,new FctMathMod0());
+//        StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
         MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_, new ExecFormattedRootBlock((ExecRootBlock)null, "java.lang.$math"));
         ArrayStruct s_ = args();
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_));
@@ -6697,14 +6701,14 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertSame(NullStruct.NULL_VALUE, argumentWrapper_.getValue().getStruct());
     }
 
-    private static StandardMethod std(StandardType _type, MethodId _id) {
-        for (StandardMethod s: _type.getMethods()) {
-            if (_id.eq(s.getId())) {
-                return s;
-            }
-        }
-        return null;
-    }
+//    private static StandardMethod std(StandardType _type, MethodId _id) {
+//        for (StandardMethod s: _type.getMethods()) {
+//            if (_id.eq(s.getId())) {
+//                return s;
+//            }
+//        }
+//        return null;
+//    }
     private static ArrayStruct args() {
         ArrayStruct array_ = new ArrayStruct(2, "[java.lang.Object");
         array_.set(0,new IntStruct(4));

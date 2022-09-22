@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.EquallableElUtil;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -450,19 +451,11 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
     }
 
     private StringList getAnnotations(ParsedAnnotations _p) {
-        StringList ls_ = new StringList();
-        for (ResultParsedAnnot i: _p.getRetAnnots()) {
-            ls_.add(i.getAnnotation());
-        }
-        return ls_;
+        return TstsCharacters.annotations(_p.getRetAnnots());
     }
 
     private Ints getAnnotationsIndexes(ParsedAnnotations _p) {
-        Ints ls_ = new Ints();
-        for (ResultParsedAnnot i: _p.getRetAnnots()) {
-            ls_.add(i.getIndex());
-        }
-        return ls_;
+        return TstsCharacters.annotationsIndexes(_p.getRetAnnots());
     }
     private ParsedAnnotations parse(StringBuilder _file, int _index) {
         String substring_ = _file.substring(_index);

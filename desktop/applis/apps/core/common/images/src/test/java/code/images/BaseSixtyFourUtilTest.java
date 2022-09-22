@@ -635,9 +635,4 @@ public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
         assertEq(imgStr_.toString(), BaseSixtyFourUtil.getStringByImage(img_));
     }
 
-    private static void checkZero(int[] _array) {
-        for (int i: _array) {
-            assertEq(0, i);
-        }
-    }
 }

@@ -30,7 +30,7 @@ public abstract class EquallableElUtil {
 
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected.eq(_result));
+        Assert.assertEquals(_expected.getList(),_result.getList());
     }
 
     public static void assertEq(char _expected, char _result) {

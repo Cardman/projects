@@ -6593,7 +6593,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody(_className);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
-        ExecFieldBlock f_ = fetchField(classBody_);
+        ExecFieldBlock f_ = fetchInstanceField(classBody_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
@@ -6613,7 +6613,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody(_className);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
-        ExecFieldBlock f_ = fetchField(classBody_);
+        ExecFieldBlock f_ = fetchInstanceField(classBody_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
@@ -6634,7 +6634,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody(_className);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
-        ExecFieldBlock f_ = fetchField(classBody_);
+        ExecFieldBlock f_ = fetchInstanceField(classBody_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
@@ -6651,7 +6651,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
         CommonMethodPageEl page_ = new CommonMethodPageEl(new ExecFormattedRootBlock(cl_, "code.formathtml.classes.Apply"));
         ExecutingUtil.addPage(_context, page_, _stackCall);
-        ExecFieldBlock f_ = fetchField(cl_);
+        ExecFieldBlock f_ = fetchStaticField(cl_);
         return tryToCalculate(_context,f_, _stackCall);
     }
 
@@ -6659,14 +6659,12 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         return ExecHelperBlocks.tryToCalculate(_conf, 0,_stackCall,_f.getElementContent().getOpValue(), 0, _f);
     }
 
-    private static ExecFieldBlock fetchField(ExecRootBlock _cl) {
-        ExecFieldBlock f_;
-        if (!_cl.getAllInstanceMembers().isEmpty()) {
-            f_ = (ExecFieldBlock) _cl.getAllInstanceMembers().first();
-        } else {
-            f_ = (ExecFieldBlock) _cl.getAllStaticMembers().first();
-        }
-        return f_;
+    private static ExecFieldBlock fetchInstanceField(ExecRootBlock _cl) {
+        return (ExecFieldBlock) _cl.getAllInstanceMembers().first();
+    }
+
+    private static ExecFieldBlock fetchStaticField(ExecRootBlock _cl) {
+        return (ExecFieldBlock) _cl.getAllStaticMembers().first();
     }
 
     private static String addonFileStaticResult(String _el) {

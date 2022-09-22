@@ -5,10 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
-import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -312,10 +312,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
 
     private static StringMap<CustList<BoolVal>> getCalls(ContextEl _cont) {
         StringMap<CustList<BoolVal>> ret_ = new StringMap<CustList<BoolVal>>();
-        CustList<BoolVal> v_ = new CustList<BoolVal>();
-        for (FunctionCoverageResult f: _cont.getCoverage().getTypes().last().getFunctions()) {
-            v_.add(ComparatorBoolean.of(f.isCalled()));
-        }
+        CustList<BoolVal> v_ = TstsCharacters.listCalls(_cont.getCoverage().getTypes().last().getFunctions());
         ret_.addEntry("pkg.Ex", v_);
         return ret_;
     }
@@ -323,10 +320,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
 
     private static StringMap<CustList<BoolVal>> getCallsTwo(ContextEl _cont) {
         StringMap<CustList<BoolVal>> ret_ = new StringMap<CustList<BoolVal>>();
-        CustList<BoolVal> v_ = new CustList<BoolVal>();
-        for (FunctionCoverageResult e: _cont.getCoverage().getOperators()) {
-            v_.add(ComparatorBoolean.of(e.isCalled()));
-        }
+        CustList<BoolVal> v_ = TstsCharacters.listCalls(_cont.getCoverage().getOperators());
         ret_.addEntry("", v_);
         return ret_;
     }
@@ -339,30 +333,18 @@ public final class CoverageBisTest extends ProcessMethodCommon {
     private static CustList<CustList<AbstractCoverageResult>> getCovers(ContextEl _cont) {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
         CustList<BlockCoverageResult> blocks_ = types_.last().getFunctions().first().getBlocks();
-        CustList<CustList<AbstractCoverageResult>> m_ = new CustList<CustList<AbstractCoverageResult>>();
-        for (BlockCoverageResult e: blocks_) {
-            m_.add(e.getCovers());
-        }
-        return m_;
+        return TstsCharacters.results(blocks_);
     }
 
     private static CustList<CustList<AbstractCoverageResult>> getFieldCovers(ContextEl _cont) {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
         CustList<BlockCoverageResult> blocks_ = types_.last().getFields();
-        CustList<CustList<AbstractCoverageResult>> m_ = new CustList<CustList<AbstractCoverageResult>>();
-        for (BlockCoverageResult e: blocks_) {
-            m_.add(e.getCovers());
-        }
-        return m_;
+        return TstsCharacters.results(blocks_);
     }
     private static CustList<CustList<AbstractCoverageResult>> getSecCovers(ContextEl _cont) {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
         CustList<BlockCoverageResult> blocks_ = types_.last().getFunctions().first().getBlocks();
-        CustList<CustList<AbstractCoverageResult>> m_ = new CustList<CustList<AbstractCoverageResult>>();
-        for (BlockCoverageResult e: blocks_) {
-            m_.add(e.getCovers());
-        }
-        return m_;
+        return TstsCharacters.results(blocks_);
     }
 
 }

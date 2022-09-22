@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
 import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -833,11 +834,7 @@ public final class CoverageTest extends ProcessMethodCommon {
     private static CustList<CustList<AbstractCoverageResult>> getCovers(ContextEl _cont) {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
         CustList<BlockCoverageResult> blocks_ = types_.last().getFunctions().first().getBlocks();
-        CustList<CustList<AbstractCoverageResult>> m_ = new CustList<CustList<AbstractCoverageResult>>();
-        for (BlockCoverageResult e: blocks_) {
-            m_.add(e.getCovers());
-        }
-        return m_;
+        return TstsCharacters.results(blocks_);
     }
 
     private static String getCustomPair() {

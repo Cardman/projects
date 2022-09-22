@@ -150,6 +150,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return allGenericSuperTypesInfo;
     }
 
+    public static StringList allGenericClasses(CustList<AnaFormattedRootBlock> _gene) {
+        StringList allGenericClasses_ = new StringList();
+        for (AnaFormattedRootBlock a: _gene) {
+            allGenericClasses_.add(a.getFormatted());
+        }
+        return allGenericClasses_;
+    }
     public CustList<AnaFormattedRootBlock> getAllGenericClassesInfo() {
         return allGenericClassesInfo;
     }

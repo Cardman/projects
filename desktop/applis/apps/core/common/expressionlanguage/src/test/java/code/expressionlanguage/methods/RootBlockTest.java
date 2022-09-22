@@ -3,10 +3,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
-import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -16,9 +14,9 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.*;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 
@@ -175,6 +173,64 @@ public final class RootBlockTest extends ProcessMethodCommon {
         map_ = getAllOverridingMethods(cont_, "pkg.Ex");
         assertEq(1, map_.size());
         superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E")));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = getClassBody(cont_, "pkg.Ex");
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
+        assertEq(2, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#T"));
+        assertEq("pkg.ExTwo", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+        assertTrue(concrete_.contains("pkg.Ex"));
+        res_ = concrete_.getVal("pkg.Ex");
+        resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+    }
+
+    @Test
+    public void test0() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<E> {\n");
+        xml_.append(" $public $normal $void instancemethod(E i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod1(E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{\n");
+        xml_.append(" $public $normal $void instancemethod(T i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void instancemethod1(T i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
+        checkOverrides(cont_);
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        assertEq(2, map_.size());
+        StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
+        assertEq(2, superTypes_.size());
+        assertEq("pkg.ExTwo<#T>", superTypes_.first());
+        assertEq("pkg.Ex<#T>", superTypes_.last());
+        superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod1", new StringList("#T")));
+        assertEq(2, superTypes_.size());
+        assertEq("pkg.ExTwo<#T>", superTypes_.first());
+        assertEq("pkg.Ex<#T>", superTypes_.last());
+        map_ = getAllOverridingMethods(cont_, "pkg.Ex");
+        assertEq(2, map_.size());
+        superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E")));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+        superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE,"instancemethod1", new StringList("#E")));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
@@ -1766,28 +1822,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
 
-    private static StringList listOfTypes(CustList<OverridingMethodDto> _map, MethodId _id) {
-        StringList l_ = new StringList();
-        for (OverridingMethodDto o: _map) {
-            if (o.getFormattedMethodId().eq(new FormattedMethodId(_id))) {
-                for (GeneStringOverridable i : o.getMethodIds()) {
-                    if (StringUtil.contains(l_,i.getGeneString())) {
-                        continue;
-                    }
-                    l_.add(i.getGeneString());
-                }
-            }
-        }
-        return l_;
-    }
-
     public static StringList getAllGenericSuperTypes(AnalyzedPageEl _cont, String _className) {
         CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(_cont, _className).fetchAllGenericSuperTypes();
-        StringList l_ = new StringList();
-        for (AnaFormattedRootBlock a: allGenericSuperTypes_) {
-            l_.add(a.getFormatted());
-        }
-        return l_;
+        return RootBlock.allGenericClasses(allGenericSuperTypes_);
     }
 
     private static CustList<OverridingMethodDto> getAllOverridingMethods(AnalyzedPageEl _cont, String _className) {
@@ -1798,14 +1835,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         return _cont.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_className));
     }
 
-    private static StringMap<ClassMethodId> getConcreteMethodsToCall(AnalyzedPageEl _cont, MethodId _id, RootBlock _r) {
-        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(_r, _id, _cont);
-        StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
-        for (EntryCust<String,GeneStringOverridable> e: conc_.entryList()) {
-            GeneStringOverridable value_ = e.getValue();
-            tr_.addEntry(e.getKey(),new ClassMethodId(StringExpUtil.getIdFromAllTypes(value_.getGeneString()),value_.getBlock().getId()));
-        }
-        return tr_;
+    private StringList listOfTypes(CustList<OverridingMethodDto> _map, MethodId _id) {
+        return TstsCharacters.listOfTypes(_map, _id);
+    }
+
+    private StringMap<ClassMethodId> getConcreteMethodsToCall(AnalyzedPageEl _cont, MethodId _id, RootBlock _r) {
+        return TstsCharacters.getConcreteMethodsToCall(_cont, _id, _r);
     }
 
 }
