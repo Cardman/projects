@@ -68,7 +68,7 @@ public final class Coverage {
             return;
         }
         refOperators.add(_type);
-        operators.add(new FunctionCoverageResult());
+        getOperators().add(new FunctionCoverageResult());
     }
     public void putCallsInstanceBlock(RootBlock _type) {
         if (!isCovering()) {

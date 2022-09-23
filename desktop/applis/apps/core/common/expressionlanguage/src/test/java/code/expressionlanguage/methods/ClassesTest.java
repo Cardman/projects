@@ -22,6 +22,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -33,7 +34,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -5739,7 +5739,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(1, countStaticFields(ctx_.getClasses().getStaticFields()));
     }
     private static int countStaticFields(StringMap<StringMap<Struct>> _staticFields) {
-        return TstsCharacters.countStaticFields(_staticFields);
+        return ClassFieldStruct.staticFields(_staticFields).size();
     }
 
     @Test

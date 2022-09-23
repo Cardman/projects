@@ -138,8 +138,13 @@ public final class ContextUtil {
     }
 
     public static StringMap<StringList> getCurrentConstraints(AnalyzedPageEl _analyzing) {
+        StringMap<TypeVar> currentConstraintsFull_ = getCurrentConstraintsFull(_analyzing);
+        return currentConstraints(currentConstraintsFull_);
+    }
+
+    public static StringMap<StringList> currentConstraints(StringMap<TypeVar> _currentConstraintsFull) {
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (EntryCust<String,TypeVar> e: getCurrentConstraintsFull(_analyzing).entryList()) {
+        for (EntryCust<String,TypeVar> e: _currentConstraintsFull.entryList()) {
             vars_.addEntry(e.getKey(), e.getValue().getConstraints());
         }
         return vars_;
@@ -147,8 +152,12 @@ public final class ContextUtil {
 
     public static void buildCurrentConstraintsFull(AnalyzedPageEl _page) {
         StringMap<TypeVar> vars_ = getCurrentConstraintsFull(_page);
+        setupAvailableVariables(_page, vars_);
+    }
+
+    public static void setupAvailableVariables(AnalyzedPageEl _page, StringMap<TypeVar> _next) {
         _page.getAvailableVariables().clear();
-        for (EntryCust<String,TypeVar> e: vars_.entryList()) {
+        for (EntryCust<String,TypeVar> e: _next.entryList()) {
             _page.getAvailableVariables().addEntry(e.getKey(),e.getValue().getOffset());
         }
     }

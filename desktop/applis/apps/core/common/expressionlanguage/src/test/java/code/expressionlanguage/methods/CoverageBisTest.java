@@ -5,10 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -29,13 +29,13 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(5, getCovers(cont_).size());
-        assertEq(0, getCovers(cont_).get(0).size());
-        assertEq(0, getCovers(cont_).get(1).size());
-        assertEq(1, getCovers(cont_).get(2).size());
-        assertEq(3, getCovers(cont_).get(3).size());
-        assertTrue(getCovers(cont_).get(3).first().isFullCovered());
-        assertEq(4, getCovers(cont_).get(4).size());
+        assertEq(5, sizeCovers(cont_));
+        assertEq(0, sizeCovers(cont_,0));
+        assertEq(0, sizeCovers(cont_,1));
+        assertEq(1, sizeCovers(cont_,2));
+        assertEq(3, sizeCovers(cont_,3));
+        assertTrue(covers(cont_,3,0).isFullCovered());
+        assertEq(4, sizeCovers(cont_,4));
     }
 
     @Test
@@ -65,7 +65,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, getSecCovers(cont_).size());
+        assertEq(10, getSecCovers(cont_));
     }
     @Test
     public void coverage11Test() {
@@ -93,7 +93,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, getSecCovers(cont_).size());
+        assertEq(10, getSecCovers(cont_));
     }
     @Test
     public void coverage12Test() {
@@ -112,9 +112,9 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, getFieldCovers(cont_).size());
-        assertEq(3, getFieldCovers(cont_).first().size());
-        assertTrue(getFieldCovers(cont_).first().first().isFullCovered());
+        assertEq(1, fieldCovers(cont_).size());
+        assertEq(3, fieldCovers(cont_).first().getCovers().size());
+        assertTrue(fieldCovers(cont_).first().getCovers().first().isFullCovered());
     }
     @Test
     public void coverage13Test() {
@@ -138,9 +138,9 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(9, getCovers(cont_).size());
-        assertEq(3, getCovers(cont_).get(4).size());
-        AbstractCoverageResult value_ = getCovers(cont_).get(4).first();
+        assertEq(9, sizeCovers(cont_));
+        assertEq(3, sizeCovers(cont_,4));
+        AbstractCoverageResult value_ = covers(cont_,4,0);
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
@@ -168,9 +168,9 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(9, getCovers(cont_).size());
-        assertEq(3, getCovers(cont_).get(4).size());
-        AbstractCoverageResult value_ = getCovers(cont_).get(4).first();
+        assertEq(9, sizeCovers(cont_));
+        assertEq(3, sizeCovers(cont_,4));
+        AbstractCoverageResult value_ = covers(cont_,4,0);
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
@@ -193,9 +193,9 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, getCovers(cont_).size());
-        assertEq(1, getCovers(cont_).get(1).size());
-        assertTrue(getCovers(cont_).get(1).first().isFullCovered());
+        assertEq(2, sizeCovers(cont_));
+        assertEq(1, sizeCovers(cont_,1));
+        assertTrue(covers(cont_,1,0).isFullCovered());
     }
     @Test
     public void coverage21Test() {
@@ -214,9 +214,9 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, getCalls(cont_).getVal("pkg.Ex").size());
-        assertSame(BoolVal.TRUE, getCalls(cont_).getVal("pkg.Ex").first());
-        assertSame(BoolVal.FALSE, getCalls(cont_).getVal("pkg.Ex").last());
+        assertEq(2, sizeFunction(cont_));
+        assertSame(BoolVal.TRUE, callFunction(cont_,0));
+        assertSame(BoolVal.FALSE, callFunction(cont_, 1));
     }
     @Test
     public void coverage22Test() {
@@ -251,9 +251,9 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(out_));
-        assertEq(2, getCallsTwo(cont_).getVal("").size());
-        assertSame(BoolVal.TRUE, getCallsTwo(cont_).getVal("").first());
-        assertSame(BoolVal.FALSE, getCallsTwo(cont_).getVal("").last());
+        assertEq(2, sizeFunction(cont_));
+        assertSame(BoolVal.TRUE, callFunction(cont_,0));
+        assertSame(BoolVal.FALSE, callFunction(cont_,1));
     }
     @Test
     public void coverage23Test() {
@@ -310,19 +310,15 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertSame(BoolVal.FALSE, getCatches(cont_).firstValue());
     }
 
-    private static StringMap<CustList<BoolVal>> getCalls(ContextEl _cont) {
-        StringMap<CustList<BoolVal>> ret_ = new StringMap<CustList<BoolVal>>();
-        CustList<BoolVal> v_ = TstsCharacters.listCalls(_cont.getCoverage().getTypes().last().getFunctions());
-        ret_.addEntry("pkg.Ex", v_);
-        return ret_;
+    private static CustList<FunctionCoverageResult> getFunctions(ContextEl _cont) {
+        return _cont.getCoverage().getTypes().last().getFunctions();
     }
 
-
-    private static StringMap<CustList<BoolVal>> getCallsTwo(ContextEl _cont) {
-        StringMap<CustList<BoolVal>> ret_ = new StringMap<CustList<BoolVal>>();
-        CustList<BoolVal> v_ = TstsCharacters.listCalls(_cont.getCoverage().getOperators());
-        ret_.addEntry("", v_);
-        return ret_;
+    private static int sizeFunction(ContextEl _cont) {
+        return getFunctions(_cont).size();
+    }
+    private static BoolVal callFunction(ContextEl _cont, int _index) {
+        return ComparatorBoolean.of(getFunctions(_cont).get(_index).isCalled());
     }
 
     private static IdMap<ExecBlock, BoolVal> getCatches(ContextEl _cont) {
@@ -330,21 +326,38 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         return types_.last().getFunctions().first().getCatches();
     }
 
-    private static CustList<CustList<AbstractCoverageResult>> getCovers(ContextEl _cont) {
-        CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        CustList<BlockCoverageResult> blocks_ = types_.last().getFunctions().first().getBlocks();
-        return TstsCharacters.results(blocks_);
+    private static int sizeCovers(ContextEl _cont) {
+        CustList<BlockCoverageResult> blocks_ = covers(_cont);
+        return blocks_.size();
     }
 
-    private static CustList<CustList<AbstractCoverageResult>> getFieldCovers(ContextEl _cont) {
-        CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        CustList<BlockCoverageResult> blocks_ = types_.last().getFields();
-        return TstsCharacters.results(blocks_);
+    private static int sizeCovers(ContextEl _cont, int _index) {
+        CustList<BlockCoverageResult> blocks_ = covers(_cont);
+        return blocks_.get(_index).getCovers().size();
     }
-    private static CustList<CustList<AbstractCoverageResult>> getSecCovers(ContextEl _cont) {
+
+    private static AbstractCoverageResult covers(ContextEl _cont, int _index, int _i) {
+        CustList<BlockCoverageResult> blocks_ = covers(_cont);
+        return blocks_.get(_index).getCovers().get(_i);
+    }
+    private static CustList<BlockCoverageResult> covers(ContextEl _cont) {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        CustList<BlockCoverageResult> blocks_ = types_.last().getFunctions().first().getBlocks();
-        return TstsCharacters.results(blocks_);
+        return types_.last().getFunctions().first().getBlocks();
+    }
+
+    private static CustList<BlockCoverageResult> fieldCovers(ContextEl _cont) {
+        CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        return types_.last().getFields();
+    }
+
+    private static int getSecCovers(ContextEl _cont) {
+        CustList<BlockCoverageResult> blocks_ = secCovers(_cont);
+        return blocks_.size();
+    }
+
+    private static CustList<BlockCoverageResult> secCovers(ContextEl _cont) {
+        CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        return types_.last().getFunctions().first().getBlocks();
     }
 
 }

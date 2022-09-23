@@ -160,6 +160,26 @@ public final class AnalyzedPageEl {
         return page_;
     }
 
+    public static CustList<RootBlock> customTypes(CustList<RootBlock> _foundTypes) {
+        CustList<RootBlock> types_ = new CustList<RootBlock>();
+        for (RootBlock r: _foundTypes) {
+            if (!r.getFile().isPredefined()) {
+                types_.add(r);
+            }
+        }
+        return types_;
+    }
+
+    public static CustList<FileBlock> customFiles(CustList<FileBlock> _files) {
+        CustList<FileBlock> files_ = new CustList<FileBlock>();
+        for (FileBlock r: _files) {
+            if (!r.isPredefined()) {
+                files_.add(r);
+            }
+        }
+        return files_;
+    }
+
     public AbstractTypePairHash getChecker() {
         return options.getChecker();
     }

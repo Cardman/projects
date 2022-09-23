@@ -12,10 +12,7 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.DimComp;
-import code.expressionlanguage.common.Matching;
-import code.expressionlanguage.common.MatchingEnum;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -24,7 +21,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -9865,7 +9861,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.$Fct"));
     }
     @Test
@@ -9876,7 +9872,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.$Fct<?>"));
     }
     @Test
@@ -9887,7 +9883,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.$Fct<?,?>"));
     }
     @Test
@@ -9898,7 +9894,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex"));
     }
 
@@ -9910,7 +9906,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $enum pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex"));
     }
 
@@ -9922,7 +9918,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex"));
     }
 
@@ -9934,7 +9930,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex[]"));
     }
 
@@ -9946,7 +9942,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $enum pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex[]"));
     }
 
@@ -9958,7 +9954,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex[]"));
     }
 
@@ -9970,7 +9966,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>"));
     }
 
@@ -9982,7 +9978,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>"));
     }
 
@@ -9994,7 +9990,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
 
@@ -10006,7 +10002,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
 
@@ -10018,8 +10014,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Object"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("java.lang.Object"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10031,8 +10027,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Object"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("java.lang.Object"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10044,8 +10040,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Integer"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("java.lang.Integer"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10057,8 +10053,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Integer"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("java.lang.Integer"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10070,8 +10066,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Object"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("java.lang.Object"));
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10083,8 +10079,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Object"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("java.lang.Object"));
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10096,7 +10092,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
 
@@ -10108,7 +10104,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
 
@@ -10120,7 +10116,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Integer>[]"));
     }
 
@@ -10132,7 +10128,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
 
@@ -10144,7 +10140,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
 
@@ -10162,8 +10158,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("pkg.ExTwo"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("pkg.ExTwo"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10181,8 +10177,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("pkg.ExTwo"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("pkg.ExTwo"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10200,8 +10196,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("pkg.ExTwo"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("pkg.ExTwo"));
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10219,8 +10215,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("pkg.ExTwo"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("pkg.ExTwo"));
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
@@ -10238,7 +10234,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<pkg.ExTwo>[]"));
     }
 
@@ -10256,7 +10252,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<pkg.ExTwo>[]"));
     }
 
@@ -10269,7 +10265,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.ExTwo<pkg.Ex<java.lang.String>>"));
     }
 
@@ -10282,7 +10278,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<java.lang.Number,java.lang.String>"));
     }
 
@@ -10294,7 +10290,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAll(cont_, t_, "pkg.Ex<java.lang.Number>"));
     }
 
@@ -10306,7 +10302,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.Ex<java.lang.String>"));
     }
 
@@ -10318,7 +10314,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.Ex<pkg.Ex>"));
     }
     @Test
@@ -10330,7 +10326,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U,S> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<pkg.Ex,pkg.Ex<java.lang.Object>>"));
     }
     @Test
@@ -10342,7 +10338,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.ExTwo<pkg.Ex<java.lang.Object>>"));
     }
 
@@ -10360,7 +10356,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.Object"));
     }
 
@@ -10378,7 +10374,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, cont_.getAliasPrimInteger()));
     }
 
@@ -10396,7 +10392,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.Object[]"));
     }
 
@@ -10414,7 +10410,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "$int[]"));
     }
 
@@ -10432,8 +10428,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("pkg.ExTwo"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("pkg.ExTwo"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>"));
     }
 
@@ -10467,8 +10463,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("pkg.ExTwo"));
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
+        t_.put("E", typeVar("pkg.ExTwo"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>"));
     }
 
@@ -10483,7 +10479,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<StringList> t_ = new StringMap<StringList>();
+        StringMap<TypeVar> t_ = new StringMap<TypeVar>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<pkg.ExTwo<?pkg.ExTwo<?java.lang.Number>>>"));
     }
 
@@ -10797,21 +10793,26 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         return AnaInherits.wildCardFormatReturn(_first, _second, _context);
     }
 
-    private static boolean isCorrectTemplateAllExact(AnalyzedPageEl _cont, StringMap<StringList> _t, String _className) {
-        TstsCharacters.setAvailableVar(_cont, _t);
+    private static boolean isCorrectTemplateAllExact(AnalyzedPageEl _cont, StringMap<TypeVar> _t, String _className) {
+        ContextUtil.setupAvailableVariables(_cont,_t);
         AnaResultPartType resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false, null, null, -1, _cont);
-        return processAnalyzeConstraintsCore(_cont, _t, true, resType_);
+        return processAnalyzeConstraintsCore(_cont, ContextUtil.currentConstraints(_t), true, resType_);
     }
 
-    private static boolean isCorrectTemplateAll(AnalyzedPageEl _cont, StringMap<StringList> _t, String _className) {
-        TstsCharacters.setAvailableVar(_cont, _t);
+    private static boolean isCorrectTemplateAll(AnalyzedPageEl _cont, StringMap<TypeVar> _t, String _className) {
+        ContextUtil.setupAvailableVariables(_cont,_t);
         AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeLine(_className, "", null, null, -1, _cont);
-        return processAnalyzeConstraintsCore(_cont, _t, false, resType_);
+        return processAnalyzeConstraintsCore(_cont, ContextUtil.currentConstraints(_t), false, resType_);
     }
 
     private static boolean processAnalyzeConstraintsCore(AnalyzedPageEl _cont, StringMap<StringList> _t, boolean _exact, AnaResultPartType _resType) {
         assertTrue(!_resType.getResult().isEmpty());
         return AnaPartTypeUtil.processAnalyzeConstraintsCore(_resType, _t, _exact, _cont);
+    }
+    private static TypeVar typeVar(String _cts) {
+        TypeVar t_ = new TypeVar();
+        t_.setConstraints(new StringList(_cts));
+        return t_;
     }
 
 }

@@ -920,4 +920,18 @@ public final class AnaTypeUtil {
         return list_;
     }
 
+    public static StringList listOfTypes(CustList<OverridingMethodDto> _map, FormattedMethodId _id) {
+        StringList l_ = new StringList();
+        for (OverridingMethodDto o: _map) {
+            if (o.getFormattedMethodId().eq(_id)) {
+                for (GeneStringOverridable i : o.getMethodIds()) {
+                    if (StringUtil.contains(l_,i.getGeneString())) {
+                        continue;
+                    }
+                    l_.add(i.getGeneString());
+                }
+            }
+        }
+        return l_;
+    }
 }

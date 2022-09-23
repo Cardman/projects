@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
 import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -36,15 +35,15 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, getCovers(cont_).size());
-        assertEq(0, getCovers(cont_).get(0).size());
-        assertEq(0, getCovers(cont_).get(1).size());
-        assertEq(3, getCovers(cont_).get(2).size());
-        assertEq(0, getCovers(cont_).get(3).size());
-        assertEq(10, getCovers(cont_).get(4).size());
-        assertTrue(getCovers(cont_).get(4).get(2).isFullCovered());
-        assertTrue(getCovers(cont_).get(4).get(2).isPartialCovered());
-        AbstractCoverageResult value_ = getCovers(cont_).get(4).get(3);
+        assertEq(6, sizeCovers(cont_));
+        assertEq(0, sizeCovers(cont_,0));
+        assertEq(0, sizeCovers(cont_,1));
+        assertEq(3, sizeCovers(cont_,2));
+        assertEq(0, sizeCovers(cont_,3));
+        assertEq(10, sizeCovers(cont_,4));
+        assertTrue(covers(cont_,4,2).isFullCovered());
+        assertTrue(covers(cont_,4,2).isPartialCovered());
+        AbstractCoverageResult value_ = covers(cont_,4,3);
         assertTrue(value_ instanceof AbstractCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -67,15 +66,15 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, getCovers(cont_).size());
-        assertEq(0, getCovers(cont_).get(0).size());
-        assertEq(0, getCovers(cont_).get(1).size());
-        assertEq(3, getCovers(cont_).get(2).size());
-        assertEq(0, getCovers(cont_).get(3).size());
-        assertEq(10, getCovers(cont_).get(4).size());
-        assertTrue(getCovers(cont_).get(4).get(2).isFullCovered());
-        assertTrue(getCovers(cont_).get(4).get(2).isPartialCovered());
-        AbstractCoverageResult value_ = getCovers(cont_).get(4).get(3);
+        assertEq(6, sizeCovers(cont_));
+        assertEq(0, sizeCovers(cont_,0));
+        assertEq(0, sizeCovers(cont_,1));
+        assertEq(3, sizeCovers(cont_,2));
+        assertEq(0, sizeCovers(cont_,3));
+        assertEq(10, sizeCovers(cont_,4));
+        assertTrue(covers(cont_,4,2).isFullCovered());
+        assertTrue(covers(cont_,4,2).isPartialCovered());
+        AbstractCoverageResult value_ = covers(cont_,4,3);
         assertTrue(value_ instanceof AbstractCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -102,15 +101,15 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, getCovers(cont_).size());
-        assertEq(0, getCovers(cont_).get(0).size());
-        assertEq(0, getCovers(cont_).get(1).size());
-        assertEq(3, getCovers(cont_).get(2).size());
-        assertEq(0, getCovers(cont_).get(3).size());
-        assertEq(10, getCovers(cont_).get(7).size());
-        assertTrue(getCovers(cont_).get(7).get(2).isFullCovered());
-        assertTrue(getCovers(cont_).get(7).get(2).isPartialCovered());
-        AbstractCoverageResult value_ = getCovers(cont_).get(7).get(3);
+        assertEq(10, sizeCovers(cont_));
+        assertEq(0, sizeCovers(cont_,0));
+        assertEq(0, sizeCovers(cont_,1));
+        assertEq(3, sizeCovers(cont_,2));
+        assertEq(0, sizeCovers(cont_,3));
+        assertEq(10, sizeCovers(cont_,7));
+        assertTrue(covers(cont_,7,2).isFullCovered());
+        assertTrue(covers(cont_,7,2).isPartialCovered());
+        AbstractCoverageResult value_ = covers(cont_,7,3);
         assertTrue(value_ instanceof AbstractCoverageResult);
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -219,13 +218,13 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, getCovers(cont_).size());
-        assertEq(0, getCovers(cont_).get(0).size());
-        assertEq(0, getCovers(cont_).get(1).size());
-        assertEq(3, getCovers(cont_).get(2).size());
-        assertEq(0, getCovers(cont_).get(3).size());
-        assertEq(10, getCovers(cont_).get(7).size());
-        AbstractCoverageResult value_ = getCovers(cont_).get(5).first();
+        assertEq(10, sizeCovers(cont_));
+        assertEq(0, sizeCovers(cont_,0));
+        assertEq(0, sizeCovers(cont_,1));
+        assertEq(3, sizeCovers(cont_,2));
+        assertEq(0, sizeCovers(cont_,3));
+        assertEq(10, sizeCovers(cont_,7));
+        AbstractCoverageResult value_ = covers(cont_,5,0);
         assertTrue(value_ instanceof AbstractCoverageResult);
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -250,7 +249,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        AbstractCoverageResult value_ = getCovers(cont_).get(7).get(0);
+        AbstractCoverageResult value_ = covers(cont_,7,0);
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
     }
@@ -831,10 +830,23 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
         return types_.get(types_.size()-6).getFunctionsStat().first().getCoverLoops();
     }
-    private static CustList<CustList<AbstractCoverageResult>> getCovers(ContextEl _cont) {
+
+    private static int sizeCovers(ContextEl _cont) {
+        CustList<BlockCoverageResult> blocks_ = blocks(_cont);
+        return blocks_.size();
+    }
+    private static int sizeCovers(ContextEl _cont, int _index) {
+        CustList<BlockCoverageResult> blocks_ = blocks(_cont);
+        return blocks_.get(_index).getCovers().size();
+    }
+    private static AbstractCoverageResult covers(ContextEl _cont, int _index, int _i) {
+        CustList<BlockCoverageResult> blocks_ = blocks(_cont);
+        return blocks_.get(_index).getCovers().get(_i);
+    }
+
+    private static CustList<BlockCoverageResult> blocks(ContextEl _cont) {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        CustList<BlockCoverageResult> blocks_ = types_.last().getFunctions().first().getBlocks();
-        return TstsCharacters.results(blocks_);
+        return types_.last().getFunctions().first().getBlocks();
     }
 
     private static String getCustomPair() {
