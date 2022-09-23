@@ -198,7 +198,7 @@ public final class RecordsTest extends EquallablePkUtil {
     @Test
     public void test27() {
         MoveTeamPositionsShort  m_ = new MoveTeamPositionsShort();
-        assertNotNull(m_.getVal(new MoveTeamPosition("")));
+        assertEq(0,m_.getVal(new MoveTeamPosition("")));
     }
     @Test
     public void test28() {

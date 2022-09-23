@@ -234,59 +234,6 @@ public abstract class Level {
         }
     }
 
-    public static void translateShortLineData(Points< Short> _data,
-            short _y, short _dir) {
-        CustList<Point> links_ = _data.getKeys();
-        Points< Point> deplLinks_ = new PointsPoint();
-        for (Point c : links_) {
-            if (c.gety() < _y) {
-                deplLinks_.put(c, c);
-                continue;
-            }
-            deplLinks_.put(c, new Point(c.getx(), (short) (c.gety() + _dir)));
-        }
-        translate(_data, links_, deplLinks_);
-    }
-
-    public static void translateShortColumnData(Points< Short> _data,
-            short _x, short _dir) {
-        CustList<Point> links_ = _data.getKeys();
-        Points< Point> deplLinks_ = new PointsPoint();
-        for (Point c : links_) {
-            if (c.getx() < _x) {
-                deplLinks_.put(c, c);
-                continue;
-            }
-            deplLinks_.put(c, new Point((short) (c.getx() + _dir), c.gety()));
-        }
-        translate(_data, links_, deplLinks_);
-    }
-
-    private static void translate(Points<Short> _data, CustList<Point> _links, Points<Point> _deplLinks) {
-        CustList<Point> links_ = _links;
-        while (!links_.isEmpty()) {
-            for (Point c : links_) {
-                Point dest_ = _deplLinks.getVal(c);
-                if (!containsPt(links_,dest_)) {
-                    Short movedBlock_ = _data.getVal(c);
-                    _data.removeKey(c);
-                    _data.put(dest_, movedBlock_);
-                    _deplLinks.removeKey(c);
-                }
-            }
-            for (Point c : links_) {
-                if (!_deplLinks.contains(c)) {
-                    continue;
-                }
-                Point dest_ = _deplLinks.getVal(c);
-                if (Point.eq(c, dest_)) {
-                    _deplLinks.removeKey(c);
-                }
-            }
-            links_ = _deplLinks.getKeys();
-        }
-    }
-
     public abstract boolean isEmptyForAdding(Point _point);
 
     public abstract boolean isEmpty(Point _point);
@@ -376,12 +323,4 @@ public abstract class Level {
         blocks = _blocks;
     }
 
-    private static boolean containsPt(CustList<Point> _l, Point _pt) {
-        for (Point p: _l) {
-            if (_pt.eq(p)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

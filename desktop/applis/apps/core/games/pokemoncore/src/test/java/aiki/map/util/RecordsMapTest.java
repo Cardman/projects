@@ -80,7 +80,7 @@ public final class RecordsMapTest extends EquallablePkUtil {
     @Test
     public void test10() {
         StatisticTypeByte c_ = new StatisticTypeByte();
-        assertNotNull(c_.getVal(new StatisticType(";")));
+        assertEq(0,c_.getVal(new StatisticType(";")));
         assertTrue(c_.isEmpty());
     }
     @Test
@@ -92,7 +92,7 @@ public final class RecordsMapTest extends EquallablePkUtil {
     @Test
     public void test12() {
         StatisticCategoryByte c_ = new StatisticCategoryByte();
-        assertNotNull(c_.getVal(new StatisticCategory(";")));
+        assertEq(0,c_.getVal(new StatisticCategory(";")));
         assertTrue(c_.isEmpty());
     }
     @Test
@@ -148,7 +148,7 @@ public final class RecordsMapTest extends EquallablePkUtil {
     @Test
     public void test21() {
         PointsShort c_ = new PointsShort();
-        assertNotNull(c_.getVal(new Point()));
+        assertEq(0,c_.getVal(new Point()));
     }
     @Test
     public void test22() {
