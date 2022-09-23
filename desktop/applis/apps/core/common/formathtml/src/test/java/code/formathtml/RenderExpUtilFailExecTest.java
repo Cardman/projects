@@ -8,7 +8,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -17,6 +17,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -2156,11 +2157,12 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 //        assertNotNull(getException(context_));
 //    }
 
-    private static RendStackCall processElLow(String _el, DualNavigationContext _cont, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc _analyzingDoc) {
+    private static RendStackCall processElLow(String _el, DualNavigationContext _cont, AnalyzingDoc _analyzingDoc) {
 //        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
 //        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         _analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext().getProperties(), _cont.getDualAnalyzedContext().getContext().getMessagesFolder());
-        setupAnalyzing(_cont, _localVariables, _vars);
+
+        setupAnalyzing(_cont);
 //        Argument argGl_ = _cont.getArgument();
         boolean static_ = true;
         _cont.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
@@ -2176,7 +2178,9 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 //        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_,_cont.getDualAnalyzedContext().getForwards().getOptions());
         ctx_.setExiting(new NoExiting());
-        RendStackCall reuse_ = reuse(ctx_, _cont, executableNodes_, _localVariables, _vars);
+        RendStackCall build_ = buildCall(ctx_);
+//        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
+        RendStackCall reuse_ = reuse(ctx_, executableNodes_, build_);
         assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         assertNotNull(getException(reuse_));
         return reuse_;
@@ -2206,18 +2210,21 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 //        assertNotNull(getException(_an));
 //    }
 
-    private static RendStackCall reuse(ContextEl _ctx, DualNavigationContext _an, CustList<RendDynOperationNode> _executableNodes, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
+    private static RendStackCall reuse(ContextEl _ctx, CustList<RendDynOperationNode> _executableNodes, RendStackCall _build) {
+        RenderExpUtil.getAllArgs(_executableNodes, _ctx, _build).lastValue();
+        return _build;
+    }
+
+    private static RendStackCall buildCall(ContextEl _ctx) {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
 //        RendStackCall build_ = _an.build(InitPhase.NOTHING, ctx_);
         build_.addPage(new ImportingPage());
-        setupValues(build_.getLastPage(), _localVariables, _vars);
-        RenderExpUtil.getAllArgs(_executableNodes, _ctx, build_).lastValue();
         return build_;
     }
 
     private static Struct ex(StringMap<String> _files, String _el) {
         DualNavigationContext configurationQuick_ = getConfigurationQuick(_files);
-        return checkEx3(configurationQuick_, _el, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
+        return checkEx3(configurationQuick_, _el, new AnalyzingDoc());
     }
 
 //    private static String getAliasCastType(AnalyzedTestConfiguration _context) {
@@ -2261,7 +2268,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 //        return _cont.getContext().getLocks().getState("pkg.Ex") == InitClassState.SUCCESS;
 //    }
 
-    private static Struct checkEx3(DualNavigationContext _cont, String _s, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc _analyzingDoc) {
+    private static Struct checkEx3(DualNavigationContext _cont, String _s, AnalyzingDoc _analyzingDoc) {
 //        addInnerPage(_cont);
 //        String gl_ = _cont.getArgumentClass();
 //        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
@@ -2272,7 +2279,9 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getDualAnalyzedContext().getForwards().getOptions());
         ctx_.setExiting(new NoExiting());
-        RendStackCall st_ = reuse(ctx_, _cont, executableNodes_, _localVariables, _vars);
+        RendStackCall build_ = buildCall(ctx_);
+//        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
+        RendStackCall st_ = reuse(ctx_, executableNodes_, build_);
         assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         assertNotNull(getException(st_));
         return getException(st_);
@@ -2280,7 +2289,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 
     private Struct getAnalyzedTestConfiguration(StringMap<String> _files, String _el) {
         DualNavigationContext conf_ = getConfigurationQuick(_files);
-        RendStackCall rendStackCall_ = processElLow(_el, conf_, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
+        RendStackCall rendStackCall_ = processElLow(_el, conf_, new AnalyzingDoc());
         return getException(rendStackCall_);
     }
 

@@ -13,11 +13,9 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -39,9 +37,8 @@ public abstract class CommonRenderExpUtil extends CommonRender {
 
     protected static CustList<OperationNode> getQuickAnalyzed(String _el, DualNavigationContext _conf, AnalyzingDoc _analyzingDoc) {
         _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext().getProperties(), _conf.getDualAnalyzedContext().getContext().getMessagesFolder());
-        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
-        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
-        setupAnalyzing(_conf, localVariables_, vars_);
+
+        setupAnalyzing(_conf);
 //        Argument argGl_ = _conf.getArgument();
         boolean static_ = true;
         _conf.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
@@ -59,32 +56,10 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         return a_;
     }
 
-    protected static void setupAnalyzing(DualNavigationContext _analyzing, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
-
+    protected static void setupAnalyzing(DualNavigationContext _analyzing) {
         String globalClass_ = _analyzing.getDualAnalyzedContext().getAnalyzed().getGlobalClass();
         setupAna(_analyzing.getDualAnalyzedContext().getAnalyzed());
         _analyzing.getDualAnalyzedContext().getAnalyzed().setGlobalType(new AnaFormattedRootBlock(_analyzing.getDualAnalyzedContext().getAnalyzed(),globalClass_));
-        for (EntryCust<String, LocalVariable> e: _localVariables.entryList()) {
-            AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(e.getValue().getClassName());
-            a_.setConstType(ConstType.LOC_VAR);
-            _analyzing.getDualAnalyzedContext().getAnalyzed().getInfosVars().put(e.getKey(), a_);
-        }
-        for (EntryCust<String,LoopVariable> e: _vars.entryList()) {
-            AnaLoopVariable a_ = new AnaLoopVariable();
-            a_.setIndexClassName(e.getValue().getIndexClassName());
-            _analyzing.getDualAnalyzedContext().getAnalyzed().getLoopsVars().put(e.getKey(), a_);
-        }
-    }
-
-    protected static void setupValues(ImportingPage _lastPage, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
-        for (EntryCust<String, LocalVariable> e: _localVariables.entryList()) {
-            _lastPage.getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
-        }
-        for (EntryCust<String,LoopVariable> e: _vars.entryList()) {
-            _lastPage.getPageEl().getVars().addEntry(e.getKey(),e.getValue());
-        }
-//        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
     }
     protected static void setLocalVars(StringMap<LocalVariable> _localVars, StringMap<LocalVariable> _localVariables) {
 //        for (EntryCust<String, LocalVariable> e: _localVars.entryList()) {

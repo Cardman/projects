@@ -27,6 +27,14 @@ public final class DualConfigurationContext {
     private boolean ko;
     private final Options options = new Options();
 
+    public void feedRenders(StringMap<String> _rend, String _prefix) {
+        for (String f: _rend.getKeys()) {
+            if (!f.startsWith(_prefix)) {
+                continue;
+            }
+            getRenderFiles().add(f);
+        }
+    }
     public Options getOptions() {
         return options;
     }

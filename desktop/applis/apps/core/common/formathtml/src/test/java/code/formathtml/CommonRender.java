@@ -134,12 +134,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
     protected static ContextEl ana(StringMap<String> _files, StringMap<String> _rend, DualNavigationContext _dualNav) {
         DualAnalyzedContext dual_ = _dualNav.getDualAnalyzedContext();
         DualConfigurationContext du_ = dual_.getContext();
-        for (String f: _rend.getKeys()) {
-            if (!f.startsWith("page")) {
-                continue;
-            }
-            du_.getRenderFiles().add(f);
-        }
+        du_.feedRenders(_rend,"page");
         StringMap<String> all_ = filRend(new StringMap<String>(_files), _rend);
         du_.setFilesConfName("hello");
         all_.addEntry(du_.getFilesConfName(), StringUtil.join(_files.getKeys(),"\n"));
