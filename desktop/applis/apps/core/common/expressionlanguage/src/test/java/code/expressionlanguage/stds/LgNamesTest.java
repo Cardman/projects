@@ -42,7 +42,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail2Test() {
@@ -56,7 +56,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
         assertTrue(kw_.getKeyWordIntern().isEmpty());
     }
     @Test
@@ -71,7 +71,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail4Test() {
@@ -85,7 +85,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail5Test() {
@@ -101,7 +101,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateKeyWordContents(kw_, s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
         validateEscapingsContents(kw_, s_, escapings_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail6Test() {
@@ -117,7 +117,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateKeyWordContents(kw_, s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
         validateEscapingsContents(kw_, s_, escapings_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
 
     @Test
@@ -136,7 +136,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateEscapingsContents(kw_, s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail8Test() {
@@ -154,7 +154,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateEscapingsContents(kw_, s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail9Test() {
@@ -172,7 +172,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateEscapingsContents(kw_, s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail10Test() {
@@ -191,7 +191,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail11Test() {
@@ -210,7 +210,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail12Test() {
@@ -229,7 +229,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail13Test() {
@@ -248,7 +248,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail14Test() {
@@ -267,7 +267,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail15Test() {
@@ -286,7 +286,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail16Test() {
@@ -305,7 +305,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail17Test() {
@@ -324,7 +324,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail18Test() {
@@ -343,7 +343,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail19Test() {
@@ -362,7 +362,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail20Test() {
@@ -381,7 +381,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail21Test() {
@@ -400,7 +400,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail22Test() {
@@ -419,7 +419,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail23Test() {
@@ -438,7 +438,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail24Test() {
@@ -457,7 +457,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail25Test() {
@@ -478,7 +478,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateBinarySeparators(kw_, s_);
         StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail26Test() {
@@ -499,7 +499,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateBinarySeparators(kw_, s_);
         StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail27Test() {
@@ -520,7 +520,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateBinarySeparators(kw_, s_);
         StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail28Test() {
@@ -541,7 +541,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateBinarySeparators(kw_, s_);
         StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail29Test() {
@@ -564,7 +564,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail30Test() {
@@ -587,7 +587,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail31Test() {
@@ -610,7 +610,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail32Test() {
@@ -633,7 +633,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail33Test() {
@@ -656,7 +656,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail34Test() {
@@ -679,7 +679,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail35Test() {
@@ -702,7 +702,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail36Test() {
@@ -725,7 +725,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail37Test() {
@@ -750,7 +750,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail38Test() {
@@ -775,7 +775,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail39Test() {
@@ -800,7 +800,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail40Test() {
@@ -825,7 +825,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail41Test() {
@@ -850,7 +850,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail42Test() {
@@ -877,7 +877,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail43Test() {
@@ -904,7 +904,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail44Test() {
@@ -931,7 +931,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail45Test() {
@@ -958,7 +958,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail46Test() {
@@ -985,7 +985,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail47Test() {
@@ -1013,7 +1013,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail48Test() {
@@ -1042,7 +1042,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail49Test() {
@@ -1071,7 +1071,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail50Test() {
@@ -1100,7 +1100,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail51Test() {
@@ -1129,7 +1129,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail52Test() {
@@ -1159,7 +1159,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail53Test() {
@@ -1188,7 +1188,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail54Test() {
@@ -1221,7 +1221,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateNbWordDuplicates(kw_, s_, nbWordsDec_);
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         validateNbWordDuplicates(kw_, s_, nbWordsBin_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail55Test() {
@@ -1255,7 +1255,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         validateNbWordDuplicates(kw_, s_, nbWordsBin_);
         validateStartsPrefixesDuplicates(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail56Test() {
@@ -1296,7 +1296,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeDuplicates(s_, refTypes_);
         validateMethodsDuplicates(s_, methods_);
         validateFieldsDuplicates(s_, fields_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail57Test() {
@@ -1319,7 +1319,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail58Test() {
@@ -1342,7 +1342,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail59Test() {
@@ -1387,7 +1387,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsDuplicates(s_, methods_);
         validateFieldsDuplicates(s_, fields_);
         validateVarTypesDuplicates(s_, varTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail60Test() {
@@ -1429,7 +1429,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsDuplicates(s_, methods_);
         validateFieldsDuplicates(s_, fields_);
         validateVarTypesDuplicates(s_, varTypes_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail61Test() {
@@ -1454,7 +1454,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail62Test() {
@@ -1479,7 +1479,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail63Test() {
@@ -1504,7 +1504,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail64Test() {
@@ -1529,7 +1529,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail65Test() {
@@ -1554,7 +1554,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail66Test() {
@@ -1597,7 +1597,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateVarTypesDuplicates(s_, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = allMergeTableTypeMethodNames(s_);
         validateMergedDuplicates(s_, merge_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail67Test() {
@@ -1631,7 +1631,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         validateNbWordDuplicates(kw_, s_, nbWordsBin_);
         validateStartsPrefixesDuplicates(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     @Test
     public void fail68Test() {
@@ -1664,7 +1664,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         validateNbWordDuplicates(kw_, s_, nbWordsBin_);
         validateStartsPrefixesDuplicates(kw_, s_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
     private static void validateEscapingsContents(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _escapings) {
         _kw.validateEscapingsContents(_escapings, _s);
@@ -2258,7 +2258,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateVarTypesDuplicates(s_, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = allMergeTableTypeMethodNames(s_);
         validateMergedDuplicates(s_, merge_);
-        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
 
     private static void validateParamtersDuplicates(AnalyzedPageEl _s, CustList<CustList<KeyValueMemberName>> _params) {

@@ -688,7 +688,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(failOverridesValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test13() {
@@ -704,7 +704,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(checkErrorsValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test14() {
@@ -752,7 +752,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(checkErrorsValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test16() {
@@ -1252,7 +1252,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree:ExTwo<java.lang.Number,java.lang.Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(checkErrorsValue(files_));
+        assertFalse(invalidValue(files_));
     }
 
 
@@ -1329,7 +1329,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(checkErrorsValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test2Fail() {
@@ -1349,7 +1349,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>:pkg.ExInt<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(checkErrorsValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test3Fail() {
@@ -1369,7 +1369,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>:pkg.ExInt<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(checkErrorsValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test4Fail() {
@@ -1393,7 +1393,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>:pkg.ExInt<T>:pkg.ExIntTwo<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(checkErrorsValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test5Fail() {
@@ -1411,7 +1411,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(checkErrorsValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test6Fail() {
@@ -1431,7 +1431,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.ExInt<T>:pkg.ExIntTwo<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(failOverridesValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test7Fail() {
@@ -1449,7 +1449,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(failOverridesValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test8Fail() {
@@ -1714,7 +1714,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(failOverridesValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test20Fail() {
@@ -1732,7 +1732,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(failOverridesValue(files_));
+        assertFalse(invalidValue(files_));
     }
     @Test
     public void test21Fail() {
@@ -1750,7 +1750,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(failOverridesValue(files_));
+        assertFalse(invalidValue(files_));
     }
 
 
@@ -1800,11 +1800,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertTrue( isEmptyErrors(_cont));
     }
 
-    private static boolean failOverridesValue(StringMap<String> _files) {
-        return checkErrorsValue(_files);
-    }
-
-    private static boolean checkErrorsValue(StringMap<String> _files) {
+    private static boolean invalidValue(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
         LgNames lgName_ = getLgNames();
@@ -1820,7 +1816,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertTrue( isEmptyErrors(page_));
         validateOverridingInherit(page_);
         postValidation(page_,forwards_);
-        return !isEmptyErrors(page_);
+        return isEmptyErrors(page_);
     }
 
 

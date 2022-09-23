@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.IntStruct;
 import code.util.CustList;
@@ -1426,10 +1425,10 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElTypes(files_);
-        assertTrue(isSuccessfulInitialized(cont_, "pkg.Ex"));
-        assertTrue(isSuccessfulInitialized(cont_, "pkg.ExTwo"));
-        assertTrue(isSuccessfulInitialized(cont_, "pkg.ExThree"));
-        assertTrue(isSuccessfulInitialized(cont_, "pkg.ExFour"));
+        assertFalse(stateMismatchSuccessful(cont_, "pkg.Ex"));
+        assertFalse(stateMismatchSuccessful(cont_, "pkg.ExTwo"));
+        assertFalse(stateMismatchSuccessful(cont_, "pkg.ExThree"));
+        assertFalse(stateMismatchSuccessful(cont_, "pkg.ExFour"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;

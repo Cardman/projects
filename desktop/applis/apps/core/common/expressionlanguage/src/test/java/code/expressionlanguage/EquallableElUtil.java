@@ -15,6 +15,9 @@ public abstract class EquallableElUtil {
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
+    public static void assertFalse(String _mess,boolean _value) {
+        Assert.assertFalse(_mess,_value);
+    }
     public static void assertTrue(String _mess,boolean _value) {
         Assert.assertTrue(_mess,_value);
     }

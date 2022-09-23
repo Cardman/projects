@@ -912,8 +912,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return lgName_;
     }
 
-    protected static boolean isSuccessfulInitialized(ContextEl _cont, String _s) {
-        return _cont.getLocks().getState((ExecRootBlock) _cont.getClassBody(_s)) == InitClassState.SUCCESS;
+    protected static boolean stateMismatchSuccessful(ContextEl _cont, String _s) {
+        return ProcessMethod.stateMismatch(asExecRootBlock(_cont, _s), _cont, InitClassState.SUCCESS);
     }
 
     protected static boolean isEmptyErrors(AnalyzedPageEl _cont) {
@@ -921,7 +921,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static boolean isInitialized(ContextEl _cont, String _cl) {
-        return _cont.getLocks().getState((ExecRootBlock) _cont.getClassBody(_cl)) != InitClassState.NOT_YET;
+        return ProcessMethod.stateMismatch(asExecRootBlock(_cont, _cl), _cont, InitClassState.NOT_YET);
+    }
+
+    private static ExecRootBlock asExecRootBlock(ContextEl _cont, String _cl) {
+        return (ExecRootBlock) _cont.getClassBody(_cl);
     }
 
     protected static Forwards getForwards(Options _opt, LgNames _lgName, KeyWords _kw, AnalyzedPageEl _page) {

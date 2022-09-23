@@ -22,12 +22,24 @@ public final class ProcessMethod {
     }
 
     public static void initializeClass(String _class, ExecRootBlock _rootBlock, ContextEl _cont, StackCall _stackCall) {
-        if (_cont.getLocks().getState(_rootBlock) == InitClassState.SUCCESS) {
-            return;
+        if (stateMismatch(_rootBlock, _cont, InitClassState.SUCCESS)) {
+            _cont.getLocks().initClass(_rootBlock);
+            calculate(new NotInitializedClass(new ExecFormattedRootBlock(_rootBlock, _class), _rootBlock, null), _cont, _stackCall);
         }
-        _cont.getLocks().initClass(_rootBlock);
-        calculate(new NotInitializedClass(new ExecFormattedRootBlock(_rootBlock,_class),_rootBlock,null),_cont,_stackCall);
     }
+
+    public static boolean stateMismatch(ExecRootBlock _rootBlock, ContextEl _cont, InitClassState _state) {
+        return !stateMatchOrNot(_rootBlock, _cont, _state, true);
+    }
+
+    public static boolean stateMatchOrNot(ExecRootBlock _rootBlock, ContextEl _cont, InitClassState _state, boolean _checker) {
+        return stateMatch(_rootBlock, _cont, _state) == _checker;
+    }
+
+    public static boolean stateMatch(ExecRootBlock _rootBlock, ContextEl _cont, InitClassState _state) {
+        return _cont.getLocks().getState(_rootBlock) == _state;
+    }
+
     public static void initializeClassPre(String _class, ExecRootBlock _rootBlock, ContextEl _cont, StackCall _stackCall) {
         calculate(new NotInitializedClass(new ExecFormattedRootBlock(_rootBlock,_class),_rootBlock,null),_cont,_stackCall);
     }
