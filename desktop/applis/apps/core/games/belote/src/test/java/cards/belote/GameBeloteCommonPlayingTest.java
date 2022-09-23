@@ -499,23 +499,14 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
     }
+
+
     @Test
     public void strictCouleursMaitres2Test() {
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -533,18 +524,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -566,18 +546,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(0, suits_.size());
     }
@@ -599,18 +568,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -632,18 +590,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -666,18 +613,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -699,18 +635,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(0, suits_.size());
     }
@@ -732,18 +657,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -765,18 +679,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -799,18 +702,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -832,18 +724,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(0, suits_.size());
     }
@@ -865,18 +746,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,getOrder(Suit.HEART,b_)));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -898,18 +768,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -933,18 +792,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -967,18 +815,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -1001,18 +838,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -1034,18 +860,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1069,18 +884,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1103,18 +907,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -1137,18 +930,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -1170,18 +952,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1204,18 +975,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1237,18 +997,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(0, suits_.size());
     }
@@ -1270,18 +1019,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,getOrder(Suit.HEART,b_)));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1304,18 +1042,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1338,18 +1065,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.removeCardIfPresent(CardBelote.SPADE_7);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1371,18 +1087,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1403,18 +1108,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1435,18 +1129,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1468,18 +1151,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_JACK);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1505,18 +1177,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_QUEEN);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1543,18 +1204,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_8);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1580,18 +1230,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_QUEEN);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1619,18 +1258,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_QUEEN);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
     @Test
@@ -1651,18 +1279,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_JACK);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        HandBelote rem_ = new HandBelote();
-        rem_.ajouterCartes(HandBelote.pileBase());
-        rem_.supprimerCartes(cur_);
-        rem_.supprimerCartes(p_);
-        for (int i = 1; i < 4; i++) {
-            for (Suit s: GameBeloteCommon.couleurs()) {
-                for (CardBelote c: rem_.couleur(b_,s)) {
-                    addCard(poss_,i,c);
-                }
-            }
-        }
+        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
     @Test
@@ -1796,6 +1413,22 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
     private static boolean strictMaitreAtout(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero, IdMap<Suit, CustList<HandBelote>> _suites, IdMap<Suit, HandBelote> _cartesJouees) {
         CustList<HandBelote> seqs_ = GameBeloteCommon.suite(_suites, _bid.getSuit());
         return GameBeloteCommonPlaying.strictMaitreAtout(_bid,_cartesPossibles,_numero,seqs_,_cartesJouees);
+    }
+
+    private IdMap<Suit, CustList<HandBelote>> poss(BidBeloteSuit _b, HandBelote _p, HandBelote _cur) {
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, _b);
+        HandBelote rem_ = new HandBelote();
+        rem_.ajouterCartes(HandBelote.pileBase());
+        rem_.supprimerCartes(_cur);
+        rem_.supprimerCartes(_p);
+        for (int i = 1; i < 4; i++) {
+            for (Suit s: GameBeloteCommon.couleurs()) {
+                for (CardBelote c: rem_.couleur(_b,s)) {
+                    addCard(poss_,i,c);
+                }
+            }
+        }
+        return poss_;
     }
     private static EnumList<Suit> nonTrump(BidBeloteSuit _b) {
         EnumList<Suit> couleursNonAtouts_=new EnumList<Suit>();

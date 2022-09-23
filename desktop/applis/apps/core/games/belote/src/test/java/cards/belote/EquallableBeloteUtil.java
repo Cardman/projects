@@ -8,7 +8,6 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
-import code.util.*;
 
 
 public abstract class EquallableBeloteUtil {
@@ -69,11 +68,7 @@ public abstract class EquallableBeloteUtil {
     }
     public static void assertEq(HandBelote _expected, HandBelote _result) {
         Assert.assertNotNull(_result);
-        int size_ = _expected.total();
-        Assert.assertEquals(size_, _result.total());
-        for (int i = 0; i < size_; i++) {
-            assertEq(_expected.carte(i),_result.carte(i));
-        }
+        Assert.assertEquals(_expected.getCards().getList(),_result.getCards().getList());
     }
 
     public static void assertEq(BidBeloteSuit _expected, BidBeloteSuit _result) {
@@ -102,35 +97,4 @@ public abstract class EquallableBeloteUtil {
         Assert.assertEquals(_expected,_result);
     }
 
-    public static void assertEqSet(CustList<BidBeloteSuit> _bids, CustList<BidBeloteSuit> _expected) {
-        Assert.assertTrue(EquallableBeloteUtil.equalsSet(_expected,_bids));
-    }
-
-    private static boolean equalsSet(CustList<BidBeloteSuit> _list1, CustList<BidBeloteSuit> _list2) {
-        for (BidBeloteSuit a: _list2) {
-            boolean contains_ = false;
-            for (BidBeloteSuit b: _list1) {
-                if (a.eq(b)) {
-                    contains_ = true;
-                    break;
-                }
-            }
-            if (!contains_) {
-                return false;
-            }
-        }
-        for (BidBeloteSuit a: _list1) {
-            boolean contains_ = false;
-            for (BidBeloteSuit b: _list2) {
-                if (a.eq(b)) {
-                    contains_ = true;
-                    break;
-                }
-            }
-            if (!contains_) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

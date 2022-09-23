@@ -48,16 +48,6 @@ public final class BidBeloteSuit {
         return bid.jouerDonne();
     }
 
-    public boolean eq(BidBeloteSuit _obj) {
-        if (bid != _obj.bid) {
-            return false;
-        }
-        if (suit != _obj.suit) {
-            return false;
-        }
-        return points == _obj.points;
-    }
-
     public BidBelote getBid() {
         return bid;
     }
