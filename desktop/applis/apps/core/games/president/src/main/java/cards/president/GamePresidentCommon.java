@@ -127,15 +127,21 @@ final class GamePresidentCommon {
     static HandPresidentRepartition getNotFullPlayedCardsByStrength(boolean _reversed, CustList<TrickPresident> _tricks, TrickPresident _progressingTrick, int _max) {
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(_reversed);
-        for (EntryCust<CardPresident, Byte> e:getPlayedCardsByStrength(_reversed,_tricks,_progressingTrick).entryList()) {
+        HandPresidentRepartition playedCardsByStrength_ = getPlayedCardsByStrength(_reversed, _tricks, _progressingTrick);
+        return filter(_max, playedCardsByStrength_, tree_);
+    }
+
+    static HandPresidentRepartition filter(int _max, HandPresidentRepartition _playedCardsByStrength, HandPresidentRepartition _tree) {
+        for (EntryCust<CardPresident, Byte> e: _playedCardsByStrength.entryList()) {
             Byte count_ = e.getValue();
             if (count_ == _max) {
                 continue;
             }
-            tree_.addEntry(e.getKey(), count_);
+            _tree.addEntry(e.getKey(), count_);
         }
-        return tree_;
+        return _tree;
     }
+
     static HandPresidentRepartition getPlayedCardsByStrength(boolean _reversed, CustList<TrickPresident> _tricks, TrickPresident _progressingTrick) {
         HandPresident playedCards_ = new HandPresident();
         for (TrickPresident t: _tricks) {

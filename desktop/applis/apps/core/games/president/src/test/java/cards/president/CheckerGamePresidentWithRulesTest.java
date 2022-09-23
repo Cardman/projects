@@ -5394,9 +5394,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertTrue(!g_.getError().isEmpty());
     }
     static void transientFields(GamePresident _g) {
-        for (TrickPresident t: _g.getTricks()) {
-            t.setEntameur(-1);
-        }
+        CheckerGamePresidentWithRules.cancelStarter(_g.getTricks());
         _g.getProgressingTrick().setEntameur(-1);
         _g.getPassOrFinish().clear();
         _g.getLastStatus().clear();

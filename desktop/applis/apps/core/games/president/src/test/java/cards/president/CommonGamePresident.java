@@ -17,12 +17,7 @@ public abstract class CommonGamePresident extends EquallablePresidentUtil {
         return new GamePresidentProg(_g.getProgressingTrick(),_g.getTricks(),_g.isReversed(),_g.getRules(),playable_,fullHand_);
     }
     protected static boolean checkStrength(HandPresident _h, CardPresident _pres, boolean _reversed) {
-        for (CardPresident c: _h) {
-            if (c.strength(_reversed) != _pres.strength(_reversed)) {
-                return false;
-            }
-        }
-        return true;
+        return  _h.getCardsByStrength(_pres.strength(_reversed),_reversed).total() == _h.total();
     }
     protected static GamePresident newGamePresident(RulesPresident _r,
             CustList<HandPresident> _l, CustList<TrickPresident> _trs, TrickPresident _cur, int _dealer) {

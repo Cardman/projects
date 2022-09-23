@@ -42,11 +42,7 @@ public abstract class EquallablePresidentUtil {
     }
     public static void assertEq(HandPresident _expected, HandPresident _result) {
         Assert.assertNotNull(_result);
-        int size_ = _expected.total();
-        Assert.assertEquals(size_, _result.total());
-        for (int i = 0; i < size_; i++) {
-            assertEq(_expected.carte(i),_result.carte(i));
-        }
+        Assert.assertEquals(_expected.getCards().getList(),_result.getCards().getList());
     }
 
     public static void assertEq(Playing _expected, Playing _result) {

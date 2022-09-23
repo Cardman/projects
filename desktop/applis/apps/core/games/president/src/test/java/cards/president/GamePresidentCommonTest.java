@@ -6,7 +6,6 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.util.ByteTreeMap;
 import code.util.CustList;
-import code.util.EntryCust;
 import org.junit.Test;
 
 public final class GamePresidentCommonTest extends EquallablePresidentUtil {
@@ -342,13 +341,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
-        for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
-            Byte count_ = e.getValue();
-            if (count_ == 4) {
-                continue;
-            }
-            tree_.addEntry(e.getKey(), count_);
-        }
+        GamePresidentCommon.filter(4,pl_,tree_);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
@@ -376,13 +369,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
-        for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
-            Byte count_ = e.getValue();
-            if (count_ == 4) {
-                continue;
-            }
-            tree_.addEntry(e.getKey(), count_);
-        }
+        GamePresidentCommon.filter(4,pl_,tree_);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
@@ -412,13 +399,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
-        for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
-            Byte count_ = e.getValue();
-            if (count_ == 4) {
-                continue;
-            }
-            tree_.addEntry(e.getKey(), count_);
-        }
+        GamePresidentCommon.filter(4,pl_,tree_);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
@@ -448,13 +429,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
-        for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
-            Byte count_ = e.getValue();
-            if (count_ == 4) {
-                continue;
-            }
-            tree_.addEntry(e.getKey(), count_);
-        }
+        GamePresidentCommon.filter(4,pl_,tree_);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
@@ -483,13 +458,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition pl_ = GamePresidentCommon.getPlayedCardsByStrength(false, p_);
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
-        for (EntryCust<CardPresident, Byte> e:pl_.entryList()) {
-            Byte count_ = e.getValue();
-            if (count_ == 4) {
-                continue;
-            }
-            tree_.addEntry(e.getKey(), count_);
-        }
+        GamePresidentCommon.filter(4,pl_,tree_);
         ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(!GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));

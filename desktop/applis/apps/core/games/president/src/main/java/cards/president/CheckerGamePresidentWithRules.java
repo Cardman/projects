@@ -469,4 +469,10 @@ public final class CheckerGamePresidentWithRules {
         return NumberUtil.eq(str_.getMinimum((byte) 0),
                 str_.getMaximum((byte) 0));
     }
+
+    static void cancelStarter(CustList<TrickPresident> _tricks) {
+        for (TrickPresident t: _tricks) {
+            t.setEntameur(-1);
+        }
+    }
 }
