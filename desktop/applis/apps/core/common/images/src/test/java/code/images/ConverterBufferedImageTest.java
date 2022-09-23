@@ -3,7 +3,7 @@ package code.images;
 import code.util.CustList;
 import org.junit.Test;
 
-public class ConverterBufferedImageTest extends EquallableImageUtil {
+public final class ConverterBufferedImageTest extends EquallableImageUtil {
     @Test
     public void stackImages1Test() {
         int[][] fr_ = new int[2][2];

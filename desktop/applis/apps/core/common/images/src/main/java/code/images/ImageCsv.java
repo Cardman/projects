@@ -1,20 +1,19 @@
 package code.images;
+
+import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
 
-public final class ImageOld implements Displayable {
+public final class ImageCsv {
 
-    static final char SEPARATOR_CHAR = ';';
+    public static final char SEPARATOR_CHAR = ';';
 
     private static final String RETURN_LINE2 = "\r";
 
     private static final String RETURN_LINE = "\n";
-
-//    private static final String EMPTY_STRING = "";
 
     private static final String EMPTY_IMAGE = "0";
 
@@ -22,15 +21,13 @@ public final class ImageOld implements Displayable {
 
     private int width;
 
-    private Ints pixels;
+    private final Ints pixels;
 
-    private ImageOld() {
+    private ImageCsv() {
         pixels = new Ints();
     }
-    public ImageOld(String _contentFile) {
+    public ImageCsv(String _contentFile) {
         pixels = new Ints();
-//        String string_ = _contentFile.replace(RETURN_LINE, EMPTY_STRING);
-//        string_ = string_.replace(RETURN_LINE2, EMPTY_STRING);
         String string_ = StringUtil.removeStrings(_contentFile, RETURN_LINE, RETURN_LINE2);
         StringList lines_ = StringUtil.splitChars(string_, SEPARATOR_CHAR);
         width = NumberUtil.parseInt(lines_.first());
@@ -51,90 +48,59 @@ public final class ImageOld implements Displayable {
     }
 
     public static boolean isValidNotEmpty(String _img, int _sideLength) {
-        if (StringUtil.quickEq(_img,EMPTY_IMAGE)) {
-            return false;
-        }
-        if (_img.isEmpty()) {
-            return false;
-        }
-        if (_img.startsWith(StringUtil.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
-            return false;
-        }
-        int nb_ = 0;
-        for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!isNumber(s)) {
-                return false;
-            }
-            nb_++;
-        }
-        if (_img.charAt(0) == MINUS) {
-            return false;
-        }
-        nb_--;
-        if (!_img.startsWith(StringUtil.concat(String.valueOf(_sideLength), String.valueOf(SEPARATOR_CHAR)))) {
-            return false;
-        }
-        return nb_ == _sideLength * _sideLength;
+        return isValidNotEmpty(_img,_sideLength,_sideLength);
     }
 
     public static boolean isValidNotEmptyLower(String _img, int _sideLength) {
-        if (StringUtil.quickEq(_img,EMPTY_IMAGE)) {
+        int readWidth_ = widthImg(_img);
+        if (readWidth_ <= 0) {
             return false;
         }
-        if (_img.isEmpty()) {
+        StringList nbs_ = StringUtil.splitChars(_img, SEPARATOR_CHAR);
+        if (koNumbers(nbs_)) {
             return false;
         }
-        if (_img.startsWith(StringUtil.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
+        int nb_ = nbs_.size()-1;
+        if (nb_ % readWidth_ != 0) {
             return false;
         }
-        int nb_ = 0;
-        int w_ = -1;
-        for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!isNumber(s)) {
-                return false;
-            }
-            int int_ = NumberUtil.parseInt(s);
-            nb_++;
-            if (w_ < 0) {
-                w_ = int_;
-            }
-        }
-        if (_img.charAt(0) == MINUS) {
-            return false;
-        }
-        nb_--;
-        if (nb_ % w_ != 0) {
-            return false;
-        }
-        int h_ = nb_ / w_;
-        return h_ <= _sideLength && w_ <= _sideLength;
+        int h_ = nb_ / readWidth_;
+        return h_ <= _sideLength && readWidth_ <= _sideLength;
     }
 
     public static boolean isValidNotEmpty(String _img, int _width, int _height) {
-        if (StringUtil.quickEq(_img,EMPTY_IMAGE)) {
+        if (widthImg(_img) != _width) {
             return false;
         }
-        if (_img.isEmpty()) {
+        StringList nbs_ = StringUtil.splitChars(_img, SEPARATOR_CHAR);
+        if (koNumbers(nbs_)) {
             return false;
         }
-        if (_img.startsWith(StringUtil.concat(EMPTY_IMAGE,String.valueOf(SEPARATOR_CHAR)))) {
-            return false;
-        }
-        int nb_ = 0;
-        for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!isNumber(s)) {
-                return false;
+        int nb_ = nbs_.size()-1;
+        return nb_ == _width * _height;
+    }
+    private static boolean koNumbers(CustList<String> _nbs) {
+        int nb_ = _nbs.size();
+        for (int i = 0; i < nb_; i++) {
+            if (!isNumber(_nbs.get(i))) {
+                return true;
             }
-            nb_++;
+        }
+        return false;
+    }
+    private static int widthImg(String _img) {
+        int index_ = _img.indexOf(SEPARATOR_CHAR);
+        if (index_ < 0) {
+            return -3;
         }
         if (_img.charAt(0) == MINUS) {
-            return false;
+            return -1;
         }
-        nb_--;
-        if (!_img.startsWith(StringUtil.concat(String.valueOf(_width),String.valueOf(SEPARATOR_CHAR)))) {
-            return false;
+        String width_ = _img.substring(0, index_);
+        if (!isNumber(width_)) {
+            return -2;
         }
-        return nb_ == _width * _height;
+        return NumberUtil.parseInt(width_);
     }
 
     public static IntPoint getDimensions(String _img, int _sideLength) {
@@ -147,29 +113,11 @@ public final class ImageOld implements Displayable {
     }
 
     public static String clip(String _image,int _x,int _y,int _w,int _h) {
-        StringList list_ = StringUtil.splitChars(_image, SEPARATOR_CHAR);
-        int nb_ = list_.size() - 1;
-        int width_ = NumberUtil.parseInt(list_.first());
-        int heigth_ = nb_ / width_;
-        int xp_ = Math.min(_x+_w,width_);
-        int yp_ = Math.min(_y+_h,heigth_);
-        int rw_ = xp_ - _x;
-        int rh_ = yp_ - _y;
-        StringBuilder return_ = new StringBuilder(String.valueOf(rw_));
-        int maxYCoords_ = _y+rh_;
-        int maxXCoords_ = _x+rw_;
-        for (int j=_y;j<maxYCoords_;j++) {
-            for (int i=_x;i<maxXCoords_;i++) {
-                int index_ = i + width_ * j + 1;
-                return_.append(SEPARATOR_CHAR);
-                return_.append(list_.get(index_));
-            }
-        }
-        return return_.toString();
+        return new ImageCsv(_image).clip(_x, _y, _w, _h).display();
     }
-    public ImageOld clip(int _x, int _y, int _w, int _h) {
+    public ImageCsv clip(int _x, int _y, int _w, int _h) {
         if (pixels.isEmpty()) {
-            return new ImageOld(EMPTY_IMAGE);
+            return new ImageCsv(EMPTY_IMAGE);
         }
         int x_ = Math.abs(_x);
         int y_ = Math.abs(_y);
@@ -178,9 +126,9 @@ public final class ImageOld implements Displayable {
         int rw_ = xp_ - x_;
         int rh_ = yp_ - y_;
         if (rw_ <= 0 || rh_ <= 0) {
-            return new ImageOld(EMPTY_IMAGE);
+            return new ImageCsv(EMPTY_IMAGE);
         }
-        ImageOld return_ = new ImageOld();
+        ImageCsv return_ = new ImageCsv();
         return_.width = rw_;
         int maxYCoords_ = y_+rh_;
         int maxXCoords_ = x_+rw_;
@@ -190,6 +138,23 @@ public final class ImageOld implements Displayable {
             }
         }
         return return_;
+    }
+    public static String toBaseSixtyFour(String _string) {
+        return BaseSixtyFourUtil.getStringByImage(getImageByString(_string));
+    }
+
+    public static int[][] getImageByString(String _string) {
+        ImageCsv i_ = new ImageCsv(_string);
+        Ints pixels_ = i_.getPixels();
+        int width_ = i_.getWidth();
+        int height_ = i_.getHeight();
+        int[][] img_ = new int[height_][width_];
+        for (int i = 0; i < height_; i++) {
+            for (int j = 0; j < width_; j++) {
+                img_[i][j] = pixels_.get(j + width_ * i);
+            }
+        }
+        return img_;
     }
     public int getPixel(int _x, int _y) {
         int index_ = _x + width * _y;
@@ -235,9 +200,9 @@ public final class ImageOld implements Displayable {
     static boolean isDigit(char _ch) {
         return _ch >= '0' && _ch <= '9';
     }
-    @Override
+
     public String display() {
-        StringBuilder return_ = new StringBuilder(String.valueOf(width));
+        StringBuilder return_ = new StringBuilder(Integer.toString(width));
         for (int i: pixels) {
             return_.append(SEPARATOR_CHAR);
             return_.append(i);

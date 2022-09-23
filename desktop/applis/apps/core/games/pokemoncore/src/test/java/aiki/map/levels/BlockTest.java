@@ -1,7 +1,7 @@
 package aiki.map.levels;
 
 import aiki.db.EquallablePkUtil;
-import aiki.game.fight.Image;
+import code.images.ImageCsv;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -9,7 +9,6 @@ import org.junit.Test;
 import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.util.Point;
-import code.util.*;
 import code.util.StringList;
 
 
@@ -85,7 +84,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing3Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(Image.SEPARATOR_CHAR), StringUtil.join(getPixels(), Image.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
@@ -94,7 +93,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing4Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(Image.SEPARATOR_CHAR), StringUtil.join(getPixels(), Image.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
     }
@@ -103,7 +102,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing5Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(Image.SEPARATOR_CHAR), StringUtil.join(getPixels(), Image.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
         Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
@@ -114,7 +113,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing6Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(Image.SEPARATOR_CHAR), StringUtil.join(getPixels(), Image.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
         Block blockTwo_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
@@ -125,7 +124,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing7Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(Image.SEPARATOR_CHAR), StringUtil.join(getPixels(), Image.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
         Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
@@ -136,7 +135,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing8Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile2.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(Image.SEPARATOR_CHAR), StringUtil.join(getPixels(), Image.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
@@ -145,21 +144,11 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing9Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(Image.SEPARATOR_CHAR), StringUtil.join(getPixels(), Image.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(3);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
     private static int[][] getImageByString(String _string) {
-        Image i_ = new Image(_string);
-        Ints pixels_ = i_.getPixels();
-        int width_ = i_.getWidth();
-        int height_ = i_.getHeight();
-        int[][] img_ = new int[height_][width_];
-        for (int i = 0; i < height_; i++) {
-            for (int j = 0; j < width_; j++) {
-                img_[i][j] = pixels_.get(j + width_ * i);
-            }
-        }
-        return img_;
+        return ImageCsv.getImageByString(_string);
     }
 }

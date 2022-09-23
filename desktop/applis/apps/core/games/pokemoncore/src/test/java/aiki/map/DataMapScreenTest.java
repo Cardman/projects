@@ -1,15 +1,14 @@
 package aiki.map;
 
 import aiki.db.EquallablePkUtil;
-import aiki.game.fight.Image;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.*;
+import code.images.ImageCsv;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
 import aiki.db.DataBase;
-import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.enums.Direction;
 import aiki.map.levels.Block;
@@ -20,7 +19,6 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
 import aiki.map.places.Place;
 import aiki.map.places.Road;
-import aiki.map.util.PlaceInterConnect;
 import aiki.map.util.ScreenCoords;
 import code.util.*;
 
@@ -483,17 +481,17 @@ public class DataMapScreenTest extends EquallablePkUtil {
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
         data_.getImages().putAllMap(images_);
         data_.setMap(dataMap_);
         data_.setupPseudoImages();
@@ -568,17 +566,17 @@ public class DataMapScreenTest extends EquallablePkUtil {
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -646,17 +644,17 @@ public class DataMapScreenTest extends EquallablePkUtil {
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -718,17 +716,17 @@ public class DataMapScreenTest extends EquallablePkUtil {
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -777,16 +775,6 @@ public class DataMapScreenTest extends EquallablePkUtil {
     }
 
     private static int[][] getImageByString(String _string) {
-        Image i_ = new Image(_string);
-        Ints pixels_ = i_.getPixels();
-        int width_ = i_.getWidth();
-        int height_ = i_.getHeight();
-        int[][] img_ = new int[height_][width_];
-        for (int i = 0; i < height_; i++) {
-            for (int j = 0; j < width_; j++) {
-                img_[i][j] = pixels_.get(j + width_ * i);
-            }
-        }
-        return img_;
+        return ImageCsv.getImageByString(_string);
     }
 }

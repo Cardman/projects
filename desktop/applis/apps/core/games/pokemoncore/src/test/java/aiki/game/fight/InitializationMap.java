@@ -50,6 +50,7 @@ import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.TileMiniMap;
 import aiki.util.*;
+import code.images.ImageCsv;
 import code.util.CustList;
 import code.util.*;
 
@@ -1687,16 +1688,6 @@ final class InitializationMap {
     }
 
     private static int[][] getImageByString(String _string) {
-        Image i_ = new Image(_string);
-        Ints pixels_ = i_.getPixels();
-        int width_ = i_.getWidth();
-        int height_ = i_.getHeight();
-        int[][] img_ = new int[height_][width_];
-        for (int i = 0; i < height_; i++) {
-            for (int j = 0; j < width_; j++) {
-                img_[i][j] = pixels_.get(j + width_ * i);
-            }
-        }
-        return img_;
+        return ImageCsv.getImageByString(_string);
     }
 }
