@@ -1,26 +1,18 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
-import aiki.db.ImageHeroKey;
-import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.NameLevel;
-import aiki.fight.util.TypesDuo;
-import aiki.game.player.enums.Sex;
 import aiki.map.Condition;
 import aiki.map.DataMap;
-import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
 import aiki.map.characters.Ally;
-import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DealerItem;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
-import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.characters.TempTrainer;
-import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.enums.GeranceType;
@@ -28,19 +20,14 @@ import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.Block;
-import aiki.map.levels.Level;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelIndoorGym;
 import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelWithWildPokemon;
-import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.City;
-import aiki.map.places.InitializedPlace;
 import aiki.map.places.League;
-import aiki.map.places.Place;
 import aiki.map.places.Road;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.PokemonTeam;
@@ -49,6 +36,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.TileMiniMap;
+import aiki.tsts.TstsPk;
 import aiki.util.*;
 import code.images.ImageCsv;
 import code.util.CustList;
@@ -355,6 +343,7 @@ final class InitializationMap {
         City city_ = (City) map_.getPlace((short) 1);
         Gym gym_;
         gym_ = new Gym();
+        gym_.setImageFileName(LINK);
         gym_.setLevel(new LevelIndoorGym());
         gym_.setExitCity(newPoint(4,8));
         gym_.getLevel().setBlocks(new PointsBlock());
@@ -364,6 +353,7 @@ final class InitializationMap {
         city_.getBuildings().addEntry(newPoint(5, 1), gym_);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
+        pkCenter_.setImageFileName(LINK);
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new PointsBlock());
@@ -410,16 +400,19 @@ final class InitializationMap {
         seller_.setItems(new StringList(POKE_BALL,HYPER_BALL,PT_DE_MIRE, PIERRE_EAU,ROCHE_ROYALE,PIERRE_LUNE,PIERRE_SOLEIL,PIERRE_GLACE));
         seller_.setTm(Shorts.newList());
         seller_.setSell(SellType.ITEM);
+        seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
         seller_.setTm(Shorts.newList((short)2));
         seller_.setSell(SellType.TM);
+        seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 5), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
         seller_.setTm(Shorts.newList());
         seller_.setSell(SellType.MOVE);
+        seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 6), seller_);
     }
 
@@ -568,6 +561,7 @@ final class InitializationMap {
         PokemonCenter pkCenter_;
         city_ = (City) map_.getPlace((short) 3);
         gym_ = new Gym();
+        gym_.setImageFileName(LINK);
         gym_.setLevel(new LevelIndoorGym());
         gym_.setExitCity(newPoint(4,8));
         gym_.getLevel().setBlocks(new PointsBlock());
@@ -576,6 +570,7 @@ final class InitializationMap {
         city_.setBuildings(new PointsBuilding());
         city_.getBuildings().addEntry(newPoint(4, 1), gym_);
         pkCenter_ = new PokemonCenter();
+        pkCenter_.setImageFileName(LINK);
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new PointsBlock());
@@ -922,10 +917,12 @@ final class InitializationMap {
 
     static void initLeague(DataBase _data) {
         DataMap map_ = _data.getMap();
-        map_.addLeague(FILE, newCoords(4, 0, 5, 4));
+        map_.addLeague(LINK, newCoords(4, 0, 5, 4));
         League league_ =(League) map_.getPlace((short) 6);
+        league_.getRooms().last().setFileName(LINK);
         league_.setName(LIGUE);
         map_.addLevelLeague((short) 6);
+        league_.getRooms().last().setFileName(LINK);
     }
 
     static void initBlockLeague(DataBase _data) {
@@ -1010,6 +1007,7 @@ final class InitializationMap {
         City city_ = (City) map_.getPlace((short) 7);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
+        pkCenter_.setImageFileName(LINK);
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new PointsBlock());
@@ -1051,6 +1049,7 @@ final class InitializationMap {
         City city_ = (City) map_.getPlace((short) 8);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
+        pkCenter_.setImageFileName(LINK);
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new PointsBlock());
@@ -1120,13 +1119,13 @@ final class InitializationMap {
         map_.join((short)2,(short) 3, newPoint(0,0), newPoint(0,5), Direction.UP);
         map_.join((short)4,(short) 2, newPoint(0,0), newPoint(0,5), Direction.UP);
         // right of cave
-        InitializationDataBase.joinCavePlace(map_, newCoords(5, 0, 7, 2), newCoords(4, 0, 0, 2), FILE, FILE);
-        InitializationDataBase.joinLevelCave(map_, (short) 5, newLevelPoint(0,7,5), newLevelPoint(1,7,5), FILE, FILE);
-        InitializationDataBase.joinLevelCave(map_, (short) 5, newLevelPoint(0,2,3), newLevelPoint(1,2,3), FILE, FILE);
+        DataMap.joinCavePlace(map_, newCoords(5, 0, 7, 2), newCoords(4, 0, 0, 2), LINK, LINK);
+        DataMap.joinLevelCave(map_, (short) 5, newLevelPoint(0,7,5), newLevelPoint(1,7,5), LINK, LINK);
+        DataMap.joinLevelCave(map_, (short) 5, newLevelPoint(0,2,3), newLevelPoint(1,2,3), LINK, LINK);
 
 //        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(7, 0, 2, 0), "file", "file");
 //        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(7, 0, 2, 0), "file", "file");
-        InitializationDataBase.joinCavePlace(map_, newCoords(5, 1, 4, 0), newCoords(8, 0, 0, 0), FILE, FILE);
+        DataMap.joinCavePlace(map_, newCoords(5, 1, 4, 0), newCoords(8, 0, 0, 0), LINK, LINK);
 //        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         map_.join((short)7,(short) 4, newPoint(0,0), newPoint(0,5), Direction.UP);
         //map_.join(_pl1, _pl2, _p1, _p2, _dir1);
@@ -1144,179 +1143,36 @@ final class InitializationMap {
 
     static void initImages(DataBase _data) {
         DataMap map_ = _data.getMap();
-        for (Place p: map_.getPlaces()) {
-            if (p instanceof City) {
-                for (Building b: ((City)p).getBuildings().values()) {
-                    for (Block c: b.getLevel().getBlocks().values()) {
-                        c.setTileFileName(BUILDING);
-                    }
-                }
-            }
-            for (Level l: p.getLevelsMap().values()) {
-                for (Block b: l.getBlocks().values()) {
-                    if (b.getType() == EnvironmentType.ROAD) {
-                        //grey
-                        b.setTileFileName(ROAD);
-                    } else if (b.getType() == EnvironmentType.WATER) {
-                        //blue
-                        b.setTileFileName(WATER);
-                    } else if (b.getType() == EnvironmentType.ROCK) {
-                        //brown
-                        b.setTileFileName(ROCK);
-                    } else if (b.getType() == EnvironmentType.DESERT) {
-                        //yellow
-                        b.setTileFileName(DESERT);
-                    } else if (b.getType() == EnvironmentType.BUILDING) {
-                        //orange
-                        b.setTileFileName(BUILDING);
-                    } else if (b.getType() == EnvironmentType.NOTHING) {
-                        //black
-                        b.setTileFileName(NOTHING);
-                    } else {
-                        //green
-                        b.setTileFileName(DEFAULT);
-                        break;
-                    }
-                }
-            }
-        }
-        for (Place p: map_.getPlaces()) {
-            for (Level l: p.getLevelsMap().values()) {
-                if (l instanceof LevelWithWildPokemon) {
-                    for (CharacterInRoadCave c: ((LevelWithWildPokemon)l).getCharacters().values()) {
-                        if (c instanceof Trainer) {
-                            ((Trainer)c).setImageMiniFileName(TRAINER);
-                            ((Trainer)c).setImageMaxiFileName(TRAINER);
-                        } else if (c instanceof Person) {
-                            ((Person)c).setImageMiniFileName(PERSON);
-                        }
-                    }
-                    for (DualFight d: ((LevelWithWildPokemon)l).getDualFights().values()) {
-                        d.getFoeTrainer().setImageMiniFileName(TRAINER_ONE);
-                        d.getFoeTrainer().setImageMaxiFileName(TRAINER_ONE);
-                        d.getFoeTrainer().setImageMiniSecondTrainerFileName(TRAINER_TWO);
-                    }
-                }
-                if (l instanceof LevelLeague) {
-                    ((LevelLeague)l).getTrainer().setImageMiniFileName(TRAINER);
-                    ((LevelLeague)l).getTrainer().setImageMaxiFileName(TRAINER);
-                    ((LevelLeague)l).setFileName(LINK);
-                }
-                if (l instanceof LevelCave) {
-                    for (Link m: ((LevelCave)l).getLinksOtherLevels().values()) {
-                        m.setFileName(LINK);
-                    }
-                }
-            }
-            if (p instanceof League) {
-                ((League)p).setFileName(LINK);
-            }
-            if (p instanceof City) {
-                for (Building b: ((City)p).getBuildings().values()) {
-                    b.setImageFileName(LINK);
-                    if (b.getLevel() instanceof LevelIndoorGym) {
-                        for (GymTrainer g: ((LevelIndoorGym)b.getLevel()).getGymTrainers().values()) {
-                            g.setImageMiniFileName(TRAINER);
-                            g.setImageMaxiFileName(TRAINER);
-                        }
-                        ((LevelIndoorGym)b.getLevel()).getGymLeader().setImageMiniFileName(TRAINER);
-                        ((LevelIndoorGym)b.getLevel()).getGymLeader().setImageMaxiFileName(TRAINER);
-                    }
-                    if (b.getLevel() instanceof LevelIndoorPokemonCenter) {
-                        for (Person g: ((LevelIndoorPokemonCenter)b.getLevel()).getGerants().values()) {
-                            g.setImageMiniFileName(GERANT);
-                        }
-                    }
-                }
-            }
-            if (p instanceof Cave) {
-                for (Link l: ((Cave)p).getLinksWithOtherPlaces().values()) {
-                    l.setFileName(LINK);
-                }
-            }
-            if (p instanceof InitializedPlace) {
-                for (Link l: ((InitializedPlace)p).getLinksWithCaves().values()) {
-                    l.setFileName(LINK);
-                }
-            }
-        }
-        for (String p: _data.getPokedex().getKeys()) {
-            _data.getMaxiPkBack().addEntry(p, getImageByString("2;-13;-15;-15;-15"));
-            _data.getMaxiPkFront().addEntry(p, getImageByString("2;-14;-15;-15;-15"));
-            _data.getMiniPk().addEntry(p, getImageByString("2;-15;-15;-15;-15"));
-        }
-        for (String p: _data.getItems().getKeys()) {
-            _data.getMiniItems().addEntry(p, getImageByString("2;-16;-16;-16;-16"));
-        }
-        for (String p: _data.getStatus().getKeys()) {
-            _data.getAnimStatus().addEntry(p, getImageByString("2;-17;-16;-16;-16"));
-        }
-        for (Statistic p: Statistic.getStatisticsWithBoost()) {
-            _data.getAnimStatis().addEntry(p.name(), getImageByString("2;-18;-16;-16;-16"));
-        }
-        StringList moveTypes_ = new StringList();
-        for (TypesDuo t : _data.getTableTypes().getKeys()) {
-
-            moveTypes_.add(t.getDamageType());
-        }
-        moveTypes_.removeDuplicates();
-        StringList pkTypes_ = new StringList();
-        for (TypesDuo t : _data.getTableTypes().getKeys()) {
-
-            pkTypes_.add(t.getPokemonType());
-        }
-        pkTypes_.removeDuplicates();
-        int p_ = 1;
-        for (String p: moveTypes_) {
-            String str_ = Long.toString(p_);
-            _data.getTypesColors().addEntry(p, StringUtil.concat(str_,DataBase.SEPARATOR_RGB, str_,DataBase.SEPARATOR_RGB, str_));
-            _data.getTypesImages().addEntry(p, getImageByString(StringUtil.concat("2",DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_)));
-            p_++;
-        }
-        StringList building_ = new StringList("18");
-        for (int i = 0; i < 324; i++) {
-            building_.add("-32985");
-        }
+        CustList<String> pkKeys_ = _data.getPokedex().getKeys();
+        TstsPk.commonImage(pkKeys_,"2;-13;-15;-15;-15",_data.getMaxiPkBack());
+        TstsPk.commonImage(pkKeys_,"2;-14;-15;-15;-15",_data.getMaxiPkFront());
+        TstsPk.commonImage(pkKeys_,"2;-15;-15;-15;-15",_data.getMiniPk());
+//        for (String p: pkKeys_) {
+//            _data.getMaxiPkBack().addEntry(p, getImageByString("2;-13;-15;-15;-15"));
+//            _data.getMaxiPkFront().addEntry(p, getImageByString("2;-14;-15;-15;-15"));
+//            _data.getMiniPk().addEntry(p, getImageByString("2;-15;-15;-15;-15"));
+//        }
+        TstsPk.commonImage(_data.getItems().getKeys(), "2;-16;-16;-16;-16", _data.getMiniItems());
+        TstsPk.commonImage(_data.getStatus().getKeys(), "2;-17;-16;-16;-16", _data.getAnimStatus());
+        TstsPk.commonImage(DataBase.statisNames(), "2;-18;-16;-16;-16", _data.getAnimStatis());
+        TstsPk.typesColorsInit(_data);
+        StringList building_ = TstsPk.csvImg("18", 324, "-32985");
         _data.addImage(BUILDING, getImageByString(StringUtil.join(building_, ";")));
-        StringList default_ = new StringList("4");
-        for (int i = 0; i < 16; i++) {
-            default_.add("-1");
-        }
+        StringList default_ = TstsPk.csvImg("4", 16, "-1");
         _data.addImage(DAFAULT, getImageByString(StringUtil.join(default_, ";")));
-        StringList desert_ = new StringList("4");
-        for (int i = 0; i < 16; i++) {
-            desert_.add("-3584");
-        }
+        StringList desert_ = TstsPk.csvImg("4", 16, "-3584");
         _data.addImage(DESERT, getImageByString(StringUtil.join(desert_, ";")));
-        StringList grass_ = new StringList("4");
-        for (int i = 0; i < 16; i++) {
-            grass_.add("-14503604");
-        }
+        StringList grass_ = TstsPk.csvImg("4", 16, "-14503604");
         _data.addImage(GRASS, getImageByString(StringUtil.join(grass_, ";")));
-        StringList nothing_ = new StringList("4");
-        for (int i = 0; i < 16; i++) {
-            nothing_.add("-16777216");
-        }
+        StringList nothing_ = TstsPk.csvImg("4", 16, "-16777216");
         _data.addImage(NOTHING, getImageByString(StringUtil.join(nothing_, ";")));
-        StringList road_ = new StringList("4");
-        for (int i = 0; i < 16; i++) {
-            road_.add("-7369361");
-        }
+        StringList road_ = TstsPk.csvImg("4", 16, "-7369361");
         _data.addImage(ROAD, getImageByString(StringUtil.join(road_, ";")));
-        StringList rock_ = new StringList("4");
-        for (int i = 0; i < 16; i++) {
-            rock_.add("-4621737");
-        }
+        StringList rock_ = TstsPk.csvImg("4", 16, "-4621737");
         _data.addImage(ROCK, getImageByString(StringUtil.join(rock_, ";")));
-        StringList snow_ = new StringList("4");
-        for (int i = 0; i < 16; i++) {
-            snow_.add("-1");
-        }
+        StringList snow_ = TstsPk.csvImg("4", 16, "-1");
         _data.addImage(SNOW, getImageByString(StringUtil.join(snow_, ";")));
-        StringList water_ = new StringList("4");
-        for (int i = 0; i < 16; i++) {
-            water_.add("-16776961");
-        }
+        StringList water_ = TstsPk.csvImg("4", 16, "-16776961");
         _data.addImage(WATER, getImageByString(StringUtil.join(water_, ";")));
 //        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer", "2;-18000;-18000;-18000;-18000");
 //        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"person", "2;-1800;-1800;-1800;-1800");
@@ -1338,40 +1194,7 @@ final class InitializationMap {
         _data.addTrainerImage(ALLY, getImageByString("2;-19508;-19508;-19508;-19508"));
         //end insertion
 
-        StringList herosBottom_ = new StringList("-2","-2");
-        int iHeros_ = 0;
-        int iHerosBis_ = 0;
-        for (EnvironmentType e: EnvironmentType.values()) {
-            if (e == EnvironmentType.ROCK) {
-                continue;
-            }
-            for (Direction d: Direction.values()) {
-                for (Sex s: Sex.values()) {
-                    ImageHeroKey key_;
-                    key_ = new ImageHeroKey(e, d, s);
-                    StringList herosTop_ = new StringList("2");
-                    for (int i = 0; i < 2; i++) {
-                        herosTop_.add(Long.toString(iHeros_));
-                    }
-                    herosTop_.addAllElts(herosBottom_);
-                    _data.getOverWorldHeros().addEntry(key_, getImageByString(StringUtil.join(herosTop_, ";")));
-                    iHeros_++;
-                }
-            }
-            for (Sex s: Sex.values()) {
-                ImageHeroKey key_;
-                key_ = new ImageHeroKey(e, s);
-                StringList herosTop_ = new StringList("2");
-                for (int i = 0; i < 2; i++) {
-                    herosTop_.add(Long.toString(iHerosBis_));
-                    iHerosBis_++;
-                }
-                herosTop_.addAllElts(herosBottom_);
-                _data.getBackHeros().addEntry(key_, getImageByString(StringUtil.join(herosTop_, ";")));
-                _data.getFrontHeros().addEntry(key_, getImageByString(StringUtil.join(herosTop_, ";")));
-                iHerosBis_++;
-            }
-        }
+        TstsPk.heroInit(_data);
         _data.addLink(LINK, getImageByString("2;-255;-255;-255;-255"));
         _data.setImageTmHm(getImageByString("2;-800;-800;-800;-800"));
         _data.setAnimAbsorb(getImageByString("2;-700;-800;-800;-800"));
@@ -1444,8 +1267,8 @@ final class InitializationMap {
         gymLeader_.setMultiplicityFight(_mult);
         gymLeader_.setName(NULL_REF);
         gymLeader_.setTm((short) 2);
-        gymLeader_.setImageMaxiFileName(NULL_REF);
-        gymLeader_.setImageMiniFileName(NULL_REF);
+        gymLeader_.setImageMiniFileName(TRAINER);
+        gymLeader_.setImageMaxiFileName(TRAINER);
         return gymLeader_;
     }
 
@@ -1454,8 +1277,8 @@ final class InitializationMap {
         gymTrainer_.setTeam(_team);
         gymTrainer_.setReward(_reward);
         gymTrainer_.setMultiplicityFight(_mult);
-        gymTrainer_.setImageMaxiFileName(NULL_REF);
-        gymTrainer_.setImageMiniFileName(NULL_REF);
+        gymTrainer_.setImageMiniFileName(TRAINER);
+        gymTrainer_.setImageMaxiFileName(TRAINER);
         return gymTrainer_;
     }
 
@@ -1464,8 +1287,8 @@ final class InitializationMap {
         trainerLeague_.setTeam(_team);
         trainerLeague_.setReward(_reward);
         trainerLeague_.setMultiplicityFight(_mult);
-        trainerLeague_.setImageMaxiFileName(NULL_REF);
-        trainerLeague_.setImageMiniFileName(NULL_REF);
+        trainerLeague_.setImageMiniFileName(TRAINER);
+        trainerLeague_.setImageMaxiFileName(TRAINER);
         trainerLeague_.setName(NULL_REF);
         return trainerLeague_;
     }
@@ -1477,9 +1300,9 @@ final class InitializationMap {
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(_team);
         trainer_.setReward(_reward);
-        trainer_.setImageMaxiFileName(NULL_REF);
-        trainer_.setImageMiniFileName(NULL_REF);
-        trainer_.setImageMiniSecondTrainerFileName(NULL_REF);
+        trainer_.setImageMaxiFileName(TRAINER_ONE);
+        trainer_.setImageMiniFileName(TRAINER_ONE);
+        trainer_.setImageMiniSecondTrainerFileName(TRAINER_TWO);
         dual_.setAlly(ally_);
         dual_.setFoeTrainer(trainer_);
         dual_.setNames(new StringList());
@@ -1498,14 +1321,15 @@ final class InitializationMap {
         TrainerMultiFights trainer_ = new TrainerMultiFights();
         trainer_.setTeamsRewards(_teams);
         trainer_.setMultiplicityFight((byte) _mult);
-        trainer_.setImageMaxiFileName(NULL_REF);
-        trainer_.setImageMiniFileName(NULL_REF);
+        trainer_.setImageMiniFileName(TRAINER);
+        trainer_.setImageMaxiFileName(TRAINER);
         return trainer_;
     }
 
     private static GerantPokemon newGerantPokemon(GeranceType _gerance) {
         GerantPokemon gerant_ = new GerantPokemon();
         gerant_.setGerance(_gerance);
+        gerant_.setImageMiniFileName(GERANT);
         return gerant_;
     }
 
@@ -1513,6 +1337,7 @@ final class InitializationMap {
         DealerItem dealer_ = new DealerItem();
         dealer_.setItems(new StringList(_obj));
         dealer_.setTechnicalMoves(_tm);
+        dealer_.setImageMiniFileName(PERSON);
         return dealer_;
     }
 
@@ -1528,6 +1353,8 @@ final class InitializationMap {
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
         block_.setType(EnvironmentType.ROAD);
+        //grey
+        block_.setTileFileName(ROAD);
         return block_;
     }
     private static Block newWaterBlock(int _h, int _w, int _index) {
@@ -1537,20 +1364,24 @@ final class InitializationMap {
     }
 
     private static Block newWaterBlock(int _h, int _w) {
+        //blue
         Block block_;
         block_ = new Block();
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
         block_.setType(EnvironmentType.WATER);
+        block_.setTileFileName(WATER);
         return block_;
     }
 
     private static Block newRockBlock(int _h, int _w) {
+        //brown
         Block block_;
         block_ = new Block();
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
         block_.setType(EnvironmentType.ROCK);
+        block_.setTileFileName(ROCK);
         return block_;
     }
 
@@ -1561,29 +1392,35 @@ final class InitializationMap {
     }
 
     private static Block newDesertBlock(int _h, int _w) {
+        //yellow
         Block block_;
         block_ = new Block();
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
         block_.setType(EnvironmentType.DESERT);
+        block_.setTileFileName(DESERT);
         return block_;
     }
 
     private static Block newBuildingBlock(int _h, int _w) {
+        //orange
         Block block_;
         block_ = new Block();
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
         block_.setType(EnvironmentType.BUILDING);
+        block_.setTileFileName(BUILDING);
         return block_;
     }
 
     private static Block newBlock(int _h, int _w) {
+        //black
         Block block_;
         block_ = new Block();
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
         block_.setType(EnvironmentType.NOTHING);
+        block_.setTileFileName(NOTHING);
         return block_;
     }
 

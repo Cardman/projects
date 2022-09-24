@@ -17,6 +17,7 @@ import aiki.map.places.League;
 import aiki.map.places.Place;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
+import aiki.util.PlaceLevelsCustListGenderName;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.TreeMap;
@@ -29,7 +30,7 @@ public class SolutionBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         if (solution == null) {
             solution = data_.getMap().getSolution();
         }
@@ -47,28 +48,7 @@ public class SolutionBean extends CommonBean {
 //                });
             TreeMap<PlaceLevel,CustList<WildPokemonDto>> treeMap_ = new TreeMap<PlaceLevel,CustList<WildPokemonDto>>(new ComparatorPlaceLevel());
             for (PlaceLevel key_: step_.getCaughtPokemonPlaceLevel().getKeys()) {
-                CustList<WildPokemonDto> pokemon_ = new CustList<WildPokemonDto>();
-                CustList<GenderName> g_ = new CustList<GenderName>();
-                for (GenderName pk_: step_.getCaughtPokemonPlaceLevel().getVal(key_)) {
-                    boolean cont_ = false;
-                    for (GenderName s: g_) {
-                        if (!StringUtil.quickEq(s.getName(),pk_.getName())) {
-                            continue;
-                        }
-                        if (s.getGender() != pk_.getGender()) {
-                            continue;
-                        }
-                        cont_ = true;
-                    }
-                    if (cont_) {
-                        continue;
-                    }
-                    g_.add(pk_);
-                    String name_ = data_.getTranslatedPokemon().getVal(getLanguage()).getVal(pk_.getName());
-                    String image_ = BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
-                    String gender_ = data_.getTranslatedGenders().getVal(getLanguage()).getVal(pk_.getGender());
-                    pokemon_.add(new WildPokemonDto(image_, name_, gender_));
-                }
+                CustList<WildPokemonDto> pokemon_ = dto(data_, step_, key_);
                 pokemon_.sortElts(new ComparatorWildPokemonDto());
                 treeMap_.put(key_, pokemon_);
             }
@@ -95,6 +75,36 @@ public class SolutionBean extends CommonBean {
             steps.add(s_);
         }
     }
+
+    private CustList<WildPokemonDto> dto(DataBase _data, Step _step, PlaceLevel _key) {
+        CustList<WildPokemonDto> pokemon_ = new CustList<WildPokemonDto>();
+        CustList<GenderName> g_ = PlaceLevelsCustListGenderName.filter(_step.getCaughtPokemonPlaceLevel().getVal(_key));
+//                CustList<GenderName> g_ = new CustList<GenderName>();
+//                for (GenderName pk_: step_.getCaughtPokemonPlaceLevel().getVal(key_)) {
+//                    boolean cont_ = false;
+//                    for (GenderName s: g_) {
+//                        if (!StringUtil.quickEq(s.getName(),pk_.getName())) {
+//                            continue;
+//                        }
+//                        if (s.getGender() != pk_.getGender()) {
+//                            continue;
+//                        }
+//                        cont_ = true;
+//                    }
+//                    if (cont_) {
+//                        continue;
+//                    }
+//                    g_.add(pk_);
+//                }
+        for (GenderName g:g_) {
+            String name_ = _data.getTranslatedPokemon().getVal(getLanguage()).getVal(g.getName());
+            String image_ = BaseSixtyFourUtil.getStringByImage(_data.getMiniPk().getVal(g.getName()));
+            String gender_ = _data.getTranslatedGenders().getVal(getLanguage()).getVal(g.getGender());
+            pokemon_.add(new WildPokemonDto(image_, name_, gender_));
+        }
+        return pokemon_;
+    }
+
     public CustList<PlaceLevel> getPlaces(int _indexStep) {
         StepDto step_ = steps.get(_indexStep);
         CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
@@ -127,7 +137,7 @@ public class SolutionBean extends CommonBean {
 //            }
 //        });
         keys_.sortElts(new ComparatorPlaceLevel());
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PlaceLevel key_ = keys_.get(_indexPlace);
         Place place_ = data_.getMap().getPlace(key_.getPlace());
         String name_ = place_.getName();

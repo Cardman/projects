@@ -1,9 +1,10 @@
 package aiki.game;
 
 import aiki.db.DataBase;
+import aiki.tsts.TstsPk;
 import aiki.util.*;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -32,7 +33,6 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EntryCust;
 
 import code.util.StringList;
 
@@ -797,21 +797,22 @@ public class GameFinalizeFightTest extends InitializationDataBase{
     }
 
     private static int nbBeatTrainers(NbFightCoordss _map, boolean _taken) {
-        int n_ = IndexConstants.FIRST_INDEX;
-        if (_taken) {
-            for (CommonParam<NbFightCoords, BoolVal> e: _map.entryList()) {
-                if (e.getValue() == BoolVal.TRUE) {
-                    n_++;
-                }
-            }
-        } else {
-            for (CommonParam<NbFightCoords, BoolVal> e: _map.entryList()) {
-                if (e.getValue() != BoolVal.TRUE) {
-                    n_++;
-                }
-            }
-        }
-        return n_;
+//        int n_ = IndexConstants.FIRST_INDEX;
+//        if (_taken) {
+//            for (BoolVal e: _map.values()) {
+//                if (e == BoolVal.TRUE) {
+//                    n_++;
+//                }
+//            }
+//        } else {
+//            for (BoolVal e: _map.values()) {
+//                if (e != BoolVal.TRUE) {
+//                    n_++;
+//                }
+//            }
+//        }
+//        return n_;
+        return TstsPk.nbBeatTrainersVa(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test
@@ -1009,21 +1010,22 @@ public class GameFinalizeFightTest extends InitializationDataBase{
     }
 
     private static int nbPokemon(CoordssBoolVal _map, boolean _taken) {
-        int n_ = IndexConstants.FIRST_INDEX;
-        if (_taken) {
-            for (CommonParam<Coords, BoolVal> e: _map.entryList()) {
-                if (e.getValue() == BoolVal.TRUE) {
-                    n_++;
-                }
-            }
-        } else {
-            for (CommonParam<Coords, BoolVal> e: _map.entryList()) {
-                if (e.getValue() != BoolVal.TRUE) {
-                    n_++;
-                }
-            }
-        }
-        return n_;
+//        int n_ = IndexConstants.FIRST_INDEX;
+//        if (_taken) {
+//            for (BoolVal e: _map.values()) {
+//                if (e == BoolVal.TRUE) {
+//                    n_++;
+//                }
+//            }
+//        } else {
+//            for (BoolVal e: _map.values()) {
+//                if (e != BoolVal.TRUE) {
+//                    n_++;
+//                }
+//            }
+//        }
+//        return n_;
+        return TstsPk.nbBeatTrainersVa(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test

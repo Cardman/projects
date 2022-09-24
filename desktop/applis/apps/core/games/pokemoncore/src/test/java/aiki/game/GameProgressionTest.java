@@ -22,6 +22,10 @@ public class GameProgressionTest extends InitializationDataBase {
     private static final String SEPARATOR_TRAINERS = " ";
 
     @Test
+    public void containsTrainerPlaceNames() {
+        assertFalse(containsTrainerPlaceNames(new CustList<TrainerPlaceNames>(),new TrainerPlaceNames("","")));
+    }
+    @Test
     public void new_GameProgression_DataBase_Game_1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
@@ -1331,20 +1335,9 @@ public class GameProgressionTest extends InitializationDataBase {
     }
 
     private static boolean containsTrainerPlaceNames(CustList<TrainerPlaceNames> _list, TrainerPlaceNames _t) {
-        for (TrainerPlaceNames t: _list) {
-            if (eq(_t, t)) {
-                return true;
-            }
-        }
-        return false;
+        return TrainerPlaceNames.containsTrPlacNames(_list, _t);
     }
 
-    private static boolean eq(TrainerPlaceNames _current, TrainerPlaceNames _g) {
-        if (!StringUtil.quickEq(_current.getTrainer(), _g.getTrainer())) {
-            return false;
-        }
-        return StringUtil.quickEq(_current.getPlace(), _g.getPlace());
-    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

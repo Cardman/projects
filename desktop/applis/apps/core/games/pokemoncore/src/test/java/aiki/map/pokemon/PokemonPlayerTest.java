@@ -2,7 +2,6 @@ package aiki.map.pokemon;
 
 import code.maths.LgInt;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -2355,8 +2354,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
     }
 
     private static void loopMoving(PokemonPlayer _pk, int _nb, DataBase _data) {
-        for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
-            _pk.deplacement(_data);
-        }
+        PokemonPlayer.deplacement(_pk, _nb, _data);
     }
+
 }

@@ -4,6 +4,7 @@ import aiki.comparators.ComparatorGroundPlaceKey;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.util.ListEffectCombo;
+import aiki.game.UsesOfMove;
 import aiki.game.fight.util.ListActivityOfMove;
 import aiki.game.fight.util.ListActivityOfMoves;
 import aiki.game.params.Difficulty;
@@ -119,6 +120,24 @@ public final class Team {
         healAfter = new StringMap<ByteMap<StacksOfUses>>();
         movesAnticipation = new StringMap<ByteMap<Anticipation>>();
         successfulMovesRound = new StringList();
+    }
+
+    static void replace(CustList<StringMap<Short>> _moves, Team _team) {
+        byte i_ = IndexConstants.FIRST_INDEX;
+        for (StringMap<Short> m: _moves) {
+            if (m.isEmpty()) {
+                i_++;
+                continue;
+            }
+            Fighter f_ = _team.getMembers().getVal(i_);
+            f_.getMoves().clear();
+            f_.getCurrentMoves().clear();
+            for (String k: m.getKeys()) {
+                f_.getMoves().put(k, new UsesOfMove(m.getVal(k)));
+                f_.getCurrentMoves().put(k, new UsesOfMove(m.getVal(k)));
+            }
+            i_++;
+        }
     }
 
     void initEquipeUtilisateur(Player _utilisateur, Difficulty _diff,

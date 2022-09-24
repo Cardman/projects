@@ -6,6 +6,7 @@ import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.pokemon.PokemonData;
+import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.util.TeamPositionList;
 import code.maths.Rate;
@@ -293,4 +294,14 @@ final class FightKo {
         return true;
     }
 
+    static void putKoPlayer(Difficulty _diff, DataBase _data, Fight _fight) {
+        for (TeamPosition f: FightOrder.fighters(_fight, Fight.CST_PLAYER)) {
+            Fighter f_ = _fight.getFighter(f);
+            if (!f_.isBelongingToPlayer()) {
+                continue;
+            }
+            setKoMoveTeams(_fight, f, _diff, _data);
+        }
+        _fight.setState(FightState.SWITCH_WHILE_KO_USER);
+    }
 }

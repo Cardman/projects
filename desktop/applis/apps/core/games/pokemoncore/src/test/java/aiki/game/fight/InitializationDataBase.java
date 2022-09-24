@@ -6,7 +6,6 @@ import aiki.db.PerCent;
 import aiki.db.PerCentImpl;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
-import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.util.TypesDuo;
@@ -15,10 +14,8 @@ import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.DataMap;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelCave;
-import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
-import aiki.map.places.InitializedPlace;
 import aiki.map.places.Place;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoordsList;
@@ -1461,51 +1458,23 @@ public class InitializationDataBase extends EquallablePkUtil {
         targets_.addEntry(TargetChoice.UNIQUE_IMPORTE, TargetChoice.UNIQUE_IMPORTE.name());
         targets_.addEntry(TargetChoice.NOTHING, TargetChoice.NOTHING.name());
         _data.getTranslatedTargets().addEntry(LANGUAGE, targets_);
-        StringMap<String> words_;
-        words_ = new StringMap<String>();
-        for (String p: _data.getPokedex().getKeys()) {
-            words_.addEntry(p, p);
-        }
+        StringMap<String> words_ = DataBase.basicTranslation(_data.getPokedex().getKeys());
         _data.getTranslatedPokemon().addEntry(LANGUAGE, words_);
-        words_ = new StringMap<String>();
-        for (String p: _data.getMoves().getKeys()) {
-            words_.addEntry(p, p);
-        }
+        words_ = DataBase.basicTranslation(_data.getMoves().getKeys());
         _data.getTranslatedMoves().addEntry(LANGUAGE, words_);
-        words_ = new StringMap<String>();
-        for (String p: _data.getItems().getKeys()) {
-            words_.addEntry(p, p);
-        }
+        words_ = DataBase.basicTranslation(_data.getItems().getKeys());
         _data.getTranslatedItems().addEntry(LANGUAGE, words_);
-        words_ = new StringMap<String>();
-        for (String p: _data.getAbilities().getKeys()) {
-            words_.addEntry(p, p);
-        }
+        words_ = DataBase.basicTranslation(_data.getAbilities().getKeys());
         _data.getTranslatedAbilities().addEntry(LANGUAGE, words_);
-        words_ = new StringMap<String>();
-        for (String p: _data.getStatus().getKeys()) {
-            words_.addEntry(p, p);
-        }
+        words_ = DataBase.basicTranslation(_data.getStatus().getKeys());
         _data.getTranslatedStatus().addEntry(LANGUAGE, words_);
-        words_ = new StringMap<String>();
-        for (Item p: _data.getItems().values()) {
-            words_.put(p.getItemType(), p.getItemType());
-        }
+        words_ = DataBase.basicTranslationItemsType(_data);
         _data.getTranslatedClassesDescriptions().addEntry(LANGUAGE, words_);
-        words_ = new StringMap<String>();
-        for (String p: _data.getTypes()) {
-            words_.addEntry(p, p);
-        }
+        words_ = DataBase.basicTranslation(_data.getTypes());
         _data.getTranslatedTypes().addEntry(LANGUAGE, words_);
-        words_ = new StringMap<String>();
-        for (String p: _data.getAllCategories()) {
-            words_.addEntry(p, p);
-        }
+        words_ = DataBase.basicTranslation(_data.getAllCategories());
         _data.getTranslatedCategories().addEntry(LANGUAGE, words_);
-        words_ = new StringMap<String>();
-        for (String p: EvolvedMathFactory.getFunctions()) {
-            words_.addEntry(p, p);
-        }
+        words_ = DataBase.basicTranslation(EvolvedMathFactory.getFunctions());
         _data.getTranslatedFctMath().addEntry(LANGUAGE, words_);
         StringMap<String> litteral_ = new StringMap<String>();
         litteral_.addEntry("CIBLE_EFFET",StringUtil.concat(MOVE_FORMULA,TAB,"targ_eff__{0}",TAB,"The target is under the effect of the move {0}"));
@@ -1693,68 +1662,6 @@ public class InitializationDataBase extends EquallablePkUtil {
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
         _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
-    }
-
-    public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
-                                     String _imgName1, String _imgName2) {
-        Coords coords_ = new Coords();
-        coords_.setNumberPlace(_place);
-        coords_.setLevel(_l1);
-        if (!_dataMap.isEmptyForAdding(coords_)) {
-            return;
-        }
-        coords_ = new Coords();
-        coords_.setNumberPlace(_place);
-        coords_.setLevel(_l2);
-        if (!_dataMap.isEmptyForAdding(coords_)) {
-            return;
-        }
-        joinLevelCave(_dataMap, _place, _l1, _l2, _imgName1);
-        joinLevelCave(_dataMap, _place, _l2, _l1, _imgName2);
-    }
-
-    public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
-                                     String _imgName) {
-        Cave cave_ = (Cave) _dataMap.getPlace(_place);
-        LevelCave l1_ = (LevelCave) cave_.getLevelsMap().getVal(
-                _l1.getLevelIndex());
-        Points< Link> links_ = l1_.getLinksOtherLevels();
-        if (links_.contains(_l1.getPoint())) {
-            Link link_ = links_.getVal(_l1.getPoint());
-            link_.getCoords().setNumberPlace(_place);
-            link_.getCoords().setLevel(_l2);
-            link_.setFileName(_imgName);
-        } else {
-            Link link_ = new Link();
-            link_.setCoords(new Coords());
-            link_.getCoords().setNumberPlace(_place);
-            link_.getCoords().setLevel(_l2);
-            link_.setFileName(_imgName);
-            links_.put(_l1.getPoint(), link_);
-        }
-    }
-
-    public static void joinCavePlace(DataMap _dataMap, Coords _coordsCave, Coords _coordsPlace,
-                                     String _imgName1, String _imgName2) {
-        if (!_dataMap.isEmptyForAdding(_coordsCave)) {
-            return;
-        }
-        if (!_dataMap.isEmptyForAdding(_coordsPlace)) {
-            return;
-        }
-        Cave cave_ = (Cave) _dataMap.getPlace(_coordsCave.getNumberPlace());
-        InitializedPlace place_ = (InitializedPlace) _dataMap.getPlace(_coordsPlace
-                .getNumberPlace());
-        LevelPoints links1_ = cave_.getLinksWithOtherPlaces();
-        Link link1_ = new Link();
-        link1_.setCoords(_coordsPlace);
-        link1_.setFileName(_imgName1);
-        links1_.addEntry(_coordsCave.getLevel(), link1_);
-        Points< Link> links2_ = place_.getLinksWithCaves();
-        Link link2_ = new Link();
-        link2_.setCoords(_coordsCave);
-        link2_.setFileName(_imgName2);
-        links2_.put(_coordsPlace.getLevel().getPoint(), link2_);
     }
 
     public static void addCave(DataMap _dataMap) {

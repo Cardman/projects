@@ -1951,10 +1951,7 @@ public final class FightFacade {
             FightRound.setAllyChoices(_fight, _data);
         }
         fightersSortMove(_fight, _data);
-        for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, false)) {
-            Fighter fighter_ = _fight.getFighter(f);
-            fighter_.cancelActions();
-        }
+        cancelActions(_fight, FightOrder.fightersBelongingToUser(_fight, false));
         return _fight.getOrderedFighters();
     }
 
@@ -1991,11 +1988,15 @@ public final class FightFacade {
         for (TeamPosition f: fightersUsingMove_) {
             ((ActionMove) _fight.getFighter(f).getAction()).setFinalChosenMove(DataBase.EMPTY_STRING);
         }
-        for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, false)) {
+        cancelActions(_fight, FightOrder.fightersBelongingToUser(_fight, false));
+        return tree_;
+    }
+
+    static void cancelActions(Fight _fight, TeamPositionList _fighters) {
+        for (TeamPosition f: _fighters) {
             Fighter fighter_ = _fight.getFighter(f);
             fighter_.cancelActions();
         }
-        return tree_;
     }
 
     public static void setFirstChosenMoveFoeTarget(Fight _fight,byte _foeTarget){
@@ -2586,4 +2587,148 @@ public final class FightFacade {
         }
     }
 
+    public static Fight cpFight(Fight _currentFight) {
+        Fight savedFight_ = new Fight();
+        savedFight_.setFightType(_currentFight.getFightType());
+        savedFight_.setEnvType(_currentFight.getEnvType());
+        savedFight_.setMult(_currentFight.getMult());
+        savedFight_.setPlayerMaxNumberFrontFighters(_currentFight.getPlayerMaxNumberFrontFighters());
+        savedFight_.setEnabledMoves(_currentFight.getEnabledMoves());
+        savedFight_.setStillEnabledMoves(_currentFight.getStillEnabledMoves());
+        savedFight_.setTeams(new ByteMap<Team>());
+        for (byte k: _currentFight.getTeams().getKeys()) {
+            Team team_;
+            team_ = saveTeam(_currentFight.getTeams().getVal(k));
+            savedFight_.getTeams().put(k, team_);
+        }
+        savedFight_.setNbFleeAttempt(_currentFight.getNbFleeAttempt());
+        savedFight_.setNbRounds(_currentFight.getNbRounds());
+        savedFight_.setWinningMoney(_currentFight.getWinningMoney());
+        savedFight_.setCatchingBall(_currentFight.getCatchingBall());
+        savedFight_.setCurrentUser(_currentFight.getCurrentUser());
+        savedFight_.setState(_currentFight.getState());
+        savedFight_.setUsedItemsWhileRound(_currentFight.getUsedItemsWhileRound());
+        savedFight_.setFirstPositPlayerFighters(_currentFight.getFirstPositPlayerFighters());
+        savedFight_.setFirstPositFoeFighters(_currentFight.getFirstPositFoeFighters());
+        savedFight_.setAllyChoice(_currentFight.getAllyChoice());
+        savedFight_.setLostObjects(_currentFight.getLostObjects());
+        savedFight_.setChoices(new ByteMap<ChoiceOfEvolutionAndMoves>());
+        for (byte k: _currentFight.getChoices().getKeys()) {
+            ChoiceOfEvolutionAndMoves choice_;
+            choice_ = saveChoice(_currentFight.getChoices().getVal(k));
+            savedFight_.getChoices().put(k, choice_);
+        }
+        return savedFight_;
+    }
+
+    public static ChoiceOfEvolutionAndMoves saveChoice(ChoiceOfEvolutionAndMoves _currentChoice) {
+        ChoiceOfEvolutionAndMoves savedChoice_;
+        savedChoice_ = new ChoiceOfEvolutionAndMoves();
+        savedChoice_.setName(_currentChoice.getName());
+        savedChoice_.setKeptMoves(_currentChoice.getKeptMoves());
+        savedChoice_.setAbility(_currentChoice.getAbility());
+        return savedChoice_;
+    }
+
+    public static Team saveTeam(Team _currentTeam) {
+        Team savedTeam_;
+        savedTeam_ = new Team();
+        savedTeam_.setEnabledMovesByGroup(_currentTeam.getEnabledMovesByGroup());
+        savedTeam_.setEnabledMoves(_currentTeam.getEnabledMoves());
+        savedTeam_.setEnabledMovesWhileSendingFoe(_currentTeam.getEnabledMovesWhileSendingFoe());
+        savedTeam_.setEnabledMovesWhileSendingFoeUses(_currentTeam.getEnabledMovesWhileSendingFoeUses());
+        savedTeam_.setNbUsesMoves(_currentTeam.getNbUsesMoves());
+        savedTeam_.setNbUsesMovesRound(_currentTeam.getNbUsesMovesRound());
+        savedTeam_.setHealAfter(_currentTeam.getHealAfter());
+        savedTeam_.setMovesAnticipation(_currentTeam.getMovesAnticipation());
+        savedTeam_.setMembers(new ByteMap<Fighter>());
+        for (byte k: _currentTeam.getMembers().getKeys()) {
+            Fighter fighter_;
+            fighter_ = saveFighter(_currentTeam.getMembers().getVal(k));
+            savedTeam_.getMembers().put(k, fighter_);
+        }
+        savedTeam_.setPlayerFightersAgainstFoe(_currentTeam.getPlayerFightersAgainstFoe());
+        savedTeam_.setNbKoRound(_currentTeam.getNbKoRound());
+        savedTeam_.setNbKoPreviousRound(_currentTeam.getNbKoPreviousRound());
+        savedTeam_.setSuccessfulMovesRound(_currentTeam.getSuccessfulMovesRound());
+        return savedTeam_;
+    }
+
+    public static Fighter saveFighter(Fighter _currentFighter) {
+        Fighter savedFighter_;
+        savedFighter_ = new Fighter();
+        savedFighter_.setName(_currentFighter.getName());
+        savedFighter_.setNickname(_currentFighter.getNickname());
+        savedFighter_.setGender(_currentFighter.getGender());
+        savedFighter_.setWeight(_currentFighter.getWeight());
+        savedFighter_.setHeight(_currentFighter.getHeight());
+        savedFighter_.setCurrentName(_currentFighter.getCurrentName());
+        savedFighter_.setCurrentGender(_currentFighter.getCurrentGender());
+        savedFighter_.setLastUsedItem(_currentFighter.getLastUsedItem());
+        savedFighter_.setItem(_currentFighter.getItem());
+        savedFighter_.setExpItem(_currentFighter.getExpItem());
+        savedFighter_.setAbility(_currentFighter.getAbility());
+        savedFighter_.setCurrentAbility(_currentFighter.getCurrentAbility());
+        savedFighter_.setStatus(_currentFighter.getStatus());
+        savedFighter_.setStatusRelat(_currentFighter.getStatusRelat());
+        savedFighter_.setNbRounds(_currentFighter.getNbRounds());
+        savedFighter_.setTypes(_currentFighter.getTypes());
+        savedFighter_.setMoves(_currentFighter.getMoves());
+        savedFighter_.setCurrentMoves(_currentFighter.getCurrentMoves());
+        savedFighter_.setEv(_currentFighter.getEv());
+        savedFighter_.setStatisBase(_currentFighter.getStatisBase());
+        savedFighter_.setStatisBoost(_currentFighter.getStatisBoost());
+        savedFighter_.setRemainingHp(_currentFighter.getRemainingHp());
+        savedFighter_.setClone(_currentFighter.getClone());
+        savedFighter_.setEnabledMoves(_currentFighter.getEnabledMoves());
+        savedFighter_.setEnabledMovesProt(_currentFighter.getEnabledMovesProt());
+        savedFighter_.setProtectedAgainstMoveTypes(_currentFighter.getProtectedAgainstMoveTypes());
+        savedFighter_.setEnabledMovesUnprot(_currentFighter.getEnabledMovesUnprot());
+        savedFighter_.setEnabledMovesEndRound(_currentFighter.getEnabledMovesEndRound());
+        savedFighter_.setEnabledMovesConstChoices(_currentFighter.getEnabledMovesConstChoices());
+        savedFighter_.setEnabledMovesForAlly(_currentFighter.getEnabledMovesForAlly());
+        savedFighter_.setDamageRateInflictedByType(_currentFighter.getDamageRateInflictedByType());
+        savedFighter_.setDamageRateSufferedByType(_currentFighter.getDamageRateSufferedByType());
+        savedFighter_.setActed(_currentFighter.isActed());
+        savedFighter_.setGroundPlace(_currentFighter.getGroundPlace());
+        savedFighter_.setGroundPlaceSubst(_currentFighter.getGroundPlaceSubst());
+        savedFighter_.setWonExp(_currentFighter.getWonExp());
+        savedFighter_.setWonExpSinceLastLevel(_currentFighter.getWonExpSinceLastLevel());
+        savedFighter_.setLevel(_currentFighter.getLevel());
+        savedFighter_.setHappiness(_currentFighter.getHappiness());
+        savedFighter_.setUsedBallCatching(_currentFighter.getUsedBallCatching());
+        savedFighter_.setIncrUserAccuracy(_currentFighter.getIncrUserAccuracy());
+        savedFighter_.setNbUsesMoves(_currentFighter.getNbUsesMoves());
+        savedFighter_.setNbPrepaRound(_currentFighter.getNbPrepaRound());
+        savedFighter_.setDisappeared(_currentFighter.isDisappeared());
+        savedFighter_.setNeedingToRecharge(_currentFighter.isNeedingToRecharge());
+        savedFighter_.setTrackingMoves(_currentFighter.getTrackingMoves());
+        savedFighter_.setTrappingMoves(_currentFighter.getTrappingMoves());
+        savedFighter_.setLastSufferedMove(_currentFighter.getLastSufferedMove());
+        savedFighter_.setLastSufferedMoveTypes(_currentFighter.getLastSufferedMoveTypes());
+        savedFighter_.setDamageSufferedCateg(_currentFighter.getDamageSufferedCateg());
+        savedFighter_.setDamageSufferedCategRound(_currentFighter.getDamageSufferedCategRound());
+        savedFighter_.setLastUsedMove(_currentFighter.getLastUsedMove());
+        savedFighter_.setUsedMoveLastRound(_currentFighter.getUsedMoveLastRound());
+        savedFighter_.setAlreadyInvokedMovesRound(_currentFighter.getAlreadyInvokedMovesRound());
+        savedFighter_.setLastSuccessfulMove(_currentFighter.getLastSuccessfulMove());
+        savedFighter_.setCopiedMoves(_currentFighter.getCopiedMoves());
+        savedFighter_.setNbRepeatingSuccessfulMoves(_currentFighter.getNbRepeatingSuccessfulMoves());
+        savedFighter_.setUsingItem(_currentFighter.isUsingItem());
+        savedFighter_.setSuccessfulMove(_currentFighter.isSuccessfulMove());
+        savedFighter_.setChanged(_currentFighter.isChanged());
+        savedFighter_.setEnabledImmuAbilities(_currentFighter.getEnabledImmuAbilities());
+        savedFighter_.setPrivateMoves(_currentFighter.getPrivateMoves());
+        savedFighter_.setBelongingToPlayer(_currentFighter.isBelongingToPlayer());
+        savedFighter_.setAction(_currentFighter.getAction());
+        savedFighter_.setMovesToBeLearnt(_currentFighter.getMovesToBeLearnt());
+        savedFighter_.setMovesAbilitiesEvos(_currentFighter.getMovesAbilitiesEvos());
+        return savedFighter_;
+    }
+
+    static void ajouterRelationAutre(DataBase _data, Fight _fight, TeamPosition _key, TeamPositionList _list) {
+        for (TeamPosition t: _list) {
+            _fight.getFighter(t).ajouterRelationAutre(_key, _data);
+        }
+    }
 }

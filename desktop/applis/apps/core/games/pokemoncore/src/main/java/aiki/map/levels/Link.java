@@ -19,7 +19,7 @@ public final class Link implements Displayable {
     private Direction dir;
 
     public Link() {
-
+        dir = null;
     }
 
     public Link(String _string) {

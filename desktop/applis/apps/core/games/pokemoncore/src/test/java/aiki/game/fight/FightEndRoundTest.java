@@ -8570,14 +8570,7 @@ public class FightEndRoundTest extends InitializationDataBase {
     }
 
     private static Fight proponedSwitchWhileKoPlayer(Difficulty _diff, DataBase _data, Fight _fight) {
-        for (TeamPosition f: FightOrder.fighters(_fight, Fight.CST_PLAYER)) {
-            Fighter f_ = _fight.getFighter(f);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            FightKo.setKoMoveTeams(_fight, f, _diff, _data);
-        }
-        _fight.setState(FightState.SWITCH_WHILE_KO_USER);
+        FightKo.putKoPlayer(_diff, _data, _fight);
         return _fight;
     }
 

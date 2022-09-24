@@ -1684,8 +1684,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, nbEvents(law_));
         assertTrue(law_.containsEvent(new Rate("46/5")));
+        assertEq(new Rate("46/5"),law_.maximum());
+        assertEq(new Rate("46/5"),law_.maximum());
         law_ = laws_.getRandomRate();
         assertEq(1, law_.nbEvents());
         assertTrue(law_.containsEvent(new Rate("1")));
@@ -5592,19 +5593,19 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightEffects.enableTargetAbility(_fight, _thrower, _target, _criticalHit, (byte) _x, _move, _data);
     }
 
-    private static int nbEvents(MonteCarloNumber _monte) {
-        CustList<Rate> evts_ = new CustList<Rate>();
-        for (Rate e: _monte.events()) {
-            boolean add_ = true;
-            for (Rate f: evts_) {
-                if (e.eq(f)) {
-                    add_ = false;
-                }
-            }
-            if (add_) {
-                evts_.add(e);
-            }
-        }
-        return evts_.size();
-    }
+//    private static int nbEvents(MonteCarloNumber _monte) {
+//        CustList<Rate> evts_ = new CustList<Rate>();
+//        for (Rate e: _monte.events()) {
+//            boolean add_ = true;
+//            for (Rate f: evts_) {
+//                if (e.eq(f)) {
+//                    add_ = false;
+//                }
+//            }
+//            if (add_) {
+//                evts_.add(e);
+//            }
+//        }
+//        return evts_.size();
+//    }
 }

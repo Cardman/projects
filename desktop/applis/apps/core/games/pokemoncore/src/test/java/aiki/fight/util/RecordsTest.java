@@ -2,6 +2,7 @@ package aiki.fight.util;
 
 import aiki.db.EquallablePkUtil;
 import aiki.fight.enums.Statistic;
+import aiki.fight.pokemon.GenderName;
 import aiki.game.NbFightCoords;
 import aiki.game.fight.MoveTeamPosition;
 import aiki.game.fight.TargetCoords;
@@ -10,6 +11,7 @@ import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.instances.Instances;
 import aiki.map.Condition;
+import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.PlaceLevel;
 import aiki.map.util.ScreenCoords;
@@ -274,6 +276,14 @@ public final class RecordsTest extends EquallablePkUtil {
     public void test42() {
         PointEqList m_ = new PointEqList(new CollCapacity(0));
         assertEq(0, m_.size());
+    }
+    @Test
+    public void test43() {
+        assertFalse(PlaceLevelsCustListGenderName.match(new GenderName(Gender.NO_GENDER,"_"),new GenderName(Gender.NO_GENDER,"-")));
+    }
+    @Test
+    public void test44() {
+        assertFalse(PlaceLevelsCustListGenderName.match(new GenderName(Gender.all().first(),"_"),new GenderName(Gender.all().last(),"_")));
     }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();

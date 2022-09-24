@@ -2,9 +2,10 @@ package aiki.game;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.*;
+import aiki.tsts.TstsPk;
 import aiki.util.*;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import aiki.comments.Comment;
@@ -29,8 +30,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
-import code.util.EntryCust;
-
 
 
 public class GameTest extends InitializationDataBase {
@@ -903,21 +902,21 @@ public class GameTest extends InitializationDataBase {
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
     }
     private static int nbTakenObjects(CoordssBoolVal _map, boolean _taken) {
-        int n_ = IndexConstants.FIRST_INDEX;
-        if (_taken) {
-            for (CommonParam<Coords, BoolVal> e: _map.entryList()) {
-                if (e.getValue() == BoolVal.TRUE) {
-                    n_++;
-                }
-            }
-        } else {
-            for (CommonParam<Coords, BoolVal> e: _map.entryList()) {
-                if (e.getValue() != BoolVal.TRUE) {
-                    n_++;
-                }
-            }
-        }
-        return n_;
+//        int n_ = IndexConstants.FIRST_INDEX;
+//        if (_taken) {
+//            for (BoolVal e: _map.values()) {
+//                if (e == BoolVal.TRUE) {
+//                    n_++;
+//                }
+//            }
+//        } else {
+//            for (BoolVal e: _map.values()) {
+//                if (e != BoolVal.TRUE) {
+//                    n_++;
+//                }
+//            }
+//        }
+        return TstsPk.nbBeatTrainersVa(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test
@@ -2590,14 +2589,7 @@ public class GameTest extends InitializationDataBase {
 
     private static CustList<ScreenCoords> getEmptyTiles(
             ScreenCoordssCustListInt _foreGround) {
-        CustList<ScreenCoords> k_;
-        k_ = new CustList<ScreenCoords>();
-        for (CommonParam<ScreenCoords, CustList<int[][]>> e: _foreGround.entryList()) {
-            if (e.getValue().isEmpty()) {
-                k_.add(e.getKey());
-            }
-        }
-        return k_;
+        return ScreenCoordssCustListInt.emptyTiles(_foreGround);
     }
 
     @Test

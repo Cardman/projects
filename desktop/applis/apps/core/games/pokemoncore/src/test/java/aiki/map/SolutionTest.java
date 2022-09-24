@@ -441,38 +441,41 @@ public class SolutionTest extends EquallablePkUtil {
     }
 
     private static int count(CustList<GenderName> _list) {
-        CustList<GenderName> g_ = new CustList<GenderName>();
-        for (GenderName pk_: _list) {
-            boolean cont_ = false;
-            for (GenderName s : g_) {
-                if (!StringUtil.quickEq(s.getName(), pk_.getName())) {
-                    continue;
-                }
-                if (s.getGender() != pk_.getGender()) {
-                    continue;
-                }
-                cont_ = true;
-            }
-            if (cont_) {
-                continue;
-            }
-            g_.add(pk_);
-        }
-        return g_.size();
+//        CustList<GenderName> g_ = new CustList<GenderName>();
+//        for (GenderName pk_: _list) {
+//            boolean cont_ = false;
+//            for (GenderName s : g_) {
+//                if (!StringUtil.quickEq(s.getName(), pk_.getName())) {
+//                    continue;
+//                }
+//                if (s.getGender() != pk_.getGender()) {
+//                    continue;
+//                }
+//                cont_ = true;
+//            }
+//            if (cont_) {
+//                continue;
+//            }
+//            g_.add(pk_);
+//        }
+//        return g_.size();
+        return PlaceLevelsCustListGenderName.filter(_list).size();
     }
     private static boolean containsGenderName(CustList<GenderName> _list, GenderName _t) {
-        for (GenderName t: _list) {
-            if (eq(_t, t)) {
-                return true;
-            }
-        }
-        return false;
+//        for (GenderName t: _list) {
+//            if (eq(_t, t)) {
+//                return true;
+//            }
+//        }
+//        return false;
+        return PlaceLevelsCustListGenderName.containsGender(_list, _t);
     }
 
-    private static boolean eq(GenderName _current, GenderName _g) {
-        if (!StringUtil.quickEq(_current.getName(), _g.getName())) {
-            return false;
-        }
-        return _current.getGender() == _g.getGender();
-    }
+//    private static boolean eq(GenderName _current, GenderName _g) {
+//        return PlaceLevelsCustListGenderName.match(_current, _g);
+////        if (!StringUtil.quickEq(_current.getName(), _g.getName())) {
+////            return false;
+////        }
+////        return _current.getGender() == _g.getGender();
+//    }
 }

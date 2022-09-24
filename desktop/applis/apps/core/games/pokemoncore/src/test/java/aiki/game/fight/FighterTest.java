@@ -2,7 +2,9 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.game.fight.actions.*;
+import aiki.tsts.TstsPk;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -538,7 +540,24 @@ public class FighterTest extends InitializationDataBase {
         assertEq(SPECTRE,types_.get(15));
         assertEq(TENEBRE,types_.get(16));
         assertEq(VOL,types_.get(17));
-        assertEq(18, nbValues(fighter_.getDamageRateInflictedByType(), Rate.one()));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(0));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(1));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(2));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(3));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(4));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(5));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(6));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(7));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(8));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(9));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(10));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(11));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(12));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(13));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(14));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(15));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(16));
+        assertEq(Rate.one(),fighter_.getDamageRateInflictedByType().getValue(17));
         types_ = new StringList(fighter_.getDamageRateSufferedByType().getKeys());
         assertEq(18, types_.size());
         assertEq(data_.getTypes().size(), types_.size());
@@ -561,7 +580,24 @@ public class FighterTest extends InitializationDataBase {
         assertEq(SPECTRE,types_.get(15));
         assertEq(TENEBRE,types_.get(16));
         assertEq(VOL,types_.get(17));
-        assertEq(18, nbValues(fighter_.getDamageRateSufferedByType(), Rate.one()));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(0));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(1));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(2));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(3));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(4));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(5));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(6));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(7));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(8));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(9));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(10));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(11));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(12));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(13));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(14));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(15));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(16));
+        assertEq(Rate.one(),fighter_.getDamageRateSufferedByType().getValue(17));
 //        assertTrue(fighter_.getDamageRateInflictedByType().values().containsObj(DataBase.defRateProduct()));
 //        assertTrue(fighter_.getDamageRateSufferedByType().values().containsObj(DataBase.defRateProduct()));
         assertEq(2, fighter_.getDamageSufferedCateg().size());
@@ -735,15 +771,15 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, fighter_.getLastSufferedMoveTypes().size());
     }
 
-    private static int nbValues(StringMap<Rate> _map, Rate _value) {
-        int nb_ = 0;
-        for (EntryCust<String,Rate> e: _map.entryList()) {
-            if (e.getValue().eq(_value)) {
-                nb_++;
-            }
-        }
-        return nb_;
-    }
+//    private static int nbValues(StringMap<Rate> _map, Rate _value) {
+//        int nb_ = 0;
+//        for (EntryCust<String,Rate> e: _map.entryList()) {
+//            if (e.getValue().eq(_value)) {
+//                nb_++;
+//            }
+//        }
+//        return nb_;
+//    }
 
     @Test
     public void new_Fighter_PokemonPlayer_DataBase_byte_1Test() {
@@ -810,6 +846,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(12, fighter_.getStatusRelat().size());
 //        assertEq(11, fighter_.getStatusRelat().getKeys((short) 0).size());
         assertEq(12, getNbStatusRelatByRounds(fighter_,(short) 0));
+        assertEq(0, getNbStatusRelatByRounds(fighter_,(short) 1));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR_FOU,fighterCoords_)));
@@ -6032,22 +6069,7 @@ public class FighterTest extends InitializationDataBase {
     }
 
     private static StringList getMoves(StringMap<BoolVal> _map, boolean _learn) {
-        StringList moves_;
-        moves_ = new StringList();
-        if (_learn) {
-            for (EntryCust<String,BoolVal> e: _map.entryList()) {
-                if (e.getValue() == BoolVal.TRUE) {
-                    moves_.add(e.getKey());
-                }
-            }
-        } else {
-            for (EntryCust<String,BoolVal> e: _map.entryList()) {
-                if (e.getValue() != BoolVal.TRUE) {
-                    moves_.add(e.getKey());
-                }
-            }
-        }
-        return moves_;
+        return TstsPk.moves(_map, ComparatorBoolean.of(_learn));
     }
 
     @Test
@@ -7251,13 +7273,14 @@ public class FighterTest extends InitializationDataBase {
     }
 
     static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
-        int i_ = IndexConstants.SIZE_EMPTY;
-        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
-            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
-                i_++;
-            }
-        }
-        return i_;
+//        int i_ = IndexConstants.SIZE_EMPTY;
+//        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+//            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
+//                i_++;
+//            }
+//        }
+//        return i_;
+        return TstsPk.getNbStatusRelatByRounds(_f, _nbRounds);
     }
 
     private static boolean noAction(AbstractAction _action) {

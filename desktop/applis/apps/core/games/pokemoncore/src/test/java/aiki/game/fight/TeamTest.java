@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.tsts.TstsPk;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -1587,12 +1588,13 @@ public class TeamTest extends InitializationDataBase {
     }
 
     static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
-        int i_ = IndexConstants.SIZE_EMPTY;
-        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
-            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
-                i_++;
-            }
-        }
-        return i_;
+//        int i_ = IndexConstants.SIZE_EMPTY;
+//        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+//            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
+//                i_++;
+//            }
+//        }
+//        return i_;
+        return TstsPk.getNbStatusRelatByRounds(_f, _nbRounds);
     }
 }

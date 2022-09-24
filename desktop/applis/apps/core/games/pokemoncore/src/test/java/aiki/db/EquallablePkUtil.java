@@ -293,11 +293,7 @@ public abstract class EquallablePkUtil {
 
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
-        int size_ = _expected.size();
-        Assert.assertEquals(size_, _result.size());
-        for (int i = 0; i < size_; i++) {
-            assertEq(_expected.get(i),_result.get(i));
-        }
+        Assert.assertEquals(_expected.getList(), _result.getList());
     }
     public static void assertEq(Rate _expected, Rate _result) {
         Assert.assertNotNull(_result);
@@ -320,15 +316,16 @@ public abstract class EquallablePkUtil {
     }
     public static void assertEq(Coords _expected, Coords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertEquals(_expected.getNumberPlace(),_result.getNumberPlace());
-        Assert.assertEquals(_expected.isInside(),_result.isInside());
-        if (_expected.isInside()) {
-            Assert.assertEquals(_expected.getInsideBuilding().getx(),_result.getInsideBuilding().getx());
-            Assert.assertEquals(_expected.getInsideBuilding().gety(),_result.getInsideBuilding().gety());
-        }
-        Assert.assertEquals(_expected.getLevel().getLevelIndex(),_result.getLevel().getLevelIndex());
-        Assert.assertEquals(_expected.getLevel().getPoint().getx(),_result.getLevel().getPoint().getx());
-        Assert.assertEquals(_expected.getLevel().getPoint().gety(),_result.getLevel().getPoint().gety());
+        assertTrue(_expected.eq(_result));
+//        Assert.assertEquals(_expected.getNumberPlace(),_result.getNumberPlace());
+//        Assert.assertEquals(_expected.isInside(),_result.isInside());
+//        if (_expected.isInside()) {
+//            Assert.assertEquals(_expected.getInsideBuilding().getx(),_result.getInsideBuilding().getx());
+//            Assert.assertEquals(_expected.getInsideBuilding().gety(),_result.getInsideBuilding().gety());
+//        }
+//        Assert.assertEquals(_expected.getLevel().getLevelIndex(),_result.getLevel().getLevelIndex());
+//        Assert.assertEquals(_expected.getLevel().getPoint().getx(),_result.getLevel().getPoint().getx());
+//        Assert.assertEquals(_expected.getLevel().getPoint().gety(),_result.getLevel().getPoint().gety());
     }
     public static void assertEq(Point _expected, Point _result) {
         Assert.assertNotNull(_result);

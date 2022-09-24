@@ -3,7 +3,6 @@ package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import aiki.game.Game;
@@ -6173,15 +6172,14 @@ public class FightValidationTest extends InitializationDataBase {
         team_.put((byte) team_.size(), fighter_);
         TeamPositionList fs_ = FightOrder.fighters(fight_);
         fighter_.initCreatureRelationsAutre(fs_, _data);
-        for (TeamPosition t: fs_) {
-            fight_.getFighter(t).ajouterRelationAutre(key_, _data);
-        }
+        FightFacade.ajouterRelationAutre(_data, fight_, key_, fs_);
     }
 
     private static void cancelFoeArtificialIntelligence(Fight _fight) {
-        for (TeamPosition t: FightOrder.fighters(_fight)) {
-            _fight.getFighter(t).cancelActions();
-        }
+        FightFacade.cancelActions(_fight,FightOrder.fighters(_fight));
+//        for (TeamPosition t: FightOrder.fighters(_fight)) {
+//            _fight.getFighter(t).cancelActions();
+//        }
     }
 
     private static void cancelAllyArtificialIntelligence(Fight _fight) {
@@ -6189,39 +6187,11 @@ public class FightValidationTest extends InitializationDataBase {
     }
 
     private static void replaceFoeMoves(Fight _fight, CustList<StringMap<Short>> _moves) {
-        byte i_ = IndexConstants.FIRST_INDEX;
-        for (StringMap<Short> m: _moves) {
-            if (m.isEmpty()) {
-                i_++;
-                continue;
-            }
-            Fighter f_ = _fight.getFoeTeam().getMembers().getVal(i_);
-            f_.getMoves().clear();
-            f_.getCurrentMoves().clear();
-            for (String k: m.getKeys()) {
-                f_.getMoves().put(k, new UsesOfMove(m.getVal(k)));
-                f_.getCurrentMoves().put(k, new UsesOfMove(m.getVal(k)));
-            }
-            i_++;
-        }
+        Team.replace(_moves, _fight.getFoeTeam());
     }
 
     private static void replacePlayerMoves(Fight _fight, CustList<StringMap<Short>> _moves) {
-        byte i_ = IndexConstants.FIRST_INDEX;
-        for (StringMap<Short> m: _moves) {
-            if (m.isEmpty()) {
-                i_++;
-                continue;
-            }
-            Fighter f_ = _fight.getUserTeam().getMembers().getVal(i_);
-            f_.getMoves().clear();
-            f_.getCurrentMoves().clear();
-            for (String k: m.getKeys()) {
-                f_.getMoves().put(k, new UsesOfMove(m.getVal(k)));
-                f_.getCurrentMoves().put(k, new UsesOfMove(m.getVal(k)));
-            }
-            i_++;
-        }
+        Team.replace(_moves, _fight.getUserTeam());
     }
 
     private static Game newGameInFightTrainerDual8(Sex _sex, Difficulty _diff, DataBase _data) {

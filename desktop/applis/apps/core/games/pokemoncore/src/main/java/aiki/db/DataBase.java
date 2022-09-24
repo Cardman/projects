@@ -380,6 +380,24 @@ public class DataBase {
         this.generator = _generator;
     }
 
+    public static StringMap<String> basicTranslationItemsType(DataBase _data) {
+        StringMap<String> words_;
+        words_ = new StringMap<String>();
+        for (Item p: _data.getItems().values()) {
+            words_.put(p.getItemType(), p.getItemType());
+        }
+        return words_;
+    }
+
+    public static StringMap<String> basicTranslation(CustList<String> _keys) {
+        StringMap<String> words_;
+        words_ = new StringMap<String>();
+        for (String p: _keys) {
+            words_.addEntry(p, p);
+        }
+        return words_;
+    }
+
     public LgInt getMaxRd() {
         return standardMathFactory.getMaxRandomNb();
     }
@@ -1150,7 +1168,7 @@ public class DataBase {
         }
     }
 
-    private StringList statisNames() {
+    public static StringList statisNames() {
         StringList statisNames_ = new StringList();
         for (Statistic s : Statistic.getStatisticsWithBoost()) {
             statisNames_.add(s.getStatName());

@@ -58,14 +58,6 @@ public final class LevelPoints {
         return e_.getLink();
     }
 
-    public CustList<Link> values() {
-        CustList<Link> lk_ = new CustList<Link>();
-        for (LevelPointLink e: getList()) {
-            lk_.add(e.getLink());
-        }
-        return lk_;
-    }
-
     public int indexOfEntry(LevelPoint _key){
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {

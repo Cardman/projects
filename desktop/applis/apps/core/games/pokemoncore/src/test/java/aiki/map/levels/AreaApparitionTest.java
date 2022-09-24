@@ -187,20 +187,22 @@ public class AreaApparitionTest extends EquallablePkUtil {
         assertEq(new LgInt("2"), freqPk(law_,pkTwo_));
     }
     private static boolean containsPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
-        for (WildPk e: _monte.events()) {
-            if (e.eq(_ev)) {
-                return true;
-            }
-        }
-        return false;
+//        for (WildPk e: _monte.events()) {
+//            if (e.eq(_ev)) {
+//                return true;
+//            }
+//        }
+//        return false;
+        return WildPk.containsPk(_monte, _ev);
     }
     private static LgInt freqPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
-        LgInt sum_ = LgInt.zero();
-        for (EventFreq<WildPk> e: _monte.getEvents()) {
-            if (e.getEvent().eq(_ev)) {
-                sum_.addNb(e.getFreq());
-            }
-        }
-        return sum_;
+        return WildPk.freqPk(_monte, _ev);
+//        LgInt sum_ = LgInt.zero();
+//        for (EventFreq<WildPk> e: _monte.getEvents()) {
+//            if (e.getEvent().eq(_ev)) {
+//                sum_.addNb(e.getFreq());
+//            }
+//        }
+//        return sum_;
     }
 }

@@ -213,6 +213,12 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         obtention();
     }
 
+    public static void deplacement(PokemonPlayer _pk, int _nb, DataBase _data) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
+            _pk.deplacement(_data);
+        }
+    }
+
     void initAleaCapaciteGenre(DataBase _import){
         PokemonData fPk_=_import.getPokemon(getName());
         GenderRepartition repartitionGenre_=fPk_.getGenderRep();

@@ -120,6 +120,60 @@ public final class DataMap {
 
     private final ScreenCoordssCustListInt foregroundImages = new ScreenCoordssCustListInt();
 
+    public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
+                                     String _imgName1, String _imgName2) {
+        if (partialFillForAdding(_dataMap, coords(_place, _l1), coords(_place, _l2))) {
+            return;
+        }
+        joinLevelCave(_dataMap, _place, _l1, _l2, _imgName1);
+        joinLevelCave(_dataMap, _place, _l2, _l1, _imgName2);
+    }
+
+    public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
+                                     String _imgName) {
+        Cave cave_ = (Cave) _dataMap.getPlace(_place);
+        LevelCave l1_ = (LevelCave) cave_.getLevelsMap().getVal(
+                _l1.getLevelIndex());
+        Points< Link> links_ = l1_.getLinksOtherLevels();
+        if (links_.contains(_l1.getPoint())) {
+            Link link_ = links_.getVal(_l1.getPoint());
+            link_.getCoords().setNumberPlace(_place);
+            link_.getCoords().setLevel(_l2);
+            link_.setFileName(_imgName);
+        } else {
+            Link link_ = new Link();
+            link_.setCoords(new Coords());
+            link_.getCoords().setNumberPlace(_place);
+            link_.getCoords().setLevel(_l2);
+            link_.setFileName(_imgName);
+            links_.put(_l1.getPoint(), link_);
+        }
+    }
+
+    public static void joinCavePlace(DataMap _dataMap, Coords _coordsCave, Coords _coordsPlace,
+                                     String _imgName1, String _imgName2) {
+        if (partialFillForAdding(_dataMap, _coordsCave, _coordsPlace)) {
+            return;
+        }
+        Cave cave_ = (Cave) _dataMap.getPlace(_coordsCave.getNumberPlace());
+        InitializedPlace place_ = (InitializedPlace) _dataMap.getPlace(_coordsPlace
+                .getNumberPlace());
+        LevelPoints links1_ = cave_.getLinksWithOtherPlaces();
+        Link link1_ = new Link();
+        link1_.setCoords(_coordsPlace);
+        link1_.setFileName(_imgName1);
+        links1_.addEntry(_coordsCave.getLevel(), link1_);
+        Points< Link> links2_ = place_.getLinksWithCaves();
+        Link link2_ = new Link();
+        link2_.setCoords(_coordsCave);
+        link2_.setFileName(_imgName2);
+        links2_.put(_coordsPlace.getLevel().getPoint(), link2_);
+    }
+
+    public static boolean partialFillForAdding(DataMap _dataMap, Coords _one, Coords _two) {
+        return !_dataMap.isEmptyForAdding(_one) || !_dataMap.isEmptyForAdding(_two);
+    }
+
     public void validate(DataBase _d) {
         if (screenWidth < 0 || screenHeight < 0 || spaceBetweenLeftAndHeros <= 0 || spaceBetweenTopAndHeros <= 0 || screenWidth <= spaceBetweenLeftAndHeros + 1
                 || screenHeight <= spaceBetweenTopAndHeros + 1 || sideLength <= 0 || places.isEmpty()) {
@@ -171,9 +225,7 @@ public final class DataMap {
         checkCitiesAccess(_d);
         for (Coords c : beatGymLeader) {
             if (c.isInside()) {
-                Coords coordsExt_ = new Coords();
-                coordsExt_.setNumberPlace(c.getNumberPlace());
-                coordsExt_.setLevel(new LevelPoint());
+                Coords coordsExt_ = coords(c.getNumberPlace(), new LevelPoint());
                 Point exitBuilding_ = new Point(c.getInsideBuilding());
                 exitBuilding_.moveTo(Direction.DOWN);
                 coordsExt_.getLevel().setPoint(exitBuilding_);
@@ -692,9 +744,7 @@ public final class DataMap {
                 if (pl_ instanceof League) {
                     if (!beatGymLeader.containsObj(c2_)) {
                         invalidCoords_.add(c2_);
-                        Coords c_ = new Coords();
-                        c_.setNumberPlace(c2_.getNumberPlace());
-                        c_.setLevel(new LevelPoint());
+                        Coords c_ = coords(c2_.getNumberPlace(), new LevelPoint());
                         c_.getLevel().setLevelIndex((byte) 0);
                         c_.getLevel().setPoint(((League) pl_).getBegin());
                         addedCoords_.add(c_);
@@ -781,13 +831,18 @@ public final class DataMap {
 
                     Coords other_ = closestTile(cave_.getLinksWithCaves()
                             .getVal(point_));
-                    Coords current_ = new Coords();
-                    current_.setNumberPlace(_p);
-                    current_.setLevel(_l);
+                    Coords current_ = coords(_p, _l);
                     checkCoordsEq(_d, other_, current_);
                 }
             }
         }
+    }
+
+    private static Coords coords(short _p, LevelPoint _l) {
+        Coords current_ = new Coords();
+        current_.setNumberPlace(_p);
+        current_.setLevel(_l);
+        return current_;
     }
 
     private void basicCheckLinksWithCave(DataBase _d, short _p, Points<Link> _links, Point _pt) {
@@ -811,9 +866,7 @@ public final class DataMap {
 
                     Coords other_ = closestTile(cave_.getLinksWithOtherPlaces()
                             .getVal(lPoint_));
-                    Coords current_ = new Coords();
-                    current_.setNumberPlace(_p);
-                    current_.setLevel(new LevelPoint());
+                    Coords current_ = coords(_p, new LevelPoint());
                     current_.getLevel().setLevelIndex((byte) 0);
                     current_.getLevel().setPoint(_pt);
                     checkCoordsEq(_d, other_, current_);
@@ -939,9 +992,7 @@ public final class DataMap {
                 campaign(s, place_);
             }
             if (place_ instanceof League) {
-                Coords c_ = new Coords();
-                c_.setNumberPlace(s);
-                c_.setLevel(new LevelPoint());
+                Coords c_ = coords(s, new LevelPoint());
                 c_.getLevel().setLevelIndex((byte) 0);
                 c_.getLevel().setPoint(((League) place_).getBegin());
                 beatGymLeader.add(c_);
@@ -954,18 +1005,14 @@ public final class DataMap {
             LevelWithWildPokemon levelCave_ = (LevelWithWildPokemon) _place
                     .getLevelsMap().getVal(k);
             for (Point p : levelCave_.getLegendaryPks().getKeys()) {
-                Coords c_ = new Coords();
-                c_.setNumberPlace(_s);
-                c_.setLevel(new LevelPoint());
+                Coords c_ = coords(_s, new LevelPoint());
                 c_.getLevel().setLevelIndex(k);
                 c_.getLevel().setPoint(p);
                 takenPokemon.add(c_);
             }
             takenLookup(_s, k, levelCave_);
             for (Point p : levelCave_.getDualFights().getKeys()) {
-                Coords c_ = new Coords();
-                c_.setNumberPlace(_s);
-                c_.setLevel(new LevelPoint());
+                Coords c_ = coords(_s, new LevelPoint());
                 c_.getLevel().setLevelIndex(k);
                 c_.getLevel().setPoint(p);
                 beatGymLeader.add(c_);
@@ -985,9 +1032,7 @@ public final class DataMap {
                 if (!(c.getValue() instanceof TrainerMultiFights)) {
                     continue;
                 }
-                Coords c_ = new Coords();
-                c_.setNumberPlace(_s);
-                c_.setLevel(new LevelPoint());
+                Coords c_ = coords(_s, new LevelPoint());
                 c_.getLevel().setLevelIndex(e.getKey());
                 c_.getLevel().setPoint(c.getKey());
                 TrainerMultiFights tr_ = (TrainerMultiFights) c
@@ -1004,9 +1049,7 @@ public final class DataMap {
         for (CommonParam<Point,Building> b : _place
                 .getBuildings().entryList()) {
             if (b.getValue() instanceof PokemonCenter) {
-                Coords coordsCity_ = new Coords();
-                coordsCity_.setNumberPlace(_s);
-                coordsCity_.setLevel(new LevelPoint());
+                Coords coordsCity_ = coords(_s, new LevelPoint());
                 coordsCity_.getLevel().setLevelIndex((byte) 0);
                 coordsCity_.outside();
                 coordsCity_.getLevel().setPoint(new Point(b.getKey()));
@@ -1023,33 +1066,25 @@ public final class DataMap {
             if (!(_levelCave.getCharacters().getVal(p) instanceof DealerItem)) {
                 continue;
             }
-            Coords c_ = new Coords();
-            c_.setNumberPlace(_s);
-            c_.setLevel(new LevelPoint());
+            Coords c_ = coords(_s, new LevelPoint());
             c_.getLevel().setLevelIndex(_k);
             c_.getLevel().setPoint(p);
             takenObjects.add(c_);
         }
         for (Point p : _levelCave.getItems().getKeys()) {
-            Coords c_ = new Coords();
-            c_.setNumberPlace(_s);
-            c_.setLevel(new LevelPoint());
+            Coords c_ = coords(_s, new LevelPoint());
             c_.getLevel().setLevelIndex(_k);
             c_.getLevel().setPoint(p);
             takenObjects.add(c_);
         }
         for (Point p : _levelCave.getTm().getKeys()) {
-            Coords c_ = new Coords();
-            c_.setNumberPlace(_s);
-            c_.setLevel(new LevelPoint());
+            Coords c_ = coords(_s, new LevelPoint());
             c_.getLevel().setLevelIndex(_k);
             c_.getLevel().setPoint(p);
             takenObjects.add(c_);
         }
         for (Point p : _levelCave.getHm().getKeys()) {
-            Coords c_ = new Coords();
-            c_.setNumberPlace(_s);
-            c_.setLevel(new LevelPoint());
+            Coords c_ = coords(_s, new LevelPoint());
             c_.getLevel().setLevelIndex(_k);
             c_.getLevel().setPoint(p);
             takenObjects.add(c_);
@@ -1061,9 +1096,7 @@ public final class DataMap {
                 .getValue()).getIndoor().getGerants()
                 .entryList()) {
             if (g.getValue() instanceof GerantPokemon && ((GerantPokemon) g.getValue()).getGerance() == GeranceType.HOST) {
-                Coords c_ = new Coords();
-                c_.setNumberPlace(_s);
-                c_.setLevel(new LevelPoint());
+                Coords c_ = coords(_s, new LevelPoint());
                 c_.affectInside(_b.getKey());
                 c_.getLevel().setLevelIndex((byte) 0);
                 c_.getLevel().setPoint(g.getKey());
@@ -1077,9 +1110,7 @@ public final class DataMap {
         for (CommonParam<Point,Building> b : _place
                 .getBuildings().entryList()) {
             if (b.getValue() instanceof Gym) {
-                Coords c_ = new Coords();
-                c_.setNumberPlace(_s);
-                c_.setLevel(new LevelPoint());
+                Coords c_ = coords(_s, new LevelPoint());
                 c_.affectInside(b.getKey());
                 c_.getLevel().setLevelIndex((byte) 0);
                 c_.getLevel().setPoint(
@@ -1557,9 +1588,7 @@ public final class DataMap {
         for (short p = 0; p < nbPlaces_; p++) {
             Place pl_ = places.get(p);
             if (pl_ instanceof League && Coords.eq(((League) pl_).getAccessCoords(), _id)) {
-                Coords coords_ = new Coords();
-                coords_.setNumberPlace(p);
-                coords_.setLevel(new LevelPoint());
+                Coords coords_ = coords(p, new LevelPoint());
                 coords_.getLevel().setLevelIndex((byte) 0);
                 coords_.getLevel().setPoint(
                         new Point(((League) pl_).getBegin()));
@@ -1868,16 +1897,12 @@ public final class DataMap {
                         (short) (ytop2_ + i)), _dir1.getOpposite()));
             }
         }
-        Coords coords1_ = new Coords();
-        coords1_.setNumberPlace(_pl2);
-        coords1_.setLevel(new LevelPoint());
+        Coords coords1_ = coords(_pl2, new LevelPoint());
         coords1_.getLevel().setLevelIndex((byte) 0);
         coords1_.getLevel().setPoint(new Point(p2_));
         ((InitializedPlace) place1_).addSavedLink(new PlaceInterConnect(p1_,
                 _dir1), coords1_);
-        Coords coords2_ = new Coords();
-        coords2_.setNumberPlace(_pl1);
-        coords2_.setLevel(new LevelPoint());
+        Coords coords2_ = coords(_pl1, new LevelPoint());
         coords2_.getLevel().setLevelIndex((byte) 0);
         coords2_.getLevel().setPoint(new Point(p1_));
         ((InitializedPlace) place2_).addSavedLink(new PlaceInterConnect(p2_,

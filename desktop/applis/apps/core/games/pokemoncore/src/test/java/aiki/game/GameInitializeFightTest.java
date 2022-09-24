@@ -741,35 +741,41 @@ public class GameInitializeFightTest extends InitializationDataBase {
         return new Point((short)_x, (short)_y);
     }
     private static int nbPk(MonteCarloList<WildPk> _monte) {
-        CustList<WildPk> wp_ = new CustList<WildPk>();
-        for (WildPk e: _monte.events()) {
-            boolean eq_ = false;
-            for (WildPk f: wp_) {
-                if (e.eq(f)) {
-                    eq_ = true;
-                }
-            }
-            if (!eq_) {
-                wp_.add(e);
-            }
-        }
-        return wp_.size();
+//        CustList<WildPk> wp_ = new CustList<WildPk>();
+//        for (WildPk e: _monte.events()) {
+////            boolean eq_ = false;
+////            for (WildPk f: wp_) {
+////                if (e.eq(f)) {
+////                    eq_ = true;
+////                }
+////            }
+//            if (!contains(e,wp_)) {
+//                wp_.add(e);
+//            }
+//        }
+//        return wp_.size();
+        return WildPk.nbPk(_monte);
     }
     private static boolean containsPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
-        for (WildPk e: _monte.events()) {
-            if (e.eq(_ev)) {
-                return true;
-            }
-        }
-        return false;
+        return WildPk.contains(_ev, _monte.events());
     }
+
+//    private static boolean contains(WildPk _ev, CustList<WildPk> _list) {
+//        for (WildPk e: _list) {
+//            if (e.eq(_ev)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     private static LgInt freqPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
-        LgInt sum_ = LgInt.zero();
-        for (EventFreq<WildPk> e: _monte.getEvents()) {
-            if (e.getEvent().eq(_ev)) {
-                sum_.addNb(e.getFreq());
-            }
-        }
-        return sum_;
+        return WildPk.freqPk(_monte, _ev);
+//        LgInt sum_ = LgInt.zero();
+//        for (EventFreq<WildPk> e: _monte.getEvents()) {
+//            if (e.getEvent().eq(_ev)) {
+//                sum_.addNb(e.getFreq());
+//            }
+//        }
+//        return sum_;
     }
 }
