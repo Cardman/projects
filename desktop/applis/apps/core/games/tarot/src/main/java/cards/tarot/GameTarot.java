@@ -192,16 +192,13 @@ public final class GameTarot {
     }
 
     void loadGame() {
-        BidTarot bid_ = bid();
-        boolean defined_ = false;
-        if (!avecContrat() || !bid_.isJouerDonne()) {
-            initEquipeDetermineeSansPreneur();
-        } else if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
-            initEquipeDeterminee();
-            defined_ = true;
-        } else if (rules.getDealing().getAppel() == CallingCard.WITHOUT) {
-            initDefense();
+        BidTarotTaker bt_ = bid();
+        taker = bt_.getTaker();
+        bid = bt_.getBid();
+        if (avContrat(rules) && bid.isJouerDonne() && rules.getDealing().getAppel() == CallingCard.DEFINED) {
+            calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
         }
+        boolean defined_ = defined(bid, rules, taker, confidence);
         cardsToBeDiscarded();
         if (!defined_) {
             calledPlayers = new Bytes();
@@ -229,6 +226,20 @@ public final class GameTarot {
             starter = taker;
             trickWinner = taker;
         }
+        confianceAppele();
+    }
+
+    static boolean defined(BidTarot _bid, RulesTarot _rules, byte _taker, CustList<CustList<BoolVal>> _confidence) {
+        boolean defined_ = false;
+        if (!avContrat(_rules) || !_bid.isJouerDonne()) {
+            confSansPreneur(_rules, _confidence);
+        } else if (_rules.getDealing().getAppel() == CallingCard.DEFINED) {
+            confDeterminee(_rules, _taker, _confidence);
+            defined_ = true;
+        } else if (_rules.getDealing().getAppel() == CallingCard.WITHOUT) {
+            confDef(_rules, _taker, _confidence);
+        }
+        return defined_;
     }
 
     private void cardsToBeDiscarded() {
@@ -242,19 +253,22 @@ public final class GameTarot {
         }
     }
 
-    private BidTarot bid() {
-        byte player_ = playerAfter(deal.getDealer());
-        taker = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private BidTarotTaker bid() {
+        return bidding(rules.getDealing(), bids, deal.getDealer());
+    }
+
+    static BidTarotTaker bidding(DealingTarot _dealing, CustList<BidTarot> _bids, byte _dealer) {
+        byte player_ = _dealing.getId().getNextPlayer(_dealer);
+        byte t_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         BidTarot bid_ = BidTarot.FOLD;
-        for (BidTarot b: bids) {
+        for (BidTarot b: _bids) {
             if (b.strongerThan(bid_)) {
-                taker = player_;
+                t_ = player_;
                 bid_ = b;
             }
-            player_ = playerAfter(player_);
+            player_ = _dealing.getId().getNextPlayer(player_);
         }
-        bid = bid_;
-        return bid_;
+        return new BidTarotTaker(bid_, t_);
     }
 
     void retrieveCalledPlayers(TrickTarot _t) {
@@ -505,7 +519,11 @@ public final class GameTarot {
     }
 
     public boolean avecContrat() {
-        ModeTarot mode_ = rules.getMode();
+        return avContrat(rules);
+    }
+
+    static boolean avContrat(RulesTarot _rules) {
+        ModeTarot mode_ = _rules.getMode();
         if (mode_ == ModeTarot.NORMAL) {
             return true;
         }
@@ -625,27 +643,35 @@ public final class GameTarot {
     }
 
     public void initEquipeDetermineeSansPreneur() {
-        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+        confSansPreneur(rules, confidence);
+    }
+
+    static void confSansPreneur(RulesTarot _rules, CustList<CustList<BoolVal>> _confidence) {
+        byte nombreDeJoueurs_ = (byte) _rules.getDealing().getId().getNombreJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i < nombreDeJoueurs_; i++) {
-            for (byte p: rules.getDealing().getAppelesDetermines(i)) {
-                faireConfiance(i, p);
+            for (byte p: _rules.getDealing().getAppelesDetermines(i)) {
+                faireConfiance(i, p, _confidence);
             }
-            faireConfiance(i, i);
+            faireConfiance(i, i, _confidence);
         }
     }
 
     public void initEquipeDeterminee() {
-        Bytes attaquants_= rules.getDealing().getAppelesDetermines(taker);
-        calledPlayers = new Bytes(attaquants_);
-        attaquants_.add(taker);
-        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+        calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
+        confDeterminee(rules, taker, confidence);
+    }
+
+    static void confDeterminee(RulesTarot _rules, byte _taker, CustList<CustList<BoolVal>> _confidence) {
+        Bytes attaquants_= _rules.getDealing().getAppelesDetermines(_taker);
+        attaquants_.add(_taker);
+        byte nombreDeJoueurs_ = (byte) _rules.getDealing().getId().getNombreJoueurs();
         Bytes defenseurs_=GameTarotTeamsRelation.autresJoueurs(attaquants_, nombreDeJoueurs_);
         for(byte j1_:attaquants_) {
             for(byte j2_:attaquants_) {
                 if(j1_==j2_) {
                     continue;
                 }
-                faireConfiance(j1_, j2_);
+                faireConfiance(j1_, j2_, _confidence);
             }
         }
         for(byte j1_:defenseurs_) {
@@ -653,17 +679,20 @@ public final class GameTarot {
                 if(j1_==j2_) {
                     continue;
                 }
-                faireConfiance(j1_, j2_);
+                faireConfiance(j1_, j2_, _confidence);
             }
         }
     }
 
     public void initDefense() {
+        confDef(rules, taker, confidence);
+    }
+
+    static void confDef(RulesTarot _rules, byte _taker, CustList<CustList<BoolVal>> _confidence) {
         Bytes defenseurs_=new Bytes();
-        byte indice_=taker;
-        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+        byte nombreDeJoueurs_ = (byte) _rules.getDealing().getId().getNombreJoueurs();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreDeJoueurs_; joueur_++) {
-            if(joueur_==indice_) {
+            if(joueur_== _taker) {
                 continue;
             }
             defenseurs_.add(joueur_);
@@ -673,10 +702,11 @@ public final class GameTarot {
                 if(j1_==j2_) {
                     continue;
                 }
-                faireConfiance(j1_, j2_);
+                faireConfiance(j1_, j2_, _confidence);
             }
         }
     }
+
     public void appelApresEcart() {
         ajouterCartes(taker,derniereMain());
         CallDiscard appel_ = strategieAppelApresEcart(false);
@@ -685,9 +715,7 @@ public final class GameTarot {
             initConfianceAppele();
         }
         setPliEnCours(false);
-        for(CardTarot ct_:appel_.getEcartAFaire()) {
-            ajouterUneCarteDansPliEnCours(ct_);
-        }
+        ajouterCartesDansPliEnCours(appel_.getEcartAFaire());
         tricks.add(progressingTrick);
         supprimerCartes(taker,appel_.getEcartAFaire());
         if(appel_.isChelem()) {
@@ -831,13 +859,20 @@ public final class GameTarot {
     }
     void initConfianceAppele() {
         calledPlayers = joueursAyantCarteAppelee();
-        for(byte a: calledPlayers) {
-            if(taker!=a) {
-                faireConfiance(a,taker);
-            }
-        }
+        confianceAppele();
         if (getContrat().getJeuChien() == PlayingDog.WITH && noCalledCardsInHand()) {
             initDefense();
+        }
+    }
+
+    void confianceAppele() {
+        if (taker == -1) {
+            return;
+        }
+        for(byte a: calledPlayers) {
+            if(taker!=a) {
+                faireConfiance(a,taker, confidence);
+            }
         }
     }
 
@@ -873,9 +908,7 @@ public final class GameTarot {
             supprimerCartes(taker,mt_);
 
             ajouterChelem(taker, annoncerUnChelem(taker));
-            for(CardTarot ct_:mt_) {
-                ajouterUneCarteDansPliEnCours(ct_);
-            }
+            ajouterCartesDansPliEnCours(mt_);
             tricks.add(progressingTrick);
             setStarterIfSlam();
             return;
@@ -890,11 +923,15 @@ public final class GameTarot {
 
         setEntameur(taker);
         setPliEnCours(false);
-        for(CardTarot ct_:mt_) {
-            ajouterUneCarteDansPliEnCours(ct_);
-        }
+        ajouterCartesDansPliEnCours(mt_);
         tricks.add(progressingTrick);
         setStarterIfSlam();
+    }
+
+    void ajouterCartesDansPliEnCours(HandTarot _mt) {
+        for(CardTarot ct_: _mt) {
+            ajouterUneCarteDansPliEnCours(ct_);
+        }
     }
 
     private void setStarterIfSlam() {
@@ -933,9 +970,7 @@ public final class GameTarot {
     public void gererChienInconnu() {
         setEntameur(taker);
         setPliEnCours(false);
-        for(CardTarot carte_:derniereMain()) {
-            ajouterUneCarteDansPliEnCours(carte_);
-        }
+        ajouterCartesDansPliEnCours(derniereMain());
         tricks.add(progressingTrick);
     }
     public boolean annoncerUnChelem(byte _numeroJoueur) {
@@ -1078,10 +1113,6 @@ public final class GameTarot {
         starter = _starter;
     }
 
-    void setTrickWinner(byte _trickWinner) {
-        trickWinner = _trickWinner;
-    }
-
     public boolean autorise(CardTarot _c) {
         HandTarot main_ = getDistribution().hand(playerHavingToPlay());
         IdMap<Suit,HandTarot> repartition_ = main_.couleurs();
@@ -1170,8 +1201,8 @@ public final class GameTarot {
                 cartesCertaines_);
     }
 
-    private void faireConfiance(byte _joueur, byte _enjoueur) {
-        confidence.get(_joueur).set( _enjoueur, BoolVal.TRUE);
+    static void faireConfiance(byte _joueur, byte _enjoueur, CustList<CustList<BoolVal>> _conf) {
+        _conf.get(_joueur).set( _enjoueur, BoolVal.TRUE);
     }
 
     public CardTarot strategieJeuCarteUnique() {

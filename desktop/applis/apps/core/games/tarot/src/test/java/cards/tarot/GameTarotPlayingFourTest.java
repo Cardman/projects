@@ -122,7 +122,7 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -144,7 +144,7 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game_.setCarteAppelee(cartesAppeler_);

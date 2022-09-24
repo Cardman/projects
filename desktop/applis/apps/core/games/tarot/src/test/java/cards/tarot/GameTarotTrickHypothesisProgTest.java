@@ -3,6 +3,7 @@ package cards.tarot;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
+import cards.tarot.tsts.TstsTarot;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.IdMap;
@@ -2722,18 +2723,6 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         return info_;
     }
     private static IdMap<Suit,CustList<HandTarot>> generate(int _nbPlayer) {
-        IdMap<Suit,CustList<HandTarot>> e_ = new IdMap<Suit,CustList<HandTarot>>();
-        EnumList<Suit> s_ = new EnumList<Suit>();
-        s_.add(Suit.UNDEFINED);
-        s_.add(Suit.TRUMP);
-        s_.addAllElts(Suit.couleursOrdinaires());
-        for (Suit s: s_) {
-            CustList<HandTarot> l_ = new CustList<HandTarot>();
-            for (int i = 0; i <= _nbPlayer; i++) {
-                l_.add(new HandTarot());
-            }
-            e_.addEntry(s,l_);
-        }
-        return e_;
+        return TstsTarot.generateMult(_nbPlayer);
     }
 }

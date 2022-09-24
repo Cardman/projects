@@ -4,27 +4,17 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import cards.tarot.tsts.TstsTarotSimulating;
+import cards.tarot.tsts.TstsTarotStoppedSimuCond;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.core.BoolVal;
 
-public final class SimulatingTarotAbrupt extends AbstractSimulatingTarot {
+public final class SimulatingTarotAbrupt extends TstsTarotSimulating {
 
     public SimulatingTarotAbrupt(GameTarot _gameTarot) {
-        super(new DisplayingTarot(),_gameTarot);
-    }
-
-
-    @Override
-    public boolean stopped() {
-        if (partieTarotSimulee().getTricks().isEmpty()) {
-            return false;
-        }
-        if (!partieTarotSimulee().getTricks().last().getVuParToutJoueur()) {
-            return false;
-        }
-        return partieTarotSimulee().getProgressingTrick().total() == 1;
+        super(new DisplayingTarot(),_gameTarot,new TstsTarotStoppedSimuCond(_gameTarot));
     }
 
     @Override

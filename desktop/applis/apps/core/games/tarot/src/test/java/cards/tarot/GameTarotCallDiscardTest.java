@@ -4,7 +4,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import code.util.EnumList;
+import cards.tarot.tsts.TstsTarot;
 import code.util.IdMap;
 import org.junit.Test;
 
@@ -1596,12 +1596,7 @@ public class GameTarotCallDiscardTest extends EquallableTarotUtil {
         return new GameTarotCallDiscard(g_, _r.getDealing().getNombreCartesChien());
     }
     private static GameTarotBid newGameTarotBid(HandTarot _h, RulesTarot _r, BidTarot _b) {
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
-        bids_.add(_b);
-        int nb_ = _r.getDealing().getId().getNombreJoueurs();
-        for (int i = 1; i < nb_; i++) {
-            bids_.add(BidTarot.FOLD);
-        }
-        return new GameTarotBid(_h,_r, bids_,_b);
+        return new GameTarotBid(_h,_r, TstsTarot.bids(_r, _b),_b);
     }
+
 }

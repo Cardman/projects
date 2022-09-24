@@ -3,6 +3,7 @@ package cards.tarot;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
+import cards.tarot.tsts.TstsTarotTriplet;
 import code.util.*;
 import org.junit.Test;
 
@@ -192,15 +193,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
-        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
-        CustList<HandTarot> h_ = new CustList<HandTarot>();
-        for (int i = 0; i < 3; i++) {
-            m_.add(new EnumList<Miseres>());
-            h_.add(new HandTarot());
-            dh_.add(new EnumList<Handfuls>());
-        }
-        GameTarot game_ = newEndedGameTarot(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_);
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
+        GameTarot game_ = newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
@@ -545,15 +539,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
-        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
-        CustList<HandTarot> h_ = new CustList<HandTarot>();
-        for (int i = 0; i < 3; i++) {
-            m_.add(new EnumList<Miseres>());
-            h_.add(new HandTarot());
-            dh_.add(new EnumList<Handfuls>());
-        }
-        return newEndedGameTarot(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_);
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
+        return newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
     }
     static GameTarot newSimpleDealOther() {
         RulesTarot rules_ = new RulesTarot();
@@ -578,7 +565,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        TrickTarot t_ = newClassicTrick(trs_,rules_,dealer_);
+        TrickTarot t_ = newClassicTrickFirst(trs_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
         t_.ajouter(CardTarot.HEART_7);
@@ -698,15 +685,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
-        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
-        CustList<HandTarot> h_ = new CustList<HandTarot>();
-        for (int i = 0; i < 3; i++) {
-            m_.add(new EnumList<Miseres>());
-            h_.add(new HandTarot());
-            dh_.add(new EnumList<Handfuls>());
-        }
-        return newEndedGameTarot(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_);
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
+        return newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
     }
 
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
@@ -714,9 +694,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
         byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
-        for (int i = 0; i < nbPl_; i++) {
-            deal_.add(new HandTarot());
-        }
+//        for (int i = 0; i < nbPl_; i++) {
+//            deal_.add(new HandTarot());
+//        }
+        DealTarot.ajouterMainVides(deal_,nbPl_);
         return newEndedGameTarot(_r,_trs,deal_,_m,_dh,_h,_dealer,_bids,_calledCards,_lastHand);
     }
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,CustList<HandTarot> _deal,
@@ -734,39 +715,42 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         g_.setDeclaresHandfuls(_dh);
         g_.setBids(_bids);
         g_.setCalledCards(_calledCards);
-        byte player_ = g_.playerAfter((byte) _dealer);
-        int taker_ = getTaker(_r,_dealer,_bids);
-        BidTarot bid_ = BidTarot.FOLD;
-        for (BidTarot b: _bids) {
-            if (b.strongerThan(bid_)) {
-                bid_ = b;
-            }
-            player_ = g_.playerAfter(player_);
-        }
-        g_.setPreneur((byte) taker_);
-        g_.setContrat(bid_);
-        if (!g_.avecContrat() || !bid_.isJouerDonne()) {
-            g_.initEquipeDetermineeSansPreneur();
-        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
-            g_.initEquipeDeterminee();
-        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
-            g_.initDefense();
-        }
-        for (TrickTarot t: g_.getTricks()) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
-            g_.retrieveCalledPlayers(t);
-        }
-        byte starter_ = last_.getEntameur();
-        byte trickWinner_ = last_.getEntameur();
-        if (g_.getPreneur() > -1) {
-            for (byte i = 0; i < nbPl_; i++) {
-                g_.getTeamsRelation().determinerConfiance(i, nbPl_);
-            }
-        }
-        g_.setStarter(starter_);
-        g_.setTrickWinner(trickWinner_);
+
+        g_.loadGame();
+
+//        byte player_ = g_.playerAfter((byte) _dealer);
+//        int taker_ = getTaker(_r,_dealer,_bids);
+//        BidTarot bid_ = BidTarot.FOLD;
+//        for (BidTarot b: _bids) {
+//            if (b.strongerThan(bid_)) {
+//                bid_ = b;
+//            }
+//            player_ = g_.playerAfter(player_);
+//        }
+//        g_.setPreneur((byte) taker_);
+//        g_.setContrat(bid_);
+//        if (!g_.avecContrat() || !bid_.isJouerDonne()) {
+//            g_.initEquipeDetermineeSansPreneur();
+//        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
+//            g_.initEquipeDeterminee();
+//        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
+//            g_.initDefense();
+//        }
+//        for (TrickTarot t: g_.getTricks()) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
+//            g_.retrieveCalledPlayers(t);
+//        }
+//        byte starter_ = last_.getEntameur();
+//        byte trickWinner_ = last_.getEntameur();
+//        if (g_.getPreneur() > -1) {
+//            for (byte i = 0; i < nbPl_; i++) {
+//                g_.getTeamsRelation().determinerConfiance(i, nbPl_);
+//            }
+//        }
+//        g_.setStarter(starter_);
+//        g_.setTrickWinner(trickWinner_);
 //        CheckerGameTarotWithRules.check(g_);
 //        assertTrue("Error",g_.getError().isEmpty());
         return g_;

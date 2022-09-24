@@ -100,10 +100,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) 1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
-        byte nbPl_ = (byte) rules_.getDealing().getId().getNombreJoueurs();
-        for (byte p = 0; p < nbPl_; p++) {
-            g_.determinerConfiance(p,nbPl_);
-        }
+        g_.determinerConfiances();
         CustList<Bytes> teams_ = g_.teams();
         assertEq(2, teams_.size());
         assertEq(2, teams_.get(1).size());
@@ -132,10 +129,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         Bytes calledPlayers_ = new Bytes();
         calledPlayers_.add((byte) taker_);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
-        byte nbPl_ = (byte) rules_.getDealing().getId().getNombreJoueurs();
-        for (byte p = 0; p < nbPl_; p++) {
-            g_.determinerConfiance(p,nbPl_);
-        }
+        g_.determinerConfiances();
         CustList<Bytes> teams_ = g_.teams();
         assertEq(2, teams_.size());
         assertEq(1, teams_.get(1).size());
@@ -146,6 +140,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         assertEq(4, teams_.get(0).get(2));
         assertEq(0, teams_.get(0).get(3));
     }
+
     @Test
     public void isSameTeam1Test() {
         RulesTarot rules_ = new RulesTarot();
@@ -240,68 +235,6 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         assertTrue(!g_.isSameTeam(set_));
     }
     private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){
-        CustList<CustList<BoolVal>> confidence_ = new CustList<CustList<BoolVal>>();
-        ModeTarot mode_ = _r.getMode();
-        boolean b_ = false;
-        if (mode_ == ModeTarot.NORMAL) {
-            b_ = true;
-        } else if (mode_ == ModeTarot.NORMAL_WITH_ONE_FOR_ONE) {
-            b_ = true;
-        } else if (mode_ == ModeTarot.NORMAL_WITH_MISERE) {
-            b_ = true;
-        }
-        byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
-        for (int i = 0; i< nbPl_; i++) {
-            CustList<BoolVal> c_ = new CustList<BoolVal>();
-            for (int j = 0; j< nbPl_; j++) {
-                c_.add(ComparatorBoolean.of(i == j));
-            }
-            confidence_.add(c_);
-        }
-        if (!b_ || !_b.isJouerDonne()) {
-            for (byte i = IndexConstants.FIRST_INDEX; i < nbPl_; i++) {
-                for (byte p: _r.getDealing().getAppelesDetermines(i)) {
-                    confidence_.get(i).set(p,BoolVal.TRUE);
-                }
-                confidence_.get(i).set(i,BoolVal.TRUE);
-            }
-        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
-            Bytes attaquants_= _r.getDealing().getAppelesDetermines((byte) _taker);
-            attaquants_.add((byte) _taker);
-            Bytes defenseurs_=GameTarotTeamsRelation.autresJoueurs(attaquants_, nbPl_);
-            for(byte j1_:attaquants_) {
-                for(byte j2_:attaquants_) {
-                    if(j1_==j2_) {
-                        continue;
-                    }
-                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
-                }
-            }
-            for(byte j1_:defenseurs_) {
-                for(byte j2_:defenseurs_) {
-                    if(j1_==j2_) {
-                        continue;
-                    }
-                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
-                }
-            }
-        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
-            Bytes defenseurs_=new Bytes();
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPl_; joueur_++) {
-                if(joueur_==_taker) {
-                    continue;
-                }
-                defenseurs_.add(joueur_);
-            }
-            for(byte j1_:defenseurs_) {
-                for(byte j2_:defenseurs_) {
-                    if(j1_==j2_) {
-                        continue;
-                    }
-                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
-                }
-            }
-        }
-        return confidence_;
+        return getConfi(_b, _r, _taker);
     }
 }

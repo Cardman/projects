@@ -5694,19 +5694,9 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         assertTrue(hypo_.getVal(Hypothesis.SURE).getVal(Suit.HEART).get(0).contient(CardTarot.HEART_KING));
     }
     private static IdMap<Suit,CustList<HandTarot>> fact(GameTarotTrickInfo _info, HandTarot _current) {
-        IdMap<Suit,CustList<HandTarot>> m = new IdMap<Suit,CustList<HandTarot>>();
-        CustList<HandTarot> possibleExcuse_ = _info.excusePossibleRegles(_current);
-        m.put(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
-        m.put(Suit.TRUMP,_info.atoutsPossiblesRegles(
-                _current));
-        for (Suit couleur_ : Suit.couleursOrdinaires()) {
-            // On fait une boucle sur les
-            // couleurs autres que l'atout
-            m.put(couleur_,_info.cartesPossiblesRegles(couleur_,
-                    _current));
-        }
-        return m;
+        return GameTarotTrickInfo.allRep(_info, _current);
     }
+
     @Test
     public void coupeTarot14Test() {
         HandTarot last_ = new HandTarot();

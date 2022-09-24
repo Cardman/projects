@@ -23,6 +23,13 @@ public final class GameTarotTeamsRelation {
         rules = _rules;
     }
 
+    void determinerConfiances() {
+        byte nbPl_ = (byte) getRules().getDealing().getId().getNombreJoueurs();
+        for (byte p = 0; p < nbPl_; p++) {
+            determinerConfiance(p,nbPl_);
+        }
+    }
+
     public CustList<Bytes> teams() {
         CustList<Bytes> teams_ =new CustList<Bytes>();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();

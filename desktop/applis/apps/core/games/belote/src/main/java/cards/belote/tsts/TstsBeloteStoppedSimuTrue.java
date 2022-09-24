@@ -1,6 +1,6 @@
 package cards.belote.tsts;
 
-public final class TstsStoppedSimuTrue implements TstsStoppedSimuInt {
+public final class TstsBeloteStoppedSimuTrue implements TstsBeloteStoppedSimuInt {
     @Override
     public boolean stopped() {
         return true;

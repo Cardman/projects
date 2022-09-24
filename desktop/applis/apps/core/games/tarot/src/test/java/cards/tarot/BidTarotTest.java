@@ -12,19 +12,6 @@ public class BidTarotTest extends EquallableTarotUtil {
     public void getValidBids_allValidBids1Test() {
         EnumList<BidTarot> validBids_ = BidTarot.getValidBids();
         assertEq(6, validBids_.size());
-        assertTrue(!validBids_.isEmpty());
-        boolean existSlam_ = existSlam(validBids_);
-        assertTrue(existSlam_);
-    }
-
-    private boolean existSlam(EnumList<BidTarot> _validBids) {
-        boolean existSlam_ = false;
-        for (BidTarot b: _validBids) {
-            if (b.isFaireTousPlis()) {
-                existSlam_ = true;
-            }
-        }
-        return existSlam_;
     }
 
     @Test

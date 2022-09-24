@@ -1,5 +1,5 @@
 package cards.belote.tsts;
 
-public interface TstsStoppedSimuInt {
+public interface TstsBeloteStoppedSimuInt {
     boolean stopped();
 }

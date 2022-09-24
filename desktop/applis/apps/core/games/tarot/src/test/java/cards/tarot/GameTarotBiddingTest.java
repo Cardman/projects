@@ -1,6 +1,7 @@
 package cards.tarot;
 
 import code.util.CustList;
+import org.junit.Assert;
 import org.junit.Test;
 
 import cards.consts.GameType;
@@ -403,12 +404,9 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
 
     private static void assertEqBids(EnumList<BidTarot> _expected, EnumList<BidTarot> _result) {
-        int expectedLen_ = _expected.size();
-        assertEq(expectedLen_,_result.size());
-        for (int i = 0; i < expectedLen_; i++) {
-            assertEq(_expected.get(i),_result.get(i));
-        }
-    }    @Test
+        Assert.assertEquals(_expected.getList(),_result.getList());
+    }
+    @Test
     public void allowedBids_InitializeByTakingBid1(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);

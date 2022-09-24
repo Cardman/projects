@@ -4,19 +4,16 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import cards.tarot.tsts.TstsTarotSimulating;
+import cards.tarot.tsts.TstsTarotStoppedSimuFalse;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.core.BoolVal;
 
-public final class SimulatingTarotNormal extends AbstractSimulatingTarot {
+public final class SimulatingTarotNormal extends TstsTarotSimulating {
     public SimulatingTarotNormal() {
-        super(new DisplayingTarot(), null);
-    }
-
-    @Override
-    public boolean stopped() {
-        return false;
+        super(new DisplayingTarot(), null,new TstsTarotStoppedSimuFalse());
     }
 
     @Override
@@ -160,6 +157,7 @@ public final class SimulatingTarotNormal extends AbstractSimulatingTarot {
 
     @Override
     public void beginPlay() {
+        partieTarotSimulee();
         getDisplaying();
     }
 }

@@ -2,6 +2,7 @@ package cards.tarot;
 
 import cards.consts.GameType;
 import cards.tarot.enumerations.*;
+import cards.tarot.tsts.TstsTarotTriplet;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -38,7 +39,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         dSlam_.add(BoolVal.FALSE);
         dSlam_.add(BoolVal.FALSE);
         dSlam_.add(BoolVal.FALSE);
-        TrickTarot t_ =  newClassicTrick(trs_,rules_,dealer_);
+        TrickTarot t_ =  newClassicTrickFirst(trs_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
         t_.ajouter(CardTarot.HEART_7);
@@ -162,15 +163,8 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
-        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
-        CustList<HandTarot> h_ = new CustList<HandTarot>();
-        for (int i = 0; i < 3; i++) {
-            m_.add(new EnumList<Miseres>());
-            h_.add(new HandTarot());
-            dh_.add(new EnumList<Handfuls>());
-        }
-        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_, dSlam_, small_);
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
+        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_, dSlam_, small_);
         endTarotGame_.setupPlayersWonTricks();
         Ints firstTrick_ = endTarotGame_.getFirstTrick();
         CustList<HandTarot> wonPlayersTeam_ = endTarotGame_.getWonPlayersTeam();
@@ -1660,7 +1654,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         dSlam_.add(BoolVal.FALSE);
         dSlam_.add(BoolVal.FALSE);
         dSlam_.add(BoolVal.FALSE);
-        TrickTarot t_ =  newClassicTrick(trs_,rules_,dealer_);
+        TrickTarot t_ =  newClassicTrickFirst(trs_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
         t_.ajouter(CardTarot.HEART_7);
@@ -1784,84 +1778,15 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
-        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
-        CustList<HandTarot> h_ = new CustList<HandTarot>();
-        for (int i = 0; i < 3; i++) {
-            m_.add(new EnumList<Miseres>());
-            h_.add(new HandTarot());
-            dh_.add(new EnumList<Handfuls>());
-        }
-        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_, dSlam_, small_);
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
+        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_, dSlam_, small_);
         endTarotGame_.setupPlayersWonTricks();
         assertEq(3,endTarotGame_.calculHandfulsScorePlayer((byte) 0).size());
         assertEq(3,endTarotGame_.calculMiseresScorePlayer((byte)0).size());
         assertEq(3,endTarotGame_.calculSmallLastTurnScorePlayer((byte)0).size());
     }
     private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){
-        CustList<CustList<BoolVal>> confidence_ = new CustList<CustList<BoolVal>>();
-        ModeTarot mode_ = _r.getMode();
-        boolean b_ = false;
-        if (mode_ == ModeTarot.NORMAL) {
-            b_ = true;
-        } else if (mode_ == ModeTarot.NORMAL_WITH_ONE_FOR_ONE) {
-            b_ = true;
-        } else if (mode_ == ModeTarot.NORMAL_WITH_MISERE) {
-            b_ = true;
-        }
-        byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
-        for (int i = 0; i< nbPl_; i++) {
-            CustList<BoolVal> c_ = new CustList<BoolVal>();
-            for (int j = 0; j< nbPl_; j++) {
-                c_.add(ComparatorBoolean.of(i == j));
-            }
-            confidence_.add(c_);
-        }
-        if (!b_ || !_b.isJouerDonne()) {
-            for (byte i = IndexConstants.FIRST_INDEX; i < nbPl_; i++) {
-                for (byte p: _r.getDealing().getAppelesDetermines(i)) {
-                    confidence_.get(i).set(p,BoolVal.TRUE);
-                }
-                confidence_.get(i).set(i,BoolVal.TRUE);
-            }
-        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
-            Bytes attaquants_= _r.getDealing().getAppelesDetermines((byte) _taker);
-            attaquants_.add((byte) _taker);
-            Bytes defenseurs_=GameTarotTeamsRelation.autresJoueurs(attaquants_, nbPl_);
-            for(byte j1_:attaquants_) {
-                for(byte j2_:attaquants_) {
-                    if(j1_==j2_) {
-                        continue;
-                    }
-                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
-                }
-            }
-            for(byte j1_:defenseurs_) {
-                for(byte j2_:defenseurs_) {
-                    if(j1_==j2_) {
-                        continue;
-                    }
-                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
-                }
-            }
-        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
-            Bytes defenseurs_=new Bytes();
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPl_; joueur_++) {
-                if(joueur_==_taker) {
-                    continue;
-                }
-                defenseurs_.add(joueur_);
-            }
-            for(byte j1_:defenseurs_) {
-                for(byte j2_:defenseurs_) {
-                    if(j1_==j2_) {
-                        continue;
-                    }
-                    confidence_.get(j1_).set(j2_,BoolVal.TRUE);
-                }
-            }
-        }
-        return confidence_;
+        return getConfi(_b, _r, _taker);
     }
     private static EndTarotGame newEndTarotGame(RulesTarot _r, CustList<TrickTarot> _trs,
                                                 CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
@@ -1874,9 +1799,10 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
         byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
-        for (int i = 0; i < nbPl_; i++) {
-            deal_.add(new HandTarot());
-        }
+//        for (int i = 0; i < nbPl_; i++) {
+//            deal_.add(new HandTarot());
+//        }
+        DealTarot.ajouterMainVides(deal_,nbPl_);
         deal_.add(_lastHand);
         TrickTarot last_ = _trs.last();
         GameTarot g_ = new GameTarot(GameType.RANDOM,new DealTarot(deal_, (byte) _dealer),_r);
@@ -1887,34 +1813,37 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         g_.setDeclaresHandfuls(_dh);
         g_.setBids(_bids);
         g_.setCalledCards(_calledCards);
-        byte player_ = g_.playerAfter((byte) _dealer);
-        int taker_ = getTaker(_r,_dealer,_bids);
-        BidTarot bid_ = BidTarot.FOLD;
-        for (BidTarot b: _bids) {
-            if (b.strongerThan(bid_)) {
-                bid_ = b;
-            }
-            player_ = g_.playerAfter(player_);
-        }
-        g_.setPreneur((byte) taker_);
-        g_.setContrat(bid_);
-        if (!g_.avecContrat() || !bid_.isJouerDonne()) {
-            g_.initEquipeDetermineeSansPreneur();
-        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
-            g_.initEquipeDeterminee();
-        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
-            g_.initDefense();
-        }
-        for (TrickTarot t: g_.getTricks()) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
-            g_.retrieveCalledPlayers(t);
-        }
-        byte starter_ = last_.getEntameur();
-        byte trickWinner_ = last_.getEntameur();
-        g_.setStarter(starter_);
-        g_.setTrickWinner(trickWinner_);
+
+        g_.loadGame();
+
+//        byte player_ = g_.playerAfter((byte) _dealer);
+//        int taker_ = getTaker(_r,_dealer,_bids);
+//        BidTarot bid_ = BidTarot.FOLD;
+//        for (BidTarot b: _bids) {
+//            if (b.strongerThan(bid_)) {
+//                bid_ = b;
+//            }
+//            player_ = g_.playerAfter(player_);
+//        }
+//        g_.setPreneur((byte) taker_);
+//        g_.setContrat(bid_);
+//        if (!g_.avecContrat() || !bid_.isJouerDonne()) {
+//            g_.initEquipeDetermineeSansPreneur();
+//        } else if (_r.getDealing().getAppel() == CallingCard.DEFINED) {
+//            g_.initEquipeDeterminee();
+//        } else if (_r.getDealing().getAppel() == CallingCard.WITHOUT) {
+//            g_.initDefense();
+//        }
+//        for (TrickTarot t: g_.getTricks()) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
+//            g_.retrieveCalledPlayers(t);
+//        }
+//        byte starter_ = last_.getEntameur();
+//        byte trickWinner_ = last_.getEntameur();
+//        g_.setStarter(starter_);
+//        g_.setTrickWinner(trickWinner_);
         return g_;
     }
 }

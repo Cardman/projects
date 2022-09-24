@@ -434,9 +434,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
 
         game_.setEntameur(game_.getPreneur());
         game_.setPliEnCours(false);
-        for(CardTarot ct_:mt_) {
-            game_.ajouterUneCarteDansPliEnCours(ct_);
-        }
+        game_.ajouterCartesDansPliEnCours(mt_);
         game_.getTricks().add(game_.getProgressingTrick());
         game_.setEntameur(game_.getPreneur());
 
@@ -465,9 +463,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
 
         game_.setEntameur(game_.getPreneur());
         game_.setPliEnCours(false);
-        for(CardTarot ct_:mt_) {
-            game_.ajouterUneCarteDansPliEnCours(ct_);
-        }
+        game_.ajouterCartesDansPliEnCours(mt_);
         game_.getTricks().add(game_.getProgressingTrick());
 
         game_.simuStarter();

@@ -5,7 +5,7 @@ import code.util.EnumList;
 import code.util.IdMap;
 import code.util.*;
 
-final class TarotInfoPliEnCours {
+public final class TarotInfoPliEnCours {
 
     private HandTarot cartesJouables;
     private Bytes joueursNonJoue;

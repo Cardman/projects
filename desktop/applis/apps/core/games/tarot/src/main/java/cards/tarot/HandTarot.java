@@ -25,6 +25,13 @@ public final class HandTarot implements Iterable<CardTarot> {
 //        return CustList.equalsSet(cards, pileBase().cards, true);
     }
 
+    static HandTarot create(CardTarot[] _cards) {
+        HandTarot h_ = new HandTarot();
+        for (CardTarot c : _cards) {
+            h_.ajouter(c);
+        }
+        return h_;
+    }
     public static HandTarot pileBase() {
         HandTarot liste_ = new HandTarot();
         liste_.ajouter(CardTarot.EXCUSE);
@@ -415,6 +422,10 @@ public final class HandTarot implements Iterable<CardTarot> {
 
     void trierParForceEnCours(Suit _couleurDemandee) {
         cards.sortElts(new GameStrengthCardTarotComparator(_couleurDemandee, true));
+    }
+
+    public static void trierParForceEnCours(CustList<CardTarot> _cards,Suit _couleurDemandee) {
+        _cards.sortElts(new GameStrengthCardTarotComparator(_couleurDemandee, true));
     }
     //Tri par ordre croissant
     void trierParForceEcart(Suit _couleurDemandee) {

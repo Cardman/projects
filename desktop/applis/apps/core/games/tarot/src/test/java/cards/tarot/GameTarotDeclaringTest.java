@@ -525,9 +525,10 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         last_.ajouter(CardTarot.SPADE_1);
         RulesTarot r_ = new RulesTarot();
         r_.getMiseres().add(Miseres.SUIT);
-        for (Handfuls h: Handfuls.getPoigneesValidesParDefaut()) {
-            r_.getAllowedHandfuls().put(h,0);
-        }
+        r_.getAllowedHandfuls().put(Handfuls.ONE,0);
+        r_.getAllowedHandfuls().put(Handfuls.TWO,0);
+        r_.getAllowedHandfuls().put(Handfuls.THREE,0);
+        r_.getAllowedHandfuls().put(Handfuls.FOUR,0);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.TRUMP_21);
         curHand_.ajouter(CardTarot.TRUMP_20);

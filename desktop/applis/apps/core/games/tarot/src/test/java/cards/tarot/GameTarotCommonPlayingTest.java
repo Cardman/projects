@@ -5,9 +5,10 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Miseres;
+import cards.tarot.tsts.TstsTarot;
+import cards.tarot.tsts.TstsTarotTriplet;
 import code.maths.Rate;
 import code.util.*;
-import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -4877,26 +4878,17 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         p_.ajouter(CardTarot.TRUMP_5);
         p_.ajouter(CardTarot.TRUMP_6);
         p_.ajouter(CardTarot.TRUMP_7);
-        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
-        CustList<HandTarot> h_ = new CustList<HandTarot>();
-        feedLength(m_,h_);
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet(5);
         Ints ls_ = new Ints();
         ls_.add(14);
         ls_.add(14);
         ls_.add(15);
         ls_.add(15);
         ls_.add(14);
-        GameTarotTrickInfo gt_ = new GameTarotTrickInfo(p_,trs_,m_,h_,BidTarot.TAKE,new HandTarot(),ls_);
+        GameTarotTrickInfo gt_ = new GameTarotTrickInfo(p_,trs_,triplet_.getMiseres(),triplet_.getHands(),BidTarot.TAKE,new HandTarot(),ls_);
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        CustList<CustList<BoolVal>> confidence_ = new CustList<CustList<BoolVal>>();
-        for (int i = 0; i < 4; i++) {
-            CustList<BoolVal> b_ = new CustList<BoolVal>();
-            for (int j = 0; j < 4; j++) {
-                b_.add(ComparatorBoolean.of(i==j));
-            }
-            confidence_.add(b_);
-        }
+        CustList<CustList<BoolVal>> confidence_ = TstsTarot.initConf(4);
         Bytes calledPlayers_ = new Bytes();
         GameTarotTeamsRelation rel_ = new GameTarotTeamsRelation((byte) 0, calledPlayers_, confidence_, r_);
         gt_.addSeenDeck(l_, rel_);
@@ -4904,12 +4896,6 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         Bytes players_ = g_.joueursNAyantPasJoue((byte) 2);
         assertEq(1, players_.size());
         assertTrue(players_.contains(3));
-    }
-    private static void feedLength(CustList<EnumList<Miseres>> _m, CustList<HandTarot> _h) {
-        for (int i = 0; i < 5; i++) {
-            _m.add(new EnumList<Miseres>());
-            _h.add(new HandTarot());
-        }
     }
     @Test
     public void couleursAvecCarteMaitresseTest() {

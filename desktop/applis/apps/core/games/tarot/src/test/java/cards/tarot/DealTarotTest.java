@@ -253,19 +253,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(489217092)));
     }
     @Test
@@ -273,19 +261,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472757012+1)));
     }
     @Test
@@ -293,19 +269,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(11, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472757012)));
     }
     @Test
@@ -313,19 +277,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(11, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472404296+1)));
     }
     @Test
@@ -333,19 +285,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(10, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472404296)));
     }
     @Test
@@ -353,19 +293,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(10, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(452652200+1)));
     }
     @Test
@@ -373,19 +301,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(9, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(452652200)));
     }
     @Test
@@ -393,19 +309,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(9, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(0)));
     }
     @Test
@@ -413,19 +317,7 @@ public class DealTarotTest extends EquallableTarotUtil {
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
         int nbCards_ = 12;
-        CustList<LgInt> fonctionRepartition_ = new CustList<LgInt>();
-        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
-                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                nbCards_ - minAtout_ - 1), new LgInt(56))));
-        byte index_ = (byte) (minAtout_ + 1);
-        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-            fonctionRepartition_.add(LgInt.plus(
-                    fonctionRepartition_.last(), LgInt
-                            .multiply(LgInt.among(new LgInt(evenement_),
-                                    new LgInt(21)), LgInt.among(
-                                    new LgInt(nbCards_ - evenement_
-                                            - 1), new LgInt(56)))));
-        }
+        CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(489217092 + 1)));
     }
     @Test
@@ -563,4 +455,9 @@ public class DealTarotTest extends EquallableTarotUtil {
         initSaveSmall(regles_, deal_);
         assertEq(12, deal_.hand().total());
     }
+
+    private CustList<LgInt> fonctionRepartition(byte _minAtout, byte _maxAtout, int _nbCards) {
+        return DealTarot.repartitionHunt(_nbCards, _minAtout, _maxAtout, _nbCards - _minAtout - 1L, 1L);
+    }
+
 }

@@ -2,10 +2,10 @@ package cards.belote.tsts;
 
 import cards.belote.GameBelote;
 
-public final class TstsStoppedSimuCond implements TstsStoppedSimuInt {
+public final class TstsBeloteStoppedSimuCond implements TstsBeloteStoppedSimuInt {
     private final GameBelote game;
 
-    public TstsStoppedSimuCond(GameBelote _g) {
+    public TstsBeloteStoppedSimuCond(GameBelote _g) {
         this.game = _g;
     }
 
