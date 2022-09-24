@@ -192,19 +192,17 @@ final class InitializationMap {
     static void initTrainersFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         Road road_ = (Road) map_.getPlace((short) 0);
-        PokemonTeam foeTeamList_;
-        CustList<NameLevelMoves> list_;
         CustList<PokemonTeam> foeTeamsList_;
         foeTeamsList_ = new CustList<PokemonTeam>();
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
-        foeTeamList_ = newTeam(list_, 200);
+        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
+        PokemonTeam foeTeamList_ = nvTeam((short) 200, team_);
         foeTeamsList_.add(foeTeamList_);
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,13),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,14),new StringList(JACKPOT)));
-        foeTeamList_ = newTeam(list_, 200);
+        CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 13), new StringList(JACKPOT)));
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 14), new StringList(JACKPOT)));
+        foeTeamList_ = nvTeam((short) 200, teamTwo_);
         foeTeamsList_.add(foeTeamList_);
         TrainerMultiFights trainer_;
         trainer_ = newTrainer(foeTeamsList_, 1);
@@ -381,23 +379,22 @@ final class InitializationMap {
         Gym gym_;
         GymTrainer gymTrainer_;
         GymLeader gymLeader_;
-        CustList<NameLevelMoves> list_;
         gym_ = (Gym) city_.getBuildings().getVal(newPoint(5, 1));
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
-        gymTrainer_ = newGymTrainer(list_, 200, 1);
+        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
+        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, team_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(1, 7), gymTrainer_);
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
-        gymTrainer_ = newGymTrainer(list_, 200, 1);
+        CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
+        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, teamTwo_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(7, 7), gymTrainer_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,8),new StringList(JACKPOT)));
-        gymLeader_ = newGymLeader(list_, 500, 1);
+        CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
+        teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 5), new StringList(JACKPOT)));
+        teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 8), new StringList(JACKPOT)));
+        gymLeader_ = nvGymLeader((short) 500, (byte) 1, teamThree_);
         gymLeader_.setName(GYM_TR_ONE);
         gym_.getIndoor().setGymLeader(gymLeader_);
     }
@@ -472,41 +469,39 @@ final class InitializationMap {
 
     static void initTrainersSecondRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        CustList<NameLevelMoves> allyList_;
         TrainerMultiFights trainer_;
         PokemonTeam foeTeamList_;
         CustList<PokemonTeam> foeTeamsList_;
-        allyList_ = new CustList<NameLevelMoves>();
-        allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,25),new StringList(JACKPOT,CHARGE)));
-        allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,28),new StringList(TONNERRE)));
-        CustList<NameLevelMoves> list_;
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,8),new StringList(JACKPOT)));
         Road road_ = (Road) map_.getPlace((short) 2);
         DualFight dual_;
-        dual_ = newDualFight(allyList_, list_, 300);
+        CustList<PkTrainer> teamAl_ = new CustList<PkTrainer>();
+        teamAl_.add(toPkTrainer(new NameLevel(PIKACHU, 25), new StringList(JACKPOT, CHARGE)));
+        teamAl_.add(toPkTrainer(new NameLevel(PIKACHU, 28), new StringList(TONNERRE)));
+        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 5), new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 8), new StringList(JACKPOT)));
+        dual_ = nvDualFight((short) 300, teamAl_, team_);
         dual_.setNames(new StringList(DUAL_ONE_TR_ONE,DUAL_ONE_TR_TWO));
         dual_.setPt(newPoint(3, 0));
         road_.addDualFight(newCoords(2, 0, 2, 0), dual_);
         //map_.getBeatGymLeader().add(newCoords(2, 0, 2, 0));
-        allyList_ = new CustList<NameLevelMoves>();
-        allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,25),new StringList(JACKPOT,CHARGE)));
-        allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,28),new StringList(TONNERRE)));
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,8),new StringList(JACKPOT)));
         road_ = (Road) map_.getPlace((short) 2);
-        dual_ = newDualFight(allyList_, list_, 300);
+        CustList<PkTrainer> teamAlTwo_ = new CustList<PkTrainer>();
+        teamAlTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 25), new StringList(JACKPOT, CHARGE)));
+        teamAlTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 28), new StringList(TONNERRE)));
+        CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 5), new StringList(JACKPOT)));
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 8), new StringList(JACKPOT)));
+        dual_ = nvDualFight((short) 300, teamAlTwo_, teamTwo_);
         dual_.setNames(new StringList(DUAL_TWO_TR_ONE,DUAL_TWO_TR_TWO));
         dual_.setPt(newPoint(5, 0));
         road_.addDualFight(newCoords(2, 0, 4, 0), dual_);
         //map_.getBeatGymLeader().add(newCoords(2, 0, 4, 0));
         foeTeamsList_ = new CustList<PokemonTeam>();
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
-        foeTeamList_ = newTeam(list_, 200);
+        CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
+        teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
+        teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
+        foeTeamList_ = nvTeam((short) 200, teamThree_);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
         road_.addPerson(newCoords(2, 0, 11, 4), trainer_);
@@ -595,25 +590,24 @@ final class InitializationMap {
     static void initTrainersSecondCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         City city_ = (City) map_.getPlace((short) 3);
-        CustList<NameLevelMoves> list_;
         GymTrainer gymTrainer_;
         GymLeader gymLeader_;
         Gym gym_ = (Gym) city_.getBuildings().getVal(newPoint(4, 1));
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
-        gymTrainer_ = newGymTrainer(list_, 200, 1);
+        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
+        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, team_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(1, 7), gymTrainer_);
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
-        gymTrainer_ = newGymTrainer(list_, 200, 1);
+        CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
+        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, teamTwo_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(7, 7), gymTrainer_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,8),new StringList(JACKPOT)));
-        gymLeader_ = newGymLeader(list_, 500, 1);
+        CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
+        teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 5), new StringList(JACKPOT)));
+        teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 8), new StringList(JACKPOT)));
+        gymLeader_ = nvGymLeader((short) 500, (byte) 1, teamThree_);
         gymLeader_.setName(GYM_TR_TWO);
         gym_.getIndoor().setGymLeader(gymLeader_);
     }
@@ -885,37 +879,35 @@ final class InitializationMap {
         DataMap map_ = _data.getMap();
         //Road road_ = (Road) map_.getPlace((short) 0);
         PokemonTeam foeTeamList_;
-        CustList<NameLevelMoves> list_;
         CustList<PokemonTeam> foeTeamsList_;
         TrainerMultiFights trainer_;
-        CustList<NameLevelMoves> allyList_;
         DualFight dual_;
         Cave cave_ = (Cave) map_.getPlace((short) 5);
-        allyList_ = new CustList<NameLevelMoves>();
-        allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,35),new StringList(JACKPOT,CHARGE)));
-        allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,38),new StringList(TONNERRE)));
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,15),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,18),new StringList(JACKPOT)));
-        dual_ = newDualFight(allyList_, list_, 300);
+        CustList<PkTrainer> teamAl_ = new CustList<PkTrainer>();
+        teamAl_.add(toPkTrainer(new NameLevel(PIKACHU, 35), new StringList(JACKPOT, CHARGE)));
+        teamAl_.add(toPkTrainer(new NameLevel(PIKACHU, 38), new StringList(TONNERRE)));
+        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 15), new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 18), new StringList(JACKPOT)));
+        dual_ = nvDualFight((short) 300, teamAl_, team_);
         dual_.setNames(new StringList(DUAL_THREE_TR_ONE,DUAL_THREE_TR_TWO));
         dual_.setPt(newPoint(3, 0));
         ((LevelCave)cave_.getLevelsMap().getVal((byte) 0)).getDualFights().addEntry(newPoint(2, 0), dual_);
         //map_.getBeatGymLeader().add(newCoords(5, 0, 2, 0));
         foeTeamsList_ = new CustList<PokemonTeam>();
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,13),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,14),new StringList(JACKPOT)));
-        foeTeamList_ = newTeam(list_, 200);
+        CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 13), new StringList(JACKPOT)));
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 14), new StringList(JACKPOT)));
+        foeTeamList_ = nvTeam((short) 200, teamTwo_);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
         ((LevelCave)cave_.getLevelsMap().getVal((byte) 0)).getCharacters().addEntry(newPoint(1, 5), trainer_);
         //map_.getBeatTrainer().add(new NbFightCoords(newCoords(5, 0, 1, 5),0));
         foeTeamsList_ = new CustList<PokemonTeam>();
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,13),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,14),new StringList(JACKPOT)));
-        foeTeamList_ = newTeam(list_, 200);
+        CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
+        teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 13), new StringList(JACKPOT)));
+        teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 14), new StringList(JACKPOT)));
+        foeTeamList_ = nvTeam((short) 200, teamThree_);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
         ((LevelCave)cave_.getLevelsMap().getVal((byte) 1)).getCharacters().addEntry(newPoint(5, 1), trainer_);
@@ -958,18 +950,11 @@ final class InitializationMap {
     static void initLeagueTrainers(DataBase _data) {
         DataMap map_ = _data.getMap();
         League league_ = (League) map_.getPlace((short) 6);
-        CustList<NameLevelMoves> list_;
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,35),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,38),new StringList(JACKPOT)));
         league_.getRooms().get(0).setTrainerCoords(newPoint(4, 4));
-        league_.getRooms().get(0).setTrainer(newTrainerLeague(list_, 2000, 1));
+        league_.getRooms().get(0).setTrainer(trainerLeagueOne());
         league_.getRooms().get(0).getTrainer().setName(LEAGUE_TR_ONE);
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(TARTARD,35),new StringList(PISTOLET_A_O)));
-        list_.add(new NameLevelMoves(new NameLevel(TARTARD,38),new StringList(PISTOLET_A_O)));
         league_.getRooms().get(1).setTrainerCoords(newPoint(4, 4));
-        league_.getRooms().get(1).setTrainer(newTrainerLeague(list_, 2000, 1));
+        league_.getRooms().get(1).setTrainer(trainerLeagueTwo());
         league_.getRooms().get(1).getTrainer().setName(LEAGUE_TR_TWO);
         //map_.getBeatGymLeader().add(newCoords(6, 0, 4, 8));
         map_.setAccessCondition(new CoordsLists());
@@ -979,6 +964,20 @@ final class InitializationMap {
         map_.getAccessCondition().addEntry(newCoords(4, 0, 3, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
         map_.getAccessCondition().addEntry(newCoords(4, 0, 4, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
         map_.getAccessCondition().addEntry(newCoords(4, 0, 5, 4), Condition.newList(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+    }
+
+    private static TrainerLeague trainerLeagueTwo() {
+        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
+        team_.add(toPkTrainer(new NameLevel(TARTARD, 35), new StringList(PISTOLET_A_O)));
+        team_.add(toPkTrainer(new NameLevel(TARTARD, 38), new StringList(PISTOLET_A_O)));
+        return nvTrainerLeague((short) 2000, (byte) 1, team_);
+    }
+
+    private static TrainerLeague trainerLeagueOne() {
+        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 35), new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PIKACHU, 38), new StringList(JACKPOT)));
+        return nvTrainerLeague((short) 2000, (byte) 1, team_);
     }
 
     static void initBlockThirdCity(DataBase _data) {
@@ -1093,22 +1092,21 @@ final class InitializationMap {
         DataMap map_ = _data.getMap();
         Road road_ = (Road) map_.getPlace((short) 9);
         PokemonTeam foeTeamList_;
-        CustList<NameLevelMoves> list_;
         CustList<PokemonTeam> foeTeamsList_;
         foeTeamsList_ = new CustList<PokemonTeam>();
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PTITARD,3),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PTITARD,4),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
-        foeTeamList_ = newTeam(list_, 200);
+        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
+        team_.add(toPkTrainer(new NameLevel(PTITARD,3),new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PTITARD,4),new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
+        team_.add(toPkTrainer(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
+        foeTeamList_ = nvTeam((short) 200, team_);
         foeTeamsList_.add(foeTeamList_);
-        list_ = new CustList<NameLevelMoves>();
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,13),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PIKACHU,14),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PTITARD,13),new StringList(JACKPOT)));
-        list_.add(new NameLevelMoves(new NameLevel(PTITARD,14),new StringList(JACKPOT)));
-        foeTeamList_ = newTeam(list_, 200);
+        CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU,13),new StringList(JACKPOT)));
+        teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU,14),new StringList(JACKPOT)));
+        teamTwo_.add(toPkTrainer(new NameLevel(PTITARD,13),new StringList(JACKPOT)));
+        teamTwo_.add(toPkTrainer(new NameLevel(PTITARD,14),new StringList(JACKPOT)));
+        foeTeamList_ = nvTeam((short) 200, teamTwo_);
         foeTeamsList_.add(foeTeamList_);
         TrainerMultiFights trainer_;
         trainer_ = newTrainer(foeTeamsList_, 2);
@@ -1439,23 +1437,11 @@ final class InitializationMap {
         map_.setUnlockedCity(MINI5);
     }
 
-    private static GymLeader newGymLeader(
-            CustList<NameLevelMoves> _pksLevels,
-            int _reward, int _mult) {
+    private static GymLeader nvGymLeader(short _reward, byte _mult, CustList<PkTrainer> _team) {
         GymLeader gymLeader_ = new GymLeader();
-        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
-        for (NameLevelMoves i: _pksLevels) {
-            PkTrainer pk_ = new PkTrainer();
-            pk_.setName(i.getNameLevel().getName());
-            pk_.setLevel(i.getNameLevel().getLevel());
-            pk_.setAbility(ATTENTION);
-            pk_.setItem(NULL_REF);
-            pk_.setMoves(i.getMoves());
-            team_.add(pk_);
-        }
-        gymLeader_.setTeam(team_);
-        gymLeader_.setReward((short) _reward);
-        gymLeader_.setMultiplicityFight((byte) _mult);
+        gymLeader_.setTeam(_team);
+        gymLeader_.setReward(_reward);
+        gymLeader_.setMultiplicityFight(_mult);
         gymLeader_.setName(NULL_REF);
         gymLeader_.setTm((short) 2);
         gymLeader_.setImageMaxiFileName(NULL_REF);
@@ -1463,82 +1449,34 @@ final class InitializationMap {
         return gymLeader_;
     }
 
-    private static GymTrainer newGymTrainer(
-            CustList<NameLevelMoves> _pksLevels,
-            int _reward, int _mult) {
+    private static GymTrainer nvGymTrainer(short _reward, byte _mult, CustList<PkTrainer> _team) {
         GymTrainer gymTrainer_ = new GymTrainer();
-        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
-        for (NameLevelMoves i: _pksLevels) {
-            PkTrainer pk_ = new PkTrainer();
-            pk_.setName(i.getNameLevel().getName());
-            pk_.setLevel(i.getNameLevel().getLevel());
-            pk_.setAbility(ATTENTION);
-            pk_.setItem(NULL_REF);
-            pk_.setMoves(i.getMoves());
-            team_.add(pk_);
-        }
-        gymTrainer_.setTeam(team_);
-        gymTrainer_.setReward((short) _reward);
-        gymTrainer_.setMultiplicityFight((byte) _mult);
+        gymTrainer_.setTeam(_team);
+        gymTrainer_.setReward(_reward);
+        gymTrainer_.setMultiplicityFight(_mult);
         gymTrainer_.setImageMaxiFileName(NULL_REF);
         gymTrainer_.setImageMiniFileName(NULL_REF);
         return gymTrainer_;
     }
 
-    private static TrainerLeague newTrainerLeague(
-            CustList<NameLevelMoves> _pksLevels,
-            int _reward, int _mult) {
+    private static TrainerLeague nvTrainerLeague(short _reward, byte _mult, CustList<PkTrainer> _team) {
         TrainerLeague trainerLeague_ = new TrainerLeague();
-        CustList<PkTrainer> team_ = new CustList<PkTrainer>();
-        for (NameLevelMoves i: _pksLevels) {
-            PkTrainer pk_ = new PkTrainer();
-            pk_.setName(i.getNameLevel().getName());
-            pk_.setLevel(i.getNameLevel().getLevel());
-            pk_.setAbility(ATTENTION);
-            pk_.setItem(NULL_REF);
-            pk_.setMoves(i.getMoves());
-            team_.add(pk_);
-        }
-        trainerLeague_.setTeam(team_);
-        trainerLeague_.setReward((short) _reward);
-        trainerLeague_.setMultiplicityFight((byte) _mult);
+        trainerLeague_.setTeam(_team);
+        trainerLeague_.setReward(_reward);
+        trainerLeague_.setMultiplicityFight(_mult);
         trainerLeague_.setImageMaxiFileName(NULL_REF);
         trainerLeague_.setImageMiniFileName(NULL_REF);
         trainerLeague_.setName(NULL_REF);
         return trainerLeague_;
     }
 
-    private static DualFight newDualFight(
-            CustList<NameLevelMoves> _pksAllyLevels,
-            CustList<NameLevelMoves> _pksLevels,
-            int _reward) {
+    private static DualFight nvDualFight(short _reward, CustList<PkTrainer> _teamAl, CustList<PkTrainer> _team) {
         DualFight dual_ = new DualFight();
         Ally ally_ = new Ally();
-        CustList<PkTrainer> team_;
-        team_ = new CustList<PkTrainer>();
-        for (NameLevelMoves i: _pksAllyLevels) {
-            PkTrainer pk_ = new PkTrainer();
-            pk_.setName(i.getNameLevel().getName());
-            pk_.setLevel(i.getNameLevel().getLevel());
-            pk_.setAbility(ATTENTION);
-            pk_.setItem(NULL_REF);
-            pk_.setMoves(i.getMoves());
-            team_.add(pk_);
-        }
-        ally_.setTeam(team_);
+        ally_.setTeam(_teamAl);
         TempTrainer trainer_ = new TempTrainer();
-        team_ = new CustList<PkTrainer>();
-        for (NameLevelMoves i: _pksLevels) {
-            PkTrainer pk_ = new PkTrainer();
-            pk_.setName(i.getNameLevel().getName());
-            pk_.setLevel(i.getNameLevel().getLevel());
-            pk_.setAbility(ATTENTION);
-            pk_.setItem(NULL_REF);
-            pk_.setMoves(i.getMoves());
-            team_.add(pk_);
-        }
-        trainer_.setTeam(team_);
-        trainer_.setReward((short) _reward);
+        trainer_.setTeam(_team);
+        trainer_.setReward(_reward);
         trainer_.setImageMaxiFileName(NULL_REF);
         trainer_.setImageMiniFileName(NULL_REF);
         trainer_.setImageMiniSecondTrainerFileName(NULL_REF);
@@ -1548,23 +1486,10 @@ final class InitializationMap {
         return dual_;
     }
 
-    private static PokemonTeam newTeam(
-            CustList<NameLevelMoves> _pksLevels,
-            int _reward) {
+    private static PokemonTeam nvTeam(short _reward, CustList<PkTrainer> _team) {
         PokemonTeam teamReward_ = new PokemonTeam();
-        CustList<PkTrainer> team_;
-        team_ = new CustList<PkTrainer>();
-        for (NameLevelMoves i: _pksLevels) {
-            PkTrainer pk_ = new PkTrainer();
-            pk_.setName(i.getNameLevel().getName());
-            pk_.setLevel(i.getNameLevel().getLevel());
-            pk_.setAbility(ATTENTION);
-            pk_.setItem(NULL_REF);
-            pk_.setMoves(i.getMoves());
-            team_.add(pk_);
-        }
-        teamReward_.setTeam(team_);
-        teamReward_.setReward((short) _reward);
+        teamReward_.setTeam(_team);
+        teamReward_.setReward(_reward);
         return teamReward_;
     }
 
@@ -1681,6 +1606,16 @@ final class InitializationMap {
         begin_.getLevel().setLevelIndex((byte) _level);
         begin_.getLevel().setPoint(newPoint(_x, _y));
         return begin_;
+    }
+
+    private static PkTrainer toPkTrainer(NameLevel _nameLevel, StringList _moves) {
+        PkTrainer pk_ = new PkTrainer();
+        pk_.setName(_nameLevel.getName());
+        pk_.setLevel(_nameLevel.getLevel());
+        pk_.setAbility(ATTENTION);
+        pk_.setItem(NULL_REF);
+        pk_.setMoves(_moves);
+        return pk_;
     }
 
     private static Point newPoint(int _x,int _y) {
