@@ -1516,50 +1516,55 @@ final class InitializationMap {
         return dealer_;
     }
 
-    private static Block newRoadBlock(int _h, int _w, int... _index) {
-        Block block_;
-        block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
-        if (_index.length > 0) {
-            block_.setIndexApparition((short) _index[0]);
-        }
-        block_.setType(EnvironmentType.ROAD);
+    private static Block newRoadBlock(int _h, int _w, int _index) {
+        Block block_ = newRoadBlock(_h, _w);
+        block_.setIndexApparition((short) _index);
         return block_;
     }
 
-    private static Block newWaterBlock(int _h, int _w, int... _index) {
+    private static Block newRoadBlock(int _h, int _w) {
         Block block_;
         block_ = new Block();
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
-        if (_index.length > 0) {
-            block_.setIndexApparition((short) _index[0]);
-        }
+        block_.setType(EnvironmentType.ROAD);
+        return block_;
+    }
+    private static Block newWaterBlock(int _h, int _w, int _index) {
+        Block block_ = newWaterBlock(_h, _w);
+        block_.setIndexApparition((short) _index);
+        return block_;
+    }
+
+    private static Block newWaterBlock(int _h, int _w) {
+        Block block_;
+        block_ = new Block();
+        block_.setHeight((short) _h);
+        block_.setWidth((short) _w);
         block_.setType(EnvironmentType.WATER);
         return block_;
     }
 
-    private static Block newRockBlock(int _h, int _w, int... _index) {
+    private static Block newRockBlock(int _h, int _w) {
         Block block_;
         block_ = new Block();
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
-        if (_index.length > 0) {
-            block_.setIndexApparition((short) _index[0]);
-        }
         block_.setType(EnvironmentType.ROCK);
         return block_;
     }
 
-    private static Block newDesertBlock(int _h, int _w, int... _index) {
+    private static Block newRockBlock(int _h, int _w, int _index) {
+        Block block_ = newRockBlock(_h, _w);
+        block_.setIndexApparition((short) _index);
+        return block_;
+    }
+
+    private static Block newDesertBlock(int _h, int _w) {
         Block block_;
         block_ = new Block();
         block_.setHeight((short) _h);
         block_.setWidth((short) _w);
-        if (_index.length > 0) {
-            block_.setIndexApparition((short) _index[0]);
-        }
         block_.setType(EnvironmentType.DESERT);
         return block_;
     }
