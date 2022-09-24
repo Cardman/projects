@@ -31,6 +31,13 @@ public final class HandBelote implements Iterable<CardBelote> {
         order = _main.order;
         cards.addAllElts(_main.cards);
     }
+    public static HandBelote create(CardBelote[] _cards) {
+        HandBelote h_ = new HandBelote();
+        for (CardBelote c : _cards) {
+            h_.ajouter(c);
+        }
+        return h_;
+    }
 
     public boolean validStack() {
         return equalsSet(this, pileBase());
@@ -301,7 +308,7 @@ public final class HandBelote implements Iterable<CardBelote> {
     }
 
 
-    static Order order(BidBeloteSuit _contrat, Suit _couleurAtout, Suit _couleur) {
+    public static Order order(BidBeloteSuit _contrat, Suit _couleurAtout, Suit _couleur) {
         Order ordre_;
         if(!_contrat.getCouleurDominante()) {
             ordre_ = _contrat.getOrdre();
@@ -418,7 +425,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         }
     }
 
-    HandBelote couleur(BidBeloteSuit _contrat, Suit _couleur) {
+    public HandBelote couleur(BidBeloteSuit _contrat, Suit _couleur) {
         return couleurs(_contrat).getVal(_couleur);
     }
     public IdMap<Suit,HandBelote> couleurs(BidBeloteSuit _contrat) {
@@ -547,11 +554,18 @@ public final class HandBelote implements Iterable<CardBelote> {
             return;
         }
         Suit couleur_ = premiereCarte().getId().getCouleur();
+        sortList(_decroissant, couleur_, cards, order);
+    }
 
-        if(order==Order.TRUMP) {
-            cards.sortElts(new GameStrengthCardBeloteComparator(couleur_, couleur_, _decroissant));
+    public static void sortList(boolean _decroissant, Suit _couleur, CustList<CardBelote> _list, Order _order) {
+        _list.sortElts(new GameStrengthCardBeloteComparator(tr(_order, _couleur), _couleur, _decroissant));
+    }
+
+    private static Suit tr(Order _ord, Suit _suit) {
+        if(_ord==Order.TRUMP) {
+            return _suit;
         }else {
-            cards.sortElts(new GameStrengthCardBeloteComparator(Suit.UNDEFINED, couleur_, _decroissant));
+            return Suit.UNDEFINED;
         }
     }
 

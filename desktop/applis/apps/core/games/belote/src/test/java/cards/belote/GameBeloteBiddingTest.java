@@ -1,8 +1,6 @@
 package cards.belote;
 
-import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import cards.belote.enumerations.BidBelote;
@@ -13,7 +11,6 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.IdMap;
 
 
 public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
@@ -70,60 +67,44 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     static RulesBelote initializeDefaultRules() {
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
-        for (BidBelote b: regles_.getAllowedBids().getKeys()) {
-            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
-        }
-        if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
-        }
-        if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
-        }
-        regles_.setAllowedBids(contrats_);
+        regles_.allowBids(new CustList<BidBelote>());
+//        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
+//        for (BidBelote b: regles_.getAllowedBids().getKeys()) {
+//            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
+//        }
+//        if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
+//            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
+//        }
+//        if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
+//            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
+//        }
+//        regles_.setAllowedBids(contrats_);
         return regles_;
     }
 
     static RulesBelote initializeRulesWithBids(EnumList<BidBelote> _bids) {
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
-        for (BidBelote b: regles_.getAllowedBids().getKeys()) {
-            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
-        }
-        if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
-        }
-        if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
-        }
-        for (BidBelote b: _bids) {
-            contrats_.put(b,BoolVal.TRUE);
-        }
-        regles_.setAllowedBids(contrats_);
+        regles_.allowBids(_bids);
         return regles_;
     }
 
-    static RulesBelote initializeRulesWithBidPoints(boolean _addOverBid) {
+    static RulesBelote initializeRulesWithBidPoints() {
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
-        for (BidBelote b: regles_.getAllowedBids().getKeys()) {
-            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
-        }
-        if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
-        }
-        if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
-            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
-        }
-        if (_addOverBid) {
-            for (BidBelote b: regles_.getAllowedBids().getKeys()) {
-                contrats_.put(b,BoolVal.TRUE);
-            }
-        }
-        regles_.setAllowedBids(contrats_);
+        regles_.allowBids(new CustList<BidBelote>());
+//        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
+//        for (BidBelote b: regles_.getAllowedBids().getKeys()) {
+//            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
+//        }
+//        if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
+//            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
+//        }
+//        if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
+//            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
+//        }
+//        regles_.setAllowedBids(contrats_);
         return regles_;
     }
     @Test
@@ -382,7 +363,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializePassingDealAll(){
-        RulesBelote regles_=initializeRulesWithBidPoints(false);
+        RulesBelote regles_=initializeRulesWithBidPoints();
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1306,7 +1287,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids1(){
-        RulesBelote regles_=initializeRulesWithBidPoints(false);
+        RulesBelote regles_=initializeRulesWithBidPoints();
         regles_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
@@ -1566,7 +1547,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids2(){
-        RulesBelote regles_=initializeRulesWithBidPoints(false);
+        RulesBelote regles_=initializeRulesWithBidPoints();
         regles_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         BidBeloteSuit contratTmp_ = toRealBid(BidBelote.SUIT);

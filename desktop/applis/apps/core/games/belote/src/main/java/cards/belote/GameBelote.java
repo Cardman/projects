@@ -585,14 +585,6 @@ public final class GameBelote {
         starter=_i;
     }
 
-    void setTrickWinner(byte _trickWinner) {
-        trickWinner = _trickWinner;
-    }
-
-    void setEndBidsFirstRound(boolean _endBidsFirstRound) {
-        endBidsFirstRound = _endBidsFirstRound;
-    }
-
     public boolean premierTour() {
         return tricks.size()==0;
     }

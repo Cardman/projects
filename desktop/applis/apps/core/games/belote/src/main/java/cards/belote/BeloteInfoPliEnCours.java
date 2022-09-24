@@ -5,7 +5,7 @@ import code.util.EnumList;
 import code.util.IdMap;
 import code.util.*;
 
-final class BeloteInfoPliEnCours {
+public final class BeloteInfoPliEnCours {
 
     private Bytes joueursNonJoue;
     private CustList<TrickBelote> plisFaits;

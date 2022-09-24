@@ -14,7 +14,167 @@ import cards.consts.Suit;
 
 
 public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
+    @Test
+    public void loadGame1() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.DIAMOND_JACK);
+        game_.loadGame();
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getBid().getBid());
+        assertEq(Suit.SPADE, game_.getBid().getSuit());
+        assertEq(0, game_.getBid().getPoints());
+        assertEq(1, game_.getTricks().size());
+        assertEq(1, game_.getEntameur());
+        assertEq(1, game_.getRamasseur());
+    }
 
+    @Test
+    public void loadGame2() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.annoncer((byte) 0);
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.DIAMOND_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.setPliEnCours();
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.SPADE_1);
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.SPADE_JACK);
+        game_.loadGame();
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getBid().getBid());
+        assertEq(Suit.SPADE, game_.getBid().getSuit());
+        assertEq(0, game_.getBid().getPoints());
+        assertEq(2, game_.getTricks().size());
+        assertEq(0, game_.getEntameur());
+        assertEq(0, game_.getRamasseur());
+    }
+    @Test
+    public void loadGame3() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.DIAMOND_7);
+        game_.loadGame();
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getBid().getBid());
+        assertEq(Suit.SPADE, game_.getBid().getSuit());
+        assertEq(0, game_.getBid().getPoints());
+        assertEq(0, game_.getTricks().size());
+        assertEq(0, game_.getEntameur());
+    }
+
+    @Test
+    public void loadGame4() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.annoncer((byte) 0);
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.DIAMOND_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.setPliEnCours();
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.SPADE_1);
+        game_.loadGame();
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getBid().getBid());
+        assertEq(Suit.SPADE, game_.getBid().getSuit());
+        assertEq(0, game_.getBid().getPoints());
+        assertEq(1, game_.getTricks().size());
+        assertEq(1, game_.getEntameur());
+    }
+
+    @Test
+    public void loadGame5() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.loadGame();
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getBid().getBid());
+        assertEq(Suit.SPADE, game_.getBid().getSuit());
+        assertEq(0, game_.getBid().getPoints());
+        assertEq(0, game_.getTricks().size());
+        assertEq(0, game_.getEntameur());
+    }
+
+    @Test
+    public void loadGame6() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.loadGame();
+        assertEq(-1, game_.getPreneur());
+        assertEq(BidBelote.FOLD, game_.getBid().getBid());
+        assertEq(0, game_.getBid().getPoints());
+        assertEq(0, game_.getTricks().size());
+        assertEq(0, game_.getEntameur());
+    }
     @Test
     public void check1Test() {
         RulesBelote rules_ = new RulesBelote();

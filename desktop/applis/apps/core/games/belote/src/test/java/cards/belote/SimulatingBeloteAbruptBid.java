@@ -1,16 +1,13 @@
 package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
+import cards.belote.tsts.TstsSimulatingBelote;
+import cards.belote.tsts.TstsStoppedSimuTrue;
 
-public final class SimulatingBeloteAbruptBid extends AbstractSimulatingBelote {
+public final class SimulatingBeloteAbruptBid extends TstsSimulatingBelote {
 
     public SimulatingBeloteAbruptBid(GameBelote _gameBelote) {
-        super(new DisplayingBelote(),_gameBelote);
-    }
-
-    @Override
-    public boolean stopped() {
-        return partieBeloteSimulee().getBids().size() == 1;
+        super(new DisplayingBelote(),_gameBelote, new TstsStoppedSimuTrue());
     }
 
     @Override

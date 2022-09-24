@@ -4,7 +4,6 @@ import code.util.CustList;
 import org.junit.Test;
 
 import cards.belote.enumerations.BeloteTrumpPartner;
-import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
@@ -66,7 +65,7 @@ public class GameBeloteWithTrumpSuitSixTest extends GameBeloteWithTrumpSuit {
         regles_.setGestionCoupePartenaire(BeloteTrumpPartner.UNDERTRUMP_ONLY);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
+        biddingTrumpSuit(game_, Suit.HEART);
         game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
@@ -105,7 +104,7 @@ public class GameBeloteWithTrumpSuitSixTest extends GameBeloteWithTrumpSuit {
         regles_.setGestionCoupePartenaire(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
+        biddingTrumpSuit(game_, Suit.HEART);
         game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());

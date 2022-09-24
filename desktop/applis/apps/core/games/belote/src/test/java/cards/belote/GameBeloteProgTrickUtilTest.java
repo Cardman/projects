@@ -2,6 +2,7 @@ package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.belote.tsts.TstsBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
@@ -1396,35 +1397,21 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         assertSame(CardBelote.DIAMOND_QUEEN,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
     }
     private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _bid) {
-        HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
-        if (h_.contient(_c)) {
-            return;
-        }
-        if (_bid.getCouleurDominante()) {
-            if (_c.getId().getCouleur() == _bid.getSuit()) {
-                h_.setOrdre(Order.TRUMP);
-            } else {
-                h_.setOrdre(Order.SUIT);
-            }
-        } else if (_bid.ordreCouleur()) {
-            h_.setOrdre(Order.SUIT);
-        } else {
-            h_.setOrdre(Order.TRUMP);
-        }
-        h_.ajouter(_c);
-        h_.trierUnicolore(true);
+        possCard(_poss, _p, _c, _bid);
     }
+
     private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
-        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
-        EnumList<Suit> s_ = new EnumList<Suit>();
-        s_.addAllElts(Suit.couleursOrdinaires());
-        for (Suit s: s_) {
-            CustList<HandBelote> l_ = new CustList<HandBelote>();
-            for (int i = 0; i < _nbPlayer; i++) {
-                l_.add(new HandBelote());
-            }
-            e_.addEntry(s,l_);
-        }
-        return e_;
+        return TstsBelote.generate(_nbPlayer);
+//        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
+//        EnumList<Suit> s_ = new EnumList<Suit>();
+//        s_.addAllElts(Suit.couleursOrdinaires());
+//        for (Suit s: s_) {
+//            CustList<HandBelote> l_ = new CustList<HandBelote>();
+//            for (int i = 0; i < _nbPlayer; i++) {
+//                l_.add(new HandBelote());
+//            }
+//            e_.addEntry(s,l_);
+//        }
+//        return e_;
     }
 }

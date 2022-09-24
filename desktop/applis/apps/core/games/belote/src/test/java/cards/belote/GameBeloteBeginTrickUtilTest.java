@@ -2,6 +2,7 @@ package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.belote.tsts.TstsBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.EnumList;
@@ -123,43 +124,45 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
     }
     private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
         HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
-        if (h_.contient(_c)) {
-            return;
-        }
+//        if (h_.contient(_c)) {
+//            return;
+//        }
         h_.ajouter(_c);
         h_.trierUnicolore(true);
     }
     private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer, BidBeloteSuit _b) {
-        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
-        EnumList<Suit> s_ = new EnumList<Suit>();
-        s_.addAllElts(Suit.couleursOrdinaires());
-        for (Suit s: s_) {
-            CustList<HandBelote> l_ = new CustList<HandBelote>();
-            for (int i = 0; i < _nbPlayer; i++) {
-                HandBelote h_ = new HandBelote();
-                if(_b.getCouleurDominante()) {
-                    if(s!= _b.getSuit()) {
-                        h_.setOrdre(Order.SUIT);
-                    }
-                } else if(_b.ordreCouleur()) {
-                    h_.setOrdre(Order.SUIT);
-                }
-                l_.add(h_);
-            }
-            e_.addEntry(s,l_);
-        }
-        return e_;
+        return TstsBelote.generateMap(_nbPlayer, _b);
+//        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
+//        EnumList<Suit> s_ = new EnumList<Suit>();
+//        s_.addAllElts(Suit.couleursOrdinaires());
+//        for (Suit s: s_) {
+//            CustList<HandBelote> l_ = new CustList<HandBelote>();
+//            for (int i = 0; i < _nbPlayer; i++) {
+//                HandBelote h_ = new HandBelote();
+//                if(_b.getCouleurDominante()) {
+//                    if(s!= _b.getSuit()) {
+//                        h_.setOrdre(Order.SUIT);
+//                    }
+//                } else if(_b.ordreCouleur()) {
+//                    h_.setOrdre(Order.SUIT);
+//                }
+//                l_.add(h_);
+//            }
+//            e_.addEntry(s,l_);
+//        }
+//        return e_;
     }
     private static EnumList<Suit> nonTrump(BidBeloteSuit _b) {
-        EnumList<Suit> couleursNonAtouts_=new EnumList<Suit>();
-        if(_b.getCouleurDominante()) {
-            for(Suit couleur_:GameBeloteCommon.couleurs()) {
-                if(couleur_!= _b.getSuit()) {
-                    couleursNonAtouts_.add(couleur_);
-                }
-            }
-            return couleursNonAtouts_;
-        }
-        return GameBeloteCommon.couleurs();
+        return GameBeloteCommonPlaying.couleursNonAtouts(_b);
+//        EnumList<Suit> couleursNonAtouts_=new EnumList<Suit>();
+//        if(_b.getCouleurDominante()) {
+//            for(Suit couleur_:GameBeloteCommon.couleurs()) {
+//                if(couleur_!= _b.getSuit()) {
+//                    couleursNonAtouts_.add(couleur_);
+//                }
+//            }
+//            return couleursNonAtouts_;
+//        }
+//        return GameBeloteCommon.couleurs();
     }
 }

@@ -5848,16 +5848,17 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         assertEq(4, tr_.size());
     }
     private static IdMap<Suit,CustList<HandBelote>> fact(GameBeloteTrickInfo _info, HandBelote _current) {
-        IdMap<Suit,CustList<HandBelote>> m = new IdMap<Suit,CustList<HandBelote>>();
-        BidBeloteSuit bid_ = _info.getBid();
-        for(Suit couleur_:GameBeloteCommon.couleurs()) {
-            //On fait une boucle sur les couleurs autres que l'atout
-            if(bid_.getSuit() !=couleur_&&!bid_.ordreAtout()) {
-                m.put(couleur_, _info.cartesPossibles(couleur_, _current));
-            } else {
-                m.put(couleur_,_info.atoutsPossibles(couleur_,_current));
-            }
-        }
-        return m;
+        return _info.cartesPossibles(_current);
+//        IdMap<Suit,CustList<HandBelote>> m = new IdMap<Suit,CustList<HandBelote>>();
+//        BidBeloteSuit bid_ = _info.getBid();
+//        for(Suit couleur_:GameBeloteCommon.couleurs()) {
+//            //On fait une boucle sur les couleurs autres que l'atout
+//            if(bid_.getSuit() !=couleur_&&!bid_.ordreAtout()) {
+//                m.put(couleur_, _info.cartesPossibles(couleur_, _current));
+//            } else {
+//                m.put(couleur_,_info.atoutsPossibles(couleur_,_current));
+//            }
+//        }
+//        return m;
     }
 }

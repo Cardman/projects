@@ -88,9 +88,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         apres_ les_ encheres_*/
         int nbHands_ = _regles.getDealing().getId().getNombreJoueurs();
         nbHands_++;
-        for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
-            deal.add(new HandBelote());
-        }
+        ajouterMainVides(deal, nbHands_);
         /*On donne les_ cartes_ aux_ joueurs_.
         Le nombre_ de_ cartes_ donnes_ par_ joueur_ est_ de_ 3 puis_ 2*/
         //int nbJoueurs_ = _regles.getRepartition().getNombreJoueurs();
@@ -117,9 +115,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         int nbJoueurs_ = _regles.getDealing().getId().getNombreJoueurs();
         int nbHands_ = nbJoueurs_;
         nbHands_++;
-        for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
-            deal.add(new HandBelote());
-        }
+        ajouterMainVides(deal, nbHands_);
         HandBelote m = HandBelote.pileBase();
         int nbCartesJoueurDebut_ = _regles.getDealing().getFirstCards();
         int nbCartesJoueursDebut_ = nbCartesJoueurDebut_ * _regles.getDealing().getId().getNombreJoueurs();
@@ -138,6 +134,12 @@ public final class DealBelote implements Iterable<HandBelote> {
             deal.get(i).trier(_displaying.getDisplaying().getSuits(), _displaying.getDisplaying().isDecreasing(), _displaying.getOrderBeforeBids());
         }
 
+    }
+
+    static void ajouterMainVides(CustList<HandBelote> _list, int _nbHands) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _nbHands; i++) {
+            _list.add(new HandBelote());
+        }
     }
 
     void completerDonne(byte _preneur,RulesBelote _regles) {

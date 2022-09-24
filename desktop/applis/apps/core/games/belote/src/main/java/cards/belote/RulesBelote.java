@@ -4,10 +4,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.RulesCommon;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.IdMap;
-import code.util.Ints;
+import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 
@@ -42,6 +39,26 @@ public final class RulesBelote {
         dealing = _reglesBelote.dealing;
         classicCountPoints = _reglesBelote.classicCountPoints;
     }
+
+    public void allowBids(CustList<BidBelote> _bids) {
+        IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
+        for (BidBelote b: getAllowedBids().getKeys()) {
+            contrats_.put(b, ComparatorBoolean.of(b.getToujoursPossibleAnnoncer()));
+        }
+        contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
+        contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
+//        if(!BidBelote.NO_TRUMP.getToujoursPossibleAnnoncer()) {
+//            contrats_.put(BidBelote.NO_TRUMP,BoolVal.FALSE);
+//        }
+//        if(!BidBelote.ALL_TRUMP.getToujoursPossibleAnnoncer()) {
+//            contrats_.put(BidBelote.ALL_TRUMP,BoolVal.FALSE);
+//        }
+        for (BidBelote b: _bids) {
+            contrats_.put(b,BoolVal.TRUE);
+        }
+        setAllowedBids(contrats_);
+    }
+
     public boolean isValidRules() {
         for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
             if (!allowedDeclares.contains(a)) {

@@ -2,6 +2,7 @@ package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.belote.tsts.TstsBelote;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Suit;
 import code.util.*;
@@ -2354,16 +2355,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         return info_;
     }
     private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
-        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
-        EnumList<Suit> s_ = new EnumList<Suit>();
-        s_.addAllElts(Suit.couleursOrdinaires());
-        for (Suit s: s_) {
-            CustList<HandBelote> l_ = new CustList<HandBelote>();
-            for (int i = 0; i < _nbPlayer; i++) {
-                l_.add(new HandBelote());
-            }
-            e_.addEntry(s,l_);
-        }
-        return e_;
+        return TstsBelote.generate(_nbPlayer);
+//        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
+//        EnumList<Suit> s_ = new EnumList<Suit>();
+//        s_.addAllElts(Suit.couleursOrdinaires());
+//        for (Suit s: s_) {
+//            CustList<HandBelote> l_ = new CustList<HandBelote>();
+//            for (int i = 0; i < _nbPlayer; i++) {
+//                l_.add(new HandBelote());
+//            }
+//            e_.addEntry(s,l_);
+//        }
+//        return e_;
     }
 }

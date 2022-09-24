@@ -1,13 +1,10 @@
 package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
+import cards.belote.tsts.TstsBelote;
 import cards.consts.GameType;
-import cards.consts.Hypothesis;
-import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public abstract class CommonGameBelote extends EquallableBeloteUtil {
     protected static GameBelote newGameBeloteWithourDecl(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
@@ -52,9 +49,10 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                                               CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         CustList<HandBelote> deal_ = new CustList<HandBelote>();
         byte nombreDeJoueurs_ = (byte) _r.getDealing().getId().getNombreJoueurs();
-        for (int i = 0; i< nombreDeJoueurs_; i++) {
-            deal_.add(new HandBelote());
-        }
+        DealBelote.ajouterMainVides(deal_,nombreDeJoueurs_);
+//        for (int i = 0; i< nombreDeJoueurs_; i++) {
+//            deal_.add(new HandBelote());
+//        }
         deal_.add(_lastHand);
         return newGameBelote(_r, _trs, _prog, _dealer, _bids, nombreDeJoueurs_, new DealBelote(deal_, (byte) _dealer));
     }
@@ -64,51 +62,52 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         g_.setProgressingTrick(_prog);
         g_.setTricks(_trs);
         g_.setBids(_bids);
-        byte player_ = g_.playerAfter((byte) _dealer);
-        int taker_ = getTaker(_r, _dealer, _bids);
-        BidBeloteSuit bid_ = new BidBeloteSuit();
-        if (_r.dealAll()) {
-            g_.setEndBidsFirstRound(false);
-            for (BidBeloteSuit b: _bids) {
-                if (b.getPoints() > bid_.getPoints()) {
-                    bid_ = b;
-                }
-                player_ = g_.playerAfter(player_);
-            }
-            g_.setBid(bid_);
-        } else {
-            g_.setEndBidsFirstRound(_bids.size() >= _nombreDeJoueurs);
-            for (BidBeloteSuit b: _bids) {
-                if (b.strongerThan(bid_)) {
-                    bid_ = b;
-                }
-                player_ = g_.playerAfter(player_);
-            }
-            g_.setBid(bid_);
-        }
-        byte starter_;
-        byte trickWinner_;
-        if (!_trs.isEmpty()) {
-            starter_ = _prog.getEntameur();
-            trickWinner_ = _prog.getEntameur();
-        } else if (!_prog.estVide()) {
-            starter_ = _prog.getEntameur();
-            trickWinner_ = _prog.getEntameur();
-        } else if (g_.keepBidding()) {
-            starter_ = g_.playerAfter((byte) _dealer);
-            trickWinner_ = starter_;
-        } else {
-            if (bid_.getPoints() >= HandBelote.pointsTotauxDixDeDer(bid_)) {
-                starter_ = _prog.getEntameur();
-                trickWinner_ = _prog.getEntameur();
-            } else {
-                starter_ = g_.playerAfter((byte) _dealer);
-                trickWinner_ = starter_;
-            }
-        }
-        g_.setPreneur((byte) taker_);
-        g_.setEntameur(starter_);
-        g_.setTrickWinner(trickWinner_);
+        g_.loadGame();
+//        byte player_ = g_.playerAfter((byte) _dealer);
+//        int taker_ = getTaker(_r, _dealer, _bids);
+//        BidBeloteSuit bid_ = new BidBeloteSuit();
+//        if (_r.dealAll()) {
+//            g_.setEndBidsFirstRound(false);
+//            for (BidBeloteSuit b: _bids) {
+//                if (b.getPoints() > bid_.getPoints()) {
+//                    bid_ = b;
+//                }
+//                player_ = g_.playerAfter(player_);
+//            }
+//            g_.setBid(bid_);
+//        } else {
+//            g_.setEndBidsFirstRound(_bids.size() >= _nombreDeJoueurs);
+//            for (BidBeloteSuit b: _bids) {
+//                if (b.strongerThan(bid_)) {
+//                    bid_ = b;
+//                }
+//                player_ = g_.playerAfter(player_);
+//            }
+//            g_.setBid(bid_);
+//        }
+//        byte starter_;
+//        byte trickWinner_;
+//        if (!_trs.isEmpty()) {
+//            starter_ = _prog.getEntameur();
+//            trickWinner_ = _prog.getEntameur();
+//        } else if (!_prog.estVide()) {
+//            starter_ = _prog.getEntameur();
+//            trickWinner_ = _prog.getEntameur();
+//        } else if (g_.keepBidding()) {
+//            starter_ = g_.playerAfter((byte) _dealer);
+//            trickWinner_ = starter_;
+//        } else {
+//            if (bid_.getPoints() >= HandBelote.pointsTotauxDixDeDer(bid_)) {
+//                starter_ = _prog.getEntameur();
+//                trickWinner_ = _prog.getEntameur();
+//            } else {
+//                starter_ = g_.playerAfter((byte) _dealer);
+//                trickWinner_ = starter_;
+//            }
+//        }
+//        g_.setPreneur((byte) taker_);
+//        g_.setEntameur(starter_);
+//        g_.setTrickWinner(trickWinner_);
         return g_;
     }
 
@@ -284,19 +283,19 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
 //        CheckerGameBeloteWithRules.check(_g);
 //        assertTrue("Error",_g.getError().isEmpty());
 //    }
-    protected static int getTaker(RulesBelote _g, int _dealer, CustList<BidBeloteSuit> _bids) {
-        byte player_ = _g.getDealing().getId().getNextPlayer(_dealer);
-        int taker_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        BidBeloteSuit bid_ = new BidBeloteSuit();
-        for (BidBeloteSuit b: _bids) {
-            if (b.strongerThan(bid_)) {
-                taker_ = player_;
-                bid_ = b;
-            }
-            player_ = _g.getDealing().getId().getNextPlayer(player_);
-        }
-        return taker_;
-    }
+//    protected static int getTaker(RulesBelote _g, int _dealer, CustList<BidBeloteSuit> _bids) {
+//        byte player_ = _g.getDealing().getId().getNextPlayer(_dealer);
+//        int taker_ = IndexConstants.INDEX_NOT_FOUND_ELT;
+//        BidBeloteSuit bid_ = new BidBeloteSuit();
+//        for (BidBeloteSuit b: _bids) {
+//            if (b.strongerThan(bid_)) {
+//                taker_ = player_;
+//                bid_ = b;
+//            }
+//            player_ = _g.getDealing().getId().getNextPlayer(player_);
+//        }
+//        return taker_;
+//    }
 //    protected static GameBeloteTrickInfo newGameBeloteTrickInfo(GameBelote _g, HandBelote _currentHand) {
 //        check(_g,_currentHand);
 //        Ints handLengths_ = new Ints();
@@ -320,19 +319,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
 //        return gameBeloteTrickInfo_;
 //    }
     protected static GameBeloteTrickInfo newGameBeloteTrickInfo(GameBelote _g) {
-        Ints handLengths_ = new Ints();
-        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
-        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
-        for (int i = 0; i < nbPl_; i++) {
-            handLengths_.add(nombreCartesParJoueur_);
-        }
-        int nbTr_ = _g.getTricks().size();
-        for (int i = 0; i < nbPl_; i++) {
-            handLengths_.set(i,handLengths_.get(i)-nbTr_);
-        }
-        for (int i: _g.getProgressingTrick().playersHavingPlayed((byte) nbPl_)) {
-            handLengths_.set(i, handLengths_.get(i)-1);
-        }
+        Ints handLengths_ = TstsBelote.handLengths(_g);
         GameBeloteTrickInfo gameBeloteTrickInfo_ = new GameBeloteTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclares(),
                 _g.getDeclaresBeloteRebelote(), _g.getBid(),
@@ -340,74 +327,38 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         gameBeloteTrickInfo_.addSeenDeck(_g.getDistribution().derniereMain(),_g.getTeamsRelation());
         return gameBeloteTrickInfo_;
     }
+
     protected static void addSureCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        int nbPl_ = _info.getNbPlayers();
-        Suit s_ = _c.getId().getCouleur();
-        HandBelote hc_ = _info.getCartesPossibles().getVal(s_).get(_p);
-        if (!hc_.contient(_c)) {
-            return;
-        }
-        for (int i = 0; i < nbPl_; i++) {
-            if (i == _p) {
-                HandBelote h_ = _info.getCartesCertaines().getVal(s_).get(_p);
-                if (!h_.contient(_c)) {
-                    h_.ajouter(_c);
-                    if (_info.getContrat().getCouleurDominante()) {
-                        if (s_ == _info.getCouleurAtout()) {
-                            h_.setOrdre(Order.TRUMP);
-                        } else {
-                            h_.setOrdre(Order.SUIT);
-                        }
-                    } else if (_info.getContrat().ordreCouleur()) {
-                        h_.setOrdre(Order.SUIT);
-                    } else {
-                        h_.setOrdre(Order.TRUMP);
-                    }
-                    h_.trierUnicolore(true);
-                }
-            } else {
-                _info.getCartesPossibles().getVal(s_).get(i).removeCardIfPresent(_c);
-            }
-        }
-    }
-    protected static void addPossibleCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        Suit s_ = _c.getId().getCouleur();
-        HandBelote h_ = _info.getCartesPossibles().getVal(s_).get(_p);
-        if (h_.contient(_c)) {
-            return;
-        }
-        h_.ajouter(_c);
-        if (_info.getContrat().getCouleurDominante()) {
-            if (s_ == _info.getCouleurAtout()) {
-                h_.setOrdre(Order.TRUMP);
-            } else {
-                h_.setOrdre(Order.SUIT);
-            }
-        } else if (_info.getContrat().ordreCouleur()) {
-            h_.setOrdre(Order.SUIT);
-        } else {
-            h_.setOrdre(Order.TRUMP);
-        }
-        h_.trierUnicolore(true);
+        TstsBelote.sureCard(_info, _p, _c);
     }
 
+    protected static void addPossibleCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
+        TstsBelote.possibleCard(_info, _c, _c.getId().getCouleur(), _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p));
+    }
+
+    protected static void possCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _bid) {
+        HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
+        TstsBelote.possCard(_c, _bid, h_, _c.getId().getCouleur());
+    }
+
+
+    /*if(bid.getCouleurDominante()) {
+                if(couleur_!= bid.getSuit()) {
+                    GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
+                }
+            } else if(bid.ordreCouleur()) {
+                GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
+            }*/
 
     protected static void removePossibleCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        if (_info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p).contient(_c)) {
-            return;
-        }
+//        if (_info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p).contient(_c)) {
+//            return;
+//        }
         HandBelote h_ = _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p);
         h_.removeCardIfPresent(_c);
     }
-    protected static void removeSureCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        HandBelote h_ = _info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p);
-        h_.removeCardIfPresent(_c);
-    }
-    protected static HandBelote create(CardBelote... _cards) {
-        HandBelote h_ = new HandBelote();
-        for (CardBelote c : _cards) {
-            h_.ajouter(c);
-        }
-        return h_;
-    }
+//    protected static void removeSureCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
+//        HandBelote h_ = _info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p);
+//        h_.removeCardIfPresent(_c);
+//    }
 }

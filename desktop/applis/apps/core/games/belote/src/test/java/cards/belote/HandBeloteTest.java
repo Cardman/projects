@@ -1,6 +1,5 @@
 package cards.belote;
 
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -766,85 +765,75 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     @Test
     public void eclater1(){
         HandBelote main_ = eclater();
-        CustList<HandBelote> suites_ = new CustList<HandBelote>();
-        HandBelote suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_9);
-        suites_.add(suite_);
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_10);
-        suite_.ajouter(CardBelote.HEART_KING);
-        suites_.add(suite_);
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_7);
-        suites_.add(suite_);
         HandBelote cartesJouees_ = initCartesJoueesVideEclaterTest();
-        Suit couleur_ = Suit.HEART;
 
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(BidBelote.SUIT);
-        enchereCouleur_.setSuit(couleur_);
+        enchereCouleur_.setSuit(Suit.HEART);
 
 
-        IdMap<Suit,HandBelote> repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> normalOne_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(3, normalOne_.size());
+        assertEq(create(CardBelote.HEART_9), normalOne_.get(0));
+        assertEq(create(CardBelote.HEART_10,CardBelote.HEART_KING), normalOne_.get(1));
+        assertEq(create(CardBelote.HEART_7), normalOne_.get(2));
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> otherSuit_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(3, otherSuit_.size());
+        assertEq(create(CardBelote.HEART_9), otherSuit_.get(0));
+        assertEq(create(CardBelote.HEART_10,CardBelote.HEART_KING), otherSuit_.get(1));
+        assertEq(create(CardBelote.HEART_7), otherSuit_.get(2));
         enchereCouleur_.setBid(BidBelote.ALL_TRUMP);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
-        couleur_ = Suit.DIAMOND;
-        suites_ = new CustList<HandBelote>();
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_10);
-        suite_.ajouter(CardBelote.HEART_KING);
-        suites_.add(suite_);
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_9);
-        suites_.add(suite_);
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_7);
-        suites_.add(suite_);
-        enchereCouleur_.setSuit(couleur_);
+        CustList<HandBelote> allTrump_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(3, allTrump_.size());
+        assertEq(create(CardBelote.HEART_9), allTrump_.get(0));
+        assertEq(create(CardBelote.HEART_10,CardBelote.HEART_KING), allTrump_.get(1));
+        assertEq(create(CardBelote.HEART_7), allTrump_.get(2));
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         enchereCouleur_.setBid(BidBelote.SUIT);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> normalTwo_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(3, normalTwo_.size());
+        assertEq(create(CardBelote.HEART_10, CardBelote.HEART_KING), normalTwo_.get(0));
+        assertEq(create(CardBelote.HEART_9), normalTwo_.get(1));
+        assertEq(create(CardBelote.HEART_7), normalTwo_.get(2));
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> otherSuitTwo_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(3, otherSuitTwo_.size());
+        assertEq(create(CardBelote.HEART_10, CardBelote.HEART_KING), otherSuitTwo_.get(0));
+        assertEq(create(CardBelote.HEART_9), otherSuitTwo_.get(1));
+        assertEq(create(CardBelote.HEART_7), otherSuitTwo_.get(2));
         enchereCouleur_.setBid(BidBelote.NO_TRUMP);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> noTrumpTwo_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(3, noTrumpTwo_.size());
+        assertEq(create(CardBelote.HEART_10, CardBelote.HEART_KING), noTrumpTwo_.get(0));
+        assertEq(create(CardBelote.HEART_9), noTrumpTwo_.get(1));
+        assertEq(create(CardBelote.HEART_7), noTrumpTwo_.get(2));
         cartesJouees_ = initCartesJoueesEclaterTest();
         enchereCouleur_.setBid(BidBelote.SUIT);
-        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        couleur_ = Suit.HEART;
-        enchereCouleur_.setSuit(couleur_);
-        suites_ = new CustList<HandBelote>();
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_9);
-        suite_.ajouter(CardBelote.HEART_10);
-        suite_.ajouter(CardBelote.HEART_KING);
-        suites_.add(suite_);
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_7);
-        suites_.add(suite_);
+        enchereCouleur_.setSuit(Suit.HEART);
         enchereCouleur_.setBid(BidBelote.SUIT);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> normalFour_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(2, normalFour_.size());
+        assertEq(create(CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.HEART_KING), normalFour_.get(0));
+        assertEq(create(CardBelote.HEART_7), normalFour_.get(1));
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
-        couleur_ = Suit.DIAMOND;
-        enchereCouleur_.setSuit(couleur_);
-        suites_ = new CustList<HandBelote>();
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_10);
-        suite_.ajouter(CardBelote.HEART_KING);
-        suites_.add(suite_);
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_9);
-        suites_.add(suite_);
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_7);
-        suites_.add(suite_);
+        CustList<HandBelote> otherSuitFour_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(2, otherSuitFour_.size());
+        assertEq(create(CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.HEART_KING), otherSuitFour_.get(0));
+        assertEq(create(CardBelote.HEART_7), otherSuitFour_.get(1));
+        enchereCouleur_.setSuit(Suit.DIAMOND);
         enchereCouleur_.setBid(BidBelote.SUIT);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> normalFive_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(3, normalFive_.size());
+        assertEq(create(CardBelote.HEART_10,CardBelote.HEART_KING), normalFive_.get(0));
+        assertEq(create(CardBelote.HEART_9), normalFive_.get(1));
+        assertEq(create(CardBelote.HEART_7), normalFive_.get(2));
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> otherSuitFive_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(3, otherSuitFive_.size());
+        assertEq(create(CardBelote.HEART_10,CardBelote.HEART_KING), otherSuitFive_.get(0));
+        assertEq(create(CardBelote.HEART_9), otherSuitFive_.get(1));
+        assertEq(create(CardBelote.HEART_7), otherSuitFive_.get(2));
         cartesJouees_ = new HandBelote();
         cartesJouees_.ajouter(CardBelote.HEART_10);
         main_ = new HandBelote();
@@ -852,28 +841,24 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         main_.ajouter(CardBelote.HEART_KING);
         main_.ajouter(CardBelote.HEART_9);
         enchereCouleur_.setBid(BidBelote.SUIT);
-        repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        suites_ = new CustList<HandBelote>();
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_1);
-        suite_.ajouter(CardBelote.HEART_KING);
-        suites_.add(suite_);
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_9);
-        suites_.add(suite_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> normalThree_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(2, normalThree_.size());
+        assertEq(create(CardBelote.HEART_1,CardBelote.HEART_KING), normalThree_.get(0));
+        assertEq(create(CardBelote.HEART_9), normalThree_.get(1));
         enchereCouleur_.setBid(BidBelote.OTHER_SUIT);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> otherSuitThree_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(2, otherSuitThree_.size());
+        assertEq(create(CardBelote.HEART_1,CardBelote.HEART_KING), otherSuitThree_.get(0));
+        assertEq(create(CardBelote.HEART_9), otherSuitThree_.get(1));
         enchereCouleur_.setBid(BidBelote.NO_TRUMP);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
-        suites_ = new CustList<HandBelote>();
-        suite_ = new HandBelote();
-        suite_.ajouter(CardBelote.HEART_9);
-        suite_.ajouter(CardBelote.HEART_1);
-        suite_.ajouter(CardBelote.HEART_KING);
-        suites_.add(suite_);
+        CustList<HandBelote> noTrumpThree_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(2, noTrumpThree_.size());
+        assertEq(create(CardBelote.HEART_1,CardBelote.HEART_KING), noTrumpThree_.get(0));
+        assertEq(create(CardBelote.HEART_9), noTrumpThree_.get(1));
         enchereCouleur_.setBid(BidBelote.ALL_TRUMP);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        CustList<HandBelote> allTrumpSix_ = eclater(main_, cartesJouees_, enchereCouleur_);
+        assertEq(1, allTrumpSix_.size());
+        assertEq(create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_KING), allTrumpSix_.get(0));
     }
     @Test
     public void eclater2Test(){
@@ -889,10 +874,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater3Test(){
@@ -908,10 +893,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater4Test(){
@@ -928,10 +913,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater5Test(){
@@ -948,10 +933,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater6Test(){
@@ -968,10 +953,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater7Test(){
@@ -988,10 +973,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater8Test(){
@@ -1008,10 +993,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater9Test(){
@@ -1028,10 +1013,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater10Test(){
@@ -1048,10 +1033,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void eclater11Test(){
@@ -1068,10 +1053,10 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
         suites_ = new CustList<HandBelote>();
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
+        assertTrue(main_.eclater(repartitionCartesJouees_, enchereCouleur_).isEmpty());
     }
     @Test
     public void annonce1(){
@@ -1664,11 +1649,9 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         assertEq(133, h_.pointsBid(4,8,BidBelote.ALL_TRUMP));
     }
-    private void asserting(CustList<HandBelote> _exp, CustList<HandBelote> _res) {
-        assertEq(_exp.size(), _res.size());
-        int s_ = _exp.size();
-        for (int i = IndexConstants.FIRST_INDEX; i < s_; i++) {
-            assertEq(_exp.get(i), _res.get(i));
-        }
+
+    private static CustList<HandBelote> eclater(HandBelote _main, HandBelote _cartesJouees, BidBeloteSuit _enchereCouleur) {
+        return _main.eclater(_cartesJouees.couleurs(_enchereCouleur), _enchereCouleur);
     }
+
 }

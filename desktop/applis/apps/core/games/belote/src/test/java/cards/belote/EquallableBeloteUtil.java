@@ -97,4 +97,12 @@ public abstract class EquallableBeloteUtil {
         Assert.assertEquals(_expected,_result);
     }
 
+    protected static HandBelote create(CardBelote... _cards) {
+        return HandBelote.create(_cards);
+//        HandBelote h_ = new HandBelote();
+//        for (CardBelote c : _cards) {
+//            h_.ajouter(c);
+//        }
+//        return h_;
+    }
 }

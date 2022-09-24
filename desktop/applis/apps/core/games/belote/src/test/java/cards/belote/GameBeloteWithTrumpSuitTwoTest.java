@@ -3,7 +3,6 @@ package cards.belote;
 import code.util.CustList;
 import org.junit.Test;
 
-import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
@@ -66,7 +65,7 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playableCards_WhileDiscarding1Test() {
         GameBelote game_ = initialize();
-        biddingTrumpSuit(game_,BidBelote.SUIT,Suit.DIAMOND);
+        biddingTrumpSuitFirst(game_, Suit.DIAMOND);
         game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
@@ -87,7 +86,7 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
     @Test
     public void playableCards_WhileDiscardingWhileTrumpSuit2Test() {
         GameBelote game_ = initialize();
-        biddingTrumpSuit(game_,BidBelote.SUIT,Suit.DIAMOND);
+        biddingTrumpSuitFirst(game_, Suit.DIAMOND);
         game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
