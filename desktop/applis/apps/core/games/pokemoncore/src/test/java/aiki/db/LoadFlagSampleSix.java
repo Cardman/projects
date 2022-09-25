@@ -1,14 +1,11 @@
 package aiki.db;
 
-public final class LoadFlagSampleSix implements LoadFlag {
+import aiki.tsts.TstsLoadFlagImpl;
 
-    @Override
-    public void set(boolean _b) {
+public final class LoadFlagSampleSix extends TstsLoadFlagImpl {
 
+    public LoadFlagSampleSix() {
+        super(-1);
     }
 
-    @Override
-    public boolean get() {
-        return false;
-    }
 }

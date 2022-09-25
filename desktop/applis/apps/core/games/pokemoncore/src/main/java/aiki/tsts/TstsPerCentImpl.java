@@ -1,6 +1,8 @@
-package aiki.db;
+package aiki.tsts;
 
-public final class PerCentImpl implements PerCent {
+import aiki.db.PerCent;
+
+public final class TstsPerCentImpl implements PerCent {
     private int percent;
 
     @Override

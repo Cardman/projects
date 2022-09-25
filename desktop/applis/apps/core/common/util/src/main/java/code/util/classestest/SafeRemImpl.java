@@ -3,10 +3,10 @@ package code.util.classestest;
 import code.util.CustList;
 import code.util.ints.SafeRemove;
 
-public final class SafeRemImpl implements SafeRemove {
-    private final CustList<String> list =new CustList<String>();
+public final class SafeRemImpl<T> implements SafeRemove {
+    private final CustList<T> list =new CustList<T>();
 
-    public CustList<String> getList() {
+    public CustList<T> getList() {
         return list;
     }
 

@@ -1,20 +1,11 @@
 package aiki.db;
 
-public final class LoadFlagSampleOne implements LoadFlag {
+import aiki.tsts.TstsLoadFlagImpl;
 
-    private PerCentImpl perCent;
+public final class LoadFlagSampleOne extends TstsLoadFlagImpl {
 
-    public LoadFlagSampleOne(PerCentImpl _perCent) {
-        perCent = _perCent;
+    public LoadFlagSampleOne() {
+        super(60);
     }
 
-    @Override
-    public void set(boolean _b) {
-
-    }
-
-    @Override
-    public boolean get() {
-        return perCent.getPercent() != 60;
-    }
 }

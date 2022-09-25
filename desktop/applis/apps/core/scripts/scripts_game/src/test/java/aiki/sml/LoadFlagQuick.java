@@ -1,15 +1,11 @@
 package aiki.sml;
-import aiki.db.*;
+import aiki.tsts.TstsLoadFlagImpl;
 
-public final class LoadFlagQuick implements LoadFlag {
+public final class LoadFlagQuick extends TstsLoadFlagImpl {
 
-    @Override
-    public void set(boolean _b) {
-
+    public LoadFlagQuick() {
+        super(100);
     }
 
-    @Override
-    public boolean get() {
-        return true;
-    }
+
 }

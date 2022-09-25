@@ -2,7 +2,6 @@ package code.util;
 
 import org.junit.Test;
 
-import code.util.classestest.MyStringComparator;
 import code.util.comparators.NaturalComparator;
 
 
@@ -41,7 +40,7 @@ public class TreeMapTest extends EquallableExUtil {
 
     @Test
     public void put2Test() {
-        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator(-1));
         CustList<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
@@ -193,10 +192,10 @@ public class TreeMapTest extends EquallableExUtil {
 
     @Test
     public void getKey2Test() {
-        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator(-1));
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
+        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new NaturalComparator(-1));
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         assertNotNull(map_.comparator());
@@ -229,10 +228,10 @@ public class TreeMapTest extends EquallableExUtil {
 
     @Test
     public void getValue2Test() {
-        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator(-1));
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
+        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new NaturalComparator(-1));
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         assertNotNull(map_.comparator());
