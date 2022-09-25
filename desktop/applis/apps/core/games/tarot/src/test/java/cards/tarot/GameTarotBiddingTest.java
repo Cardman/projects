@@ -9,7 +9,7 @@ import cards.consts.MixCardsChoice;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import code.util.EnumList;
+import code.util.IdList;
 
 public class GameTarotBiddingTest extends CommonTarotGame {
 
@@ -199,7 +199,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         hands_.add(hand_);
         return new DealTarot(hands_,(byte) 5);
     }
-    static RulesTarot initializeRulesWithBids(EnumList<BidTarot> _bids) {
+    static RulesTarot initializeRulesWithBids(IdList<BidTarot> _bids) {
         RulesTarot regles_=new RulesTarot();
         regles_.setDealing(DealingTarot.DEAL_1_VS_2);
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
@@ -207,7 +207,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         return regles_;
     }
 
-    static RulesTarot initializeRulesWithBidsForSixPlayers(EnumList<BidTarot> _bids) {
+    static RulesTarot initializeRulesWithBidsForSixPlayers(IdList<BidTarot> _bids) {
         RulesTarot regles_=new RulesTarot();
         regles_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
@@ -215,11 +215,11 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         return regles_;
     }    @Test
     public void allowedBids_BidsInitialize1(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        EnumList<BidTarot> expected_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        IdList<BidTarot> expected_ = new IdList<BidTarot>();
         expected_.add(BidTarot.FOLD);
         expected_.add(BidTarot.TAKE);
         expected_.add(BidTarot.GUARD);
@@ -230,11 +230,11 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_BidsInitialize2(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        EnumList<BidTarot> expected_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        IdList<BidTarot> expected_ = new IdList<BidTarot>();
         expected_.add(BidTarot.FOLD);
         expected_.add(BidTarot.GUARD);
         expected_.add(BidTarot.GUARD_WITHOUT);
@@ -245,11 +245,11 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_BidsInitialize3(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        EnumList<BidTarot> expected_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        IdList<BidTarot> expected_ = new IdList<BidTarot>();
         expected_.add(BidTarot.FOLD);
         expected_.add(BidTarot.GUARD);
         assertEq(2,bids_.size());
@@ -258,11 +258,11 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_BidsInitialize4(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE, BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE, BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        EnumList<BidTarot> expected_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        IdList<BidTarot> expected_ = new IdList<BidTarot>();
         expected_.add(BidTarot.FOLD);
         expected_.add(BidTarot.TAKE);
         expected_.add(BidTarot.GUARD);
@@ -275,7 +275,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeWithoutTakingBid1Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -286,12 +286,12 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD,BidTarot.GUARD),bids_);
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        assertEqBids(new IdList<BidTarot>(BidTarot.FOLD,BidTarot.GUARD),bids_);
     }
     @Test
     public void allowedBids_InitializeWithoutTakingBid2Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -302,12 +302,12 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE,BidTarot.GUARD),bids_);
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        assertEqBids(new IdList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE,BidTarot.GUARD),bids_);
     }
     @Test
     public void allowedBids_InitializeWithoutTakingBid3Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -318,12 +318,12 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD,BidTarot.GUARD_WITHOUT),bids_);
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        assertEqBids(new IdList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD,BidTarot.GUARD_WITHOUT),bids_);
     }
     @Test
     public void allowedBids_InitializeWithoutTakingBid4Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -334,12 +334,12 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD,BidTarot.GUARD_AGAINST),bids_);
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        assertEqBids(new IdList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD,BidTarot.GUARD_AGAINST),bids_);
     }
     @Test
     public void allowedBids_InitializeWithoutTakingBid5Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -350,12 +350,12 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD,BidTarot.GUARD_WITHOUT),bids_);
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        assertEqBids(new IdList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD,BidTarot.GUARD_WITHOUT),bids_);
     }
     @Test
     public void allowedBids_InitializeWithoutTakingBid6Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -366,12 +366,12 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD,BidTarot.GUARD_AGAINST),bids_);
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        assertEqBids(new IdList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD,BidTarot.GUARD_AGAINST),bids_);
     }
     @Test
     public void allowedBids_InitializeWithoutTakingBid7Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -382,12 +382,12 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD, BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST),bids_);
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        assertEqBids(new IdList<BidTarot>(BidTarot.FOLD, BidTarot.GUARD, BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST),bids_);
     }
     @Test
     public void allowedBids_InitializeWithoutTakingBid8Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -398,17 +398,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        assertEqBids(new EnumList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD, BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST),bids_);
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        assertEqBids(new IdList<BidTarot>(BidTarot.FOLD, BidTarot.TAKE, BidTarot.GUARD, BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST),bids_);
     }
 
 
-    private static void assertEqBids(EnumList<BidTarot> _expected, EnumList<BidTarot> _result) {
+    private static void assertEqBids(IdList<BidTarot> _expected, IdList<BidTarot> _result) {
         Assert.assertEquals(_expected.getList(),_result.getList());
     }
     @Test
     public void allowedBids_InitializeByTakingBid1(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -421,8 +421,8 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
 
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        EnumList<BidTarot> expected_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        IdList<BidTarot> expected_ = new IdList<BidTarot>();
         expected_.add(BidTarot.FOLD);
         expected_.add(BidTarot.GUARD);
         expected_.add(BidTarot.GUARD_WITHOUT);
@@ -436,7 +436,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByTakingBid2(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -449,8 +449,8 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         player_ = game_.playerAfter(player_);
         assertTrue(!game_.keepBidding());
 
-        EnumList<BidTarot> bids_ = game_.allowedBids();
-        EnumList<BidTarot> expected_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = game_.allowedBids();
+        IdList<BidTarot> expected_ = new IdList<BidTarot>();
         expected_.add(BidTarot.FOLD);
         expected_.add(BidTarot.TAKE);
         expected_.add(BidTarot.GUARD);
@@ -464,7 +464,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByPassing1Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -481,7 +481,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByPassing2Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -498,7 +498,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByPassing3Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -515,7 +515,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByPassing4Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -532,7 +532,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByPassing5Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -549,7 +549,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByPassing6Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -566,7 +566,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByPassing7Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -583,7 +583,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void allowedBids_InitializeByPassing8Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -600,31 +600,31 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void maximumBid_AtSecondRound1(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game_.maximumBid(BidTarot.GUARD));
     }
     @Test
     public void maximumBid_AtSecondRound2(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game_.maximumBid(BidTarot.GUARD));
     }
     @Test
     public void maximumBid_AtSecondRound3(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game_.maximumBid(BidTarot.GUARD_AGAINST));
     }
     @Test
     public void maximumBid_AtSecondRound4(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(!game_.maximumBid(BidTarot.GUARD_WITHOUT));
     }
     @Test
     public void initDefense_revealedTeamWithoutCallingByTaking1Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -646,7 +646,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initDefense_revealedTeamWithoutCallingByTaking2Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -668,7 +668,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initDefense_revealedTeamWithoutCallingByTaking3Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -690,7 +690,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initDefense_revealedTeamWithoutCallingByTaking4Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -712,7 +712,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initDefense_revealedTeamWithoutCallingByTaking5Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -734,7 +734,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initDefense_revealedTeamWithoutCallingByTaking6Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -756,7 +756,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initDefense_revealedTeamWithoutCallingByTaking7Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -778,7 +778,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initDefense_revealedTeamWithoutCallingByTaking8Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -800,7 +800,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking1Test(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -838,7 +838,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking2Test(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.TAKE));
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -876,7 +876,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking3Test(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -914,7 +914,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking4Test(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -952,7 +952,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking5Test(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -990,7 +990,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking6Test(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1028,7 +1028,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking7Test(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1066,7 +1066,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDeterminee_revealedTeamWithoutCallingSixPlyersByTaking8Test(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1104,7 +1104,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void initEquipeDetermineeSansPreneur_revealedTeamWithoutCallingSixPlyersByTaking1(){
-        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
         game_.initEquipeDetermineeSansPreneur();
         assertEq(BidTarot.FOLD,game_.getContrat());
@@ -1118,7 +1118,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void strategieContrat1Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game_.keepBidding());
         assertEq(0,game_.playerHavingToBid());
@@ -1127,7 +1127,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void strategieContrat2Test(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         game_.ajouterContrat(game_.strategieContrat(), (byte) 0);
         assertTrue(game_.keepBidding());
@@ -1137,7 +1137,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     }
     @Test
     public void playerHasAlreadyBiddedTest(){
-        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game_.keepBidding());
         assertTrue(!game_.playerHasAlreadyBidded((byte) 0));

@@ -3,14 +3,14 @@ import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
-import code.util.EnumList;
+import code.util.IdList;
 
 
 public final class SoftParams {
 
     private static final int DELTA = 500;
 
-    private EnumList<GameEnum> launching = new EnumList<GameEnum>();
+    private IdList<GameEnum> launching = new IdList<GameEnum>();
     private boolean saveHomeFolder = true;
     private int delayWaitingBids=DELTA;
     private int delayWaitingCards=DELTA;
@@ -39,10 +39,10 @@ public final class SoftParams {
             delayWaitingTricks=DELTA;
         }
     }
-    public EnumList<GameEnum> getLancement() {
+    public IdList<GameEnum> getLancement() {
         return launching;
     }
-    public void setLancement(EnumList<GameEnum> _lancement) {
+    public void setLancement(IdList<GameEnum> _lancement) {
         launching = _lancement;
     }
     public int getDelaiAttenteContrats() {
@@ -90,10 +90,10 @@ public final class SoftParams {
     public void sauvegarder(String _fichier, TechStreams _tech){
         StreamTextFile.saveTextFile(_fichier, DocumentWriterCardsUnionUtil.setSoftParams(this),_tech);
     }
-    public EnumList<GameEnum> getLaunching() {
+    public IdList<GameEnum> getLaunching() {
         return launching;
     }
-    public void setLaunching(EnumList<GameEnum> _launching) {
+    public void setLaunching(IdList<GameEnum> _launching) {
         launching = _launching;
     }
     public int getDelayWaitingBids() {

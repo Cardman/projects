@@ -5,7 +5,7 @@ import cards.consts.PossibleTrickWinner;
 import cards.consts.Role;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -366,7 +366,7 @@ public final class GameBeloteProgTrick {
             IdMap<Suit,HandBelote> repartition_=playableCards.couleurs(bid);
             IdMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
             IdMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
-            EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
+            IdList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
             Suit couleurDemandee_=progressingTrick.couleurDemandee();
             return defausseCouleurDemandeeSurPartenaireCouleurDominante(
                     repartitionCartesJouees_, repartition_, cartesMaitresses_,
@@ -383,7 +383,7 @@ public final class GameBeloteProgTrick {
         IdMap<Suit,CustList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
         IdMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
-        EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
+        IdList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
         Bytes joueursNonJoue_=_info.getJoueursNonJoue();
         Bytes adversaireNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(adversaire_,joueursNonJoue_);
@@ -447,7 +447,7 @@ public final class GameBeloteProgTrick {
         IdMap<Suit,HandBelote> repartition_=playableCards.couleurs(bid);
         IdMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
         IdMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
-        EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
+        IdList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         PossibleTrickWinner ramasseurCertain_=GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(_info);
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
@@ -462,7 +462,7 @@ public final class GameBeloteProgTrick {
         IdMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         IdMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
         IdMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
-        EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
+        IdList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
         PossibleTrickWinner ramasseurCertain_=GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(_info);
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
             /*La couleur demandee est atout*/
@@ -575,7 +575,7 @@ public final class GameBeloteProgTrick {
         IdMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
 
         IdMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
-        EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
+        IdList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
         PossibleTrickWinner ramasseurCertain_=GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(_info);
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
             /*Maintenant le joueur se defausse*/
@@ -622,7 +622,7 @@ public final class GameBeloteProgTrick {
         IdMap<Suit,HandBelote> repartition_=playableCards.couleurs(bid);
         IdMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
         IdMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
-        EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
+        IdList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
         PossibleTrickWinner ramasseurCertain_=GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(_info);
         //jeu tout atout
         //
@@ -757,10 +757,10 @@ public final class GameBeloteProgTrick {
             IdMap<Suit, HandBelote> _repartitionCartesJouees,
             IdMap<Suit, HandBelote> _repartition,
             IdMap<Suit, HandBelote> _cartesMaitresses,
-            EnumList<Suit> _couleursStrictementMaitresses) {
-        EnumList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
+            IdList<Suit> _couleursStrictementMaitresses) {
+        IdList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
         if(_couleursStrictementMaitresses.size()==common.couleursNonAtouts().size()) {
-            EnumList<Suit> couleursFigures_=GameBeloteCommon.couleursAvecPoints(_repartition, bid, couleursNonVides_);
+            IdList<Suit> couleursFigures_=GameBeloteCommon.couleursAvecPoints(_repartition, bid, couleursNonVides_);
             couleursFigures_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(_repartition,couleursFigures_,2);
             if(!couleursFigures_.isEmpty()) {
                 return jeuGrandeCarteDefausseMaitre(couleursFigures_, _repartition);
@@ -768,7 +768,7 @@ public final class GameBeloteProgTrick {
             return jeuPetiteDefausseMaitre(_cartesMaitresses, _repartition, couleursNonVides_);
         }
         /*Il peut exister une couleur pour se defausser non strictement maitresse*/
-        EnumList<Suit> couleursBis_=GameBeloteCommon.couleursNonAtoutNonVides(_cartesMaitresses,couleursNonVides_);
+        IdList<Suit> couleursBis_=GameBeloteCommon.couleursNonAtoutNonVides(_cartesMaitresses,couleursNonVides_);
         if(!couleursBis_.isEmpty()) {
             return jeuPetiteDefausseMaitre(_cartesMaitresses, _repartition, couleursBis_);
         }
@@ -779,10 +779,10 @@ public final class GameBeloteProgTrick {
             IdMap<Suit,HandBelote> _repartitionCartesJouees,
             IdMap<Suit,HandBelote> _repartition,
             IdMap<Suit,HandBelote> _cartesMaitresses,
-            EnumList<Suit> _couleursStrictementMaitresses) {
-        EnumList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
+            IdList<Suit> _couleursStrictementMaitresses) {
+        IdList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
         if(_couleursStrictementMaitresses.size()==GameBeloteCommon.couleurs().size() - 1) {
-            EnumList<Suit> couleursFigures_=GameBeloteCommon.couleursAvecPoints(_repartition, bid, couleursNonVides_);
+            IdList<Suit> couleursFigures_=GameBeloteCommon.couleursAvecPoints(_repartition, bid, couleursNonVides_);
             couleursFigures_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(_repartition,couleursFigures_,2);
             if(!couleursFigures_.isEmpty()) {
                 return jeuGrandeCarteDefausseMaitre(couleursFigures_, _repartition);
@@ -790,7 +790,7 @@ public final class GameBeloteProgTrick {
             return jeuPetiteDefausseMaitre(_cartesMaitresses, _repartition, couleursNonVides_);
         }
         /*Il peut exister une couleur pour se defausser non strictement maitresse*/
-        EnumList<Suit> couleurs_=GameBeloteCommon.couleursNonAtoutNonVides(_cartesMaitresses,couleursNonVides_);
+        IdList<Suit> couleurs_=GameBeloteCommon.couleursNonAtoutNonVides(_cartesMaitresses,couleursNonVides_);
         if(!couleurs_.isEmpty()) {
             return jeuPetiteDefausseMaitre(_cartesMaitresses, _repartition, couleurs_);
         }
@@ -803,8 +803,8 @@ public final class GameBeloteProgTrick {
     }
 
     CardBelote discardFoe(IdMap<Suit, HandBelote> _repartitionCartesJouees, IdMap<Suit, HandBelote> _repartition) {
-        EnumList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
-        EnumList<Suit> couleurs_=GameBeloteCommon.couleursSansPoint(_repartition, bid, couleursNonVides_);
+        IdList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
+        IdList<Suit> couleurs_=GameBeloteCommon.couleursSansPoint(_repartition, bid, couleursNonVides_);
         if(!couleurs_.isEmpty()) {
             return jouerPetiteCarteDefausse(couleurs_,_repartition,_repartitionCartesJouees);
         }
@@ -816,13 +816,13 @@ public final class GameBeloteProgTrick {
             IdMap<Suit, HandBelote> _repartition,
             IdMap<Suit, HandBelote> _cartesMaitresses,
             Suit _couleurDemandee,
-            EnumList<Suit> _couleursStrictementMaitresses) {
+            IdList<Suit> _couleursStrictementMaitresses) {
 
-        EnumList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
-        EnumList<Suit> couleursAutreQueDemandeeEtAtout_ = common.couleursNonAtouts();
+        IdList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
+        IdList<Suit> couleursAutreQueDemandeeEtAtout_ = common.couleursNonAtouts();
         couleursAutreQueDemandeeEtAtout_.removeObj(_couleurDemandee);
         if(_couleursStrictementMaitresses.containsAllObj(couleursAutreQueDemandeeEtAtout_)) {
-            EnumList<Suit> couleursFigures_=GameBeloteCommon.couleursAvecPoints(_repartition, bid, couleursNonVides_);
+            IdList<Suit> couleursFigures_=GameBeloteCommon.couleursAvecPoints(_repartition, bid, couleursNonVides_);
             couleursFigures_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(_repartition,couleursFigures_,2);
             if(!couleursFigures_.isEmpty()) {
                 return jeuGrandeCarteDefausseMaitre(couleursFigures_, _repartition);
@@ -830,7 +830,7 @@ public final class GameBeloteProgTrick {
             return jeuPetiteDefausseMaitre(_cartesMaitresses, _repartition, couleursNonVides_);
         }
         /*Il peut exister une couleur non strictement maitresse pour se defausser*/
-        EnumList<Suit> couleursBis_=GameBeloteCommon.couleursNonAtoutNonVides(_cartesMaitresses,couleursNonVides_);
+        IdList<Suit> couleursBis_=GameBeloteCommon.couleursNonAtoutNonVides(_cartesMaitresses,couleursNonVides_);
         if(!couleursBis_.isEmpty()) {
             return jeuPetiteDefausseMaitre(_cartesMaitresses, _repartition, couleursBis_);
         }
@@ -841,10 +841,10 @@ public final class GameBeloteProgTrick {
             IdMap<Suit, HandBelote> _repartitionCartesJouees,
             IdMap<Suit, HandBelote> _repartition,
             IdMap<Suit, HandBelote> _cartesMaitresses,
-            EnumList<Suit> _couleursStrictementMaitresses) {
-        EnumList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
+            IdList<Suit> _couleursStrictementMaitresses) {
+        IdList<Suit> couleursNonVides_=GameBeloteCommon.couleursNonAtoutNonVides(_repartition,common.couleursNonAtouts());
         if(_couleursStrictementMaitresses.size()==GameBeloteCommon.couleurs().size() - 1) {
-            EnumList<Suit> couleursFigures_=GameBeloteCommon.couleursAvecPoints(_repartition, bid, couleursNonVides_);
+            IdList<Suit> couleursFigures_=GameBeloteCommon.couleursAvecPoints(_repartition, bid, couleursNonVides_);
             couleursFigures_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(_repartition,couleursFigures_,2);
             if(!couleursFigures_.isEmpty()) {
                 return jeuGrandeCarteDefausseMaitre(couleursFigures_, _repartition);
@@ -852,52 +852,52 @@ public final class GameBeloteProgTrick {
             return jeuPetiteDefausseMaitre(_cartesMaitresses, _repartition, couleursNonVides_);
         }
         /*Il peut exister une couleur non strictement maitresse pour se defausser*/
-        EnumList<Suit> couleursBis_=GameBeloteCommon.couleursNonAtoutNonVides(_cartesMaitresses,couleursNonVides_);
+        IdList<Suit> couleursBis_=GameBeloteCommon.couleursNonAtoutNonVides(_cartesMaitresses,couleursNonVides_);
         if(!couleursBis_.isEmpty()) {
             return jeuPetiteDefausseMaitre(_cartesMaitresses, _repartition, couleursBis_);
         }
         return discardPartner(_repartitionCartesJouees, _repartition, couleursNonVides_);
     }
 
-    CardBelote discardPartner(IdMap<Suit, HandBelote> _repartitionCartesJouees, IdMap<Suit, HandBelote> _repartition, EnumList<Suit> _couleursNonVides) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursAvecPoints(_repartition, bid, _couleursNonVides);
+    CardBelote discardPartner(IdMap<Suit, HandBelote> _repartitionCartesJouees, IdMap<Suit, HandBelote> _repartition, IdList<Suit> _couleursNonVides) {
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursAvecPoints(_repartition, bid, _couleursNonVides);
         if(!couleurs_.isEmpty()) {
             return sauverFiguresDefausse(couleurs_,_repartition,_repartitionCartesJouees);
         }
         return jouerPetiteCarteDefausse(_couleursNonVides,_repartition,_repartitionCartesJouees);
     }
     private CardBelote sauverFiguresDefausse(
-            EnumList<Suit> _couleursFigures,
+            IdList<Suit> _couleursFigures,
             IdMap<Suit,HandBelote> _repartition,
             IdMap<Suit,HandBelote> _repartitionCartesJouees) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursAvecLePlusGrandNbPoints(_repartition, bid, _couleursFigures);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursAvecLePlusGrandNbPoints(_repartition, bid, _couleursFigures);
         couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartition, couleurs_);
         couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartitionCartesJouees, couleurs_);
         couleurs_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(_repartition, bid, couleurs_);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).premiereCarte();
     }
     private CardBelote jeuPetiteCarteCouleurFigure(
-            EnumList<Suit> _couleurs, IdMap<Suit,HandBelote> _repartition,
+            IdList<Suit> _couleurs, IdMap<Suit,HandBelote> _repartition,
             IdMap<Suit,HandBelote> _repartitionCartesJouees) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(_repartition, bid, _couleurs);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(_repartition, bid, _couleurs);
         couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartition, couleurs_);
         couleurs_ = GameBeloteCommon.couleursAvecLePlusPetitNbPoints(_repartition, bid, couleurs_);
         couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartitionCartesJouees, couleurs_);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).derniereCarte();
     }
     private CardBelote jeuGrandeCarteDefausseMaitre(
-            EnumList<Suit> _couleursFigures,
+            IdList<Suit> _couleursFigures,
             IdMap<Suit,HandBelote> _repartition) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, _couleursFigures);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, _couleursFigures);
         couleurs_ = GameBeloteCommon.couleursLesPlusHautes(_repartition, bid, couleurs_);
         couleurs_ = GameBeloteCommon.couleursAvecLePlusGrandNbPoints(_repartition, bid, couleurs_);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).premiereCarte();
     }
     private CardBelote jouerPetiteCarteDefausse(
-            EnumList<Suit> _couleurs,
+            IdList<Suit> _couleurs,
             IdMap<Suit,HandBelote> _repartition,
             IdMap<Suit,HandBelote> _repartitionCartesJouees) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartition, _couleurs);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartition, _couleurs);
         couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartitionCartesJouees, couleurs_);
         couleurs_ = GameBeloteCommon.couleursLesPlusBasses(_repartition, bid, couleurs_);
         couleurs_ = GameBeloteCommon.couleursAvecLePlusPetitNbPoints(_repartition, bid, couleurs_);
@@ -906,8 +906,8 @@ public final class GameBeloteProgTrick {
     private CardBelote jeuPetiteDefausseMaitre(
             IdMap<Suit,HandBelote> _cartesMaitresses,
             IdMap<Suit,HandBelote> _repartition,
-            EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, _couleurs);
+            IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, _couleurs);
         couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_cartesMaitresses, couleurs_);
         couleurs_ = GameBeloteCommon.couleursLesPlusBasses(_repartition, bid, couleurs_);
         couleurs_ = GameBeloteCommon.couleursAvecLePlusPetitNbPoints(_repartition, bid, couleurs_);

@@ -16,7 +16,7 @@ public final class GameTarotTrickInfo {
     private final CustList<TrickTarot> tricks;
     private final CustList<TrickTarot> tricksSeen = new CustList<TrickTarot>();
 
-    private final CustList<EnumList<Miseres>> declaresMiseres;
+    private final CustList<IdList<Miseres>> declaresMiseres;
 
     private final CustList<HandTarot> handfuls;
     private final BidTarot bid;
@@ -30,7 +30,7 @@ public final class GameTarotTrickInfo {
     private final CustList<CustList<Confidence>> confidence = new CustList<CustList<Confidence>>();
 
     public GameTarotTrickInfo(TrickTarot _progressingTrick, CustList<TrickTarot> _tricks,
-                              CustList<EnumList<Miseres>> _declaresMiseres,
+                              CustList<IdList<Miseres>> _declaresMiseres,
                               CustList<HandTarot> _handfuls, BidTarot _bid, HandTarot _calledCards,
                               Ints _handLengths) {
         progressingTrick = _progressingTrick;
@@ -742,7 +742,7 @@ public final class GameTarotTrickInfo {
         Indique le nombre de mains pour les
         cartes possibles ou apparait la carte
         */
-        EnumList<Suit> toutesCouleurs_ = new EnumList<Suit>();
+        IdList<Suit> toutesCouleurs_ = new IdList<Suit>();
         toutesCouleurs_.add(CardTarot.EXCUSE.getId().getCouleur());
         toutesCouleurs_.add(Suit.TRUMP);
         toutesCouleurs_.addAllElts(Suit.couleursOrdinaires());
@@ -786,7 +786,7 @@ public final class GameTarotTrickInfo {
         return retour_;
     }
 
-    private void iterate(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnue2, Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs) {
+    private void iterate(Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnue2, Bytes _joueursRepartitionConnueMemo, Bytes _joueursRepartitionInconnue, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdList<Suit> _toutesCouleurs) {
         for (byte joueur_ : _joueursRepartitionConnue) {
             for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ <= nbPlayers; joueur2_++) {
                 if (!_joueursRepartitionConnueMemo.containsObj(joueur2_)) {
@@ -807,7 +807,7 @@ public final class GameTarotTrickInfo {
         SortedPlayers.nextPlayers(_joueursRepartitionConnueMemo,_joueursRepartitionInconnue, (byte) (_nbPlayers+1));
     }
 
-    private void validatePlayerTarot(IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, byte _joueur) {
+    private void validatePlayerTarot(IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdList<Suit> _toutesCouleurs, byte _joueur) {
         for (Suit couleur_: _toutesCouleurs) {
             for (CardTarot carte_ : _cartesPossibles.getVal(couleur_).get(
                     _joueur)) {
@@ -827,7 +827,7 @@ public final class GameTarotTrickInfo {
         }
     }
 
-    private void remImposTarot(IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _toutesCouleurs, byte _joueur, byte _joueur2) {
+    private void remImposTarot(IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdList<Suit> _toutesCouleurs, byte _joueur, byte _joueur2) {
         for (Suit couleur_: _toutesCouleurs) {
             remSure(_cartesCertaines, _joueur, _joueur2, couleur_);
             remPoss(_cartesCertaines, _cartesPossibles, _joueur, _joueur2, couleur_);
@@ -848,7 +848,7 @@ public final class GameTarotTrickInfo {
                                 _joueur));
     }
 
-    void addToKnown(EnumList<Suit> _all,IdMap<Suit,CustList<HandTarot>> _poss,byte _player,
+    void addToKnown(IdList<Suit> _all,IdMap<Suit,CustList<HandTarot>> _poss,byte _player,
                     IdMap<Suit,CustList<HandTarot>> _sure,
                     Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnueMemo) {
         int nombreCartesPossiblesJoueur_ = 0;
@@ -870,7 +870,7 @@ public final class GameTarotTrickInfo {
             _joueursRepartitionConnueMemo.add(_player);
         }
     }
-    static void affect(EnumList<Suit> _all,IdMap<Suit,CustList<HandTarot>> _from, byte _player,IdMap<Suit,CustList<HandTarot>> _to) {
+    static void affect(IdList<Suit> _all,IdMap<Suit,CustList<HandTarot>> _from, byte _player,IdMap<Suit,CustList<HandTarot>> _to) {
         for (Suit s: _all) {
             _to.getVal(s).get(_player).supprimerCartes();
             _to.getVal(s).get(_player).ajouterCartes(_from.getVal(s).get(_player));

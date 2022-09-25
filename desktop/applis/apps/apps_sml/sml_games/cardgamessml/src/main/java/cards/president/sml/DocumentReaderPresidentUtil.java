@@ -19,7 +19,7 @@ import code.sml.Element;
 import code.sml.ElementList;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -376,11 +376,11 @@ public final class DocumentReaderPresidentUtil {
         return list_;
     }
 
-    private static EnumList<CardPresident> getListCardPresident(Element _elt) {
+    private static IdList<CardPresident> getListCardPresident(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<CardPresident> list_ = new EnumList<CardPresident>(cap_);
+        IdList<CardPresident> list_ = new IdList<CardPresident>(cap_);
         for (Element c: childElements_) {
             list_.add(getCardPresident(c));
         }

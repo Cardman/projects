@@ -1,7 +1,7 @@
 package cards.belote;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 
@@ -17,8 +17,8 @@ public final class BeloteInfoPliEnCours {
     private byte ramasseurVirtuel;
     private IdMap<Suit,CustList<HandBelote>> suitesTouteCouleur;
     private boolean maitreAtout;
-    private EnumList<Suit> couleursMaitresses;
-    private EnumList<Suit> strictCouleursMaitresses;
+    private IdList<Suit> couleursMaitresses;
+    private IdList<Suit> strictCouleursMaitresses;
     private IdMap<Suit,HandBelote> cartesMaitresses;
     private boolean maitreJeu;
     private BidBeloteSuit contrat;
@@ -110,19 +110,19 @@ public final class BeloteInfoPliEnCours {
         maitreAtout = _maitreAtout;
     }
 
-    public EnumList<Suit> getCouleursMaitresses() {
+    public IdList<Suit> getCouleursMaitresses() {
         return couleursMaitresses;
     }
 
-    public void setCouleursMaitresses(EnumList<Suit> _couleursMaitresses) {
+    public void setCouleursMaitresses(IdList<Suit> _couleursMaitresses) {
         couleursMaitresses = _couleursMaitresses;
     }
 
-    public EnumList<Suit> getStrictCouleursMaitresses() {
+    public IdList<Suit> getStrictCouleursMaitresses() {
         return strictCouleursMaitresses;
     }
 
-    public void setStrictCouleursMaitresses(EnumList<Suit> _strictCouleursMaitresses) {
+    public void setStrictCouleursMaitresses(IdList<Suit> _strictCouleursMaitresses) {
         strictCouleursMaitresses = _strictCouleursMaitresses;
     }
 

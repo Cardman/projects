@@ -2,7 +2,7 @@ package cards.network.tarot.displaying;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.DealingTarot;
-import code.util.EnumList;
+import code.util.IdList;
 
 
 public final class DealtHandTarot {
@@ -11,7 +11,7 @@ public final class DealtHandTarot {
 
     private HandTarot dog;
 
-    private EnumList<BidTarot> allowedBids;
+    private IdList<BidTarot> allowedBids;
 
     private byte dealer;
 
@@ -33,11 +33,11 @@ public final class DealtHandTarot {
         dog = _dog;
     }
 
-    public EnumList<BidTarot> getAllowedBids() {
+    public IdList<BidTarot> getAllowedBids() {
         return allowedBids;
     }
 
-    public void setAllowedBids(EnumList<BidTarot> _allowedBids) {
+    public void setAllowedBids(IdList<BidTarot> _allowedBids) {
         allowedBids = _allowedBids;
     }
 

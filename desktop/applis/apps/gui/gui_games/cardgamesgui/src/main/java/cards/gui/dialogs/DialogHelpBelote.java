@@ -55,7 +55,7 @@ public final class DialogHelpBelote {
         HandBelote tout_ = HandBelote.pileBase();
         //une des couleurs domine
         if(_bid.getSuit() != Suit.UNDEFINED) {
-            EnumList<Suit> couleurs_ = new EnumList<Suit>();
+            IdList<Suit> couleurs_ = new IdList<Suit>();
             couleurs_.add(_bid.getSuit());
             if(_bid.getSuit() !=_couleurDemandee) {
                 //si on joue une couleur ordinaire
@@ -74,7 +74,7 @@ public final class DialogHelpBelote {
             tout_.setOrdre(ordre_);
             tout_.trier(Suit.couleursOrdinaires(), true, ordre_);
         }
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         panneau3_=compo.newLineBox();
 //        Suit couleur_;
         int nbBotPlayers_ = _pseudos.size();

@@ -15,7 +15,7 @@ import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.util.CollCapacity;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.StringUtil;
 
 public final class DocumentReaderCardsUnionUtil {
@@ -188,11 +188,11 @@ public final class DocumentReaderCardsUnionUtil {
         return null;
     }
 
-    private static EnumList<GameEnum> getListGameEnum(Element _elt) {
+    private static IdList<GameEnum> getListGameEnum(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<GameEnum> list_ = new EnumList<GameEnum>(cap_);
+        IdList<GameEnum> list_ = new IdList<GameEnum>(cap_);
         for (Element c: childElements_) {
             list_.add(getGameEnum(c));
         }

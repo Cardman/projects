@@ -14,7 +14,7 @@ import cards.gui.panels.SuitsScrollableList;
 import cards.tarot.DisplayingTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -71,7 +71,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         AbsPanel container_=_window.getCompoFactory().newBorder();
         AbsPanel panneau_=_window.getCompoFactory().newGrid(0,2);
         //Panneau Battre les cartes
-        EnumList<Suit> liste_=new EnumList<Suit>();
+        IdList<Suit> liste_=new IdList<Suit>();
         panneau_.add(getCompoFactory().newPlainLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
@@ -83,7 +83,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         IdMap<Suit,String> trSuit_;
         trSuit_ = new IdMap<Suit,String>();
-        Listable<Suit> ls_ = new EnumList<Suit>(Suit.toutesCouleurs());
+        Listable<Suit> ls_ = new IdList<Suit>(Suit.toutesCouleurs());
         String lg_ = _window.getLanguageKey();
         for (Suit couleur_:ls_) {
             if (couleur_ == Suit.UNDEFINED) {
@@ -142,7 +142,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<5||listeChoix.getItemCount()<5) {
-            EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
+            IdList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for (Suit couleur_:couleurs_) {
                 listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
@@ -159,7 +159,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingTarot.getDisplaying().setClockwise(checkClockwise.isSelected());
-            displayingTarot.getDisplaying().setSuits(new EnumList<Suit>(orderedSuits.getCouleurs()));
+            displayingTarot.getDisplaying().setSuits(new IdList<Suit>(orderedSuits.getCouleurs()));
             displayingTarot.getDisplaying().setDecreasing(sortByDecreasing.isSelected());
             closeWindow();
         }

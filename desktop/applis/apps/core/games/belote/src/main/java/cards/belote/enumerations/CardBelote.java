@@ -4,7 +4,7 @@ import cards.consts.CardChar;
 import cards.consts.CouleurValeur;
 import cards.consts.Order;
 import cards.consts.Suit;
-import code.util.EnumList;
+import code.util.IdList;
 
 /**
     */
@@ -89,7 +89,7 @@ public enum CardBelote {
     public static boolean eq(CardBelote _one, CardBelote _two) {
         return _one == _two;
     }
-    public static boolean equalsCards(EnumList<CardBelote> _one, EnumList<CardBelote> _two) {
+    public static boolean equalsCards(IdList<CardBelote> _one, IdList<CardBelote> _two) {
         if (_one.size() != _two.size()) {
             return false;
         }
@@ -160,7 +160,7 @@ public enum CardBelote {
         return strength(Suit.UNDEFINED, getId().getCouleur());
     }
 
-    public boolean vientAvant(CardBelote _c,boolean _decroissant,Order _ordre,EnumList<Suit> _couleurs) {
+    public boolean vientAvant(CardBelote _c,boolean _decroissant,Order _ordre,IdList<Suit> _couleurs) {
         return CouleurValeur.vientAvant(getId().forceCouleurDansUnTri(_couleurs),forceValeurDansUnTri(_decroissant,_ordre),_c.getId().forceCouleurDansUnTri(_couleurs),_c.forceValeurDansUnTri(_decroissant,_ordre));
     }
 

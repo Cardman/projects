@@ -2,7 +2,7 @@ package cards.tarot.enumerations;
 import cards.consts.CardChar;
 import cards.consts.CouleurValeur;
 import cards.consts.Suit;
-import code.util.EnumList;
+import code.util.IdList;
 
 /**
     */
@@ -120,7 +120,7 @@ public enum CardTarot {
     public static boolean eq(CardTarot _one, CardTarot _two) {
         return _one == _two;
     }
-    public static boolean equalsCards(EnumList<CardTarot> _one, EnumList<CardTarot> _two) {
+    public static boolean equalsCards(IdList<CardTarot> _one, IdList<CardTarot> _two) {
         if (_one.size() != _two.size()) {
             return false;
         }
@@ -196,7 +196,7 @@ public enum CardTarot {
         return id;
     }
 
-    public boolean vientAvant(CardTarot _c, boolean _decroissant, EnumList<Suit> _couleurs) {
+    public boolean vientAvant(CardTarot _c, boolean _decroissant, IdList<Suit> _couleurs) {
         return CouleurValeur.vientAvant(getId().forceCouleurDansUnTri(_couleurs),forceValeurDansUnTri(_decroissant),_c.getId().forceCouleurDansUnTri(_couleurs),_c.forceValeurDansUnTri(_decroissant));
     }
 

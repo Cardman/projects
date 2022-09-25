@@ -6,20 +6,20 @@ import cards.consts.LeadingCards;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 
 public final class GameBeloteCommon {
 
     private GameBeloteCommon(){
     }
-    static EnumList<Suit> couleursNonAtoutNonVides(
-            HandBelote _main, EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursNonAtoutNonVides(
+            HandBelote _main, IdList<Suit> _couleurs) {
         return couleursNonAtoutAyantNbCartesSupEg(_main,_couleurs,1);
     }
-    static EnumList<Suit> couleursNonAtoutAyantNbCartesSupEg(
-            HandBelote _main, EnumList<Suit> _couleurs, int _nb) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursNonAtoutAyantNbCartesSupEg(
+            HandBelote _main, IdList<Suit> _couleurs, int _nb) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             if (_main.tailleCouleur(couleur_) < _nb) {
                 continue;
@@ -29,13 +29,13 @@ public final class GameBeloteCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursNonAtoutNonVides(
-            IdMap<Suit,HandBelote> _main, EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursNonAtoutNonVides(
+            IdMap<Suit,HandBelote> _main, IdList<Suit> _couleurs) {
         return couleursNonAtoutAyantNbCartesSupEg(_main,_couleurs,1);
     }
-    static EnumList<Suit> couleursNonAtoutAyantNbCartesSupEg(
-            IdMap<Suit,HandBelote> _main, EnumList<Suit> _couleurs, int _nb) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursNonAtoutAyantNbCartesSupEg(
+            IdMap<Suit,HandBelote> _main, IdList<Suit> _couleurs, int _nb) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             if (_main.getVal(couleur_).tailleCouleur(couleur_) < _nb) {
                 continue;
@@ -46,11 +46,11 @@ public final class GameBeloteCommon {
     }
 
 
-    static EnumList<Suit> couleursAvecNbPointsInfEg(HandBelote _main,
+    static IdList<Suit> couleursAvecNbPointsInfEg(HandBelote _main,
                                                             BidBeloteSuit _contrat,
-                                                            EnumList<Suit> _couleurs,
+                                                            IdList<Suit> _couleurs,
                                                             int _nb) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandBelote main_ = _main.couleur(_contrat,couleur_);
             if (main_.nombreCartesPoints(_contrat) > _nb) {
@@ -61,10 +61,10 @@ public final class GameBeloteCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursAvecPoints(HandBelote _main,
+    static IdList<Suit> couleursAvecPoints(HandBelote _main,
                                                      BidBeloteSuit _contrat,
-                                                     EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+                                                     IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandBelote main_ = _main.couleur(_contrat,couleur_);
             if (main_.nombreCartesPoints(_contrat) == 0) {
@@ -75,10 +75,10 @@ public final class GameBeloteCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursAvecPoints(IdMap<Suit,HandBelote> _main,
+    static IdList<Suit> couleursAvecPoints(IdMap<Suit,HandBelote> _main,
                                                      BidBeloteSuit _contrat,
-                                                     EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+                                                     IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandBelote main_ = _main.getVal(couleur_);
             if (main_.nombreCartesPoints(_contrat) == 0) {
@@ -89,10 +89,10 @@ public final class GameBeloteCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursSansPoint(IdMap<Suit,HandBelote> _main,
+    static IdList<Suit> couleursSansPoint(IdMap<Suit,HandBelote> _main,
                                                     BidBeloteSuit _contrat,
-                                                    EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+                                                    IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandBelote main_ = _main.getVal(couleur_);
             if (main_.nombreCartesPoints(_contrat) != 0) {
@@ -103,9 +103,9 @@ public final class GameBeloteCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursAvecCarteMaitresse(HandBelote _main,
-                                                             HandBelote _cartesJouees, BidBeloteSuit _contrat, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursAvecCarteMaitresse(HandBelote _main,
+                                                             HandBelote _cartesJouees, BidBeloteSuit _contrat, IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         IdMap<Suit,HandBelote> couleursMains_ = _main.couleurs(_contrat);
         IdMap<Suit,HandBelote> cartesJouees_ = _cartesJouees.couleurs(_contrat);
         for (Suit couleur_ : _couleurs) {
@@ -119,101 +119,101 @@ public final class GameBeloteCommon {
     }
 
 
-    static EnumList<Suit> couleursLesPlusCourtes(IdMap<Suit,HandBelote> _main,
-                                                         EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursLesPlusCourtes(IdMap<Suit,HandBelote> _main,
+                                                         IdList<Suit> _couleurs) {
         return couleursTrieesPlusCourtes(_main, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusCourtes(
-            IdMap<Suit,HandBelote> _main, EnumList<Suit> _couleurs) {
+    static CustList<IdList<Suit>> couleursTrieesPlusCourtes(
+            IdMap<Suit,HandBelote> _main, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new HandBeloteShortLengthComparator(_main));
     }
 
-    static EnumList<Suit> couleursAvecLePlusPetitNbPoints(
+    static IdList<Suit> couleursAvecLePlusPetitNbPoints(
             IdMap<Suit,HandBelote> _main,
             BidBeloteSuit _contrat,
-            EnumList<Suit> _couleurs) {
+            IdList<Suit> _couleurs) {
         return couleursTrieesPlusPetitNbPoints(_main,_contrat,_couleurs).first();
     }
 
-    private static CustList<EnumList<Suit>> couleursTrieesPlusPetitNbPoints(
+    private static CustList<IdList<Suit>> couleursTrieesPlusPetitNbPoints(
             IdMap<Suit, HandBelote> _main,
             BidBeloteSuit _contrat,
-            EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>(_couleurs);
+            IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>(_couleurs);
         return couleurs_.getGroupsSameCompare(new HandBeloteLowNbPtsCards(_main, _contrat));
     }
 
-    static EnumList<Suit> couleursLesPlusLongues(
+    static IdList<Suit> couleursLesPlusLongues(
             IdMap<Suit,HandBelote> _main,
-            EnumList<Suit> _couleurs) {
+            IdList<Suit> _couleurs) {
         return couleursTrieesPlusLongues(_main, _couleurs).first();
     }
 
-    private static CustList<EnumList<Suit>> couleursTrieesPlusLongues(
-            IdMap<Suit, HandBelote> _main, EnumList<Suit> _couleurs) {
+    private static CustList<IdList<Suit>> couleursTrieesPlusLongues(
+            IdMap<Suit, HandBelote> _main, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new HandBeloteLongLengthComparator(_main));
     }
-    static EnumList<Suit> couleursAvecLePlusGrandNbPoints(
+    static IdList<Suit> couleursAvecLePlusGrandNbPoints(
             IdMap<Suit,HandBelote> _main,
             BidBeloteSuit _contrat,
-            EnumList<Suit> _couleurs) {
+            IdList<Suit> _couleurs) {
         return couleursTrieesPlusGrandNbPoints(_main,_contrat,_couleurs).first();
     }
 
-    private static CustList<EnumList<Suit>> couleursTrieesPlusGrandNbPoints(
+    private static CustList<IdList<Suit>> couleursTrieesPlusGrandNbPoints(
             IdMap<Suit, HandBelote> _main,
             BidBeloteSuit _contrat,
-            EnumList<Suit> _couleurs) {
+            IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new HandBeloteGreatNbPtsCards(_main, _contrat));
     }
 
 
-    static EnumList<Suit> couleursLesPlusBasses(
+    static IdList<Suit> couleursLesPlusBasses(
             IdMap<Suit,HandBelote> _main,
             BidBeloteSuit _contrat,
-            EnumList<Suit> _couleurs) {
+            IdList<Suit> _couleurs) {
         return couleursTrieesPlusBasses(_main, _contrat,_couleurs).first();
     }
 
-    private static CustList<EnumList<Suit>> couleursTrieesPlusBasses(
+    private static CustList<IdList<Suit>> couleursTrieesPlusBasses(
             IdMap<Suit, HandBelote> _main, BidBeloteSuit _contrat,
-            EnumList<Suit> _couleurs) {
+            IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthLowHandBeloteComparator(_main, _contrat));
     }
 
 
-    static EnumList<Suit> couleursLesPlusHautes(IdMap<Suit,HandBelote> _main,
+    static IdList<Suit> couleursLesPlusHautes(IdMap<Suit,HandBelote> _main,
                                                         BidBeloteSuit _contrat,
-                                                        EnumList<Suit> _couleurs) {
+                                                        IdList<Suit> _couleurs) {
         return couleursTrieesPlusHautes(_main, _contrat, _couleurs).first();
     }
 
-    private static CustList<EnumList<Suit>> couleursTrieesPlusHautes(
+    private static CustList<IdList<Suit>> couleursTrieesPlusHautes(
             IdMap<Suit, HandBelote> _main, BidBeloteSuit _contrat,
-            EnumList<Suit> _couleurs) {
+            IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthGreatHandBeloteComparator(_main, _contrat));
     }
 
 
-    static EnumList<Suit> couleursAvecLaPlusPetiteCarteBasse(IdMap<Suit,HandBelote> _main,
+    static IdList<Suit> couleursAvecLaPlusPetiteCarteBasse(IdMap<Suit,HandBelote> _main,
                                                                      BidBeloteSuit _contrat,
-                                                                     EnumList<Suit> _couleurs) {
+                                                                     IdList<Suit> _couleurs) {
         return couleursTrieesAvecLaPlusPetiteCarteBasse(_main, _contrat, _couleurs).first();
     }
 
-    private static CustList<EnumList<Suit>> couleursTrieesAvecLaPlusPetiteCarteBasse(
-            IdMap<Suit, HandBelote> _main, BidBeloteSuit _contrat, EnumList<Suit> _couleurs) {
+    private static CustList<IdList<Suit>> couleursTrieesAvecLaPlusPetiteCarteBasse(
+            IdMap<Suit, HandBelote> _main, BidBeloteSuit _contrat, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthLowLastHandBeloteComparator(_main, _contrat));
     }
-    static EnumList<Suit> couleursAvecLaPlusGrandeFigure(IdMap<Suit,HandBelote> _main,
+    static IdList<Suit> couleursAvecLaPlusGrandeFigure(IdMap<Suit,HandBelote> _main,
                                                                  BidBeloteSuit _contrat,
-                                                                 EnumList<Suit> _couleurs) {
+                                                                 IdList<Suit> _couleurs) {
         return couleursTrieesAvecLaPlusGrandeFigure(_main, _contrat, _couleurs).first();
     }
 
-    private static CustList<EnumList<Suit>> couleursTrieesAvecLaPlusGrandeFigure(
-            IdMap<Suit, HandBelote> _main, BidBeloteSuit _contrat, EnumList<Suit> _couleurs) {
+    private static CustList<IdList<Suit>> couleursTrieesAvecLaPlusGrandeFigure(
+            IdMap<Suit, HandBelote> _main, BidBeloteSuit _contrat, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthGreatFirstHandBeloteComparator(_main, _contrat));
     }
     static IdMap<Suit,HandBelote> cartesMaitresses(
@@ -263,7 +263,7 @@ public final class GameBeloteCommon {
     static HandBelote hand(IdMap<Suit,CustList<HandBelote>> _mains, Suit _couleur, int _indice2) {
         return _mains.getVal(_couleur).get(_indice2);
     }
-    static EnumList<Suit> couleurs() {
+    static IdList<Suit> couleurs() {
         return Suit.couleursOrdinaires();
     }
 }

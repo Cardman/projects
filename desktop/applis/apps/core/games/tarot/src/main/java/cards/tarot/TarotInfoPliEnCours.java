@@ -1,7 +1,7 @@
 package cards.tarot;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 
@@ -20,11 +20,11 @@ public final class TarotInfoPliEnCours {
     private byte ramasseurVirtuel;
     private IdMap<Suit,CustList<HandTarot>> suitesTouteCouleur;
     private boolean maitreAtout;
-    private EnumList<Suit> couleursMaitresses;
+    private IdList<Suit> couleursMaitresses;
     private IdMap<Suit,HandTarot> cartesMaitresses;
     private boolean maitreJeu;
-    private EnumList<Suit> coupesFranches;
-    private EnumList<Suit> calledSuits;
+    private IdList<Suit> coupesFranches;
+    private IdList<Suit> calledSuits;
     private byte nbPlayers;
     private byte currentPlayer;
     private byte taker;
@@ -146,11 +146,11 @@ public final class TarotInfoPliEnCours {
         maitreAtout = _maitreAtout;
     }
 
-    public EnumList<Suit> getCouleursMaitresses() {
+    public IdList<Suit> getCouleursMaitresses() {
         return couleursMaitresses;
     }
 
-    public void setCouleursMaitresses(EnumList<Suit> _couleursMaitresses) {
+    public void setCouleursMaitresses(IdList<Suit> _couleursMaitresses) {
         couleursMaitresses = _couleursMaitresses;
     }
 
@@ -170,19 +170,19 @@ public final class TarotInfoPliEnCours {
         maitreJeu = _maitreJeu;
     }
 
-    public EnumList<Suit> getCoupesFranches() {
+    public IdList<Suit> getCoupesFranches() {
         return coupesFranches;
     }
 
-    public void setCoupesFranches(EnumList<Suit> _coupesFranches) {
+    public void setCoupesFranches(IdList<Suit> _coupesFranches) {
         coupesFranches = _coupesFranches;
     }
 
-    public EnumList<Suit> getCalledSuits() {
+    public IdList<Suit> getCalledSuits() {
         return calledSuits;
     }
 
-    public void setCalledSuits(EnumList<Suit> _calledSuits) {
+    public void setCalledSuits(IdList<Suit> _calledSuits) {
         calledSuits = _calledSuits;
     }
 

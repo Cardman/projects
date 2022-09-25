@@ -1,7 +1,7 @@
 package cards.network.tarot.unlock;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 
 
@@ -9,11 +9,11 @@ public final class AllowPlayingTarot {
 
     private boolean firstRoundPlaying;
 
-    private EnumList<Handfuls> allowedHandfuls;
+    private IdList<Handfuls> allowedHandfuls;
 
     private IdMap<Handfuls,Integer> requiredTrumps;
 
-    private EnumList<Miseres> allowedMiseres;
+    private IdList<Miseres> allowedMiseres;
 
     private byte takerIndex;
 
@@ -25,11 +25,11 @@ public final class AllowPlayingTarot {
         firstRoundPlaying = _firstRoundPlaying;
     }
 
-    public EnumList<Handfuls> getAllowedHandfuls() {
+    public IdList<Handfuls> getAllowedHandfuls() {
         return allowedHandfuls;
     }
 
-    public void setAllowedHandfuls(EnumList<Handfuls> _allowedHandfuls) {
+    public void setAllowedHandfuls(IdList<Handfuls> _allowedHandfuls) {
         allowedHandfuls = _allowedHandfuls;
     }
 
@@ -41,11 +41,11 @@ public final class AllowPlayingTarot {
         requiredTrumps = _requiredTrumps;
     }
 
-    public EnumList<Miseres> getAllowedMiseres() {
+    public IdList<Miseres> getAllowedMiseres() {
         return allowedMiseres;
     }
 
-    public void setAllowedMiseres(EnumList<Miseres> _allowedMiseres) {
+    public void setAllowedMiseres(IdList<Miseres> _allowedMiseres) {
         allowedMiseres = _allowedMiseres;
     }
 

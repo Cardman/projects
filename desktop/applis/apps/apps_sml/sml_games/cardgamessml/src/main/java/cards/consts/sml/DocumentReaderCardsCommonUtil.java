@@ -3,7 +3,7 @@ import cards.consts.*;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.CollCapacity;
-import code.util.EnumList;
+import code.util.IdList;
 
 public final class DocumentReaderCardsCommonUtil {
 
@@ -28,11 +28,11 @@ public final class DocumentReaderCardsCommonUtil {
         return EnumCardsRetrieverUtil.toSuit(_elt.getAttribute(ATTR_VALUE));
     }
 
-    public static EnumList<Suit> getListSuit(Element _elt) {
+    public static IdList<Suit> getListSuit(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<Suit> list_ = new EnumList<Suit>(cap_);
+        IdList<Suit> list_ = new IdList<Suit>(cap_);
         for (Element c: childElements_) {
             list_.add(getSuit(c));
         }

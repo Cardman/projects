@@ -1,7 +1,7 @@
 package cards.belote.enumerations;
 import cards.belote.HandBelote;
 import cards.consts.CardChar;
-import code.util.EnumList;
+import code.util.IdList;
 
 public enum DeclaresBelote {
     UNDEFINED,
@@ -72,8 +72,8 @@ public enum DeclaresBelote {
         return points;
     }
 
-    public static EnumList<DeclaresBelote> annoncesValides(){
-        EnumList<DeclaresBelote> liste_ = new EnumList<DeclaresBelote>();
+    public static IdList<DeclaresBelote> annoncesValides(){
+        IdList<DeclaresBelote> liste_ = new IdList<DeclaresBelote>();
         liste_.add(FOUR_1);
         liste_.add(FOUR_KING);
         liste_.add(FOUR_QUEEN);

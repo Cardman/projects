@@ -18,7 +18,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.SPADE_KNIGHT);
         last_.ajouter(CardTarot.SPADE_JACK);
@@ -1533,25 +1533,25 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         primes_.add((short)200);
         primes_.add((short)0);
         primes_.add((short)0);
-        CustList<EnumList<Handfuls>> handfuls_ = new CustList<EnumList<Handfuls>>();
-        EnumList<Handfuls> handful_ = new EnumList<Handfuls>();
+        CustList<IdList<Handfuls>> handfuls_ = new CustList<IdList<Handfuls>>();
+        IdList<Handfuls> handful_ = new IdList<Handfuls>();
         handful_.add(Handfuls.ONE);
         handfuls_.add(handful_);
-        handful_ = new EnumList<Handfuls>();
+        handful_ = new IdList<Handfuls>();
         handful_.add(Handfuls.TWO);
         handfuls_.add(handful_);
-        handful_ = new EnumList<Handfuls>();
+        handful_ = new IdList<Handfuls>();
         handfuls_.add(handful_);
-        CustList<EnumList<Miseres>> miseres_ = new CustList<EnumList<Miseres>>();
-        EnumList<Miseres> misere_ = new EnumList<Miseres>();
+        CustList<IdList<Miseres>> miseres_ = new CustList<IdList<Miseres>>();
+        IdList<Miseres> misere_ = new IdList<Miseres>();
         misere_.add(Miseres.LOW_CARDS);
         misere_.add(Miseres.SUIT);
         miseres_.add(misere_);
-        misere_ = new EnumList<Miseres>();
+        misere_ = new IdList<Miseres>();
         misere_.add(Miseres.TRUMP);
         misere_.add(Miseres.POINT);
         miseres_.add(misere_);
-        misere_ = new EnumList<Miseres>();
+        misere_ = new IdList<Miseres>();
         misere_.add(Miseres.CHARACTER);
         miseres_.add(misere_);
         CustList<BoolVal> small_ = new CustList<BoolVal>();
@@ -1581,25 +1581,25 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         primes_.add((short)200);
         primes_.add((short)0);
         primes_.add((short)0);
-        CustList<EnumList<Handfuls>> handfuls_ = new CustList<EnumList<Handfuls>>();
-        EnumList<Handfuls> handful_ = new EnumList<Handfuls>();
+        CustList<IdList<Handfuls>> handfuls_ = new CustList<IdList<Handfuls>>();
+        IdList<Handfuls> handful_ = new IdList<Handfuls>();
         handful_.add(Handfuls.ONE);
         handfuls_.add(handful_);
-        handful_ = new EnumList<Handfuls>();
+        handful_ = new IdList<Handfuls>();
         handful_.add(Handfuls.TWO);
         handfuls_.add(handful_);
-        handful_ = new EnumList<Handfuls>();
+        handful_ = new IdList<Handfuls>();
         handfuls_.add(handful_);
-        CustList<EnumList<Miseres>> miseres_ = new CustList<EnumList<Miseres>>();
-        EnumList<Miseres> misere_ = new EnumList<Miseres>();
+        CustList<IdList<Miseres>> miseres_ = new CustList<IdList<Miseres>>();
+        IdList<Miseres> misere_ = new IdList<Miseres>();
         misere_.add(Miseres.LOW_CARDS);
         misere_.add(Miseres.SUIT);
         miseres_.add(misere_);
-        misere_ = new EnumList<Miseres>();
+        misere_ = new IdList<Miseres>();
         misere_.add(Miseres.TRUMP);
         misere_.add(Miseres.POINT);
         miseres_.add(misere_);
-        misere_ = new EnumList<Miseres>();
+        misere_ = new IdList<Miseres>();
         misere_.add(Miseres.CHARACTER);
         miseres_.add(misere_);
         CustList<BoolVal> small_ = new CustList<BoolVal>();
@@ -1633,7 +1633,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.SPADE_KNIGHT);
         last_.ajouter(CardTarot.SPADE_JACK);
@@ -1789,14 +1789,14 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         return getConfi(_b, _r, _taker);
     }
     private static EndTarotGame newEndTarotGame(RulesTarot _r, CustList<TrickTarot> _trs,
-                                                CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<BoolVal> _dSam, CustList<BoolVal> _small) {
+                                                CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                                IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<BoolVal> _dSam, CustList<BoolVal> _small) {
         GameTarot g_ = newEndedGameTarot(_r, _trs, _m, _dh, _h, _dealer, _bids, _calledCards, _lastHand);
         return new EndTarotGame(g_.getTeamsRelation(),g_.getTricks(),g_.getDeclaresHandfuls(),g_.getDeclaresMiseres(),_dSam,_small);
     }
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
-                                               CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                               EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
+                                               CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                               IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
         byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
 //        for (int i = 0; i < nbPl_; i++) {

@@ -2,7 +2,7 @@ package cards.president;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -422,7 +422,7 @@ public class HandPresidentTest extends EquallablePresidentUtil {
     }
     @Test
     public void vientAvant1Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -431,7 +431,7 @@ public class HandPresidentTest extends EquallablePresidentUtil {
     }
     @Test
     public void vientAvant2Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -440,7 +440,7 @@ public class HandPresidentTest extends EquallablePresidentUtil {
     }
     @Test
     public void vientAvant3Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -449,7 +449,7 @@ public class HandPresidentTest extends EquallablePresidentUtil {
     }
     @Test
     public void vientAvant4Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -458,7 +458,7 @@ public class HandPresidentTest extends EquallablePresidentUtil {
     }
     @Test
     public void vientAvant5Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);

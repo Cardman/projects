@@ -4,7 +4,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.core.IndexConstants;
 
@@ -12,18 +12,18 @@ public final class GameTarotDeclaring {
     private final GameTarotTrickInfo doneTrickInfo;
     private final GameTarotTeamsRelation teamsRelation;
     private final HandTarot curHand;
-    private final CustList<EnumList<Handfuls>> declaresHandfuls;
+    private final CustList<IdList<Handfuls>> declaresHandfuls;
 
-    public GameTarotDeclaring(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation, HandTarot _curHand, CustList<EnumList<Handfuls>> _declaresHandfuls) {
+    public GameTarotDeclaring(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation, HandTarot _curHand, CustList<IdList<Handfuls>> _declaresHandfuls) {
         doneTrickInfo = _doneTrickInfo;
         teamsRelation = _teamsRelation;
         curHand = _curHand;
         declaresHandfuls = _declaresHandfuls;
     }
 
-    public EnumList<Handfuls> strategieAnnoncesPoignees(HandTarot _calledCards) {
+    public IdList<Handfuls> strategieAnnoncesPoignees(HandTarot _calledCards) {
 
-        EnumList<Handfuls> va_ = new EnumList<Handfuls>();
+        IdList<Handfuls> va_ = new IdList<Handfuls>();
         byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         // peuvent etre annoncees par le joueur si toutes les annonces etaient
@@ -33,7 +33,7 @@ public final class GameTarotDeclaring {
             return va_;
         }
         CustList<Handfuls> poigneesOrdonnees_ = teamsRelation.getRules().getPoigneesOrdonnees();
-        EnumList<Handfuls> poigneesAutorisees_ = new EnumList<Handfuls>();
+        IdList<Handfuls> poigneesAutorisees_ = new IdList<Handfuls>();
         for(Handfuls p: poigneesOrdonnees_) {
             if(!teamsRelation.getRules().poigneeAutorisee(p)) {
                 continue;
@@ -59,10 +59,10 @@ public final class GameTarotDeclaring {
         va_.add(poigneesAutorisees_.last());
         return va_;
     }
-    EnumList<Handfuls> getAnnoncesPoigneesPossibles() {
+    IdList<Handfuls> getAnnoncesPoigneesPossibles() {
         IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         int nombreAtoutsEx_ = GameTarotCommon.atoutsAvecExcuse(repartition_);
-        EnumList<Handfuls> annoncesPossibles_ = new EnumList<Handfuls>();
+        IdList<Handfuls> annoncesPossibles_ = new IdList<Handfuls>();
         for (EntryCust<Handfuls,Integer> e: teamsRelation.getRules().getAllowedHandfuls().entryList()) {
             if (nombreAtoutsEx_ < e.getValue()) {
                 continue;
@@ -99,10 +99,10 @@ public final class GameTarotDeclaring {
         }
         return poignee_;
     }
-    public EnumList<Miseres> getAnnoncesMiseresPossibles() {
+    public IdList<Miseres> getAnnoncesMiseresPossibles() {
         IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         int nombreAtoutsEx_ = GameTarotCommon.atoutsAvecExcuse(repartition_);
-        EnumList<Miseres> annoncesPossibles_ = new EnumList<Miseres>();
+        IdList<Miseres> annoncesPossibles_ = new IdList<Miseres>();
         if (nombreAtoutsEx_ == 0) {
             annoncesPossibles_.add(Miseres.TRUMP);
         }
@@ -122,11 +122,11 @@ public final class GameTarotDeclaring {
         return annoncesPossibles_;
     }
 
-    public EnumList<Miseres> strategieAnnoncesMiseres() {
+    public IdList<Miseres> strategieAnnoncesMiseres() {
 
-        EnumList<Miseres> vaa_ = teamsRelation.getRules().getMiseres();
-        EnumList<Miseres> vap_ = getAnnoncesMiseresPossibles();
-        EnumList<Miseres> vainter_ = new EnumList<Miseres>();
+        IdList<Miseres> vaa_ = teamsRelation.getRules().getMiseres();
+        IdList<Miseres> vap_ = getAnnoncesMiseresPossibles();
+        IdList<Miseres> vainter_ = new IdList<Miseres>();
         // Intersection entre
         // les annonces
         // auorisees par les
@@ -141,7 +141,7 @@ public final class GameTarotDeclaring {
         }
         return vainter_;
     }
-    EnumList<Handfuls> getAnnoncesPoignees(byte _numero) {
+    IdList<Handfuls> getAnnoncesPoignees(byte _numero) {
         return declaresHandfuls.get(_numero);
     }
 }

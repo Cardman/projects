@@ -7,7 +7,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 1), regles_);
         //game.resetNbPlisTotal();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -79,7 +79,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 3), regles_);
         //game.resetNbPlisTotal();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -123,7 +123,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -257,7 +257,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -406,7 +406,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -555,7 +555,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -705,7 +705,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -839,7 +839,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -904,7 +904,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -970,7 +970,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1041,7 +1041,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1157,7 +1157,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1275,7 +1275,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1381,7 +1381,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1484,7 +1484,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1596,7 +1596,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setAllowPlayCalledSuit(false);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);

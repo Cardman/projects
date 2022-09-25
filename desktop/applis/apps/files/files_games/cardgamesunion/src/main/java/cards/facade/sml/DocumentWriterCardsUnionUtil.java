@@ -10,7 +10,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
-import code.util.EnumList;
+import code.util.IdList;
 public final class DocumentWriterCardsUnionUtil {
 
     private static final String ATTR_VALUE = "value";
@@ -104,7 +104,7 @@ public final class DocumentWriterCardsUnionUtil {
         return elt_;
     }
 
-    private static Element setListGameEnum(EnumList<GameEnum> _object, String _fieldName, Document _document) {
+    private static Element setListGameEnum(IdList<GameEnum> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (GameEnum s: _object) {

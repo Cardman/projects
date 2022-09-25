@@ -2,7 +2,7 @@ package cards.tarot;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.IndexConstants;
 
 
@@ -98,7 +98,7 @@ public final class TricksHandsTarot {
         distribution.supprimerCartes(_joueur);
     }
 
-    private void trier(byte _joueur, EnumList<Suit> _couleurs, boolean _decroissant) {
+    private void trier(byte _joueur, IdList<Suit> _couleurs, boolean _decroissant) {
         distribution.trier(_joueur, _couleurs, _decroissant);
     }
 

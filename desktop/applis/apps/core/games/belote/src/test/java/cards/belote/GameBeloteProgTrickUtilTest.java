@@ -420,7 +420,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonAtouts(bid_);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonAtouts(bid_);
         suits_ = GameBeloteCommon.couleursNonAtoutNonVides(h_,suits_);
         assertSame(CardBelote.HEART_10, gt_.discardPartner(rp_,hr_,suits_));
     }
@@ -445,7 +445,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonAtouts(bid_);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonAtouts(bid_);
         suits_ = GameBeloteCommon.couleursNonAtoutNonVides(h_,suits_);
         assertSame(CardBelote.DIAMOND_8, gt_.discardPartner(rp_,hr_,suits_));
     }
@@ -477,7 +477,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.HEART_1, gt_.defausseCouleurDemandeeSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -507,7 +507,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_1, gt_.defausseCouleurDemandeeSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -536,7 +536,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_7, gt_.defausseCouleurDemandeeSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -563,7 +563,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.HEART_10, gt_.defausseCouleurDemandeeSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -593,7 +593,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_7, gt_.defausseCouleurDemandeeSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -621,7 +621,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_1, gt_.defausseCouleurDemandeeSurPartenaireCouleurDominante(rp_,hr_,lead_,Suit.CLUB,suits_));
     }
     @Test
@@ -648,7 +648,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_1, gt_.defausseCouleurDemandeeSurPartenaireCouleurDominante(rp_,hr_,lead_,Suit.CLUB,suits_));
     }
     @Test
@@ -677,7 +677,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_7, gt_.defausseCouleurDemandeeSurPartenaireCouleurDominante(rp_,hr_,lead_,Suit.CLUB,suits_));
     }
     @Test
@@ -705,7 +705,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         addCard(poss_,1,CardBelote.DIAMOND_1,bid_);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.DIAMOND_10, gt_.defausseCouleurDemandeeSurPartenaireCouleurDominante(rp_,hr_,lead_,Suit.CLUB,suits_));
     }
     @Test
@@ -734,7 +734,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_7, gt_.defausseCouleurDemandeeSurPartenaireCouleurDominante(rp_,hr_,lead_,Suit.DIAMOND,suits_));
     }
     @Test
@@ -761,7 +761,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.DIAMOND_KING, gt_.defausseCouleurDemandeeSurPartenaireCouleurDominante(rp_,hr_,lead_,Suit.CLUB,suits_));
     }
     @Test
@@ -792,7 +792,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.HEART_JACK, gt_.defausseAtoutSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -822,7 +822,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_JACK, gt_.defausseAtoutSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -851,7 +851,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_7, gt_.defausseAtoutSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -878,7 +878,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.HEART_9, gt_.defausseAtoutSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -908,7 +908,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_7, gt_.defausseAtoutSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -936,7 +936,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.CLUB_7, gt_.defausseAtoutSurPartenaireCouleursEgales(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -966,7 +966,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_1, gt_.defausseAtoutSurPartenaireCouleurDominante(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -995,7 +995,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_1, gt_.defausseAtoutSurPartenaireCouleurDominante(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -1024,7 +1024,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_7, gt_.defausseAtoutSurPartenaireCouleurDominante(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -1052,7 +1052,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         addCard(poss_,1,CardBelote.DIAMOND_1,bid_);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.DIAMOND_10, gt_.defausseAtoutSurPartenaireCouleurDominante(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -1081,7 +1081,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.SPADE_7, gt_.defausseAtoutSurPartenaireCouleurDominante(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -1108,7 +1108,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.DIAMOND_KING, gt_.defausseAtoutSurPartenaireCouleurDominante(rp_,hr_,lead_,suits_));
     }
     @Test
@@ -1137,7 +1137,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> seqs_ = h_.eclaterTout(rp_, bid_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, HandBelote> lead_ = GameBeloteCommon.cartesMaitresses(hr_, rp_, bid_);
-        EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.CLUB_7, gt_.defausseAtoutSurPartenaireCouleurDominante(rp_,hr_,lead_,suits_));
     }
     @Test

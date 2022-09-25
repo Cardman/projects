@@ -6,7 +6,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.util.Bytes;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.BoolVal;
 
 public interface SimulatingTarot {
@@ -42,9 +42,9 @@ public interface SimulatingTarot {
 
     void nextCardPlaying(byte _joueur);
 
-    void declareHandfuls(byte _joueur, EnumList<Handfuls> _annoncesPoignees, HandTarot _poignee);
+    void declareHandfuls(byte _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee);
 
-    void declareMiseres(byte _joueur, EnumList<Miseres> _annoncesMiseres);
+    void declareMiseres(byte _joueur, IdList<Miseres> _annoncesMiseres);
 
     void displayCalled(byte _joueur);
 

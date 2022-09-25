@@ -13,13 +13,13 @@ import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class BeloteCardsScrollableList extends CardsScrollableList {
 
-    private EnumList<Suit> couleurs;
+    private IdList<Suit> couleurs;
     private Order ordre;
     private boolean decroissant;
     private final AbsGraphicList<CardBelote> liste;
@@ -45,7 +45,7 @@ public final class BeloteCardsScrollableList extends CardsScrollableList {
         ajouterCartesBelote(_main);
         initText();
     }
-    public void setTriBelote(EnumList<Suit> _pcouleurs,Order _pordre,boolean _psens) {
+    public void setTriBelote(IdList<Suit> _pcouleurs,Order _pordre,boolean _psens) {
         couleurs=_pcouleurs;
         ordre=_pordre;
         decroissant=_psens;

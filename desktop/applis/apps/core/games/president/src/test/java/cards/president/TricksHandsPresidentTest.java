@@ -5,7 +5,7 @@ import cards.consts.Suit;
 import cards.president.enumerations.CardPresident;
 import code.util.Bytes;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import org.junit.Test;
 
 public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
@@ -28,7 +28,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         displaying_.getDisplaying().setClockwise(false);
         assertTrue(!displaying_.getDisplaying().isClockwise());
         displaying_.getDisplaying().setDecreasing(true);
-        displaying_.getDisplaying().setSuits(new EnumList<Suit>());
+        displaying_.getDisplaying().setSuits(new IdList<Suit>());
         assertEq(18, tricksHands_.getTricks().size());
         assertEq(1,displaying_.getNbDeals());
         assertSame(game_.getProgressingTrick(),tricksHands_.getProgressingTrick());

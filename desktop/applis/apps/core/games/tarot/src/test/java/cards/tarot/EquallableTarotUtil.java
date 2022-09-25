@@ -13,7 +13,7 @@ import cards.consts.Suit;
 
 public abstract class EquallableTarotUtil {
 
-    public static void assertNotNull(EnumList<Handfuls> _value) {
+    public static void assertNotNull(IdList<Handfuls> _value) {
         Assert.assertNotNull(_value);
     }
 

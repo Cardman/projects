@@ -12,13 +12,13 @@ import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class TarotCardsScrollableList extends CardsScrollableList {
 
-    private EnumList<Suit> couleurs;
+    private IdList<Suit> couleurs;
     private boolean decroissant;
     private final AbsGraphicList<CardTarot> liste;
     private final AbsPlainLabel remCards;
@@ -43,7 +43,7 @@ public final class TarotCardsScrollableList extends CardsScrollableList {
         ajouterCartesTarot(_main);
         initText();
     }
-    public void setTriTarot(EnumList<Suit> _pcouleurs,boolean _psens) {
+    public void setTriTarot(IdList<Suit> _pcouleurs,boolean _psens) {
         couleurs=_pcouleurs;
         decroissant=_psens;
     }

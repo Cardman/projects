@@ -1,6 +1,6 @@
 package cards.consts;
 
-import code.util.EnumList;
+import code.util.IdList;
 
 public final class CouleurValeur {
     public static final int EXCUSE = 0;
@@ -163,7 +163,7 @@ public final class CouleurValeur {
         return no;
     }
 
-    public byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
+    public byte forceCouleurDansUnTri(IdList<Suit> _couleurs) {
         return (byte) (_couleurs.indexOfObj(getCouleur())+1);
     }
 

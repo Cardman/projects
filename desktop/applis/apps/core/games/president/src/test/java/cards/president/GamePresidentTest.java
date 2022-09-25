@@ -4255,7 +4255,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.setNombre();
         DealPresident d_ = new DealPresident();
         HandPresident h_ = new HandPresident();
-        h_.setCards(new EnumList<CardPresident>());
+        h_.setCards(new IdList<CardPresident>());
         h_.ajouter(CardPresident.WHITE);
         h_.supprimerCarte(0);
         assertEq(0,h_.getCards().size());

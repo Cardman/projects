@@ -5,7 +5,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -92,7 +92,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -166,7 +166,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -240,7 +240,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -314,7 +314,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -388,7 +388,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -471,7 +471,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -548,7 +548,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -631,7 +631,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -711,7 +711,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -791,7 +791,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -865,7 +865,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -939,7 +939,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1013,7 +1013,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1087,7 +1087,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1161,7 +1161,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1235,7 +1235,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1309,7 +1309,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1383,7 +1383,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1463,7 +1463,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1543,7 +1543,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1623,7 +1623,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1697,7 +1697,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1771,7 +1771,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1845,7 +1845,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -1925,7 +1925,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.SPADE_1);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2005,7 +2005,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2076,7 +2076,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2148,7 +2148,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2220,7 +2220,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2292,7 +2292,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2366,7 +2366,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2440,7 +2440,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2514,7 +2514,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -2588,7 +2588,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2662,7 +2662,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2736,7 +2736,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.DIAMOND_KNIGHT);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
@@ -2810,7 +2810,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         last_.ajouter(CardTarot.TRUMP_20);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);

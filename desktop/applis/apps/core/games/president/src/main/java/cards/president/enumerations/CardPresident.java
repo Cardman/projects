@@ -2,7 +2,7 @@ package cards.president.enumerations;
 import cards.consts.CardChar;
 import cards.consts.CouleurValeur;
 import cards.consts.Suit;
-import code.util.EnumList;
+import code.util.IdList;
 
 public enum CardPresident {
     WHITE,
@@ -91,7 +91,7 @@ public enum CardPresident {
         return max_;
     }
 
-    public boolean vientAvant(CardPresident _c,boolean _decroissant,EnumList<Suit> _couleurs) {
+    public boolean vientAvant(CardPresident _c,boolean _decroissant,IdList<Suit> _couleurs) {
         return CouleurValeur.vientAvant(getId().forceCouleurDansUnTri(_couleurs),forceValeurDansUnTri(_decroissant),_c.getId().forceCouleurDansUnTri(_couleurs),_c.forceValeurDansUnTri(_decroissant));
     }
 

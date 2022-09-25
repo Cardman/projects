@@ -1,6 +1,6 @@
 package cards.belote.enumerations;
 import cards.consts.SortedPlayers;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 
@@ -68,8 +68,8 @@ public enum DealingBelote {
         }
         return NumberUtil.wrapIntArray();
     }
-    public static EnumList<DealingBelote> getRepartitionsValides() {
-        EnumList<DealingBelote> repartitions_ = new EnumList<DealingBelote>();
+    public static IdList<DealingBelote> getRepartitionsValides() {
+        IdList<DealingBelote> repartitions_ = new IdList<DealingBelote>();
         repartitions_.add(CLASSIC_2_VS_2);
         repartitions_.add(COINCHE_2_VS_2);
         return repartitions_;

@@ -6,7 +6,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -566,7 +566,7 @@ final class GameTarotTrickHypothesis {
     }
 
     private static PossibleTrickWinner possibleTrickWinnerTrumpSuitCannotLeadTrick(TarotInfoPliEnCours _info, Suit _couleurDemandee) {
-        EnumList<Suit> couleursAppelees_ = _info.getCalledSuits();
+        IdList<Suit> couleursAppelees_ = _info.getCalledSuits();
         boolean carteAppeleeJouee_ =_info.isCarteAppeleeJouee();
         byte player_ = _info.getCurrentPlayer();
         CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
@@ -633,7 +633,7 @@ final class GameTarotTrickHypothesis {
     }
 
     private static PossibleTrickWinner possibleTrickWinnerTrumpSuitCannotLeadTrickPartners(TarotInfoPliEnCours _info, Suit _couleurDemandee, CardTarot _card) {
-        EnumList<Suit> couleursAppelees_ = _info.getCalledSuits();
+        IdList<Suit> couleursAppelees_ = _info.getCalledSuits();
         boolean carteAppeleeJouee_ =_info.isCarteAppeleeJouee();
         Bytes joueursConfiance_ = _info.getJoueursConfiance();
         Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
@@ -1224,9 +1224,9 @@ final class GameTarotTrickHypothesis {
         }
         return joueurBatAdversaire_;
     }
-    static EnumList<Suit> couleursPouvantEtreCoupees(Bytes _joueurs,
-                                                     IdMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursPouvantEtreCoupees(Bytes _joueurs,
+                                                     IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             if(joueursSusceptiblesCoupe(_cartesPossibles, couleur_, _joueurs).isEmpty()) {
                 continue;
@@ -1251,7 +1251,7 @@ final class GameTarotTrickHypothesis {
     }
     static Bytes joueursPouvantCouperCouleurs(HandTarot _main,
                                                       Bytes _joueurs,
-                                                      IdMap<Suit,CustList<HandTarot>> _cartesPossibles, EnumList<Suit> _couleurs) {
+                                                      IdMap<Suit,CustList<HandTarot>> _cartesPossibles, IdList<Suit> _couleurs) {
         Bytes joueurs_ = new Bytes();
         for (byte joueur_ : _joueurs) {
             for (Suit couleur_ : _couleurs) {

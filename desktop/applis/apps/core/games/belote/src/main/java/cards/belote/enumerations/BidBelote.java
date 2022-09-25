@@ -1,6 +1,6 @@
 package cards.belote.enumerations;
 import cards.consts.Order;
-import code.util.EnumList;
+import code.util.IdList;
 
 public enum BidBelote {
     FOLD(0,true),
@@ -77,36 +77,36 @@ public enum BidBelote {
         return getForce()>_contrat.getForce();
     }
 
-    public static EnumList<BidBelote> getAlwaysUsableBids() {
-        EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
+    public static IdList<BidBelote> getAlwaysUsableBids() {
+        IdList<BidBelote> bids_ = new IdList<BidBelote>();
         bids_.add(FOLD);
         bids_.add(SUIT);
         bids_.add(OTHER_SUIT);
         return bids_;
     }
-    public static EnumList<BidBelote> all() {
-        EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
+    public static IdList<BidBelote> all() {
+        IdList<BidBelote> bids_ = new IdList<BidBelote>();
         fold(bids_);
         take(bids_);
         return bids_;
     }
-    public static EnumList<BidBelote> getZeroBids() {
-        EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
+    public static IdList<BidBelote> getZeroBids() {
+        IdList<BidBelote> bids_ = new IdList<BidBelote>();
         fold(bids_);
         return bids_;
     }
 
-    private static void fold(EnumList<BidBelote> _bids) {
+    private static void fold(IdList<BidBelote> _bids) {
         _bids.add(FOLD);
     }
 
-    public static EnumList<BidBelote> getNonZeroBids() {
-        EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
+    public static IdList<BidBelote> getNonZeroBids() {
+        IdList<BidBelote> bids_ = new IdList<BidBelote>();
         take(bids_);
         return bids_;
     }
 
-    private static void take(EnumList<BidBelote> _bids) {
+    private static void take(IdList<BidBelote> _bids) {
         _bids.add(SUIT);
         _bids.add(OTHER_SUIT);
         _bids.add(NO_TRUMP);

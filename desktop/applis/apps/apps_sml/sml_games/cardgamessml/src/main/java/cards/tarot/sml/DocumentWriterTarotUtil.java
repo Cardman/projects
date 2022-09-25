@@ -290,16 +290,16 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    private static Element setListListHandfuls(CustList<EnumList<Handfuls>> _object, String _fieldName, Document _document) {
+    private static Element setListListHandfuls(CustList<IdList<Handfuls>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EnumList<Handfuls> s: _object) {
+        for (IdList<Handfuls> s: _object) {
             elt_.appendChild(setListHandfuls(s,EMPTY_STRING,_document));
         }
         return elt_;
     }
 
-    public static Element setListBidTarot(EnumList<BidTarot> _object, String _fieldName, Document _document) {
+    public static Element setListBidTarot(IdList<BidTarot> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (BidTarot s: _object) {
@@ -308,7 +308,7 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    private static Element setListCardTarot(EnumList<CardTarot> _object, String _fieldName, Document _document) {
+    private static Element setListCardTarot(IdList<CardTarot> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CardTarot s: _object) {
@@ -317,7 +317,7 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    public static Element setListHandfuls(EnumList<Handfuls> _object, String _fieldName, Document _document) {
+    public static Element setListHandfuls(IdList<Handfuls> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Handfuls s: _object) {
@@ -326,7 +326,7 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    public static Element setListMiseres(EnumList<Miseres> _object, String _fieldName, Document _document) {
+    public static Element setListMiseres(IdList<Miseres> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Miseres s: _object) {
@@ -370,10 +370,10 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    private static Element setListListMiseres(CustList<EnumList<Miseres>> _object, String _fieldName, Document _document) {
+    private static Element setListListMiseres(CustList<IdList<Miseres>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EnumList<Miseres> s: _object) {
+        for (IdList<Miseres> s: _object) {
             elt_.appendChild(setListMiseres(s,EMPTY_STRING,_document));
         }
         return elt_;

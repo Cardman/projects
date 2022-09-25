@@ -1,5 +1,5 @@
 package cards.tarot.enumerations;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 
 /**Poignees utilisees au tarot*/
@@ -15,16 +15,16 @@ public enum Handfuls {
     public int getPoints(){
         return points;
     }
-    public static EnumList<Handfuls> getDeclarableHandFuls() {
+    public static IdList<Handfuls> getDeclarableHandFuls() {
         return getPoigneesValidesParDefaut();
     }
-    public static EnumList<Handfuls> getNonDeclarableHandFuls() {
-        EnumList<Handfuls> liste_ = new EnumList<Handfuls>();
+    public static IdList<Handfuls> getNonDeclarableHandFuls() {
+        IdList<Handfuls> liste_ = new IdList<Handfuls>();
         liste_.add(NO);
         return liste_;
     }
-    public static EnumList<Handfuls> getPoigneesValidesParDefaut() {
-        EnumList<Handfuls> liste_ = new EnumList<Handfuls>();
+    public static IdList<Handfuls> getPoigneesValidesParDefaut() {
+        IdList<Handfuls> liste_ = new IdList<Handfuls>();
         liste_.add(ONE);
         liste_.add(TWO);
         liste_.add(THREE);

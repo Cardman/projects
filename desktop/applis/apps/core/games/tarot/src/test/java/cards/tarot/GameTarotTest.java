@@ -4,7 +4,7 @@ import cards.consts.GameType;
 import cards.tarot.enumerations.CardTarot;
 import code.util.BooleanList;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public final class GameTarotTest extends EquallableTarotUtil {
         g_.setNombre();
         DealTarot d_ = new DealTarot();
         HandTarot h_ = new HandTarot();
-        h_.setCards(new EnumList<CardTarot>());
+        h_.setCards(new IdList<CardTarot>());
         d_.getDeal().add(h_);
         RulesTarot rules_ = new RulesTarot();
         d_.donneurSuivant((byte) 3, rules_);

@@ -5,7 +5,7 @@ import cards.consts.Hypothesis;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
@@ -32,9 +32,9 @@ public final class GameTarot {
     */
     private byte taker = IndexConstants.INDEX_NOT_FOUND_ELT;
     /** Ce sont les poignees annoncees par le(s) joueur(s) */
-    private CustList<EnumList<Handfuls>> declaresHandfuls = new CustList<EnumList<Handfuls>>();
+    private CustList<IdList<Handfuls>> declaresHandfuls = new CustList<IdList<Handfuls>>();
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
-    private CustList<EnumList<Miseres>> declaresMiseres = new CustList<EnumList<Miseres>>();
+    private CustList<IdList<Miseres>> declaresMiseres = new CustList<IdList<Miseres>>();
     /** Ce sont les primes annoncees par le(s) joueur(s) */
     private CustList<BoolVal> declaresSlam = new CustList<BoolVal>();
     /** Ce sont les petits au bout par le(s) joueur(s) */
@@ -63,7 +63,7 @@ public final class GameTarot {
     /** Entameur du pli qui est en cours d'etre joue */
     private byte starter;
     /** Ensembe des contrats annonces */
-    private EnumList<BidTarot> bids = new EnumList<BidTarot>();
+    private IdList<BidTarot> bids = new IdList<BidTarot>();
     /** Ramasseur du pli qui vient d'etre joue */
     private byte trickWinner;
     /**
@@ -124,8 +124,8 @@ public final class GameTarot {
         }
         initConstTeamWithoutTaker();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
-            declaresHandfuls.add(new EnumList<Handfuls>());
-            declaresMiseres.add(new EnumList<Miseres>());
+            declaresHandfuls.add(new IdList<Handfuls>());
+            declaresMiseres.add(new IdList<Miseres>());
             declaresSlam.add(BoolVal.FALSE);
             smallBound.add(BoolVal.FALSE);
         }
@@ -160,7 +160,7 @@ public final class GameTarot {
     public void initPartie() {
         taker = -1;
         calledPlayers.clear();
-        bids = new EnumList<BidTarot>();
+        bids = new IdList<BidTarot>();
         bid = BidTarot.FOLD;
         progressingTrick = new TrickTarot((byte) -1, false);
         byte nombreJoueurs_ = getNombreDeJoueurs();
@@ -179,8 +179,8 @@ public final class GameTarot {
         }
         initConstTeamWithoutTaker();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
-            declaresHandfuls.set( i, new EnumList<Handfuls>());
-            declaresMiseres.set( i, new EnumList<Miseres>());
+            declaresHandfuls.set( i, new IdList<Handfuls>());
+            declaresMiseres.set( i, new IdList<Miseres>());
             smallBound.set(i, BoolVal.FALSE);
             declaresSlam.set(i, BoolVal.FALSE);
         }
@@ -505,8 +505,8 @@ public final class GameTarot {
         return getDeal();
     }
 
-    public EnumList<BidTarot> allowedBids() {
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+    public IdList<BidTarot> allowedBids() {
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         for (BidTarot b: BidTarot.getValidBids()) {
             if (!contratAccepte(b)) {
                 continue;
@@ -764,7 +764,7 @@ public final class GameTarot {
         HandTarot hand_ = copyHand(_removeDog, mainPreneur_);
         if (call_) {
             cartesAppeler_ = strategieAppel(hand_);
-            EnumList<Suit> couleursNonAppelees_ = new EnumList<Suit>();
+            IdList<Suit> couleursNonAppelees_ = new IdList<Suit>();
             for (Suit couleur_ : couleursOrdinaires()) {
                 if(cartesAppeler_.tailleCouleur(couleur_) == 0) {
                     couleursNonAppelees_.add(couleur_);
@@ -1024,7 +1024,7 @@ public final class GameTarot {
         return getProgressingTrick();
     }
 
-    public EnumList<Handfuls> getAnnoncesPoigneesPossibles(byte _numero) {
+    public IdList<Handfuls> getAnnoncesPoigneesPossibles(byte _numero) {
         HandTarot mainJoueur_ = getDistribution().hand(_numero);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
@@ -1035,7 +1035,7 @@ public final class GameTarot {
     }
 
 
-    public EnumList<Handfuls> strategieAnnoncesPoignees(byte _numeroJoueur) {
+    public IdList<Handfuls> strategieAnnoncesPoignees(byte _numeroJoueur) {
         HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
@@ -1058,7 +1058,7 @@ public final class GameTarot {
         return g_.strategiePoignee();
     }
 
-    public void setAnnoncesPoignees(byte _joueur, EnumList<Handfuls> _ann) {
+    public void setAnnoncesPoignees(byte _joueur, IdList<Handfuls> _ann) {
         declaresHandfuls.set( _joueur, _ann);
     }
 
@@ -1066,7 +1066,7 @@ public final class GameTarot {
         handfuls.set( _numero, _mt);
     }
 
-    public EnumList<Handfuls> getAnnoncesPoignees(byte _numero) {
+    public IdList<Handfuls> getAnnoncesPoignees(byte _numero) {
         return declaresHandfuls.get(_numero);
     }
 
@@ -1074,7 +1074,7 @@ public final class GameTarot {
         return handfuls.get(_b);
     }
 
-    public EnumList<Miseres> getAnnoncesMiseresPossibles(byte _numero) {
+    public IdList<Miseres> getAnnoncesMiseresPossibles(byte _numero) {
         HandTarot mainJoueur_ = getDistribution().hand(_numero);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
@@ -1083,7 +1083,7 @@ public final class GameTarot {
         return g_.getAnnoncesMiseresPossibles();
     }
 
-    public EnumList<Miseres> strategieAnnoncesMiseres(byte _numeroJoueur) {
+    public IdList<Miseres> strategieAnnoncesMiseres(byte _numeroJoueur) {
         HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
@@ -1092,11 +1092,11 @@ public final class GameTarot {
         return g_.strategieAnnoncesMiseres();
     }
 
-    public void setAnnoncesMiseres(byte _joueur, EnumList<Miseres> _ann) {
+    public void setAnnoncesMiseres(byte _joueur, IdList<Miseres> _ann) {
         declaresMiseres.set( _joueur, _ann);
     }
 
-    public EnumList<Miseres> getAnnoncesMiseres(byte _numero) {
+    public IdList<Miseres> getAnnoncesMiseres(byte _numero) {
         return declaresMiseres.get(_numero);
     }
 
@@ -1156,10 +1156,10 @@ public final class GameTarot {
         if (premierTourNoMisere())  {
             byte nombreDeJoueurs_ = getNombreDeJoueurs();
             byte joueur_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
-            EnumList<Miseres> annoncesMiseres_ = strategieAnnoncesMiseres(
+            IdList<Miseres> annoncesMiseres_ = strategieAnnoncesMiseres(
                     joueur_);
             setAnnoncesMiseres(joueur_, annoncesMiseres_);
-            EnumList<Handfuls> annoncesPoignees_ = strategieAnnoncesPoignees(
+            IdList<Handfuls> annoncesPoignees_ = strategieAnnoncesPoignees(
                     joueur_);
             setAnnoncesPoignees(joueur_, annoncesPoignees_);
             HandTarot poignee_ = strategiePoignee(joueur_);
@@ -1468,7 +1468,7 @@ public final class GameTarot {
         return tricks;
     }
 
-    private static EnumList<Suit> couleursOrdinaires() {
+    private static IdList<Suit> couleursOrdinaires() {
         return Suit.couleursOrdinaires();
     }
 
@@ -1480,19 +1480,19 @@ public final class GameTarot {
         deal = _deal;
     }
 
-    public CustList<EnumList<Handfuls>> getDeclaresHandfuls() {
+    public CustList<IdList<Handfuls>> getDeclaresHandfuls() {
         return declaresHandfuls;
     }
 
-    public void setDeclaresHandfuls(CustList<EnumList<Handfuls>> _declaresHandfuls) {
+    public void setDeclaresHandfuls(CustList<IdList<Handfuls>> _declaresHandfuls) {
         declaresHandfuls = _declaresHandfuls;
     }
 
-    public CustList<EnumList<Miseres>> getDeclaresMiseres() {
+    public CustList<IdList<Miseres>> getDeclaresMiseres() {
         return declaresMiseres;
     }
 
-    public void setDeclaresMiseres(CustList<EnumList<Miseres>> _declaresMiseres) {
+    public void setDeclaresMiseres(CustList<IdList<Miseres>> _declaresMiseres) {
         declaresMiseres = _declaresMiseres;
     }
 
@@ -1544,11 +1544,11 @@ public final class GameTarot {
         calledCards = _calledCards;
     }
 
-    public EnumList<BidTarot> getBids() {
+    public IdList<BidTarot> getBids() {
         return bids;
     }
 
-    public void setBids(EnumList<BidTarot> _bids) {
+    public void setBids(IdList<BidTarot> _bids) {
         bids = _bids;
     }
 

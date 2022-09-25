@@ -8,7 +8,7 @@ import cards.tarot.tsts.TstsTarotSimulating;
 import cards.tarot.tsts.TstsTarotStoppedSimuCond;
 import code.util.Bytes;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.BoolVal;
 
 public final class SimulatingTarotAbrupt extends TstsTarotSimulating {
@@ -117,12 +117,12 @@ public final class SimulatingTarotAbrupt extends TstsTarotSimulating {
     }
 
     @Override
-    public void declareHandfuls(byte _joueur, EnumList<Handfuls> _annoncesPoignees, HandTarot _poignee) {
+    public void declareHandfuls(byte _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee) {
         getDisplaying();
     }
 
     @Override
-    public void declareMiseres(byte _joueur, EnumList<Miseres> _annoncesMiseres) {
+    public void declareMiseres(byte _joueur, IdList<Miseres> _annoncesMiseres) {
         getDisplaying();
     }
 

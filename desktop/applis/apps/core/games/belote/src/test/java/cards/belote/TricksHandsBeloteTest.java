@@ -6,7 +6,7 @@ import cards.consts.GameType;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import org.junit.Test;
 
 public final class TricksHandsBeloteTest extends CommonGameBelote {
@@ -26,7 +26,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         displaying_.getDisplaying().setClockwise(false);
         assertTrue(!displaying_.getDisplaying().isClockwise());
         displaying_.getDisplaying().setDecreasing(true);
-        displaying_.getDisplaying().setSuits(new EnumList<Suit>());
+        displaying_.getDisplaying().setSuits(new IdList<Suit>());
         assertEq(8, tricksHands_.getTricks().size());
         assertEq(game_.getPreneur(), tricksHands_.getPreneur());
         assertSame(game_.getRules(),tricksHands_.getRules());

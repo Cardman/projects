@@ -18,7 +18,7 @@ import code.gui.AbsPanel;
 import code.gui.ConfirmDialog;
 
 import code.gui.GuiConstants;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.StringUtil;
 
 public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
@@ -51,7 +51,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                     return;
                 }
                 String pseudo_=container.pseudo();
-                EnumList<Handfuls> an_=new EnumList<Handfuls>();
+                IdList<Handfuls> an_=new IdList<Handfuls>();
                 an_.add(container.getChoosenHandful());
                 partie_.setAnnoncesPoignees(DealTarot.NUMERO_UTILISATEUR,an_);
                 container.getHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR).setText(Games.toString(container.getChoosenHandful(),lg_));
@@ -64,10 +64,10 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 partie_.ajouterPoignee(container.getCurrentIncludedTrumps(),DealTarot.NUMERO_UTILISATEUR);
                 container.ajouterTexteDansZone(StringUtil.concat(pseudo_,ContainerGame.INTRODUCTION_PTS,Games.toString(container.getChoosenHandful(),lg_),ContainerGame.RETURN_LINE));
             }
-            EnumList<Miseres> selectedMiseres_ = container.getAllowedMiseres();
+            IdList<Miseres> selectedMiseres_ = container.getAllowedMiseres();
             if (!selectedMiseres_.isEmpty()) {
-                EnumList<Miseres> miseres_ = partie_.getAnnoncesMiseresPossibles(DealTarot.NUMERO_UTILISATEUR);
-                EnumList<Miseres> allowedSelectedMiseres_ = new EnumList<Miseres>();
+                IdList<Miseres> miseres_ = partie_.getAnnoncesMiseresPossibles(DealTarot.NUMERO_UTILISATEUR);
+                IdList<Miseres> allowedSelectedMiseres_ = new IdList<Miseres>();
                 for (Miseres m: selectedMiseres_) {
                     if (!miseres_.containsObj(m)) {
                         continue;

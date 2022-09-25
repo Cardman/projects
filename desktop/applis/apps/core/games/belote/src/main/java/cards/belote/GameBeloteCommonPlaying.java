@@ -42,13 +42,13 @@ public final class GameBeloteCommonPlaying {
         IdMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = _cartes.eclaterTout(repartitionCartesJouees_, bid);
 
         boolean maitreAtout_ = strictMaitreAtout(bid, cartesPossibles_,nextPlayer_,GameBeloteCommon.suite(suitesTouteCouleur_, bid.getSuit()),repartitionCartesJouees_);
-        EnumList<Suit> couleursMaitresses_ = couleursMaitres(
+        IdList<Suit> couleursMaitresses_ = couleursMaitres(
                 bid, suitesTouteCouleur_, repartitionCartesJouees_, cartesPossibles_,nextPlayer_);
         IdMap<Suit,HandBelote> cartesMaitresses_ = GameBeloteCommon.cartesMaitresses(
                 repartition_, repartitionCartesJouees_, bid);
         boolean maitreJeu_ = maitreAtout_ && couleursMaitresses_.size() == couleursNonAtouts().size();
 
-        EnumList<Suit> strSuits_ = strictCouleursMaitres(bid, suitesTouteCouleur_, repartitionCartesJouees_, cartesPossibles_, nextPlayer_);
+        IdList<Suit> strSuits_ = strictCouleursMaitres(bid, suitesTouteCouleur_, repartitionCartesJouees_, cartesPossibles_, nextPlayer_);
         BeloteInfoPliEnCours info_ = new BeloteInfoPliEnCours();
         info_.setContrat(bid);
         info_.setProgressingTrick(prog_);
@@ -189,11 +189,11 @@ public final class GameBeloteCommonPlaying {
     }
 
     static CardBelote carteMaitresse(BidBeloteSuit _bid,
-                                     EnumList<Suit> _couleurs,
+                                     IdList<Suit> _couleurs,
                                      IdMap<Suit, HandBelote> _cartesMaitresses,
                                      HandBelote _repartition,
                                      HandBelote _repartitionCartesJouees) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_cartesMaitresses, _couleurs);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_cartesMaitresses, _couleurs);
         //maitre
         couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartitionCartesJouees.couleurs(_bid), couleurs_);
         //jouees
@@ -218,11 +218,11 @@ public final class GameBeloteCommonPlaying {
         int lead_ = getNbLeadingCards(_bid, _cartesJouees, couleurAtout_, Order.TRUMP, _suites.first());
         return lead_>=max_;
     }
-    static EnumList<Suit> couleursMaitres(BidBeloteSuit _bid,
+    static IdList<Suit> couleursMaitres(BidBeloteSuit _bid,
                                           IdMap<Suit, CustList<HandBelote>> _suites,
                                           IdMap<Suit, HandBelote> _cartesJouees,
                                           IdMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero) {
-        EnumList<Suit> couleurs_ = strictCouleursMaitres(_bid, _suites, _cartesJouees, _cartesPossibles, _numero);
+        IdList<Suit> couleurs_ = strictCouleursMaitres(_bid, _suites, _cartesJouees, _cartesPossibles, _numero);
         for (Suit couleur_ : couleursNonAtouts(_bid)) {
             if (_suites.getVal(couleur_).isEmpty()) {
                 couleurs_.add(couleur_);
@@ -232,10 +232,10 @@ public final class GameBeloteCommonPlaying {
         return couleurs_;
     }
 
-    static EnumList<Suit> strictCouleursMaitres(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _suites,
+    static IdList<Suit> strictCouleursMaitres(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _suites,
                                                 IdMap<Suit, HandBelote> _cartesJouees,
                                                 IdMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero) {
-        EnumList<Suit> couleurs_=new EnumList<Suit>();
+        IdList<Suit> couleurs_=new IdList<Suit>();
         if (_bid.getCouleurDominante()) {
             for(Suit couleur_:couleursNonAtouts(_bid)) {
                 addNormalSuit(_bid, _suites, _cartesJouees, _cartesPossibles, _numero, couleurs_, couleur_);
@@ -262,7 +262,7 @@ public final class GameBeloteCommonPlaying {
 
     private static void addNormalSuit(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _suites,
                                       IdMap<Suit, HandBelote> _cartesJouees, IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
-                                      byte _numero, EnumList<Suit> _couleurs, Suit _couleur) {
+                                      byte _numero, IdList<Suit> _couleurs, Suit _couleur) {
         if(completelyPlayedSuit(_cartesJouees, _couleur)) {
             _couleurs.add(_couleur);
         } else if(!GameBeloteCommon.suite(_suites, _couleur).isEmpty()) {
@@ -274,7 +274,7 @@ public final class GameBeloteCommonPlaying {
 
     private static void addSuit(IdMap<Suit, CustList<HandBelote>> _suites,
                                 IdMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero,
-                                EnumList<Suit> _couleurs, Suit _couleur, int _maitres) {
+                                IdList<Suit> _couleurs, Suit _couleur, int _maitres) {
         int max_ = getNbMaxPossPlayerCards(_cartesPossibles,
                 _numero, _couleur);
         if(_maitres >=max_|| _maitres > IndexConstants.SIZE_EMPTY&&GameBeloteCommon.suite(_suites, _couleur).size()== IndexConstants.ONE_ELEMENT) {
@@ -282,11 +282,11 @@ public final class GameBeloteCommonPlaying {
         }
     }
 
-    EnumList<Suit> couleursNonAtouts() {
+    IdList<Suit> couleursNonAtouts() {
         return couleursNonAtouts(bid);
     }
-    static EnumList<Suit> couleursNonAtouts(BidBeloteSuit _bid) {
-        EnumList<Suit> couleursNonAtouts_=new EnumList<Suit>();
+    static IdList<Suit> couleursNonAtouts(BidBeloteSuit _bid) {
+        IdList<Suit> couleursNonAtouts_=new IdList<Suit>();
         if(_bid.getCouleurDominante()) {
             for(Suit couleur_:GameBeloteCommon.couleurs()) {
                 if(couleur_!= _bid.getSuit()) {
@@ -388,9 +388,9 @@ public final class GameBeloteCommonPlaying {
         return joueursSusceptiblesDeCouper_;
     }
 
-    static EnumList<Suit> couleursSansCarteMaitresse(HandBelote _main,
-                                                             HandBelote _cartesJouees, BidBeloteSuit _contrat, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursSansCarteMaitresse(HandBelote _main,
+                                                             HandBelote _cartesJouees, BidBeloteSuit _contrat, IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         IdMap<Suit,HandBelote> couleursMains_ = _main.couleurs(_contrat);
         IdMap<Suit,HandBelote> cartesJouees_ = _cartesJouees.couleurs(_contrat);
         for (Suit couleur_ : _couleurs) {
@@ -403,10 +403,10 @@ public final class GameBeloteCommonPlaying {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursNonEntamees(
-            CustList<TrickBelote> _plis, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        EnumList<Suit> couleursOuvertes_ = new EnumList<Suit>();
+    static IdList<Suit> couleursNonEntamees(
+            CustList<TrickBelote> _plis, IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
+        IdList<Suit> couleursOuvertes_ = new IdList<Suit>();
         for (TrickBelote pli_ : _plis) {
             Suit couleurDemandee_ = pli_.couleurDemandee();
             couleursOuvertes_.add(couleurDemandee_);
@@ -418,16 +418,16 @@ public final class GameBeloteCommonPlaying {
         }
         return couleurs_;
     }
-    static EnumList<Suit> couleursNonOuvertesNonVides(HandBelote _main,
-                                                              CustList<TrickBelote> _plis, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(_main, _couleurs, 1);
+    static IdList<Suit> couleursNonOuvertesNonVides(HandBelote _main,
+                                                              CustList<TrickBelote> _plis, IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(_main, _couleurs, 1);
         return couleursNonEntamees(_plis,couleurs_);
     }
 
-    static EnumList<Suit> couleursOuvertes(
-            CustList<TrickBelote> _plis, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        EnumList<Suit> couleursOuvertes_ = new EnumList<Suit>();
+    static IdList<Suit> couleursOuvertes(
+            CustList<TrickBelote> _plis, IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
+        IdList<Suit> couleursOuvertes_ = new IdList<Suit>();
         for (TrickBelote pli_ : _plis) {
             Suit couleurDemandee_ = pli_.couleurDemandee();
             couleursOuvertes_.add(couleurDemandee_);
@@ -442,9 +442,9 @@ public final class GameBeloteCommonPlaying {
     }
 
 
-    static EnumList<Suit> couleursCoupeePar(byte _joueur, BidBeloteSuit _contrat, IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
-                                            IdMap<Suit, CustList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursCoupeePar(byte _joueur, BidBeloteSuit _contrat, IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
+                                            IdMap<Suit, CustList<HandBelote>> _cartesCertaines, IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         if (!_cartesCertaines.getVal(_contrat.getSuit()).get(_joueur).estVide()) {
             for (Suit couleur_ : _couleurs) {
                 if (!_cartesPossibles.getVal(couleur_).get(_joueur).estVide()) {
@@ -456,11 +456,11 @@ public final class GameBeloteCommonPlaying {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursPouvantEtreCoupees(
+    static IdList<Suit> couleursPouvantEtreCoupees(
             Bytes _joueurs,
             IdMap<Suit,CustList<HandBelote>> _cartesPossibles,
-            Suit _couleurAtout, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+            Suit _couleurAtout, IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             if(joueursSusceptiblesCoupe(_cartesPossibles, couleur_, _couleurAtout, _joueurs).isEmpty()) {
                 continue;
@@ -470,10 +470,10 @@ public final class GameBeloteCommonPlaying {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursDefausseeParJoueurs(
+    static IdList<Suit> couleursDefausseeParJoueurs(
             Bytes _joueurs, BidBeloteSuit _contrat, IdMap<Suit,CustList<HandBelote>> _cartesPossibles,
-            EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleursDefausses_ = new EnumList<Suit>();
+            IdList<Suit> _couleurs) {
+        IdList<Suit> couleursDefausses_ = new IdList<Suit>();
 
         for (byte joueur_ : _joueurs) {
             for (Suit couleur_ : _couleurs) {
@@ -486,19 +486,19 @@ public final class GameBeloteCommonPlaying {
         couleursDefausses_.removeDuplicates();
         return couleursDefausses_;
     }
-    static EnumList<Suit> couleursNonCoupeeParJoueurs(Bytes _joueurs, BidBeloteSuit _contrat, IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
-                                                      IdMap<Suit, CustList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleursCoupees_ = new EnumList<Suit>();
+    static IdList<Suit> couleursNonCoupeeParJoueurs(Bytes _joueurs, BidBeloteSuit _contrat, IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
+                                                      IdMap<Suit, CustList<HandBelote>> _cartesCertaines, IdList<Suit> _couleurs) {
+        IdList<Suit> couleursCoupees_ = new IdList<Suit>();
 
         for (byte joueur_ : _joueurs) {
-            EnumList<Suit> couleursLoc_ = couleursCoupeePar(
+            IdList<Suit> couleursLoc_ = couleursCoupeePar(
                     joueur_, _contrat, _cartesPossibles,
                     _cartesCertaines, _couleurs);
             for (Suit couleur_ : couleursLoc_) {
                 couleursCoupees_.add(couleur_);
             }
         }
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             if(couleursCoupees_.containsObj(couleur_)) {
                 continue;

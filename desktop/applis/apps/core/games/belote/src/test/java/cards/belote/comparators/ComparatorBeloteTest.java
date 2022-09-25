@@ -8,7 +8,7 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 
 
@@ -32,7 +32,7 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -59,7 +59,7 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -87,7 +87,7 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -115,7 +115,7 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -142,7 +142,7 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
         assertEq(Suit.HEART, suits_.get(0));
@@ -169,7 +169,7 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
         assertEq(Suit.DIAMOND, suits_.get(0));
@@ -197,7 +197,7 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
         assertEq(Suit.DIAMOND, suits_.get(0));
@@ -225,7 +225,7 @@ public class ComparatorBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandBeloteComparator(hand_, bid_));
         assertEq(4, suits_.size());
         assertEq(Suit.HEART, suits_.get(0));

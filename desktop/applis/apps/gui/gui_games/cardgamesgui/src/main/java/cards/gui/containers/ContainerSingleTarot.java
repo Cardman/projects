@@ -65,7 +65,7 @@ import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
@@ -653,7 +653,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_=partieTarot();
         if(partie_.premierTourNoMisere()) {
             setCanExcludeTrumps(true);
-            EnumList<Handfuls> poignees_ = partie_.getAnnoncesPoigneesPossibles(DealTarot.NUMERO_UTILISATEUR);
+            IdList<Handfuls> poignees_ = partie_.getAnnoncesPoigneesPossibles(DealTarot.NUMERO_UTILISATEUR);
             RulesTarot regles_=partie_.getRegles();
             HandTarot trumps_ = GameTarotCommonPlaying.atoutsPoignee(partie_.getDistribution().hand().couleurs());
             displayTrumpsForHandful(trumps_);
@@ -813,8 +813,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         CardTarot ct_= partie_.getCarteJoueee();
         String lg_ = getOwner().getLanguageKey();
         if(partie_.premierTourNoMisere()) {
-            EnumList<Handfuls> annoncesPoignees_ = partie_.getAnnoncesPoignees(_joueur);
-            EnumList<Miseres> annoncesMiseres_ = partie_.getAnnoncesMiseres(_joueur);
+            IdList<Handfuls> annoncesPoignees_ = partie_.getAnnoncesPoignees(_joueur);
+            IdList<Miseres> annoncesMiseres_ = partie_.getAnnoncesMiseres(_joueur);
             HandTarot poignee_=partie_.getPoignee(_joueur);
             for(Handfuls annonce_:annoncesPoignees_) {
                 ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)), getOwner().getFrames());

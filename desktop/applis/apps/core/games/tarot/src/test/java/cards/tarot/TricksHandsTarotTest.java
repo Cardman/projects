@@ -22,7 +22,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         displaying_.getDisplaying().setClockwise(false);
         assertTrue(!displaying_.getDisplaying().isClockwise());
         displaying_.getDisplaying().setDecreasing(true);
-        displaying_.getDisplaying().setSuits(new EnumList<Suit>());
+        displaying_.getDisplaying().setSuits(new IdList<Suit>());
         assertEq(25, tricksHands_.getTricks().size());
         assertEq(game_.getPreneur(), tricksHands_.getPreneur());
     }
@@ -54,7 +54,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD_AGAINST);
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.SPADE_KNIGHT);
@@ -398,7 +398,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -548,7 +548,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.SPADE_KNIGHT);
         last_.ajouter(CardTarot.HEART_JACK);
@@ -690,8 +690,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     }
 
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
-                                               CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                               EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
+                                               CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                               IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
         byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
 //        for (int i = 0; i < nbPl_; i++) {
@@ -701,8 +701,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         return newEndedGameTarot(_r,_trs,deal_,_m,_dh,_h,_dealer,_bids,_calledCards,_lastHand);
     }
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,CustList<HandTarot> _deal,
-                                               CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                               EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
+                                               CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                               IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>(_deal);
         byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
         deal_.add(_lastHand);

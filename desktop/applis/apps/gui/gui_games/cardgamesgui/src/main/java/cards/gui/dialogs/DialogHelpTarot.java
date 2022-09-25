@@ -12,7 +12,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -49,7 +49,7 @@ public final class DialogHelpTarot {
         AbsPanel panneau3_;
         AbsTextArea zone_;
         HandTarot tout_ = HandTarot.pileBase();
-        EnumList<Suit> suits_ = new EnumList<Suit>(Suit.toutesCouleurs());
+        IdList<Suit> suits_ = new IdList<Suit>(Suit.toutesCouleurs());
         panneau3_=compo.newLineBox();
 //        Suit couleur_;
 //        Suit couleurMemo_=null;

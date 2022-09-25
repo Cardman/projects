@@ -1,6 +1,6 @@
 package cards.tarot.enumerations;
 import cards.consts.SortedPlayers;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 import code.util.Ints;
 import code.util.core.NumberUtil;
@@ -55,8 +55,8 @@ public enum DealingTarot {
     public int getNombreCartesChien() {
         return nombreCartesChien;
     }
-    public static EnumList<DealingTarot> getRepartitionsValides(){
-        EnumList<DealingTarot> repartitions_ = new EnumList<DealingTarot>();
+    public static IdList<DealingTarot> getRepartitionsValides(){
+        IdList<DealingTarot> repartitions_ = new IdList<DealingTarot>();
         repartitions_.add(DEAL_1_VS_2);
         repartitions_.add(DEAL_1_VS_3);
         repartitions_.add(DEAL_2_VS_2_WITHOUT_CALL);

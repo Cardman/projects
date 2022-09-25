@@ -14,7 +14,7 @@ import cards.gui.panels.SuitsScrollableList;
 import cards.president.DisplayingPresident;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -73,7 +73,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         AbsPanel container_=_window.getCompoFactory().newBorder();
         AbsPanel panneau_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
-        EnumList<Suit> liste_=new EnumList<Suit>();
+        IdList<Suit> liste_=new IdList<Suit>();
         panneau_.add(getCompoFactory().newPlainLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
@@ -148,7 +148,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<4||listeChoix.getItemCount()<4) {
-            EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
+            IdList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for(Suit couleur_:couleurs_) {
                 listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
@@ -166,7 +166,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingPresident.getDisplaying().setClockwise(checkClockwise.isSelected());
-            displayingPresident.getDisplaying().setSuits(new EnumList<Suit>(orderedSuits.getCouleurs()));
+            displayingPresident.getDisplaying().setSuits(new IdList<Suit>(orderedSuits.getCouleurs()));
             displayingPresident.getDisplaying().setDecreasing(sortByDecreasing.isSelected());
             displayingPresident.setNbDeals(nbDealsDemo.getValue());
             closeWindow();

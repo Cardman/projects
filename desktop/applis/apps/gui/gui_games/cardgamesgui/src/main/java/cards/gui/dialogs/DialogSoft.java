@@ -10,7 +10,7 @@ import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -73,9 +73,9 @@ public final class DialogSoft extends DialogCards {
             AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
             list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
             IdMap<GameEnum,String> mess_;
-            EnumList<GameEnum> order_;
+            IdList<GameEnum> order_;
             mess_ = new IdMap<GameEnum,String>();
-            order_ = new EnumList<GameEnum>();
+            order_ = new IdList<GameEnum>();
             mess_.put(null, messages.getVal(LAUNCHING));
             order_.add(null);
             for (GameEnum g: GameEnum.values()) {
@@ -158,7 +158,7 @@ public final class DialogSoft extends DialogCards {
         if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
 //            Object rep_ = liste.getSelectedItem();
             GameEnum rep_ = list.getCurrent();
-            EnumList<GameEnum> lancement_ = new EnumList<GameEnum>();
+            IdList<GameEnum> lancement_ = new IdList<GameEnum>();
             if(rep_ != null) {
                 //jeu
                 lancement_.add(rep_);

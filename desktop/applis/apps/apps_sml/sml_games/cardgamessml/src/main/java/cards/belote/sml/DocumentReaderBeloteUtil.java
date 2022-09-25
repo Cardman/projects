@@ -447,11 +447,11 @@ public final class DocumentReaderBeloteUtil {
         return list_;
     }
 
-    private static EnumList<CardBelote> getListCardBelote(Element _elt) {
+    private static IdList<CardBelote> getListCardBelote(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<CardBelote> list_ = new EnumList<CardBelote>(cap_);
+        IdList<CardBelote> list_ = new IdList<CardBelote>(cap_);
         for (Element c: childElements_) {
             list_.add(getCardBelote(c));
         }

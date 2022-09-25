@@ -5,7 +5,7 @@ import cards.consts.Order;
 import cards.consts.Role;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 
@@ -70,7 +70,7 @@ public final class GameBeloteBeginTrick {
 
     CardBelote playBestCardsDom(BeloteInfoPliEnCours _info) {
         IdMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
-        EnumList<Suit> couleursMaitres_= _info.getCouleursMaitresses();
+        IdList<Suit> couleursMaitres_= _info.getCouleursMaitresses();
         return jeuMainMaitresseCouleurDominante(suites_,
                 currentHand.couleurs(bid),
                 couleursMaitres_,
@@ -86,9 +86,9 @@ public final class GameBeloteBeginTrick {
         IdMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
         IdMap<Suit,HandBelote> cartesMaitresses_= _info.getCartesMaitresses();
-        EnumList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
-        EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
-        EnumList<Suit> couleurs_=GameBeloteCommonPlaying.couleursNonOuvertesNonVides(currentHand, plisFaits_, couleursNonVides_);
+        IdList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
+        IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
+        IdList<Suit> couleurs_=GameBeloteCommonPlaying.couleursNonOuvertesNonVides(currentHand, plisFaits_, couleursNonVides_);
         /*Cas d'un defenseur*/
         couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(cartesMaitresses_,couleurs_);
         if(!couleurs_.isEmpty()) {
@@ -108,7 +108,7 @@ public final class GameBeloteBeginTrick {
     }
 
     CardBelote playAsCalledPlayerDom(BeloteInfoPliEnCours _info) {
-        EnumList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
+        IdList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
         Suit couleurAtout_= bid.getSuit();
         IdMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         IdMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
@@ -119,7 +119,7 @@ public final class GameBeloteBeginTrick {
         Bytes partenaire_=_info.getJoueursConfiance();
         Bytes adversaire_ =_info.getJoueursNonConfiance();
 
-        EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
+        IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
         if (!GameBeloteCommon.hand(repartition_, couleurAtout_).estVide() && playedLeading(bid, taker, couleurAtout_, repartitionCartesJouees_, cartesCertaines_, Order.TRUMP)) {
             return GameBeloteCommon.hand(repartition_, couleurAtout_).derniereCarte();
         }
@@ -134,7 +134,7 @@ public final class GameBeloteBeginTrick {
         }
 
 
-        EnumList<Suit> couleurs_=GameBeloteCommonPlaying.couleursNonOuvertesNonVides(currentHand, plisFaits_, couleursNonAtouts_);
+        IdList<Suit> couleurs_=GameBeloteCommonPlaying.couleursNonOuvertesNonVides(currentHand, plisFaits_, couleursNonAtouts_);
         couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(cartesMaitresses_,couleurs_);
         /*On considere que l'appele est place apres le preneur*/
         if(!couleurs_.isEmpty()) {
@@ -193,9 +193,9 @@ public final class GameBeloteBeginTrick {
         Bytes adversaire_ =_info.getJoueursNonConfiance();
 
         strictMaitreAtout_=_info.isMaitreAtout();
-        EnumList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
-        EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
-        EnumList<Suit> couleursMaitressesAvecPoints_ = GameBeloteCommon.couleursAvecCarteMaitresse(currentHand, cartesJouees_, bid, couleursNonVides_);
+        IdList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
+        IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
+        IdList<Suit> couleursMaitressesAvecPoints_ = GameBeloteCommon.couleursAvecCarteMaitresse(currentHand, cartesJouees_, bid, couleursNonVides_);
         couleursMaitressesAvecPoints_ = GameBeloteCommon.couleursAvecPoints(currentHand, bid, couleursMaitressesAvecPoints_);
         if (!couleursMaitressesAvecPoints_.containsAllObj(couleursNonVides_)) {
             return notAll(_info, repartition_, couleursNonVides_, couleursMaitressesAvecPoints_);
@@ -212,7 +212,7 @@ public final class GameBeloteBeginTrick {
         if (!repartition_.getVal(couleurAtout_).estVide() && repartition_.getVal(couleurAtout_).total() == suitesTouteCouleur_.getVal(couleurAtout_).first().total()) {
             return repartition_.getVal(couleurAtout_).derniereCarte();
         }
-        EnumList<Suit> couleurs_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(adversaire_, cartesPossibles_, couleurAtout_, couleursMaitressesAvecPoints_);
+        IdList<Suit> couleurs_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(adversaire_, cartesPossibles_, couleurAtout_, couleursMaitressesAvecPoints_);
         if (!couleurs_.isEmpty()) {
             return faireCouper(bid, couleurs_, repartition_, repartitionCartesJouees_);
         }
@@ -227,7 +227,7 @@ public final class GameBeloteBeginTrick {
         return ouvrirCouleur(bid, couleursMaitressesAvecPoints_, repartition_);
     }
 
-    private CardBelote notAll(BeloteInfoPliEnCours _info, IdMap<Suit, HandBelote> _repartition, EnumList<Suit> _couleursNonVides, EnumList<Suit> _couleursMaitressesAvecPoints) {
+    private CardBelote notAll(BeloteInfoPliEnCours _info, IdMap<Suit, HandBelote> _repartition, IdList<Suit> _couleursNonVides, IdList<Suit> _couleursMaitressesAvecPoints) {
         IdMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
         IdMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
         IdMap<Suit, CustList<HandBelote>> suitesTouteCouleur_ = _info.getSuitesTouteCouleur();
@@ -252,9 +252,9 @@ public final class GameBeloteBeginTrick {
         Bytes partenaire_=_info.getJoueursConfiance();
 
         strictMaitreAtout_=_info.isMaitreAtout();
-        EnumList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
+        IdList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
         /*On cherche la couleur autre que l'atout non vide*/
-        EnumList<Suit> couleursNonAtoutNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(repartition_, couleursNonAtouts_);
+        IdList<Suit> couleursNonAtoutNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(repartition_, couleursNonAtouts_);
         Suit couleurNonAtout_ = couleursNonAtoutNonVides_.first();
         if(!GameBeloteCommon.hand(cartesMaitresses_,couleurNonAtout_).estVide()) {
             if(GameBeloteCommon.hand(repartition_,couleurNonAtout_).premiereCarte().points(bid)==0) {
@@ -268,7 +268,7 @@ public final class GameBeloteBeginTrick {
             }
             return GameBeloteCommon.hand(repartition_,couleurAtout_).premiereCarte();
         }
-        EnumList<Suit> couleursPouvantEtreCoupees_ =
+        IdList<Suit> couleursPouvantEtreCoupees_ =
                 GameBeloteCommonPlaying.couleursPouvantEtreCoupees(partenaire_, cartesPossibles_, couleurAtout_, couleursNonAtoutNonVides_);
         if(couleursPouvantEtreCoupees_.containsAllObj(couleursNonAtoutNonVides_)) {
             return GameBeloteCommon.hand(repartition_,couleurNonAtout_).premiereCarte();
@@ -310,20 +310,20 @@ public final class GameBeloteBeginTrick {
 
     CardBelote playBestCards(BeloteInfoPliEnCours _info) {
         IdMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
-        EnumList<Suit> couleursMaitres_= _info.getCouleursMaitresses();
+        IdList<Suit> couleursMaitres_= _info.getCouleursMaitresses();
         return jeuMainMaitresseCouleursEgales(repartition_,couleursMaitres_);
     }
 
     CardBelote playAsDefender(BeloteInfoPliEnCours _info) {
-        EnumList<Suit> couleurs_;
+        IdList<Suit> couleurs_;
         IdMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         IdMap<Suit,HandBelote> repartitionCartesJouees_= _info.getRepartitionCartesJouees();
         CustList<TrickBelote> plisFaits_= _info.getPlisFaits();
         IdMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
         IdMap<Suit,HandBelote> cartesMaitresses_= _info.getCartesMaitresses();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
-        EnumList<Suit> couleursNonAtouts_=GameBeloteCommon.couleurs();
-        EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
+        IdList<Suit> couleursNonAtouts_=GameBeloteCommon.couleurs();
+        IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
         /*Cas d'un defenseur*/
         couleurs_ = GameBeloteCommonPlaying.couleursNonOuvertesNonVides(currentHand, plisFaits_, couleursNonVides_);
         couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(cartesMaitresses_,couleurs_);
@@ -338,7 +338,7 @@ public final class GameBeloteBeginTrick {
     }
 
     CardBelote playAsCalledPlayer(BeloteInfoPliEnCours _info) {
-        EnumList<Suit> couleurs_;
+        IdList<Suit> couleurs_;
         IdMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         IdMap<Suit,HandBelote> repartitionCartesJouees_= _info.getRepartitionCartesJouees();
         CustList<TrickBelote> plisFaits_= _info.getPlisFaits();
@@ -346,8 +346,8 @@ public final class GameBeloteBeginTrick {
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
         IdMap<Suit,HandBelote> cartesMaitresses_= _info.getCartesMaitresses();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
-        EnumList<Suit> couleursNonAtouts_=GameBeloteCommon.couleurs();
-        EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
+        IdList<Suit> couleursNonAtouts_=GameBeloteCommon.couleurs();
+        IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
         if (!lastSeenHand.estVide()) {
             Suit couleurDessus_= lastSeenHand.premiereCarte().getId().getCouleur();
             if (playedLeading(bid, taker, couleurDessus_, repartitionCartesJouees_, cartesCertaines_, bid.getOrdre()) && !GameBeloteCommon.hand(repartition_, couleurDessus_).estVide()) {
@@ -372,9 +372,9 @@ public final class GameBeloteBeginTrick {
         HandBelote cartesJouees_= _info.getCartesJouees();
         IdMap<Suit,HandBelote> repartitionCartesJouees_= _info.getRepartitionCartesJouees();
         IdMap<Suit,HandBelote> cartesMaitresses_= _info.getCartesMaitresses();
-        EnumList<Suit> couleursNonAtouts_=GameBeloteCommon.couleurs();
-        EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
-        EnumList<Suit> couleursMaitressesAvecPoints_ = GameBeloteCommon.couleursAvecCarteMaitresse(currentHand, cartesJouees_, bid, couleursNonVides_);
+        IdList<Suit> couleursNonAtouts_=GameBeloteCommon.couleurs();
+        IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
+        IdList<Suit> couleursMaitressesAvecPoints_ = GameBeloteCommon.couleursAvecCarteMaitresse(currentHand, cartesJouees_, bid, couleursNonVides_);
         couleursMaitressesAvecPoints_ = GameBeloteCommon.couleursAvecPoints(currentHand, bid, couleursMaitressesAvecPoints_);
         if(couleursMaitressesAvecPoints_.containsAllObj(couleursNonVides_)) {
             /*Il existe une carte de couleur autre que l'atout*/
@@ -386,18 +386,18 @@ public final class GameBeloteBeginTrick {
     private static CardBelote jeuMainMaitresseCouleurDominante(
             IdMap<Suit,CustList<HandBelote>> _suites,
             IdMap<Suit,HandBelote> _repartition,
-            EnumList<Suit> _couleursMaitres,
+            IdList<Suit> _couleursMaitres,
             Suit _couleurAtout) {
         if(!GameBeloteCommon.suite(_suites,_couleurAtout).isEmpty()) {
             return GameBeloteCommon.hand(_suites,_couleurAtout,0).premiereCarte();
         }
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(_repartition, _couleursMaitres);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(_repartition, _couleursMaitres);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).premiereCarte();
     }
     private static CardBelote jeuMainMaitresseCouleursEgales(
             IdMap<Suit,HandBelote> _repartition,
-            EnumList<Suit> _couleursMaitres) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(_repartition, _couleursMaitres);
+            IdList<Suit> _couleursMaitres) {
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(_repartition, _couleursMaitres);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).premiereCarte();
     }
     public static byte nombreCartesPoints(IdMap<Suit,HandBelote> _repartition,BidBeloteSuit _contrat,Suit _couleur) {
@@ -405,17 +405,17 @@ public final class GameBeloteBeginTrick {
     }
 
     private static CardBelote faireCouperPreneurFigure(BidBeloteSuit _bid,
-                                                       EnumList<Suit> _couleurs, IdMap<Suit, HandBelote> _repartition) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, _couleurs);
+                                                       IdList<Suit> _couleurs, IdMap<Suit, HandBelote> _repartition) {
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, _couleurs);
         couleurs_ = GameBeloteCommon.couleursLesPlusBasses(_repartition, _bid, couleurs_);
         couleurs_ = GameBeloteCommon.couleursAvecLePlusPetitNbPoints(_repartition, _bid, couleurs_);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).premiereCarte();
     }
-    static CardBelote ouvrir(BidBeloteSuit _bid, EnumList<Suit> _couleurs,
+    static CardBelote ouvrir(BidBeloteSuit _bid, IdList<Suit> _couleurs,
                                      IdMap<Suit, HandBelote> _repartition,
                                      IdMap<Suit, HandBelote> _repartitionCartesJouees,
                                      IdMap<Suit, HandBelote> _cartesMaitresses) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_cartesMaitresses, _couleurs);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_cartesMaitresses, _couleurs);
         //maitre
         couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartitionCartesJouees, couleurs_);
         //jouees
@@ -429,24 +429,24 @@ public final class GameBeloteBeginTrick {
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).derniereCarte();
     }
     static CardBelote ouvrirCouleur(BidBeloteSuit _bid,
-                                            EnumList<Suit> _couleurs, IdMap<Suit, HandBelote> _repartition) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, _couleurs);
+                                            IdList<Suit> _couleurs, IdMap<Suit, HandBelote> _repartition) {
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, _couleurs);
         couleurs_ = GameBeloteCommon.couleursLesPlusBasses(_repartition, _bid, couleurs_);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).premiereCarte();
     }
 
-    static CardBelote faireCouper(BidBeloteSuit _bid, EnumList<Suit> _couleurs,
+    static CardBelote faireCouper(BidBeloteSuit _bid, IdList<Suit> _couleurs,
                                           IdMap<Suit, HandBelote> _repartition,
                                           IdMap<Suit, HandBelote> _repartitionCartesJouees) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartitionCartesJouees, _couleurs);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartitionCartesJouees, _couleurs);
         couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition, couleurs_);
         couleurs_ = GameBeloteCommon.couleursLesPlusBasses(_repartition, _bid, couleurs_);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).derniereCarte();
     }
     static CardBelote faireCouperAppele(
-            EnumList<Suit> _couleurs,IdMap<Suit,HandBelote> _repartition,
+            IdList<Suit> _couleurs,IdMap<Suit,HandBelote> _repartition,
             IdMap<Suit,HandBelote> _repartitionCartesJouees) {
-        EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartitionCartesJouees, _couleurs);
+        IdList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartitionCartesJouees, _couleurs);
         couleurs_ = GameBeloteCommon.couleursLesPlusCourtes(_repartition, couleurs_);
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).derniereCarte();
     }

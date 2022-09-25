@@ -8,7 +8,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -17,11 +17,11 @@ import code.util.core.NumberUtil;
 public final class GameTarotBid {
     private final HandTarot currentHand;
     private final RulesTarot rules;
-    private final EnumList<BidTarot> bids;
+    private final IdList<BidTarot> bids;
     private final BidTarot bid;
 
     public GameTarotBid(HandTarot _currentHand, RulesTarot _rules,
-                        EnumList<BidTarot> _bids, BidTarot _bid) {
+                        IdList<BidTarot> _bids, BidTarot _bid) {
         currentHand = _currentHand;
         rules = _rules;
         bids = _bids;
@@ -32,7 +32,7 @@ public final class GameTarotBid {
         IdMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
         int atouts_ = couleurs_.getVal(CardTarot.excuse().getId().getCouleur()).total() + couleurs_.getVal(Suit.TRUMP).total();
         boolean chelem_ = estUnJeuDeChelem(couleurs_, new HandTarot().couleurs(), rules, cartesAppeler());
-        EnumList<BidTarot> bidTarotRule_ = allowedBids();
+        IdList<BidTarot> bidTarotRule_ = allowedBids();
         if (chelem_) {
             return bidTarotRule_.last();
         }
@@ -362,8 +362,8 @@ public final class GameTarotBid {
         }
         return bouts_;
     }
-    public EnumList<BidTarot> allowedBids() {
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+    public IdList<BidTarot> allowedBids() {
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         for (BidTarot b: BidTarot.getValidBids()) {
             if (!contratAccepte(b)) {
                 continue;
@@ -500,9 +500,9 @@ public final class GameTarotBid {
         }
         return suits_;
     }
-    static EnumList<Suit> couleursPseudosMaitres(
+    static IdList<Suit> couleursPseudosMaitres(
             IdMap<Suit,HandTarot> _couleurs, IdMap<Suit,HandTarot> _hashMap) {
-        EnumList<Suit> nombre_ = new EnumList<Suit>();
+        IdList<Suit> nombre_ = new IdList<Suit>();
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             if (_couleurs.getVal(couleur_).total() == _hashMap.getVal(
                     couleur_).total()

@@ -13,7 +13,7 @@ import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.network.enums.IpType;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -63,7 +63,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         AbsPanel pane_ = _fenetre.getCompoFactory().newGrid(0, 1);
         AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);
         if (_game == GameEnum.TAROT) {
-            EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
+            IdList<DealingTarot> repValides_ = new IdList<DealingTarot>(DealingTarot.getRepartitionsValides());
             int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
             int maxJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
             for(DealingTarot r: repValides_){
@@ -84,7 +84,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
             panel_.add(getCompoFactory().newPlainLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else {
-            EnumList<DealingBelote> repValides_ = new EnumList<DealingBelote>(DealingBelote.getRepartitionsValides());
+            IdList<DealingBelote> repValides_ = new IdList<DealingBelote>(DealingBelote.getRepartitionsValides());
             int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
             int maxJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
             for(DealingBelote r: repValides_){
@@ -103,7 +103,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
-        EnumList<IpType> list_ = new EnumList<IpType>(IpType.values());
+        IdList<IpType> list_ = new IdList<IpType>(IpType.values());
         ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
         ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);

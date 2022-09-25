@@ -12,13 +12,13 @@ import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class PresidentCardsScrollableList extends CardsScrollableList {
 
-    private EnumList<Suit> couleurs;
+    private IdList<Suit> couleurs;
     private boolean decroissant;
     private final AbsGraphicList<CardPresident> liste;
     private final AbsPlainLabel remCards;
@@ -43,7 +43,7 @@ public final class PresidentCardsScrollableList extends CardsScrollableList {
         ajouterCartesPresident(_main);
         initText();
     }
-    public void setTriPresident(EnumList<Suit> _pcouleurs,boolean _psens) {
+    public void setTriPresident(IdList<Suit> _pcouleurs,boolean _psens) {
         couleurs=_pcouleurs;
         decroissant=_psens;
     }

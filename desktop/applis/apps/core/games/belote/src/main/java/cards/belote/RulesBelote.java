@@ -90,9 +90,9 @@ public final class RulesBelote {
         return list_;
     }
 
-    public EnumList<DeclaresBelote> getListeAnnoncesAutorisees() {
-        EnumList<DeclaresBelote> l_;
-        l_ = new EnumList<DeclaresBelote>();
+    public IdList<DeclaresBelote> getListeAnnoncesAutorisees() {
+        IdList<DeclaresBelote> l_;
+        l_ = new IdList<DeclaresBelote>();
         for (EntryCust<DeclaresBelote,BoolVal> e: allowedDeclares.entryList()) {
             if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());
@@ -114,9 +114,9 @@ public final class RulesBelote {
             BeloteTrumpPartner _gestionCoupePartenaire) {
         setTrumpPartner(_gestionCoupePartenaire);
     }
-    public EnumList<BidBelote> getListeEncheresAutorisees() {
-        EnumList<BidBelote> l_;
-        l_ = new EnumList<BidBelote>();
+    public IdList<BidBelote> getListeEncheresAutorisees() {
+        IdList<BidBelote> l_;
+        l_ = new IdList<BidBelote>();
         for (EntryCust<BidBelote,BoolVal> e: allowedBids.entryList()) {
             if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());

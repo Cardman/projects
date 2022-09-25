@@ -6,7 +6,7 @@ import code.maths.montecarlo.DefaultGenerator;
 import code.util.BooleanList;
 import code.util.Bytes;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public final class GameBeloteTest extends CommonGameBelote {
         d_.setNbDeals(1);
         HandBelote h_ = new HandBelote();
         assertTrue(!h_.validStack());
-        EnumList<CardBelote> c_ = new EnumList<CardBelote>();
+        IdList<CardBelote> c_ = new IdList<CardBelote>();
         c_.add(CardBelote.WHITE);
         h_.setCards(c_);
         assertEq(1,d_.getNbDeals());

@@ -10,7 +10,7 @@ import code.maths.LgInt;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -330,7 +330,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     void ajouterUtilisateur(CardTarot _ct) {
         deal.get(NUMERO_UTILISATEUR).ajouter(_ct);
     }
-    void trier(byte _joueur, EnumList<Suit> _couleurs, boolean _decroissant) {
+    void trier(byte _joueur, IdList<Suit> _couleurs, boolean _decroissant) {
         deal.get(_joueur).trier(_couleurs, _decroissant);
     }
     public HandTarot derniereMain() {

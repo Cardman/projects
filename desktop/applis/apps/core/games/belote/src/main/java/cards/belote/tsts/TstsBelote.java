@@ -8,7 +8,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.Ints;
 
@@ -17,7 +17,7 @@ public final class TstsBelote {
     }
     public static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
         IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.addAllElts(Suit.couleursOrdinaires());
         for (Suit s: s_) {
             CustList<HandBelote> l_ = new CustList<HandBelote>();
@@ -30,7 +30,7 @@ public final class TstsBelote {
     }
     public static IdMap<Suit, CustList<HandBelote>> generateMap(int _nbPlayer, BidBeloteSuit _b) {
         IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.addAllElts(Suit.couleursOrdinaires());
         for (Suit s: s_) {
             CustList<HandBelote> l_ = new CustList<HandBelote>();

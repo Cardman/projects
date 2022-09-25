@@ -1,5 +1,5 @@
 package cards.tarot.enumerations;
-import code.util.EnumList;
+import code.util.IdList;
 
 public enum BidTarot {
     FOLD(false,PlayingDog.OUT,0,0,AllowedBiddingTarot.ALWAYS),
@@ -65,35 +65,35 @@ public enum BidTarot {
         return estPlusFortQue(_c);
     }
 
-    public static EnumList<BidTarot> getValidBids() {
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+    public static IdList<BidTarot> getValidBids() {
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         zero(bids_);
         nonZero(bids_);
         return bids_;
     }
-    public static EnumList<BidTarot> getAlwaysUsableBids() {
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+    public static IdList<BidTarot> getAlwaysUsableBids() {
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(FOLD);
         bids_.add(GUARD);
         return bids_;
     }
-    public static EnumList<BidTarot> getZeroBids() {
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+    public static IdList<BidTarot> getZeroBids() {
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         zero(bids_);
         return bids_;
     }
 
-    private static void zero(EnumList<BidTarot> _bids) {
+    private static void zero(IdList<BidTarot> _bids) {
         _bids.add(FOLD);
     }
 
-    public static EnumList<BidTarot> getNonZeroBids() {
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+    public static IdList<BidTarot> getNonZeroBids() {
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         nonZero(bids_);
         return bids_;
     }
 
-    private static void nonZero(EnumList<BidTarot> _bids) {
+    private static void nonZero(IdList<BidTarot> _bids) {
         _bids.add(TAKE);
         _bids.add(GUARD);
         _bids.add(GUARD_WITHOUT);

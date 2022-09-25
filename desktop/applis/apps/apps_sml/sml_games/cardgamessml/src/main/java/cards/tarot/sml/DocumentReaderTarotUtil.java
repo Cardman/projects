@@ -433,55 +433,55 @@ public final class DocumentReaderTarotUtil {
         return list_;
     }
 
-    private static CustList<EnumList<Handfuls>> getListListHandfuls(Element _elt) {
+    private static CustList<IdList<Handfuls>> getListListHandfuls(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        CustList<EnumList<Handfuls>> list_ = new CustList<EnumList<Handfuls>>(cap_);
+        CustList<IdList<Handfuls>> list_ = new CustList<IdList<Handfuls>>(cap_);
         for (Element c: childElements_) {
             list_.add(getListHandfuls(c));
         }
         return list_;
     }
 
-    public static EnumList<BidTarot> getListBidTarot(Element _elt) {
+    public static IdList<BidTarot> getListBidTarot(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<BidTarot> list_ = new EnumList<BidTarot>(cap_);
+        IdList<BidTarot> list_ = new IdList<BidTarot>(cap_);
         for (Element c: childElements_) {
             list_.add(getBidTarot(c));
         }
         return list_;
     }
 
-    private static EnumList<CardTarot> getListCardTarot(Element _elt) {
+    private static IdList<CardTarot> getListCardTarot(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<CardTarot> list_ = new EnumList<CardTarot>(cap_);
+        IdList<CardTarot> list_ = new IdList<CardTarot>(cap_);
         for (Element c: childElements_) {
             list_.add(getCardTarot(c));
         }
         return list_;
     }
 
-    public static EnumList<Handfuls> getListHandfuls(Element _elt) {
+    public static IdList<Handfuls> getListHandfuls(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<Handfuls> list_ = new EnumList<Handfuls>(cap_);
+        IdList<Handfuls> list_ = new IdList<Handfuls>(cap_);
         for (Element c: childElements_) {
             list_.add(getHandfuls(c));
         }
         return list_;
     }
 
-    public static EnumList<Miseres> getListMiseres(Element _elt) {
+    public static IdList<Miseres> getListMiseres(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<Miseres> list_ = new EnumList<Miseres>(cap_);
+        IdList<Miseres> list_ = new IdList<Miseres>(cap_);
         for (Element c: childElements_) {
             list_.add(getMiseres(c));
         }
@@ -549,11 +549,11 @@ public final class DocumentReaderTarotUtil {
         return list_;
     }
 
-    private static CustList<EnumList<Miseres>> getListListMiseres(Element _elt) {
+    private static CustList<IdList<Miseres>> getListListMiseres(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        CustList<EnumList<Miseres>> list_ = new CustList<EnumList<Miseres>>(cap_);
+        CustList<IdList<Miseres>> list_ = new CustList<IdList<Miseres>>(cap_);
         for (Element c: childElements_) {
             list_.add(getListMiseres(c));
         }

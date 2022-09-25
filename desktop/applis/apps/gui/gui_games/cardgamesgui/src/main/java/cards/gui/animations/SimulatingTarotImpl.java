@@ -322,7 +322,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     @Override
-    public void declareHandfuls(byte _joueur, EnumList<Handfuls> _annoncesPoignees, HandTarot _poignee) {
+    public void declareHandfuls(byte _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee) {
         if (!_poignee.estVide()) {
             String lg_ = container.getOwner().getLanguageKey();
             StringList pseudos_=pseudosSimuleeTarot();
@@ -334,7 +334,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     @Override
-    public void declareMiseres(byte _joueur, EnumList<Miseres> _annoncesMiseres) {
+    public void declareMiseres(byte _joueur, IdList<Miseres> _annoncesMiseres) {
         String lg_ = container.getOwner().getLanguageKey();
         StringList pseudos_=pseudosSimuleeTarot();
         for(Miseres annonce_:_annoncesMiseres) {

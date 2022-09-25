@@ -3,7 +3,7 @@ package cards.belote;
 import cards.belote.comparators.DeclareHandBeloteComparator;
 import cards.belote.enumerations.DeclaresBelote;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -23,7 +23,7 @@ final class GameBeloteDeclaring {
     }
     DeclareHandBelote strategieAnnonces() {
         byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
-        EnumList<DeclaresBelote> annoncesAutorisees_ = new EnumList<DeclaresBelote>();
+        IdList<DeclaresBelote> annoncesAutorisees_ = new IdList<DeclaresBelote>();
         for(DeclaresBelote a: teamsRelation.getRules().getAllowedDeclares().getKeys()) {
             if(teamsRelation.getRules().getAllowedDeclares().getVal(a) != BoolVal.TRUE) {
                 continue;

@@ -16,7 +16,7 @@ import code.util.core.BoolVal;
 public final class RulesTarot {
 
     private RulesCommon common = new RulesCommon();
-    private EnumList<Miseres> miseres=new EnumList<Miseres>();
+    private IdList<Miseres> miseres=new IdList<Miseres>();
     private IdMap<BidTarot, BoolVal> allowedBids=new IdMap<BidTarot,BoolVal>();
     private ModeTarot mode=ModeTarot.NORMAL;
     private DealingTarot dealing=DealingTarot.DEAL_2_VS_3_CALL_KING;
@@ -56,7 +56,7 @@ public final class RulesTarot {
 
     public RulesTarot(RulesTarot _reglesTarot){
         common = new RulesCommon(_reglesTarot.common);
-        miseres = new EnumList<Miseres>(_reglesTarot.miseres);
+        miseres = new IdList<Miseres>(_reglesTarot.miseres);
         allowedBids = new IdMap<BidTarot,BoolVal>(_reglesTarot.allowedBids);
         mode = _reglesTarot.mode;
         dealing = _reglesTarot.dealing;
@@ -108,7 +108,7 @@ public final class RulesTarot {
         setAllowedBids( contrats_);
     }
 
-    public void allowSome(EnumList<BidTarot> _bids) {
+    public void allowSome(IdList<BidTarot> _bids) {
         IdMap<BidTarot,BoolVal> contrats_ = new IdMap<BidTarot,BoolVal>();
         for (BidTarot b: getAllowedBids().getKeys()) {
             if (b.getPossibiliteAnnonce() != AllowedBiddingTarot.ALWAYS) {
@@ -131,8 +131,8 @@ public final class RulesTarot {
         allowedHandfuls = s_;
     }
 
-    public EnumList<Handfuls> getCurrentAllowedHandfuls() {
-        EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>();
+    public IdList<Handfuls> getCurrentAllowedHandfuls() {
+        IdList<Handfuls> handfuls_ = new IdList<Handfuls>();
         for (Handfuls h: allowedHandfuls.getKeys()) {
             if (!poigneeAutorisee(h)) {
                 continue;
@@ -147,15 +147,15 @@ public final class RulesTarot {
     public CustList<Handfuls> getPoigneesOrdonnees() {
         return allowedHandfuls.getKeys();
     }
-    public EnumList<Miseres> getMiseres() {
+    public IdList<Miseres> getMiseres() {
         return miseres;
     }
-    public void setMiseres(EnumList<Miseres> _miseres) {
+    public void setMiseres(IdList<Miseres> _miseres) {
         miseres = _miseres;
     }
-    public EnumList<BidTarot> getContratsAutorises() {
-        EnumList<BidTarot> l_;
-        l_ = new EnumList<BidTarot>();
+    public IdList<BidTarot> getContratsAutorises() {
+        IdList<BidTarot> l_;
+        l_ = new IdList<BidTarot>();
         for (EntryCust<BidTarot, BoolVal> e: allowedBids.entryList()) {
             if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());

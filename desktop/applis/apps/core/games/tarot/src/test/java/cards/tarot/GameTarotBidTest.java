@@ -5,7 +5,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.core.BoolVal;
 import org.junit.Test;
@@ -603,7 +603,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot played_ = new HandTarot();
         IdMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
         IdMap<Suit, HandTarot> pseudo_ = GameTarotBid.cartesPseudoMaitresses(suits_, other_, played_.couleurs());
-        EnumList<Suit> out_ = GameTarotBid.couleursPseudosMaitres(suits_, pseudo_);
+        IdList<Suit> out_ = GameTarotBid.couleursPseudosMaitres(suits_, pseudo_);
         assertEq(1, out_.size());
         assertTrue(out_.containsObj(Suit.CLUB));
     }
@@ -627,7 +627,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot played_ = new HandTarot();
         IdMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
         IdMap<Suit, HandTarot> pseudo_ = GameTarotBid.cartesPseudoMaitresses(suits_, other_, played_.couleurs());
-        EnumList<Suit> out_ = GameTarotBid.couleursPseudosMaitres(suits_, pseudo_);
+        IdList<Suit> out_ = GameTarotBid.couleursPseudosMaitres(suits_, pseudo_);
         assertEq(2, out_.size());
         assertTrue(out_.containsObj(Suit.SPADE));
         assertTrue(out_.containsObj(Suit.CLUB));
@@ -1001,7 +1001,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         HandTarot called_ = g_.cartesAppeler();
         assertEq(4, called_.total());
         assertTrue(called_.contient(CardTarot.HEART_KING));
@@ -1032,7 +1032,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         HandTarot called_ = g_.cartesAppeler();
         assertEq(4, called_.total());
         assertTrue(called_.contient(CardTarot.HEART_QUEEN));
@@ -1063,7 +1063,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         HandTarot called_ = g_.cartesAppeler();
         assertEq(4, called_.total());
         assertTrue(called_.contient(CardTarot.HEART_KNIGHT));
@@ -1094,7 +1094,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         HandTarot called_ = g_.cartesAppeler();
         assertEq(4, called_.total());
         assertTrue(called_.contient(CardTarot.HEART_JACK));
@@ -1125,7 +1125,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         HandTarot called_ = g_.cartesAppeler();
         assertEq(3, called_.total());
         assertTrue(called_.contient(CardTarot.TRUMP_21));
@@ -1155,7 +1155,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         HandTarot called_ = g_.cartesAppeler();
         assertEq(19, called_.total());
         assertTrue(called_.contient(CardTarot.TRUMP_21));
@@ -1201,7 +1201,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         HandTarot called_ = g_.cartesAppeler();
         assertEq(0, called_.total());
     }
@@ -1228,8 +1228,8 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
-        EnumList<BidTarot> called_ = g_.allowedBids();
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
+        IdList<BidTarot> called_ = g_.allowedBids();
         assertEq(5, called_.size());
         assertTrue(called_.containsObj(BidTarot.FOLD));
         assertTrue(called_.containsObj(BidTarot.TAKE));
@@ -1261,8 +1261,8 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
         r_.getAllowedBids().put(BidTarot.SLAM, BoolVal.TRUE);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
-        EnumList<BidTarot> called_ = g_.allowedBids();
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
+        IdList<BidTarot> called_ = g_.allowedBids();
         assertEq(6, called_.size());
         assertTrue(called_.containsObj(BidTarot.FOLD));
         assertTrue(called_.containsObj(BidTarot.TAKE));
@@ -1298,7 +1298,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_AGAINST,bid_);
     }
@@ -1326,7 +1326,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
         r_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.SLAM,bid_);
     }
@@ -1350,7 +1350,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_3_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_AGAINST,bid_);
     }
@@ -1375,7 +1375,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_3_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         r_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.SLAM,bid_);
     }
@@ -1402,7 +1402,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_1);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.FOLD,bid_);
     }
@@ -1429,7 +1429,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_1);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.TAKE,bid_);
     }
@@ -1457,7 +1457,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
         r_.getAllowedBids().put(BidTarot.TAKE,BoolVal.FALSE);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD,bid_);
     }
@@ -1484,7 +1484,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD,bid_);
     }
@@ -1511,7 +1511,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_1);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1542,7 +1542,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_1);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
@@ -1573,7 +1573,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -1600,7 +1600,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_AGAINST,bid_);
     }
@@ -1627,7 +1627,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD_WITHOUT);
         GameTarotBid g_ = new GameTarotBid(handSuit_,r_, bids_,BidTarot.GUARD_WITHOUT);
         BidTarot bid_ = g_.strategieContrat();
@@ -1656,7 +1656,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_AGAINST,bid_);
     }
@@ -1683,7 +1683,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_AGAINST,bid_);
     }
@@ -1710,7 +1710,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.TAKE,bid_);
     }
@@ -1737,7 +1737,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.TAKE,bid_);
     }
@@ -1764,7 +1764,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.TAKE,bid_);
     }
@@ -1791,7 +1791,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD,bid_);
     }
@@ -1818,7 +1818,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.TAKE,bid_);
     }
@@ -1845,7 +1845,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_3);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD,bid_);
     }
@@ -1872,7 +1872,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -1899,7 +1899,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -1926,7 +1926,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -1953,7 +1953,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -1977,7 +1977,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_3_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -2000,7 +2000,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_4);
         r_.setDealing(DealingTarot.DEAL_1_VS_4);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -2023,7 +2023,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_2);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_4);
         r_.setDealing(DealingTarot.DEAL_1_VS_4);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.FOLD,bid_);
     }
@@ -2046,7 +2046,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_4);
         r_.setDealing(DealingTarot.DEAL_1_VS_4);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.FOLD,bid_);
     }
@@ -2067,7 +2067,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -2088,7 +2088,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -2109,7 +2109,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.FOLD,bid_);
     }
@@ -2130,7 +2130,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_1);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         r_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.FOLD,bid_);
     }
@@ -2163,7 +2163,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_2);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -2196,7 +2196,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_2);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.GUARD_WITHOUT,bid_);
     }
@@ -2229,7 +2229,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_1);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_2);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.FOLD,bid_);
     }
@@ -2262,7 +2262,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_3);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_2);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new IdList<BidTarot>(),BidTarot.FOLD);
         BidTarot bid_ = g_.strategieContrat();
         assertSame(BidTarot.FOLD,bid_);
     }
@@ -2289,7 +2289,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD_WITHOUT);
         GameTarotBid g_ = new GameTarotBid(handSuit_,r_, bids_,BidTarot.GUARD_WITHOUT);
         BidTarot bid_ = g_.strategieContrat();

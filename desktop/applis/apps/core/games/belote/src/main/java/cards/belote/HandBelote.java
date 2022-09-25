@@ -20,7 +20,7 @@ import code.util.core.NumberUtil;
 public final class HandBelote implements Iterable<CardBelote> {
 
     private Order order;
-    private EnumList<CardBelote> cards=new EnumList<CardBelote>();
+    private IdList<CardBelote> cards=new IdList<CardBelote>();
     public HandBelote() {
         order=Order.TRUMP;
     }
@@ -449,7 +449,7 @@ public final class HandBelote implements Iterable<CardBelote> {
         return mains_;
     }
 
-    public DeclareHandBelote annonce(EnumList<DeclaresBelote> _annoncesAutorisees,
+    public DeclareHandBelote annonce(IdList<DeclaresBelote> _annoncesAutorisees,
             BidBeloteSuit _enchere) {
         CustList<DeclareHandBelote> annoncesPossibles_ = new CustList<DeclareHandBelote>();
         for(DeclaresBelote a: _annoncesAutorisees) {
@@ -571,8 +571,8 @@ public final class HandBelote implements Iterable<CardBelote> {
     }
 
 
-    public void trier(EnumList<Suit> _couleurs, boolean _decroissant,Order _ordreTri) {
-        EnumList<CardBelote> nouvelleMain_ = new EnumList<CardBelote>();
+    public void trier(IdList<Suit> _couleurs, boolean _decroissant,Order _ordreTri) {
+        IdList<CardBelote> nouvelleMain_ = new IdList<CardBelote>();
         for(Suit s_: _couleurs) {
             HandBelote mainCouleur_ = new HandBelote(_ordreTri);
             for(CardBelote carte_: cards) {
@@ -587,9 +587,9 @@ public final class HandBelote implements Iterable<CardBelote> {
         cards.addAllElts(nouvelleMain_);
     }
     /**Appelee apres un contrat couleur ou autre couleur*/
-    public void trier(EnumList<Suit> _couleurs, boolean _decroissant,Suit _couleurAtout) {
+    public void trier(IdList<Suit> _couleurs, boolean _decroissant,Suit _couleurAtout) {
         order=Order.SUIT;
-        EnumList<CardBelote> nouvelleMain_ = new EnumList<CardBelote>();
+        IdList<CardBelote> nouvelleMain_ = new IdList<CardBelote>();
         for(Suit couleur_: _couleurs) {
             HandBelote mainCouleur_ = new HandBelote();
             for(CardBelote carte_: cards) {
@@ -648,10 +648,10 @@ public final class HandBelote implements Iterable<CardBelote> {
         return id_;
     }
 
-    public EnumList<CardBelote> getCards() {
+    public IdList<CardBelote> getCards() {
         return cards;
     }
-    public void setCards(EnumList<CardBelote> _cards) {
+    public void setCards(IdList<CardBelote> _cards) {
         cards = _cards;
     }
 

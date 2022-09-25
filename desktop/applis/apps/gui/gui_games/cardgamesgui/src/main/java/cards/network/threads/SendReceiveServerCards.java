@@ -656,12 +656,12 @@ public final class SendReceiveServerCards extends BasicServer {
         game_.changerConfiance();
         game_.ajouterUneCarteDansPliEnCours(info_.getPlace(), card_);
         if (info_.getChoosenHandful() != Handfuls.NO) {
-            EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>();
+            IdList<Handfuls> handfuls_ = new IdList<Handfuls>();
             handfuls_.add(info_.getChoosenHandful());
             game_.setAnnoncesPoignees(info_.getPlace(), handfuls_);
             game_.ajouterPoignee(info_.getHandful(), info_.getPlace());
         }
-        EnumList<Miseres> declaredMiseres_ = new EnumList<Miseres>();
+        IdList<Miseres> declaredMiseres_ = new IdList<Miseres>();
         for (Miseres m: info_.getMiseres()) {
             if (!game_.getAnnoncesMiseresPossibles(info_.getPlace()).containsObj(m)) {
                 continue;
@@ -1790,14 +1790,14 @@ public final class SendReceiveServerCards extends BasicServer {
             boolean firstRound_ = game_.premierTourNoMisere();
             decla_.setFirstRoundPlaying(game_.premierTour());
             if (firstRound_) {
-                EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
-                decla_.setAllowedHandfuls(new EnumList<Handfuls>(handfuls_));
+                IdList<Handfuls> handfuls_ = new IdList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
+                decla_.setAllowedHandfuls(new IdList<Handfuls>(handfuls_));
                 decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>(game_.getRegles().getAllowedHandfuls()));
-                decla_.setAllowedMiseres(new EnumList<Miseres>(game_.getRegles().getMiseres()));
+                decla_.setAllowedMiseres(new IdList<Miseres>(game_.getRegles().getMiseres()));
             } else {
-                decla_.setAllowedHandfuls(new EnumList<Handfuls>());
+                decla_.setAllowedHandfuls(new IdList<Handfuls>());
                 decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>());
-                decla_.setAllowedMiseres(new EnumList<Miseres>());
+                decla_.setAllowedMiseres(new IdList<Miseres>());
             }
             Net.sendObject(Net.getSocketByPlace(place_, _common), decla_);
             return;
@@ -1812,8 +1812,8 @@ public final class SendReceiveServerCards extends BasicServer {
         cardDto_.setPlace(place_);
         cardDto_.setPlayedCard(card_);
         cardDto_.setLocale(Constants.getDefaultLanguage());
-        EnumList<Handfuls> annoncesPoignees_ = game_.getAnnoncesPoignees(place_);
-        EnumList<Miseres> annoncesMiseres_ = game_.getAnnoncesMiseres(place_);
+        IdList<Handfuls> annoncesPoignees_ = game_.getAnnoncesPoignees(place_);
+        IdList<Miseres> annoncesMiseres_ = game_.getAnnoncesMiseres(place_);
         HandTarot poignee_=game_.getPoignee(place_);
         if (!annoncesPoignees_.isEmpty()) {
             cardDto_.setChoosenHandful(annoncesPoignees_.first());

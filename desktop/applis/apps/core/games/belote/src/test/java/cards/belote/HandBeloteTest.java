@@ -10,7 +10,7 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 
 
@@ -21,24 +21,24 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         assertEq(32, main_.total());
         assertTrue(!main_.contient(CardBelote.WHITE));
         assertNotNull(StringUtil.concatNb(CardBelote.WHITE.getId().getNo(), ""));
-        EnumList<CardBelote> one_ = new EnumList<CardBelote>();
+        IdList<CardBelote> one_ = new IdList<CardBelote>();
         one_.add(CardBelote.DIAMOND_1);
-        EnumList<CardBelote> two_ = new EnumList<CardBelote>();
+        IdList<CardBelote> two_ = new IdList<CardBelote>();
         assertTrue(!CardBelote.equalsCards(one_,two_));
     }
     @Test
     public void pileBase2(){
-        EnumList<CardBelote> one_ = new EnumList<CardBelote>();
+        IdList<CardBelote> one_ = new IdList<CardBelote>();
         one_.add(CardBelote.DIAMOND_1);
-        EnumList<CardBelote> two_ = new EnumList<CardBelote>();
+        IdList<CardBelote> two_ = new IdList<CardBelote>();
         two_.add(CardBelote.SPADE_7);
         assertTrue(!CardBelote.equalsCards(one_,two_));
     }
     @Test
     public void pileBase3(){
-        EnumList<CardBelote> one_ = new EnumList<CardBelote>();
+        IdList<CardBelote> one_ = new IdList<CardBelote>();
         one_.add(CardBelote.DIAMOND_1);
-        EnumList<CardBelote> two_ = new EnumList<CardBelote>();
+        IdList<CardBelote> two_ = new IdList<CardBelote>();
         two_.add(CardBelote.DIAMOND_1);
         assertTrue(CardBelote.equalsCards(one_,two_));
     }
@@ -116,7 +116,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     @Test
     public void trier1(){
         HandBelote main_ = trier();
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         couleurs_.add(Suit.SPADE);
         couleurs_.add(Suit.HEART);
         Suit couleurAtout_ = Suit.SPADE;
@@ -1065,7 +1065,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setBid(enchere_);
         enchereCouleur_.setSuit(couleurAtout_);
-        EnumList<DeclaresBelote> annoncesAutorisees_ = DeclaresBelote.annoncesValides();
+        IdList<DeclaresBelote> annoncesAutorisees_ = DeclaresBelote.annoncesValides();
         HandBelote main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_10);
@@ -1282,12 +1282,12 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void getRepartitionsValides_repartitionsToutesValides1(){
-        EnumList<DealingBelote> repartitionsValides_ = DealingBelote.getRepartitionsValides();
+        IdList<DealingBelote> repartitionsValides_ = DealingBelote.getRepartitionsValides();
         assertEq(2,repartitionsValides_.size());
     }
     @Test
     public void vientAvant1Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1296,7 +1296,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant2Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1305,7 +1305,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant3Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1314,7 +1314,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant4Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1323,7 +1323,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant5Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1332,7 +1332,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant6Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1341,7 +1341,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant7Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1350,7 +1350,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant8Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1359,7 +1359,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant9Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -1368,7 +1368,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void vientAvant10Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);

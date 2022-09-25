@@ -9,57 +9,57 @@ import code.util.*;
 public abstract class CommonGameTarot extends EquallableTarotUtil {
     protected static GameTarot newGameTarotWithourDecl(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                                        int _dealer,
-                                                       EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
+                                                       IdList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         TstsTarotTriplet triplet_ = new TstsTarotTriplet(nbPl_);
         return newGameTarot(_currentHand,_r,_trs,_prog,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(),_dealer,_bids,_calledCards,_call,_lastHand);
     }
     protected static GameTarot newGameTarotWithourDecl(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                                        int _dealer,
-                                                       EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
+                                                       IdList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
         int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         TstsTarotTriplet triplet_ = new TstsTarotTriplet(nbPl_);
         return newGameTarot(_currentHand,_r,_trs,_prog,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(),_dealer,_bids,_calledCards,_call,_lastHand);
     }
     protected static GameTarot newGameTarotWithourDecl(RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                               int _dealer,
-                                              EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
+                                              IdList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         TstsTarotTriplet triplet_ = new TstsTarotTriplet(nbPl_);
         return newGameTarot(_r,_trs,_prog,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(),_dealer,_bids,_calledCards,_call,_lastHand);
     }
     protected static GameTarot newGameTarotWithourDecl(RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                               int _dealer,
-                                              EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
+                                              IdList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
         int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         TstsTarotTriplet triplet_ = new TstsTarotTriplet(nbPl_);
         return newGameTarot(_r,_trs,_prog,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(),_dealer,_bids,_calledCards,_call,_lastHand);
     }
     protected static GameTarot newGameTarot(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
-                                            CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                            EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
+                                            CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                            IdList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         GameTarot g_ = newGameTarot(_r,_trs,_prog,_m,_dh,_h,_dealer,_bids,_calledCards,_call,_lastHand);
 //        check(g_,_calledCards,_currentHand);
         return g_;
     }
     protected static GameTarot newGameTarot(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
-                                            CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                            EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
+                                            CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                            IdList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
         GameTarot g_ = newGameTarot(_r,_trs,_prog,_m,_dh,_h,_dealer,_bids,_calledCards,_call,_lastHand);
 //        CheckerGameTarotWithRules.check(g_);
 //        assertTrue("Error",g_.getError().isEmpty());
         return g_;
     }
     protected static GameTarot newGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
-                                            CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                   EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
+                                            CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                   IdList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
         deal_.add(_lastHand);
         DealTarot donne_ = new DealTarot(deal_, (byte) _dealer);
         return newGameTarot(_r, _trs, _prog, _m, _dh, _h, _dealer, _bids, _calledCards, _call, donne_);
     }
 
-    protected static GameTarot newGameTarot(RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog, CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer, EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _donne) {
+    protected static GameTarot newGameTarot(RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog, CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer, IdList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _donne) {
         GameTarot g_ = new GameTarot(GameType.RANDOM, _donne, _r);
         g_.setProgressingTrick(_prog);
         g_.setTricks(_trs);

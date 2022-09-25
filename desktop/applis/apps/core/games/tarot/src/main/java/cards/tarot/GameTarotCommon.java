@@ -5,19 +5,19 @@ import cards.consts.Suit;
 import cards.tarot.comparators.*;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 
 public final class GameTarotCommon {
 
     private GameTarotCommon(){
     }
-    static EnumList<Suit> couleursPLonguePHaute(HandTarot _main,
-                                                        EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        for (EnumList<Suit> groupeCouleurs_ : couleursTrieesPlusLongues(_main,
+    static IdList<Suit> couleursPLonguePHaute(HandTarot _main,
+                                                        IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
+        for (IdList<Suit> groupeCouleurs_ : couleursTrieesPlusLongues(_main,
                 _couleurs)) {
-            for (EnumList<Suit> groupeCouleursBis_ : couleursTrieesPlusHautes(
+            for (IdList<Suit> groupeCouleursBis_ : couleursTrieesPlusHautes(
                     _main, groupeCouleurs_)) {
                 couleurs_.addAllElts(groupeCouleursBis_);
             }
@@ -25,12 +25,12 @@ public final class GameTarotCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursPLongueMHaute(HandTarot _main,
-                                                        EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        for (EnumList<Suit> groupeCouleurs_ : couleursTrieesPlusLongues(_main,
+    static IdList<Suit> couleursPLongueMHaute(HandTarot _main,
+                                                        IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
+        for (IdList<Suit> groupeCouleurs_ : couleursTrieesPlusLongues(_main,
                 _couleurs)) {
-            for (EnumList<Suit> groupeCouleursBis_ : couleursTrieesPlusBasses(
+            for (IdList<Suit> groupeCouleursBis_ : couleursTrieesPlusBasses(
                     _main, groupeCouleurs_)) {
                 couleurs_.addAllElts(groupeCouleursBis_);
             }
@@ -38,12 +38,12 @@ public final class GameTarotCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursMLongueMHaute(HandTarot _main,
-                                                        EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        for (EnumList<Suit> groupeCouleurs_ : couleursTrieesPlusCourtes(_main,
+    static IdList<Suit> couleursMLongueMHaute(HandTarot _main,
+                                                        IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
+        for (IdList<Suit> groupeCouleurs_ : couleursTrieesPlusCourtes(_main,
                 _couleurs)) {
-            for (EnumList<Suit> groupeCouleursBis_ : couleursTrieesPlusBasses(
+            for (IdList<Suit> groupeCouleursBis_ : couleursTrieesPlusBasses(
                     _main, groupeCouleurs_)) {
                 couleurs_.addAllElts(groupeCouleursBis_);
             }
@@ -51,12 +51,12 @@ public final class GameTarotCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursPHauteMLongue(HandTarot _main,
-                                                        EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        for (EnumList<Suit> groupeCouleurs_ : couleursTrieesPlusHautes(_main,
+    static IdList<Suit> couleursPHauteMLongue(HandTarot _main,
+                                                        IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
+        for (IdList<Suit> groupeCouleurs_ : couleursTrieesPlusHautes(_main,
                 _couleurs)) {
-            for (EnumList<Suit> groupeCouleursBis_ : couleursTrieesPlusCourtes(
+            for (IdList<Suit> groupeCouleursBis_ : couleursTrieesPlusCourtes(
                     _main, groupeCouleurs_)) {
                 couleurs_.addAllElts(groupeCouleursBis_);
             }
@@ -64,77 +64,77 @@ public final class GameTarotCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursLesPlusCourtes(HandTarot _main,
-                                                         EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursLesPlusCourtes(HandTarot _main,
+                                                         IdList<Suit> _couleurs) {
         return couleursTrieesPlusCourtes(_main, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusCourtes(
-            HandTarot _main, EnumList<Suit> _couleurs) {
+    static CustList<IdList<Suit>> couleursTrieesPlusCourtes(
+            HandTarot _main, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new HandTarotShortLengthComparator(_main));
     }
 
-    static EnumList<Suit> couleursAvecLePlusPetitNbFigures(
-            HandTarot _main, EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursAvecLePlusPetitNbFigures(
+            HandTarot _main, IdList<Suit> _couleurs) {
         return couleursTrieesPlusGrandNbFigures(_main,_couleurs).last();
     }
 
-    static EnumList<Suit> couleursLesPlusLongues(HandTarot _main,
-                                                         EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursLesPlusLongues(HandTarot _main,
+                                                         IdList<Suit> _couleurs) {
         return couleursTrieesPlusLongues(_main, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusLongues(
-            HandTarot _main, EnumList<Suit> _couleurs) {
+    static CustList<IdList<Suit>> couleursTrieesPlusLongues(
+            HandTarot _main, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new HandTarotLongLengthComparator(_main));
     }
 
-    static EnumList<Suit> couleursAvecLePlusGrandNbFigures(
-            HandTarot _main, EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursAvecLePlusGrandNbFigures(
+            HandTarot _main, IdList<Suit> _couleurs) {
         return couleursTrieesPlusGrandNbFigures(_main,_couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusGrandNbFigures(
-            HandTarot _main, EnumList<Suit> _couleurs) {
+    static CustList<IdList<Suit>> couleursTrieesPlusGrandNbFigures(
+            HandTarot _main, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new HandTarotCharLongLengthComparator(_main));
     }
 
-    static EnumList<Suit> couleursLesPlusBasses(HandTarot _main,
-                                                        EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursLesPlusBasses(HandTarot _main,
+                                                        IdList<Suit> _couleurs) {
         return couleursTrieesPlusBasses(_main, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusBasses(
-            HandTarot _main, EnumList<Suit> _couleurs) {
+    static CustList<IdList<Suit>> couleursTrieesPlusBasses(
+            HandTarot _main, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthLowHandTarotComparator(_main));
     }
 
-    static EnumList<Suit> couleursAvecLaPlusPetiteCarteBasse(HandTarot _main,
-                                                                     EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursAvecLaPlusPetiteCarteBasse(HandTarot _main,
+                                                                     IdList<Suit> _couleurs) {
         return couleursTrieesAvecLaPlusPetiteCarteBasse(_main, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesAvecLaPlusPetiteCarteBasse(
-            HandTarot _main, EnumList<Suit> _couleurs) {
+    static CustList<IdList<Suit>> couleursTrieesAvecLaPlusPetiteCarteBasse(
+            HandTarot _main, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthLowLastHandTarotComparator(_main));
     }
 
-    static EnumList<Suit> couleursLesPlusHautes(HandTarot _main,
-                                                        EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursLesPlusHautes(HandTarot _main,
+                                                        IdList<Suit> _couleurs) {
         return couleursTrieesPlusHautes(_main, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusHautes(
-            HandTarot _main, EnumList<Suit> _couleurs) {
+    static CustList<IdList<Suit>> couleursTrieesPlusHautes(
+            HandTarot _main, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthGreatHandTarotComparator(_main));
     }
 
-    static EnumList<Suit> couleursNonAtoutNonVides(HandTarot _main, EnumList<Suit> _couleurs) {
+    static IdList<Suit> couleursNonAtoutNonVides(HandTarot _main, IdList<Suit> _couleurs) {
         return couleursNonAtoutAyantNbCartesSupEg(_main, _couleurs, 1);
     }
-    static EnumList<Suit> couleursAvecFigures(HandTarot _main,
-                                              EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursAvecFigures(HandTarot _main,
+                                              IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandTarot main_ = _main.couleur(couleur_);
             if (main_.nombreDeFigures() == 0) {
@@ -144,9 +144,9 @@ public final class GameTarotCommon {
         }
         return couleurs_;
     }
-    static EnumList<Suit> couleursAvecCartesBasses(HandTarot _main,
-                                                   EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursAvecCartesBasses(HandTarot _main,
+                                                   IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandTarot main_ = _main.couleur(couleur_);
             if (main_.cartesBasses(couleur_).estVide()) {
@@ -155,10 +155,10 @@ public final class GameTarotCommon {
             couleurs_.add(couleur_);
         }
         return couleurs_;
-    }static EnumList<Suit> couleursSansCartes(HandTarot _main,
+    }static IdList<Suit> couleursSansCartes(HandTarot _main,
                                               HandTarot _cartesExclues,
-                                              EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+                                              IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             boolean passerAcouleurSuivante_ = false;
             HandTarot main_ = _main.couleur(couleur_);
@@ -176,9 +176,9 @@ public final class GameTarotCommon {
         return couleurs_;
     }
 
-    static EnumList<Suit> couleursSansFigures(HandTarot _main,
-                                              EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursSansFigures(HandTarot _main,
+                                              IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandTarot main_ = _main.couleur(couleur_);
             if (main_.nombreDeFigures() > 0) {
@@ -188,9 +188,9 @@ public final class GameTarotCommon {
         }
         return couleurs_;
     }
-    static EnumList<Suit> couleursNonAtoutAyantNbCartesInfEg(
-            HandTarot _main, EnumList<Suit> _couleurs, int _nb) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursNonAtoutAyantNbCartesInfEg(
+            HandTarot _main, IdList<Suit> _couleurs, int _nb) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandTarot main_ = _main.couleur(couleur_);
             if (main_.total() > _nb) {
@@ -209,9 +209,9 @@ public final class GameTarotCommon {
         }
         return nombre_;
     }
-    static EnumList<Suit> couleursNonAtoutAyantNbCartesSupEg(
-            HandTarot _main, EnumList<Suit> _couleurs, int _nb) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursNonAtoutAyantNbCartesSupEg(
+            HandTarot _main, IdList<Suit> _couleurs, int _nb) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandTarot main_ = _main.couleur(couleur_);
             if (main_.total() < _nb) {
@@ -221,9 +221,9 @@ public final class GameTarotCommon {
         }
         return couleurs_;
     }
-    static EnumList<Suit> couleursSansRoi(HandTarot _main,
-                                           EnumList<Suit> _couleurs) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> couleursSansRoi(HandTarot _main,
+                                           IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             HandTarot main_ = _main.couleur(couleur_);
             if (main_.tailleRois() > 0) {
@@ -233,8 +233,8 @@ public final class GameTarotCommon {
         }
         return couleurs_;
     }
-    static EnumList<Suit> intersectionCouleurs(EnumList<Suit> _couleurs1, EnumList<Suit> _couleurs2) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> intersectionCouleurs(IdList<Suit> _couleurs1, IdList<Suit> _couleurs2) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs1) {
             if(!_couleurs2.containsObj(couleur_)) {
                 continue;
@@ -243,8 +243,8 @@ public final class GameTarotCommon {
         }
         return couleurs_;
     }
-    static EnumList<Suit> complementaireCouleurs(EnumList<Suit> _couleurs, EnumList<Suit> _couleursExclues) {
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+    static IdList<Suit> complementaireCouleurs(IdList<Suit> _couleurs, IdList<Suit> _couleursExclues) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             if(_couleursExclues.containsObj(couleur_)) {
                 continue;

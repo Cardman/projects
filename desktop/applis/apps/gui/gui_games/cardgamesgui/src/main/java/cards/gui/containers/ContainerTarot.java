@@ -24,7 +24,7 @@ import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
@@ -235,9 +235,9 @@ public abstract class ContainerTarot extends ContainerGame{
     protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
-    public EnumList<Miseres> getAllowedMiseres() {
-        EnumList<Miseres> l_;
-        l_ = new EnumList<Miseres>();
+    public IdList<Miseres> getAllowedMiseres() {
+        IdList<Miseres> l_;
+        l_ = new IdList<Miseres>();
         for (EntryCust<Miseres,BoolVal> e: selectedMiseres.entryList()) {
             if (e.getValue() == BoolVal.TRUE) {
                 l_.add(e.getKey());

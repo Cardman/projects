@@ -3,7 +3,7 @@ package cards.tarot;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.tsts.TstsTarot;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import org.junit.Test;
@@ -198,7 +198,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_KNIGHT);
         hand_.ajouter(CardTarot.HEART_KING);
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         assertSame(CardTarot.HEART_8,GameTarotProgTrickClassic.jouerPetiteCarteDefausse(hand_.eclaterToutEnCours(played_),s_,hand_,played_));
     }
@@ -213,7 +213,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_KING);
         hand_.ajouter(CardTarot.DIAMOND_1);
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         assertSame(CardTarot.DIAMOND_1,GameTarotProgTrickClassic.jouerPetiteCarteDefausse(hand_.eclaterToutEnCours(played_),s_,hand_,played_));
@@ -230,7 +230,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         assertSame(CardTarot.HEART_8,GameTarotProgTrickClassic.jeuPetiteDefausseMaitre(hand_.eclaterToutEnCours(played_),cartesMaitresses_,hand_,s_));
     }
@@ -247,7 +247,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         assertSame(CardTarot.DIAMOND_1,GameTarotProgTrickClassic.jeuPetiteDefausseMaitre(hand_.eclaterToutEnCours(played_),cartesMaitresses_,hand_,s_));
@@ -263,7 +263,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_KING);
         hand_.ajouter(CardTarot.DIAMOND_1);
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         assertSame(CardTarot.HEART_KING,GameTarotProgTrickClassic.sauverFiguresDefausse(s_,hand_,played_));
@@ -276,7 +276,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_10);
         hand_.ajouter(CardTarot.DIAMOND_1);
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         assertSame(CardTarot.DIAMOND_1,GameTarotProgTrickClassic.sauverFiguresDefausse(s_,hand_,played_));
@@ -291,7 +291,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_KNIGHT);
         hand_.ajouter(CardTarot.HEART_KING);
         hand_.ajouter(CardTarot.DIAMOND_1);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         assertSame(CardTarot.HEART_KING,GameTarotProgTrickClassic.jeuGrandeCarteDefausseMaitre(s_,hand_));
@@ -303,7 +303,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_8);
         hand_.ajouter(CardTarot.HEART_10);
         hand_.ajouter(CardTarot.DIAMOND_1);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         assertSame(CardTarot.HEART_7,GameTarotProgTrickClassic.jeuGrandeCarteDefausseMaitre(s_,hand_));
@@ -319,7 +319,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.DIAMOND_KNIGHT);
         hand_.ajouter(CardTarot.DIAMOND_QUEEN);
         hand_.ajouter(CardTarot.DIAMOND_KING);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         assertSame(CardTarot.HEART_KING,GameTarotProgTrickClassic.jeuGrandeCarteDefausseMaitre(s_,hand_));
@@ -337,7 +337,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         assertTrue(!GameTarotProgTrickClassic.leadingCard(cartesMaitresses_,s_,hand_.couleurs()));
     }
@@ -356,7 +356,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         assertTrue(GameTarotProgTrickClassic.leadingCard(cartesMaitresses_,s_,hand_.couleurs()));
     }
@@ -373,7 +373,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.DIAMOND);
         assertTrue(!GameTarotProgTrickClassic.leadingCard(cartesMaitresses_,s_,hand_.couleurs()));
     }
@@ -390,7 +390,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.SPADE);
         assertTrue(GameTarotProgTrickClassic.leadingCard(cartesMaitresses_,s_,hand_.couleurs()));
     }
@@ -409,7 +409,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         assertSame(CardTarot.HEART_KING,GameTarotProgTrickClassic.discardCardPartner(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_,s_,true));
     }
@@ -429,7 +429,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         assertSame(CardTarot.DIAMOND_1,GameTarotProgTrickClassic.discardCardPartner(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_,s_,true));
     }
@@ -447,7 +447,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         assertSame(CardTarot.HEART_KING,GameTarotProgTrickClassic.discardCardPartner(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_,s_,true));
     }
@@ -462,7 +462,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         assertSame(CardTarot.DIAMOND_1,GameTarotProgTrickClassic.discardCardPartner(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_,s_,false));
     }
@@ -608,7 +608,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
@@ -633,7 +633,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
         assertSame(CardTarot.HEART_1,GameTarotProgTrickClassic.defausseCouleurDemandeeSurPartenaire(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_,s_,Suit.CLUB));
@@ -659,7 +659,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
         s_.add(Suit.HEART);
@@ -685,7 +685,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
         s_.add(Suit.HEART);
@@ -709,7 +709,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.DIAMOND);
         s_.add(Suit.HEART);
         assertSame(CardTarot.SPADE_QUEEN,GameTarotProgTrickClassic.defausseCouleurDemandeeSurPartenaire(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_,s_,Suit.CLUB));
@@ -732,7 +732,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.DIAMOND);
         s_.add(Suit.HEART);
         assertSame(CardTarot.SPADE_QUEEN,GameTarotProgTrickClassic.defausseCouleurDemandeeSurPartenaire(hand_.eclaterToutEnCours(played_),played_,hand_,cartesMaitresses_,s_,Suit.CLUB));
@@ -759,7 +759,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
@@ -788,7 +788,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
@@ -819,7 +819,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
@@ -848,7 +848,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
@@ -875,7 +875,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
@@ -902,7 +902,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         s_.add(Suit.SPADE);
@@ -927,7 +927,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, HandTarot> played_ = pl_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 hand_.couleurs(), played_);
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.HEART);
         s_.add(Suit.DIAMOND);
         s_.add(Suit.CLUB);

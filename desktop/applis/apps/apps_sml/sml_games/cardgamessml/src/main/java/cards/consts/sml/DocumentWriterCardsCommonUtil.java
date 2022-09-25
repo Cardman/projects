@@ -3,7 +3,7 @@ import cards.consts.*;
 import code.sml.Document;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
-import code.util.EnumList;
+import code.util.IdList;
 public final class DocumentWriterCardsCommonUtil {
 
     private static final String ATTR_VALUE = "value";
@@ -44,7 +44,7 @@ public final class DocumentWriterCardsCommonUtil {
         return elt_;
     }
 
-    public static Element setListSuit(EnumList<Suit> _object, String _fieldName, Document _document) {
+    public static Element setListSuit(IdList<Suit> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Suit s: _object) {

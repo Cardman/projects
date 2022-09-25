@@ -4,7 +4,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.util.EnumList;
+import code.util.IdList;
 
 
 public final class RefreshHand extends PlayerActionGame {
@@ -15,7 +15,7 @@ public final class RefreshHand extends PlayerActionGame {
 
     private HandTarot handful;
 
-    private EnumList<Miseres> miseres;
+    private IdList<Miseres> miseres;
 
     private boolean calledCard;
 
@@ -43,11 +43,11 @@ public final class RefreshHand extends PlayerActionGame {
         handful = _handful;
     }
 
-    public EnumList<Miseres> getMiseres() {
+    public IdList<Miseres> getMiseres() {
         return miseres;
     }
 
-    public void setMiseres(EnumList<Miseres> _miseres) {
+    public void setMiseres(IdList<Miseres> _miseres) {
         miseres = _miseres;
     }
 

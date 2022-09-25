@@ -2349,8 +2349,8 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         info_.setCartesCertaines(generate(_nbPlayers));
         info_.setRamasseurVirtuel(ramasseurVirtuel_);
         info_.setSuitesTouteCouleur(suitesTouteCouleur_);
-        info_.setCouleursMaitresses(new EnumList<Suit>());
-        info_.setStrictCouleursMaitresses(new EnumList<Suit>());
+        info_.setCouleursMaitresses(new IdList<Suit>());
+        info_.setStrictCouleursMaitresses(new IdList<Suit>());
         info_.setCartesMaitresses(cartesMaitresses_);
         return info_;
     }

@@ -7,7 +7,7 @@ import org.junit.Test;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.util.EnumList;
+import code.util.IdList;
 
 
 public class ComparatorTarotTest extends EquallableTarotUtil {
@@ -19,7 +19,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_9);
         hand_.ajouter(CardTarot.HEART_1);
         hand_.ajouter(CardTarot.HEART_10);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowLastHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.HEART, suits_.get(0));
@@ -35,7 +35,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_9);
         hand_.ajouter(CardTarot.HEART_JACK);
         hand_.ajouter(CardTarot.HEART_10);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowLastHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.DIAMOND, suits_.get(0));
@@ -51,7 +51,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_9);
         hand_.ajouter(CardTarot.HEART_1);
         hand_.ajouter(CardTarot.HEART_10);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -67,7 +67,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_9);
         hand_.ajouter(CardTarot.HEART_10);
         hand_.ajouter(CardTarot.HEART_9);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -84,7 +84,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.HEART_JACK);
         hand_.ajouter(CardTarot.HEART_9);
         hand_.ajouter(CardTarot.HEART_1);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -101,7 +101,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_1);
         hand_.ajouter(CardTarot.HEART_JACK);
         hand_.ajouter(CardTarot.HEART_9);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -117,7 +117,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_9);
         hand_.ajouter(CardTarot.HEART_JACK);
         hand_.ajouter(CardTarot.HEART_9);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthLowHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.SPADE, suits_.get(0));
@@ -133,7 +133,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_9);
         hand_.ajouter(CardTarot.HEART_1);
         hand_.ajouter(CardTarot.HEART_10);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.DIAMOND, suits_.get(0));
@@ -149,7 +149,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_9);
         hand_.ajouter(CardTarot.HEART_10);
         hand_.ajouter(CardTarot.HEART_9);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.DIAMOND, suits_.get(0));
@@ -166,7 +166,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.HEART_JACK);
         hand_.ajouter(CardTarot.HEART_9);
         hand_.ajouter(CardTarot.HEART_1);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.HEART, suits_.get(0));
@@ -183,7 +183,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_1);
         hand_.ajouter(CardTarot.HEART_JACK);
         hand_.ajouter(CardTarot.HEART_9);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.DIAMOND, suits_.get(0));
@@ -199,7 +199,7 @@ public class ComparatorTarotTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.DIAMOND_9);
         hand_.ajouter(CardTarot.HEART_JACK);
         hand_.ajouter(CardTarot.HEART_9);
-        EnumList<Suit> suits_ = Suit.couleursOrdinaires();
+        IdList<Suit> suits_ = Suit.couleursOrdinaires();
         suits_.sortElts(new GameStrengthGreatHandTarotComparator(hand_));
         assertEq(4, suits_.size());
         assertEq(Suit.HEART, suits_.get(0));

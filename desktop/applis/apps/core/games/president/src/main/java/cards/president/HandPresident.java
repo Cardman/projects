@@ -6,7 +6,7 @@ import cards.president.enumerations.CardPresident;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 import code.util.Ints;
 import code.util.core.IndexConstants;
@@ -14,7 +14,7 @@ import code.util.core.IndexConstants;
 
 public final class HandPresident implements Iterable<CardPresident> {
 
-    private EnumList<CardPresident> cards=new EnumList<CardPresident>();
+    private IdList<CardPresident> cards=new IdList<CardPresident>();
 
     public HandPresident() {
     }
@@ -245,11 +245,11 @@ public final class HandPresident implements Iterable<CardPresident> {
         return cards.iterator();
     }
 
-    public EnumList<CardPresident> getCards() {
+    public IdList<CardPresident> getCards() {
         return cards;
     }
 
-    public void setCards(EnumList<CardPresident> _cards) {
+    public void setCards(IdList<CardPresident> _cards) {
         cards = _cards;
     }
 

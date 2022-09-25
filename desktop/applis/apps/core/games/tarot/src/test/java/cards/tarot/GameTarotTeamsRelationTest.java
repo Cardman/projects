@@ -6,7 +6,7 @@ import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.ModeTarot;
 import code.util.Bytes;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -20,7 +20,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -42,7 +42,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         int taker_ = getTaker(rules_,dealer_,bids_);
         CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.FOLD, rules_, taker_);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_,new Bytes(),conf_,rules_);
@@ -65,7 +65,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -89,7 +89,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -118,7 +118,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -148,7 +148,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -171,7 +171,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -194,7 +194,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -218,7 +218,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);

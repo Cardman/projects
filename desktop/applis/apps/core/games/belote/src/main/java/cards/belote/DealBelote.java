@@ -8,7 +8,7 @@ import cards.consts.Suit;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -181,10 +181,10 @@ public final class DealBelote implements Iterable<HandBelote> {
         deal.get(_preneur).ajouter(_jouer);
     }
 
-    public void trier(byte _joueur, EnumList<Suit> _couleurs, boolean _decroissant, Order _couleur) {
+    public void trier(byte _joueur, IdList<Suit> _couleurs, boolean _decroissant, Order _couleur) {
         deal.get(_joueur).trier(_couleurs, _decroissant, _couleur);
     }
-    public void trier(byte _joueur, EnumList<Suit> _couleurs, boolean _decroissant, Suit _carteAppelee) {
+    public void trier(byte _joueur, IdList<Suit> _couleurs, boolean _decroissant, Suit _carteAppelee) {
         deal.get(_joueur).trier(_couleurs, _decroissant, _carteAppelee);
     }
     public void jouer(byte _preneur, CardBelote _carteJouee) {

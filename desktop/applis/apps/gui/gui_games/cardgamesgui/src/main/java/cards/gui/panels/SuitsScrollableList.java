@@ -8,7 +8,7 @@ import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -20,7 +20,7 @@ public final class SuitsScrollableList extends ScrollableList {
     private StringMap<String> messages = new StringMap<String>();
 //    private EnumList<Suit> suits;
     private final AbsGraphicList<Suit> liste;
-    public SuitsScrollableList(EnumList<Suit> _couleurs, int _nb, WindowCards _window) {
+    public SuitsScrollableList(IdList<Suit> _couleurs, int _nb, WindowCards _window) {
         super(_window.getCompoFactory());
         String lg_ = _window.getLanguageKey();
         messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
@@ -36,9 +36,9 @@ public final class SuitsScrollableList extends ScrollableList {
         liste.setVisibleRowCount(_nb);
         getContainer().add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
     }
-    public EnumList<Suit> getCouleurs() {
+    public IdList<Suit> getCouleurs() {
         int s_ = liste.size();
-        EnumList<Suit> valeurs_=new EnumList<Suit>();
+        IdList<Suit> valeurs_=new IdList<Suit>();
         for (int i = IndexConstants.FIRST_INDEX; i < s_; i++) {
             valeurs_.add(liste.get(i));
         }
@@ -58,7 +58,7 @@ public final class SuitsScrollableList extends ScrollableList {
         liste.add(_couleur);
 //        suits.add(_couleur);
     }
-    public void supprimerCouleurs(EnumList<Suit> _couleurs) {
+    public void supprimerCouleurs(IdList<Suit> _couleurs) {
         for (Suit s: _couleurs) {
 //            if (suits.containsObj(s)) {
 //                int i_ = suits.indexOfObj(s);
@@ -79,11 +79,11 @@ public final class SuitsScrollableList extends ScrollableList {
         liste.clearRevalidate();
 //        suits.clear();
     }
-    public EnumList<Suit> getCouleursSelectionnees() {
+    public IdList<Suit> getCouleursSelectionnees() {
         if(liste.isSelectionEmpty()) {
-            return new EnumList<Suit>();
+            return new IdList<Suit>();
         }
-        EnumList<Suit> valeurs_=new EnumList<Suit>();
+        IdList<Suit> valeurs_=new IdList<Suit>();
         for (int i: liste.getSelectedIndexes()) {
             valeurs_.add(liste.get(i));
         }

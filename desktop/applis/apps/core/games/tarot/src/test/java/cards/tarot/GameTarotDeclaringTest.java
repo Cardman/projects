@@ -2,7 +2,7 @@ package cards.tarot;
 
 import cards.tarot.enumerations.*;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import org.junit.Test;
 
 public final class GameTarotDeclaringTest extends CommonGameTarot {
@@ -30,7 +30,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -80,7 +80,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -103,7 +103,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
+        IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.TRUMP));
     }
@@ -132,7 +132,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -155,7 +155,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
+        IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.POINT));
     }
@@ -184,7 +184,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -207,7 +207,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
+        IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.CHARACTER));
     }
@@ -236,7 +236,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_7);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -258,7 +258,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
+        IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.LOW_CARDS));
     }
@@ -287,7 +287,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_7);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -309,7 +309,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
+        IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.SUIT));
     }
@@ -339,7 +339,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_7);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -361,7 +361,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
+        IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.SUIT));
     }
@@ -390,7 +390,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_7);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -412,7 +412,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.FOUR));
     }
@@ -441,7 +441,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -463,7 +463,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.THREE));
     }
@@ -492,7 +492,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -514,7 +514,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(0, handfuls_.size());
     }
     @Test
@@ -546,7 +546,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -568,7 +568,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(0, handfuls_.size());
     }
     @Test
@@ -596,7 +596,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -618,7 +618,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.THREE));
     }
@@ -647,7 +647,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -669,7 +669,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(0, handfuls_.size());
     }
     @Test
@@ -697,7 +697,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -718,7 +718,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.ONE));
     }
@@ -747,7 +747,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -768,7 +768,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.ONE));
     }
@@ -797,7 +797,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -818,9 +818,9 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<EnumList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
+        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        EnumList<Handfuls> handfuls_ = gtd_.getAnnoncesPoigneesPossibles();
+        IdList<Handfuls> handfuls_ = gtd_.getAnnoncesPoigneesPossibles();
         assertEq(3, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.ONE));
         assertTrue(handfuls_.containsObj(Handfuls.TWO));
@@ -851,7 +851,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_7);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -872,9 +872,9 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<EnumList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
+        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_, dec_);
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(15, handful_.total());
@@ -904,7 +904,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -925,9 +925,9 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<EnumList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
+        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(13, handful_.total());
@@ -970,7 +970,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -990,9 +990,9 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<EnumList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
+        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(8, handful_.total());
@@ -1030,7 +1030,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1050,9 +1050,9 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<EnumList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
+        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(8, handful_.total());
@@ -1090,7 +1090,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1110,9 +1110,9 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<EnumList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
+        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(8, handful_.total());
@@ -1150,7 +1150,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1171,9 +1171,9 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<EnumList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
+        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
         GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        EnumList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(0, handful_.total());

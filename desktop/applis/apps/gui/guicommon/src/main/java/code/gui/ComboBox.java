@@ -8,7 +8,7 @@ public final class ComboBox<T> extends AbsComboBox {
 // implements GraphicComboGrIntBase
     private static final String EMPTY_STRING = "";
 
-    private final EnumList<T> order = new EnumList<T>();
+    private final IdList<T> order = new IdList<T>();
 
     private TreeMap<T,String> elements = new TreeMap<T,String>(new ComparatorIndexes<T>(order));
 
@@ -26,7 +26,7 @@ public final class ComboBox<T> extends AbsComboBox {
         order.addAllElts(_order);
         removeAllItems();
         elements = new TreeMap<T,String>(new ComparatorIndexes<T>(order));
-        EnumMap<T,String> m_ = createMap(_tr);
+        IdMap<T,String> m_ = createMap(_tr);
         elements.putAllMap(m_);
         for (T e: elements.getKeys()) {
             addItem(_tr.getVal(e));
@@ -35,7 +35,7 @@ public final class ComboBox<T> extends AbsComboBox {
 
     public void refresh(AbsMap<T,String> _tr) {
         removeAllItems();
-        EnumMap<T,String> m_ = createMap(_tr);
+        IdMap<T,String> m_ = createMap(_tr);
         elements = new TreeMap<T,String>(new ComparatorMapValue<T>(m_));
         elements.putAllMap(m_);
         for (T e: elements.getKeys()) {
@@ -43,8 +43,8 @@ public final class ComboBox<T> extends AbsComboBox {
         }
     }
 
-    private EnumMap<T,String> createMap(AbsMap<T,String> _tr) {
-        EnumMap<T,String> m_ = new EnumMap<T,String>(_tr);
+    private IdMap<T,String> createMap(AbsMap<T,String> _tr) {
+        IdMap<T,String> m_ = new IdMap<T,String>(_tr);
         if (withDefaultValue) {
             m_.put(null, EMPTY_STRING);
         }

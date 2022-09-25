@@ -80,7 +80,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
-        mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
+        mix_ = new IdList<MixCardsChoice>(MixCardsChoice.values());
         IdMap<MixCardsChoice, String> trMix_;
         trMix_ = new IdMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
@@ -201,7 +201,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_PLAYERS)));
         sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(REPARTITION_PLAYERS)));
 
-        EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
+        IdList<DealingTarot> repValides_ = new IdList<DealingTarot>(DealingTarot.getRepartitionsValides());
         int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
         int maxJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
         for(DealingTarot r: repValides_) {
@@ -268,7 +268,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         int nombreJoueursSel_= nbJoueurs.getValue();
         listeChoixFour.getReal().clear();
         listeChoixFour.removeAllItems();
-        EnumList<DealingTarot> repartitions_ = new EnumList<DealingTarot>();
+        IdList<DealingTarot> repartitions_ = new IdList<DealingTarot>();
         for(DealingTarot r:DealingTarot.getRepartitionsValides()) {
             if(r.getId().getNombreJoueurs() !=nombreJoueursSel_) {
                 continue;
@@ -327,7 +327,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //        getReglesTarot().setCartesBattues((MixCardsChoice)listeChoix.getSelectedItem());
         getReglesTarot().getCommon().setMixedCards(listeChoix.getCurrent());
         getReglesTarot().setAllowedHandfuls(poigneesAutorisees);
-        EnumList<Miseres> miseres_=new EnumList<Miseres>();
+        IdList<Miseres> miseres_=new IdList<Miseres>();
         for (Miseres misere_: Miseres.values()) {
             AbsCustCheckBox jcb_= miseres.get(misere_.ordinal());
             if(jcb_.isSelected()) {

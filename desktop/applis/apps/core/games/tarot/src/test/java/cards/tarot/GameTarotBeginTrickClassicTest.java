@@ -5,7 +5,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ModeTarot;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import org.junit.Test;
 
 public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
@@ -30,7 +30,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         curHand_.ajouter(CardTarot.DIAMOND_QUEEN);
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -96,7 +96,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         curHand_.ajouter(CardTarot.DIAMOND_QUEEN);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -161,7 +161,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -225,7 +225,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -297,7 +297,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
         TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_),false);
         t_.ajouter(CardTarot.SPADE_QUEEN);
@@ -362,7 +362,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -433,7 +433,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -504,7 +504,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -576,7 +576,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -641,7 +641,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -706,7 +706,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -771,7 +771,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -836,7 +836,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -902,7 +902,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -967,7 +967,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1039,7 +1039,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1112,7 +1112,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_KING);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1174,7 +1174,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1264,7 +1264,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KNIGHT);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1351,7 +1351,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1460,7 +1460,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1562,7 +1562,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KNIGHT);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1664,7 +1664,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KNIGHT);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1766,7 +1766,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.SPADE_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1868,7 +1868,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.SPADE_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -1966,7 +1966,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.DIAMOND_QUEEN);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -2091,7 +2091,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -2223,7 +2223,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KNIGHT);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -2360,7 +2360,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KNIGHT);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -2468,7 +2468,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -2534,7 +2534,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_2);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -2594,7 +2594,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KNIGHT);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -2696,7 +2696,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KNIGHT);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -2806,7 +2806,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -2858,7 +2858,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -2919,7 +2919,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3050,7 +3050,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.EXCUSE);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3181,7 +3181,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.EXCUSE);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3314,7 +3314,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3440,7 +3440,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3575,7 +3575,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3657,7 +3657,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3728,7 +3728,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_3);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3789,7 +3789,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -3920,7 +3920,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4051,7 +4051,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.TRUMP_14);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4192,7 +4192,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_3);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4254,7 +4254,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.EXCUSE);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4388,7 +4388,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_3);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4459,7 +4459,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_3);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4520,7 +4520,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.TRUMP_14);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4664,7 +4664,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.SPADE_2);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -4714,7 +4714,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.EXCUSE);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4845,7 +4845,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KNIGHT);
         curHand_.ajouter(CardTarot.DIAMOND_JACK);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -4976,7 +4976,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_9);
         curHand_.ajouter(CardTarot.DIAMOND_JACK);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -5120,7 +5120,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_2);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5174,7 +5174,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_2);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5228,7 +5228,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_2);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5281,7 +5281,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5334,7 +5334,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_2);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5387,7 +5387,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_2);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5440,7 +5440,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5493,7 +5493,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5551,7 +5551,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5604,7 +5604,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5658,7 +5658,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5711,7 +5711,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5770,7 +5770,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5838,7 +5838,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5897,7 +5897,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -5963,7 +5963,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_3);
         curHand_.ajouter(CardTarot.CLUB_2);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6029,7 +6029,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_3);
         curHand_.ajouter(CardTarot.CLUB_2);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6095,7 +6095,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6161,7 +6161,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6227,7 +6227,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6294,7 +6294,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6362,7 +6362,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6431,7 +6431,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_7);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6500,7 +6500,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_7);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6569,7 +6569,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6638,7 +6638,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6706,7 +6706,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6767,7 +6767,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.SPADE_7);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6825,7 +6825,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_JACK);
         curHand_.ajouter(CardTarot.DIAMOND_QUEEN);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6902,7 +6902,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -6962,7 +6962,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -7022,7 +7022,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -7082,7 +7082,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -7142,7 +7142,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -7201,7 +7201,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -7267,7 +7267,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -7334,7 +7334,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -7400,7 +7400,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -7465,7 +7465,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -7537,7 +7537,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.TRUMP_8);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -7610,7 +7610,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -7677,7 +7677,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -7746,7 +7746,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 0;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -7800,7 +7800,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 0;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -7852,7 +7852,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -7918,7 +7918,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -7986,7 +7986,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 0;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -8040,7 +8040,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 0;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -8094,7 +8094,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 0;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -8146,7 +8146,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8212,7 +8212,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8279,7 +8279,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -8339,7 +8339,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8405,7 +8405,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8471,7 +8471,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8537,7 +8537,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8604,7 +8604,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD_WITHOUT);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -8665,7 +8665,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -8719,7 +8719,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_10);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8773,7 +8773,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_10);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8826,7 +8826,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.CLUB_10);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8886,7 +8886,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.CLUB_JACK);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -8946,7 +8946,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_JACK);
         curHand_.ajouter(CardTarot.CLUB_JACK);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9006,7 +9006,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_1);
         curHand_.ajouter(CardTarot.CLUB_JACK);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9065,7 +9065,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_4);
         curHand_.ajouter(CardTarot.SPADE_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9131,7 +9131,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_4);
         curHand_.ajouter(CardTarot.SPADE_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9198,7 +9198,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.SPADE_4);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9258,7 +9258,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9318,7 +9318,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9377,7 +9377,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 0;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -9429,7 +9429,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -9482,7 +9482,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         byte d_ = 4;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
         TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_),false);
         t_.ajouter(CardTarot.SPADE_QUEEN);
@@ -9528,7 +9528,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -9567,7 +9567,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KNIGHT);
         curHand_.ajouter(CardTarot.DIAMOND_JACK);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9697,7 +9697,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_9);
         curHand_.ajouter(CardTarot.DIAMOND_JACK);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9827,7 +9827,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_9);
         curHand_.ajouter(CardTarot.DIAMOND_KNIGHT);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -9970,7 +9970,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_1);
         byte d_ = 1;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -10020,7 +10020,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -10084,7 +10084,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -10136,7 +10136,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.DIAMOND_JACK);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -10284,7 +10284,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10351,7 +10351,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10419,7 +10419,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10486,7 +10486,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10553,7 +10553,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.CLUB_JACK);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10620,7 +10620,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.CLUB_JACK);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10687,7 +10687,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10757,7 +10757,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10828,7 +10828,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10899,7 +10899,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -10970,7 +10970,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -11038,7 +11038,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -11129,7 +11129,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -11198,7 +11198,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -11266,7 +11266,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_3);
         curHand_.ajouter(CardTarot.DIAMOND_2);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -11341,7 +11341,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_3);
         curHand_.ajouter(CardTarot.DIAMOND_2);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -11419,7 +11419,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_QUEEN);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -11472,7 +11472,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_QUEEN);
         byte d_ = 3;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -11523,7 +11523,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -11588,7 +11588,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -11656,7 +11656,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.CLUB_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);

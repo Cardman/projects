@@ -7,7 +7,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 
 
@@ -20,15 +20,15 @@ public class HandTarotTest extends EquallableTarotUtil {
         assertNotNull(Handfuls.getConfigurationParDefautAnnoncePoignee(Handfuls.NO));
         assertNotNull(Handfuls.getNonDeclarableHandFuls());
         assertNotNull(StringUtil.concatNb(CardTarot.EXCUSE.getId().getNo(), ""));
-        EnumList<CardTarot> one_ = new EnumList<CardTarot>();
+        IdList<CardTarot> one_ = new IdList<CardTarot>();
         one_.add(CardTarot.EXCUSE);
-        EnumList<CardTarot> two_ = new EnumList<CardTarot>();
+        IdList<CardTarot> two_ = new IdList<CardTarot>();
         assertTrue(!CardTarot.equalsCards(one_,two_));
         assertEq(0, CardTarot.EXCUSE.getForce());
     }
     @Test
     public void vientAvant1Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -38,7 +38,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void vientAvant2Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -48,7 +48,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void vientAvant3Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -58,7 +58,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void vientAvant4Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -68,7 +68,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void vientAvant5Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -78,7 +78,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void vientAvant6Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -88,7 +88,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void vientAvant7Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -98,7 +98,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void vientAvant8Test() {
-        EnumList<Suit> suits_ = new EnumList<Suit>();
+        IdList<Suit> suits_ = new IdList<Suit>();
         suits_.add(Suit.SPADE);
         suits_.add(Suit.HEART);
         suits_.add(Suit.CLUB);
@@ -378,7 +378,7 @@ public class HandTarotTest extends EquallableTarotUtil {
     @Test
     public void trier1(){
         HandTarot main_ = trier();
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+        IdList<Suit> couleurs_ = new IdList<Suit>();
         couleurs_.add(Suit.SPADE);
         couleurs_.add(Suit.HEART);
         couleurs_.add(Suit.TRUMP);
@@ -857,13 +857,13 @@ public class HandTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void getRepartitionsValides_repartitionsToutesValides1(){
-        EnumList<DealingTarot> repartitionsValides_ = DealingTarot.getRepartitionsValides();
+        IdList<DealingTarot> repartitionsValides_ = DealingTarot.getRepartitionsValides();
         assertTrue(!repartitionsValides_.isEmpty());
         assertEq(11,repartitionsValides_.size());
     }
     @Test
     public void getDeclarableHandFuls_poigneesToutesValides1(){
-        EnumList<Handfuls> poigneesValidesDefaut_ = Handfuls.getPoigneesValidesParDefaut();
+        IdList<Handfuls> poigneesValidesDefaut_ = Handfuls.getPoigneesValidesParDefaut();
         assertTrue(!poigneesValidesDefaut_.isEmpty());
         assertEq(Handfuls.getDeclarableHandFuls().size(),poigneesValidesDefaut_.size());
         assertTrue(Handfuls.getDeclarableHandFuls().containsAllObj(poigneesValidesDefaut_));

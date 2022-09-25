@@ -9,7 +9,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.core.IndexConstants;
 
@@ -18,7 +18,7 @@ import code.util.core.IndexConstants;
 
 public final class HandTarot implements Iterable<CardTarot> {
 
-    private EnumList<CardTarot> cards=new EnumList<CardTarot>();
+    private IdList<CardTarot> cards=new IdList<CardTarot>();
 
     public boolean validStack() {
         return CardTarot.equalsCards(cards, pileBase().cards);
@@ -383,9 +383,9 @@ public final class HandTarot implements Iterable<CardTarot> {
     /**Permet de trier les cartes selon les parametres
     @param _couleurs une chaine de couleurs espacee par des tirets
     @param sens croissant ou decroissant*/
-    public void trier(EnumList<Suit> _couleurs, boolean _decroissant) {
+    public void trier(IdList<Suit> _couleurs, boolean _decroissant) {
 
-        EnumList<CardTarot> nouvelleMain_ = new EnumList<CardTarot>();
+        IdList<CardTarot> nouvelleMain_ = new IdList<CardTarot>();
         for(Suit couleur_: _couleurs) {
             HandTarot mainCouleur_ = suit(_decroissant, couleur_);
 
@@ -626,11 +626,11 @@ public final class HandTarot implements Iterable<CardTarot> {
         return cards.iterator();
     }
 
-    public EnumList<CardTarot> getCards() {
+    public IdList<CardTarot> getCards() {
         return cards;
     }
 
-    public void setCards(EnumList<CardTarot> _cards) {
+    public void setCards(IdList<CardTarot> _cards) {
         cards = _cards;
     }
 

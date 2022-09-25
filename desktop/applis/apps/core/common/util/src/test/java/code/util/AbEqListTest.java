@@ -32,12 +32,12 @@ public class AbEqListTest extends EquallableExUtil {
     }
     @Test
     public void getGroupsSameCompare1Test() {
-        EnumList<String> e_ = new EnumList<String>();
+        IdList<String> e_ = new IdList<String>();
         e_.add("ONE");
         e_.add("TWO");
         e_.add("THREE");
         e_.add("ONE");
-        CustList<EnumList<String>> gr_ = e_.getGroupsSameCompare(new NaturalComparator());
+        CustList<IdList<String>> gr_ = e_.getGroupsSameCompare(new NaturalComparator());
         assertEq(3, gr_.size());
         assertEq(2, gr_.get(0).size());
         assertEq("ONE", gr_.get(0).get(0));

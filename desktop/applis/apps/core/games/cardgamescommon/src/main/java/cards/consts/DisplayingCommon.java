@@ -1,21 +1,21 @@
 package cards.consts;
 
-import code.util.EnumList;
+import code.util.IdList;
 
 public final class DisplayingCommon {
 
     private boolean clockwise;
-    private EnumList<Suit> suits=new EnumList<Suit>();
+    private IdList<Suit> suits=new IdList<Suit>();
     private boolean decreasing=true;
     public DisplayingCommon() {
     }
     public DisplayingCommon(DisplayingCommon _other) {
         clockwise = _other.isClockwise();
         decreasing = _other.isDecreasing();
-        suits = new EnumList<Suit>(_other.getSuits());
+        suits = new IdList<Suit>(_other.getSuits());
     }
-    public void validate(EnumList<Suit> _input) {
-        EnumList<Suit> s_ = new EnumList<Suit>(_input);
+    public void validate(IdList<Suit> _input) {
+        IdList<Suit> s_ = new IdList<Suit>(_input);
         if (!Suit.equalsSuits(suits, s_)) {
             suits.clear();
             for(Suit c:_input){
@@ -24,11 +24,11 @@ public final class DisplayingCommon {
         }
     }
 
-    public EnumList<Suit> getSuits() {
+    public IdList<Suit> getSuits() {
         return suits;
     }
 
-    public void setSuits(EnumList<Suit> _p) {
+    public void setSuits(IdList<Suit> _p) {
         this.suits = _p;
     }
 

@@ -17,7 +17,7 @@ import cards.tarot.enumerations.PlayingDog;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -146,9 +146,9 @@ public final class EndTarotGame {
     private final GameTarotTeamsRelation relations;
     private final CustList<TrickTarot> tricks;
     /** Ce sont les poignees annoncees par le(s) joueur(s) */
-    private final CustList<EnumList<Handfuls>> declaresHandfuls;
+    private final CustList<IdList<Handfuls>> declaresHandfuls;
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
-    private final CustList<EnumList<Miseres>> declaresMiseres;
+    private final CustList<IdList<Miseres>> declaresMiseres;
     /** Ce sont les primes annoncees par le(s) joueur(s) */
     private final CustList<BoolVal> declaresSlam;
     /** Ce sont les petits au bout par le(s) joueur(s) */
@@ -161,8 +161,8 @@ public final class EndTarotGame {
     private boolean slamDefense;
 
     public EndTarotGame(GameTarotTeamsRelation _relations, CustList<TrickTarot> _tricks,
-                        CustList<EnumList<Handfuls>> _declaresHandfuls,
-                        CustList<EnumList<Miseres>> _declaresMiseres,
+                        CustList<IdList<Handfuls>> _declaresHandfuls,
+                        CustList<IdList<Miseres>> _declaresMiseres,
                         CustList<BoolVal> _declaresSlam, CustList<BoolVal> _smallBound) {
         relations = _relations;
         tricks = _tricks;
@@ -509,7 +509,7 @@ public final class EndTarotGame {
         feedMiseres(_miseres, _player, _rate, declaresMiseres);
     }
 
-    static void feedMiseres(SortedMiseres _miseres, int _player, int _rate, CustList<EnumList<Miseres>> _declaresMiseres) {
+    static void feedMiseres(SortedMiseres _miseres, int _player, int _rate, CustList<IdList<Miseres>> _declaresMiseres) {
         for (Miseres m : _declaresMiseres.get(_player)) {
             _miseres.put(m,
                     (short) (_rate*m.getPoints()));
@@ -523,7 +523,7 @@ public final class EndTarotGame {
 
     }
 
-    static CustList<SortedHandfuls> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring, byte _nombreDeJoueurs, CustList<EnumList<Handfuls>> _declaresHandfuls) {
+    static CustList<SortedHandfuls> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring, byte _nombreDeJoueurs, CustList<IdList<Handfuls>> _declaresHandfuls) {
         CustList<SortedHandfuls> scores1_ = new CustList<SortedHandfuls>();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreDeJoueurs; joueur_++) {
             scores1_.add(new SortedHandfuls());
@@ -1616,7 +1616,7 @@ public final class EndTarotGame {
         return calculHandfulsScorePlayer(_player, relations, declaresHandfuls);
     }
 
-    static CustList<IdMap<Handfuls, Short>> calculHandfulsScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Handfuls>> _declaresHandfuls) {
+    static CustList<IdMap<Handfuls, Short>> calculHandfulsScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<IdList<Handfuls>> _declaresHandfuls) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
         CustList<IdMap<Handfuls,Short>> scores1_ = new CustList<IdMap<Handfuls,Short>>();
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
@@ -1636,7 +1636,7 @@ public final class EndTarotGame {
         return calculMiseresScorePlayer(_player, relations, declaresMiseres);
     }
 
-    static CustList<IdMap<Miseres, Short>> calculMiseresScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Miseres>> _declaresMiseres) {
+    static CustList<IdMap<Miseres, Short>> calculMiseresScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<IdList<Miseres>> _declaresMiseres) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
         CustList<IdMap<Miseres,Short>> scores1_ = new CustList<IdMap<Miseres,Short>>();
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
@@ -1739,8 +1739,8 @@ public final class EndTarotGame {
 
     static Shorts calculerScoresJoueurs(Shorts _coefficients, Shorts _primeSupplementaire,
                                         int _sumLoc, GameTarotTeamsRelation _relations,
-                                        CustList<EnumList<Handfuls>> _declaresHandfuls,
-                                        CustList<EnumList<Miseres>> _declaresMiseres,
+                                        CustList<IdList<Handfuls>> _declaresHandfuls,
+                                        CustList<IdList<Miseres>> _declaresMiseres,
                                         CustList<BoolVal> _smallBound) {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         Shorts scores_ = new Shorts();
@@ -1772,7 +1772,7 @@ public final class EndTarotGame {
         return scores_;
     }
 
-    private static short pointsAnnoncesJoueur(GameTarotTeamsRelation _relations, CustList<EnumList<Handfuls>> _declaresHandfuls, CustList<EnumList<Miseres>> _declaresMiseres, CustList<BoolVal> _smallBound, byte _joueur) {
+    private static short pointsAnnoncesJoueur(GameTarotTeamsRelation _relations, CustList<IdList<Handfuls>> _declaresHandfuls, CustList<IdList<Miseres>> _declaresMiseres, CustList<BoolVal> _smallBound, byte _joueur) {
         short pointsAnnoncesJoueur_ = 0;
         for (IdMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(_joueur, _relations, _declaresHandfuls)) {
             CustList<Short> values_ = annoncesJoueur_.values();

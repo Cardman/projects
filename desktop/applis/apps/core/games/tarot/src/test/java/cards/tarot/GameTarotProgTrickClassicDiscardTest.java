@@ -4,7 +4,7 @@ import cards.consts.PossibleTrickWinner;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import org.junit.Test;
 
 public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot {
@@ -32,7 +32,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -90,7 +90,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -148,7 +148,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -204,7 +204,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.DIAMOND_JACK);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -260,7 +260,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -317,7 +317,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -374,7 +374,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.DIAMOND_10);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -429,7 +429,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.SPADE_7);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -487,7 +487,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.SPADE_7);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -545,7 +545,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.SPADE_4);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -601,7 +601,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.SPADE_4);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -657,7 +657,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.SPADE_7);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -714,7 +714,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.SPADE_7);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -771,7 +771,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         curHand_.ajouter(CardTarot.SPADE_4);
         curHand_.ajouter(CardTarot.SPADE_6);
         byte d_ = 2;
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);

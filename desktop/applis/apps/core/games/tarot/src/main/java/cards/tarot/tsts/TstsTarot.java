@@ -8,7 +8,7 @@ import cards.tarot.TarotInfoPliEnCours;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.Ints;
 import code.util.comparators.ComparatorBoolean;
@@ -38,8 +38,8 @@ public final class TstsTarot {
         return confidence_;
     }
 
-    public static EnumList<BidTarot> bids(RulesTarot _r, BidTarot _b) {
-        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+    public static IdList<BidTarot> bids(RulesTarot _r, BidTarot _b) {
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(_b);
         int nb_ = _r.getDealing().getId().getNombreJoueurs();
         for (int i = 1; i < nb_; i++) {
@@ -50,7 +50,7 @@ public final class TstsTarot {
 
     public static IdMap<Suit,CustList<HandTarot>> generateMult(int _nbPlayer) {
         IdMap<Suit,CustList<HandTarot>> e_ = new IdMap<Suit,CustList<HandTarot>>();
-        EnumList<Suit> s_ = new EnumList<Suit>();
+        IdList<Suit> s_ = new IdList<Suit>();
         s_.add(Suit.UNDEFINED);
         s_.add(Suit.TRUMP);
         s_.addAllElts(Suit.couleursOrdinaires());

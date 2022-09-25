@@ -10,7 +10,7 @@ import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 
 
 public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
@@ -82,7 +82,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         return regles_;
     }
 
-    static RulesBelote initializeRulesWithBids(EnumList<BidBelote> _bids) {
+    static RulesBelote initializeRulesWithBids(IdList<BidBelote> _bids) {
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.allowBids(_bids);
@@ -420,7 +420,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitialize2Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         CustList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
@@ -437,7 +437,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitialize3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         CustList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
@@ -454,7 +454,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitialize4(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP, BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP, BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         CustList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
@@ -474,7 +474,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid2Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -505,7 +505,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -536,7 +536,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitializeWithoutTakingBid4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -568,7 +568,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitializeByTakingBid2Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -603,7 +603,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitializeByTakingBid3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -638,7 +638,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitializeByTakingBid4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -675,7 +675,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitialize2Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
@@ -699,7 +699,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitialize3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
@@ -723,7 +723,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitialize4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
@@ -748,7 +748,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid2Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -797,7 +797,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -847,7 +847,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
 
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -897,7 +897,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeByTakingBid2Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -958,7 +958,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeByTakingBid3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1019,7 +1019,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeByTakingBid4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1082,7 +1082,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializePassing2Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1128,7 +1128,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializePassing3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1174,7 +1174,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializePassing4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
@@ -1221,7 +1221,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
 
     @Test
     public void maximumBid_AtFirstRound2(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
@@ -1234,7 +1234,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
 
     @Test
     public void maximumBid_AtFirstRound3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
@@ -1244,7 +1244,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void maximumBid_AtFirstRound4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
@@ -1254,7 +1254,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void maximumBid_AtSecondRound2(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
@@ -1265,7 +1265,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void maximumBid_AtSecondRound3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
@@ -1276,7 +1276,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
     }
     @Test
     public void maximumBid_AtSecondRound4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();

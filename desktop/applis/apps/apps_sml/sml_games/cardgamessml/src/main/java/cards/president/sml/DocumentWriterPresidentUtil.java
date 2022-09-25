@@ -18,7 +18,7 @@ import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 public final class DocumentWriterPresidentUtil {
 
@@ -243,7 +243,7 @@ public final class DocumentWriterPresidentUtil {
         return elt_;
     }
 
-    private static Element setListCardPresident(EnumList<CardPresident> _object, String _fieldName, Document _document) {
+    private static Element setListCardPresident(IdList<CardPresident> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CardPresident s: _object) {

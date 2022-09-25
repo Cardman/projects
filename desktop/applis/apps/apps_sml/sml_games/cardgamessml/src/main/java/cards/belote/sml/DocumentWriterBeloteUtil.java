@@ -296,7 +296,7 @@ public final class DocumentWriterBeloteUtil {
         return elt_;
     }
 
-    private static Element setListCardBelote(EnumList<CardBelote> _object, String _fieldName, Document _document) {
+    private static Element setListCardBelote(IdList<CardBelote> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CardBelote s: _object) {
