@@ -4523,7 +4523,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
         g_.ajouterPliEnCours();
         g_.ajouterPetitAuBout();
-        assertTrue(g_.getSmallBound().get(0) != BoolVal.TRUE);
+        assertSame(BoolVal.FALSE,g_.getSmallBound().get(0));
     }
     @Test
     public void ajouterPetitAuBout4Test() {
@@ -4692,7 +4692,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
         g_.ajouterPliEnCours();
         g_.ajouterPetitAuBout();
-        assertTrue(g_.getSmallBound().get(0) != BoolVal.TRUE);
+        assertSame(BoolVal.FALSE,g_.getSmallBound().get(0));
     }
     @Test
     public void initPartie1Test() {

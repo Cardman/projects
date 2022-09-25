@@ -34,6 +34,9 @@ public abstract class EquallableTarotUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
+    public static void assertSame(BoolVal _expected, BoolVal _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(EndGameState _expected, EndGameState _result) {
         Assert.assertSame(_expected, _result);
     }

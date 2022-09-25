@@ -20,6 +20,7 @@ public final class LgInt implements Displayable {
     static final int BASE_NUMER = 10;
 
     static final boolean SIGNE_POSITIF = false;
+    static final boolean SIGNE_NEGATIF = true;
 
     /** BASE vaut 10<sup>9</sup> */
     private static final long BASE = 1000000000L;

@@ -370,7 +370,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         pr_.getFrames();
         pr_.getValidator();
         pr_.getTmpUserFolder();
-        assertFalse(sound_.supported(0,0,0,!coch_.isSelected(),false));
+        assertTrue(sound_.supported(0,0,0,coch_.isSelected(),false));
         assertTrue(sound_.supported(0,0,0,coch_.isSelected(),false));
         sound_.update();
         sound_.appendHeader();

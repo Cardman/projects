@@ -3,6 +3,7 @@ package code.maths;
 import code.maths.montecarlo.EventFreq;
 import code.util.*;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 
@@ -42,7 +43,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt(-1L);
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(1L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_long_4Test(){
@@ -56,7 +57,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt(-1234567890L);
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(1L,234567890L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_long_6Test(){
@@ -70,7 +71,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt(Long.MIN_VALUE);
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(9L,223372036L,854775808L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_String_1Test(){
@@ -91,7 +92,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt("-1");
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(1L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_String_4Test(){
@@ -105,7 +106,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt("-1234567890");
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(1L,234567890L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_String_6Test(){
@@ -119,7 +120,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt("-1000000000");
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(1L,0L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_String_8Test(){
@@ -133,7 +134,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt("-12345678901234567890");
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(12L,345678901L,234567890L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_String_10Test(){
@@ -147,7 +148,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt("-12000000000234567890");
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(12L,0L,234567890L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_String_12Test(){
@@ -161,7 +162,7 @@ public class LgIntTest extends EquallableMathUtil {
         LgInt int_ = new LgInt("-12000000001234567890");
         Longs resDigits_ = int_.getGrDigits();
         assertEqDigits(Longs.newList(12L,1L,234567890L), resDigits_);
-        assertEq(!LgInt.SIGNE_POSITIF, int_.isSignum());
+        assertEq(LgInt.SIGNE_NEGATIF, int_.isSignum());
     }
     @Test
     public void new_LgInt_String_14Test(){
@@ -2343,7 +2344,7 @@ public class LgIntTest extends EquallableMathUtil {
         assertEq(new LgInt(1), freq(combinatoire_,0));
         CustList<LgInt> other_ = new CustList<LgInt>();
         other_.add(LgInt.one());
-        assertTrue(new ComparatorEvents().compare(new CustList<LgInt>(),other_) != 0);
+        assertEq(1,Math.abs(NumberUtil.signum(new ComparatorEvents().compare(new CustList<LgInt>(),other_))));
     }
     @Test
     public void multiplyDouble1Test(){
