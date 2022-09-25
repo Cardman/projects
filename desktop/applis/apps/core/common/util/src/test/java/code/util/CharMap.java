@@ -1,4 +1,5 @@
 package code.util;
+import code.util.core.NumberUtil;
 import code.util.ints.ListableEntries;
 
 
@@ -24,6 +25,6 @@ public final class CharMap<V> extends AbsBasicMap<Character,V> {
 
     @Override
     protected boolean matchKeys(Character _one, Character _two) {
-        return _one.charValue() == _two.charValue();
+        return NumberUtil.eq(_one, _two);
     }
 }
