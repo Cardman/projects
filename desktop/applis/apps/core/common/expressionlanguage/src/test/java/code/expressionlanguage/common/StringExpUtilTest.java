@@ -8,6 +8,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public final class StringExpUtilTest extends ProcessMethodCommon {
@@ -493,22 +494,22 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
 
     @Test
     public void compareToIgnoreCase1() {
-        assertTrue(NumParsers.compareToIgnoreCase(""+(char)305,"i")==0);
+        assertEq(0, NumParsers.compareToIgnoreCase(""+(char)305,"i"));
     }
 
     @Test
     public void compareToIgnoreCase2() {
-        assertTrue(NumParsers.compareToIgnoreCase(""+(char)304,"i")==0);
+        assertEq(0,NumParsers.compareToIgnoreCase(""+(char)304,"i"));
     }
 
     @Test
     public void compareToIgnoreCase3() {
-        assertTrue(NumParsers.compareToIgnoreCase("I","i")==0);
+        assertEq(0,NumParsers.compareToIgnoreCase("I","i"));
     }
 
     @Test
     public void compareToIgnoreCase4() {
-        assertTrue(NumParsers.compareToIgnoreCase("a","i")<0);
+        assertEq(-1, NumberUtil.signum(NumParsers.compareToIgnoreCase("a","i")));
     }
 
 
