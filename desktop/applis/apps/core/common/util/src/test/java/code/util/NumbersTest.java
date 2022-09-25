@@ -668,6 +668,10 @@ public class NumbersTest extends EquallableExUtil {
         assertTrue(!NumberUtil.isNumber(""));
     }
     @Test
+    public void isNumber7() {
+        assertTrue(!NumberUtil.isNumber("+"));
+    }
+    @Test
     public void getAllIndexes1(){
         Ints nbs_ = new Ints();
         assertEq(0,nbs_.getAllIndexes().size());
