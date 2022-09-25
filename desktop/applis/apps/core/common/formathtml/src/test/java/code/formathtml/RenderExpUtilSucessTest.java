@@ -35,6 +35,7 @@ import code.formathtml.fwd.RendForwardInfos;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
@@ -5777,7 +5778,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         AnalyzingDoc an_ = new AnalyzingDoc();
         setupAnalyzing(context_, localVariables_, an_);
         Delimiters d_ = checkSyntax(context_, _s);
-        assertTrue(d_.getBadOffset() < 0);
+        assertEq(-1, NumberUtil.signum(d_.getBadOffset()));
         OperationsSequence opTwo_ = getOperationsSequence(0, _s, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
@@ -5851,7 +5852,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         setupAnalyzing(context_);
         ResultExpression res_ = new ResultExpression();
         Delimiters d1_ = checkDel(_s, 2, context_, res_);
-        assertTrue(d1_.getBadOffset() < 0);
+        assertEq(-1, NumberUtil.signum(d1_.getBadOffset()));
         int end1_ = d1_.getIndexEnd();
         analyzingDoc_.setNextIndex(end1_ +2);
         String el1_ = _s.substring(2, end1_ +1);
@@ -5863,7 +5864,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         before(analyzingDoc_, context_);
         setupAnalyzing(context_);
         Delimiters d_ = checkDel(_s, _i, context_, res_);
-        assertTrue(d_.getBadOffset() < 0);
+        assertEq(-1, NumberUtil.signum(d_.getBadOffset()));
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = _s.substring(_i,end_+1);
@@ -5958,7 +5959,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         setupAnalyzing(context_);
         ResultExpression res_ = new ResultExpression();
         Delimiters d_ = checkDel(_s, 2, context_, res_);
-        assertTrue(d_.getBadOffset() < 0);
+        assertEq(-1, NumberUtil.signum(d_.getBadOffset()));
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = _s.substring(2,end_+1);
