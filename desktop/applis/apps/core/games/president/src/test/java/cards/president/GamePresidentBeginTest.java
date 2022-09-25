@@ -174,7 +174,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(4,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_6,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.DIAMOND_6, g_).total());
     }
     @Test
     public void beginTrick2Test() {
@@ -248,7 +248,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(4,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_5,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.DIAMOND_5, g_).total());
     }
     @Test
     public void beginTrick3Test() {
@@ -322,7 +322,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(2,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_10,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.SPADE_10, g_).total());
     }
     @Test
     public void beginTrick4Test() {
@@ -424,7 +424,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(1,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_JACK,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.SPADE_JACK, g_).total());
     }
     @Test
     public void beginTrick5Test() {
@@ -526,7 +526,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(4,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_2,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.SPADE_2, g_).total());
     }
     @Test
     public void beginTrick6Test() {
@@ -622,7 +622,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(4,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_1,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.SPADE_1, g_).total());
     }
     @Test
     public void beginTrick7Test() {
@@ -719,7 +719,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(1,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_JACK,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.DIAMOND_JACK, g_).total());
     }
     @Test
     public void beginTrick8Test() {
@@ -823,7 +823,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(3,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_1,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.DIAMOND_1, g_).total());
     }
     @Test
     public void beginTrick9Test() {
@@ -927,6 +927,10 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         GamePresidentBegin gt_ = newGamePresidentBegin(g_);
         HandPresident out_ = gt_.beginTrick();
         assertEq(4,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_1,g_.isReversed()));
+        assertEq(out_.total(), filter(out_, CardPresident.DIAMOND_1, g_).total());
+    }
+
+    private HandPresident filter(HandPresident _out, CardPresident _card, GamePresident _g) {
+        return _out.getCardsByStrength(_card.strength(_g.isReversed()), _g.isReversed());
     }
 }

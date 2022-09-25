@@ -34,7 +34,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
         HandPresident out_ = GamePresidentProg.getDefaultCards(playable_,pr_,false);
         assertEq(3, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_1,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.DIAMOND_1.strength(false), false).total());
     }
     @Test
     public void getDefaultCards2Test() {
@@ -61,7 +61,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
         HandPresident out_ = GamePresidentProg.getDefaultCards(playable_,pr_,false);
         assertEq(3, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_7,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.SPADE_7.strength(false), false).total());
     }
     @Test
     public void getNotEmptyWorstTest() {
@@ -88,7 +88,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
         CustList<HandPresident> out_ = GamePresidentProg.getNotEmptyWorst(playable_,pr_,false,GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH);
         assertEq(1, out_.size());
-        assertTrue(checkStrength(out_.first(),CardPresident.CLUB_5,false));
+        assertEq(3, out_.first().total());
+        assertEq(out_.first().total(), out_.first().getCardsByStrength(CardPresident.CLUB_5.strength(false), false).total());
     }
     @Test
     public void getHandPresidentsTest() {
@@ -115,7 +116,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
         CustList<HandPresident> out_ = GamePresidentProg.getHandPresidents(playable_,pr_,false);
         assertEq(1, out_.size());
-        assertTrue(checkStrength(out_.first(),CardPresident.CLUB_5,false));
+        assertEq(3, out_.first().total());
+        assertEq(out_.first().total(), out_.first().getCardsByStrength(CardPresident.CLUB_5.strength(false), false).total());
     }
     @Test
     public void tryPlayWhenAllPossible1Test() {
@@ -137,7 +139,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(2, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.CLUB_2,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.CLUB_2.strength(false), false).total());
     }
     @Test
     public void tryPlayWhenAllPossible2Test() {
@@ -156,7 +158,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(2, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.CLUB_JACK,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.CLUB_JACK.strength(false), false).total());
     }
     @Test
     public void tryPlayWhenAllPossible3Test() {
@@ -178,7 +180,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         possibleRep_.put(CardPresident.DIAMOND_2, (byte) 3);
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(2, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.CLUB_1,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.CLUB_1.strength(false), false).total());
     }
     @Test
     public void tryPlayWhenAllPossible4Test() {
@@ -263,7 +265,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         cur_.ajouter(CardPresident.HEART_4);
         HandPresident res_ = GamePresidentProg.lastGroup(cur_.getCardsByStrength(false), 1);
         assertEq(1, res_.total());
-        assertTrue(checkStrength(res_,CardPresident.SPADE_5,false));
+        assertEq(res_.total(), res_.getCardsByStrength(CardPresident.SPADE_5.strength(false), false).total());
     }
     @Test
     public void lastGroup2() {
@@ -308,7 +310,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         cur_.ajouter(CardPresident.HEART_4);
         HandPresident res_ = GamePresidentProg.lastGroup(cur_.getCardsByStrength(false), 3);
         assertEq(3, res_.total());
-        assertTrue(checkStrength(res_,CardPresident.DIAMOND_7,false));
+        assertEq(res_.total(), res_.getCardsByStrength(CardPresident.DIAMOND_7.strength(false), false).total());
     }
     @Test
     public void progressTrick1Test() {
@@ -462,7 +464,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         GamePresidentProg gt_ = newGamePresidentProg(g_);
         HandPresident out_ = gt_.progressTrick();
         assertEq(2,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_10,g_.isReversed()));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.DIAMOND_10.strength(g_.isReversed()), g_.isReversed()).total());
     }
     @Test
     public void progressTrick3Test() {
@@ -539,7 +541,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         GamePresidentProg gt_ = newGamePresidentProg(g_);
         HandPresident out_ = gt_.progressTrick();
         assertEq(2,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_9,g_.isReversed()));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.DIAMOND_9.strength(g_.isReversed()), g_.isReversed()).total());
     }
     @Test
     public void progressTrick4Test() {
@@ -616,7 +618,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         GamePresidentProg gt_ = newGamePresidentProg(g_);
         HandPresident out_ = gt_.progressTrick();
         assertEq(2,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.HEART_7,g_.isReversed()));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.HEART_7.strength(g_.isReversed()), g_.isReversed()).total());
     }
     @Test
     public void progressTrick5Test() {
@@ -694,7 +696,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         GamePresidentProg gt_ = newGamePresidentProg(g_);
         HandPresident out_ = gt_.progressTrick();
         assertEq(2,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.HEART_JACK,g_.isReversed()));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.HEART_JACK.strength(g_.isReversed()), g_.isReversed()).total());
     }
     @Test
     public void progressTrick6Test() {
@@ -723,7 +725,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresidentRepartition possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,nbMaxLen_);
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(4,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_2,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.SPADE_2.strength(false), false).total());
     }
     @Test
     public void progressTrick7Test() {
@@ -749,7 +751,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         possibleRep_.put(CardPresident.DIAMOND_2, (byte) 3);
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(3,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_1,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.SPADE_1.strength(false), false).total());
     }
     @Test
     public void progressTrick8Test() {
@@ -780,7 +782,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(2,out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_10,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.SPADE_10.strength(false), false).total());
     }
     @Test
     public void progressTrick9Test() {
@@ -802,7 +804,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(2, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.CLUB_2,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.CLUB_2.strength(false), false).total());
     }
     @Test
     public void progressTrick10Test() {
@@ -826,7 +828,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(2, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.SPADE_JACK,false));
+        assertEq(out_.total(), out_.getCardsByStrength(CardPresident.SPADE_JACK.strength(false), false).total());
     }
     @Test
     public void progressTrick11Test() {

@@ -1,7 +1,6 @@
 package cards.president;
 
 import cards.consts.GameType;
-import cards.president.enumerations.CardPresident;
 import code.util.*;
 
 public abstract class CommonGamePresident extends EquallablePresidentUtil {
@@ -16,9 +15,7 @@ public abstract class CommonGamePresident extends EquallablePresidentUtil {
         HandPresident playable_ = _g.cartesJouables(player_);
         return new GamePresidentProg(_g.getProgressingTrick(),_g.getTricks(),_g.isReversed(),_g.getRules(),playable_,fullHand_);
     }
-    protected static boolean checkStrength(HandPresident _h, CardPresident _pres, boolean _reversed) {
-        return  _h.getCardsByStrength(_pres.strength(_reversed),_reversed).total() == _h.total();
-    }
+
     protected static GamePresident newGamePresident(RulesPresident _r,
             CustList<HandPresident> _l, CustList<TrickPresident> _trs, TrickPresident _cur, int _dealer) {
         DealPresident deal_ = new DealPresident(_l, (byte) _dealer);
