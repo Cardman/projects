@@ -239,69 +239,69 @@ public class AbEqListTest extends EquallableExUtil {
         f_.add("1");
         assertTrue(!e_.eq(f_));
     }
-    @Test
-    public void indexBool1Test() {
-        BooleanList e_ = new BooleanList(new BooleanList());
-        e_.add(true);
-        e_.add(false);
-        e_.add(false);
-        e_.add(true);
-        Ints indexes_ = e_.indexesOfBool(true);
-        assertEq(2, indexes_.size());
-        assertEq(0, indexes_.get(0));
-        assertEq(3, indexes_.get(1));
-        assertTrue(e_.containsObj(true));
-    }
-    @Test
-    public void indexBool2Test() {
-        BooleanList e_ = new BooleanList(new BooleanList());
-        e_.add(false);
-        e_.add(false);
-        Ints indexes_ = e_.indexesOfBool(true);
-        assertEq(0, indexes_.size());
-        assertTrue(!e_.containsObj(true));
-    }
-    @Test
-    public void eqBool1Test() {
-        BooleanList e_ = new BooleanList(new CollCapacity(3));
-        e_.add(true);
-        e_.add(false);
-        e_.add(false);
-        e_.add(true);
-        BooleanList f_ = new BooleanList();
-        f_.add(true);
-        f_.add(false);
-        f_.add(false);
-        f_.add(true);
-        assertTrue(e_.eq(f_));
-    }
-    @Test
-    public void eqBool2Test() {
-        BooleanList e_ = new BooleanList(new CollCapacity(3));
-        e_.add(true);
-        e_.add(false);
-        e_.add(false);
-        BooleanList f_ = new BooleanList(new Boolean[0]);
-        f_.add(true);
-        f_.add(false);
-        f_.add(false);
-        f_.add(true);
-        assertTrue(!e_.eq(f_));
-    }
-    @Test
-    public void eqBool3Test() {
-        BooleanList e_ = new BooleanList();
-        e_.add(true);
-        e_.add(false);
-        e_.add(false);
-        e_.add(false);
-        BooleanList f_ = new BooleanList();
-        f_.add(true);
-        f_.add(false);
-        f_.add(false);
-        f_.add(true);
-        assertTrue(!e_.eq(f_));
-    }
+//    @Test
+//    public void indexBool1Test() {
+//        BooleanList e_ = new BooleanList(new BooleanList());
+//        e_.add(true);
+//        e_.add(false);
+//        e_.add(false);
+//        e_.add(true);
+//        Ints indexes_ = e_.indexesOfBool(true);
+//        assertEq(2, indexes_.size());
+//        assertEq(0, indexes_.get(0));
+//        assertEq(3, indexes_.get(1));
+//        assertTrue(e_.containsObj(true));
+//    }
+//    @Test
+//    public void indexBool2Test() {
+//        BooleanList e_ = new BooleanList(new BooleanList());
+//        e_.add(false);
+//        e_.add(false);
+//        Ints indexes_ = e_.indexesOfBool(true);
+//        assertEq(0, indexes_.size());
+//        assertTrue(!e_.containsObj(true));
+//    }
+//    @Test
+//    public void eqBool1Test() {
+//        BooleanList e_ = new BooleanList(new CollCapacity(3));
+//        e_.add(true);
+//        e_.add(false);
+//        e_.add(false);
+//        e_.add(true);
+//        BooleanList f_ = new BooleanList();
+//        f_.add(true);
+//        f_.add(false);
+//        f_.add(false);
+//        f_.add(true);
+//        assertTrue(e_.eq(f_));
+//    }
+//    @Test
+//    public void eqBool2Test() {
+//        BooleanList e_ = new BooleanList(new CollCapacity(3));
+//        e_.add(true);
+//        e_.add(false);
+//        e_.add(false);
+//        BooleanList f_ = new BooleanList(new Boolean[0]);
+//        f_.add(true);
+//        f_.add(false);
+//        f_.add(false);
+//        f_.add(true);
+//        assertTrue(!e_.eq(f_));
+//    }
+//    @Test
+//    public void eqBool3Test() {
+//        BooleanList e_ = new BooleanList();
+//        e_.add(true);
+//        e_.add(false);
+//        e_.add(false);
+//        e_.add(false);
+//        BooleanList f_ = new BooleanList();
+//        f_.add(true);
+//        f_.add(false);
+//        f_.add(false);
+//        f_.add(true);
+//        assertTrue(!e_.eq(f_));
+//    }
     @Test
     public void remove1Test() {
         StringList e_ = new StringList();

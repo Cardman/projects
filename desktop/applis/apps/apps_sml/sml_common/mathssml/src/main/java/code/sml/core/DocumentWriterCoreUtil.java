@@ -2,7 +2,6 @@ package code.sml.core;
 
 import code.sml.Document;
 import code.sml.Element;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;

@@ -219,69 +219,69 @@ public class MapTest extends EquallableExUtil {
         assertEq(2, map_.getVal(MyEnum.TWO));
     }
 
-    @Test
-    public void putAllMap9Test() {
-        CharMap<Integer> map_ = new CharMap<Integer>(new CharMap<Integer>(new CollCapacity(0)));
-        map_.put((char)0, 0);
-        map_.put((char)1, 1);
-        CharMap<Integer> mapToPut_ = new CharMap<Integer>();
-        mapToPut_.put((char)2, 2);
-        mapToPut_.put((char)3, 3);
-        map_.putAllMap(mapToPut_);
-        assertEq(4, map_.size());
-        assertTrue(map_.contains((char)0));
-        assertTrue(map_.contains((char)1));
-        assertTrue(map_.contains((char)2));
-        assertTrue(map_.contains((char)3));
-        assertEq(0, map_.getVal((char)0));
-        assertEq(1, map_.getVal((char)1));
-        assertEq(2, map_.getVal((char)2));
-        assertEq(3, map_.getVal((char)3));
-    }
+//    @Test
+//    public void putAllMap9Test() {
+//        CharMap<Integer> map_ = new CharMap<Integer>(new CharMap<Integer>(new CollCapacity(0)));
+//        map_.put((char)0, 0);
+//        map_.put((char)1, 1);
+//        CharMap<Integer> mapToPut_ = new CharMap<Integer>();
+//        mapToPut_.put((char)2, 2);
+//        mapToPut_.put((char)3, 3);
+//        map_.putAllMap(mapToPut_);
+//        assertEq(4, map_.size());
+//        assertTrue(map_.contains((char)0));
+//        assertTrue(map_.contains((char)1));
+//        assertTrue(map_.contains((char)2));
+//        assertTrue(map_.contains((char)3));
+//        assertEq(0, map_.getVal((char)0));
+//        assertEq(1, map_.getVal((char)1));
+//        assertEq(2, map_.getVal((char)2));
+//        assertEq(3, map_.getVal((char)3));
+//    }
+//
+//    @Test
+//    public void putAllMap10Test() {
+//        CharMap<Integer> map_ = new CharMap<Integer>();
+//        map_.put((char)0, 0);
+//        map_.put((char)1, 1);
+//        CharMap<Integer> mapToPut_ = new CharMap<Integer>();
+//        mapToPut_.put((char)2, 2);
+//        mapToPut_.put((char)1, 3);
+//        map_.putAllMap(mapToPut_);
+//        assertEq(3, map_.size());
+//        assertTrue(map_.contains((char)0));
+//        assertTrue(map_.contains((char)1));
+//        assertTrue(map_.contains((char)2));
+//        assertEq(0, map_.getVal((char)0));
+//        assertEq(3, map_.getVal((char)1));
+//        assertEq(2, map_.getVal((char)2));
+//    }
 
-    @Test
-    public void putAllMap10Test() {
-        CharMap<Integer> map_ = new CharMap<Integer>();
-        map_.put((char)0, 0);
-        map_.put((char)1, 1);
-        CharMap<Integer> mapToPut_ = new CharMap<Integer>();
-        mapToPut_.put((char)2, 2);
-        mapToPut_.put((char)1, 3);
-        map_.putAllMap(mapToPut_);
-        assertEq(3, map_.size());
-        assertTrue(map_.contains((char)0));
-        assertTrue(map_.contains((char)1));
-        assertTrue(map_.contains((char)2));
-        assertEq(0, map_.getVal((char)0));
-        assertEq(3, map_.getVal((char)1));
-        assertEq(2, map_.getVal((char)2));
-    }
-
-    @Test
-    public void putAllMap11Test() {
-        BooleanMap<Integer> map_ = new BooleanMap<Integer>(new CollCapacity(0));
-        map_.put(false, 0);
-        BooleanMap<Integer> mapToPut_ = new BooleanMap<Integer>();
-        mapToPut_.put(true, 2);
-        map_.putAllMap(mapToPut_);
-        assertEq(2, map_.size());
-        assertTrue(map_.contains(false));
-        assertTrue(map_.contains(true));
-        assertEq(0, map_.getVal(false));
-        assertEq(2, map_.getVal(true));
-    }
-
-    @Test
-    public void putAllMap12Test() {
-        BooleanMap<Integer> map_ = new BooleanMap<Integer>();
-        map_.put(false, 0);
-        BooleanMap<Integer> mapToPut_ = new BooleanMap<Integer>();
-        mapToPut_.put(false, 2);
-        map_.putAllMap(mapToPut_);
-        assertEq(1, map_.size());
-        assertTrue(map_.contains(false));
-        assertEq(2, map_.getVal(false));
-    }
+//    @Test
+//    public void putAllMap11Test() {
+//        BooleanMap<Integer> map_ = new BooleanMap<Integer>(new CollCapacity(0));
+//        map_.put(false, 0);
+//        BooleanMap<Integer> mapToPut_ = new BooleanMap<Integer>();
+//        mapToPut_.put(true, 2);
+//        map_.putAllMap(mapToPut_);
+//        assertEq(2, map_.size());
+//        assertTrue(map_.contains(false));
+//        assertTrue(map_.contains(true));
+//        assertEq(0, map_.getVal(false));
+//        assertEq(2, map_.getVal(true));
+//    }
+//
+//    @Test
+//    public void putAllMap12Test() {
+//        BooleanMap<Integer> map_ = new BooleanMap<Integer>();
+//        map_.put(false, 0);
+//        BooleanMap<Integer> mapToPut_ = new BooleanMap<Integer>();
+//        mapToPut_.put(false, 2);
+//        map_.putAllMap(mapToPut_);
+//        assertEq(1, map_.size());
+//        assertTrue(map_.contains(false));
+//        assertEq(2, map_.getVal(false));
+//    }
 
     @Test
     public void putAllEntries1Test() {
@@ -486,26 +486,26 @@ public class MapTest extends EquallableExUtil {
         elts_ = mapEmpty_.getKeys();
         assertEq(0,elts_.size());
     }
-    @Test
-    public void getKeysBoolTest() {
-        BooleanMap<Integer> map_ = new BooleanMap<Integer>();
-        map_.put(true, 0);
-        map_.put(false, 1);
-        CustList<Boolean> elts_ = map_.getKeys();
-        assertEq(2,elts_.size());
-        assertEq(true,elts_.first());
-        assertEq(false,elts_.last());
-    }
-    @Test
-    public void getKeysCharTest() {
-        CharMap<Integer> map_ = new CharMap<Integer>();
-        map_.put((char)0, 0);
-        map_.put((char)1, 1);
-        CustList<Character> elts_ = map_.getKeys();
-        assertEq(2,elts_.size());
-        assertEq(0,elts_.first());
-        assertEq(1,elts_.last());
-    }
+//    @Test
+//    public void getKeysBoolTest() {
+//        BooleanMap<Integer> map_ = new BooleanMap<Integer>();
+//        map_.put(true, 0);
+//        map_.put(false, 1);
+//        CustList<Boolean> elts_ = map_.getKeys();
+//        assertEq(2,elts_.size());
+//        assertEq(true,elts_.first());
+//        assertEq(false,elts_.last());
+//    }
+//    @Test
+//    public void getKeysCharTest() {
+//        CharMap<Integer> map_ = new CharMap<Integer>();
+//        map_.put((char)0, 0);
+//        map_.put((char)1, 1);
+//        CustList<Character> elts_ = map_.getKeys();
+//        assertEq(2,elts_.size());
+//        assertEq(0,elts_.first());
+//        assertEq(1,elts_.last());
+//    }
     @Test
     public void getKeysEmTest() {
         IdMap<MyEnum,Integer> map_ = new IdMap<MyEnum,Integer>();

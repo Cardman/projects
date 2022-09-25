@@ -2,7 +2,6 @@ package cards.tarot;
 
 import cards.consts.GameType;
 import cards.tarot.enumerations.CardTarot;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.core.BoolVal;

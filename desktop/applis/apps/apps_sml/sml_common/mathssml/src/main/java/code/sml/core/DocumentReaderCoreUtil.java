@@ -2,7 +2,6 @@ package code.sml.core;
 
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.BooleanList;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.*;

@@ -9,8 +9,6 @@ import code.maths.montecarlo.*;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.BooleanList;
-import code.util.BooleanMap;
 import code.util.CollCapacity;
 import code.util.*;
 import code.util.StringList;
