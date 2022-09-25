@@ -4,6 +4,7 @@ import code.maths.EquallableMathUtil;
 import code.maths.Rate;
 import code.maths.matrix.Polynom;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public class MaComparePolynomTest extends EquallableMathUtil {
@@ -11,25 +12,25 @@ public class MaComparePolynomTest extends EquallableMathUtil {
     public void compare1() {
         Polynom one_ = new Polynom(new CustList<Rate>(Rate.one(),Rate.one()));
         Polynom two_ = new Polynom(new CustList<Rate>(Rate.one()));
-        assertTrue(MaComparePolynom.compare(one_,two_)>0);
+        assertEq(1, NumberUtil.signum(MaComparePolynom.compare(one_,two_)));
     }
     @Test
     public void compare2() {
         Polynom one_ = new Polynom(new CustList<Rate>(Rate.one()));
         Polynom two_ = new Polynom(new CustList<Rate>(Rate.one(),Rate.one()));
-        assertTrue(MaComparePolynom.compare(one_,two_)<0);
+        assertEq(-1,NumberUtil.signum(MaComparePolynom.compare(one_,two_)));
     }
     @Test
     public void compare3() {
         Polynom one_ = new Polynom(new CustList<Rate>(new Rate(2)));
         Polynom two_ = new Polynom(new CustList<Rate>(Rate.one()));
-        assertTrue(MaComparePolynom.compare(one_,two_)>0);
+        assertEq(1,NumberUtil.signum(MaComparePolynom.compare(one_,two_)));
     }
     @Test
     public void compare4() {
         Polynom one_ = new Polynom(new CustList<Rate>(Rate.one()));
         Polynom two_ = new Polynom(new CustList<Rate>(new Rate(2)));
-        assertTrue(MaComparePolynom.compare(one_,two_)<0);
+        assertEq(-1,NumberUtil.signum(MaComparePolynom.compare(one_,two_)));
     }
     @Test
     public void compare5() {
