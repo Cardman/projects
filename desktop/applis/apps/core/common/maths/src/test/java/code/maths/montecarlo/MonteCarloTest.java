@@ -4,6 +4,7 @@ import code.maths.EquallableMathUtil;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 import code.maths.LgInt;
@@ -156,12 +157,12 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void randomLong() {
-        assertTrue(MonteCarloUtil.randomLong(2, new DefaultGenerator()) < 2);
+        assertEq(-1, NumberUtil.signum(MonteCarloUtil.randomLong(2, new DefaultGenerator()) - 2));
     }
 
     @Test
     public void randomLgInt() {
-        assertTrue(MonteCarloUtil.randomLgInt(new LgInt(2), new DefaultGenerator()).ll() < 2);
+        assertEq(-1, NumberUtil.signum(MonteCarloUtil.randomLgInt(new LgInt(2), new DefaultGenerator()).ll() - 2));
     }
     @Test
     public void editNumber1Test() {
