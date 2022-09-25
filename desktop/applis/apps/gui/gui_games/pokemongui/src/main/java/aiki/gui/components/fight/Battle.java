@@ -1230,7 +1230,7 @@ public class Battle extends ChildFrame {
         actionType.removeAll();
         actionType.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ACTION)));
         actionsLabels.clear();
-        EnumList<ActionType> actions_ = facade.getFight().getPossibleActionsCurFighter();
+        IdList<ActionType> actions_ = facade.getFight().getPossibleActionsCurFighter();
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
         String loadedResourcesMessages_ = MessPkGr.ms().getVal(fileName_);
         StringMap<String> map_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);

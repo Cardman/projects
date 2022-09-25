@@ -9,7 +9,7 @@ import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.AbsMap;
+import code.util.IdMap;
 
 
 public abstract class Status {
@@ -21,7 +21,7 @@ public abstract class Status {
     private boolean disabledEffIfSwitch;
     private int incrementEndRound;
     private boolean incrementingEndRound;
-    private AbsMap<Statistic, Rate> multStat;
+    private IdMap<Statistic, Rate> multStat;
     private String fail;
 
     public abstract void validate(DataBase _data);
@@ -120,11 +120,11 @@ public abstract class Status {
         incrementEndRound = _incrementEndRound;
     }
 
-    public AbsMap<Statistic, Rate> getMultStat() {
+    public IdMap<Statistic, Rate> getMultStat() {
         return multStat;
     }
 
-    public void setMultStat(AbsMap<Statistic, Rate> _multStat) {
+    public void setMultStat(IdMap<Statistic, Rate> _multStat) {
         multStat = _multStat;
     }
 

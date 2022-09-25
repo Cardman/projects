@@ -189,7 +189,7 @@ import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -4166,7 +4166,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setListStatistic(EnumList<Statistic> _object, String _fieldName, Document _document) {
+    private static Element setListStatistic(IdList<Statistic> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Statistic s: _object) {
@@ -4986,10 +4986,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setStringMapListStatistic(StringMap<EnumList<Statistic>> _object, String _fieldName, Document _document) {
+    private static Element setStringMapListStatistic(StringMap<IdList<Statistic>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<String, EnumList<Statistic>> s: _object.entryList()) {
+        for (EntryCust<String, IdList<Statistic>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4999,10 +4999,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setStringMapMapStatisticByte(StringMap<AbsMap<Statistic,Byte>> _object, String _fieldName, Document _document) {
+    private static Element setStringMapMapStatisticByte(StringMap<IdMap<Statistic,Byte>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<String, AbsMap<Statistic,Byte>> s: _object.entryList()) {
+        for (EntryCust<String, IdMap<Statistic,Byte>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

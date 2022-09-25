@@ -40,7 +40,7 @@ import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.NatStringTreeMap;
 import code.util.*;
 
@@ -2523,7 +2523,7 @@ public final class FightFacade {
 //        _fight.setChosenPlayerTarget(Fighter.BACK);
         _fight.setChosenIndexBack(Fighter.BACK);
         _fight.setChosenIndexFront(Fighter.BACK);
-        _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
+        _fight.setPossibleActionsCurFighter(new IdList<ActionType>());
         _fight.setSelectedActionCurFighter(ActionType.NOTHING);
         _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
         _fight.setChosenMoveFront(DataBase.EMPTY_STRING);

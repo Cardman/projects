@@ -10,7 +10,7 @@ import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.util.TeamPositionList;
 import code.maths.Rate;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
@@ -133,7 +133,7 @@ final class FightKo {
     static void addEvStatistics(Fight _fight,
             TeamPosition _fighter,
             Rate _rateEv,
-            AbsMap<Statistic,Short> _evs,
+            IdMap<Statistic,Short> _evs,
             DataBase _import) {
         Fighter membre_=_fight.getUserTeam().refPartMembres(_fighter.getPosition());
         for(Statistic c2_: _evs.getKeys()){

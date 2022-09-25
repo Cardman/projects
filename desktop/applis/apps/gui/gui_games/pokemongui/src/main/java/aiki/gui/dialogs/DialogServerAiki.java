@@ -10,8 +10,8 @@ import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.network.enums.IpType;
-import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -33,7 +33,7 @@ public final class DialogServerAiki implements AbstractDialogServer{
 
 //    private Map<String,String> messagesIp;
 
-    private EnumMap<IpType,String> messagesIpEnum;
+    private IdMap<IpType,String> messagesIpEnum;
 
     public DialogServerAiki(AbstractProgramInfos _frameFactory) {
         absDialog = _frameFactory.getFrameFactory().newDialog();
@@ -49,7 +49,7 @@ public final class DialogServerAiki implements AbstractDialogServer{
         create = false;
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _fenetre.getLanguageKey(), absDialog.getAccessFile());
 //        messagesIp = FormatHtml.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), IpType.class);
-        messagesIpEnum = new EnumMap<IpType,String>();
+        messagesIpEnum = new IdMap<IpType,String>();
 //        for (String i: messagesIp.getKeys()) {
 //            messagesIpEnum.put(IpType.valueOf(i), messagesIp.getVal(i));
 //        }
@@ -66,7 +66,7 @@ public final class DialogServerAiki implements AbstractDialogServer{
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
-        EnumList<IpType> list_ = new EnumList<IpType>(IpType.values());
+        IdList<IpType> list_ = new IdList<IpType>(IpType.values());
         ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
         ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);

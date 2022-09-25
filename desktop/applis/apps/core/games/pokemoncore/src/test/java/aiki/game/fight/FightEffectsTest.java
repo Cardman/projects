@@ -31,8 +31,8 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
-import code.util.EnumList;
-import code.util.AbsMap;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.*;
 
 import code.util.StringList;
@@ -231,9 +231,9 @@ public class FightEffectsTest extends InitializationDataBase {
     public void deltaBoostStatisticMap1Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
         varsBase_.put(Statistic.ATTACK, (byte) 2);
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(2, vars_.getVal(Statistic.ATTACK));
@@ -243,9 +243,9 @@ public class FightEffectsTest extends InitializationDataBase {
     public void deltaBoostStatisticMap2Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
         varsBase_.put(Statistic.ATTACK, (byte) -2);
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(-2, vars_.getVal(Statistic.ATTACK));
@@ -256,9 +256,9 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
         varsBase_.put(Statistic.ATTACK, (byte) -2);
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(-2, vars_.getVal(Statistic.ATTACK));
@@ -269,9 +269,9 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
         varsBase_.put(Statistic.ATTACK, (byte) 2);
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(2, vars_.getVal(Statistic.ATTACK));
@@ -282,9 +282,9 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
         varsBase_.put(Statistic.ATTACK, (byte) -1);
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(2, vars_.getVal(Statistic.ATTACK));
@@ -295,9 +295,9 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
         varsBase_.put(Statistic.SPECIAL_ATTACK, (byte) -1);
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(2, vars_.size());
         assertEq(0, vars_.getVal(Statistic.SPECIAL_ATTACK));
@@ -309,10 +309,10 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
         varsBase_.put(Statistic.DEFENSE, (byte) -2);
         varsBase_.put(Statistic.ATTACK, (byte) 1);
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(2, vars_.size());
         assertEq(0, vars_.getVal(Statistic.DEFENSE));
@@ -324,10 +324,10 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
         varsBase_.put(Statistic.DEFENSE, (byte) -2);
         varsBase_.put(Statistic.SPECIAL_ATTACK, (byte) 1);
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(3, vars_.size());
         assertEq(0, vars_.getVal(Statistic.DEFENSE));
@@ -340,8 +340,8 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        AbsMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        AbsMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
+        IdMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(0, vars_.size());
     }
@@ -3025,7 +3025,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(1, statistics_.size());
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, statistics_, data_);
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3058,7 +3058,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, statistics_, data_);
         fighter_ = fight_.getFighter(target_);
         assertTrue(!fighter_.isUsingItem());
@@ -3094,7 +3094,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(DEGOMMAGE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, stats_, data_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_DEFENSE));
@@ -3140,7 +3140,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(BOOST);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, stats_, data_);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(3, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
@@ -3188,7 +3188,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(BUEE_NOIRE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, stats_, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
@@ -3249,7 +3249,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(PERMUCOEUR);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, stats_, data_);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(3, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
@@ -3302,7 +3302,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(0, statistics_.size());
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, statistics_, data_);
         fighter_ = fight_.getFighter(target_);
@@ -3339,7 +3339,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(ACUPRESSION);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(move_.indexOfPrimaryEffect());
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(1, stats_.size());
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, stats_, data_);
         fighter_ = fight_.getFighter(target_);
@@ -3388,7 +3388,7 @@ public class FightEffectsTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(TROU_BIS);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(move_.indexOfPrimaryEffect());
         fight_.addEffect(thrower_, target_, eff_);
-        EnumList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(1, stats_.size());
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, stats_, data_);
         fighter_ = fight_.getFighter(target_);
@@ -3434,7 +3434,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.variationBoostStatistique(Statistic.EVASINESS, (byte) 6);
         MoveData move_ = data_.getMove(ACUPRESSION);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(move_.indexOfPrimaryEffect());
-        EnumList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(2, stats_.size());
         FightEffects.effectStatistic(fight_, thrower_, target_, eff_, stats_, data_);
         fighter_ = fight_.getFighter(target_);
@@ -3452,7 +3452,7 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
-        EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(1, statistics_.size());
         effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, DataBase.defRateProduct(), false, data_);
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3472,7 +3472,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_MEPO);
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
-        EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, Rate.zero(), false, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
@@ -3489,7 +3489,7 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
-        EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         assertEq(1, statistics_.size());
         effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, DataBase.defRateProduct(), true, data_);
         Fighter fighter_ = fight_.getFighter(target_);
@@ -3509,7 +3509,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_MEPO);
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
-        EnumList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
+        IdList<Statistic> statistics_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
         effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, Rate.zero(), true, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
@@ -6726,7 +6726,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertTrue(fighter_.isSuccessfulMove());
     }
 
-    private void effectStatisticRandom(Fight _fight, TeamPosition _thrower, TeamPosition _target, EffectStatistic _eff, EnumList<Statistic> _statistics, Rate _zero, boolean _begin, DataBase _data) {
+    private void effectStatisticRandom(Fight _fight, TeamPosition _thrower, TeamPosition _target, EffectStatistic _eff, IdList<Statistic> _statistics, Rate _zero, boolean _begin, DataBase _data) {
         FightEffects.effectStatisticRandom(_fight, _thrower, _target, _eff, _statistics, _data, FightSuccess.probaEffectStatistic(_fight, _thrower, _zero, _begin, _data));
     }
 

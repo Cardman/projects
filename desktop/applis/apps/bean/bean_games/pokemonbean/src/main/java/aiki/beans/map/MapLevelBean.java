@@ -468,7 +468,7 @@ public class MapLevelBean extends CommonBean {
         coords_.getLevel().setPoint(pt_);
         if (p_ instanceof InitializedPlace) {
             InitializedPlace i_ = (InitializedPlace) p_;
-            EnumList<Direction> points_ = new EnumList<Direction>();
+            IdList<Direction> points_ = new IdList<Direction>();
             for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
                 if (Point.eq(p.getSource(), pt_)) {
                     points_.add(p.getDir());

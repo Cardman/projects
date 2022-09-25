@@ -1,6 +1,6 @@
 package aiki.fight.enums;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
@@ -55,8 +55,8 @@ public enum Statistic {
         return contains_;
     }
 
-    public static EnumList<Statistic> getStatisticsWithBase() {
-        EnumList<Statistic> list_ = new EnumList<Statistic>();
+    public static IdList<Statistic> getStatisticsWithBase() {
+        IdList<Statistic> list_ = new IdList<Statistic>();
         for (Statistic s: all()) {
             if (!s.isWithBaseStatistic()) {
                 continue;
@@ -65,8 +65,8 @@ public enum Statistic {
         }
         return list_;
     }
-    public static EnumList<Statistic> getStatisticsWithBoost() {
-        EnumList<Statistic> list_ = new EnumList<Statistic>();
+    public static IdList<Statistic> getStatisticsWithBoost() {
+        IdList<Statistic> list_ = new IdList<Statistic>();
         for (Statistic s: all()) {
             if (!s.isBoost()) {
                 continue;

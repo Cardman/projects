@@ -17,7 +17,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.BoolVal;

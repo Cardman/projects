@@ -6,7 +6,7 @@ import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -21,7 +21,7 @@ public final class Berry extends Item {
 
     private StringMap<EfficiencyRate> multFoesDamage;
 
-    private AbsMap<Statistic, BoostHpRate> multStat;
+    private IdMap<Statistic, BoostHpRate> multStat;
 
     private boolean withoutFail;
     private int healPp;
@@ -40,7 +40,7 @@ public final class Berry extends Item {
 
     private String categoryBoosting;
 
-    private AbsMap<Statistic, Byte> boostStatis;
+    private IdMap<Statistic, Byte> boostStatis;
 
     @Override
     public String getItemType() {
@@ -118,11 +118,11 @@ public final class Berry extends Item {
         multFoesDamage = _multFoesDamage;
     }
 
-    public AbsMap<Statistic, BoostHpRate> getMultStat() {
+    public IdMap<Statistic, BoostHpRate> getMultStat() {
         return multStat;
     }
 
-    public void setMultStat(AbsMap<Statistic, BoostHpRate> _multStat) {
+    public void setMultStat(IdMap<Statistic, BoostHpRate> _multStat) {
         multStat = _multStat;
     }
 
@@ -198,11 +198,11 @@ public final class Berry extends Item {
         categoryBoosting = _categoryBoosting;
     }
 
-    public AbsMap<Statistic, Byte> getBoostStatis() {
+    public IdMap<Statistic, Byte> getBoostStatis() {
         return boostStatis;
     }
 
-    public void setBoostStatis(AbsMap<Statistic, Byte> _boostStatis) {
+    public void setBoostStatis(IdMap<Statistic, Byte> _boostStatis) {
         boostStatis = _boostStatis;
     }
 }

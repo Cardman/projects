@@ -263,7 +263,7 @@ return m6abilityData_;
 }
 static AbilityData m3(){
 AbilityData m7abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Byte> m7enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m7enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m7enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)2);
 m7abilityData_.setMultStatIfLowStat(m7enumMapStatisticByte_);
 return m7abilityData_;
@@ -305,14 +305,14 @@ return m12abilityData_;
 }
 static AbilityData m9(){
 AbilityData m13abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m13enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m13enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m13enumMapStatisticString_.addEntry(Statistic.ATTACK,R_13_10+OM+V_FIGHTER_DER_JOUE+OP+LP+R_1+OD+V_FIGHTER_DER_JOUE+RP);
 m13abilityData_.setMultStat(m13enumMapStatisticString_);
 return m13abilityData_;
 }
 static AbilityData m10(){
 AbilityData m14abilityData_ = Instances.newAbilityData();
-EnumList<Statistic> m14enumListStatistic_=new EnumList<Statistic>(new CollCapacity(1));
+IdList<Statistic> m14enumListStatistic_=new IdList<Statistic>(new CollCapacity(1));
 m14enumListStatistic_.add(Statistic.ACCURACY);
 m14abilityData_.setImmuLowStat(m14enumListStatistic_);
 m14abilityData_.setBreakProtection(true);
@@ -442,7 +442,7 @@ AbilityData m24abilityData_ = Instances.newAbilityData();
 StringList m24stringList_=new StringList(new CollCapacity(1));
 m24stringList_.add(I_TEMPETESABLE);
 m24abilityData_.setImmuWeather(m24stringList_);
-EnumMap<Statistic,String> m24enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m24enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m24enumMapStatisticString_.addEntry(Statistic.SPEED,A_MAX+LP+R_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_TEMPETESABLE+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_TEMPETESABLE+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
 m24abilityData_.setMultStat(m24enumMapStatisticString_);
 return m24abilityData_;
@@ -557,7 +557,7 @@ return m31abilityData_;
 }
 static AbilityData m28(){
 AbilityData m32abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m32enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m32enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m32enumMapStatisticString_.addEntry(Statistic.SPEED,A_MAX+LP+R_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_ZENITH+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_ZENITH+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
 m32abilityData_.setMultStat(m32enumMapStatisticString_);
 return m32abilityData_;
@@ -573,7 +573,7 @@ return m33abilityData_;
 }
 static AbilityData m30(){
 AbilityData m34abilityData_ = Instances.newAbilityData();
-EnumList<Statistic> m34enumListStatistic_=new EnumList<Statistic>(new CollCapacity(1));
+IdList<Statistic> m34enumListStatistic_=new IdList<Statistic>(new CollCapacity(1));
 m34enumListStatistic_.add(Statistic.DEFENSE);
 m34abilityData_.setImmuLowStat(m34enumListStatistic_);
 return m34abilityData_;
@@ -601,14 +601,14 @@ return m36abilityData_;
 }
 static AbilityData m33(){
 AbilityData m37abilityData_ = Instances.newAbilityData();
-EnumList<Statistic> m37enumListStatistic_=new EnumList<Statistic>(new CollCapacity(1));
+IdList<Statistic> m37enumListStatistic_=new IdList<Statistic>(new CollCapacity(1));
 m37enumListStatistic_.add(Statistic.ATTACK);
 m37abilityData_.setMaxStatisticsIfCh(m37enumListStatistic_);
 return m37abilityData_;
 }
 static AbilityData m34(){
 AbilityData m38abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m38enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m38enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m38enumMapStatisticString_.addEntry(Statistic.ATTACK,R_2);
 m38abilityData_.setMultStat(m38enumMapStatisticString_);
 return m38abilityData_;
@@ -656,7 +656,7 @@ return m43abilityData_;
 }
 static AbilityData m40(){
 AbilityData m44abilityData_ = Instances.newAbilityData();
-EnumList<Statistic> m44enumListStatistic_=new EnumList<Statistic>(new CollCapacity(5));
+IdList<Statistic> m44enumListStatistic_=new IdList<Statistic>(new CollCapacity(5));
 m44enumListStatistic_.add(Statistic.ATTACK);
 m44enumListStatistic_.add(Statistic.DEFENSE);
 m44enumListStatistic_.add(Statistic.SPECIAL_ATTACK);
@@ -677,7 +677,7 @@ return m45abilityData_;
 static AbilityData m42(){
 AbilityData m46abilityData_ = Instances.newAbilityData();
 m46abilityData_.setImmuLowStatIfStatus(new CustList<StatisticStatus>(new StatisticStatus(Statistic.ATTACK,I_BRULURE)));
-EnumMap<Statistic,String> m46enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m46enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m46enumMapStatisticString_.addEntry(Statistic.ATTACK,R_3_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_STATUTS+RB+OC+LB+I_PARALYSIE+OS+I_SIMPLE_POISON+OS+I_SOMMEIL+OS+I_GEL+OS+I_SOMMEIL_REPOS+OS+I_POISON_GRAVE+OS+I_BRULURE+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_PARALYSIE+OS+I_SIMPLE_POISON+OS+I_SOMMEIL+OS+I_GEL+OS+I_SOMMEIL_REPOS+OS+I_POISON_GRAVE+OS+I_BRULURE+RB+OC+LB+V_FIGHTER_STATUTS+RB+RP+RP);
 m46abilityData_.setMultStat(m46enumMapStatisticString_);
 return m46abilityData_;
@@ -701,14 +701,14 @@ return m49abilityData_;
 }
 static AbilityData m46(){
 AbilityData m50abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m50enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m50enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m50enumMapStatisticString_.addEntry(Statistic.SPEED,R_2+OM+A_CARDINAL+LP+LB+V_FIGHTER_OBJET+RB+RP+OP+LP+R_1+OD+A_CARDINAL+LP+LB+V_FIGHTER_OBJET+RB+RP+RP);
 m50abilityData_.setMultStat(m50enumMapStatisticString_);
 return m50abilityData_;
 }
 static AbilityData m47(){
 AbilityData m51abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m51enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(4));
+IdMap<Statistic,String> m51enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(4));
 m51enumMapStatisticString_.addEntry(Statistic.ATTACK,A_MAX+LP+R_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_ZENITH+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_ZENITH+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
 m51enumMapStatisticString_.addEntry(Statistic.SPECIAL_ATTACK,A_MAX+LP+R_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_ZENITH+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_ZENITH+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
 m51enumMapStatisticString_.addEntry(Statistic.SPECIAL_DEFENSE,A_MAX+LP+R_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_ZENITH+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_ZENITH+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
@@ -718,7 +718,7 @@ return m51abilityData_;
 }
 static AbilityData m48(){
 AbilityData m52abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m52enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m52enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m52enumMapStatisticString_.addEntry(Statistic.DEFENSE,R_3_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_STATUTS+RB+OC+LB+I_SOMMEIL_REPOS+OS+I_GEL+OS+I_POISON_GRAVE+OS+I_PARALYSIE+OS+I_BRULURE+OS+I_SOMMEIL+OS+I_SIMPLE_POISON+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_SOMMEIL_REPOS+OS+I_GEL+OS+I_POISON_GRAVE+OS+I_PARALYSIE+OS+I_BRULURE+OS+I_SOMMEIL+OS+I_SIMPLE_POISON+RB+OC+LB+V_FIGHTER_STATUTS+RB+RP+RP);
 m52abilityData_.setMultStat(m52enumMapStatisticString_);
 return m52abilityData_;
@@ -749,7 +749,7 @@ return m53abilityData_;
 }
 static AbilityData m50(){
 AbilityData m54abilityData_ = Instances.newAbilityData();
-EnumList<Statistic> m54enumListStatistic_=new EnumList<Statistic>(new CollCapacity(5));
+IdList<Statistic> m54enumListStatistic_=new IdList<Statistic>(new CollCapacity(5));
 m54enumListStatistic_.add(Statistic.ATTACK);
 m54enumListStatistic_.add(Statistic.DEFENSE);
 m54enumListStatistic_.add(Statistic.SPECIAL_ATTACK);
@@ -831,7 +831,7 @@ m62stringList_.add(I_EMPAL_KORNE);
 m62stringList_.add(I_GUILLOTINE);
 m62stringList_.add(I_GLACIATION);
 m62abilityData_.setImmuMove(m62stringList_);
-EnumMap<Statistic,String> m62enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(2));
+IdMap<Statistic,String> m62enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(2));
 m62enumMapStatisticString_.addEntry(Statistic.SPECIAL_DEFENSE,R_3_2);
 m62enumMapStatisticString_.addEntry(Statistic.DEFENSE,R_3_2);
 m62abilityData_.setMultStat(m62enumMapStatisticString_);
@@ -874,8 +874,8 @@ m65stringList_.add(I_CAUCHEMAR_ST);
 m65stringList_.add(I_PARALYSIE);
 m65stringMapStringList_.addEntry(I_PLANTE,m65stringList_);
 m65abilityData_.setImmuStatusTypes(m65stringMapStringList_);
-StringMap<EnumList<Statistic>> m65stringMapEnumListStatistic_=new StringMap<EnumList<Statistic>>(new CollCapacity(1));
-EnumList<Statistic> m65enumListStatistic_=new EnumList<Statistic>(new CollCapacity(8));
+StringMap<IdList<Statistic>> m65stringMapEnumListStatistic_=new StringMap<IdList<Statistic>>(new CollCapacity(1));
+IdList<Statistic> m65enumListStatistic_=new IdList<Statistic>(new CollCapacity(8));
 m65enumListStatistic_.add(Statistic.ATTACK);
 m65enumListStatistic_.add(Statistic.DEFENSE);
 m65enumListStatistic_.add(Statistic.SPECIAL_ATTACK);
@@ -890,7 +890,7 @@ return m65abilityData_;
 }
 static AbilityData m62(){
 AbilityData m66abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m66enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m66enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m66enumMapStatisticString_.addEntry(Statistic.ATTACK,R_2);
 m66abilityData_.setMultStat(m66enumMapStatisticString_);
 return m66abilityData_;
@@ -908,7 +908,7 @@ AbilityData m68abilityData_ = Instances.newAbilityData();
 StringMap<Rate> m68stringMapRate_=new StringMap<Rate>(new CollCapacity(1));
 m68stringMapRate_.addEntry(I_ZENITH,Rate.newRate(R_1_8));
 m68abilityData_.setHealHpByWeather(m68stringMapRate_);
-EnumMap<Statistic,String> m68enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m68enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m68enumMapStatisticString_.addEntry(Statistic.SPECIAL_ATTACK,A_MAX+LP+R_3_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_ZENITH+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_ZENITH+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
 m68abilityData_.setMultStat(m68enumMapStatisticString_);
 return m68abilityData_;
@@ -992,7 +992,7 @@ return m72abilityData_;
 }
 static AbilityData m69(){
 AbilityData m73abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m73enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m73enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m73enumMapStatisticString_.addEntry(Statistic.SPEED,A_MAX+LP+R_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_DANSE_PLUIE+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_DANSE_PLUIE+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
 m73abilityData_.setMultStat(m73enumMapStatisticString_);
 return m73abilityData_;
@@ -1029,7 +1029,7 @@ return m77abilityData_;
 }
 static AbilityData m74(){
 AbilityData m78abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Byte> m78enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m78enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m78enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)1);
 m78abilityData_.setBoostStatRankProtected(m78enumMapStatisticByte_);
 StringMap<StringList> m78stringMapStringList_=new StringMap<StringList>(new CollCapacity(6));
@@ -1071,7 +1071,7 @@ return m79abilityData_;
 }
 static AbilityData m76(){
 AbilityData m80abilityData_ = Instances.newAbilityData();
-EnumList<Statistic> m80enumListStatistic_=new EnumList<Statistic>(new CollCapacity(1));
+IdList<Statistic> m80enumListStatistic_=new IdList<Statistic>(new CollCapacity(1));
 m80enumListStatistic_.add(Statistic.ATTACK);
 m80abilityData_.setImmuLowStat(m80enumListStatistic_);
 return m80abilityData_;
@@ -1131,7 +1131,7 @@ return m83abilityData_;
 }
 static AbilityData m80(){
 AbilityData m84abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Byte> m84enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m84enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m84enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)1);
 m84abilityData_.setMultStatIfKoFoe(m84enumMapStatisticByte_);
 return m84abilityData_;
@@ -1186,10 +1186,10 @@ AbilityData m88abilityData_ = Instances.newAbilityData();
 CustList<EffectWhileSendingWithStatistic> m88custListEffectWhileSendingWithStatistic_ = new CustList<EffectWhileSendingWithStatistic>(new CollCapacity(1));
 EffectWhileSendingWithStatistic m88effectWhileSendingWithStatistic_ = Instances.newEffectWhileSendingWithStatistic();
 EffectStatistic m88effectStatistic_=Instances.newEffectStatistic();
-EnumMap<Statistic,Byte> m88enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m88enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m88enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)-1);
 m88effectStatistic_.setStatisVarRank(m88enumMapStatisticByte_);
-EnumMap<Statistic,String> m88enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m88enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m88enumMapStatisticString_.addEntry(Statistic.ATTACK,V_CIBLE_CLONE+GT+R_0);
 m88effectStatistic_.setLocalFailStatis(m88enumMapStatisticString_);
 m88effectStatistic_.setEvtRate(Rate.newRate(R_1));
@@ -1221,7 +1221,7 @@ return m90abilityData_;
 }
 static AbilityData m87(){
 AbilityData m91abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Byte> m91enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m91enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m91enumMapStatisticByte_.addEntry(Statistic.SPECIAL_ATTACK,(byte)1);
 m91abilityData_.setBoostStatRankProtected(m91enumMapStatisticByte_);
 StringMap<StringList> m91stringMapStringList_=new StringMap<StringList>(new CollCapacity(6));
@@ -1288,20 +1288,20 @@ return m94abilityData_;
 }
 static AbilityData m91(){
 AbilityData m95abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Rate> m95enumMapStatisticRate_=new EnumMap<Statistic,Rate>(new CollCapacity(1));
+IdMap<Statistic,Rate> m95enumMapStatisticRate_=new IdMap<Statistic,Rate>(new CollCapacity(1));
 m95enumMapStatisticRate_.addEntry(Statistic.ACCURACY,Rate.newRate(R_2));
 m95abilityData_.setMultStatAlly(m95enumMapStatisticRate_);
-EnumMap<Statistic,String> m95enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m95enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m95enumMapStatisticString_.addEntry(Statistic.ACCURACY,R_2);
 m95abilityData_.setMultStat(m95enumMapStatisticString_);
 return m95abilityData_;
 }
 static AbilityData m92(){
 AbilityData m96abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Rate> m96enumMapStatisticRate_=new EnumMap<Statistic,Rate>(new CollCapacity(1));
+IdMap<Statistic,Rate> m96enumMapStatisticRate_=new IdMap<Statistic,Rate>(new CollCapacity(1));
 m96enumMapStatisticRate_.addEntry(Statistic.ACCURACY,Rate.newRate(R_2));
 m96abilityData_.setMultStatAlly(m96enumMapStatisticRate_);
-EnumMap<Statistic,String> m96enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m96enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m96enumMapStatisticString_.addEntry(Statistic.ACCURACY,R_2);
 m96abilityData_.setMultStat(m96enumMapStatisticString_);
 return m96abilityData_;
@@ -1352,7 +1352,7 @@ return m101abilityData_;
 }
 static AbilityData m98(){
 AbilityData m102abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m102enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m102enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m102enumMapStatisticString_.addEntry(Statistic.SPECIAL_ATTACK,R_3_2);
 m102abilityData_.setMultStat(m102enumMapStatisticString_);
 return m102abilityData_;
@@ -1373,7 +1373,7 @@ return m104abilityData_;
 }
 static AbilityData m101(){
 AbilityData m105abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Byte> m105enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m105enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m105enumMapStatisticByte_.addEntry(Statistic.SPEED,(byte)1);
 m105abilityData_.setBoostStatRankProtected(m105enumMapStatisticByte_);
 StringMap<StringList> m105stringMapStringList_=new StringMap<StringList>(new CollCapacity(6));
@@ -1437,14 +1437,14 @@ return m109abilityData_;
 }
 static AbilityData m106(){
 AbilityData m110abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m110enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m110enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m110enumMapStatisticString_.addEntry(Statistic.ACCURACY,R_13_10);
 m110abilityData_.setMultStat(m110enumMapStatisticString_);
 return m110abilityData_;
 }
 static AbilityData m107(){
 AbilityData m111abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Byte> m111enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m111enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m111enumMapStatisticByte_.addEntry(Statistic.SPECIAL_ATTACK,(byte)1);
 m111abilityData_.setBoostStatRankProtected(m111enumMapStatisticByte_);
 StringMap<StringList> m111stringMapStringList_=new StringMap<StringList>(new CollCapacity(6));
@@ -1572,7 +1572,7 @@ return m118abilityData_;
 }
 static AbilityData m115(){
 AbilityData m119abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m119enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m119enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m119enumMapStatisticString_.addEntry(Statistic.EVASINESS,R_6_5+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_STATUTS+RB+OC+LB+I_CONFUSION+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_CONFUSION+RB+OC+LB+V_FIGHTER_STATUTS+RB+RP+RP);
 m119abilityData_.setMultStat(m119enumMapStatisticString_);
 return m119abilityData_;
@@ -1580,24 +1580,24 @@ return m119abilityData_;
 static AbilityData m116(){
 AbilityData m120abilityData_ = Instances.newAbilityData();
 m120abilityData_.setImmuLowStatIfStatus(new CustList<StatisticStatus>(new StatisticStatus(Statistic.SPEED,I_PARALYSIE)));
-EnumMap<Statistic,String> m120enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m120enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m120enumMapStatisticString_.addEntry(Statistic.SPEED,R_3_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_STATUTS+RB+OC+LB+I_BRULURE+OS+I_POISON_GRAVE+OS+I_SOMMEIL_REPOS+OS+I_SIMPLE_POISON+OS+I_PARALYSIE+OS+I_SOMMEIL+OS+I_GEL+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_BRULURE+OS+I_POISON_GRAVE+OS+I_SOMMEIL_REPOS+OS+I_SIMPLE_POISON+OS+I_PARALYSIE+OS+I_SOMMEIL+OS+I_GEL+RB+OC+LB+V_FIGHTER_STATUTS+RB+RP+RP);
 m120abilityData_.setMultStat(m120enumMapStatisticString_);
 return m120abilityData_;
 }
 static AbilityData m117(){
 AbilityData m121abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Rate> m121enumMapStatisticRate_=new EnumMap<Statistic,Rate>(new CollCapacity(1));
+IdMap<Statistic,Rate> m121enumMapStatisticRate_=new IdMap<Statistic,Rate>(new CollCapacity(1));
 m121enumMapStatisticRate_.addEntry(Statistic.ACCURACY,Rate.newRate(R_2));
 m121abilityData_.setMultStatAlly(m121enumMapStatisticRate_);
-EnumMap<Statistic,String> m121enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m121enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m121enumMapStatisticString_.addEntry(Statistic.ACCURACY,R_2);
 m121abilityData_.setMultStat(m121enumMapStatisticString_);
 return m121abilityData_;
 }
 static AbilityData m118(){
 AbilityData m122abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m122enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m122enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m122enumMapStatisticString_.addEntry(Statistic.SPECIAL_ATTACK,R_3_2);
 m122abilityData_.setMultStat(m122enumMapStatisticString_);
 return m122abilityData_;
@@ -1620,7 +1620,7 @@ return m124abilityData_;
 }
 static AbilityData m121(){
 AbilityData m125abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Byte> m125enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m125enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m125enumMapStatisticByte_.addEntry(Statistic.SPEED,(byte)-1);
 m125abilityData_.setLowStatFoeHit(m125enumMapStatisticByte_);
 return m125abilityData_;
@@ -1682,7 +1682,7 @@ StringList m133stringList_=new StringList(new CollCapacity(2));
 m133stringList_.add(I_JET_DE_SABLE);
 m133stringList_.add(I_TELEKINESIE);
 m133abilityData_.setImmuMove(m133stringList_);
-EnumList<Statistic> m133enumListStatistic_=new EnumList<Statistic>(new CollCapacity(1));
+IdList<Statistic> m133enumListStatistic_=new IdList<Statistic>(new CollCapacity(1));
 m133enumListStatistic_.add(Statistic.ACCURACY);
 m133abilityData_.setImmuLowStat(m133enumListStatistic_);
 return m133abilityData_;
@@ -1697,7 +1697,7 @@ AbilityData m135abilityData_ = Instances.newAbilityData();
 StringList m135stringList_=new StringList(new CollCapacity(1));
 m135stringList_.add(I_GRELE);
 m135abilityData_.setImmuWeather(m135stringList_);
-EnumMap<Statistic,String> m135enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m135enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m135enumMapStatisticString_.addEntry(Statistic.DEFENSE,A_MAX+LP+R_6_5+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_GRELE+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_GRELE+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
 m135abilityData_.setMultStat(m135enumMapStatisticString_);
 return m135abilityData_;
@@ -1823,7 +1823,7 @@ AbilityData m150abilityData_ = Instances.newAbilityData();
 CustList<EffectWhileSendingWithStatistic> m150custListEffectWhileSendingWithStatistic_ = new CustList<EffectWhileSendingWithStatistic>(new CollCapacity(1));
 EffectWhileSendingWithStatistic m150effectWhileSendingWithStatistic_ = Instances.newEffectWhileSendingWithStatistic();
 EffectStatistic m150effectStatistic_=Instances.newEffectStatistic();
-EnumMap<Statistic,Byte> m150enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(2));
+IdMap<Statistic,Byte> m150enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(2));
 m150enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)1);
 m150enumMapStatisticByte_.addEntry(Statistic.SPECIAL_ATTACK,(byte)1);
 m150effectStatistic_.setStatisVarRank(m150enumMapStatisticByte_);
@@ -1934,14 +1934,14 @@ return m156abilityData_;
 }
 static AbilityData m153(){
 AbilityData m157abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m157enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m157enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m157enumMapStatisticString_.addEntry(Statistic.DEFENSE,R_2);
 m157abilityData_.setMultStat(m157enumMapStatisticString_);
 return m157abilityData_;
 }
 static AbilityData m154(){
 AbilityData m158abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,String> m158enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m158enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m158enumMapStatisticString_.addEntry(Statistic.SPEED,R_2);
 m158abilityData_.setMultStat(m158enumMapStatisticString_);
 return m158abilityData_;
@@ -1989,7 +1989,7 @@ return m161abilityData_;
 }
 static AbilityData m158(){
 AbilityData m162abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Byte> m162enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m162enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m162enumMapStatisticByte_.addEntry(Statistic.SPEED,(byte)1);
 m162abilityData_.setBoostStatRankEndRound(m162enumMapStatisticByte_);
 return m162abilityData_;
@@ -2087,10 +2087,10 @@ return m165abilityData_;
 }
 static AbilityData m162(){
 AbilityData m166abilityData_ = Instances.newAbilityData();
-EnumMap<Statistic,Rate> m166enumMapStatisticRate_=new EnumMap<Statistic,Rate>(new CollCapacity(1));
+IdMap<Statistic,Rate> m166enumMapStatisticRate_=new IdMap<Statistic,Rate>(new CollCapacity(1));
 m166enumMapStatisticRate_.addEntry(Statistic.ACCURACY,Rate.newRate(R_11_10));
 m166abilityData_.setMultStatAlly(m166enumMapStatisticRate_);
-EnumMap<Statistic,String> m166enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m166enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m166enumMapStatisticString_.addEntry(Statistic.ACCURACY,R_11_10);
 m166abilityData_.setMultStat(m166enumMapStatisticString_);
 return m166abilityData_;
@@ -2100,7 +2100,7 @@ AbilityData m167abilityData_ = Instances.newAbilityData();
 StringList m167stringList_=new StringList(new CollCapacity(1));
 m167stringList_.add(I_TEMPETESABLE);
 m167abilityData_.setImmuWeather(m167stringList_);
-EnumMap<Statistic,String> m167enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m167enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m167enumMapStatisticString_.addEntry(Statistic.DEFENSE,A_MAX+LP+R_6_5+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_CLIMATS+RB+OC+LB+I_TEMPETESABLE+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_TEMPETESABLE+RB+OC+LB+V_CLIMATS+RB+RP+RP+OC+R_1+RP);
 m167abilityData_.setMultStat(m167enumMapStatisticString_);
 return m167abilityData_;

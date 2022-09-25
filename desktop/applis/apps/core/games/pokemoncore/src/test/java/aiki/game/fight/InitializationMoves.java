@@ -19,8 +19,8 @@ import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
-import code.util.EnumList;
-import code.util.AbsMap;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -7397,12 +7397,12 @@ final class InitializationMoves {
         object_.setStatisVarRank(new IdMap<Statistic,Byte>());
         object_.setLocalFailStatis(new IdMap<Statistic,String>());
         object_.setEvtRate(Rate.zero());
-        object_.setCopyBoost(new EnumList<Statistic>());
-        object_.setSwapBoostStatis(new EnumList<Statistic>());
+        object_.setCopyBoost(new IdList<Statistic>());
+        object_.setSwapBoostStatis(new IdList<Statistic>());
         object_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>());
         object_.setLawBoost(new MonteCarloEnum<Statistic>());
-        object_.setCancelLowStat(new EnumList<Statistic>());
-        object_.setCancelChgtStat(new EnumList<Statistic>());
+        object_.setCancelLowStat(new IdList<Statistic>());
+        object_.setCancelChgtStat(new IdList<Statistic>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
         object_.setRequiredSuccessfulEffects(new Ints());
@@ -7437,8 +7437,8 @@ final class InitializationMoves {
 //        object_.setPowerLaw(new MonteCarloNumber());
         object_.setHitsLaw(new MonteCarloNumber());
         object_.setPower(NULL_REF);
-        object_.setIgnVarStatTargetPos(new EnumList<Statistic>());
-        object_.setIgnVarStatUserNeg(new EnumList<Statistic>());
+        object_.setIgnVarStatTargetPos(new IdList<Statistic>());
+        object_.setIgnVarStatUserNeg(new IdList<Statistic>());
         object_.setStatisAtt(Statistic.ATTACK);
         object_.setStatisDef(Statistic.DEFENSE);
         object_.setTargetChoice(TargetChoice.NOTHING);
@@ -7503,7 +7503,7 @@ final class InitializationMoves {
         object_.setMultStatIfContainsType(new StatisticTypeRate());
         object_.setCancelEffects(new StringList());
         object_.setMultDamageTypesMoves(new StringMap<Rate>());
-        object_.setCancelChgtStat(new EnumList<Statistic>());
+        object_.setCancelChgtStat(new IdList<Statistic>());
         object_.setChangedTypesTerrain(new StringList());
         object_.setInvokedMoveTerrain(NULL_REF);
         object_.setHealingEndRoundGround(Rate.zero());
@@ -7557,14 +7557,14 @@ final class InitializationMoves {
 
     private static EffectTeam defaultEffetEquipe() {
         EffectTeam object_ = new EffectTeam();
-        object_.setForbiddenBoost(new EnumList<Statistic>());
+        object_.setForbiddenBoost(new IdList<Statistic>());
         object_.setUnusableMoves(new StringList());
-        object_.setCancelChgtStatFoeTeam(new EnumList<Statistic>());
-        object_.setCancelChgtStatTeam(new EnumList<Statistic>());
+        object_.setCancelChgtStatFoeTeam(new IdList<Statistic>());
+        object_.setCancelChgtStatTeam(new IdList<Statistic>());
         object_.setMultDamage(new CategoryMults());
         object_.setMultStatistic(new IdMap<Statistic,Rate>());
         object_.setMultStatisticFoe(new IdMap<Statistic,Rate>());
-        object_.setProtectAgainstLowStat(new EnumList<Statistic>());
+        object_.setProtectAgainstLowStat(new IdList<Statistic>());
         object_.setProtectAgainstStatus(new StringList());
         object_.setDisableFoeTeamEffects(new StringList());
         object_.setDisableFoeTeamStatus(new StringList());

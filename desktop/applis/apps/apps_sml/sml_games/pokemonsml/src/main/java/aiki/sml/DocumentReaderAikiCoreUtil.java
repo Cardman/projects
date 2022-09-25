@@ -1417,7 +1417,7 @@ public final class DocumentReaderAikiCoreUtil {
                 i_++;
             }
         }
-        _d.setLawsDamageRate(new EnumMap<DifficultyModelLaw, LawNumber>());
+        _d.setLawsDamageRate(new IdMap<DifficultyModelLaw, LawNumber>());
         String rdLaw_ = notNull(files_, StringUtil.concat(common_, LOIS_RANDOM));
         StringList laws_ = StringUtil.splitChars(
                 rdLaw_,
@@ -1459,7 +1459,7 @@ public final class DocumentReaderAikiCoreUtil {
                     getModelByName(infos_.first()),
                     new LawNumber(law_, (short) NumberUtil.parseInt(infos_.last())));
         }
-        _d.setExpGrowth(new EnumMap<ExpType, String>());
+        _d.setExpGrowth(new IdMap<ExpType, String>());
         String pts_ = notNull(files_, StringUtil.concat(common_, COURBE_PTS_EXP));
         StringList courbes_ = StringUtil.splitChars(
                 pts_,
@@ -1472,7 +1472,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getExpGrowth().put(getExpTypeByName(infos_.first()),
                     infos_.get(1));
         }
-        _d.setRates(new EnumMap<DifficultyWinPointsFight, String>());
+        _d.setRates(new IdMap<DifficultyWinPointsFight, String>());
         String rWon_ = notNull(files_, StringUtil.concat(common_, RATE_WON_POINTS));
         StringList rates_ = StringUtil.splitChars(
                 rWon_,
@@ -1508,7 +1508,7 @@ public final class DocumentReaderAikiCoreUtil {
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_GENDERS);
-            EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
+            IdMap<Gender, String> genders_ = new IdMap<Gender, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
@@ -1523,7 +1523,7 @@ public final class DocumentReaderAikiCoreUtil {
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_BOOLEANS);
-            EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
+            IdMap<SelectedBoolean, String> booleans_ = new IdMap<SelectedBoolean, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
@@ -1538,7 +1538,7 @@ public final class DocumentReaderAikiCoreUtil {
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
-            EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
+            IdMap<DifficultyWinPointsFight, String> diffWinPts_ = new IdMap<DifficultyWinPointsFight, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
@@ -1555,7 +1555,7 @@ public final class DocumentReaderAikiCoreUtil {
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil
                     .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
-            EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
+            IdMap<DifficultyModelLaw, String> diffLaw_ = new IdMap<DifficultyModelLaw, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
@@ -1570,7 +1570,7 @@ public final class DocumentReaderAikiCoreUtil {
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_ENVIRONMENTS);
-            EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
+            IdMap<EnvironmentType, String> environments_ = new IdMap<EnvironmentType, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
@@ -1585,7 +1585,7 @@ public final class DocumentReaderAikiCoreUtil {
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATISTICS);
-            EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
+            IdMap<Statistic, String> statistics_ = new IdMap<Statistic, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
@@ -1600,7 +1600,7 @@ public final class DocumentReaderAikiCoreUtil {
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, TRANSLATION_TARGETS);
-            EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
+            IdMap<TargetChoice, String> targets_ = new IdMap<TargetChoice, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
@@ -7650,12 +7650,12 @@ public final class DocumentReaderAikiCoreUtil {
         return object_;
     }
 
-    private static EnumMap<Statistic,LgInt> getMapStatisticLgInt(Element _elt) {
+    private static IdMap<Statistic,LgInt> getMapStatisticLgInt(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<Statistic,LgInt> map_ = new EnumMap<Statistic,LgInt>(cap_);
-        EnumList<Statistic> keys_ = new EnumList<Statistic>(cap_);
+        IdMap<Statistic,LgInt> map_ = new IdMap<Statistic,LgInt>(cap_);
+        IdList<Statistic> keys_ = new IdList<Statistic>(cap_);
         CustList<LgInt> values_ = new CustList<LgInt>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
@@ -7802,22 +7802,22 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    private static EnumList<Statistic> getListStatistic(Element _elt) {
+    private static IdList<Statistic> getListStatistic(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EnumList<Statistic> list_ = new EnumList<Statistic>(cap_);
+        IdList<Statistic> list_ = new IdList<Statistic>(cap_);
         for (Element c: childElements_) {
             list_.add(getStatistic(c));
         }
         return list_;
     }
 
-    private static EnumMap<Statistic,BoostHpRate> getMapStatisticBoostHpRate(Element _elt) {
+    private static IdMap<Statistic,BoostHpRate> getMapStatisticBoostHpRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<Statistic,BoostHpRate> map_ = new EnumMap<Statistic,BoostHpRate>(cap_);
+        IdMap<Statistic,BoostHpRate> map_ = new IdMap<Statistic,BoostHpRate>(cap_);
         CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
         CustList<BoostHpRate> values_ = new CustList<BoostHpRate>(cap_);
         for (Element c: childElements_) {
@@ -7833,11 +7833,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static EnumMap<Statistic,StatBaseEv> getMapStatisticStatBaseEv(Element _elt) {
+    private static IdMap<Statistic,StatBaseEv> getMapStatisticStatBaseEv(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<Statistic,StatBaseEv> map_ = new EnumMap<Statistic,StatBaseEv>(cap_);
+        IdMap<Statistic,StatBaseEv> map_ = new IdMap<Statistic,StatBaseEv>(cap_);
         CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
         CustList<StatBaseEv> values_ = new CustList<StatBaseEv>(cap_);
         for (Element c: childElements_) {
@@ -7853,11 +7853,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static EnumMap<Statistic,Rate> getMapStatisticRate(Element _elt) {
+    private static IdMap<Statistic,Rate> getMapStatisticRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<Statistic,Rate> map_ = new EnumMap<Statistic,Rate>(cap_);
+        IdMap<Statistic,Rate> map_ = new IdMap<Statistic,Rate>(cap_);
         CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
         CustList<Rate> values_ = new CustList<Rate>(cap_);
         for (Element c: childElements_) {
@@ -7873,11 +7873,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static EnumMap<Statistic,Byte> getMapStatisticByte(Element _elt) {
+    private static IdMap<Statistic,Byte> getMapStatisticByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<Statistic,Byte> map_ = new EnumMap<Statistic,Byte>(cap_);
+        IdMap<Statistic,Byte> map_ = new IdMap<Statistic,Byte>(cap_);
         CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
         CustList<Byte> values_ = new CustList<Byte>(cap_);
         for (Element c: childElements_) {
@@ -7893,11 +7893,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static EnumMap<Statistic,Short> getMapStatisticShort(Element _elt) {
+    private static IdMap<Statistic,Short> getMapStatisticShort(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<Statistic,Short> map_ = new EnumMap<Statistic,Short>(cap_);
+        IdMap<Statistic,Short> map_ = new IdMap<Statistic,Short>(cap_);
         CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
         CustList<Short> values_ = new CustList<Short>(cap_);
         for (Element c: childElements_) {
@@ -7913,11 +7913,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static EnumMap<Statistic,String> getMapStatisticString(Element _elt) {
+    private static IdMap<Statistic,String> getMapStatisticString(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<Statistic,String> map_ = new EnumMap<Statistic,String>(cap_);
+        IdMap<Statistic,String> map_ = new IdMap<Statistic,String>(cap_);
         CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
         CustList<String> values_ = new CustList<String>(cap_);
         for (Element c: childElements_) {
@@ -7933,11 +7933,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static EnumMap<EnvironmentType,String> getMapEnvironmentTypeString(Element _elt) {
+    private static IdMap<EnvironmentType,String> getMapEnvironmentTypeString(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        EnumMap<EnvironmentType,String> map_ = new EnumMap<EnvironmentType,String>(cap_);
+        IdMap<EnvironmentType,String> map_ = new IdMap<EnvironmentType,String>(cap_);
         CustList<EnvironmentType> keys_ = new CustList<EnvironmentType>(cap_);
         CustList<String> values_ = new CustList<String>(cap_);
         for (Element c: childElements_) {
@@ -9040,13 +9040,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<EnumList<Statistic>> getStringMapListStatistic(Element _elt) {
+    private static StringMap<IdList<Statistic>> getStringMapListStatistic(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<EnumList<Statistic>> map_ = new StringMap<EnumList<Statistic>>(cap_);
+        StringMap<IdList<Statistic>> map_ = new StringMap<IdList<Statistic>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<EnumList<Statistic>> values_ = new CustList<EnumList<Statistic>>(cap_);
+        CustList<IdList<Statistic>> values_ = new CustList<IdList<Statistic>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));
@@ -9060,13 +9060,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<AbsMap<Statistic,Byte>> getStringMapMapStatisticByte(Element _elt) {
+    private static StringMap<IdMap<Statistic,Byte>> getStringMapMapStatisticByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<AbsMap<Statistic,Byte>> map_ = new StringMap<AbsMap<Statistic,Byte>>(cap_);
+        StringMap<IdMap<Statistic,Byte>> map_ = new StringMap<IdMap<Statistic,Byte>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<AbsMap<Statistic,Byte>> values_ = new CustList<AbsMap<Statistic,Byte>>(cap_);
+        CustList<IdMap<Statistic,Byte>> values_ = new CustList<IdMap<Statistic,Byte>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));

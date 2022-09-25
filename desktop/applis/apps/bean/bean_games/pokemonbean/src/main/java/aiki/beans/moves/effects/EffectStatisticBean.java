@@ -4,7 +4,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectStatistic;
 import code.maths.Rate;
 import code.util.AbsMap;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 

@@ -683,7 +683,7 @@ final class FightSuccess {
             DataBase _import) {
         if(_effect instanceof EffectStatistic){
             EffectStatistic effetStatistique_=(EffectStatistic)_effect;
-            EnumList<Statistic> statistiquesMod_=successfulChangedStatistics(_fight,_lanceur, _cible,effetStatistique_,_import);
+            IdList<Statistic> statistiquesMod_=successfulChangedStatistics(_fight,_lanceur, _cible,effetStatistique_,_import);
             if(statistiquesMod_.isEmpty()){
                 return false;
             }
@@ -702,7 +702,7 @@ final class FightSuccess {
         return true;
     }
 
-    static EnumList<Statistic> successfulChangedStatistics(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import){
+    static IdList<Statistic> successfulChangedStatistics(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import){
         if(!_effet.getStatisVarRank().isEmpty()){
             return successfulChangedStatisticsCrans(_fight, _lanceur, _cible, _effet, _import);
         }
@@ -712,10 +712,10 @@ final class FightSuccess {
         if(!_effet.getCancelLowStat().isEmpty()){
             return successfulChangedStatisticsCancelLowStat(_fight, _cible, _effet, _import);
         }
-        EnumList<Statistic> changedStatis_ = new EnumList<Statistic>();
+        IdList<Statistic> changedStatis_ = new IdList<Statistic>();
         changedStatis_.addAllElts(_effet.getCancelChgtStat());
-        EnumList<Statistic> echangeStatis_=_effet.getSwapBoostStatis();
-        AbsMap<Statistic,String> raisonsEchec_=_effet.getLocalFailSwapBoostStatis();
+        IdList<Statistic> echangeStatis_=_effet.getSwapBoostStatis();
+        IdMap<Statistic,String> raisonsEchec_=_effet.getLocalFailSwapBoostStatis();
         Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
         //CustList<Statistic> statistiquesEchangees_=new CustList<>();
@@ -736,10 +736,10 @@ final class FightSuccess {
         return changedStatis_;
     }
 
-    private static EnumList<Statistic> successfulChangedStatisticsCancelLowStat(Fight _fight, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
-        EnumList<Statistic> annuleBaisse_= _effet.getCancelLowStat();
+    private static IdList<Statistic> successfulChangedStatisticsCancelLowStat(Fight _fight, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
+        IdList<Statistic> annuleBaisse_= _effet.getCancelLowStat();
         Fighter creatureCbtCible_= _fight.getFighter(_cible);
-        EnumList<Statistic> statistiquesBaisseAnnulees_=new EnumList<Statistic>();
+        IdList<Statistic> statistiquesBaisseAnnulees_=new IdList<Statistic>();
         for(Statistic c:annuleBaisse_){
             byte boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
             if(boostCible_< _import.getDefaultBoost()){
@@ -749,11 +749,11 @@ final class FightSuccess {
         return statistiquesBaisseAnnulees_;
     }
 
-    private static EnumList<Statistic> successfulChangedStatisticsCopyBoost(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
-        EnumList<Statistic> copieBoost_= _effet.getCopyBoost();
+    private static IdList<Statistic> successfulChangedStatisticsCopyBoost(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
+        IdList<Statistic> copieBoost_= _effet.getCopyBoost();
         Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
         Fighter creatureCbtCible_= _fight.getFighter(_cible);
-        EnumList<Statistic> statistiquesCopiees_= new EnumList<Statistic>();
+        IdList<Statistic> statistiquesCopiees_= new IdList<Statistic>();
         for(Statistic c:copieBoost_){
             byte boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
             byte boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
@@ -764,10 +764,10 @@ final class FightSuccess {
         return statistiquesCopiees_;
     }
 
-    private static EnumList<Statistic> successfulChangedStatisticsCrans(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
-        EnumList<Statistic> statistiques_ = successfulChangedBoostedStatistics(_fight,_lanceur, _cible, _effet, _import);
-        AbsMap<Statistic,String> raisonsEchec_= _effet.getLocalFailStatis();
-        EnumList<Statistic> statistiquesVariant_=new EnumList<Statistic>();
+    private static IdList<Statistic> successfulChangedStatisticsCrans(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, EffectStatistic _effet, DataBase _import) {
+        IdList<Statistic> statistiques_ = successfulChangedBoostedStatistics(_fight,_lanceur, _cible, _effet, _import);
+        IdMap<Statistic,String> raisonsEchec_= _effet.getLocalFailStatis();
+        IdList<Statistic> statistiquesVariant_=new IdList<Statistic>();
         for(Statistic c: statistiques_){
             if (!raisonsEchec_.contains(c) || !_import.evaluateBoolean(raisonsEchec_.getVal(c), FightValues.calculateValues(_fight, _lanceur, _cible, _import), false)) {
                 statistiquesVariant_.add(c);
@@ -776,9 +776,9 @@ final class FightSuccess {
         return statistiquesVariant_;
     }
 
-    static EnumList<Statistic> successfulChangedBoostedStatistics(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import) {
-        EnumList<Statistic> statistiques_=new EnumList<Statistic>();
-        AbsMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
+    static IdList<Statistic> successfulChangedBoostedStatistics(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import) {
+        IdList<Statistic> statistiques_=new IdList<Statistic>();
+        IdMap<Statistic,Byte> varStatisCran_=_effet.getStatisVarRank();
         for (Statistic s: _effet.getStatisVarRank().getKeys()) {
             if(successChangedStatistic(_fight,_lanceur,_cible,s,varStatisCran_.getVal(s),_import)){
                 statistiques_.add(s);

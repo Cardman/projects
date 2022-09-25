@@ -56,7 +56,7 @@ import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThread;
 import code.util.CustList;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -183,7 +183,7 @@ public final class WindowAiki extends NetGroupFrame {
 
     private AbsPanel beginGame;
 
-    private final EnumMap<Sex,HeroLabel> herosLabels = new EnumMap<Sex,HeroLabel>();
+    private final IdMap<Sex,HeroLabel> herosLabels = new IdMap<Sex,HeroLabel>();
 
     private AbsTextField nickname;
 

@@ -4,7 +4,7 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticType;
 import code.util.AbsMap;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.StringMap;
 import code.util.ints.Comparing;
 

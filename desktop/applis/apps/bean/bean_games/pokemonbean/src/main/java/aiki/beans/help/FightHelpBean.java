@@ -202,7 +202,7 @@ public class FightHelpBean extends CommonBean {
     private TreeMap<String, String> rates;
     private NatStringTreeMap< String> varRates;
     private TreeMap<String,AbsBasicTreeMap<Rate,Rate>> lawsRates;
-    private EnumList<Statistic> statisticAnim;
+    private IdList<Statistic> statisticAnim;
 
     @Override
     public void beforeDisplaying() {
@@ -5181,7 +5181,7 @@ public class FightHelpBean extends CommonBean {
         return varFleeingFormula;
     }
 
-    public EnumList<Statistic> getStatisticAnim() {
+    public IdList<Statistic> getStatisticAnim() {
         return statisticAnim;
     }
 }

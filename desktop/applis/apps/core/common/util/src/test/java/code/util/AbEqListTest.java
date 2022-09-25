@@ -7,7 +7,7 @@ import org.junit.Test;
 public class AbEqListTest extends EquallableExUtil {
     @Test
     public void index1Test() {
-        EnumList<MyEnum> e_ = new EnumList<MyEnum>(new EnumList<MyEnum>());
+        IdList<MyEnum> e_ = new IdList<MyEnum>(new IdList<MyEnum>());
         e_.add(MyEnum.ONE);
         e_.add(MyEnum.TWO);
         e_.add(MyEnum.THREE);
@@ -19,7 +19,7 @@ public class AbEqListTest extends EquallableExUtil {
     }
     @Test
     public void removeDuplates1Test() {
-        EnumList<MyEnum> e_ = new EnumList<MyEnum>(new MyEnum[0]);
+        IdList<MyEnum> e_ = new IdList<MyEnum>(new MyEnum[0]);
         e_.add(MyEnum.ONE);
         e_.add(MyEnum.TWO);
         e_.add(MyEnum.THREE);
@@ -49,12 +49,12 @@ public class AbEqListTest extends EquallableExUtil {
     }
     @Test
     public void eqEnum1Test() {
-        EnumList<MyEnum> e_ = new EnumList<MyEnum>(new CollCapacity(3));
+        IdList<MyEnum> e_ = new IdList<MyEnum>(new CollCapacity(3));
         e_.add(MyEnum.ONE);
         e_.add(MyEnum.TWO);
         e_.add(MyEnum.THREE);
         e_.add(MyEnum.ONE);
-        EnumList<MyEnum> f_ = new EnumList<MyEnum>();
+        IdList<MyEnum> f_ = new IdList<MyEnum>();
         f_.add(MyEnum.ONE);
         f_.add(MyEnum.TWO);
         f_.add(MyEnum.THREE);
@@ -63,11 +63,11 @@ public class AbEqListTest extends EquallableExUtil {
     }
     @Test
     public void eqEnum2Test() {
-        EnumList<MyEnum> e_ = new EnumList<MyEnum>();
+        IdList<MyEnum> e_ = new IdList<MyEnum>();
         e_.add(MyEnum.ONE);
         e_.add(MyEnum.TWO);
         e_.add(MyEnum.THREE);
-        EnumList<MyEnum> f_ = new EnumList<MyEnum>();
+        IdList<MyEnum> f_ = new IdList<MyEnum>();
         f_.add(MyEnum.ONE);
         f_.add(MyEnum.TWO);
         f_.add(MyEnum.THREE);
@@ -76,12 +76,12 @@ public class AbEqListTest extends EquallableExUtil {
     }
     @Test
     public void eqEnum3Test() {
-        EnumList<MyEnum> e_ = new EnumList<MyEnum>();
+        IdList<MyEnum> e_ = new IdList<MyEnum>();
         e_.add(MyEnum.ONE);
         e_.add(MyEnum.TWO);
         e_.add(MyEnum.THREE);
         e_.add(MyEnum.THREE);
-        EnumList<MyEnum> f_ = new EnumList<MyEnum>();
+        IdList<MyEnum> f_ = new IdList<MyEnum>();
         f_.add(MyEnum.ONE);
         f_.add(MyEnum.TWO);
         f_.add(MyEnum.THREE);

@@ -31,7 +31,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.EntryCust;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -61,7 +61,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private StringList status;
 
     /***/
-    private AbsMap<Statistic,Short> iv;
+    private IdMap<Statistic,Short> iv;
 
     /**nickname du pokemon par defaut le nom du pokemon*/
     private String nickname;
@@ -70,7 +70,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private StringMap<UsesOfMove> moves;
 
     /***/
-    private AbsMap<Statistic,Short> ev;
+    private IdMap<Statistic,Short> ev;
 
     /**Points d'experience gagnes depuis la derniere montee de niveau*/
     private Rate wonExpSinceLastLevel;
@@ -939,11 +939,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         status = _status;
     }
 
-    public AbsMap<Statistic,Short> getIv() {
+    public IdMap<Statistic,Short> getIv() {
         return iv;
     }
 
-    public void setIv(AbsMap<Statistic,Short> _iv) {
+    public void setIv(IdMap<Statistic,Short> _iv) {
         iv = _iv;
     }
 
@@ -963,11 +963,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         moves = _moves;
     }
 
-    public AbsMap<Statistic,Short> getEv() {
+    public IdMap<Statistic,Short> getEv() {
         return ev;
     }
 
-    public void setEv(AbsMap<Statistic,Short> _ev) {
+    public void setEv(IdMap<Statistic,Short> _ev) {
         ev = _ev;
     }
 

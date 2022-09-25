@@ -2544,11 +2544,11 @@ public class FacadeGame {
         return data.getTranslatedAbilitiesCurLanguage(language);
     }
 
-    public AbsMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage() {
+    public IdMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage() {
         return data.getTranslatedBooleansCurLanguage(language);
     }
 
-    public AbsMap<Gender, String> getTranslatedGendersCurLanguage() {
+    public IdMap<Gender, String> getTranslatedGendersCurLanguage() {
         return data.getTranslatedGendersCurLanguage(language);
     }
 

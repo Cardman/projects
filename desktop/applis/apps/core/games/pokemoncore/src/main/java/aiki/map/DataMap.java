@@ -54,7 +54,7 @@ import aiki.map.util.*;
 import aiki.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.*;
 import code.util.Ints;
 
@@ -205,7 +205,7 @@ public final class DataMap {
         evoObjectsCheck(_d, evoObjects_);
         checkEvolutionMove(_d, movesTmHm_);
         checkEvolutionMoveType(_d, movesTmHm_);
-        StringMap<EnumList<Gender>> directCatchPk_ = directCatchPk(wildPokemonBeforeFirstLeague_);
+        StringMap<IdList<Gender>> directCatchPk_ = directCatchPk(wildPokemonBeforeFirstLeague_);
 
         checkCatchBaseEvos(_d, directCatchPk_);
         existPkDefaultEggCheck(_d);
@@ -453,14 +453,14 @@ public final class DataMap {
         }
     }
 
-    private void checkCatchBaseEvos(DataBase _d, StringMap<EnumList<Gender>> _directCatchPk) {
+    private void checkCatchBaseEvos(DataBase _d, StringMap<IdList<Gender>> _directCatchPk) {
         StringList baseEvos_ = baseEvos(_d);
         if (!_directCatchPk.containsAllAsKeys(baseEvos_)) {
             _d.setError(true);
         }
         for (String n : baseEvos_) {
             PokemonData fPk_ = _d.getPokemon(n);
-            EnumList<Gender> val_ = _directCatchPk.getVal(n);
+            IdList<Gender> val_ = _directCatchPk.getVal(n);
             if (val_ == null) {
                 _d.setError(true);
                 continue;
@@ -484,8 +484,8 @@ public final class DataMap {
         return baseEvos_;
     }
 
-    private StringMap<EnumList<Gender>> directCatchPk(PlaceLevelsInts _wildPokemonBeforeFirstLeague) {
-        StringMap<EnumList<Gender>> directCatchPk_ = new StringMap<EnumList<Gender>>();
+    private StringMap<IdList<Gender>> directCatchPk(PlaceLevelsInts _wildPokemonBeforeFirstLeague) {
+        StringMap<IdList<Gender>> directCatchPk_ = new StringMap<IdList<Gender>>();
         int nbPlaces_ = places.size();
         for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             Place pl_ = places.get(p);
@@ -501,7 +501,7 @@ public final class DataMap {
         return directCatchPk_;
     }
 
-    private void directCatchPkLevel(PlaceLevelsInts _wildPokemonBeforeFirstLeague, StringMap<EnumList<Gender>> _directCatchPk, short _p, byte _l, LevelWithWildPokemon _levelWild) {
+    private void directCatchPkLevel(PlaceLevelsInts _wildPokemonBeforeFirstLeague, StringMap<IdList<Gender>> _directCatchPk, short _p, byte _l, LevelWithWildPokemon _levelWild) {
         PlaceLevel keyPlaceLevel_ = new PlaceLevel(_p, _l);
         if (!_wildPokemonBeforeFirstLeague.contains(keyPlaceLevel_)) {
             return;
@@ -894,11 +894,11 @@ public final class DataMap {
         return placesNumbers_;
     }
 
-    void feedDirectCatch(StringMap<EnumList<Gender>> _directCatchPk, CustList<WildPk> _wildPokemon) {
+    void feedDirectCatch(StringMap<IdList<Gender>> _directCatchPk, CustList<WildPk> _wildPokemon) {
         for (WildPk p : _wildPokemon) {
             if (!_directCatchPk.contains(p.getName())) {
                 _directCatchPk.put(p.getName(),
-                        new EnumList<Gender>(p.getGender()));
+                        new IdList<Gender>(p.getGender()));
             } else {
                 _directCatchPk.getVal(p.getName()).add(
                         p.getGender());

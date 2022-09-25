@@ -14,7 +14,7 @@ import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.AbsMap;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.TreeMap;
 
 public class DifficultyBean extends Bean implements WithFacade {

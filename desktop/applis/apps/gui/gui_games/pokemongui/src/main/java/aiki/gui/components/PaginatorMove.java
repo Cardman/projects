@@ -66,7 +66,7 @@ public final class PaginatorMove extends Paginator {
     private final AbsTextField maxPrice = getMain().getCompoFactory().newTextField(16);
 
 
-    private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
+    private final IdList<SearchingMode> order = new IdList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
     private final ComboBox<SearchingMode> modeName;

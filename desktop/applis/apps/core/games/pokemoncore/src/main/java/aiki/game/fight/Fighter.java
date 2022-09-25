@@ -142,16 +142,16 @@ public final class Fighter {
     private StringMap<UsesOfMove> currentMoves;
 
     /**Never mind*/
-    private AbsMap<Statistic,Short> ev;
+    private IdMap<Statistic,Short> ev;
 
     /**Never mind*/
-    private AbsMap<Statistic,Short> iv = new IdMap<Statistic,Short>();
+    private IdMap<Statistic,Short> iv = new IdMap<Statistic,Short>();
 
     /**Never mind*/
-    private AbsMap<Statistic,Rate> statisBase;
+    private IdMap<Statistic,Rate> statisBase;
 
     /**Never mind*/
-    private AbsMap<Statistic,Byte> statisBoost;
+    private IdMap<Statistic,Byte> statisBoost;
 
     /***/
     private Rate remainingHp;
@@ -1724,7 +1724,7 @@ public final class Fighter {
         for(String c:_creature.getCurrentMovesSet()){
             currentMoves.put(c,new UsesOfMove(_pp));
         }
-        AbsMap<Statistic,Rate> statBase_=_creature.getStatisBase();
+        IdMap<Statistic,Rate> statBase_=_creature.getStatisBase();
         for(Statistic c:statBase_.getKeys()){
             if(c == Statistic.HP){
                 continue;
@@ -1753,7 +1753,7 @@ public final class Fighter {
                 currentMoves.put(m, new UsesOfMove(pp_.getCurrent(),pp_.getMax()));
             }
         }
-        AbsMap<Statistic,StatBaseEv> statEv_=fPk_.getStatistics();
+        IdMap<Statistic,StatBaseEv> statEv_=fPk_.getStatistics();
         for(Statistic c:statEv_.getKeys()){
             statisBase.put(c, new Rate(statEv_.getVal(c).getBase()));
         }
@@ -2219,7 +2219,7 @@ public final class Fighter {
         action = action_;
     }
 
-    static Rate statistiqueGlobale(AbsMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,short _ev,short _iv, short _level){
+    static Rate statistiqueGlobale(IdMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,short _ev,short _iv, short _level){
         return PokemonData.stat(_level, _statistiquesBase.getVal(_nomStat), _nomStat, _ev, _iv);
     }
 
@@ -2657,35 +2657,35 @@ public final class Fighter {
         currentMoves = _currentMoves;
     }
 
-    public AbsMap<Statistic,Short> getEv() {
+    public IdMap<Statistic,Short> getEv() {
         return ev;
     }
 
-    public void setEv(AbsMap<Statistic,Short> _ev) {
+    public void setEv(IdMap<Statistic,Short> _ev) {
         ev = _ev;
     }
 
-    public AbsMap<Statistic,Short> getIv() {
+    public IdMap<Statistic,Short> getIv() {
         return iv;
     }
 
-    public void setIv(AbsMap<Statistic,Short> _iv) {
+    public void setIv(IdMap<Statistic,Short> _iv) {
         iv = _iv;
     }
 
-    public AbsMap<Statistic,Rate> getStatisBase() {
+    public IdMap<Statistic,Rate> getStatisBase() {
         return statisBase;
     }
 
-    public void setStatisBase(AbsMap<Statistic,Rate> _statisBase) {
+    public void setStatisBase(IdMap<Statistic,Rate> _statisBase) {
         statisBase = _statisBase;
     }
 
-    public AbsMap<Statistic,Byte> getStatisBoost() {
+    public IdMap<Statistic,Byte> getStatisBoost() {
         return statisBoost;
     }
 
-    public void setStatisBoost(AbsMap<Statistic,Byte> _statisBoost) {
+    public void setStatisBoost(IdMap<Statistic,Byte> _statisBoost) {
         statisBoost = _statisBoost;
     }
 

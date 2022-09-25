@@ -27,7 +27,7 @@ public final class PaginationHealingItem extends
 
     private StringMap<String> translatedStatus;
 
-    private AbsMap<Statistic, String> translatedStatistics;
+    private IdMap<Statistic, String> translatedStatistics;
 
     private Inventory inventory;
     private TreeMap<SortingHealingItem, String> healingItems = new TreeMap<SortingHealingItem, String>(

@@ -183,10 +183,10 @@ public class MapTest extends EquallableExUtil {
 
     @Test
     public void putAllMap7Test() {
-        EnumMap<MyEnum,Integer> map_ = new EnumMap<MyEnum,Integer>(new EnumMap<MyEnum,Integer>(new CollCapacity(0)));
+        IdMap<MyEnum,Integer> map_ = new IdMap<MyEnum,Integer>(new IdMap<MyEnum,Integer>(new CollCapacity(0)));
         map_.put(MyEnum.ZERO, 0);
         map_.put(MyEnum.ONE, 1);
-        EnumMap<MyEnum,Integer> mapToPut_ = new EnumMap<MyEnum,Integer>();
+        IdMap<MyEnum,Integer> mapToPut_ = new IdMap<MyEnum,Integer>();
         mapToPut_.put(MyEnum.TWO, 2);
         mapToPut_.put(MyEnum.THREE, 3);
         map_.putAllMap(mapToPut_);
@@ -203,10 +203,10 @@ public class MapTest extends EquallableExUtil {
 
     @Test
     public void putAllMap8Test() {
-        EnumMap<MyEnum,Integer> map_ = new EnumMap<MyEnum,Integer>();
+        IdMap<MyEnum,Integer> map_ = new IdMap<MyEnum,Integer>();
         map_.put(MyEnum.ZERO, 0);
         map_.put(MyEnum.ONE, 1);
-        EnumMap<MyEnum,Integer> mapToPut_ = new EnumMap<MyEnum,Integer>();
+        IdMap<MyEnum,Integer> mapToPut_ = new IdMap<MyEnum,Integer>();
         mapToPut_.put(MyEnum.TWO, 2);
         mapToPut_.put(MyEnum.ONE, 3);
         map_.putAllMap(mapToPut_);
@@ -508,7 +508,7 @@ public class MapTest extends EquallableExUtil {
     }
     @Test
     public void getKeysEmTest() {
-        EnumMap<MyEnum,Integer> map_ = new EnumMap<MyEnum,Integer>();
+        IdMap<MyEnum,Integer> map_ = new IdMap<MyEnum,Integer>();
         map_.put(MyEnum.ZERO, 0);
         map_.put(MyEnum.ONE, 1);
         CustList<MyEnum> elts_ = map_.getKeys();

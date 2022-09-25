@@ -25,7 +25,7 @@ import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
 import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.*;
 
 import code.util.StringMap;
@@ -1390,20 +1390,20 @@ public class InitializationDataBase extends EquallablePkUtil {
     }
 
     protected static void initTranslations(DataBase _data) {
-        AbsMap<SelectedBoolean,String> bools_;
+        IdMap<SelectedBoolean,String> bools_;
         bools_ = new IdMap<SelectedBoolean,String>();
         bools_.addEntry(SelectedBoolean.YES, SelectedBoolean.YES.name());
         bools_.addEntry(SelectedBoolean.NO, SelectedBoolean.NO.name());
         bools_.addEntry(SelectedBoolean.YES_AND_NO, SelectedBoolean.YES_AND_NO.name());
         _data.getTranslatedBooleans().addEntry(LANGUAGE, bools_);
-        AbsMap<DifficultyWinPointsFight,String> diffsWin_;
+        IdMap<DifficultyWinPointsFight,String> diffsWin_;
         diffsWin_ = new IdMap<DifficultyWinPointsFight,String>();
         diffsWin_.addEntry(DifficultyWinPointsFight.TRES_FACILE, DifficultyWinPointsFight.TRES_FACILE.name());
         diffsWin_.addEntry(DifficultyWinPointsFight.FACILE, DifficultyWinPointsFight.FACILE.name());
         diffsWin_.addEntry(DifficultyWinPointsFight.DIFFICILE, DifficultyWinPointsFight.DIFFICILE.name());
         diffsWin_.addEntry(DifficultyWinPointsFight.TRES_DIFFICILE, DifficultyWinPointsFight.TRES_DIFFICILE.name());
         _data.getTranslatedDiffWinPts().addEntry(LANGUAGE, diffsWin_);
-        AbsMap<DifficultyModelLaw,String> diffsLaw_;
+        IdMap<DifficultyModelLaw,String> diffsLaw_;
         diffsLaw_ = new IdMap<DifficultyModelLaw,String>();
         diffsLaw_.addEntry(DifficultyModelLaw.CONSTANT_MIN, DifficultyModelLaw.CONSTANT_MIN.name());
         diffsLaw_.addEntry(DifficultyModelLaw.CROISSANT, DifficultyModelLaw.CROISSANT.name());
@@ -1411,7 +1411,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         diffsLaw_.addEntry(DifficultyModelLaw.DECROISSANT, DifficultyModelLaw.DECROISSANT.name());
         diffsLaw_.addEntry(DifficultyModelLaw.CONSTANT_MAX, DifficultyModelLaw.CONSTANT_MAX.name());
         _data.getTranslatedDiffModelLaw().addEntry(LANGUAGE, diffsLaw_);
-        AbsMap<EnvironmentType,String> envs_;
+        IdMap<EnvironmentType,String> envs_;
         envs_ = new IdMap<EnvironmentType,String>();
         envs_.addEntry(EnvironmentType.NOTHING, EnvironmentType.NOTHING.name());
         envs_.addEntry(EnvironmentType.ROAD, EnvironmentType.ROAD.name());
@@ -1423,13 +1423,13 @@ public class InitializationDataBase extends EquallablePkUtil {
         envs_.addEntry(EnvironmentType.SNOW, EnvironmentType.SNOW.name());
         envs_.addEntry(EnvironmentType.ICE, EnvironmentType.ICE.name());
         _data.getTranslatedEnvironment().addEntry(LANGUAGE, envs_);
-        AbsMap<Gender,String> genders_;
+        IdMap<Gender,String> genders_;
         genders_ = new IdMap<Gender,String>();
         genders_.addEntry(Gender.FEMALE, Gender.FEMALE.name());
         genders_.addEntry(Gender.NO_GENDER, Gender.NO_GENDER.name());
         genders_.addEntry(Gender.MALE, Gender.MALE.name());
         _data.getTranslatedGenders().addEntry(LANGUAGE, genders_);
-        AbsMap<Statistic,String> statistics_;
+        IdMap<Statistic,String> statistics_;
         statistics_ = new IdMap<Statistic,String>();
         statistics_.addEntry(Statistic.ATTACK, Statistic.ATTACK.name());
         statistics_.addEntry(Statistic.DEFENSE, Statistic.DEFENSE.name());
@@ -1442,7 +1442,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         statistics_.addEntry(Statistic.PV_RESTANTS, Statistic.PV_RESTANTS.name());
         statistics_.addEntry(Statistic.HP, Statistic.HP.name());
         _data.getTranslatedStatistics().addEntry(LANGUAGE, statistics_);
-        AbsMap<TargetChoice,String> targets_;
+        IdMap<TargetChoice,String> targets_;
         targets_ = new IdMap<TargetChoice,String>();
         targets_.addEntry(TargetChoice.ADJ_ADV, TargetChoice.ADJ_ADV.name());
         targets_.addEntry(TargetChoice.ADJ_MULT, TargetChoice.ADJ_MULT.name());

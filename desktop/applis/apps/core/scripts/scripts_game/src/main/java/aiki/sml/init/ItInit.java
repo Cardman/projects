@@ -374,7 +374,7 @@ return m210ball_;
 }
 static Item m8(){
 Berry m211berry_=Instances.newBerry();
-EnumMap<Statistic,BoostHpRate> m211enumMapStatisticBoostHpRate_=new EnumMap<Statistic,BoostHpRate>(new CollCapacity(1));
+IdMap<Statistic,BoostHpRate> m211enumMapStatisticBoostHpRate_=new IdMap<Statistic,BoostHpRate>(new CollCapacity(1));
 m211enumMapStatisticBoostHpRate_.addEntry(Statistic.SPECIAL_DEFENSE,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
 m211berry_.setMultStat(m211enumMapStatisticBoostHpRate_);
 m211berry_.setPrice(200);
@@ -439,7 +439,7 @@ return m219berry_;
 static Item m17(){
 Berry m220berry_=Instances.newBerry();
 m220berry_.setCategoryBoosting(I_PHYSIQUE);
-EnumMap<Statistic,Byte> m220enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m220enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m220enumMapStatisticByte_.addEntry(Statistic.DEFENSE,(byte)1);
 m220berry_.setBoostStatis(m220enumMapStatisticByte_);
 m220berry_.setPrice(0);
@@ -481,7 +481,7 @@ return m225berry_;
 }
 static Item m23(){
 Berry m226berry_=Instances.newBerry();
-EnumMap<Statistic,BoostHpRate> m226enumMapStatisticBoostHpRate_=new EnumMap<Statistic,BoostHpRate>(new CollCapacity(5));
+IdMap<Statistic,BoostHpRate> m226enumMapStatisticBoostHpRate_=new IdMap<Statistic,BoostHpRate>(new CollCapacity(5));
 m226enumMapStatisticBoostHpRate_.addEntry(Statistic.ATTACK,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
 m226enumMapStatisticBoostHpRate_.addEntry(Statistic.SPECIAL_ATTACK,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
 m226enumMapStatisticBoostHpRate_.addEntry(Statistic.SPECIAL_DEFENSE,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
@@ -550,7 +550,7 @@ return m234berry_;
 }
 static Item m32(){
 Berry m235berry_=Instances.newBerry();
-EnumMap<Statistic,BoostHpRate> m235enumMapStatisticBoostHpRate_=new EnumMap<Statistic,BoostHpRate>(new CollCapacity(1));
+IdMap<Statistic,BoostHpRate> m235enumMapStatisticBoostHpRate_=new IdMap<Statistic,BoostHpRate>(new CollCapacity(1));
 m235enumMapStatisticBoostHpRate_.addEntry(Statistic.CRITICAL_HIT,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
 m235berry_.setMultStat(m235enumMapStatisticBoostHpRate_);
 m235berry_.setPrice(200);
@@ -558,7 +558,7 @@ return m235berry_;
 }
 static Item m33(){
 Berry m236berry_=Instances.newBerry();
-EnumMap<Statistic,BoostHpRate> m236enumMapStatisticBoostHpRate_=new EnumMap<Statistic,BoostHpRate>(new CollCapacity(1));
+IdMap<Statistic,BoostHpRate> m236enumMapStatisticBoostHpRate_=new IdMap<Statistic,BoostHpRate>(new CollCapacity(1));
 m236enumMapStatisticBoostHpRate_.addEntry(Statistic.ATTACK,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
 m236berry_.setMultStat(m236enumMapStatisticBoostHpRate_);
 m236berry_.setPrice(200);
@@ -566,7 +566,7 @@ return m236berry_;
 }
 static Item m34(){
 Berry m237berry_=Instances.newBerry();
-EnumMap<Statistic,BoostHpRate> m237enumMapStatisticBoostHpRate_=new EnumMap<Statistic,BoostHpRate>(new CollCapacity(1));
+IdMap<Statistic,BoostHpRate> m237enumMapStatisticBoostHpRate_=new IdMap<Statistic,BoostHpRate>(new CollCapacity(1));
 m237enumMapStatisticBoostHpRate_.addEntry(Statistic.DEFENSE,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
 m237berry_.setMultStat(m237enumMapStatisticBoostHpRate_);
 m237berry_.setPrice(200);
@@ -679,7 +679,7 @@ return m253berry_;
 }
 static Item m51(){
 Berry m254berry_=Instances.newBerry();
-EnumMap<Statistic,BoostHpRate> m254enumMapStatisticBoostHpRate_=new EnumMap<Statistic,BoostHpRate>(new CollCapacity(1));
+IdMap<Statistic,BoostHpRate> m254enumMapStatisticBoostHpRate_=new IdMap<Statistic,BoostHpRate>(new CollCapacity(1));
 m254enumMapStatisticBoostHpRate_.addEntry(Statistic.SPECIAL_ATTACK,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
 m254berry_.setMultStat(m254enumMapStatisticBoostHpRate_);
 m254berry_.setPrice(200);
@@ -737,7 +737,7 @@ return m260berry_;
 static Item m58(){
 Berry m261berry_=Instances.newBerry();
 m261berry_.setCategoryBoosting(I_SPECIALE);
-EnumMap<Statistic,Byte> m261enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m261enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m261enumMapStatisticByte_.addEntry(Statistic.SPECIAL_DEFENSE,(byte)1);
 m261berry_.setBoostStatis(m261enumMapStatisticByte_);
 m261berry_.setPrice(0);
@@ -768,7 +768,7 @@ return m265berry_;
 }
 static Item m63(){
 Berry m266berry_=Instances.newBerry();
-EnumMap<Statistic,BoostHpRate> m266enumMapStatisticBoostHpRate_=new EnumMap<Statistic,BoostHpRate>(new CollCapacity(1));
+IdMap<Statistic,BoostHpRate> m266enumMapStatisticBoostHpRate_=new IdMap<Statistic,BoostHpRate>(new CollCapacity(1));
 m266enumMapStatisticBoostHpRate_.addEntry(Statistic.SPEED,new BoostHpRate((byte)1,Rate.newRate(R_1_3)));
 m266berry_.setMultStat(m266enumMapStatisticBoostHpRate_);
 m266berry_.setPrice(200);
@@ -850,7 +850,7 @@ return m277berry_;
 }
 static Item m75(){
 ItemForBattle m278itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m278enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m278enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m278enumMapStatisticString_.addEntry(Statistic.SPEED,R_1_2);
 m278itemForBattle_.setMultStat(m278enumMapStatisticString_);
 CustList<EffectWhileSendingWithStatistic> m278custListEffectWhileSendingWithStatistic_ = new CustList<EffectWhileSendingWithStatistic>(new CollCapacity(1));
@@ -883,7 +883,7 @@ return m281itemForBattle_;
 }
 static Item m79(){
 ItemForBattle m282itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m282enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m282enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m282enumMapStatisticString_.addEntry(Statistic.ATTACK,R_3_2);
 m282itemForBattle_.setMultStat(m282enumMapStatisticString_);
 m282itemForBattle_.setPrice(1000);
@@ -897,7 +897,7 @@ return m283itemForBattle_;
 }
 static Item m81(){
 ItemForBattle m284itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> m284enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m284enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m284enumMapStatisticShort_.addEntry(Statistic.SPECIAL_DEFENSE,(short)4);
 m284itemForBattle_.setWinEvFight(m284enumMapStatisticShort_);
 m284itemForBattle_.setPrice(1000);
@@ -955,8 +955,8 @@ return m289itemForBattle_;
 }
 static Item m87(){
 ItemForBattle m290itemForBattle_ =Instances.newItemForBattle();
-StringMap<AbsMap<Statistic,Byte>> m290stringMapEnumMapStatisticByte_=new StringMap<AbsMap<Statistic,Byte>>(new CollCapacity(1));
-EnumMap<Statistic,Byte> m290enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+StringMap<IdMap<Statistic,Byte>> m290stringMapEnumMapStatisticByte_=new StringMap<IdMap<Statistic,Byte>>(new CollCapacity(1));
+IdMap<Statistic,Byte> m290enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m290enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)1);
 m290stringMapEnumMapStatisticByte_.addEntry(I_GLACE,m290enumMapStatisticByte_);
 m290itemForBattle_.setBoostStatisTypes(m290stringMapEnumMapStatisticByte_);
@@ -1010,7 +1010,7 @@ m295stringMapShort_.addEntry(I_APPAT_BALL,(short)2);
 m295stringMapShort_.addEntry(I_COPAIN_BALL,(short)2);
 m295stringMapShort_.addEntry(I_FILET_BALL,(short)2);
 m295boost_.setHappiness(m295stringMapShort_);
-EnumMap<Statistic,Short> m295enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m295enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m295enumMapStatisticShort_.addEntry(Statistic.SPECIAL_ATTACK,(short)10);
 m295boost_.setEvs(m295enumMapStatisticShort_);
 m295boost_.setPrice(9800);
@@ -1047,7 +1047,7 @@ m297stringMapShort_.addEntry(I_APPAT_BALL,(short)2);
 m297stringMapShort_.addEntry(I_COPAIN_BALL,(short)2);
 m297stringMapShort_.addEntry(I_FILET_BALL,(short)2);
 m297boost_.setHappiness(m297stringMapShort_);
-EnumMap<Statistic,Short> m297enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m297enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m297enumMapStatisticShort_.addEntry(Statistic.SPEED,(short)10);
 m297boost_.setEvs(m297enumMapStatisticShort_);
 m297boost_.setPrice(9800);
@@ -1089,7 +1089,7 @@ return m303itemForBattle_;
 }
 static Item m101(){
 ItemForBattle m304itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> m304enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m304enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m304enumMapStatisticShort_.addEntry(Statistic.DEFENSE,(short)4);
 m304itemForBattle_.setWinEvFight(m304enumMapStatisticShort_);
 m304itemForBattle_.setPrice(1000);
@@ -1103,7 +1103,7 @@ return m305healingSimpleItem_;
 }
 static Item m103(){
 ItemForBattle m306itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> m306enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m306enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m306enumMapStatisticShort_.addEntry(Statistic.SPEED,(short)4);
 m306itemForBattle_.setWinEvFight(m306enumMapStatisticShort_);
 m306itemForBattle_.setPrice(1000);
@@ -1219,7 +1219,7 @@ return m321healingPp_;
 }
 static Item m119(){
 ItemForBattle m322itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m322enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m322enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m322enumMapStatisticString_.addEntry(Statistic.EVASINESS,R_21_20);
 m322itemForBattle_.setMultStat(m322enumMapStatisticString_);
 StringList m322stringList_=new StringList(new CollCapacity(1));
@@ -1291,7 +1291,7 @@ return m329itemForBattle_;
 }
 static Item m127(){
 ItemForBattle m330itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m330enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(2));
+IdMap<Statistic,String> m330enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(2));
 m330enumMapStatisticString_.addEntry(Statistic.SPECIAL_DEFENSE,R_3_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_NOM+RB+OC+LB+I_ABO+OS+I_ABRA+OS+I_ABSOL+OS+I_AFLAMANOIR+OS+I_AIKIVOL+OS+I_AIRMURE+OS+I_AMONITA+OS+I_ANCHWATT+OS+I_ANORITH+OS+I_APITRINI+OS+I_ARAKDO+OS+I_ARCEUS+OS+I_ARCHEOMIRE+OS+I_ARCKO+OS+I_ARKEAPTI+OS+I_ARTIKODIN+OS+I_ASPICOT+OS+I_AXOLOTO+OS+I_AZURILL+OS+I_BABIMANTA+OS+I_BAGGIGUANE+OS+I_BALBUTO+OS+I_BALIGNON+OS+I_BARGANTUA+OS+I_BARLOCHE+OS+I_BARPAU+OS+I_BAUDRIVE+OS+I_BLIZZI+OS+I_BOREAS+OS+I_BULBIZARRE+OS+I_CACNEA+OS+I_CADOIZO+OS+I_CANARTICHO+OS+I_CANINOS+OS+I_CAPUMAIN+OS+I_CARABING+OS+I_CARAPAGOS+OS+I_CARAPUCE+OS+I_CARATROC+OS+I_CARVANHA+OS+I_CELEBI+OS+I_CERFROUSSE+OS+I_CERIBOU+OS+I_CHACRIPAN+OS+I_CHAGLAM+OS+I_CHAMALLOT+OS+I_CHARPENTI+OS+I_CHARTOR+OS+I_CHENIPAN+OS+I_CHENIPOTTE+OS+I_CHENITI+OS+I_CHETIFLOR+OS+I_CHINCHIDOU+OS+I_CHLOROBULE+OS+I_CHOVSOURIR+OS+I_CHUCHMUR+OS+I_COBALTIUM+OS+I_COQUIPERL+OS+I_CORAYON+OS+I_CORNEBRE+OS+I_COUANETON+OS+I_COUPENOTTE+OS+I_COXY+OS+I_CRABICOQUE+OS+I_CRADOPAUD+OS+I_CREFADET+OS+I_CREFOLLET+OS+I_CREHELF+OS+I_CRESSELIA+OS+I_CRIKZIK+OS+I_CRYPTERO+OS+I_DARKRAI+OS+I_DARUMAROND+OS+I_DEBUGANT+OS+I_DEMETEROS+OS+I_DEOXYS+OS+I_DIALGA+OS+I_DINOCLIER+OS+I_DODUO+OS+I_DOUDOUVET+OS+I_DRABY+OS+I_DRAKKARMIN+OS+I_DYNAVOLT+OS+I_ECAYON+OS+I_ECRAPINCE+OS+I_ECREMEUH+OS+I_ELECTHOR+OS+I_ELEKID+OS+I_EMBRYLEX+OS+I_EMOLGA+OS+I_ENTEI+OS+I_ESCARGAUME+OS+I_ETOURMI+OS+I_EVOLI+OS+I_EXCELANGUE+OS+I_FANTOMINUS+OS+I_FARFURET+OS+I_FERMITE+OS+I_FEROSINGE+OS+I_FEUFOREVE+OS+I_FEUILLAJOU+OS+I_FLAMAJOU+OS+I_FLOTAJOU+OS+I_FOUINETTE+OS+I_FRISON+OS+I_FULGURIS+OS+I_FUNECIRE+OS+I_FURAIGLON+OS+I_GALEKID+OS+I_GENESECT+OS+I_GERMIGNON+OS+I_GIRAFARIG+OS+I_GIRATINA+OS+I_GLOUPTI+OS+I_GOBOU+OS+I_GOELISE+OS+I_GOINFREX+OS+I_GOUPIX+OS+I_GRAINIPIOT+OS+I_GRANIVOL+OS+I_GRIKNOT+OS+I_GRINDUR+OS+I_GRINGOLEM+OS+I_GROUDON+OS+I_GRUIKUI+OS+I_HEATRAN+OS+I_HERICENDRE+OS+I_HEXAGEL+OS+I_HIPPOPOTAS+OS+I_HOOTHOOT+OS+I_HO_OH+OS+I_HYPOTREMPE+OS+I_INSECATEUR+OS+I_INSOLOURDO+OS+I_JIRACHI+OS+I_JUDOKRAK+OS+I_KABUTO+OS+I_KAIMINUS+OS+I_KANGOUREX+OS+I_KARACLEE+OS+I_KECLEON+OS+I_KELDEO+OS+I_KEUNOTOR+OS+I_KICKLEE+OS+I_KOKIYAS+OS+I_KORILLON+OS+I_KRABBY+OS+I_KRAKNOIX+OS+I_KRANIDOS+OS+I_KUNGFOUINE+OS+I_KYOGRE+OS+I_KYUREM+OS+I_LAPOREILLE+OS+I_LARVEYETTE+OS+I_LATIAS+OS+I_LATIOS+OS+I_LEWSOR+OS+I_LILIA+OS+I_LIMAGMA+OS+I_LIMONDE+OS+I_LIPPOUTI+OS+I_LIXY+OS+I_LOKHLASS+OS+I_LOUPIO+OS+I_LOVDISC+OS+I_LUGIA+OS+I_LUMIVOLE+OS+I_MACHOC+OS+I_MAGBY+OS+I_MAGICARPE+OS+I_MAGNETI+OS+I_MAKUHITA+OS+I_MALOSSE+OS+I_MAMANBO+OS+I_MANAPHY+OS+I_MANGRIFF+OS+I_MANZAI+OS+I_MARACACHI+OS+I_MARCACRIN+OS+I_MASCAIMAN+OS+I_MEDHYENA+OS+I_MEDITIKKA+OS+I_MELO+OS+I_MELOETTA+OS+I_METAMORPH+OS+I_MEW+OS+I_MEWTWO+OS+I_MIAMIASME+OS+I_MIAOUSS+OS+I_MIME_JR+OS+I_MIMIGAL+OS+I_MIMITOSS+OS+I_MINIDRACO+OS+I_MORPHEO+OS+I_MOTISMA+OS+I_MOUFOUETTE+OS+I_MOUSTILLON+OS+I_MUCIOLE+OS+I_MUNNA+OS+I_MUSTEBOUEE+OS+I_MYSDIBULE+OS+I_MYSTHERBE+OS+I_NANMEOUIE+OS+I_NATU+OS+I_NEGAPI+OS+I_NENUPIOT+OS+I_NIDORAN_F+OS+I_NIDORAN_M+OS+I_NINGALE+OS+I_NIRONDELLE+OS+I_NODULITHE+OS+I_NOEUNOEUF+OS+I_NOSFERAPTI+OS+I_NUCLEOS+OS+I_OBALIE+OS+I_OKEOKE+OS+I_ONIX+OS+I_OSSELAIT+OS+I_OTARIA+OS+I_OUISTICRAM+OS+I_PACHIRISU+OS+I_PALKIA+OS+I_PARAS+OS+I_PARECOOL+OS+I_PHANPY+OS+I_PHIONE+OS+I_PIAFABEC+OS+I_PICHU+OS+I_PIJAKO+OS+I_POICHIGEON+OS+I_POISSIRENE+OS+I_POLARHUME+OS+I_POLICHOMBR+OS+I_POMDEPIK+OS+I_PONCHIOT+OS+I_PONYTA+OS+I_PORYGON+OS+I_POSIPI+OS+I_POUSSIFEU+OS+I_PSYKOKWAK+OS+I_PTERA+OS+I_PTIRAVI+OS+I_PTITARD+OS+I_PYRONILLE+OS+I_QUEULORIOR+OS+I_QWILFISH+OS+I_RACAILLOU+OS+I_RAIKOU+OS+I_RAMOLOSS+OS+I_RAPION+OS+I_RATENTIF+OS+I_RATTATA+OS+I_RAYQUAZA+OS+I_REGICE+OS+I_REGIGIGAS+OS+I_REGIROCK+OS+I_REGISTEEL+OS+I_RELICANTH+OS+I_REMORAID+OS+I_RESHIRAM+OS+I_RHINOCORNE+OS+I_RIOLU+OS+I_ROTOTAUPE+OS+I_ROUCOOL+OS+I_ROZBOUTON+OS+I_SABELETTE+OS+I_SALAMECHE+OS+I_SANCOKI+OS+I_SAQUEDENEU+OS+I_SCALPION+OS+I_SCARABRUTE+OS+I_SCARHINO+OS+I_SCORPLANE+OS+I_SCRUTELLA+OS+I_SELEROC+OS+I_SEVIPER+OS+I_SHAYMIN+OS+I_SKELENOX+OS+I_SKITTY+OS+I_SMOGO+OS+I_SNUBBULL+OS+I_SOLAROC+OS+I_SOLOCHI+OS+I_SOPORIFIK+OS+I_SORBEBE+OS+I_SPINDA+OS+I_SPIRITOMB+OS+I_SPOINK+OS+I_STALGAMIN+OS+I_STARI+OS+I_STATITIK+OS+I_SUICUNE+OS+I_SULFURA+OS+I_TADMORV+OS+I_TARINOR+OS+I_TARSAL+OS+I_TAUPIQUEUR+OS+I_TAUROS+OS+I_TEDDIURSA+OS+I_TENEFIX+OS+I_TENTACOOL+OS+I_TERHAL+OS+I_TERRAKIUM+OS+I_TIC+OS+I_TIPLOUF+OS+I_TOGEPI+OS+I_TORTIPOUSS+OS+I_TOUDOUDOU+OS+I_TOURNEGRIN+OS+I_TRITONDE+OS+I_TROMPIGNON+OS+I_TROPIUS+OS+I_TUTAFEH+OS+I_TYGNON+OS+I_TYLTON+OS+I_VENIPATTE+OS+I_VICTINI+OS+I_VIPELIERRE+OS+I_VIRIDIUM+OS+I_VISKUSE+OS+I_VIVALDAIM+OS+I_VOLTORBE+OS+I_VORTENTE+OS+I_VOSTOURNO+OS+I_WAILMER+OS+I_WATTOUAT+OS+I_YANMA+OS+I_ZARBI+OS+I_ZEBIBRON+OS+I_ZEKROM+OS+I_ZIGZATON+OS+I_ZORUA+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_ABO+OS+I_ABRA+OS+I_ABSOL+OS+I_AFLAMANOIR+OS+I_AIKIVOL+OS+I_AIRMURE+OS+I_AMONITA+OS+I_ANCHWATT+OS+I_ANORITH+OS+I_APITRINI+OS+I_ARAKDO+OS+I_ARCEUS+OS+I_ARCHEOMIRE+OS+I_ARCKO+OS+I_ARKEAPTI+OS+I_ARTIKODIN+OS+I_ASPICOT+OS+I_AXOLOTO+OS+I_AZURILL+OS+I_BABIMANTA+OS+I_BAGGIGUANE+OS+I_BALBUTO+OS+I_BALIGNON+OS+I_BARGANTUA+OS+I_BARLOCHE+OS+I_BARPAU+OS+I_BAUDRIVE+OS+I_BLIZZI+OS+I_BOREAS+OS+I_BULBIZARRE+OS+I_CACNEA+OS+I_CADOIZO+OS+I_CANARTICHO+OS+I_CANINOS+OS+I_CAPUMAIN+OS+I_CARABING+OS+I_CARAPAGOS+OS+I_CARAPUCE+OS+I_CARATROC+OS+I_CARVANHA+OS+I_CELEBI+OS+I_CERFROUSSE+OS+I_CERIBOU+OS+I_CHACRIPAN+OS+I_CHAGLAM+OS+I_CHAMALLOT+OS+I_CHARPENTI+OS+I_CHARTOR+OS+I_CHENIPAN+OS+I_CHENIPOTTE+OS+I_CHENITI+OS+I_CHETIFLOR+OS+I_CHINCHIDOU+OS+I_CHLOROBULE+OS+I_CHOVSOURIR+OS+I_CHUCHMUR+OS+I_COBALTIUM+OS+I_COQUIPERL+OS+I_CORAYON+OS+I_CORNEBRE+OS+I_COUANETON+OS+I_COUPENOTTE+OS+I_COXY+OS+I_CRABICOQUE+OS+I_CRADOPAUD+OS+I_CREFADET+OS+I_CREFOLLET+OS+I_CREHELF+OS+I_CRESSELIA+OS+I_CRIKZIK+OS+I_CRYPTERO+OS+I_DARKRAI+OS+I_DARUMAROND+OS+I_DEBUGANT+OS+I_DEMETEROS+OS+I_DEOXYS+OS+I_DIALGA+OS+I_DINOCLIER+OS+I_DODUO+OS+I_DOUDOUVET+OS+I_DRABY+OS+I_DRAKKARMIN+OS+I_DYNAVOLT+OS+I_ECAYON+OS+I_ECRAPINCE+OS+I_ECREMEUH+OS+I_ELECTHOR+OS+I_ELEKID+OS+I_EMBRYLEX+OS+I_EMOLGA+OS+I_ENTEI+OS+I_ESCARGAUME+OS+I_ETOURMI+OS+I_EVOLI+OS+I_EXCELANGUE+OS+I_FANTOMINUS+OS+I_FARFURET+OS+I_FERMITE+OS+I_FEROSINGE+OS+I_FEUFOREVE+OS+I_FEUILLAJOU+OS+I_FLAMAJOU+OS+I_FLOTAJOU+OS+I_FOUINETTE+OS+I_FRISON+OS+I_FULGURIS+OS+I_FUNECIRE+OS+I_FURAIGLON+OS+I_GALEKID+OS+I_GENESECT+OS+I_GERMIGNON+OS+I_GIRAFARIG+OS+I_GIRATINA+OS+I_GLOUPTI+OS+I_GOBOU+OS+I_GOELISE+OS+I_GOINFREX+OS+I_GOUPIX+OS+I_GRAINIPIOT+OS+I_GRANIVOL+OS+I_GRIKNOT+OS+I_GRINDUR+OS+I_GRINGOLEM+OS+I_GROUDON+OS+I_GRUIKUI+OS+I_HEATRAN+OS+I_HERICENDRE+OS+I_HEXAGEL+OS+I_HIPPOPOTAS+OS+I_HOOTHOOT+OS+I_HO_OH+OS+I_HYPOTREMPE+OS+I_INSECATEUR+OS+I_INSOLOURDO+OS+I_JIRACHI+OS+I_JUDOKRAK+OS+I_KABUTO+OS+I_KAIMINUS+OS+I_KANGOUREX+OS+I_KARACLEE+OS+I_KECLEON+OS+I_KELDEO+OS+I_KEUNOTOR+OS+I_KICKLEE+OS+I_KOKIYAS+OS+I_KORILLON+OS+I_KRABBY+OS+I_KRAKNOIX+OS+I_KRANIDOS+OS+I_KUNGFOUINE+OS+I_KYOGRE+OS+I_KYUREM+OS+I_LAPOREILLE+OS+I_LARVEYETTE+OS+I_LATIAS+OS+I_LATIOS+OS+I_LEWSOR+OS+I_LILIA+OS+I_LIMAGMA+OS+I_LIMONDE+OS+I_LIPPOUTI+OS+I_LIXY+OS+I_LOKHLASS+OS+I_LOUPIO+OS+I_LOVDISC+OS+I_LUGIA+OS+I_LUMIVOLE+OS+I_MACHOC+OS+I_MAGBY+OS+I_MAGICARPE+OS+I_MAGNETI+OS+I_MAKUHITA+OS+I_MALOSSE+OS+I_MAMANBO+OS+I_MANAPHY+OS+I_MANGRIFF+OS+I_MANZAI+OS+I_MARACACHI+OS+I_MARCACRIN+OS+I_MASCAIMAN+OS+I_MEDHYENA+OS+I_MEDITIKKA+OS+I_MELO+OS+I_MELOETTA+OS+I_METAMORPH+OS+I_MEW+OS+I_MEWTWO+OS+I_MIAMIASME+OS+I_MIAOUSS+OS+I_MIME_JR+OS+I_MIMIGAL+OS+I_MIMITOSS+OS+I_MINIDRACO+OS+I_MORPHEO+OS+I_MOTISMA+OS+I_MOUFOUETTE+OS+I_MOUSTILLON+OS+I_MUCIOLE+OS+I_MUNNA+OS+I_MUSTEBOUEE+OS+I_MYSDIBULE+OS+I_MYSTHERBE+OS+I_NANMEOUIE+OS+I_NATU+OS+I_NEGAPI+OS+I_NENUPIOT+OS+I_NIDORAN_F+OS+I_NIDORAN_M+OS+I_NINGALE+OS+I_NIRONDELLE+OS+I_NODULITHE+OS+I_NOEUNOEUF+OS+I_NOSFERAPTI+OS+I_NUCLEOS+OS+I_OBALIE+OS+I_OKEOKE+OS+I_ONIX+OS+I_OSSELAIT+OS+I_OTARIA+OS+I_OUISTICRAM+OS+I_PACHIRISU+OS+I_PALKIA+OS+I_PARAS+OS+I_PARECOOL+OS+I_PHANPY+OS+I_PHIONE+OS+I_PIAFABEC+OS+I_PICHU+OS+I_PIJAKO+OS+I_POICHIGEON+OS+I_POISSIRENE+OS+I_POLARHUME+OS+I_POLICHOMBR+OS+I_POMDEPIK+OS+I_PONCHIOT+OS+I_PONYTA+OS+I_PORYGON+OS+I_POSIPI+OS+I_POUSSIFEU+OS+I_PSYKOKWAK+OS+I_PTERA+OS+I_PTIRAVI+OS+I_PTITARD+OS+I_PYRONILLE+OS+I_QUEULORIOR+OS+I_QWILFISH+OS+I_RACAILLOU+OS+I_RAIKOU+OS+I_RAMOLOSS+OS+I_RAPION+OS+I_RATENTIF+OS+I_RATTATA+OS+I_RAYQUAZA+OS+I_REGICE+OS+I_REGIGIGAS+OS+I_REGIROCK+OS+I_REGISTEEL+OS+I_RELICANTH+OS+I_REMORAID+OS+I_RESHIRAM+OS+I_RHINOCORNE+OS+I_RIOLU+OS+I_ROTOTAUPE+OS+I_ROUCOOL+OS+I_ROZBOUTON+OS+I_SABELETTE+OS+I_SALAMECHE+OS+I_SANCOKI+OS+I_SAQUEDENEU+OS+I_SCALPION+OS+I_SCARABRUTE+OS+I_SCARHINO+OS+I_SCORPLANE+OS+I_SCRUTELLA+OS+I_SELEROC+OS+I_SEVIPER+OS+I_SHAYMIN+OS+I_SKELENOX+OS+I_SKITTY+OS+I_SMOGO+OS+I_SNUBBULL+OS+I_SOLAROC+OS+I_SOLOCHI+OS+I_SOPORIFIK+OS+I_SORBEBE+OS+I_SPINDA+OS+I_SPIRITOMB+OS+I_SPOINK+OS+I_STALGAMIN+OS+I_STARI+OS+I_STATITIK+OS+I_SUICUNE+OS+I_SULFURA+OS+I_TADMORV+OS+I_TARINOR+OS+I_TARSAL+OS+I_TAUPIQUEUR+OS+I_TAUROS+OS+I_TEDDIURSA+OS+I_TENEFIX+OS+I_TENTACOOL+OS+I_TERHAL+OS+I_TERRAKIUM+OS+I_TIC+OS+I_TIPLOUF+OS+I_TOGEPI+OS+I_TORTIPOUSS+OS+I_TOUDOUDOU+OS+I_TOURNEGRIN+OS+I_TRITONDE+OS+I_TROMPIGNON+OS+I_TROPIUS+OS+I_TUTAFEH+OS+I_TYGNON+OS+I_TYLTON+OS+I_VENIPATTE+OS+I_VICTINI+OS+I_VIPELIERRE+OS+I_VIRIDIUM+OS+I_VISKUSE+OS+I_VIVALDAIM+OS+I_VOLTORBE+OS+I_VORTENTE+OS+I_VOSTOURNO+OS+I_WAILMER+OS+I_WATTOUAT+OS+I_YANMA+OS+I_ZARBI+OS+I_ZEBIBRON+OS+I_ZEKROM+OS+I_ZIGZATON+OS+I_ZORUA+RB+OC+LB+V_FIGHTER_NOM+RB+RP+RP);
 m330enumMapStatisticString_.addEntry(Statistic.DEFENSE,R_3_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_NOM+RB+OC+LB+I_ABO+OS+I_ABRA+OS+I_ABSOL+OS+I_AFLAMANOIR+OS+I_AIKIVOL+OS+I_AIRMURE+OS+I_AMONITA+OS+I_ANCHWATT+OS+I_ANORITH+OS+I_APITRINI+OS+I_ARAKDO+OS+I_ARCEUS+OS+I_ARCHEOMIRE+OS+I_ARCKO+OS+I_ARKEAPTI+OS+I_ARTIKODIN+OS+I_ASPICOT+OS+I_AXOLOTO+OS+I_AZURILL+OS+I_BABIMANTA+OS+I_BAGGIGUANE+OS+I_BALBUTO+OS+I_BALIGNON+OS+I_BARGANTUA+OS+I_BARLOCHE+OS+I_BARPAU+OS+I_BAUDRIVE+OS+I_BLIZZI+OS+I_BOREAS+OS+I_BULBIZARRE+OS+I_CACNEA+OS+I_CADOIZO+OS+I_CANARTICHO+OS+I_CANINOS+OS+I_CAPUMAIN+OS+I_CARABING+OS+I_CARAPAGOS+OS+I_CARAPUCE+OS+I_CARATROC+OS+I_CARVANHA+OS+I_CELEBI+OS+I_CERFROUSSE+OS+I_CERIBOU+OS+I_CHACRIPAN+OS+I_CHAGLAM+OS+I_CHAMALLOT+OS+I_CHARPENTI+OS+I_CHARTOR+OS+I_CHENIPAN+OS+I_CHENIPOTTE+OS+I_CHENITI+OS+I_CHETIFLOR+OS+I_CHINCHIDOU+OS+I_CHLOROBULE+OS+I_CHOVSOURIR+OS+I_CHUCHMUR+OS+I_COBALTIUM+OS+I_COQUIPERL+OS+I_CORAYON+OS+I_CORNEBRE+OS+I_COUANETON+OS+I_COUPENOTTE+OS+I_COXY+OS+I_CRABICOQUE+OS+I_CRADOPAUD+OS+I_CREFADET+OS+I_CREFOLLET+OS+I_CREHELF+OS+I_CRESSELIA+OS+I_CRIKZIK+OS+I_CRYPTERO+OS+I_DARKRAI+OS+I_DARUMAROND+OS+I_DEBUGANT+OS+I_DEMETEROS+OS+I_DEOXYS+OS+I_DIALGA+OS+I_DINOCLIER+OS+I_DODUO+OS+I_DOUDOUVET+OS+I_DRABY+OS+I_DRAKKARMIN+OS+I_DYNAVOLT+OS+I_ECAYON+OS+I_ECRAPINCE+OS+I_ECREMEUH+OS+I_ELECTHOR+OS+I_ELEKID+OS+I_EMBRYLEX+OS+I_EMOLGA+OS+I_ENTEI+OS+I_ESCARGAUME+OS+I_ETOURMI+OS+I_EVOLI+OS+I_EXCELANGUE+OS+I_FANTOMINUS+OS+I_FARFURET+OS+I_FERMITE+OS+I_FEROSINGE+OS+I_FEUFOREVE+OS+I_FEUILLAJOU+OS+I_FLAMAJOU+OS+I_FLOTAJOU+OS+I_FOUINETTE+OS+I_FRISON+OS+I_FULGURIS+OS+I_FUNECIRE+OS+I_FURAIGLON+OS+I_GALEKID+OS+I_GENESECT+OS+I_GERMIGNON+OS+I_GIRAFARIG+OS+I_GIRATINA+OS+I_GLOUPTI+OS+I_GOBOU+OS+I_GOELISE+OS+I_GOINFREX+OS+I_GOUPIX+OS+I_GRAINIPIOT+OS+I_GRANIVOL+OS+I_GRIKNOT+OS+I_GRINDUR+OS+I_GRINGOLEM+OS+I_GROUDON+OS+I_GRUIKUI+OS+I_HEATRAN+OS+I_HERICENDRE+OS+I_HEXAGEL+OS+I_HIPPOPOTAS+OS+I_HOOTHOOT+OS+I_HO_OH+OS+I_HYPOTREMPE+OS+I_INSECATEUR+OS+I_INSOLOURDO+OS+I_JIRACHI+OS+I_JUDOKRAK+OS+I_KABUTO+OS+I_KAIMINUS+OS+I_KANGOUREX+OS+I_KARACLEE+OS+I_KECLEON+OS+I_KELDEO+OS+I_KEUNOTOR+OS+I_KICKLEE+OS+I_KOKIYAS+OS+I_KORILLON+OS+I_KRABBY+OS+I_KRAKNOIX+OS+I_KRANIDOS+OS+I_KUNGFOUINE+OS+I_KYOGRE+OS+I_KYUREM+OS+I_LAPOREILLE+OS+I_LARVEYETTE+OS+I_LATIAS+OS+I_LATIOS+OS+I_LEWSOR+OS+I_LILIA+OS+I_LIMAGMA+OS+I_LIMONDE+OS+I_LIPPOUTI+OS+I_LIXY+OS+I_LOKHLASS+OS+I_LOUPIO+OS+I_LOVDISC+OS+I_LUGIA+OS+I_LUMIVOLE+OS+I_MACHOC+OS+I_MAGBY+OS+I_MAGICARPE+OS+I_MAGNETI+OS+I_MAKUHITA+OS+I_MALOSSE+OS+I_MAMANBO+OS+I_MANAPHY+OS+I_MANGRIFF+OS+I_MANZAI+OS+I_MARACACHI+OS+I_MARCACRIN+OS+I_MASCAIMAN+OS+I_MEDHYENA+OS+I_MEDITIKKA+OS+I_MELO+OS+I_MELOETTA+OS+I_METAMORPH+OS+I_MEW+OS+I_MEWTWO+OS+I_MIAMIASME+OS+I_MIAOUSS+OS+I_MIME_JR+OS+I_MIMIGAL+OS+I_MIMITOSS+OS+I_MINIDRACO+OS+I_MORPHEO+OS+I_MOTISMA+OS+I_MOUFOUETTE+OS+I_MOUSTILLON+OS+I_MUCIOLE+OS+I_MUNNA+OS+I_MUSTEBOUEE+OS+I_MYSDIBULE+OS+I_MYSTHERBE+OS+I_NANMEOUIE+OS+I_NATU+OS+I_NEGAPI+OS+I_NENUPIOT+OS+I_NIDORAN_F+OS+I_NIDORAN_M+OS+I_NINGALE+OS+I_NIRONDELLE+OS+I_NODULITHE+OS+I_NOEUNOEUF+OS+I_NOSFERAPTI+OS+I_NUCLEOS+OS+I_OBALIE+OS+I_OKEOKE+OS+I_ONIX+OS+I_OSSELAIT+OS+I_OTARIA+OS+I_OUISTICRAM+OS+I_PACHIRISU+OS+I_PALKIA+OS+I_PARAS+OS+I_PARECOOL+OS+I_PHANPY+OS+I_PHIONE+OS+I_PIAFABEC+OS+I_PICHU+OS+I_PIJAKO+OS+I_POICHIGEON+OS+I_POISSIRENE+OS+I_POLARHUME+OS+I_POLICHOMBR+OS+I_POMDEPIK+OS+I_PONCHIOT+OS+I_PONYTA+OS+I_PORYGON+OS+I_POSIPI+OS+I_POUSSIFEU+OS+I_PSYKOKWAK+OS+I_PTERA+OS+I_PTIRAVI+OS+I_PTITARD+OS+I_PYRONILLE+OS+I_QUEULORIOR+OS+I_QWILFISH+OS+I_RACAILLOU+OS+I_RAIKOU+OS+I_RAMOLOSS+OS+I_RAPION+OS+I_RATENTIF+OS+I_RATTATA+OS+I_RAYQUAZA+OS+I_REGICE+OS+I_REGIGIGAS+OS+I_REGIROCK+OS+I_REGISTEEL+OS+I_RELICANTH+OS+I_REMORAID+OS+I_RESHIRAM+OS+I_RHINOCORNE+OS+I_RIOLU+OS+I_ROTOTAUPE+OS+I_ROUCOOL+OS+I_ROZBOUTON+OS+I_SABELETTE+OS+I_SALAMECHE+OS+I_SANCOKI+OS+I_SAQUEDENEU+OS+I_SCALPION+OS+I_SCARABRUTE+OS+I_SCARHINO+OS+I_SCORPLANE+OS+I_SCRUTELLA+OS+I_SELEROC+OS+I_SEVIPER+OS+I_SHAYMIN+OS+I_SKELENOX+OS+I_SKITTY+OS+I_SMOGO+OS+I_SNUBBULL+OS+I_SOLAROC+OS+I_SOLOCHI+OS+I_SOPORIFIK+OS+I_SORBEBE+OS+I_SPINDA+OS+I_SPIRITOMB+OS+I_SPOINK+OS+I_STALGAMIN+OS+I_STARI+OS+I_STATITIK+OS+I_SUICUNE+OS+I_SULFURA+OS+I_TADMORV+OS+I_TARINOR+OS+I_TARSAL+OS+I_TAUPIQUEUR+OS+I_TAUROS+OS+I_TEDDIURSA+OS+I_TENEFIX+OS+I_TENTACOOL+OS+I_TERHAL+OS+I_TERRAKIUM+OS+I_TIC+OS+I_TIPLOUF+OS+I_TOGEPI+OS+I_TORTIPOUSS+OS+I_TOUDOUDOU+OS+I_TOURNEGRIN+OS+I_TRITONDE+OS+I_TROMPIGNON+OS+I_TROPIUS+OS+I_TUTAFEH+OS+I_TYGNON+OS+I_TYLTON+OS+I_VENIPATTE+OS+I_VICTINI+OS+I_VIPELIERRE+OS+I_VIRIDIUM+OS+I_VISKUSE+OS+I_VIVALDAIM+OS+I_VOLTORBE+OS+I_VORTENTE+OS+I_VOSTOURNO+OS+I_WAILMER+OS+I_WATTOUAT+OS+I_YANMA+OS+I_ZARBI+OS+I_ZEBIBRON+OS+I_ZEKROM+OS+I_ZIGZATON+OS+I_ZORUA+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_ABO+OS+I_ABRA+OS+I_ABSOL+OS+I_AFLAMANOIR+OS+I_AIKIVOL+OS+I_AIRMURE+OS+I_AMONITA+OS+I_ANCHWATT+OS+I_ANORITH+OS+I_APITRINI+OS+I_ARAKDO+OS+I_ARCEUS+OS+I_ARCHEOMIRE+OS+I_ARCKO+OS+I_ARKEAPTI+OS+I_ARTIKODIN+OS+I_ASPICOT+OS+I_AXOLOTO+OS+I_AZURILL+OS+I_BABIMANTA+OS+I_BAGGIGUANE+OS+I_BALBUTO+OS+I_BALIGNON+OS+I_BARGANTUA+OS+I_BARLOCHE+OS+I_BARPAU+OS+I_BAUDRIVE+OS+I_BLIZZI+OS+I_BOREAS+OS+I_BULBIZARRE+OS+I_CACNEA+OS+I_CADOIZO+OS+I_CANARTICHO+OS+I_CANINOS+OS+I_CAPUMAIN+OS+I_CARABING+OS+I_CARAPAGOS+OS+I_CARAPUCE+OS+I_CARATROC+OS+I_CARVANHA+OS+I_CELEBI+OS+I_CERFROUSSE+OS+I_CERIBOU+OS+I_CHACRIPAN+OS+I_CHAGLAM+OS+I_CHAMALLOT+OS+I_CHARPENTI+OS+I_CHARTOR+OS+I_CHENIPAN+OS+I_CHENIPOTTE+OS+I_CHENITI+OS+I_CHETIFLOR+OS+I_CHINCHIDOU+OS+I_CHLOROBULE+OS+I_CHOVSOURIR+OS+I_CHUCHMUR+OS+I_COBALTIUM+OS+I_COQUIPERL+OS+I_CORAYON+OS+I_CORNEBRE+OS+I_COUANETON+OS+I_COUPENOTTE+OS+I_COXY+OS+I_CRABICOQUE+OS+I_CRADOPAUD+OS+I_CREFADET+OS+I_CREFOLLET+OS+I_CREHELF+OS+I_CRESSELIA+OS+I_CRIKZIK+OS+I_CRYPTERO+OS+I_DARKRAI+OS+I_DARUMAROND+OS+I_DEBUGANT+OS+I_DEMETEROS+OS+I_DEOXYS+OS+I_DIALGA+OS+I_DINOCLIER+OS+I_DODUO+OS+I_DOUDOUVET+OS+I_DRABY+OS+I_DRAKKARMIN+OS+I_DYNAVOLT+OS+I_ECAYON+OS+I_ECRAPINCE+OS+I_ECREMEUH+OS+I_ELECTHOR+OS+I_ELEKID+OS+I_EMBRYLEX+OS+I_EMOLGA+OS+I_ENTEI+OS+I_ESCARGAUME+OS+I_ETOURMI+OS+I_EVOLI+OS+I_EXCELANGUE+OS+I_FANTOMINUS+OS+I_FARFURET+OS+I_FERMITE+OS+I_FEROSINGE+OS+I_FEUFOREVE+OS+I_FEUILLAJOU+OS+I_FLAMAJOU+OS+I_FLOTAJOU+OS+I_FOUINETTE+OS+I_FRISON+OS+I_FULGURIS+OS+I_FUNECIRE+OS+I_FURAIGLON+OS+I_GALEKID+OS+I_GENESECT+OS+I_GERMIGNON+OS+I_GIRAFARIG+OS+I_GIRATINA+OS+I_GLOUPTI+OS+I_GOBOU+OS+I_GOELISE+OS+I_GOINFREX+OS+I_GOUPIX+OS+I_GRAINIPIOT+OS+I_GRANIVOL+OS+I_GRIKNOT+OS+I_GRINDUR+OS+I_GRINGOLEM+OS+I_GROUDON+OS+I_GRUIKUI+OS+I_HEATRAN+OS+I_HERICENDRE+OS+I_HEXAGEL+OS+I_HIPPOPOTAS+OS+I_HOOTHOOT+OS+I_HO_OH+OS+I_HYPOTREMPE+OS+I_INSECATEUR+OS+I_INSOLOURDO+OS+I_JIRACHI+OS+I_JUDOKRAK+OS+I_KABUTO+OS+I_KAIMINUS+OS+I_KANGOUREX+OS+I_KARACLEE+OS+I_KECLEON+OS+I_KELDEO+OS+I_KEUNOTOR+OS+I_KICKLEE+OS+I_KOKIYAS+OS+I_KORILLON+OS+I_KRABBY+OS+I_KRAKNOIX+OS+I_KRANIDOS+OS+I_KUNGFOUINE+OS+I_KYOGRE+OS+I_KYUREM+OS+I_LAPOREILLE+OS+I_LARVEYETTE+OS+I_LATIAS+OS+I_LATIOS+OS+I_LEWSOR+OS+I_LILIA+OS+I_LIMAGMA+OS+I_LIMONDE+OS+I_LIPPOUTI+OS+I_LIXY+OS+I_LOKHLASS+OS+I_LOUPIO+OS+I_LOVDISC+OS+I_LUGIA+OS+I_LUMIVOLE+OS+I_MACHOC+OS+I_MAGBY+OS+I_MAGICARPE+OS+I_MAGNETI+OS+I_MAKUHITA+OS+I_MALOSSE+OS+I_MAMANBO+OS+I_MANAPHY+OS+I_MANGRIFF+OS+I_MANZAI+OS+I_MARACACHI+OS+I_MARCACRIN+OS+I_MASCAIMAN+OS+I_MEDHYENA+OS+I_MEDITIKKA+OS+I_MELO+OS+I_MELOETTA+OS+I_METAMORPH+OS+I_MEW+OS+I_MEWTWO+OS+I_MIAMIASME+OS+I_MIAOUSS+OS+I_MIME_JR+OS+I_MIMIGAL+OS+I_MIMITOSS+OS+I_MINIDRACO+OS+I_MORPHEO+OS+I_MOTISMA+OS+I_MOUFOUETTE+OS+I_MOUSTILLON+OS+I_MUCIOLE+OS+I_MUNNA+OS+I_MUSTEBOUEE+OS+I_MYSDIBULE+OS+I_MYSTHERBE+OS+I_NANMEOUIE+OS+I_NATU+OS+I_NEGAPI+OS+I_NENUPIOT+OS+I_NIDORAN_F+OS+I_NIDORAN_M+OS+I_NINGALE+OS+I_NIRONDELLE+OS+I_NODULITHE+OS+I_NOEUNOEUF+OS+I_NOSFERAPTI+OS+I_NUCLEOS+OS+I_OBALIE+OS+I_OKEOKE+OS+I_ONIX+OS+I_OSSELAIT+OS+I_OTARIA+OS+I_OUISTICRAM+OS+I_PACHIRISU+OS+I_PALKIA+OS+I_PARAS+OS+I_PARECOOL+OS+I_PHANPY+OS+I_PHIONE+OS+I_PIAFABEC+OS+I_PICHU+OS+I_PIJAKO+OS+I_POICHIGEON+OS+I_POISSIRENE+OS+I_POLARHUME+OS+I_POLICHOMBR+OS+I_POMDEPIK+OS+I_PONCHIOT+OS+I_PONYTA+OS+I_PORYGON+OS+I_POSIPI+OS+I_POUSSIFEU+OS+I_PSYKOKWAK+OS+I_PTERA+OS+I_PTIRAVI+OS+I_PTITARD+OS+I_PYRONILLE+OS+I_QUEULORIOR+OS+I_QWILFISH+OS+I_RACAILLOU+OS+I_RAIKOU+OS+I_RAMOLOSS+OS+I_RAPION+OS+I_RATENTIF+OS+I_RATTATA+OS+I_RAYQUAZA+OS+I_REGICE+OS+I_REGIGIGAS+OS+I_REGIROCK+OS+I_REGISTEEL+OS+I_RELICANTH+OS+I_REMORAID+OS+I_RESHIRAM+OS+I_RHINOCORNE+OS+I_RIOLU+OS+I_ROTOTAUPE+OS+I_ROUCOOL+OS+I_ROZBOUTON+OS+I_SABELETTE+OS+I_SALAMECHE+OS+I_SANCOKI+OS+I_SAQUEDENEU+OS+I_SCALPION+OS+I_SCARABRUTE+OS+I_SCARHINO+OS+I_SCORPLANE+OS+I_SCRUTELLA+OS+I_SELEROC+OS+I_SEVIPER+OS+I_SHAYMIN+OS+I_SKELENOX+OS+I_SKITTY+OS+I_SMOGO+OS+I_SNUBBULL+OS+I_SOLAROC+OS+I_SOLOCHI+OS+I_SOPORIFIK+OS+I_SORBEBE+OS+I_SPINDA+OS+I_SPIRITOMB+OS+I_SPOINK+OS+I_STALGAMIN+OS+I_STARI+OS+I_STATITIK+OS+I_SUICUNE+OS+I_SULFURA+OS+I_TADMORV+OS+I_TARINOR+OS+I_TARSAL+OS+I_TAUPIQUEUR+OS+I_TAUROS+OS+I_TEDDIURSA+OS+I_TENEFIX+OS+I_TENTACOOL+OS+I_TERHAL+OS+I_TERRAKIUM+OS+I_TIC+OS+I_TIPLOUF+OS+I_TOGEPI+OS+I_TORTIPOUSS+OS+I_TOUDOUDOU+OS+I_TOURNEGRIN+OS+I_TRITONDE+OS+I_TROMPIGNON+OS+I_TROPIUS+OS+I_TUTAFEH+OS+I_TYGNON+OS+I_TYLTON+OS+I_VENIPATTE+OS+I_VICTINI+OS+I_VIPELIERRE+OS+I_VIRIDIUM+OS+I_VISKUSE+OS+I_VIVALDAIM+OS+I_VOLTORBE+OS+I_VORTENTE+OS+I_VOSTOURNO+OS+I_WAILMER+OS+I_WATTOUAT+OS+I_YANMA+OS+I_ZARBI+OS+I_ZEBIBRON+OS+I_ZEKROM+OS+I_ZIGZATON+OS+I_ZORUA+RB+OC+LB+V_FIGHTER_NOM+RB+RP+RP);
 m330itemForBattle_.setMultStat(m330enumMapStatisticString_);
@@ -1330,7 +1330,7 @@ m332stringMapShort_.addEntry(I_APPAT_BALL,(short)2);
 m332stringMapShort_.addEntry(I_COPAIN_BALL,(short)2);
 m332stringMapShort_.addEntry(I_FILET_BALL,(short)2);
 m332boost_.setHappiness(m332stringMapShort_);
-EnumMap<Statistic,Short> m332enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m332enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m332enumMapStatisticShort_.addEntry(Statistic.DEFENSE,(short)10);
 m332boost_.setEvs(m332enumMapStatisticShort_);
 m332boost_.setPrice(9800);
@@ -1546,7 +1546,7 @@ return m360healingHp_;
 }
 static Item m158(){
 ItemForBattle m361itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Byte> m361enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m361enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m361enumMapStatisticByte_.addEntry(Statistic.CRITICAL_HIT,(byte)1);
 m361itemForBattle_.setMultStatRank(m361enumMapStatisticByte_);
 m361itemForBattle_.setPrice(1000);
@@ -1554,7 +1554,7 @@ return m361itemForBattle_;
 }
 static Item m159(){
 ItemForBattle m362itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m362enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m362enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m362enumMapStatisticString_.addEntry(Statistic.ACCURACY,R_6_5+OM+V_FIGHTER_DER_JOUE+OP+LP+R_1+OD+V_FIGHTER_DER_JOUE+RP);
 m362itemForBattle_.setMultStat(m362enumMapStatisticString_);
 m362itemForBattle_.setPrice(1000);
@@ -1562,7 +1562,7 @@ return m362itemForBattle_;
 }
 static Item m160(){
 ItemForBattle m363itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> m363enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m363enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m363enumMapStatisticShort_.addEntry(Statistic.SPECIAL_ATTACK,(short)4);
 m363itemForBattle_.setWinEvFight(m363enumMapStatisticShort_);
 m363itemForBattle_.setPrice(1000);
@@ -1570,8 +1570,8 @@ return m363itemForBattle_;
 }
 static Item m161(){
 ItemForBattle m364itemForBattle_ =Instances.newItemForBattle();
-StringMap<AbsMap<Statistic,Byte>> m364stringMapEnumMapStatisticByte_=new StringMap<AbsMap<Statistic,Byte>>(new CollCapacity(1));
-EnumMap<Statistic,Byte> m364enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+StringMap<IdMap<Statistic,Byte>> m364stringMapEnumMapStatisticByte_=new StringMap<IdMap<Statistic,Byte>>(new CollCapacity(1));
+IdMap<Statistic,Byte> m364enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m364enumMapStatisticByte_.addEntry(Statistic.SPECIAL_DEFENSE,(byte)1);
 m364stringMapEnumMapStatisticByte_.addEntry(I_EAU,m364enumMapStatisticByte_);
 m364itemForBattle_.setBoostStatisTypes(m364stringMapEnumMapStatisticByte_);
@@ -1610,7 +1610,7 @@ return m365healingHp_;
 }
 static Item m163(){
 ItemForBattle m366itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m366enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m366enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m366enumMapStatisticString_.addEntry(Statistic.ACCURACY,R_11_10);
 m366itemForBattle_.setMultStat(m366enumMapStatisticString_);
 m366itemForBattle_.setPrice(1000);
@@ -1644,7 +1644,7 @@ return m369itemForBattle_;
 }
 static Item m167(){
 ItemForBattle m370itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m370enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m370enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m370enumMapStatisticString_.addEntry(Statistic.SPECIAL_ATTACK,R_3_2);
 m370itemForBattle_.setMultStat(m370enumMapStatisticString_);
 m370itemForBattle_.setPrice(1000);
@@ -1687,7 +1687,7 @@ return m376ball_;
 }
 static Item m174(){
 ItemForBattle m377itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m377enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m377enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m377enumMapStatisticString_.addEntry(Statistic.ATTACK,R_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_NOM+RB+OC+LB+I_OSSATUEUR+OS+I_OSSELAIT+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_OSSATUEUR+OS+I_OSSELAIT+RB+OC+LB+V_FIGHTER_NOM+RB+RP+RP);
 m377itemForBattle_.setMultStat(m377enumMapStatisticString_);
 m377itemForBattle_.setPrice(1000);
@@ -1744,7 +1744,7 @@ return m386sellingItem_;
 }
 static Item m184(){
 ItemForBattle m387itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m387enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m387enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m387enumMapStatisticString_.addEntry(Statistic.SPEED,R_3_2);
 m387itemForBattle_.setMultStat(m387enumMapStatisticString_);
 m387itemForBattle_.setPrice(1000);
@@ -2146,7 +2146,7 @@ return m440itemForBattle_;
 }
 static Item m238(){
 ItemForBattle m441itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> m441enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m441enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m441enumMapStatisticShort_.addEntry(Statistic.HP,(short)4);
 m441itemForBattle_.setWinEvFight(m441enumMapStatisticShort_);
 m441itemForBattle_.setPrice(1000);
@@ -2154,7 +2154,7 @@ return m441itemForBattle_;
 }
 static Item m239(){
 ItemForBattle m442itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> m442enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m442enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m442enumMapStatisticShort_.addEntry(Statistic.ATTACK,(short)4);
 m442itemForBattle_.setWinEvFight(m442enumMapStatisticShort_);
 m442itemForBattle_.setPrice(1000);
@@ -2189,7 +2189,7 @@ return m446healingHpStatus_;
 }
 static Item m244(){
 ItemForBattle m447itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m447enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m447enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m447enumMapStatisticString_.addEntry(Statistic.EVASINESS,R_10_9);
 m447itemForBattle_.setMultStat(m447enumMapStatisticString_);
 m447itemForBattle_.setPrice(1000);
@@ -2203,7 +2203,7 @@ return m448itemForBattle_;
 }
 static Item m246(){
 ItemForBattle m449itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m449enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m449enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m449enumMapStatisticString_.addEntry(Statistic.DEFENSE,R_3_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_NOM+RB+OC+LB+I_METAMORPH+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_METAMORPH+RB+OC+LB+V_FIGHTER_NOM+RB+RP+RP);
 m449itemForBattle_.setMultStat(m449enumMapStatisticString_);
 m449itemForBattle_.setPrice(1000);
@@ -2211,7 +2211,7 @@ return m449itemForBattle_;
 }
 static Item m247(){
 ItemForBattle m450itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m450enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m450enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m450enumMapStatisticString_.addEntry(Statistic.SPEED,R_3_2+OM+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_NOM+RB+OC+LB+I_METAMORPH+RB+RP+RP+OP+A_CARDINAL+LP+A_COMPLEMENTAIRE+LP+LB+I_METAMORPH+RB+OC+LB+V_FIGHTER_NOM+RB+RP+RP);
 m450itemForBattle_.setMultStat(m450enumMapStatisticString_);
 m450itemForBattle_.setPrice(1000);
@@ -2313,7 +2313,7 @@ m455stringMapShort_.addEntry(I_APPAT_BALL,(short)2);
 m455stringMapShort_.addEntry(I_COPAIN_BALL,(short)2);
 m455stringMapShort_.addEntry(I_FILET_BALL,(short)2);
 m455boost_.setHappiness(m455stringMapShort_);
-EnumMap<Statistic,Short> m455enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m455enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m455enumMapStatisticShort_.addEntry(Statistic.ATTACK,(short)10);
 m455boost_.setEvs(m455enumMapStatisticShort_);
 m455boost_.setPrice(9800);
@@ -2351,7 +2351,7 @@ m457stringMapShort_.addEntry(I_APPAT_BALL,(short)2);
 m457stringMapShort_.addEntry(I_COPAIN_BALL,(short)2);
 m457stringMapShort_.addEntry(I_FILET_BALL,(short)2);
 m457boost_.setHappiness(m457stringMapShort_);
-EnumMap<Statistic,Short> m457enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m457enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m457enumMapStatisticShort_.addEntry(Statistic.HP,(short)10);
 m457boost_.setEvs(m457enumMapStatisticShort_);
 m457boost_.setPrice(9800);
@@ -2577,7 +2577,7 @@ return m484healingSimpleStatus_;
 }
 static Item m282(){
 ItemForBattle m485itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,String> m485enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
+IdMap<Statistic,String> m485enumMapStatisticString_=new IdMap<Statistic,String>(new CollCapacity(1));
 m485enumMapStatisticString_.addEntry(Statistic.SPECIAL_DEFENSE,R_3_2);
 m485itemForBattle_.setMultStat(m485enumMapStatisticString_);
 m485itemForBattle_.setPrice(0);
@@ -2601,7 +2601,7 @@ return m487itemForBattle_;
 }
 static Item m285(){
 ItemForBattle m488itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Byte> m488enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
+IdMap<Statistic,Byte> m488enumMapStatisticByte_=new IdMap<Statistic,Byte>(new CollCapacity(1));
 m488enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)1);
 m488itemForBattle_.setBoostStatisSuperEff(m488enumMapStatisticByte_);
 m488itemForBattle_.setPrice(1000);
@@ -2633,7 +2633,7 @@ m489stringMapShort_.addEntry(I_APPAT_BALL,(short)2);
 m489stringMapShort_.addEntry(I_COPAIN_BALL,(short)2);
 m489stringMapShort_.addEntry(I_FILET_BALL,(short)2);
 m489boost_.setHappiness(m489stringMapShort_);
-EnumMap<Statistic,Short> m489enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
+IdMap<Statistic,Short> m489enumMapStatisticShort_=new IdMap<Statistic,Short>(new CollCapacity(1));
 m489enumMapStatisticShort_.addEntry(Statistic.SPECIAL_DEFENSE,(short)10);
 m489boost_.setEvs(m489enumMapStatisticShort_);
 m489boost_.setPrice(9800);

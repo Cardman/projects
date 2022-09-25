@@ -17,7 +17,7 @@ import aiki.util.SortingHealingItem;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
@@ -95,7 +95,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     private final AbsTextField maxNumber = getMain().getCompoFactory().newTextField(16);
 
-    private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
+    private final IdList<SearchingMode> order = new IdList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
     private final ComboBox<SearchingMode> modeName;

@@ -19,8 +19,8 @@ import aiki.game.player.Player;
 import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EnumList;
-import code.util.AbsMap;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.*;
 
 import code.util.StringList;
@@ -512,7 +512,7 @@ final class FightSending {
             return;
         }
         for(TeamPosition c:FightOrder.targetsEffect(_fight,_cbtEnvoye,effetStatis_,_diff,_import)){
-            EnumList<Statistic> statistiques_=FightSuccess.successfulChangedStatistics(_fight,_cbtEnvoye,c,effetStatis_,_import);
+            IdList<Statistic> statistiques_=FightSuccess.successfulChangedStatistics(_fight,_cbtEnvoye,c,effetStatis_,_import);
             if(statistiques_.isEmpty()){
                 //raisons echec
                 continue;
@@ -601,7 +601,7 @@ final class FightSending {
         Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_cbt.getTeam()));
         StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        AbsMap<Statistic, Byte> vars_ = varsStats(_fight, _cbt, _effet, _import);
+        IdMap<Statistic, Byte> vars_ = varsStats(_fight, _cbt, _effet, _import);
         for (Statistic s: vars_.getKeys()) {
             creatureCbt_.variationBoostStatistique(s, vars_.getVal(s));
             _fight.addStatisticMessage(_cbt, s, vars_.getVal(s), _import);
@@ -659,8 +659,8 @@ final class FightSending {
         _fight.addStatusMessage(_cbt, statut_, _import);
     }
 
-    private static AbsMap<Statistic, Byte> varsStats(Fight _fight, TeamPosition _cbt, EffectTeamWhileSendFoe _effet, DataBase _import) {
-        AbsMap<Statistic,Byte> vars_ = new IdMap<Statistic,Byte>();
+    private static IdMap<Statistic, Byte> varsStats(Fight _fight, TeamPosition _cbt, EffectTeamWhileSendFoe _effet, DataBase _import) {
+        IdMap<Statistic,Byte> vars_ = new IdMap<Statistic,Byte>();
         for (Statistic s: _effet.getStatistics().getKeys()) {
             byte varBase_ = _effet.getStatistics().getVal(s);
             if (!FightSuccess.successChangedStatisticProtect(_fight, _cbt, s, varBase_, false, new StringList(), _import)) {

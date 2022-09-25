@@ -5,12 +5,12 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.DataInfoChecker;
 import code.util.CustList;
-import code.util.AbsMap;
+import code.util.IdMap;
 
 
 public final class EffectCommonStatistics extends Effect {
 
-    private AbsMap<Statistic, String> commonValue;
+    private IdMap<Statistic, String> commonValue;
 
     @Override
     public void validate(DataBase _data) {
@@ -29,11 +29,11 @@ public final class EffectCommonStatistics extends Effect {
         DataInfoChecker.checkTargetNot(TargetChoice.LANCEUR,getTargetChoice(),_data);
     }
 
-    public AbsMap<Statistic, String> getCommonValue() {
+    public IdMap<Statistic, String> getCommonValue() {
         return commonValue;
     }
 
-    public void setCommonValue(AbsMap<Statistic, String> _commonValue) {
+    public void setCommonValue(IdMap<Statistic, String> _commonValue) {
         commonValue = _commonValue;
     }
 

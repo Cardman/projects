@@ -9,7 +9,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
 import code.util.AbsMap;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 

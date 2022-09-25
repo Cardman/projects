@@ -30,7 +30,7 @@ public final class AbilityData {
     private StringList ignFoeTeamMove;
     private boolean ignFoeStatisBoost;
     private StringList immuMove;
-    private EnumList<Statistic> immuLowStat;
+    private IdList<Statistic> immuLowStat;
 
     private CustList<StatisticStatus> immuLowStatIfStatus;
 
@@ -56,12 +56,12 @@ public final class AbilityData {
     private String multPower;
     private String multDamage;
     private Rate multStab;
-    private AbsMap<Statistic, Byte> bonusStatRank;
-    private AbsMap<Statistic, Byte> boostStatRankProtected;
-    private AbsMap<Statistic, Byte> boostStatRankEndRound;
-    private AbsMap<Statistic, Rate> multStatAlly;
-    private AbsMap<Statistic, Byte> multStatIfKoFoe;
-    private AbsMap<Statistic, Byte> multStatIfLowStat;
+    private IdMap<Statistic, Byte> bonusStatRank;
+    private IdMap<Statistic, Byte> boostStatRankProtected;
+    private IdMap<Statistic, Byte> boostStatRankEndRound;
+    private IdMap<Statistic, Rate> multStatAlly;
+    private IdMap<Statistic, Byte> multStatIfKoFoe;
+    private IdMap<Statistic, Byte> multStatIfLowStat;
     private StatisticCategoryList<Rate> multStatIfCat;
 
     private StatisticStatusList multStatIfStatutRank;
@@ -70,7 +70,7 @@ public final class AbilityData {
 
     private StatisticTypeList<Byte> multStatIfDamgeType;
 
-    private AbsMap<Statistic, String> multStat;
+    private IdMap<Statistic, String> multStat;
     private boolean inflictingDamageInsteadOfSuffering;
     private Rate multVarBoost;
     private int nbUsedPp;
@@ -81,7 +81,7 @@ public final class AbilityData {
     private Rate healedHpRateBySwitch;
     private StringMap<Short> increasedPrio;
     private StringMap<Short> increasedPrioTypes;
-    private EnumList<Statistic> maxStatisticsIfCh;
+    private IdList<Statistic> maxStatisticsIfCh;
     private MonteCarloString singleStatus;
     private boolean achievedDisappearedPk;
     private StringMap<String> forwardStatus;
@@ -103,9 +103,9 @@ public final class AbilityData {
 
     private StringMap<StringList> immuStatusTypes;
 
-    private StringMap<EnumList<Statistic>> immuLowStatisTypes;
+    private StringMap<IdList<Statistic>> immuLowStatisTypes;
 
-    private AbsMap<Statistic, Byte> lowStatFoeHit;
+    private IdMap<Statistic, Byte> lowStatFoeHit;
 
     private boolean copyMovesTypes;
 
@@ -342,11 +342,11 @@ public final class AbilityData {
         immuMove = _immuMove;
     }
 
-    public EnumList<Statistic> getImmuLowStat() {
+    public IdList<Statistic> getImmuLowStat() {
         return immuLowStat;
     }
 
-    public void setImmuLowStat(EnumList<Statistic> _immuLowStat) {
+    public void setImmuLowStat(IdList<Statistic> _immuLowStat) {
         immuLowStat = _immuLowStat;
     }
 
@@ -535,53 +535,53 @@ public final class AbilityData {
         multStab = _multStab;
     }
 
-    public AbsMap<Statistic, Byte> getBonusStatRank() {
+    public IdMap<Statistic, Byte> getBonusStatRank() {
         return bonusStatRank;
     }
 
-    public void setBonusStatRank(AbsMap<Statistic, Byte> _bonusStatRank) {
+    public void setBonusStatRank(IdMap<Statistic, Byte> _bonusStatRank) {
         bonusStatRank = _bonusStatRank;
     }
 
-    public AbsMap<Statistic, Byte> getBoostStatRankProtected() {
+    public IdMap<Statistic, Byte> getBoostStatRankProtected() {
         return boostStatRankProtected;
     }
 
     public void setBoostStatRankProtected(
-            AbsMap<Statistic, Byte> _boostStatRankProtected) {
+            IdMap<Statistic, Byte> _boostStatRankProtected) {
         boostStatRankProtected = _boostStatRankProtected;
     }
 
-    public AbsMap<Statistic, Byte> getBoostStatRankEndRound() {
+    public IdMap<Statistic, Byte> getBoostStatRankEndRound() {
         return boostStatRankEndRound;
     }
 
     public void setBoostStatRankEndRound(
-            AbsMap<Statistic, Byte> _boostStatRankEndRound) {
+            IdMap<Statistic, Byte> _boostStatRankEndRound) {
         boostStatRankEndRound = _boostStatRankEndRound;
     }
 
-    public AbsMap<Statistic, Rate> getMultStatAlly() {
+    public IdMap<Statistic, Rate> getMultStatAlly() {
         return multStatAlly;
     }
 
-    public void setMultStatAlly(AbsMap<Statistic, Rate> _multStat) {
+    public void setMultStatAlly(IdMap<Statistic, Rate> _multStat) {
         multStatAlly = _multStat;
     }
 
-    public AbsMap<Statistic, Byte> getMultStatIfKoFoe() {
+    public IdMap<Statistic, Byte> getMultStatIfKoFoe() {
         return multStatIfKoFoe;
     }
 
-    public void setMultStatIfKoFoe(AbsMap<Statistic, Byte> _multStatIfKoFoe) {
+    public void setMultStatIfKoFoe(IdMap<Statistic, Byte> _multStatIfKoFoe) {
         multStatIfKoFoe = _multStatIfKoFoe;
     }
 
-    public AbsMap<Statistic, Byte> getMultStatIfLowStat() {
+    public IdMap<Statistic, Byte> getMultStatIfLowStat() {
         return multStatIfLowStat;
     }
 
-    public void setMultStatIfLowStat(AbsMap<Statistic, Byte> _multStatIfLowStat) {
+    public void setMultStatIfLowStat(IdMap<Statistic, Byte> _multStatIfLowStat) {
         multStatIfLowStat = _multStatIfLowStat;
     }
 
@@ -621,11 +621,11 @@ public final class AbilityData {
         multStatIfDamgeType = _multStatIfDamgeType;
     }
 
-    public AbsMap<Statistic, String> getMultStat() {
+    public IdMap<Statistic, String> getMultStat() {
         return multStat;
     }
 
-    public void setMultStat(AbsMap<Statistic, String> _multStat) {
+    public void setMultStat(IdMap<Statistic, String> _multStat) {
         multStat = _multStat;
     }
 
@@ -710,11 +710,11 @@ public final class AbilityData {
         increasedPrioTypes = _increasedPrioTypes;
     }
 
-    public EnumList<Statistic> getMaxStatisticsIfCh() {
+    public IdList<Statistic> getMaxStatisticsIfCh() {
         return maxStatisticsIfCh;
     }
 
-    public void setMaxStatisticsIfCh(EnumList<Statistic> _maxStatisticsIfCh) {
+    public void setMaxStatisticsIfCh(IdList<Statistic> _maxStatisticsIfCh) {
         maxStatisticsIfCh = _maxStatisticsIfCh;
     }
 
@@ -833,20 +833,20 @@ public final class AbilityData {
         immuStatusTypes = _immuStatusTypes;
     }
 
-    public StringMap<EnumList<Statistic>> getImmuLowStatisTypes() {
+    public StringMap<IdList<Statistic>> getImmuLowStatisTypes() {
         return immuLowStatisTypes;
     }
 
     public void setImmuLowStatisTypes(
-            StringMap<EnumList<Statistic>> _immuLowStatisTypes) {
+            StringMap<IdList<Statistic>> _immuLowStatisTypes) {
         immuLowStatisTypes = _immuLowStatisTypes;
     }
 
-    public AbsMap<Statistic, Byte> getLowStatFoeHit() {
+    public IdMap<Statistic, Byte> getLowStatFoeHit() {
         return lowStatFoeHit;
     }
 
-    public void setLowStatFoeHit(AbsMap<Statistic, Byte> _lowStatFoeHit) {
+    public void setLowStatFoeHit(IdMap<Statistic, Byte> _lowStatFoeHit) {
         lowStatFoeHit = _lowStatFoeHit;
     }
 

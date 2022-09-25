@@ -78,8 +78,8 @@ import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.AbsMap;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.NatStringTreeMap;
 import code.util.*;
 
@@ -268,14 +268,14 @@ public class DataBase {
 
     private String rateCatching;
 
-    private AbsMap<ExpType, String> expGrowth = new IdMap<ExpType, String>();
+    private IdMap<ExpType, String> expGrowth = new IdMap<ExpType, String>();
 
-    private AbsMap<DifficultyWinPointsFight, String> rates = new IdMap<DifficultyWinPointsFight, String>();
+    private IdMap<DifficultyWinPointsFight, String> rates = new IdMap<DifficultyWinPointsFight, String>();
 
     private TypesDuos tableTypes = new TypesDuos();
     private StringList types = new StringList();
 
-    private AbsMap<DifficultyModelLaw, LawNumber> lawsDamageRate = new IdMap<DifficultyModelLaw, LawNumber>();
+    private IdMap<DifficultyModelLaw, LawNumber> lawsDamageRate = new IdMap<DifficultyModelLaw, LawNumber>();
 
     private StringList movesProtAgainstStatusMoves;
     private StringList movesProtAgainstDamageMoves;
@@ -321,19 +321,19 @@ public class DataBase {
 
     private StringMap<StringMap<String>> translatedCategories = new StringMap<StringMap<String>>();
 
-    private StringMap<AbsMap<EnvironmentType, String>> translatedEnvironment = new StringMap<AbsMap<EnvironmentType, String>>();
+    private StringMap<IdMap<EnvironmentType, String>> translatedEnvironment = new StringMap<IdMap<EnvironmentType, String>>();
 
-    private StringMap<AbsMap<SelectedBoolean, String>> translatedBooleans = new StringMap<AbsMap<SelectedBoolean, String>>();
+    private StringMap<IdMap<SelectedBoolean, String>> translatedBooleans = new StringMap<IdMap<SelectedBoolean, String>>();
 
-    private StringMap<AbsMap<DifficultyWinPointsFight, String>> translatedDiffWinPts = new StringMap<AbsMap<DifficultyWinPointsFight, String>>();
+    private StringMap<IdMap<DifficultyWinPointsFight, String>> translatedDiffWinPts = new StringMap<IdMap<DifficultyWinPointsFight, String>>();
 
-    private StringMap<AbsMap<DifficultyModelLaw, String>> translatedDiffModelLaw = new StringMap<AbsMap<DifficultyModelLaw, String>>();
+    private StringMap<IdMap<DifficultyModelLaw, String>> translatedDiffModelLaw = new StringMap<IdMap<DifficultyModelLaw, String>>();
 
-    private StringMap<AbsMap<Gender, String>> translatedGenders = new StringMap<AbsMap<Gender, String>>();
+    private StringMap<IdMap<Gender, String>> translatedGenders = new StringMap<IdMap<Gender, String>>();
 
-    private StringMap<AbsMap<Statistic, String>> translatedStatistics = new StringMap<AbsMap<Statistic, String>>();
+    private StringMap<IdMap<Statistic, String>> translatedStatistics = new StringMap<IdMap<Statistic, String>>();
 
-    private StringMap<AbsMap<TargetChoice, String>> translatedTargets = new StringMap<AbsMap<TargetChoice, String>>();
+    private StringMap<IdMap<TargetChoice, String>> translatedTargets = new StringMap<IdMap<TargetChoice, String>>();
 
     private StringMap<StringMap<String>> translatedTypes = new StringMap<StringMap<String>>();
 
@@ -698,7 +698,7 @@ public class DataBase {
     }
 
     private static boolean nextIt(EffectStatistic _effect) {
-        EnumList<Statistic> stats_ = new EnumList<Statistic>();
+        IdList<Statistic> stats_ = new IdList<Statistic>();
         stats_.add(Statistic.SPEED);
         stats_.add(Statistic.SPECIAL_ATTACK);
         stats_.add(Statistic.ATTACK);
@@ -1308,11 +1308,11 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (AbsMap<Statistic, String> v : translatedStatistics.values()) {
+        for (IdMap<Statistic, String> v : translatedStatistics.values()) {
             for (Statistic g : v.getKeys()) {
                 _allStandardKeys.add(g.getStatName());
             }
-            if (!new EnumList<Statistic>(v.getKeys()).containsAllObj(new EnumList<Statistic>(Statistic.all()))) {
+            if (!new IdList<Statistic>(v.getKeys()).containsAllObj(new IdList<Statistic>(Statistic.all()))) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1330,12 +1330,12 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (AbsMap<EnvironmentType, String> v : translatedEnvironment
+        for (IdMap<EnvironmentType, String> v : translatedEnvironment
                 .values()) {
             for (EnvironmentType g : v.getKeys()) {
                 _allStandardKeys.add(g.getEnvName());
             }
-            if (!new EnumList<EnvironmentType>(v.getKeys()).containsAllObj(new EnumList<EnvironmentType>(EnvironmentType.all()))) {
+            if (!new IdList<EnvironmentType>(v.getKeys()).containsAllObj(new IdList<EnvironmentType>(EnvironmentType.all()))) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1353,12 +1353,12 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (AbsMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
+        for (IdMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
                 .values()) {
             for (DifficultyModelLaw g : v.getKeys()) {
                 _allStandardKeys.add(g.getModelName());
             }
-            if (!new EnumList<DifficultyModelLaw>(v.getKeys()).containsAllObj(new EnumList<DifficultyModelLaw>(DifficultyModelLaw.all()))) {
+            if (!new IdList<DifficultyModelLaw>(v.getKeys()).containsAllObj(new IdList<DifficultyModelLaw>(DifficultyModelLaw.all()))) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1372,12 +1372,12 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (AbsMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
+        for (IdMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
                 .values()) {
             for (DifficultyWinPointsFight g : v.getKeys()) {
                 _allStandardKeys.add(g.getWinName());
             }
-            if (!new EnumList<DifficultyWinPointsFight>(v.getKeys()).containsAllObj(new EnumList<DifficultyWinPointsFight>(DifficultyWinPointsFight.all()))) {
+            if (!new IdList<DifficultyWinPointsFight>(v.getKeys()).containsAllObj(new IdList<DifficultyWinPointsFight>(DifficultyWinPointsFight.all()))) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1391,11 +1391,11 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (AbsMap<SelectedBoolean, String> v : translatedBooleans.values()) {
+        for (IdMap<SelectedBoolean, String> v : translatedBooleans.values()) {
             for (SelectedBoolean g : v.getKeys()) {
                 _allStandardKeys.add(g.getBoolName());
             }
-            if (!new EnumList<SelectedBoolean>(v.getKeys()).containsAllObj(new EnumList<SelectedBoolean>(SelectedBoolean.all()))) {
+            if (!new IdList<SelectedBoolean>(v.getKeys()).containsAllObj(new IdList<SelectedBoolean>(SelectedBoolean.all()))) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1409,11 +1409,11 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (AbsMap<Gender, String> v : translatedGenders.values()) {
+        for (IdMap<Gender, String> v : translatedGenders.values()) {
             for (Gender g : v.getKeys()) {
                 _allStandardKeys.add(g.getGenderName());
             }
-            if (!new EnumList<Gender>(v.getKeys()).containsAllObj(new EnumList<Gender>(Gender.all()))) {
+            if (!new IdList<Gender>(v.getKeys()).containsAllObj(new IdList<Gender>(Gender.all()))) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1431,11 +1431,11 @@ public class DataBase {
                 languages)) {
             setError(true);
         }
-        for (AbsMap<TargetChoice, String> v : translatedTargets.values()) {
+        for (IdMap<TargetChoice, String> v : translatedTargets.values()) {
             for (TargetChoice g : v.getKeys()) {
                 _allStandardKeys.add(g.getTargetName());
             }
-            if (!new EnumList<TargetChoice>(v.getKeys()).containsAllObj(new EnumList<TargetChoice>(TargetChoice.all()))) {
+            if (!new IdList<TargetChoice>(v.getKeys()).containsAllObj(new IdList<TargetChoice>(TargetChoice.all()))) {
                 setError(true);
             }
             if (hasDuplicates(v.values())) {
@@ -1490,7 +1490,7 @@ public class DataBase {
             if (!StringUtil.quickEq(_s, g.getGenderName())) {
                 continue;
             }
-            for (EntryCust<String,AbsMap<Gender,String>> e: translatedGenders.entryList()) {
+            for (EntryCust<String,IdMap<Gender,String>> e: translatedGenders.entryList()) {
                 if (!StringUtil.quickEq(e.getKey(), _l)) {
                     continue;
                 }
@@ -1509,7 +1509,7 @@ public class DataBase {
             if (!StringUtil.quickEq(_s, s_.getStatName())) {
                 continue;
             }
-            for (EntryCust<String,AbsMap<Statistic,String>> e: translatedStatistics.entryList()) {
+            for (EntryCust<String,IdMap<Statistic,String>> e: translatedStatistics.entryList()) {
                 if (!StringUtil.quickEq(e.getKey(), _l)) {
                     continue;
                 }
@@ -1754,11 +1754,11 @@ public class DataBase {
         rateCatching = _rateCatching;
     }
 
-    public void setExpGrowth(AbsMap<ExpType, String> _expGrowth) {
+    public void setExpGrowth(IdMap<ExpType, String> _expGrowth) {
         expGrowth = _expGrowth;
     }
 
-    public void setRates(AbsMap<DifficultyWinPointsFight, String> _rates) {
+    public void setRates(IdMap<DifficultyWinPointsFight, String> _rates) {
         rates = _rates;
     }
 
@@ -1770,7 +1770,7 @@ public class DataBase {
         types = _types;
     }
 
-    public void setLawsDamageRate(AbsMap<DifficultyModelLaw, LawNumber> _lawsDamageRate) {
+    public void setLawsDamageRate(IdMap<DifficultyModelLaw, LawNumber> _lawsDamageRate) {
         lawsDamageRate = _lawsDamageRate;
     }
 
@@ -1779,12 +1779,12 @@ public class DataBase {
     }
 
     public void initTranslations() {
-        translatedBooleans = new StringMap<AbsMap<SelectedBoolean, String>>();
-        translatedDiffWinPts = new StringMap<AbsMap<DifficultyWinPointsFight, String>>();
-        translatedDiffModelLaw = new StringMap<AbsMap<DifficultyModelLaw, String>>();
-        translatedGenders = new StringMap<AbsMap<Gender, String>>();
-        translatedEnvironment = new StringMap<AbsMap<EnvironmentType, String>>();
-        translatedStatistics = new StringMap<AbsMap<Statistic, String>>();
+        translatedBooleans = new StringMap<IdMap<SelectedBoolean, String>>();
+        translatedDiffWinPts = new StringMap<IdMap<DifficultyWinPointsFight, String>>();
+        translatedDiffModelLaw = new StringMap<IdMap<DifficultyModelLaw, String>>();
+        translatedGenders = new StringMap<IdMap<Gender, String>>();
+        translatedEnvironment = new StringMap<IdMap<EnvironmentType, String>>();
+        translatedStatistics = new StringMap<IdMap<Statistic, String>>();
         translatedPokemon = new StringMap<StringMap<String>>();
         translatedMoves = new StringMap<StringMap<String>>();
         translatedItems = new StringMap<StringMap<String>>();
@@ -1793,7 +1793,7 @@ public class DataBase {
         translatedCategories = new StringMap<StringMap<String>>();
         translatedTypes = new StringMap<StringMap<String>>();
         translatedFctMath = new StringMap<StringMap<String>>();
-        translatedTargets = new StringMap<AbsMap<TargetChoice, String>>();
+        translatedTargets = new StringMap<IdMap<TargetChoice, String>>();
         translatedClassesDescriptions = new StringMap<StringMap<String>>();
         litterals = new StringMap<StringMap<String>>();
     }
@@ -2902,15 +2902,15 @@ public class DataBase {
         return status;
     }
 
-    public AbsMap<ExpType, String> getExpGrowth() {
+    public IdMap<ExpType, String> getExpGrowth() {
         return expGrowth;
     }
 
-    public AbsMap<DifficultyWinPointsFight, String> getRates() {
+    public IdMap<DifficultyWinPointsFight, String> getRates() {
         return rates;
     }
 
-    public AbsMap<DifficultyModelLaw, LawNumber> getLawsDamageRate() {
+    public IdMap<DifficultyModelLaw, LawNumber> getLawsDamageRate() {
         return lawsDamageRate;
     }
 
@@ -3355,11 +3355,11 @@ public class DataBase {
         return translatedCategories;
     }
 
-    public AbsMap<Gender, String> getTranslatedGendersCurLanguage(String _lg) {
+    public IdMap<Gender, String> getTranslatedGendersCurLanguage(String _lg) {
         return translatedGenders.getVal(_lg);
     }
 
-    public StringMap<AbsMap<Gender, String>> getTranslatedGenders() {
+    public StringMap<IdMap<Gender, String>> getTranslatedGenders() {
         return translatedGenders;
     }
 
@@ -3371,31 +3371,31 @@ public class DataBase {
         return translatedAbilities.getVal(_lg);
     }
 
-    public AbsMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage(String _lg) {
+    public IdMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage(String _lg) {
         return translatedBooleans.getVal(_lg);
     }
 
-    public StringMap<AbsMap<SelectedBoolean, String>> getTranslatedBooleans() {
+    public StringMap<IdMap<SelectedBoolean, String>> getTranslatedBooleans() {
         return translatedBooleans;
     }
 
-    public StringMap<AbsMap<DifficultyModelLaw, String>> getTranslatedDiffModelLaw() {
+    public StringMap<IdMap<DifficultyModelLaw, String>> getTranslatedDiffModelLaw() {
         return translatedDiffModelLaw;
     }
 
-    public StringMap<AbsMap<DifficultyWinPointsFight, String>> getTranslatedDiffWinPts() {
+    public StringMap<IdMap<DifficultyWinPointsFight, String>> getTranslatedDiffWinPts() {
         return translatedDiffWinPts;
     }
 
-    public StringMap<AbsMap<EnvironmentType, String>> getTranslatedEnvironment() {
+    public StringMap<IdMap<EnvironmentType, String>> getTranslatedEnvironment() {
         return translatedEnvironment;
     }
 
-    public StringMap<AbsMap<Statistic, String>> getTranslatedStatistics() {
+    public StringMap<IdMap<Statistic, String>> getTranslatedStatistics() {
         return translatedStatistics;
     }
 
-    public StringMap<AbsMap<TargetChoice, String>> getTranslatedTargets() {
+    public StringMap<IdMap<TargetChoice, String>> getTranslatedTargets() {
         return translatedTargets;
     }
 

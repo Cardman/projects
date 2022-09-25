@@ -2,7 +2,7 @@ package aiki.beans.facade.comparators;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import code.util.AbsMap;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 

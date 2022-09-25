@@ -51,7 +51,7 @@ public class PokemonBean extends CommonBean {
     private StringList abilities;
     private short catchingRate;
     private StringList evolutions;
-    private EnumList<Statistic> statisticsEnum;
+    private IdList<Statistic> statisticsEnum;
     private StringList statistics;
     private String evoBase;
     private String expEvo;
@@ -144,7 +144,7 @@ public class PokemonBean extends CommonBean {
         expRate = pk_.getExpRate();
         AbsMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        statisticsEnum = new EnumList<Statistic>();
+        statisticsEnum = new IdList<Statistic>();
         statistics = new StringList();
         for (Statistic s: Statistic.values()) {
             if (!s.isWithBaseStatistic()) {

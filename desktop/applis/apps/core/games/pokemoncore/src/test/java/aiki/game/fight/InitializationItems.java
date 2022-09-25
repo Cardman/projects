@@ -29,7 +29,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -748,7 +748,7 @@ final class InitializationItems {
         object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Short>());
         object_.setHatching(new StringList());
         object_.setImmuTypes(new StringList());
-        object_.setBoostStatisTypes(new StringMap<AbsMap<Statistic,Byte>>());
+        object_.setBoostStatisTypes(new StringMap<IdMap<Statistic,Byte>>());
         object_.setBoostStatisSuperEff(new IdMap<Statistic,Byte>());
         //object_.setSansEffetCapacite(new StringList());
         object_.setEffectEndRound(new CustList<EffectEndRound>());

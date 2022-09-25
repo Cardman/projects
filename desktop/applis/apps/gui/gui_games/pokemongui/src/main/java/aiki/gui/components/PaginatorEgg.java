@@ -16,7 +16,7 @@ import aiki.util.SortingEgg;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 import code.util.core.IndexConstants;
@@ -36,7 +36,7 @@ public final class PaginatorEgg extends Paginator {
     private final AbsTextField name;
     private final AutoCompleteDocument nameAuto;
 
-    private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
+    private final IdList<SearchingMode> order = new IdList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
     private final ComboBox<SearchingMode> modeName;

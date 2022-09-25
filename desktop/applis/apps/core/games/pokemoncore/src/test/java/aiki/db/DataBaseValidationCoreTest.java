@@ -751,7 +751,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         abilityData_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.HP,ELECTRICK),(byte)0);
         abilityData_.getMultPowerMovesTypesGlobal().addEntry(ELECTRICK,Rate.newRate("-1"));
         abilityData_.getChangingBoostTypes().addEntry(ELECTRICK,new TypeDamageBoost(ELECTRICK,Rate.newRate("0")));
-        abilityData_.getImmuLowStatisTypes().addEntry(ELECTRICK,new EnumList<Statistic>());
+        abilityData_.getImmuLowStatisTypes().addEntry(ELECTRICK,new IdList<Statistic>());
         abilityData_.setHealHpWhileUsingBerry(Rate.newRate("-1"));
         abilityData_.setDecreaseNecStepsHatch(-1);
         abilityData_.getEffectEndRound().add(Instances.newEffectEndRoundGlobal());
@@ -840,7 +840,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         itemForBattle_.getImmuStatus().add(ELECTRICK);
         itemForBattle_.getImmuWeather().add(ELECTRICK);
         itemForBattle_.getBoostStatisSuperEff().addEntry(Statistic.HP, (byte) 0);
-        AbsMap<Statistic, Byte> v_ = new IdMap<Statistic, Byte>();
+        IdMap<Statistic, Byte> v_ = new IdMap<Statistic, Byte>();
         v_.addEntry(Statistic.HP, (byte) 0);
         itemForBattle_.getBoostStatisTypes().addEntry(ELECTRICK, v_);
         itemForBattle_.getSynchroStatus().add(ELECTRICK);

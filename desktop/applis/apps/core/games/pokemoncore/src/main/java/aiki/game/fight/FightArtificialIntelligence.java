@@ -16,7 +16,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.*;
 
 import code.util.StringList;
@@ -206,7 +206,7 @@ final class FightArtificialIntelligence {
             if (!reachable(_fight, _thrower, f_, _diff, _import, (DamagingMoveData) fAtt_) || Rate.strLower(FightSuccess.accuracy(_fight, _thrower, f_, _move, _import), DataBase.determinatedRate()) || !FightSuccess.successfulMove(_fight, _thrower, f_, _move, index_, false, _import).isSuccessful() || inaffectFighter(_fight, _thrower, f_, _import, types_)) {
                 remoteHpLoc_.put(t_, remoteHpFoe_);
             } else {
-                AbsMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, f_, _move, _diff, _import);
+                IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, f_, _move, _diff, _import);
                 Rate delta_ = positive(Rate.minus(remoteHpFoe_, statistiquesLoc_.getVal(UsefulValueLaw.MINI)));
                 remoteHpLoc_.put(t_, delta_);
             }
@@ -234,7 +234,7 @@ final class FightArtificialIntelligence {
                 remoteHpLoc_.put(f, remoteHpPartner_);
                 continue;
             }
-            AbsMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, f, _move, _diff, _import);
+            IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, f, _move, _diff, _import);
             Rate delta_ = positive(Rate.minus(remoteHpPartner_, statistiquesLoc_.getVal(UsefulValueLaw.MAXI)));
             remoteHpLoc_.put(f, delta_);
         }
@@ -320,7 +320,7 @@ final class FightArtificialIntelligence {
             if (!(effet_ instanceof EffectDamage) || Rate.strLower(FightSuccess.accuracy(_fight, _thrower, _foe, _move, _import), DataBase.determinatedRate()) || !FightSuccess.successfulMove(_fight, _thrower, _foe, _move, i, false, _import).isSuccessful() || inaffectFighter(_fight, _thrower, _foe, _import, types_)) {
                 continue;
             }
-            AbsMap<UsefulValueLaw,Rate> statistiquesLoc_=FightEffects.calculateMinMaxAvgVarForDamage(_fight,_thrower,_foe,_move,_diff,_import);
+            IdMap<UsefulValueLaw,Rate> statistiquesLoc_=FightEffects.calculateMinMaxAvgVarForDamage(_fight,_thrower,_foe,_move,_diff,_import);
             if (Rate.lowerEq(remoteHpFoe_, statistiquesLoc_.getVal(UsefulValueLaw.MINI))) {
                 return true;
             }
@@ -377,7 +377,7 @@ final class FightArtificialIntelligence {
     private static void listeStats(Fight _fight, Difficulty _diff, DataBase _import, TeamPosition _c, StringMap<DamagingMoveData> _attaquesOffUtilisables) {
         CustList<StatisticsDamageMove> liste_=new CustList<StatisticsDamageMove>();
         for(EntryCust<String, DamagingMoveData> m: _attaquesOffUtilisables.entryList()){
-            AbsMap<UsefulValueLaw, Rate> statistiques_ = statistiques(_fight, _diff, _import, _c, m);
+            IdMap<UsefulValueLaw, Rate> statistiques_ = statistiques(_fight, _diff, _import, _c, m);
             StatisticsDamageMove elt_;
             elt_ = new StatisticsDamageMove(statistiques_, m.getKey());
             liste_.add(elt_);
@@ -410,8 +410,8 @@ final class FightArtificialIntelligence {
         setFirstChosenMove(_fight, _c, attaqueUtilisee_, _diff, _import);
     }
 
-    private static AbsMap<UsefulValueLaw, Rate> statistiques(Fight _fight, Difficulty _diff, DataBase _import, TeamPosition _c, EntryCust<String, DamagingMoveData> _m) {
-        AbsMap<UsefulValueLaw,Rate> statistiques_=new IdMap<UsefulValueLaw,Rate>();
+    private static IdMap<UsefulValueLaw, Rate> statistiques(Fight _fight, Difficulty _diff, DataBase _import, TeamPosition _c, EntryCust<String, DamagingMoveData> _m) {
+        IdMap<UsefulValueLaw,Rate> statistiques_=new IdMap<UsefulValueLaw,Rate>();
         statistiques_.put(UsefulValueLaw.MINI,Rate.zero());
         statistiques_.put(UsefulValueLaw.MAXI,Rate.zero());
         statistiques_.put(UsefulValueLaw.MOY,Rate.zero());
@@ -425,7 +425,7 @@ final class FightArtificialIntelligence {
             byte pos_ = places_.first();
             TeamPosition f_ = Fight.toUserFighter(pos_);
             if (reachable(_fight, _c, f_, _diff, _import, _m.getValue())) {
-                AbsMap<UsefulValueLaw, Rate> statistiquesLoc_ = statistiquesLoc(_fight, _diff, _import, _c, _m, f_);
+                IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = statistiquesLoc(_fight, _diff, _import, _c, _m, f_);
                 statistiques_.getVal(UsefulValueLaw.MINI).addNb(statistiquesLoc_.getVal(UsefulValueLaw.MINI));
                 statistiques_.getVal(UsefulValueLaw.MAXI).addNb(statistiquesLoc_.getVal(UsefulValueLaw.MAXI));
                 statistiques_.getVal(UsefulValueLaw.MOY).addNb(statistiquesLoc_.getVal(UsefulValueLaw.MOY));
@@ -435,8 +435,8 @@ final class FightArtificialIntelligence {
         return statistiques_;
     }
 
-    private static AbsMap<UsefulValueLaw, Rate> statistiquesLoc(Fight _fight, Difficulty _diff, DataBase _import, TeamPosition _c, EntryCust<String, DamagingMoveData> _m, TeamPosition _f) {
-        AbsMap<UsefulValueLaw,Rate> statistiquesLoc_;
+    private static IdMap<UsefulValueLaw, Rate> statistiquesLoc(Fight _fight, Difficulty _diff, DataBase _import, TeamPosition _c, EntryCust<String, DamagingMoveData> _m, TeamPosition _f) {
+        IdMap<UsefulValueLaw,Rate> statistiquesLoc_;
         statistiquesLoc_=FightEffects.calculateMinMaxAvgVarForDamage(_fight, _c, _f, _m.getKey(), _diff, _import);
         Rate accuracy_ = FightSuccess.accuracy(_fight, _c, _f, _m.getKey(), _import);
         if (accuracy_.isZero()) {

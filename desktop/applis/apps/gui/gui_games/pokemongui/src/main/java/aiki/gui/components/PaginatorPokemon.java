@@ -55,7 +55,7 @@ public final class PaginatorPokemon extends Paginator {
     private final AbsTextField moves;
     private final AutoCompleteDocument movesAuto;
 
-    private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
+    private final IdList<SearchingMode> order = new IdList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
     private final ComboBox<SearchingMode> modeName;

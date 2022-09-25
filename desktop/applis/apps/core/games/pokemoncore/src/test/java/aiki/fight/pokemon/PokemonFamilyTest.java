@@ -132,7 +132,7 @@ public class PokemonFamilyTest extends EquallablePkUtil {
         pk_.setWeight(new Rate(3));
         pk_.setHeight(new Rate(1,10));
         pk_.setTypes(new StringList("ELETRICK"));
-        AbsMap<Statistic,StatBaseEv> statistics_;
+        IdMap<Statistic,StatBaseEv> statistics_;
         statistics_ = new IdMap<Statistic,StatBaseEv>();
         statistics_.put(Statistic.ATTACK, new StatBaseEv((short)50,(short)0));
         statistics_.put(Statistic.DEFENSE, new StatBaseEv((short)50,(short)0));

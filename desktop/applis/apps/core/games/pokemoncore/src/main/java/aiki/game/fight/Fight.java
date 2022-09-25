@@ -24,7 +24,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.NatStringTreeMap;
 import code.util.*;
 
@@ -497,7 +497,7 @@ public final class Fight {
     private byte chosenIndexBack = Fighter.BACK;
 
     /***/
-    private EnumList<ActionType> possibleActionsCurFighter = new EnumList<ActionType>();
+    private IdList<ActionType> possibleActionsCurFighter = new IdList<ActionType>();
 
     /***/
     private ActionType selectedActionCurFighter = ActionType.NOTHING;
@@ -1035,11 +1035,11 @@ public final class Fight {
         chosenIndexBack = _chosenIndexBack;
     }
 
-    public EnumList<ActionType> getPossibleActionsCurFighter() {
+    public IdList<ActionType> getPossibleActionsCurFighter() {
         return possibleActionsCurFighter;
     }
 
-    void setPossibleActionsCurFighter(EnumList<ActionType> _possibleActionsCurFighter) {
+    void setPossibleActionsCurFighter(IdList<ActionType> _possibleActionsCurFighter) {
         possibleActionsCurFighter = _possibleActionsCurFighter;
     }
 

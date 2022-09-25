@@ -4,14 +4,14 @@ import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 
 public final class EffectInvoke extends Effect {
 
-    private AbsMap<EnvironmentType, String> moveFctEnv;
+    private IdMap<EnvironmentType, String> moveFctEnv;
     private boolean invokingMoveButUser;
     private boolean invokingTargetChosenMove;
     private boolean invokingUserMoveWhileSleep;
@@ -32,11 +32,11 @@ public final class EffectInvoke extends Effect {
         DataInfoChecker.checkPositiveOrZero(rateInvokationMove,_data);
     }
 
-    public AbsMap<EnvironmentType, String> getMoveFctEnv() {
+    public IdMap<EnvironmentType, String> getMoveFctEnv() {
         return moveFctEnv;
     }
 
-    public void setMoveFctEnv(AbsMap<EnvironmentType, String> _moveFctEnv) {
+    public void setMoveFctEnv(IdMap<EnvironmentType, String> _moveFctEnv) {
         moveFctEnv = _moveFctEnv;
     }
 

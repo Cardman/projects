@@ -1281,10 +1281,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static ArrayStruct getStrListStaList(AbsMap<String, EnumList<Statistic>> _map) {
+    public static ArrayStruct getStrListStaList(AbsMap<String, IdList<Statistic>> _map) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
         int j_ = 0;
-        for (EntryCust<String, EnumList<Statistic>> e:_map.entryList()) {
+        for (EntryCust<String, IdList<Statistic>> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(OBJECT,new StringStruct(e.getKey()),getSta(e.getValue()));
             arr_.set(j_,p_);
             j_++;

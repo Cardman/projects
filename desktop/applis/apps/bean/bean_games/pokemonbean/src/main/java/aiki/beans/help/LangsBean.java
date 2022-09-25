@@ -44,7 +44,7 @@ public class LangsBean extends CommonBean {
         }
         translatedCategories = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedCategories(), curLg_, languages));
         StringMap<StringMap<String>> translatedEnvironment_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,AbsMap<EnvironmentType, String>> e:data_.getTranslatedEnvironment().entryList()) {
+        for (EntryCust<String,IdMap<EnvironmentType, String>> e:data_.getTranslatedEnvironment().entryList()) {
             StringMap<String> tr_ = new StringMap<String>();
             for (EntryCust<EnvironmentType, String> f:e.getValue().entryList()) {
                 tr_.addEntry(f.getKey().name(),f.getValue());
@@ -53,7 +53,7 @@ public class LangsBean extends CommonBean {
         }
         translatedEnvironment = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedEnvironment_, curLg_, languages));
         StringMap<StringMap<String>> translatedBooleans_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,AbsMap<SelectedBoolean, String>> e:data_.getTranslatedBooleans().entryList()) {
+        for (EntryCust<String,IdMap<SelectedBoolean, String>> e:data_.getTranslatedBooleans().entryList()) {
             StringMap<String> tr_ = new StringMap<String>();
             for (EntryCust<SelectedBoolean, String> f:e.getValue().entryList()) {
                 tr_.addEntry(f.getKey().name(),f.getValue());
@@ -62,7 +62,7 @@ public class LangsBean extends CommonBean {
         }
         translatedBooleans = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedBooleans_, curLg_, languages));
         StringMap<StringMap<String>> translatedGenders_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,AbsMap<Gender, String>> e:data_.getTranslatedGenders().entryList()) {
+        for (EntryCust<String,IdMap<Gender, String>> e:data_.getTranslatedGenders().entryList()) {
             StringMap<String> tr_ = new StringMap<String>();
             for (EntryCust<Gender, String> f:e.getValue().entryList()) {
                 tr_.addEntry(f.getKey().name(),f.getValue());
@@ -71,7 +71,7 @@ public class LangsBean extends CommonBean {
         }
         translatedGenders = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedGenders_, curLg_, languages));
         StringMap<StringMap<String>> translatedStatistics_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,AbsMap<Statistic, String>> e:data_.getTranslatedStatistics().entryList()) {
+        for (EntryCust<String,IdMap<Statistic, String>> e:data_.getTranslatedStatistics().entryList()) {
             StringMap<String> tr_ = new StringMap<String>();
             for (EntryCust<Statistic, String> f:e.getValue().entryList()) {
                 tr_.addEntry(f.getKey().name(),f.getValue());
@@ -80,7 +80,7 @@ public class LangsBean extends CommonBean {
         }
         translatedStatistics = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedStatistics_, curLg_, languages));
         StringMap<StringMap<String>> translatedTargets_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,AbsMap<TargetChoice, String>> e:data_.getTranslatedTargets().entryList()) {
+        for (EntryCust<String,IdMap<TargetChoice, String>> e:data_.getTranslatedTargets().entryList()) {
             StringMap<String> tr_ = new StringMap<String>();
             for (EntryCust<TargetChoice, String> f:e.getValue().entryList()) {
                 tr_.addEntry(f.getKey().name(),f.getValue());

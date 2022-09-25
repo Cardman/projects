@@ -3,7 +3,7 @@ import aiki.db.DataBase;
 import aiki.fight.pokemon.evolution.EvolutionLevelGender;
 import aiki.map.pokemon.enums.Gender;
 import code.util.AbsMap;
-import code.util.EnumMap;
+import code.util.IdMap;
 
 
 public class EvolutionLevelGenderBean extends EvolutionLevelBean {

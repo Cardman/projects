@@ -63,7 +63,7 @@ public abstract class Paginator {
 
     private StringMap<String> messages = new StringMap<String>();
 
-    private final EnumMap<SearchingMode,String> messagesSearchMode = new EnumMap<SearchingMode,String>();
+    private final IdMap<SearchingMode,String> messagesSearchMode = new IdMap<SearchingMode,String>();
 
     private final Header header;
 
@@ -235,7 +235,7 @@ public abstract class Paginator {
         return messages;
     }
 
-    protected EnumMap<SearchingMode,String> getMessagesSearchMode() {
+    protected IdMap<SearchingMode,String> getMessagesSearchMode() {
         return messagesSearchMode;
     }
 

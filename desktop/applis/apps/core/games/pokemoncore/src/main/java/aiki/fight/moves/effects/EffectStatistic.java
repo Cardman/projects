@@ -6,21 +6,21 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
-import code.util.EnumList;
-import code.util.AbsMap;
+import code.util.IdList;
+import code.util.IdMap;
 
 
 public final class EffectStatistic extends Effect {
 
-    private AbsMap<Statistic, Byte> statisVarRank;
-    private AbsMap<Statistic, String> localFailStatis;
+    private IdMap<Statistic, Byte> statisVarRank;
+    private IdMap<Statistic, String> localFailStatis;
     private Rate evtRate;
-    private EnumList<Statistic> copyBoost;
-    private EnumList<Statistic> swapBoostStatis;
-    private AbsMap<Statistic, String> localFailSwapBoostStatis;
+    private IdList<Statistic> copyBoost;
+    private IdList<Statistic> swapBoostStatis;
+    private IdMap<Statistic, String> localFailSwapBoostStatis;
     private MonteCarloEnum<Statistic> lawBoost;
-    private EnumList<Statistic> cancelLowStat;
-    private EnumList<Statistic> cancelChgtStat;
+    private IdList<Statistic> cancelLowStat;
+    private IdList<Statistic> cancelChgtStat;
 
     @Override
     public void validate(DataBase _data) {
@@ -78,19 +78,19 @@ public final class EffectStatistic extends Effect {
         DataInfoChecker.checkEmptyStatisticList(cancelChgtStat,_data);
     }
 
-    public AbsMap<Statistic, Byte> getStatisVarRank() {
+    public IdMap<Statistic, Byte> getStatisVarRank() {
         return statisVarRank;
     }
 
-    public void setStatisVarRank(AbsMap<Statistic, Byte> _statisVarRank) {
+    public void setStatisVarRank(IdMap<Statistic, Byte> _statisVarRank) {
         statisVarRank = _statisVarRank;
     }
 
-    public AbsMap<Statistic, String> getLocalFailStatis() {
+    public IdMap<Statistic, String> getLocalFailStatis() {
         return localFailStatis;
     }
 
-    public void setLocalFailStatis(AbsMap<Statistic, String> _localFailStatis) {
+    public void setLocalFailStatis(IdMap<Statistic, String> _localFailStatis) {
         localFailStatis = _localFailStatis;
     }
 
@@ -102,28 +102,28 @@ public final class EffectStatistic extends Effect {
         evtRate = _evtRate;
     }
 
-    public EnumList<Statistic> getCopyBoost() {
+    public IdList<Statistic> getCopyBoost() {
         return copyBoost;
     }
 
-    public void setCopyBoost(EnumList<Statistic> _copyBoost) {
+    public void setCopyBoost(IdList<Statistic> _copyBoost) {
         copyBoost = _copyBoost;
     }
 
-    public EnumList<Statistic> getSwapBoostStatis() {
+    public IdList<Statistic> getSwapBoostStatis() {
         return swapBoostStatis;
     }
 
-    public void setSwapBoostStatis(EnumList<Statistic> _swapBoostStatis) {
+    public void setSwapBoostStatis(IdList<Statistic> _swapBoostStatis) {
         swapBoostStatis = _swapBoostStatis;
     }
 
-    public AbsMap<Statistic, String> getLocalFailSwapBoostStatis() {
+    public IdMap<Statistic, String> getLocalFailSwapBoostStatis() {
         return localFailSwapBoostStatis;
     }
 
     public void setLocalFailSwapBoostStatis(
-            AbsMap<Statistic, String> _localFailSwapBoostStatis) {
+            IdMap<Statistic, String> _localFailSwapBoostStatis) {
         localFailSwapBoostStatis = _localFailSwapBoostStatis;
     }
 
@@ -135,19 +135,19 @@ public final class EffectStatistic extends Effect {
         lawBoost = _lawBoost;
     }
 
-    public EnumList<Statistic> getCancelLowStat() {
+    public IdList<Statistic> getCancelLowStat() {
         return cancelLowStat;
     }
 
-    public void setCancelLowStat(EnumList<Statistic> _cancelLowStat) {
+    public void setCancelLowStat(IdList<Statistic> _cancelLowStat) {
         cancelLowStat = _cancelLowStat;
     }
 
-    public EnumList<Statistic> getCancelChgtStat() {
+    public IdList<Statistic> getCancelChgtStat() {
         return cancelChgtStat;
     }
 
-    public void setCancelChgtStat(EnumList<Statistic> _cancelChgtStat) {
+    public void setCancelChgtStat(IdList<Statistic> _cancelChgtStat) {
         cancelChgtStat = _cancelChgtStat;
     }
 

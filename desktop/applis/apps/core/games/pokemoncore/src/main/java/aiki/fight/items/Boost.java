@@ -5,7 +5,7 @@ import aiki.fight.enums.Statistic;
 import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.util.EntryCust;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.StringMap;
 
 
@@ -15,7 +15,7 @@ public final class Boost extends Item {
 
     private Rate winPp;
     private StringMap<Short> happiness;
-    private AbsMap<Statistic, Short> evs;
+    private IdMap<Statistic, Short> evs;
 
     @Override
     public String getItemType() {
@@ -55,11 +55,11 @@ public final class Boost extends Item {
         happiness = _happiness;
     }
 
-    public AbsMap<Statistic, Short> getEvs() {
+    public IdMap<Statistic, Short> getEvs() {
         return evs;
     }
 
-    public void setEvs(AbsMap<Statistic, Short> _evs) {
+    public void setEvs(IdMap<Statistic, Short> _evs) {
         evs = _evs;
     }
 

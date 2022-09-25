@@ -6,7 +6,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.items.Boost;
 import code.maths.Rate;
 import code.util.AbsMap;
-import code.util.EnumMap;
+import code.util.IdMap;
 import code.util.StringMap;
 import code.util.TreeMap;
 

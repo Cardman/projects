@@ -8,8 +8,8 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
-import code.util.EnumList;
-import code.util.AbsMap;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.StringMap;
 
 
@@ -35,9 +35,9 @@ public final class EffectDamage extends Effect {
 
     private boolean summingUserTeamOkFighter;
 
-    private EnumList<Statistic> ignVarStatTargetPos;
+    private IdList<Statistic> ignVarStatTargetPos;
 
-    private EnumList<Statistic> ignVarStatUserNeg;
+    private IdList<Statistic> ignVarStatUserNeg;
 
     private boolean userAttack;
 
@@ -47,7 +47,7 @@ public final class EffectDamage extends Effect {
 
     private Statistic statisDef;
 
-    private AbsMap<Statistic, Byte> boostStatisOnceKoFoe;
+    private IdMap<Statistic, Byte> boostStatisOnceKoFoe;
 
     @Override
     public void validate(DataBase _data) {
@@ -185,19 +185,19 @@ public final class EffectDamage extends Effect {
         summingUserTeamOkFighter = _summingUserTeamOkFighter;
     }
 
-    public EnumList<Statistic> getIgnVarStatTargetPos() {
+    public IdList<Statistic> getIgnVarStatTargetPos() {
         return ignVarStatTargetPos;
     }
 
-    public void setIgnVarStatTargetPos(EnumList<Statistic> _ignVarStatTargetPos) {
+    public void setIgnVarStatTargetPos(IdList<Statistic> _ignVarStatTargetPos) {
         ignVarStatTargetPos = _ignVarStatTargetPos;
     }
 
-    public EnumList<Statistic> getIgnVarStatUserNeg() {
+    public IdList<Statistic> getIgnVarStatUserNeg() {
         return ignVarStatUserNeg;
     }
 
-    public void setIgnVarStatUserNeg(EnumList<Statistic> _ignVarStatUserNeg) {
+    public void setIgnVarStatUserNeg(IdList<Statistic> _ignVarStatUserNeg) {
         ignVarStatUserNeg = _ignVarStatUserNeg;
     }
 
@@ -233,12 +233,12 @@ public final class EffectDamage extends Effect {
         statisDef = _statisDef;
     }
 
-    public AbsMap<Statistic, Byte> getBoostStatisOnceKoFoe() {
+    public IdMap<Statistic, Byte> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 
     public void setBoostStatisOnceKoFoe(
-            AbsMap<Statistic, Byte> _boostStatisOnceKoFoe) {
+            IdMap<Statistic, Byte> _boostStatisOnceKoFoe) {
         boostStatisOnceKoFoe = _boostStatisOnceKoFoe;
     }
 }

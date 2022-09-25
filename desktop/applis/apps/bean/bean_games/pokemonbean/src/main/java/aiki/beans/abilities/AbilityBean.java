@@ -70,8 +70,8 @@ public class AbilityBean extends CommonBean {
     private int decreaseNecStepsHatch;
     private int nbUsedPp;
     private TreeMap<String, Rate> singleStatus;
-    private EnumList<Statistic> immuLowStat;
-    private EnumList<Statistic> maxStatisticsIfCh;
+    private IdList<Statistic> immuLowStat;
+    private IdList<Statistic> maxStatisticsIfCh;
     private CustList<StatisticStatus> immuLowStatIfStatus;
     private CustList<TypesDuo> breakFoeImmune;
     private TreeMap<Statistic, Byte> bonusStatRank;
@@ -97,7 +97,7 @@ public class AbilityBean extends CommonBean {
     private TreeMap<String, Rate> healHpByWeather;
     private TreeMap<String, Rate> multDamageFoe;
     private TreeMap<String, Rate> multPowerMovesTypesGlobal;
-    private TreeMap<String,EnumList<Statistic>> immuLowStatisTypes;
+    private TreeMap<String,IdList<Statistic>> immuLowStatisTypes;
     private TreeMap<String, StringList> immuMoveTypesByWeather;
     private TreeMap<String, StringList> immuStatus;
     private TreeMap<String, StringList> immuStatusTypes;
@@ -292,15 +292,15 @@ public class AbilityBean extends CommonBean {
         singleStatus = singleStatus_;
         AbsMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        EnumList<Statistic> immuLowStat_;
-        immuLowStat_ = new EnumList<Statistic>();
+        IdList<Statistic> immuLowStat_;
+        immuLowStat_ = new IdList<Statistic>();
         for (Statistic s: ability_.getImmuLowStat()) {
             immuLowStat_.add(s);
         }
         immuLowStat_.sortElts(new ComparatorTrStringStatistic(translatedStatistics_));
         immuLowStat = immuLowStat_;
-        EnumList<Statistic> maxStatisticsIfCh_;
-        maxStatisticsIfCh_ = new EnumList<Statistic>();
+        IdList<Statistic> maxStatisticsIfCh_;
+        maxStatisticsIfCh_ = new IdList<Statistic>();
         for (Statistic s: ability_.getMaxStatisticsIfCh()) {
             maxStatisticsIfCh_.add(s);
         }
@@ -340,12 +340,12 @@ public class AbilityBean extends CommonBean {
         }
         immuLowStatIfStatus_.sortElts(new ComparatorStatusStatistic(data_, getLanguage()));
         immuLowStatIfStatus = immuLowStatIfStatus_;
-        TreeMap<String,EnumList<Statistic>> immuLowStatisTypes_;
-        immuLowStatisTypes_ = new TreeMap<String,EnumList<Statistic>>(new ComparatorTrStrings(translatedTypes_));
+        TreeMap<String,IdList<Statistic>> immuLowStatisTypes_;
+        immuLowStatisTypes_ = new TreeMap<String,IdList<Statistic>>(new ComparatorTrStrings(translatedTypes_));
         for (String t: ability_.getImmuLowStatisTypes().getKeys()) {
-            immuLowStatisTypes_.put(t, new EnumList<Statistic>(ability_.getImmuLowStatisTypes().getVal(t)));
+            immuLowStatisTypes_.put(t, new IdList<Statistic>(ability_.getImmuLowStatisTypes().getVal(t)));
         }
-        for (EnumList<Statistic> v: immuLowStatisTypes_.values()) {
+        for (IdList<Statistic> v: immuLowStatisTypes_.values()) {
             v.sortElts(new ComparatorTrStringStatistic(translatedStatistics_));
         }
         immuLowStatisTypes = immuLowStatisTypes_;
@@ -1335,7 +1335,7 @@ public class AbilityBean extends CommonBean {
         return healHpByTypeIfWeather;
     }
 
-    public EnumList<Statistic> getImmuLowStat() {
+    public IdList<Statistic> getImmuLowStat() {
         return immuLowStat;
     }
 
@@ -1343,11 +1343,11 @@ public class AbilityBean extends CommonBean {
         return immuLowStatIfStatus;
     }
 
-    public TreeMap<String,EnumList<Statistic>> getImmuLowStatisTypes() {
+    public TreeMap<String,IdList<Statistic>> getImmuLowStatisTypes() {
         return immuLowStatisTypes;
     }
 
-    public EnumList<Statistic> getMaxStatisticsIfCh() {
+    public IdList<Statistic> getMaxStatisticsIfCh() {
         return maxStatisticsIfCh;
     }
 

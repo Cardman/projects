@@ -4,7 +4,7 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.StringMap;
 
 
@@ -12,7 +12,7 @@ public final class EffectCounterAttack extends Effect {
 
     private StringMap<Rate> sufferingDamageTypes;
 
-    private AbsMap<Statistic, Byte> droppedStatDirectMove;
+    private IdMap<Statistic, Byte> droppedStatDirectMove;
 
     private Rate sufferingDamageDirectMove;
 
@@ -38,12 +38,12 @@ public final class EffectCounterAttack extends Effect {
         sufferingDamageTypes = _sufferingDamageTypes;
     }
 
-    public AbsMap<Statistic, Byte> getDroppedStatDirectMove() {
+    public IdMap<Statistic, Byte> getDroppedStatDirectMove() {
         return droppedStatDirectMove;
     }
 
     public void setDroppedStatDirectMove(
-            AbsMap<Statistic, Byte> _droppedStatDirectMove) {
+            IdMap<Statistic, Byte> _droppedStatDirectMove) {
         droppedStatDirectMove = _droppedStatDirectMove;
     }
 

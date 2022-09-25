@@ -93,8 +93,8 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return translatedStatistics_.getVal(st_);
     }
     public CustList<Statistic> getSortedStatistics() {
-        EnumList<Statistic> list_;
-        list_ = new EnumList<Statistic>(statistics.getKeys());
+        IdList<Statistic> list_;
+        list_ = new IdList<Statistic>(statistics.getKeys());
         DataBase data_ = (DataBase) getDataBase();
         list_.sortElts(new ComparatorStatisticTr(data_, getLanguage()));
         return list_;

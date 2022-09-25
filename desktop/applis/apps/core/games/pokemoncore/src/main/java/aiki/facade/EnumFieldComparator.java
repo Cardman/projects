@@ -1,5 +1,5 @@
 package aiki.facade;
-import code.util.AbsMap;
+import code.util.IdMap;
 import aiki.facade.enums.SelectedBoolean;
 import code.util.core.SortConstants;
 import code.util.core.StringUtil;
@@ -10,7 +10,7 @@ public final class EnumFieldComparator<E> {
 
     private int priority;
 
-    private AbsMap<E,String> translations;
+    private IdMap<E,String> translations;
 
     public int compare(E _o1, E _o2) {
         if (increasing == SelectedBoolean.YES) {
@@ -34,7 +34,7 @@ public final class EnumFieldComparator<E> {
         priority = _priority;
     }
 
-    public void setTranslations(AbsMap<E, String> _translations) {
+    public void setTranslations(IdMap<E, String> _translations) {
         translations = _translations;
     }
 }

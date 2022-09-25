@@ -235,7 +235,7 @@ public final class LoadRes{
             }
         }
         _d.initTypesByTable();
-        _d.setLawsDamageRate(new EnumMap<DifficultyModelLaw, LawNumber>());
+        _d.setLawsDamageRate(new IdMap<DifficultyModelLaw, LawNumber>());
         StringList laws_ = StringUtil.splitChars(cts_.getVal(LOIS_RANDOM),
                 RETURN_LINE_CHAR);
         for (String l : laws_) {
@@ -275,7 +275,7 @@ public final class LoadRes{
                     getModelByName(infos_.first()),
                     new LawNumber(law_, (short) NumberUtil.parseInt(infos_.last())));
         }
-        _d.setExpGrowth(new EnumMap<ExpType, String>());
+        _d.setExpGrowth(new IdMap<ExpType, String>());
         StringList courbes_ = StringUtil.splitChars(cts_.getVal(COURBE_PTS_EXP),
                 RETURN_LINE_CHAR);
         for (String l : courbes_) {
@@ -286,7 +286,7 @@ public final class LoadRes{
             _d.getExpGrowth().addEntry(getExpTypeByName(infos_.first()),
                     infos_.get(1));
         }
-        _d.setRates(new EnumMap<DifficultyWinPointsFight, String>());
+        _d.setRates(new IdMap<DifficultyWinPointsFight, String>());
         StringList rates_ = StringUtil.splitChars(cts_.getVal(RATE_WON_POINTS),
                 RETURN_LINE_CHAR);
         for (String l : rates_) {
@@ -311,7 +311,7 @@ public final class LoadRes{
         _d.initTranslations();
 		StringMap<String> trs_ = Trs.tr();
 		for (String l : _d.getLanguages()) {
-			EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
+			IdMap<Gender, String> genders_ = new IdMap<Gender, String>();
             for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_GENDERS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
@@ -322,7 +322,7 @@ public final class LoadRes{
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedGenders().addEntry(l, genders_);
-			EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
+			IdMap<SelectedBoolean, String> booleans_ = new IdMap<SelectedBoolean, String>();
             for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_BOOLEANS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
@@ -333,7 +333,7 @@ public final class LoadRes{
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedBooleans().addEntry(l, booleans_);
-            EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
+            IdMap<DifficultyWinPointsFight, String> diffWinPts_ = new IdMap<DifficultyWinPointsFight, String>();
             for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_DIFF_WIN_PTS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
@@ -345,7 +345,7 @@ public final class LoadRes{
                         .transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffWinPts().addEntry(l, diffWinPts_);
-            EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
+            IdMap<DifficultyModelLaw, String> diffLaw_ = new IdMap<DifficultyModelLaw, String>();
             for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_DIFF_MODEL_LAW),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
@@ -356,7 +356,7 @@ public final class LoadRes{
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffModelLaw().addEntry(l, diffLaw_);
-            EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
+            IdMap<EnvironmentType, String> environments_ = new IdMap<EnvironmentType, String>();
             for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_ENVIRONMENTS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
@@ -367,7 +367,7 @@ public final class LoadRes{
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedEnvironment().addEntry(l, environments_);
-            EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
+            IdMap<Statistic, String> statistics_ = new IdMap<Statistic, String>();
             for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_STATISTICS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
@@ -378,7 +378,7 @@ public final class LoadRes{
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedStatistics().addEntry(l, statistics_);
-            EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
+            IdMap<TargetChoice, String> targets_ = new IdMap<TargetChoice, String>();
             for (String l2_ : StringUtil.splitChars(trs_.getVal(l+ DataBase.SEPARATOR_FILES +TRANSLATION_TARGETS),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {

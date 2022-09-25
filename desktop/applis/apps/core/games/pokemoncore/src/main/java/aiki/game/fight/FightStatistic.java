@@ -13,7 +13,7 @@ import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.status.Status;
 import aiki.fight.util.*;
 import code.maths.Rate;
-import code.util.AbsMap;
+import code.util.IdMap;
 
 import code.util.CustList;
 import code.util.StringList;
@@ -103,7 +103,7 @@ final class FightStatistic {
         Item fObjet_ = FightItems.useItsObject(_fight, _fighter, _import);
         if (fObjet_ instanceof ItemForBattle) {
             ItemForBattle fObjetCombat_ = (ItemForBattle) fObjet_;
-            AbsMap<Statistic, Byte> multStatisCran_ = fObjetCombat_.getMultStatRank();
+            IdMap<Statistic, Byte> multStatisCran_ = fObjetCombat_.getMultStatRank();
             if (multStatisCran_.contains(_statistic)) {
                 bonus_ += multStatisCran_.getVal(_statistic);
             }
@@ -114,7 +114,7 @@ final class FightStatistic {
         }
         AbilityData ability_ = fighter_.ficheCapaciteActuelle(_import);
         if (ability_ != null) {
-            AbsMap<Statistic,Byte> multStatisCran_ = ability_.getBonusStatRank();
+            IdMap<Statistic,Byte> multStatisCran_ = ability_.getBonusStatRank();
             if (multStatisCran_.contains(_statistic)) {
                 bonus_+=multStatisCran_.getVal(_statistic);
             }

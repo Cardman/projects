@@ -37,7 +37,7 @@ public final class PokemonData {
     private StringList types;
 
     /** DONE */
-    private AbsMap<Statistic, StatBaseEv> statistics;
+    private IdMap<Statistic, StatBaseEv> statistics;
 
     /** DONE */
     private CustList<LevelMove> levMoves;
@@ -167,8 +167,8 @@ public final class PokemonData {
     // return FORM_STATIS;
     // }
 
-    public Rate statHp(short _niv, AbsMap<Statistic, Short> _ev,
-            AbsMap<Statistic, Short> _iv) {
+    public Rate statHp(short _niv, IdMap<Statistic, Short> _ev,
+            IdMap<Statistic, Short> _iv) {
         return stat(_niv, Statistic.HP, _ev.getVal(Statistic.HP),
                 _iv.getVal(Statistic.HP));
     }
@@ -254,8 +254,8 @@ public final class PokemonData {
         return evos_;
     }
 
-    public AbsMap<Statistic, Short> getEvs() {
-        AbsMap<Statistic, Short> evs_ = new IdMap<Statistic, Short>();
+    public IdMap<Statistic, Short> getEvs() {
+        IdMap<Statistic, Short> evs_ = new IdMap<Statistic, Short>();
         for (Statistic s : statistics.getKeys()) {
             evs_.put(s, statistics.getVal(s).getEv());
         }
@@ -278,11 +278,11 @@ public final class PokemonData {
         types = _types;
     }
 
-    public AbsMap<Statistic, StatBaseEv> getStatistics() {
+    public IdMap<Statistic, StatBaseEv> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(AbsMap<Statistic, StatBaseEv> _statistics) {
+    public void setStatistics(IdMap<Statistic, StatBaseEv> _statistics) {
         statistics = _statistics;
     }
 

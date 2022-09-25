@@ -19,8 +19,8 @@ public class EffectDamageBean extends EffectBean {
     private String power;
     private boolean randMax;
     private boolean summingUserTeamOkFighter;
-    private EnumList<Statistic> ignVarStatTargetPos;
-    private EnumList<Statistic> ignVarStatUserNeg;
+    private IdList<Statistic> ignVarStatTargetPos;
+    private IdList<Statistic> ignVarStatUserNeg;
     private boolean userAttack;
     private String statisAtt;
     private boolean targetDefense;
@@ -100,15 +100,15 @@ public class EffectDamageBean extends EffectBean {
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         statisAtt = translatedStatistics_.getVal(effect_.getStatisAtt());
         statisDef = translatedStatistics_.getVal(effect_.getStatisDef());
-        EnumList<Statistic> ignVarStatTargetPos_;
-        ignVarStatTargetPos_ = new EnumList<Statistic>();
+        IdList<Statistic> ignVarStatTargetPos_;
+        ignVarStatTargetPos_ = new IdList<Statistic>();
         for (Statistic s: effect_.getIgnVarStatTargetPos()) {
             ignVarStatTargetPos_.add(s);
         }
         ignVarStatTargetPos_.sortElts(new ComparatorTrStringStatistic(translatedStatistics_));
         ignVarStatTargetPos = ignVarStatTargetPos_;
-        EnumList<Statistic> ignVarStatUserNeg_;
-        ignVarStatUserNeg_ = new EnumList<Statistic>();
+        IdList<Statistic> ignVarStatUserNeg_;
+        ignVarStatUserNeg_ = new IdList<Statistic>();
         for (Statistic s: effect_.getIgnVarStatUserNeg()) {
             ignVarStatUserNeg_.add(s);
         }
@@ -223,11 +223,11 @@ public class EffectDamageBean extends EffectBean {
         return statisDef;
     }
 
-    public EnumList<Statistic> getIgnVarStatTargetPos() {
+    public IdList<Statistic> getIgnVarStatTargetPos() {
         return ignVarStatTargetPos;
     }
 
-    public EnumList<Statistic> getIgnVarStatUserNeg() {
+    public IdList<Statistic> getIgnVarStatUserNeg() {
         return ignVarStatUserNeg;
     }
 

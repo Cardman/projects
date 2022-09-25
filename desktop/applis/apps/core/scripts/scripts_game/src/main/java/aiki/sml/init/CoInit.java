@@ -31,7 +31,7 @@ m196effectCombo_.setRepeatedRoundsLaw(m196monteCarloNumber_);
 m196effectCombo_.setRankIncrementNbRound((short)15);
 CustList<EffectTeam> m196custListEffectTeam_=new CustList<EffectTeam>(new CollCapacity(1));
 EffectTeam m196effectTeam_=Instances.newEffectTeam();
-EnumMap<Statistic,Rate> m196enumMapStatisticRate_=new EnumMap<Statistic,Rate>(new CollCapacity(1));
+IdMap<Statistic,Rate> m196enumMapStatisticRate_=new IdMap<Statistic,Rate>(new CollCapacity(1));
 m196enumMapStatisticRate_.addEntry(Statistic.EVASINESS,Rate.newRate(R_1_2));
 m196effectTeam_.setMultStatisticFoe(m196enumMapStatisticRate_);
 m196effectTeam_.setTargetChoice(TargetChoice.LANCEUR);

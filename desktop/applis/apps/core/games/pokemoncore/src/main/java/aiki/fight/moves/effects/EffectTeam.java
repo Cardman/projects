@@ -7,24 +7,24 @@ import aiki.fight.util.CategoryMult;
 import aiki.fight.util.CategoryMults;
 import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.AbsMap;
-import code.util.EnumList;
+import code.util.IdMap;
+import code.util.IdList;
 import code.util.StringList;
 
 
 public final class EffectTeam extends Effect {
 
     private boolean forbiddingHealing;
-    private EnumList<Statistic> forbiddenBoost;
+    private IdList<Statistic> forbiddenBoost;
     private StringList unusableMoves;
-    private EnumList<Statistic> cancelChgtStatFoeTeam;
-    private EnumList<Statistic> cancelChgtStatTeam;
+    private IdList<Statistic> cancelChgtStatFoeTeam;
+    private IdList<Statistic> cancelChgtStatTeam;
 
     private CategoryMults multDamage;
 
-    private AbsMap<Statistic, Rate> multStatistic;
-    private AbsMap<Statistic, Rate> multStatisticFoe;
-    private EnumList<Statistic> protectAgainstLowStat;
+    private IdMap<Statistic, Rate> multStatistic;
+    private IdMap<Statistic, Rate> multStatisticFoe;
+    private IdList<Statistic> protectAgainstLowStat;
     private boolean protectAgainstCh;
     private StringList protectAgainstStatus;
     private StringList disableFoeTeamEffects;
@@ -62,11 +62,11 @@ public final class EffectTeam extends Effect {
         forbiddingHealing = _forbiddingHealing;
     }
 
-    public EnumList<Statistic> getForbiddenBoost() {
+    public IdList<Statistic> getForbiddenBoost() {
         return forbiddenBoost;
     }
 
-    public void setForbiddenBoost(EnumList<Statistic> _forbiddenBoost) {
+    public void setForbiddenBoost(IdList<Statistic> _forbiddenBoost) {
         forbiddenBoost = _forbiddenBoost;
     }
 
@@ -78,20 +78,20 @@ public final class EffectTeam extends Effect {
         unusableMoves = _unusableMoves;
     }
 
-    public EnumList<Statistic> getCancelChgtStatFoeTeam() {
+    public IdList<Statistic> getCancelChgtStatFoeTeam() {
         return cancelChgtStatFoeTeam;
     }
 
     public void setCancelChgtStatFoeTeam(
-            EnumList<Statistic> _cancelChgtStatFoeTeam) {
+            IdList<Statistic> _cancelChgtStatFoeTeam) {
         cancelChgtStatFoeTeam = _cancelChgtStatFoeTeam;
     }
 
-    public EnumList<Statistic> getCancelChgtStatTeam() {
+    public IdList<Statistic> getCancelChgtStatTeam() {
         return cancelChgtStatTeam;
     }
 
-    public void setCancelChgtStatTeam(EnumList<Statistic> _cancelChgtStatTeam) {
+    public void setCancelChgtStatTeam(IdList<Statistic> _cancelChgtStatTeam) {
         cancelChgtStatTeam = _cancelChgtStatTeam;
     }
 
@@ -103,28 +103,28 @@ public final class EffectTeam extends Effect {
         multDamage = _multDamage;
     }
 
-    public AbsMap<Statistic, Rate> getMultStatistic() {
+    public IdMap<Statistic, Rate> getMultStatistic() {
         return multStatistic;
     }
 
-    public void setMultStatistic(AbsMap<Statistic, Rate> _multStatistic) {
+    public void setMultStatistic(IdMap<Statistic, Rate> _multStatistic) {
         multStatistic = _multStatistic;
     }
 
-    public AbsMap<Statistic, Rate> getMultStatisticFoe() {
+    public IdMap<Statistic, Rate> getMultStatisticFoe() {
         return multStatisticFoe;
     }
 
-    public void setMultStatisticFoe(AbsMap<Statistic, Rate> _multStatisticFoe) {
+    public void setMultStatisticFoe(IdMap<Statistic, Rate> _multStatisticFoe) {
         multStatisticFoe = _multStatisticFoe;
     }
 
-    public EnumList<Statistic> getProtectAgainstLowStat() {
+    public IdList<Statistic> getProtectAgainstLowStat() {
         return protectAgainstLowStat;
     }
 
     public void setProtectAgainstLowStat(
-            EnumList<Statistic> _protectAgainstLowStat) {
+            IdList<Statistic> _protectAgainstLowStat) {
         protectAgainstLowStat = _protectAgainstLowStat;
     }
 

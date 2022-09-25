@@ -11,7 +11,7 @@ import aiki.util.DataInfoChecker;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
-import code.util.AbsMap;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -35,7 +35,7 @@ public final class ItemForBattle extends Item {
     private Rate protectAgainstKo;
     private Rate protectAgainstKoIfFullHp;
     private Rate drainedHpByDamageRate;
-    private AbsMap<Statistic, Short> winEvFight;
+    private IdMap<Statistic, Short> winEvFight;
     private MonteCarloBoolean lawForAttackFirst;
     private Rate multTrappingDamage;
     private Rate multWinningHappiness;
@@ -45,19 +45,19 @@ public final class ItemForBattle extends Item {
     private String multDamage;
     private Rate multDrainedHp;
     private Rate damageRecoil;
-    private AbsMap<Statistic, Byte> multStatRank;
+    private IdMap<Statistic, Byte> multStatRank;
 
     private StatisticPokemons multStatPokemonRank;
 
-    private AbsMap<Statistic, String> multStat;
+    private IdMap<Statistic, String> multStat;
     private StringMap<Short> increasingMaxNbRoundGlobalMove;
     private StringMap<Short> increasingMaxNbRoundTeamMove;
     private StringList immuMoves;
     private StringList hatching;
     private StringList immuTypes;
     private StringList immuWeather;
-    private AbsMap<Statistic, Byte> boostStatisSuperEff;
-    private StringMap<AbsMap<Statistic, Byte>> boostStatisTypes;
+    private IdMap<Statistic, Byte> boostStatisSuperEff;
+    private StringMap<IdMap<Statistic, Byte>> boostStatisTypes;
 
     private CustList<EffectEndRound> effectEndRound;
     private CustList<EffectWhileSendingWithStatistic> effectSending;
@@ -100,7 +100,7 @@ public final class ItemForBattle extends Item {
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatisSuperEff.getKeys(),_data);
         DataInfoChecker.checkPositiveBytes(boostStatisSuperEff.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),boostStatisTypes.getKeys(),_data);
-        for (AbsMap<Statistic, Byte> t : boostStatisTypes.values()) {
+        for (IdMap<Statistic, Byte> t : boostStatisTypes.values()) {
             DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),t.getKeys(),_data);
             DataInfoChecker.checkPositiveBytes(t.values(),_data);
         }
@@ -261,11 +261,11 @@ public final class ItemForBattle extends Item {
         drainedHpByDamageRate = _drainedHpByDamageRate;
     }
 
-    public AbsMap<Statistic, Short> getWinEvFight() {
+    public IdMap<Statistic, Short> getWinEvFight() {
         return winEvFight;
     }
 
-    public void setWinEvFight(AbsMap<Statistic, Short> _winEvFight) {
+    public void setWinEvFight(IdMap<Statistic, Short> _winEvFight) {
         winEvFight = _winEvFight;
     }
 
@@ -341,11 +341,11 @@ public final class ItemForBattle extends Item {
         damageRecoil = _damageRecoil;
     }
 
-    public AbsMap<Statistic, Byte> getMultStatRank() {
+    public IdMap<Statistic, Byte> getMultStatRank() {
         return multStatRank;
     }
 
-    public void setMultStatRank(AbsMap<Statistic, Byte> _multStat) {
+    public void setMultStatRank(IdMap<Statistic, Byte> _multStat) {
         multStatRank = _multStat;
     }
 
@@ -358,11 +358,11 @@ public final class ItemForBattle extends Item {
         multStatPokemonRank = _multStatPokemonRank;
     }
 
-    public AbsMap<Statistic, String> getMultStat() {
+    public IdMap<Statistic, String> getMultStat() {
         return multStat;
     }
 
-    public void setMultStat(AbsMap<Statistic, String> _multStat) {
+    public void setMultStat(IdMap<Statistic, String> _multStat) {
         multStat = _multStat;
     }
 
@@ -416,21 +416,21 @@ public final class ItemForBattle extends Item {
         immuWeather = _immuWeather;
     }
 
-    public AbsMap<Statistic, Byte> getBoostStatisSuperEff() {
+    public IdMap<Statistic, Byte> getBoostStatisSuperEff() {
         return boostStatisSuperEff;
     }
 
     public void setBoostStatisSuperEff(
-            AbsMap<Statistic, Byte> _boostStatisSuperEff) {
+            IdMap<Statistic, Byte> _boostStatisSuperEff) {
         boostStatisSuperEff = _boostStatisSuperEff;
     }
 
-    public StringMap<AbsMap<Statistic, Byte>> getBoostStatisTypes() {
+    public StringMap<IdMap<Statistic, Byte>> getBoostStatisTypes() {
         return boostStatisTypes;
     }
 
     public void setBoostStatisTypes(
-            StringMap<AbsMap<Statistic, Byte>> _boostStatisTypes) {
+            StringMap<IdMap<Statistic, Byte>> _boostStatisTypes) {
         boostStatisTypes = _boostStatisTypes;
     }
 

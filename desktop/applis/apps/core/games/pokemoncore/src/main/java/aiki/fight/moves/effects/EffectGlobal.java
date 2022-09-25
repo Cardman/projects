@@ -7,7 +7,7 @@ import aiki.fight.util.StatisticTypeList;
 import aiki.fight.util.TypesDuos;
 import aiki.util.DataInfoChecker;
 import code.maths.Rate;
-import code.util.EnumList;
+import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -33,7 +33,7 @@ public final class EffectGlobal extends Effect {
 
     private StringList cancelEffects;
     private StringMap<Rate> multDamageTypesMoves;
-    private EnumList<Statistic> cancelChgtStat;
+    private IdList<Statistic> cancelChgtStat;
 
     private String invokedMoveTerrain;
 
@@ -249,11 +249,11 @@ public final class EffectGlobal extends Effect {
         multDamageTypesMoves = _multDamageTypesMoves;
     }
 
-    public EnumList<Statistic> getCancelChgtStat() {
+    public IdList<Statistic> getCancelChgtStat() {
         return cancelChgtStat;
     }
 
-    public void setCancelChgtStat(EnumList<Statistic> _cancelChgtStat) {
+    public void setCancelChgtStat(IdList<Statistic> _cancelChgtStat) {
         cancelChgtStat = _cancelChgtStat;
     }
 
