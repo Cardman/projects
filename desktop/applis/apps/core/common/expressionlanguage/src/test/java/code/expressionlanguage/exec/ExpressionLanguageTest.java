@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.ParsedArgument;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -29,6 +30,8 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import org.junit.Test;
 
 public final class ExpressionLanguageTest extends ProcessMethodCommon {
@@ -1238,8 +1241,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("$math.random()");
         NumberStruct res_ = (NumberStruct)  arg_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
-        assertTrue(res_.doubleStruct() >= 0.0d);
-        assertTrue(res_.doubleStruct() < 1.0d);
+        assertEq(1, NumberUtil.signum(NumParsers.compareGene(res_,new DoubleStruct(0.0d))+ SortConstants.SWAP_SORT));
+        assertEq(-1, NumberUtil.signum(NumParsers.compareGene(res_,new DoubleStruct(1.0d))));
     }
 
     @Test
@@ -1247,8 +1250,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("$math.random(8l)");
         NumberStruct res_ = (NumberStruct)  arg_.getStruct();
         assertTrue(res_ instanceof LongStruct);
-        assertTrue(res_.longStruct() >= 0);
-        assertTrue(res_.longStruct() < 8);
+        assertEq(1, NumberUtil.signum(NumberUtil.compareLg(res_.longStruct(),0)+ SortConstants.SWAP_SORT));
+        assertEq(-1, NumberUtil.signum(NumberUtil.compareLg(res_.longStruct(),8)));
     }
 
     @Test
@@ -1256,8 +1259,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("$math.natRandom()");
         NumberStruct res_ = (NumberStruct)  arg_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
-        assertTrue(res_.doubleStruct() >= 0.0d);
-        assertTrue(res_.doubleStruct() < 1.0d);
+        assertEq(1, NumberUtil.signum(NumParsers.compareGene(res_,new DoubleStruct(0.0d))+ SortConstants.SWAP_SORT));
+        assertEq(-1, NumberUtil.signum(NumParsers.compareGene(res_,new DoubleStruct(1.0d))));
     }
 
     @Test
@@ -1265,8 +1268,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("$math.natRandom(8l)");
         NumberStruct res_ = (NumberStruct)  arg_.getStruct();
         assertTrue(res_ instanceof LongStruct);
-        assertTrue(res_.longStruct() >= 0);
-        assertTrue(res_.longStruct() < 8);
+        assertEq(1, NumberUtil.signum(NumberUtil.compareLg(res_.longStruct(),0)+ SortConstants.SWAP_SORT));
+        assertEq(-1, NumberUtil.signum(NumberUtil.compareLg(res_.longStruct(),8)));
     }
 
     @Test

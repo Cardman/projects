@@ -3,10 +3,13 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import org.junit.Test;
 
 
@@ -3169,8 +3172,8 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         NumberStruct res_ = (NumberStruct) ret_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
-        assertTrue(res_.doubleStruct() >= 0.0d);
-        assertTrue(res_.doubleStruct() < 1.0d);
+        assertEq(1, NumberUtil.signum(NumParsers.compareGene(res_,new DoubleStruct(0.0d))+ SortConstants.SWAP_SORT));
+        assertEq(-1, NumberUtil.signum(NumParsers.compareGene(res_,new DoubleStruct(1.0d))));
     }
     @Test
     public void calculateArgument41Test() {
@@ -3188,8 +3191,8 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         NumberStruct res_ = (NumberStruct) ret_.getStruct();
         assertTrue(res_ instanceof LongStruct);
-        assertTrue(res_.longStruct() >= 0);
-        assertTrue(res_.longStruct() < 8);
+        assertEq(1, NumberUtil.signum(NumberUtil.compareLg(res_.longStruct(),0)+ SortConstants.SWAP_SORT));
+        assertEq(-1, NumberUtil.signum(NumberUtil.compareLg(res_.longStruct(),8)));
     }
     @Test
     public void calculateArgument48Test() {
