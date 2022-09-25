@@ -4,6 +4,7 @@ import cards.president.enumerations.Playing;
 import code.util.ByteMap;
 import code.util.Bytes;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class SimulatingPresidentAbrupt extends AbstractSimulatingPresident {
 
@@ -48,7 +49,7 @@ public final class SimulatingPresidentAbrupt extends AbstractSimulatingPresident
 
     @Override
     public boolean stopped() {
-        return partiePresidentSimulee().getTricks().size() == 1;
+        return NumberUtil.eq(partiePresidentSimulee().getTricks().size(), 1);
     }
 
     @Override
