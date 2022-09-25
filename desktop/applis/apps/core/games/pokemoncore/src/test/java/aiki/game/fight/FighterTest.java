@@ -6,8 +6,6 @@ import aiki.tsts.TstsPk;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -2743,7 +2741,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstituteForMove((byte) 1);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(noAction(action_));
+        assertNull(action_);
     }
 
     @Test
@@ -2826,7 +2824,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(noAction(action_));
+        assertNull(action_);
     }
 
     @Test
@@ -2913,7 +2911,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setSubstitute((byte) 1);
         fighter_.cancelSubstituing();
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(noAction(action_));
+        assertNull(action_);
     }
 
     @Test
@@ -7281,10 +7279,6 @@ public class FighterTest extends InitializationDataBase {
 //        }
 //        return i_;
         return TstsPk.getNbStatusRelatByRounds(_f, _nbRounds);
-    }
-
-    private static boolean noAction(AbstractAction _action) {
-        return _action == null;
     }
 
 }

@@ -59,11 +59,11 @@ public final class FacadeGameFightKoFourTest extends InitializationDataBase {
         assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, facadeGame_.getFight().getChosableFoeTargets().size());
-        assertTrue(facadeGame_.getFight().getChosableFoeTargets().get(0).getChosable()== BoolVal.TRUE);
-        assertTrue(facadeGame_.getFight().getChosableFoeTargets().get(1).getChosable() == BoolVal.TRUE);
+        assertSame(BoolVal.TRUE,facadeGame_.getFight().getChosableFoeTargets().get(0).getChosable());
+        assertSame(BoolVal.TRUE,facadeGame_.getFight().getChosableFoeTargets().get(1).getChosable());
         assertEq(2, facadeGame_.getFight().getChosablePlayerTargets().size());
-        assertTrue(!(facadeGame_.getFight().getChosablePlayerTargets().get(0).getChosable() == BoolVal.TRUE));
-        assertTrue(facadeGame_.getFight().getChosablePlayerTargets().get(1).getChosable() == BoolVal.TRUE);
+        assertSame(BoolVal.FALSE,facadeGame_.getFight().getChosablePlayerTargets().get(0).getChosable());
+        assertSame(BoolVal.TRUE,facadeGame_.getFight().getChosablePlayerTargets().get(1).getChosable());
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

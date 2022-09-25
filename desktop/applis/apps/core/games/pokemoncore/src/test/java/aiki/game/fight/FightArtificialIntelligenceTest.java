@@ -3448,9 +3448,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
         assertEq(Fighter.BACK, action_.getSubstitute());
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
     }
 
     @Test
@@ -3964,10 +3964,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         allyPokemon_.setLevel(_level);
         allyPokemon_.setMoves(_moves);
         return allyPokemon_;
-    }
-
-    private static boolean noAction(Fighter _fighter) {
-        return _fighter.getAction() == null;
     }
 
     private boolean reachable(DataBase _data, Difficulty _diff, Fight _fight, TeamPosition _thrower, TeamPosition _target, String _move) {

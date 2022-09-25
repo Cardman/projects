@@ -6165,13 +6165,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6195,13 +6195,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6225,13 +6225,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6256,13 +6256,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6287,13 +6287,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6318,13 +6318,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6353,13 +6353,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("28095/1600"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(FightKo.endedFight(fight_, diff_));
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -6392,13 +6392,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6426,13 +6426,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("1"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("28095/1600"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6457,13 +6457,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("161/10"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -6491,13 +6491,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("161/10"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
     }
     @Test
@@ -6520,10 +6520,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6549,10 +6549,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6577,10 +6577,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6605,10 +6605,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6638,10 +6638,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6666,10 +6666,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6695,10 +6695,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6725,10 +6725,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6753,10 +6753,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6781,10 +6781,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
@@ -6816,13 +6816,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -6852,13 +6852,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -6888,13 +6888,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -6924,13 +6924,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -6965,13 +6965,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -7001,13 +7001,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -7037,13 +7037,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -7074,13 +7074,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -7127,13 +7127,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -7163,13 +7163,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(player_);
         assertTrue(fighter_.estKo());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         fighter_ = fight_.getFighter(ally_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(noAction(fighter_));
+        assertNull(fighter_.getAction());
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -8782,7 +8782,4 @@ public class FightEndRoundTest extends InitializationDataBase {
         return foePokemon_;
     }
 
-    private static boolean noAction(Fighter _fighter) {
-        return _fighter.getAction() == null;
-    }
 }
