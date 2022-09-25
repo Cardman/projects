@@ -6,6 +6,7 @@ import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.core.NumberUtil;
 
 public final class RtsGame {
 
@@ -79,7 +80,7 @@ public final class RtsGame {
             } else {
                 realDeltax_ = 1;
             }
-        } else if (Math.abs(deltax_) < Math.abs(deltay_)) {
+        } else if (NumberUtil.abs(deltax_) < NumberUtil.abs(deltay_)) {
             if (deltay_ < 0) {
                 realDeltay_ = -1;
             } else {
@@ -238,10 +239,10 @@ public final class RtsGame {
     }
 
     public void setRectangle(CustPoint _first, CustPoint _last) {
-        int xLeft_ = Math.min(_first.getXcoords(), _last.getXcoords());
-        int xRight_ = Math.max(_first.getXcoords(), _last.getXcoords());
-        int yTop_ = Math.min(_first.getYcoords(), _last.getYcoords());
-        int yBottom_ = Math.max(_first.getYcoords(), _last.getYcoords());
+        int xLeft_ = NumberUtil.min(_first.getXcoords(), _last.getXcoords());
+        int xRight_ = NumberUtil.max(_first.getXcoords(), _last.getXcoords());
+        int yTop_ = NumberUtil.min(_first.getYcoords(), _last.getYcoords());
+        int yBottom_ = NumberUtil.max(_first.getYcoords(), _last.getYcoords());
         xTopLeftSelect = xLeft_;
         yTopLeftSelect = yTop_;
         widthSelect = xRight_ - xLeft_ + 1;

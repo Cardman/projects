@@ -164,6 +164,56 @@ public class NumbersTest extends EquallableExUtil {
         nbs_.add(3);
         assertTrue(nbs_.hasDuplicates());
     }
+
+    @Test
+    public void min() {
+        assertEq(1, NumberUtil.min(1L,1L));
+    }
+
+    @Test
+    public void max() {
+        assertEq(1, NumberUtil.max(1L,1L));
+    }
+
+    @Test
+    public void abs() {
+        assertEq(1, NumberUtil.abs(1));
+    }
+
+    @Test
+    public void abs_1() {
+        assertEq(1d, NumberUtil.abs((float) 1d));
+    }
+
+    @Test
+    public void abs_2() {
+        assertEq(1d, NumberUtil.abs(1d));
+    }
+
+    @Test
+    public void min_1() {
+        assertEq(1d, NumberUtil.min((float) 1d,(float) 1d));
+    }
+
+    @Test
+    public void max_1() {
+        assertEq(1d, NumberUtil.max((float) 1d,(float) 1d));
+    }
+
+    @Test
+    public void min_2() {
+        assertEq(1d, NumberUtil.min(1d,1d));
+    }
+
+    @Test
+    public void max_2() {
+        assertEq(1d, NumberUtil.max(1d,1d));
+    }
+
+    @Test
+    public void signum_1() {
+        assertEq(1d, NumberUtil.signum(1d));
+    }
     @Test
     public void min1(){
         Ints nbs_ = new Ints();

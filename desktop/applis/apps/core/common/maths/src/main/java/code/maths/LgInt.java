@@ -145,7 +145,7 @@ public final class LgInt implements Displayable {
             } else {
                 nbLuBis_ = nbLu_;
             }
-            grDigits_.add(IndexConstants.FIRST_INDEX, Math.max(0L, NumberUtil.parseInt(nbLuBis_)));
+            grDigits_.add(IndexConstants.FIRST_INDEX, NumberUtil.max(0L, NumberUtil.parseInt(nbLuBis_)));
             firstInd_ -= powerTen_;
         }
         if (grDigits_.isEmpty()) {
@@ -719,7 +719,7 @@ public final class LgInt implements Displayable {
         LgInt diffTotalPartiel_ = minus(_nombreTotalElements, _nombre);
         long absBase_ = _nombre.remainByBase();
         long diffAbsBase_ = diffTotalPartiel_.remainByBase();
-        int nombre_ = (int) Math.min(absBase_, diffAbsBase_);
+        int nombre_ = (int) NumberUtil.min(absBase_, diffAbsBase_);
         // nombre_ < _nombreTotalElements / 2
         for (int i = IndexConstants.FIRST_INDEX; i < nombre_; i++) {
             LgInt temp_ = new LgInt(i);

@@ -9,6 +9,7 @@ import code.util.EnumList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class GameBeloteProgTrick {
     private final GameBeloteTeamsRelation teamsRelation;
@@ -226,7 +227,7 @@ public final class GameBeloteProgTrick {
             maxTwo_ = 0;
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 if (joueur_ != next_) {
-                    maxTwo_ = (byte) Math.max(GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_).total(), maxTwo_);
+                    maxTwo_ = (byte) NumberUtil.max(GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_).total(), maxTwo_);
                 }
             }
             if (suitesJouables_.get(0).total() > maxTwo_) {
@@ -694,17 +695,17 @@ public final class GameBeloteProgTrick {
         if(_couleurJoueur==dom_&&_couleurDemandee!=dom_) {
             for(byte joueur_:_joueursNonJoue) {
                 if(!GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).estVide()&&GameBeloteCommon.hand(_cartesCertaines,_couleurDemandee,joueur_).estVide()) {
-                    maxValeur_=(byte)Math.max(GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).premiereCarte().strength(_couleurDemandee,bid),maxValeur_);
+                    maxValeur_=(byte)NumberUtil.max(GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).premiereCarte().strength(_couleurDemandee,bid),maxValeur_);
                 }
             }
         } else {
             for(byte joueur_:_joueursNonJoue) {
                 if(!GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).estVide()) {
-                    maxValeur_=(byte)Math.max(GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).premiereCarte().strength(_couleurDemandee,bid),maxValeur_);
+                    maxValeur_=(byte)NumberUtil.max(GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).premiereCarte().strength(_couleurDemandee,bid),maxValeur_);
                 }
             }
         }
-        maxValeur_=(byte)Math.max(maxValeur_,_carteForte.strength(_couleurDemandee,bid));
+        maxValeur_=(byte)NumberUtil.max(maxValeur_,_carteForte.strength(_couleurDemandee,bid));
         return filterSeq(_suites, _couleurDemandee, maxValeur_);
     }
 

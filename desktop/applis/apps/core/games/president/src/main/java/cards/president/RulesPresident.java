@@ -3,6 +3,7 @@ import cards.consts.RulesCommon;
 import cards.president.enumerations.EqualtyPlaying;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public final class RulesPresident {
@@ -173,9 +174,9 @@ public final class RulesPresident {
         int ratio_ = nbPlayers * NB_MIN_CARDS / base_.total();
         int rem_ = nbPlayers * NB_MIN_CARDS % base_.total();
         if (rem_ == 0) {
-            return Math.max(ratio_, 1);
+            return NumberUtil.max(ratio_, 1);
         }
-        return Math.max(ratio_ + 1, 1);
+        return NumberUtil.max(ratio_ + 1, 1);
     }
 
     public static int getNbMaxStacks(int _nbPlayers) {
@@ -188,9 +189,9 @@ public final class RulesPresident {
         int ratio_ = _nbPlayers * NB_MIN_CARDS / base_.total();
         int rem_ = _nbPlayers * NB_MIN_CARDS % base_.total();
         if (rem_ == 0) {
-            return Math.max(ratio_, 1);
+            return NumberUtil.max(ratio_, 1);
         }
-        return Math.max(ratio_ + 1, 1);
+        return NumberUtil.max(ratio_ + 1, 1);
     }
 
     public static int getNbMaxStacksPlayers() {

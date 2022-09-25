@@ -3,6 +3,7 @@ package code.gui;
 import code.expressionlanguage.structs.Struct;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.util.core.NumberUtil;
 
 
 public final class DefaultCellRenderStr extends CustCellRender<Struct> {
@@ -24,7 +25,7 @@ public final class DefaultCellRenderStr extends CustCellRender<Struct> {
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         textStr = spec.convertStr(get(_index));
         labelStr = _currentLab;
-        maxWidthStr = Math.max(maxWidthStr, labelStr.stringWidth(textStr));
+        maxWidthStr = NumberUtil.max(maxWidthStr, labelStr.stringWidth(textStr));
         selectedStr = _isSelected;
     }
     public int getMaxWidth() {

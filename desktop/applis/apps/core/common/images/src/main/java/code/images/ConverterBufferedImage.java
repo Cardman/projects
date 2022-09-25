@@ -15,8 +15,8 @@ public final class ConverterBufferedImage {
         if (_front.length == 0) {
             return _back;
         }
-        int w_ = Math.max(_back[0].length, _front[0].length);
-        int h_ = Math.max(_back.length, _front.length);
+        int w_ = NumberUtil.max(_back[0].length, _front[0].length);
+        int h_ = NumberUtil.max(_back.length, _front.length);
         int wMin_ = _front[0].length;
         int hMin_ = _front.length;
 

@@ -19,7 +19,7 @@ abstract class CardStrengthComparatorAbs implements CardStrengthComparator {
         HandBelote main1_ = _hand.getVal(_suit1);
         HandBelote main2_ = _hand.getVal(_suit2);
         int res_;
-        int min_ = Math.min(main1_.total(), main2_.total());
+        int min_ = NumberUtil.min(main1_.total(), main2_.total());
         if(min_ == IndexConstants.SIZE_EMPTY) {
             res_ = ComparatorBoolean.cmp(main1_.estVide(), main2_.estVide());
         }else{

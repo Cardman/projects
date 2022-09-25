@@ -1435,8 +1435,8 @@ public final class Player {
     }
 
     public void reindexAfterStoringToHost(short _pos1,short _pos2){
-        team.remove(Math.max(_pos1,_pos2));
-        team.remove(Math.min(_pos1,_pos2));
+        team.remove(NumberUtil.max(_pos1,_pos2));
+        team.remove(NumberUtil.min(_pos1,_pos2));
     }
 
     public void takeHostedPokemon(PokemonPlayer _pk1,PokemonPlayer _pk2){

@@ -22,6 +22,7 @@ import code.util.CharList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 
@@ -196,7 +197,7 @@ public final class ElResolver {
                 break;
             }
         }
-        return Math.max(untilNb_, _i);
+        return NumberUtil.max(untilNb_, _i);
     }
 
     private static Delimiters afterLoop(Delimiters _d, StackOperators _parsBrackets, ResultAfterOperators _resOpers, int _i) {
@@ -687,7 +688,7 @@ public final class ElResolver {
                 return;
             }
         }
-        _d.setBadOffset(Math.min(afterSuper_, len_));
+        _d.setBadOffset(NumberUtil.min(afterSuper_, len_));
     }
 
     private static void keyWordThis(String _string, ResultAfterInstKeyWord _out, Delimiters _d, AnalyzedPageEl _page) {

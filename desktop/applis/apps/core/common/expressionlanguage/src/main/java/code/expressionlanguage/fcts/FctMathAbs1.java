@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.core.NumberUtil;
 
 public final class FctMathAbs1 implements AnaStdCaller {
     @Override
@@ -23,6 +24,6 @@ public final class FctMathAbs1 implements AnaStdCaller {
     }
 
     private static Struct absLong(Struct _arg) {
-        return new LongStruct(Math.abs(NumParsers.convertToNumber(_arg).longStruct()));
+        return new LongStruct(NumberUtil.abs(NumParsers.convertToNumber(_arg).longStruct()));
     }
 }

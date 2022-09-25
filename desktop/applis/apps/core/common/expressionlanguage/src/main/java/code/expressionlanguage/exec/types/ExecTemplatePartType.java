@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 final class ExecTemplatePartType extends ExecBinaryType {
@@ -55,7 +56,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
         tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
         GeneType type_ = _an.getClassBody(tempCl_);
         CustList<StringList> boundsAll_ = type_.getBoundAll();
-        int len_ = Math.min(ch_.size()-1,boundsAll_.size());
+        int len_ = NumberUtil.min(ch_.size()-1,boundsAll_.size());
         for (int i = 0; i < len_; i++) {
             StringList t_ = boundsAll_.get(i);
             String arg_ = ch_.get(i+1).getAnalyzedType();

@@ -8,6 +8,7 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 public final class MockComboBox extends MockInput implements GraphicComboGrInt {
 
@@ -28,8 +29,8 @@ public final class MockComboBox extends MockInput implements GraphicComboGrInt {
 
     @Override
     public void simpleSelectItem(int _index) {
-        int index_ = Math.min(getItemCount()-1,_index);
-        index_ = Math.max(index_,-1);
+        int index_ = NumberUtil.min(getItemCount()-1,_index);
+        index_ = NumberUtil.max(index_,-1);
         selectedIndex = index_;
         fireEvent();
     }

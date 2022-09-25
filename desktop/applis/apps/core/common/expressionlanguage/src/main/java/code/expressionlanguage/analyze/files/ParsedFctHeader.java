@@ -6,6 +6,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class ParsedFctHeader extends ParsedFctHeaderAbs{
@@ -121,7 +122,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         if (_implCall < 0) {
             return _implStopRightPar;
         }
-        return Math.min(_implCall,_implStopRightPar);
+        return NumberUtil.min(_implCall,_implStopRightPar);
     }
 
     public void parseAnonymous(CustList<SegmentStringPart> _parts,int _indexLeftPar, String _string, int _offset, String _keyWordThat) {
@@ -210,15 +211,15 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         int implCall_ = _implCall;
         if (implCall_ < 0) {
             if (_implStopInd >= 0) {
-                implCall_ = Math.min(_implStopInd,_implStopRightPar);
+                implCall_ = NumberUtil.min(_implStopInd,_implStopRightPar);
             } else {
                 implCall_ = _implStopRightPar;
             }
         } else {
             if (_implStopInd >= 0) {
-                implCall_ = Math.min(implCall_,Math.min(_implStopRightPar, _implStopInd));
+                implCall_ = NumberUtil.min(implCall_,NumberUtil.min(_implStopRightPar, _implStopInd));
             } else {
-                implCall_ = Math.min(implCall_,_implStopRightPar);
+                implCall_ = NumberUtil.min(implCall_,_implStopRightPar);
             }
         }
         return implCall_;

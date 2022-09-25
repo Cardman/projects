@@ -17,6 +17,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class DocumentReaderMathUtil {
@@ -72,7 +73,7 @@ public final class DocumentReaderMathUtil {
                 values_.add(getLgInt(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -93,7 +94,7 @@ public final class DocumentReaderMathUtil {
                 values_.add(getRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -115,7 +116,7 @@ public final class DocumentReaderMathUtil {
                 values_.add(getLgInt(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.add(new EventFreq<Rate>(keys_.get(i), values_.get(i)));
         }
@@ -136,7 +137,7 @@ public final class DocumentReaderMathUtil {
                 values_.add(getLgInt(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEvent(keys_.get(i), values_.get(i));
         }
@@ -200,7 +201,7 @@ public final class DocumentReaderMathUtil {
                 values_.add(getRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }

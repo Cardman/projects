@@ -13,6 +13,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class CmpOperation extends MethodOperation implements MiddleSymbolOperation {
@@ -36,7 +37,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (chidren_.size() != 2) {
             okNum = false;
             _page.setOkNumOp(false);
-            int in_ = Math.min(getOperators().size()-1,1);
+            int in_ = NumberUtil.min(getOperators().size()-1,1);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(in_), _page);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());

@@ -29,10 +29,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
-import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
-import code.util.core.SortConstants;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 public abstract class OperationNode {
 
@@ -612,7 +609,7 @@ public abstract class OperationNode {
                 fetchFieldsType(ancestors_, _page,
                         new ScopeFilterType(_scope,t, MethodId.getKind(t.getScope() == MethodAccessKind.STATIC), baseTypes_, superTypesBaseAncBis_, new FormattedFilter()),
                         new ScopeFilterField(_aff, _name, t));
-                maxAnc_ = Math.max(maxAnc_, t.getAncestor());
+                maxAnc_ = NumberUtil.max(maxAnc_, t.getAncestor());
             }
         }
         int max_ = maxAnc_;
@@ -630,7 +627,7 @@ public abstract class OperationNode {
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         for (EntryCust<AnaGeneType, ImportedField> e : ResolvingImportTypes.lookupImportStaticFields(curClassBase_, _name, _page).entryList()) {
             ImportedField v_ = e.getValue();
-            max_ = Math.max(max_, v_.getImported() + maxAnc_);
+            max_ = NumberUtil.max(max_, v_.getImported() + maxAnc_);
             FieldResult res_ = new FieldResult();
             String realType_ = v_.getType();
             boolean finalField_ = v_.isFinalField();
@@ -1935,7 +1932,7 @@ public abstract class OperationNode {
                 continue;
             }
             CustList<RootBlock> pars_ = root_.getAllParentTypes();
-            max_ = Math.max(max_,pars_.size());
+            max_ = NumberUtil.max(max_,pars_.size());
         }
         for (int i = 1; i <= max_; i++) {
             typeInfosMap_.add(new CustList<TypeInfo>());

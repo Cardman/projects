@@ -7,6 +7,7 @@ import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 final class GamePresidentCommon {
 
@@ -93,7 +94,7 @@ final class GamePresidentCommon {
     }
 
     private static void delBounds(HandPresident _cc, CustList<HandPresident> _hWorst, CustList<HandPresident> _hBest) {
-        int m_ = Math.min(_hWorst.size(), _hBest.size());
+        int m_ = NumberUtil.min(_hWorst.size(), _hBest.size());
         for (int j = IndexConstants.FIRST_INDEX; j < m_; j++) {
             _cc.supprimerCartes(_hBest.get(j));
             _cc.supprimerCartes(_hWorst.get(j));

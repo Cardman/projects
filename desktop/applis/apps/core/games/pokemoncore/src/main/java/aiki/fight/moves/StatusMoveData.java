@@ -18,6 +18,7 @@ import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.DataInfoChecker;
+import code.util.core.NumberUtil;
 
 
 public final class StatusMoveData extends MoveData {
@@ -196,7 +197,7 @@ public final class StatusMoveData extends MoveData {
     private void checkCounterable(DataBase _data) {
         if (counterableMove && getTargetChoice() == TargetChoice.LANCEUR) {
             boolean switchin_ = true;
-            int ind_ = Math.max(0, indexOfPrimaryEffect());
+            int ind_ = NumberUtil.max(0, indexOfPrimaryEffect());
             for (Effect e : getEffects().mid(ind_)) {
                 if (!(e instanceof EffectTeamWhileSendFoe) && !(e instanceof EffectUnprotectFromTypes) && (!(e instanceof EffectTeam) || !okEffectTeam((EffectTeam) e))) {
                     switchin_ = false;

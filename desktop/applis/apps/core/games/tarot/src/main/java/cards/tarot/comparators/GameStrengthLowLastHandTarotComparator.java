@@ -20,7 +20,7 @@ public final class GameStrengthLowLastHandTarotComparator implements Comparing<S
         HandTarot main1_ = hand.couleur(_suit1);
         HandTarot main2_ = hand.couleur(_suit2);
         int res_;
-        int min_ = Math.min(main1_.total(), main2_.total());
+        int min_ = NumberUtil.min(main1_.total(), main2_.total());
         if(min_ == 0) {
             res_ = ComparatorBoolean.cmp(main1_.estVide(), main2_.estVide());
         }else{

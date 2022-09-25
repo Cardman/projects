@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class FctCharSeqSplit2 implements StdCaller {
@@ -36,7 +37,7 @@ public final class FctCharSeqSplit2 implements StdCaller {
         StringList parts_ = StringUtil.splitChars(_charSequence.toStringInstance(), ch_);
         int lenArr_ = parts_.size();
         if (lim_ >= 0) {
-            lenArr_ = Math.min(lim_,lenArr_);
+            lenArr_ = NumberUtil.min(lim_,lenArr_);
         }
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);

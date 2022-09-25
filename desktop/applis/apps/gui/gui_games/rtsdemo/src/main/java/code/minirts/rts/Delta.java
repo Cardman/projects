@@ -1,5 +1,7 @@
 package code.minirts.rts;
 
+import code.util.core.NumberUtil;
+
 public final class Delta {
 
     private int dx;
@@ -23,6 +25,6 @@ public final class Delta {
     }
 
     public boolean isMoving() {
-        return Math.abs(dx) > 0 || Math.abs(dy) > 0;
+        return NumberUtil.abs(dx) > 0 || NumberUtil.abs(dy) > 0;
     }
 }

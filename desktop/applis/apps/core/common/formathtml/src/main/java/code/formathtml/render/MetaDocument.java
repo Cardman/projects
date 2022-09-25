@@ -563,11 +563,11 @@ public final class MetaDocument {
             int end_ = realText_.length() - 1;
             if (trimLeftText(_txt, _rend)) {
                 begin_ = StringUtil.getFirstPrintableCharIndex(realText_);
-                begin_ = Math.max(begin_,0);
+                begin_ = NumberUtil.max(begin_,0);
             }
             if (trimRightText(_txt, _rend)) {
                 end_ = StringUtil.getLastPrintableCharIndex(realText_);
-                end_ = Math.max(end_,begin_-1);
+                end_ = NumberUtil.max(end_,begin_-1);
             }
             text_ = realText_.substring(begin_, end_ + 1);
             StringBuilder adjustedText_ = new StringBuilder(text_.length());

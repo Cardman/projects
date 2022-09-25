@@ -1103,7 +1103,7 @@ public final class AnaTemplates {
             if (_arg.isEmpty()) {
                 return new MappingPairs();
             }
-            int min_ = Math.min(dArg_.getDim(), dParam_.getDim());
+            int min_ = NumberUtil.min(dArg_.getDim(), dParam_.getDim());
             if (tryGetUnknownVar(baseArrayParam_)>=0) {
                 MappingPairs pairs_ = new MappingPairs();
                 CustList<Matching> pairsArgParam_ = new CustList<Matching>();
@@ -1125,7 +1125,7 @@ public final class AnaTemplates {
         DimComp dParam_ = StringExpUtil.getQuickComponentBaseType(_param);
         String baseArrayArg_ = dArg_.getComponent();
         if (tryGetUnknownVar(baseArrayArg_) >= 0) {
-            int min_ = Math.min(dArg_.getDim(), dParam_.getDim());
+            int min_ = NumberUtil.min(dArg_.getDim(), dParam_.getDim());
             MappingPairs pairs_ = new MappingPairs();
             CustList<Matching> pairsArgParam_ = new CustList<Matching>();
             Matching match_ = new Matching();
@@ -1155,7 +1155,7 @@ public final class AnaTemplates {
         if (baseArrayParam_.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
             return getSimpleInferredMappingVar(_arg, _param, _ct, dArg_, dParam_);
         }
-        int min_ = Math.min(dArg_.getDim(), dParam_.getDim());
+        int min_ = NumberUtil.min(dArg_.getDim(), dParam_.getDim());
         if (tryGetUnknownVar(baseArrayArg_) >= 0) {
             MappingPairs pairs_ = new MappingPairs();
             CustList<Matching> pairsArgParam_ = new CustList<Matching>();
@@ -1203,7 +1203,7 @@ public final class AnaTemplates {
         if (_arg.isEmpty()) {
             return new MappingPairs();
         }
-        int min_ = Math.min(_dArg.getDim(), _dParam.getDim());
+        int min_ = NumberUtil.min(_dArg.getDim(), _dParam.getDim());
         if (tryGetUnknownVar(baseArrayParam_)>=0) {
             MappingPairs pairs_ = new MappingPairs();
             CustList<Matching> pairsArgParam_ = new CustList<Matching>();

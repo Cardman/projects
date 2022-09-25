@@ -2,6 +2,7 @@ package code.expressionlanguage.functionid;
 
 import code.util.CustList;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public abstract class AbsractIdentifiableCommon implements Identifiable {
@@ -26,7 +27,7 @@ public abstract class AbsractIdentifiableCommon implements Identifiable {
     }
 
     protected void feedParamTypes(CustList<String> _classNames, CustList<BoolVal> _refParams) {
-        int min_ = Math.min(_classNames.size(),_refParams.size());
+        int min_ = NumberUtil.min(_classNames.size(),_refParams.size());
         for (String s: _classNames.left(min_)) {
             classNames.add(StringUtil.nullToEmpty(s));
         }

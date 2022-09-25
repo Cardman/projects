@@ -857,7 +857,7 @@ final class FightRound {
         byte maxBoost_=(byte) _import.getMaxBoost();
         byte cran_=creature_.getStatisBoost().getVal(_statAtt);
         //boolean peutUtiliserObjet_= FightItems.canUseItsObject(_fight,_combattant,_import);
-        Rate boost_ = FightStatistic.rateBoost((byte) Math.min(cran_, maxBoost_), _import);
+        Rate boost_ = FightStatistic.rateBoost((byte) NumberUtil.min(cran_, maxBoost_), _import);
 //        if(creature_.capaciteActive()){
 //            AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
 //            if (fCapac_.getMultStat().contains(_statAtt)) {
@@ -878,7 +878,7 @@ final class FightRound {
         att_.multiplyBy(boost_);
         Rate def_=creature_.statistiqueGlobaleEvIv(_statDef);
         cran_=creature_.getStatisBoost().getVal(_statDef);
-        boost_ = FightStatistic.rateBoost((byte) Math.min(cran_, maxBoost_), _import);
+        boost_ = FightStatistic.rateBoost((byte) NumberUtil.min(cran_, maxBoost_), _import);
         def_.multiplyBy(boost_);
         StringMap<String> varLocs_ = new StringMap<String>();
         varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTACK), att_.toNumberString());

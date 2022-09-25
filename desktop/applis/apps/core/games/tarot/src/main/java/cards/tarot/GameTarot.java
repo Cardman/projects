@@ -11,6 +11,7 @@ import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 /** */
 
@@ -842,7 +843,7 @@ public final class GameTarot {
     */
     Bytes joueursAyantCarteAppelee() {
         Bytes joueurs_ = new Bytes();
-        byte nombreDeJoueurs_ = (byte) Math.min(deal.nombreDeMains(),getNombreDeJoueurs());
+        byte nombreDeJoueurs_ = (byte) NumberUtil.min(deal.nombreDeMains(),getNombreDeJoueurs());
         for (byte b = IndexConstants.FIRST_INDEX; b < nombreDeJoueurs_; b++) {
             for(CardTarot c: calledCards) {
                 if (deal.hand(b).contient(c)) {

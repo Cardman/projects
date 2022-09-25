@@ -25,6 +25,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class CallDynMethodOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,SettableElResult,AbstractCallLeftOperation {
@@ -265,7 +266,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        indexCh = Math.min(_param.size() - 1, _firstArgs.size()-1);
+        indexCh = NumberUtil.min(_param.size() - 1, _firstArgs.size()-1);
         diff(_page, _param.size(), _firstArgs.size());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }

@@ -57,6 +57,7 @@ import code.util.comparators.ComparatorBoolean;
 import code.util.consts.Constants;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 /**This class thread is independant from EDT,
@@ -252,7 +253,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 DealPresident deal_ = Net.getGames(_instance).partiePresident().getDeal();
                 DealtHandPresident hand_ = new DealtHandPresident();
                 hand_.setDealer(Net.getGames(_instance).partiePresident().getDeal().getDealer());
-                hand_.setMaxCards(Math.min(nbSuits_ * nbStacks_, rules_.getNbMaxCardsPerPlayer()));
+                hand_.setMaxCards(NumberUtil.min(nbSuits_ * nbStacks_, rules_.getNbMaxCardsPerPlayer()));
                 hand_.setStatus(Net.getGames(_instance).partiePresident().getLastStatus());
                 for (byte i:Net.activePlayers(_instance, _common)) {
                     hand_.setCards(deal_.hand(i));

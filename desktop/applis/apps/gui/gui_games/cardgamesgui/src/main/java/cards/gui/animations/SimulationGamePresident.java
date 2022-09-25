@@ -7,6 +7,7 @@ import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.FileConst;
 import cards.president.*;
 import code.util.Bytes;
+import code.util.core.NumberUtil;
 
 /**Thread safe class*/
 public final class SimulationGamePresident implements Runnable,SimulationGame {
@@ -50,7 +51,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
 
     @Override
     public void setSimulationGui() {
-        int maxDeals_ = Math.min(FileConst.MAX_DEALS, container.getDisplayingPresident().getNbDeals());
+        int maxDeals_ = NumberUtil.min(FileConst.MAX_DEALS, container.getDisplayingPresident().getNbDeals());
         partiePresidentSimulee().simulate(maxDeals_,simulatingPresident,container.getWindow().getGenerator());
     }
 

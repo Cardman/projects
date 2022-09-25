@@ -11,6 +11,7 @@ import code.maths.matrix.RootPol;
 import code.maths.matrix.Vect;
 import code.maths.montecarlo.EventFreq;
 import code.util.*;
+import code.util.core.NumberUtil;
 
 public final class ArrMaOperation extends MethodMaOperation {
     public ArrMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
@@ -45,7 +46,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),firstIndex_));
             return;
         }
-        int index_ = Math.min(getOps().size()-1,3);
+        int index_ = NumberUtil.min(getOps().size()-1,3);
         _error.setOffset(getIndexExp()+StrTypes.offset(getOps(),index_));
     }
 

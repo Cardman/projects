@@ -2344,7 +2344,7 @@ public class LgIntTest extends EquallableMathUtil {
         assertEq(new LgInt(1), freq(combinatoire_,0));
         CustList<LgInt> other_ = new CustList<LgInt>();
         other_.add(LgInt.one());
-        assertEq(1,Math.abs(NumberUtil.signum(new ComparatorEvents().compare(new CustList<LgInt>(),other_))));
+        assertEq(1,NumberUtil.abs(NumberUtil.signum(new ComparatorEvents().compare(new CustList<LgInt>(),other_))));
     }
     @Test
     public void multiplyDouble1Test(){

@@ -7,6 +7,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 import code.images.BaseSixtyFourUtil;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class MockImage implements AbstractImage {
@@ -60,10 +61,10 @@ public final class MockImage implements AbstractImage {
 
     @Override
     public void drawImage(AbstractImage _img, int _x, int _y) {
-        int l_ = Math.max(0,-_x);
-        int t_ = Math.max(0,-_y);
-        int r_ = Math.max(l_,Math.min(getWidth(),_img.getWidth())-Math.max(0,_x));
-        int b_ = Math.max(t_,Math.min(getHeight(),_img.getHeight())-Math.max(0,_y));
+        int l_ = NumberUtil.max(0,-_x);
+        int t_ = NumberUtil.max(0,-_y);
+        int r_ = NumberUtil.max(l_,NumberUtil.min(getWidth(),_img.getWidth())-NumberUtil.max(0,_x));
+        int b_ = NumberUtil.max(t_,NumberUtil.min(getHeight(),_img.getHeight())-NumberUtil.max(0,_y));
         for(int i = l_; i < r_; i++) {
             for (int j = t_; j < b_; j++) {
                 setRGB(i+_x,j+_y,_img.getRGB(i,j));

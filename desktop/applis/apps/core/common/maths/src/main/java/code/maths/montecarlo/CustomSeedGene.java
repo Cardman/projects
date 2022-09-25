@@ -1,5 +1,7 @@
 package code.maths.montecarlo;
 
+import code.util.core.NumberUtil;
+
 public final class CustomSeedGene {
     private final double[] rand;
     private int seedIndex;
@@ -20,7 +22,7 @@ public final class CustomSeedGene {
         int len_ = rand.length;
         if (seedIndex < len_) {
             double elt_ = rand[seedIndex];
-            seedIndex = Math.max(0, (seedIndex+1)%len_);
+            seedIndex = NumberUtil.max(0, (seedIndex+1)%len_);
             return elt_;
         }
         return _gene.pick();

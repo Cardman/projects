@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.util.core.NumberUtil;
+
 public final class GuiConstants {
 
     public static final String FOLDER_MESSAGES_GUI = "resources_gui/gui/components";
@@ -193,7 +195,7 @@ public final class GuiConstants {
     }
 
     private static long range(int _value) {
-        return Math.min(Math.max(0, _value),255);
+        return NumberUtil.min(NumberUtil.max(0, _value),255);
     }
 
 }

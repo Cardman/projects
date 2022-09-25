@@ -7,6 +7,7 @@ import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class GameBeloteCommonPlaying {
     private final GameBeloteTrickInfo doneTrickInfo;
@@ -313,7 +314,7 @@ public final class GameBeloteCommonPlaying {
         int nbPls_ = poss_.size();
         for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPls_; joueur_++) {
             if(joueur_!=_player) {
-                max_=Math.max(poss_.get(joueur_).total(),max_);
+                max_= NumberUtil.max(poss_.get(joueur_).total(),max_);
             }
         }
         return max_;

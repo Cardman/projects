@@ -313,7 +313,7 @@ public final class PaginatorEgg extends Paginator {
         results.removeAll();
         CustList<SortingEgg> rendered_ = getFacade().getRenderedEgg();
         CustList<EggLabel> list_ = new CustList<EggLabel>();
-        int h_ = Math.max(getFacade().getMap().getSideLength(), HEIGTH_CHARS);
+        int h_ = NumberUtil.max(getFacade().getMap().getSideLength(), HEIGTH_CHARS);
         int nb_ = rendered_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             EggLabel l_ = new EggLabel(rendered_.get(i), getMain().getCompoFactory());

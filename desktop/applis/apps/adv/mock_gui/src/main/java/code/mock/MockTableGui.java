@@ -7,6 +7,7 @@ import code.gui.events.AbsMouseListenerCl;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 public final class MockTableGui extends MockCustComponent implements AbsTableGui {
     private final CustList<AbsMouseListener> headers = new CustList<AbsMouseListener>();
@@ -56,8 +57,8 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
 
     @Override
     public void addSelectInterval(int _a, int _b) {
-        int m_ = Math.max(0, Math.min(_a,_b));
-        int p_ = Math.min(rows.size()-1, Math.max(_a,_b));
+        int m_ = NumberUtil.max(0, NumberUtil.min(_a,_b));
+        int p_ = NumberUtil.min(rows.size()-1, NumberUtil.max(_a,_b));
         for (int j = m_;j <= p_;j++) {
             selected.add(j);
         }
@@ -66,8 +67,8 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
 
     @Override
     public void removeSelectInterval(int _a, int _b) {
-        int m_ = Math.max(0, Math.min(_a,_b));
-        int p_ = Math.min(rows.size()-1, Math.max(_a,_b));
+        int m_ = NumberUtil.max(0, NumberUtil.min(_a,_b));
+        int p_ = NumberUtil.min(rows.size()-1, NumberUtil.max(_a,_b));
         for (int j = m_;j <= p_;j++) {
             selected.removeAllLong(j);
         }
@@ -87,7 +88,7 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
             }
         } else {
             int j_ = rc_ -1;
-            while (j_ >= Math.max(_value,0)) {
+            while (j_ >= NumberUtil.max(_value,0)) {
                 rows.remove(j_);
                 j_--;
             }

@@ -22,6 +22,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class DocumentReaderPresidentUtil {
@@ -422,7 +423,7 @@ public final class DocumentReaderPresidentUtil {
                 values_.add(getHandPresident(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.add(values_.get(i));
         }
@@ -442,7 +443,7 @@ public final class DocumentReaderPresidentUtil {
                 values_.add(getPlaying(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }

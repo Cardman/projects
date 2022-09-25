@@ -53,6 +53,9 @@ public abstract class EquallableExUtil {
         Assert.assertEquals(_expected, _result);
     }
 
+    public static void assertEq(double _expected, double _result) {
+        Assert.assertEquals(Double.toString(_expected),Double.toString(_result));
+    }
     public static void assertEq(long _expected, int _result) {
         Assert.assertEquals(_expected, _result);
     }

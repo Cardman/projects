@@ -22,6 +22,7 @@ import code.util.IdMap;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class EndTarotGame {
@@ -1245,7 +1246,7 @@ public final class EndTarotGame {
     private static byte maxPosition(Shorts _positions) {
         byte maxPosition_ = 0;
         for (short position_ : _positions) {
-            maxPosition_ = (byte) Math.max(position_, maxPosition_);
+            maxPosition_ = (byte) NumberUtil.max(position_, maxPosition_);
         }
         return maxPosition_;
     }

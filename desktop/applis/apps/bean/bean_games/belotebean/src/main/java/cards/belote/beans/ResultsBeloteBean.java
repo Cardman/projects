@@ -7,6 +7,7 @@ import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public final class ResultsBeloteBean extends BeloteBean {
@@ -107,7 +108,7 @@ public final class ResultsBeloteBean extends BeloteBean {
     }
 
     public int absoluteDiff() {
-        return Math.abs(differenceScoreTaker);
+        return NumberUtil.abs(differenceScoreTaker);
     }
 
     public boolean slam() {

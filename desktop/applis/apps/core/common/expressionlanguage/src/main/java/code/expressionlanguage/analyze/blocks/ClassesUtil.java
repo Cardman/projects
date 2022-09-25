@@ -35,6 +35,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class ClassesUtil {
@@ -2222,7 +2223,7 @@ public final class ClassesUtil {
             for (int i: c.getBadIndexesGlobal()) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFile(c.getFile());
-                int indexErr_ = Math.max(0, Math.min(c.getFile().getLength() - 1, i));
+                int indexErr_ = NumberUtil.max(0, NumberUtil.min(c.getFile().getLength() - 1, i));
                 b_.setIndexFile(indexErr_);
                 //underline index char
                 b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());

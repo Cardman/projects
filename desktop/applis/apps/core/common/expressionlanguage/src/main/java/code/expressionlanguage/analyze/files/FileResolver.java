@@ -16,6 +16,7 @@ import code.util.IntMap;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class FileResolver {
@@ -213,7 +214,7 @@ public final class FileResolver {
     }
 
     private static int indexErr(FileBlock _block, int _i) {
-        return Math.max(0, Math.min(_block.getLength() - 1, _i));
+        return NumberUtil.max(0, NumberUtil.min(_block.getLength() - 1, _i));
     }
 
     private static FoundErrorInterpret err(FileBlock _block, int _indexErr, AnalyzedPageEl _page) {
@@ -947,7 +948,7 @@ public final class FileResolver {
         _typeBlock.setAnnotations(_annotationsTypes);
         _typeBlock.setFile(_file);
         _file.getPackages().add(StringExpUtil.removeDottedSpaces(_packageName));
-        int indexDotPkg_ = Math.max(0, _packageName.indexOf('.'));
+        int indexDotPkg_ = NumberUtil.max(0, _packageName.indexOf('.'));
         _file.getBasePackages().add(StringExpUtil.removeDottedSpaces(_packageName.substring(0,indexDotPkg_)));
     }
 
@@ -1978,7 +1979,7 @@ public final class FileResolver {
             if (_trimmedAfterAccess.startsWith("(")) {
                 ctorName_ = "";
             } else {
-                int indexPar_ = Math.max(0, _trimmedAfterAccess.indexOf('('));
+                int indexPar_ = NumberUtil.max(0, _trimmedAfterAccess.indexOf('('));
                 String firstPart_ = _trimmedAfterAccess.substring(0, indexPar_).trim();
                 if (StringExpUtil.isTypeLeafPart(firstPart_)) {
                     ctorName_ = firstPart_;

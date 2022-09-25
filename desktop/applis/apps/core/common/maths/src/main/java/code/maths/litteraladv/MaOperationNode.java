@@ -8,6 +8,7 @@ import code.maths.litteralcom.MatConstType;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public abstract class MaOperationNode {
@@ -309,19 +310,19 @@ public abstract class MaOperationNode {
             QuickMaOperation q_ = (QuickMaOperation) par_;
             boolean bs_ = q_.isAbs();
             if (MaBoolStruct.of(bs_).sameReference(_value)) {
-                return Math.max(_least, par_.getOrder());
+                return NumberUtil.max(_least, par_.getOrder());
             }
         }
         if (par_ instanceof FctMaOperation) {
             if (index_ == 1) {
-                return Math.max(_least, par_.getOrder());
+                return NumberUtil.max(_least, par_.getOrder());
             }
             MaOperationNode next_ = _operation.getNext();
             if (index_ == 0 && next_ != null && MaBoolStruct.of(false).sameReference(_value)) {
-                return Math.max(_least, next_.getOrder() + 1);
+                return NumberUtil.max(_least, next_.getOrder() + 1);
             }
         }
-        return Math.max(_least, _operation.getOrder() + 1);
+        return NumberUtil.max(_least, _operation.getOrder() + 1);
     }
     public MethodMaOperation getPar() {
         return par;

@@ -4,6 +4,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbsClipStream;
 import code.stream.LineShortListenable;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class MockClipStream implements AbsClipStream {
 
@@ -75,7 +76,7 @@ public final class MockClipStream implements AbsClipStream {
     }
 
     public void setPosition(long _pos) {
-        this.position = Math.max(_pos,0);
+        this.position = NumberUtil.max(_pos,0);
         if (position >= getMicrosecondLength()) {
             stop(position);
         }

@@ -19,6 +19,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 import code.util.ints.Listable;
 
 public abstract class DialogTarot extends DialogCards implements DialogVaryingPlayerNumber {
@@ -122,7 +123,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_TRUMPS)));
         int nbCartesJoueur_ = getReglesTarot().getDealing().getNombreCartesParJoueur();
         int nbTrumps_ = HandTarot.trumpsPlusExcuse().total();
-        nbCartesJoueur_ = Math.min(nbCartesJoueur_, nbTrumps_);
+        nbCartesJoueur_ = NumberUtil.min(nbCartesJoueur_, nbTrumps_);
         poigneesAutorisees = new IdMap<Handfuls,Integer>(getReglesTarot().getAllowedHandfuls());
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
         nbAtoutsPoignee = getCompoFactory().newSpinner(valeur_,0,nbCartesJoueur_,1);

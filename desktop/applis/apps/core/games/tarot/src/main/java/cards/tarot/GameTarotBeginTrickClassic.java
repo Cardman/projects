@@ -413,7 +413,7 @@ public final class GameTarotBeginTrickClassic {
         Rate moyenneAtout_ = GameTarotCommonPlaying.moyenneAtout(currentHand, atoutsJoues_,
                 cartesPossibles_, nombreDeJoueurs_);
         if (!GameTarotTrickHypothesis.joueursPossedantNbAtout(confidentPlayersNotPlay,
-                cartesCertaines_, moyenneAtout_).isEmpty() && atouts_.total() > Math.max(moyenneAtout_.ll(), 1)) {
+                cartesCertaines_, moyenneAtout_).isEmpty() && atouts_.total() > NumberUtil.max(moyenneAtout_.ll(), 1)) {
             return jeuAtoutOffensif(playableCards, cartesJouees_);
         }
         return CardTarot.WHITE;

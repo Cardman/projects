@@ -1,6 +1,7 @@
 package code.util.opers;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class StringListUtil {
@@ -119,8 +120,8 @@ public final class StringListUtil {
             i_++;
             j_++;
         }
-        int lastIndexOne_ = Math.max(lastIndexOf(_s, _firstOne), lastIndexOf(_t,_firstOne));
-        int lastIndexTwo_ = Math.max(lastIndexOf(_s,_firstTwo), lastIndexOf(_t,_firstTwo));
+        int lastIndexOne_ = NumberUtil.max(lastIndexOf(_s, _firstOne), lastIndexOf(_t,_firstOne));
+        int lastIndexTwo_ = NumberUtil.max(lastIndexOf(_s,_firstTwo), lastIndexOf(_t,_firstTwo));
         if (lastIndexOne_ > lastIndexTwo_) {
             return _firstTwo;
         }
@@ -195,8 +196,8 @@ public final class StringListUtil {
             i_++;
             j_++;
         }
-        int lastIndexOne_ = Math.max(_s.lastIndexOf(_firstOne.toString()), _t.lastIndexOf(_firstOne.toString()));
-        int lastIndexTwo_ = Math.max(_s.lastIndexOf(_firstTwo.toString()), _t.lastIndexOf(_firstTwo.toString()));
+        int lastIndexOne_ = NumberUtil.max(_s.lastIndexOf(_firstOne.toString()), _t.lastIndexOf(_firstOne.toString()));
+        int lastIndexTwo_ = NumberUtil.max(_s.lastIndexOf(_firstTwo.toString()), _t.lastIndexOf(_firstTwo.toString()));
         if (lastIndexOne_ > lastIndexTwo_) {
             return _firstTwo.toString();
         }

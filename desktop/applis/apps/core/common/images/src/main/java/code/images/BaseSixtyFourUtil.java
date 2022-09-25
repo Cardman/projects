@@ -1,5 +1,6 @@
 package code.images;
 
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class BaseSixtyFourUtil {
@@ -200,8 +201,8 @@ public final class BaseSixtyFourUtil {
     }
 
     public static int[][] clipSixtyFour(int[][] _image,int _x,int _y,int _w,int _h) {
-        int xp_ = Math.min(_x+_w, _image[0].length);
-        int yp_ = Math.min(_y+_h, _image.length);
+        int xp_ = NumberUtil.min(_x+_w, _image[0].length);
+        int yp_ = NumberUtil.min(_y+_h, _image.length);
         int rw_ = xp_ - _x;
         int rh_ = yp_ - _y;
         int xMax_ = _x + rw_;

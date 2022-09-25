@@ -3,6 +3,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
@@ -732,7 +733,7 @@ public final class Matrix implements Displayable {
         Rate trace_ = Rate.zero();
         int nbLines_ = lines.size();
         int nbCols_ = nbCols();
-        int min_ = Math.min(nbLines_, nbCols_);
+        int min_ = NumberUtil.min(nbLines_, nbCols_);
         for (int i = 0; i < min_; i++) {
             trace_.addNb(cell(i,i));
         }

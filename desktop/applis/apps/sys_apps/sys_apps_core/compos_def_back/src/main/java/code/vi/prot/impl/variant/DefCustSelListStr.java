@@ -8,6 +8,7 @@ import code.gui.AbsPreparedLabel;
 import code.gui.SpecSelectionStruct;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 import code.vi.prot.impl.gui.CustComponent;
 
 import javax.swing.*;
@@ -33,8 +34,8 @@ public final class DefCustSelListStr implements ListCellRenderer {
             int _index,
             boolean _isSelected,
             boolean _cellHasFocus) {
-        int width_ = Math.max(_list.getWidth(), _list.getFixedCellWidth());
-        int height_ = Math.max(_list.getFixedCellHeight(),0);
+        int width_ = NumberUtil.max(_list.getWidth(), _list.getFixedCellWidth());
+        int height_ = NumberUtil.max(_list.getFixedCellHeight(),0);
         listener.execute(new CustList<Argument>(
                 new Argument((Struct)_value),
                 new Argument(new IntStruct(_index)),

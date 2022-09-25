@@ -29,6 +29,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class LambdaOperation extends LeafOperation implements PossibleIntermediateDotted {
@@ -2148,7 +2149,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private void addBuiltErr(FoundErrorInterpret _err, AnalyzedPageEl _page,int _i, String _name) {
-        errPart(_err, _page, _i, Math.max(1, _name.length()));
+        errPart(_err, _page, _i, NumberUtil.max(1, _name.length()));
     }
 
     private static String getParentType(String _converted, AnalyzedPageEl _page) {
@@ -2296,7 +2297,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     new MethodId(MethodAccessKind.STATIC, "", _methodTypes).getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(undefined_);
             int k_ = _sum +1;
-            partOffsetsErrMiddle = new InfoErrorDto(undefined_, _page,k_,Math.max(1, _operator.length()));
+            partOffsetsErrMiddle = new InfoErrorDto(undefined_, _page,k_,NumberUtil.max(1, _operator.length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2317,7 +2318,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (!_operator.isEmpty()&& _displayErr) {
             j_++;
         }
-        int lenErr_= Math.max(1, _operator.length());
+        int lenErr_= NumberUtil.max(1, _operator.length());
         if (!_displayErr) {
             lenErr_ = 1;
         }

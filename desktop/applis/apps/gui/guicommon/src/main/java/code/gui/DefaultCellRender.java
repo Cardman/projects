@@ -2,7 +2,7 @@ package code.gui;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-
+import code.util.core.NumberUtil;
 
 
 public final class DefaultCellRender extends CustCellRender<String> {
@@ -29,7 +29,7 @@ public final class DefaultCellRender extends CustCellRender<String> {
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         text = get(_index);
         label = _currentLab;
-        maxWidth = Math.max(maxWidth,label.stringWidth(text));
+        maxWidth = NumberUtil.max(maxWidth,label.stringWidth(text));
         selected = _isSelected;
     }
     public int getMaxWidth() {

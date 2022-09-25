@@ -7664,7 +7664,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderMathUtil.getLgInt(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -7827,7 +7827,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getBoostHpRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -7847,7 +7847,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getStatBaseEv(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -7867,7 +7867,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderMathUtil.getRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -7887,7 +7887,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -7907,7 +7907,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getShort(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -7927,7 +7927,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getString(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -7947,7 +7947,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getString(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8044,7 +8044,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getPokemonPlayer(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8064,7 +8064,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getAnticipation(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8084,7 +8084,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getChoiceOfEvolutionAndMoves(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8104,7 +8104,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getFighter(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8124,7 +8124,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getStacksOfUses(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8144,7 +8144,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getTeam(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8194,7 +8194,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getListPoint(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8214,7 +8214,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderMathUtil.getRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8234,7 +8234,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderMathUtil.getRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8254,7 +8254,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8274,7 +8274,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8294,7 +8294,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8314,7 +8314,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderMathUtil.getRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8334,7 +8334,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8354,7 +8354,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderMathUtil.getRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8374,7 +8374,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderMathUtil.getRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8394,7 +8394,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getBoolVal(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8414,7 +8414,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getActivityOfMove(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8434,7 +8434,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getAffectedMove(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8454,7 +8454,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getStringList(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8474,7 +8474,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getBoolVal(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8494,7 +8494,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getShort(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8514,7 +8514,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getMoveTarget(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8534,7 +8534,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getTileMiniMap(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8554,7 +8554,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getCoords(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8574,7 +8574,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getHostPokemonDuo(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8594,7 +8594,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getListCoords(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8614,7 +8614,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getBoolVal(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8634,7 +8634,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getLink(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.addEntry(keys_.get(i), values_.get(i));
         }
@@ -8654,7 +8654,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getBuilding(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8674,7 +8674,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getCharacterInRoadCave(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8694,7 +8694,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getDualFight(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8714,7 +8714,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getGymTrainer(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8734,7 +8734,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getPerson(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8754,7 +8754,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getBlock(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8774,7 +8774,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getLink(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8794,7 +8794,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getWildPk(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8814,7 +8814,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getShort(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8834,7 +8834,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(DocumentReaderCoreUtil.getString(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8854,7 +8854,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getEffectCombo(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.add(new ListEffectCombo(keys_.get(i), values_.get(i)));
         }
@@ -8874,7 +8874,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getActivityOfMove(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.add(new ListActivityOfMove(keys_.get(i), values_.get(i)));
         }
@@ -8894,7 +8894,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getGenderRepartition(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8914,7 +8914,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getEvolution(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8934,7 +8934,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getEfficiencyRate(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8954,7 +8954,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getTypeDamageBoost(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8974,7 +8974,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getUsesOfMove(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -8994,7 +8994,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getActivityOfMove(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -9014,7 +9014,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getCopiedMove(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -9034,7 +9034,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getMovesAbilities(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -9054,7 +9054,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getListStatistic(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -9074,7 +9074,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getMapStatisticByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -9094,7 +9094,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getMapByteAnticipation(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -9114,7 +9114,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getMapByteStacksOfUses(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }

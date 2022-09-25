@@ -11,6 +11,7 @@ import code.util.EnumList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class GameTarotCommonPlaying {
     private final GameTarotTrickInfo doneTrickInfo;
@@ -637,7 +638,7 @@ public final class GameTarotCommonPlaying {
                         .get(joueur_).premiereCarte().strength(_couleurDemandee);
             }
         }
-        maxForce_ = (byte) Math.max(maxForce_, _carteForte.strength(_couleurDemandee));
+        maxForce_ = (byte) NumberUtil.max(maxForce_, _carteForte.strength(_couleurDemandee));
         return maxForce_;
     }
 
@@ -658,7 +659,7 @@ public final class GameTarotCommonPlaying {
             }
         }
         if (_carteForte.getId().getCouleur() == Suit.TRUMP) {
-            maxForce_ = (byte) Math.max(maxForce_, _carteForte.strength(_couleurDemandee));
+            maxForce_ = (byte) NumberUtil.max(maxForce_, _carteForte.strength(_couleurDemandee));
         }
         return maxForce_;
     }

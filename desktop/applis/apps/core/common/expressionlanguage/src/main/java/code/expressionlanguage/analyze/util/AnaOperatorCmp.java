@@ -31,7 +31,7 @@ public final class AnaOperatorCmp implements Comparing<OperatorBlock> {
             return res_;
         }
         int i_ = IndexConstants.FIRST_INDEX;
-        int len_ = Math.min(pOne_.size(), pTwo_.size());
+        int len_ = NumberUtil.min(pOne_.size(), pTwo_.size());
         while (i_ < len_) {
             res_ = ComparatorBoolean.cmp(_one.getParametersRef().get(i_),_two.getParametersRef().get(i_));
             if (res_ != SortConstants.EQ_CMP) {

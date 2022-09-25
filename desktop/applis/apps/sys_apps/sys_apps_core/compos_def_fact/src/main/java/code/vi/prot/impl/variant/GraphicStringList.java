@@ -6,6 +6,7 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.core.NumberUtil;
 import code.vi.prot.impl.gui.Panel;
 import code.util.Ints;
 import code.util.StringList;
@@ -82,7 +83,7 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
     protected void resetDimensions(){
         int width_ = getMaxWidth();
         int c_ = getListComponents().size();
-        getScroll().setPreferredSize(new Dimension(width_ + 24, 2+heightList * Math.min(c_, getVisibleRowCount())));
+        getScroll().setPreferredSize(new Dimension(width_ + 24, 2+heightList * NumberUtil.min(c_, getVisibleRowCount())));
         getScroll().revalidate();
     }
 

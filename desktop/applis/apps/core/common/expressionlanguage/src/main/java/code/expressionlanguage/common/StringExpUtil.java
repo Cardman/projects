@@ -212,7 +212,7 @@ public final class StringExpUtil {
         if (_i < 0) {
             return false;
         }
-        if (_i >= Math.min(_len,_str.length())) {
+        if (_i >= NumberUtil.min(_len,_str.length())) {
             return false;
         }
         return _str.charAt(_i) == _value;
@@ -242,7 +242,7 @@ public final class StringExpUtil {
 
     public static int getBackPrintChar(String _string, int _i, int _m) {
         int bk_ = _i - 1;
-        int until_ = Math.max(_m,0);
+        int until_ = NumberUtil.max(_m,0);
         while (bk_ >= until_) {
             if (!StringUtil.isWhitespace(_string.charAt(bk_))) {
                 break;
@@ -259,7 +259,7 @@ public final class StringExpUtil {
             return _j;
         }
         int j_ = _j;
-        int len_ = Math.min(_len,_string.length());
+        int len_ = NumberUtil.min(_len,_string.length());
         while (j_ < len_) {
             char ch_ = _string.charAt(j_);
             if (!StringUtil.isWhitespace(ch_)) {
@@ -529,7 +529,7 @@ public final class StringExpUtil {
                 &&_str.indexOf(')') < 0 && _str.indexOf('}') < 0 && _str.indexOf(']') < 0;
     }
     public static int getOffset(String _str) {
-        return Math.max(0, StringUtil.getFirstPrintableCharIndex(_str));
+        return NumberUtil.max(0, StringUtil.getFirstPrintableCharIndex(_str));
     }
 
     public static boolean commonCorrectType(String _genericClass, String _fct, Ints _rep) {

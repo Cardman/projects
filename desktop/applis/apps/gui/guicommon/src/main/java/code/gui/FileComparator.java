@@ -4,6 +4,7 @@ import code.stream.AbstractFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Comparing;
@@ -81,7 +82,7 @@ public final class FileComparator implements Comparing<AbstractFile> {
                 returnTwo_ = returnTwo_.substring(folder.length());
                 returnTwo_ = StringUtil.replaceBackSlash(returnTwo_);
                 StringList pathTwo_ = StringUtil.splitStrings(returnTwo_, StreamTextFile.SEPARATEUR);
-                int min_ = Math.min(pathOne_.size(), pathTwo_.size());
+                int min_ = NumberUtil.min(pathOne_.size(), pathTwo_.size());
                 for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
                     int res_ = StringUtil.compareStrings(pathOne_.get(i),pathTwo_.get(i));
                     if (res_ != SortConstants.EQ_CMP) {
@@ -98,7 +99,7 @@ public final class FileComparator implements Comparing<AbstractFile> {
             returnTwo_ = returnTwo_.substring(folder.length());
             returnTwo_ = StringUtil.replaceBackSlash(returnTwo_);
             StringList pathTwo_ = StringUtil.splitStrings(returnTwo_,StreamTextFile.SEPARATEUR);
-            int min_ = Math.min(pathOne_.size(), pathTwo_.size());
+            int min_ = NumberUtil.min(pathOne_.size(), pathTwo_.size());
             for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
                 int res_ = StringUtil.compareStrings(pathTwo_.get(i),pathOne_.get(i));
                 if (res_ != SortConstants.EQ_CMP) {

@@ -23,6 +23,7 @@ import code.util.ByteMap;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 
@@ -93,7 +94,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
-        tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(),Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), container.getOwner().getCompoFactory());
+        tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(), NumberUtil.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), container.getOwner().getCompoFactory());
         container.getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();

@@ -13,6 +13,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.core.NumberUtil;
 
 public final class ExpressionLanguage {
 
@@ -149,9 +150,9 @@ public final class ExpressionLanguage {
         Struct v_ = res_.getStruct();
         ExecMethodOperation par_ = _oper.getParent();
         if (isAncSettable(_oper) &&value_.isArgumentTest()){
-            return Math.max(_least,par_.getOrder());
+            return NumberUtil.max(_least,par_.getOrder());
         }
-        return Math.max(_least, getNextIndex(_oper, v_));
+        return NumberUtil.max(_least, getNextIndex(_oper, v_));
     }
 
     public static boolean isAncSettable(ExecOperationNode _oper) {

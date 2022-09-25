@@ -154,7 +154,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getBoolVal(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -175,7 +175,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getShort(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -196,7 +196,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getInteger(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -217,7 +217,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getString(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -238,7 +238,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getStringList(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -259,7 +259,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getListInteger(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -280,7 +280,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getStringMapString(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -300,7 +300,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -320,7 +320,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -340,7 +340,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getListByte(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -360,7 +360,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getBoolVal(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -380,7 +380,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getString(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -400,7 +400,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getBoolVal(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }
@@ -420,7 +420,7 @@ public final class DocumentReaderCoreUtil {
                 values_.add(getString(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             map_.put(keys_.get(i), values_.get(i));
         }

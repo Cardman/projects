@@ -21,6 +21,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class AnonymousLambdaOperation extends
@@ -139,7 +140,7 @@ public final class AnonymousLambdaOperation extends
         StringList parTypes_ = parse.getParametersType();
         StringList feed_ = new StringList();
         Ints offestsTypes_ = parse.getOffestsTypes();
-        int len_ = Math.min(parTypes_.size(), _modifiedArgCandidates.size());
+        int len_ = NumberUtil.min(parTypes_.size(), _modifiedArgCandidates.size());
         for (int i = 0; i < len_; i++) {
             String before_ = parTypes_.get(i);
             if (before_.isEmpty()) {
@@ -164,7 +165,7 @@ public final class AnonymousLambdaOperation extends
             StringList argCandidates_ = new StringList();
             for (String s: _candidates) {
                 StringList allTypes_ = StringExpUtil.getAllTypes(s);
-                String arg_ = allTypes_.get(Math.min(i+1,allTypes_.getLastIndex()));
+                String arg_ = allTypes_.get(NumberUtil.min(i+1,allTypes_.getLastIndex()));
                 if (StringUtil.quickEq(arg_,"?")) {
                     continue;
                 }

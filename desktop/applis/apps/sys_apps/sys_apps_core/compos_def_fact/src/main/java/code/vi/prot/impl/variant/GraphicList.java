@@ -7,6 +7,7 @@ import javax.swing.*;
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
+import code.util.core.NumberUtil;
 import code.vi.prot.impl.gui.CustComponent;
 import code.vi.prot.impl.gui.Panel;
 import code.vi.prot.impl.gui.ScrollPane;
@@ -261,14 +262,14 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         return visibleRowCount;
     }
     public void setVisibleRowCount(int _visibleRowCount) {
-        visibleRowCount = Math.max(1, _visibleRowCount);
+        visibleRowCount = NumberUtil.max(1, _visibleRowCount);
         resetDimensions();
         updateGraphics();
     }
 
     public void addRange() {
-        int min_ = Math.min(firstIndex, lastIndex);
-        int max_ = Math.max(firstIndex, lastIndex);
+        int min_ = NumberUtil.min(firstIndex, lastIndex);
+        int max_ = NumberUtil.max(firstIndex, lastIndex);
         FrameUtil.addIndexes(min_, max_, selectedIndexes);
         selectedIndexes.removeDuplicates();
     }
@@ -285,8 +286,8 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     public void clearRange() {
-        int min_ = Math.min(firstIndex, lastIndex);
-        int max_ = Math.max(firstIndex, lastIndex);
+        int min_ = NumberUtil.min(firstIndex, lastIndex);
+        int max_ = NumberUtil.max(firstIndex, lastIndex);
         FrameUtil.removeIndexes(min_, max_, selectedIndexes);
     }
 
@@ -322,8 +323,8 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     @Override
     public Interval selectIntervalPaint(boolean _sel, int _index) {
         setLastIndex(_index);
-        int min_ = Math.min(getFirstIndex(), getLastIndex());
-        int max_ = Math.max(getFirstIndex(), getLastIndex());
+        int min_ = NumberUtil.min(getFirstIndex(), getLastIndex());
+        int max_ = NumberUtil.max(getFirstIndex(), getLastIndex());
         AbsCustCellRender r_ = setted();
         FrameUtil.paintSelected(_sel, min_, max_, r_, this);
         return new Interval(min_,max_);
@@ -332,8 +333,8 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     @Override
     public Interval selectIntervalPaintBase(boolean _sel, int _index) {
         int firstIndex_ = getFirstIndex();
-        int min_ = Math.min(firstIndex_, _index);
-        int max_ = Math.max(firstIndex_, _index);
+        int min_ = NumberUtil.min(firstIndex_, _index);
+        int max_ = NumberUtil.max(firstIndex_, _index);
         FrameUtil.updatedSelectedBis(_sel, min_, max_,this);
         return new Interval(min_,max_);
     }

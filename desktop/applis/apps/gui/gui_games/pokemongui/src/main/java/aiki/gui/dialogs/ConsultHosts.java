@@ -17,6 +17,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThread;
 import code.util.*;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class ConsultHosts {
@@ -83,7 +84,7 @@ public final class ConsultHosts {
                     continue;
                 }
                 hostingLoc_.setBackground(GuiConstants.YELLOW);
-                AbsPlainLabel steps_ = window.getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(rem_, Math.max(facade.getRemaingingSteps(c), 0)));
+                AbsPlainLabel steps_ = window.getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(rem_, NumberUtil.max(facade.getRemaingingSteps(c), 0)));
                 hostingLoc_.add(steps_);
                 PokemonPlayer pk_;
                 String gender_;

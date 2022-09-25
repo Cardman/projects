@@ -9,6 +9,7 @@ import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 public final class TstsCharacters {
     private int max = -1;
@@ -23,10 +24,10 @@ public final class TstsCharacters {
         for (int i = 0; i < 256*256;i++) {
             int dir_ = StringDataUtil.getDirectionality((char) i);
             int type_ = StringDataUtil.getType((char) i);
-            max = Math.max(dir_,max);
-            min = Math.min(dir_,min);
-            maxType = Math.max(type_,maxType);
-            minType = Math.min(type_,minType);
+            max = NumberUtil.max(dir_,max);
+            min = NumberUtil.min(dir_,min);
+            maxType = NumberUtil.max(type_,maxType);
+            minType = NumberUtil.min(type_,minType);
             if (StringDataLetterUtil.isLetter((char) i)) {
                 if (minLetter == -1) {
                     minLetter = i;

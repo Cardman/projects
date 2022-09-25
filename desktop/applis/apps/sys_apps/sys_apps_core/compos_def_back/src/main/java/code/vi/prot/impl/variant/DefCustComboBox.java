@@ -8,6 +8,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.vi.prot.impl.gui.CustComponent;
 
@@ -111,8 +112,8 @@ public final class DefCustComboBox extends CustComponent implements GraphicCombo
         simpleSelectItem(_index);
     }
     public void simpleSelectItem(int _index) {
-        int index_ = Math.min(comboDef.getItemCount()-1,_index);
-        index_ = Math.max(index_,-1);
+        int index_ = NumberUtil.min(comboDef.getItemCount()-1,_index);
+        index_ = NumberUtil.max(index_,-1);
         comboDef.setSelectedIndex(index_);
     }
 

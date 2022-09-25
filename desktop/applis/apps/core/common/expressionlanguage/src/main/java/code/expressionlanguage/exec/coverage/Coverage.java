@@ -24,6 +24,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 
 public final class Coverage {
     private final CustList<FileBlock> files = new CustList<FileBlock>();
@@ -159,7 +160,7 @@ public final class Coverage {
             _swRes.getChildren().addEntry(_exec, new CustList<AbstractCoverageResult>(new StandardCoverageResult()));
         }
         if (_child instanceof CaseCondition) {
-            int count_ = Math.max(1,((CaseCondition) _child).getStdValues().size()+ ((CaseCondition) _child).getEnumValues().size());
+            int count_ = NumberUtil.max(1,((CaseCondition) _child).getStdValues().size()+ ((CaseCondition) _child).getEnumValues().size());
             CustList<AbstractCoverageResult> list_ = new CustList<AbstractCoverageResult>();
             for (int i = 0; i < count_; i++) {
                 list_.add(new StandardCoverageResult());

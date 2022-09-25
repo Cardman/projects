@@ -5,6 +5,7 @@ import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
@@ -604,7 +605,7 @@ public final class Polynom implements Displayable {
         CustList<Rate> numbersTwo_ = new CustList<Rate>();
         int first_ = size();
         int second_ = _o.size();
-        int dg_ = Math.max(first_, second_);
+        int dg_ = NumberUtil.max(first_, second_);
         for (int i = 0; i < dg_; i++) {
             numbers_.add(Rate.zero());
         }

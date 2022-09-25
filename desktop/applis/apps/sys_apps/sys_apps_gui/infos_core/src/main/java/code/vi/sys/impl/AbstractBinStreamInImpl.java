@@ -1,6 +1,7 @@
 package code.vi.sys.impl;
 
 import code.stream.core.AbstractBinStreamIn;
+import code.util.core.NumberUtil;
 import code.vi.prot.impl.StreamCoreUtil;
 
 import java.io.ByteArrayOutputStream;
@@ -24,7 +25,7 @@ public abstract class AbstractBinStreamInImpl implements AbstractBinStreamIn {
     public int read() {
         try {
             int read_ = reader.read(arr);
-            out.write(arr,0,Math.max(0,read_));
+            out.write(arr,0, NumberUtil.max(0,read_));
             return read_;
         } catch (Exception e) {
             return -2;

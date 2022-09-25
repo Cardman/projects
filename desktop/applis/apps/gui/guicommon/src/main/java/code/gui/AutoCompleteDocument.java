@@ -5,6 +5,7 @@ import code.gui.events.AbsKeyListenerPress;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsKeyListenerPress {
@@ -144,7 +145,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
             hideAutocompletePopup();
             return;
         }
-        list.setVisibleRowCount(Math.min(r_.size(),10));
+        list.setVisibleRowCount(NumberUtil.min(r_.size(),10));
 
         // Selecting first result
         list.setSelectedIndice(0);

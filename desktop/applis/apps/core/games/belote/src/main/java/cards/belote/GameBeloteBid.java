@@ -8,6 +8,7 @@ import cards.consts.CardChar;
 import cards.consts.Suit;
 import code.util.*;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 
 public final class GameBeloteBid {
     private final HandBelote currentHand;
@@ -217,7 +218,7 @@ public final class GameBeloteBid {
             long pts_ = _couleursCandidates.getVal(_couleurMax);
             pts_ /= RulesBelote.DIVISIONS;
             pts_ *= RulesBelote.DIVISIONS;
-            if (pts_ > Math.max(minPointsMinusOne_, bid.getPoints())) {
+            if (pts_ > NumberUtil.max(minPointsMinusOne_, bid.getPoints())) {
                 BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
                 enchereCouleur_.setBid(_enchereCouleurDominante);
                 enchereCouleur_.setSuit(_couleurMax);
@@ -230,7 +231,7 @@ public final class GameBeloteBid {
             long pts_ = _couleurPointsFictifsContrats.getVal(_e);
             pts_ /= RulesBelote.DIVISIONS;
             pts_ *= RulesBelote.DIVISIONS;
-            if (pts_ > Math.max(minPointsMinusOne_, bid.getPoints())) {
+            if (pts_ > NumberUtil.max(minPointsMinusOne_, bid.getPoints())) {
                 BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
                 enchereCouleur_.setBid(_e);
                 enchereCouleur_.setPoints((int) pts_);

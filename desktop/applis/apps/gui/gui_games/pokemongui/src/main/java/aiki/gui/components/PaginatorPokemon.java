@@ -638,7 +638,7 @@ public final class PaginatorPokemon extends Paginator {
                 thirdColumn_ = value_;
             }
         }
-        int secondCol_ = Math.max(maxPixAbility_, maxPixName_);
+        int secondCol_ = NumberUtil.max(maxPixAbility_, maxPixName_);
         h_ = getMessages().getVal(CST_LEVEL);
         getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_);
         h_ = getMessages().getVal(CST_GENDER);

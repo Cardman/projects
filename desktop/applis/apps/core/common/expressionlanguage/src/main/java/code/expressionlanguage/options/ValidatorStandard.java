@@ -13,6 +13,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class ValidatorStandard {
@@ -383,7 +384,7 @@ public final class ValidatorStandard {
         StringList pkgsBase_ = new StringList();
         for (StandardType r: _page.getStandardsTypes().values()) {
             String pkg_ = r.getPackageName();
-            int until_ = Math.max(0, pkg_.indexOf('.'));
+            int until_ = NumberUtil.max(0, pkg_.indexOf('.'));
             pkgsBase_.add(pkg_.substring(0,until_));
             StringBuilder id_ = new StringBuilder();
             for (String p: StringUtil.splitChars(pkg_, '.')) {

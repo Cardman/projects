@@ -6,6 +6,7 @@ import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.IdList;
+import code.util.core.NumberUtil;
 
 public abstract class MockCustComponent implements AbsCustComponent {
     private String toolTipText = "";
@@ -386,7 +387,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
             prefSizeSet = true;
             return metaDimension_;
         }
-        MetaDimension metaDimension_ = new MetaDimension(Math.max(1, width), Math.max(1, height));
+        MetaDimension metaDimension_ = new MetaDimension(NumberUtil.max(1, width), NumberUtil.max(1, height));
         prefSize = metaDimension_;
         prefSizeSet = true;
         return metaDimension_;

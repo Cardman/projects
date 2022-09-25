@@ -383,8 +383,8 @@ public final class DataMap {
             if (m.getYcoords() < 0) {
                 _d.setError(true);
             }
-            maxWidth_ = Math.max(maxWidth_,m.getXcoords());
-            maxHeight_ = Math.max(maxHeight_,m.getYcoords());
+            maxWidth_ = NumberUtil.max(maxWidth_,m.getXcoords());
+            maxHeight_ = NumberUtil.max(maxHeight_,m.getYcoords());
         }
         if (_list.size() != (maxWidth_ + 1) * (maxHeight_ + 1)) {
             _d.setError(true);
@@ -1861,11 +1861,11 @@ public final class DataMap {
                 p1_.sety(leftTopPointOne_.gety());
                 p2_.sety(rightBottomPointTwo_.gety());
             }
-            int u_ = Math.min(p1_.getx() - leftTopPointOne_.getx(), p2_.getx()
+            int u_ = NumberUtil.min(p1_.getx() - leftTopPointOne_.getx(), p2_.getx()
                     - leftTopPointTwo_.getx());
             int xtop1_ = p1_.getx() - u_;
             int xtop2_ = p2_.getx() - u_;
-            int d_ = Math.min(rightBottomPointOne_.getx() - p1_.getx(),
+            int d_ = NumberUtil.min(rightBottomPointOne_.getx() - p1_.getx(),
                     rightBottomPointTwo_.getx() - p2_.getx());
             length_ = u_ + d_ + 1;
             for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
@@ -1883,11 +1883,11 @@ public final class DataMap {
                 p1_.setx(rightBottomPointOne_.getx());
                 p2_.setx(leftTopPointTwo_.getx());
             }
-            int u_ = Math.min(p1_.gety() - leftTopPointOne_.gety(), p2_.gety()
+            int u_ = NumberUtil.min(p1_.gety() - leftTopPointOne_.gety(), p2_.gety()
                     - leftTopPointTwo_.gety());
             int ytop1_ = p1_.gety() - u_;
             int ytop2_ = p2_.gety() - u_;
-            int d_ = Math.min(rightBottomPointOne_.gety() - p1_.gety(),
+            int d_ = NumberUtil.min(rightBottomPointOne_.gety() - p1_.gety(),
                     rightBottomPointTwo_.gety() - p2_.gety());
             length_ = u_ + d_ + 1;
             for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {

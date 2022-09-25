@@ -1,6 +1,7 @@
 package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class RelativePathUtil {
@@ -15,7 +16,7 @@ public final class RelativePathUtil {
         int diffFirst_ = -1;
         int countCommon_ = 0;
         boolean finished_ = true;
-        int len_ = Math.min(_currentFile.length(),_refFile.length());
+        int len_ = NumberUtil.min(_currentFile.length(),_refFile.length());
         for (int i =0; i < len_; i++) {
             char curChar_ = _currentFile.charAt(i);
             char relChar_ = _refFile.charAt(i);

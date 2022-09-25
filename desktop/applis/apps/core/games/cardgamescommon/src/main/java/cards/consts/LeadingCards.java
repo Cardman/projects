@@ -2,12 +2,13 @@ package cards.consts;
 
 import code.util.CustList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class LeadingCards<T> {
     private final CustList<T> list = new CustList<T>();
 
     public void leading(CustList<T> _union, CustList<T> _current, CustList<T> _played, CustList<T> _full) {
-        int nbPlayedOrOwnedCards_ = Math.min(_union.size(),_full.size());
+        int nbPlayedOrOwnedCards_ = NumberUtil.min(_union.size(),_full.size());
         for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
             if (_union.get(c)!=
                     _full.get(c)) {

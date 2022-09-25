@@ -6,16 +6,15 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaFont;
 import code.util.core.IndexConstants;
-
-
+import code.util.core.NumberUtil;
 
 
 public final class ImageStruct extends WithoutParentIdStruct implements Struct {
     private final AbstractImage image;
     private final boolean withAlpha;
     public ImageStruct(AbstractImageFactory _fact, int _w, int _h, boolean _rgba) {
-        int w_ = Math.max(1,_w);
-        int h_ = Math.max(1,_h);
+        int w_ = NumberUtil.max(1,_w);
+        int h_ = NumberUtil.max(1,_h);
         withAlpha = _rgba;
         if (_rgba) {
             image = _fact.newImageArgb(w_,h_);

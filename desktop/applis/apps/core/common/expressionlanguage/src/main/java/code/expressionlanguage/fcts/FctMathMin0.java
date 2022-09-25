@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class FctMathMin0 implements AnaStdCaller {
     @Override
@@ -27,6 +28,6 @@ public final class FctMathMin0 implements AnaStdCaller {
     }
 
     private static Struct minInt(Struct _one, Struct _two) {
-        return new IntStruct(Math.min(NumParsers.convertToNumber(_one).intStruct(),NumParsers.convertToNumber(_two).intStruct()));
+        return new IntStruct(NumberUtil.min(NumParsers.convertToNumber(_one).intStruct(),NumParsers.convertToNumber(_two).intStruct()));
     }
 }

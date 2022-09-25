@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.core.NumberUtil;
 
 public final class FctMathAbs2 implements AnaStdCaller {
     @Override
@@ -23,6 +24,6 @@ public final class FctMathAbs2 implements AnaStdCaller {
     }
 
     private static Struct absFloat(Struct _arg) {
-        return new FloatStruct(Math.abs(NumParsers.convertToNumber(_arg).floatStruct()));
+        return new FloatStruct(NumberUtil.abs(NumParsers.convertToNumber(_arg).floatStruct()));
     }
 }

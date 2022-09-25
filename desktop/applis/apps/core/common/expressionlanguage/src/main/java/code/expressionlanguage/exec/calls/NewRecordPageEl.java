@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
 
@@ -25,7 +26,7 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
             return;
         }
         //set fields for annotation after calculating default one
-        int len_ = Math.min(named.size(),args.size());
+        int len_ = NumberUtil.min(named.size(),args.size());
         Argument gl_ = getGlobalArgument();
         for (int i = 0; i <len_; i++) {
             ExecNamedFieldContent info_ = named.get(i);

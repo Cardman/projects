@@ -2,6 +2,7 @@ package code.vi.prot.impl;
 
 import code.stream.core.AbstractZipStreamIn;
 import code.stream.core.ComZipStreamIn;
+import code.util.core.NumberUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -61,7 +62,7 @@ public final class DefZipStreamIn extends ComZipStreamIn implements AbstractZipS
     public int read(byte[] _array, int _off, int _len) {
         try {
             int read_ = zipIn.read(_array, _off, _len);
-            out.write(_array,0,Math.max(0,read_));
+            out.write(_array,0, NumberUtil.max(0,read_));
             return read_;
         } catch (Exception e) {
             return -2;

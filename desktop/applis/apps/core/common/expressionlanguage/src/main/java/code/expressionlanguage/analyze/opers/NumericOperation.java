@@ -16,6 +16,7 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public abstract class NumericOperation extends MethodOperation implements MiddleSymbolOperation {
@@ -82,7 +83,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     static AnaClassArgumentMatching getIntResultClass(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         int oa_ = AnaTypeUtil.getIntOrderClass(_a, _page);
         int ob_ = AnaTypeUtil.getIntOrderClass(_b, _page);
-        int max_ = Math.max(oa_, ob_);
+        int max_ = NumberUtil.max(oa_, ob_);
         AnaClassArgumentMatching arg_ = getMaxWrap(_a, oa_, _b, ob_);
         return AnaTypeUtil.toPrimitive(goToAtLeastInt(_page,arg_,max_), _page);
     }

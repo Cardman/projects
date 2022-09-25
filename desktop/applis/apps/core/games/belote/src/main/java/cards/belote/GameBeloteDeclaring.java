@@ -7,6 +7,7 @@ import code.util.EnumList;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 final class GameBeloteDeclaring {
     private final GameBeloteTrickInfo doneTrickInfo;
@@ -54,7 +55,7 @@ final class GameBeloteDeclaring {
         }
     }
     private int cmp(DeclareHandBeloteComparator _comparateur,CustList<DeclareHandBelote> _declarationsTakerTeam,CustList<DeclareHandBelote> _declarationsTakerFoesTeam) {
-        int min_ = Math.min(_declarationsTakerFoesTeam.size(), _declarationsTakerTeam.size());
+        int min_ = NumberUtil.min(_declarationsTakerFoesTeam.size(), _declarationsTakerTeam.size());
         for (int i = IndexConstants.FIRST_INDEX; i<min_; i++) {
             int res_ = _comparateur.compare(_declarationsTakerTeam.get(i), _declarationsTakerFoesTeam.get(i));
             if (res_ != 0) {

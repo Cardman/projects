@@ -87,6 +87,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
 import aiki.facade.enums.SelectedBoolean;
@@ -1102,16 +1103,16 @@ public class DataBase {
                 setError(true);
                 continue;
             }
-            maxWidthPk = Math.max(maxWidthPk,i[0].length);
-            maxHeightPk = Math.max(maxHeightPk,i.length);
+            maxWidthPk = NumberUtil.max(maxWidthPk,i[0].length);
+            maxHeightPk = NumberUtil.max(maxHeightPk,i.length);
         }
         for (int[][] i : maxiPkFront.values()) {
             if (i.length == 0) {
                 setError(true);
                 continue;
             }
-            maxWidthPk = Math.max(maxWidthPk,i[0].length);
-            maxHeightPk = Math.max(maxHeightPk,i.length);
+            maxWidthPk = NumberUtil.max(maxWidthPk,i[0].length);
+            maxHeightPk = NumberUtil.max(maxHeightPk,i.length);
         }
     }
 

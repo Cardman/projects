@@ -3,6 +3,7 @@ package code.vi.prot.impl.gui;
 import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.util.core.NumberUtil;
 import code.vi.prot.impl.DefImage;
 import code.vi.prot.impl.DefImageFactory;
 
@@ -19,14 +20,14 @@ public final class PreparedLabel extends CustComponent implements AbsPreparedLab
 
     public PreparedLabel(AbstractImage _icon, JLabel _label) {
         label = _label;
-        width = Math.max(0, _icon.getWidth());
-        height = Math.max(0,_icon.getHeight());
+        width = NumberUtil.max(0, _icon.getWidth());
+        height = NumberUtil.max(0,_icon.getHeight());
     }
 
     public PreparedLabel(Icon _icon) {
         label = new JLabel(_icon);
-        width = Math.max(0, _icon.getIconWidth());
-        height = Math.max(0,_icon.getIconHeight());
+        width = NumberUtil.max(0, _icon.getIconWidth());
+        height = NumberUtil.max(0,_icon.getIconHeight());
     }
 
     public void setIcon(AbstractImageFactory _fact,AbstractImage _icon) {

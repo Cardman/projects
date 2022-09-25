@@ -2,6 +2,7 @@ package code.expressionlanguage.common;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 public final class ClassArgumentMatching {
 
@@ -18,7 +19,7 @@ public final class ClassArgumentMatching {
         for (String b: _className) {
             PrimitiveType pr_ = _primTypes.getPrimitiveTypes().getVal(b);
             if (pr_ != null) {
-                cast_ = (byte)Math.min(cast_,pr_.getCastNb());
+                cast_ = (byte) NumberUtil.min(cast_,pr_.getCastNb());
             }
         }
         if (cast_ == PrimitiveTypes.MAX_WRAP) {

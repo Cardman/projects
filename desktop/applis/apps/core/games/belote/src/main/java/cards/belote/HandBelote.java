@@ -12,6 +12,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 /**
  */
@@ -51,7 +52,7 @@ public final class HandBelote implements Iterable<CardBelote> {
             bid_ = new BidBeloteSuit();
             bid_.setSuit(s);
             bid_.setBid(BidBelote.SUIT);
-            min_ = Math.min(pointsTotauxDixDeDer(bid_), min_);
+            min_ = NumberUtil.min(pointsTotauxDixDeDer(bid_), min_);
         }
         return min_;
     }
@@ -301,7 +302,7 @@ public final class HandBelote implements Iterable<CardBelote> {
                 sum_ += c4_.points(_bid);
             }
             sum_ *= _nbPlayers - 1;
-            sum_ /= Math.max(1,all_.total());
+            sum_ /= NumberUtil.max(1,all_.total());
             pointsFictifs_+=c3_.points(_bid)+sum_;
         }
         return pointsFictifs_;

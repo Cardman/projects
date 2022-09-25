@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.core.NumberUtil;
 
 public final class FctNbDoubleSgn implements AnaStdCaller {
     @Override
@@ -24,6 +25,6 @@ public final class FctNbDoubleSgn implements AnaStdCaller {
 
     private static Struct str(Struct _arg) {
         double nb_ = NumParsers.convertToNumber(_arg).doubleStruct();
-        return new DoubleStruct(Math.signum(nb_));
+        return new DoubleStruct(NumberUtil.signum(nb_));
     }
 }

@@ -61,6 +61,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle,ContainerPlayableBelote {
@@ -732,7 +733,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                     max_ = maximum_.absNb();
                 }
             }
-            setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
+            setMaxAbsoluScore(NumberUtil.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int) getMaxAbsoluScore();
             graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);

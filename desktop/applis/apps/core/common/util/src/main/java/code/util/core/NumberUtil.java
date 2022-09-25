@@ -7,6 +7,51 @@ public final class NumberUtil {
 
     private NumberUtil() {
     }
+
+    public static int abs(int _i) {
+        return Math.abs(_i);
+    }
+
+    public static long abs(long _l) {
+        return Math.abs(_l);
+    }
+
+    public static float abs(float _f) {
+        return Math.abs(_f);
+    }
+
+    public static double abs(double _d) {
+        return Math.abs(_d);
+    }
+    public static int min(int _iOne, int _iTwo) {
+        return Math.min(_iOne, _iTwo);
+    }
+
+    public static int max(int _iOne, int _iTwo) {
+        return Math.max(_iOne, _iTwo);
+    }
+
+    public static long min(long _lOne, long _lTwo) {
+        return Math.min(_lOne, _lTwo);
+    }
+
+    public static long max(long _lOne, long _lTwo) {
+        return Math.max(_lOne, _lTwo);
+    }
+    public static float min(float _fOne, float _fTwo) {
+        return Math.min(_fOne, _fTwo);
+    }
+
+    public static float max(float _fOne, float _fTwo) {
+        return Math.max(_fOne, _fTwo);
+    }
+    public static double min(double _dOne, double _dTwo) {
+        return Math.min(_dOne, _dTwo);
+    }
+
+    public static double max(double _dOne, double _dTwo) {
+        return Math.max(_dOne, _dTwo);
+    }
     public static boolean isValidIndex(int _index, int _max) {
         if (_index < IndexConstants.FIRST_INDEX) {
             return false;
@@ -99,8 +144,8 @@ public final class NumberUtil {
             }
             return -(-(_one+1)/_two)-1;
         }
-        long absDiv_ = Math.abs(_two);
-        long absNb_ = Math.abs(_one);
+        long absDiv_ = abs(_two);
+        long absNb_ = abs(_one);
         long q_ = absNb_ / absDiv_;
         long sigDiv_ = signum(_two);
         q_ *= signum(_one) * sigDiv_;
@@ -110,7 +155,7 @@ public final class NumberUtil {
         long m_ = absNb_ % absDiv_;
         if (m_ != 0) {
             // sigDiv_ == 1 || sigDiv_ == -1
-            q_ += -sigDiv_;
+            q_ -= sigDiv_;
         }
         return q_;
     }
@@ -194,5 +239,9 @@ public final class NumberUtil {
             return (byte)1;
         }
         return (byte)0;
+    }
+
+    public static double signum(double _v) {
+        return Math.signum(_v);
     }
 }

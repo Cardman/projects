@@ -14,6 +14,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 
@@ -174,7 +175,7 @@ public final class FrameUtil {
     public static int maxWidth(AbsPanel _current, CustList<String> _list) {
         int width_ = 4;
         for (String s: _list) {
-            width_ = Math.max(width_, _current.stringWidth(s));
+            width_ = NumberUtil.max(width_, _current.stringWidth(s));
         }
         return width_;
     }
@@ -190,8 +191,8 @@ public final class FrameUtil {
         if (_listener == null) {
             return;
         }
-        int min_ = Math.min(_firstIndex, _lastIndex);
-        int max_ = Math.max(_firstIndex, _lastIndex);
+        int min_ = NumberUtil.min(_firstIndex, _lastIndex);
+        int max_ = NumberUtil.max(_firstIndex, _lastIndex);
         SelectionInfo ev_ = new SelectionInfo(min_, max_, _methodAction);
         _listener.valueChanged(ev_);
     }
@@ -365,7 +366,7 @@ public final class FrameUtil {
     public static int getBasicMaxWidth(int _width, AbsGraphicListDefBase _curr) {
         int width_ = _width;
         for (AbsPreparedLabel c: _curr.getListComponents()) {
-            width_ = Math.max(width_, c.getPreferredSizeValue().getWidth());
+            width_ = NumberUtil.max(width_, c.getPreferredSizeValue().getWidth());
         }
         return width_;
     }
@@ -380,7 +381,7 @@ public final class FrameUtil {
             c.setPreferredSize(new MetaDimension(width_, h_));
             c_++;
         }
-        return new MetaDimension(width_ + 24, (h_ + 2) * Math.min(c_, _curr.getVisibleRowCount()));
+        return new MetaDimension(width_ + 24, (h_ + 2) * NumberUtil.min(c_, _curr.getVisibleRowCount()));
     }
 
     public static void paintList(AbsCustCellRender _r, int _len, AbsGraphicListDefBase _curr) {
@@ -499,15 +500,15 @@ public final class FrameUtil {
     public static MetaDimension updateDim(AbsGraphicListCommon _curr) {
         int width_ = 0;
         for (AbsPreparedLabel c: _curr.getListComponents()) {
-            width_ = Math.max(width_, c.getWidth());
+            width_ = NumberUtil.max(width_, c.getWidth());
         }
         int h_ = 0;
         int c_ = 0;
         for (AbsPreparedLabel c: _curr.getListComponents()) {
-            h_ = Math.max(h_,c.getHeight());
+            h_ = NumberUtil.max(h_,c.getHeight());
             c_++;
         }
-        return new MetaDimension(width_ + 24, (h_ + 2) * Math.min(c_, _curr.getVisibleRowCount()));
+        return new MetaDimension(width_ + 24, (h_ + 2) * NumberUtil.min(c_, _curr.getVisibleRowCount()));
     }
 
     public static void addIndexes(int _min, int _max, Ints _selectedIndexes) {

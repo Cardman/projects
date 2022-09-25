@@ -1,5 +1,7 @@
 package code.maths.litteraladv;
 
+import code.util.core.NumberUtil;
+
 public final class MaError {
     private int offset = -1;
 
@@ -8,7 +10,7 @@ public final class MaError {
     }
 
     public void setOffset(int _index) {
-        offset = Math.max(0,_index);
+        offset = NumberUtil.max(0,_index);
     }
 
     public String display() {

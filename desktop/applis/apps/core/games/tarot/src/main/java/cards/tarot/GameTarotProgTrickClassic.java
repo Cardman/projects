@@ -5,6 +5,7 @@ import cards.consts.Role;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.*;
+import code.util.core.NumberUtil;
 
 public final class GameTarotProgTrickClassic {
 
@@ -1334,7 +1335,7 @@ public final class GameTarotProgTrickClassic {
                 }
                 continue;
             }
-            max_ = (byte) Math.max(
+            max_ = (byte) NumberUtil.max(
                     _cartesPossibles.getVal(_couleurDemandee)
                             .get(joueur_).premiereCarte()
                             .strength(_couleurDemandee), max_);
@@ -1379,7 +1380,7 @@ public final class GameTarotProgTrickClassic {
         //il existe une suite de la couleur demandee ordinaire avec une figure
         byte max_ = 0;
         for (byte joueur_ : _joueurs) {
-            max_ = (byte) Math.max(
+            max_ = (byte) NumberUtil.max(
                     _cartesPossibles
                             .getVal(_couleurDemandee)
                             .get(joueur_).total(),

@@ -4,6 +4,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class ConstructorId extends AbsractIdentifiableCommon {
@@ -53,7 +54,7 @@ public final class ConstructorId extends AbsractIdentifiableCommon {
             suf_ = CST_VARARG;
         }
         CustList<String> cls_ = new CustList<String>();
-        int m_ = Math.min(getClassNames().size(), getRefParams().size());
+        int m_ = NumberUtil.min(getClassNames().size(), getRefParams().size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
             if (getParametersRef(i) == BoolVal.TRUE) {

@@ -35,6 +35,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class LinkageUtil {
@@ -320,7 +321,7 @@ public final class LinkageUtil {
         vars_.setCurrentFile(_ex);
         if (_ex.getFirstChild() == null || !_ex.getErrorsFiles().getLi().isEmpty()) {
             processFileBlockError(vars_,_ex);
-            vars_.addPart(new PartOffset(ExportCst.END_SPAN,Math.max(1, _ex.getLength())));
+            vars_.addPart(new PartOffset(ExportCst.END_SPAN, NumberUtil.max(1, _ex.getLength())));
             return vars_;
         }
         AbsBk child_ = _ex;
@@ -1615,7 +1616,7 @@ public final class LinkageUtil {
                     blOffset_ = _cond.getClassNameOffset() + _cond.getClassName().length();
                 }
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(err_), blOffset_));
-                int endBl_ = blOffset_ + Math.max(1, _cond.getValue().length());
+                int endBl_ = blOffset_ + NumberUtil.max(1, _cond.getValue().length());
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endBl_));
                 _vars.getLastStackElt().setIndexAnnotationGroup(-1);
                 return;
@@ -1974,7 +1975,7 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,endName_));
             return;
         }
-        int endName_ = _begName + Math.max(_len,1);
+        int endName_ = _begName + NumberUtil.max(_len,1);
         _vars.addPart(new PartOffset(ExportCst.anchorNameErr(_begName,StringUtil.join(errs_,ExportCst.JOIN_ERR)),_begName));
         _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,endName_));
     }
@@ -2287,7 +2288,7 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,off_+param_.length()));
             } else {
                 _vars.addPart(new PartOffset(ExportCst.anchorNameErr(off_,StringUtil.join(errs_,ExportCst.JOIN_ERR)),off_));
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,off_+Math.max(1,param_.length())));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,off_+NumberUtil.max(1,param_.length())));
             }
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
@@ -2848,7 +2849,7 @@ public final class LinkageUtil {
                 int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
                 int len_ = operators_.getValue(indexChild_).length();
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(l_,ExportCst.JOIN_ERR)),s_));
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,s_+Math.max(len_,1)));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,s_+NumberUtil.max(len_,1)));
             } else {
                 appendPossibleParts(_vars, par_, indexChild_);
             }
@@ -3728,7 +3729,7 @@ public final class LinkageUtil {
             } else if (!l_.isEmpty()) {
                 int len_ = operators_.getValue(index_).length();
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(l_,ExportCst.JOIN_ERR)), operOff_));
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, operOff_ +Math.max(len_,1)));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, operOff_ +NumberUtil.max(len_,1)));
             } else {
                 appendPossibleParts(_vars, _parent, index_);
             }

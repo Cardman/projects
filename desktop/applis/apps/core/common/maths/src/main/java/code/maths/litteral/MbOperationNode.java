@@ -3,6 +3,7 @@ package code.maths.litteral;
 import code.maths.litteralcom.MatCommonCst;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 abstract class MbOperationNode {
@@ -186,10 +187,10 @@ abstract class MbOperationNode {
             QuickMbOperation q_ = (QuickMbOperation) par_;
             boolean bs_ = q_.absorbingStruct();
             if (bs_ == _value) {
-                return Math.max(_least, par_.getOrder());
+                return NumberUtil.max(_least, par_.getOrder());
             }
         }
-        return Math.max(_least, _operation.getOrder() + 1);
+        return NumberUtil.max(_least, _operation.getOrder() + 1);
     }
     public MethodMbOperation getParent() {
         return parent;

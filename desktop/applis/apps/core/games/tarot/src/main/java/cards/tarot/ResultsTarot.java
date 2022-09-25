@@ -10,6 +10,7 @@ import cards.tarot.enumerations.BidTarot;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public final class ResultsTarot {
@@ -93,7 +94,7 @@ public final class ResultsTarot {
                     needlyScoresPlayers_.add(ptsNeed_);
                     short diffDb_ = EndTarotGame.differenceJoueurDouble(ptsNeed_, ptsDb_);
                     doublesDifferencesPlayers_.add(diffDb_);
-                    maxDoubledDifference_=(short)Math.max(maxDoubledDifference_,diffDb_);
+                    maxDoubledDifference_=(short)NumberUtil.max(maxDoubledDifference_,diffDb_);
                     additionnalBonuses_.add(end_.primeSupplementaire(joueur_));
                 }
                 maxDifference=end_.differenceMax(maxDoubledDifference_);
@@ -109,7 +110,7 @@ public final class ResultsTarot {
                     doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
                     needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                     doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                    maxDoubledDifference_=(short)Math.max(maxDoubledDifference_,doublesDifferencesPlayers_.last());
+                    maxDoubledDifference_=(short) NumberUtil.max(maxDoubledDifference_,doublesDifferencesPlayers_.last());
                 }
                 maxDifference=end_.differenceMax(maxDoubledDifference_);
                 positionsDiff=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);

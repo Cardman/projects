@@ -4,6 +4,7 @@ import code.stream.AbsClipStream;
 import code.stream.LineShortListenable;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
+import code.util.core.NumberUtil;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import java.io.ByteArrayInputStream;
@@ -75,7 +76,7 @@ public final class ClipStreamMp3 implements AbsClipStream {
 
     @Override
     public void stop(long _lastPosition) {
-        frame = (_lastPosition / 1000) / Math.max(rat,1);
+        frame = (_lastPosition / 1000) / NumberUtil.max(rat,1);
         pl.stop();
     }
 

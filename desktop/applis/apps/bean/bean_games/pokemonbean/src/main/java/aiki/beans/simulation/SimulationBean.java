@@ -1011,7 +1011,7 @@ public class SimulationBean extends CommonBean {
 //        }
         DataBase data_ = getDataBase();
         int index_ = getForms().getValInt(CST_POKEMON_INDEX_EDIT);
-        levelEvo = (short) Math.max(levelEvo, availableEvosLevel.getVal(chosenEvo));
+        levelEvo = (short) NumberUtil.max(levelEvo, availableEvosLevel.getVal(chosenEvo));
         simulation.setNextEvolutions(index_, chosenEvo, (short) levelEvo, data_);
         StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(index_);
         availableEvosLevel = new StringMap<Short>(evos_);

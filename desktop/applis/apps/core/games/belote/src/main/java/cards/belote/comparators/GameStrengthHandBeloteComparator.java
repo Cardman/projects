@@ -28,7 +28,7 @@ abstract class GameStrengthHandBeloteComparator implements Comparing<Suit> {
         HandBelote main1_ = hand.getVal(_suit1);
         HandBelote main2_ = hand.getVal(_suit2);
         int res_ = SortConstants.EQ_CMP;
-        int min_ = Math.min(main1_.total(), main2_.total());
+        int min_ = NumberUtil.min(main1_.total(), main2_.total());
         for (int k = IndexConstants.FIRST_INDEX; k < min_; k++) {
             CardBelote carte1_ = main1_.carte(k);
             CardBelote carte2_ = main2_.carte(k);

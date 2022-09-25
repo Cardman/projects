@@ -2,6 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.litteralcom.StrTypes;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class FctMaOperation extends MethodMaOperation {
@@ -16,7 +17,7 @@ public final class FctMaOperation extends MethodMaOperation {
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         if (StringUtil.quickEq("3",methodName.trim())) {
-            int index_ = Math.min(getOps().size()-1,3);
+            int index_ = NumberUtil.min(getOps().size()-1,3);
             if (getChildren().size() != 3) {
                 _error.setOffset(getIndexExp()+StrTypes.offset(getOps(),index_));
                 return;

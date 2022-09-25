@@ -904,7 +904,7 @@ final class FightEffects {
         MonteCarloNumber repetCoup_=_laws.getNumberHits().getVal(_fighter);
         Rate sommeCoups_ = Rate.zero();
         LgInt maxRd_ = _import.getMaxRd();
-        byte nbCoups_ = (byte) Math.max(1,randomRate(_fight, _import, repetCoup_, _target).ll());
+        byte nbCoups_ = (byte) NumberUtil.max(1,randomRate(_fight, _import, repetCoup_, _target).ll());
         boolean coupCritique_ = false;
         for (int i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
             Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
@@ -941,7 +941,7 @@ final class FightEffects {
         Fighter creatureCible_=_fight.getFighter(_target);
         MonteCarloNumber loiRand_ = _laws.getRandomRate();
         LgInt maxRd_ = _import.getMaxRd();
-        byte nbCoups_ = (byte) Math.max(1, _laws.getNumberHits().getVal(_fighter).editNumber(maxRd_, _import.getGenerator()).ll());
+        byte nbCoups_ = (byte) NumberUtil.max(1, _laws.getNumberHits().getVal(_fighter).editNumber(maxRd_, _import.getGenerator()).ll());
         boolean coupCritique_ = false;
         boolean keepProcessing_ = true;
         int nbHits_ = 0;

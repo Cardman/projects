@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.core.NumberUtil;
 
 public final class FctMathAbs3 implements AnaStdCaller {
     @Override
@@ -23,6 +24,6 @@ public final class FctMathAbs3 implements AnaStdCaller {
     }
 
     private static Struct absDouble(Struct _arg) {
-        return new DoubleStruct(Math.abs(NumParsers.convertToNumber(_arg).doubleStruct()));
+        return new DoubleStruct(NumberUtil.abs(NumParsers.convertToNumber(_arg).doubleStruct()));
     }
 }

@@ -1,5 +1,7 @@
 package code.expressionlanguage.common;
 
+import code.util.core.NumberUtil;
+
 public final class DoubleInfo {
     private final double value;
     private final boolean valid;
@@ -23,7 +25,7 @@ public final class DoubleInfo {
     }
 
     public boolean outOfRange(double _min, double _max) {
-        double absValue_ = Math.abs(value);
+        double absValue_ = NumberUtil.abs(value);
         return !isValid() || !zero&&(absValue_ < _min || absValue_ > _max);
     }
     public boolean isValid() {

@@ -3,6 +3,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import code.gui.*;
+import code.util.core.NumberUtil;
 import code.vi.prot.impl.gui.CustComponent;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -105,8 +106,8 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
         simpleSelectItem(_index);
     }
     public void simpleSelectItem(int _index) {
-        int index_ = Math.min(combo.getItemCount()-1,_index);
-        index_ = Math.max(index_,-1);
+        int index_ = NumberUtil.min(combo.getItemCount()-1,_index);
+        index_ = NumberUtil.max(index_,-1);
 		combo.setSelectedIndex(index_);
     }
 

@@ -414,7 +414,7 @@ public final class NumParsers {
         double value_ = MathExpUtil.toDouble(longValue_);
         int index_ = indexNotZero(numberDec_);
         StringBuilder decCopy_ = new StringBuilder(numberDec_.substring(index_));
-        decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
+        decCopy_.delete(NumberUtil.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
         if (decCopy_.length() == 0) {
             return buildNbSimple(_positive, longValue_, value_);
         }
@@ -549,7 +549,7 @@ public final class NumParsers {
 
     private static double pow(long _delta, double _exp) {
         double p_ = 1.0;
-        long absExpNbLong_ = Math.abs(_delta);
+        long absExpNbLong_ = NumberUtil.abs(_delta);
         for (int i = 0; i < absExpNbLong_; i++) {
             p_ *= _exp;
         }
@@ -744,7 +744,7 @@ public final class NumParsers {
                 ch_ = ch_ - 'A' + 'a';
             }
             i_++;
-            int t_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+            int t_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - 'a', 0);
             int k_ = 3;
             for (int j = 0; j < 4; j++) {
                 if (t_ % 2 == 1) {
@@ -824,7 +824,7 @@ public final class NumParsers {
                 ch_ = ch_ - 'A' + 'a';
             }
             i_++;
-            int digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+            int digit_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - 'a', 0);
             result_ *= HEX_BASE;
             result_ += digit_;
         }
@@ -2008,7 +2008,7 @@ public final class NumParsers {
         return _begin < 0 || _end > _inst.length() || _begin > _end;
     }
     public static int compareToIgnoreCase(String _instance, String _other) {
-        int min_ = Math.min(_instance.length(), _other.length());
+        int min_ = NumberUtil.min(_instance.length(), _other.length());
         for (int i = 0; i < min_; i++) {
             char cFirst_ = _instance.charAt(i);
             char cSecond_ = _other.charAt(i);
@@ -2132,7 +2132,7 @@ public final class NumParsers {
         if (_char == 42570 || _char == 42571) {
             return 7304;
         }
-        return Math.min(StringDataUtil.toLowerCase(_char),StringDataUtil.toUpperCase(_char));
+        return NumberUtil.min(StringDataUtil.toLowerCase(_char),StringDataUtil.toUpperCase(_char));
     }
     public static Struct getStaticField(ClassField _clField, StringMap<StringMap<Struct>> _staticFields) {
         StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName(), _staticFields);

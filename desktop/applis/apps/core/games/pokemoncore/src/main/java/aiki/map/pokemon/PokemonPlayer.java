@@ -301,9 +301,9 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
                 PokemonData fPk_ = _import.getPokemon(e);
                 for (String e2_: fPk_.getEvolutions().getKeys()) {
                     Evolution evo_ = fPk_.getEvolution(e2_);
-                    short max_ = (short) Math.max(currentEvolutions_.getVal(e), _level);
+                    short max_ = (short) NumberUtil.max(currentEvolutions_.getVal(e), _level);
                     if (evo_ instanceof EvolutionLevel) {
-                        max_= (short) Math.max(max_, ((EvolutionLevel) evo_).getLevel());
+                        max_= (short) NumberUtil.max(max_, ((EvolutionLevel) evo_).getLevel());
                     }
                     newEvolutions_.put(e2_, max_);
                 }
@@ -328,9 +328,9 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
                 PokemonData fPk_ = _import.getPokemon(StringUtil.splitStrings(e, SEPARATOR).last());
                 for (String e2_: fPk_.getEvolutions().getKeys()) {
                     Evolution evo_ = fPk_.getEvolution(e2_);
-                    short max_ = (short) Math.max(currentEvolutions_.getVal(e), _level);
+                    short max_ = (short) NumberUtil.max(currentEvolutions_.getVal(e), _level);
                     if (evo_ instanceof EvolutionLevel) {
-                        max_= (short) Math.max(max_, ((EvolutionLevel) evo_).getLevel());
+                        max_= (short) NumberUtil.max(max_, ((EvolutionLevel) evo_).getLevel());
                     }
                     newEvolutions_.put(StringUtil.concat(e,SEPARATOR,e2_), max_);
                 }
@@ -443,7 +443,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             }
         }
         for (Statistic s: ev.getKeys()) {
-            ev.put(s, (short) Math.min(ev.getVal(s), _dateBase.getMaxEv()));
+            ev.put(s, (short) NumberUtil.min(ev.getVal(s), _dateBase.getMaxEv()));
         }
         initPvRestants(_dateBase);
         initStatus();

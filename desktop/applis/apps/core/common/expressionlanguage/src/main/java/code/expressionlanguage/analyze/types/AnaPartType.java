@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 abstract class AnaPartType {
@@ -167,7 +168,7 @@ abstract class AnaPartType {
     }
 
     int getLength() {
-        return Math.max(1, length);
+        return NumberUtil.max(1, length);
     }
 
     void setLength(int _length) {

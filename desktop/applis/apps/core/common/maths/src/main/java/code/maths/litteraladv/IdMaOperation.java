@@ -11,6 +11,7 @@ import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 
 public final class IdMaOperation extends MethodMaOperation {
     public IdMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
@@ -37,7 +38,7 @@ public final class IdMaOperation extends MethodMaOperation {
             return;
         }
         if (len_ != 1) {
-            int index_ = Math.min(getOps().size()-1,1);
+            int index_ = NumberUtil.min(getOps().size()-1,1);
             _error.setOffset(getIndexExp()+StrTypes.offset(getOps(),index_));
             return;
         }

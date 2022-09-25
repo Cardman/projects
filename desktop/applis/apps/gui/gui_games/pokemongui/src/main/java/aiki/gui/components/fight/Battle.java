@@ -1241,7 +1241,7 @@ public class Battle extends ChildFrame {
             action_.addMouseListener(new FighterAction(this, a));
             action_.setSelected(a == facade.getFight().getSelectedActionCurFighter());
             actionType.add(action_);
-            maxWidth_ = Math.max(maxWidth_, action_.stringWidth(txt_));
+            maxWidth_ = NumberUtil.max(maxWidth_, action_.stringWidth(txt_));
             actionsLabels.add(action_);
         }
         for (ActionLabel a: actionsLabels) {

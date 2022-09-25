@@ -1,7 +1,7 @@
 package code.gui;
 
 import code.gui.images.AbstractImage;
-
+import code.util.core.NumberUtil;
 
 
 public final class LabelButtonUtil {
@@ -29,7 +29,7 @@ public final class LabelButtonUtil {
     public static void paintDefaultLabel(AbstractImage _label, String _text, int _w, int _fw, int _h,
                                          int _front, int _back) {
         int w_ = _fw;
-        w_ = Math.max(_w, w_);
+        w_ = NumberUtil.max(_w, w_);
         _label.setColor(GuiConstants.newColor(_back));
         _label.fillRect(0, 0, w_ + 2, _h + 2);
         _label.setColor(GuiConstants.newColor(_front));
@@ -39,8 +39,8 @@ public final class LabelButtonUtil {
     public static AbstractImage repaintSelected(int _index, boolean _sel, AbsGraphicStringList _curr, DefaultCellRender _simpleRender) {
         String elt_ = _curr.getElements().get(_index);
         AbsPanel panel_ = _curr.getPanel();
-        _curr.setHeightList(Math.max(_curr.getHeightList(),panel_.heightFont()));
-        _simpleRender.setMaxWidth(Math.max(_simpleRender.getMaxWidth(),panel_.stringWidth(elt_)));
+        _curr.setHeightList(NumberUtil.max(_curr.getHeightList(),panel_.heightFont()));
+        _simpleRender.setMaxWidth(NumberUtil.max(_simpleRender.getMaxWidth(),panel_.stringWidth(elt_)));
         AbstractImage buff_ = _curr.getFact().newImageRgb(_simpleRender.getWidth(),panel_.heightFont());
 //        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
         buff_.setFont(panel_);

@@ -37,6 +37,7 @@ import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
@@ -2018,18 +2019,18 @@ public class FightHelpBean extends CommonBean {
                 String word_ = _catchingFormula.substring(i_, j_);
                 if (dig_) {
                     str_.append(word_);
-                    i_ = Math.max(j_,i_+1);
+                    i_ = NumberUtil.max(j_,i_+1);
                     continue;
                 }
                 String next_ = _catchingFormula.substring(j_).trim();
                 if (!next_.isEmpty() && next_.charAt(0) == CST_LEFT_PAR) {
                     str_.append(word_);
-                    i_ = Math.max(j_,i_+1);
+                    i_ = NumberUtil.max(j_,i_+1);
                     continue;
                 }
                 str_.append(DataBase.VAR_PREFIX);
                 str_.append(word_);
-                i_ = Math.max(j_,i_+1);
+                i_ = NumberUtil.max(j_,i_+1);
                 continue;
             }
             str_.append(cur_);

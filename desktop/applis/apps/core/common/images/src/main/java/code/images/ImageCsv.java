@@ -119,10 +119,10 @@ public final class ImageCsv {
         if (pixels.isEmpty()) {
             return new ImageCsv(EMPTY_IMAGE);
         }
-        int x_ = Math.abs(_x);
-        int y_ = Math.abs(_y);
-        int xp_ = Math.min(_x+_w,width);
-        int yp_ = Math.min(_y+_h,getHeight());
+        int x_ = NumberUtil.abs(_x);
+        int y_ = NumberUtil.abs(_y);
+        int xp_ = NumberUtil.min(_x+_w,width);
+        int yp_ = NumberUtil.min(_y+_h,getHeight());
         int rw_ = xp_ - x_;
         int rh_ = yp_ - y_;
         if (rw_ <= 0 || rh_ <= 0) {

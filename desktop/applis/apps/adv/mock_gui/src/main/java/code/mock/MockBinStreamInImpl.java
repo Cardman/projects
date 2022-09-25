@@ -1,6 +1,7 @@
 package code.mock;
 
 import code.stream.core.AbstractBinStreamIn;
+import code.util.core.NumberUtil;
 
 public final class MockBinStreamInImpl implements AbstractBinStreamIn {
     private final byte[] reader;
@@ -24,7 +25,7 @@ public final class MockBinStreamInImpl implements AbstractBinStreamIn {
         if (reader == null){
             return -2;
         }
-        int read_ = Math.max(0, Math.min(range,reader.length-index));
+        int read_ = NumberUtil.max(0, NumberUtil.min(range,reader.length-index));
         byte[] bk_ = new byte[out.length+read_];
         int bkLen_ = out.length;
         for (int i = 0; i < bkLen_; i++){

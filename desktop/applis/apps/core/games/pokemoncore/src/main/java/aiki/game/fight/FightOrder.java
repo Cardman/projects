@@ -637,7 +637,7 @@ final class FightOrder {
                 continue;
             }
             int diff_=membre_.getGroundPlace()-_fighterPlace;
-            if(Math.abs(diff_) <= 1||!_diff.getEnabledClosing()){
+            if(NumberUtil.abs(diff_) <= 1||!_diff.getEnabledClosing()){
                 cbts_.add(new TeamPosition(_noTeam,c));
             }
         }
@@ -663,7 +663,7 @@ final class FightOrder {
             }
         }
         for(byte e:posAdv_){
-            int currDiff_ = Math.abs(e- _posCbt);
+            int currDiff_ = NumberUtil.abs(e- _posCbt);
             if (NumberUtil.eq(diff_, Fighter.BACK) || diff_ > currDiff_) {
                 diff_ = (byte) currDiff_;
             }
@@ -671,7 +671,7 @@ final class FightOrder {
         TeamPositionList cbtsProches_ = new TeamPositionList();
         for(EntryCust<Byte, Fighter> c:_liste.entryList()){
             Fighter membre_=c.getValue();
-            if (!membre_.estArriere() && Math.abs(membre_.getGroundPlace() - _posCbt) == diff_) {
+            if (!membre_.estArriere() && NumberUtil.abs(membre_.getGroundPlace() - _posCbt) == diff_) {
                 cbtsProches_.add(new TeamPosition(_noEquipeAdv, c.getKey()));
             }
         }

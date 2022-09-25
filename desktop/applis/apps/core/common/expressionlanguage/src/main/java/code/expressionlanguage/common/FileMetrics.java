@@ -1,5 +1,7 @@
 package code.expressionlanguage.common;
 
+import code.util.core.NumberUtil;
+
 public final class FileMetrics {
 
     private final FileMetricsCore metricsCore;
@@ -14,7 +16,7 @@ public final class FileMetrics {
     public int getRowFile(int _sum) {
         int len_ = metricsCore.getLineReturns().size();
         int i_ = 0;
-        int s_ = Math.max(0,_sum);
+        int s_ = NumberUtil.max(0,_sum);
         while (i_ < len_) {
             if (s_ <= metricsCore.getLineReturns().get(i_)) {
                 break;
@@ -25,7 +27,7 @@ public final class FileMetrics {
     }
     public int getColFile(int _sum, int _row) {
         int j_ = 0;
-        int s_ = Math.max(0,_sum);
+        int s_ = NumberUtil.max(0,_sum);
         int begin_ = metricsCore.getLineReturns().get(_row - 1)+1;
         for (int j = begin_; j < s_; j++) {
             if (metricsCore.getTabulations().containsObj(j)) {

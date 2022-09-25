@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 import code.util.ints.Listable;
@@ -222,7 +223,7 @@ public class CustList<T> implements Listable<T> {
         if (_nbElements < 1) {
             return new CustList<T>(new CollCapacity(0));
         }
-        int indexMax_ = Math.max(Math.min(size()-1,_nbElements),0);
+        int indexMax_ = NumberUtil.max(NumberUtil.min(size()-1,_nbElements),0);
         CustList<T> list_ = new CustList<T>(new CollCapacity(indexMax_));
         for (int i = 1; i <= indexMax_; i++) {
             list_.add(get(i));
@@ -240,9 +241,9 @@ public class CustList<T> implements Listable<T> {
         if (_beginIndex > size()) {
             return new CustList<T>(new CollCapacity(0));
         }
-        int b_ = Math.max(_beginIndex, IndexConstants.FIRST_INDEX);
+        int b_ = NumberUtil.max(_beginIndex, IndexConstants.FIRST_INDEX);
         int e_ = size();
-        CustList<T> l_ = new CustList<T>(new CollCapacity(Math.max(e_-b_,0)));
+        CustList<T> l_ = new CustList<T>(new CollCapacity(NumberUtil.max(e_-b_,0)));
         for (int i = b_; i < e_; i++) {
             l_.add(get(i));
         }
@@ -254,8 +255,8 @@ public class CustList<T> implements Listable<T> {
         if (_from > _to) {
             return new CustList<T>(new CollCapacity(0));
         }
-        int b_ = Math.max(_from, IndexConstants.FIRST_INDEX);
-        int e_ = Math.max(Math.min(_to, size()),b_);
+        int b_ = NumberUtil.max(_from, IndexConstants.FIRST_INDEX);
+        int e_ = NumberUtil.max(NumberUtil.min(_to, size()),b_);
         CustList<T> l_ = new CustList<T>(new CollCapacity(e_-b_));
         for (int i = b_; i < e_; i++) {
             l_.add(get(i));

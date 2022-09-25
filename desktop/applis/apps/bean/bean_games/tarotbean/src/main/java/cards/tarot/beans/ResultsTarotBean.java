@@ -10,6 +10,7 @@ import code.util.Longs;
 import code.util.Shorts;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class ResultsTarotBean extends TarotBean {
 
@@ -95,7 +96,7 @@ public final class ResultsTarotBean extends TarotBean {
                         doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
                         needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                         doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                        maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
+                        maxDoubledDifference=(short)NumberUtil.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
                     }
                     maxDifference=res_.getMaxDifference();
                     initialUserPosition=res_.getPositionsDiff().get(res_.getRes().getUser());
@@ -104,7 +105,7 @@ public final class ResultsTarotBean extends TarotBean {
                         doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
                         needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                         doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                        maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
+                        maxDoubledDifference=(short)NumberUtil.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
                     }
                     maxDifference=res_.getMaxDifference();
                     initialUserPosition=res_.getPositionsDiff().get(res_.getRes().getUser());
@@ -151,7 +152,7 @@ public final class ResultsTarotBean extends TarotBean {
     }
 
     public int absoluteDiff() {
-        return Math.abs(differenceScoreTaker);
+        return NumberUtil.abs(differenceScoreTaker);
     }
 
     public String bidString() {

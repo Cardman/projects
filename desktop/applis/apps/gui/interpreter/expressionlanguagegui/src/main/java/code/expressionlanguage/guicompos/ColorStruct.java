@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 import code.gui.GuiConstants;
-
+import code.util.core.NumberUtil;
 
 
 public final class ColorStruct extends WithoutParentStruct implements Struct {
@@ -25,7 +25,7 @@ public final class ColorStruct extends WithoutParentStruct implements Struct {
     }
 
     private static int range(int _value) {
-        return Math.min(Math.max(0, _value),255);
+        return NumberUtil.min(NumberUtil.max(0, _value),255);
     }
 
     @Override

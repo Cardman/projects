@@ -408,7 +408,7 @@ public final class StringUtil {
         while (true) {
             list_ = buildNextList(_pattern, i_, j_, list_);
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
-            String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
+            String subString_ = _pattern.substring(i_, NumberUtil.min(j_ + i_ + 1, _pattern.length()));
             if (stop(false,_map,list_,_strBuilder,subString_)) {
                 i_ += j_;
                 break;
@@ -1099,7 +1099,7 @@ public final class StringUtil {
             if (minIndex_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 minIndex_ = index_;
             } else {
-                minIndex_ = Math.min(minIndex_, index_);
+                minIndex_ = NumberUtil.min(minIndex_, index_);
             }
         }
         return minIndex_;
@@ -1541,7 +1541,7 @@ public final class StringUtil {
     public static int compareStrings(String _first, String _second) {
         int lenFirst_ = _first.length();
         int lenSecond_ = _second.length();
-        int lim_ = Math.min(lenFirst_, lenSecond_);
+        int lim_ = NumberUtil.min(lenFirst_, lenSecond_);
 
         int k = 0;
         while (k < lim_) {

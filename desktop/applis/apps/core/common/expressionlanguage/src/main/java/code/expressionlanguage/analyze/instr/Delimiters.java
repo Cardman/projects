@@ -5,6 +5,7 @@ import code.expressionlanguage.common.NumberInfos;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 public final class Delimiters {
 
@@ -50,7 +51,7 @@ public final class Delimiters {
     }
 
     public void setBadOffset(int _badOffset) {
-        badOffset = Math.max(_badOffset,0);
+        badOffset = NumberUtil.max(_badOffset,0);
     }
 
     public CustList<OperatorOffsetLength> getAllowedOperatorsIndexes() {

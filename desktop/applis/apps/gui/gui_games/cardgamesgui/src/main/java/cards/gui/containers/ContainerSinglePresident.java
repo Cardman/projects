@@ -55,6 +55,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class ContainerSinglePresident extends ContainerPresident implements
@@ -313,7 +314,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosPresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
-        tapis_.initTapisPresident(lg_,pseudos_, partie_.getLastStatus(), Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), getOwner().getCompoFactory());
+        tapis_.initTapisPresident(lg_,pseudos_, partie_.getLastStatus(), NumberUtil.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), getOwner().getCompoFactory());
         getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;
@@ -608,7 +609,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                     max_ = maximum_.absNb();
                 }
             }
-            setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
+            setMaxAbsoluScore(NumberUtil.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int)getMaxAbsoluScore();
             graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);

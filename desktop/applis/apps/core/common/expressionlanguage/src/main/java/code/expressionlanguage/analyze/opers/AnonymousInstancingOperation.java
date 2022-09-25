@@ -25,6 +25,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class AnonymousInstancingOperation extends
@@ -140,7 +141,7 @@ public final class AnonymousInstancingOperation extends
         StringMap<String> map_ = new StringMap<String>();
         CustList<TypeVar> selected_ = new CustList<TypeVar>();
         CustList<String> superNames_ = new CustList<String>();
-        int len_ = Math.min(args_.size(),cts_.size());
+        int len_ = NumberUtil.min(args_.size(),cts_.size());
         for (int i = 0; i < len_; i++) {
             String a_ = args_.get(i);
             TypeVar ct_ = cts_.get(i);

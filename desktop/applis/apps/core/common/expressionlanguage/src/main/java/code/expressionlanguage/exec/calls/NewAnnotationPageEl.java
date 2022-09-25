@@ -11,6 +11,7 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 
 public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
 
@@ -27,7 +28,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
             return;
         }
         //set fields for annotation after calculating default one
-        int len_ = Math.min(names.size(),args.size());
+        int len_ = NumberUtil.min(names.size(),args.size());
         Struct str_ = getGlobalStruct();
         String className_ = str_.getClassName(_context);
         for (int i = 0; i <len_; i++) {

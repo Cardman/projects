@@ -10,6 +10,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class PseudoPlayerFighter extends PseudoFighter {
@@ -120,7 +121,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
             index_++;
             int evoLevels_ = evoLevels.size();
             for (int i = index_; i < evoLevels_; i++) {
-                evoLevels.get(i).setLevel((short) Math.max(getLevel(), evoLevels.get(i).getLevel()));
+                evoLevels.get(i).setLevel((short) NumberUtil.max(getLevel(), evoLevels.get(i).getLevel()));
             }
         }
     }

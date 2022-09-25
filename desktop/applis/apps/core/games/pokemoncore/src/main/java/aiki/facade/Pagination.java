@@ -1,5 +1,6 @@
 package aiki.facade;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public abstract class Pagination {
 
@@ -118,7 +119,7 @@ public abstract class Pagination {
     }
 
     public void previousDelta() {
-        changePage(Math.max(numberPage - delta, IndexConstants.FIRST_INDEX));
+        changePage(NumberUtil.max(numberPage - delta, IndexConstants.FIRST_INDEX));
     }
 
     public void begin() {
@@ -134,7 +135,7 @@ public abstract class Pagination {
     }
 
     public void nextDelta() {
-        changePage(Math.min(numberPage + delta, pages() - 1));
+        changePage(NumberUtil.min(numberPage + delta, pages() - 1));
     }
 
     public void end() {

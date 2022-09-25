@@ -89,7 +89,7 @@ public final class CalledSuitComparator implements Comparing<CardTarot> {
         HandTarot cartesPossedesNonAppelees1_ = getCharCards(_sTwo, carteAppelee1_);
         HandTarot figures0_ = cartesPossedesNonAppelees0_.charCardsBySuit(_sOne);
         HandTarot figures1_ = cartesPossedesNonAppelees1_.charCardsBySuit(_sTwo);
-        int min_ = Math.min(figures0_.total(), figures1_.total());
+        int min_ = NumberUtil.min(figures0_.total(), figures1_.total());
         int eq_ = 0;
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
             int tmp_ = -NumberUtil.compareLg(figures0_.carte(i).points(), figures1_.carte(i).points());

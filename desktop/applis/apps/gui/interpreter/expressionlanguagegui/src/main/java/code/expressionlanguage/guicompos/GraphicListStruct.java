@@ -13,6 +13,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractAdvGraphicListGenerator;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.core.NumberUtil;
 
 public final class GraphicListStruct extends InputStruct {
 
@@ -191,8 +192,8 @@ public final class GraphicListStruct extends InputStruct {
     }
 
     public void addRange(int _first, int _last) {
-        int min_ = Math.min(_first, _last);
-        int max_ = Math.max(_first, _last);
+        int min_ = NumberUtil.min(_first, _last);
+        int max_ = NumberUtil.max(_first, _last);
         for (int i = min_; i <= max_; i++) {
             grList.getSelectedIndexes().add(i);
         }
@@ -202,8 +203,8 @@ public final class GraphicListStruct extends InputStruct {
     }
 
     public void clearRange(int _first, int _last) {
-        int min_ = Math.min(_first, _last);
-        int max_ = Math.max(_first, _last);
+        int min_ = NumberUtil.min(_first, _last);
+        int max_ = NumberUtil.max(_first, _last);
         for (int i = min_; i <= max_; i++) {
             grList.getSelectedIndexes().removeObj(i);
         }

@@ -31,7 +31,7 @@ abstract class AbstractEscapingFilter {
     protected abstract boolean isEscSpaceChar(String _input, int _next);
 
     private static String extract(char[] _arr, int _len) {
-        int min_ = Math.min(_arr.length,_len);
+        int min_ = NumberUtil.min(_arr.length,_len);
         char[] ext_ = new char[min_];
         for (int i = 0; i < min_; i++) {
             set(_arr, ext_, i);

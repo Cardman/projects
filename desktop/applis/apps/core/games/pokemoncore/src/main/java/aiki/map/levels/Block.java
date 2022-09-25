@@ -3,6 +3,7 @@ import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.util.Point;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public final class Block {
@@ -64,14 +65,14 @@ public final class Block {
 
     public static BlockBounds intersection(BlockBounds _currentBounds,BlockBounds _otherBounds) {
         BlockBounds intersection_ = new BlockBounds();
-        intersection_.setxLeftTop((short) Math.max(_currentBounds.getxLeftTop(), _otherBounds.getxLeftTop()));
-        intersection_.setyLeftTop((short) Math.max(_currentBounds.getyLeftTop(), _otherBounds.getyLeftTop()));
-        intersection_.setxLeftBottom((short) Math.max(_currentBounds.getxLeftBottom(), _otherBounds.getxLeftBottom()));
-        intersection_.setyLeftBottom((short) Math.min(_currentBounds.getyLeftBottom(), _otherBounds.getyLeftBottom()));
-        intersection_.setxRightTop((short) Math.min(_currentBounds.getxRightTop(), _otherBounds.getxRightTop()));
-        intersection_.setyRightTop((short) Math.max(_currentBounds.getyRightTop(), _otherBounds.getyRightTop()));
-        intersection_.setxRightBottom((short) Math.min(_currentBounds.getxRightBottom(), _otherBounds.getxRightBottom()));
-        intersection_.setyRightBottom((short) Math.min(_currentBounds.getyRightBottom(), _otherBounds.getyRightBottom()));
+        intersection_.setxLeftTop((short) NumberUtil.max(_currentBounds.getxLeftTop(), _otherBounds.getxLeftTop()));
+        intersection_.setyLeftTop((short) NumberUtil.max(_currentBounds.getyLeftTop(), _otherBounds.getyLeftTop()));
+        intersection_.setxLeftBottom((short) NumberUtil.max(_currentBounds.getxLeftBottom(), _otherBounds.getxLeftBottom()));
+        intersection_.setyLeftBottom((short) NumberUtil.min(_currentBounds.getyLeftBottom(), _otherBounds.getyLeftBottom()));
+        intersection_.setxRightTop((short) NumberUtil.min(_currentBounds.getxRightTop(), _otherBounds.getxRightTop()));
+        intersection_.setyRightTop((short) NumberUtil.max(_currentBounds.getyRightTop(), _otherBounds.getyRightTop()));
+        intersection_.setxRightBottom((short) NumberUtil.min(_currentBounds.getxRightBottom(), _otherBounds.getxRightBottom()));
+        intersection_.setyRightBottom((short) NumberUtil.min(_currentBounds.getyRightBottom(), _otherBounds.getyRightBottom()));
         intersection_.invalidate();
         return intersection_;
     }

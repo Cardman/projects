@@ -25,7 +25,7 @@ public final class DeclareHandBeloteComparator implements Comparing<DeclareHandB
         if (cmp_ != 0) {
             return -cmp_;
         }
-        int minTaille_ = Math.min(main1_.total(), main2_.total());
+        int minTaille_ = NumberUtil.min(main1_.total(), main2_.total());
         for (int i = IndexConstants.FIRST_INDEX; i<minTaille_; i++){
             cmp_ = NumberUtil.compareLg(main1_.carte(i).forceAnnonce(), main2_.carte(i).forceAnnonce());
             if (cmp_ != 0) {
