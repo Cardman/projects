@@ -12,6 +12,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import org.junit.Test;
 
 public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
@@ -3779,7 +3780,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertTrue(getNumber(ret_)>=0);
+        assertEq(1, NumberUtil.signum(NumberUtil.compareLg(getNumber(ret_),0)+ SortConstants.SWAP_SORT));
     }
     @Test
     public void calculateArgument200Test() {
