@@ -17,7 +17,7 @@ public final class TarotAddonTest extends CommonGameTarot {
         DealTarot d_ = new DealTarot();
         d_.setDeal(new CustList<HandTarot>());
         assertEq(0,d_.getDeal().size());
-        assertTrue(DealingTarot.DEAL_1_VS_2.getNbAppeles()>=0);
+        assertEq(0,DealingTarot.DEAL_1_VS_2.getNbAppeles());
     }
     static DealTarot initializeHands(int _dealer) {
         DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) _dealer);

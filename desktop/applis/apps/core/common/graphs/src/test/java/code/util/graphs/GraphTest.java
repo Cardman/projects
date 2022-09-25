@@ -388,8 +388,7 @@ public final class GraphTest extends EquallableExGraph {
         g_.addSegment(four_, one_);
         assertTrue(g_.hasCycle());
         CustList<SortedNumberedNode> es_ = g_.elementsCycle();
-//        assertEq(5, es_.size());
-        assertTrue(es_.size() >= 4);
+        assertEq(4, es_.size());
         assertTrue(contains(es_, one_));
         assertTrue(contains(es_, two_));
         assertTrue(contains(es_, three_));
