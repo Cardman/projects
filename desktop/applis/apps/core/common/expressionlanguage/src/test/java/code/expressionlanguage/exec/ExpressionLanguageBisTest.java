@@ -2,12 +2,16 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
@@ -3798,7 +3802,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertTrue(getDouble(ret_)<1.0);
+        assertEq(-1, NumberUtil.signum(NumParsers.compareGene((NumberStruct) ret_.getStruct(),new DoubleStruct(1.0d))));
     }
     @Test
     public void calculateArgument201Test() {
