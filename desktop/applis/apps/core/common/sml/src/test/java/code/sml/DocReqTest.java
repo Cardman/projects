@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.sml.indexes.DocumentIndexer;
+import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
 import org.junit.Test;
 
@@ -109,12 +110,12 @@ public class DocReqTest extends EquallableRowColUtil {
         rcOne_.setCol(5);
         rcTwo_ = new RowCol();
         assertTrue(!rcOne_.eq(rcTwo_));
-        assertTrue(rcOne_.cmp(rcTwo_) > SortConstants.EQ_CMP);
+        assertEq(1, NumberUtil.signum(rcOne_.cmp(rcTwo_)));
         rcOne_ = new RowCol();
         rcTwo_ = new RowCol();
         rcTwo_.setRow(5);
         assertTrue(!rcOne_.eq(rcTwo_));
-        assertTrue(rcOne_.cmp(rcTwo_) < SortConstants.EQ_CMP);
+        assertEq(-1, NumberUtil.signum(rcOne_.cmp(rcTwo_)));
     }
     @Test
     public void parseNullTest() {
