@@ -644,6 +644,30 @@ public class NumbersTest extends EquallableExUtil {
         assertEq(2, NumberUtil.mod(-1L,-3));
     }
     @Test
+    public void isNumber1() {
+        assertTrue(NumberUtil.isNumber("1"));
+    }
+    @Test
+    public void isNumber2() {
+        assertTrue(NumberUtil.isNumber("-1"));
+    }
+    @Test
+    public void isNumber3() {
+        assertTrue(!NumberUtil.isNumber("a"));
+    }
+    @Test
+    public void isNumber4() {
+        assertTrue(!NumberUtil.isNumber("-a"));
+    }
+    @Test
+    public void isNumber5() {
+        assertTrue(!NumberUtil.isNumber("-"));
+    }
+    @Test
+    public void isNumber6() {
+        assertTrue(!NumberUtil.isNumber(""));
+    }
+    @Test
     public void getAllIndexes1(){
         Ints nbs_ = new Ints();
         assertEq(0,nbs_.getAllIndexes().size());

@@ -178,27 +178,7 @@ public final class ImageCsv {
     }
 
     static boolean isNumber(String _string) {
-        if (_string.isEmpty()) {
-            return false;
-        }
-        int i_ = IndexConstants.FIRST_INDEX;
-        if (_string.charAt(i_) == MINUS) {
-            if (_string.length() == IndexConstants.ONE_ELEMENT) {
-                return false;
-            }
-            i_++;
-        }
-        int len_ = _string.length();
-        while (i_ < len_) {
-            if (!isDigit(_string.charAt(i_))) {
-                return false;
-            }
-            i_++;
-        }
-        return true;
-    }
-    static boolean isDigit(char _ch) {
-        return _ch >= '0' && _ch <= '9';
+        return NumberUtil.isNumber(_string);
     }
 
     public String display() {
