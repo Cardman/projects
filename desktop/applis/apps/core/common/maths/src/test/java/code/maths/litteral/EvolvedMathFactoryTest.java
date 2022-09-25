@@ -3,17 +3,18 @@ package code.maths.litteral;
 import code.maths.EquallableMathUtil;
 import code.maths.Rate;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public class EvolvedMathFactoryTest extends EquallableMathUtil {
 
     @Test
     public void getFunctionsTest() {
-        assertTrue(EvolvedMathFactory.getFunctions().size() > 0);
+        assertEq(1, NumberUtil.signum(EvolvedMathFactory.getFunctions().size()));
         EvolvedMathFactory e_ = new EvolvedMathFactory();
-        assertTrue(EvolvedMathFactory.getFalseString().length() > 0);
-        assertTrue(EvolvedMathFactory.getTrueString().length() > 0);
-        assertTrue(EvolvedMathFactory.getSepartorSetChar() > 0);
+        assertEq(1, NumberUtil.signum(EvolvedMathFactory.getFalseString().length()));
+        assertEq(1, NumberUtil.signum(EvolvedMathFactory.getTrueString().length()));
+        assertEq(1, NumberUtil.signum(EvolvedMathFactory.getSepartorSetChar()));
         assertTrue(e_.getMaxRandomNb().isZeroOrGt());
         assertTrue(!e_.getMaxRandomNb().isZero());
     }
