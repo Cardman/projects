@@ -224,23 +224,6 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String COMBOS = "combos.xml";
     private static final String MAP_FILE = "map.xml";
     private static final String TRANSLATION_FOLDER = "translations";
-    private static final String TRANSLATION_CATEGORIES = "categories.txt";
-    private static final String TRANSLATION_GENDERS = "genders.txt";
-    private static final String TRANSLATION_ENVIRONMENTS = "environments.txt";
-    private static final String TRANSLATION_BOOLEANS = "booleans.txt";
-    private static final String TRANSLATION_DIFF_WIN_PTS = "winpts.txt";
-    private static final String TRANSLATION_DIFF_MODEL_LAW = "modellaw.txt";
-    private static final String TRANSLATION_STATISTICS = "statistics.txt";
-    private static final String TRANSLATION_TARGETS = "targets.txt";
-    private static final String TRANSLATION_TYPES = "types.txt";
-    private static final String TRANSLATION_POKEMON = "pokemon.txt";
-    private static final String TRANSLATION_MOVES = "moves.txt";
-    private static final String TRANSLATION_ITEMS = "items.txt";
-    private static final String TRANSLATION_ABILITIES = "abilities.txt";
-    private static final String TRANSLATION_STATUS = "status.txt";
-    private static final String TRANSLATION_MATH = "math.txt";
-    private static final String TRANSLATION_CLASSES = "classes.txt";
-    private static final String TRANSLATION_LITTERAL = "litteral.txt";
 
     private static final String BALL_DEF = "BALL_DEF";
 
@@ -1138,7 +1121,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CATEGORIES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_CATEGORIES);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedGenders().getKeys()) {
@@ -1154,7 +1137,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_GENDERS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_GENDERS);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedBooleans().getKeys()) {
@@ -1171,7 +1154,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_BOOLEANS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_BOOLEANS);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedDiffWinPts().getKeys()) {
@@ -1188,7 +1171,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_DIFF_WIN_PTS);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedDiffModelLaw().getKeys()) {
@@ -1206,7 +1189,7 @@ public final class DocumentWriterAikiCoreUtil {
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil
-                    .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
+                    .concat(fileName_, DataBase.TRANSLATION_DIFF_MODEL_LAW);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedEnvironment().getKeys()) {
@@ -1223,7 +1206,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ENVIRONMENTS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ENVIRONMENTS);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedStatistics().getKeys()) {
@@ -1240,7 +1223,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATISTICS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_STATISTICS);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedTargets().getKeys()) {
@@ -1257,7 +1240,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TARGETS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_TARGETS);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedTypes().getKeys()) {
@@ -1273,7 +1256,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TYPES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_TYPES);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedPokemon().getKeys()) {
@@ -1289,7 +1272,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_POKEMON);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_POKEMON);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedMoves().getKeys()) {
@@ -1305,7 +1288,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MOVES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_MOVES);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedItems().getKeys()) {
@@ -1321,7 +1304,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ITEMS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ITEMS);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedAbilities().getKeys()) {
@@ -1337,7 +1320,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ABILITIES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ABILITIES);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedStatus().getKeys()) {
@@ -1353,7 +1336,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATUS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_STATUS);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedFctMath().getKeys()) {
@@ -1369,7 +1352,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MATH);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_MATH);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getTranslatedClassesDescriptions().getKeys()) {
@@ -1386,7 +1369,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CLASSES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_CLASSES);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String l : _d.getLitterals().getKeys()) {
@@ -1402,7 +1385,7 @@ public final class DocumentWriterAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_LITTERAL);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_LITTERAL);
             files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
         }
         for (String n : _d.getAnimStatis().getKeys()) {

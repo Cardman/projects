@@ -225,27 +225,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String COMBOS = "combos.xml";
     private static final String MAP_FILE = "map.xml";
     private static final String TRANSLATION_FOLDER = "translations";
-    private static final String TRANSLATION_CATEGORIES = "categories.txt";
-    private static final String TRANSLATION_GENDERS = "genders.txt";
-    private static final String TRANSLATION_ENVIRONMENTS = "environments.txt";
-    private static final String TRANSLATION_BOOLEANS = "booleans.txt";
-    private static final String TRANSLATION_DIFF_WIN_PTS = "winpts.txt";
-    private static final String TRANSLATION_DIFF_MODEL_LAW = "modellaw.txt";
-    private static final String TRANSLATION_STATISTICS = "statistics.txt";
-    private static final String TRANSLATION_TARGETS = "targets.txt";
-    private static final String TRANSLATION_TYPES = "types.txt";
-    private static final String TRANSLATION_POKEMON = "pokemon.txt";
-    private static final String TRANSLATION_MOVES = "moves.txt";
-    private static final String TRANSLATION_ITEMS = "items.txt";
-    private static final String TRANSLATION_ABILITIES = "abilities.txt";
-    private static final String TRANSLATION_STATUS = "status.txt";
-    private static final String TRANSLATION_MATH = "math.txt";
-    private static final String TRANSLATION_CLASSES = "classes.txt";
-    private static final String TRANSLATION_LITTERAL = "litteral.txt";
-
-    private static final String BALL_DEF = "BALL_DEF";
-
-    private static final char UNDERSCORE = '_';
 
     private static final String ATTR_FIELD = "field";
     private static final String ATTR_VALUE = "value";
@@ -1365,24 +1344,25 @@ public final class DocumentReaderAikiCoreUtil {
                 continue;
             }
             StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
-            if (StringUtil.quickEq(infos_.first(), DataBase.DEF_MOVE)) {
-                _d.setDefMove(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_BOOST)) {
-                _d.setRateBoost(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(),
-                    DataBase.RATE_BOOST_CRITICAL_HIT)) {
-                _d.setRateBoostCriticalHit(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_FLEEING)) {
-                _d.setRateFleeing(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_CATCHING)) {
-                _d.setRateCatching(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), BALL_DEF)) {
-                _d.setBallDef(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DataBase.DEFAULT_EGG_GROUP)) {
-                _d.setDefaultEggGroup(infos_.last());
-            } else if (StringUtil.quickEq(infos_.first(), DataBase.DAMAGE_FORMULA)) {
-                _d.setDamageFormula(infos_.last());
-            }
+            _d.initValue(infos_.first(),infos_.last());
+//            if (StringUtil.quickEq(infos_.first(), DataBase.DEF_MOVE)) {
+//                _d.setDefMove(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_BOOST)) {
+//                _d.setRateBoost(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(),
+//                    DataBase.RATE_BOOST_CRITICAL_HIT)) {
+//                _d.setRateBoostCriticalHit(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_FLEEING)) {
+//                _d.setRateFleeing(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_CATCHING)) {
+//                _d.setRateCatching(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), BALL_DEF)) {
+//                _d.setBallDef(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.DEFAULT_EGG_GROUP)) {
+//                _d.setDefaultEggGroup(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.DAMAGE_FORMULA)) {
+//                _d.setDamageFormula(infos_.last());
+//            }
 
         }
         _d.setTableTypes(new TypesDuos());
@@ -1507,7 +1487,7 @@ public final class DocumentReaderAikiCoreUtil {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_GENDERS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_GENDERS);
             IdMap<Gender, String> genders_ = new IdMap<Gender, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1522,7 +1502,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedGenders().put(l, genders_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_BOOLEANS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_BOOLEANS);
             IdMap<SelectedBoolean, String> booleans_ = new IdMap<SelectedBoolean, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1537,7 +1517,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedBooleans().put(l, booleans_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_DIFF_WIN_PTS);
             IdMap<DifficultyWinPointsFight, String> diffWinPts_ = new IdMap<DifficultyWinPointsFight, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1554,7 +1534,7 @@ public final class DocumentReaderAikiCoreUtil {
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil
-                    .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
+                    .concat(fileName_, DataBase.TRANSLATION_DIFF_MODEL_LAW);
             IdMap<DifficultyModelLaw, String> diffLaw_ = new IdMap<DifficultyModelLaw, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1569,7 +1549,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedDiffModelLaw().put(l, diffLaw_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ENVIRONMENTS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ENVIRONMENTS);
             IdMap<EnvironmentType, String> environments_ = new IdMap<EnvironmentType, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1584,7 +1564,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedEnvironment().put(l, environments_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATISTICS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_STATISTICS);
             IdMap<Statistic, String> statistics_ = new IdMap<Statistic, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1599,7 +1579,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedStatistics().put(l, statistics_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TARGETS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_TARGETS);
             IdMap<TargetChoice, String> targets_ = new IdMap<TargetChoice, String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1615,7 +1595,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedTargets().put(l, targets_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CATEGORIES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_CATEGORIES);
             StringMap<String> categories_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1630,7 +1610,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedCategories().put(l, categories_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_TYPES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_TYPES);
             StringMap<String> types_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1645,7 +1625,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedTypes().put(l, types_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_POKEMON);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_POKEMON);
             StringMap<String> pokemon_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1660,7 +1640,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedPokemon().put(l, pokemon_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MOVES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_MOVES);
             StringMap<String> moves_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1675,7 +1655,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedMoves().put(l, moves_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ITEMS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ITEMS);
             StringMap<String> items_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1690,7 +1670,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedItems().put(l, items_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_ABILITIES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ABILITIES);
             StringMap<String> abilities_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1705,7 +1685,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedAbilities().put(l, abilities_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_STATUS);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_STATUS);
             StringMap<String> status_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1720,7 +1700,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedStatus().put(l, status_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_MATH);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_MATH);
             StringMap<String> fctsMath_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1735,7 +1715,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedFctMath().put(l, fctsMath_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_CLASSES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_CLASSES);
             StringMap<String> descrClasses_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -1750,7 +1730,7 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getTranslatedClassesDescriptions().put(l, descrClasses_);
             fileName_ = StringUtil.concat(TRANSLATION_FOLDER, DataBase.SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, TRANSLATION_LITTERAL);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_LITTERAL);
             StringMap<String> litteral_ = new StringMap<String>();
             for (String l2_ : StringUtil.splitChars(
                     notNull(files_, StringUtil.concat(common_, fileName_)),
@@ -9129,12 +9109,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static SelectedBoolean getBoolByName(String _env) {
-        for (SelectedBoolean e : SelectedBoolean.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return SelectedBoolean.YES_AND_NO;
+        return SelectedBoolean.getBoolByName(_env);
     }
     public static SearchingMode getSearchingModeByName(String _env) {
         for (SearchingMode e: SearchingMode.values()) {
@@ -9145,63 +9120,27 @@ public final class DocumentReaderAikiCoreUtil {
         return SearchingMode.WHOLE_STRING;
     }
     public static DifficultyModelLaw getModelByName(String _env) {
-        for (DifficultyModelLaw e: DifficultyModelLaw.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return DifficultyModelLaw.UNIFORME;
+        return DifficultyModelLaw.getModelByName(_env);
     }
     public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
-        for (DifficultyWinPointsFight e: DifficultyWinPointsFight.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return DifficultyWinPointsFight.TRES_FACILE;
+        return DifficultyWinPointsFight.getDiffWonPtsByName(_env);
     }
 
     public static Sex getSexByName(String _env) {
-        Sex[] values_ = Sex.values();
-        for (Sex e: values_) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return values_[0];
+        return Sex.getSexByName(_env);
     }
 
     public static ExpType getExpTypeByName(String _env) {
-        for (ExpType e: ExpType.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return ExpType.M;
+        return ExpType.getExpTypeByName(_env);
     }
     public static EnvironmentType getEnvByName(String _env) {
-        for (EnvironmentType e: EnvironmentType.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return EnvironmentType.NOTHING;
+        return EnvironmentType.getEnvByName(_env);
     }
     public static Gender getGenderByName(String _env) {
-        for (Gender e: Gender.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return Gender.NO_GENDER;
+        return Gender.getGenderByName(_env);
     }
 
     public static TargetChoice getTargetChoiceByName(String _env) {
-        for (TargetChoice e: TargetChoice.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return TargetChoice.NOTHING;
+        return TargetChoice.getTargetChoiceByName(_env);
     }
 }

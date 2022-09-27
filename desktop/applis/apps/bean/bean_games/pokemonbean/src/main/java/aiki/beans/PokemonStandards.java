@@ -1882,36 +1882,16 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         return SelectedBoolean.YES_AND_NO;
     }
     public static DifficultyModelLaw getModelByName(String _env) {
-        for (DifficultyModelLaw e: DifficultyModelLaw.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return DifficultyModelLaw.UNIFORME;
+        return DifficultyModelLaw.getModelByName(_env);
     }
     public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
-        for (DifficultyWinPointsFight e: DifficultyWinPointsFight.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return DifficultyWinPointsFight.TRES_FACILE;
+        return DifficultyWinPointsFight.getDiffWonPtsByName(_env);
     }
     public static EnvironmentType getEnvByName(String _env) {
-        for (EnvironmentType e: EnvironmentType.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return EnvironmentType.NOTHING;
+        return EnvironmentType.getEnvByName(_env);
     }
     public static Gender getGenderByName(String _env) {
-        for (Gender e: Gender.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return Gender.NO_GENDER;
+        return Gender.getGenderByName(_env);
     }
 
     protected Struct newSimpleBean(String _language, BeanInfo _bean) {

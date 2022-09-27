@@ -16,5 +16,6 @@ public final class LoadResTest extends EquallableAikiScriptsUtil {
         LoadRes.loadResources(new DefaultGenerator(),facade_,new TstsPerCentImpl(),new LoadFlagQuick(), new DefLoadingData(facade_.getLanguages(), facade_.getDisplayLanguages()));
         assertNotNull(facade_.getData());
         assertNotNull(new CstIgameImpl().self());
+        LoadRes.postLoad(facade_,facade_.getData());
     }
 }

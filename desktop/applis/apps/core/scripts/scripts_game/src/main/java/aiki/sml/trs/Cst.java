@@ -1,17 +1,40 @@
 package aiki.sml.trs;
+import aiki.util.*;
 import code.util.*;
+import code.maths.*;
+import aiki.game.params.enums.*;
+import aiki.fight.util.*;
+import aiki.fight.pokemon.enums.*;
 public final class Cst{
 private Cst(){}
-public static StringMap<String> tr(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(8));
-i.addEntry("const_num.txt",Cst0.tr());
-i.addEntry("constantes_non_num.txt",Cst1.tr());
-i.addEntry("courbe_pts_exp.txt",Cst2.tr());
-i.addEntry("ct_cs.txt",Cst3.tr());
-i.addEntry("lois_random.txt",Cst4.tr());
-i.addEntry("rate_won_points.txt",Cst5.tr());
-i.addEntry("table_types.txt",Cst6.tr());
-i.addEntry("types_color.txt",Cst7.tr());
-return i;
+public static StringMap<Rate> cn(){
+return Cst0.cn();
+}
+public static StringMap<String> cnn(){
+return Cst1.cnn();
+}
+public static StringMap<String> cs(){
+return Cst3.cs();
+}
+public static StringMap<String> ct(){
+return Cst3.ct();
+}
+public static StringList tp(){
+return Cst6.tp();
+}
+public static TypesDuos eff(){
+return Cst6.eff();
+}
+public static IdMap<DifficultyModelLaw,LawNumber> lg(){
+return Cst4.lg();
+}
+public static IdMap<ExpType,String> ex(){
+return Cst2.ex();
+}
+public static IdMap<DifficultyWinPointsFight,String> di(){
+return Cst5.di();
+}
+public static StringMap<String> tc(){
+return Cst7.tc();
 }
 }

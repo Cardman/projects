@@ -135,6 +135,24 @@ public class DataBase {
     public static final String IMG_FILES_RES_EXT = ".png";
     public static final String IMG_FILES_RES_EXT_TXT = ".txt";
     public static final String FILES_RES_EXT = ".xml";
+    public static final String TRANSLATION_CATEGORIES = "categories.txt";
+    public static final String TRANSLATION_GENDERS = "genders.txt";
+    public static final String TRANSLATION_ENVIRONMENTS = "environments.txt";
+    public static final String TRANSLATION_BOOLEANS = "booleans.txt";
+    public static final String TRANSLATION_DIFF_WIN_PTS = "winpts.txt";
+    public static final String TRANSLATION_DIFF_MODEL_LAW = "modellaw.txt";
+    public static final String TRANSLATION_STATISTICS = "statistics.txt";
+    public static final String TRANSLATION_TARGETS = "targets.txt";
+    public static final String TRANSLATION_TYPES = "types.txt";
+    public static final String TRANSLATION_POKEMON = "pokemon.txt";
+    public static final String TRANSLATION_MOVES = "moves.txt";
+    public static final String TRANSLATION_ITEMS = "items.txt";
+    public static final String TRANSLATION_ABILITIES = "abilities.txt";
+    public static final String TRANSLATION_STATUS = "status.txt";
+    public static final String TRANSLATION_MATH = "math.txt";
+    public static final String TRANSLATION_CLASSES = "classes.txt";
+    public static final String TRANSLATION_LITTERAL = "litteral.txt";
+
     /**
      * The custom beans can be modified but they must have a common base package
      * Avoid to recompile classes in standard packages like java, javax, and
