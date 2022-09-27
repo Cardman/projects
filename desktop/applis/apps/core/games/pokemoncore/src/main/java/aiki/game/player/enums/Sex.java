@@ -16,7 +16,15 @@ public enum Sex {
     public String getSexName() {
         return sexName;
     }
-
+    public static Sex getSexByName(String _env) {
+        CustList<Sex> values_ = Sex.all();
+        for (Sex e: values_) {
+            if (StringUtil.quickEq(e.sexName, _env)) {
+                return e;
+            }
+        }
+        return values_.first();
+    }
     public static CustList<Sex> all() {
         CustList<Sex> sexes_ = new CustList<Sex>();
         sexes_.add(GIRL);

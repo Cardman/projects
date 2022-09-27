@@ -1,16 +1,23 @@
 package aiki.fight.util;
 
 import aiki.db.EquallablePkUtil;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
+import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.GenderName;
+import aiki.fight.pokemon.enums.ExpType;
 import aiki.game.NbFightCoords;
 import aiki.game.fight.MoveTeamPosition;
 import aiki.game.fight.TargetCoords;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.NbEffectFighterCoords;
+import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.game.params.enums.DifficultyWinPointsFight;
+import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
 import aiki.map.Condition;
+import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.PlaceLevel;
@@ -284,6 +291,94 @@ public final class RecordsTest extends EquallablePkUtil {
     @Test
     public void test44() {
         assertFalse(PlaceLevelsCustListGenderName.match(new GenderName(Gender.all().first(),"_"),new GenderName(Gender.all().last(),"_")));
+    }
+    @Test
+    public void test45() {
+        assertSame(Sex.GIRL,Sex.getSexByName("GIRL"));
+    }
+    @Test
+    public void test46() {
+        assertSame(Sex.BOY,Sex.getSexByName("BOY"));
+    }
+    @Test
+    public void test47() {
+        assertNotNull(Sex.getSexByName(""));
+    }
+    @Test
+    public void test48() {
+        assertSame(Gender.NO_GENDER,Gender.getGenderByName("NO_GENDER"));
+    }
+    @Test
+    public void test49() {
+        assertSame(Gender.NO_GENDER,Gender.getGenderByName(""));
+    }
+    @Test
+    public void test50() {
+        assertSame(TargetChoice.NOTHING, TargetChoice.getTargetChoiceByName("NOTHING"));
+    }
+    @Test
+    public void test51() {
+        assertSame(TargetChoice.NOTHING,TargetChoice.getTargetChoiceByName(""));
+    }
+    @Test
+    public void test52() {
+        assertSame(EnvironmentType.NOTHING, EnvironmentType.getEnvByName("NOTHING"));
+    }
+    @Test
+    public void test53() {
+        assertSame(EnvironmentType.NOTHING,EnvironmentType.getEnvByName(""));
+    }
+    @Test
+    public void test54() {
+        assertSame(SelectedBoolean.YES_AND_NO, SelectedBoolean.getBoolByName("YES_AND_NO"));
+    }
+    @Test
+    public void test55() {
+        assertSame(SelectedBoolean.YES_AND_NO,SelectedBoolean.getBoolByName(""));
+    }
+    @Test
+    public void test56() {
+        assertSame(DifficultyModelLaw.UNIFORME, DifficultyModelLaw.getModelByName("UNIFORME"));
+    }
+    @Test
+    public void test57() {
+        assertSame(DifficultyModelLaw.UNIFORME,DifficultyModelLaw.getModelByName(""));
+    }
+    @Test
+    public void test58() {
+        assertSame(DifficultyWinPointsFight.TRES_FACILE, DifficultyWinPointsFight.getDiffWonPtsByName("TRES_FACILE"));
+    }
+    @Test
+    public void test59() {
+        assertSame(DifficultyWinPointsFight.TRES_FACILE,DifficultyWinPointsFight.getDiffWonPtsByName(""));
+    }
+    @Test
+    public void test60() {
+        assertSame(ExpType.E, ExpType.getExpTypeByName("E"));
+    }
+    @Test
+    public void test61() {
+        assertSame(ExpType.F, ExpType.getExpTypeByName("F"));
+    }
+    @Test
+    public void test62() {
+        assertSame(ExpType.L, ExpType.getExpTypeByName("L"));
+    }
+    @Test
+    public void test63() {
+        assertSame(ExpType.M, ExpType.getExpTypeByName("M"));
+    }
+    @Test
+    public void test64() {
+        assertSame(ExpType.P, ExpType.getExpTypeByName("P"));
+    }
+    @Test
+    public void test65() {
+        assertSame(ExpType.R, ExpType.getExpTypeByName("R"));
+    }
+    @Test
+    public void test66() {
+        assertSame(ExpType.M, ExpType.getExpTypeByName(""));
     }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();

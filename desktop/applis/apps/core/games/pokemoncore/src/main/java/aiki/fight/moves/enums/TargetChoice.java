@@ -2,6 +2,7 @@ package aiki.fight.moves.enums;
 
 
 import code.util.CustList;
+import code.util.core.StringUtil;
 
 public enum TargetChoice {
     ADJ_ADV(false, "ADJ_ADV"),
@@ -25,7 +26,14 @@ public enum TargetChoice {
         withChoice = _withChoice;
         targetName = _t;
     }
-
+    public static TargetChoice getTargetChoiceByName(String _env) {
+        for (TargetChoice e: TargetChoice.all()) {
+            if (StringUtil.quickEq(e.targetName, _env)) {
+                return e;
+            }
+        }
+        return TargetChoice.NOTHING;
+    }
     public static CustList<TargetChoice> all() {
         CustList<TargetChoice> targets_ = new CustList<TargetChoice>();
         targets_.add(ADJ_ADV);

@@ -1,5 +1,6 @@
 package aiki.db;
 
+import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.Combos;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.EndTurnType;
@@ -9,6 +10,7 @@ import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.status.Status;
 import aiki.game.Game;
@@ -26,6 +28,8 @@ import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.MovesAbilities;
 import aiki.game.params.Difficulty;
+import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
@@ -62,6 +66,9 @@ public abstract class EquallablePkUtil {
 
     private static final String DIFF = " != ";
     public static void assertNotNull(Dims _value) {
+        Assert.assertNotNull(_value);
+    }
+    public static void assertNotNull(Sex _value) {
         Assert.assertNotNull(_value);
     }
     public static void assertNotNull(MoveTarget _value) {
@@ -223,6 +230,30 @@ public abstract class EquallablePkUtil {
     }
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
+    }
+    public static void assertSame(ExpType _expected, ExpType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(DifficultyWinPointsFight _expected, DifficultyWinPointsFight _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(DifficultyModelLaw _expected, DifficultyModelLaw _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(SelectedBoolean _expected, SelectedBoolean _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(EnvironmentType _expected, EnvironmentType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(TargetChoice _expected, TargetChoice _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Gender _expected, Gender _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Sex _expected, Sex _result) {
+        Assert.assertSame(_expected, _result);
     }
     public static void assertSame(BoolVal _expected, BoolVal _result) {
         Assert.assertSame(_expected, _result);
