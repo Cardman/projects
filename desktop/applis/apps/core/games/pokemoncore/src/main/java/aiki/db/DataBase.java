@@ -129,6 +129,7 @@ public class DataBase {
     public static final String MIN_HP = "MIN_HP";
     public static final String BONUS_BOOST = "BONUS_BOOST";
     public static final String DEF_BASE_MOVE = "DEF_BASE_MOVE";
+    public static final String BALL_DEF = "BALL_DEF";
 
     public static final String SEP_BETWEEN_KEYS = "__";
     public static final String IMG_FILES_RES_EXT = ".png";
@@ -379,6 +380,14 @@ public class DataBase {
 
     public DataBase(AbstractGenerator _generator) {
         this.generator = _generator;
+        defMove="";
+        rateBoost="";
+        rateBoostCriticalHit="";
+        rateCatching="";
+        rateFleeing="";
+        damageFormula="";
+        defaultEggGroup="";
+        ballDef="";
     }
 
     public static StringMap<String> basicTranslationItemsType(DataBase _data) {
@@ -903,6 +912,26 @@ public class DataBase {
         }
     }
 
+    public void initValue(String _key, String _value) {
+        if (StringUtil.quickEq(_key, DEF_MOVE)) {
+            setDefMove(_value);
+        } else if (StringUtil.quickEq(_key, RATE_BOOST)) {
+            setRateBoost(_value);
+        } else if (StringUtil.quickEq(_key,
+                RATE_BOOST_CRITICAL_HIT)) {
+            setRateBoostCriticalHit(_value);
+        } else if (StringUtil.quickEq(_key, RATE_FLEEING)) {
+            setRateFleeing(_value);
+        } else if (StringUtil.quickEq(_key, RATE_CATCHING)) {
+            setRateCatching(_value);
+        } else if (StringUtil.quickEq(_key, BALL_DEF)) {
+            setBallDef(_value);
+        } else if (StringUtil.quickEq(_key, DEFAULT_EGG_GROUP)) {
+            setDefaultEggGroup(_value);
+        } else if (StringUtil.quickEq(_key, DAMAGE_FORMULA)) {
+            setDamageFormula(_value);
+        }
+    }
     public void validateConstants() {
         if (getDefaultMoney().isZero()) {
             setError(true);

@@ -74,6 +74,75 @@ import code.util.StringMap;
 public class DataBaseTest extends EquallablePkUtil {
 
     @Test
+    public void initBase1() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.DEF_MOVE,"_");
+        assertEq("_",data_.getDefMove());
+    }
+
+    @Test
+    public void initBase2() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.RATE_BOOST,"_");
+        assertEq("_",data_.getRateBoost());
+    }
+
+    @Test
+    public void initBase3() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.RATE_BOOST_CRITICAL_HIT,"_");
+        assertEq("_",data_.getRateBoostCriticalHit());
+    }
+
+    @Test
+    public void initBase4() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.RATE_FLEEING,"_");
+        assertEq("_",data_.getRateFleeing());
+    }
+
+    @Test
+    public void initBase5() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.RATE_CATCHING,"_");
+        assertEq("_",data_.getRateCatching());
+    }
+
+    @Test
+    public void initBase6() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.BALL_DEF,"_");
+        assertEq("_",data_.getBallDef());
+    }
+
+    @Test
+    public void initBase7() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.DEFAULT_EGG_GROUP,"_");
+        assertEq("_",data_.getDefaultEggGroup());
+    }
+
+    @Test
+    public void initBase8() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.DAMAGE_FORMULA,"_");
+        assertEq("_",data_.getDamageFormula());
+    }
+
+    @Test
+    public void initBase9() {
+        DataBase data_ = newData();
+        data_.initValue("","_");
+        assertEq("",data_.getDefMove());
+        assertEq("",data_.getRateBoost());
+        assertEq("",data_.getRateBoostCriticalHit());
+        assertEq("",data_.getRateCatching());
+        assertEq("",data_.getRateFleeing());
+        assertEq("",data_.getBallDef());
+        assertEq("",data_.getDefaultEggGroup());
+        assertEq("",data_.getDamageFormula());
+    }
+    @Test
     public void test() {
         DataBase data_ = InitializationDataBase.initDataBase();
         assertTrue(!data_.isError());
