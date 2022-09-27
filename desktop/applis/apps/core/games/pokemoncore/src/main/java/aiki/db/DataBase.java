@@ -1070,6 +1070,8 @@ public class DataBase {
         checkInners(miniPk.values());
         checkInners(imageTmHm);
         checkInners(storage);
+        notEmptyImages(maxiPkBack.values());
+        notEmptyImages(maxiPkFront.values());
         DataInfoChecker.checkStringListContains(miniPk.getKeys(),pokedex.getKeys(),this);
         DataInfoChecker.checkStringListContains(miniItems.getKeys(),items.getKeys(),this);
         DataInfoChecker.checkStringListContains(maxiPkBack.getKeys(),pokedex.getKeys(),this);
@@ -1094,22 +1096,21 @@ public class DataBase {
         }
     }
 
-    private void boundsPk() {
-        for (int[][] i : maxiPkBack.values()) {
-            if (i.length == 0) {
-                setError(true);
-                continue;
-            }
-            maxWidthPk = NumberUtil.max(maxWidthPk,i[0].length);
-            maxHeightPk = NumberUtil.max(maxHeightPk,i.length);
+    public void boundsPk() {
+        updateDims(maxiPkBack.values());
+        updateDims(maxiPkFront.values());
+    }
+
+    private void updateDims(CustList<int[][]> _imgs) {
+        for (int[][] i : _imgs) {
+            updateDims(i);
         }
-        for (int[][] i : maxiPkFront.values()) {
-            if (i.length == 0) {
-                setError(true);
-                continue;
-            }
-            maxWidthPk = NumberUtil.max(maxWidthPk,i[0].length);
-            maxHeightPk = NumberUtil.max(maxHeightPk,i.length);
+    }
+
+    private void updateDims(int[][] _i) {
+        if (_i.length != 0) {
+            maxWidthPk = NumberUtil.max(maxWidthPk, _i[0].length);
+            maxHeightPk = NumberUtil.max(maxHeightPk, _i.length);
         }
     }
 
