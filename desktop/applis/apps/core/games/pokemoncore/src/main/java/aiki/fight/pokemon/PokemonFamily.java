@@ -6,10 +6,18 @@ import code.util.core.StringUtil;
 
 public final class PokemonFamily {
 
-    private final CustList<StringList> stages = new CustList<StringList>();
+    private final CustList<StringList> stages;
 
     public PokemonFamily(DataBase _data, String _pokemonBase) {
-        stages.add(new StringList(_pokemonBase));
+        this(stages(_data, _pokemonBase));
+    }
+    public PokemonFamily(CustList<StringList> _st) {
+        stages = _st;
+    }
+
+    private static CustList<StringList> stages(DataBase _data, String _pokemonBase) {
+        CustList<StringList> stages_ = new CustList<StringList>();
+        stages_.add(new StringList(_pokemonBase));
         StringList evolutionsLevels_ = new StringList();
         StringList currentEvolutions_ = new StringList();
         currentEvolutions_.add(_pokemonBase);
@@ -22,19 +30,20 @@ public final class PokemonFamily {
                     continue;
                 }
                 if (exitBuild(_data, _pokemonBase, evolutionsLevels_, newEvolutions_, fPk_)) {
-                    return;
+                    return stages_;
                 }
             }
             if (newEvolutions_.isEmpty()) {
                 break;
             }
-            stages.add(newEvolutions_);
+            stages_.add(newEvolutions_);
             evolutionsLevels_.addAllElts(newEvolutions_);
             currentEvolutions_ = new StringList(newEvolutions_);
         }
+        return stages_;
     }
 
-    private boolean exitBuild(DataBase _data, String _pokemonBase, StringList _evolutionsLevels, StringList _newEvolutions, PokemonData _fPk) {
+    private static boolean exitBuild(DataBase _data, String _pokemonBase, StringList _evolutionsLevels, StringList _newEvolutions, PokemonData _fPk) {
         for (String e_: _fPk.getEvolutions().getKeys()) {
             PokemonData evo_ = _data.getPokemon(e_);
             if (evo_ == null) {
@@ -48,7 +57,7 @@ public final class PokemonFamily {
         return false;
     }
 
-    private boolean exitBuildTree(DataBase _data, String _pokemonBase, StringList _evolutionsLevels, StringList _newEvolutions, String _e, PokemonData _evo) {
+    private static boolean exitBuildTree(DataBase _data, String _pokemonBase, StringList _evolutionsLevels, StringList _newEvolutions, String _e, PokemonData _evo) {
         if (!StringUtil.quickEq(_evo.getBaseEvo(), _pokemonBase)) {
             _data.setError(true);
         }
