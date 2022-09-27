@@ -64,21 +64,13 @@ public final class EffectDamage extends Effect {
         DataInfoChecker.checkPositiveBytes(boostStatisOnceKoFoe.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getCategories(),multDamageAgainst.getKeys(),_data);
         DataInfoChecker.checkPositiveRates(multDamageAgainst.values(),_data);
-        if (!chLaw.events().isEmpty()) {
-            Rate min_ = chLaw.minimum();
-            if (min_.lowerThanOne()) {
-                _data.setError(true);
-            }
-        } else {
-            chLaw.addQuickEvent(Rate.one(),LgInt.one());
+        patch();
+        if (chLaw.minimum().lowerThanOne()) {
+            _data.setError(true);
         }
-        if (!hitsLaw.events().isEmpty()) {
-            Rate min_ = hitsLaw.minimum();
-            DataInfoChecker.checkPositive(min_,_data);
-            DataInfoChecker.checkIntegers(hitsLaw.events(),_data);
-        } else {
-            hitsLaw.addQuickEvent(Rate.one(),LgInt.one());
-        }
+        Rate min_ = hitsLaw.minimum();
+        DataInfoChecker.checkPositive(min_,_data);
+        DataInfoChecker.checkIntegers(hitsLaw.events(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),ignVarStatTargetPos,_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),ignVarStatUserNeg,_data);
         DataInfoChecker.checkStatistics(Statistic.ATTACK,Statistic.SPECIAL_ATTACK,statisAtt,_data);
@@ -97,6 +89,14 @@ public final class EffectDamage extends Effect {
             return;
         }
         DataInfoChecker.checkEmptyNotString(power,_data);
+    }
+    public void patch() {
+        if (chLaw.nbEvents() == 0) {
+            chLaw.addQuickEvent(Rate.one(),LgInt.one());
+        }
+        if (hitsLaw.nbEvents() == 0) {
+            hitsLaw.addQuickEvent(Rate.one(),LgInt.one());
+        }
     }
 
     private void checkConstDamage(DataBase _data) {
