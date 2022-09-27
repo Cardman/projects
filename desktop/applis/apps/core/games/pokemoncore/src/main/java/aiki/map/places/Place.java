@@ -7,10 +7,7 @@ import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnectCoords;
 import aiki.map.util.PlaceInterConnects;
-import aiki.util.CommonParam;
-import aiki.util.Coords;
-import aiki.util.Point;
-import aiki.util.Points;
+import aiki.util.*;
 import code.util.CustList;
 import code.util.*;
 
@@ -27,18 +24,14 @@ public abstract class Place {
 
     protected void validateLinksWithCaves(DataBase _data, LevelArea _levelArea, Points<Link> _linksWithCaves) {
         for (Point p : _linksWithCaves.getKeys()) {
-            if (!_levelArea.isValid(p, false)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkKey(_data,_levelArea,p,false);
             Coords c_ = _linksWithCaves.getVal(p).getCoords();
             if (!_data.getMap().existCoords(c_)) {
                 _data.setError(true);
                 continue;
             }
             Level tarLevel_ = _data.getMap().getLevelByCoords(c_);
-            if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyForAdding(_data,tarLevel_,c_.getLevel().getPoint());
         }
     }
     protected boolean checkLinks(Tree _tree, PlaceInterConnects _linksPointsWithCitiesAndOtherRoads, Points<Link> _linksWithCaves) {

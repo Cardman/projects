@@ -52,10 +52,10 @@ public final class City extends Place implements InitializedPlace {
             if (levelArea_.isAccessible(e.getKey())) {
                 _data.setError(true);
             }
-            checkAccess(_data, levelArea_, e.getKey(), false);
+            DataInfoChecker.checkKey(_data, levelArea_, e.getKey(), false);
             Point pt_ = new Point(e.getKey());
             pt_.moveTo(Direction.DOWN);
-            checkAccess(_data, levelArea_, pt_, true);
+            DataInfoChecker.checkKey(_data, levelArea_, pt_, true);
             ids_.add(pt_);
             Building building_ = e.getValue();
             building_.validate(_data,
@@ -71,19 +71,13 @@ public final class City extends Place implements InitializedPlace {
             _data.setError(true);
         }
         for (PlaceInterConnect p : linksPointsWithCitiesAndOtherRoads.getKeys()) {
-            checkAccess(_data, levelArea_, p.getSource(), false);
+            DataInfoChecker.checkKey(_data, levelArea_, p.getSource(), false);
         }
         if (ids_.hasDuplicates()) {
             _data.setError(true);
         }
         validateLinksWithCaves(_data, levelArea_, linksWithCaves);
         getLevelOutdoor().validate(_data, levelArea_);
-    }
-
-    private void checkAccess(DataBase _data, LevelArea _levelArea, Point _pt, boolean _accessible) {
-        if (!_levelArea.isValid(_pt, _accessible)) {
-            _data.setError(true);
-        }
     }
 
     @Override

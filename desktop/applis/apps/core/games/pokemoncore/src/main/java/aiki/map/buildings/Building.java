@@ -3,6 +3,7 @@ package aiki.map.buildings;
 import aiki.db.DataBase;
 import aiki.map.levels.Level;
 import aiki.map.tree.BuildingArea;
+import aiki.util.DataInfoChecker;
 import aiki.util.Point;
 
 
@@ -17,13 +18,7 @@ public abstract class Building {
      * @param _data
      */
     public void validate(DataBase _data, BuildingArea _buildingArea) {
-        if (_buildingArea == null) {
-            _data.setError(true);
-            return;
-        }
-        if (!_buildingArea.isValid(exitCity, true)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkKey(_data,_buildingArea,exitCity,true);
     }
 
     public boolean hasValidImage(DataBase _data) {

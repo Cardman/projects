@@ -394,9 +394,7 @@ public final class DataMap {
     private void legPkCheck(DataBase _d) {
         StringList legPk_ = legPk(_d);
         StringList wildPk_ = wildPkAccess();
-        if (!wildPk_.containsAllObj(legPk_)) {
-            _d.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(wildPk_,legPk_,_d);
     }
 
     private StringList wildPkAccess() {
@@ -455,9 +453,7 @@ public final class DataMap {
 
     private void checkCatchBaseEvos(DataBase _d, StringMap<IdList<Gender>> _directCatchPk) {
         StringList baseEvos_ = baseEvos(_d);
-        if (!_directCatchPk.containsAllAsKeys(baseEvos_)) {
-            _d.setError(true);
-        }
+        DataInfoChecker.checkStringListContains(_directCatchPk.getKeys(),baseEvos_,_d);
         for (String n : baseEvos_) {
             PokemonData fPk_ = _d.getPokemon(n);
             IdList<Gender> val_ = _directCatchPk.getVal(n);
@@ -547,9 +543,7 @@ public final class DataMap {
                 typesRetr_.addAllElts(_d.getMove(l.getMove()).getTypes());
             }
             typesRetr_.addAllElts(availableTypesTm_);
-            if (!typesRetr_.containsAllObj(types_)) {
-                _d.setError(true);
-            }
+            DataInfoChecker.checkStringListContains(typesRetr_,types_,_d);
         }
     }
 
@@ -568,11 +562,12 @@ public final class DataMap {
                 movesRetr_.add(l.getMove());
             }
             movesRetr_.addAllElts(_movesTmHm);
-            for (String m : moves_) {
-                if (!StringUtil.contains(movesRetr_, m)) {
-                    _d.setError(true);
-                }
-            }
+            DataInfoChecker.checkStringListContains(movesRetr_,moves_,_d);
+//            for (String m : moves_) {
+//                if (!StringUtil.contains(movesRetr_, m)) {
+//                    _d.setError(true);
+//                }
+//            }
         }
     }
 
@@ -590,11 +585,11 @@ public final class DataMap {
     private void evoObjectsCheck(DataBase _d, StringList _evoObjects) {
         for (String o : _d.getItems().getKeys()) {
             Item o_ = _d.getItems().getVal(o);
-            if (o_ instanceof EvolvingStone && !StringUtil.contains(_evoObjects, o)) {
-                _d.setError(true);
+            if (o_ instanceof EvolvingStone) {
+                DataInfoChecker.checkStringListContains(_evoObjects,o,_d);
             }
-            if (o_ instanceof EvolvingItem && !StringUtil.contains(_evoObjects, o)) {
-                _d.setError(true);
+            if (o_ instanceof EvolvingItem) {
+                DataInfoChecker.checkStringListContains(_evoObjects,o,_d);
             }
         }
     }
@@ -728,9 +723,7 @@ public final class DataMap {
         }
         for (Coords c : accessCondition.getKeys()) {
             for (Coords c2_ : accessCondition.getVal(c)) {
-                if (!tree.isValid(c2_, true)) {
-                    _d.setError(true);
-                }
+                DataInfoChecker.checkKey(_d,tree,c2_,true);
             }
         }
     }
@@ -812,9 +805,7 @@ public final class DataMap {
 
     private void basicCheckLinksOtherPlaces(DataBase _d, short _p, LevelPoints _links, LevelPoint _l) {
         Coords link_ = closestTile(_links.getVal(_l));
-        if (!tree.isValid(_links.getVal(_l).getCoords(), true)) {
-            _d.setError(true);
-        }
+        DataInfoChecker.checkKey(_d,tree,_links.getVal(_l).getCoords(), true);
         short numberPlace_ = link_.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
             _d.setError(true);
@@ -847,9 +838,7 @@ public final class DataMap {
 
     private void basicCheckLinksWithCave(DataBase _d, short _p, Points<Link> _links, Point _pt) {
         Coords link_ = closestTile(_links.getVal(_pt));
-        if (!tree.isValid(_links.getVal(_pt).getCoords(), true)) {
-            _d.setError(true);
-        }
+        DataInfoChecker.checkKey(_d,tree,_links.getVal(_pt).getCoords(), true);
         short numberPlace_ = link_.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
             _d.setError(true);
@@ -1851,7 +1840,7 @@ public final class DataMap {
         Point rightBottomPointTwo_ = limits2_.getBottomRight();
         Point p1_ = new Point(_p1);
         Point p2_ = new Point(_p2);
-        int length_ = 0;
+        int length_;
         if (_dir1.getx() == 0) {
             if (_dir1 == Direction.DOWN) {
                 p1_.sety(rightBottomPointOne_.gety());

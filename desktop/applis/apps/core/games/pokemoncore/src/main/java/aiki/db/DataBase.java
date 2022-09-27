@@ -783,24 +783,21 @@ public class DataBase {
             setError(true);
         }
 
-        for (String m : hm.values()) {
-            if (!getMoves().contains(m)) {
-                setError(true);
-            }
-        }
+        DataInfoChecker.checkStringListContains(getMoves().getKeys(),hm.values(),this);
+        DataInfoChecker.checkShortsContains(tm.getKeys(),tmPrice.getKeys(),this);
         for (EntryCust<Short, LgInt> tmPrice_ : tmPrice.entryList()) {
-            if (!tm.contains(tmPrice_.getKey())) {
-                setError(true);
-            }
             if (!tmPrice_.getValue().isZeroOrGt()) {
                 setError(true);
             }
         }
-        for (String m : tm.values()) {
+        checkDefMove(hm.values());
+        checkDefMove(tm.values());
+        DataInfoChecker.checkStringListContains(getMoves().getKeys(),tm.values(),this);
+    }
+
+    private void checkDefMove(CustList<String> _ls) {
+        for (String m : _ls) {
             if (StringUtil.quickEq(m, getDefMove())) {
-                setError(true);
-            }
-            if (!getMoves().contains(m)) {
                 setError(true);
             }
         }
@@ -835,14 +832,14 @@ public class DataBase {
             for (LevelMove p2_ : d.getLevMoves()) {
                 moves_.add(p2_.getMove());
             }
+            StringList movesEvo_ = new StringList(d.getMoveTutors());
             for (Evolution e : d.getEvolutions().values()) {
                 if (!(e instanceof EvolutionMove)) {
                     continue;
                 }
-                if (!StringUtil.contains(moves_, ((EvolutionMove) e).getMove())) {
-                    setError(true);
-                }
+                movesEvo_.add(((EvolutionMove) e).getMove());
             }
+            DataInfoChecker.checkStringListContains(moves_,movesEvo_,this);
         }
     }
 

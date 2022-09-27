@@ -47,39 +47,28 @@ public final class Cave extends Campaign {
 
     private void validateLinkOtherPlaces(DataBase _data, PlaceArea _placeArea, LevelPointLink _e) {
         Link link_ = _e.getLink();
-        if (!link_.isValid(_data)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkLink(_data,link_);
         LevelPoint k_ = _e.getLevelPoint();
         if (!_placeArea.isValidLevel(k_
                 .getLevelIndex())) {
             _data.setError(true);
         } else {
-            if (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(),
-                    false)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkKey(_data,_placeArea.getLevel(k_.getLevelIndex()),k_.getPoint(), false);
             Coords c_ = link_.getCoords();
             if (!_data.getMap().existCoords(c_)) {
                 _data.setError(true);
             } else {
                 Place tar_ = _data.getMap().getPlace(c_.getNumberPlace());
                 Level tarLevel_ = tar_.getLevelByCoords(c_);
-                if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
-                    _data.setError(true);
-                }
+                DataInfoChecker.checkEmptyForAdding(_data,tarLevel_,c_.getLevel().getPoint());
             }
         }
     }
 
     private void validateLinkLevels(DataBase _data, PlaceArea _placeArea, LevelCave _level, CommonParam<Point, Link> _e) {
         Link link_ = _e.getValue();
-        if (!link_.isValid(_data)) {
-            _data.setError(true);
-        }
-        if (!_level.isEmptyForAdding(_e.getKey())) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkLink(_data,link_);
+        DataInfoChecker.checkEmptyForAdding(_data,_level,_e.getKey());
         LevelPoint target_ = link_.getCoords().getLevel();
         if (!_placeArea.isValidLevel(target_
                 .getLevelIndex())) {
@@ -87,13 +76,9 @@ public final class Cave extends Campaign {
         } else {
             LevelArea levelArea_ = _placeArea.getLevel(target_
                     .getLevelIndex());
-            if (!levelArea_.isValid(target_.getPoint(), true)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkKey(_data,levelArea_,target_.getPoint(), true);
             LevelCave levelTarget_ = getLevelCave(target_);
-            if (!levelTarget_.isEmptyForAdding(target_.getPoint())) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyForAdding(_data,levelTarget_,target_.getPoint());
         }
     }
 

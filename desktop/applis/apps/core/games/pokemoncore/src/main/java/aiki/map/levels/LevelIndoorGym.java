@@ -5,6 +5,7 @@ import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.tree.LevelArea;
 import aiki.util.CommonParam;
+import aiki.util.DataInfoChecker;
 import aiki.util.Point;
 import aiki.util.Points;
 
@@ -24,14 +25,10 @@ public final class LevelIndoorGym extends Level {
         }
         super.validate(_data, _level);
         for (CommonParam<Point,GymTrainer> e : gymTrainers.entryList()) {
-            if (!_level.isValid(e.getKey(), true)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkKey(_data,_level,e.getKey(),true);
             e.getValue().validate(_data);
         }
-        if (!_level.isValid(gymLeaderCoords, true)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkKey(_data,_level,gymLeaderCoords,true);
         gymLeader.validate(_data);
         if (gymTrainers.contains(gymLeaderCoords)) {
             _data.setError(true);

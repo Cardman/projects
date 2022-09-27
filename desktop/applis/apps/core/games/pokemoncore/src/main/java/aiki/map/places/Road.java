@@ -14,6 +14,7 @@ import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.Coords;
+import aiki.util.DataInfoChecker;
 import aiki.util.Points;
 import code.util.ByteMap;
 import code.util.CustList;
@@ -41,9 +42,7 @@ public final class Road extends Campaign implements InitializedPlace {
     public void validate(DataBase _data, PlaceArea _placeArea) {
         LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
         for (PlaceInterConnect p : linksWithCitiesAndOtherRoads.getKeys()) {
-            if (!levelArea_.isValid(p.getSource(), false)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkKey(_data,levelArea_,p.getSource(),false);
         }
         validateLinksWithCaves(_data,levelArea_,linksWithCaves);
         getLevelRoad().validate(_data, levelArea_);

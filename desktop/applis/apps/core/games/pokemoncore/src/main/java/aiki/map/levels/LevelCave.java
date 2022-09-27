@@ -3,6 +3,7 @@ package aiki.map.levels;
 import aiki.db.DataBase;
 import aiki.map.tree.LevelArea;
 import aiki.util.CommonParam;
+import aiki.util.DataInfoChecker;
 import aiki.util.Point;
 import aiki.util.Points;
 
@@ -16,12 +17,8 @@ public final class LevelCave extends LevelWithWildPokemon {
         super.validate(_data, _level);
         validateLevelWithWildPokemon(_data, _level);
         for (CommonParam<Point,Link> e : linksOtherLevels.entryList()) {
-            if (!_level.isValid(e.getKey(), true)) {
-                _data.setError(true);
-            }
-            if (!e.getValue().isValid(_data)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkKey(_data,_level,e.getKey(),true);
+            DataInfoChecker.checkLink(_data,e.getValue());
         }
     }
 

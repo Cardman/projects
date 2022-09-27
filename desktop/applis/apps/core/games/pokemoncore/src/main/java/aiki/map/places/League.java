@@ -6,6 +6,7 @@ import aiki.map.levels.LevelLeague;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.util.Coords;
+import aiki.util.DataInfoChecker;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.*;
@@ -30,24 +31,16 @@ public final class League extends Place {
             _data.setError(true);
             return;
         }
-        if (!_placeArea.getLevel(IndexConstants.FIRST_INDEX).isValid(begin, true)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkKey(_data,_placeArea.getLevel(IndexConstants.FIRST_INDEX),begin,true);
         rooms.first()
                 .validate(_data, _placeArea.getLevel(IndexConstants.FIRST_INDEX));
-        if (!rooms.first().isEmpty(begin)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEmpty(_data,rooms.first(),begin);
         int nbRooms_ = rooms.size();
         for (byte i = IndexConstants.SECOND_INDEX; i < nbRooms_; i++) {
             getLevelLeague(i).validate(_data, _placeArea.getLevel(i));
             Point next_ = getLevelLeague((byte) (i - 1)).getNextLevelTarget();
-            if (!getLevelLeague(i).isEmpty(next_)) {
-                _data.setError(true);
-            }
-            if (!_placeArea.getLevel(i).isValid(next_, true)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmpty(_data,getLevelLeague(i),next_);
+            DataInfoChecker.checkKey(_data,_placeArea.getLevel(i),next_,true);
         }
         if (_data.getLink(fileName).length == 0) {
             _data.setError(true);

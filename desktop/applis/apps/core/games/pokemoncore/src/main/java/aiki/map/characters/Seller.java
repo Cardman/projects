@@ -20,15 +20,11 @@ public final class Seller extends Person {
         DataInfoChecker.checkShortsContains(_data.getTmPrice().getKeys(),tm,_data);
         if (sell == SellType.MOVE) {
             DataInfoChecker.checkEmptyStringList(items,_data);
-            if (!tm.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyShorts(tm,_data);
             return;
         }
         if (sell == SellType.ITEM) {
-            if (!tm.isEmpty()) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkEmptyShorts(tm,_data);
             return;
         }
         DataInfoChecker.checkEmptyStringList(items,_data);

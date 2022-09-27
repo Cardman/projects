@@ -3,6 +3,7 @@ package aiki.map.levels;
 import aiki.db.DataBase;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.tree.LevelArea;
+import aiki.util.DataInfoChecker;
 import aiki.util.Point;
 
 
@@ -24,15 +25,9 @@ public final class LevelLeague extends Level {
             _data.setError(true);
         }
         super.validate(_data, _level);
-        if (!isEmpty(accessPoint)) {
-            _data.setError(true);
-        }
-        if (!_level.isValid(accessPoint, true)) {
-            _data.setError(true);
-        }
-        if (!_level.isValid(trainerCoords, true)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkEmpty(_data,this,accessPoint);
+        DataInfoChecker.checkKey(_data,_level,accessPoint,true);
+        DataInfoChecker.checkKey(_data,_level,trainerCoords,true);
         trainer.validate(_data);
     }
 

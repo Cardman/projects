@@ -33,15 +33,15 @@ public abstract class LevelWithWildPokemon extends Level {
         checkAreasBlocks(_data);
         PointEqList keys_ = new PointEqList();
         for (CommonParam<Point,CharacterInRoadCave> e : characters.entryList()) {
-            checkKey(_data, _level, e.getKey());
+            DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             e.getValue().validate(_data);
             keys_.add(e.getKey());
         }
         for (CommonParam<Point,DualFight> e : dualFights.entryList()) {
             Point id_ = e.getKey();
-            checkKey(_data, _level, id_);
+            DataInfoChecker.checkKey(_data, _level, id_,true);
             DualFight dual_ = e.getValue();
-            checkKey(_data, _level, dual_.getPt());
+            DataInfoChecker.checkKey(_data, _level, dual_.getPt(),true);
             boolean isNext_ = isNextDual(id_, dual_);
             if (!isNext_) {
                 _data.setError(true);
@@ -51,24 +51,24 @@ public abstract class LevelWithWildPokemon extends Level {
             keys_.add(dual_.getPt());
         }
         for (CommonParam<Point,WildPk> e : legendaryPks.entryList()) {
-            checkKey(_data, _level, e.getKey());
+            DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             e.getValue().validateAsNpc(_data);
             DataInfoChecker.checkStringListContains(_data.getLegPks(),e.getValue().getName(),_data);
             keys_.add(e.getKey());
         }
         DataInfoChecker.checkStringListContains(_data.getItems().getKeys(),items.values(),_data);
         for (CommonParam<Point,String> e : items.entryList()) {
-            checkKey(_data, _level, e.getKey());
+            DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             keys_.add(e.getKey());
         }
         DataInfoChecker.checkShortsContains(_data.getTm().getKeys(),tm.values(),_data);
         for (CommonParam<Point,Short> e : tm.entryList()) {
-            checkKey(_data, _level, e.getKey());
+            DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             keys_.add(e.getKey());
         }
         DataInfoChecker.checkShortsContains(_data.getHm().getKeys(),hm.values(),_data);
         for (CommonParam<Point,Short> e : hm.entryList()) {
-            checkKey(_data, _level, e.getKey());
+            DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             keys_.add(e.getKey());
         }
         if (keys_.hasDuplicates()) {
@@ -115,12 +115,6 @@ public abstract class LevelWithWildPokemon extends Level {
             }
         }
         return existBlock_;
-    }
-
-    private void checkKey(DataBase _data, LevelArea _level, Point _key) {
-        if (!_level.isValid(_key, true)) {
-            _data.setError(true);
-        }
     }
 
     @Override

@@ -5,10 +5,7 @@ import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.tree.LevelArea;
-import aiki.util.CommonParam;
-import aiki.util.Point;
-import aiki.util.PointEqList;
-import aiki.util.Points;
+import aiki.util.*;
 
 
 public final class LevelIndoorPokemonCenter extends Level {
@@ -21,14 +18,10 @@ public final class LevelIndoorPokemonCenter extends Level {
     public void validate(DataBase _data, LevelArea _level) {
         super.validate(_data, _level);
         PointEqList keys_ = new PointEqList();
-        if (!_level.isValid(storageCoords, true)) {
-            _data.setError(true);
-        }
+        DataInfoChecker.checkKey(_data,_level,storageCoords,true);
         keys_.add(storageCoords);
         for (CommonParam<Point,Person> e : gerants.entryList()) {
-            if (!_level.isValid(e.getKey(), true)) {
-                _data.setError(true);
-            }
+            DataInfoChecker.checkKey(_data,_level,e.getKey(),true);
             if (!(e.getValue() instanceof GerantPokemon) && !(e.getValue() instanceof Seller)) {
                 _data.setError(true);
             }

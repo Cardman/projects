@@ -11,6 +11,11 @@ import aiki.fight.util.StatisticCategory;
 import aiki.fight.util.StatisticStatus;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.WeatherType;
+import aiki.map.levels.Level;
+import aiki.map.levels.Link;
+import aiki.map.tree.BuildingArea;
+import aiki.map.tree.LevelArea;
+import aiki.map.tree.Tree;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.IntMonteCarlo;
@@ -270,6 +275,12 @@ public final class DataInfoChecker {
         }
     }
 
+    public static void checkEmptyShorts(Shorts _value, DataBase _data) {
+        if (!_value.isEmpty()) {
+            _data.setError(true);
+        }
+    }
+
     public static void checkEmptyInts(Ints _value, DataBase _data) {
         if (!_value.isEmpty()) {
             _data.setError(true);
@@ -336,5 +347,41 @@ public final class DataInfoChecker {
             }
         }
         _data.setError(true);
+    }
+
+    public static void checkLink(DataBase _data, Link _level) {
+        if (!_level.isValid(_data)) {
+            _data.setError(true);
+        }
+    }
+
+    public static void checkEmpty(DataBase _data, Level _level, Point _key) {
+        if (!_level.isEmpty(_key)) {
+            _data.setError(true);
+        }
+    }
+
+    public static void checkEmptyForAdding(DataBase _data, Level _level, Point _key) {
+        if (!_level.isEmptyForAdding(_key)) {
+            _data.setError(true);
+        }
+    }
+
+    public static void checkKey(DataBase _data, Tree _tree, Coords _key, boolean _accessible) {
+        if (!_tree.isValid(_key, _accessible)) {
+            _data.setError(true);
+        }
+    }
+
+    public static void checkKey(DataBase _data, LevelArea _level, Point _key, boolean _accessible) {
+        if (!_level.isValid(_key, _accessible)) {
+            _data.setError(true);
+        }
+    }
+
+    public static void checkKey(DataBase _data, BuildingArea _building, Point _key, boolean _accessible) {
+        if (_building == null||!_building.isValid(_key, _accessible)) {
+            _data.setError(true);
+        }
     }
 }
