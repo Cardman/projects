@@ -1,6 +1,7 @@
 package code.bean.nat.fwd;
 
 import code.bean.nat.NatCaller;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.blocks.*;
@@ -8,8 +9,10 @@ import code.bean.nat.analyze.opers.*;
 import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
-import code.bean.nat.fwd.opers.*;
-import code.formathtml.analyze.AnalyzingDoc;
+import code.bean.nat.fwd.opers.NatExecFieldOperationContent;
+import code.bean.nat.fwd.opers.NatExecSettableOperationContent;
+import code.bean.nat.fwd.opers.NatExecStdFctContent;
+import code.bean.nat.fwd.opers.NatExecVariableContent;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -19,7 +22,7 @@ import code.util.core.StringUtil;
 public final class NatRendForwardInfos {
     private NatRendForwardInfos() {
     }
-    private static NatDocumentBlock build(NatAnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
+    private static NatDocumentBlock build(NatAnaRendDocumentBlock _ana, NatAnalyzingDoc _anaDoc) {
         NatDocumentBlock rendDoc_ = new NatDocumentBlock(_ana.getElt(), _ana.getBeanName());
         NatAnaExec pair_ = new NatAnaExec(_ana, rendDoc_);
         while (pair_.getReadNat() != null) {
@@ -52,7 +55,7 @@ public final class NatRendForwardInfos {
         }
     }
 
-    private static NatParentBlock complete(AnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
+    private static NatParentBlock complete(NatAnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof NatRendStdElement && StringUtil.quickEq(((NatRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                 _rendDoc.setBody((NatRendStdElement)_loc);
@@ -389,22 +392,11 @@ public final class NatRendForwardInfos {
         return new NatAffectationOperation(a_.getOrder());
     }
 
-    private static void initValidatorsInstance() {
-//        for (EntryCust<NatOperationNode, ValidatorInfo> e: _lateValidators.entryList()) {
-//            ValidatorInfo v_ = e.getValue();
-//            NatOperationNode root_ = e.getKey();
-//            CustList<RendDynOperationNode> exps_ = getExecutableNodes(root_);
-//            v_.setExps(exps_);
-//        }
-    }
-
-    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<NatAnaRendDocumentBlock> _d, StringMap<NatDocumentBlock> _renders) {
+    public static void buildExec(NatAnalyzingDoc _analyzingDoc, StringMap<NatAnaRendDocumentBlock> _d, StringMap<NatDocumentBlock> _renders) {
         buildExec(_d, _analyzingDoc, _renders);
-
-        initValidatorsInstance();
     }
 
-    private static void buildExec(StringMap<NatAnaRendDocumentBlock> _d, AnalyzingDoc _anaDoc, StringMap<NatDocumentBlock> _renders) {
+    private static void buildExec(StringMap<NatAnaRendDocumentBlock> _d, NatAnalyzingDoc _anaDoc, StringMap<NatDocumentBlock> _renders) {
         for (EntryCust<String,NatAnaRendDocumentBlock> v: _d.entryList()) {
             NatDocumentBlock rendDoc_ = build(v.getValue(), _anaDoc);
             _renders.put(v.getKey(), rendDoc_);

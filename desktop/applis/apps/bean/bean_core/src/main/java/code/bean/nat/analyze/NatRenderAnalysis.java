@@ -7,7 +7,6 @@ import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.bean.nat.analyze.opers.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.core.IndexConstants;
@@ -20,7 +19,7 @@ public final class NatRenderAnalysis {
     private NatRenderAnalysis() {
     }
 
-    public static NatOperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public static NatOperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatDelimiters d_ = NatElResolver.checkSyntax(_el, _minIndex,_anaDoc);
         int end_ = d_.getIndexEnd();
         _anaDoc.setNextIndex(end_+2);
@@ -31,7 +30,7 @@ public final class NatRenderAnalysis {
         return op_;
     }
 
-    public static NatOperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public static NatOperationNode getRootAnalyzedOperations(String _el, int _index, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatDelimiters d_ = NatElResolver.checkSyntax(_el, _index,_anaDoc);
         String el_ = _el.substring(_index);
         NatOperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc);
@@ -40,7 +39,7 @@ public final class NatRenderAnalysis {
         return op_;
     }
 
-    public static void getSortedDescNodes(NatOperationNode _root, AnalyzingDoc _analyzingDoc, NatAnalyzedCode _page) {
+    public static void getSortedDescNodes(NatOperationNode _root, NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _page) {
         CustList<NatOperationNode> list_ = new CustList<NatOperationNode>();
         NatOperationNode c_ = _root;
         while (c_ != null) {
@@ -49,7 +48,7 @@ public final class NatRenderAnalysis {
         }
     }
 
-    private static NatOperationNode getAnalyzedNext(NatOperationNode _current, NatOperationNode _root, CustList<NatOperationNode> _sortedNodes, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    private static NatOperationNode getAnalyzedNext(NatOperationNode _current, NatOperationNode _root, CustList<NatOperationNode> _sortedNodes, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatOperationNode next_ = create(_anaDoc, _page, _current, 0);
         if (next_ != null) {
             ((MethodNatOperation) _current).appendChild(next_);
@@ -90,7 +89,7 @@ public final class NatRenderAnalysis {
 
     }
 
-    private static NatOperationNode create(AnalyzingDoc _anaDoc, NatAnalyzedCode _page, NatOperationNode _pa, int _nex) {
+    private static NatOperationNode create(NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page, NatOperationNode _pa, int _nex) {
         if (!(_pa instanceof MethodNatOperation)) {
             return null;
         }
@@ -102,7 +101,7 @@ public final class NatRenderAnalysis {
         return build(_anaDoc, _page, p_, _nex);
     }
 
-    private static NatOperationNode build(AnalyzingDoc _anaDoc, NatAnalyzedCode _page, MethodNatOperation _p, int _del) {
+    private static NatOperationNode build(NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page, MethodNatOperation _p, int _del) {
         StrTypes children_ = _p.getChildren();
         String value_ = children_.getValue(_del);
         NatDelimiters d_ = _p.getOperations().getDelimiterNat();
@@ -113,7 +112,7 @@ public final class NatRenderAnalysis {
     }
 
     public static NatOperationsSequence getOperationsSequence(int _offset, String _string,
-                                                              NatDelimiters _d, AnalyzingDoc _anaDoc) {
+                                                              NatDelimiters _d, NatAnalyzingDoc _anaDoc) {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         int lastPrintChar_ = len_ - 1;
@@ -130,7 +129,7 @@ public final class NatRenderAnalysis {
     }
 
     public static NatOperationNode createOperationNode(int _index,
-                                                       int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, AnalyzingDoc _analyzingDoc, NatAnalyzedCode _page) {
+                                                       int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _page) {
         if (_op.getOpersNat().isEmpty()) {
             String originalStr_ = _op.getValNat().getValue(IndexConstants.FIRST_INDEX);
             String str_ = originalStr_.trim();

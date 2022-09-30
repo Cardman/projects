@@ -3,6 +3,7 @@ package code.bean.help.fwd;
 import code.bean.help.analyze.HelpResultText;
 import code.bean.help.analyze.blocks.*;
 import code.bean.help.exec.blocks.*;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.NatAnaRendBlock;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.exec.blocks.NatBlock;
@@ -12,7 +13,6 @@ import code.bean.nat.exec.blocks.NatParentBlock;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.fwd.NatAnaExec;
 import code.bean.nat.fwd.NatRendForwardInfos;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -22,7 +22,7 @@ import code.util.core.StringUtil;
 public final class HelpRendForwardInfos {
     private HelpRendForwardInfos() {
     }
-    private static NatDocumentBlock build(NatAnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
+    private static NatDocumentBlock build(NatAnaRendDocumentBlock _ana, NatAnalyzingDoc _anaDoc) {
         NatDocumentBlock rendDoc_ = new NatDocumentBlock(_ana.getElt(), _ana.getBeanName());
         NatAnaExec pair_ = new NatAnaExec(_ana, rendDoc_);
         while (pair_.getReadNat() != null) {
@@ -33,7 +33,7 @@ public final class HelpRendForwardInfos {
         return rendDoc_;
     }
 
-    private static NatParentBlock completeHelp(AnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
+    private static NatParentBlock completeHelp(NatAnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof HelpRendStdElement && StringUtil.quickEq(((HelpRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                 _rendDoc.setBody((HelpRendStdElement)_loc);
@@ -108,7 +108,7 @@ public final class HelpRendForwardInfos {
         return part_;
     }
 
-    public static NatDocumentBlock buildExec(AnalyzingDoc _analyzingDoc, NatAnaRendDocumentBlock _value) {
+    public static NatDocumentBlock buildExec(NatAnalyzingDoc _analyzingDoc, NatAnaRendDocumentBlock _value) {
         return build(_value, _analyzingDoc);
 
     }

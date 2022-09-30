@@ -203,18 +203,12 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         SpecialNatClass type_ = new SpecialNatClass(TYPE_UNSELECTED_RADIO, fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_UNSELECTED_RADIO, type_);
     }
-    @Override
-    public void beforeDisplaying(Struct _arg) {
-        ((PokemonBeanStruct) _arg).getBean().beforeDisplaying();
-    }
 
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         StringMapObject stringMapObject_ = new StringMapObject();
-        if (_bean instanceof PokemonBeanStruct&&((PokemonBeanStruct) _bean).getBean() instanceof WithForms) {
-            stringMapObject_ = ((WithForms)((PokemonBeanStruct) _bean).getBean()).getForms();
-        }
+        stringMapObject_.putAllMapBase(_bean);
         String currentBeanName_;
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
@@ -1662,16 +1656,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         int i_ = 0;
         for (EntryCust<String,Short> e: _map.entryList()){
             PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ShortStruct(e.getValue()));
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
-    }
-    public static ArrayStruct getStrInteger(AbsMap<String, Integer> _map) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
-        int i_ = 0;
-        for (EntryCust<String,Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }

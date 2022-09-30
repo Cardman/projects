@@ -16,6 +16,7 @@ public class BeanThree extends Bean {
     @Override
     public void beforeDisplaying() {
         setClassName("code.formathtml.classes.BeanTwo");
+        SampleBeanStruct.spec(this);
     }
 
     public int getInteger() {

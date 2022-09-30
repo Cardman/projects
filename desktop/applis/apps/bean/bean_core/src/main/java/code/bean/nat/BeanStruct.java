@@ -10,7 +10,14 @@ public abstract class BeanStruct extends CommNatStruct {
         bean = _bean;
     }
 
+    public StringMapObjectBase getForms() {
+        return getBean().getBaseForms();
+    }
     public Bean getBean() {
         return bean;
+    }
+
+    public void beforeDisplaying() {
+        getBean().beforeDisplaying();
     }
 }

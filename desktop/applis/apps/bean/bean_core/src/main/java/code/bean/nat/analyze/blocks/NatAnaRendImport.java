@@ -1,10 +1,10 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.AbstractNatImpLgNames;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.errors.RendKeyWords;
 import code.sml.Element;
 import code.util.CustList;
@@ -28,7 +28,7 @@ public final class NatAnaRendImport extends NatAnaRendParentBlock implements Nat
     }
 
     @Override
-    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultText res_ = new NatResultText();
         RendKeyWords rendKeyWords_ = _anaDoc.getRendKeyWords();
         String pageName_ = elt.getAttribute(rendKeyWords_.getAttrPage());

@@ -1,8 +1,8 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
@@ -18,7 +18,7 @@ public final class NatAnaRendSpan extends NatAnaRendElement {
         super(_elt);
     }
 
-    void span(Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void span(Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
         String id_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));

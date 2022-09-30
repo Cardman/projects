@@ -1,8 +1,8 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
@@ -16,7 +16,7 @@ public final class NatAnaRendImg extends NatAnaRendElement {
         super(_elt);
     }
 
-    void img(Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void img(Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultText res_ = new NatResultText();
         String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrSrc());
         res_.buildAna(pageName_, _anaDoc, _page);

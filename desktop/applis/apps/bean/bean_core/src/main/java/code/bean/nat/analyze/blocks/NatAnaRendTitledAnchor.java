@@ -1,8 +1,8 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;
@@ -21,7 +21,7 @@ public final class NatAnaRendTitledAnchor extends NatAnaRendElement {
         super(_elt);
     }
 
-    void titled(Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void titled(Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         roots = new CustList<NatOperationNode>();
         NatResultText res_ = NatResultText.buildAnchor(_read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();

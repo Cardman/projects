@@ -1,11 +1,12 @@
 package code.formathtml.sample;
 
-import code.bean.*;
-import code.bean.nat.*;
+import code.bean.Bean;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.BeanStruct;
+import code.bean.nat.StringMapObjectBase;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class SampleBeanStruct extends BeanStruct {
 
@@ -19,13 +20,13 @@ public final class SampleBeanStruct extends BeanStruct {
         setTypedShort((short) 0);
         getMap().put("ONE",1);
         getMap().put("TWO",2);
+        getOthers().addEntry("",new BeanThree());
     }
-    public void beforeDisplaying() {
-        if (getBean().getBaseForms().getValStr(TYPED_STRING) == null) {
-            getBean().getBaseForms().put(TYPED_STRING,"TYPED_STRING");
-        } else {
-            getBean().getBaseForms().put(TYPED_STRING, StringUtil.concatNbs(getBean().getBaseForms().getValStr(TYPED_STRING),2));
-        }
+
+    static void spec(Bean _bean) {
+        String retr_ = _bean.getBaseForms().getValStr(TYPED_STRING);
+        String res_ = BeanNatCommonLgNames.safe(retr_, "TYPED_STRING", 2);
+        _bean.getBaseForms().put(TYPED_STRING,res_);
     }
 
     public String go() {
@@ -74,9 +75,6 @@ public final class SampleBeanStruct extends BeanStruct {
         getBean().getBaseForms().put(TYPED_STRING,_v);
     }
 
-    public StringMapObjectBase getForms() {
-        return getBean().getBaseForms();
-    }
 
     public void setForms(StringMapObjectBase _v) {
         this.getBean().setBaseForms(_v);

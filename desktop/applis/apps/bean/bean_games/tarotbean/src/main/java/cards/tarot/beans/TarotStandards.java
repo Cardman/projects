@@ -268,12 +268,8 @@ public final class TarotStandards extends BeanNatCommonLgNames {
         fields_.add( new StandardField(MISERES, TYPE_LIST, false, false,new RulesTarotBeanMiseres(),null));
         getStds().addEntry(TYPE_RULES_TAROT_BEAN, std_);
     }
-@Override
-    public void beforeDisplaying(Struct _arg) {
-        ((TarotBeanStruct)_arg).getBean().beforeDisplaying();
-    }
 
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);

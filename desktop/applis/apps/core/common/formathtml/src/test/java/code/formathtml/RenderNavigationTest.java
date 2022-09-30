@@ -288,7 +288,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -346,7 +345,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -399,7 +397,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -455,7 +452,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -510,7 +506,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -565,7 +560,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -621,7 +615,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page4.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -681,7 +674,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -737,7 +729,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html#sampleName","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -795,7 +786,6 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int,$int)","val1", "page2.html","val2", "page3.html");
         Navigation nav1_ = a_.getNavigation();
 
@@ -6217,10 +6207,6 @@ public final class RenderNavigationTest extends CommonRender {
         assertTrue(initSessionFail(locale_, folder_, relative_, files_, new StringMap<String>(), "page", "pkg.BeanOne"));
     }
 
-    private static void initNav(StringMap<StringMap<String>> _nav) {
-//        StringMap<StringMap<String>> sub_ = new StringMap<StringMap<String>>();
-//        _nav.addEntry("bean_one", sub_);
-    }
     private static void lg(StringMap<StringMap<String>> _nav, String _d, String _key1, String _value1, String _key2, String _value2) {
         StringMap<String> v_ = new StringMap<String>();
         v_.addEntry(_key1,_value1);

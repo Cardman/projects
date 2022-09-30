@@ -1,8 +1,8 @@
 package code.bean.help.analyze.blocks;
 
 import code.bean.help.analyze.HelpResultText;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.*;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
@@ -18,7 +18,7 @@ public abstract class HelpAnaRendElement extends NatAnaRendParentBlock implement
     }
 
     @Override
-    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String prefixWrite_ = _anaDoc.getPrefix();
         StringList attributesNames_ = NatAnaRendElement.buildAttrNames(_anaDoc,read);
         String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
@@ -32,7 +32,7 @@ public abstract class HelpAnaRendElement extends NatAnaRendParentBlock implement
         }
     }
 
-    protected abstract void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page);
+    protected abstract void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page);
 
     public final Element getRead() {
         return read;

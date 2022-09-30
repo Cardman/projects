@@ -1,8 +1,8 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -19,12 +19,12 @@ public final class NatAnaRendInput extends NatAnaRendElement {
         radio = _radio;
     }
 
-    void input(Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void input(Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         processAnaInput(_read, _anaDoc, _page);
         removeAttrs(_list, _anaDoc);
     }
 
-    private static void removeAttrs(StringList _ls, AnalyzingDoc _anaDoc) {
+    private static void removeAttrs(StringList _ls, NatAnalyzingDoc _anaDoc) {
         _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
         _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
         _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
@@ -38,7 +38,7 @@ public final class NatAnaRendInput extends NatAnaRendElement {
         _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
     }
 
-    void processAnaInput(Element _read, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    void processAnaInput(Element _read, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultInput r_ = new NatResultInput();
         r_.build(_read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
         resultInput = r_;

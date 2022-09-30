@@ -3,6 +3,7 @@ package code.bean.help;
 import code.bean.help.analyze.blocks.HelpAnaRendBlockHelp;
 import code.bean.help.fwd.HelpRendForwardInfos;
 import code.bean.nat.NatDualConfigurationContext;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
@@ -13,7 +14,6 @@ import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
@@ -43,7 +43,7 @@ public final class HelpCaller {
         _navigation.setFiles(files_);
         NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
         Configuration conf_ = _navigation.getSession();
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
         StringMap<BeanInfo> beansInfos_ = new StringMap<BeanInfo>();
         conf_.getBeansInfos().addAllEntries(beansInfos_);
         analyzingDoc_.setLanguages(_navigation.getLanguages());
@@ -64,7 +64,7 @@ public final class HelpCaller {
         return rendStackCall_.getDocument();
     }
 
-    public static void buildFctInstructions(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public static void buildFctInstructions(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         _doc.setBeanName(_doc.getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
         _page.setGlobalType(AnaFormattedRootBlock.defValue());
         AnaRendBlockHelp.loop(_doc, _anaDoc, _page);

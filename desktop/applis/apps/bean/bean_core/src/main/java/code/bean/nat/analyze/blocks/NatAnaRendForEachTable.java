@@ -1,11 +1,11 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringMap;
 
 public final class NatAnaRendForEachTable extends NatAnaRendParentBlock implements NatRendBuildEl {
@@ -38,12 +38,12 @@ public final class NatAnaRendForEachTable extends NatAnaRendParentBlock implemen
     }
 
     @Override
-    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         buildEl(_anaDoc, _page);
         putVariable(_page);
     }
 
-    public void buildEl(AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildEl(NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         importedClassNameFirst = classNameFirst;
         importedClassNameSecond = classNameSecond;
         root = NatRenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);

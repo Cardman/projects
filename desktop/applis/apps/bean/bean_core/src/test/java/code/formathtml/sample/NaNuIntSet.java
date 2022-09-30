@@ -9,10 +9,10 @@ public final class NaNuIntSet implements NatCaller {
     @Override
     public Struct re(Struct _instance, Struct[] _args) {
         SampleBeanStruct i_ = ((SampleBeanStruct)_instance);
-        if (_args[0]== NullStruct.NULL_VALUE) {
-            i_.setNullableInt(RateStruct.convertToRate(null));
-            return(NullStruct.NULL_VALUE);
-        }
+//        if (_args[0]== NullStruct.NULL_VALUE) {
+//            i_.setNullableInt(RateStruct.convertToRate(null));
+//            return(NullStruct.NULL_VALUE);
+//        }
         i_.setNullableInt(RateStruct.convertToRate(_args[0]));
         return(NullStruct.NULL_VALUE);
     }

@@ -1,10 +1,10 @@
 package code.bean.nat.analyze.instr;
 
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.StackOperators;
 import code.expressionlanguage.common.StringExpUtil;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.maths.litteralcom.StrTypes;
 import code.util.Ints;
 import code.util.core.IndexConstants;
@@ -35,12 +35,12 @@ public final class NatElResolver {
     private NatElResolver() {
     }
 
-    public static NatDelimiters checkSyntax(String _string, int _elOffest, AnalyzingDoc _anaDoc) {
+    public static NatDelimiters checkSyntax(String _string, int _elOffest, NatAnalyzingDoc _anaDoc) {
         NatDelimiters d_ = new NatDelimiters();
         return commonCheck(_string, _elOffest, d_,_anaDoc);
     }
 
-    private static NatDelimiters commonCheck(String _string, int _minIndex, NatDelimiters _d, AnalyzingDoc _anaDoc) {
+    private static NatDelimiters commonCheck(String _string, int _minIndex, NatDelimiters _d, NatAnalyzingDoc _anaDoc) {
 
         StackOperators parsBrackets_;
         parsBrackets_ = new StackOperators();
@@ -66,7 +66,7 @@ public final class NatElResolver {
         return _d;
     }
 
-    private static int processAfterInstuctionKeyWord(String _string, AnalyzingDoc _anaDoc, int _nextIndex) {
+    private static int processAfterInstuctionKeyWord(String _string, NatAnalyzingDoc _anaDoc, int _nextIndex) {
         if (_anaDoc.isInternGlobal() && StringExpUtil.startsWithKeyWord(_string, _nextIndex, NatRenderAnalysis.INTERN)) {
             int afterSuper_ = _nextIndex + NatRenderAnalysis.INTERN.length();
             return _string.indexOf('.', afterSuper_);

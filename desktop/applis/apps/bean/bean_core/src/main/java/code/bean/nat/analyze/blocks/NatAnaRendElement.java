@@ -1,7 +1,7 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultText;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.sml.NamedNodeMap;
 import code.util.StringList;
@@ -18,7 +18,7 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
     }
 
     @Override
-    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String prefixWrite_ = _anaDoc.getPrefix();
         StringList attributesNames_ = buildAttrNames(_anaDoc, read);
         String id_ = read.getAttribute(_anaDoc.getRendKeyWords().getAttrId());
@@ -62,7 +62,7 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
         }
     }
 
-    public static StringList buildAttrNames(AnalyzingDoc _anaDoc, Element _read) {
+    public static StringList buildAttrNames(NatAnalyzingDoc _anaDoc, Element _read) {
         StringList attributesNames_ = new StringList();
         NamedNodeMap mapAttr_ = _read.getAttributes();
         int nbAttrs_ = mapAttr_.getLength();

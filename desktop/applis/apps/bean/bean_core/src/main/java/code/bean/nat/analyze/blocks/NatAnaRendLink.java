@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.formathtml.analyze.AnalyzingDoc;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
@@ -12,7 +12,7 @@ public final class NatAnaRendLink extends NatAnaRendElement {
         super(_elt);
     }
 
-    void link(Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    void link(Element _read, StringList _list, NatAnalyzingDoc _anaDoc) {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrRel());
         String href_ = AnaRendBlockHelp.getCssHref(_read, _anaDoc.getRendKeyWords());

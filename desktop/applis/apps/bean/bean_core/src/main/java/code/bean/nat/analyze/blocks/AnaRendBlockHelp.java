@@ -2,12 +2,12 @@ package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.structs.BeanInfo;
@@ -28,7 +28,7 @@ public final class AnaRendBlockHelp {
     private AnaRendBlockHelp() {
     }
 
-    public static void buildFctInstructions(NatAnaRendDocumentBlock _doc,AnalyzingDoc _anaDoc, NatAnalyzedCode _page, StringMap<BeanInfo> _beansInfosBefore) {
+    public static void buildFctInstructions(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page, StringMap<BeanInfo> _beansInfosBefore) {
         _doc.setBeanName(_doc.getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
         String clName_ = _beansInfosBefore.getVal(_doc.getBeanName()).getResolvedClassName();
         AnaFormattedRootBlock globalType_ = new AnaFormattedRootBlock((RootBlock) null, clName_);
@@ -36,7 +36,7 @@ public final class AnaRendBlockHelp {
         loop(_doc, _anaDoc, _page);
     }
 
-    public static void loop(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public static void loop(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatAnaRendBlock enNat_ = _doc;
         while (true) {
             NatAnaRendBlock n_ = enNat_.getFirstChild();
@@ -72,7 +72,7 @@ public final class AnaRendBlockHelp {
             ((NatAnaRendForEachTable)_par).removeVars(_infosVars, _loopsVars);
         }
     }
-    public static StringMap<String> getPre(String _value, AnalyzingDoc _analyzingDoc) {
+    public static StringMap<String> getPre(String _value, NatAnalyzingDoc _analyzingDoc) {
         StringList elts_ = StringUtil.splitStrings(_value, AnaRendBlock.COMMA);
         String var_ = elts_.first();
         String fileName_ = getProperty(var_, _analyzingDoc);
@@ -88,7 +88,7 @@ public final class AnaRendBlockHelp {
         return pres_;
     }
 
-    static String getProperty(String _key, AnalyzingDoc _anaDoc) {
+    static String getProperty(String _key, NatAnalyzingDoc _anaDoc) {
         return _anaDoc.getProperties().getVal(_key);
     }
 
@@ -269,7 +269,7 @@ public final class AnaRendBlockHelp {
         return varLoc_;
     }
 
-    public static String tryGetContent(String _loc, String _relative, StringMap<String> _files, AnalyzingDoc _anaDoc) {
+    public static String tryGetContent(String _loc, String _relative, StringMap<String> _files, NatAnalyzingDoc _anaDoc) {
         String folder_ = _anaDoc.getMessagesFolder();
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
         return _files.getVal(fileName_);

@@ -1,5 +1,6 @@
 package code.bean.nat;
 
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
@@ -24,8 +25,6 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
-import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.util.BeanLgNames;
@@ -67,8 +66,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     protected static final char SEP_ARGS = ',';
     protected static final char END_ARGS = ')';
 
-    private static final String SEPARATOR_PATH = "/";
-    private static final String IMPLICIT_LANGUAGE = "//";
     private final StringMap<String> iterables = new StringMap<String>();
     private final StringMap<Validator> validators = new StringMap<Validator>();
     private final StringMap<Struct> beansStruct = new StringMap<Struct>();
@@ -84,17 +81,61 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         super(new DefaultGenerator());
     }
 
+    public static IntStruct sum(Struct[] _args) {
+        int s_ = 0;
+        for (Struct s: _args) {
+            s_ += NumParsers.convertToNumber(s).intStruct();
+        }
+        return new IntStruct(s_);
+    }
+
+    public static String safe(String _ret, String _def, int _nb) {
+        String ret_ = StringUtil.nullToEmpty(_ret);
+        String res_;
+        if (ret_.isEmpty()) {
+            res_ = StringUtil.nullToEmpty(_def);
+        } else {
+            res_ = StringUtil.concatNbs(ret_, _nb);
+        }
+        return res_;
+    }
+
+    public static Message err(Struct _value) {
+        if (!(_value instanceof StringStruct)) {
+            //Long or Boolean
+            Message message_ = new Message();
+//            if (_value instanceof BooleanStruct) {
+//                message_.setArgs("");
+//            } else {
+//                message_.setArgs(Long.toString(NumParsers.convertToNumber(_value).longStruct()));
+//            }
+            message_.setArgs(Long.toString(NumParsers.convertToNumber(_value).longStruct()));
+            message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
+            return message_;
+        }
+        Message message_ = new Message();
+        message_.setArgs(((StringStruct) _value).getInstance());
+        message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
+        return message_;
+//        if (!Rate.isValid(((StringStruct) _value).getInstance())) {
+//            Message message_ = new Message();
+//            message_.setArgs(((StringStruct) _value).getInstance());
+//            message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
+//            return message_;
+//        }
+//        Message message_ = new Message();
+//        message_.setArgs(((StringStruct) _value).getInstance());
+//        message_.setContent(StringUtil.simpleStringsFormat("{0} is unacceptable", message_.getArgs()));
+//        return message_;
+    }
+
     public String getRes(NatDocumentBlock _rend, Configuration _conf, NatRendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().initFormsSpec();
         String beanName_ = _rend.getBeanName();
         Struct bean_ = beansStruct.getVal(beanName_);
         _rendStackCall.setMainBean(bean_);
-        NatRendImport.beforeDisp(bean_, this);
+        NatRendImport.beforeDisp(bean_);
         return RendBlockHelp.res(_rend, _conf, _rendStackCall, beanName_, bean_);
-    }
-
-    public static String getRealFilePath(String _lg, String _link) {
-        return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
 
     protected static boolean isPartOfArgument(char _char) {
@@ -113,8 +154,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
 
     public abstract void buildOther();
-
-    public abstract void beforeDisplaying(Struct _arg);
 
     public void preInitBeans(Configuration _conf) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
@@ -405,11 +444,18 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         _rendStack.clearPages();
         Configuration session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
-        String res_ = processAfterInvoke(session_, _actionCommand, _currentBeanName, _bean, lg_, _rendStack);
+        String res_ = processAfterInvoke(session_, _actionCommand, _currentBeanName, form(_bean), lg_, _rendStack);
         setCurrentBeanName(_rendStack.getBeanName());
         setCurrentUrl(_actionCommand);
         _nav.setupText(res_, this, _rendStack.getDocument());
         setNatPage(_rendStack.getHtmlPage());
+    }
+
+    static StringMapObjectBase form(Struct _bean) {
+        if (_bean instanceof BeanStruct) {
+            return ((BeanStruct)_bean).getForms();
+        }
+        return new StringMapObjectBase();
     }
 
     public StringMap<StringMap<String>> getNavigation() {
@@ -470,7 +516,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return str_;
     }
 
-    protected abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack);
+    protected abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack);
 
 //    @Override
 //    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
@@ -511,7 +557,16 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         return arr_;
     }
-
+    public static ArrayStruct getStrInteger(AbsMap<String, Integer> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
+        int i_ = 0;
+        for (EntryCust<String,Integer> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
     public static Struct getStructToBeValidatedPrim(StringList _values, String _className) {
         if (StringUtil.quickEq(_className,PRIM_BOOLEAN)) {
             return BooleanStruct.of(StringUtil.quickEq(_values.first(),ON));
@@ -589,13 +644,11 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
     public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, AbstractNatBlockBuilder _builder, NatDualConfigurationContext _context) {
         setNavigation(_context.getNavigation());
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        analyzingDoc_.setContent(this);
+        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
         StringMap<BeanInfo> beansInfos_ = new StringMap<BeanInfo>();
         initInstancesPattern(_nav.getSession(), beansInfos_);
         _conf.getBeansInfos().addAllEntries(beansInfos_);
         preInitBeans(_nav.getSession());
-        analyzingDoc_.setRendAnalysisMessages(new RendAnalysisMessages());
         analyzingDoc_.setLanguages(_nav.getLanguages());
         _nav.getSession().setCurrentLanguage(_nav.getLanguage());
 

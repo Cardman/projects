@@ -1,11 +1,11 @@
 package code.bean.help.analyze.blocks;
 
 import code.bean.help.analyze.HelpResultText;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnaRendLeaf;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.blocks.NatRendBuildEl;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
 public final class HelpAnaRendText extends NatAnaRendLeaf implements NatRendBuildEl {
@@ -18,7 +18,7 @@ public final class HelpAnaRendText extends NatAnaRendLeaf implements NatRendBuil
     }
 
     @Override
-    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         HelpResultText res_ = new HelpResultText();
         res_.buildAna(expression);
         texts = res_.getTexts();

@@ -15,5 +15,6 @@ public class BeanOne extends Bean {
     @Override
     public void beforeDisplaying() {
         setClassName("code.formathtml.classes.BeanOne");
+        SampleBeanStruct.spec(this);
     }
 }

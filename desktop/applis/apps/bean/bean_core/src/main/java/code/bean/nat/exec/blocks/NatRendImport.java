@@ -2,6 +2,7 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.BeanStruct;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.structs.Struct;
@@ -41,7 +42,7 @@ public final class NatRendImport extends NatParentBlock {
             BeanNatCommonLgNames.getAllArgs(l, _rendStack);
             ip_.setInternGlobal(null);
         }
-        beforeDisp(newBean_, (BeanNatCommonLgNames) natImpLgNames);
+        beforeDisp(newBean_);
         NatImportingPage newIp_ = newImportingPage(ip_, val_, beanName_, _rendStack.getFormParts());
         newIp_.setGlobalArgumentStruct(newBean_);
         NatIfStack if_ = new NatIfStack();
@@ -65,10 +66,10 @@ public final class NatRendImport extends NatParentBlock {
         newIp_.setRendReadWrite(rwLoc_);
         return newIp_;
     }
-    public static void beforeDisp(Struct _arg, BeanNatCommonLgNames _advStandards) {
-        if (_arg == null) {
+    public static void beforeDisp(Struct _arg) {
+        if (!(_arg instanceof BeanStruct)) {
             return;
         }
-        _advStandards.beforeDisplaying(_arg);
+        ((BeanStruct)_arg).beforeDisplaying();
     }
 }

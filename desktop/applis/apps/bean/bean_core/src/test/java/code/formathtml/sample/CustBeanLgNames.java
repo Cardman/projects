@@ -1,16 +1,14 @@
 package code.formathtml.sample;
 
+import code.bean.Bean;
 import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
-import code.bean.nat.exec.opers.NatStdFctOperation;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
@@ -806,29 +804,24 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         methods_.add( method_);
         getStds().addEntry(TYPE_SIMPLE_DATA_BASE, cl_);
     }
-    @Override
-    public void beforeDisplaying(Struct _arg) {
-        ((SampleBeanStruct)_arg).beforeDisplaying();
-    }
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
+
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         StringMapObjectBase forms_ = new StringMapObjectBase();
         forms_.put("typedShort",0);
-        if (_bean instanceof SampleBeanStruct) {
-            forms_ = ((SampleBeanStruct)_bean).getForms();
-        }
+        forms_.putAllMapBase(_bean);
         String currentBeanName_;
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
-        if (bean_ instanceof SampleBeanStruct) {
-            StringMap<Integer> oldMap_ = ((SampleBeanStruct) bean_).getMap();
-            NatStringTreeMap<Integer> oldTree_ = ((SampleBeanStruct) bean_).getTree();
-            ((SampleBeanStruct) bean_).setForms(forms_);
-            ((SampleBeanStruct) bean_).getMap().addAllEntries(oldMap_);
-            ((SampleBeanStruct) bean_).getTree().addAllEntries(oldTree_);
-        }
+        StringMap<Integer> oldMap_ = ((SampleBeanStruct) bean_).getMap();
+        StringMap<Bean> others_ = ((SampleBeanStruct) bean_).getOthers();
+        NatStringTreeMap<Integer> oldTree_ = ((SampleBeanStruct) bean_).getTree();
+        ((SampleBeanStruct) bean_).setForms(forms_);
+        ((SampleBeanStruct) bean_).getMap().addAllEntries(oldMap_);
+        ((SampleBeanStruct) bean_).getTree().addAllEntries(oldTree_);
+        ((SampleBeanStruct) bean_).getOthers().addAllEntries(others_);
         _rendStack.clearPages();
         return getRes(rendDocumentBlock_,_conf, _rendStack);
     }
@@ -841,46 +834,35 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         forms_.putAllMapBase(formsMap_);
     }
 
-    public Struct getOtherResultBean(ConstructorId _method, Struct... _args) {
-        String className_ = _method.getName();
-        if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
+    public SampleBeanStruct getOtherResultBean(String _cl) {
+        if (StringUtil.quickEq(_cl,TYPE_BEAN_ONE)) {
             BeanOne bean_ = new BeanOne();
             bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
             bean_.getBaseForms().put("typedShort",0);
             return(new SampleBeanStruct(bean_));
         }
-        if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
-            BeanTwo bean_ = new BeanTwo();
-            bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
-            bean_.getBaseForms().put("typedShort",0);
-            return(new SampleBeanStruct(bean_));
-        }
-        return NullStruct.NULL_VALUE;
+        BeanTwo bean_ = new BeanTwo();
+        bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
+        bean_.getBaseForms().put("typedShort",0);
+        return(new SampleBeanStruct(bean_));
     }
 
     protected Struct newSimpleBean(String _language, BeanInfo _bean) {
-        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
-        Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));
-        Struct strBean_ = getOtherResultBean(id_, args_);
-        return update((SampleBeanStruct) strBean_);
+        SampleBeanStruct strBean_ = getOtherResultBean(_bean.getResolvedClassName());
+        return update(strBean_);
     }
 
     private SampleBeanStruct update(SampleBeanStruct _str) {
         StringMap<Integer> old_ = _str.getMap();
+        StringMap<Bean> others_ = _str.getOthers();
         _str.setForms(new StringMapObjectBase());
         _str.setTypedShort((short) 0);
         _str.getMap().addAllEntries(old_);
+        _str.getOthers().addAllEntries(others_);
         return _str;
     }
 
     public static ArrayStruct getTree(AbsMap<String, Integer> _tree) {
-        ArrayStruct arr_ = new ArrayStruct(_tree.size(),StringExpUtil.getPrettyArrayType(OBJECT));
-        int i_ = 0;
-        for (EntryCust<String,Integer> e: _tree.entryList()){
-            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
+        return getStrInteger(_tree);
     }
 }

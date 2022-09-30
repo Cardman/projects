@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.formathtml.analyze.AnalyzingDoc;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.EntryCust;
@@ -14,7 +14,7 @@ public final class NatAnaRendSubmit extends NatAnaRendElement {
         super(_elt);
     }
 
-    void submit(Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+    void submit(Element _read, StringList _list, NatAnalyzingDoc _anaDoc) {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrMessage());
         String value_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrMessage());
         preformatted = AnaRendBlockHelp.getPre(value_, _anaDoc);

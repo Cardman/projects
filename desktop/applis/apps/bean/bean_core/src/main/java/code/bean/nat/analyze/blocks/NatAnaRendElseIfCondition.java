@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.formathtml.analyze.AnalyzingDoc;
+import code.bean.nat.analyze.NatAnalyzingDoc;
 
 public final class NatAnaRendElseIfCondition extends NatAnaRendCondition {
     NatAnaRendElseIfCondition(String _condition) {
@@ -8,7 +8,7 @@ public final class NatAnaRendElseIfCondition extends NatAnaRendCondition {
     }
 
     @Override
-    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         buildConditions(_anaDoc, _page);
     }
 
