@@ -47,7 +47,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     @Test
     public void bases() {
         CustBeanLgNames lgNames_ = stds();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         Configuration conf_ = conf_("c:");
         NatAnalyzedCode init_ = init(lgNames_);
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, conf_, lgNames_, init, new NatDualConfigurationContext());
@@ -801,7 +801,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
         NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
-        Forwards forwards_ = nat_.getForwards();
+        nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
@@ -832,7 +832,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
         NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
-        Forwards forwards_ = nat_.getForwards();
+        nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
@@ -864,7 +864,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
         NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
-        Forwards forwards_ = nat_.getForwards();
+        nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
@@ -896,7 +896,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
         NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
-        Forwards forwards_ = nat_.getForwards();
+        nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
@@ -929,7 +929,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
         NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
-        Forwards forwards_ = nat_.getForwards();
+        nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
@@ -984,7 +984,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Configuration conf_ = conf_("c");
         CustBeanLgNames lgNames_ = stds();
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         init(lgNames_);
         conf_.setFirstUrl("page2.html");
         dual_.getRenderFiles().add("page1.html");
@@ -1024,7 +1024,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Configuration conf_ = conf_("c");
         CustBeanLgNames lgNames_ = stds();
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         init(lgNames_);
         conf_.setFirstUrl("page2.html");
         dual_.getRenderFiles().add("page1.html");
@@ -1129,7 +1129,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1230,7 +1230,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         NatAnalyzedCode init_ = init(lgNames_);
 
         config_.setFirstUrl("page1.html");
@@ -1272,7 +1272,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         v2_.setTypedString("TITLE");
         CustBeanLgNames lgNames_ = stds();
         NatAnalyzedCode init_ = init(lgNames_);
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
         setupNative(folder_, relative_, dual_);
         Configuration configuration_ = conf_("c:");
@@ -1302,7 +1302,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanOne beanTwo_ = new BeanOne();
         CustBeanLgNames lgNames_ = stds();
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         Configuration config_ = conf_("c:");
 
 
@@ -1357,7 +1357,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1413,7 +1413,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1478,7 +1478,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1542,7 +1542,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1669,7 +1669,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1724,7 +1724,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1779,7 +1779,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1839,7 +1839,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1894,7 +1894,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1949,7 +1949,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -2058,7 +2058,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -2113,7 +2113,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -2169,7 +2169,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -2240,7 +2240,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -2400,7 +2400,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
         NatAnalyzedCode initNat_ = init(lgNames_);
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
 
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(lgNames_);
@@ -2424,7 +2424,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Configuration con_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
         NatAnalyzedCode init_ = init(lgNames_);
-        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //new Forwards(lgNames_, null, new Options()).generate();
 
         setupNative2(_folder, _relative, dual_);
         putBean("bean_one", _v, lgNames_);

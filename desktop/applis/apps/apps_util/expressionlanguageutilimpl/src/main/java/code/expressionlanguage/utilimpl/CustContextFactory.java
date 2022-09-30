@@ -29,34 +29,34 @@ public final class CustContextFactory {
                                                     Options _options, ExecutingOptions _exec, LgNamesWithNewAliases _undefinedLgNames, StringMap<String> _files) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
-        if (!_lang.isEmpty()) {
-            _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
-            _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
-            _undefinedLgNames.getCustAliases().otherAlias(_undefinedLgNames.getContent(),_lang,_exec.getAliases());
-        } else {
-            _undefinedLgNames.getCustAliases().messages(mess_, _exec.getMessages(), new StringMap<String>());
-            _undefinedLgNames.getCustAliases().keyWord(kwl_, _exec.getKeyWords(), new StringMap<String>());
-            _undefinedLgNames.getCustAliases().allAlias(_undefinedLgNames.getContent(),_exec.getAliases(), new StringMap<String>());
-        }
-        _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
+        preinit(_lang, _options, _exec, mess_, kwl_, _undefinedLgNames);
         return build(_options, _exec,mess_,kwl_, _undefinedLgNames, _files);
     }
     public static void executeDefKw(String _lang,
                                     Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesUtils _stds) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
-        if (!_lang.isEmpty()) {
-            _stds.getCustAliases().messages(mess_, _lang, _exec.getMessages());
-            _stds.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
-            _stds.getCustAliases().otherAlias(_stds.getContent(),_lang,_exec.getAliases());
-        } else {
-            _stds.getCustAliases().messages(mess_, _exec.getMessages(), new StringMap<String>());
-            _stds.getCustAliases().keyWord(kwl_, _exec.getKeyWords(), new StringMap<String>());
-            _stds.getCustAliases().allAlias(_stds.getContent(),_exec.getAliases(), new StringMap<String>());
-        }
-        _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
+        preinit(_lang, _options, _exec, mess_, kwl_, _stds);
         execute(_options,_exec,mess_,kwl_, _stds,_files,_progressingTests);
     }
+
+    private static void preinit(String _lang, Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesWithNewAliases _aliases) {
+        preinitAliases(_lang, _exec, _mess, _kwl, _aliases);
+        _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
+    }
+
+    public static void preinitAliases(String _lang, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesWithNewAliases _aliases) {
+        if (!_lang.isEmpty()) {
+            _aliases.getCustAliases().messages(_mess, _lang, _exec.getMessages());
+            _aliases.getCustAliases().keyWord(_kwl, _lang, _exec.getKeyWords());
+            _aliases.getCustAliases().otherAlias(_aliases.getContent(), _lang, _exec.getAliases());
+        } else {
+            _aliases.getCustAliases().messages(_mess, _exec.getMessages(), new StringMap<String>());
+            _aliases.getCustAliases().keyWord(_kwl, _exec.getKeyWords(), new StringMap<String>());
+            _aliases.getCustAliases().allAlias(_aliases.getContent(), _exec.getAliases(), new StringMap<String>());
+        }
+    }
+
     public static void execute(Options _options, ExecutingOptions _exec,
                                AnalysisMessages _mess,
                                KeyWords _definedKw,
@@ -114,8 +114,8 @@ public final class CustContextFactory {
         _definedLgNames.setExecutingOptions(_exec);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         CustFileBuilder fileBuilder_ = CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases());
-        Forwards forwards_ = new Forwards(_definedLgNames, fileBuilder_, _options);
-        page_.setLogErr(forwards_.getGenerator());
+        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
+        page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);

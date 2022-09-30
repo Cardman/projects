@@ -1,6 +1,5 @@
 package code.bean.nat;
 
-import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 
 public final class NativeConfigurationLoader {
@@ -12,8 +11,8 @@ public final class NativeConfigurationLoader {
         init = _init;
     }
 
-    public Forwards getForwards() {
-        return stds.setupNative(stds.getNatCode());
+    public void getForwards() {
+        stds.setupNative(stds.getNatCode());
     }
 
     public NatDualConfigurationContext getDualConfigurationContext(Configuration _configuration) {

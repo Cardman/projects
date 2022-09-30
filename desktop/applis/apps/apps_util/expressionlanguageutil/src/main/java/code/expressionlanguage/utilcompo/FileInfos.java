@@ -27,6 +27,12 @@ public final class FileInfos {
         DefaultUniformingString uniformingString_ = new DefaultUniformingString();
         return new FileInfos(new MemoryLogger(_nameValidating,_issuer, _threadFactory),new MemoryFileSystem(uniformingString_,_nameValidating, _threadFactory),new MemoryReporter(_mem.getConf(), _mem.getSrc(), _mem.getFiles(), _nameValidating, uniformingString_, _zipFact, _threadFactory),_generator, _zipFact, _threadFactory);
     }
+    public void tryLogIssue(String _info) {
+        AbstractIssuer issuer_ = logger.getIssuer();
+        if (issuer_ != null) {
+            issuer_.log(_info);
+        }
+    }
 
     public AbstractLogger getLogger() {
         return logger;

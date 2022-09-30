@@ -7,8 +7,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -17,7 +15,6 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -2174,14 +2171,14 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
         //        Classes.forwardAndClear(_cont.getContext());
-        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isEmptyErrors(_cont));
 //        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_,_cont.getDualAnalyzedContext().getForwards().getOptions());
         ctx_.setExiting(new NoExiting());
         RendStackCall build_ = buildCall(ctx_);
 //        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
         RendStackCall reuse_ = reuse(ctx_, executableNodes_, build_);
-        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isEmptyErrors(_cont));
         assertNotNull(getException(reuse_));
         return reuse_;
     }
@@ -2276,13 +2273,13 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
-        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isEmptyErrors(_cont));
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getDualAnalyzedContext().getForwards().getOptions());
         ctx_.setExiting(new NoExiting());
         RendStackCall build_ = buildCall(ctx_);
 //        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
         RendStackCall st_ = reuse(ctx_, executableNodes_, build_);
-        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isEmptyErrors(_cont));
         assertNotNull(getException(st_));
         return getException(st_);
     }

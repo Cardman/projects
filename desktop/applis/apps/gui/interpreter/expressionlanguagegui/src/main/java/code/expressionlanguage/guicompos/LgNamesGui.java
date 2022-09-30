@@ -40,6 +40,7 @@ public class LgNamesGui extends LgNamesUtils {
         return guiAliases;
     }
 
+    @Override
     public void buildOther() {
         getCustAliases().buildOther(getContent(), getExecutingBlocks());
         guiAliases.buildOther(getContent(),getCustAliases(),getGuiExecutingBlocks());
@@ -64,27 +65,23 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new EventFunctionalInstance(_className.getFormatted(),_functional,fs_, _contextEl, _named);
+        return newGuiFunctionnal(_contextEl, _className, _functional, _named);
     }
 
     @Override
     public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new EventFunctionalInstance(_className.getFormatted(),_functional,fs_, _contextEl, _named);
+        return newGuiFunctionnal(_contextEl, _className, _functional, _named);
     }
 
-    public void otherAlias(String _lang, StringMap<String> _cust) {
-        getCustAliases().otherAlias(getContent(),_lang,_cust);
+    static EventFunctionalInstance newGuiFunctionnal(ContextEl _contextEl, ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named) {
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+        return new EventFunctionalInstance(_className.getFormatted(), _functional, fs_, _contextEl, _named);
+    }
+
+    public StringMap<String> addon(String _lang) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/aliases", _lang, "typesgui");
         String loadedResourcesMessages_ = guiAliases.res(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        guiAliases.otherAliasGui(util_,_cust);
-    }
-
-    public void allAlias(StringMap<String> _util, StringMap<String> _cust) {
-        getCustAliases().allAlias(getContent(),_util,_cust);
-        guiAliases.otherAliasGui(_util,_cust);
+        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
 
     @Override

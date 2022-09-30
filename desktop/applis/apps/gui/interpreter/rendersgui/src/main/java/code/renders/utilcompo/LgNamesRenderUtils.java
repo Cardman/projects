@@ -1,11 +1,11 @@
 package code.renders.utilcompo;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
@@ -63,6 +63,11 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     }
 
     @Override
+    public void logIssue(String _info, ReportedMessages _rep) {
+        infos.tryLogIssue(_info);
+    }
+
+    @Override
     public void build() {
         buildBase();
         buildOther();
@@ -78,6 +83,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
     }
 
+    @Override
     public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
         return CustAliases.newFunctional(_className, _functional, _named, _contextEl);
     }

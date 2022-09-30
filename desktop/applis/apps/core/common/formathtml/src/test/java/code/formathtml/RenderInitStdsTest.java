@@ -57,8 +57,8 @@ public final class RenderInitStdsTest extends CommonRender {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(b_.getContent(), b_.getBeanAliases());
-        Forwards forwards_ = new Forwards(b_, fileBuilder_, options_);
-        page_.setLogErr(forwards_.getGenerator());
+        Forwards forwards_ = new Forwards(b_,b_, fileBuilder_, options_);
+        page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(am_.allMessages(), page_);
         ContextFactory.validatedStds(forwards_, am_, k_, new CustList<CommentDelimiters>(), options_, b_.getContent(), page_);
         b_.build();
@@ -109,8 +109,8 @@ public final class RenderInitStdsTest extends CommonRender {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(_beanLgNames.getContent(), _beanLgNames.getBeanAliases());
-        Forwards forwards_ = new Forwards(_beanLgNames, fileBuilder_, _opt);
-        page_.setLogErr(forwards_.getGenerator());
+        Forwards forwards_ = new Forwards(_beanLgNames,_beanLgNames, fileBuilder_, _opt);
+        page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validatedStds(forwards_, _mess, _kw, new CustList<CommentDelimiters>(), _opt, _beanLgNames.getContent(), page_);
         _beanLgNames.build();

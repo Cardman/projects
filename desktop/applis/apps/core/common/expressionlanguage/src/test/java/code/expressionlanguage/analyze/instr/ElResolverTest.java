@@ -16,6 +16,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -4812,7 +4813,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     private static AnalyzedPageEl contextEl() {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();

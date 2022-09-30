@@ -5548,7 +5548,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         generalForward(_context);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, all_);
         ContextEl ctx_ = getGenerate(_context);
-        assertTrue(_context.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isAllEmptyErrors(_context));
 //        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, _context.getDualAnalyzedContext().getForwards().getOptions());
         RendStackCall build_ = prepare(ctx_);
@@ -5614,7 +5614,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         generalForward(_context);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, all_);
         ContextEl ctx_ = getGenerate(_context);
-        assertTrue(_context.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isAllEmptyErrors(_context));
 //        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_,_context.getDualAnalyzedContext().getForwards().getOptions());
         return caculateReuse(ctx_,_context, executableNodes_, _localVariables);
@@ -5658,7 +5658,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         generalForward(_conf);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_conf, all_);
         ContextEl ctx_ = getGenerate(_conf);
-        assertTrue(_conf.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isAllEmptyErrors(_conf));
 //        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, _conf.getDualAnalyzedContext().getForwards().getOptions());
         RendStackCall build_ = prepare(ctx_);
@@ -5685,7 +5685,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //        conf_.getAdvStandards().forwardAndClear(conf_.getOpt(), conf_.getForwards());
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(conf_, all_);
         ContextEl ctx_ = getGenerate(conf_);
-        assertTrue(conf_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isAllEmptyErrors(conf_));
 //        ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
         RendStackCall build_ = prepare(ctx_);
 //        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
@@ -5725,7 +5725,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
-        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isAllEmptyErrors(_cont));
 //        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getDualAnalyzedContext().getForwards().getOptions());
         RendStackCall build_ = prepare(ctx_);
@@ -5783,7 +5783,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, an_,d_);
-        assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isAllEmptyErrors(context_));
         generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
@@ -5905,7 +5905,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         OperationsSequence opTwo_ = rendOpSeq(context_, d_, _el, 0, doc_);
         OperationNode op_ = rendOp(0, context_, opTwo_, doc_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, doc_,d_);
-        assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isAllEmptyErrors(context_));
         generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
@@ -5995,7 +5995,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Struct str_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_, _init), "", -1);
         setStruct(str_, _keyField, _value);
         StringMap<LocalVariable> localVariables_ = oneVar(str_, _clasName, _varName);
-        assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertTrue(isAllEmptyErrors(context_));
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
         return caculateReuse(ctx_, context_, all_, localVariables_);
     }

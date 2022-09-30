@@ -7,6 +7,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 import code.util.StringMap;
@@ -3428,7 +3429,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kwl_ = en(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -4625,7 +4626,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     private static AnalyzedPageEl quickValidate(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();

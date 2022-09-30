@@ -175,7 +175,7 @@ public final class MemoryReporter implements AbstractReporter {
     }
     public static void buildError(ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos, String _time) {
         AbstractLogger logger_ = _infos.getLogger();
-        if (!_reportedMessages.isAllEmptyErrors()) {
+        if (_reportedMessages.notAllEmptyErrors()) {
             String folder_ = _exec.getOutput()+_exec.getLogFolder();
             String dtPart_ = _time +".txt";
             logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayErrors());

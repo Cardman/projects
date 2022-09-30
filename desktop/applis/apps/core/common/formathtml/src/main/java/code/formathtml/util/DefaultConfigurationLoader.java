@@ -38,7 +38,7 @@ public final class DefaultConfigurationLoader {
             }
         }
         Options options_ = _context.getOptions();
-        Forwards forwards_ = new Forwards(_stds, _context.getFileBuilder(), options_);
+        Forwards forwards_ = new Forwards(_stds, _stds, _context.getFileBuilder(), options_);
         for (Element c: _document.getDocumentElement().getChildElements()) {
             if (specific(_configuration,_context,c)) {
                 continue;

@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
@@ -15,6 +16,11 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     public void build() {
         buildBase();
         buildOther();
+    }
+
+    @Override
+    public void logIssue(String _info, ReportedMessages _rep) {
+        _rep.notAllEmptyErrors();
     }
 
     @Override

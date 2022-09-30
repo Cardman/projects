@@ -16,6 +16,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -136,7 +137,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExFour", xml_.toString());
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -144,7 +145,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         parseCustomFiles(files_, page_);
         assertTrue( isEmptyErrors(page_));
         validateInheritingClasses(page_);
-        assertTrue( !isEmptyErrors(page_));
+        assertTrue(!isEmptyErrors(page_));
     }
 
 
@@ -1780,7 +1781,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
     private static AnalyzedPageEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -1803,7 +1804,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
     private static boolean invalidValue(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();

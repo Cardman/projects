@@ -250,7 +250,7 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         def_.setUnexpectedLeaf("");
         def_.setCaseTypeVar("");
         def_.setEmptyPart("");
-        LgNames lgName_ = new CustLgNames();
+        CustLgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(lgName_);
@@ -260,7 +260,7 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
     }
     @Test
     public void fail2() {
-        LgNames lgName_ = new CustLgNames();
+        CustLgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
@@ -269,8 +269,8 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
+        Forwards forwards_ = new Forwards(lgName_,lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
         ParsedArgument.buildCustom(opt_, kw_);

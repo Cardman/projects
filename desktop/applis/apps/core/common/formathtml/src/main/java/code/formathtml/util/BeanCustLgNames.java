@@ -31,6 +31,7 @@ import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
@@ -57,7 +58,7 @@ import code.sml.Element;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class BeanCustLgNames extends BeanLgNames {
+public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgNames {
 
     private static final String REF_TAG = "#";
 
@@ -456,7 +457,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         session_.setCurrentLanguage(language_);
         StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, page_, confCont_, blockConf_);
         Classes.postValidate(page_);
-        if (!page_.isEmptyErrors()) {
+        if (page_.notAllEmptyErrors()) {
             return null;
         }
         ForwardInfos.generalForward(page_, forwards_);

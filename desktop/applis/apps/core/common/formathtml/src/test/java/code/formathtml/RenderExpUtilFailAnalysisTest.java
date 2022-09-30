@@ -110,13 +110,13 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
     @Test
     public void processAffect2FailTest() {
         AnalyzedPageEl context_ = getCheckedConfigurationVar("$int", "v=12i 1", new StringMap<String>());
-        assertTrue(!context_.isEmptyErrors());
+        assertFalse(isEmptyErrors(context_));
     }
 
     @Test
     public void processAffect3FailTest() {
         AnalyzedPageEl context_ = getCheckedConfigurationVar(ARR_INT, "v[0i]=\"12i\"", new StringMap<String>());
-        assertTrue(!context_.isEmptyErrors());
+        assertFalse(isEmptyErrors(context_));
     }
     @Test
     public void processEl200Test() {
@@ -298,7 +298,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
     private static boolean hasEr(StringMap<String> _files, String _s) {
         DualNavigationContext a_ = getConfigurationQuick(_files);
         getCheckedConfiguration(a_, _s, new AnalyzingDoc());
-        return !a_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors();
+        return a_.getDualAnalyzedContext().getAnalyzed().notAllEmptyErrors();
     }
 
     private static AnalyzedPageEl getCheckedConfigurationVar(String _intType, String _s, StringMap<String> _files) {

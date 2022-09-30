@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.fwd.blocks.FwdRootBlockMembers;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.BuildableLgNames;
+import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -32,10 +33,12 @@ public final class Forwards {
     private final Coverage coverage;
     private final Classes classes;
     private final BuildableLgNames generator;
+    private final LoggableLgNames loggable;
     private final Options options;
 
-    public Forwards(BuildableLgNames _generator, AbstractFileBuilder _fileBuilder, Options _options) {
+    public Forwards(BuildableLgNames _generator, LoggableLgNames _loggable, AbstractFileBuilder _fileBuilder, Options _options) {
         generator = _generator;
+        loggable = _loggable;
         options = _options;
         constantsCalculator = _generator.newConstantsCalculator();
         coverage = new Coverage(_options.isCovering());
@@ -46,11 +49,15 @@ public final class Forwards {
     }
 
     public ContextEl generate() {
-        return generator.newContext(options, this);
+        return loggable.newContext(options, this);
     }
 
     public Options getOptions() {
         return options;
+    }
+
+    public LoggableLgNames getLoggable() {
+        return loggable;
     }
 
     public BuildableLgNames getGenerator() {

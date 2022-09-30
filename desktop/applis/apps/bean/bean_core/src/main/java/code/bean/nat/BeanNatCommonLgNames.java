@@ -16,13 +16,10 @@ import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
@@ -535,14 +532,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return iterables;
     }
 
-    @Override
-    public ContextEl newContext(Options _opt,Forwards _options) {
-        return null;
-    }
-
-    public Forwards setupNative(NatAnalyzedCode _page) {
-        Options options_ = new Options();
-        Forwards forwards_ = new Forwards(this, null, options_);
+    public void setupNative(NatAnalyzedCode _page) {
         _page.setStds(this);
         //
 
@@ -550,7 +540,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         build();
 
         RendBlockHelp.setupOverrides(getStds());
-        return forwards_;
     }
 //    public void rendRefresh(Navigation _navigation, ContextEl _context, RendStackCall _rendStack) {
 //        for (Bean b: beans.values()) {

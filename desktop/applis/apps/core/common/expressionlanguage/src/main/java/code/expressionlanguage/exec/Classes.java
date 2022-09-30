@@ -69,7 +69,7 @@ public final class Classes {
     /**Resources are possibly added before analyzing file types*/
     public static ContextEl validateAll(StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
         validateWithoutInit(_files, _page);
-        if (!_page.isEmptyErrors()) {
+        if (_page.notAllEmptyErrors()) {
             //all errors are logged here
             return null;
         }
@@ -86,7 +86,7 @@ public final class Classes {
     }
 
     public static void validateWithoutInit(StringMap<String> _files, AnalyzedPageEl _page) {
-        if (!_page.isEmptyErrors()) {
+        if (_page.notAllEmptyErrors()) {
             //all standards errors are logged here
             return;
         }

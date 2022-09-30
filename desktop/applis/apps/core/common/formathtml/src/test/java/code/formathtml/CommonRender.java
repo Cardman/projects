@@ -44,12 +44,24 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return nav_;
     }
 
-    protected static boolean isEmptyErrors(DualNavigationContext _cont) {
+    protected static boolean isAllEmptyErrors(DualNavigationContext _cont) {
         return isEmptyErrors(_cont.getDualAnalyzedContext().getAnalyzed());
     }
 
+    protected static boolean notAllEmptyErrors(DualNavigationContext _cont) {
+        return notAllEmptyErrors(_cont.getDualAnalyzedContext().getAnalyzed());
+    }
+
+    protected static boolean notAllEmptyErrors(AnalyzedPageEl _cont) {
+        return _cont.notAllEmptyErrors();
+    }
+
+    protected static boolean isEmptyErrors(DualNavigationContext _cont) {
+        return _cont.getDualAnalyzedContext().getAnalyzed().getMessages().isAllEmptyErrors();
+    }
+
     protected static boolean isEmptyErrors(AnalyzedPageEl _cont) {
-        return _cont.isEmptyErrors();
+        return _cont.getMessages().isAllEmptyErrors();
     }
 
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
@@ -82,7 +94,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         DualNavigationContext a_ = buildNav();
 
         ContextEl ctx_ = ana(_files, oneFile(_html), a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getString(a_, ctx_);
     }
 
@@ -96,7 +108,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
         setup(_folder, _relative, _filesThree, a_);
         ContextEl ctx_ = ana(_files, filRend(oneFile(_html), _filesThree), a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getString(a_, ctx_);
     }
 
@@ -107,7 +119,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         setup(_folder, a_.getDualAnalyzedContext().getContext());
         setFiles(_filesThree, a_.getNavigation().getSession());
         ContextEl ctx_ = ana(_files, filRend(oneFile(_html), _filesThree), a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getString(a_, ctx_);
     }
 
@@ -116,7 +128,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
         ContextEl ctx_ = ana(_files, oneFile(_html), a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getString(a_, ctx_);
     }
 
@@ -127,7 +139,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
     protected static Struct getCommEx(String _html, StringMap<String> _files) {
         DualNavigationContext a_ = buildNav();
         ContextEl ctx_ = ana(_files, oneFile(_html), a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getStruct(a_, ctx_);
     }
 
@@ -164,8 +176,12 @@ public abstract class CommonRender extends EquallableRenderUtil {
         DualNavigationContext a_ = buildNav();
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
         ContextEl ctx_ = extracted(_html, _files, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getStruct(a_, ctx_);
+    }
+
+    protected static void checkErrors(DualNavigationContext _a) {
+        assertTrue(isAllEmptyErrors(_a));
     }
 
     private static ContextEl extracted(String _html, StringMap<String> _files, DualNavigationContext _a) {
@@ -183,7 +199,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         setup(_folder, a_.getDualAnalyzedContext().getContext());
         setFiles(_filesThree, a_.getNavigation().getSession());
         ContextEl ctx_ = ana(new StringMap<String>(), oneFile(_html), a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getStruct(a_, ctx_);
     }
 
@@ -193,7 +209,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
         setup(_folder, _relative, _filesThree, a_);
         ContextEl ctx_ = ana(_files, filRend(oneFile(_html), _filesThree), a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getStruct(a_, ctx_);
     }
 
@@ -201,7 +217,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         DualNavigationContext a_ = buildNav();
 
         extracted5(_html, _filesThree, a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     private static void extracted5(String _html, StringMap<String> _filesThree, DualNavigationContext _a) {
@@ -214,7 +230,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
         setup(_folder, _relative, _filesThree, a_);
         ana(_files, filRend(oneFile(_html),_filesThree), a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     protected static boolean hasErr(String _folder, String _relative, String _html, StringMap<String> _filesThree) {
@@ -222,7 +238,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
         extracted8(_html, _filesThree, a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     private static void extracted8(String _html, StringMap<String> _filesThree, DualNavigationContext _a) {
@@ -250,7 +266,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanOne<$int>", "bean_one", _a.getNavigation().getSession());
         StringMap<String> files_ = oneFile(_html);
         ContextEl ctx_ = ana(_filesSec, files_, _a);
-        assertTrue(isEmptyErrors(_a));
+        checkErrors(_a);
         CustList<RendDynOperationNode> ops_ = _a.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         calcBean(ctx_, ops_, 0, _a.getDualAnalyzedContext().getStds(), _a.getNavigation().getSession());
         return ctx_;
@@ -287,14 +303,14 @@ public abstract class CommonRender extends EquallableRenderUtil {
 //        StringMap<String> files_ = oneFile(_html);
         newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
         ana(_filesSec, filRend(oneFile(_html),_filesThree), a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     protected static boolean hasErrOneBean(String _html, StringMap<String> _filesSec) {
         DualNavigationContext a_ = buildNav();
 
         extracted10(_html, _filesSec, a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     private static void extracted10(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
@@ -308,7 +324,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
         extracted11(_html, _filesSec, a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     private static void extracted11(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
@@ -383,7 +399,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         i_.setClassName(_className);
         addBeanInfo(nav_, i_, "bean_one");
         ana(_filesSec,_filesThree,a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     protected static DualNavigationContext getContextVal(String _folder, String _relative, String _scope, String _className) {
@@ -533,8 +549,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         InitializationLgNamesRender.basicStandards(lgNames_);
         lgNames_.getContent().getMathRef().setAliasMath("java.lang.$math");
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = new Forwards(lgNames_, BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases()), opt_);
-        page_.setLogErr(forwards_.getGenerator());
+        Forwards forwards_ = new Forwards(lgNames_, lgNames_, BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases()), opt_);
+        page_.setLogErr(forwards_);
         ReadConfiguration.loadContext(lgNames_,page_,forwards_,new KeyWords(),new AnalysisMessages(),new RendKeyWords());
         assertTrue(page_.isEmptyStdError());
         DualConfigurationContext dual_ = new DualConfigurationContext();
@@ -642,7 +658,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         ana(_filesSec,_filesThree,a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     protected static boolean getStdNavigation6(String _locale, String _folder, String _relative, StringMap<String> _filesThree, StringMap<String> _filesSec) {
@@ -660,7 +676,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         i_.setClassName("pkg.BeanOne");
         addBeanInfo(nav_, i_, "bean_one");
         ana(_filesSec,_filesThree,a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     private static void addVal(Navigation _nav, String _valId, String _class) {
@@ -675,7 +691,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
         ContextEl ctx_ = extracted(_html, _htmlTwo, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getStruct(a_, ctx_);
     }
 
@@ -689,7 +705,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
         ContextEl ctx_ = extracted1(_html, _htmlTwo, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         return getString(a_, ctx_);
     }
 
@@ -705,7 +721,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
         ContextEl ctx_ = ana(_filesSec, files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
         calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
@@ -725,7 +741,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         addVal(a_.getNavigation(),"valRef2","pkg.MyVal2");
 
         ContextEl ctx_ = ana(_filesSec, files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
         calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
@@ -742,7 +758,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
         ContextEl ctx_ = ana(_filesSec, files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
         calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
@@ -758,7 +774,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         StringMap<String> files_ = twoFiles(oneFile(_html), "page2.html", _htmlTwo);
         newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
         ContextEl ctx_ = ana(_filesSec, files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
 
@@ -775,7 +791,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanThree", "bean_three", a_.getNavigation().getSession());
         ContextEl ctx_ = ana(_filesSec, files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
         CustList<RendDynOperationNode> ops3_ = a_.getNavigation().getSession().getBeansInfos().getValue(2).getExps();
@@ -820,7 +836,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanThree", "bean_three", a_.getNavigation().getSession());
         ContextEl ctx_ = ana(_filesSec, files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        checkErrors(a_);
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
         CustList<RendDynOperationNode> ops3_ = a_.getNavigation().getSession().getBeansInfos().getValue(2).getExps();
@@ -841,7 +857,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanThree", "bean_three", a_.getNavigation().getSession());
         ana(_filesSec, files_, a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     protected static boolean hasErrTwoPagesTwo(String _folder, String _relative, String _html, String _htmlTwo, StringMap<String> _filesSec) {
@@ -852,7 +868,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
         ana(_filesSec, files_, a_);
-        return !isEmptyErrors(a_);
+        return notAllEmptyErrors(a_);
     }
 
     protected static void addBeanInfo(Navigation _nav, BeanInfo _i, String _bean) {

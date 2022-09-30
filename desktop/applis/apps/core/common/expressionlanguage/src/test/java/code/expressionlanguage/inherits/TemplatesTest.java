@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -1171,7 +1172,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     private static AnalyzedPageEl unfullValidateOverridingMethodsStd(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kwl_ = en(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -1186,7 +1187,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -1201,7 +1202,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     private static AnalyzedPageEl unfullValidateOverridingMethodsAna(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -1217,7 +1218,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     private static ContextEl simpleContextEl() {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();

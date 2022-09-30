@@ -23,6 +23,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.WarningShow;
@@ -145,7 +146,7 @@ public final class AnalyzedPageEl {
     private boolean gettingErrors;
     private Options options;
     private LgNamesContent content;
-    private BuildableLgNames logErr;
+    private LoggableLgNames logErr;
     private AbsLineDeclarator lineDeclarator;
     private final CustList<OperatorBlock> sortedNbOperators = new CustList<OperatorBlock>();
     private boolean sortNbOperators;
@@ -385,7 +386,11 @@ public final class AnalyzedPageEl {
         content = _content;
     }
 
-    public void setLogErr(BuildableLgNames _logErr) {
+    public void setLogErr(Forwards _logErr) {
+        setLogErr(_logErr.getLoggable());
+    }
+
+    public void setLogErr(LoggableLgNames _logErr) {
         logErr = _logErr;
     }
 
@@ -973,10 +978,9 @@ public final class AnalyzedPageEl {
         return headers.getBasePackagesFound();
     }
 
-    public boolean isEmptyErrors() {
-        return messages.isAllEmptyErrors();
+    public boolean notAllEmptyErrors() {
+        return getMessages().notAllEmptyErrors();
     }
-
 
     public void addLocWarning(FoundWarningInterpret _warning) {
         _warning.setLocationFile(getLocationFile(_warning.getIndexFile(),_warning.getFile(), getTabWidth()));

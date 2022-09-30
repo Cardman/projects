@@ -3,7 +3,6 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.exec.ClassFieldStruct;
@@ -52,11 +51,6 @@ public abstract class LgNames implements BuildableLgNames {
         content.getMathRef().build(this);
         content.getStackElt().build(this);
         content.getPrimTypes().buildPrimitiveTypes(this);
-    }
-
-    @Override
-    public void logIssue(String _info, ReportedMessages _rep) {
-        _rep.isAllEmptyErrors();
     }
 
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {

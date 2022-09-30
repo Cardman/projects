@@ -6,6 +6,7 @@ import code.expressionlanguage.options.Options;
 import code.formathtml.BeanCustLgNamesImpl;
 import code.formathtml.EquallableRenderUtil;
 import code.formathtml.InitializationLgNamesRender;
+import code.formathtml.TestedBeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefaultBeanAliases;
 import code.util.StringMap;
@@ -23,7 +24,7 @@ public final class RendAnalysisMessagesTest extends EquallableRenderUtil {
         def_.setInexistantFile("");
         def_.setInexistantKey("");
         def_.setBadDocument("");
-        BeanLgNames lgName_ = new BeanCustLgNamesImpl();
+        TestedBeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();

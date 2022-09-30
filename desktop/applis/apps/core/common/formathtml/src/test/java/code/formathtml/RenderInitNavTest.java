@@ -1261,8 +1261,8 @@ public final class RenderInitNavTest extends CommonRender {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases());
-        Forwards fwd_ = new Forwards(lgNames_, fileBuilder_, opt_);
-        page_.setLogErr(fwd_.getGenerator());
+        Forwards fwd_ = new Forwards(lgNames_,lgNames_, fileBuilder_, opt_);
+        page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validatedStds(fwd_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgNames_.getContent(), page_);
         lgNames_.build();

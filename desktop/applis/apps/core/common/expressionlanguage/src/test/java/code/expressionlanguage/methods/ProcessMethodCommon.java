@@ -188,8 +188,18 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     private static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, AnalyzedPageEl _page, Forwards _fwd) {
         ResultContext validate_ = validate(_files,_page,_fwd);
-        assertTrue(!isEmptyErrors(_page));
+        assertFalse(isEmptyErrors(_page));
         return getErrors(validate_);
+    }
+
+    protected static void existErrors(AnalyzedPageEl _page) {
+        assertTrue(notAllEmptyErrors(_page));
+        assertFalse(isEmptyErrors(_page));
+    }
+
+    protected static void inexistErrors(AnalyzedPageEl _page) {
+        assertFalse(notAllEmptyErrors(_page));
+        assertTrue(isEmptyErrors(_page));
     }
 
     private static StringMap<String> validateAndCheckReportWarnings(StringMap<String> _files, AnalyzedPageEl _page, Forwards _fwd) {
@@ -206,7 +216,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static boolean covErr(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -216,14 +226,14 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         
         validate(_files,page_,forwards_);
         page_.getMessages().displayErrors();
-        return !isEmptyErrors(page_);
+        return notAllEmptyErrors(page_);
     }
 
     protected static StringMap<String> ctxNotErrReadOnly(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -237,7 +247,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -248,7 +258,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -259,7 +269,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -274,7 +284,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         warningShow_.setUnusedParameterStaticMethod(true);
         opt_.setWarningShow(warningShow_);
         opt_.setGettingErrors(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -290,7 +300,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -302,7 +312,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
         opt_.setEncodeHeader(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -316,7 +326,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -328,7 +338,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -341,7 +351,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -351,7 +361,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl covEn(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -361,7 +371,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl covValEn(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -370,7 +380,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static ContextEl contextElEnum(StringMap<String> _files) {
         Options opt_ = newOptions();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         lgName_.getContent().getPredefTypes().setAliasEnumName("name");
         lgName_.getContent().getPredefTypes().setAliasEnumOrdinal("ordinal");
         
@@ -382,7 +392,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static boolean ctxMustInitFail(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -396,7 +406,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl ctxMustInit(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -405,7 +415,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static ContextEl contextElToString(StringMap<String> _files) {
         Options opt_ = newOptions();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
@@ -416,7 +426,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static boolean ok(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -430,7 +440,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static ContextEl ctxNoErrExp(StringMap<String> _files) {
         Options opt_ = newOptions();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordNbExpBin("power");
@@ -441,7 +451,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static ContextEl contextElDefault(StringMap<String> _files, int _i) {
         Options opt_ = newOptions();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
         
@@ -451,7 +461,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl contextElTypes(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_, "pkg.ExTwo", "pkg.ExThree", "pkg.ExFour", "Biz");
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -465,7 +475,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl ctxResOk(StringMap<String> _srcFiles, StringMap<String> _all) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -480,7 +490,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl ctxOk(StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         addTypesInit(opt_, _types);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -491,7 +501,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -502,7 +512,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setSeedElts(_seed);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -519,7 +529,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         assertEq("en",_lg);
         Options opt_ = newOptions();
         addTypesInit(opt_, _types);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -574,7 +584,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected boolean failValidateValue(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -585,7 +595,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
 
@@ -596,7 +606,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
 
@@ -607,7 +617,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kwl_ = fr(lgName_);
 
         return inval(_files,opt_,lgName_,kwl_);
@@ -617,7 +627,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
 
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -627,7 +637,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -657,7 +667,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected StringMap<StringMap<Struct>> validateStaticFieldsFail(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -671,7 +681,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected boolean failValidateInheritingClassesValue(StringMap<String> _files) {
         Options opt_ = newOptions();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -682,7 +692,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
         validateInheritingClasses(page_);
-        return !isEmptyErrors(page_);
+        return notAllEmptyErrors(page_);
     }
 
     protected static void parseCustomFiles(StringMap<String> _files, AnalyzedPageEl _cont) {
@@ -723,7 +733,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl cov(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -734,7 +744,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -746,7 +756,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -756,7 +766,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl covDisplay(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         lgName_.getDisplayedStrings().setTrueString("\"");
         lgName_.getDisplayedStrings().setFalseString("&");
         KeyWords kw_ = new KeyWords();
@@ -768,7 +778,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -780,7 +790,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
 
@@ -790,7 +800,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl covVal(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -801,7 +811,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl covVal2(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -834,13 +844,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         warningShow_.setUnusedParameterStaticMethod(true);
         opt_.setWarningShow(warningShow_);
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
         ResultContext ctx_ = getResContextEl(_files, opt_,lgName_, kw_);
         ReportedMessages methodHeaders_ = ctx_.getReportedMessages();
-        assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());
+        assertFalse(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),methodHeaders_.isEmptyWarnings());
         return ctx_.getContext();
     }
 
@@ -848,7 +858,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
 
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -860,7 +870,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
         
@@ -869,13 +879,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static boolean invalid(StringMap<String> _files, AnalyzedPageEl _cont) {
         validateWithoutInit(_files, _cont);
-        return !isEmptyErrors(_cont);
+        return notAllEmptyErrors(_cont);
     }
 
     protected static boolean hasErr(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
 
         KeyWords kw_ = new KeyWords();
 
@@ -885,7 +895,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static boolean hasErrLg(StringMap<String> _files, String _lg) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
 
@@ -895,19 +905,19 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static boolean hasErrLgFr(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kwl_ = fr(lgName_);
 
         return inval(_files,opt_,lgName_,kwl_);
     }
 
-    protected static Forwards getForwards(LgNames _lgName, Options _opt) {
+    protected static Forwards getForwards(CustLgNames _lgName, Options _opt) {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgName.getContent());
-        return new Forwards(_lgName, fileBuilder_, _opt);
+        return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
     }
 
-    protected static LgNames getLgNames() {
-        LgNames lgName_ = new CustLgNames();
+    protected static CustLgNames getLgNames() {
+        CustLgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         return lgName_;
     }
@@ -916,8 +926,12 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return ProcessMethod.stateMismatch(asExecRootBlock(_cont, _s), _cont, InitClassState.SUCCESS);
     }
 
+    protected static boolean notAllEmptyErrors(AnalyzedPageEl _cont) {
+        return _cont.notAllEmptyErrors();
+    }
+
     protected static boolean isEmptyErrors(AnalyzedPageEl _cont) {
-        return _cont.isEmptyErrors();
+        return _cont.getMessages().isAllEmptyErrors();
     }
 
     protected static boolean isInitialized(ContextEl _cont, String _cl) {
@@ -928,7 +942,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return (ExecRootBlock) _cont.getClassBody(_cl);
     }
 
-    protected static Forwards getForwards(Options _opt, LgNames _lgName, KeyWords _kw, AnalyzedPageEl _page) {
+    protected static Forwards getForwards(Options _opt, CustLgNames _lgName, KeyWords _kw, AnalyzedPageEl _page) {
         Forwards forwards_ = getForwards(_lgName, _opt);
 
         validatedStds(_page, forwards_, _kw, _opt, _lgName);
@@ -940,15 +954,15 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         assertTrue(_page.isEmptyStdError());
     }
     protected static void validatedStds(AnalysisMessages _a, AnalyzedPageEl _page, Forwards _forwards, KeyWords _kw, Options _opt, LgNames _lgName) {
-        _page.setLogErr(_forwards.getGenerator());
+        _page.setLogErr(_forwards);
         ContextFactory.validateStds(_forwards, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgName.getContent(), _page);
    }
 
-    protected static ContextEl getContextEl(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw) {
+    protected static ContextEl getContextEl(StringMap<String> _files, Options _opt, CustLgNames _lgName, KeyWords _kw) {
         return getResContextEl(_files, _opt, _lgName, _kw).getContext();
     }
 
-    private static ContextEl cov(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw) {
+    private static ContextEl cov(StringMap<String> _files, Options _opt, CustLgNames _lgName, KeyWords _kw) {
         setOpts(_opt, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = getForwards(_opt,_lgName,_kw,page_);
@@ -958,11 +972,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return ctx_.getContext();
     }
 
-    private static ResultContext getResContextEl(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw) {
+    private static ResultContext getResContextEl(StringMap<String> _files, Options _opt, CustLgNames _lgName, KeyWords _kw) {
         return getResContextEl(_files, _opt, _lgName, _kw, IndexConstants.INDEX_NOT_FOUND_ELT);
     }
 
-    private static ResultContext getResContextEl(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw, int _stack) {
+    private static ResultContext getResContextEl(StringMap<String> _files, Options _opt, CustLgNames _lgName, KeyWords _kw, int _stack) {
         setOpts(_opt, _stack);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = getForwards(_opt,_lgName,_kw,page_);
@@ -970,7 +984,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return validateAndRet(_files, page_, forwards_);
     }
 
-    private static boolean inval(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw) {
+    private static boolean inval(StringMap<String> _files, Options _opt, CustLgNames _lgName, KeyWords _kw) {
         setOpts(_opt, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         getForwards(_opt,_lgName,_kw,page_);
@@ -978,7 +992,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return invalid(_files, page_);
     }
 
-    private static StringMap<String> repErrs(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kwl) {
+    private static StringMap<String> repErrs(StringMap<String> _files, Options _opt, CustLgNames _lgName, KeyWords _kwl) {
         setOpts(_opt, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = getForwards(_opt,_lgName,_kwl,page_);

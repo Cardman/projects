@@ -15,7 +15,6 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.IdTypeList;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvedIdTypeContent;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AccessEnum;
@@ -32,10 +31,9 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -48,12 +46,13 @@ public final class ClassesTest extends ProcessMethodCommon {
     public void emptyClassesTest() {
         StringMap<String> files_ = new StringMap<String>();
         Options opt_ = new Options();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
         ContextEl ctx_ = validateAndRet(files_, page_,forwards_).getContext();
+        inexistErrors(page_);
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
         assertNull(new Accessed(AccessEnum.PUBLIC,"",null).outerParent());
@@ -81,26 +80,26 @@ public final class ClassesTest extends ProcessMethodCommon {
     public void failStd(){
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         lgName_.getContent().getCoreNames().setAliasVoid("");
         Options opts_ = new Options();
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards fwd_ = new Forwards(lgName_, fileBuilder_, opts_);
-        page_.setLogErr(fwd_.getGenerator());
+        Forwards fwd_ = new Forwards(lgName_,lgName_, fileBuilder_, opts_);
+        page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_);
         Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyStdError());
-        assertTrue(!page_.isEmptyErrors());
+        assertTrue(page_.notAllEmptyErrors());
     }
 
     @Test
     public void failStd2(){
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         lgName_.getContent().getPrimTypes().setAliasPrimBoolean("$byte");
         lgName_.getContent().getNbAlias().setAliasMaxValueField("MIN_VALUE");
         lgName_.getContent().getMathRef().setAliasLe("ge");
@@ -109,8 +108,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards fwd_ = new Forwards(lgName_, fileBuilder_, opts_);
-        page_.setLogErr(fwd_.getGenerator());
+        Forwards fwd_ = new Forwards(lgName_,lgName_, fileBuilder_, opts_);
+        page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_);
         Classes.validateAll(new StringMap<String>(), page_, fwd_);
@@ -122,35 +121,35 @@ public final class ClassesTest extends ProcessMethodCommon {
         AnalysisMessages a_ = new AnalysisMessages();
         a_.setDefaultPkgNoMatch("");
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         lgName_.getContent().getCoreNames().setAliasVoid("");
         Options opts_ = new Options();
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards fwd_ = new Forwards(lgName_, null, opts_);
-        page_.setLogErr(fwd_.getGenerator());
+        Forwards fwd_ = new Forwards(lgName_,lgName_, null, opts_);
+        page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_);
         Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
-        assertTrue(!page_.isEmptyErrors());
+        assertTrue(page_.notAllEmptyErrors());
     }
     @Test
     public void failMessage2(){
         AnalysisMessages a_ = new AnalysisMessages();
         a_.setDefaultPkgNoMatch("");
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         Options opts_ = new Options();
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards fwd_ = new Forwards(lgName_, null, opts_);
-        page_.setLogErr(fwd_.getGenerator());
+        Forwards fwd_ = new Forwards(lgName_,lgName_, null, opts_);
+        page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_);
         Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
-        assertTrue(!page_.isEmptyErrors());
+        assertTrue(page_.notAllEmptyErrors());
     }
     @Test
     public void resolve1Test() {
@@ -7948,7 +7947,7 @@ public final class ClassesTest extends ProcessMethodCommon {
     protected static AnalyzedPageEl unfullValidateInheriting(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();

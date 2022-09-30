@@ -3,7 +3,6 @@ package code.renders;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
@@ -87,10 +86,6 @@ public final class CustThreadActions extends AbstractThreadActions {
         getPage().getNavigation().setFiles(fileNames);
         ContextEl ctx_ = stds.setupAll(new DualNavigationContext(getPage().getNavigation(), du_));
         if (ctx_ == null) {
-            ReportedMessages reportedMessages_ = du_.getAnalyzed().getMessages();
-            if (getPage().getArea() != null) {
-                getPage().getArea().append(reportedMessages_.displayErrors());
-            }
             finish();
             return;
         }

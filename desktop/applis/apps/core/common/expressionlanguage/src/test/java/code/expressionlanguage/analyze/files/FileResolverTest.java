@@ -9,6 +9,7 @@ import code.expressionlanguage.common.StringExpUtil;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.tsts.TstsCharacters;
 import code.util.*;
@@ -9838,7 +9839,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kwl_ = en(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -9853,7 +9854,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
 
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kwl_ = en(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -9865,7 +9866,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kwl_ = fr(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -9952,7 +9953,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
 
     protected static AnalyzedPageEl simpleCtxPage() {
         Options opt_ = newOptions();
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -9964,7 +9965,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Options opt_ = newOptions();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();

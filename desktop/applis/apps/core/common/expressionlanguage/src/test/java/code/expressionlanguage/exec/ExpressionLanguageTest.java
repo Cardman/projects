@@ -6700,7 +6700,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     private static ContextEl contextEl(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         return getContextEl(_files, opt_, lgName_, kw_);

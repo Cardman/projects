@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
@@ -35,10 +34,7 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
 
     @Override
     public void logIssue(String _info, ReportedMessages _rep) {
-        AbstractIssuer issuer_ = infos.getLogger().getIssuer();
-        if (issuer_ != null) {
-            issuer_.log(_info);
-        }
+        infos.tryLogIssue(_info);
     }
 
     @Override
@@ -65,6 +61,7 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return infos;
     }
 
+    @Override
     public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
         return CustAliases.newFunctional(_className, _functional, _named, _contextEl);
     }

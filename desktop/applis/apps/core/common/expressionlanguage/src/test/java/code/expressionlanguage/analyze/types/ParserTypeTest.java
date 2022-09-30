@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.util.Ints;
 import code.util.StringList;
@@ -884,7 +885,7 @@ public final class ParserTypeTest extends ProcessMethodCommon {
     private static AnalyzedPageEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = getLgNames();
+        CustLgNames lgName_ = getLgNames();
         KeyWords kwl_ = en(lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
