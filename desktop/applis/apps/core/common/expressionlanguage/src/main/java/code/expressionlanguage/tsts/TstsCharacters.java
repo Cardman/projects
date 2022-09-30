@@ -4,8 +4,6 @@ import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.common.StringDataLetterUtil;
 import code.expressionlanguage.common.StringDataUtil;
-import code.maths.litteralcom.IndexStrPart;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -41,13 +39,6 @@ public final class TstsCharacters {
                 maxLetterDigit = i;
             }
         }
-    }
-    public static Ints values(StrTypes _str) {
-        Ints s_ = new Ints();
-        for (IndexStrPart e: _str.getValues()) {
-            s_.add(e.getIndex());
-        }
-        return s_;
     }
 
     public static CustList<StringList> annotationsParams(CustList<ResultParsedAnnots> _list) {

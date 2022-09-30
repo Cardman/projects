@@ -17,13 +17,10 @@ import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.tsts.TstsCharacters;
-import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 
@@ -34,14 +31,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(3, opers_.size());
-        assertEq("(", getVal(opers_, 3));
-        assertEq(",", getVal(opers_, 5));
-        assertEq(")", getVal(opers_, 7));
+        assertEq(3, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(5, key(opers_, 1));
+        assertEq(",", val(opers_, 1));
+        assertEq(7, key(opers_, 2));
+        assertEq(")", val(opers_, 2));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-//        assertEq("abs", getVal(values_, 0));
-        assertEq("4", getVal(values_, 4));
-        assertEq("3", getVal(values_, 6));
+        assertEq(4, key(values_, 0));
+        assertEq("4", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq("3", val(values_, 1));
         assertTrue(seq_.isCall());
     }
 
@@ -50,11 +51,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3).abs(4,3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 8));
+        assertEq(8, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)", getVal(values_, 0));
-        assertEq("abs(4,3)", getVal(values_, 9));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)", val(values_, 0));
+        assertEq(9, key(values_, 1));
+        assertEq("abs(4,3)", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -63,11 +67,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4+3).abs(4,3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 8));
+        assertEq(8, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4+3)", getVal(values_, 0));
-        assertEq("abs(4,3)", getVal(values_, 9));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4+3)", val(values_, 0));
+        assertEq(9, key(values_, 1));
+        assertEq("abs(4,3)", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -76,11 +83,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs($vararg([$int),4+3).abs(4,3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 23));
+        assertEq(23, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg([$int),4+3)", getVal(values_, 0));
-        assertEq("abs(4,3)", getVal(values_, 24));
+        assertEq(0, key(values_, 0));
+        assertEq("abs($vararg([$int),4+3)", val(values_, 0));
+        assertEq(24, key(values_, 1));
+        assertEq("abs(4,3)", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -89,11 +99,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs($vararg([$int),'[').abs(4,3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 23));
+        assertEq(23, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg([$int),'[')", getVal(values_, 0));
-        assertEq("abs(4,3)", getVal(values_, 24));
+        assertEq(0, key(values_, 0));
+        assertEq("abs($vararg([$int),'[')", val(values_, 0));
+        assertEq(24, key(values_, 1));
+        assertEq("abs(4,3)", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -102,11 +115,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs($vararg([$int),'[').abs(4,3)+8");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", getVal(opers_, 32));
+        assertEq(32, key(opers_, 0));
+        assertEq("+", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg([$int),'[').abs(4,3)", getVal(values_, 0));
-        assertEq("8", getVal(values_, 33));
+        assertEq(0, key(values_, 0));
+        assertEq("abs($vararg([$int),'[').abs(4,3)", val(values_, 0));
+        assertEq(33, key(values_, 1));
+        assertEq("8", val(values_, 1));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -115,11 +131,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(1+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(1+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(1+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -128,11 +147,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*('\\u9fcb'+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("('\\u9fcb'+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("('\\u9fcb'+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -141,11 +163,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*('\\''+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("('\\''+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("('\\''+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -154,11 +179,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(\"ab\"+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(\"ab\"+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(\"ab\"+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -167,11 +195,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-6*8");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("-6", getVal(values_, 0));
-        assertEq("8", getVal(values_, 3));
+        assertEq(0, key(values_, 0));
+        assertEq("-6", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("8", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -180,10 +211,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-abs(8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("abs(8)", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("abs(8)", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -192,11 +225,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs($vararg([$int),'[').abs(4,3)+8-9");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 34));
+        assertEq(34, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg([$int),'[').abs(4,3)+8", getVal(values_, 0));
-        assertEq("9", getVal(values_, 35));
+        assertEq(0, key(values_, 0));
+        assertEq("abs($vararg([$int),'[').abs(4,3)+8", val(values_, 0));
+        assertEq(35, key(values_, 1));
+        assertEq("9", val(values_, 1));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -205,11 +241,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1.8-abs(9)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 3));
+        assertEq(3, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1.8", getVal(values_, 0));
-        assertEq("abs(9)", getVal(values_, 4));
+        assertEq(0, key(values_, 0));
+        assertEq("1.8", val(values_, 0));
+        assertEq(4, key(values_, 1));
+        assertEq("abs(9)", val(values_, 1));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -220,7 +259,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.8", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.8", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -231,7 +271,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("18", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("18", val(values_, 0));
         assertSame(ConstType.STRING, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -243,7 +284,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("18", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("18", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -252,12 +294,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("(4+3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 0));
-        assertEq(")", getVal(opers_, 4));
+        assertEq(0, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(4, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("", getVal(values_, 0));
-        assertEq("4+3", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("4+3", val(values_, 0));
         assertTrue(seq_.isCall());
     }
 
@@ -266,12 +310,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(4+3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 13));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(13, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("4+3", getVal(values_, 10));
+        assertEq(10, key(values_, 0));
+        assertEq("4+3", val(values_, 0));
         assertTrue(seq_.isCall());
     }
 
@@ -280,16 +326,22 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs($vararg([$int),4,3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("(", getVal(opers_, 3));
-        assertEq(",", getVal(opers_, 18));
-        assertEq(",", getVal(opers_, 20));
-        assertEq(")", getVal(opers_, 22));
+        assertEq(3,key(opers_,0));
+        assertEq("(",val(opers_,0));
+        assertEq(18,key(opers_,1));
+        assertEq(",",val(opers_,1));
+        assertEq(20,key(opers_,2));
+        assertEq(",",val(opers_,2));
+        assertEq(22,key(opers_,3));
+        assertEq(")",val(opers_,3));
         StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-//        assertEq("abs", getVal(values_, 0));
-        assertEq("$vararg([$int)", getVal(values_, 4));
-        assertEq("4", getVal(values_, 19));
-        assertEq("3", getVal(values_, 21));
+        assertEq(4, key(values_, 0));
+        assertEq("$vararg([$int)", val(values_, 0));
+        assertEq(19, key(values_, 1));
+        assertEq("4", val(values_, 1));
+        assertEq(21, key(values_, 2));
+        assertEq("3", val(values_, 2));
         assertTrue(seq_.isCall());
     }
 
@@ -308,8 +360,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v", getVal(values_, 0));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("v", val(values_, 0));
+
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -318,12 +371,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 8));
+        assertEq(8, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 8));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -332,12 +388,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[14][5]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 12));
+        assertEq(12, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[14]", getVal(values_, 0));
-        assertEq("[5]", getVal(values_, 12));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[14]", val(values_, 0));
+        assertEq(12, key(values_, 1));
+        assertEq("[5]", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -346,12 +405,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[0,1]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 8));
+        assertEq(8, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)", getVal(values_, 0));
-        assertEq("[0,1]", getVal(values_, 8));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("[0,1]", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -360,12 +422,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[14][5,0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 12));
+        assertEq(12, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[14]", getVal(values_, 0));
-        assertEq("[5,0]", getVal(values_, 12));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[14]", val(values_, 0));
+        assertEq(12, key(values_, 1));
+        assertEq("[5,0]", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -374,12 +439,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[14,0][5]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 14));
+        assertEq(14, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[14,0]", getVal(values_, 0));
-        assertEq("[5]", getVal(values_, 14));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[14,0]", val(values_, 0));
+        assertEq(14, key(values_, 1));
+        assertEq("[5]", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -388,12 +456,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[14,0][5,1]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 14));
+        assertEq(14, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[14,0]", getVal(values_, 0));
-        assertEq("[5,1]", getVal(values_, 14));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[14,0]", val(values_, 0));
+        assertEq(14, key(values_, 1));
+        assertEq("[5,1]", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -401,12 +472,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(\"a b\"+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(\"a b\"+8)", getVal(values_, 2));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(\"a b\"+8)", val(values_, 1));
+
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -431,23 +505,25 @@ public final class ElResolverTest extends ProcessMethodCommon {
         setGlobalType(conf_, "pkg.BeanOne");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         AbsBk field_ = r_.getFirstChild();
-        AnalyzedPageEl page_ = conf_;
-        page_.setCurrentBlock(field_);
+        conf_.setCurrentBlock(field_);
         RootBlock rTwo_ = getAnaClassBody(conf_, "pkg.Composite");
-        page_.setCurrentBlock(rTwo_.getFirstChild());
+        conf_.setCurrentBlock(rTwo_.getFirstChild());
         AbsBk b_ = field_.getNextSibling().getFirstChild();
-        page_.setCurrentBlock(b_);
+        conf_.setCurrentBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 9));
+        assertEq(9, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("composite", getVal(values_, 0));
-        assertEq("integer", getVal(values_, 10));
+        assertEq(0, key(values_, 0));
+        assertEq("composite", val(values_, 0));
+        assertEq(10, key(values_, 1));
+        assertEq("integer", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -471,12 +547,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;.call().call()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 11));
+        assertEq(11, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.call()", getVal(values_, 0));
-        assertEq("call()", getVal(values_, 12));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;.call()", val(values_, 0));
+        assertEq(12, key(values_, 1));
+        assertEq("call()", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -486,11 +565,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;.;call().call()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 12));
+        assertEq(12, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;call()", getVal(values_, 0));
-        assertEq("call()", getVal(values_, 13));
+        assertEq(0, key(values_, 0));
+        assertEq("var;.;call()", val(values_, 0));
+        assertEq(13, key(values_, 1));
+        assertEq("call()", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -499,12 +581,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;;call().call()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 11));
+        assertEq(11, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;call()", getVal(values_, 0));
-        assertEq("call()", getVal(values_, 12));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;;call()", val(values_, 0));
+        assertEq(12, key(values_, 1));
+        assertEq("call()", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -513,12 +598,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;call().call()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 10));
+        assertEq(10, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;call()", getVal(values_, 0));
-        assertEq("call()", getVal(values_, 11));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;call()", val(values_, 0));
+        assertEq(11, key(values_, 1));
+        assertEq("call()", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -527,13 +615,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer(\"8\")");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 22));
-        assertEq(")", getVal(opers_, 26));
+        assertEq(22, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(26, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new java.lang.Integer", getVal(values_, 0));
-        assertEq("\"8\"", getVal(values_, 23));
-    
+        assertEq(23, key(values_, 0));
+        assertEq("\"8\"", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -543,8 +633,10 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer(\"8\"){}");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 22));
-        assertEq(")", getVal(opers_, 26));
+        assertEq(22, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(26, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
     }
 
     @Test
@@ -552,12 +644,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("call().$new java.lang.Integer(\"8\")");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("call()", getVal(values_, 0));
-        assertEq("$new java.lang.Integer(\"8\")", getVal(values_, 7));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("call()", val(values_, 0));
+        assertEq(7, key(values_, 1));
+        assertEq("$new java.lang.Integer(\"8\")", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -567,11 +662,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer(\"8\").intValue()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 27));
+        assertEq(27, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer(\"8\")", getVal(values_, 0));
-        assertEq("intValue()", getVal(values_, 28));
+        assertEq(0, key(values_, 0));
+        assertEq("$new java.lang.Integer(\"8\")", val(values_, 0));
+        assertEq(28, key(values_, 1));
+        assertEq("intValue()", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -581,12 +679,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer[]{8i}");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("{", getVal(opers_, 24));
-        assertEq("}", getVal(opers_, 27));
+        assertEq(24, key(opers_, 0));
+        assertEq("{", val(opers_, 0));
+        assertEq(27, key(opers_, 1));
+        assertEq("}", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new java.lang.Integer[]", getVal(values_, 0));
-        assertEq("8i", getVal(values_, 25));
+        assertEq(25, key(values_, 0));
+        assertEq("8i", val(values_, 0));
         assertTrue(seq_.isInstance());
     }
 
@@ -595,12 +695,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer(\"8\").intValue()+5");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", getVal(opers_, 38));
+        assertEq(38, key(opers_, 0));
+        assertEq("+", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer(\"8\").intValue()", getVal(values_, 0));
-        assertEq("5", getVal(values_, 39));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("$new java.lang.Integer(\"8\").intValue()", val(values_, 0));
+        assertEq(39, key(values_, 1));
+        assertEq("5", val(values_, 1));
+
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -609,12 +712,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;.[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 5));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;.", val(values_, 0));
+        assertEq(5, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -623,12 +729,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;.;[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 6));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;.;", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -637,12 +746,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;;[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 5));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;;", val(values_, 0));
+        assertEq(5, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -651,12 +763,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 4));
+        assertEq(4, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 4));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;", val(values_, 0));
+        assertEq(4, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -665,12 +780,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;.f[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.f", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 6));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;.f", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -679,12 +797,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;.;f[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 7));
+        assertEq(7, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;f", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 7));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;.;f", val(values_, 0));
+        assertEq(7, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -693,12 +814,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;;f[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;f", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 6));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;;f", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -707,12 +831,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;f[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;f", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 5));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;f", val(values_, 0));
+        assertEq(5, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -721,12 +848,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;.f()[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 8));
+        assertEq(8, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.f()", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 8));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;.f()", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -735,12 +865,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;.;f()[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 9));
+        assertEq(9, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;f()", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 9));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;.;f()", val(values_, 0));
+        assertEq(9, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -749,12 +882,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;;f()[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 8));
+        assertEq(8, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;f()", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 8));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("var;;f()", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -763,11 +899,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("var;f()[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 7));
+        assertEq(7, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;f()", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 7));
+        assertEq(0, key(values_, 0));
+        assertEq("var;f()", val(values_, 0));
+        assertEq(7, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -776,11 +915,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$static(pkg.classname).field");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 22));
+        assertEq(22, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$static(pkg.classname)", getVal(values_, 0));
-        assertEq("field", getVal(values_, 23));
+        assertEq(0, key(values_, 0));
+        assertEq("$static(pkg.classname)", val(values_, 0));
+        assertEq(23, key(values_, 1));
+        assertEq("field", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -789,11 +931,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("- -1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" -1", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq(" -1", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -802,11 +946,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("1", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -815,10 +961,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-1.0");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.0", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("1.0", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -827,11 +975,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1- -1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1", getVal(values_, 0));
-        assertEq(" -1", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("1", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq(" -1", val(values_, 1));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -840,11 +991,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("!", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("a", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -853,11 +1006,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!!a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("!", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("!a", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("!a", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -866,12 +1021,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("b!=a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!=", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("!=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("b", getVal(values_, 0));
-        assertEq("a", getVal(values_, 3));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("b", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("a", val(values_, 1));
+
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -880,12 +1038,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("b<=a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("<=", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("<=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("b", getVal(values_, 0));
-        assertEq("a", getVal(values_, 3));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("b", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("a", val(values_, 1));
+
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(!seq_.isInstanceTest());
     }
@@ -895,12 +1056,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("b>=a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(">=", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq(">=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("b", getVal(values_, 0));
-        assertEq("a", getVal(values_, 3));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("b", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("a", val(values_, 1));
+
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(!seq_.isInstanceTest());
     }
@@ -910,12 +1074,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("b==a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("==", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("==", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("b", getVal(values_, 0));
-        assertEq("a", getVal(values_, 3));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("b", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("a", val(values_, 1));
+
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -926,7 +1093,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("\"string", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("\"string", val(values_, 0));
         assertSame(ConstType.STRING, seq_.getConstType());
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
@@ -940,8 +1108,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertSame(ConstType.CHARACTER, seq_.getConstType());
-        assertEq("'", getVal(values_, 0));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("'", val(values_, 0));
+
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -953,7 +1122,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertSame(ConstType.CHARACTER, seq_.getConstType());
-        assertEq("\\", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("\\", val(values_, 0));
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -963,13 +1133,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(\"\\\"string\")");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 20));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(20, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("\"\\\"string\"", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("\"\\\"string\"", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -978,13 +1150,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt('\\'')");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 14));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(14, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("'\\''", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("'\\''", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -993,13 +1167,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt('\\\\')");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 14));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(14, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("'\\\\'", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("'\\\\'", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1008,13 +1184,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(1.0)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 13));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(13, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("1.0", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("1.0", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1023,17 +1201,23 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs($vararg(java.lang.Object),$firstopt(4),3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("(", getVal(opers_, 3));
-        assertEq(",", getVal(opers_, 29));
-        assertEq(",", getVal(opers_, 42));
-        assertEq(")", getVal(opers_, 44));
+        assertEq(3,key(opers_,0));
+        assertEq("(",val(opers_,0));
+        assertEq(29,key(opers_,1));
+        assertEq(",",val(opers_,1));
+        assertEq(42,key(opers_,2));
+        assertEq(",",val(opers_,2));
+        assertEq(44,key(opers_,3));
+        assertEq(")",val(opers_,3));
         StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-//        assertEq("abs", getVal(values_, 0));
-        assertEq("$vararg(java.lang.Object)", getVal(values_, 4));
-        assertEq("$firstopt(4)", getVal(values_, 30));
-        assertEq("3", getVal(values_, 43));
-    
+        assertEq(4, key(values_, 0));
+        assertEq("$vararg(java.lang.Object)", val(values_, 0));
+        assertEq(30, key(values_, 1));
+        assertEq("$firstopt(4)", val(values_, 1));
+        assertEq(43, key(values_, 2));
+        assertEq("3", val(values_, 2));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1042,17 +1226,23 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs($vararg(java.lang.Object),$firstopt(4;.;),3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("(", getVal(opers_, 3));
-        assertEq(",", getVal(opers_, 29));
-        assertEq(",", getVal(opers_, 45));
-        assertEq(")", getVal(opers_, 47));
+        assertEq(3,key(opers_,0));
+        assertEq("(",val(opers_,0));
+        assertEq(29,key(opers_,1));
+        assertEq(",",val(opers_,1));
+        assertEq(45,key(opers_,2));
+        assertEq(",",val(opers_,2));
+        assertEq(47,key(opers_,3));
+        assertEq(")",val(opers_,3));
         StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-//        assertEq("abs", getVal(values_, 0));
-        assertEq("$vararg(java.lang.Object)", getVal(values_, 4));
-        assertEq("$firstopt(4;.;)", getVal(values_, 30));
-        assertEq("3", getVal(values_, 46));
-    
+        assertEq(4, key(values_, 0));
+        assertEq("$vararg(java.lang.Object)", val(values_, 0));
+        assertEq(30, key(values_, 1));
+        assertEq("$firstopt(4;.;)", val(values_, 1));
+        assertEq(46, key(values_, 2));
+        assertEq("3", val(values_, 2));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1061,17 +1251,23 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs($vararg(java.lang.Object),$firstopt(4;.),3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("(", getVal(opers_, 3));
-        assertEq(",", getVal(opers_, 29));
-        assertEq(",", getVal(opers_, 44));
-        assertEq(")", getVal(opers_, 46));
+        assertEq(3,key(opers_,0));
+        assertEq("(",val(opers_,0));
+        assertEq(29,key(opers_,1));
+        assertEq(",",val(opers_,1));
+        assertEq(44,key(opers_,2));
+        assertEq(",",val(opers_,2));
+        assertEq(46,key(opers_,3));
+        assertEq(")",val(opers_,3));
         StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-//        assertEq("abs", getVal(values_, 0));
-        assertEq("$vararg(java.lang.Object)", getVal(values_, 4));
-        assertEq("$firstopt(4;.)", getVal(values_, 30));
-        assertEq("3", getVal(values_, 45));
-    
+        assertEq(4, key(values_, 0));
+        assertEq("$vararg(java.lang.Object)", val(values_, 0));
+        assertEq(30, key(values_, 1));
+        assertEq("$firstopt(4;.)", val(values_, 1));
+        assertEq(45, key(values_, 2));
+        assertEq("3", val(values_, 2));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1080,13 +1276,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(v;.)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 13));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(13, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("v;.", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("v;.", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1095,13 +1293,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(v;.;)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 14));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(14, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("v;.;", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("v;.;", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1110,13 +1310,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(v;)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 12));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(12, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("v;", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("v;", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1125,13 +1327,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(v;;)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 13));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(13, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("v;;", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("v;;", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1140,13 +1344,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(v;.t)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 14));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(14, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("v;.t", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("v;.t", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1155,13 +1361,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(v;.;t)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 15));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(15, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("v;.;t", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("v;.;t", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1170,13 +1378,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(v;t)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 13));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(13, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("v;t", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("v;t", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1187,13 +1397,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$firstopt(v;;t)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 9));
-        assertEq(")", getVal(opers_, 14));
+        assertEq(9, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(14, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$firstopt", getVal(values_, 0));
-        assertEq("v;;t", getVal(values_, 10));
-    
+        assertEq(10, key(values_, 0));
+        assertEq("v;;t", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1202,11 +1414,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-10");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("10", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("10", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1215,11 +1429,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("a", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1228,11 +1444,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-1d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1d", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("1d", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1242,11 +1460,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-1.0d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.0d", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("1.0d", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1255,11 +1475,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("a&&b!=c");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("&&", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("&&", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a", getVal(values_, 0));
-        assertEq("b!=c", getVal(values_, 3));
+        assertEq(0, key(values_, 0));
+        assertEq("a", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("b!=c", val(values_, 1));
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
@@ -1268,12 +1491,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*('\\u9Fcb'+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("('\\u9Fcb'+8)", getVal(values_, 2));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("('\\u9Fcb'+8)", val(values_, 1));
+
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1282,11 +1508,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(\"\\u9Fcb\"+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(\"\\u9Fcb\"+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(\"\\u9Fcb\"+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1295,12 +1524,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*('\\n'+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("('\\n'+8)", getVal(values_, 2));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("('\\n'+8)", val(values_, 1));
+
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1309,11 +1541,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(\"\\n\"+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(\"\\n\"+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(\"\\n\"+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1322,12 +1557,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*('\\r'+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("('\\r'+8)", getVal(values_, 2));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("('\\r'+8)", val(values_, 1));
+
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1336,12 +1574,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(\"\\r\"+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(\"\\r\"+8)", getVal(values_, 2));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(\"\\r\"+8)", val(values_, 1));
+
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1350,11 +1591,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*('\\b'+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("('\\b'+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("('\\b'+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1363,11 +1607,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(\"\\b\"+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(\"\\b\"+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(\"\\b\"+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1376,11 +1623,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*('\\t'+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("('\\t'+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("('\\t'+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1389,11 +1639,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(\"\\t\"+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(\"\\t\"+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(\"\\t\"+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1402,11 +1655,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("\"\\\"string\"+\"\\\"string\"");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", getVal(opers_, 10));
+        assertEq(10, key(opers_, 0));
+        assertEq("+", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("\"\\\"string\"", getVal(values_, 0));
-        assertEq("\"\\\"string\"", getVal(values_, 11));
+        assertEq(0, key(values_, 0));
+        assertEq("\"\\\"string\"", val(values_, 0));
+        assertEq(11, key(values_, 1));
+        assertEq("\"\\\"string\"", val(values_, 1));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -1415,12 +1671,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("\"\\\\\\\"string\"+\"\\\"string\"");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", getVal(opers_, 12));
+        assertEq(12, key(opers_, 0));
+        assertEq("+", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("\"\\\\\\\"string\"", getVal(values_, 0));
-        assertEq("\"\\\"string\"", getVal(values_, 13));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("\"\\\\\\\"string\"", val(values_, 0));
+        assertEq(13, key(values_, 1));
+        assertEq("\"\\\"string\"", val(values_, 1));
+
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -1429,11 +1688,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*('\\f'+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("('\\f'+8)", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("('\\f'+8)", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1442,12 +1704,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("6*(\"\\f\"+8)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", getVal(values_, 0));
-        assertEq("(\"\\f\"+8)", getVal(values_, 2));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("6", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("(\"\\f\"+8)", val(values_, 1));
+
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1456,10 +1721,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!!field");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("!", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("!field", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("!field", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1468,11 +1735,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!field!=anotherfield");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!=", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("!=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!field", getVal(values_, 0));
-        assertEq("anotherfield", getVal(values_, 8));
+        assertEq(0, key(values_, 0));
+        assertEq("!field", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("anotherfield", val(values_, 1));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -1481,11 +1751,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("field!=!anotherfield");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!=", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("!=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("field", getVal(values_, 0));
-        assertEq("!anotherfield", getVal(values_, 7));
+        assertEq(0, key(values_, 0));
+        assertEq("field", val(values_, 0));
+        assertEq(7, key(values_, 1));
+        assertEq("!anotherfield", val(values_, 1));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -1494,11 +1767,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!field!=!anotherfield");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!=", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("!=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!field", getVal(values_, 0));
-        assertEq("!anotherfield", getVal(values_, 8));
+        assertEq(0, key(values_, 0));
+        assertEq("!field", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("!anotherfield", val(values_, 1));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -1508,12 +1784,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("v;.news.a()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 7));
+        assertEq(7, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v;.news", getVal(values_, 0));
-        assertEq("a()", getVal(values_, 8));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("v;.news", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("a()", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -1538,21 +1817,23 @@ public final class ElResolverTest extends ProcessMethodCommon {
         setGlobalType(conf_, "pkg.BeanOne");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         AbsBk field_ = r_.getFirstChild();
-        AnalyzedPageEl page_ = conf_;
-        page_.setCurrentBlock(field_);
+        conf_.setCurrentBlock(field_);
         AbsBk b_ = field_.getNextSibling().getFirstChild();
-        page_.setCurrentBlock(b_);
+        conf_.setCurrentBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 9));
+        assertEq(9, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("composite", getVal(values_, 0));
-        assertEq("getOverridenFour(0)", getVal(values_, 10));
+        assertEq(0, key(values_, 0));
+        assertEq("composite", val(values_, 0));
+        assertEq(10, key(values_, 1));
+        assertEq("getOverridenFour(0)", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -1576,11 +1857,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("+a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("+", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("a", val(values_, 0));
+
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1589,12 +1872,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("a||b");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("||", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a", getVal(values_, 0));
-        assertEq("b", getVal(values_, 3));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("a", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("b", val(values_, 1));
+
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -1603,12 +1889,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("a&&b");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("&&", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("&&", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a", getVal(values_, 0));
-        assertEq("b", getVal(values_, 3));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("a", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("b", val(values_, 1));
+
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
@@ -1617,12 +1906,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("a||b&&c");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("||", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a", getVal(values_, 0));
-        assertEq("b&&c", getVal(values_, 3));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("a", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("b&&c", val(values_, 1));
+
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -1631,12 +1923,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("a&&b||c");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", getVal(opers_, 4));
+        assertEq(4, key(opers_, 0));
+        assertEq("||", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a&&b", getVal(values_, 0));
-        assertEq("c", getVal(values_, 6));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("a&&b", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq("c", val(values_, 1));
+
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -1645,12 +1940,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!a||b");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("||", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!a", getVal(values_, 0));
-        assertEq("b", getVal(values_, 4));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("!a", val(values_, 0));
+        assertEq(4, key(values_, 1));
+        assertEq("b", val(values_, 1));
+
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -1659,12 +1957,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!a&&b");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("&&", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("&&", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!a", getVal(values_, 0));
-        assertEq("b", getVal(values_, 4));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("!a", val(values_, 0));
+        assertEq(4, key(values_, 1));
+        assertEq("b", val(values_, 1));
+
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
@@ -1673,12 +1974,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!a||b&&c");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("||", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!a", getVal(values_, 0));
-        assertEq("b&&c", getVal(values_, 4));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("!a", val(values_, 0));
+        assertEq(4, key(values_, 1));
+        assertEq("b&&c", val(values_, 1));
+
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -1687,12 +1991,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("!a&&b||c");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("||", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!a&&b", getVal(values_, 0));
-        assertEq("c", getVal(values_, 7));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("!a&&b", val(values_, 0));
+        assertEq(7, key(values_, 1));
+        assertEq("c", val(values_, 1));
+
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -1701,12 +2008,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("(a||b)&&c");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("&&", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("&&", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("(a||b)", getVal(values_, 0));
-        assertEq("c", getVal(values_, 8));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("(a||b)", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("c", val(values_, 1));
+
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
@@ -1715,13 +2025,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("(a|b)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 0));
-        assertEq(")", getVal(opers_, 4));
+        assertEq(0, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(4, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("", getVal(values_, 0));
-        assertEq("a|b", getVal(values_, 1));
-    
+        assertEq(1, key(values_, 0));
+        assertEq("a|b", val(values_, 0));
+
         assertTrue(seq_.isCall());
     }
 
@@ -1730,12 +2042,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("v;.[0i].array[0i]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 13));
+        assertEq(13, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v;.[0i].array", getVal(values_, 0));
-        assertEq("[0i]", getVal(values_, 13));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("v;.[0i].array", val(values_, 0));
+        assertEq(13, key(values_, 1));
+        assertEq("[0i]", val(values_, 1));
+
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -1753,7 +2068,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1e2", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1e2", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1764,7 +2080,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1e-2", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1e-2", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1775,7 +2092,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.0e2", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.0e2", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1786,7 +2104,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.0e-2", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.0e-2", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1797,7 +2116,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.e2", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.e2", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1808,7 +2128,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.e-2", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.e-2", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1819,7 +2140,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e2", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq(".1e2", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1830,7 +2152,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e-2", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq(".1e-2", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1841,7 +2164,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq(".1", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1850,10 +2174,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1862,10 +2188,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1e2");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e2", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1e2", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1874,10 +2202,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1e-2");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e-2", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1e-2", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1888,7 +2218,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1897,11 +2228,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1e-2+.5");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("+", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("-.1e-2", getVal(values_, 0));
-        assertEq(".5", getVal(values_, 7));
+        assertEq(0, key(values_, 0));
+        assertEq("-.1e-2", val(values_, 0));
+        assertEq(7, key(values_, 1));
+        assertEq(".5", val(values_, 1));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -1910,10 +2244,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1e-2d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e-2d", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1e-2d", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1922,14 +2258,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("lbs(4,3)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(3, opers_.size());
-        assertEq("(", getVal(opers_, 3));
-        assertEq(",", getVal(opers_, 5));
-        assertEq(")", getVal(opers_, 7));
+        assertEq(3, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(5, key(opers_, 1));
+        assertEq(",", val(opers_, 1));
+        assertEq(7, key(opers_, 2));
+        assertEq(")", val(opers_, 2));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-//        assertEq("lbs", getVal(values_, 0));
-        assertEq("4", getVal(values_, 4));
-        assertEq("3", getVal(values_, 6));
+        assertEq(4, key(values_, 0));
+        assertEq("4", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq("3", val(values_, 1));
         assertTrue(seq_.isCall());
     }
 
@@ -1938,10 +2278,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test(" !a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("!", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a", getVal(values_, 2));
+        assertEq(2, key(values_, 0));
+        assertEq("a", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1950,10 +2292,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("! a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("!", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" a", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(" a", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1962,10 +2306,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("- - a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" - a", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(" - a", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1974,10 +2320,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("- -a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" -a", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(" -a", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1986,10 +2334,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test(" - -a");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" -a", getVal(values_, 2));
+        assertEq(2, key(values_, 0));
+        assertEq(" -a", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1998,10 +2348,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1_0e-2d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0e-2d", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1_0e-2d", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2010,10 +2362,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1e-2_0d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e-2_0d", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1e-2_0d", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2022,10 +2376,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1_0");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1_0", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2034,10 +2390,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1_0d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0d", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1_0d", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2046,10 +2404,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1e1_0d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e1_0d", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".1e1_0d", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2060,7 +2420,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1_0d", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1_0d", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2071,7 +2432,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq(".1_0", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2082,7 +2444,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0d", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq(".1_0d", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2091,10 +2454,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-1_0d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1_0d", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("1_0d", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2105,7 +2470,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1_0d", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1_0d", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2116,7 +2482,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.d", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.d", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
  
@@ -2125,10 +2492,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.2_0e1_0d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".2_0e1_0d", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq(".2_0e1_0d", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2137,10 +2506,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-1.2_0e1_0d");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.2_0e1_0d", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("1.2_0e1_0d", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2151,7 +2522,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.1_0", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.1_0", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
     
@@ -2162,7 +2534,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.1_0d", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1.1_0d", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2171,8 +2544,10 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$classchoice($math)abs()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 22));
-        assertEq(")", getVal(opers_, 23));
+        assertEq(22, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(23, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(0, values_.size());
 //        assertEq("$classchoice($math)abs", getVal(values_, 0));
@@ -2184,11 +2559,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("v+=b");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+=", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("+=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v", getVal(values_, 0));
-        assertEq("b", getVal(values_, 3));
+        assertEq(0, key(values_, 0));
+        assertEq("v", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("b", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
     }
 
@@ -2197,10 +2575,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("v++");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("++", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("++", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("v", val(values_, 0));
         assertEq(ElResolver.POST_INCR_PRIO, seq_.getPriority());
     }
     @Test
@@ -2210,7 +2590,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$classchoice($math)abs", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("$classchoice($math)abs", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
     @Test
@@ -2218,11 +2599,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$classchoice($math)abs$.field");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 23));
+        assertEq(23, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$classchoice($math)abs$", getVal(values_, 0));
-        assertEq("field", getVal(values_, 24));
+        assertEq(0, key(values_, 0));
+        assertEq("$classchoice($math)abs$", val(values_, 0));
+        assertEq(24, key(values_, 1));
+        assertEq("field", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -2230,8 +2614,10 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$this()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 5));
-        assertEq(")", getVal(opers_, 6));
+        assertEq(5, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(6, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(0, values_.size());
 //        assertEq("$this", getVal(values_, 0));
@@ -2242,8 +2628,10 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$this ()");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 6));
-        assertEq(")", getVal(opers_, 7));
+        assertEq(6, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(7, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(0, values_.size());
 //        assertEq("$this ", getVal(values_, 0));
@@ -2256,7 +2644,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$this", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("$this", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
     @Test
@@ -2264,10 +2653,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$($int)1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$($int)", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("$($int)", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1", getVal(values_, 7));
+        assertEq(7, key(values_, 0));
+        assertEq("1", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2275,10 +2666,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$($int) 1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$($int)", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("$($int)", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" 1", getVal(values_, 7));
+        assertEq(7, key(values_, 0));
+        assertEq(" 1", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2286,10 +2679,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test(" $($int)1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$($int)", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("$($int)", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1", getVal(values_, 8));
+        assertEq(8, key(values_, 0));
+        assertEq("1", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2297,10 +2692,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-$($int)1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$($int)1", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("$($int)1", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2308,10 +2705,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$($int)$($byte)1");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$($int)", getVal(opers_, 0));
+        assertEq(0, key(opers_, 0));
+        assertEq("$($int)", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$($byte)1", getVal(values_, 7));
+        assertEq(7, key(values_, 0));
+        assertEq("$($byte)1", val(values_, 0));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2319,10 +2718,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof $byte");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof $byte", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2331,10 +2732,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp>");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp>", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof pkg.List<two.Tmp>", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2343,10 +2746,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp,three.Sec>");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp,three.Sec>", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof pkg.List<two.Tmp,three.Sec>", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2355,10 +2760,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp<three.Sec>>");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2367,11 +2774,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp<three.Sec>>==$true");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("==", getVal(opers_, 42));
+        assertEq(42, key(opers_, 0));
+        assertEq("==", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", getVal(values_, 0));
-        assertEq("$true", getVal(values_, 44));
+        assertEq(0, key(values_, 0));
+        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", val(values_, 0));
+        assertEq(44, key(values_, 1));
+        assertEq("$true", val(values_, 1));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
     @Test
@@ -2379,10 +2789,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("v; $instanceof $byte");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte", getVal(opers_, 3));
+        assertEq(3, key(opers_, 0));
+        assertEq("$instanceof $byte", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v; ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("v; ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2391,10 +2803,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("v $instanceof $byte");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof $byte", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("v ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2403,10 +2817,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("v() $instanceof $byte");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte", getVal(opers_, 4));
+        assertEq(4, key(opers_, 0));
+        assertEq("$instanceof $byte", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v() ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("v() ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2415,11 +2831,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$true==1 $instanceof pkg.List<two.Tmp<three.Sec>>");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("==", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("==", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", getVal(values_, 7));
-        assertEq("$true", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("$true", val(values_, 0));
+        assertEq(7, key(values_, 1));
+        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", val(values_, 1));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
     @Test
@@ -2427,10 +2846,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof #T");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof #T", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof #T", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2439,10 +2860,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg . One");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg . One", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof pkg . One", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2451,12 +2874,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$interfaces(pkg.MyClass)(arg;.)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 24));
-        assertEq(")", getVal(opers_, 30));
+        assertEq(24, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(30, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$interfaces(pkg.MyClass)", getVal(values_, 0));
-        assertEq("arg;.", getVal(values_, 25));
+        assertEq(25, key(values_, 0));
+        assertEq("arg;.", val(values_, 0));
         assertTrue(seq_.isCall());
     }
 
@@ -2465,12 +2890,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", getVal(opers_, 0));
-        assertEq("]", getVal(opers_, 2));
+        assertEq(0, key(opers_, 0));
+        assertEq("[", val(opers_, 0));
+        assertEq(2, key(opers_, 1));
+        assertEq("]", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("", getVal(values_, 0));
-        assertEq("0", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("0", val(values_, 0));
         assertTrue(!seq_.isCallDbArray());
         assertTrue(seq_.isArray());
     }
@@ -2480,11 +2907,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("-.1e-2-.5");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("-", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("-.1e-2", getVal(values_, 0));
-        assertEq(".5", getVal(values_, 7));
+        assertEq(0, key(values_, 0));
+        assertEq("-.1e-2", val(values_, 0));
+        assertEq(7, key(values_, 1));
+        assertEq(".5", val(values_, 1));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
     @Test
@@ -2492,10 +2922,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2504,11 +2936,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>==$true");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("==", getVal(opers_, 56));
+        assertEq(56, key(opers_, 0));
+        assertEq("==", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>", getVal(values_, 0));
-        assertEq("$true", getVal(values_, 58));
+        assertEq(0, key(values_, 0));
+        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>", val(values_, 0));
+        assertEq(58, key(values_, 1));
+        assertEq("$true", val(values_, 1));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
     @Test
@@ -2516,10 +2951,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("v; $instanceof $byte[]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte[]", getVal(opers_, 3));
+        assertEq(3, key(opers_, 0));
+        assertEq("$instanceof $byte[]", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v; ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("v; ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2553,14 +2990,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", getVal(values_, 0));
-        assertEq(" pkg.Ex.exmeth(0i)", getVal(values_, 6));
+        assertEq(0, key(values_, 0));
+        assertEq("inst ", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq(" pkg.Ex.exmeth(0i)", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -2597,14 +3037,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", getVal(values_, 0));
-        assertEq(" Ex.exmeth(0i)", getVal(values_, 6));
+        assertEq(0, key(values_, 0));
+        assertEq("inst ", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq(" Ex.exmeth(0i)", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -2640,14 +3083,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", getVal(values_, 0));
-        assertEq(" $Class.forName(\"\")", getVal(values_, 6));
+        assertEq(0, key(values_, 0));
+        assertEq("inst ", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq(" $Class.forName(\"\")", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -2685,14 +3131,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", getVal(values_, 0));
-        assertEq(" Ex.exmeth(0i)", getVal(values_, 6));
+        assertEq(0, key(values_, 0));
+        assertEq("inst ", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq(" Ex.exmeth(0i)", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -2738,14 +3187,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", getVal(values_, 0));
-        assertEq(" pkg.ExThree.Ex.inst", getVal(values_, 6));
+        assertEq(0, key(values_, 0));
+        assertEq("inst ", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq(" pkg.ExThree.Ex.inst", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -2783,14 +3235,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", getVal(opers_, 5));
+        assertEq(5, key(opers_, 0));
+        assertEq("=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", getVal(values_, 0));
-        assertEq(" ExTwo.Ex.exmeth(0i)", getVal(values_, 6));
+        assertEq(0, key(values_, 0));
+        assertEq("inst ", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq(" ExTwo.Ex.exmeth(0i)", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -2803,14 +3258,19 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("a<b>c");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("<", getVal(opers_, 1));
-        assertEq(">", getVal(opers_, 3));
+        assertEq(1, key(opers_, 0));
+        assertEq("<", val(opers_, 0));
+        assertEq(3, key(opers_, 1));
+        assertEq(">", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-        assertEq("a", getVal(values_, 0));
-        assertEq("b", getVal(values_, 2));
-        assertEq("c", getVal(values_, 4));
-    
+        assertEq(0, key(values_, 0));
+        assertEq("a", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("b", val(values_, 1));
+        assertEq(4, key(values_, 2));
+        assertEq("c", val(values_, 2));
+
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(!seq_.isInstanceTest());
     }
@@ -2820,12 +3280,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer[8i]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", getVal(opers_, 22));
-        assertEq("]", getVal(opers_, 25));
+        assertEq(22, key(opers_, 0));
+        assertEq("[", val(opers_, 0));
+        assertEq(25, key(opers_, 1));
+        assertEq("]", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new java.lang.Integer", getVal(values_, 0));
-        assertEq("8i", getVal(values_, 23));
+        assertEq(23, key(values_, 0));
+        assertEq("8i", val(values_, 0));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -2835,12 +3297,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer[8i][]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", getVal(opers_, 22));
-        assertEq("]", getVal(opers_, 25));
+        assertEq(22, key(opers_, 0));
+        assertEq("[", val(opers_, 0));
+        assertEq(25, key(opers_, 1));
+        assertEq("]", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new java.lang.Integer", getVal(values_, 0));
-        assertEq("8i", getVal(values_, 23));
+        assertEq(23, key(values_, 0));
+        assertEq("8i", val(values_, 0));
         assertTrue(seq_.isInstance());
         assertEq(1, seq_.getCountArrays());
     }
@@ -2850,15 +3314,20 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer[8i][5i]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("[", getVal(opers_, 22));
-        assertEq("]", getVal(opers_, 25));
-        assertEq("[", getVal(opers_, 26));
-        assertEq("]", getVal(opers_, 29));
+        assertEq(22,key(opers_,0));
+        assertEq("[",val(opers_,0));
+        assertEq(25,key(opers_,1));
+        assertEq("]",val(opers_,1));
+        assertEq(26,key(opers_,2));
+        assertEq("[",val(opers_,2));
+        assertEq(29,key(opers_,3));
+        assertEq("]",val(opers_,3));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-//        assertEq("$new java.lang.Integer", getVal(values_, 0));
-        assertEq("8i", getVal(values_, 23));
-        assertEq("5i", getVal(values_, 27));
+        assertEq(23, key(values_, 0));
+        assertEq("8i", val(values_, 0));
+        assertEq(27, key(values_, 1));
+        assertEq("5i", val(values_, 1));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -2868,12 +3337,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer[8i][][]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", getVal(opers_, 22));
-        assertEq("]", getVal(opers_, 25));
+        assertEq(22, key(opers_, 0));
+        assertEq("[", val(opers_, 0));
+        assertEq(25, key(opers_, 1));
+        assertEq("]", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new java.lang.Integer", getVal(values_, 0));
-        assertEq("8i", getVal(values_, 23));
+        assertEq(23, key(values_, 0));
+        assertEq("8i", val(values_, 0));
         assertTrue(seq_.isInstance());
         assertEq(2, seq_.getCountArrays());
     }
@@ -2882,12 +3353,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new List<java.lang.Integer>[8i]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", getVal(opers_, 28));
-        assertEq("]", getVal(opers_, 31));
+        assertEq(28, key(opers_, 0));
+        assertEq("[", val(opers_, 0));
+        assertEq(31, key(opers_, 1));
+        assertEq("]", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new List<java.lang.Integer>", getVal(values_, 0));
-        assertEq("8i", getVal(values_, 29));
+        assertEq(29, key(values_, 0));
+        assertEq("8i", val(values_, 0));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -2896,12 +3369,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new List<java.lang.Integer[]>[8i]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", getVal(opers_, 30));
-        assertEq("]", getVal(opers_, 33));
+        assertEq(30, key(opers_, 0));
+        assertEq("[", val(opers_, 0));
+        assertEq(33, key(opers_, 1));
+        assertEq("]", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new List<java.lang.Integer[]>", getVal(values_, 0));
-        assertEq("8i", getVal(values_, 31));
+        assertEq(31, key(values_, 0));
+        assertEq("8i", val(values_, 0));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -2910,12 +3385,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new List<java.lang.Integer[]>[8i][]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", getVal(opers_, 30));
-        assertEq("]", getVal(opers_, 33));
+        assertEq(30, key(opers_, 0));
+        assertEq("[", val(opers_, 0));
+        assertEq(33, key(opers_, 1));
+        assertEq("]", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new List<java.lang.Integer[]>", getVal(values_, 0));
-        assertEq("8i", getVal(values_, 31));
+        assertEq(31, key(values_, 0));
+        assertEq("8i", val(values_, 0));
         assertTrue(seq_.isInstance());
         assertEq(1, seq_.getCountArrays());
     }
@@ -2925,12 +3402,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("$new java.lang.Integer(8i)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 22));
-        assertEq(")", getVal(opers_, 25));
+        assertEq(22, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(25, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("$new java.lang.Integer", getVal(values_, 0));
-//        assertEq("8i", getVal(values_, 23));
+        assertEq(23, key(values_,0));
+        assertEq("8i", val(values_,0));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -2955,14 +3434,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
         vi_.setFirstChar(18);
         vi_.setLastChar(21);
         d_.getVariables().add(vi_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", getVal(opers_, 17));
+        assertEq(17, key(opers_, 0));
+        assertEq(".", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("composite.integer", getVal(values_, 0));
-        assertEq("int", getVal(values_, 18));
+        assertEq(0, key(values_, 0));
+        assertEq("composite.integer", val(values_, 0));
+        assertEq(18, key(values_, 1));
+        assertEq("int", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -2971,11 +3453,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("integer=1=0");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", getVal(opers_, 7));
+        assertEq(7, key(opers_, 0));
+        assertEq("=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("integer", getVal(values_, 0));
-        assertEq("1=0", getVal(values_, 8));
+        assertEq(0, key(values_, 0));
+        assertEq("integer", val(values_, 0));
+        assertEq(8, key(values_, 1));
+        assertEq("1=0", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertTrue(!seq_.isCallDbArray());
         assertEq(0, seq_.getCountArrays());
@@ -2985,10 +3470,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp>[]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp>[]", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof pkg.List<two.Tmp>[]", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -2997,10 +3484,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp>[ ]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp>[ ]", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof pkg.List<two.Tmp>[ ]", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3009,10 +3498,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof $byte[ ]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte[ ]", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof $byte[ ]", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3021,10 +3512,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("1 $instanceof pkg.List<two.Tmp> []");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp> []", getVal(opers_, 2));
+        assertEq(2, key(opers_, 0));
+        assertEq("$instanceof pkg.List<two.Tmp> []", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("1 ", val(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3033,12 +3526,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[0](1,2)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 11));
+        assertEq(11, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", getVal(values_, 0));
-        assertEq("(1,2)", getVal(values_, 11));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[0]", val(values_, 0));
+        assertEq(11, key(values_, 1));
+        assertEq("(1,2)", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3046,12 +3542,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[0](1)");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 11));
+        assertEq(11, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", getVal(values_, 0));
-        assertEq("(1)", getVal(values_, 11));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[0]", val(values_, 0));
+        assertEq(11, key(values_, 1));
+        assertEq("(1)", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3059,12 +3558,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[0]((1,2))");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 11));
+        assertEq(11, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", getVal(values_, 0));
-        assertEq("((1,2))", getVal(values_, 11));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[0]", val(values_, 0));
+        assertEq(11, key(values_, 1));
+        assertEq("((1,2))", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3072,12 +3574,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[0](-(1,2))");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 11));
+        assertEq(11, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", getVal(values_, 0));
-        assertEq("(-(1,2))", getVal(values_, 11));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[0]", val(values_, 0));
+        assertEq(11, key(values_, 1));
+        assertEq("(-(1,2))", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3085,12 +3590,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("((1))");
         StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", getVal(opers_, 0));
-        assertEq(")", getVal(opers_, 4));
+        assertEq(0, key(opers_, 0));
+        assertEq("(", val(opers_, 0));
+        assertEq(4, key(opers_, 1));
+        assertEq(")", val(opers_, 1));
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-//        assertEq("", getVal(values_, 0));
-        assertEq("(1)", getVal(values_, 1));
+        assertEq(1, key(values_, 0));
+        assertEq("(1)", val(values_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3098,11 +3605,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("(1)=5");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", getVal(opers_, 3));
+        assertEq(3, key(opers_, 0));
+        assertEq("=", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("(1)", getVal(values_, 0));
-        assertEq("5", getVal(values_, 4));
+        assertEq(0, key(values_, 0));
+        assertEq("(1)", val(values_, 0));
+        assertEq(4, key(values_, 1));
+        assertEq("5", val(values_, 1));
         assertEq(ElResolver.AFF_PRIO,seq_.getPriority());
     }
     @Test
@@ -3110,12 +3620,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("abs(4,3)[0]{1}");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 11));
+        assertEq(11, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", getVal(values_, 0));
-        assertEq("{1}", getVal(values_, 11));
+        assertEq(0, key(values_, 0));
+        assertEq("abs(4,3)[0]", val(values_, 0));
+        assertEq(11, key(values_, 1));
+        assertEq("{1}", val(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -3125,12 +3638,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "0x1";
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("0x1", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -3147,12 +3661,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "0x1f";
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1f", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("0x1f", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -3169,12 +3684,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "0x1p0";
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1p0", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("0x1p0", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -3191,12 +3707,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "0x1fp0";
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1fp0", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("0x1fp0", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -3213,12 +3730,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "0x1.2p0";
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1.2p0", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("0x1.2p0", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -3235,12 +3753,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "0x1f.2p0";
         Delimiters d_ = checkSyntax(conf_, el_);
-        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_);
         StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1f.2p0", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("0x1f.2p0", val(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -3258,7 +3777,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("18", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("18", val(values_, 0));
         assertSame(ConstType.STRING, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -3270,7 +3790,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("18`36", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("18`36", val(values_, 0));
         assertSame(ConstType.STRING, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -3280,11 +3801,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("tab[0]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 3));
+        assertEq(3, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("tab", getVal(values_, 0));
-        assertEq("[0]", getVal(values_, 3));
+        assertEq(0, key(values_, 0));
+        assertEq("tab", val(values_, 0));
+        assertEq(3, key(values_, 1));
+        assertEq("[0]", val(values_, 1));
         assertTrue(!seq_.isCallDbArray());
         assertTrue(!seq_.isArray());
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
@@ -3295,11 +3819,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("tab[0][1]");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", getVal(opers_, 6));
+        assertEq(6, key(opers_, 0));
+        assertEq("", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("tab[0]", getVal(values_, 0));
-        assertEq("[1]", getVal(values_, 6));
+        assertEq(0, key(values_, 0));
+        assertEq("tab[0]", val(values_, 0));
+        assertEq(6, key(values_, 1));
+        assertEq("[1]", val(values_, 1));
         assertTrue(!seq_.isCallDbArray());
         assertTrue(!seq_.isArray());
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
@@ -3310,11 +3837,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         OperationsSequence seq_ = test("3*");
         StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", getVal(opers_, 1));
+        assertEq(1, key(opers_, 0));
+        assertEq("*", val(opers_, 0));
         StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("3", getVal(values_, 0));
-        assertEq("", getVal(values_, 2));
+        assertEq(0, key(values_, 0));
+        assertEq("3", val(values_, 0));
+        assertEq(2, key(values_, 1));
+        assertEq("", val(values_, 1));
         assertEq(ElResolver.MULT_PRIO,seq_.getPriority());
     }
 
@@ -3325,7 +3855,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, opers_.size());
         StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("4. ", getVal(values_, 0));
+        assertEq(0, key(values_, 0));
+        assertEq("4. ", val(values_, 0));
     }
 
     @Test
@@ -3852,17 +4383,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void checkSyntaxDelimiters1FailTest() {
-        int badOffset_ = getBadOffset("{6*('\\u9fcb'+8)", 1);
+        int badOffset_ = getBadOffsetDel("{6*('\\u9fcb'+8)");
         assertEq(15, badOffset_);
     }
     @Test
     public void checkSyntaxDelimiters4FailTest() {
-        int badOffset_ = getBadOffset("{6*('\\u9fcb'+8\\", 1);
+        int badOffset_ = getBadOffsetDel("{6*('\\u9fcb'+8\\");
         assertEq(15, badOffset_);
     }
     @Test
     public void checkSyntaxDelimiters5FailTest() {
-        int badOffset_ = getBadOffset("{6*('\\u9fcb'+8\\ ", 1);
+        int badOffset_ = getBadOffsetDel("{6*('\\u9fcb'+8\\ ");
         assertEq(16, badOffset_);
     }
     @Test
@@ -3883,344 +4414,338 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
     @Test
     public void checkSyntaxDelimiters2FailTest() {
-        int badOffset_ = getBadOffset("{6*('\\u9fcb'+8){", 1);
+        int badOffset_ = getBadOffsetDel("{6*('\\u9fcb'+8){");
         assertEq(16, badOffset_);
-    }
-
-    private int getBadOffset(String _el, int _minIndex) {
-        AnalyzedPageEl conf_ = contextEl();
-
-        return checkSyntaxDelimiters(conf_, _el, _minIndex).getBadOffset();
     }
 
     @Test
     public void checkSyntaxDelimiters3FailTest() {
-        int badOffset_ = getBadOffset("{6*('\\u9gcb'+8)}", 1);
+        int badOffset_ = getBadOffsetDel("{6*('\\u9gcb'+8)}");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax1FailTest() {
-        int badOffset_ = getBadOffset_("6*('\\u9gcb'+8)");
+        int badOffset_ = getBadOffset("6*('\\u9gcb'+8)");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax2FailTest() {
-        int badOffset_ = getBadOffset_("6*('\\g'+8)");
+        int badOffset_ = getBadOffset("6*('\\g'+8)");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax3FailTest() {
-        int badOffset_ = getBadOffset_("6*('ab'+8)");
+        int badOffset_ = getBadOffset("6*('ab'+8)");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax4FailTest() {
-        int badOffset_ = getBadOffset_("6*('a'+[8)]");
+        int badOffset_ = getBadOffset("6*('a'+[8)]");
         assertEq(9, badOffset_);
     }
 
     @Test
     public void checkSyntax5FailTest() {
-        int badOffset_ = getBadOffset_("6*['a'+(8])");
+        int badOffset_ = getBadOffset("6*['a'+(8])");
         assertEq(9, badOffset_);
     }
 
     @Test
     public void checkSyntax7FailTest() {
-        int badOffset_ = getBadOffset_("6*(\"t\\u98\"+[8])");
+        int badOffset_ = getBadOffset("6*(\"t\\u98\"+[8])");
         assertEq(15, badOffset_);
     }
 
     @Test
     public void checkSyntax8FailTest() {
-        int badOffset_ = getBadOffset_("6*(\"t\\u98 \"+[8])");
+        int badOffset_ = getBadOffset("6*(\"t\\u98 \"+[8])");
         assertEq(16, badOffset_);
     }
 
     @Test
     public void checkSyntax10FailTest() {
-        int badOffset_ = getBadOffset_("$static.a");
+        int badOffset_ = getBadOffset("$static.a");
         assertEq(7, badOffset_);
     }
 
     @Test
     public void checkSyntax12FailTest() {
-        int badOffset_ = getBadOffset_("1< =2");
+        int badOffset_ = getBadOffset("1< =2");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax13FailTest() {
-        int badOffset_ = getBadOffset_("1> =2");
+        int badOffset_ = getBadOffset("1> =2");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax14FailTest() {
-        int badOffset_ = getBadOffset_("1! =2");
+        int badOffset_ = getBadOffset("1! =2");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax15FailTest() {
-        int badOffset_ = getBadOffset_("v '");
+        int badOffset_ = getBadOffset("v '");
         assertEq(3, badOffset_);
     }
 
     @Test
     public void checkSyntax16FailTest() {
-        int badOffset_ = getBadOffset_("v; .");
+        int badOffset_ = getBadOffset("v; .");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax17FailTest() {
-        int badOffset_ = getBadOffset_("v;. ;");
+        int badOffset_ = getBadOffset("v;. ;");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax18FailTest() {
-        int badOffset_ = getBadOffset_("v; ;");
+        int badOffset_ = getBadOffset("v; ;");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax19FailTest() {
-        int badOffset_ = getBadOffset_("v;  ;");
+        int badOffset_ = getBadOffset("v;  ;");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax20FailTest() {
-        int badOffset_ = getBadOffset_("'\\");
+        int badOffset_ = getBadOffset("'\\");
         assertEq(2, badOffset_);
     }
 
     @Test
     public void checkSyntax20_FailTest() {
-        int badOffset_ = getBadOffset_("'''\\");
+        int badOffset_ = getBadOffset("'''\\");
         assertEq(4, badOffset_);
     }
 
     @Test
     public void checkSyntax21FailTest() {
-        int badOffset_ = getBadOffset_("\"\\");
+        int badOffset_ = getBadOffset("\"\\");
         assertEq(2, badOffset_);
     }
 
     @Test
     public void checkSyntax21_FailTest() {
-        int badOffset_ = getBadOffset_("\"\"\"\\");
+        int badOffset_ = getBadOffset("\"\"\"\\");
         assertEq(4, badOffset_);
     }
 
     @Test
     public void checkSyntax22FailTest() {
-        int badOffset_ = getBadOffset_("\"\\u9fc");
+        int badOffset_ = getBadOffset("\"\\u9fc");
         assertEq(6, badOffset_);
     }
 
     @Test
     public void checkSyntax22_FailTest() {
-        int badOffset_ = getBadOffset_("\"\"\"\\u9fc");
+        int badOffset_ = getBadOffset("\"\"\"\\u9fc");
         assertEq(8, badOffset_);
     }
 
     @Test
     public void checkSyntax23FailTest() {
-        int badOffset_ = getBadOffset_("'\\u9fc");
+        int badOffset_ = getBadOffset("'\\u9fc");
         assertEq(6, badOffset_);
     }
 
     @Test
     public void checkSyntax23_FailTest() {
-        int badOffset_ = getBadOffset_("'''\\u9fc");
+        int badOffset_ = getBadOffset("'''\\u9fc");
         assertEq(8, badOffset_);
     }
 
     @Test
     public void checkSyntax24FailTest() {
-        int badOffset_ = getBadOffset_("\"\\g9fc");
+        int badOffset_ = getBadOffset("\"\\g9fc");
         assertEq(6, badOffset_);
     }
 
     @Test
     public void checkSyntax25FailTest() {
-        int badOffset_ = getBadOffset_("'\\g9fc");
+        int badOffset_ = getBadOffset("'\\g9fc");
         assertEq(6, badOffset_);
     }
 
     @Test
     public void checkSyntax26FailTest() {
-        int badOffset_ = getBadOffset_("\"\\u9fcb");
+        int badOffset_ = getBadOffset("\"\\u9fcb");
         assertEq(7, badOffset_);
     }
 
     @Test
     public void checkSyntax27FailTest() {
-        int badOffset_ = getBadOffset_("'\\u9fcb");
+        int badOffset_ = getBadOffset("'\\u9fcb");
         assertEq(7, badOffset_);
     }
 
     @Test
     public void checkSyntax28FailTest() {
-        int badOffset_ = getBadOffset_("1)");
+        int badOffset_ = getBadOffset("1)");
         assertEq(1, badOffset_);
     }
 
     @Test
     public void checkSyntax29FailTest() {
-        int badOffset_ = getBadOffset_("(1");
+        int badOffset_ = getBadOffset("(1");
         assertEq(2, badOffset_);
     }
 
     @Test
     public void checkSyntax30FailTest() {
-        int badOffset_ = getBadOffset_("1]");
+        int badOffset_ = getBadOffset("1]");
         assertEq(1, badOffset_);
     }
 
     @Test
     public void checkSyntax31FailTest() {
-        int badOffset_ = getBadOffset_("[1");
+        int badOffset_ = getBadOffset("[1");
         assertEq(2, badOffset_);
     }
 
     @Test
     public void checkSyntax33FailTest() {
-        int badOffset_ = getBadOffset_("$new java.lang.Integer");
+        int badOffset_ = getBadOffset("$new java.lang.Integer");
         assertEq(21, badOffset_);
     }
 
     @Test
     public void checkSyntax34FailTest() {
-        int badOffset_ = getBadOffset_("$new java.lang.Integer(?java");
+        int badOffset_ = getBadOffset("$new java.lang.Integer(?java");
         assertEq(28, badOffset_);
     }
 
     @Test
     public void checkSyntax35FailTest() {
-        int badOffset_ = getBadOffset_("a,b");
+        int badOffset_ = getBadOffset("a,b");
         assertEq(1, badOffset_);
     }
 
     @Test
     public void checkSyntax36FailTest() {
-        int badOffset_ = getBadOffset_("integer[?java");
+        int badOffset_ = getBadOffset("integer[?java");
         assertEq(13, badOffset_);
     }
 
     @Test
     public void checkSyntax40FailTest() {
-        int badOffset_ = getBadOffset_("$static(pkg$classname");
+        int badOffset_ = getBadOffset("$static(pkg$classname");
         assertEq(22, badOffset_);
     }
 
 
     @Test
     public void checkSyntax77FailTest() {
-        int badOffset_ = getBadOffset_("$vararg");
+        int badOffset_ = getBadOffset("$vararg");
         assertEq(7, badOffset_);
     }
 
     @Test
     public void checkSyntax78FailTest() {
-        int badOffset_ = getBadOffset_("$vararg+4");
+        int badOffset_ = getBadOffset("$vararg+4");
         assertEq(9, badOffset_);
     }
 
     @Test
     public void checkSyntax79FailTest() {
-        int badOffset_ = getBadOffset_("'\\u9");
+        int badOffset_ = getBadOffset("'\\u9");
         assertEq(4, badOffset_);
     }
 
     @Test
     public void checkSyntax80FailTest() {
-        int badOffset_ = getBadOffset_("'\\u9'");
+        int badOffset_ = getBadOffset("'\\u9'");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax81FailTest() {
-        int badOffset_ = getBadOffset_("$classchoice($math");
+        int badOffset_ = getBadOffset("$classchoice($math");
         assertEq(17, badOffset_);
     }
 
     @Test
     public void checkSyntax82FailTest() {
-        int badOffset_ = getBadOffset_("$classchoice($math$$");
+        int badOffset_ = getBadOffset("$classchoice($math$$");
         assertEq(19, badOffset_);
     }
 
     @Test
     public void checkSyntax83FailTest() {
-        int badOffset_ = getBadOffset_("$classchoice(");
+        int badOffset_ = getBadOffset("$classchoice(");
         assertEq(12, badOffset_);
     }
 
     @Test
     public void checkSyntax84FailTest() {
-        int badOffset_ = getBadOffset_("$classchoice($math$abs$");
+        int badOffset_ = getBadOffset("$classchoice($math$abs$");
         assertEq(22, badOffset_);
     }
 
     @Test
     public void checkSyntax85FailTest() {
-        int badOffset_ = getBadOffset_("$classchoice($math$abs)");
+        int badOffset_ = getBadOffset("$classchoice($math$abs)");
         assertEq(23, badOffset_);
     }
 
     @Test
     public void checkSyntax86FailTest() {
-        int badOffset_ = getBadOffset_("$classchoice($math$abs) ");
+        int badOffset_ = getBadOffset("$classchoice($math$abs) ");
         assertEq(24, badOffset_);
     }
 
     @Test
     public void checkSyntax87FailTest() {
-        int badOffset_ = getBadOffset_("$classchoice ");
+        int badOffset_ = getBadOffset("$classchoice ");
         assertEq(12, badOffset_);
     }
 
     @Test
     public void checkSyntax88FailTest() {
-        int badOffset_ = getBadOffset_("$that.");
+        int badOffset_ = getBadOffset("$that.");
         assertEq(6, badOffset_);
     }
 
     @Test
     public void checkSyntax89FailTest() {
-        int badOffset_ = getBadOffset_("$this(");
+        int badOffset_ = getBadOffset("$this(");
         assertEq(6, badOffset_);
     }
 
     @Test
     public void checkSyntax90FailTest() {
-        int badOffset_ = getBadOffset_("$that.call");
+        int badOffset_ = getBadOffset("$that.call");
         assertEq(10, badOffset_);
     }
 
     @Test
     public void checkSyntax91FailTest() {
-        int badOffset_ = getBadOffset_("$that.call$");
+        int badOffset_ = getBadOffset("$that.call$");
         assertEq(11, badOffset_);
     }
 
     @Test
     public void checkSyntax92FailTest() {
-        int badOffset_ = getBadOffset_("$that.call$$");
+        int badOffset_ = getBadOffset("$that.call$$");
         assertEq(12, badOffset_);
     }
 
     @Test
     public void checkSyntax93FailTest() {
-        int badOffset_ = getBadOffset_("$classchoice($math$abs$$abs;)");
+        int badOffset_ = getBadOffset("$classchoice($math$abs$$abs;)");
         assertEq(29, badOffset_);
     }
     @Test
@@ -4231,23 +4756,29 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void checkSyntax95FailTest() {
-        int badOffset_ = getBadOffset_("1e1 ");
+        int badOffset_ = getBadOffset("1e1 ");
         assertEq(-1, badOffset_);
     }
 
     @Test
     public void checkSyntax96FailTest() {
-        int badOffset_ = getBadOffset_("$new $interfaces ");
+        int badOffset_ = getBadOffset("$new $interfaces ");
         assertEq(5, badOffset_);
     }
 
     @Test
     public void checkSyntax97FailTest() {
-        int badOffset_ = getBadOffset_("$new $interfaces( ");
+        int badOffset_ = getBadOffset("$new $interfaces( ");
         assertEq(5, badOffset_);
     }
 
-    private int getBadOffset_(String _el) {
+    private int getBadOffsetDel(String _el) {
+        AnalyzedPageEl conf_ = contextEl();
+
+        return checkSyntaxDelimiters(conf_, _el, 1).getBadOffset();
+    }
+
+    private int getBadOffset(String _el) {
         AnalyzedPageEl conf_ = contextEl();
 
         return checkSyntax(conf_, _el).getBadOffset();
@@ -4263,7 +4794,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         AnalyzedPageEl conf_ = contextEl();
 
         Delimiters d_ = checkSyntax(conf_, _el);
-        return getOperationsSequence(conf_, _el, d_, 0);
+        return getOperationsSequence(conf_, _el, d_);
     }
 
     private static AnalyzedPageEl prepare(StringMap<String> _files) {
@@ -4275,8 +4806,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         return conf_;
     }
 
-    private static OperationsSequence getOperationsSequence(AnalyzedPageEl _conf, String _el, Delimiters _d, int _offset) {
-        return ElResolver.getOperationsSequence(_offset, _el, _d, _conf,null);
+    private static OperationsSequence getOperationsSequence(AnalyzedPageEl _conf, String _el, Delimiters _d) {
+        return ElResolver.getOperationsSequence(0, _el, _d, _conf,null);
     }
     private static AnalyzedPageEl contextEl() {
         Options opt_ = newOptions();
@@ -4291,30 +4822,28 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     private static Delimiters checkSyntax(AnalyzedPageEl _conf, String _el) {
         ResultExpression res_ = new ResultExpression();
-        AnalyzedPageEl analyzing_ = _conf;
         StringComment str_ = new StringComment(_el,new CustList<CommentDelimiters>());
         res_.partsAbsol(str_.getStringParts());
         res_.setAnalyzedString(_el);
-        analyzing_.setSumOffset(0);
-        analyzing_.zeroOffset();
-        ElRetrieverAnonymous.commonCheckQuick(0,analyzing_,res_);
-        analyzing_.setCurrentParts(res_.getParts());
-        analyzing_.setCurrentNumbers(res_.getNumbers());
-        return ElResolver.checkSyntax(res_, 0, analyzing_);
+        _conf.setSumOffset(0);
+        _conf.zeroOffset();
+        ElRetrieverAnonymous.commonCheckQuick(0, _conf,res_);
+        _conf.setCurrentParts(res_.getParts());
+        _conf.setCurrentNumbers(res_.getNumbers());
+        return ElResolver.checkSyntax(res_, 0, _conf);
     }
 
     private static Delimiters checkSyntaxDelimiters(AnalyzedPageEl _conf, String _el, int _minIndex) {
         ResultExpression res_ = new ResultExpression();
-        AnalyzedPageEl analyzing_ = _conf;
         StringComment str_ = new StringComment(_el,new CustList<CommentDelimiters>());
         res_.partsAbsol(str_.getStringParts());
         res_.setAnalyzedString(_el);
-        analyzing_.setSumOffset(0);
-        analyzing_.zeroOffset();
-        ElRetrieverAnonymous.commonCheckQuick(_minIndex,analyzing_,res_);
-        analyzing_.setCurrentParts(res_.getParts());
-        analyzing_.setCurrentNumbers(res_.getNumbers());
-        return ElResolver.checkSyntaxDelimiters(res_, _minIndex, analyzing_);
+        _conf.setSumOffset(0);
+        _conf.zeroOffset();
+        ElRetrieverAnonymous.commonCheckQuick(_minIndex, _conf,res_);
+        _conf.setCurrentParts(res_.getParts());
+        _conf.setCurrentNumbers(res_.getNumbers());
+        return ElResolver.checkSyntaxDelimiters(res_, _minIndex, _conf);
     }
 
     private static void setGlobalType(AnalyzedPageEl _conf, String _globalClass) {
@@ -4325,9 +4854,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         return _classes.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_className));
     }
 
-    private static String getVal(StrTypes _opers, int _i) {
-        return _opers.getValue(TstsCharacters.values(_opers).indexOfNb(_i));
+    private static int key(StrTypes _opers, int _i) {
+        return _opers.getKey(_i);
     }
-
+    private static String val(StrTypes _opers, int _i) {
+        return _opers.getValue(_i);
+    }
 
 }
