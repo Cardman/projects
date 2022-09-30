@@ -175,13 +175,14 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         natPage = _nat;
     }
 
-    public void initBeans(Configuration _conf, String _language) {
-        int index_ = 0;
-        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            beansStruct.setValue(index_, newSimpleBean(_language, e.getValue()));
-            index_++;
-        }
-    }
+    public abstract void initBeans(Configuration _conf, String _language);
+//    public void initBeans(Configuration _conf, String _language) {
+//        int index_ = 0;
+//        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
+//            beansStruct.setValue(index_, newSimpleBean(_language, e.getValue()));
+//            index_++;
+//        }
+//    }
 
     public static Struct convert(NatNodeContainer _container) {
         String className_ = _container.getNodeInformation().getInputClass();
@@ -205,8 +206,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         return new RateStruct(new Rate(_value),TYPE_RATE);
     }
-
-    protected abstract Struct newSimpleBean(String _language, BeanInfo _bean);
 
     protected Struct getBeanOrNull(String _currentBeanName) {
         return getBean(_currentBeanName);
@@ -576,11 +575,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
 
     public static void initInstancesPattern(Configuration _conf, StringMap<BeanInfo> _beansInfos) {
-        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            BeanInfo info_ = e.getValue();
-            info_.setResolvedClassName(info_.getClassName());
-            _beansInfos.addEntry(e.getKey(),info_);
-        }
+        _beansInfos.addAllEntries(_conf.getBeansInfos());
     }
 
     public StringMap<String> getIterables() {
@@ -645,9 +640,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, AbstractNatBlockBuilder _builder, NatDualConfigurationContext _context) {
         setNavigation(_context.getNavigation());
         NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
-        StringMap<BeanInfo> beansInfos_ = new StringMap<BeanInfo>();
-        initInstancesPattern(_nav.getSession(), beansInfos_);
-        _conf.getBeansInfos().addAllEntries(beansInfos_);
+        StringMap<BeanInfo> beansInfos_ = _conf.getBeansInfos();
         preInitBeans(_nav.getSession());
         analyzingDoc_.setLanguages(_nav.getLanguages());
         _nav.getSession().setCurrentLanguage(_nav.getLanguage());

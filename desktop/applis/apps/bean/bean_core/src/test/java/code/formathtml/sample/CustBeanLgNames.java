@@ -10,7 +10,6 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -834,22 +833,18 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         forms_.putAllMapBase(formsMap_);
     }
 
-    public SampleBeanStruct getOtherResultBean(String _cl) {
-        if (StringUtil.quickEq(_cl,TYPE_BEAN_ONE)) {
-            BeanOne bean_ = new BeanOne();
-            bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
-            bean_.getBaseForms().put("typedShort",0);
-            return(new SampleBeanStruct(bean_));
-        }
-        BeanTwo bean_ = new BeanTwo();
-        bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
-        bean_.getBaseForms().put("typedShort",0);
-        return(new SampleBeanStruct(bean_));
+    @Override
+    public void initBeans(Configuration _conf, String _language) {
+//        super.initBeans(_conf, _language);
+        getBeansStruct().setValue(0,bean(new BeanOne()));
+        getBeansStruct().setValue(1,bean(new BeanTwo()));
+//        getBeansStruct().setValue(1,bean(new TeamBean(), AikiBeansFightStd.TYPE_TEAM_BEAN,_language));
     }
 
-    protected Struct newSimpleBean(String _language, BeanInfo _bean) {
-        SampleBeanStruct strBean_ = getOtherResultBean(_bean.getResolvedClassName());
-        return update(strBean_);
+    private SampleBeanStruct bean(Bean _bean) {
+        _bean.getBaseForms().getBeansOthers().put("other",new BeanThree());
+        _bean.getBaseForms().put("typedShort",0);
+        return (new SampleBeanStruct(_bean));
     }
 
     private SampleBeanStruct update(SampleBeanStruct _str) {

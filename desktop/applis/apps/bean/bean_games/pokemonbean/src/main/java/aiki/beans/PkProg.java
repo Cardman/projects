@@ -1,11 +1,13 @@
 package aiki.beans;
 
 import aiki.beans.game.AikiBeansGameStd;
+import aiki.beans.game.GameProgressionBean;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.formathtml.Configuration;
 import code.util.CustList;
 
 public final class PkProg extends PokemonStandards {
@@ -25,5 +27,10 @@ public final class PkProg extends PokemonStandards {
         methods_.add( new SpecNatMethod(GET_TRAINER,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerPlaceNamesGetTrainer()));
         methods_.add( new SpecNatMethod(GET_PLACE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerPlaceNamesGetPlace()));
         _std.getStds().addEntry(TYPE_TRAINER_PLACE_NAMES, type_);
+    }
+
+    @Override
+    public void initBeans(Configuration _conf, String _language) {
+        getBeansStruct().setValue(0,bean(new GameProgressionBean(), AikiBeansGameStd.TYPE_GAME_PROGRESSION_BEAN,_language));
     }
 }

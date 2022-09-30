@@ -2,11 +2,13 @@ package aiki.beans;
 
 import aiki.beans.facade.fight.AikiBeansFacadeFightStd;
 import aiki.beans.fight.AikiBeansFightStd;
+import aiki.beans.fight.*;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.formathtml.Configuration;
 import code.util.CustList;
 
 public final class PkFight extends PokemonStandards {
@@ -117,4 +119,35 @@ public final class PkFight extends PokemonStandards {
         _std.getStds().addEntry(TYPE_ANTICIPATION, type_);
     }
 
+    @Override
+    public void initBeans(Configuration _conf, String _language) {
+//        super.initBeans(_conf, _language);
+        getBeansStruct().setValue(0,bean(new FighterBean(), AikiBeansFightStd.TYPE_FIGHTER_BEAN,_language));
+        getBeansStruct().setValue(1,bean(new TeamBean(), AikiBeansFightStd.TYPE_TEAM_BEAN,_language));
+        getBeansStruct().setValue(2,bean(new FightBean(), AikiBeansFightStd.TYPE_FIGHT_BEAN,_language));
+        getBeansStruct().setValue(3,bean(new FightCalculationBean(), AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN,_language));
+        /*
+        NavBuilder.buildBeans(beans_,FIGHTER,AIKI_BEANS_FIGHT_FIGHTER_BEAN);
+        NavBuilder.buildBeans(beans_,TEAM,AIKI_BEANS_FIGHT_TEAM_BEAN);
+        NavBuilder.buildBeans(beans_,FIGHT,AIKI_BEANS_FIGHT_FIGHT_BEAN);
+        NavBuilder.buildBeans(beans_,FIGHT_DETAIL,AIKI_BEANS_FIGHT_FIGHT_CALCULATION_BEAN);
+        */
+        /*
+        if (StringUtil.quickEq(name_,AikiBeansFightStd.TYPE_FIGHTER_BEAN)) {
+            return bean(new FighterBean(), AikiBeansFightStd.TYPE_FIGHTER_BEAN, _lg);
+
+        }
+        if (StringUtil.quickEq(name_,AikiBeansFightStd.TYPE_TEAM_BEAN)) {
+            return bean(new TeamBean(), AikiBeansFightStd.TYPE_TEAM_BEAN, _lg);
+
+        }
+        if (StringUtil.quickEq(name_,AikiBeansFightStd.TYPE_FIGHT_BEAN)) {
+            return bean(new FightBean(), AikiBeansFightStd.TYPE_FIGHT_BEAN, _lg);
+
+        }
+        if (StringUtil.quickEq(name_,AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN)) {
+            return bean(new FightCalculationBean(), AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN, _lg);
+
+        }*/
+    }
 }

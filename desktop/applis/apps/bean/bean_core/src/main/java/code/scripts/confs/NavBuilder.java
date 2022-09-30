@@ -17,6 +17,7 @@ public final class NavBuilder {
         BeanInfo b_ = new BeanInfo();
         b_.setScope("session");
         b_.setClassName(_value);
+        b_.setResolvedClassName(_value);
         _nav.addEntry(_key,b_);
     }
 }

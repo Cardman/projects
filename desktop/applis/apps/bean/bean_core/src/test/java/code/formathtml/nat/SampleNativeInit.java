@@ -11,13 +11,18 @@ public final class SampleNativeInit implements AbstractNativeInit {
         _configuration.setFirstUrl("page2.html");
         _configuration.setPrefix("c");
         BeanInfo biOne_ = new BeanInfo();
-        biOne_.setClassName("code.formathtml.classes.BeanOne");
+        cl(biOne_, "code.formathtml.classes.BeanOne");
         biOne_.setScope("session");
         _configuration.getBeansInfos().addEntry("bean_one",biOne_);
         BeanInfo biTwo_ = new BeanInfo();
-        biTwo_.setClassName("code.formathtml.classes.BeanTwo");
+        cl(biTwo_, "code.formathtml.classes.BeanTwo");
         biTwo_.setScope("session");
         _configuration.getBeansInfos().addEntry("bean_two",biTwo_);
+    }
+
+    private void cl(BeanInfo _bi, String _className) {
+        _bi.setClassName(_className);
+        _bi.setResolvedClassName(_className);
     }
 
     @Override

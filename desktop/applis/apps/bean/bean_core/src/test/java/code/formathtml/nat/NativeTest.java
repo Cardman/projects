@@ -988,11 +988,11 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
-        i_.setClassName("code.formathtml.classes.BeanOne");
+        clName(i_, "code.formathtml.classes.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
         i_ = new BeanInfo();
         i_.setScope("session");
-        i_.setClassName("code.formathtml.classes.BeanTwo");
+        clName(i_, "code.formathtml.classes.BeanTwo");
         conf_.getBeansInfos().addEntry("bean_two",i_);
         dual_.init(conf_);
         Navigation n_ = new Navigation();
@@ -1003,6 +1003,12 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", lgNames_.getCurrentUrl());
     }
+
+    private static void clName(BeanInfo _i, String _cl) {
+        _i.setClassName(_cl);
+        _i.setResolvedClassName(_cl);
+    }
+
     @Test
     public void processNat_Test() {
         String locale_ = "en";
@@ -1028,11 +1034,11 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
-        i_.setClassName("code.formathtml.classes.BeanOne");
+        clName(i_, "code.formathtml.classes.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
         i_ = new BeanInfo();
         i_.setScope("session");
-        i_.setClassName("code.formathtml.classes.BeanTwo");
+        clName(i_, "code.formathtml.classes.BeanTwo");
         conf_.getBeansInfos().addEntry("bean_two",i_);
         dual_.init(conf_);
         Navigation n_ = new Navigation();
@@ -2401,7 +2407,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     private static BeanInfo beanInfo(Struct _value) {
         BeanInfo i_ = new BeanInfo();
-        i_.setClassName(((SampleBeanStruct) _value).getBean().getClassName());
+        String cl_ = ((SampleBeanStruct) _value).getBean().getClassName();
+        clName(i_,cl_);
         return i_;
     }
 
@@ -2545,8 +2552,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     private static void addBeanInfo(CustBeanLgNames _adv,String _id, Struct _str, StringMap<BeanInfo> _beansInfos, Configuration _configuration) {
         BeanInfo b_ = new BeanInfo();
-        b_.setClassName(_str.getClassName(null));
-        b_.setResolvedClassName(_str.getClassName(null));
+        String cl_ = _str.getClassName(null);
+        clName(b_,cl_);
         _beansInfos.addEntry(_id,b_);
         _adv.getBeansStruct().addEntry(_id,_str);
     }
