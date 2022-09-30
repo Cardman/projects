@@ -35,7 +35,7 @@ public final class Format {
             valeur_ = DocumentBuilder.transformSpecialChars(valeur_);
             constantes_.put(cle_, valeur_);
         }
-        return constantes_.getVal(_nomConstante);
+        return StringUtil.nullToEmpty(constantes_.getVal(_nomConstante));
     }
 
 }
