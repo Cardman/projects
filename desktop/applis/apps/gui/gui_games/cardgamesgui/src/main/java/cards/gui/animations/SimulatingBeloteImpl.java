@@ -223,7 +223,11 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     }
     @Override
     public void declareSlam(byte _taker, BidBeloteSuit _bid) {
-        //later
+        StringList pseudos_=pseudosSimuleeBelote();
+        String mess_ = container.getMessages().getVal(WindowCards.DECLARING_SLAM);
+        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_taker)),ContainerGame.RETURN_LINE);
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, StringUtil.concat(event_,ContainerGame.RETURN_LINE,Games.toString(_bid,container.getOwner().getLanguageKey()))), container.getOwner().getFrames());
+        //later improve
     }
 
     @Override
