@@ -1,14 +1,16 @@
 package code.scripts.confs;
 
+import code.expressionlanguage.structs.Struct;
+import code.util.ints.Countable;
 import org.junit.Assert;
 
 public abstract class EquallablePresidentBeanUtil {
 
-    public static void assertNotNull(Object _value) {
+    public static void assertNotNull(Countable _value) {
         Assert.assertNotNull(_value);
     }
-    public static void assertNull(Object _value) {
-        Assert.assertNull(_value);
+    public static void assertNotNull(String _value) {
+        Assert.assertNotNull(_value);
     }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
@@ -19,23 +21,15 @@ public abstract class EquallablePresidentBeanUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(Object _expected, Object _result) {
+    public static void assertSame(Struct _expected, Struct _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertNotSame(Object _expected, Object _result) {
-        Assert.assertNotSame(_expected, _result);
-    }
-
     public static void assertEq(boolean _expected, boolean _result) {
         Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(double _expected, double _result) {
-        Assert.assertEquals(Double.toString(_expected),Double.toString(_result));
     }
 
     public static void assertEq(long _expected, long _result) {

@@ -14,7 +14,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
     public void calculateScoresTest() {
         ResultsBelote res_ = new ResultsBelote();
         res_.getRes().setUser((byte) 0);
-        res_.getRes().setScores(new CustList<Longs>());
+//        res_.getRes().setScores(new CustList<Longs>());
         res_.getRes().setGlobalResultsPageTitle("");
         res_.getRes().setDetailResultsTitle("");
         res_.getRes().setSigmas(new CustList<Rate>());
@@ -22,7 +22,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         res_.getRes().setNicknames(new StringList());
         res_.getRes().setRenderedPages(new StringMap<String>());
         res_.getRes().setLoc("");
-        res_.calculateScores(new Shorts(),GameType.RANDOM,1,0);
+        res_.calculateScores(new CustList<Longs>(),new Shorts(),GameType.RANDOM,1,0);
         assertEq(0, res_.getRes().getScores().size());
         assertEq(0, res_.getRes().getSums().size());
         assertEq(0, res_.getRes().getSigmas().size());

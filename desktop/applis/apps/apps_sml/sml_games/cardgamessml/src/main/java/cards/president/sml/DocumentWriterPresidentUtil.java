@@ -12,6 +12,7 @@ import cards.president.TricksHandsPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
+import cards.president.enumerations.PresidentCardsExporterUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
@@ -223,7 +224,7 @@ public final class DocumentWriterPresidentUtil {
     private static Element setEqualtyPlaying(EqualtyPlaying _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_EQUALTY_PLAYING);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,PresidentCardsExporterUtil.fromEqualtyPlaying(_object));
         return elt_;
     }
 

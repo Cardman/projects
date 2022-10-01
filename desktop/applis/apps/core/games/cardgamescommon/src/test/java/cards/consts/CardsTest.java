@@ -331,7 +331,7 @@ public final class CardsTest extends EquallableCardsUtil {
     @Test
     public void calculateScores1() {
         ResultsGame r_ = new ResultsGame();
-        r_.calculateScores(Shorts.newList((short)1,(short) 2));
+        calculateScores2(r_, Shorts.newList((short)1,(short) 2));
         assertEq(1, r_.getScores().size());
         assertEq(2, r_.getScores().get(0).size());
         assertEq(1, r_.getScores().get(0).get(0));
@@ -340,12 +340,17 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq(3, r_.getSums().get(0));
         assertEq(1, r_.getSigmas().size());
         assertEq(new Rate(3,2), r_.getSigmas().get(0));
+        assertEq(1, r_.getHistory().size());
+        assertEq(0, r_.getHistory().get(0).getNumber());
+        assertEq(2, r_.getHistory().get(0).getScores().size());
+        assertEq(1, r_.getHistory().get(0).getScores().get(0));
+        assertEq(2, r_.getHistory().get(0).getScores().get(1));
     }
     @Test
     public void calculateScores2() {
         ResultsGame r_ = new ResultsGame();
-        r_.calculateScores(Shorts.newList((short)1,(short) 2));
-        r_.calculateScores(Shorts.newList((short)2,(short) 1));
+        calculateScores2(r_, Shorts.newList((short)1,(short) 2));
+        calculateScores2(r_, Shorts.newList((short) 2, (short) 1));
         assertEq(2, r_.getScores().size());
         assertEq(2, r_.getScores().get(0).size());
         assertEq(1, r_.getScores().get(0).get(0));
@@ -359,18 +364,51 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq(2, r_.getSigmas().size());
         assertEq(new Rate(3,2), r_.getSigmas().get(0));
         assertEq(Rate.zero(), r_.getSigmas().get(1));
+        assertEq(2, r_.getHistory().size());
+        assertEq(0, r_.getHistory().get(0).getNumber());
+        assertEq(2, r_.getHistory().get(0).getScores().size());
+        assertEq(1, r_.getHistory().get(0).getScores().get(0));
+        assertEq(2, r_.getHistory().get(0).getScores().get(1));
+        assertEq(1, r_.getHistory().get(1).getNumber());
+        assertEq(2, r_.getHistory().get(1).getScores().size());
+        assertEq(3, r_.getHistory().get(1).getScores().get(0));
+        assertEq(3, r_.getHistory().get(1).getScores().get(1));
     }
     @Test
     public void calculateScores3() {
         ResultsGame r_ = new ResultsGame();
-        r_.calculateScores(Shorts.newList((short)1,(short) 2),GameType.RANDOM,0,1);
+        calculateScores1(r_, GameType.RANDOM, new CustList<Longs>());
         assertEq(1, r_.getScores().size());
+        assertEq(1, r_.getHistory().size());
+        assertEq(0, r_.getHistory().get(0).getNumber());
     }
     @Test
     public void calculateScores4() {
         ResultsGame r_ = new ResultsGame();
-        r_.calculateScores(Shorts.newList((short)1,(short) 2),GameType.TRAINING,0,1);
+        calculateScores1(r_, GameType.TRAINING, new CustList<Longs>());
         assertEq(0, r_.getScores().size());
+        assertEq(0, r_.getHistory().size());
+    }
+    @Test
+    public void calculateScores5() {
+        ResultsGame r_ = new ResultsGame();
+        CustList<Longs> pr_ = new CustList<Longs>();
+        pr_.add(Longs.newList(0,1,2,3));
+        calculateScores1(r_, GameType.RANDOM, pr_);
+        assertEq(2, r_.getScores().size());
+        assertEq(2, r_.getHistory().size());
+        assertEq(0, r_.getHistory().get(0).getNumber());
+        assertEq(1, r_.getHistory().get(1).getNumber());
+    }
+    @Test
+    public void calculateScores6() {
+        ResultsGame r_ = new ResultsGame();
+        CustList<Longs> pr_ = new CustList<Longs>();
+        pr_.add(Longs.newList(0,1,2,3));
+        calculateScores1(r_, GameType.TRAINING, pr_);
+        assertEq(1, r_.getScores().size());
+        assertEq(1, r_.getHistory().size());
+        assertEq(0, r_.getHistory().get(0).getNumber());
     }
     @Test
     public void validate1(){
@@ -435,4 +473,13 @@ public final class CardsTest extends EquallableCardsUtil {
         assertTrue(displayingCommon_.isClockwise());
         assertTrue(displayingCommon_.isDecreasing());
     }
+
+    private void calculateScores1(ResultsGame _r, GameType _type, CustList<Longs> _previous) {
+        _r.calculateScores(_previous,Shorts.newList((short)1,(short) 2), _type,0,1);
+    }
+
+    private void calculateScores2(ResultsGame _r, Shorts _ls) {
+        _r.calculateScores(_ls);
+    }
+
 }

@@ -16,7 +16,6 @@ import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Document;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -27,18 +26,18 @@ public final class HelpCaller {
 
     public static Document text(NatDualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
         NatRendStackCall rendStackCall_ = new NatRendStackCall();
-        StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = NatDualConfigurationContext.files(_navigation,_contextConf,_ms,_ms,"");
         Configuration session_ = _navigation.getSession();
-        for (String a : _contextConf.getAddedFiles()) {
-            files_.put(a, _ms.getVal(a));
-        }
-        for (String l : _navigation.getLanguages()) {
-            for (String a : _contextConf.getProperties().values()) {
-                String folder_ = _contextConf.getMessagesFolder();
-                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
-                files_.put(fileName_, _ms.getVal(fileName_));
-            }
-        }
+//        for (String a : _contextConf.getAddedFiles()) {
+//            files_.put(a, _ms.getVal(a));
+//        }
+//        for (String l : _navigation.getLanguages()) {
+//            for (String a : _contextConf.getProperties().values()) {
+//                String folder_ = _contextConf.getMessagesFolder();
+//                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
+//                files_.put(fileName_, _ms.getVal(fileName_));
+//            }
+//        }
         session_.setFirstUrl(_realFilePath);
         _navigation.setFiles(files_);
         NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();

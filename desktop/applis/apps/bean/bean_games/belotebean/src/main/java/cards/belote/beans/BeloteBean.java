@@ -5,10 +5,7 @@ import cards.belote.GameBelote;
 import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.*;
-import cards.consts.CoreResourcesAccess;
-import cards.consts.MixCardsChoice;
-import cards.consts.Role;
-import cards.consts.Suit;
+import cards.consts.*;
 import code.bean.Bean;
 import code.format.Format;
 import code.util.CustList;
@@ -23,7 +20,7 @@ public abstract class BeloteBean extends Bean {
 
     private StringList nicknames;
 
-    private CustList<Longs> scores;
+    private CustList<LineDeal> history;
 
     private byte user;
 
@@ -100,12 +97,19 @@ public abstract class BeloteBean extends Bean {
         nicknames = _nicknames;
     }
 
-    public CustList<Longs> getScores() {
-        return scores;
+    public CustList<Longs> scores() {
+        CustList<Longs> l_ = new CustList<Longs>();
+        for (LineDeal e: history) {
+            l_.add(e.getScores());
+        }
+        return l_;
+    }
+    public CustList<LineDeal> getHistory() {
+        return history;
     }
 
-    protected final void setScores(CustList<Longs> _scores) {
-        scores = _scores;
+    public void setHistory(CustList<LineDeal> _h) {
+        this.history = _h;
     }
 
     protected final byte getUser() {

@@ -12,6 +12,7 @@ import cards.president.TricksHandsPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
+import cards.president.enumerations.PresidentCardsRetrieverUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
@@ -348,12 +349,7 @@ public final class DocumentReaderPresidentUtil {
     }
 
     private static EqualtyPlaying getEqualtyPlaying(Element _elt) {
-        for (EqualtyPlaying e: EqualtyPlaying.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return EqualtyPlaying.SKIP_ALWAYS_NEXT;
+        return PresidentCardsRetrieverUtil.toEqualtyPlaying(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static Playing getPlaying(Element _elt) {

@@ -15,7 +15,6 @@ public final class ResultsBelote {
     private int differenceScoreTaker;
 
     public void initialize(StringList _pseudos, CustList<Longs> _scores) {
-        getRes().setScores(_scores);
         res.setNicknames(_pseudos);
         Shorts scoresDeal_ = new Shorts();
         BidBeloteSuit bid_ = game.getBid();
@@ -42,11 +41,11 @@ public final class ResultsBelote {
         GameType type_ = game.getType();
         long number_ = game.getNombre();
         int nbDeals_ = game.getRegles().getCommon().getNbDeals();
-        calculateScores(scoresDeal_, type_, number_, nbDeals_);
+        calculateScores(_scores,scoresDeal_, type_, number_, nbDeals_);
     }
 
-    void calculateScores(Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
-        res.calculateScores(_scoresDeal,_type,_number,_nbDeals);
+    void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+        res.calculateScores(_scores,_scoresDeal,_type,_number,_nbDeals);
     }
     public GameBelote getGame() {
         return game;

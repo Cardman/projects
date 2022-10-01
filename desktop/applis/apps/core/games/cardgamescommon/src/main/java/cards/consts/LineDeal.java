@@ -1,7 +1,8 @@
-package cards.tarot.beans;
+package cards.consts;
+
 import code.util.Longs;
 
-public final class TarotLineDeal {
+public final class LineDeal {
 
     private int number;
 
@@ -22,5 +23,4 @@ public final class TarotLineDeal {
     public void setScores(Longs _scores) {
         scores = _scores;
     }
-
 }

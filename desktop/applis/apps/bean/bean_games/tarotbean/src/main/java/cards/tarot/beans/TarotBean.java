@@ -1,6 +1,7 @@
 package cards.tarot.beans;
 
 import cards.consts.CoreResourcesAccess;
+import cards.consts.LineDeal;
 import cards.consts.MixCardsChoice;
 import cards.consts.Role;
 import cards.tarot.GameTarot;
@@ -20,7 +21,7 @@ public abstract class TarotBean extends Bean {
 
     private StringList nicknames;
 
-    private CustList<Longs> scores;
+    private CustList<LineDeal> history;
 
     private int user;
 
@@ -88,12 +89,19 @@ public abstract class TarotBean extends Bean {
         nicknames = _nicknames;
     }
 
-    public final CustList<Longs> getScores() {
-        return scores;
+    public CustList<Longs> scores() {
+        CustList<Longs> l_ = new CustList<Longs>();
+        for (LineDeal e: history) {
+            l_.add(e.getScores());
+        }
+        return l_;
+    }
+    public CustList<LineDeal> getHistory() {
+        return history;
     }
 
-    protected final void setScores(CustList<Longs> _scores) {
-        scores = _scores;
+    protected void setHistory(CustList<LineDeal> _h) {
+        this.history = _h;
     }
 
     protected final int getUser() {

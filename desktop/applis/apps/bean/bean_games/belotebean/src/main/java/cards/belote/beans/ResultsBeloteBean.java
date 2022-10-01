@@ -3,6 +3,7 @@ package cards.belote.beans;
 import cards.belote.EndBeloteGame;
 import cards.belote.ResultsBelote;
 import cards.consts.EndGameState;
+import cards.consts.LineDeal;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
@@ -36,17 +37,16 @@ public final class ResultsBeloteBean extends BeloteBean {
 
     private int differenceScoreTaker;
 
-    private CustList<BeloteLineDeal> linesDeal;
+    private CustList<LineDeal> linesDeal;
 
     @Override
     public void beforeDisplaying() {
         ResultsBelote res_ = getResults();
         setGame(res_.getGame());
         setNicknames(res_.getRes().getNicknames());
-        setScores(res_.getRes().getScores());
+        setHistory(res_.getRes().getHistory());
         setUser(res_.getRes().getUser());
         setLoc(res_.getRes().getLoc());
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getBid());
         EndBeloteGame end_ = getGame().getEndBeloteGame();
         capotAttaque=end_.valeurCapot();
@@ -69,14 +69,15 @@ public final class ResultsBeloteBean extends BeloteBean {
             pointsDefenseDefinitif=end_.scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
             differenceScoreTaker = res_.getDifferenceScoreTaker();
         }
-        linesDeal = new CustList<BeloteLineDeal>();
-        int nbDeals_ = getScores().size();
+        linesDeal = new CustList<LineDeal>();
+        int nbDeals_ = getHistory().size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
-            BeloteLineDeal l_ = new BeloteLineDeal();
-            l_.setNumber(i);
+            LineDeal l_ = new LineDeal();
+            l_.setNumber(getHistory().get(i).getNumber());
             Longs scores_ = new Longs();
+            int nombreJoueurs_ = getHistory().get(i).getScores().size();
             for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                scores_.add(getScores().get(i).get(joueur_));
+                scores_.add(getHistory().get(i).getScores().get(joueur_));
             }
             l_.setScores(scores_);
             linesDeal.add(l_);
@@ -155,7 +156,7 @@ public final class ResultsBeloteBean extends BeloteBean {
         return differenceScoreTaker;
     }
 
-    public CustList<BeloteLineDeal> getLinesDeal() {
+    public CustList<LineDeal> getLinesDeal() {
         return linesDeal;
     }
 

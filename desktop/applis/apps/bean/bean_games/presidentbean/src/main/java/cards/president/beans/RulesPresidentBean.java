@@ -1,9 +1,11 @@
 package cards.president.beans;
 import cards.consts.CoreResourcesAccess;
+import cards.consts.EnumCardsExporterUtil;
 import cards.consts.MixCardsChoice;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
+import cards.president.enumerations.PresidentCardsExporterUtil;
 import cards.president.enumerations.PresidentResoucesAccess;
 import code.bean.Bean;
 import code.format.Format;
@@ -61,11 +63,21 @@ public final class RulesPresidentBean extends Bean {
         }
     }
     static String toString(MixCardsChoice _b, String _file) {
-        return Format.getConstanteLangue(_file, CoreResourcesAccess.MIX,_b.name());
+        return Format.getConstanteLangue(key(_b), _file);
     }
+
+    static String key(MixCardsChoice _b) {
+        return Format.concatParts(CoreResourcesAccess.MIX, EnumCardsExporterUtil.fromMixCardsChoice(_b));
+    }
+
     static String toString(EqualtyPlaying _b, String _file){
-        return Format.getConstanteLangue(_file, PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY,_b.name());
+        return Format.getConstanteLangue(key(_b), _file);
     }
+
+    static String key(EqualtyPlaying _b) {
+        return Format.concatParts(PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY, PresidentCardsExporterUtil.fromEqualtyPlaying(_b));
+    }
+
     public boolean sameAmount() {
         return nbCardsPerPlayerMin == nbCardsPerPlayerMax;
     }

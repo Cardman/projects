@@ -2,6 +2,7 @@ package cards.belote.beans;
 
 import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
+import cards.consts.beans.LineDealStruct;
 import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
@@ -14,8 +15,6 @@ import code.util.CustList;
 
 public abstract class BeloteStandards extends BeanNatCommonLgNames {
     protected static final String TYPE_BELOTE_BEAN = "cards.belote.beans.BeloteBean";
-    private static final String SCORES = "scores";
-    private static final String NUMBER = "number";
     private static final String VALUE = "value";
     private static final String STATUT = "statut";
     private static final String NICKNAME = "nickname";
@@ -24,7 +23,6 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
     private static final String GET_SCORES = "getScores";
     private static final String GET_NICKNAMES = "getNicknames";
     private static final String PLAY_GAME = "playGame";
-    private static final String TYPE_LINE_DEAL = "cards.belote.beans.LineDeal";
     private static final String TYPE_DECLARING_PLAYER_VALUE = "cards.belote.beans.DeclaringPlayerValue";
     private static final String TYPE_SUM_DECLARING_PLAYER = "cards.belote.beans.SumDeclaringPlayer";
     private ResultsBelote dataBase;
@@ -53,12 +51,7 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
         getStds().addEntry(TYPE_BELOTE_BEAN, std_);
     }
     private void buildLineDeal(){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NUMBER, PRIM_INTEGER, false, false,new BeloteLineDealNumber(),null));
-        fields_.add( new StandardField(SCORES, TYPE_LIST, false, false,new BeloteLineDealScores(),null));
-        getStds().addEntry(TYPE_LINE_DEAL, std_);
+        LineDealStruct.buildLineDeal(getStds());
     }
     private void buildSumDeclaringPlayer(){
         CustList<StandardField> fields_=new CustList<StandardField>();
@@ -101,16 +94,6 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
         int j_ = 0;
         for (DeclaringPlayerValue s:_ls) {
             arr_.set(j_,new DeclaringPlayerValueStruct(s, TYPE_DECLARING_PLAYER_VALUE));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static ArrayStruct getLineDealArray(CustList<BeloteLineDeal> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LINE_DEAL));
-        int j_ = 0;
-        for (BeloteLineDeal s:_ls) {
-            arr_.set(j_,new BeloteLineDealStruct(s, TYPE_LINE_DEAL));
             j_++;
         }
         return arr_;

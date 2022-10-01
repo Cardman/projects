@@ -6,6 +6,6 @@ import code.expressionlanguage.structs.Struct;
 public class BeloteBeanGetScores implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BeanNatCommonLgNames.getLongsArray(((BeloteBeanStruct)_instance).getInstance().getScores());
+        return BeanNatCommonLgNames.getLongsArray(((BeloteBeanStruct)_instance).getInstance().scores());
     }
 }

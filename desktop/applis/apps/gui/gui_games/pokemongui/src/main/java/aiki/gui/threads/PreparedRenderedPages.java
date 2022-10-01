@@ -10,10 +10,8 @@ import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.util.core.StringUtil;
 
 public final class PreparedRenderedPages implements PreparedAnalyzed {
     private final AbstractNativeInit init;
@@ -47,31 +45,8 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         nat_.getForwards();
         d_.init(session_);
         navigation.setSession(session_);
-        //        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
-        StringMap<String> files_ = new StringMap<String>();
-        StringMap<Document> docs_ = new StringMap<Document>();
-        for (String a: d_.getAddedFiles()) {
-            String name_ = StringUtil.concat(relative, a);
-            Document doc_ = built.getVal(name_);
-            if (doc_ != null) {
-                docs_.addEntry(a,doc_);
-            } else {
-                files_.put(a, builtOther.getVal(name_));
-//                files_.put(a, ResourceFiles.ressourceFichier(name_));
-            }
-        }
-        for (String l: navigation.getLanguages()) {
-            for (String a: d_.getProperties().values()) {
-                String folder_ = d_.getMessagesFolder();
-                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
-                files_.put(fileName_,builtMessages.getVal(StringUtil.concat(relative,fileName_)));
-//                files_.put(fileName_,ResourceFiles.ressourceFichier(StringUtil.concat(relative,fileName_)));
-            }
-        }
-        String realFilePath_ = session_.getFirstUrl();
-        String rel_ = StringUtil.concat(relative,realFilePath_);
-        docs_.addEntry(realFilePath_,built.getVal(rel_));
-//        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
+        StringMap<String> files_ = NatDualConfigurationContext.files(navigation, d_, builtOther,builtMessages,relative);
+        StringMap<Document> docs_ = NatDualConfigurationContext.docs(built, relative);
         navigation.setFiles(files_);
         stds.setupAll(docs_,navigation, navigation.getSession(), new AdvNatBlockBuilder(stds), d_);
     }

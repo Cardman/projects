@@ -1,5 +1,6 @@
 package cards.president.beans;
-import cards.president.GamePresident;
+
+import cards.consts.LineDeal;
 import cards.president.ResultsPresident;
 import code.bean.Bean;
 import code.util.CustList;
@@ -9,17 +10,10 @@ import code.util.core.IndexConstants;
 
 public final class PresidentBean extends Bean {
 
-    private GamePresident game;
-
     private StringList nicknames;
 
-    private CustList<Longs> scores;
-
-    private int user;
-
-    private String loc;
-
-    private CustList<PresidentLineDeal> linesDeal;
+    private CustList<LineDeal> history;
+    private CustList<LineDeal> linesDeal;
 
     private ResultsPresident dataBase;
     public ResultsPresident db() {
@@ -33,32 +27,21 @@ public final class PresidentBean extends Bean {
     @Override
     public void beforeDisplaying() {
         ResultsPresident res_ = getResults();
-        setGame(res_.getGame());
         setNicknames(res_.getRes().getNicknames());
-        setScores(res_.getRes().getScores());
-        setUser(res_.getRes().getUser());
-        setLoc(res_.getRes().getLoc());
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
-        linesDeal = new CustList<PresidentLineDeal>();
-        int nbDeals_ = getScores().size();
+        setHistory(res_.getRes().getHistory());
+        linesDeal = new CustList<LineDeal>();
+        int nbDeals_ = getHistory().size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
-            PresidentLineDeal l_ = new PresidentLineDeal();
-            l_.setNumber(i);
+            LineDeal l_ = new LineDeal();
+            l_.setNumber(getHistory().get(i).getNumber());
             Longs scores_ = new Longs();
+            int nombreJoueurs_ = getHistory().get(i).getScores().size();
             for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                scores_.add(getScores().get(i).get(joueur_));
+                scores_.add(getHistory().get(i).getScores().get(joueur_));
             }
             l_.setScores(scores_);
             linesDeal.add(l_);
         }
-    }
-
-    public GamePresident getGame() {
-        return game;
-    }
-
-    public void setGame(GamePresident _game) {
-        game = _game;
     }
 
     public StringList getNicknames() {
@@ -69,31 +52,15 @@ public final class PresidentBean extends Bean {
         nicknames = _nicknames;
     }
 
-    public CustList<Longs> getScores() {
-        return scores;
+    public CustList<LineDeal> getHistory() {
+        return history;
     }
 
-    public void setScores(CustList<Longs> _scores) {
-        scores = _scores;
+    public void setHistory(CustList<LineDeal> _h) {
+        this.history = _h;
     }
 
-    int getUser() {
-        return user;
-    }
-
-    void setUser(int _user) {
-        user = _user;
-    }
-
-    String getLoc() {
-        return loc;
-    }
-
-    void setLoc(String _loc) {
-        loc = _loc;
-    }
-
-    public CustList<PresidentLineDeal> getLinesDeal() {
+    public CustList<LineDeal> getLinesDeal() {
         return linesDeal;
     }
 

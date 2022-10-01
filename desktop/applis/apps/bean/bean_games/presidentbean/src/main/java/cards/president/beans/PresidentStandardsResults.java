@@ -1,5 +1,7 @@
 package cards.president.beans;
 
+import cards.consts.beans.LineDealStruct;
+import cards.president.ResultsPresident;
 import code.bean.Bean;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
@@ -9,8 +11,6 @@ import code.util.CustList;
 
 public final class PresidentStandardsResults extends PresidentStandards {
     private static final String TYPE_PRESIDENT_BEAN = "cards.president.beans.PresidentBean";
-    private static final String SCORES = "scores";
-    private static final String NUMBER = "number";
     private static final String LINES_DEAL = "linesDeal";
     private static final String NICKNAMES = "nicknames";
     @Override
@@ -32,23 +32,19 @@ public final class PresidentStandardsResults extends PresidentStandards {
     }
 
     private void buildLineDeal() {
-        CustList<StandardField> fields_ = new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_ = new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NUMBER, PRIM_INTEGER, false, false, new LineDealNumber(),null));
-        fields_.add( new StandardField(SCORES, TYPE_LIST, false, false, new LineDealScores(),null));
-        getStds().addEntry(TYPE_LINE_DEAL, std_);
+        LineDealStruct.buildLineDeal(getStds());
     }
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,update(_language,bean(new PresidentBean(), TYPE_PRESIDENT_BEAN)));
+        getBeansStruct().setValue(0, beanResults(_language, getDataBase()));
     }
 
-    private PresidentBeanStruct update(String _language, PresidentBeanStruct _str) {
-        Bean bean_ = _str.getBean();
-        ((PresidentBean)bean_).setDataBase(getDataBase());
+    static PresidentBeanStruct beanResults(String _language, ResultsPresident _dataBase) {
+        PresidentBeanStruct str_ = bean(new PresidentBean(), TYPE_PRESIDENT_BEAN);
+        Bean bean_ = str_.getBean();
+        ((PresidentBean)bean_).setDataBase(_dataBase);
         bean_.setLanguage(_language);
-        return _str;
+        return str_;
     }
 }

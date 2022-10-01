@@ -1,9 +1,34 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 public final class PagesInit{
 private PagesInit(){}
+public static StringMap<Document> buildInd(){
+StringMap<Document> m_ = new StringMap<Document>();
+m_.addEntry("resources_pk/rom/web_pk/html/pokemon.html",PagePkPokemon.build());
+return m_;
+}
+public static StringMap<Document> buildDiff(){
+StringMap<Document> m_ = new StringMap<Document>();
+m_.addEntry("resources_pk/rom/web_game/html/difficulty.html",PageGameDifficulty.build());
+return m_;
+}
+public static StringMap<Document> buildFight(){
+StringMap<Document> m_ = new StringMap<Document>();
+m_.addEntry("resources_pk/rom/web_fight/html/fight.html",PageFightFight.build());
+m_.addEntry("resources_pk/rom/web_fight/html/fightdetail.html",PageFightFightdetail.build());
+m_.addEntry("resources_pk/rom/web_fight/html/fighter.html",PageFightFighter.build());
+m_.addEntry("resources_pk/rom/web_fight/html/team.html",PageFightTeam.build());
+return m_;
+}
+public static StringMap<Document> buildProg(){
+StringMap<Document> m_ = new StringMap<Document>();
+m_.addEntry("resources_pk/rom/web_prog/html/gameprog.html",PageProgGameprog.build());
+m_.addEntry("resources_pk/rom/web_prog/html/gameprogall.html",PageProgGameprogall.build());
+m_.addEntry("resources_pk/rom/web_prog/html/gameprognotatall.html",PageProgGameprognotatall.build());
+m_.addEntry("resources_pk/rom/web_prog/html/gameprogpart.html",PageProgGameprogpart.build());
+return m_;
+}
 public static StringMap<Document> build(){
 StringMap<Document> m_ = new StringMap<Document>();
 m_.addEntry("resources_pk/rom/web/html/ability/abilities.html",PageDataAbilityAbilities.build());
@@ -116,16 +141,6 @@ m_.addEntry("resources_pk/rom/web/html/simulation/simulationlevel.html",PageData
 m_.addEntry("resources_pk/rom/web/html/solution/solution.html",PageDataSolutionSolution.build());
 m_.addEntry("resources_pk/rom/web/html/status/data.html",PageDataStatusData.build());
 m_.addEntry("resources_pk/rom/web/html/status/status.html",PageDataStatusStatus.build());
-m_.addEntry("resources_pk/rom/web_fight/html/fight.html",PageFightFight.build());
-m_.addEntry("resources_pk/rom/web_fight/html/fightdetail.html",PageFightFightdetail.build());
-m_.addEntry("resources_pk/rom/web_fight/html/fighter.html",PageFightFighter.build());
-m_.addEntry("resources_pk/rom/web_fight/html/team.html",PageFightTeam.build());
-m_.addEntry("resources_pk/rom/web_game/html/difficulty.html",PageGameDifficulty.build());
-m_.addEntry("resources_pk/rom/web_pk/html/pokemon.html",PagePkPokemon.build());
-m_.addEntry("resources_pk/rom/web_prog/html/gameprog.html",PageProgGameprog.build());
-m_.addEntry("resources_pk/rom/web_prog/html/gameprogall.html",PageProgGameprogall.build());
-m_.addEntry("resources_pk/rom/web_prog/html/gameprognotatall.html",PageProgGameprognotatall.build());
-m_.addEntry("resources_pk/rom/web_prog/html/gameprogpart.html",PageProgGameprogpart.build());
 return m_;
 }
 }

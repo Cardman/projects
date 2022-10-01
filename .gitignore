@@ -95,6 +95,11 @@
 !/desktop/applis/apps/bean/bean_games/belotebean/src/
 !/desktop/applis/apps/bean/bean_games/belotebean/src/**/
 !/desktop/applis/apps/bean/bean_games/belotebean/src/**/*.java
+!/desktop/applis/apps/bean/bean_games/cardgamescommonbean/
+!/desktop/applis/apps/bean/bean_games/cardgamescommonbean/pom.xml
+!/desktop/applis/apps/bean/bean_games/cardgamescommonbean/src/
+!/desktop/applis/apps/bean/bean_games/cardgamescommonbean/src/**/
+!/desktop/applis/apps/bean/bean_games/cardgamescommonbean/src/**/*.java
 !/desktop/applis/apps/bean/bean_games/pokemonbean/
 !/desktop/applis/apps/bean/bean_games/pokemonbean/pom.xml
 !/desktop/applis/apps/bean/bean_games/pokemonbean/src/

@@ -1,5 +1,6 @@
 package cards.tarot.beans;
 
+import cards.consts.beans.LineDealStruct;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import code.bean.nat.*;
@@ -17,8 +18,6 @@ import code.util.core.StringUtil;
 public abstract class TarotStandards extends BeanNatCommonLgNames {
     protected static final String TYPE_TAROT_BEAN = "cards.tarot.beans.TarotBean";
     static final String TYPE_RATE = "$Rate";
-    private static final String SCORES = "scores";
-    private static final String NUMBER = "number";
     private static final String NICKNAMES = "nicknames";
     private static final String BONUS = "bonus";
     private static final String POINTS_TRICKS = "pointsTricks";
@@ -40,7 +39,6 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
     private static final String GET_NICKNAMES = "getNicknames";
     private static final String PLAY_VARIANT_MODE_GAME = "playVariantModeGame";
     private static final String PLAY_CLASSIC_GAME = "playClassicGame";
-    private static final String TYPE_LINE_DEAL = "cards.tarot.beans.LineDeal";
     private static final String TYPE_BONUSES_PLAYERS = "cards.tarot.beans.BonusesPlayers";
     private static final String TYPE_POINTS_PLAYER_VARIANT_GAME = "cards.tarot.beans.PointsPlayerVariantGame";
     private static final String TYPE_RANKING_PLAYER_VARIANT_GAME = "cards.tarot.beans.RankingPlayerVariantGame";
@@ -130,12 +128,7 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
         getStds().addEntry(TYPE_BONUSES_PLAYERS, std_);
     }
     private void buildLineDeal(){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NUMBER, PRIM_INTEGER, false, false,new TarotLineDealNumber(),null));
-        fields_.add( new StandardField(SCORES, TYPE_LIST, false, false,new TarotLineDealScores(),null));
-        getStds().addEntry(TYPE_LINE_DEAL, std_);
+        LineDealStruct.buildLineDeal(getStds());
     }
 
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
@@ -204,15 +197,6 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
         return arr_;
     }
 
-    public static ArrayStruct getLineDealArray(CustList<TarotLineDeal> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LINE_DEAL));
-        int j_ = 0;
-        for (TarotLineDeal s:_ls) {
-            arr_.set(j_,new TarotLineDealStruct(s, TYPE_LINE_DEAL));
-            j_++;
-        }
-        return arr_;
-    }
     public static ArrayStruct getStringShortTree(StringMap<Short> _map) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(OBJECT));
         int i_ = 0;

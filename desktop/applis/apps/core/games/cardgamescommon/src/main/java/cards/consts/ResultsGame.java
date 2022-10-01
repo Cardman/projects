@@ -14,6 +14,7 @@ public final class ResultsGame {
     /**Sommes des scores des joueurs*/
     private Longs sums=new Longs();
     private CustList<Longs> scores = new CustList<Longs>();
+    private final CustList<LineDeal> history = new CustList<LineDeal>();
     private String general="";
     private String specific="";
 
@@ -22,7 +23,8 @@ public final class ResultsGame {
     private byte user;
 
     private String loc;
-    public void calculateScores(Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+    public void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+        setScores(_scores);
         if(hasToCalculateScores(_type, _number, _nbDeals)) {
             calculateScores(_scoresDeal);
         }
@@ -34,7 +36,13 @@ public final class ResultsGame {
         long nbPl_ = _scoresDeal.size();
         long variance9_=0;
         long esperance_=0;
-        getScores().add(new Longs());
+        CustList<LineDeal> history_ = getHistory();
+        LineDeal next_ = new LineDeal();
+        Longs deal_ = new Longs();
+        next_.setScores(deal_);
+        next_.setNumber(history_.size());
+        history_.add(next_);
+        getScores().add(deal_);
         Longs lastDeal_ = getScores().last();
         if(getScores().size()==1) {
             for (int i = 0; i < nbPl_; i++) {
@@ -119,6 +127,21 @@ public final class ResultsGame {
 
     public void setScores(CustList<Longs> _scores) {
         scores = new CustList<Longs>(_scores);
+        CustList<LineDeal> hist_ = new CustList<LineDeal>();
+        int dc_ = _scores.size();
+        for (int i = 0; i < dc_; i++) {
+            LineDeal ld_ = new LineDeal();
+            ld_.setNumber(i);
+            ld_.setScores(new Longs(_scores.get(i)));
+            hist_.add(ld_);
+        }
+        getHistory().clear();
+        getHistory().addAllElts(hist_);
+
+    }
+
+    public CustList<LineDeal> getHistory() {
+        return history;
     }
 
     public void setRenderedPages(StringMap<String> _renderedPages) {

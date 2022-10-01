@@ -1,5 +1,6 @@
 package cards.president;
 import cards.consts.CardChar;
+import cards.president.enumerations.EqualtyPlaying;
 import code.util.core.BoolVal;
 import org.junit.Assert;
 
@@ -28,6 +29,9 @@ public abstract class EquallablePresidentUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(CardChar _expected, CardChar _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(EqualtyPlaying _expected, EqualtyPlaying _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertNotSame(RulesPresident _expected, RulesPresident _result) {

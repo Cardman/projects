@@ -12,6 +12,7 @@
 	<artifactId>bean_games</artifactId>
 	<packaging>pom</packaging>
 	<modules>
+		<module>cardgamescommonbean</module>
 		<module>belotebean</module>
 		<module>presidentbean</module>
 		<module>tarotbean</module>

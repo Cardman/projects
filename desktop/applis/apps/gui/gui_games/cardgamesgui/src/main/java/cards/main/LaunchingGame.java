@@ -12,7 +12,6 @@ import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.pages.cards.*;
-import code.sml.Document;
 import code.threads.AbstractThread;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -42,9 +41,9 @@ public final class LaunchingGame implements Runnable {
 
     @Override
     public void run() {
-        StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote(PagesBelotes.build());
-        StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident(PagesPresidents.build());
-        StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(PagesTarots.build());
+        StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote();
+        StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident();
+        StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot();
         WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_,cardFactories);
 
         SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);
@@ -61,23 +60,23 @@ public final class LaunchingGame implements Runnable {
         }
     }
 
-    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedBelote(StringMap<Document> _built) {
+    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedBelote() {
         StringMap<StringMap<PreparedPagesCards>> belote_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesBelote_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessBelotePage.ms();
         AnaRendBlock.adjust(other_);
         for (String l: Constants.getAvailableLanguages()) {
-            rulesBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsRules(), new RulesBeloteLoader(), _built, other_));
+            rulesBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), other_));
         }
         belote_.addEntry(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,rulesBelote_);
         StringMap<PreparedPagesCards> resultsBelote_ = new StringMap<PreparedPagesCards>();
         for (String l: Constants.getAvailableLanguages()) {
-            resultsBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsResults(), new ResultsBeloteLoader(), _built, other_));
+            resultsBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), other_));
         }
         belote_.addEntry(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,resultsBelote_);
         StringMap<PreparedPagesCards> detResultsBelote_ = new StringMap<PreparedPagesCards>();
         for (String l: Constants.getAvailableLanguages()) {
-            detResultsBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), _built, other_));
+            detResultsBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), other_));
         }
         belote_.addEntry(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,detResultsBelote_);
         for (EntryCust<String,StringMap<PreparedPagesCards>> f: belote_.entryList()) {
@@ -88,18 +87,18 @@ public final class LaunchingGame implements Runnable {
         return belote_;
     }
 
-    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedPresident(StringMap<Document> _built) {
+    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedPresident() {
         StringMap<StringMap<PreparedPagesCards>> president_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesPresident_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessPresidentPage.ms();
         AnaRendBlock.adjust(other_);
         for (String l: Constants.getAvailableLanguages()) {
-            rulesPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsRules(), new RulesPresidentLoader(), _built, other_));
+            rulesPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), other_));
         }
         president_.addEntry(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,rulesPresident_);
         StringMap<PreparedPagesCards> resultsPresident_ = new StringMap<PreparedPagesCards>();
         for (String l: Constants.getAvailableLanguages()) {
-            resultsPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsResults(), new ResultsPresidentLoader(), _built, other_));
+            resultsPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), other_));
         }
         president_.addEntry(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,resultsPresident_);
         for (EntryCust<String,StringMap<PreparedPagesCards>> f: president_.entryList()) {
@@ -110,23 +109,23 @@ public final class LaunchingGame implements Runnable {
         return president_;
     }
 
-    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedTarot(StringMap<Document> _built) {
+    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedTarot() {
         StringMap<StringMap<PreparedPagesCards>> tarot_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesTarot_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessTarotPage.ms();
         AnaRendBlock.adjust(other_);
         for (String l: Constants.getAvailableLanguages()) {
-            rulesTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsRules(), new RulesTarotLoader(), _built, other_));
+            rulesTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), other_));
         }
         tarot_.addEntry(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,rulesTarot_);
         StringMap<PreparedPagesCards> resultsTarot_ = new StringMap<PreparedPagesCards>();
         for (String l: Constants.getAvailableLanguages()) {
-            resultsTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsResults(), new ResultsTarotLoader(), _built, other_));
+            resultsTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), other_));
         }
         tarot_.addEntry(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,resultsTarot_);
         StringMap<PreparedPagesCards> detResultsTarot_ = new StringMap<PreparedPagesCards>();
         for (String l: Constants.getAvailableLanguages()) {
-            detResultsTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsDetailResults(), new DetailsTarotLoader(), _built, other_));
+            detResultsTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), other_));
         }
         tarot_.addEntry(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,detResultsTarot_);
         for (EntryCust<String,StringMap<PreparedPagesCards>> f: tarot_.entryList()) {

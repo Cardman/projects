@@ -13,7 +13,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
     public void calculateScoresTest() {
         ResultsTarot res_ = new ResultsTarot();
         res_.getRes().setUser((byte) 0);
-        res_.getRes().setScores(new CustList<Longs>());
+//        res_.getRes().setScores(new CustList<Longs>());
         res_.getRes().setGlobalResultsPageTitle("");
         res_.getRes().setDetailResultsTitle("");
         res_.getRes().setSigmas(new CustList<Rate>());
@@ -21,7 +21,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         res_.getRes().setNicknames(new StringList());
         res_.getRes().setRenderedPages(new StringMap<String>());
         res_.getRes().setLoc("");
-        res_.calculateScores(new Shorts(),GameType.RANDOM,1,0);
+        res_.calculateScores(new CustList<Longs>(),new Shorts(),GameType.RANDOM,1,0);
         assertEq(0, res_.getRes().getScores().size());
         assertEq(0, res_.getRes().getSums().size());
         assertEq(0, res_.getRes().getSigmas().size());

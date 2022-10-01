@@ -36,7 +36,6 @@ public final class ResultsTarot {
 
     public void initialize(StringList _pseudos,
             CustList<Longs> _scores) {
-        getRes().setScores(_scores);
         res.setNicknames(_pseudos);
         Shorts scoresDeal_ = new Shorts();
         short basePoints_;
@@ -60,7 +59,7 @@ public final class ResultsTarot {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scoresDeal_.add((short)0);
             }
-            calculateScores(scoresDeal_);
+            calculateScores(_scores,scoresDeal_);
             return;
         }
         EndTarotGame end_ = game.getEndTarotGame();
@@ -124,18 +123,18 @@ public final class ResultsTarot {
             scoresDeal_=game.getScores();
             finalUserPosition = positionsFour.get(res.getUser());
         }
-        calculateScores(scoresDeal_);
+        calculateScores(_scores,scoresDeal_);
     }
 
-    private void calculateScores(Shorts _scoresDeal) {
+    private void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal) {
         GameType type_ = game.getType();
         long number_ = game.getNumber();
         int nbDeals_ = game.getRegles().getCommon().getNbDeals();
-        calculateScores(_scoresDeal, type_, number_, nbDeals_);
+        calculateScores(_scores,_scoresDeal, type_, number_, nbDeals_);
     }
 
-    void calculateScores(Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
-        res.calculateScores(_scoresDeal,_type,_number,_nbDeals);
+    void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+        res.calculateScores(_scores,_scoresDeal,_type,_number,_nbDeals);
     }
 
     public GameTarot getGame() {

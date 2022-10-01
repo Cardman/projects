@@ -3,17 +3,15 @@ package cards.president.beans;
 import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import code.bean.Bean;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.DefaultInitialization;
+import code.bean.nat.StringMapObjectBase;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.formathtml.Configuration;
-import code.util.CustList;
 
 public abstract class PresidentStandards extends BeanNatCommonLgNames {
-    protected static final String TYPE_LINE_DEAL = "cards.president.beans.LineDeal";
     private RulesPresident dataBaseRules;
     private ResultsPresident dataBase;
     protected PresidentStandards() {
@@ -31,16 +29,6 @@ public abstract class PresidentStandards extends BeanNatCommonLgNames {
     protected static PresidentBeanStruct bean(Bean _bean, String _name) {
         _bean.setClassName(_name);
         return (new PresidentBeanStruct(_bean));
-    }
-
-    public static ArrayStruct getLineDealArray(CustList<PresidentLineDeal> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LINE_DEAL));
-        int j_ = 0;
-        for (PresidentLineDeal s:_ls) {
-            arr_.set(j_,new PresidentLineDealStruct(s, TYPE_LINE_DEAL));
-            j_++;
-        }
-        return arr_;
     }
 
     public ResultsPresident getDataBase() {

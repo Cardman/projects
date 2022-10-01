@@ -1,6 +1,7 @@
 package cards.tarot.beans;
 
 import cards.consts.EndGameState;
+import cards.consts.LineDeal;
 import cards.tarot.EndTarotGame;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
@@ -46,26 +47,26 @@ public final class ResultsTarotBean extends TarotBean {
 
     private short finalUserPosition;
 
-    private CustList<TarotLineDeal> linesDeal;
+    private CustList<LineDeal> linesDeal;
 
     @Override
     public void beforeDisplaying() {
         ResultsTarot res_ = getResults();
         setGame(res_.getGame());
         setNicknames(res_.getRes().getNicknames());
-        setScores(res_.getRes().getScores());
+        setHistory(res_.getRes().getHistory());
         setUser(res_.getRes().getUser());
         setLoc(res_.getRes().getLoc());
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
         short doubledScoreTaker_;
         Shorts doubledScoresPlayersTricks_ = new Shorts();
         Shorts needlyScoresPlayers_ = new Shorts();
         Shorts doublesDifferencesPlayers_ = new Shorts();
-        linesDeal = new CustList<TarotLineDeal>();
+        linesDeal = new CustList<LineDeal>();
         calledCardsList = new StringList();
         calledPlayers = new StringList();
         if(!getGame().getTricks().isEmpty()) {
+            byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
             if(getBid().isJouerDonne()) {
                 EndTarotGame end_ = getGame().getEndTarotGame();
                 end_.setupSlams();
@@ -113,14 +114,15 @@ public final class ResultsTarotBean extends TarotBean {
                 finalUserPosition = res_.getFinalUserPosition();
             }
         }
-        linesDeal = new CustList<TarotLineDeal>();
-        int nbDeals_ = getScores().size();
+        linesDeal = new CustList<LineDeal>();
+        int nbDeals_ = getHistory().size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
-            TarotLineDeal l_ = new TarotLineDeal();
-            l_.setNumber(i);
+            LineDeal l_ = new LineDeal();
+            l_.setNumber(getHistory().get(i).getNumber());
             Longs scores_ = new Longs();
+            int nombreJoueurs_ = getHistory().get(i).getScores().size();
             for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                scores_.add(getScores().get(i).get(joueur_));
+                scores_.add(getHistory().get(i).getScores().get(joueur_));
             }
             l_.setScores(scores_);
             linesDeal.add(l_);
@@ -253,7 +255,7 @@ public final class ResultsTarotBean extends TarotBean {
         return finalUserPosition;
     }
 
-    public CustList<TarotLineDeal> getLinesDeal() {
+    public CustList<LineDeal> getLinesDeal() {
         return linesDeal;
     }
 }
