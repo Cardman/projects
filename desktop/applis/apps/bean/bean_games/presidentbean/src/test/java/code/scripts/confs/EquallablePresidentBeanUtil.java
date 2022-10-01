@@ -6,12 +6,6 @@ import org.junit.Assert;
 
 public abstract class EquallablePresidentBeanUtil {
 
-    public static void assertNotNull(Countable _value) {
-        Assert.assertNotNull(_value);
-    }
-    public static void assertNotNull(String _value) {
-        Assert.assertNotNull(_value);
-    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
@@ -23,9 +17,6 @@ public abstract class EquallablePresidentBeanUtil {
     }
     public static void assertSame(Struct _expected, Struct _result) {
         Assert.assertSame(_expected, _result);
-    }
-    public static void assertEq(boolean _expected, boolean _result) {
-        Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
