@@ -46,6 +46,8 @@ import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
+import code.bean.nat.fwd.AbstractNatBlockBuilder;
+import code.bean.nat.fwd.AdvNatBlockBuilder;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
@@ -1138,5 +1140,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
 
     public void setDataBase(FacadeGame _dataBase){
         dataBase = _dataBase;
+    }
+
+    @Override
+    protected AbstractNatBlockBuilder blockBuilder() {
+        return new AdvNatBlockBuilder(this);
     }
 }

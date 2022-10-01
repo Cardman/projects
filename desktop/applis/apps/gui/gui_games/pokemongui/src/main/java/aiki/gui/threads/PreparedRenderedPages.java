@@ -3,10 +3,6 @@ package aiki.gui.threads;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.NatDualConfigurationContext;
-import code.bean.nat.NativeConfigurationLoader;
-import code.bean.nat.fwd.AdvNatBlockBuilder;
-import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
@@ -34,21 +30,8 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
 
     @Override
     public void run() {
-        navigation = new Navigation();
-        navigation.setSession(new Configuration());
-        navigation.setLanguages(Constants.getAvailableLanguages());
         beanNatLgNames = stds;
-//        String content_ = ResourceFiles.ressourceFichier(conf);
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds, init);
-        Configuration session_ = new Configuration();
-        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
-        nat_.getForwards();
-        d_.init(session_);
-        navigation.setSession(session_);
-        StringMap<String> files_ = NatDualConfigurationContext.files(navigation, d_, builtOther,builtMessages,relative);
-        StringMap<Document> docs_ = NatDualConfigurationContext.docs(built, relative);
-        navigation.setFiles(files_);
-        stds.setupAll(docs_,navigation, navigation.getSession(), new AdvNatBlockBuilder(stds), d_);
+        navigation = stds.nav(Constants.getAvailableLanguages(),"",init,built,builtOther,builtMessages,relative);
     }
 
     public Navigation getNavigation() {

@@ -7,6 +7,8 @@ import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
+import code.bean.nat.fwd.AbstractNatBlockBuilder;
+import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -112,5 +114,10 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
 
     public void setDataBaseRules(RulesBelote _dataBase){
         dataBaseRules = _dataBase;
+    }
+
+    @Override
+    protected AbstractNatBlockBuilder blockBuilder() {
+        return new DefNatBlockBuilder();
     }
 }

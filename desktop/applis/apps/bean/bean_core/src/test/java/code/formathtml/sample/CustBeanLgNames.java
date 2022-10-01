@@ -5,6 +5,8 @@ import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
+import code.bean.nat.fwd.AbstractNatBlockBuilder;
+import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -845,6 +847,11 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         _bean.getBaseForms().getBeansOthers().put("other",new BeanThree());
         _bean.getBaseForms().put("typedShort",0);
         return (new SampleBeanStruct(_bean));
+    }
+
+    @Override
+    protected AbstractNatBlockBuilder blockBuilder() {
+        return new DefNatBlockBuilder();
     }
 
     private SampleBeanStruct update(SampleBeanStruct _str) {

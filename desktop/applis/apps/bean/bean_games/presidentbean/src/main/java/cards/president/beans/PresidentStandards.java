@@ -9,6 +9,8 @@ import code.bean.nat.StringMapObjectBase;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
+import code.bean.nat.fwd.AbstractNatBlockBuilder;
+import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.formathtml.Configuration;
 
 public abstract class PresidentStandards extends BeanNatCommonLgNames {
@@ -45,5 +47,10 @@ public abstract class PresidentStandards extends BeanNatCommonLgNames {
 
     public void setDataBaseRules(RulesPresident _dataBase){
         dataBaseRules = _dataBase;
+    }
+
+    @Override
+    protected AbstractNatBlockBuilder blockBuilder() {
+        return new DefNatBlockBuilder();
     }
 }

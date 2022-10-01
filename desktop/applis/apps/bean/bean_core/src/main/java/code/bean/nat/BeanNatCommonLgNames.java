@@ -215,6 +215,26 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return beansStruct.getVal(_beanName);
     }
 
+    public Navigation nav(StringList _languages, String _lg,AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<String> _otherMessage,  String _rel) {
+        Navigation nav_ = new Navigation();
+        nav_.setSession(new Configuration());
+        nav_.setLanguage(_lg);
+        nav_.setLanguages(_languages);
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(this, _init);
+        Configuration session_ = new Configuration();
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
+        nat_.getForwards();
+        d_.init(session_);
+        nav_.setSession(session_);
+        StringMap<String> files_ = NatDualConfigurationContext.files(nav_,d_,_other,_otherMessage,_rel);
+        String realFilePath_ = session_.getFirstUrl();
+        StringMap<Document> docs_ = NatDualConfigurationContext.docs(_built,_rel);
+        session_.setFirstUrl(realFilePath_);
+        nav_.setFiles(files_);
+        setupAll(docs_,nav_, nav_.getSession(), blockBuilder(), d_);
+        return nav_;
+    }
+    protected abstract AbstractNatBlockBuilder blockBuilder();
     public void processRendFormRequest(Navigation _nav, Element _elt) {
         NatRendStackCall st_ = new NatRendStackCall();
         st_.clearPages();
