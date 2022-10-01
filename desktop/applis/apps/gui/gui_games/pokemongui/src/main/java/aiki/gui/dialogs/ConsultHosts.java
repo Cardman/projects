@@ -14,7 +14,6 @@ import aiki.util.Coords;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.initialize.AbstractProgramInfos;
-import code.threads.AbstractThread;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
@@ -109,11 +108,11 @@ public final class ConsultHosts {
     }
 
     public void seeHostedPokemon(boolean _first, Coords _coords) {
-        AbstractThread thread_ = window.getPreparedPkThread();
+//        AbstractThread thread_ = window.getPreparedPkThread();
         PreparedRenderedPages task_ = window.getPreparedPkTask();
-        if (thread_ == null || thread_.isAlive() || task_ == null) {
-            return;
-        }
+//        if (thread_ == null || thread_.isAlive() || task_ == null) {
+//            return;
+//        }
         facade.setHostedPokemon(_first, _coords);
         RenderedPage session_;
         session_ = new RenderedPage(window.getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames());

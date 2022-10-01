@@ -1007,11 +1007,11 @@ public class Battle extends ChildFrame {
         if (!enabledClicked) {
             return;
         }
-        AbstractThread fightThread_ = window.getPreparedFightThread();
+//        AbstractThread fightThread_ = window.getPreparedFightThread();
         PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
-        if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
-            return;
-        }
+//        if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
+//            return;
+//        }
         if (!htmlDialogs.isEmpty()) {
             if (!htmlDialogs.first().isVisible()) {
                 if (htmlDialogs.first().getSession().isProcessing()) {
@@ -1051,11 +1051,11 @@ public class Battle extends ChildFrame {
         if (facade.isChangeToFightScene()) {
             if (!htmlDialogs.isEmpty()) {
                 if (htmlDialogs.first().isVisible()) {
-                    AbstractThread fightThread_ = window.getPreparedFightThread();
+//                    AbstractThread fightThread_ = window.getPreparedFightThread();
                     PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
-                    if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
-                        return;
-                    }
+//                    if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
+//                        return;
+//                    }
                     if (htmlDialogs.first().getSession().isProcessing()) {
                         return;
                     }

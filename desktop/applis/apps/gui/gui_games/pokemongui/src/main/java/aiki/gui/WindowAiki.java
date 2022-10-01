@@ -219,12 +219,12 @@ public final class WindowAiki extends NetGroupFrame {
     private PreparedRenderedPages preparedPkNetTask;
     private PreparedRenderedPages preparedDiffTask;
     private PreparedRenderedPages preparedProgTask;
-    private AbstractThread preparedDataWebThread;
-    private AbstractThread preparedFightThread;
-    private AbstractThread preparedPkThread;
-    private AbstractThread preparedPkNetThread;
-    private AbstractThread preparedDiffThread;
-    private AbstractThread preparedProgThread;
+//    private AbstractThread preparedDataWebThread;
+//    private AbstractThread preparedFightThread;
+//    private AbstractThread preparedPkThread;
+//    private AbstractThread preparedPkNetThread;
+//    private AbstractThread preparedDiffThread;
+//    private AbstractThread preparedProgThread;
     private AbstractThread exporting;
 //    private KeyPadListener keyPadListener;
 
@@ -928,9 +928,9 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     public void manageDifficulty() {
-        if (preparedDiffThread == null || preparedDiffThread.isAlive() || preparedDiffTask == null) {
-            return;
-        }
+//        if (preparedDiffThread == null || preparedDiffThread.isAlive() || preparedDiffTask == null) {
+//            return;
+//        }
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
@@ -984,9 +984,9 @@ public final class WindowAiki extends NetGroupFrame {
         if (!dataWeb.isEnabled()) {
             return;
         }
-        if (preparedDataWebThread == null || preparedDataWebThread.isAlive() || preparedDataWebTask == null) {
-            return;
-        }
+//        if (preparedDataWebThread == null || preparedDataWebThread.isAlive() || preparedDataWebTask == null) {
+//            return;
+//        }
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
@@ -1012,9 +1012,9 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     public void showGameProgressing() {
-        if (preparedProgThread == null || preparedProgThread.isAlive() || preparedProgTask == null) {
-            return;
-        }
+//        if (preparedProgThread == null || preparedProgThread.isAlive() || preparedProgTask == null) {
+//            return;
+//        }
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
@@ -1632,53 +1632,53 @@ public final class WindowAiki extends NetGroupFrame {
         preparedProgTask = _preparedProgTask;
     }
 
-    public AbstractThread getPreparedDataWebThread() {
-        return preparedDataWebThread;
-    }
-
-    public void setPreparedDataWebThread(AbstractThread _preparedDataWebThread) {
-        preparedDataWebThread = _preparedDataWebThread;
-    }
-
-    public AbstractThread getPreparedFightThread() {
-        return preparedFightThread;
-    }
-
-    public void setPreparedFightThread(AbstractThread _preparedFightThread) {
-        preparedFightThread = _preparedFightThread;
-    }
-
-    public AbstractThread getPreparedPkThread() {
-        return preparedPkThread;
-    }
-
-    public void setPreparedPkThread(AbstractThread _preparedPkThread) {
-        preparedPkThread = _preparedPkThread;
-    }
-
-    public AbstractThread getPreparedPkNetThread() {
-        return preparedPkNetThread;
-    }
-
-    public void setPreparedPkNetThread(AbstractThread _preparedPkThread) {
-        preparedPkNetThread = _preparedPkThread;
-    }
-
-    public AbstractThread getPreparedDiffThread() {
-        return preparedDiffThread;
-    }
-
-    public void setPreparedDiffThread(AbstractThread _preparedDiffThread) {
-        preparedDiffThread = _preparedDiffThread;
-    }
-
-    public AbstractThread getPreparedProgThread() {
-        return preparedProgThread;
-    }
-
-    public void setPreparedProgThread(AbstractThread _preparedProgThread) {
-        preparedProgThread = _preparedProgThread;
-    }
+//    public AbstractThread getPreparedDataWebThread() {
+//        return preparedDataWebThread;
+//    }
+//
+//    public void setPreparedDataWebThread(AbstractThread _preparedDataWebThread) {
+//        preparedDataWebThread = _preparedDataWebThread;
+//    }
+//
+//    public AbstractThread getPreparedFightThread() {
+//        return preparedFightThread;
+//    }
+//
+//    public void setPreparedFightThread(AbstractThread _preparedFightThread) {
+//        preparedFightThread = _preparedFightThread;
+//    }
+//
+//    public AbstractThread getPreparedPkThread() {
+//        return preparedPkThread;
+//    }
+//
+//    public void setPreparedPkThread(AbstractThread _preparedPkThread) {
+//        preparedPkThread = _preparedPkThread;
+//    }
+//
+//    public AbstractThread getPreparedPkNetThread() {
+//        return preparedPkNetThread;
+//    }
+//
+//    public void setPreparedPkNetThread(AbstractThread _preparedPkThread) {
+//        preparedPkNetThread = _preparedPkThread;
+//    }
+//
+//    public AbstractThread getPreparedDiffThread() {
+//        return preparedDiffThread;
+//    }
+//
+//    public void setPreparedDiffThread(AbstractThread _preparedDiffThread) {
+//        preparedDiffThread = _preparedDiffThread;
+//    }
+//
+//    public AbstractThread getPreparedProgThread() {
+//        return preparedProgThread;
+//    }
+//
+//    public void setPreparedProgThread(AbstractThread _preparedProgThread) {
+//        preparedProgThread = _preparedProgThread;
+//    }
 
     public NetAiki getNet() {
         return net;

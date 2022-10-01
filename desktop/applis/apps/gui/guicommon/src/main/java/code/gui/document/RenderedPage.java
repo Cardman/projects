@@ -141,9 +141,9 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     public void start() {
-        if (!(getStandards() instanceof BeanCustLgNames)) {
-            return;
-        }
+//        if (!(getStandards() instanceof BeanCustLgNames)) {
+//            return;
+//        }
         dialog.init(gene.getThreadFactory(),this,frame, process);
         timer = gene.getThreadFactory().newScheduledExecutorService();
         taskTimer = timer.scheduleAtFixedRate(new TaskPaintingLabel(dialog),0,DELTA);
@@ -171,10 +171,8 @@ public final class RenderedPage implements ProcessingSession {
         FrameUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());
     }
     void directScroll(MetaDocument _meta) {
-        if (frame != null) {
-            if (!navigation.getTitle().isEmpty()) {
-                frame.setTitle(navigation.getTitle());
-            }
+        if (frame != null && !navigation.getTitle().isEmpty()) {
+            frame.setTitle(navigation.getTitle());
         }
         String ref_ = navigation.getReferenceScroll();
         if (!ref_.isEmpty()) {

@@ -79,7 +79,6 @@ import code.network.enums.IpType;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractScheduledExecutorService;
-import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
@@ -799,11 +798,11 @@ public class ScenePanel {
     }
 
     public void seeNetPokemonDetail() {
-        AbstractThread thread_ = window.getPreparedPkNetThread();
+//        AbstractThread thread_ = window.getPreparedPkNetThread();
         PreparedRenderedPages task_ = window.getPreparedPkNetTask();
-        if (thread_ == null || thread_.isAlive() || task_ == null) {
-            return;
-        }
+//        if (thread_ == null || thread_.isAlive() || task_ == null) {
+//            return;
+//        }
         if (receivedPk.isProcessing()) {
             return;
         }
@@ -1289,11 +1288,11 @@ public class ScenePanel {
 //        if (!(p_ instanceof PokemonPlayer)) {
 //            return;
 //        }
-        AbstractThread thread_ = window.getPreparedPkThread();
+//        AbstractThread thread_ = window.getPreparedPkThread();
         PreparedRenderedPages task_ = window.getPreparedPkTask();
-        if (thread_ == null || thread_.isAlive() || task_ == null) {
-            return;
-        }
+//        if (thread_ == null || thread_.isAlive() || task_ == null) {
+//            return;
+//        }
         RenderedPage session_;
         session_ = new RenderedPage(compoFactory.newAbsScrollPane(), window.getFrames());
         showHtmlDialog(window, session_,facade,task_,facade.getLanguage());

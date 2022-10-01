@@ -15,7 +15,6 @@ import code.gui.document.RenderedPage;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.threads.AbstractThread;
 import code.util.StringMap;
 
 public final class SelectPokemon extends SelectDialog {
@@ -85,11 +84,11 @@ public final class SelectPokemon extends SelectDialog {
     }
 
     public void seePkDetail() {
-        AbstractThread thread_ = window.getPreparedPkThread();
+//        AbstractThread thread_ = window.getPreparedPkThread();
         PreparedRenderedPages task_ = window.getPreparedPkTask();
-        if (thread_ == null || thread_.isAlive() || task_ == null) {
-            return;
-        }
+//        if (thread_ == null || thread_.isAlive() || task_ == null) {
+//            return;
+//        }
         UsablePokemon p_ = getFacade().getSelectedPokemonFirstBox();
         if (p_ == null) {
             return;
