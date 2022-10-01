@@ -82,7 +82,7 @@ public final class FrameHtmlData extends ChildFrame {
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
         search.setText(messages.getVal(SEARCH_LABEL));
         session.setLanguage(key_);
-        session.refresh();
+//        session.refresh();
     }
 
     public RenderedPage getSession() {

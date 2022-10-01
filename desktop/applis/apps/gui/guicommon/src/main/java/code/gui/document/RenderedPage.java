@@ -128,17 +128,17 @@ public final class RenderedPage implements ProcessingSession {
 //        }
 //    }
 
-    public void refresh() {
-//        if (processing.get()) {
-//            return;
-//        }
-//        if (!(standards instanceof BeanNatLgNames)) {
-//            return;
-//        }
-//        threadAction = gene.getThreadFactory().newThread(new ThreadRefresh(this, (BeanNatLgNames) standards));
-//        threadAction.start();
-//        animateProcess();
-    }
+//    public void refresh() {
+////        if (processing.get()) {
+////            return;
+////        }
+////        if (!(standards instanceof BeanNatLgNames)) {
+////            return;
+////        }
+////        threadAction = gene.getThreadFactory().newThread(new ThreadRefresh(this, (BeanNatLgNames) standards));
+////        threadAction.start();
+////        animateProcess();
+//    }
 
     public void start() {
 //        if (!(getStandards() instanceof BeanCustLgNames)) {
