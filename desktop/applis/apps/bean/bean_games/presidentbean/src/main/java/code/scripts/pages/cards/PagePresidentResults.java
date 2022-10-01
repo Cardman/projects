@@ -1,7 +1,6 @@
 package code.scripts.pages.cards;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PagePresidentResults extends PageCardsCommon{
 private static final String C_2_1_0="results";
 private static final String C_2_1_1="javahtml";
