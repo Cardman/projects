@@ -14,7 +14,6 @@
 	<modules>
 		<module>bean_core</module>
 		<module>bean_help</module>
-		<module>formatconst</module>
 		<module>bean_games</module>
 	</modules>
 </project>

@@ -89,6 +89,10 @@ public final class BeloteCardsExporterUtilTest extends EquallableBeloteUtil {
         assertEq("FOLD",BeloteCardsExporterUtil.fromBidBelote(BidBelote.FOLD));
     }
     @Test
+    public void key1() {
+        assertEq("cards.belote.enumerations.BidBelote.ALL_TRUMP",BeloteResoucesAccess.key(BidBelote.ALL_TRUMP));
+    }
+    @Test
     public void fromDealingBelote1() {
         assertEq("COINCHE_2_VS_2",BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_2_VS_2));
     }

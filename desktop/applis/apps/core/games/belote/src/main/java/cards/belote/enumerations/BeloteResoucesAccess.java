@@ -1,5 +1,7 @@
 package cards.belote.enumerations;
 
+import code.format.Format;
+
 public final class BeloteResoucesAccess {
 
     public static final String NOM_DOSSIER = "resources_cards/const_enum";
@@ -13,4 +15,7 @@ public final class BeloteResoucesAccess {
     public static final String BELOTE_DECLARES_BEL_REB = "cards.belote.enumerations.DeclaresBeloteRebelote";
     private BeloteResoucesAccess(){}
 
+    public static String key(BidBelote _b) {
+        return Format.concatParts(BeloteResoucesAccess.BELOTE_BID, BeloteCardsExporterUtil.fromBidBelote(_b));
+    }
 }

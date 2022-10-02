@@ -13,7 +13,6 @@ import code.util.Longs;
 import code.util.StringList;
 
 public abstract class BeloteBean extends Bean {
-    private static final String SPACE = " ";
     private BidBeloteSuit bid;
 
     private GameBelote game;
@@ -43,17 +42,18 @@ public abstract class BeloteBean extends Bean {
         return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_BONUS,_b.name());
     }
     protected static String toString(BidBeloteSuit _b, String _coreFile, String _file) {
-        StringBuilder pts_ = new StringBuilder();
-        if (_b.getPoints() > 0) {
-            pts_.append(SPACE);
-            pts_.append(_b.getPoints());
-        }
-        if (_b.getCouleurDominante()) {
-            pts_.insert(0, toString(_b.getSuit(), _coreFile));
-            return pts_.toString();
-        }
-        pts_.insert(0,toString(_b.getBid(), _file));
-        return pts_.toString();
+        return BidBeloteSuit.toString(_b,_coreFile,_file);
+//        StringBuilder pts_ = new StringBuilder();
+//        if (_b.getPoints() > 0) {
+//            pts_.append(SPACE);
+//            pts_.append(_b.getPoints());
+//        }
+//        if (_b.getCouleurDominante()) {
+//            pts_.insert(0, Format.getConstanteLangue(key(_b.getSuit()), _coreFile));
+//            return pts_.toString();
+//        }
+//        pts_.insert(0, Format.getConstanteLangue(key(_b.getBid()), _file));
+//        return pts_.toString();
     }
     protected static String toString(DealingBelote _b, String _file){
         return Format.getConstanteLangue(key(_b), _file);
@@ -65,9 +65,6 @@ public abstract class BeloteBean extends Bean {
 
     protected static String toString(BeloteTrumpPartner _b, String _file){
         return Format.getConstanteLangue(key(_b), _file);
-    }
-    protected static String toString(Suit _b, String _file) {
-        return Format.getConstanteLangue(_file, CoreResourcesAccess.SUIT, _b.name());
     }
     protected static String toString(Role _b, String _file) {
         return Format.getConstanteLangue(_file, CoreResourcesAccess.STATUS,_b.name());
@@ -81,7 +78,7 @@ public abstract class BeloteBean extends Bean {
     }
 
     protected static String key(BidBelote _b) {
-        return Format.concatParts(BeloteResoucesAccess.BELOTE_BID, BeloteCardsExporterUtil.fromBidBelote(_b));
+        return BeloteResoucesAccess.key(_b);
     }
 
     protected static String key(BeloteTrumpPartner _b) {
@@ -89,7 +86,7 @@ public abstract class BeloteBean extends Bean {
     }
 
     protected static String key(MixCardsChoice _b) {
-        return Format.concatParts(CoreResourcesAccess.MIX, EnumCardsExporterUtil.fromMixCardsChoice(_b));
+        return CoreResourcesAccess.key(_b);
     }
 
     protected static String key(DeclaresBelote _b) {

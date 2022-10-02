@@ -10,6 +10,8 @@ public final class BeanScTarotTest extends EquallableTarotBeanUtil {
     @Test
     public void cards(){
         assertNotNull(PagesTarots.build());
+        assertNotNull(PagesTarots.buildRules());
+        assertNotNull(PagesTarots.buildDetails());
     }
 
     @Test

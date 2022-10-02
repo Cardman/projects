@@ -1,5 +1,7 @@
 package cards.consts;
 
+import code.format.Format;
+
 public final class CoreResourcesAccess {
 
     public static final String NOM_DOSSIER = "resources_cards/const_enum";
@@ -11,4 +13,11 @@ public final class CoreResourcesAccess {
     public static final String SUIT = "cards.consts.Suit";
     private CoreResourcesAccess(){}
 
+    public static String key(Suit _b) {
+        return Format.concatParts(CoreResourcesAccess.SUIT, EnumCardsExporterUtil.fromSuit(_b));
+    }
+
+    public static String key(MixCardsChoice _b) {
+        return Format.concatParts(CoreResourcesAccess.MIX, EnumCardsExporterUtil.fromMixCardsChoice(_b));
+    }
 }

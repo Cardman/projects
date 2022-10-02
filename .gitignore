@@ -121,11 +121,6 @@
 !/desktop/applis/apps/bean/bean_help/src/
 !/desktop/applis/apps/bean/bean_help/src/**/
 !/desktop/applis/apps/bean/bean_help/src/**/*.java
-!/desktop/applis/apps/bean/formatconst/
-!/desktop/applis/apps/bean/formatconst/pom.xml
-!/desktop/applis/apps/bean/formatconst/src/
-!/desktop/applis/apps/bean/formatconst/src/**/
-!/desktop/applis/apps/bean/formatconst/src/**/*.java
 !/desktop/applis/apps/bean/pom.xml
 !/desktop/applis/apps/core/
 !/desktop/applis/apps/core/adv/

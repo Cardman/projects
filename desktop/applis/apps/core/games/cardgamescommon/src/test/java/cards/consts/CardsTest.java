@@ -87,6 +87,8 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq("UNDEFINED",EnumCardsExporterUtil.fromSuit(null));
         assertTrue(EnumCardsRetrieverUtil.toBool(Hypothesis.SURE));
         assertFalse(EnumCardsRetrieverUtil.toBool(Hypothesis.POSSIBLE));
+        assertEq("cards.consts.MixCardsChoice.EACH_DEAL",CoreResourcesAccess.key(MixCardsChoice.EACH_DEAL));
+        assertEq("cards.consts.Suit.HEART",CoreResourcesAccess.key(Suit.HEART));
     }
     @Test
     public void intersectionJoueurs1() {

@@ -37,8 +37,6 @@ public final class Games {
 
     private static final String EMPTY = "";
 
-    private static final String SPACE = " ";
-
     private static final String RETURN_LINE = "\n";
     private static final String PROPERTIES = "properties";
     private static final String BELOTE_FILE_NAME = "cards/belote/gamebelote."+PROPERTIES;
@@ -480,20 +478,27 @@ public final class Games {
     }
 
     public static String toString(BidBeloteSuit _b, String _loc) {
-        StringBuilder pts_ = new StringBuilder();
-        if (_b.getPoints() > 0) {
-            pts_.append(SPACE);
-            pts_.append(_b.getPoints());
-        }
-        if (_b.getCouleurDominante()) {
-            pts_.insert(0, toString(_b.getSuit(),_loc));
-            return pts_.toString();
-        }
-        pts_.insert(0,toString(_b.getBid(),_loc));
-        return pts_.toString();
+        String general_ = coreFileNameContent(_loc);
+        String specific_ =beloteCoreFileNameContent(_loc);
+        return BidBeloteSuit.toString(_b,general_,specific_);
+//        StringBuilder pts_ = new StringBuilder();
+//        if (_b.getPoints() > 0) {
+//            pts_.append(SPACE);
+//            pts_.append(_b.getPoints());
+//        }
+//        if (_b.getCouleurDominante()) {
+////        String fichier_ = ResourceFiles.ressourceFichier(_file);
+//            pts_.insert(0, Format.getConstanteLangue(CoreResourcesAccess.key(_b.getSuit()), general_));
+//            return pts_.toString();
+//        }
+////        String fichier_ = ResourceFiles.ressourceFichier(_file);
+//        pts_.insert(0, Format.getConstanteLangue(BeloteResoucesAccess.key(_b.getBid()), specific_));
+//        return pts_.toString();
     }
     public static String toString(BidBelote _b, String _locale){
-        return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_BID,_b.name());
+        String fichier_ = beloteCoreFileNameContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
     public static String toString(DeclaresBelote _b, String _locale){
         return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_DECLARES, _b.name());
@@ -554,15 +559,28 @@ public final class Games {
     }
 
     public static String toString(Suit _b, String _locale) {
-        return getConstanteLangue(coreFileName(_locale), CoreResourcesAccess.SUIT, _b.name());
+        String fichier_ = coreFileNameContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), fichier_);
     }
 
     public static String toString(Role _b, String _locale) {
         return getConstanteLangue(coreFileName(_locale), CoreResourcesAccess.STATUS,_b.name());
     }
     public static String toString(MixCardsChoice _b, String _locale) {
-        return getConstanteLangue(coreFileName(_locale), CoreResourcesAccess.MIX,_b.name());
+        String fichier_ = coreFileNameContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), fichier_);
     }
+
+    private static String coreFileNameContent(String _locale) {
+        return MessagesCardsAll.ms().getVal(coreFileName(_locale));
+    }
+
+    private static String beloteCoreFileNameContent(String _locale) {
+        return MessagesCardsAll.ms().getVal(beloteCoreFileName(_locale));
+    }
+
 
     private static String coreFileName(String _locale) {
         return StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/", _locale, "/", CoreResourcesAccess.NOM_FICHIER);
