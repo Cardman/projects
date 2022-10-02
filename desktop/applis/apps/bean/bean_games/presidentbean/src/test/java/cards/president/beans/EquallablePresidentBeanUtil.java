@@ -1,4 +1,4 @@
-package code.scripts.confs;
+package cards.president.beans;
 
 import code.expressionlanguage.structs.Struct;
 import code.util.ints.Countable;

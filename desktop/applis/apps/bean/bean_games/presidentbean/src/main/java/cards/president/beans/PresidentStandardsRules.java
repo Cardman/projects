@@ -1,6 +1,5 @@
 package cards.president.beans;
 
-import cards.president.RulesPresident;
 import code.bean.Bean;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
@@ -51,13 +50,13 @@ public final class PresidentStandardsRules extends PresidentStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,beanRules(_language,getDataBaseRules()));
+        getBeansStruct().setValue(0,beanRules(_language));
     }
 
-    static PresidentBeanStruct beanRules(String _language, RulesPresident _dataBase) {
+    PresidentBeanStruct beanRules(String _language) {
         PresidentBeanStruct b_ = bean(new RulesPresidentBean(), TYPE_RULES_PRESIDENT_BEAN);
         Bean bean_ = b_.getBean();
-        ((RulesPresidentBean)bean_).setDataBase(_dataBase);
+        ((RulesPresidentBean)bean_).setDataBase(getDataBaseRules());
         bean_.setLanguage(_language);
         return b_;
     }

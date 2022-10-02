@@ -9,13 +9,14 @@ import code.bean.nat.NatCaller;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.*;
 import code.maths.Rate;
-import code.scripts.confs.EquallablePresidentBeanUtil;
 import code.util.Longs;
 
 public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil {
     public static final String EN = "en";
     public static Struct beanResults(String _language, ResultsPresident _dataBase) {
-        return PresidentStandardsResults.beanResults(_language,_dataBase);
+        PresidentStandardsResults stds_ = new PresidentStandardsResults();
+        stds_.setDataBase(_dataBase);
+        return stds_.beanResults(_language);
     }
 
     public static Struct callPresidentBeanNicknames(Struct _str, long... _args) {
@@ -25,23 +26,10 @@ public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil 
     public static Struct callPresidentBeanLinesDeal(Struct _str, long... _args) {
         return callLongs(new PresidentBeanLinesDeal(),_str,_args);
     }
-
-    public static void assertSizeEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
-    }
-    public static void assertNumberEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
-    }
-    public static void assertEq(long _exp, Struct _result, int _index, int _second) {
-        assertEq(_exp,((LineDealStruct)(((ArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
-    }
     public static Struct beanRules(String _language, RulesPresident _dataBase) {
-        return PresidentStandardsRules.beanRules(_language,_dataBase);
-    }
-
-    public Struct displaying(Struct _b) {
-        beforeDisplaying(_b);
-        return _b;
+        PresidentStandardsRules stds_ = new PresidentStandardsRules();
+        stds_.setDataBaseRules(_dataBase);
+        return stds_.beanRules(_language);
     }
     public static Struct callRulesPresidentBeanSameAmount(Struct _str, long... _args) {
         return callLongs(new RulesPresidentBeanSameAmount(),_str,_args);
@@ -89,12 +77,29 @@ public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil 
     public static Struct callLongs(NatCaller _caller, Struct _str, long... _args) {
         return _caller.re(_str,getLongArray(_args));
     }
+
+    public Struct displaying(Struct _b) {
+        beforeDisplaying(_b);
+        return _b;
+    }
+
     public static void beforeDisplaying(Struct _bean) {
         ((BeanStruct)_bean).beforeDisplaying();
     }
     public static Struct[] getLongArray(long... _ls){
         return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
     }
+
+    public static void assertSizeEq(int _exp, Struct _result, int _index) {
+        assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
+    }
+    public static void assertNumberEq(int _exp, Struct _result, int _index) {
+        assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
+    }
+    public static void assertEq(long _exp, Struct _result, int _index, int _second) {
+        assertEq(_exp,((LineDealStruct)(((ArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
+    }
+
     public static void assertEq(String _exp, Struct _result) {
         assertEq(_exp,((StringStruct)_result).getInstance());
     }

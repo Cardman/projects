@@ -1,7 +1,6 @@
 package cards.president.beans;
 
 import cards.consts.beans.LineDealStruct;
-import cards.president.ResultsPresident;
 import code.bean.Bean;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
@@ -37,13 +36,13 @@ public final class PresidentStandardsResults extends PresidentStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0, beanResults(_language, getDataBase()));
+        getBeansStruct().setValue(0, beanResults(_language));
     }
 
-    static PresidentBeanStruct beanResults(String _language, ResultsPresident _dataBase) {
+    PresidentBeanStruct beanResults(String _language) {
         PresidentBeanStruct str_ = bean(new PresidentBean(), TYPE_PRESIDENT_BEAN);
         Bean bean_ = str_.getBean();
-        ((PresidentBean)bean_).setDataBase(_dataBase);
+        ((PresidentBean)bean_).setDataBase(getDataBase());
         bean_.setLanguage(_language);
         return str_;
     }
