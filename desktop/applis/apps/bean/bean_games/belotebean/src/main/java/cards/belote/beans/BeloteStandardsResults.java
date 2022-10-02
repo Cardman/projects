@@ -62,7 +62,11 @@ public final class BeloteStandardsResults extends BeloteStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,bean(new ResultsBeloteBean(), TYPE_RESULTS_BELOTE_BEAN,_language));
+        getBeansStruct().setValue(0, beanResults(_language));
+    }
+
+    BeloteBeanStruct beanResults(String _language) {
+        return bean(new ResultsBeloteBean(), TYPE_RESULTS_BELOTE_BEAN, _language);
     }
 
 }

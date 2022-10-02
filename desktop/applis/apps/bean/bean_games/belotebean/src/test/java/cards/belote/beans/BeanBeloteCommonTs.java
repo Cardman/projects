@@ -1,5 +1,6 @@
 package cards.belote.beans;
 
+import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.consts.beans.LineDealStruct;
 import code.bean.nat.BeanNatCommonLgNames;
@@ -17,6 +18,43 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";
 
+
+    public static Struct beanResultsBelote(String _language, ResultsBelote _dataBase) {
+        BeloteStandardsResults stds_ = new BeloteStandardsResults();
+        stds_.setDataBase(_dataBase);
+        return stds_.beanResults(_language);
+    }
+    public static Struct callResultsBeloteBeanSuccessfulBid(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanSuccessfulBid(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanMidBid(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanMidBid(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanFailedBid(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanFailedBid(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanWin(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanWin(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanEquality(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanEquality(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanLoose(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanLoose(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanSlam(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanSlam(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanBidString(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanBidString(),_str,_args);
+    }
     public static Struct beanRules(String _language, RulesBelote _dataBase) {
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
         stds_.setDataBaseRules(_dataBase);
