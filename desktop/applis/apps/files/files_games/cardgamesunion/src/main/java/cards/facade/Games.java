@@ -507,11 +507,11 @@ public final class Games {
     public static String toString(CardBelote _b, String _locale){
         return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_CARD, _b.name());
     }
-    public static String toString(DeclaresBeloteRebelote _b, String _locale){
-        return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, _b.name());
+    public static String toStringBeloteReb(String _locale){
+        return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, BeloteResoucesAccess.BELOTE_REBELOTE);
     }
-    public static String toString(BonusBelote _b, String _locale){
-        return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_BONUS,_b.name());
+    public static String toStringBonusBelote(String _locale){
+        return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_BONUS, BeloteResoucesAccess.LAST_TRICK);
     }
     public static String toString(CardPresident _b, String _locale){
         return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_CARD,_b.name());

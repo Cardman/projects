@@ -36,14 +36,14 @@ public final class DetailsResultsBeloteBean extends BeloteBean {
                 }
                 if (!getGame().getAnnoncesBeloteRebelote(p).estVide()) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(toString(DeclaresBeloteRebelote.BELOTE_REBELOTE, res_.getRes().getSpecific()));
+                    decl_.setDeclaring(toStringBeloteReb(res_.getRes().getSpecific()));
                     decl_.setValue(DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);
                 }
                 if (getGame().getDixDeDer(p)) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(toString(BonusBelote.LAST_TRICK, res_.getRes().getSpecific()));
+                    decl_.setDeclaring(toStringBonusBelote(res_.getRes().getSpecific()));
                     decl_.setValue(BonusBelote.LAST_TRICK.getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);

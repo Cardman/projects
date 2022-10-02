@@ -13,6 +13,9 @@ public final class BeloteResoucesAccess {
     public static final String BELOTE_DEAL = "cards.belote.enumerations.DealingBelote";
     public static final String BELOTE_DECLARES = "cards.belote.enumerations.DeclaresBelote";
     public static final String BELOTE_DECLARES_BEL_REB = "cards.belote.enumerations.DeclaresBeloteRebelote";
+    public static final String BELOTE_REBELOTE = "BELOTE_REBELOTE";
+    public static final String LAST_TRICK = "LAST_TRICK";
+
     private BeloteResoucesAccess(){}
 
     public static String key(BidBelote _b) {

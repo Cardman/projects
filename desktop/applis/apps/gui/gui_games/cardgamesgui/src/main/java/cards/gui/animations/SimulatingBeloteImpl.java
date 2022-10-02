@@ -2,10 +2,8 @@ package cards.gui.animations;
 
 import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
-import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
-import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.facade.Games;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.WindowCards;
@@ -252,7 +250,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
             String lg_ = container.getOwner().getLanguageKey();
             StringList pseudos_=pseudosSimuleeBelote();
             String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
-            String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_)),ContainerGame.RETURN_LINE);
+            String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),Games.toStringBeloteReb(lg_)),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
         }
     }
@@ -295,7 +293,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         String lg_ = container.getOwner().getLanguageKey();
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.getMessages().getVal(WindowCards.BONUS_WIN);
-        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner), Games.toString(BonusBelote.LAST_TRICK,lg_)),ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner), Games.toStringBonusBelote(lg_)),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 

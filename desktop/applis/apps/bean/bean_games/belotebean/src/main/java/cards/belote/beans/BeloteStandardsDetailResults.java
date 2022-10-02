@@ -3,6 +3,7 @@ package cards.belote.beans;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 
@@ -26,7 +27,10 @@ public final class BeloteStandardsDetailResults extends BeloteStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,bean(new DetailsResultsBeloteBean(), TYPE_DETAILS_RESULTS_BELOTE_BEAN,_language));
+        getBeansStruct().setValue(0,beanDetailResults(_language));
     }
 
+    Struct beanDetailResults(String _language) {
+        return bean(new DetailsResultsBeloteBean(), TYPE_DETAILS_RESULTS_BELOTE_BEAN,_language);
+    }
 }

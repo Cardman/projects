@@ -10,7 +10,6 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
-import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.consts.GameType;
 import cards.consts.Role;
 import cards.consts.Suit;
@@ -440,7 +439,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (_declaration.isPossibleBeloteRebelote()) {
             AbsPanel panneau_ = getPanneauBoutonsJeu();
             AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(
-                    Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
+                    Games.toStringBeloteReb(lg_));
             caseCoche_.setEnabled(_declaration.isAllowedBeloteRebelote());
             caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
             panneau_.add(caseCoche_);
@@ -481,7 +480,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isDeclaringBeloteRebelote()) {
-            ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_), RETURN_LINE));
+            ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toStringBeloteReb(lg_), RETURN_LINE));
         }
         if (_card.isDeclaring()) {
             if (bidMax.getCouleurDominante()) {

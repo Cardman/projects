@@ -302,7 +302,7 @@ public final class GameBelote {
                     return;
                 }
             }
-            firstRoundSimu();
+            firstRound();
             if (getDistribution().hand().estVide()) {
                 /*Il y a dix de der*/
                 ajouterPliEnCours();
@@ -339,7 +339,7 @@ public final class GameBelote {
         }
     }
 
-    private void firstRoundSimu() {
+    public void firstRound() {
         if (premierTour()) {
             annulerAnnonces();
         }
@@ -649,14 +649,18 @@ public final class GameBelote {
         }
         playedCard = strategieJeuCarteUnique();
         tryDeclareBeloteRebelote(_player, playedCard);
-        if (premierTour()) {
-            annoncer(_player);
-        }
+        premierTourAnnonce(_player);
         ajouterUneCarteDansPliEnCours(_player, getCarteJouee());
         return false;
     }
 
-    void tryDeclareBeloteRebelote(byte _player, CardBelote _playedCard) {
+    public void premierTourAnnonce(byte _player) {
+        if (premierTour()) {
+            annoncer(_player);
+        }
+    }
+
+    public void tryDeclareBeloteRebelote(byte _player, CardBelote _playedCard) {
         if (annoncerBeloteRebelote(_player, _playedCard)) {
             setAnnoncesBeloteRebelote(_player, _playedCard);
         }

@@ -35,11 +35,11 @@ public abstract class BeloteBean extends Bean {
     protected static String toString(DeclaresBelote _b, String _file){
         return Format.getConstanteLangue(key(_b), _file);
     }
-    protected static String toString(DeclaresBeloteRebelote _b, String _file){
-        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, _b.name());
+    protected static String toStringBeloteReb(String _file){
+        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, BeloteResoucesAccess.BELOTE_REBELOTE);
     }
-    protected static String toString(BonusBelote _b, String _file){
-        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_BONUS,_b.name());
+    protected static String toStringBonusBelote(String _file){
+        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_BONUS, BeloteResoucesAccess.LAST_TRICK);
     }
     protected static String toString(BidBeloteSuit _b, String _coreFile, String _file) {
         return BidBeloteSuit.toString(_b,_coreFile,_file);

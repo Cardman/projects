@@ -19,6 +19,34 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static final String SEP = ":";
 
 
+    public static Struct beanDetailResultsBelote(String _language, ResultsBelote _dataBase) {
+        BeloteStandardsDetailResults stds_ = new BeloteStandardsDetailResults();
+        stds_.setDataBase(_dataBase);
+        return stds_.beanDetailResults(_language);
+    }
+    public static Struct callDetailsResultsBeloteBeanDeclaring(Struct _str, long... _args) {
+        return callLongs(new DetailsResultsBeloteBeanDeclaring(),_str,_args);
+    }
+    public static Struct callBeloteSumDeclaringPlayerSum(Struct _str, long... _args) {
+        return callLongs(new BeloteSumDeclaringPlayerSum(),_str,_args);
+    }
+    public static Struct callBeloteSumDeclaringPlayerNickname(Struct _str, long... _args) {
+        return callLongs(new BeloteSumDeclaringPlayerNickname(),_str,_args);
+    }
+    public static Struct callBeloteSumDeclaringPlayerStatut(Struct _str, long... _args) {
+        return callLongs(new BeloteSumDeclaringPlayerStatut(),_str,_args);
+    }
+    public static Struct callBeloteSumDeclaringPlayerDeclaring(Struct _str, long... _args) {
+        return callLongs(new BeloteSumDeclaringPlayerDeclaring(),_str,_args);
+    }
+    public static Struct callDeclaringPlayerValueDeclaring(Struct _str, long... _args) {
+        return callLongs(new DeclaringPlayerValueDeclaring(),_str,_args);
+    }
+    public static Struct callDeclaringPlayerValueValue(Struct _str, long... _args) {
+        return callLongs(new DeclaringPlayerValueValue(),_str,_args);
+    }
+
+
     public static Struct beanResultsBelote(String _language, ResultsBelote _dataBase) {
         BeloteStandardsResults stds_ = new BeloteStandardsResults();
         stds_.setDataBase(_dataBase);
@@ -204,5 +232,8 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     }
     public static void assertEq(long _exp, Struct _result, int _index) {
         assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+    }
+    public static Struct elt(Struct _arr, int _index) {
+        return ((ArrayStruct)_arr).get(_index);
     }
 }
