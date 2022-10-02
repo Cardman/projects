@@ -92,6 +92,7 @@ public final class CardsTest extends EquallableCardsUtil {
         assertFalse(EnumCardsRetrieverUtil.toBool(Hypothesis.POSSIBLE));
         assertEq("cards.consts.MixCardsChoice.EACH_DEAL",CoreResourcesAccess.key(MixCardsChoice.EACH_DEAL));
         assertEq("cards.consts.Suit.HEART",CoreResourcesAccess.key(Suit.HEART));
+        assertEq("cards.consts.Status.TAKER",CoreResourcesAccess.key(Role.TAKER));
     }
     @Test
     public void intersectionJoueurs1() {

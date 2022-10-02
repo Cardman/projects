@@ -566,7 +566,9 @@ public final class Games {
     }
 
     public static String toString(Role _b, String _locale) {
-        return getConstanteLangue(coreFileName(_locale), CoreResourcesAccess.STATUS,_b.name());
+        String fichier_ = coreFileNameContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), fichier_);
     }
     public static String toString(MixCardsChoice _b, String _locale) {
         String fichier_ = coreFileNameContent(_locale);

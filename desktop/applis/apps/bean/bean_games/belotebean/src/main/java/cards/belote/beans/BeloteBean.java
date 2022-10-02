@@ -67,7 +67,7 @@ public abstract class BeloteBean extends Bean {
         return Format.getConstanteLangue(key(_b), _file);
     }
     protected static String toString(Role _b, String _file) {
-        return Format.getConstanteLangue(_file, CoreResourcesAccess.STATUS,_b.name());
+        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), _file);
     }
     protected static String toString(MixCardsChoice _b, String _file) {
         return Format.getConstanteLangue(key(_b), _file);

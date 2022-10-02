@@ -14,10 +14,14 @@ public final class CoreResourcesAccess {
     private CoreResourcesAccess(){}
 
     public static String key(Suit _b) {
-        return Format.concatParts(CoreResourcesAccess.SUIT, EnumCardsExporterUtil.fromSuit(_b));
+        return Format.concatParts(SUIT, EnumCardsExporterUtil.fromSuit(_b));
     }
 
     public static String key(MixCardsChoice _b) {
-        return Format.concatParts(CoreResourcesAccess.MIX, EnumCardsExporterUtil.fromMixCardsChoice(_b));
+        return Format.concatParts(MIX, EnumCardsExporterUtil.fromMixCardsChoice(_b));
+    }
+
+    public static String key(Role _b) {
+        return Format.concatParts(STATUS, EnumCardsExporterUtil.fromRole(_b));
     }
 }
