@@ -43,4 +43,44 @@ public final class BeloteCardsRetrieverUtil {
         }
         return DeclaresBelote.UNDEFINED;
     }
+
+    public static BeloteTrumpPartner toBeloteTrumpPartner(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        if (StringUtil.quickEq(r_,"OVERTRUMP_ONLY")) {
+            return BeloteTrumpPartner.OVERTRUMP_ONLY;
+        }
+        if (StringUtil.quickEq(r_,"UNDERTRUMP_ONLY")) {
+            return BeloteTrumpPartner.UNDERTRUMP_ONLY;
+        }
+        if (StringUtil.quickEq(r_,"UNDERTRUMP_OVERTRUMP")) {
+            return BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP;
+        }
+        return BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP;
+    }
+
+    public static BidBelote toBidBelote(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        if (StringUtil.quickEq(r_,"SUIT")) {
+            return BidBelote.SUIT;
+        }
+        if (StringUtil.quickEq(r_,"OTHER_SUIT")) {
+            return BidBelote.OTHER_SUIT;
+        }
+        if (StringUtil.quickEq(r_,"NO_TRUMP")) {
+            return BidBelote.NO_TRUMP;
+        }
+        if (StringUtil.quickEq(r_,"ALL_TRUMP")) {
+            return BidBelote.ALL_TRUMP;
+        }
+        return BidBelote.FOLD;
+    }
+
+    public static DealingBelote toDealingBelote(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        if (StringUtil.quickEq(r_,"COINCHE_2_VS_2")) {
+            return DealingBelote.COINCHE_2_VS_2;
+        }
+        return DealingBelote.CLASSIC_2_VS_2;
+    }
+
 }

@@ -9,11 +9,7 @@ import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
-import cards.belote.enumerations.BeloteTrumpPartner;
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DealingBelote;
-import cards.belote.enumerations.DeclaresBelote;
+import cards.belote.enumerations.*;
 import cards.consts.sml.DocumentWriterCardsCommonUtil;
 import cards.gameresults.sml.DocumentWriterCardsResultsUtil;
 import code.sml.Document;
@@ -255,14 +251,14 @@ public final class DocumentWriterBeloteUtil {
     private static Element setBeloteTrumpPartner(BeloteTrumpPartner _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_BELOTE_TRUMP_PARTNER);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromBeloteTrumpPartner(_object));
         return elt_;
     }
 
     private static Element setBidBelote(BidBelote _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_BID_BELOTE);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromBidBelote(_object));
         return elt_;
     }
 
@@ -276,14 +272,14 @@ public final class DocumentWriterBeloteUtil {
     public static Element setDealingBelote(DealingBelote _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_DEALING_BELOTE);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromDealingBelote(_object));
         return elt_;
     }
 
     private static Element setDeclaresBelote(DeclaresBelote _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_DECLARES_BELOTE);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromDeclaresBelote(_object));
         return elt_;
     }
 

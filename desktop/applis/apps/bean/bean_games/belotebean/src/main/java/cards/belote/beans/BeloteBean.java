@@ -22,10 +22,6 @@ public abstract class BeloteBean extends Bean {
 
     private CustList<LineDeal> history;
 
-    private byte user;
-
-    private String loc;
-
     private ResultsBelote dataBase;
     private RulesBelote dataBaseRules;
     public RulesBelote db() {
@@ -38,7 +34,7 @@ public abstract class BeloteBean extends Bean {
     }
 
     protected static String toString(DeclaresBelote _b, String _file){
-        return Format.getConstanteLangue(_file,BeloteResoucesAccess.BELOTE_DECLARES, _b.name());
+        return Format.getConstanteLangue(key(_b), _file);
     }
     protected static String toString(DeclaresBeloteRebelote _b, String _file){
         return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, _b.name());
@@ -60,13 +56,15 @@ public abstract class BeloteBean extends Bean {
         return pts_.toString();
     }
     protected static String toString(DealingBelote _b, String _file){
-        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_DEAL, _b.name());
+        return Format.getConstanteLangue(key(_b), _file);
     }
+
     protected static String toString(BidBelote _b, String _file){
-        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_BID,_b.name());
+        return Format.getConstanteLangue(key(_b), _file);
     }
+
     protected static String toString(BeloteTrumpPartner _b, String _file){
-        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_TRUMP_PART,_b.name());
+        return Format.getConstanteLangue(key(_b), _file);
     }
     protected static String toString(Suit _b, String _file) {
         return Format.getConstanteLangue(_file, CoreResourcesAccess.SUIT, _b.name());
@@ -75,8 +73,29 @@ public abstract class BeloteBean extends Bean {
         return Format.getConstanteLangue(_file, CoreResourcesAccess.STATUS,_b.name());
     }
     protected static String toString(MixCardsChoice _b, String _file) {
-        return Format.getConstanteLangue(_file, CoreResourcesAccess.MIX,_b.name());
+        return Format.getConstanteLangue(key(_b), _file);
     }
+
+    protected static String key(DealingBelote _b) {
+        return Format.concatParts(BeloteResoucesAccess.BELOTE_DEAL, BeloteCardsExporterUtil.fromDealingBelote(_b));
+    }
+
+    protected static String key(BidBelote _b) {
+        return Format.concatParts(BeloteResoucesAccess.BELOTE_BID, BeloteCardsExporterUtil.fromBidBelote(_b));
+    }
+
+    protected static String key(BeloteTrumpPartner _b) {
+        return Format.concatParts(BeloteResoucesAccess.BELOTE_TRUMP_PART, BeloteCardsExporterUtil.fromBeloteTrumpPartner(_b));
+    }
+
+    protected static String key(MixCardsChoice _b) {
+        return Format.concatParts(CoreResourcesAccess.MIX, EnumCardsExporterUtil.fromMixCardsChoice(_b));
+    }
+
+    protected static String key(DeclaresBelote _b) {
+        return Format.concatParts(BeloteResoucesAccess.BELOTE_DECLARES, BeloteCardsExporterUtil.fromDeclaresBelote(_b));
+    }
+
     public boolean playGame() {
         return getBid().jouerDonne();
     }
@@ -110,22 +129,6 @@ public abstract class BeloteBean extends Bean {
 
     public void setHistory(CustList<LineDeal> _h) {
         this.history = _h;
-    }
-
-    protected final byte getUser() {
-        return user;
-    }
-
-    protected final void setUser(byte _user) {
-        user = _user;
-    }
-
-    protected final String getLoc() {
-        return loc;
-    }
-
-    protected final void setLoc(String _loc) {
-        loc = _loc;
     }
 
     protected final ResultsBelote getResults() {

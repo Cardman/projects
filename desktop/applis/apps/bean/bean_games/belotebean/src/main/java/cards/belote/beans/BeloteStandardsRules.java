@@ -40,7 +40,11 @@ public final class BeloteStandardsRules extends BeloteStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,bean(new RulesBeloteBean(), TYPE_RULES_BELOTE_BEAN,_language));
+        getBeansStruct().setValue(0, beanRules(_language));
+    }
+
+    BeloteBeanStruct beanRules(String _language) {
+        return bean(new RulesBeloteBean(), TYPE_RULES_BELOTE_BEAN, _language);
     }
 
 }

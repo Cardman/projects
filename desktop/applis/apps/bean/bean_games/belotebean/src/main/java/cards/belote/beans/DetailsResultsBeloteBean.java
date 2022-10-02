@@ -17,8 +17,6 @@ public final class DetailsResultsBeloteBean extends BeloteBean {
         setGame(res_.getGame());
         setNicknames(res_.getRes().getNicknames());
         setHistory(res_.getRes().getHistory());
-        setUser(res_.getRes().getUser());
-        setLoc(res_.getRes().getLoc());
         BidBeloteSuit bid_ = getGame().getBid();
         declaring = new CustList<BeloteSumDeclaringPlayer>();
         if (bid_.jouerDonne()) {

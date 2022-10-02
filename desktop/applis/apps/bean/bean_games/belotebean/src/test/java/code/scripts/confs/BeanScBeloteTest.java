@@ -10,6 +10,7 @@ public final class BeanScBeloteTest extends EquallableBeloteBeanUtil {
     @Test
     public void cards(){
         assertNotNull(PagesBelotes.build());
+        assertNotNull(PagesBelotes.buildDetails());
     }
     @Test
     public void belote(){

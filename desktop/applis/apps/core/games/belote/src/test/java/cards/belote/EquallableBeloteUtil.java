@@ -1,12 +1,10 @@
 package cards.belote;
+import cards.belote.enumerations.*;
 import cards.consts.EndGameState;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Role;
 import org.junit.Assert;
 
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
 
 
@@ -93,7 +91,13 @@ public abstract class EquallableBeloteUtil {
         Assert.assertSame(_expected, _result);
     }
 
+    public static void assertEq(DealingBelote _expected, DealingBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(DeclaresBelote _expected, DeclaresBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(BeloteTrumpPartner _expected, BeloteTrumpPartner _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(String _expected, String _result) {

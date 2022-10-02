@@ -1,7 +1,6 @@
 package cards.belote;
 
-import cards.belote.enumerations.BeloteCardsRetrieverUtil;
-import cards.belote.enumerations.DeclaresBelote;
+import cards.belote.enumerations.*;
 import org.junit.Test;
 
 public final class BeloteCardsRetrieverUtilTest extends EquallableBeloteUtil {
@@ -52,5 +51,49 @@ public final class BeloteCardsRetrieverUtilTest extends EquallableBeloteUtil {
     @Test
     public void toDeclaresBelote12() {
         assertEq(DeclaresBelote.UNDEFINED,BeloteCardsRetrieverUtil.toDeclaresBelote("UNDEFINED"));
+    }
+    @Test
+    public void toBeloteTrumpPartner1() {
+        assertEq(BeloteTrumpPartner.OVERTRUMP_ONLY,BeloteCardsRetrieverUtil.toBeloteTrumpPartner("OVERTRUMP_ONLY"));
+    }
+    @Test
+    public void toBeloteTrumpPartner2() {
+        assertEq(BeloteTrumpPartner.UNDERTRUMP_ONLY,BeloteCardsRetrieverUtil.toBeloteTrumpPartner("UNDERTRUMP_ONLY"));
+    }
+    @Test
+    public void toBeloteTrumpPartner3() {
+        assertEq(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP,BeloteCardsRetrieverUtil.toBeloteTrumpPartner("UNDERTRUMP_OVERTRUMP"));
+    }
+    @Test
+    public void toBeloteTrumpPartner4() {
+        assertEq(BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP,BeloteCardsRetrieverUtil.toBeloteTrumpPartner("NO_UNDERTRUMP_NO_OVERTRUMP"));
+    }
+    @Test
+    public void toBidBelote1() {
+        assertEq(BidBelote.SUIT,BeloteCardsRetrieverUtil.toBidBelote("SUIT"));
+    }
+    @Test
+    public void toBidBelote2() {
+        assertEq(BidBelote.OTHER_SUIT,BeloteCardsRetrieverUtil.toBidBelote("OTHER_SUIT"));
+    }
+    @Test
+    public void toBidBelote3() {
+        assertEq(BidBelote.NO_TRUMP,BeloteCardsRetrieverUtil.toBidBelote("NO_TRUMP"));
+    }
+    @Test
+    public void toBidBelote4() {
+        assertEq(BidBelote.ALL_TRUMP,BeloteCardsRetrieverUtil.toBidBelote("ALL_TRUMP"));
+    }
+    @Test
+    public void toBidBelote5() {
+        assertEq(BidBelote.FOLD,BeloteCardsRetrieverUtil.toBidBelote("FOLD"));
+    }
+    @Test
+    public void toDealingBelote1() {
+        assertEq(DealingBelote.COINCHE_2_VS_2,BeloteCardsRetrieverUtil.toDealingBelote("COINCHE_2_VS_2"));
+    }
+    @Test
+    public void toDealingBelote2() {
+        assertEq(DealingBelote.CLASSIC_2_VS_2,BeloteCardsRetrieverUtil.toDealingBelote("CLASSIC_2_VS_2"));
     }
 }

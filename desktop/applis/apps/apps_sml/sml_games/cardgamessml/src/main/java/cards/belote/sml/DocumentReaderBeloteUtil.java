@@ -9,11 +9,7 @@ import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
-import cards.belote.enumerations.BeloteTrumpPartner;
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DealingBelote;
-import cards.belote.enumerations.DeclaresBelote;
+import cards.belote.enumerations.*;
 import cards.consts.sml.DocumentReaderCardsCommonUtil;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import code.sml.Document;
@@ -392,21 +388,11 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static BeloteTrumpPartner getBeloteTrumpPartner(Element _elt) {
-        for (BeloteTrumpPartner e: BeloteTrumpPartner.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP;
+        return BeloteCardsRetrieverUtil.toBeloteTrumpPartner(_elt.getAttribute(ATTR_VALUE));
     }
 
     private static BidBelote getBidBelote(Element _elt) {
-        for (BidBelote e: BidBelote.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return BidBelote.FOLD;
+        return BeloteCardsRetrieverUtil.toBidBelote(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static CardBelote getCardBelote(Element _elt) {
@@ -419,21 +405,11 @@ public final class DocumentReaderBeloteUtil {
     }
 
     public static DealingBelote getDealingBelote(Element _elt) {
-        for (DealingBelote e: DealingBelote.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return DealingBelote.CLASSIC_2_VS_2;
+        return BeloteCardsRetrieverUtil.toDealingBelote(_elt.getAttribute(ATTR_VALUE));
     }
 
     private static DeclaresBelote getDeclaresBelote(Element _elt) {
-        for (DeclaresBelote e: DeclaresBelote.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return DeclaresBelote.UNDEFINED;
+        return BeloteCardsRetrieverUtil.toDeclaresBelote(_elt.getAttribute(ATTR_VALUE));
     }
 
     private static CustList<TrickBelote> getListTrickBelote(Element _elt) {
