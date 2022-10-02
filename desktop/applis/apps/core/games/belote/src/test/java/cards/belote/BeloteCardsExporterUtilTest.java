@@ -93,6 +93,14 @@ public final class BeloteCardsExporterUtilTest extends EquallableBeloteUtil {
         assertEq("cards.belote.enumerations.BidBelote.ALL_TRUMP",BeloteResoucesAccess.key(BidBelote.ALL_TRUMP));
     }
     @Test
+    public void key2() {
+        assertEq("cards.belote.enumerations.DeclaresBelote.HUNDRED",BeloteResoucesAccess.key(DeclaresBelote.HUNDRED));
+    }
+    @Test
+    public void key3() {
+        assertEq("cards.belote.enumerations.BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP",BeloteResoucesAccess.key(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP));
+    }
+    @Test
     public void fromDealingBelote1() {
         assertEq("COINCHE_2_VS_2",BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_2_VS_2));
     }

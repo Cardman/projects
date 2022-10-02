@@ -6,10 +6,7 @@ import cards.consts.*;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
-import cards.president.enumerations.CardPresident;
-import cards.president.enumerations.EqualtyPlaying;
-import cards.president.enumerations.Playing;
-import cards.president.enumerations.PresidentResoucesAccess;
+import cards.president.enumerations.*;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.GameTarot;
 import cards.tarot.GameTarotCommon;
@@ -470,7 +467,9 @@ public final class Games {
         return getConstanteLangue(coreFileName(_loc), CoreResourcesAccess.CHARS, _c.name());
     }
     public static String toString(BeloteTrumpPartner _b, String _locale){
-        return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_TRUMP_PART,_b.name());
+        String fichier_ = beloteCoreFileNameContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
 
     private static String beloteCoreFileName(String _locale) {
@@ -501,7 +500,9 @@ public final class Games {
         return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
     public static String toString(DeclaresBelote _b, String _locale){
-        return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_DECLARES, _b.name());
+        String fichier_ = beloteCoreFileNameContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
     public static String toString(CardBelote _b, String _locale){
         return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_CARD, _b.name());
@@ -519,7 +520,7 @@ public final class Games {
         return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_PLAY,_b.name());
     }
     public static String toString(EqualtyPlaying _b, String _locale){
-        return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY,_b.name());
+        return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY, PresidentCardsExporterUtil.fromEqualtyPlaying(_b));
     }
 
     private static String presidentCoreFileName(String _locale) {

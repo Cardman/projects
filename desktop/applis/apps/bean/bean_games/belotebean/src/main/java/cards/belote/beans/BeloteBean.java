@@ -82,7 +82,7 @@ public abstract class BeloteBean extends Bean {
     }
 
     protected static String key(BeloteTrumpPartner _b) {
-        return Format.concatParts(BeloteResoucesAccess.BELOTE_TRUMP_PART, BeloteCardsExporterUtil.fromBeloteTrumpPartner(_b));
+        return BeloteResoucesAccess.key(_b);
     }
 
     protected static String key(MixCardsChoice _b) {
@@ -90,7 +90,7 @@ public abstract class BeloteBean extends Bean {
     }
 
     protected static String key(DeclaresBelote _b) {
-        return Format.concatParts(BeloteResoucesAccess.BELOTE_DECLARES, BeloteCardsExporterUtil.fromDeclaresBelote(_b));
+        return BeloteResoucesAccess.key(_b);
     }
 
     public boolean playGame() {

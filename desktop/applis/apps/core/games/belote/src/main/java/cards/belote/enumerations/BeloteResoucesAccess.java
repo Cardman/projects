@@ -18,4 +18,12 @@ public final class BeloteResoucesAccess {
     public static String key(BidBelote _b) {
         return Format.concatParts(BeloteResoucesAccess.BELOTE_BID, BeloteCardsExporterUtil.fromBidBelote(_b));
     }
+
+    public static String key(DeclaresBelote _b) {
+        return Format.concatParts(BeloteResoucesAccess.BELOTE_DECLARES, BeloteCardsExporterUtil.fromDeclaresBelote(_b));
+    }
+
+    public static String key(BeloteTrumpPartner _b) {
+        return Format.concatParts(BeloteResoucesAccess.BELOTE_TRUMP_PART, BeloteCardsExporterUtil.fromBeloteTrumpPartner(_b));
+    }
 }
