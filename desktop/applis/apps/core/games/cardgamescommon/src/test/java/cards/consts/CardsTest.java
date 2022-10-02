@@ -413,6 +413,19 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq(0, r_.getHistory().get(0).getNumber());
     }
     @Test
+    public void copyLineDeals() {
+        CustList<LineDeal> lds_ = new CustList<LineDeal>();
+        LineDeal ls_ = new LineDeal();
+        ls_.setNumber(1);
+        ls_.setScores(Longs.newList(1));
+        lds_.add(ls_);
+        CustList<LineDeal> cp_ = LineDeal.copy(lds_);
+        assertEq(1,cp_.size());
+        assertEq(1,cp_.get(0).getNumber());
+        assertEq(1,cp_.get(0).getScores().size());
+        assertEq(1,cp_.get(0).getScores().get(0));
+    }
+    @Test
     public void validate1(){
         DisplayingCommon displayingCommon_ = new DisplayingCommon(new DisplayingCommon());
         displayingCommon_.setClockwise(true);

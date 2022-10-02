@@ -4,9 +4,7 @@ import cards.consts.LineDeal;
 import cards.president.ResultsPresident;
 import code.bean.Bean;
 import code.util.CustList;
-import code.util.Longs;
 import code.util.StringList;
-import code.util.core.IndexConstants;
 
 public final class PresidentBean extends Bean {
 
@@ -29,19 +27,7 @@ public final class PresidentBean extends Bean {
         ResultsPresident res_ = getResults();
         setNicknames(res_.getRes().getNicknames());
         setHistory(res_.getRes().getHistory());
-        linesDeal = new CustList<LineDeal>();
-        int nbDeals_ = getHistory().size();
-        for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
-            LineDeal l_ = new LineDeal();
-            l_.setNumber(getHistory().get(i).getNumber());
-            Longs scores_ = new Longs();
-            int nombreJoueurs_ = getHistory().get(i).getScores().size();
-            for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                scores_.add(getHistory().get(i).getScores().get(joueur_));
-            }
-            l_.setScores(scores_);
-            linesDeal.add(l_);
-        }
+        linesDeal = LineDeal.copy(getHistory());
     }
 
     public StringList getNicknames() {
