@@ -3,6 +3,15 @@ package cards.consts;
 public final class EnumCardsExporterUtil {
     private EnumCardsExporterUtil(){
     }
+    public static String fromRole(Role _role) {
+        if (_role == Role.TAKER) {
+            return "TAKER";
+        }
+        if (_role == Role.CALLED_PLAYER) {
+            return "CALLED_PLAYER";
+        }
+        return "DEFENDER";
+    }
     public static String fromSuit(Suit _role) {
         if (_role == Suit.TRUMP) {
             return "TRUMP";
