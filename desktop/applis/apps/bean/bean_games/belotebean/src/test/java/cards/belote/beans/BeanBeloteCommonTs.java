@@ -55,6 +55,63 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static Struct callResultsBeloteBeanBidString(Struct _str, long... _args) {
         return callLongs(new ResultsBeloteBeanBidString(),_str,_args);
     }
+
+    public static Struct callResultsBeloteBeanCalledPlayersList(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanCalledPlayersList(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanTakerNickname(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanTakerNickname(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanDifferenceScoreTaker(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanDifferenceScoreTaker(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanAbsoluteDiff(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanAbsoluteDiff(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanPointsAttaqueSansPrime(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanPointsAttaqueSansPrime(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanPointsAttaqueDefinitif(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanPointsAttaqueDefinitif(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanPointsAttaqueTemporaire(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanPointsAttaqueTemporaire(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanPointsDefenseDefinitif(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanPointsDefenseDefinitif(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanPointsDefenseSansPrime(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanPointsDefenseSansPrime(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanPointsDefenseTemporaire(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanPointsDefenseTemporaire(),_str,_args);
+    }
+
+    public static Struct callResultsBeloteBeanLinesDeal(Struct _str, long... _args) {
+        return callLongs(new ResultsBeloteBeanLinesDeal(),_str,_args);
+    }
+
+
+    public static Struct callBeloteBeanPlayGame(Struct _str, long... _args) {
+        return callLongs(new BeloteBeanPlayGame(),_str,_args);
+    }
+
+    public static Struct callBeloteBeanGetNicknames(Struct _str, long... _args) {
+        return callLongs(new BeloteBeanGetNicknames(),_str,_args);
+    }
+
+    public static Struct callBeloteBeanGetScores(Struct _str, long... _args) {
+        return callLongs(new BeloteBeanGetScores(),_str,_args);
+    }
     public static Struct beanRules(String _language, RulesBelote _dataBase) {
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
         stds_.setDataBaseRules(_dataBase);
@@ -107,11 +164,18 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static void assertSizeEq(int _exp, Struct _result, int _index) {
         assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
     }
+
+    public static void assertSizeLongsEq(int _exp, Struct _result, int _index) {
+        assertEq(_exp,(((ArrayStruct)((ArrayStruct)_result).get(_index)).getLength()));
+    }
     public static void assertNumberEq(int _exp, Struct _result, int _index) {
         assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
     }
     public static void assertEq(long _exp, Struct _result, int _index, int _second) {
         assertEq(_exp,((LineDealStruct)(((ArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
+    }
+    public static void assertLongsEq(long _exp, Struct _result, int _index, int _second) {
+        assertEq(_exp,((ArrayStruct)(((ArrayStruct)_result).get(_index))).get(_second));
     }
 
     public static void assertEq(String _exp, Struct _result) {
