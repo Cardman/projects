@@ -1,4 +1,8 @@
 package aiki.sml.init;
+
+import aiki.util.LawNumber;
+import code.maths.montecarlo.MonteCarloNumber;
+
 public abstract class CstIgame{
 protected static final String A_CARACDROITEFERME = "caracdroiteferme";
 protected static final String A_CARACDROITEOUVERT = "caracdroiteouvert";
@@ -2531,4 +2535,7 @@ protected static final char OS = ';';
 protected static final char RB = '}';
 protected static final char RP = ')';
 protected CstIgame(){}
+protected static LawNumber ln(MonteCarloNumber _l,int _n){
+return new LawNumber(_l,(short)_n);
+}
 }

@@ -26,11 +26,11 @@ private static final String R_99_100="99/100";
 private Cst4(){}
 static IdMap<DifficultyModelLaw,LawNumber> lg(){
 IdMap<DifficultyModelLaw,LawNumber> l=new IdMap<DifficultyModelLaw,LawNumber>(new CollCapacity(5));
-l.addEntry(DifficultyModelLaw.DECROISSANT,new LawNumber(l3(),(short)2));
-l.addEntry(DifficultyModelLaw.CROISSANT,new LawNumber(l1(),(short)4));
-l.addEntry(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(l4(),(short)5));
-l.addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(l2(),(short)3));
-l.addEntry(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(l0(),(short)1));
+l.addEntry(DifficultyModelLaw.DECROISSANT,ln(l3(),2));
+l.addEntry(DifficultyModelLaw.CROISSANT,ln(l1(),4));
+l.addEntry(DifficultyModelLaw.CONSTANT_MAX,ln(l4(),5));
+l.addEntry(DifficultyModelLaw.UNIFORME,ln(l2(),3));
+l.addEntry(DifficultyModelLaw.CONSTANT_MIN,ln(l0(),1));
 return l;
 }
 static MonteCarloNumber l3(){
