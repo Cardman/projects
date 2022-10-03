@@ -85,6 +85,12 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq("CLUB",EnumCardsExporterUtil.fromSuit(Suit.CLUB));
         assertEq("UNDEFINED",EnumCardsExporterUtil.fromSuit(Suit.UNDEFINED));
         assertEq("UNDEFINED",EnumCardsExporterUtil.fromSuit(null));
+        assertEq("EXCUSE",EnumCardsExporterUtil.fromCardChar(CardChar.EXCUSE));
+        assertEq("KING",EnumCardsExporterUtil.fromCardChar(CardChar.KING));
+        assertEq("QUEEN",EnumCardsExporterUtil.fromCardChar(CardChar.QUEEN));
+        assertEq("KNIGHT",EnumCardsExporterUtil.fromCardChar(CardChar.KNIGHT));
+        assertEq("JACK",EnumCardsExporterUtil.fromCardChar(CardChar.JACK));
+        assertEq("UNDEFINED",EnumCardsExporterUtil.fromCardChar(CardChar.UNDEFINED));
         assertEq("TAKER",EnumCardsExporterUtil.fromRole(Role.TAKER));
         assertEq("CALLED_PLAYER",EnumCardsExporterUtil.fromRole(Role.CALLED_PLAYER));
         assertEq("DEFENDER",EnumCardsExporterUtil.fromRole(Role.DEFENDER));

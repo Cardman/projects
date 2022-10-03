@@ -44,8 +44,9 @@ public abstract class TarotBean extends Bean {
         return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }
     protected static String toString(CardTarot _b, String _file){
-        return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_CARD,_b.name());
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }
+
     protected static String toString(Handfuls _b, String _file){
         return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }

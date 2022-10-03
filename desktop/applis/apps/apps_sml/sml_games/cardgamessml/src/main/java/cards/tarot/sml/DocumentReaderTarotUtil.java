@@ -1,27 +1,18 @@
 package cards.tarot.sml;
+
 import cards.consts.sml.DocumentReaderCardsCommonUtil;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
-import cards.tarot.DealTarot;
-import cards.tarot.DisplayingTarot;
-import cards.tarot.GameTarot;
-import cards.tarot.HandTarot;
-import cards.tarot.ResultsTarot;
-import cards.tarot.RulesTarot;
-import cards.tarot.TrickTarot;
-import cards.tarot.TricksHandsTarot;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.DealingTarot;
-import cards.tarot.enumerations.EndDealTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
-import cards.tarot.enumerations.ModeTarot;
+import cards.tarot.*;
+import cards.tarot.enumerations.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.*;
+import code.sml.core.DocumentReaderCoreUtil;
+import code.util.CollCapacity;
+import code.util.CustList;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -360,66 +351,31 @@ public final class DocumentReaderTarotUtil {
     }
 
     public static BidTarot getBidTarot(Element _elt) {
-        for (BidTarot e: BidTarot.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return BidTarot.FOLD;
+        return TarotCardsRetrieverUtil.toBidTarot(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static CardTarot getCardTarot(Element _elt) {
-        for (CardTarot e: CardTarot.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return CardTarot.WHITE;
+        return TarotCardsRetrieverUtil.toCardTarot(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static DealingTarot getDealingTarot(Element _elt) {
-        for (DealingTarot e: DealingTarot.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return DealingTarot.DEAL_2_VS_3_CALL_KING;
+        return TarotCardsRetrieverUtil.toDealingTarot(_elt.getAttribute(ATTR_VALUE));
     }
 
     private static EndDealTarot getEndDealTarot(Element _elt) {
-        for (EndDealTarot e: EndDealTarot.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return EndDealTarot.ZERO;
+        return TarotCardsRetrieverUtil.toEndDealTarot(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static Handfuls getHandfuls(Element _elt) {
-        for (Handfuls e: Handfuls.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return Handfuls.NO;
+        return TarotCardsRetrieverUtil.toHandfuls(_elt.getAttribute(ATTR_VALUE));
     }
 
     private static Miseres getMiseres(Element _elt) {
-        for (Miseres e: Miseres.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return Miseres.TRUMP;
+        return TarotCardsRetrieverUtil.toMiseres(_elt.getAttribute(ATTR_VALUE));
     }
 
     private static ModeTarot getModeTarot(Element _elt) {
-        for (ModeTarot e: ModeTarot.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return ModeTarot.NORMAL;
+        return TarotCardsRetrieverUtil.toModeTarot(_elt.getAttribute(ATTR_VALUE));
     }
 
     private static CustList<TrickTarot> getListTrickTarot(Element _elt) {

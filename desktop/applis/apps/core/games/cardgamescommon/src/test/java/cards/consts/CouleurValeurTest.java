@@ -405,6 +405,324 @@ public final class CouleurValeurTest extends EquallableCardsUtil {
     }
 
     @Test
+    public void noPl() {
+        CouleurValeur couleurValeur_ = new CouleurValeur(Suit.UNDEFINED, (byte) 0, CardChar.UNDEFINED, false);
+        assertEq("WHITE", couleurValeur_.getSt());
+    }
+    @Test
+    public void st0(){
+        assertEq("EXCUSE",CouleurValeur.excSt());
+    }
+    @Test
+    public void st1(){
+        assertEq("TRUMP_21",CouleurValeur.trumpSt(21));
+    }
+    @Test
+    public void st2(){
+        assertEq("TRUMP_20",CouleurValeur.trumpSt(20));
+    }
+    @Test
+    public void st3(){
+        assertEq("TRUMP_19",CouleurValeur.trumpSt(19));
+    }
+    @Test
+    public void st4(){
+        assertEq("TRUMP_18",CouleurValeur.trumpSt(18));
+    }
+    @Test
+    public void st5(){
+        assertEq("TRUMP_17",CouleurValeur.trumpSt(17));
+    }
+    @Test
+    public void st6(){
+        assertEq("TRUMP_16",CouleurValeur.trumpSt(16));
+    }
+    @Test
+    public void st7(){
+        assertEq("TRUMP_15",CouleurValeur.trumpSt(15));
+    }
+    @Test
+    public void st8(){
+        assertEq("TRUMP_14",CouleurValeur.trumpSt(14));
+    }
+    @Test
+    public void st9(){
+        assertEq("TRUMP_13",CouleurValeur.trumpSt(13));
+    }
+    @Test
+    public void st10(){
+        assertEq("TRUMP_12",CouleurValeur.trumpSt(12));
+    }
+    @Test
+    public void st11(){
+        assertEq("TRUMP_11",CouleurValeur.trumpSt(11));
+    }
+    @Test
+    public void st12(){
+        assertEq("TRUMP_10",CouleurValeur.trumpSt(10));
+    }
+    @Test
+    public void st13(){
+        assertEq("TRUMP_9",CouleurValeur.trumpSt(9));
+    }
+    @Test
+    public void st14(){
+        assertEq("TRUMP_8",CouleurValeur.trumpSt(8));
+    }
+    @Test
+    public void st15(){
+        assertEq("TRUMP_7",CouleurValeur.trumpSt(7));
+    }
+    @Test
+    public void st16(){
+        assertEq("TRUMP_6",CouleurValeur.trumpSt(6));
+    }
+    @Test
+    public void st17(){
+        assertEq("TRUMP_5",CouleurValeur.trumpSt(5));
+    }
+    @Test
+    public void st18(){
+        assertEq("TRUMP_4",CouleurValeur.trumpSt(4));
+    }
+    @Test
+    public void st19(){
+        assertEq("TRUMP_3",CouleurValeur.trumpSt(3));
+    }
+    @Test
+    public void st20(){
+        assertEq("TRUMP_2",CouleurValeur.trumpSt(2));
+    }
+    @Test
+    public void st21(){
+        assertEq("TRUMP_1",CouleurValeur.trumpSt(1));
+    }
+    @Test
+    public void st22(){
+        assertEq("HEART_KING",CouleurValeur.suitSt(Suit.HEART,CardChar.KING));
+    }
+    @Test
+    public void st23(){
+        assertEq("HEART_QUEEN",CouleurValeur.suitSt(Suit.HEART,CardChar.QUEEN));
+    }
+    @Test
+    public void st24(){
+        assertEq("HEART_KNIGHT",CouleurValeur.suitSt(Suit.HEART,CardChar.KNIGHT));
+    }
+    @Test
+    public void st25(){
+        assertEq("HEART_JACK",CouleurValeur.suitSt(Suit.HEART,CardChar.JACK));
+    }
+    @Test
+    public void st26(){
+        assertEq("HEART_10",CouleurValeur.suitSt(Suit.HEART,10));
+    }
+    @Test
+    public void st27(){
+        assertEq("HEART_9",CouleurValeur.suitSt(Suit.HEART,9));
+    }
+    @Test
+    public void st28(){
+        assertEq("HEART_8",CouleurValeur.suitSt(Suit.HEART,8));
+    }
+    @Test
+    public void st29(){
+        assertEq("HEART_7",CouleurValeur.suitSt(Suit.HEART,7));
+    }
+    @Test
+    public void st30(){
+        assertEq("HEART_6",CouleurValeur.suitSt(Suit.HEART,6));
+    }
+    @Test
+    public void st31(){
+        assertEq("HEART_5",CouleurValeur.suitSt(Suit.HEART,5));
+    }
+    @Test
+    public void st32(){
+        assertEq("HEART_4",CouleurValeur.suitSt(Suit.HEART,4));
+    }
+    @Test
+    public void st33(){
+        assertEq("HEART_3",CouleurValeur.suitSt(Suit.HEART,3));
+    }
+    @Test
+    public void st34(){
+        assertEq("HEART_2",CouleurValeur.suitSt(Suit.HEART,2));
+    }
+    @Test
+    public void st35(){
+        assertEq("HEART_1",CouleurValeur.suitSt(Suit.HEART,1));
+    }
+    @Test
+    public void st36(){
+        assertEq("SPADE_KING",CouleurValeur.suitSt(Suit.SPADE,CardChar.KING));
+    }
+    @Test
+    public void st37(){
+        assertEq("SPADE_QUEEN",CouleurValeur.suitSt(Suit.SPADE,CardChar.QUEEN));
+    }
+    @Test
+    public void st38(){
+        assertEq("SPADE_KNIGHT",CouleurValeur.suitSt(Suit.SPADE,CardChar.KNIGHT));
+    }
+    @Test
+    public void st39(){
+        assertEq("SPADE_JACK",CouleurValeur.suitSt(Suit.SPADE,CardChar.JACK));
+    }
+    @Test
+    public void st40(){
+        assertEq("SPADE_10",CouleurValeur.suitSt(Suit.SPADE,10));
+    }
+    @Test
+    public void st41(){
+        assertEq("SPADE_9",CouleurValeur.suitSt(Suit.SPADE,9));
+    }
+    @Test
+    public void st42(){
+        assertEq("SPADE_8",CouleurValeur.suitSt(Suit.SPADE,8));
+    }
+    @Test
+    public void st43(){
+        assertEq("SPADE_7",CouleurValeur.suitSt(Suit.SPADE,7));
+    }
+    @Test
+    public void st44(){
+        assertEq("SPADE_6",CouleurValeur.suitSt(Suit.SPADE,6));
+    }
+    @Test
+    public void st45(){
+        assertEq("SPADE_5",CouleurValeur.suitSt(Suit.SPADE,5));
+    }
+    @Test
+    public void st46(){
+        assertEq("SPADE_4",CouleurValeur.suitSt(Suit.SPADE,4));
+    }
+    @Test
+    public void st47(){
+        assertEq("SPADE_3",CouleurValeur.suitSt(Suit.SPADE,3));
+    }
+    @Test
+    public void st48(){
+        assertEq("SPADE_2",CouleurValeur.suitSt(Suit.SPADE,2));
+    }
+    @Test
+    public void st49(){
+        assertEq("SPADE_1",CouleurValeur.suitSt(Suit.SPADE,1));
+    }
+    @Test
+    public void st50(){
+        assertEq("DIAMOND_KING",CouleurValeur.suitSt(Suit.DIAMOND,CardChar.KING));
+    }
+    @Test
+    public void st51(){
+        assertEq("DIAMOND_QUEEN",CouleurValeur.suitSt(Suit.DIAMOND,CardChar.QUEEN));
+    }
+    @Test
+    public void st52(){
+        assertEq("DIAMOND_KNIGHT",CouleurValeur.suitSt(Suit.DIAMOND,CardChar.KNIGHT));
+    }
+    @Test
+    public void st53(){
+        assertEq("DIAMOND_JACK",CouleurValeur.suitSt(Suit.DIAMOND,CardChar.JACK));
+    }
+    @Test
+    public void st54(){
+        assertEq("DIAMOND_10",CouleurValeur.suitSt(Suit.DIAMOND,10));
+    }
+    @Test
+    public void st55(){
+        assertEq("DIAMOND_9",CouleurValeur.suitSt(Suit.DIAMOND,9));
+    }
+    @Test
+    public void st56(){
+        assertEq("DIAMOND_8",CouleurValeur.suitSt(Suit.DIAMOND,8));
+    }
+    @Test
+    public void st57(){
+        assertEq("DIAMOND_7",CouleurValeur.suitSt(Suit.DIAMOND,7));
+    }
+    @Test
+    public void st58(){
+        assertEq("DIAMOND_6",CouleurValeur.suitSt(Suit.DIAMOND,6));
+    }
+    @Test
+    public void st59(){
+        assertEq("DIAMOND_5",CouleurValeur.suitSt(Suit.DIAMOND,5));
+    }
+    @Test
+    public void st60(){
+        assertEq("DIAMOND_4",CouleurValeur.suitSt(Suit.DIAMOND,4));
+    }
+    @Test
+    public void st61(){
+        assertEq("DIAMOND_3",CouleurValeur.suitSt(Suit.DIAMOND,3));
+    }
+    @Test
+    public void st62(){
+        assertEq("DIAMOND_2",CouleurValeur.suitSt(Suit.DIAMOND,2));
+    }
+    @Test
+    public void st63(){
+        assertEq("DIAMOND_1",CouleurValeur.suitSt(Suit.DIAMOND,1));
+    }
+    @Test
+    public void st64(){
+        assertEq("CLUB_KING",CouleurValeur.suitSt(Suit.CLUB,CardChar.KING));
+    }
+    @Test
+    public void st65(){
+        assertEq("CLUB_QUEEN",CouleurValeur.suitSt(Suit.CLUB,CardChar.QUEEN));
+    }
+    @Test
+    public void st66(){
+        assertEq("CLUB_KNIGHT",CouleurValeur.suitSt(Suit.CLUB,CardChar.KNIGHT));
+    }
+    @Test
+    public void st67(){
+        assertEq("CLUB_JACK",CouleurValeur.suitSt(Suit.CLUB,CardChar.JACK));
+    }
+    @Test
+    public void st68(){
+        assertEq("CLUB_10",CouleurValeur.suitSt(Suit.CLUB,10));
+    }
+    @Test
+    public void st69(){
+        assertEq("CLUB_9",CouleurValeur.suitSt(Suit.CLUB,9));
+    }
+    @Test
+    public void st70(){
+        assertEq("CLUB_8",CouleurValeur.suitSt(Suit.CLUB,8));
+    }
+    @Test
+    public void st71(){
+        assertEq("CLUB_7",CouleurValeur.suitSt(Suit.CLUB,7));
+    }
+    @Test
+    public void st72(){
+        assertEq("CLUB_6",CouleurValeur.suitSt(Suit.CLUB,6));
+    }
+    @Test
+    public void st73(){
+        assertEq("CLUB_5",CouleurValeur.suitSt(Suit.CLUB,5));
+    }
+    @Test
+    public void st74(){
+        assertEq("CLUB_4",CouleurValeur.suitSt(Suit.CLUB,4));
+    }
+    @Test
+    public void st75(){
+        assertEq("CLUB_3",CouleurValeur.suitSt(Suit.CLUB,3));
+    }
+    @Test
+    public void st76(){
+        assertEq("CLUB_2",CouleurValeur.suitSt(Suit.CLUB,2));
+    }
+    @Test
+    public void st77(){
+        assertEq("CLUB_1",CouleurValeur.suitSt(Suit.CLUB,1));
+    }
+
+    @Test
     public void forceCouleurDansUnTri() {
         CouleurValeur couleurValeur_ = new CouleurValeur(Suit.TRUMP, (byte) 21, CardChar.UNDEFINED, true);
         assertEq(2, couleurValeur_.forceCouleurDansUnTri(Suit.toutesCouleurs()));

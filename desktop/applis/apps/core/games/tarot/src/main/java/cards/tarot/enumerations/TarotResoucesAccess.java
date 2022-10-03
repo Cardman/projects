@@ -41,4 +41,8 @@ public final class TarotResoucesAccess {
     public static String key(Miseres _b) {
         return Format.concatParts(TAROT_MISERES, TarotCardsExporterUtil.fromMiseres(_b));
     }
+
+    public static String key(CardTarot _b) {
+        return Format.concatParts(TAROT_CARD, TarotCardsExporterUtil.fromCardTarot(_b));
+    }
 }

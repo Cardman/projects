@@ -144,5 +144,12 @@ public final class TarotCardsRetrieverUtilTest extends EquallableTarotUtil {
     public void toEndDealTarot3() {
         assertEq(EndDealTarot.ZERO,TarotCardsRetrieverUtil.toEndDealTarot("ZERO"));
     }
-
+    @Test
+    public void toCardTarot1() {
+        assertEq(CardTarot.EXCUSE,TarotCardsRetrieverUtil.toCardTarot("EXCUSE"));
+    }
+    @Test
+    public void toCardTarot2() {
+        assertEq(CardTarot.WHITE,TarotCardsRetrieverUtil.toCardTarot(""));
+    }
 }

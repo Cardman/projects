@@ -145,6 +145,10 @@ public final class TarotCardsExporterUtilTest extends EquallableTarotUtil {
         assertEq("ZERO",TarotCardsExporterUtil.fromEndDealTarot(EndDealTarot.ZERO));
     }
     @Test
+    public void fromCardTarot4() {
+        assertEq("WHITE",TarotCardsExporterUtil.fromCardTarot(CardTarot.WHITE));
+    }
+    @Test
     public void key1() {
         assertEq("cards.tarot.enumerations.BidTarot.FOLD",TarotResoucesAccess.key(BidTarot.FOLD));
     }
@@ -167,5 +171,9 @@ public final class TarotCardsExporterUtilTest extends EquallableTarotUtil {
     @Test
     public void key6() {
         assertEq("cards.tarot.enumerations.EndDealTarot.ATTACK_WIN",TarotResoucesAccess.key(EndDealTarot.ATTACK_WIN));
+    }
+    @Test
+    public void key7() {
+        assertEq("cards.tarot.enumerations.CardTarot.EXCUSE",TarotResoucesAccess.key(CardTarot.EXCUSE));
     }
 }

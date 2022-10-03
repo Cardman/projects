@@ -534,28 +534,47 @@ public final class Games {
     }
 
     public static String toString(ModeTarot _b, String _locale){
-        return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_MODE, _b.name());
+        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(ChoiceTarot _b, String _locale){
         return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_CHOICE, _b.name());
     }
     public static String toString(BidTarot _b, String _locale){
-        return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_BID,_b.name());
+        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
+
+    private static String tarotCoreFileContent(String _locale) {
+        return MessagesCardsAll.ms().getVal(tarotCoreFileName(_locale));
+    }
+
     public static String toString(CardTarot _b, String _locale){
-        return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_CARD,_b.name());
+        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(Handfuls _b, String _locale){
-        return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_HANDFULS,_b.name());
+        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(Miseres _b, String _locale){
-        return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_MISERES, _b.name());
+        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(DealingTarot _b, String _locale){
-        return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_DEAL, _b.name());
+        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(EndDealTarot _b, String _locale){
-        return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_END,_b.name());
+        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(BonusTarot _b, String _locale){
         return getConstanteLangue(tarotCoreFileName(_locale), TarotResoucesAccess.TAROT_BONUS,_b.name());

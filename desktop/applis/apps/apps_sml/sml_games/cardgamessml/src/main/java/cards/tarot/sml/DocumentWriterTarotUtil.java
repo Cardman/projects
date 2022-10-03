@@ -9,13 +9,7 @@ import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TrickTarot;
 import cards.tarot.TricksHandsTarot;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.DealingTarot;
-import cards.tarot.enumerations.EndDealTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
-import cards.tarot.enumerations.ModeTarot;
+import cards.tarot.enumerations.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
@@ -235,49 +229,49 @@ public final class DocumentWriterTarotUtil {
     public static Element setBidTarot(BidTarot _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_BID_TAROT);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE, TarotCardsExporterUtil.fromBidTarot(_object));
         return elt_;
     }
 
     public static Element setCardTarot(CardTarot _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_CARD_TAROT);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromCardTarot(_object));
         return elt_;
     }
 
     public static Element setDealingTarot(DealingTarot _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_DEALING_TAROT);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromDealingTarot(_object));
         return elt_;
     }
 
     private static Element setEndDealTarot(EndDealTarot _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_END_DEAL_TAROT);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromEndDealTarot(_object));
         return elt_;
     }
 
     public static Element setHandfuls(Handfuls _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_HANDFULS);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromHandfuls(_object));
         return elt_;
     }
 
     private static Element setMiseres(Miseres _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MISERES);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromMiseres(_object));
         return elt_;
     }
 
     private static Element setModeTarot(ModeTarot _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MODE_TAROT);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromModeTarot(_object));
         return elt_;
     }
 

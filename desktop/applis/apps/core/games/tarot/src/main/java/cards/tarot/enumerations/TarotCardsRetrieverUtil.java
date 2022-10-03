@@ -1,5 +1,6 @@
 package cards.tarot.enumerations;
 
+import cards.tarot.HandTarot;
 import code.util.core.StringUtil;
 
 public final class TarotCardsRetrieverUtil {
@@ -116,5 +117,14 @@ public final class TarotCardsRetrieverUtil {
             return EndDealTarot.ATTACK_WIN;
         }
         return EndDealTarot.ZERO;
+    }
+    public static CardTarot toCardTarot(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        for (CardTarot c: HandTarot.pileBase()) {
+            if (StringUtil.quickEq(r_,c.getId().getSt())) {
+                return c;
+            }
+        }
+        return CardTarot.WHITE;
     }
 }

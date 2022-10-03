@@ -109,4 +109,7 @@ public final class TarotCardsExporterUtil {
         }
         return "ZERO";
     }
+    public static String fromCardTarot(CardTarot _ct) {
+        return _ct.getId().getSt();
+    }
 }

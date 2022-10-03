@@ -30,6 +30,24 @@ public final class EnumCardsExporterUtil {
         }
         return "UNDEFINED";
     }
+    public static String fromCardChar(CardChar _role) {
+        if (_role == CardChar.EXCUSE) {
+            return "EXCUSE";
+        }
+        if (_role == CardChar.KING) {
+            return "KING";
+        }
+        if (_role == CardChar.QUEEN) {
+            return "QUEEN";
+        }
+        if (_role == CardChar.KNIGHT) {
+            return "KNIGHT";
+        }
+        if (_role == CardChar.JACK) {
+            return "JACK";
+        }
+        return "UNDEFINED";
+    }
     public static String fromGameType(GameType _role) {
         if (_role == GameType.EDIT) {
             return "EDIT";
