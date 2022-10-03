@@ -520,7 +520,13 @@ public final class Games {
         return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_PLAY,_b.name());
     }
     public static String toString(EqualtyPlaying _b, String _locale){
-        return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY, PresidentCardsExporterUtil.fromEqualtyPlaying(_b));
+        String fichier_ = presidentCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(PresidentResoucesAccess.key(_b), fichier_);
+    }
+
+    private static String presidentCoreFileContent(String _locale) {
+        return MessagesCardsAll.ms().getVal(presidentCoreFileName(_locale));
     }
 
     private static String presidentCoreFileName(String _locale) {

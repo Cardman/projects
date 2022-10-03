@@ -3,6 +3,7 @@ package cards.president.beans;
 import cards.consts.MixCardsChoice;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
+import cards.president.enumerations.PresidentResoucesAccess;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.scripts.pages.cards.MessPresidentPage;
@@ -149,6 +150,6 @@ public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
         return RulesPresidentBean.key(_b)+ SEP +_value;
     }
     private static String file(EqualtyPlaying _b, String _value) {
-        return RulesPresidentBean.key(_b)+ SEP +_value;
+        return PresidentResoucesAccess.key(_b)+ SEP +_value;
     }
 }

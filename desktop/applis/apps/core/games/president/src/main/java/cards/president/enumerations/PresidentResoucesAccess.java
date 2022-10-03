@@ -1,5 +1,7 @@
 package cards.president.enumerations;
 
+import code.format.Format;
+
 public final class PresidentResoucesAccess {
 
     public static final String NOM_DOSSIER = "resources_cards/const_enum";
@@ -10,4 +12,7 @@ public final class PresidentResoucesAccess {
 
     private PresidentResoucesAccess(){}
 
+    public static String key(EqualtyPlaying _b) {
+        return Format.concatParts(PRESIDENT_EQUAL_PLAY, PresidentCardsExporterUtil.fromEqualtyPlaying(_b));
+    }
 }

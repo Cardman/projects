@@ -2,6 +2,7 @@ package cards.president;
 
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.PresidentCardsExporterUtil;
+import cards.president.enumerations.PresidentResoucesAccess;
 import org.junit.Test;
 
 public final class PresidentCardsExporterUtilTest extends EquallablePresidentUtil {
@@ -20,5 +21,9 @@ public final class PresidentCardsExporterUtilTest extends EquallablePresidentUti
     @Test
     public void equalty4() {
         assertEq("NO_SKIP", PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.NO_SKIP));
+    }
+    @Test
+    public void key1() {
+        assertEq("cards.president.enumerations.EqualtyPlaying.FORBIDDEN", PresidentResoucesAccess.key(EqualtyPlaying.FORBIDDEN));
     }
 }
