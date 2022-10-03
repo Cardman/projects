@@ -1,6 +1,7 @@
 package cards.tarot.beans;
 
 import cards.consts.beans.LineDealStruct;
+import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
@@ -14,6 +15,38 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";
 
+
+    public static Struct callResultsTarotBeanLoose(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanLoose(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanWin(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanWin(),_str,_args);
+    }
+
+
+    public static Struct callResultsTarotBeanEquality(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanEquality(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanFailedBid(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanFailedBid(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanSuccessfulBid(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanSuccessfulBid(),_str,_args);
+    }
+
+
+    public static Struct callResultsTarotBeanMidBid(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanMidBid(),_str,_args);
+    }
+
+    public static Struct beanResultsTarot(String _language, ResultsTarot _dataBase) {
+        TarotStandardsResults stds_ = new TarotStandardsResults();
+        stds_.setDataBase(_dataBase);
+        return stds_.beanResults(_language);
+    }
     public static Struct callRulesTarotBeanRepartition(Struct _str, long... _args) {
         return callLongs(new RulesTarotBeanRepartition(),_str,_args);
     }

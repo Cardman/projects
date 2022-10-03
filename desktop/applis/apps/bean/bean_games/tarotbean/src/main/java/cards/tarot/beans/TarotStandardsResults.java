@@ -4,6 +4,7 @@ import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 
@@ -84,6 +85,10 @@ public final class TarotStandardsResults extends TarotStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,bean(new ResultsTarotBean(),TYPE_RESULTS_TAROT_BEAN,_language));
+        getBeansStruct().setValue(0,beanResults(_language));
+    }
+
+    Struct beanResults(String _language) {
+        return bean(new ResultsTarotBean(),TYPE_RESULTS_TAROT_BEAN,_language);
     }
 }
