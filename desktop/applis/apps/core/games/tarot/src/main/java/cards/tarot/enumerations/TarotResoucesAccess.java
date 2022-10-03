@@ -21,4 +21,12 @@ public final class TarotResoucesAccess {
     public static String key(BidTarot _b) {
         return Format.concatParts(TAROT_BID, TarotCardsExporterUtil.fromBidTarot(_b));
     }
+
+    public static String key(ModeTarot _b) {
+        return Format.concatParts(TAROT_MODE, TarotCardsExporterUtil.fromModeTarot(_b));
+    }
+
+    public static String key(DealingTarot _b) {
+        return Format.concatParts(TAROT_DEAL, TarotCardsExporterUtil.fromDealingTarot(_b));
+    }
 }

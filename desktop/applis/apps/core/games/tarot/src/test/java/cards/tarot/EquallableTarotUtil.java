@@ -89,6 +89,12 @@ public abstract class EquallableTarotUtil {
         Assert.assertSame(_expected, _result);
     }
     
+    public static void assertEq(DealingTarot _expected, DealingTarot _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(ModeTarot _expected, ModeTarot _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(BidTarot _expected, BidTarot _result) {
         Assert.assertSame(_expected, _result);
     }
