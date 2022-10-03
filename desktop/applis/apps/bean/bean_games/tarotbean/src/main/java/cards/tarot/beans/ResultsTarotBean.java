@@ -54,8 +54,6 @@ public final class ResultsTarotBean extends TarotBean {
         setGame(res_.getGame());
         setNicknames(res_.getRes().getNicknames());
         setHistory(res_.getRes().getHistory());
-        setUser(res_.getRes().getUser());
-        setLoc(res_.getRes().getLoc());
         setBid(getGame().getContrat());
         short doubledScoreTaker_;
         Shorts doubledScoresPlayersTricks_ = new Shorts();

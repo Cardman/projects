@@ -54,9 +54,6 @@ public final class DetailsResultsTarotBean extends TarotBean {
         setGame(game_);
         setNicknames(res_.getRes().getNicknames());
         setHistory(res_.getRes().getHistory());
-        setUser(res_.getRes().getUser());
-        String loc_ = res_.getRes().getLoc();
-        setLoc(loc_);
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
         linesDeclaring = new CustList<TarotSumDeclaringPlayer>();

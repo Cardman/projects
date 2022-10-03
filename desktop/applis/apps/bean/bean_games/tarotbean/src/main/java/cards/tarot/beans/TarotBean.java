@@ -23,10 +23,6 @@ public abstract class TarotBean extends Bean {
 
     private CustList<LineDeal> history;
 
-    private int user;
-
-    private String loc;
-
     private ResultsTarot dataBase;
     private RulesTarot dataBaseRules;
     public RulesTarot db() {
@@ -38,32 +34,34 @@ public abstract class TarotBean extends Bean {
         dataBaseRules = _dataBaseRules;
     }
     protected static String toString(ModeTarot _b, String _file){
-        return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_MODE, _b.name());
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }
     protected static String toString(DealingTarot _b, String _file){
-        return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_DEAL, _b.name());
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }
 
     protected static String toString(BidTarot _b, String _file){
-        return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_BID,_b.name());
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }
     protected static String toString(CardTarot _b, String _file){
         return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_CARD,_b.name());
     }
     protected static String toString(Handfuls _b, String _file){
-        return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_HANDFULS,_b.name());
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }
     protected static String toString(EndDealTarot _b, String _file){
-        return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_END,_b.name());
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }
+
     protected static String toString(Miseres _b, String _file){
-        return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_MISERES, _b.name());
+        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
     }
+
     protected static String toString(Role _b, String _file) {
         return Format.getConstanteLangue(CoreResourcesAccess.key(_b), _file);
     }
     protected static String toString(MixCardsChoice _b, String _file) {
-        return Format.getConstanteLangue(_file, CoreResourcesAccess.MIX,_b.name());
+        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), _file);
     }
     public final boolean playClassicGame() {
         return getBid().isJouerDonne();
@@ -102,22 +100,6 @@ public abstract class TarotBean extends Bean {
 
     protected void setHistory(CustList<LineDeal> _h) {
         this.history = _h;
-    }
-
-    protected final int getUser() {
-        return user;
-    }
-
-    protected final void setUser(int _user) {
-        user = _user;
-    }
-
-    protected final String getLoc() {
-        return loc;
-    }
-
-    protected final void setLoc(String _loc) {
-        loc = _loc;
     }
 
     protected final ResultsTarot getResults() {

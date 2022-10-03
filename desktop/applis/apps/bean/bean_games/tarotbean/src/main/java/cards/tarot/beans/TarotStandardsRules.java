@@ -41,6 +41,10 @@ public final class TarotStandardsRules extends TarotStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,bean(new RulesTarotBean(), TYPE_RULES_TAROT_BEAN,_language));
+        getBeansStruct().setValue(0, beanRules(_language));
+    }
+
+    TarotBeanStruct beanRules(String _language) {
+        return bean(new RulesTarotBean(), TYPE_RULES_TAROT_BEAN, _language);
     }
 }
