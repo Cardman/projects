@@ -70,4 +70,43 @@ public final class TarotCardsExporterUtil {
         }
         return "DEAL_2_VS_4_CALL_CHAR";
     }
+    public static String fromHandfuls(Handfuls _role) {
+        if (_role == Handfuls.ONE) {
+            return "ONE";
+        }
+        if (_role == Handfuls.TWO) {
+            return "TWO";
+        }
+        if (_role == Handfuls.THREE) {
+            return "THREE";
+        }
+        if (_role == Handfuls.FOUR) {
+            return "FOUR";
+        }
+        return "NO";
+    }
+    public static String fromMiseres(Miseres _role) {
+        if (_role == Miseres.POINT) {
+            return "POINT";
+        }
+        if (_role == Miseres.CHARACTER) {
+            return "CHARACTER";
+        }
+        if (_role == Miseres.SUIT) {
+            return "SUIT";
+        }
+        if (_role == Miseres.LOW_CARDS) {
+            return "LOW_CARDS";
+        }
+        return "TRUMP";
+    }
+    public static String fromEndDealTarot(EndDealTarot _role) {
+        if (_role == EndDealTarot.ATTACK_LOOSE) {
+            return "ATTACK_LOOSE";
+        }
+        if (_role == EndDealTarot.ATTACK_WIN) {
+            return "ATTACK_WIN";
+        }
+        return "ZERO";
+    }
 }

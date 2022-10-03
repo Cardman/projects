@@ -92,4 +92,57 @@ public final class TarotCardsRetrieverUtilTest extends EquallableTarotUtil {
     public void toDealingTarot11() {
         assertEq(DealingTarot.DEAL_2_VS_4_CALL_CHAR,TarotCardsRetrieverUtil.toDealingTarot("DEAL_2_VS_4_CALL_CHAR"));
     }
+    @Test
+    public void toHandfuls1() {
+        assertEq(Handfuls.NO,TarotCardsRetrieverUtil.toHandfuls("NO"));
+    }
+    @Test
+    public void toHandfuls2() {
+        assertEq(Handfuls.ONE,TarotCardsRetrieverUtil.toHandfuls("ONE"));
+    }
+    @Test
+    public void toHandfuls3() {
+        assertEq(Handfuls.TWO,TarotCardsRetrieverUtil.toHandfuls("TWO"));
+    }
+    @Test
+    public void toHandfuls4() {
+        assertEq(Handfuls.THREE,TarotCardsRetrieverUtil.toHandfuls("THREE"));
+    }
+    @Test
+    public void toHandfuls5() {
+        assertEq(Handfuls.FOUR,TarotCardsRetrieverUtil.toHandfuls("FOUR"));
+    }
+    @Test
+    public void toMiseres1() {
+        assertEq(Miseres.TRUMP,TarotCardsRetrieverUtil.toMiseres("TRUMP"));
+    }
+    @Test
+    public void toMiseres2() {
+        assertEq(Miseres.POINT,TarotCardsRetrieverUtil.toMiseres("POINT"));
+    }
+    @Test
+    public void toMiseres3() {
+        assertEq(Miseres.CHARACTER,TarotCardsRetrieverUtil.toMiseres("CHARACTER"));
+    }
+    @Test
+    public void toMiseres4() {
+        assertEq(Miseres.SUIT,TarotCardsRetrieverUtil.toMiseres("SUIT"));
+    }
+    @Test
+    public void toMiseres5() {
+        assertEq(Miseres.LOW_CARDS,TarotCardsRetrieverUtil.toMiseres("LOW_CARDS"));
+    }
+    @Test
+    public void toEndDealTarot1() {
+        assertEq(EndDealTarot.ATTACK_LOOSE,TarotCardsRetrieverUtil.toEndDealTarot("ATTACK_LOOSE"));
+    }
+    @Test
+    public void toEndDealTarot2() {
+        assertEq(EndDealTarot.ATTACK_WIN,TarotCardsRetrieverUtil.toEndDealTarot("ATTACK_WIN"));
+    }
+    @Test
+    public void toEndDealTarot3() {
+        assertEq(EndDealTarot.ZERO,TarotCardsRetrieverUtil.toEndDealTarot("ZERO"));
+    }
+
 }

@@ -75,4 +75,46 @@ public final class TarotCardsRetrieverUtil {
         }
         return DealingTarot.DEAL_2_VS_3_CALL_KING;
     }
+    public static Handfuls toHandfuls(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        if (StringUtil.quickEq(r_,"ONE")) {
+            return Handfuls.ONE;
+        }
+        if (StringUtil.quickEq(r_,"TWO")) {
+            return Handfuls.TWO;
+        }
+        if (StringUtil.quickEq(r_,"THREE")) {
+            return Handfuls.THREE;
+        }
+        if (StringUtil.quickEq(r_,"FOUR")) {
+            return Handfuls.FOUR;
+        }
+        return Handfuls.NO;
+    }
+    public static Miseres toMiseres(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        if (StringUtil.quickEq(r_,"POINT")) {
+            return Miseres.POINT;
+        }
+        if (StringUtil.quickEq(r_,"CHARACTER")) {
+            return Miseres.CHARACTER;
+        }
+        if (StringUtil.quickEq(r_,"SUIT")) {
+            return Miseres.SUIT;
+        }
+        if (StringUtil.quickEq(r_,"LOW_CARDS")) {
+            return Miseres.LOW_CARDS;
+        }
+        return Miseres.TRUMP;
+    }
+    public static EndDealTarot toEndDealTarot(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        if (StringUtil.quickEq(r_,"ATTACK_LOOSE")) {
+            return EndDealTarot.ATTACK_LOOSE;
+        }
+        if (StringUtil.quickEq(r_,"ATTACK_WIN")) {
+            return EndDealTarot.ATTACK_WIN;
+        }
+        return EndDealTarot.ZERO;
+    }
 }

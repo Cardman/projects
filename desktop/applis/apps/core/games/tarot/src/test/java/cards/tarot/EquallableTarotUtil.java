@@ -92,6 +92,15 @@ public abstract class EquallableTarotUtil {
     public static void assertEq(DealingTarot _expected, DealingTarot _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertEq(EndDealTarot _expected, EndDealTarot _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(Miseres _expected, Miseres _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(Handfuls _expected, Handfuls _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(ModeTarot _expected, ModeTarot _result) {
         Assert.assertSame(_expected, _result);
     }

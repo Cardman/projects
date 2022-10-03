@@ -29,4 +29,16 @@ public final class TarotResoucesAccess {
     public static String key(DealingTarot _b) {
         return Format.concatParts(TAROT_DEAL, TarotCardsExporterUtil.fromDealingTarot(_b));
     }
+
+    public static String key(Handfuls _b) {
+        return Format.concatParts(TAROT_HANDFULS, TarotCardsExporterUtil.fromHandfuls(_b));
+    }
+
+    public static String key(EndDealTarot _b) {
+        return Format.concatParts(TAROT_END, TarotCardsExporterUtil.fromEndDealTarot(_b));
+    }
+
+    public static String key(Miseres _b) {
+        return Format.concatParts(TAROT_MISERES, TarotCardsExporterUtil.fromMiseres(_b));
+    }
 }

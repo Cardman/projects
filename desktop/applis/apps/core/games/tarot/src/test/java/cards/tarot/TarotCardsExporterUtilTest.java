@@ -93,6 +93,58 @@ public final class TarotCardsExporterUtilTest extends EquallableTarotUtil {
         assertEq("DEAL_2_VS_4_CALL_CHAR",TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_2_VS_4_CALL_CHAR));
     }
     @Test
+    public void fromHandfuls1() {
+        assertEq("NO",TarotCardsExporterUtil.fromHandfuls(Handfuls.NO));
+    }
+    @Test
+    public void fromHandfuls2() {
+        assertEq("ONE",TarotCardsExporterUtil.fromHandfuls(Handfuls.ONE));
+    }
+    @Test
+    public void fromHandfuls3() {
+        assertEq("TWO",TarotCardsExporterUtil.fromHandfuls(Handfuls.TWO));
+    }
+    @Test
+    public void fromHandfuls4() {
+        assertEq("THREE",TarotCardsExporterUtil.fromHandfuls(Handfuls.THREE));
+    }
+    @Test
+    public void fromHandfuls5() {
+        assertEq("FOUR",TarotCardsExporterUtil.fromHandfuls(Handfuls.FOUR));
+    }
+    @Test
+    public void fromMiseres1() {
+        assertEq("TRUMP",TarotCardsExporterUtil.fromMiseres(Miseres.TRUMP));
+    }
+    @Test
+    public void fromMiseres2() {
+        assertEq("POINT",TarotCardsExporterUtil.fromMiseres(Miseres.POINT));
+    }
+    @Test
+    public void fromMiseres3() {
+        assertEq("CHARACTER",TarotCardsExporterUtil.fromMiseres(Miseres.CHARACTER));
+    }
+    @Test
+    public void fromMiseres4() {
+        assertEq("SUIT",TarotCardsExporterUtil.fromMiseres(Miseres.SUIT));
+    }
+    @Test
+    public void fromMiseres5() {
+        assertEq("LOW_CARDS",TarotCardsExporterUtil.fromMiseres(Miseres.LOW_CARDS));
+    }
+    @Test
+    public void fromEndDealTarot1() {
+        assertEq("ATTACK_LOOSE",TarotCardsExporterUtil.fromEndDealTarot(EndDealTarot.ATTACK_LOOSE));
+    }
+    @Test
+    public void fromEndDealTarot2() {
+        assertEq("ATTACK_WIN",TarotCardsExporterUtil.fromEndDealTarot(EndDealTarot.ATTACK_WIN));
+    }
+    @Test
+    public void fromEndDealTarot3() {
+        assertEq("ZERO",TarotCardsExporterUtil.fromEndDealTarot(EndDealTarot.ZERO));
+    }
+    @Test
     public void key1() {
         assertEq("cards.tarot.enumerations.BidTarot.FOLD",TarotResoucesAccess.key(BidTarot.FOLD));
     }
@@ -103,5 +155,17 @@ public final class TarotCardsExporterUtilTest extends EquallableTarotUtil {
     @Test
     public void key3() {
         assertEq("cards.tarot.enumerations.DealingTarot.DEAL_1_VS_2",TarotResoucesAccess.key(DealingTarot.DEAL_1_VS_2));
+    }
+    @Test
+    public void key4() {
+        assertEq("cards.tarot.enumerations.Handfuls.FOUR",TarotResoucesAccess.key(Handfuls.FOUR));
+    }
+    @Test
+    public void key5() {
+        assertEq("cards.tarot.enumerations.Miseres.LOW_CARDS",TarotResoucesAccess.key(Miseres.LOW_CARDS));
+    }
+    @Test
+    public void key6() {
+        assertEq("cards.tarot.enumerations.EndDealTarot.ATTACK_WIN",TarotResoucesAccess.key(EndDealTarot.ATTACK_WIN));
     }
 }
