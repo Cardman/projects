@@ -1,5 +1,7 @@
 package cards.tarot.enumerations;
 
+import code.format.Format;
+
 public final class TarotResoucesAccess {
 
     public static final String NOM_DOSSIER = "resources_cards/const_enum";
@@ -16,4 +18,7 @@ public final class TarotResoucesAccess {
 
     private TarotResoucesAccess(){}
 
+    public static String key(BidTarot _b) {
+        return Format.concatParts(TAROT_BID, TarotCardsExporterUtil.fromBidTarot(_b));
+    }
 }
