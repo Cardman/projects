@@ -15,6 +15,10 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";
 
+
+    public static Struct alone() {
+        return callLongs(new ResultsTarotBeanAloneTrumpAcePlayer(),NullStruct.NULL_VALUE);
+    }
     public static Struct callTarotBeanGetScores(Struct _str, long... _args) {
         return callLongs(new TarotBeanGetScores(),_str,_args);
     }

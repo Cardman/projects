@@ -255,6 +255,10 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         assertEq("3", elt(pl_,3));
         assertEq("4", elt(pl_,4));
     }
+    @Test
+    public void alon() {
+        assertEq("",alone());
+    }
 
     private static ResultsTarot results(GameTarot _g, int _user) {
         ResultsTarot res_ = new ResultsTarot();
