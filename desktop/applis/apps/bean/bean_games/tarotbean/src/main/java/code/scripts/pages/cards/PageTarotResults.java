@@ -530,8 +530,7 @@ ad(elt8_,elt9_);
 ad(elt0_,elt8_);
 ad(_body,elt0_);
 }
-static void br(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+static void br(Element _tarot,Document _doc){
+ad(_tarot,el(_doc,BR));
 }
 }

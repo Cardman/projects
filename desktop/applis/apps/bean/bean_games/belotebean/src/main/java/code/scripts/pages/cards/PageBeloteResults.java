@@ -449,8 +449,7 @@ ad(elt8_,elt9_);
 ad(elt0_,elt8_);
 ad(_body,elt0_);
 }
-static void br(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+static void br(Element _belote,Document _doc){
+ad(_belote,el(_doc,BR));
 }
 }
