@@ -4,10 +4,12 @@ import cards.consts.GameType;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.Longs;
-import code.util.StringList;
+import code.formathtml.Navigation;
+import code.formathtml.analyze.blocks.AnaRendBlock;
+import code.scripts.pages.cards.MessTarotPage;
+import code.scripts.pages.cards.PagesTarots;
+import code.util.*;
+import code.util.consts.Constants;
 import org.junit.Test;
 
 public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
@@ -260,6 +262,56 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         assertEq("",alone());
     }
 
+    @Test
+    public void init1() {
+        StringMap<String> other_ = MessTarotPage.ms();
+        AnaRendBlock.adjust(other_);
+        TarotStandardsResults stds_ = new TarotStandardsResults();
+        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,other_,"");
+        stds_.setDataBase(resultsFive(game4(), 0));
+        stds_.initializeRendSessionDoc(nav_);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+                "\tcolor: #0000FF;\n" +
+                "}\n" +
+                "td,caption{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "</style></head><body><h1>1 Calculation of attack team's points</h1><ul><li>Number of oudlers won in the attack team's tricks:3</li><li>Number of necessary points in order that the taker wins:36</li><li>Number of points won in the attack team's tricks:91</li></ul><h1>2 Attack team</h1><ul><li>Taker:0</li><li>Taker's partners:<ul><li>1</li></ul></li><li>Called cards:<ul><li>heart king</li></ul></li><li>Bid:without</li></ul><h1>3 Results</h1><p>You win.</p><br/><p>The bid without is passed of 55 points.</p><br/><p>The attack's team has achieved the grand slam by declaring it.The defense's team has not won all tricks.</p><br/><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>1730</td><td>865</td><td>-865</td><td>-865</td><td>-865</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+    }
+
+    @Test
+    public void init2() {
+        StringMap<String> other_ = MessTarotPage.ms();
+        AnaRendBlock.adjust(other_);
+        TarotStandardsResults stds_ = new TarotStandardsResults();
+        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,other_,"");
+        stds_.setDataBase(resultsFive(game7(), 0));
+        stds_.initializeRendSessionDoc(nav_);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+                "\tcolor: #0000FF;\n" +
+                "}\n" +
+                "td,caption{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "</style></head><body><h1>Results</h1><ul><li>The greatest difference of points:46</li><li>Your position before deciding:1</li><li>Your final position:1</li></ul><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>6744</td><td>-1260</td><td>-1828</td><td>-1828</td><td>-1828</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+    }
+
+    @Test
+    public void init3() {
+        StringMap<String> other_ = MessTarotPage.ms();
+        AnaRendBlock.adjust(other_);
+        TarotStandardsResults stds_ = new TarotStandardsResults();
+        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,other_,"");
+        stds_.setDataBase(resultsFive(game8(), 0));
+        stds_.initializeRendSessionDoc(nav_);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+                "\tcolor: #0000FF;\n" +
+                "}\n" +
+                "td,caption{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "</style></head><body><h1>Results</h1><ul><li>The greatest difference of points:62</li><li>Your position before deciding:5</li><li>Your final position:5</li></ul><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>-2088</td><td>0</td><td>696</td><td>696</td><td>696</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+    }
     private static ResultsTarot results(GameTarot _g, int _user) {
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(_g);
