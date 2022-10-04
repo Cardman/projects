@@ -15,6 +15,77 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";
 
+    public static Struct callTarotBeanGetScores(Struct _str, long... _args) {
+        return callLongs(new TarotBeanGetScores(),_str,_args);
+    }
+
+    public static Struct callTarotBeanNicknames(Struct _str, long... _args) {
+        return callLongs(new TarotBeanNicknames(),_str,_args);
+    }
+    public static Struct callTarotBeanGetNicknames(Struct _str, long... _args) {
+        return callLongs(new TarotBeanGetNicknames(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanLinesDeal(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanLinesDeal(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanMaxDoubledDifference(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanMaxDoubledDifference(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanMaxDifference(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanMaxDifference(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanAdditionnalBonusesDefense(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanAdditionnalBonusesDefense(),_str,_args);
+    }
+
+
+    public static Struct callResultsTarotBeanAdditionnalBonusesAttack(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanAdditionnalBonusesAttack(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanTaker(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanTaker(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanScoreTaker(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanScoreTaker(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanScoreTakerWithoutDeclaring(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanScoreTakerWithoutDeclaring(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanDifferenceScoreTaker(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanDifferenceScoreTaker(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanNeedlyScoresTaker(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanNeedlyScoresTaker(),_str,_args);
+    }
+    public static Struct callResultsTarotBeanNumberOudlersTaker(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanNumberOudlersTaker(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanCalledPlayers(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanCalledPlayers(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanCalledCardsList(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanCalledCardsList(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanAbsoluteDiff(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanAbsoluteDiff(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanBidString(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanBidString(),_str,_args);
+    }
+
     public static Struct callTarotBeanPlayClassicGame(Struct _str, long... _args) {
         return callLongs(new TarotBeanPlayClassicGame(),_str,_args);
     }

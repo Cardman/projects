@@ -3,6 +3,7 @@ package cards.tarot.beans;
 import cards.consts.GameType;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.Longs;
@@ -10,6 +11,10 @@ import code.util.StringList;
 import org.junit.Test;
 
 public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
+
+    private static final String FOLD = "fold";
+    private static final String WITHOUT = "without";
+    private static final String HEART_KING = "heart king";
 
     @Test
     public void eq1() {
@@ -156,6 +161,101 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     public void playVariant3() {
         assertFalse(callTarotBeanPlayVariantModeGame(displaying(beanResultsTarot(EN,results(game9(),0)))));
     }
+    @Test
+    public void bidStr() {
+        assertEq(WITHOUT,callResultsTarotBeanBidString(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+    @Test
+    public void diff() {
+        assertEq(55,callResultsTarotBeanAbsoluteDiff(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+    @Test
+    public void calledPlayers() {
+        Struct pl_ = callResultsTarotBeanCalledPlayers(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertSizeEq(1, pl_);
+        assertEq("1", elt(pl_,0));
+    }
+    @Test
+    public void calledCards() {
+        Struct pl_ = callResultsTarotBeanCalledCardsList(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertSizeEq(1, pl_);
+        assertEq(HEART_KING, elt(pl_,0));
+    }
+    @Test
+    public void taker1() {
+        assertEq("0", callResultsTarotBeanTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+    }
+    @Test
+    public void taker2() {
+        assertEq(91, callResultsTarotBeanScoreTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+    }
+    @Test
+    public void taker3() {
+        assertEq(3, callResultsTarotBeanNumberOudlersTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+    }
+    @Test
+    public void taker4() {
+        assertEq(36, callResultsTarotBeanNeedlyScoresTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+    }
+    @Test
+    public void taker5() {
+        assertEq(55, callResultsTarotBeanDifferenceScoreTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+    }
+    @Test
+    public void taker6() {
+        assertEq(90, callResultsTarotBeanScoreTakerWithoutDeclaring(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+    }
+    @Test
+    public void bonus1() {
+        assertEq(400, callResultsTarotBeanAdditionnalBonusesAttack(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+    }
+    @Test
+    public void bonus2() {
+        assertEq(0, callResultsTarotBeanAdditionnalBonusesDefense(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+    }
+    @Test
+    public void maxDiff1() {
+        assertEq(46, callResultsTarotBeanMaxDifference(displaying(beanResultsTarot(EN, resultsFive(game7(), 0)))));
+    }
+    @Test
+    public void maxDiff2() {
+        assertEq(80,callResultsTarotBeanMaxDoubledDifference(displaying(beanResultsTarot(EN, resultsFive(game7(), 0)))));
+    }
+    @Test
+    public void ld() {
+        Struct res_ = callResultsTarotBeanLinesDeal(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertSizeEq(1, res_);
+        assertSizeEq(5, res_,0);
+        assertNumberEq(0, res_,0);
+        assertEq(1730, res_,0,0);
+        assertEq(865, res_,0,1);
+        assertEq(-865, res_,0,2);
+        assertEq(-865, res_,0,3);
+        assertEq(-865, res_,0,4);
+    }
+    @Test
+    public void scores() {
+        Struct res_ = callTarotBeanGetScores(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertSizeEq(1, res_);
+        assertSizeLongsEq(5, res_,0);
+        assertLongsEq(1730, res_,0,0);
+        assertLongsEq(865, res_,0,1);
+        assertLongsEq(-865, res_,0,2);
+        assertLongsEq(-865, res_,0,3);
+        assertLongsEq(-865, res_,0,4);
+    }
+    @Test
+    public void nicknames() {
+        assertSizeEq(5,callTarotBeanNicknames(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        Struct pl_ = callTarotBeanGetNicknames(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertSizeEq(5, pl_);
+        assertEq("0", elt(pl_,0));
+        assertEq("1", elt(pl_,1));
+        assertEq("2", elt(pl_,2));
+        assertEq("3", elt(pl_,3));
+        assertEq("4", elt(pl_,4));
+    }
+
     private static ResultsTarot results(GameTarot _g, int _user) {
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(_g);
@@ -175,7 +275,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         res_.initialize(fivePseudos("0","1","2","3","4"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
         res_.getRes().setGeneral("");
-        res_.getRes().setSpecific("");
+        res_.getRes().setSpecific(file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.GUARD_WITHOUT, WITHOUT)+RETURNE_LINE+file(CardTarot.HEART_KING, HEART_KING));
 //        res_.getRes().setGeneral(readCoreResource());
 //        res_.getRes().setSpecific(readResource());
         return res_;
@@ -1160,5 +1260,10 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         hands_.add(hand_);
         return new DealTarot(hands_,_dealer);
     }
-
+    private static String file(CardTarot _b, String _value) {
+        return TarotResoucesAccess.key(_b)+ SEP +_value;
+    }
+    private static String file(BidTarot _b, String _value) {
+        return TarotResoucesAccess.key(_b)+ SEP +_value;
+    }
 }
