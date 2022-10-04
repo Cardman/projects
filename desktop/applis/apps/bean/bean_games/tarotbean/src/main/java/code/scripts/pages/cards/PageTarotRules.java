@@ -1,7 +1,6 @@
 package code.scripts.pages.cards;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageTarotRules extends PageCardsCommon{
 private static final String C_3_0_0="rules";
 private static final String C_3_0_1="javahtml";
@@ -108,8 +107,7 @@ Text txt0_=tx(_doc,C_3_0_6);
 ad(_body,txt0_);
 }
 static void build1(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc, _body);
 }
 static void build2(Element _body,Document _doc){
 Element elt0_=el(_doc,H1);
@@ -123,8 +121,7 @@ Text txt0_=tx(_doc,C_3_0_8);
 ad(_body,txt0_);
 }
 static void build3(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc, _body);
 }
 static void build4(Element _body,Document _doc){
 Element elt0_=el(_doc,H1);
@@ -138,8 +135,7 @@ Text txt0_=tx(_doc,C_3_0_10);
 ad(_body,txt0_);
 }
 static void build5(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc, _body);
 }
 static void build6(Element _body,Document _doc){
 Element elt0_=el(_doc,H1);
@@ -208,8 +204,7 @@ ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
 static void build9(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc, _body);
 }
 static void build10(Element _body,Document _doc){
 Element elt0_=el(_doc,H1);
@@ -295,8 +290,7 @@ ad(elt0_,elt9_);
 ad(_body,elt0_);
 }
 static void build14(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc, _body);
 }
 static void build15(Element _body,Document _doc){
 Element elt0_=el(_doc,C_MESSAGE);
@@ -304,8 +298,7 @@ CustList<Attr> attrs0_=al(1);
 attrs0_.add(at(VALUE,C_3_0_32));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
-Element elt1_=el(_doc,BR);
-ad(_body,elt1_);
+br(_doc, _body);
 }
 static void build16(Element _body,Document _doc){
 Element elt0_=el(_doc,C_IF);
@@ -337,11 +330,13 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_3_0_39));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,BR);
-ad(elt0_,elt2_);
+br(_doc, elt0_);
 ad(_body,elt0_);
 }
 static void build18(Element _body,Document _doc){
+br(_doc, _body);
+}
+private static void br(Document _doc, Element _body) {
 Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
