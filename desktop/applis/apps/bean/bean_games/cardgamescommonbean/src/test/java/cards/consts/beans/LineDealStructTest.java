@@ -1,8 +1,10 @@
 package cards.consts.beans;
 
+import cards.consts.LineDeal;
 import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -39,5 +41,11 @@ public final class LineDealStructTest extends EquallableCardConstBeanUtil {
         StringMap<SpecialNatClass> types_ = new StringMap<SpecialNatClass>();
         LineDealStruct.buildLineDeal(types_);
         assertEq(1, types_.size());
+    }
+    @Test
+    public void scores() {
+        CustList<LineDeal> l_ = new CustList<LineDeal>();
+        l_.add(new LineDeal());
+        assertEq(1, LineDealStruct.scores(l_).size());
     }
 }

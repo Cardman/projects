@@ -4,6 +4,7 @@ import cards.consts.CoreResourcesAccess;
 import cards.consts.LineDeal;
 import cards.consts.MixCardsChoice;
 import cards.consts.Role;
+import cards.consts.beans.LineDealStruct;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
@@ -88,12 +89,8 @@ public abstract class TarotBean extends Bean {
         nicknames = _nicknames;
     }
 
-    public CustList<Longs> scores() {
-        CustList<Longs> l_ = new CustList<Longs>();
-        for (LineDeal e: history) {
-            l_.add(e.getScores());
-        }
-        return l_;
+    public CustList<Longs> scoresTarot() {
+        return LineDealStruct.scores(history);
     }
     public CustList<LineDeal> getHistory() {
         return history;

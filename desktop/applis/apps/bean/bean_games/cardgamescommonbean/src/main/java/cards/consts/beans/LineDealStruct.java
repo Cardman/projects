@@ -5,6 +5,7 @@ import code.bean.nat.*;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.util.CustList;
+import code.util.Longs;
 import code.util.StringMap;
 
 public final class LineDealStruct  extends CommNatStruct {
@@ -37,5 +38,12 @@ public final class LineDealStruct  extends CommNatStruct {
             j_++;
         }
         return arr_;
+    }
+    public static CustList<Longs> scores(CustList<LineDeal> _lines) {
+        CustList<Longs> l_ = new CustList<Longs>();
+        for (LineDeal e: _lines) {
+            l_.add(e.getScores());
+        }
+        return l_;
     }
 }
