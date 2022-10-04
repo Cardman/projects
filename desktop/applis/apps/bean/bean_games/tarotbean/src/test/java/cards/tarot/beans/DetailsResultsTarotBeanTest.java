@@ -193,6 +193,82 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     public void misereSecond3() {
         assertSecondEq(20,elt(callTarotSumDeclaringPlayerMiseres(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),2));
     }
+    @Test
+    public void orderedPlayers1() {
+        assertSizeEq(5, callDetailsResultsTarotBeanOrderedPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game8(),0)))));
+    }
+
+    @Test
+    public void orderedPlayers2() {
+        assertSizeEq(5, callDetailsResultsTarotBeanOrderedPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))));
+    }
+
+    @Test
+    public void ordNick() {
+        assertEq("0", callRankingPlayerVariantGameNickname(elt(callDetailsResultsTarotBeanOrderedPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ordFinalPos() {
+        assertEq(1, callRankingPlayerVariantGameFinalPosition(elt(callDetailsResultsTarotBeanOrderedPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ordPosChar() {
+        assertEq(1, callRankingPlayerVariantGamePositionCharacters(elt(callDetailsResultsTarotBeanOrderedPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ordDiff() {
+        assertEq(1, callRankingPlayerVariantGamePositionDiff(elt(callDetailsResultsTarotBeanOrderedPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ordOud() {
+        assertEq(1, callRankingPlayerVariantGamePositionOudlers(elt(callDetailsResultsTarotBeanOrderedPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ordStr() {
+        assertEq(1, callRankingPlayerVariantGamePositionStrengthCharacters(elt(callDetailsResultsTarotBeanOrderedPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void pointsPlayers() {
+        assertSizeEq(5, callDetailsResultsTarotBeanPointsPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))));
+    }
+
+    @Test
+    public void ptsNick() {
+        assertEq("0", callPointsPlayerVariantGameNickname(elt(callDetailsResultsTarotBeanPointsPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ptsDiff() {
+        assertEq(Rate.newRate("40"), callPointsPlayerVariantGameDifferenceScore(elt(callDetailsResultsTarotBeanPointsPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ptsMin() {
+        assertEq(41, callPointsPlayerVariantGameMinimumPoints(elt(callDetailsResultsTarotBeanPointsPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ptsTrs() {
+        assertEq(Rate.newRate("81"), callPointsPlayerVariantGamePointsTricks(elt(callDetailsResultsTarotBeanPointsPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void ptsRate() {
+        assertEq(6, callPointsPlayerVariantGameRate(elt(callDetailsResultsTarotBeanPointsPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+
+    @Test
+    public void ptsSc() {
+        assertEq(6744, callPointsPlayerVariantGameScore(elt(callDetailsResultsTarotBeanPointsPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
     private static ResultsTarot results(GameTarot _g, int _user) {
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(_g);

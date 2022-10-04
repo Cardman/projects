@@ -3,7 +3,7 @@ package cards.tarot.beans;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-public class RankingPlayerVariantGameNickname implements NatCaller{
+public final class RankingPlayerVariantGameNickname implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
         return new StringStruct((((RankingPlayerVariantGameStruct)_instance).getRankingPlayerVariantGame()).getNickname());

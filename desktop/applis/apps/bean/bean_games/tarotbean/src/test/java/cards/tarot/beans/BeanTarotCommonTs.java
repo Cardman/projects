@@ -15,6 +15,57 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";
 
+    public static Struct callPointsPlayerVariantGameScore(Struct _str, long... _args) {
+        return callLongs(new PointsPlayerVariantGameScore(),_str,_args);
+    }
+
+    public static Struct callPointsPlayerVariantGameRate(Struct _str, long... _args) {
+        return callLongs(new PointsPlayerVariantGameRate(),_str,_args);
+    }
+
+    public static Struct callPointsPlayerVariantGamePointsTricks(Struct _str, long... _args) {
+        return callLongs(new PointsPlayerVariantGamePointsTricks(),_str,_args);
+    }
+
+    public static Struct callPointsPlayerVariantGameMinimumPoints(Struct _str, long... _args) {
+        return callLongs(new PointsPlayerVariantGameMinimumPoints(),_str,_args);
+    }
+
+    public static Struct callPointsPlayerVariantGameDifferenceScore(Struct _str, long... _args) {
+        return callLongs(new PointsPlayerVariantGameDifferenceScore(),_str,_args);
+    }
+    public static Struct callPointsPlayerVariantGameNickname(Struct _str, long... _args) {
+        return callLongs(new PointsPlayerVariantGameNickname(),_str,_args);
+    }
+    public static Struct callDetailsResultsTarotBeanPointsPlayers(Struct _str, long... _args) {
+        return callLongs(new DetailsResultsTarotBeanPointsPlayers(),_str,_args);
+    }
+    public static Struct callRankingPlayerVariantGameNickname(Struct _str, long... _args) {
+        return callLongs(new RankingPlayerVariantGameNickname(),_str,_args);
+    }
+
+    public static Struct callRankingPlayerVariantGameFinalPosition(Struct _str, long... _args) {
+        return callLongs(new RankingPlayerVariantGameFinalPosition(),_str,_args);
+    }
+
+    public static Struct callRankingPlayerVariantGamePositionCharacters(Struct _str, long... _args) {
+        return callLongs(new RankingPlayerVariantGamePositionCharacters(),_str,_args);
+    }
+    public static Struct callRankingPlayerVariantGamePositionDiff(Struct _str, long... _args) {
+        return callLongs(new RankingPlayerVariantGamePositionDiff(),_str,_args);
+    }
+
+    public static Struct callRankingPlayerVariantGamePositionOudlers(Struct _str, long... _args) {
+        return callLongs(new RankingPlayerVariantGamePositionOudlers(),_str,_args);
+    }
+
+    public static Struct callRankingPlayerVariantGamePositionStrengthCharacters(Struct _str, long... _args) {
+        return callLongs(new RankingPlayerVariantGamePositionStrengthCharacters(),_str,_args);
+    }
+    public static Struct callDetailsResultsTarotBeanOrderedPlayers(Struct _str, long... _args) {
+        return callLongs(new DetailsResultsTarotBeanOrderedPlayers(),_str,_args);
+    }
+
 
     public static Struct callTarotSumDeclaringPlayerHandfuls(Struct _str, long... _args) {
         return callLongs(new TarotSumDeclaringPlayerHandfuls(),_str,_args);
