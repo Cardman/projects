@@ -219,7 +219,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
                 CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_1));
         miseres(game_,0,three(Miseres.SUIT,Miseres.CHARACTER,Miseres.LOW_CARDS));
         playedCards(game_);
-        CheckerGameTarotWithRules.check(game_);
+        //CheckerGameTarotWithRules.check(game_);
         return game_;
     }
 
@@ -232,7 +232,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         playedCards(game_);
-        CheckerGameTarotWithRules.check(game_);
+        //CheckerGameTarotWithRules.check(game_);
         return game_;
     }
 
@@ -243,7 +243,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         DealTarot deal_ = dealFivePlayers((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         bidsFive3(deal_, game_);
-        CheckerGameTarotWithRules.check(game_);
+        //CheckerGameTarotWithRules.check(game_);
         return game_;
     }
     private static GameTarot game6() {
