@@ -15,6 +15,30 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";
 
+    public static Struct callResultsTarotBeanNoSlamDefense(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanNoSlamDefense(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanSlamDefense(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanSlamDefense(),_str,_args);
+    }
+
+
+    public static Struct callResultsTarotBeanNoSlamAttack(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanNoSlamAttack(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanFailedSlamAttack(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanFailedSlamAttack(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanSuccessfulNoDeclaredSlamAttack(),_str,_args);
+    }
+
+    public static Struct callResultsTarotBeanSuccessfulDeclaredSlamAttack(Struct _str, long... _args) {
+        return callLongs(new ResultsTarotBeanSuccessfulDeclaredSlamAttack(),_str,_args);
+    }
 
     public static Struct callResultsTarotBeanLoose(Struct _str, long... _args) {
         return callLongs(new ResultsTarotBeanLoose(),_str,_args);
