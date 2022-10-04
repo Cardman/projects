@@ -3,6 +3,7 @@ package cards.tarot.beans;
 import cards.consts.GameType;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
+import code.maths.Rate;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.Longs;
@@ -23,6 +24,76 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     @Test
     public void rate2() {
         assertEq(1,callDetailsResultsTarotBeanRate(displaying(beanDetailResultsTarot(EN,results(game3(),0)))));
+    }
+
+    @Test
+    public void differenceScoreTaker() {
+        assertEq(55,callDetailsResultsTarotBeanDifferenceScoreTaker(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void basePoints() {
+        assertEq(25,callDetailsResultsTarotBeanBasePoints(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void small() {
+        assertEq("10",callDetailsResultsTarotBeanSmall(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void plSmall() {
+        assertEq("0",callDetailsResultsTarotBeanPlayerSmall(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void multipliedTmp() {
+        assertEq(360,callDetailsResultsTarotBeanMultipliedTmp(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void sumPlayers() {
+        assertEq(105,callDetailsResultsTarotBeanSumPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void bonusAtt() {
+        assertEq(400,callDetailsResultsTarotBeanAdditionnalBonusesAttack(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void bonusDef() {
+        assertEq(0,callDetailsResultsTarotBeanAdditionnalBonusesDefense(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void bonusDiff() {
+        assertEq(400,callDetailsResultsTarotBeanDiffAttackDefenseBonuses(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void playerScores() {
+        assertSizeEq(5,callDetailsResultsTarotBeanPlayersScores(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void scoreNickname() {
+        assertEq("0",callScoresPlayersNickname(elt(callDetailsResultsTarotBeanPlayersScores(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
+    }
+
+    @Test
+    public void scoreRate() {
+        assertEq(Rate.newRate("2"),callScoresPlayersRate(elt(callDetailsResultsTarotBeanPlayersScores(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
+    }
+
+    @Test
+    public void scoreScore() {
+        assertEq(1730,callScoresPlayersScore(elt(callDetailsResultsTarotBeanPlayersScores(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
+    }
+
+    @Test
+    public void scoreSum() {
+        assertEq(Rate.newRate("2"),callScoresPlayersSum(elt(callDetailsResultsTarotBeanPlayersScores(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
     }
 
     private static ResultsTarot results(GameTarot _g, int _user) {
