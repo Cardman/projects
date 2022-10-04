@@ -217,7 +217,7 @@ public final class DocumentWriterPresidentUtil {
     public static Element setCardPresident(CardPresident _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_CARD_PRESIDENT);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,PresidentCardsExporterUtil.fromCardPresident(_object));
         return elt_;
     }
 

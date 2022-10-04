@@ -505,7 +505,9 @@ public final class Games {
         return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
     public static String toString(CardBelote _b, String _locale){
-        return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_CARD, _b.name());
+        String fichier_ = beloteCoreFileNameContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
     public static String toStringBeloteReb(String _locale){
         return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, BeloteResoucesAccess.BELOTE_REBELOTE);
@@ -514,8 +516,11 @@ public final class Games {
         return getConstanteLangue(beloteCoreFileName(_locale), BeloteResoucesAccess.BELOTE_BONUS, BeloteResoucesAccess.LAST_TRICK);
     }
     public static String toString(CardPresident _b, String _locale){
-        return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_CARD,_b.name());
+        String fichier_ = presidentCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        return Format.getConstanteLangue(PresidentResoucesAccess.key(_b), fichier_);
     }
+
     public static String toString(Playing _b, String _locale){
         return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_PLAY,_b.name());
     }

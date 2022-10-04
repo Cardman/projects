@@ -29,4 +29,8 @@ public final class BeloteResoucesAccess {
     public static String key(BeloteTrumpPartner _b) {
         return Format.concatParts(BeloteResoucesAccess.BELOTE_TRUMP_PART, BeloteCardsExporterUtil.fromBeloteTrumpPartner(_b));
     }
+
+    public static String key(CardBelote _b) {
+        return Format.concatParts(BeloteResoucesAccess.BELOTE_CARD, BeloteCardsExporterUtil.fromCardBelote(_b));
+    }
 }

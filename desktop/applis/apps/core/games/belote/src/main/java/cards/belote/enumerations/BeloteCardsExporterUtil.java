@@ -75,4 +75,8 @@ public final class BeloteCardsExporterUtil {
         }
         return "CLASSIC_2_VS_2";
     }
+
+    public static String fromCardBelote(CardBelote _ct) {
+        return _ct.getId().getSt();
+    }
 }

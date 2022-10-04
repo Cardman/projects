@@ -101,6 +101,10 @@ public final class BeloteCardsExporterUtilTest extends EquallableBeloteUtil {
         assertEq("cards.belote.enumerations.BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP",BeloteResoucesAccess.key(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP));
     }
     @Test
+    public void key4() {
+        assertEq("cards.belote.enumerations.CardBelote.WHITE", BeloteResoucesAccess.key(CardBelote.WHITE));
+    }
+    @Test
     public void fromDealingBelote1() {
         assertEq("COINCHE_2_VS_2",BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_2_VS_2));
     }
@@ -108,5 +112,8 @@ public final class BeloteCardsExporterUtilTest extends EquallableBeloteUtil {
     public void fromDealingBelote2() {
         assertEq("CLASSIC_2_VS_2",BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.CLASSIC_2_VS_2));
     }
-
+    @Test
+    public void fromCardBelote() {
+        assertEq("WHITE", BeloteCardsExporterUtil.fromCardBelote(CardBelote.WHITE));
+    }
 }

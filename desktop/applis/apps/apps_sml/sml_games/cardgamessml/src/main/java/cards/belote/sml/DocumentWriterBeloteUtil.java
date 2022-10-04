@@ -265,7 +265,7 @@ public final class DocumentWriterBeloteUtil {
     public static Element setCardBelote(CardBelote _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_CARD_BELOTE);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromCardBelote(_object));
         return elt_;
     }
 

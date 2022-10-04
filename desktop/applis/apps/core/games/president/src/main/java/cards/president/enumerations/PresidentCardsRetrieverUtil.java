@@ -1,5 +1,6 @@
 package cards.president.enumerations;
 
+import cards.president.HandPresident;
 import code.util.core.StringUtil;
 
 public final class PresidentCardsRetrieverUtil {
@@ -17,5 +18,15 @@ public final class PresidentCardsRetrieverUtil {
             return EqualtyPlaying.SKIP_DIFF_NEXT_STOP;
         }
         return EqualtyPlaying.SKIP_ALWAYS_NEXT;
+    }
+
+    public static CardPresident toCardPresident(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        for (CardPresident c: HandPresident.pileBase()) {
+            if (StringUtil.quickEq(r_,c.getId().getSt())) {
+                return c;
+            }
+        }
+        return CardPresident.WHITE;
     }
 }

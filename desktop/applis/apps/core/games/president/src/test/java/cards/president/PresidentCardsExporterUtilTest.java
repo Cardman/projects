@@ -1,5 +1,6 @@
 package cards.president;
 
+import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.PresidentCardsExporterUtil;
 import cards.president.enumerations.PresidentResoucesAccess;
@@ -25,5 +26,13 @@ public final class PresidentCardsExporterUtilTest extends EquallablePresidentUti
     @Test
     public void key1() {
         assertEq("cards.president.enumerations.EqualtyPlaying.FORBIDDEN", PresidentResoucesAccess.key(EqualtyPlaying.FORBIDDEN));
+    }
+    @Test
+    public void key2() {
+        assertEq("cards.president.enumerations.CardPresident.WHITE", PresidentResoucesAccess.key(CardPresident.WHITE));
+    }
+    @Test
+    public void fromCardPresident() {
+        assertEq("WHITE", PresidentCardsExporterUtil.fromCardPresident(CardPresident.WHITE));
     }
 }

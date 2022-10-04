@@ -340,12 +340,7 @@ public final class DocumentReaderPresidentUtil {
     }
 
     public static CardPresident getCardPresident(Element _elt) {
-        for (CardPresident e: CardPresident.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return CardPresident.WHITE;
+        return PresidentCardsRetrieverUtil.toCardPresident(_elt.getAttribute(ATTR_VALUE));
     }
 
     private static EqualtyPlaying getEqualtyPlaying(Element _elt) {

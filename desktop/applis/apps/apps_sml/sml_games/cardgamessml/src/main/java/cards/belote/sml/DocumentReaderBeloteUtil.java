@@ -396,12 +396,7 @@ public final class DocumentReaderBeloteUtil {
     }
 
     public static CardBelote getCardBelote(Element _elt) {
-        for (CardBelote e: CardBelote.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return CardBelote.WHITE;
+        return BeloteCardsRetrieverUtil.toCardBelote(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static DealingBelote getDealingBelote(Element _elt) {

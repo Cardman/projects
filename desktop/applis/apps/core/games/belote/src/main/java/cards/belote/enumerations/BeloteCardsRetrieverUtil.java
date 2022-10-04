@@ -1,5 +1,6 @@
 package cards.belote.enumerations;
 
+import cards.belote.HandBelote;
 import code.util.core.StringUtil;
 
 public final class BeloteCardsRetrieverUtil {
@@ -83,4 +84,13 @@ public final class BeloteCardsRetrieverUtil {
         return DealingBelote.CLASSIC_2_VS_2;
     }
 
+    public static CardBelote toCardBelote(String _role) {
+        String r_ = StringUtil.nullToEmpty(_role);
+        for (CardBelote c: HandBelote.pileBase()) {
+            if (StringUtil.quickEq(r_,c.getId().getSt())) {
+                return c;
+            }
+        }
+        return CardBelote.WHITE;
+    }
 }

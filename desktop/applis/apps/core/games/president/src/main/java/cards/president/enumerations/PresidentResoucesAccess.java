@@ -15,4 +15,8 @@ public final class PresidentResoucesAccess {
     public static String key(EqualtyPlaying _b) {
         return Format.concatParts(PRESIDENT_EQUAL_PLAY, PresidentCardsExporterUtil.fromEqualtyPlaying(_b));
     }
+
+    public static String key(CardPresident _b) {
+        return Format.concatParts(PRESIDENT_CARD, PresidentCardsExporterUtil.fromCardPresident(_b));
+    }
 }

@@ -96,4 +96,13 @@ public final class BeloteCardsRetrieverUtilTest extends EquallableBeloteUtil {
     public void toDealingBelote2() {
         assertEq(DealingBelote.CLASSIC_2_VS_2,BeloteCardsRetrieverUtil.toDealingBelote("CLASSIC_2_VS_2"));
     }
+
+    @Test
+    public void toCardBelote1() {
+        assertEq(CardBelote.HEART_1, BeloteCardsRetrieverUtil.toCardBelote("HEART_1"));
+    }
+    @Test
+    public void toCardBelote2() {
+        assertEq(CardBelote.WHITE, BeloteCardsRetrieverUtil.toCardBelote("WHITE"));
+    }
 }

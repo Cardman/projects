@@ -16,4 +16,7 @@ public final class PresidentCardsExporterUtil {
         }
         return "NO_SKIP";
     }
+    public static String fromCardPresident(CardPresident _ct) {
+        return _ct.getId().getSt();
+    }
 }
