@@ -3,6 +3,7 @@ package cards.tarot.beans;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 
@@ -32,7 +33,7 @@ public final class TarotStandardsDetailResults extends TarotStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,bean(new DetailsResultsTarotBean(),TYPE_DETAILS_RESULTS_TAROT_BEAN,_language));
+        getBeansStruct().setValue(0,beanDetailResults(_language));
     }
 
     private void buildDetailsResultsTarotBean(){
@@ -55,5 +56,9 @@ public final class TarotStandardsDetailResults extends TarotStandards {
         fields_.add( new StandardField(POINTS_PLAYERS, TYPE_LIST, false, false,new DetailsResultsTarotBeanPointsPlayers(),null));
         fields_.add( new StandardField(BONUSES, TYPE_LIST, false, false,new DetailsResultsTarotBeanBonuses(),null));
         getStds().addEntry(TYPE_DETAILS_RESULTS_TAROT_BEAN, std_);
+    }
+
+    Struct beanDetailResults(String _language) {
+        return bean(new DetailsResultsTarotBean(),TYPE_DETAILS_RESULTS_TAROT_BEAN,_language);
     }
 }

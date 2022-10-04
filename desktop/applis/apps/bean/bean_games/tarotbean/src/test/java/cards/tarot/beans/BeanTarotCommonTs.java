@@ -16,6 +16,14 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static final String SEP = ":";
 
 
+    public static Struct callDetailsResultsTarotBeanRate(Struct _str, long... _args) {
+        return callLongs(new DetailsResultsTarotBeanRate(),_str,_args);
+    }
+    public static Struct beanDetailResultsTarot(String _language, ResultsTarot _dataBase) {
+        TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
+        stds_.setDataBase(_dataBase);
+        return stds_.beanDetailResults(_language);
+    }
     public static Struct alone() {
         return callLongs(new ResultsTarotBeanAloneTrumpAcePlayer(),NullStruct.NULL_VALUE);
     }
