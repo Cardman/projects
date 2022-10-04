@@ -6,6 +6,6 @@ import code.expressionlanguage.structs.Struct;
 public final class ResultsTarotBeanFailedBid implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(((ResultsTarotBean) ((TarotBeanStruct)_instance).getInstance()).failedBid());
+        return BooleanStruct.of(((ResultsTarotBean) ((TarotBeanStruct) _instance).getInstance()).getTakerResult().failedBid());
     }
 }

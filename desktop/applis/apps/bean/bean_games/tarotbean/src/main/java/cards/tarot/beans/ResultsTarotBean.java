@@ -1,7 +1,7 @@
 package cards.tarot.beans;
 
-import cards.consts.EndGameState;
 import cards.consts.LineDeal;
+import cards.consts.beans.TakerResult;
 import cards.tarot.EndTarotGame;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
@@ -16,7 +16,7 @@ public final class ResultsTarotBean extends TarotBean {
 
     private short scoreTaker;
 
-    private short differenceScoreTaker;
+//    private short differenceScoreTaker;
 
     private String taker;
 
@@ -32,7 +32,8 @@ public final class ResultsTarotBean extends TarotBean {
 
     private short maxDifference;
 
-    private EndGameState winEqualityLoose;
+    private final TakerResult takerResult = new TakerResult();
+//    private EndGameState winEqualityLoose;
 
     private byte numberOudlersTaker;
 
@@ -102,11 +103,12 @@ public final class ResultsTarotBean extends TarotBean {
         numberOudlersTaker=end_.nombreBoutsPreneur(getBid());
         needlyScoresTaker=end_.scoreNecessairePreneur(getBid());
         short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker);
-        differenceScoreTaker=(short) (scorePreneurPlis_-needlyScoresTaker);
-        scoreTakerWithoutDeclaring=end_.scorePreneurSansAnnonces(differenceScoreTaker,end_.base(doubledScoreTaker_,differenceScoreTaker));
+        takerResult.setDifferenceScoreTaker((short) (scorePreneurPlis_ - needlyScoresTaker));
+        int diff_ = takerResult.getDifferenceScoreTaker();
+        scoreTakerWithoutDeclaring=end_.scorePreneurSansAnnonces((short) diff_,end_.base(doubledScoreTaker_, (short) diff_));
         additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
         additionnalBonusesDefense = end_.additionnalBonusesDefense();
-        winEqualityLoose= _res.getEndTarotGame();
+        takerResult.setWinEqualityLoose(_res.getEndTarotGame());
         scoreTaker = (short) (doubledScoreTaker_/2);
         taker = getNicknames().get(getGame().getPreneur());
         for (byte p: getGame().getAppele()) {
@@ -117,32 +119,8 @@ public final class ResultsTarotBean extends TarotBean {
         }
     }
 
-    public boolean win() {
-        return winEqualityLoose == EndGameState.WIN;
-    }
-
-    public boolean equality() {
-        return winEqualityLoose == EndGameState.EQUALLITY;
-    }
-
-    public boolean loose() {
-        return winEqualityLoose == EndGameState.LOOSE;
-    }
-
-    public boolean successfulBid() {
-        return differenceScoreTaker > 0;
-    }
-
-    public boolean midBid() {
-        return differenceScoreTaker == 0;
-    }
-
-    public boolean failedBid() {
-        return differenceScoreTaker < 0;
-    }
-
-    public int absoluteDiff() {
-        return NumberUtil.abs(differenceScoreTaker);
+    public TakerResult getTakerResult() {
+        return takerResult;
     }
 
     public String bidString() {
@@ -177,10 +155,6 @@ public final class ResultsTarotBean extends TarotBean {
 
     public short getScoreTaker() {
         return scoreTaker;
-    }
-
-    public short getDifferenceScoreTaker() {
-        return differenceScoreTaker;
     }
 
     public String getTaker() {

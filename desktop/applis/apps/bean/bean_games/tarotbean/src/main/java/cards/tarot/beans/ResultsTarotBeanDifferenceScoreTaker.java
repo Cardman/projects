@@ -6,6 +6,6 @@ import code.expressionlanguage.structs.Struct;
 public final class ResultsTarotBeanDifferenceScoreTaker implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(((ResultsTarotBean) ((TarotBeanStruct)_instance).getInstance()).getDifferenceScoreTaker());
+        return new IntStruct(((ResultsTarotBean) ((TarotBeanStruct) _instance).getInstance()).getTakerResult().getDifferenceScoreTaker());
     }
 }

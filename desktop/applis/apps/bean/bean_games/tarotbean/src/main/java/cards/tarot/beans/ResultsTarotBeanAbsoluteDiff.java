@@ -6,6 +6,6 @@ import code.expressionlanguage.structs.Struct;
 public final class ResultsTarotBeanAbsoluteDiff implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(((ResultsTarotBean) ((TarotBeanStruct)_instance).getInstance()).absoluteDiff());
+        return new IntStruct(((ResultsTarotBean) ((TarotBeanStruct) _instance).getInstance()).getTakerResult().absoluteDiff());
     }
 }

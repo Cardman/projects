@@ -6,6 +6,6 @@ import code.expressionlanguage.structs.Struct;
 public final class ResultsBeloteBeanAbsoluteDiff implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(((ResultsBeloteBean) ((BeloteBeanStruct)_instance).getInstance()).absoluteDiff());
+        return new IntStruct(((ResultsBeloteBean) ((BeloteBeanStruct) _instance).getInstance()).getTakerResult().absoluteDiff());
     }
 }

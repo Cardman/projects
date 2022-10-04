@@ -6,6 +6,6 @@ import code.expressionlanguage.structs.Struct;
 public final class ResultsBeloteBeanMidBid implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(((ResultsBeloteBean) ((BeloteBeanStruct)_instance).getInstance()).midBid());
+        return BooleanStruct.of(((ResultsBeloteBean) ((BeloteBeanStruct) _instance).getInstance()).getTakerResult().midBid());
     }
 }
