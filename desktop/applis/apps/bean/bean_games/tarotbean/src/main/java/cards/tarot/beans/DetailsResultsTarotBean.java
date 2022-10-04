@@ -54,7 +54,6 @@ public final class DetailsResultsTarotBean extends TarotBean {
         setGame(game_);
         setNicknames(res_.getRes().getNicknames());
         setHistory(res_.getRes().getHistory());
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
         linesDeclaring = new CustList<TarotSumDeclaringPlayer>();
         orderedPlayers = new CustList<RankingPlayerVariantGame>();
@@ -63,164 +62,192 @@ public final class DetailsResultsTarotBean extends TarotBean {
         playersScores = new CustList<ScoresPlayers>();
         if (!getGame().getTricks().isEmpty()) {
             if (getBid().isJouerDonne()) {
-                EndTarotGame end_ = getGame().getEndTarotGame();
-                end_.setupSlams();
-                short doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
-                short needlyScoresTaker_=end_.scoreNecessairePreneur(getBid());
-                short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
-                differenceScoreTaker=(short) (scorePreneurPlis_-needlyScoresTaker_);
-                basePoints=end_.base(doubledScoreTaker_,differenceScoreTaker);
-                short scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
-                playerSmall = res_.getPlayerSmallBound();
-                small = res_.getScoreSmallBound();
-                rate = getGame().getContrat().getCoefficient();
-                multipliedTmp = scoreTakerWithoutDeclaring_*getBid().getCoefficient();
-                boolean existeAnnonce_=false;
-                for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++){
-                    if (!getGame().getAnnoncesMiseres(joueur_).isEmpty()) {
-                        existeAnnonce_ = true;
-                    }
-                    if (!getGame().getAnnoncesPoignees(joueur_).isEmpty()) {
-                        existeAnnonce_ = true;
-                    }
-                }
-                if(existeAnnonce_) {
-                    int sumPlayers_ = 0;
-                    CustList<SortedHandfuls> handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
-                    CustList<SortedMiseres> miseresTaker_ = end_.getMiseresPointsForTaker();
-                    for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
-                        TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
-                        SortedHandfuls handfulsTakerLoc_ = handfulsTaker_.get(p);
-                        line_.setNickname(getNicknames().get(p));
-                        line_.setStatus(toString(game_.getTeamsRelation().statutDe(p), res_.getRes().getGeneral()));
-                        StringMap<Short> hands_ = new StringMap<Short>();
-                        for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
-                            Handfuls h_ = e.getKey();
-                            hands_.addEntry(toString(h_, res_.getRes().getSpecific()), e.getValue());
-                        }
-                        line_.setHandfuls(hands_);
-                        int sum_ = 0;
-                        for (Handfuls h: getGame().getAnnoncesPoignees(p)) {
-                            sumPlayers_ += handfulsTakerLoc_.getVal(h);
-                            sum_ += handfulsTakerLoc_.getVal(h);
-                        }
-                        SortedMiseres miseresTakerLoc_ = miseresTaker_.get(p);
-                        StringMap<Short> mis_ = new StringMap<Short>();
-                        for (EntryCust<Miseres, Short> e: miseresTakerLoc_.entryList()) {
-                            Miseres m_ = e.getKey();
-                            mis_.addEntry(toString(m_, res_.getRes().getSpecific()), e.getValue());
-                        }
-                        line_.setMiseres(mis_);
-                        for (Miseres m: getGame().getAnnoncesMiseres(p)) {
-                            sumPlayers_ += miseresTakerLoc_.getVal(m);
-                            sum_ += miseresTakerLoc_.getVal(m);
-                        }
-                        line_.setSum(sum_);
-                        linesDeclaring.add(line_);
-                    }
-                    sumPlayers = sumPlayers_;
-                }
-                IdMap<Role,Rate> repartitionRate_=end_.coefficientsRepartition();
-                for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++) {
-                    ScoresPlayers scoresPayer_ = new ScoresPlayers();
-                    scoresPayer_.setNickname(getNicknames().get(p));
-                    scoresPayer_.setRate(repartitionRate_.getVal(game_.getTeamsRelation().statutDe(p)));
-                    scoresPayer_.setScore(getGame().getScores().get(p));
-                    playersScores.add(scoresPayer_);
-                }
-                additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
-                additionnalBonusesDefense = end_.additionnalBonusesDefense();
-                diffAttackDefenseBonuses = additionnalBonusesAttack-additionnalBonusesDefense;
+                bid(res_);
             }else {
-                EndTarotGame end_ = getGame().getEndTarotGame();
-                end_.setupPlayersWonTricks();
-                Shorts positions_;
-                Shorts positions1_;
-                Shorts positions2_;
-                Shorts positions3_;
-                Shorts positions4_;
-                Shorts doubledScoresPlayersTricks_ = new Shorts();
-                Shorts needlyScoresPlayers_ = new Shorts();
-                Shorts doublesDifferencesPlayers_ = new Shorts();
-                Shorts additionnalBonuses_ =new Shorts();
-                Shorts coefficients_;
-                boolean pasJeuMisere_=getGame().pasJeuMisere();
-                if(pasJeuMisere_) {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                        doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
-                        needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
-                        doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                        additionnalBonuses_.add(end_.primeSupplementaire(joueur_));
-                    }
-                } else {
-                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                        doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
-                        needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
-                        doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                    }
-                }
-                positions_=res_.getPositionsDiff();
-                positions1_ = res_.getPositionsOne();
-                positions2_ = res_.getPositionsTwo();
-                positions3_ = res_.getPositionsThree();
-                positions4_ = res_.getPositionsFour();
-                coefficients_=res_.getCoefficients();
-                for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
-                    RankingPlayerVariantGame or_ = new RankingPlayerVariantGame();
-                    or_.setNickname(getNicknames().get(p));
-                    or_.setPositionDiff(positions_.get(p));
-                    or_.setPositionOudlers(positions1_.get(p));
-                    or_.setPositionCharacters(positions2_.get(p));
-                    or_.setPositionStrengthCharacters(positions3_.get(p));
-                    or_.setFinalPosition(positions4_.get(p));
-                    orderedPlayers.add(or_);
-                }
-                for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
-                    PointsPlayerVariantGame or_ = new PointsPlayerVariantGame();
-                    or_.setNickname(getNicknames().get(p));
-                    or_.setPointsTricks(new Rate(doubledScoresPlayersTricks_.get(p),2));
-                    or_.setMinimumPoints(needlyScoresPlayers_.get(p));
-                    or_.setDifferenceScore(new Rate(doublesDifferencesPlayers_.get(p),2));
-                    or_.setRate(coefficients_.get(p));
-                    or_.setScore(getGame().getScores().get(p));
-                    pointsPlayers.add(or_);
-                }
-                if (getGame().pasJeuMisere()) {
-                    for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
-                        TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
-                        SortedHandfuls handfulsTakerLoc_ = new SortedHandfuls();
-                        for (Handfuls h: end_.calculHandfulsScorePlayer(p).get(p).getKeys()) {
-                            handfulsTakerLoc_.put(h, (short)0);
-                        }
-                        line_.setNickname(getNicknames().get(p));
-                        StringMap<Short> hands_ = new StringMap<Short>();
-                        for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
-                            Handfuls h_ = e.getKey();
-                            hands_.addEntry(toString(h_, res_.getRes().getSpecific()), e.getValue());
-                        }
-                        line_.setHandfuls(hands_);
-                        SortedMiseres miseres_ = new SortedMiseres();
-                        for (Miseres m: end_.calculMiseresScorePlayer(p).get(p).getKeys()) {
-                            miseres_.put(m, (short)0);
-                        }
-                        StringMap<Short> mis_ = new StringMap<Short>();
-                        for (EntryCust<Miseres, Short> e: miseres_.entryList()) {
-                            Miseres m_ = e.getKey();
-                            mis_.addEntry(toString(m_, res_.getRes().getSpecific()), e.getValue());
-                        }
-                        line_.setMiseres(mis_);
-                        line_.setSum(0);
-                        linesDeclaring.add(line_);
-                    }
-                    for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++) {
-                        BonusesPlayers bon_ = new BonusesPlayers();
-                        bon_.setNickname(getNicknames().get(p));
-                        bon_.setBonus(additionnalBonuses_.get(p));
-                        bonuses.add(bon_);
-                    }
-                }
+                noBid(res_);
             }
         }
+    }
+
+    private void noBid(ResultsTarot _res) {
+        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        EndTarotGame end_ = getGame().getEndTarotGame();
+        end_.setupPlayersWonTricks();
+        Shorts doubledScoresPlayersTricks_ = new Shorts();
+        Shorts needlyScoresPlayers_ = new Shorts();
+        Shorts doublesDifferencesPlayers_ = new Shorts();
+        Shorts additionnalBonuses_ =new Shorts();
+        boolean pasJeuMisere_=getGame().pasJeuMisere();
+        if(pasJeuMisere_) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++) {
+                doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
+                needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
+                doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
+                additionnalBonuses_.add(end_.primeSupplementaire(joueur_));
+            }
+        } else {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++) {
+                doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
+                needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
+                doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
+            }
+        }
+        Shorts coefficients_ = rates(_res);
+        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
+            PointsPlayerVariantGame or_ = new PointsPlayerVariantGame();
+            or_.setNickname(getNicknames().get(p));
+            or_.setPointsTricks(new Rate(doubledScoresPlayersTricks_.get(p),2));
+            or_.setMinimumPoints(needlyScoresPlayers_.get(p));
+            or_.setDifferenceScore(new Rate(doublesDifferencesPlayers_.get(p),2));
+            or_.setRate(coefficients_.get(p));
+            or_.setScore(getGame().getScores().get(p));
+            pointsPlayers.add(or_);
+        }
+        if (getGame().pasJeuMisere()) {
+            bonusOneForOne(_res, end_, additionnalBonuses_);
+        }
+    }
+
+    private void bid(ResultsTarot _res) {
+        GameTarot game_ = _res.getGame();
+        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        EndTarotGame end_ = getGame().getEndTarotGame();
+        end_.setupSlams();
+        short doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
+        short needlyScoresTaker_=end_.scoreNecessairePreneur(getBid());
+        short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
+        differenceScoreTaker=(short) (scorePreneurPlis_-needlyScoresTaker_);
+        basePoints=end_.base(doubledScoreTaker_,differenceScoreTaker);
+        short scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
+        playerSmall = _res.getPlayerSmallBound();
+        small = _res.getScoreSmallBound();
+        rate = getGame().getContrat().getCoefficient();
+        multipliedTmp = scoreTakerWithoutDeclaring_*getBid().getCoefficient();
+        boolean existeAnnonce_ = existeAnnonce();
+        if(existeAnnonce_) {
+            declaring(_res, end_, scoreTakerWithoutDeclaring_);
+        }
+        IdMap<Role,Rate> repartitionRate_=end_.coefficientsRepartition();
+        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++) {
+            ScoresPlayers scoresPayer_ = new ScoresPlayers();
+            scoresPayer_.setNickname(getNicknames().get(p));
+            scoresPayer_.setRate(repartitionRate_.getVal(game_.getTeamsRelation().statutDe(p)));
+            scoresPayer_.setScore(getGame().getScores().get(p));
+            playersScores.add(scoresPayer_);
+        }
+        additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
+        additionnalBonusesDefense = end_.additionnalBonusesDefense();
+        diffAttackDefenseBonuses = additionnalBonusesAttack-additionnalBonusesDefense;
+    }
+
+    private void bonusOneForOne(ResultsTarot _res, EndTarotGame _end, Shorts _additionnalBonuses) {
+        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
+            TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
+            SortedHandfuls handfulsTakerLoc_ = new SortedHandfuls();
+            for (Handfuls h: _end.calculHandfulsScorePlayer(p).get(p).getKeys()) {
+                handfulsTakerLoc_.put(h, (short)0);
+            }
+            line_.setNickname(getNicknames().get(p));
+            StringMap<Short> hands_ = new StringMap<Short>();
+            for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
+                Handfuls h_ = e.getKey();
+                hands_.addEntry(toString(h_, _res.getRes().getSpecific()), e.getValue());
+            }
+            line_.setHandfuls(hands_);
+            SortedMiseres miseres_ = new SortedMiseres();
+            for (Miseres m: _end.calculMiseresScorePlayer(p).get(p).getKeys()) {
+                miseres_.put(m, (short)0);
+            }
+            StringMap<Short> mis_ = new StringMap<Short>();
+            for (EntryCust<Miseres, Short> e: miseres_.entryList()) {
+                Miseres m_ = e.getKey();
+                mis_.addEntry(toString(m_, _res.getRes().getSpecific()), e.getValue());
+            }
+            line_.setMiseres(mis_);
+            line_.setSum(0);
+            linesDeclaring.add(line_);
+        }
+        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++) {
+            BonusesPlayers bon_ = new BonusesPlayers();
+            bon_.setNickname(getNicknames().get(p));
+            bon_.setBonus(_additionnalBonuses.get(p));
+            bonuses.add(bon_);
+        }
+    }
+
+    private Shorts rates(ResultsTarot _res) {
+        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        Shorts positions_ = _res.getPositionsDiff();
+        Shorts positions1_ = _res.getPositionsOne();
+        Shorts positions2_ = _res.getPositionsTwo();
+        Shorts positions3_ = _res.getPositionsThree();
+        Shorts positions4_ = _res.getPositionsFour();
+        Shorts coefficients_ = _res.getCoefficients();
+        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
+            RankingPlayerVariantGame or_ = new RankingPlayerVariantGame();
+            or_.setNickname(getNicknames().get(p));
+            or_.setPositionDiff(positions_.get(p));
+            or_.setPositionOudlers(positions1_.get(p));
+            or_.setPositionCharacters(positions2_.get(p));
+            or_.setPositionStrengthCharacters(positions3_.get(p));
+            or_.setFinalPosition(positions4_.get(p));
+            orderedPlayers.add(or_);
+        }
+        return coefficients_;
+    }
+
+    private void declaring(ResultsTarot _res, EndTarotGame _end, short _scoreTakerWithoutDeclaring) {
+        GameTarot game_ = _res.getGame();
+        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        int sumPlayers_ = 0;
+        CustList<SortedHandfuls> handfulsTaker_ = _end.getHandfulsPointsForTaker(_scoreTakerWithoutDeclaring);
+        CustList<SortedMiseres> miseresTaker_ = _end.getMiseresPointsForTaker();
+        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
+            TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
+            SortedHandfuls handfulsTakerLoc_ = handfulsTaker_.get(p);
+            line_.setNickname(getNicknames().get(p));
+            line_.setStatus(toString(game_.getTeamsRelation().statutDe(p), _res.getRes().getGeneral()));
+            StringMap<Short> hands_ = new StringMap<Short>();
+            for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
+                Handfuls h_ = e.getKey();
+                hands_.addEntry(toString(h_, _res.getRes().getSpecific()), e.getValue());
+            }
+            line_.setHandfuls(hands_);
+            int sum_ = 0;
+            for (Handfuls h: getGame().getAnnoncesPoignees(p)) {
+                sumPlayers_ += handfulsTakerLoc_.getVal(h);
+                sum_ += handfulsTakerLoc_.getVal(h);
+            }
+            SortedMiseres miseresTakerLoc_ = miseresTaker_.get(p);
+            StringMap<Short> mis_ = new StringMap<Short>();
+            for (EntryCust<Miseres, Short> e: miseresTakerLoc_.entryList()) {
+                Miseres m_ = e.getKey();
+                mis_.addEntry(toString(m_, _res.getRes().getSpecific()), e.getValue());
+            }
+            line_.setMiseres(mis_);
+            for (Miseres m: getGame().getAnnoncesMiseres(p)) {
+                sumPlayers_ += miseresTakerLoc_.getVal(m);
+                sum_ += miseresTakerLoc_.getVal(m);
+            }
+            line_.setSum(sum_);
+            linesDeclaring.add(line_);
+        }
+        sumPlayers = sumPlayers_;
+    }
+
+    private boolean existeAnnonce() {
+        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        boolean existeAnnonce_=false;
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++){
+            if (!getGame().getAnnoncesMiseres(joueur_).isEmpty()) {
+                existeAnnonce_ = true;
+            }
+            if (!getGame().getAnnoncesPoignees(joueur_).isEmpty()) {
+                existeAnnonce_ = true;
+            }
+        }
+        return existeAnnonce_;
     }
 
     public short getDifferenceScoreTaker() {

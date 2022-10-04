@@ -3,7 +3,6 @@ package code.scripts.confs;
 import code.bean.nat.NatDualConfigurationContext;
 import code.formathtml.Configuration;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.util.DualConfigurationContext;
 import code.util.CollCapacity;
 import code.util.StringList;
 import code.util.StringMap;

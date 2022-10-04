@@ -1,7 +1,6 @@
 package code.scripts.pages.cards;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageTarotDetailsresults extends PageCardsCommon{
 private static final String C_3_2_0="details";
 private static final String C_3_2_1="javahtml";
