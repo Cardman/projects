@@ -1,7 +1,6 @@
 package code.scripts.pages.cards;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageBeloteRules extends PageCardsCommon{
 private static final String C_1_0_0="rules";
 private static final String C_1_0_1="javahtml";
@@ -97,8 +96,7 @@ Text txt0_=tx(_doc,C_1_0_6);
 ad(_body,txt0_);
 }
 static void build1(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc,_body);
 }
 static void build2(Element _body,Document _doc){
 Element elt0_=el(_doc,H1);
@@ -119,8 +117,7 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_1_0_9));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,BR);
-ad(elt0_,elt2_);
+br(_doc,elt0_);
 ad(_body,elt0_);
 }
 static void build4(Element _body,Document _doc){
@@ -133,8 +130,7 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_1_0_11));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,BR);
-ad(elt0_,elt2_);
+br(_doc,elt0_);
 ad(_body,elt0_);
 }
 static void build5(Element _body,Document _doc){
@@ -162,8 +158,7 @@ ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
 static void build7(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc,_body);
 }
 static void build8(Element _body,Document _doc){
 Element elt0_=el(_doc,H1);
@@ -184,8 +179,7 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_1_0_19));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,BR);
-ad(elt0_,elt2_);
+br(_doc,elt0_);
 ad(_body,elt0_);
 }
 static void build10(Element _body,Document _doc){
@@ -198,13 +192,11 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_1_0_21));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,BR);
-ad(elt0_,elt2_);
+br(_doc,elt0_);
 ad(_body,elt0_);
 }
 static void build11(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc,_body);
 }
 static void build12(Element _body,Document _doc){
 Element elt0_=el(_doc,H1);
@@ -242,8 +234,7 @@ Text txt0_=tx(_doc,C_1_0_28);
 ad(_body,txt0_);
 }
 static void build15(Element _body,Document _doc){
-Element elt0_=el(_doc,BR);
-ad(_body,elt0_);
+br(_doc,_body);
 }
 static void build16(Element _body,Document _doc){
 Element elt0_=el(_doc,H1);
@@ -257,6 +248,9 @@ Text txt0_=tx(_doc,C_1_0_30);
 ad(_body,txt0_);
 }
 static void build17(Element _body,Document _doc){
+br(_doc,_body);
+}
+private static void br(Document _doc,Element _body) {
 Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
@@ -279,8 +273,7 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_1_0_33));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,BR);
-ad(elt0_,elt2_);
+br(_doc,elt0_);
 ad(_body,elt0_);
 }
 static void build20(Element _body,Document _doc){
@@ -293,8 +286,7 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_1_0_35));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,BR);
-ad(elt0_,elt2_);
+br(_doc,elt0_);
 ad(_body,elt0_);
 }
 }

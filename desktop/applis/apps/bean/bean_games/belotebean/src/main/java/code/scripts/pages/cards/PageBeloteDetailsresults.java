@@ -1,7 +1,6 @@
 package code.scripts.pages.cards;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageBeloteDetailsresults extends PageCardsCommon{
 private static final String C_1_2_0="details";
 private static final String C_1_2_1="javahtml";

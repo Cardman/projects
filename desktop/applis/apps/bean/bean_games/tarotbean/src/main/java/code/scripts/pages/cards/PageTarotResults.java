@@ -122,7 +122,7 @@ build0(elt5_,_docTarot);
 build1(elt5_,_docTarot);
 build2(elt5_,_docTarot);
 build3(elt5_,_docTarot);
-br(elt5_, _docTarot);
+br(elt5_,_docTarot);
 ad(elt0_,elt5_);
 _docTarot.appendChild(elt0_);
 }
@@ -303,7 +303,7 @@ at(elt41_,attrs24_);
 ad(elt40_,elt41_);
 ad(elt35_,elt40_);
 ad(elt0_,elt35_);
-br(elt0_, _doc);
+br(elt0_,_doc);
 Element elt43_=el(_doc,P);
 Element elt44_=el(_doc,C_IF);
 CustList<Attr> attrs25_=al(1);
@@ -361,7 +361,7 @@ ad(elt52_,elt54_);
 ad(elt51_,elt52_);
 ad(elt43_,elt51_);
 ad(elt0_,elt43_);
-br(elt0_, _doc);
+br(elt0_,_doc);
 Element elt56_=el(_doc,P);
 Element elt57_=el(_doc,C_IF);
 CustList<Attr> attrs36_=al(1);
@@ -424,7 +424,7 @@ at(elt68_,attrs47_);
 ad(elt67_,elt68_);
 ad(elt56_,elt67_);
 ad(elt0_,elt56_);
-br(elt0_, _doc);
+br(elt0_,_doc);
 ad(_body,elt0_);
 }
 static void build1(Element _body,Document _doc){
@@ -471,7 +471,7 @@ ad(elt0_,elt3_);
 ad(_body,elt0_);
 }
 static void build2(Element _body,Document _doc){
-br(_body, _doc);
+br(_body,_doc);
 }
 static void build3(Element _body,Document _doc){
 Element elt0_=el(_doc,TABLE);
@@ -530,7 +530,7 @@ ad(elt8_,elt9_);
 ad(elt0_,elt8_);
 ad(_body,elt0_);
 }
-static void br(Element _body, Document _doc){
+static void br(Element _body,Document _doc){
 Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }

@@ -1773,7 +1773,7 @@ CustList<Attr> attrs17_=al(1);
 attrs17_.add(at(VALUE,C_P_192_38));
 at(elt22_,attrs17_);
 ad(_body,elt22_);
-ld(_body, _doc97);
+ld(_body,_doc97);
 }
 static void build3(Element _body,Document _doc97){
 Element elt0_=el(_doc97,H1);
@@ -8781,7 +8781,7 @@ at(elt12_,attrs7_);
 ad(elt11_,elt12_);
 ad(_body,elt11_);
 }
-static void re(Element _dest, String _name, String _value,Document _doc97){
+static void re(Element _dest,String _name,String _value,Document _doc97){
 Element elt11_=el(_doc97,A);
 CustList<Attr> attrs6_=al(1);
 attrs6_.add(at(NAME,_name));
@@ -8793,7 +8793,7 @@ at(elt12_,attrs7_);
 ad(elt11_,elt12_);
 ad(_dest,elt11_);
 }
-static void lk(Element _dest, String _cmd, String _value,Document _doc97){
+static void lk(Element _dest,String _cmd,String _value,Document _doc97){
 Element elt11_=el(_doc97,A);
 CustList<Attr> attrs6_=al(1);
 attrs6_.add(at(C_COMMAND,_cmd));
@@ -8805,12 +8805,12 @@ at(elt12_,attrs7_);
 ad(elt11_,elt12_);
 ad(_dest,elt11_);
 }
-static void ld(Element _dest, Document _doc97){
+static void ld(Element _dest,Document _doc97){
 Element elt11_=el(_doc97,A);
 CustList<Attr> attrs6_=al(1);
-attrs6_.add(at(C_COMMAND, LK_CMD));
+attrs6_.add(at(C_COMMAND,LK_CMD));
 at(elt11_,attrs6_);
-Text tx_=tx(_doc97, C_P_192_39);
+Text tx_=tx(_doc97,C_P_192_39);
 ad(elt11_,tx_);
 ad(_dest,elt11_);
 }
