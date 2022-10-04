@@ -1,6 +1,8 @@
 package cards.tarot.beans;
 
+import cards.consts.CoreResourcesAccess;
 import cards.consts.GameType;
+import cards.consts.Role;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.maths.Rate;
@@ -15,6 +17,13 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     private static final String FOLD = "fold";
     private static final String TAKE = "take";
     private static final String WITHOUT = "without";
+    private static final String TAKER = "taker";
+    private static final String CALLED = "called";
+    private static final String DEFENDER = "defender";
+    private static final String FOUR = "four";
+    private static final String SUIT = "suit";
+    private static final String CHAR = "char";
+    private static final String LOW = "low";
 
     @Test
     public void rate1() {
@@ -96,6 +105,94 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         assertEq(Rate.newRate("2"),callScoresPlayersSum(elt(callDetailsResultsTarotBeanPlayersScores(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
     }
 
+    @Test
+    public void bonusesPlayers() {
+        assertSizeEq(5,callDetailsResultsTarotBeanBonuses(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))));
+    }
+
+    @Test
+    public void bonusNickname() {
+        assertEq("0",callBonusesPlayersNickname(elt(callDetailsResultsTarotBeanBonuses(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void bonusScore() {
+        assertEq(200,callBonusesPlayersBonus(elt(callDetailsResultsTarotBeanBonuses(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void linesDeclaring1() {
+        assertSizeEq(5,callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))));
+    }
+    @Test
+    public void linesDeclaring2() {
+        assertSizeEq(5,callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))));
+    }
+
+    @Test
+    public void declNickname() {
+        assertEq("0",callTarotSumDeclaringPlayerNickname(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
+    }
+
+    @Test
+    public void declSum() {
+        assertEq(105,callTarotSumDeclaringPlayerSum(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
+    }
+
+    @Test
+    public void declStatus() {
+        assertEq(TAKER,callTarotSumDeclaringPlayerStatus(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
+    }
+
+    @Test
+    public void declHand() {
+        assertSizeEq(1,callTarotSumDeclaringPlayerHandfuls(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
+    }
+
+    @Test
+    public void handFirst1() {
+        assertFirstEq(FOUR,elt(callTarotSumDeclaringPlayerHandfuls(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),0));
+    }
+
+    @Test
+    public void handSecond1() {
+        assertSecondEq(50,elt(callTarotSumDeclaringPlayerHandfuls(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),0));
+    }
+
+    @Test
+    public void declMiseres() {
+        assertSizeEq(3,callTarotSumDeclaringPlayerMiseres(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)));
+    }
+
+    @Test
+    public void misereFirst1() {
+        assertFirstEq(CHAR,elt(callTarotSumDeclaringPlayerMiseres(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),0));
+    }
+
+    @Test
+    public void misereSecond1() {
+        assertSecondEq(5,elt(callTarotSumDeclaringPlayerMiseres(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),0));
+    }
+
+    @Test
+    public void misereFirst2() {
+        assertFirstEq(SUIT,elt(callTarotSumDeclaringPlayerMiseres(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),1));
+    }
+
+    @Test
+    public void misereSecond2() {
+        assertSecondEq(30,elt(callTarotSumDeclaringPlayerMiseres(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),1));
+    }
+
+    @Test
+    public void misereFirst3() {
+        assertFirstEq(LOW,elt(callTarotSumDeclaringPlayerMiseres(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),2));
+    }
+
+    @Test
+    public void misereSecond3() {
+        assertSecondEq(20,elt(callTarotSumDeclaringPlayerMiseres(elt(callDetailsResultsTarotBeanLinesDeclaring(displaying(beanDetailResultsTarot(EN,resultsFive(game4(),0)))),0)),2));
+    }
     private static ResultsTarot results(GameTarot _g, int _user) {
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(_g);
@@ -103,7 +200,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         res_.initialize(fourPseudos("0","1","2","3"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
         res_.getRes().setGeneral("");
-        res_.getRes().setSpecific(file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.TAKE,TAKE)+RETURNE_LINE+file(BidTarot.GUARD_WITHOUT, WITHOUT));
+        res_.getRes().setSpecific(file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.TAKE,TAKE)+RETURNE_LINE+file(BidTarot.GUARD_WITHOUT, WITHOUT)+RETURNE_LINE);
 //        res_.getRes().setGeneral(readCoreResource());
 //        res_.getRes().setSpecific(readResource());
         return res_;
@@ -114,8 +211,8 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         res_.getRes().setUser((byte) _user);
         res_.initialize(fivePseudos("0","1","2","3","4"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
-        res_.getRes().setGeneral("");
-        res_.getRes().setSpecific(file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.TAKE,TAKE)+RETURNE_LINE+file(BidTarot.GUARD_WITHOUT, WITHOUT));
+        res_.getRes().setGeneral(file(Role.TAKER, TAKER)+RETURNE_LINE+file(Role.CALLED_PLAYER, CALLED)+RETURNE_LINE+file(Role.DEFENDER, DEFENDER));
+        res_.getRes().setSpecific(file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.TAKE,TAKE)+RETURNE_LINE+file(BidTarot.GUARD_WITHOUT, WITHOUT)+RETURNE_LINE+file(Handfuls.FOUR, FOUR)+RETURNE_LINE+file(Miseres.SUIT, SUIT)+RETURNE_LINE+file(Miseres.LOW_CARDS, LOW)+RETURNE_LINE+file(Miseres.CHARACTER, CHAR));
 //        res_.getRes().setGeneral(readCoreResource());
 //        res_.getRes().setSpecific(readResource());
         return res_;
@@ -721,7 +818,18 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         hands_.add(hand_);
         return new DealTarot(hands_,_dealer);
     }
+    private static String file(Role _b, String _value) {
+        return CoreResourcesAccess.key(_b)+ SEP +_value;
+    }
+    private static String file(Handfuls _b, String _value) {
+        return TarotResoucesAccess.key(_b)+ SEP +_value;
+    }
     private static String file(BidTarot _b, String _value) {
         return TarotResoucesAccess.key(_b)+ SEP +_value;
     }
+
+    private static String file(Miseres _m, String _value) {
+        return TarotResoucesAccess.key(_m)+ SEP +_value;
+    }
+
 }

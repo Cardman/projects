@@ -16,6 +16,42 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static final String SEP = ":";
 
 
+    public static Struct callTarotSumDeclaringPlayerHandfuls(Struct _str, long... _args) {
+        return callLongs(new TarotSumDeclaringPlayerHandfuls(),_str,_args);
+    }
+
+    public static Struct callTarotSumDeclaringPlayerMiseres(Struct _str, long... _args) {
+        return callLongs(new TarotSumDeclaringPlayerMiseres(),_str,_args);
+    }
+
+    public static Struct callTarotSumDeclaringPlayerNickname(Struct _str, long... _args) {
+        return callLongs(new TarotSumDeclaringPlayerNickname(),_str,_args);
+    }
+    public static Struct callTarotSumDeclaringPlayerSum(Struct _str, long... _args) {
+        return callLongs(new TarotSumDeclaringPlayerSum(),_str,_args);
+    }
+    public static Struct callTarotSumDeclaringPlayerStatus(Struct _str, long... _args) {
+        return callLongs(new TarotSumDeclaringPlayerStatus(),_str,_args);
+    }
+
+    public static Struct callDetailsResultsTarotBeanLinesDeclaring(Struct _str, long... _args) {
+        return callLongs(new DetailsResultsTarotBeanLinesDeclaring(),_str,_args);
+    }
+
+    public static Struct callBonusesPlayersBonus(Struct _str, long... _args) {
+        return callLongs(new BonusesPlayersBonus(),_str,_args);
+    }
+
+    public static Struct callBonusesPlayersNickname(Struct _str, long... _args) {
+        return callLongs(new BonusesPlayersNickname(),_str,_args);
+    }
+
+
+    public static Struct callDetailsResultsTarotBeanBonuses(Struct _str, long... _args) {
+        return callLongs(new DetailsResultsTarotBeanBonuses(),_str,_args);
+    }
+
+
     public static Struct callScoresPlayersNickname(Struct _str, long... _args) {
         return callLongs(new ScoresPlayersNickname(),_str,_args);
     }
