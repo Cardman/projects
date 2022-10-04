@@ -5,11 +5,13 @@ import cards.consts.GameType;
 import cards.consts.Role;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
+import code.formathtml.Navigation;
+import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.Longs;
-import code.util.StringList;
+import code.scripts.pages.cards.MessTarotPage;
+import code.scripts.pages.cards.PagesTarots;
+import code.util.*;
+import code.util.consts.Constants;
 import org.junit.Test;
 
 public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
@@ -267,6 +269,57 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     @Test
     public void ptsSc() {
         assertEq(6744, callPointsPlayerVariantGameScore(elt(callDetailsResultsTarotBeanPointsPlayers(displaying(beanDetailResultsTarot(EN,resultsFive(game7(),0)))),0)));
+    }
+
+    @Test
+    public void init1() {
+        StringMap<String> other_ = MessTarotPage.ms();
+        AnaRendBlock.adjust(other_);
+        TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
+        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
+        stds_.setDataBase(resultsFive(game4(), 0));
+        stds_.initializeRendSessionDoc(nav_);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+                "\tcolor: #0000FF;\n" +
+                "}\n" +
+                "td,caption{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "</style></head><body><h1>Calculation of bidding points</h1><p>Base points for bidding:25</p><p>Player who has led the trump ace to the last trick:0</p><p>Difference between taker's points and necessary points in order to win this deal:55</p><p>Rate in relationship with bidding:4</p><p>Taker's score without declaring: ( 25 + 10 + 55 ) * 4 = 360 points</p><h1>Calculation of players's declaring</h1><ul><li>0's declaring (taker):<br/><ul><li>four : 50</li><li>char : 5</li><li>suit : 30</li><li>low : 20</li><li>Sum :105</li></ul></li><li>1's declaring (called):<br/><ul><li>Sum :0</li></ul></li><li>2's declaring (defender):<br/><ul><li>Sum :0</li></ul></li><li>3's declaring (defender):<br/><ul><li>Sum :0</li></ul></li><li>4's declaring (defender):<br/><ul><li>Sum :0</li></ul></li><li>Sum of players' declaring:105</li></ul><br/><h1>Additional bonuses</h1>Bonuses for attack team:400<br/>Bonuses for defense team:0<br/>Sum of additional bonuses:400<br/><table border=\"1\"><caption>Rates and scores of this deal for each player</caption><thead><tr><td>Player</td><td>Rate</td><td>Score</td></tr></thead><tbody><tr><td>0</td><td>2</td><td>1730</td></tr><tr><td>1</td><td>1</td><td>865</td></tr><tr><td>2</td><td>-1</td><td>-865</td></tr><tr><td>3</td><td>-1</td><td>-865</td></tr><tr><td>4</td><td>-1</td><td>-865</td></tr></tbody></table></body></html>",nav_.getHtmlText());
+    }
+
+    @Test
+    public void init2() {
+        StringMap<String> other_ = MessTarotPage.ms();
+        AnaRendBlock.adjust(other_);
+        TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
+        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
+        stds_.setDataBase(resultsFive(game7(), 0));
+        stds_.initializeRendSessionDoc(nav_);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+                "\tcolor: #0000FF;\n" +
+                "}\n" +
+                "td,caption{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "</style></head><body><table border=\"1\"><caption>Steps of calculation of players' ranking by criteria</caption><thead><tr><td>Player</td><td>Ranking in relationship with the difference of points</td><td>Ranking in relationship with the number of oudlers</td><td>Ranking in relationship with the number of characters</td><td>Ranking in relationship with the strength of characters</td><td>Final rank</td></tr></thead><tbody><tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr><tr><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr><tr><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr><tr><td>4</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr></tbody></table><table border=\"1\"><caption>Calculation of players' points</caption><thead><tr><td>Nickname</td><td>Won points in the tricks</td><td>Minimum score for winning</td><td>Differences of points</td><td>Rate</td><td>Score</td></tr></thead><tbody><tr><td>0</td><td>81</td><td>41</td><td>40</td><td>6</td><td>6744</td></tr><tr><td>1</td><td>9/2</td><td>51</td><td>-93/2</td><td>0</td><td>-1260</td></tr><tr><td>2</td><td>0</td><td>56</td><td>-56</td><td>-2</td><td>-1828</td></tr><tr><td>3</td><td>0</td><td>56</td><td>-56</td><td>-2</td><td>-1828</td></tr><tr><td>4</td><td>0</td><td>56</td><td>-56</td><td>-2</td><td>-1828</td></tr></tbody></table><h1>Calculation of players's declaring</h1><ul><li>0's declaring:<br/><ul><li>four</li><li>char</li><li>suit</li><li>low</li></ul></li><li>1's declaring:<br/><ul/></li><li>2's declaring:<br/><ul/></li><li>3's declaring:<br/><ul/></li><li>4's declaring:<br/><ul/></li></ul><h1>Bonuses</h1><table border=\"1\"><caption>Players' additional bonuses</caption><thead><tr><td>Nickname</td><td>Bonus</td></tr></thead><tbody><tr><td>0</td><td>200</td></tr><tr><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td></tr><tr><td>3</td><td>0</td></tr><tr><td>4</td><td>0</td></tr></tbody></table></body></html>",nav_.getHtmlText());
+    }
+
+    @Test
+    public void init3() {
+        StringMap<String> other_ = MessTarotPage.ms();
+        AnaRendBlock.adjust(other_);
+        TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
+        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
+        stds_.setDataBase(resultsFive(game8(), 0));
+        stds_.initializeRendSessionDoc(nav_);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+                "\tcolor: #0000FF;\n" +
+                "}\n" +
+                "td,caption{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "</style></head><body><table border=\"1\"><caption>Steps of calculation of players' ranking by criteria</caption><thead><tr><td>Player</td><td>Ranking in relationship with the difference of points</td><td>Ranking in relationship with the number of oudlers</td><td>Ranking in relationship with the number of characters</td><td>Ranking in relationship with the strength of characters</td><td>Final rank</td></tr></thead><tbody><tr><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>1</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr><tr><td>2</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>3</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>4</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr></tbody></table><table border=\"1\"><caption>Calculation of players' points</caption><thead><tr><td>Nickname</td><td>Won points in the tricks</td><td>Minimum score for winning</td><td>Differences of points</td><td>Rate</td><td>Score</td></tr></thead><tbody><tr><td>0</td><td>81</td><td>41</td><td>-40</td><td>-6</td><td>-2088</td></tr><tr><td>1</td><td>9/2</td><td>51</td><td>93/2</td><td>0</td><td>0</td></tr><tr><td>2</td><td>0</td><td>56</td><td>56</td><td>2</td><td>696</td></tr><tr><td>3</td><td>0</td><td>56</td><td>56</td><td>2</td><td>696</td></tr><tr><td>4</td><td>0</td><td>56</td><td>56</td><td>2</td><td>696</td></tr></tbody></table><h1>Calculation of players's declaring</h1><ul/><h1>Bonuses</h1><table border=\"1\"><caption>Players' additional bonuses</caption><thead><tr><td>Nickname</td><td>Bonus</td></tr></thead><tbody/></table></body></html>",nav_.getHtmlText());
     }
 
     private static ResultsTarot results(GameTarot _g, int _user) {
