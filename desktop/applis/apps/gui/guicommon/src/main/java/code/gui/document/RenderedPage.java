@@ -44,7 +44,6 @@ public final class RenderedPage implements ProcessingSession {
 
     private ContextEl context;
 
-    private AbstractContextCreator contextCreator;
     private AbstractRenderAction renderAction;
     private WithPageInfos standards;
 
@@ -100,7 +99,6 @@ public final class RenderedPage implements ProcessingSession {
 
     private void direct(PreparedAnalyzed _stds) {
         standards = _stds.getBeanNatLgNames();
-        contextCreator = new NativeContextCreator();
         renderAction = new NatRenderAction(this, _stds.getBeanNatLgNames());
         _stds.getBeanNatLgNames().initializeRendSessionDoc(navigation);
         setupText();
@@ -118,7 +116,6 @@ public final class RenderedPage implements ProcessingSession {
         }
         start();
         standards = _stds;
-        contextCreator = _creator;
         renderAction = new CustRenderAction(_creator,this,_stds);
         gene.getThreadFactory().newStartedThread(_inst);
 //        animateProcess();
@@ -270,10 +267,6 @@ public final class RenderedPage implements ProcessingSession {
 
     public AbstractRenderAction getRenderAction() {
         return renderAction;
-    }
-
-    public AbstractContextCreator getContextCreator() {
-        return contextCreator;
     }
 
     public AbsCompoFactory getCompoFactory() {

@@ -25,7 +25,7 @@ public final class CustRenderAction implements AbstractRenderAction {
     }
 
     private String afterAction(ContextEl _ctx, RendStackCall _stackCall) {
-        ContextEl ctx_ = render.getContextCreator().removeContext(_ctx);
+        ContextEl ctx_ = creator.removeContext(_ctx);
         return afterActionWithoutRemove(ctx_, _stackCall);
     }
 
