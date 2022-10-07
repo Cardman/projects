@@ -30,7 +30,6 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
     private ResultsBelote dataBase;
     private RulesBelote dataBaseRules;
     protected BeloteStandards(){
-        DefaultInitialization.basicStandards(this);
     }
     @Override
     public void buildOther() {

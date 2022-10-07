@@ -4,7 +4,6 @@ import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import code.bean.Bean;
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.DefaultInitialization;
 import code.bean.nat.StringMapObjectBase;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
@@ -17,7 +16,6 @@ public abstract class PresidentStandards extends BeanNatCommonLgNames {
     private RulesPresident dataBaseRules;
     private ResultsPresident dataBase;
     protected PresidentStandards() {
-        DefaultInitialization.basicStandards(this);
     }
 
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {

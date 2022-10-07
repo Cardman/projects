@@ -101,8 +101,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
 
     private FacadeGame dataBase;
     protected PokemonStandards(){
-        PokemonStandards val_ = this;
-        DefaultInitialization.basicStandards(val_);
         getValidators().addEntry("positive_rate_validator",new PositiveRateValidator());
         getValidators().addEntry("rate_validator",new RateValidator());
         getValidators().addEntry("short_validator",new ShortValidator());
@@ -1052,38 +1050,26 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         return arr_;
     }
     public static ArrayStruct getLayers(CustList<Level> _map) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
-        int i_ = 0;
-        for (Level e: _map){
-            arr_.set(i_,new IdStruct(OBJECT));
-            i_++;
-        }
-        return arr_;
+        int len_ = _map.size();
+        return arrId(len_);
     }
     public static ArrayStruct getEnd(CustList<EndRoundMainElements> _map) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
-        int i_ = 0;
-        for (EndRoundMainElements e: _map){
-            arr_.set(i_,new IdStruct(OBJECT));
-            i_++;
-        }
-        return arr_;
+        int len_ = _map.size();
+        return arrId(len_);
     }
     public static ArrayStruct getSta(CustList<Statistic> _map) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
-        int i_ = 0;
-        for (Statistic e: _map){
-            arr_.set(i_,new IdStruct(OBJECT));
-            i_++;
-        }
-        return arr_;
+        int len_ = _map.size();
+        return arrId(len_);
     }
     public static ArrayStruct getTeamPos(CustList<TeamPosition> _map) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
-        int i_ = 0;
-        for (TeamPosition e: _map){
-            arr_.set(i_,new IdStruct(OBJECT));
-            i_++;
+        int len_ = _map.size();
+        return arrId(len_);
+    }
+
+    private static ArrayStruct arrId(int _len) {
+        ArrayStruct arr_ = new ArrayStruct(_len, StringExpUtil.getPrettyArrayType(OBJECT));
+        for (int i = 0; i < _len; i++) {
+            arr_.set(i,new IdStruct(OBJECT));
         }
         return arr_;
     }

@@ -49,7 +49,6 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
     private ResultsTarot dataBase;
     private RulesTarot dataBaseRules;
     protected TarotStandards(){
-        DefaultInitialization.basicStandards(this);
     }
     @Override
     public void buildOther() {

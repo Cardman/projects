@@ -159,7 +159,6 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         getStds().addEntry(TYPE_INTS, cl_);
         getIterables().put(TYPE_INTS, PRIM_INTEGER);
-        DefaultInitialization.basicStandards(this);
     }
     @Override
     public void buildOther() {

@@ -788,7 +788,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
-        basicStandards(lgNames_);
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -820,7 +819,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
-        basicStandards(lgNames_);
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -853,7 +851,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
-        basicStandards(lgNames_);
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -885,7 +882,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
-        basicStandards(lgNames_);
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -918,7 +914,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
-        basicStandards(lgNames_);
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -1054,9 +1049,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static CustBeanLgNames stds() {
-        CustBeanLgNames lgNames_ = new CustBeanLgNames();
-        basicStandards(lgNames_);
-        return lgNames_;
+        return new CustBeanLgNames();
     }
 
     private static NatAnalyzedCode init(CustBeanLgNames _lgNames) {
@@ -2559,9 +2552,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         clName(b_,cl_);
         _beansInfos.addEntry(_id,b_);
         _adv.getBeansStruct().addEntry(_id,_str);
-    }
-    private static void basicStandards(BeanLgNames _lgNames) {
-        DefaultInitialization.basicStandards(_lgNames);
     }
 
 
