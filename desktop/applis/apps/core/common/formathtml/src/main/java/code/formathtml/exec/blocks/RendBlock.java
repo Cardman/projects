@@ -164,9 +164,8 @@ public abstract class RendBlock {
 
     public static void procCstAnc(Configuration _cont, Element _nextWrite, FormParts _formParts) {
         hideLink(_cont, _nextWrite);
-        if (incrAncNb(_cont, _nextWrite, _formParts.getIndexes())){
-            incr(_formParts.getIndexes());
-        }
+        incrAncNb(_cont, _nextWrite, _formParts.getIndexes());
+        incr(_formParts.getIndexes());
     }
 
     public static void hideLink(Configuration _cont, Element _nextWrite) {
@@ -181,12 +180,10 @@ public abstract class RendBlock {
                 || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty());
     }
 
-    public static boolean incrAncNb(Configuration _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
+    public static void incrAncNb(Configuration _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
         if (hasToIncr(_cont, _nextEltWrite)) {
             _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), Long.toString(_indexes.getAnchor()));
-            return true;
         }
-        return false;
     }
 
     public static void incr(IndexesFormInput _indexes) {
