@@ -1,8 +1,6 @@
 package code.gui.document;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.InitPhase;
-import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultInitialization;
@@ -22,13 +20,7 @@ public final class CustRenderAction implements AbstractRenderAction {
     @Override
     public String execute(boolean _form, Element _elt) {
         ContextEl ctx_ = creator.newContext(render.getContext());
-        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,ctx_);
-        if (_form) {
-            std.processRendFormRequest(render.getNavigation(), ctx_, rendStackCall_, _elt);
-        } else {
-            Navigation navigation_ = render.getNavigation();
-            std.processRendAnchorRequest(_elt, navigation_, ctx_, rendStackCall_);
-        }
+        RendStackCall rendStackCall_ = std.execute(_form, _elt, render.getNavigation(), ctx_);
         return afterAction(ctx_,rendStackCall_);
     }
 

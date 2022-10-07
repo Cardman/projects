@@ -128,6 +128,14 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
 //        return message_;
     }
 
+    public void execute(boolean _form, Element _elt, Navigation _navigation) {
+        if (_form) {
+            processRendFormRequest(_navigation, _elt);
+        } else {
+            processRendAnchorRequest(_elt, _navigation);
+        }
+    }
+
     public String getRes(NatDocumentBlock _rend, Configuration _conf, NatRendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().initFormsSpec();
         String beanName_ = _rend.getBeanName();

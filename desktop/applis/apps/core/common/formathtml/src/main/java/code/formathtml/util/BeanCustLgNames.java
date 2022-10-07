@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -140,6 +141,16 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
 
     protected BeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
+    }
+
+    public RendStackCall execute(boolean _form, Element _elt, Navigation _navigation, ContextEl _ctx) {
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,_ctx);
+        if (_form) {
+            processRendFormRequest(_navigation, _ctx, rendStackCall_, _elt);
+        } else {
+            processRendAnchorRequest(_elt, _navigation, _ctx, rendStackCall_);
+        }
+        return rendStackCall_;
     }
 
     public String getRendUrlDest(String _method, Struct _return, ContextEl _context, RendStackCall _stackCall) {

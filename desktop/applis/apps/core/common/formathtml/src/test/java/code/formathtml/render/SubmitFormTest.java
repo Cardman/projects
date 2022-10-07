@@ -13,6 +13,7 @@ import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.DocumentBuilder;
+import code.sml.Element;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -901,7 +902,9 @@ public final class SubmitFormTest extends CommonRender {
 
 
     private static void processRendFormRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())));
+        Element elt_ = DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl()));
+        _nav.getDualAnalyzedContext().getStds().execute(true,elt_, _nav.getNavigation(), _ctx);
+//        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), elt_);
     }
 
     private static String getCustomPair() {

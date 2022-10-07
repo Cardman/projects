@@ -1,7 +1,6 @@
 package code.gui.document;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.formathtml.Navigation;
 import code.sml.Element;
 
 public final class NatRenderAction implements AbstractRenderAction {
@@ -14,12 +13,7 @@ public final class NatRenderAction implements AbstractRenderAction {
     }
     @Override
     public String execute(boolean _form, Element _elt) {
-        if (_form) {
-            std.processRendFormRequest(render.getNavigation(), _elt);
-        } else {
-            Navigation navigation_ = render.getNavigation();
-            std.processRendAnchorRequest(_elt, navigation_);
-        }
+        std.execute(_form, _elt, render.getNavigation());
         return null;
     }
 }
