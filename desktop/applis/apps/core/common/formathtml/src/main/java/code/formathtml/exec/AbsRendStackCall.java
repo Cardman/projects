@@ -7,7 +7,7 @@ public abstract class AbsRendStackCall {
 
     private Document document;
 
-    private String beanName;
+    private String beanName="";
 
     private Struct mainBean;
 

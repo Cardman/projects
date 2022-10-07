@@ -159,24 +159,40 @@ public abstract class RendBlock {
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
+        incr(_rendStackCall.getFormParts().getIndexes());
     }
 
     public static void procCstAnc(Configuration _cont, Element _nextWrite, FormParts _formParts) {
+        hideLink(_cont, _nextWrite);
+        if (incrAncNb(_cont, _nextWrite, _formParts.getIndexes())){
+            incr(_formParts.getIndexes());
+        }
+    }
+
+    public static void hideLink(Configuration _cont, Element _nextWrite) {
         if (_nextWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
             _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         }
-        incrAncNb(_cont, _nextWrite, _formParts.getIndexes());
     }
 
-    public static void incrAncNb(Configuration _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
-        if (StringUtil.quickEq(_nextEltWrite.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())
-                && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))
-                || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty() )) {
-            long currentAnchor_ = _indexes.getAnchor();
-            _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), Long.toString(currentAnchor_));
-            currentAnchor_++;
-            _indexes.setAnchor(currentAnchor_);
+    private static boolean hasToIncr(Configuration _cont, Element _nextEltWrite) {
+        return StringUtil.quickEq(_nextEltWrite.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())
+                && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))
+                || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty());
+    }
+
+    public static boolean incrAncNb(Configuration _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
+        if (hasToIncr(_cont, _nextEltWrite)) {
+            _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), Long.toString(_indexes.getAnchor()));
+            return true;
         }
+        return false;
+    }
+
+    public static void incr(IndexesFormInput _indexes) {
+        long currentAnchor_ = _indexes.getAnchor();
+        currentAnchor_++;
+        _indexes.setAnchor(currentAnchor_);
     }
 
     public static void appendText(String _fileContent, Document _ownerDocument, Element _eltStyle) {
