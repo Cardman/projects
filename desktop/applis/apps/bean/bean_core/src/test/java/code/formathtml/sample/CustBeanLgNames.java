@@ -80,6 +80,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     private static final String GO_TEXT_AREA = "goTextArea";
     private static final String GO = "go";
     private static final String GO2 = "go2";
+    private static final String GO3 = "go3";
     private static final String GET_CHOSEN_NUMBERS = "getChosenNumbers";
     private static final String TYPED_STRING = "typedString";
     private static final String TYPED_INT = "typedInt";
@@ -340,6 +341,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         methods_.add( method_);
         //params_ = new StringList(PRIM_LONG);
         method_ = new SpecNatMethod(GO2, STRING, false, MethodModifier.NORMAL, new SampleStrFct());
+        methods_.add( method_);
+        method_ = new SpecNatMethod(GO3, STRING, false, MethodModifier.NORMAL, new SampleStrFctEmp());
         methods_.add( method_);
         //params_ = new StringList();
         method_ = new SpecNatMethod(GO_TEXT_AREA, STRING, false, MethodModifier.NORMAL, null);

@@ -470,9 +470,16 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         _rendStack.clearPages();
         Configuration session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
-        String res_ = processAfterInvoke(session_, _actionCommand, _currentBeanName, form(_bean), lg_, _rendStack);
+        NatDocumentBlock v_ = getRenders().getVal(_actionCommand);
+        String dest_;
+        if (v_ == null) {
+            dest_ = _nav.getCurrentUrl();
+        } else {
+            dest_ = _actionCommand;
+        }
+        String res_ = processAfterInvoke(session_, dest_, _currentBeanName, form(_bean), lg_, _rendStack);
         _nav.setCurrentBeanName(_rendStack.getBeanName());
-        _nav.setCurrentUrl(_actionCommand);
+        _nav.setCurrentUrl(dest_);
         _nav.setupText(res_, _rendStack.getDocument());
         setNatPage(_rendStack.getHtmlPage());
     }

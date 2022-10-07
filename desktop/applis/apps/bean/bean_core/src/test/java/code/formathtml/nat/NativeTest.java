@@ -901,6 +901,43 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         lgNames_.execute(false,DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), n_);
         assertEq("<html><body>HEAD<a c:command=\"page1.html\" href=\"\" n-a=\"0\"/></body></html>", n_.getHtmlText());
     }
+
+    @Test
+    public void processOther3Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page1.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a c:command=\"$go3\">_</a></body></html>";
+        StringMap<Document> docs_ = new StringMap<Document>();
+        StringMap<String> files_ = new StringMap<String>();
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
+        lgNames_.getValidators().addEntry("my_val",new MyValidator());
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
+        Navigation n_ = new Navigation();
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
+        Configuration session_ = new Configuration();
+        StringMap<StringMap<String>> c_ = new StringMap<StringMap<String>>();
+        StringMap<String> co_ = new StringMap<String>();
+        co_.addEntry("","");
+        c_.addEntry("bean_two.go3", co_);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
+        nat_.getForwards();
+        d_.init(session_);
+        d_.setNavigation(c_);
+        n_.setSession(session_);
+        n_.setFiles(files_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
+        init(lgNames_, n_);
+        lgNames_.getNatPage().setUrl(0);
+        lgNames_.execute(false,DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), n_);
+        assertEq("<html><body><a c:command=\"$bean_two.go3\" href=\"\" n-a=\"0\">_</a></body></html>", n_.getHtmlText());
+    }
     @Test
     public void process_7_Test() {
         String locale_ = "en";

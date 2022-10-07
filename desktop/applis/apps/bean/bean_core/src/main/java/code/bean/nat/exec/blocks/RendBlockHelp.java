@@ -13,6 +13,7 @@ import code.formathtml.Configuration;
 import code.formathtml.FormParts;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.stacks.RendReadWrite;
+import code.formathtml.util.IndexesFormInput;
 import code.formathtml.util.NodeInformations;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -351,7 +352,9 @@ public final class RendBlockHelp {
     public static void processLink(Configuration _cont, Element _nextWrite, Element _read, NatExecTextPart _textPart, NatRendStackCall _rendStackCall) {
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()));
         if (!href_.startsWith(CALL_METHOD)) {
-            RendBlock.procCstAnc(_cont, _nextWrite, _rendStackCall.getFormParts());
+            _rendStackCall.getFormParts().getAnchorsArgs().add(new StringList());
+            RendBlock.hideLink(_cont, _nextWrite);
+            incrAncNbNonCont(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
             return;
         }
         StringList alt_ = NatRenderingText.renderAltListNat(_textPart, _rendStackCall);
@@ -361,7 +364,7 @@ public final class RendBlockHelp {
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
-        RendBlock.incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
+        incrAncNbNonCont(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
     }
 
     public static StringList arg(StringList _alt) {
@@ -411,5 +414,10 @@ public final class RendBlockHelp {
             }
             currentSuperTypes_ = newSuperTypes_;
         }
+    }
+
+    public static void incrAncNbNonCont(Configuration _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
+        RendBlock.incrAncNb(_cont, _nextEltWrite, _indexes);
+        RendBlock.incr(_indexes);
     }
 }
