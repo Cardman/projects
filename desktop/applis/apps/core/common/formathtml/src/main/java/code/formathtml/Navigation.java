@@ -39,6 +39,8 @@ public final class Navigation {
 
     private String title = EMPTY_STRING;
     private Document document;
+    private String currentUrl = "";
+    private String currentBeanName = "";
 
     public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_cont);
@@ -121,9 +123,9 @@ public final class Navigation {
         }
     }
 
-    public void processRendFormErrors(BeanLgNames _advStandards, Element _formElement, long _id,
-                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs) {
-        StringList idFormats_ = _advStandards.getPage().getFormatIdMap().getVal(_id);
+    public void processRendFormErrors(Element _formElement, long _id,
+                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs, HtmlPage _page) {
+        StringList idFormats_ = _page.getFormatIdMap().getVal(_id);
         for (String i : _errors.getKeys()) {
             int count_ = 0;
             ElementList spans_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
@@ -149,19 +151,19 @@ public final class Navigation {
                 count_++;
             }
         }
-        in(_advStandards, _formElement, _id);
-        se(_advStandards, _formElement, _id);
-        ta(_advStandards, _formElement, _id);
-        setupText(document.export(),_advStandards);
+        in(_formElement, _id, _page);
+        se(_formElement, _id, _page);
+        ta(_formElement, _id, _page);
+        setupText(document.export());
     }
 
-    private void in(BeanLgNames _advStandards, Element _formElement, long _id) {
+    private void in(Element _formElement, long _id, HtmlPage _page) {
         ElementList inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordInput());
         int lengthInputs_ = inputs_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeInformations nCont_ = getValue(_id, idInput_, _advStandards.getPage());
+            NodeInformations nCont_ = getValue(_id, idInput_, _page);
             if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueText())) {
                 elt_.setAttribute(session.getRendKeyWords().getAttrValue(), empt(nCont_.getValue()));
             } else if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueCheckbox())) {
@@ -199,7 +201,7 @@ public final class Navigation {
         }
     }
 
-    private void se(BeanLgNames _advStandards, Element _formElement, long _id) {
+    private void se(Element _formElement, long _id, HtmlPage _page) {
         ElementList inputs_;
         int lengthInputs_;
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSelect());
@@ -207,7 +209,7 @@ public final class Navigation {
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeInformations nCont_ = getValue(_id, idInput_, _advStandards.getPage());
+            NodeInformations nCont_ = getValue(_id, idInput_, _page);
             ElementList options_ = elt_.getElementsByTagName(session.getRendKeyWords().getKeyWordOption());
             int optionsLen_ = options_.getLength();
             for (int j = IndexConstants.FIRST_INDEX; j < optionsLen_; j++) {
@@ -221,7 +223,7 @@ public final class Navigation {
         }
     }
 
-    private void ta(BeanLgNames _advStandards, Element _formElement, long _id) {
+    private void ta(Element _formElement, long _id, HtmlPage _page) {
         ElementList inputs_;
         int lengthInputs_;
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordTextarea());
@@ -229,7 +231,7 @@ public final class Navigation {
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeInformations nCont_ = getValue(_id, idInput_, _advStandards.getPage());
+            NodeInformations nCont_ = getValue(_id, idInput_, _page);
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int j = IndexConstants.FIRST_INDEX; j < ch_; j++) {
@@ -253,15 +255,15 @@ public final class Navigation {
         return val_.getNodeInformation();
     }
 
-    public boolean setupText(String _text, BeanLgNames _advStandards, Document _document) {
+    public boolean setupText(String _text, Document _document) {
         if (_text.isEmpty()) {
             return false;
         }
         document = _document;
-        setupText(_text, _advStandards);
+        setupText(_text);
         return true;
     }
-    public void setupText(String _text, BeanLgNames _advStandards) {
+    public void setupText(String _text) {
         ElementList nodes_;
         title = EMPTY_STRING;
         nodes_ = document.getElementsByTagName(session.getRendKeyWords().getKeyWordHead());
@@ -276,10 +278,10 @@ public final class Navigation {
             }
         }
         htmlText = _text;
-        StringList tokens_ = StringUtil.splitStrings(_advStandards.getCurrentUrl(), REF_TAG);
+        StringList tokens_ = StringUtil.splitStrings(getCurrentUrl(), REF_TAG);
         if (tokens_.size() > IndexConstants.ONE_ELEMENT) {
             referenceScroll = tokens_.get(IndexConstants.SECOND_INDEX);
-            _advStandards.setCurrentUrl(tokens_.first());
+            setCurrentUrl(tokens_.first());
         } else {
             referenceScroll = EMPTY_STRING;
         }
@@ -315,5 +317,21 @@ public final class Navigation {
 
     public void setDataBaseStruct(Struct _dataBaseStruct) {
         dataBaseStruct = _dataBaseStruct;
+    }
+
+    public String getCurrentUrl() {
+        return currentUrl;
+    }
+
+    public void setCurrentUrl(String _v) {
+        this.currentUrl = _v;
+    }
+
+    public String getCurrentBeanName() {
+        return currentBeanName;
+    }
+
+    public void setCurrentBeanName(String _v) {
+        this.currentBeanName = _v;
     }
 }

@@ -2,6 +2,7 @@ package code.formathtml.util;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
@@ -58,7 +59,7 @@ import code.sml.Element;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgNames {
+public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgNames,WithPageInfos {
 
     private static final String REF_TAG = "#";
 
@@ -589,8 +590,8 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
             return;
         }
         String currentUrl_ = session_.getFirstUrl();
-        Struct bean_ = getBeanOrNull(getCurrentBeanName());
-        proc(_nav, _ctx, _rendStackCall, currentUrl_, bean_, getCurrentBeanName());
+        Struct bean_ = getBeanOrNull(_nav.getCurrentBeanName());
+        proc(_nav, _ctx, _rendStackCall, currentUrl_, bean_, _nav.getCurrentBeanName());
     }
 
     public void processRendAnchorRequest(Element _ancElt,  Navigation _nav, ContextEl _ctx, RendStackCall _rendStack) {
@@ -614,7 +615,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
-            String urlDest_ = getCurrentUrl();
+            String urlDest_ = _nav.getCurrentUrl();
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(actionCommand_.length());
                 urlDest_ = getRendUrlDest(sgn_, return_, _ctx, _rendStack);
@@ -622,35 +623,35 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
                     return;
                 }
                 if (urlDest_ == null) {
-                    urlDest_ = getCurrentUrl();
+                    urlDest_ = _nav.getCurrentUrl();
                 }
             }
             proc(_nav, _ctx, _rendStack, urlDest_, bean_, beanName_);
             return;
         }
-        Struct bean_ = getBeanOrNull(getCurrentBeanName());
-        proc(_nav, _ctx, _rendStack, actionCommand_, bean_, getCurrentBeanName());
+        Struct bean_ = getBeanOrNull(_nav.getCurrentBeanName());
+        proc(_nav, _ctx, _rendStack, actionCommand_, bean_, _nav.getCurrentBeanName());
     }
 
     private void proc(Navigation _nav, ContextEl _ctx, RendStackCall _rendStack, String _actionCommand, Struct _bean, String _currentBeanName) {
         _rendStack.clearPages();
         String res_ = processAfterInvoke(_nav, _actionCommand, _currentBeanName, _bean, _ctx, _rendStack);
-        setup(res_, _rendStack, _actionCommand);
-        if (!_nav.setupText(res_, this, _rendStack.getDocument())) {
+        setup(_nav,res_, _rendStack, _actionCommand);
+        if (!_nav.setupText(res_, _rendStack.getDocument())) {
             return;
         }
         setCustPage(_rendStack.getHtmlPage());
     }
 
-    private void setup(String _res, RendStackCall _rendStack, String _dest) {
+    private void setup(Navigation _nav, String _res, RendStackCall _rendStack, String _dest) {
         if (_res.isEmpty()) {
             return;
         }
-        setCurrentBeanName(_rendStack.getBeanName());
-        setCurrentUrl(_dest);
+        _nav.setCurrentBeanName(_rendStack.getBeanName());
+        _nav.setCurrentUrl(_dest);
     }
     public String processAfterInvoke(Navigation _nav, String _dest, String _beanName, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
-        String curl_ = getCurrentUrl();
+        String curl_ = _nav.getCurrentUrl();
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         Struct forms_ = NullStruct.NULL_VALUE;
@@ -1067,7 +1068,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
         _nav.delPrevious(doc_, _elt);
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-            _nav.processRendFormErrors(this, _elt, lg_, errors_, errorsArgs_);
+            _nav.processRendFormErrors(_elt, lg_, errors_, errorsArgs_, getPage());
             _rendStackCall.clearPages();
             return;
         }
@@ -1253,7 +1254,18 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
         }
         return NumParsers.getString(arg_.getStruct()).getInstance();
     }
+    public String getAliasPrimBoolean() {
+        return getContent().getPrimTypes().getAliasPrimBoolean();
+    }
 
+    public String getAliasObject() {
+        return getContent().getCoreNames().getAliasObject();
+    }
 
+    public String getAliasString() {
+        return getContent().getCharSeq().getAliasString();
+    }
     public abstract void buildAliases(Element _elt, String _lg, RendKeyWords _rkw, KeyWords _kw, RendAnalysisMessages _rMess, AnalysisMessages _mess);
+
+    public abstract AbstractFileBuilder newFileBuilder();
 }

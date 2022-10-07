@@ -30,6 +30,9 @@ public abstract class EquallableRenderUtil {
     public static void assertNotNull(IntComponent _value) {
         Assert.assertNotNull(_value);
     }
+    public static void assertNotNull(ContextEl _value) {
+        Assert.assertNotNull(_value);
+    }
     public static void assertNotNull(CallingState _value) {
         Assert.assertNotNull(_value);
     }

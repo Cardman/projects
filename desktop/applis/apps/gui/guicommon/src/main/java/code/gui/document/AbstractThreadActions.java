@@ -1,8 +1,5 @@
 package code.gui.document;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ProcessMethod;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.render.MetaDocument;
 import code.gui.FrameUtil;
 import code.sml.Document;
@@ -15,31 +12,27 @@ public abstract class AbstractThreadActions implements Runnable {
         page = _page;
     }
 
-    protected void afterAction(ContextEl _ctx, RendStackCall _stackCall) {
-        if (_ctx == null || _stackCall == null) {
-            finish();
-            return;
-        }
-        ContextEl ctx_ = page.getContextCreator().removeContext(_ctx);
-        afterActionWithoutRemove(ctx_, _stackCall);
-    }
+//    protected void afterAction(ContextEl _ctx, RendStackCall _stackCall) {
+//        if (_ctx == null || _stackCall == null) {
+//            finish();
+//            return;
+//        }
+//        ContextEl ctx_ = page.getContextCreator().removeContext(_ctx);
+//        afterActionWithoutRemove(ctx_, _stackCall);
+//    }
 
-    protected void afterActionWithoutRemove(ContextEl _ctx, RendStackCall _stackCall) {
-        if (_ctx == null || _stackCall == null) {
-            finish();
-            return;
-        }
-        String error_ = ProcessMethod.error(_ctx, _stackCall.getStackCall());
-        if (error_ != null) {
-            if (page.getArea() != null) {
-                page.getArea().append(error_);
-            }
-            _stackCall.getStackCall().setNullCallingState();
-            finish();
-            return;
-        }
-        afterActionWithoutRemove();
-    }
+//    protected void afterActionWithoutRemove(ContextEl _ctx, RendStackCall _stackCall) {
+//        String error_ = ProcessMethod.error(_ctx, _stackCall.getStackCall());
+//        if (error_ != null) {
+//            if (page.getArea() != null) {
+//                page.getArea().append(error_);
+//            }
+//            _stackCall.getStackCall().setNullCallingState();
+//            finish();
+//            return;
+//        }
+//        afterActionWithoutRemove();
+//    }
 
     protected void afterActionWithoutRemove() {
         if (!page.isProcessing()) {

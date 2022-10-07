@@ -14,16 +14,11 @@ public abstract class BeanLgNames extends LgNames {
     public static final String OFF = "off";
     public static final String ON = "on";
 
-    protected static final String REF_TAG = "#";
+    public static final String DOT = ".";
 
-    protected static final String DOT = ".";
+    public static final String CALL_METHOD = "$";
 
-    protected static final String CALL_METHOD = "$";
-
-    protected static final String EMPTY_STRING = "";
-    private String currentBeanName = "";
-
-    private String currentUrl = "";
+    public static final String EMPTY_STRING = "";
 
     protected BeanLgNames(AbstractGenerator _gene) {
         super(_gene);
@@ -39,16 +34,6 @@ public abstract class BeanLgNames extends LgNames {
     }
 
     public abstract HtmlPage getPage();
-    public String getAliasPrimBoolean() {
-        return getContent().getPrimTypes().getAliasPrimBoolean();
-    }
-
-    public String getAliasObject() {
-        return getContent().getCoreNames().getAliasObject();
-    }
-    public String getAliasString() {
-        return getContent().getCharSeq().getAliasString();
-    }
 
     public static Struct wrapStd(StringList _element) {
         String v_ = oneElt(_element);
@@ -72,20 +57,5 @@ public abstract class BeanLgNames extends LgNames {
         return new StringStruct(_element);
     }
 
-    public String getCurrentBeanName() {
-        return currentBeanName;
-    }
-
-    public void setCurrentBeanName(String _v) {
-        this.currentBeanName = _v;
-    }
-
-    public String getCurrentUrl() {
-        return currentUrl;
-    }
-
-    public void setCurrentUrl(String _v) {
-        this.currentUrl = _v;
-    }
 
 }

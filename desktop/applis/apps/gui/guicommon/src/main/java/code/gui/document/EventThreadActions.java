@@ -1,11 +1,5 @@
 package code.gui.document;
 
-import code.bean.nat.BeanNatCommonLgNames;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.InitPhase;
-import code.formathtml.Navigation;
-import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 
 public final class EventThreadActions extends AbstractThreadActions {
@@ -28,27 +22,31 @@ public final class EventThreadActions extends AbstractThreadActions {
 
     @Override
     public void run() {
-        if (getPage().getStandards() instanceof BeanCustLgNames) {
-            AbstractContextCreator creator_ = getPage().getContextCreator();
-            ContextEl ctx_ = creator_.newContext(getPage().getContext());
-            RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,ctx_);
-            if (form) {
-                ((BeanCustLgNames)getPage().getStandards()).processRendFormRequest(getPage().getNavigation(), ctx_, rendStackCall_, elt);
-                afterAction(ctx_,rendStackCall_);
-                return;
-            }
-            Navigation navigation_ = getPage().getNavigation();
-            ((BeanCustLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation_, ctx_, rendStackCall_);
-            afterAction(ctx_,rendStackCall_);
-            return;
-        }
-        if (form) {
-            ((BeanNatCommonLgNames)getPage().getStandards()).processRendFormRequest(getPage().getNavigation(), elt);
+        String err_ = getPage().getRenderAction().execute(form, elt);
+        if (err_ == null) {
             afterActionWithoutRemove();
-            return;
         }
-        Navigation navigation_ = getPage().getNavigation();
-        ((BeanNatCommonLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation_);
-        afterActionWithoutRemove();
+//        if (getPage().getStandards() instanceof BeanCustLgNames) {
+//            AbstractContextCreator creator_ = getPage().getContextCreator();
+//            ContextEl ctx_ = creator_.newContext(getPage().getContext());
+//            RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,ctx_);
+//            if (form) {
+//                ((BeanCustLgNames)getPage().getStandards()).processRendFormRequest(getPage().getNavigation(), ctx_, rendStackCall_, elt);
+//                afterAction(ctx_,rendStackCall_);
+//                return;
+//            }
+//            Navigation navigation_ = getPage().getNavigation();
+//            ((BeanCustLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation_, ctx_, rendStackCall_);
+//            afterAction(ctx_,rendStackCall_);
+//            return;
+//        }
+//        if (form) {
+//            ((BeanNatCommonLgNames)getPage().getStandards()).processRendFormRequest(getPage().getNavigation(), elt);
+//            afterActionWithoutRemove();
+//            return;
+//        }
+//        Navigation navigation_ = getPage().getNavigation();
+//        ((BeanNatCommonLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation_);
+//        afterActionWithoutRemove();
     }
 }

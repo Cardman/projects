@@ -8,13 +8,8 @@ import code.expressionlanguage.utilcompo.TechInfos;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
-import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.DefaultInitialization;
 import code.gui.*;
-
-
-import code.gui.AbsMenuItem;
-
-
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
 import code.gui.images.MetaDimension;
@@ -80,11 +75,8 @@ public final class WindowRenders extends GroupFrame {
         addWindowListener(new QuittingEvent(this));
     }
 
-    public static CustThreadActions inst(String _conf, String _lgCode, BeanCustLgNames _stds, StringMap<String> _files, String _clName, String _methodName, RenderedPage _page) {
-        CustThreadActions actions_ = CustThreadActions.inst(_page, _stds, _lgCode, _conf, _files);
-        actions_.setClassDbName(_clName);
-        actions_.setMethodName(_methodName);
-        return actions_;
+    public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page) {
+        return CustThreadActions.inst(_page, _init);
     }
 
     @Override
@@ -171,7 +163,7 @@ public final class WindowRenders extends GroupFrame {
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lgCode_)){
             lgCode_ = "";
         }
-        session.initializeOnlyConf(new CustContextCreator(),lgNames_, inst(confRel_, lgCode_, lgNames_, zipFiles_, clName_, mName_, session));
+        session.initializeOnlyConf(new CustContextCreator(),lgNames_, inst(new DefaultInitialization(lgNames_, lgCode_, confRel_, zipFiles_, clName_, mName_), session));
     }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines, StringList _lgs) {
         for (String l: _lines.mid(_from)) {

@@ -2,12 +2,10 @@ package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.options.Options;
 import code.formathtml.BeanCustLgNamesImpl;
 import code.formathtml.EquallableRenderUtil;
 import code.formathtml.InitializationLgNamesRender;
 import code.formathtml.TestedBeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefaultBeanAliases;
 import code.util.StringMap;
 import org.junit.Test;
@@ -26,7 +24,6 @@ public final class RendAnalysisMessagesTest extends EquallableRenderUtil {
         def_.setBadDocument("");
         TestedBeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(lgName_);
         page_.setAnalysisMessages(new AnalysisMessages());

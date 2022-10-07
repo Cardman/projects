@@ -1,6 +1,7 @@
 package code.renders.utilcompo;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.ParseLinesArgUtil;
@@ -294,5 +295,10 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
         return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(infos.getThreadFactory().newAtomicLong(),getCustAliases().getInterceptor())));
+    }
+
+    @Override
+    public AbstractFileBuilder newFileBuilder() {
+        return new CustBeanFileBuilder(getContent(), getBeanAliases(), getCustAliases());
     }
 }

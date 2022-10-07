@@ -72,8 +72,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -85,11 +85,11 @@ public final class SubmitFormTest extends CommonRender {
         MetaComboBox combo_ = (MetaComboBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.getSelectedIndexes().clear();
         combo_.getSelectedIndexes().add(0);
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
         processRendFormRequest(a_,ctx_);
         assertNotNull(intForm_.getElt());
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
@@ -156,8 +156,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -173,11 +173,11 @@ public final class SubmitFormTest extends CommonRender {
         MetaComboList combo_ = (MetaComboList) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.getSelected().clear();
         combo_.getSelected().add(0);
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(1, ((NumberStruct)getStruct(choice_,new ClassField("pkg.CustList","length"))).intStruct());
@@ -235,8 +235,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -245,10 +245,10 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("", ((StringStruct) choice_).getInstance());
         MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("", ((StringStruct) choice_).getInstance());
@@ -295,8 +295,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -317,11 +317,11 @@ public final class SubmitFormTest extends CommonRender {
         combo_.setChecked(true);
         combo_ = (MetaRadioButton) combo_.getNextSibling();
         combo_.setChecked(false);
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
@@ -388,8 +388,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -398,11 +398,11 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setChecked(true);
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
         assertTrue(BooleanStruct.isTrue(choice_));
@@ -466,8 +466,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -476,11 +476,11 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setChecked(false);
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
         assertTrue(BooleanStruct.isFalse(choice_));
@@ -544,8 +544,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -558,11 +558,11 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaTextField combo_ = (MetaTextField) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setValue("THREE");
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" name=\"bean_one.choice\" n-i=\"0\" value=\"THREE\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("THREE", ((StringStruct) choice_).getInstance());
@@ -604,8 +604,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><textarea name=\"bean_one.choice\" n-i=\"0\">2</textarea></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -618,11 +618,11 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaTextArea combo_ = (MetaTextArea) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setValue("1");
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><textarea name=\"bean_one.choice\" n-i=\"0\">1</textarea></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(1, ((NumberStruct) choice_).intStruct());
@@ -687,8 +687,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -705,11 +705,11 @@ public final class SubmitFormTest extends CommonRender {
         number_.setValue("6");
         MetaSlider range_ = (MetaSlider) number_.getNextSibling();
         range_.setValue("8");
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
@@ -776,8 +776,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"4\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -792,11 +792,11 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(1);
         MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
         number_.setValue("6");
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"4\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
@@ -863,8 +863,8 @@ public final class SubmitFormTest extends CommonRender {
         BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
         initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"4\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -879,16 +879,20 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaSlider number_ = (MetaSlider) intForm_.getFirstChildCompo().getNextSibling().getNextSibling().getFirstChildCompo();
         number_.setValue("8");
-        SubmitForm.submit(intForm_, stds_);
+        submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
-        assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
-        assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"8\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(8, ((NumberStruct) choice_).intStruct());
+    }
+
+    private void submit(IntForm _intForm, BeanCustLgNames _stds) {
+        SubmitForm.submit(_intForm, _stds.getPage());
     }
 
     private void initializeRendSessionDoc(BeanCustLgNames _stds, ContextEl _ctx, Navigation _navigation, RendStackCall _build) {

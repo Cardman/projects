@@ -1,23 +1,21 @@
 package code.formathtml.render;
 
 import code.formathtml.HtmlPage;
-import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.util.Ints;
 import code.util.StringList;
 
 public final class SubmitForm {
     private SubmitForm(){}
-    public static void submit(IntForm _form, BeanLgNames _stds) {
-        HtmlPage htmlPage_ = _stds.getPage();
-        htmlPage_.setForm(true);
+    public static void submit(IntForm _form, HtmlPage _page) {
+        _page.setForm(true);
         long formNb_ = _form.getNumber();
-        htmlPage_.setUrl(formNb_);
+        _page.setUrl(formNb_);
         IntComponent current_ = _form.getFirstChildCompo();
         while (current_ != null) {
             if (current_ instanceof IntInput) {
                 IntInput input_ = (IntInput) current_;
-                input(htmlPage_, formNb_, input_);
+                input(_page, formNb_, input_);
             }
             IntComponent first_ = current_.getFirstChildCompo();
             if (first_ != null) {

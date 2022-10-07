@@ -19,6 +19,7 @@ import code.formathtml.util.*;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class RenderInitNavTest extends CommonRender {
@@ -540,10 +541,6 @@ public final class RenderInitNavTest extends CommonRender {
         initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>content</body></html>",n_.getHtmlText());
     }
-    private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
-        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(_lgNames);
-        return _n.loadConfiguration(_xmlConf, "", _lgNames, BeanFileBuilder.newInstance(_lgNames.getContent(),_lgNames.getBeanAliases()), def_);
-    }
 
     @Test
     public void process8Test() {
@@ -857,6 +854,277 @@ public final class RenderInitNavTest extends CommonRender {
                 "\n";
         Navigation n_ = new Navigation();
         assertTrue(loadConfiguration(lgNames_, xmlConf_, n_).getContext().isKo());
+    }
+
+    @Test
+    public void execute1() {
+        assertEq("",initDbKoConf());
+    }
+
+    @Test
+    public void execute2() {
+        assertEq("",initDbKoConfHere());
+    }
+
+    @Test
+    public void execute3() {
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<n field=\"context\">\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t</n>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='lateValidators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "</cfg>";
+        assertEq("",initDbOkConfNoCtx(xmlConf_));
+    }
+
+    @Test
+    public void execute4() {
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<n field=\"context\">\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t</n>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='lateValidators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "</cfg>";
+        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","init","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$throw $null;}}","<html><body>_</body></html>")));
+    }
+
+    @Test
+    public void execute5() {
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<n field=\"context\">\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t</n>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='lateValidators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "</cfg>";
+        assertEq("java.lang.$defErrorClass\n" +
+                "\n" +
+                "my_file:1,24:23\n" +
+                "cl.Init.", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","init","$public $class cl.Init{$static{$throw $null;}$public $static Object init(String[] names, String[] contents){$throw $null;}}","<html><body>_</body></html>")));
+    }
+
+    @Test
+    public void execute6() {
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<n field=\"context\">\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t</n>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='lateValidators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "</cfg>";
+        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","init","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
+    }
+
+    @Test
+    public void execute7() {
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<n field=\"context\">\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t</n>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='lateValidators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "</cfg>";
+        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
+    }
+
+    @Test
+    public void execute8() {
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<n field=\"context\">\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t</n>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='lateValidators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "</cfg>";
+        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"","","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
     }
     private static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.getContent().setDefaultPkg("java.lang");
@@ -1292,5 +1560,52 @@ public final class RenderInitNavTest extends CommonRender {
 
     private static ContextEl setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {
         return _stds.setupAll(new DualNavigationContext(_nav, _dual));
+    }
+
+    private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
+        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(_lgNames);
+        return _n.loadConfiguration(_xmlConf, "", _lgNames, BeanFileBuilder.newInstance(_lgNames.getContent(),_lgNames.getBeanAliases()), def_);
+    }
+    private static String initDbOkConfCtx(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
+        DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, _clName, _methodName, _brCode, _page);
+        String ex_ = de_.execute(new Navigation());
+        assertNotNull(de_.getContext());
+        return ex_;
+    }
+
+    private static String initDbOkConfNoCtx(String _xmlConf) {
+        DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, "", "", "", "");
+        String ex_ = de_.execute(new Navigation());
+        assertNull(de_.getContext());
+        return ex_;
+    }
+
+    private static DefaultInitialization initDbOkConfBuild(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
+        BeanCustLgNamesImpl stds_ = new BeanCustLgNamesImpl();
+        basicStandards(stds_);
+        String cn_ = "conf.xml";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry(cn_, _xmlConf);
+        files_.addEntry("conf_cl.txt","my_file");
+        files_.addEntry("my_file", _brCode);
+        files_.addEntry("page.html", _page);
+        return new DefaultInitialization(stds_,"", cn_, files_, _clName, _methodName);
+    }
+
+    private static String initDbKoConf() {
+        BeanCustLgNamesImpl stds_ = new BeanCustLgNamesImpl();
+        basicStandards(stds_);
+        DefaultInitialization de_ = new DefaultInitialization(stds_,"","conf.xml",new StringMap<String>(),"","");
+        return de_.execute(new Navigation());
+    }
+
+    private static String initDbKoConfHere() {
+        BeanCustLgNamesImpl stds_ = new BeanCustLgNamesImpl();
+        basicStandards(stds_);
+        String cn_ = "conf.xml";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry(cn_," ");
+        DefaultInitialization de_ = new DefaultInitialization(stds_,"",cn_,files_,"","");
+        return de_.execute(new Navigation());
     }
 }

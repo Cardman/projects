@@ -7,7 +7,7 @@ import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.WithPageInfos;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
@@ -45,7 +45,8 @@ public final class RenderedPage implements ProcessingSession {
     private ContextEl context;
 
     private AbstractContextCreator contextCreator;
-    private BeanLgNames standards;
+    private AbstractRenderAction renderAction;
+    private WithPageInfos standards;
 
     private final CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
 
@@ -100,6 +101,7 @@ public final class RenderedPage implements ProcessingSession {
     private void direct(PreparedAnalyzed _stds) {
         standards = _stds.getBeanNatLgNames();
         contextCreator = new NativeContextCreator();
+        renderAction = new NatRenderAction(this, _stds.getBeanNatLgNames());
         _stds.getBeanNatLgNames().initializeRendSessionDoc(navigation);
         setupText();
     }
@@ -117,6 +119,7 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _stds;
         contextCreator = _creator;
+        renderAction = new CustRenderAction(_creator,this,_stds);
         gene.getThreadFactory().newStartedThread(_inst);
 //        animateProcess();
     }
@@ -236,7 +239,7 @@ public final class RenderedPage implements ProcessingSession {
         area = _area;
     }
 
-    public BeanLgNames getStandards() {
+    public WithPageInfos getStandards() {
         return standards;
     }
 
@@ -263,6 +266,10 @@ public final class RenderedPage implements ProcessingSession {
 
     public void setContext(ContextEl _context) {
         this.context = _context;
+    }
+
+    public AbstractRenderAction getRenderAction() {
+        return renderAction;
     }
 
     public AbstractContextCreator getContextCreator() {

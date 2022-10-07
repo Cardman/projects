@@ -30,8 +30,8 @@ import code.formathtml.structs.Message;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
+import code.formathtml.util.WithPageInfos;
 import code.maths.Rate;
-import code.maths.montecarlo.DefaultGenerator;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
@@ -39,7 +39,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public abstract class BeanNatCommonLgNames extends BeanLgNames {
+public abstract class BeanNatCommonLgNames implements WithPageInfos {
     public static final String TYPE_LIST = "ls";
     public static final String TYPE_MAP = "lse";
     public static final String TYPE_DISPLAYABLE = "code.util.ints.Displayable";
@@ -78,7 +78,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 
     private NatHtmlPage natPage;
     protected BeanNatCommonLgNames() {
-        super(new DefaultGenerator());
     }
 
     public static IntStruct sum(Struct[] _args) {
@@ -147,7 +146,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         return _char != END_ARGS;
     }
-    @Override
+
     public void build() {
         buildBeans();
         buildOther();
@@ -192,11 +191,11 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 
     public static Struct getStructToBeValidated(StringList _values, String _className) {
         if (StringUtil.quickEq(_className,TYPE_RATE)) {
-            String value_ = oneElt(_values);
+            String value_ = BeanLgNames.oneElt(_values);
             return new RateStruct(RateStruct.convertToRate(str(value_)),TYPE_RATE);
         }
         if (StringUtil.quickEq(_className, STRING)) {
-            return wrapStd(_values);
+            return BeanLgNames.wrapStd(_values);
         }
         return getStructToBeValidatedPrim(_values, _className);
     }
@@ -256,7 +255,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         _nav.delPrevious(doc_, _elt);
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-            _nav.processRendFormErrors(this, _elt, lg_, errors_, errorsArgs_);
+            _nav.processRendFormErrors(_elt, lg_, errors_, errorsArgs_, getPage());
             st_.clearPages();
             return;
         }
@@ -423,8 +422,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         String lg_ = _nav.getLanguage();
         initBeans(session_,lg_);
         String currentUrl_ = session_.getFirstUrl();
-        Struct bean_ = getBeanOrNull(getCurrentBeanName());
-        proc(_nav, _rendStackCall, currentUrl_, bean_, getCurrentBeanName());
+        Struct bean_ = getBeanOrNull(_nav.getCurrentBeanName());
+        proc(_nav, _rendStackCall, currentUrl_, bean_, _nav.getCurrentBeanName());
     }
 
     public void processRendAnchorRequest(Element _ancElt, Navigation _nav) {
@@ -437,26 +436,26 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         Configuration session_ = _nav.getSession();
         String actionCommand_ = _ancElt.getAttribute(StringUtil.concat(session_.getPrefix(),session_.getRendKeyWords().getAttrCommand()));
-        if (actionCommand_.contains(CALL_METHOD)) {
+        if (actionCommand_.contains(BeanLgNames.CALL_METHOD)) {
             _rendStack.clearPages();
             NatImportingPage ip_ = new NatImportingPage();
             _rendStack.addPage(ip_);
-            int indexPoint_ = actionCommand_.indexOf(DOT);
+            int indexPoint_ = actionCommand_.indexOf(BeanLgNames.DOT);
             String action_ = actionCommand_
                     .substring(indexPoint_ + 1);
             String methodName_ = methName(action_);
             String suffix_ = suff(action_);
             String beanName_ = actionCommand_
-                    .substring(actionCommand_.indexOf(CALL_METHOD) + 1, indexPoint_);
+                    .substring(actionCommand_.indexOf(BeanLgNames.CALL_METHOD) + 1, indexPoint_);
             Struct bean_ = getBeanOrNull(beanName_);
             setGlobalArgumentStruct(bean_, _rendStack);
             Struct return_ = redirect(natPage,bean_, _rendStack);
-            String urlDest_ = getString(return_, getCurrentUrl(), getNavigation(), StringUtil.concat(beanName_, DOT, methodName_, suffix_));
+            String urlDest_ = getString(return_, _nav.getCurrentUrl(), getNavigation(), StringUtil.concat(beanName_, BeanLgNames.DOT, methodName_, suffix_));
             proc(_nav, _rendStack, urlDest_, bean_, beanName_);
             return;
         }
-        Struct bean_ = getBeanOrNull(getCurrentBeanName());
-        proc(_nav, _rendStack, actionCommand_, bean_, getCurrentBeanName());
+        Struct bean_ = getBeanOrNull(_nav.getCurrentBeanName());
+        proc(_nav, _rendStack, actionCommand_, bean_, _nav.getCurrentBeanName());
     }
 
     private void proc(Navigation _nav, NatRendStackCall _rendStack, String _actionCommand, Struct _bean, String _currentBeanName) {
@@ -464,9 +463,9 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         Configuration session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
         String res_ = processAfterInvoke(session_, _actionCommand, _currentBeanName, form(_bean), lg_, _rendStack);
-        setCurrentBeanName(_rendStack.getBeanName());
-        setCurrentUrl(_actionCommand);
-        _nav.setupText(res_, this, _rendStack.getDocument());
+        _nav.setCurrentBeanName(_rendStack.getBeanName());
+        _nav.setCurrentUrl(_actionCommand);
+        _nav.setupText(res_, _rendStack.getDocument());
         setNatPage(_rendStack.getHtmlPage());
     }
 
@@ -488,7 +487,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public static String suff(String _action) {
         String suffix_;
         if (_action.indexOf(BEGIN_ARGS) == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            suffix_ = EMPTY_STRING;
+            suffix_ = BeanLgNames.EMPTY_STRING;
         } else {
             suffix_ = _action.substring(_action.indexOf(BEGIN_ARGS));
             StringBuilder str_ = getStringBuilder(suffix_);
@@ -588,7 +587,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
     public static Struct getStructToBeValidatedPrim(StringList _values, String _className) {
         if (StringUtil.quickEq(_className,PRIM_BOOLEAN)) {
-            return BooleanStruct.of(StringUtil.quickEq(_values.first(),ON));
+            return BooleanStruct.of(StringUtil.quickEq(_values.first(),BeanLgNames.ON));
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
         return new LongStruct(val_.getValue());
