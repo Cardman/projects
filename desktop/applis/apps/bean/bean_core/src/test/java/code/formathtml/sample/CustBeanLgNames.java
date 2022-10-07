@@ -13,7 +13,6 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public final class CustBeanLgNames extends BeanNatCommonLgNames implements AbstractNatImpLgNames {
 
@@ -808,14 +807,14 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         getStds().addEntry(TYPE_SIMPLE_DATA_BASE, cl_);
     }
 
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
+    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         StringMapObjectBase forms_ = new StringMapObjectBase();
         forms_.put("typedShort",0);
         forms_.putAllMapBase(_bean);
         String currentBeanName_;
-        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
+        NatDocumentBlock rendDocumentBlock_ = getRender(_dest,_curUrl);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
         StringMap<Integer> oldMap_ = ((SampleBeanStruct) bean_).getMap();
@@ -826,7 +825,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         ((SampleBeanStruct) bean_).getTree().addAllEntries(oldTree_);
         ((SampleBeanStruct) bean_).getOthers().addAllEntries(others_);
         _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, _rendStack);
+        String res_ = getRes(rendDocumentBlock_, _conf, _rendStack);
+        return new InvokedPageOutput(getDest(_dest,_curUrl),res_);
     }
 
     @Override

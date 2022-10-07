@@ -470,17 +470,10 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         _rendStack.clearPages();
         Configuration session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
-        NatDocumentBlock v_ = getRenders().getVal(_actionCommand);
-        String dest_;
-        if (v_ == null) {
-            dest_ = _nav.getCurrentUrl();
-        } else {
-            dest_ = _actionCommand;
-        }
-        String res_ = processAfterInvoke(session_, dest_, _currentBeanName, form(_bean), lg_, _rendStack);
+        InvokedPageOutput res_ = processAfterInvoke(session_, _actionCommand,_nav.getCurrentUrl(), _currentBeanName, form(_bean), lg_, _rendStack);
         _nav.setCurrentBeanName(_rendStack.getBeanName());
-        _nav.setCurrentUrl(dest_);
-        _nav.setupText(res_, _rendStack.getDocument());
+        _nav.setCurrentUrl(res_.getDest());
+        _nav.setupText(res_.getRes(), _rendStack.getDocument());
         setNatPage(_rendStack.getHtmlPage());
     }
 
@@ -549,7 +542,7 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         return str_;
     }
 
-    protected abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack);
+    protected abstract InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack);
 
 //    @Override
 //    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
@@ -636,6 +629,20 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
 
     public StringMap<Struct> getBeansStruct() {
         return beansStruct;
+    }
+    public NatDocumentBlock getRender(String _one, String _two) {
+        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_one);
+        if (rendDocumentBlock_ != null) {
+            return rendDocumentBlock_;
+        }
+        return getRenders().getVal(_two);
+    }
+    public String getDest(String _one, String _two) {
+        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_one);
+        if (rendDocumentBlock_ != null) {
+            return _one;
+        }
+        return _two;
     }
 
     public StringMap<NatDocumentBlock> getRenders() {

@@ -73,12 +73,14 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
         getStds().addEntry(TYPE_DECLARING_PLAYER_VALUE, std_);
     }
 
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
+    @Override
+    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, _rendStack);
+        String res_ = getRes(rendDocumentBlock_, _conf, _rendStack);
+        return new InvokedPageOutput(_dest,res_);
     }
 
     public static ArrayStruct getSumDeclaringPlayerArray(CustList<BeloteSumDeclaringPlayer> _ls) {
