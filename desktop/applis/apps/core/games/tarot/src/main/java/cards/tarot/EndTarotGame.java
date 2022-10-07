@@ -1748,8 +1748,10 @@ public final class EndTarotGame {
             short pointsAnnoncesAutresJoueurs_ = 0;
             short pointsAnnoncesJoueur_ = pointsAnnoncesJoueur(_relations, _declaresHandfuls, _declaresMiseres, _smallBound, joueur_);
             short sommePrimeSupplementaire_ = 0;
+            short sommePrimeSupplementaireEq_ = 0;
             for (byte j_ = IndexConstants.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
                 if (_relations.memeEquipe(j_, joueur_)) {
+                    sommePrimeSupplementaireEq_ += _primeSupplementaire.get(j_);
                     continue;
                 }
                 sommePrimeSupplementaire_ += _primeSupplementaire.get(j_);
@@ -1764,7 +1766,7 @@ public final class EndTarotGame {
                 }
             }
             short score_ = (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + _sumLoc / 2)
-                    + (nombreJoueurs_ - 1) * (pointsAnnoncesJoueur_ + _primeSupplementaire.get(joueur_))
+                    + (nombreJoueurs_ - 1) * (pointsAnnoncesJoueur_ + sommePrimeSupplementaireEq_)
                     - pointsAnnoncesAutresJoueurs_ - sommePrimeSupplementaire_));
             scores_.add(
                     score_);
