@@ -569,6 +569,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
         assertEq(6, nbBeatTrainers(game_.getBeatTrainer(),false));
+        assertEq(1, nbBeatTrainers(game_.getBeatTrainer(),true));
         assertSame(BoolVal.TRUE,game_.getBeatTrainer().getVal(new NbFightCoords(newCoords(2, 0, 11, 4), 0)));
         assertEq(new LgInt("0"),game_.getPlayer().getMoney());
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
@@ -953,6 +954,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         assertSame(BoolVal.TRUE,game_.getTakenPokemon().getVal(newCoords(2, 0, 11, 2)));
         assertEq(2, game_.getTakenPokemon().size());
         assertEq(1, nbPokemon(game_.getTakenPokemon(),false));
+        assertEq(1, nbPokemon(game_.getTakenPokemon(),true));
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
     }
 

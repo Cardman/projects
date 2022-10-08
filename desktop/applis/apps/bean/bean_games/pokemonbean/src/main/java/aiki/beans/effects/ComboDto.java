@@ -1,14 +1,14 @@
 package aiki.beans.effects;
 
+import aiki.beans.facade.comparators.DictionaryComparatorCombos;
 import aiki.fight.moves.effects.EffectCombo;
 import code.util.StringList;
-import code.util.TreeMap;
 
 public final class ComboDto {
 
-    private TreeMap<StringList, EffectCombo> combos;
+    private final DictionaryComparatorCombos combos;
 
-    public ComboDto(TreeMap<StringList, EffectCombo> _combos) {
+    public ComboDto(DictionaryComparatorCombos _combos) {
         combos = _combos;
     }
 

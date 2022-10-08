@@ -1,26 +1,22 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
-import aiki.tsts.TstsPk;
-import code.util.*;
-import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
-import org.junit.Test;
-
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
-import aiki.map.pokemon.Egg;
-import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.WildPk;
+import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
+import aiki.util.TeamPositionList;
 import code.maths.LgInt;
 import code.maths.Rate;
-import aiki.util.*;
+import code.util.Bytes;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.core.BoolVal;
+import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
+import org.junit.Test;
 
 public class TeamTest extends InitializationDataBase {
 
@@ -735,7 +731,8 @@ public class TeamTest extends InitializationDataBase {
         Fighter fighter_ = team_.getMembers().getVal((byte) 0);
         assertEq(24, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(24, getNbStatusRelatByRounds(fighter_,(short) 0));
+        assertEq(0, fighter_.getStatusRelatValues().getMinimum(-1));
+        assertEq(0, fighter_.getStatusRelatValues().getMaximum(-1));
         assertEq(6, fighter_.getTrackingMoves().size());
         assertEq(2, fighter_.getPrivateMoves().size());
         assertEq(0, fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,fighterCoordsOne_)).size());
@@ -745,7 +742,8 @@ public class TeamTest extends InitializationDataBase {
         fighter_ = team_.getMembers().getVal((byte) 1);
         assertEq(24, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(24, getNbStatusRelatByRounds(fighter_,(short) 0));
+        assertEq(0, fighter_.getStatusRelatValues().getMinimum(-1));
+        assertEq(0, fighter_.getStatusRelatValues().getMaximum(-1));
         assertEq(6, fighter_.getTrackingMoves().size());
         assertEq(2, fighter_.getPrivateMoves().size());
         assertEq(0, fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,fighterCoordsOne_)).size());
@@ -1586,15 +1584,15 @@ public class TeamTest extends InitializationDataBase {
         assertEq(1, list_.size());
         assertTrue(list_.containsObj((byte) 3));
     }
-
-    static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
-//        int i_ = IndexConstants.SIZE_EMPTY;
-//        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
-//            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
-//                i_++;
-//            }
-//        }
-//        return i_;
-        return TstsPk.getNbStatusRelatByRounds(_f, _nbRounds);
-    }
+//
+//    static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
+////        int i_ = IndexConstants.SIZE_EMPTY;
+////        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+////            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
+////                i_++;
+////            }
+////        }
+////        return i_;
+//        return TstsPk.getNbStatusRelatByRounds(_f, _nbRounds);
+//    }
 }

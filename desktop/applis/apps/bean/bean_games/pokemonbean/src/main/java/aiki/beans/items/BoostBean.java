@@ -1,38 +1,35 @@
 package aiki.beans.items;
-import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
-import aiki.comparators.ComparatorTrStrings;
+
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Boost;
 import code.maths.Rate;
 import code.util.AbsMap;
-import code.util.IdMap;
 import code.util.StringMap;
-import code.util.TreeMap;
 
 public class BoostBean extends ItemBean {
     private Rate winPp;
     private int maxEv;
-    private TreeMap<String, Short> happiness;
-    private TreeMap<Statistic, Short> evs;
+    private DictionaryComparator<String, Short> happiness;
+    private DictionaryComparator<Statistic, Short> evs;
 
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         maxEv = data_.getMaxEv();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Boost item_ = (Boost) getItem();
         winPp = item_.getWinPp();
-        TreeMap<String, Short> happiness_;
-        happiness_ = new TreeMap<String, Short>(new ComparatorTrStrings(translatedItems_));
+        DictionaryComparator<String, Short> happiness_;
+        happiness_ = DictionaryComparatorUtil.buildItemsShort(data_,getLanguage());
         for (String i: item_.getHappiness().getKeys()) {
             happiness_.put(i, item_.getHappiness().getVal(i));
         }
         happiness = happiness_;
-        TreeMap<Statistic, Short> evs_;
-        evs_ = new TreeMap<Statistic, Short>(new ComparatorTrStringStatistic(translatedStatistics_));
+        DictionaryComparator<Statistic, Short> evs_;
+        evs_ = DictionaryComparatorUtil.buildStatisShort(data_,getLanguage());
         for (Statistic s: item_.getEvs().getKeys()) {
             evs_.put(s, item_.getEvs().getVal(s));
         }
@@ -43,7 +40,7 @@ public class BoostBean extends ItemBean {
         return !item_.isEmpty();
     }
     public String getTrHappiness(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         String item_ = happiness.getKey(_index);
         return translatedItems_.getVal(item_);
@@ -54,7 +51,7 @@ public class BoostBean extends ItemBean {
         return CST_BALL;
     }
     public String getTrEv(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic statistic_ = evs.getKey(_index);
         return translatedStatistics_.getVal(statistic_);
@@ -64,11 +61,11 @@ public class BoostBean extends ItemBean {
         return winPp;
     }
 
-    public TreeMap<String,Short> getHappiness() {
+    public DictionaryComparator<String,Short> getHappiness() {
         return happiness;
     }
 
-    public TreeMap<Statistic,Short> getEvs() {
+    public DictionaryComparator<Statistic,Short> getEvs() {
         return evs;
     }
 

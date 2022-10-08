@@ -1,5 +1,6 @@
 package aiki.beans.moves.effects;
-import aiki.comparators.ComparatorTrStrings;
+
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectProtectFromTypes;
 import code.util.StringList;
@@ -12,18 +13,17 @@ public class EffectProtectFromTypesBean extends EffectBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         EffectProtectFromTypes effect_ = (EffectProtectFromTypes) getEffect();
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+        DataBase data_ = getDataBase();
         StringList immuAgainstTypes_;
         immuAgainstTypes_ = new StringList();
         for (String type_: effect_.getImmuAgainstTypes()) {
             immuAgainstTypes_.add(type_);
         }
-        immuAgainstTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
+        immuAgainstTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         immuAgainstTypes = immuAgainstTypes_;
     }
     public String getTrType(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = immuAgainstTypes.get(_index);
         return translatedTypes_.getVal(type_);

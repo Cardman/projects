@@ -5,6 +5,7 @@ import aiki.beans.facade.solution.dto.PlaceTrainerDto;
 import aiki.beans.facade.solution.dto.StepDto;
 import aiki.beans.facade.solution.dto.WildPokemonDto;
 import aiki.comparators.ComparatorPlaceLevel;
+import aiki.comparators.DictionaryComparatorPlaceLevel;
 import aiki.db.DataBase;
 import aiki.fight.pokemon.GenderName;
 import aiki.map.Solution;
@@ -46,7 +47,7 @@ public class SolutionBean extends CommonBean {
 //                        return _o1.getSecond().compareTo(_o2.getSecond());
 //                    }
 //                });
-            TreeMap<PlaceLevel,CustList<WildPokemonDto>> treeMap_ = new TreeMap<PlaceLevel,CustList<WildPokemonDto>>(new ComparatorPlaceLevel());
+            DictionaryComparatorPlaceLevel<CustList<WildPokemonDto>> treeMap_ = new DictionaryComparatorPlaceLevel<CustList<WildPokemonDto>>();
             for (PlaceLevel key_: step_.getCaughtPokemonPlaceLevel().getKeys()) {
                 CustList<WildPokemonDto> pokemon_ = dto(data_, step_, key_);
                 pokemon_.sortElts(new ComparatorWildPokemonDto());

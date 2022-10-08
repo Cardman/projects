@@ -1,6 +1,6 @@
 package aiki.beans.endround;
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.enums.EndTurnType;
@@ -31,7 +31,7 @@ public class EffectEndRoundBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         element = data_.getEvtEndRound().get(index);
         move = DataBase.EMPTY_STRING;
         ability = DataBase.EMPTY_STRING;
@@ -90,7 +90,7 @@ public class EffectEndRoundBean extends CommonBean {
 
     protected EffectEndRound getEffect(int _index) {
         EffectEndRound effect_ = null;
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         if (element_.getEndRoundType() == EndTurnType.ATTAQUE) {
             String move_ = element_.getElement();
@@ -121,44 +121,42 @@ public class EffectEndRoundBean extends CommonBean {
         return effect_;
     }
     public String clickMoves(int _indexOne, int _indexTwo) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_indexOne);
         StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
-        StringMap<String> translatedMoves_;
-        translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         getForms().put(CST_MOVE, moves_.get(_indexTwo));
         return CST_MOVE;
     }
     public String getTrMoves(int _indexTwo) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(index);
         StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return translatedMoves_.getVal(moves_.get(_indexTwo));
     }
     public String clickMove(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         getForms().put(CST_MOVE, element_.getElement());
         return CST_MOVE;
     }
     public String clickAbility(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         getForms().put(CST_ABILITY, element_.getElement());
         return CST_ABILITY;
     }
     public String clickItem(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         getForms().put(CST_ITEM, element_.getElement());
         return CST_ITEM;
     }
     public String clickStatus(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         getForms().put(CST_STATUS, element_.getElement());
         return CST_STATUS;

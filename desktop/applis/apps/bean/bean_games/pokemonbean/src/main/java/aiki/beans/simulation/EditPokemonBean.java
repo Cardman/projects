@@ -5,7 +5,8 @@ import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.comparators.ComparatorStatistic;
 import aiki.beans.facade.simulation.dto.EvLine;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -26,7 +27,7 @@ public class EditPokemonBean extends CommonBean {
     private String item = DataBase.EMPTY_STRING;
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private String ball;
-    private TreeMap<String,String> balls;
+    private DictionaryComparator<String,String> balls;
 
     @Override
     public void beforeDisplaying() {
@@ -36,7 +37,7 @@ public class EditPokemonBean extends CommonBean {
         ball = getForms().getValStr(CST_CATCHING_BALL);
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        balls = new TreeMap<String, String>(new ComparatorTrStrings(translationsItems_));
+        balls = DictionaryComparatorUtil.buildItemsStr(data_,getLanguage());
         for (String b: data_.getItems().getKeys()) {
             if (data_.getItems().getVal(b) instanceof Ball) {
                 balls.put(b, translationsItems_.getVal(b));
@@ -178,7 +179,7 @@ public class EditPokemonBean extends CommonBean {
         return experience;
     }
 
-    public TreeMap<String,String> getBalls() {
+    public DictionaryComparator<String,String> getBalls() {
         return balls;
     }
 

@@ -1,5 +1,6 @@
 package aiki.beans.moves.effects;
-import aiki.comparators.ComparatorTrStrings;
+
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
@@ -19,8 +20,7 @@ public class EffectCloneBean extends EffectBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        DataBase data_ = getDataBase();
         EffectClone effect_ = (EffectClone) getEffect();
         hpRateClone = effect_.getHpRateClone();
         StringList movesEndRound_;
@@ -28,7 +28,7 @@ public class EffectCloneBean extends EffectBean {
         movesEndRound_.addAllElts(data_.getMovesAnticipation());
         movesEndRound_.addAllElts(data_.getTrappingMoves());
         movesEndRound_.removeDuplicates();
-        movesEndRound_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesEndRound_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesEndRound = movesEndRound_;
         StringList movesBatonPass_;
         movesBatonPass_ = new StringList();
@@ -42,7 +42,7 @@ public class EffectCloneBean extends EffectBean {
             }
         }
         movesBatonPass_.removeDuplicates();
-        movesBatonPass_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesBatonPass_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesBatonPass = movesBatonPass_;
         StringList movesSending_;
         movesSending_ = new StringList();
@@ -53,14 +53,13 @@ public class EffectCloneBean extends EffectBean {
                     continue;
                 }
                 EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) e;
-                if (eff_.getDamageRateAgainstFoe().isEmpty()) {
-                    continue;
+                if (!eff_.getDamageRateAgainstFoe().isEmpty()) {
+                    movesSending_.add(m);
                 }
-                movesSending_.add(m);
             }
         }
         movesSending_.removeDuplicates();
-        movesSending_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesSending_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesSending = movesSending_;
     }
     public String clickMoveEndRound(int _index) {
@@ -70,7 +69,7 @@ public class EffectCloneBean extends EffectBean {
     }
     public String getTrMovesEndRound(int _index) {
         String move_ = movesEndRound.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
@@ -81,7 +80,7 @@ public class EffectCloneBean extends EffectBean {
     }
     public String getTrMovesBatonPass(int _index) {
         String move_ = movesBatonPass.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
@@ -92,7 +91,7 @@ public class EffectCloneBean extends EffectBean {
     }
     public String getTrMovesSending(int _index) {
         String move_ = movesSending.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }

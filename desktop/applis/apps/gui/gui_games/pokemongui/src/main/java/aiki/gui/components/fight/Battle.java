@@ -6,7 +6,7 @@ package aiki.gui.components.fight;
 
 
 
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.ComparatorTr;
 import aiki.db.DataBase;
 import aiki.game.fight.*;
 import aiki.gui.threads.*;
@@ -1161,7 +1161,7 @@ public class Battle extends ChildFrame {
     private void initLearntMovesAbilities() {
         StringMap<StringMap<String>> trMoves_;
         trMoves_ = facade.getData().getTranslatedMoves();
-        TreeMap<String,BoolVal> moves_ = new TreeMap<String, BoolVal>(new ComparatorTrStrings(trMoves_.getVal(window.getLanguageKey())));
+        TreeMap<String,BoolVal> moves_ = new TreeMap<String, BoolVal>(new ComparatorTr<String>(trMoves_.getVal(window.getLanguageKey())));
         NatStringTreeMap<BoolVal> retMoves_ = facade.getMoves();
         moves_.putAllMap(retMoves_);
         movesLearnPanel.removeAll();
@@ -1213,7 +1213,7 @@ public class Battle extends ChildFrame {
 //                return transOne_.compareTo(transTwo_);
 //            }
 //        });
-        abilitiesCopy_.sortElts(new ComparatorTrStrings(facade.getTranslatedAbilitiesCurLanguage()));
+        abilitiesCopy_.sortElts(new ComparatorTr<String>(facade.getTranslatedAbilitiesCurLanguage()));
         for (String a: abilitiesCopy_) {
             AbilityLabel ab_ = new AbilityLabel(facade.translateAbility(a), a, window.getCompoFactory());
 //            ab_.setSelected(facade.getAbility());

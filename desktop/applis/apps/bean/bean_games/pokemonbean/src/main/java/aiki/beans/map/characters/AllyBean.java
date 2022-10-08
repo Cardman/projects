@@ -1,7 +1,8 @@
 package aiki.beans.map.characters;
 
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.beans.items.ItemsBean;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
 import aiki.map.characters.Ally;
@@ -17,9 +18,7 @@ public class AllyBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        DataBase data_ = getDataBase();
         CustList<PkTrainer> team_;
         team_ = new CustList<PkTrainer>();
         CustList<PkTrainer> list_ = ally.getTeam();
@@ -33,13 +32,13 @@ public class AllyBean extends CommonBean {
             pk_.setLevel(p.getLevel());
             pk_.setMoves(new StringList());
             pk_.getMoves().addAllElts(p.getMoves());
-            pk_.getMoves().sortElts(new ComparatorTrStrings(translationsMoves_));
+            pk_.getMoves().sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
             team_.add(pk_);
         }
         team = team_;
     }
     public String getImage(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PkTrainer pk_;
         pk_ = team.get(_index);
         String name_ = pk_.getName();
@@ -47,7 +46,7 @@ public class AllyBean extends CommonBean {
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         PkTrainer pk_;
@@ -63,7 +62,7 @@ public class AllyBean extends CommonBean {
         return CST_POKEMON;
     }
     public String getAbility(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         PkTrainer pk_;
@@ -79,7 +78,7 @@ public class AllyBean extends CommonBean {
         return CST_ABILITY;
     }
     public String getItem(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         PkTrainer pk_;
@@ -88,58 +87,59 @@ public class AllyBean extends CommonBean {
         return translationsItems_.getVal(item_);
     }
     public String clickItem(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PkTrainer pk_;
         pk_ = team.get(_index);
         String item_ = pk_.getItem();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
-        if (it_ instanceof Ball) {
-            return CST_BALL;
-        }
-        if (it_ instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (it_ instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (it_ instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (it_ instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (it_ instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (it_ instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (it_ instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (it_ instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (it_ instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (it_ instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (it_ instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (it_ instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (it_ instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
+        return ItemsBean.switchItem(it_);
+//        if (it_ instanceof Ball) {
+//            return CST_BALL;
+//        }
+//        if (it_ instanceof Berry) {
+//            return CST_BERRY;
+//        }
+//        if (it_ instanceof Boost) {
+//            return CST_BOOST;
+//        }
+//        if (it_ instanceof EvolvingItem) {
+//            return CST_EVOLVINGITEM;
+//        }
+//        if (it_ instanceof EvolvingStone) {
+//            return CST_EVOLVINGSTONE;
+//        }
+//        if (it_ instanceof Fossil) {
+//            return CST_FOSSIL;
+//        }
+//        if (it_ instanceof HealingHpStatus) {
+//            return CST_HEALINGHPSTATUS;
+//        }
+//        if (it_ instanceof HealingStatus) {
+//            return CST_HEALINGSTATUS;
+//        }
+//        if (it_ instanceof HealingHp) {
+//            return CST_HEALINGHP;
+//        }
+//        if (it_ instanceof HealingPp) {
+//            return CST_HEALINGPP;
+//        }
+//        if (it_ instanceof HealingItem) {
+//            return CST_HEALINGITEM;
+//        }
+//        if (it_ instanceof ItemForBattle) {
+//            return CST_ITEMFORBATTLE;
+//        }
+//        if (it_ instanceof Repel) {
+//            return CST_REPEL;
+//        }
+//        if (it_ instanceof SellingItem) {
+//            return CST_SELLINGITEM;
+//        }
+//        return CST_ITEM;
     }
     public String getMove(int _index, int _moveIndex) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         PkTrainer pk_;

@@ -2,7 +2,8 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.facade.comparators.ComparatorStatisticType;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
@@ -11,6 +12,7 @@ import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
 import code.util.*;
+import code.util.ints.Comparing;
 import code.util.ints.Listable;
 
 public class EffectGlobalBean extends EffectBean {
@@ -24,7 +26,7 @@ public class EffectGlobalBean extends EffectBean {
     private NatStringTreeMap< Rate> multDamagePrepaRound;
     private StringList movesUsedByTargetedFighters;
     private Rate multEffectLovingAlly;
-    private TreeMap<String, Rate> multPowerMoves;
+    private DictionaryComparator<String, Rate> multPowerMoves;
     private TreeMap<StatisticType, Rate> multStatIfContainsType;
     private StringList cancelEffects;
     private NatStringTreeMap< Rate> multDamageTypesMoves;
@@ -41,12 +43,9 @@ public class EffectGlobalBean extends EffectBean {
         effectGlobalCore = effect_.getEffectGlobalCore();
         DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         multEffectLovingAlly = effect_.getMultEffectLovingAlly();
-        preventStatus = listTrStrings(effect_.getPreventStatus(), translatedStatus_);
+        preventStatus = listTrStrings(effect_.getPreventStatus(), DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         immuneTypes = list(effect_.getImmuneTypes(), translatedTypes_);
 //        TreeMap<TypesDuo, Rate> efficiencyMoves_;
 //        efficiencyMoves_ = new TreeMap<new>(new NaturalComparator<TypesDuo>() {
@@ -69,11 +68,11 @@ public class EffectGlobalBean extends EffectBean {
         }
         efficiencyMoves = efficiencyMoves_;
         disableImmuAgainstTypes = list(effect_.getDisableImmuAgainstTypes(), translatedTypes_);
-        cancelProtectingAbilities = listTrStrings(effect_.getCancelProtectingAbilities(), translatedAbilities_);
-        unusableMoves = listTrStrings(effect_.getUnusableMoves(), translatedMoves_);
-        cancelEffects = listTrStrings(effect_.getCancelEffects(), translatedMoves_);
-        TreeMap<String, Rate> multPowerMoves_;
-        multPowerMoves_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedMoves_));
+        cancelProtectingAbilities = listTrStrings(effect_.getCancelProtectingAbilities(), DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        unusableMoves = listTrStrings(effect_.getUnusableMoves(), DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        cancelEffects = listTrStrings(effect_.getCancelEffects(), DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        DictionaryComparator<String, Rate> multPowerMoves_;
+        multPowerMoves_ = DictionaryComparatorUtil.buildMovesRate(data_,getLanguage());
         for (String m: effect_.getMultPowerMoves().getKeys()) {
             multPowerMoves_.put(m, effect_.getMultPowerMoves().getVal(m));
         }
@@ -88,7 +87,7 @@ public class EffectGlobalBean extends EffectBean {
         cancelChgtStat = cancelChgtStat_;
         invokedMoveTerrain = effect_.getInvokedMoveTerrain();
         StringList invokingMoves_ = invokingMoves(data_);
-        invokingMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        invokingMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         invokingMoves = invokingMoves_;
         StringList changedTypesTerrain_;
         changedTypesTerrain_ = new StringList();
@@ -97,7 +96,7 @@ public class EffectGlobalBean extends EffectBean {
         }
         changedTypesTerrain = changedTypesTerrain_;
         StringList invokingMovesChangingTypes_ = invokingMovesChangingTypes(data_);
-        invokingMovesChangingTypes_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        invokingMovesChangingTypes_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         invokingMovesChangingTypes = invokingMovesChangingTypes_;
         TreeMap<StatisticType, Rate> multStatIfContainsType_;
 //        multStatIfContainsType_ = new TreeMap<new>(new NaturalComparator<Pair<String,String>>() {
@@ -120,7 +119,7 @@ public class EffectGlobalBean extends EffectBean {
         }
         multStatIfContainsType = multStatIfContainsType_;
         multDamagePrepaRound = map(effect_.getMultDamagePrepaRound(), translatedTypes_);
-        movesUsedByTargetedFighters = listTrStrings(effect_.getMovesUsedByTargetedFighters(), translatedMoves_);
+        movesUsedByTargetedFighters = listTrStrings(effect_.getMovesUsedByTargetedFighters(), DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     public static StringList invokingMovesChangingTypes(DataBase _data) {
@@ -177,12 +176,12 @@ public class EffectGlobalBean extends EffectBean {
         return res_;
     }
 
-    private static StringList listTrStrings(StringList _input, StringMap<String> _translated) {
+    private static StringList listTrStrings(StringList _input, Comparing<String> _comp) {
         StringList res_ = new StringList();
         for (String s: _input) {
             res_.add(s);
         }
-        res_.sortElts(new ComparatorTrStrings(_translated));
+        res_.sortElts(_comp);
         return res_;
     }
 
@@ -372,7 +371,7 @@ public class EffectGlobalBean extends EffectBean {
         return cancelEffects;
     }
 
-    public TreeMap<String,Rate> getMultPowerMoves() {
+    public DictionaryComparator<String,Rate> getMultPowerMoves() {
         return multPowerMoves;
     }
 

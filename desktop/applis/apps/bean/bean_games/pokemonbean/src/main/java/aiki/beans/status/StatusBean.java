@@ -1,7 +1,9 @@
 package aiki.beans.status;
 
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
+
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
@@ -18,7 +20,6 @@ import code.maths.Rate;
 import code.util.*;
 
 public class StatusBean extends CommonBean {
-    private String name;
     private String displayName;
     private String animStatus;
 
@@ -28,7 +29,7 @@ public class StatusBean extends CommonBean {
     private boolean disabledEffIfSwitch;
     private int incrementEndRound;
     private boolean incrementingEndRound;
-    private TreeMap<Statistic, Rate> multStat;
+    private DictionaryComparator<Statistic, Rate> multStat;
     private StringList reasons;
     private NatStringTreeMap<String> mapVarsFail;
     private boolean endRound;
@@ -49,13 +50,13 @@ public class StatusBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        name = getForms().getValStr(CST_STATUS);
+        String n_ = getForms().getValStr(CST_STATUS);
         DataBase data_ = getDataBase();
-        animStatus = BaseSixtyFourUtil.getStringByImage(data_.getAnimStatus().getVal(name));
+        animStatus = BaseSixtyFourUtil.getStringByImage(data_.getAnimStatus().getVal(n_));
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        displayName = translatedStatus_.getVal(name);
-        Status status_ = data_.getStatus(name);
+        displayName = translatedStatus_.getVal(n_);
+        Status status_ = data_.getStatus(n_);
         incrementingDamageByRounds = false;
         singleStatus = false;
         if (!status_.getEffectEndRound().isEmpty()) {
@@ -84,8 +85,8 @@ public class StatusBean extends CommonBean {
         mapVarsFail = getMapVarsFail(data_, status_.getFail(), getLanguage());
         AbsMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        TreeMap<Statistic, Rate> multStat_;
-        multStat_ = new TreeMap<Statistic, Rate>(new ComparatorTrStringStatistic(translatedStatistics_));
+        DictionaryComparator<Statistic, Rate> multStat_;
+        multStat_ = DictionaryComparatorUtil.buildStatisRate(data_,getLanguage());
         for (Statistic s: status_.getMultStat().getKeys()) {
             multStat_.put(s, status_.getMultStat().getVal(s));
         }
@@ -205,7 +206,7 @@ public class StatusBean extends CommonBean {
         return incrementingEndRound;
     }
 
-    public TreeMap<Statistic,Rate> getMultStat() {
+    public DictionaryComparator<Statistic,Rate> getMultStat() {
         return multStat;
     }
 

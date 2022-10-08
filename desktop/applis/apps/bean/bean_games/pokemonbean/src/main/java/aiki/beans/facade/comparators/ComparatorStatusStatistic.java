@@ -4,7 +4,6 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticStatus;
 import code.util.AbsMap;
-import code.util.IdMap;
 import code.util.StringMap;
 import code.util.ints.Comparing;
 
@@ -29,7 +28,7 @@ public final class ComparatorStatusStatistic implements Comparing<StatisticStatu
         }
         AbsMap<Statistic,String> translatedStatisticsCmp_;
         translatedStatisticsCmp_ = data.getTranslatedStatistics().getVal(language);
-        return ComparatorTrStringStatistic.compare(translatedStatisticsCmp_, _o1.getStatistic(), _o2.getStatistic());
+        return ComparatorTrStrings.compareStatistic(translatedStatisticsCmp_, _o1.getStatistic(), _o2.getStatistic());
     }
 
 }

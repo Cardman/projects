@@ -4,7 +4,7 @@ import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.comparators.ComparatorMiniMapCoords;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
@@ -125,13 +125,11 @@ public class PokemonBean extends CommonBean {
             types.add(translationsTypes_.getVal(t));
         }
         types.sort();
-        StringMap<String> translationsAbilities_;
-        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilities = new StringList(pk_.getAbilities());
-        abilities.sortElts(new ComparatorTrStrings(translationsAbilities_));
+        abilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         catchingRate = pk_.getCatchingRate();
         evolutions = new StringList(pk_.getEvolutions().getKeys());
-        evolutions.sortElts(new ComparatorTrStrings(translationsPokemon_));
+        evolutions.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         evoBase = translationsPokemon_.getVal(pk_.getBaseEvo());
         expEvo = data_.getFormula(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
@@ -171,7 +169,7 @@ public class PokemonBean extends CommonBean {
             hiddenMoves.put(s, translationsMoves_.getVal(data_.getHm().getVal(s)));
         }
         moveTutors = new StringList(pk_.getMoveTutors());
-        moveTutors.sortElts(new ComparatorTrStrings(translationsMoves_));
+        moveTutors.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         //eggGroups = new StringList();
         eggGroupsPk = new StringList();
         //Map<String,String> translationsEggs_;
@@ -193,7 +191,7 @@ public class PokemonBean extends CommonBean {
         }
         //eggGroups.sort();
         //eggGroups.removeDuplicates();
-        eggGroupsPk.sortElts(new ComparatorTrStrings(translationsPokemon_));
+        eggGroupsPk.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         eggGroupsPk.removeDuplicates();
         hatchingSteps = pk_.getHatchingSteps();
     }

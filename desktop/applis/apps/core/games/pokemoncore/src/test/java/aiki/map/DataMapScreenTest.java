@@ -476,14 +476,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataMap dataMap_ = initDataMap();
         dataMap_.setSideLength(2);
         DataBase data_ = newData();
-        StringMap<int[][]> images_ = new StringMap<int[][]>();
-        StringList list_ = new StringList("3","4","5","6");
-        StringList voie_ = csvImgs("6", 9, list_);
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieTwo_ = csvImgs("12", 18, list_);
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieThree_ = csvImgs("6", 18, list_);
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
+        StringMap<int[][]> images_ = imgages();
         data_.getImages().putAllMap(images_);
         data_.setMap(dataMap_);
         data_.setupPseudoImages();
@@ -552,14 +545,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataMap dataMap_ = initDataMap();
         dataMap_.setSideLength(2);
         DataBase data_ = newData();
-        StringMap<int[][]> images_ = new StringMap<int[][]>();
-        StringList list_ = new StringList("3","4","5","6");
-        StringList voie_ = csvImgs("6", 9, list_);
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieTwo_ = csvImgs("12", 18, list_);
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieThree_ = csvImgs("6", 18, list_);
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
+        StringMap<int[][]> images_ = imgages();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -621,14 +607,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataMap dataMap_ = initDataMap();
         dataMap_.setSideLength(2);
         DataBase data_ = newData();
-        StringMap<int[][]> images_ = new StringMap<int[][]>();
-        StringList list_ = new StringList("3","4","5","6");
-        StringList voie_ = csvImgs("6", 9, list_);
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieTwo_ = csvImgs("12", 18, list_);
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieThree_ = csvImgs("6", 18, list_);
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
+        StringMap<int[][]> images_ = imgages();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -684,14 +663,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataMap dataMap_ = initDataMap();
         dataMap_.setSideLength(2);
         DataBase data_ = newData();
-        StringMap<int[][]> images_ = new StringMap<int[][]>();
-        StringList list_ = new StringList("3","4","5","6");
-        StringList voie_ = csvImgs("6", 9, list_);
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieTwo_ = csvImgs("12", 18, list_);
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieThree_ = csvImgs("6", 18, list_);
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
+        StringMap<int[][]> images_ = imgages();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -737,6 +709,18 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertTrue(backGroundImages_.contains(new ScreenCoords(7,1)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(8,0)));
         assertTrue(backGroundImages_.contains(new ScreenCoords(8,1)));
+    }
+
+    private StringMap<int[][]> imgages() {
+        StringMap<int[][]> images_ = new StringMap<int[][]>();
+        StringList list_ = new StringList("3","4","5","6");
+        StringList voie_ = csvImgs("6", 9, list_);
+        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
+        StringList voieTwo_ = csvImgs("12", 18, list_);
+        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
+        StringList voieThree_ = csvImgs("6", 18, list_);
+        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
+        return images_;
     }
 
     private StringList csvImgs(String _w, int _nb, StringList _list) {

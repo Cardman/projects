@@ -18,6 +18,7 @@ import aiki.beans.validators.PositiveRateValidator;
 import aiki.beans.validators.RateValidator;
 import aiki.beans.validators.ShortValidator;
 import aiki.beans.validators.UnselectedRadio;
+import aiki.comparators.DictionaryComparator;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.EndRoundMainElements;
@@ -304,10 +305,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static ArrayStruct getBigNatMapSta(AbsMap<String, TreeMap<Statistic, Byte>> _map) {
+    public static ArrayStruct getBigNatMapSta(AbsMap<String, DictionaryComparator<Statistic, Byte>> _map) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
         int j_ = 0;
-        for (EntryCust<String, TreeMap<Statistic, Byte>> e:_map.entryList()) {
+        for (EntryCust<String, DictionaryComparator<Statistic, Byte>> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(OBJECT,new StringStruct(e.getKey()),getStaByte(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -1106,12 +1107,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
     }
 
     public static SelectedBoolean getBoolByName(String _env) {
-        for (SelectedBoolean e : SelectedBoolean.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return SelectedBoolean.YES_AND_NO;
+        return SelectedBoolean.getBoolByName(_env);
     }
     public static DifficultyModelLaw getModelByName(String _env) {
         return DifficultyModelLaw.getModelByName(_env);

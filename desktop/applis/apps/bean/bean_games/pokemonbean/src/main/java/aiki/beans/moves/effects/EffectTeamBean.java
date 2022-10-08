@@ -1,7 +1,7 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.facade.comparators.ComparatorCategoryMult;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectTeam;
@@ -30,11 +30,9 @@ public class EffectTeamBean extends EffectBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         EffectTeam effect_ = (EffectTeam) getEffect();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         forbiddingHealing = effect_.getForbiddingHealing();
         protectAgainstCh = effect_.getProtectAgainstCh();
         defaultBoost = data_.getDefaultBoost();
@@ -83,28 +81,27 @@ public class EffectTeamBean extends EffectBean {
             multDamage_.put(cat_, effect_.getMultDamage().getVal(c));
         }
         multDamage = multDamage_;
-        StringList protectAgainstStatus_ = getProtectAgainstStatus(effect_);
-        protectAgainstStatus = protectAgainstStatus_;
+        protectAgainstStatus = getProtectAgainstStatus(effect_);
         StringList unusableMoves_;
         unusableMoves_ = new StringList();
         for (String m: effect_.getUnusableMoves()) {
             unusableMoves_.add(m);
         }
-        unusableMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        unusableMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         unusableMoves = unusableMoves_;
         StringList disableFoeTeamEffects_;
         disableFoeTeamEffects_ = new StringList();
         for (String m: effect_.getDisableFoeTeamEffects()) {
             disableFoeTeamEffects_.add(m);
         }
-        disableFoeTeamEffects_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        disableFoeTeamEffects_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         disableFoeTeamEffects = disableFoeTeamEffects_;
         StringList disableFoeTeamStatus_;
         disableFoeTeamStatus_ = new StringList();
         for (String m: effect_.getDisableFoeTeamStatus()) {
             disableFoeTeamStatus_.add(m);
         }
-        disableFoeTeamStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        disableFoeTeamStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         disableFoeTeamStatus = disableFoeTeamStatus_;
     }
     public String clickStatus(int _indexEffect, int _index) {
@@ -115,78 +112,74 @@ public class EffectTeamBean extends EffectBean {
     }
 
     private StringList getProtectAgainstStatus(EffectTeam _effect) {
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+        DataBase data_ = getDataBase();
         StringList protectAgainstStatus_;
         protectAgainstStatus_ = new StringList();
         for (String s: _effect.getProtectAgainstStatus()) {
             protectAgainstStatus_.add(s);
         }
-        protectAgainstStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        protectAgainstStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         return protectAgainstStatus_;
     }
     public String getTrStatus(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String st_ = protectAgainstStatus.get(_index);
         return translatedStatus_.getVal(st_);
     }
     public String clickUnusableMove(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        DataBase data_ = getDataBase();
         StringList unusableMoves_;
         unusableMoves_ = new StringList();
         for (String m: effect_.getUnusableMoves()) {
             unusableMoves_.add(m);
         }
-        unusableMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        unusableMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         String st_ = unusableMoves_.get(_index);
         getForms().put(CST_MOVE, st_);
         return CST_MOVE;
     }
     public String getTrUnusableMove(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = unusableMoves.get(_index);
         return translatedMoves_.getVal(st_);
     }
     public String clickDisableFoeTeamEffects(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        DataBase data_ = getDataBase();
         StringList disableFoeTeamEffects_;
         disableFoeTeamEffects_ = new StringList();
         for (String m: effect_.getDisableFoeTeamEffects()) {
             disableFoeTeamEffects_.add(m);
         }
-        disableFoeTeamEffects_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        disableFoeTeamEffects_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         String st_ = disableFoeTeamEffects_.get(_index);
         getForms().put(CST_MOVE, st_);
         return CST_MOVE;
     }
     public String getTrDisableFoeTeamEffects(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String st_ = disableFoeTeamEffects.get(_index);
         return translatedMoves_.getVal(st_);
     }
     public String clickDisableFoeTeamStatus(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+        DataBase data_ = getDataBase();
         StringList disableFoeTeamStatus_;
         disableFoeTeamStatus_ = new StringList();
         for (String m: effect_.getDisableFoeTeamStatus()) {
             disableFoeTeamStatus_.add(m);
         }
-        disableFoeTeamStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        disableFoeTeamStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         String st_ = disableFoeTeamStatus_.get(_index);
         getForms().put(CST_STATUS, st_);
         return CST_STATUS;
     }
     public String getTrDisableFoeTeamStatus(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedStatus().getVal(getLanguage());
         String st_ = disableFoeTeamStatus.get(_index);
         return translatedMoves_.getVal(st_);

@@ -1,8 +1,8 @@
 package aiki.beans.items;
 
 import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
-import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
@@ -25,15 +25,15 @@ public class ItemForBattleBean extends ItemBean {
     private boolean boostExp;
     private StringList immuStatus;
     private boolean immuLowStatis;
-    private TreeMap<String, Short> increasingMaxNbRoundTrap;
+    private DictionaryComparator<String, Short> increasingMaxNbRoundTrap;
     private boolean attacksSoon;
     private boolean repellingWildPk;
     private StringList synchroStatus;
-    private TreeMap<String, String> failStatus;
+    private DictionaryComparator<String, String> failStatus;
     private Rate protectAgainstKo;
     private Rate protectAgainstKoIfFullHp;
     private Rate drainedHpByDamageRate;
-    private TreeMap<Statistic, Short> winEvFight;
+    private DictionaryComparator<Statistic, Short> winEvFight;
 
     private MonteCarloBoolean lawForAttackFirst;
     private Rate multTrappingDamage;
@@ -45,17 +45,17 @@ public class ItemForBattleBean extends ItemBean {
     private String multDamage;
     private Rate multDrainedHp;
     private Rate damageRecoil;
-    private TreeMap<Statistic, Byte> multStatRank;
+    private DictionaryComparator<Statistic, Byte> multStatRank;
     private TreeMap<StatisticPokemon, Byte> multStatPokemonRank;
-    private TreeMap<Statistic,String> multStat;
-    private TreeMap<String, Short> increasingMaxNbRoundGlobalMove;
-    private TreeMap<String, Short> increasingMaxNbRoundTeamMove;
+    private DictionaryComparator<Statistic,String> multStat;
+    private DictionaryComparator<String, Short> increasingMaxNbRoundGlobalMove;
+    private DictionaryComparator<String, Short> increasingMaxNbRoundTeamMove;
     private StringList immuMoves;
     private StringList hatching;
     private StringList immuTypes;
     private StringList immuWeather;
-    private TreeMap<Statistic, Byte> boostStatisSuperEff;
-    private TreeMap<String, TreeMap<Statistic, Byte>> boostStatisTypes;
+    private DictionaryComparator<Statistic, Byte> boostStatisSuperEff;
+    private DictionaryComparator<String, DictionaryComparator<Statistic, Byte>> boostStatisTypes;
     private boolean endRound;
     private int endRoundRank;
     private StringList reasonsEndRound;
@@ -66,7 +66,7 @@ public class ItemForBattleBean extends ItemBean {
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         ItemForBattle item_ = (ItemForBattle)getItem();
         if (!item_.getEffectEndRound().isEmpty()) {
             endRound = true;
@@ -113,10 +113,7 @@ public class ItemForBattleBean extends ItemBean {
         for (String type_: item_.getTypesPk()) {
             typesPk_.add(type_);
         }
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        typesPk_.sortElts(new ComparatorTrStrings(translatedTypes_));
+        typesPk_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         typesPk = typesPk_;
         StringList typesPkAbilities_;
         typesPkAbilities_ = new StringList();
@@ -125,38 +122,37 @@ public class ItemForBattleBean extends ItemBean {
                 typesPkAbilities_.add(ability_);
             }
         }
-        typesPkAbilities_.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        typesPkAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         typesPkAbilities = typesPkAbilities_;
         StringList immuTypes_;
         immuTypes_ = new StringList();
         for (String type_: item_.getImmuTypes()) {
             immuTypes_.add(type_);
         }
-        immuTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
+        immuTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         immuTypes = immuTypes_;
         StringList immuStatus_;
         immuStatus_ = new StringList();
         for (String type_: item_.getImmuStatus()) {
             immuStatus_.add(type_);
         }
-        immuStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        immuStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         immuStatus = immuStatus_;
         StringList synchroStatus_;
         synchroStatus_ = new StringList();
         for (String type_: item_.getSynchroStatus()) {
             synchroStatus_.add(type_);
         }
-        synchroStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        synchroStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         synchroStatus = synchroStatus_;
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        TreeMap<Statistic, Short> winEvFight_;
-        winEvFight_ = new TreeMap<Statistic, Short>(new ComparatorTrStringStatistic(translatedStatistics_));
+        DictionaryComparator<Statistic, Short> winEvFight_;
+        winEvFight_ = DictionaryComparatorUtil.buildStatisShort(data_,getLanguage());
         for (Statistic s: item_.getWinEvFight().getKeys()) {
             winEvFight_.put(s, item_.getWinEvFight().getVal(s));
         }
         winEvFight = winEvFight_;
-        TreeMap<Statistic, Byte> multStatRank_;
-        multStatRank_ = new TreeMap<Statistic, Byte>(new ComparatorTrStringStatistic(translatedStatistics_));
+        DictionaryComparator<Statistic, Byte> multStatRank_;
+        multStatRank_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: item_.getMultStatRank().getKeys()) {
             multStatRank_.put(s, item_.getMultStatRank().getVal(s));
         }
@@ -169,8 +165,8 @@ public class ItemForBattleBean extends ItemBean {
         multStatPokemonRank = multStatPokemonRank_;
         NatStringTreeMap<String> mapVars_;
         mapVars_ = new NatStringTreeMap<String>();
-        TreeMap<Statistic,String> multStat_;
-        multStat_ = new TreeMap<Statistic, String>(new ComparatorTrStringStatistic(translatedStatistics_));
+        DictionaryComparator<Statistic,String> multStat_;
+        multStat_ = DictionaryComparatorUtil.buildStatisString(data_,getLanguage());
         for (Statistic s: item_.getMultStat().getKeys()) {
             String formula_ = data_.getFormula(item_.getMultStat().getVal(s), getLanguage());
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
@@ -180,8 +176,8 @@ public class ItemForBattleBean extends ItemBean {
             multStat_.put(s, formula_);
         }
         multStat = multStat_;
-        TreeMap<Statistic, Byte> boostStatisSuperEff_;
-        boostStatisSuperEff_ = new TreeMap<Statistic, Byte>(new ComparatorTrStringStatistic(translatedStatistics_));
+        DictionaryComparator<Statistic, Byte> boostStatisSuperEff_;
+        boostStatisSuperEff_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: item_.getBoostStatisSuperEff().getKeys()) {
             boostStatisSuperEff_.put(s, item_.getBoostStatisSuperEff().getVal(s));
         }
@@ -190,8 +186,8 @@ public class ItemForBattleBean extends ItemBean {
 //        locHtml_.put(EAMP, E_AMP);
 //        locHtml_.put(EGT, E_GT);
 //        locHtml_.put(ELT, E_LT);
-        TreeMap<String, String> failStatus_;
-        failStatus_ = new TreeMap<String, String>(new ComparatorTrStrings(translatedStatus_));
+        DictionaryComparator<String, String> failStatus_;
+        failStatus_ = DictionaryComparatorUtil.buildStatusStr(data_,getLanguage());
         for (String s: item_.getFailStatus().getKeys()) {
             String formula_ = data_.getFormula(item_.getFailStatus().getVal(s), getLanguage());
 //            formula_ = StringList.replace(formula_, locHtml_);
@@ -202,9 +198,8 @@ public class ItemForBattleBean extends ItemBean {
             failStatus_.put(s, formula_);
         }
         failStatus = failStatus_;
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        TreeMap<String, Short> increasingMaxNbRoundTrap_;
-        increasingMaxNbRoundTrap_ = new TreeMap<String, Short>(new ComparatorTrStrings(translatedMoves_));
+        DictionaryComparator<String, Short> increasingMaxNbRoundTrap_;
+        increasingMaxNbRoundTrap_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
         for (String m: item_.getIncreasingMaxNbRoundTrap().getKeys()) {
             short nb_ = item_.getIncreasingMaxNbRoundTrap().getVal(m);
             for (Effect e: data_.getMove(m).getEffects()) {
@@ -217,16 +212,16 @@ public class ItemForBattleBean extends ItemBean {
             increasingMaxNbRoundTrap_.put(m, nb_);
         }
         increasingMaxNbRoundTrap = increasingMaxNbRoundTrap_;
-        TreeMap<String, Short> increasingMaxNbRoundGlobalMove_;
-        increasingMaxNbRoundGlobalMove_ = new TreeMap<String, Short>(new ComparatorTrStrings(translatedMoves_));
+        DictionaryComparator<String, Short> increasingMaxNbRoundGlobalMove_;
+        increasingMaxNbRoundGlobalMove_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
         for (String m: item_.getIncreasingMaxNbRoundGlobalMove().getKeys()) {
             short nb_ = item_.getIncreasingMaxNbRoundGlobalMove().getVal(m);
             nb_ += data_.getMove(m).getRepeatRoundLaw().maximum().ll();
             increasingMaxNbRoundGlobalMove_.put(m, nb_);
         }
         increasingMaxNbRoundGlobalMove = increasingMaxNbRoundGlobalMove_;
-        TreeMap<String, Short> increasingMaxNbRoundTeamMove_;
-        increasingMaxNbRoundTeamMove_ = new TreeMap<String, Short>(new ComparatorTrStrings(translatedMoves_));
+        DictionaryComparator<String, Short> increasingMaxNbRoundTeamMove_;
+        increasingMaxNbRoundTeamMove_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
         for (String m: item_.getIncreasingMaxNbRoundTeamMove().getKeys()) {
             short nb_ = item_.getIncreasingMaxNbRoundTeamMove().getVal(m);
             nb_ += data_.getMove(m).getRepeatRoundLaw().maximum().ll();
@@ -238,28 +233,27 @@ public class ItemForBattleBean extends ItemBean {
         for (String m: item_.getImmuMoves()) {
             immuMoves_.add(m);
         }
-        immuMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        immuMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         immuMoves = immuMoves_;
         StringList immuWeather_;
         immuWeather_ = new StringList();
         for (String m: item_.getImmuWeather()) {
             immuWeather_.add(m);
         }
-        immuWeather_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        immuWeather_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         immuWeather = immuWeather_;
         mapVars_.putAllMap(data_.getDescriptions(item_.getMultPower(), getLanguage()));
         mapVars_.putAllMap(data_.getDescriptions(item_.getMultDamage(), getLanguage()));
         mapVars = mapVars_;
         StringList hatching_;
         hatching_ = new StringList(item_.getHatching());
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        hatching_.sortElts(new ComparatorTrStrings(translatedPokemon_));
+        hatching_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         hatching = hatching_;
-        TreeMap<String, TreeMap<Statistic, Byte>> boostStatisTypes_;
-        boostStatisTypes_ = new TreeMap<String, TreeMap<Statistic, Byte>>(new ComparatorTrStrings(translatedTypes_));
+        DictionaryComparator<String, DictionaryComparator<Statistic, Byte>> boostStatisTypes_;
+        boostStatisTypes_ = DictionaryComparatorUtil.buildTypesTypeDic(data_,getLanguage());
         for (String t: item_.getBoostStatisTypes().getKeys()) {
-            TreeMap<Statistic, Byte> boost_;
-            boost_ = new TreeMap<Statistic, Byte>(new ComparatorTrStringStatistic(translatedStatistics_));
+            DictionaryComparator<Statistic, Byte> boost_;
+            boost_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
             for (Statistic s: item_.getBoostStatisTypes().getVal(t).getKeys()) {
                 boost_.put(s, item_.getBoostStatisTypes().getVal(t).getVal(s));
             }
@@ -270,13 +264,13 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrTypesPk(int _index) {
         String type_ = typesPk.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
     public String getTrTypesPkAbility(int _index) {
         String type_ = typesPkAbilities.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(type_);
     }
@@ -287,13 +281,13 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrImmuTypes(int _index) {
         String type_ = immuTypes.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
     public String getTrImmuStatus(int _index) {
         String type_ = immuStatus.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
@@ -304,7 +298,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrSynchroStatus(int _index) {
         String type_ = synchroStatus.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
@@ -315,7 +309,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrFailStatus(int _index) {
         String type_ = failStatus.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
@@ -326,31 +320,31 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrWinEvFight(int _index) {
         Statistic type_ = winEvFight.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStat(int _index) {
         Statistic type_ = multStat.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatRank(int _index) {
         Statistic type_ = multStatRank.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatPkRank(int _index) {
         Statistic type_ = multStatPokemonRank.getKey(_index).getStatistic();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatPk(int _index) {
         String type_ = multStatPokemonRank.getKey(_index).getPokemon();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(type_);
     }
@@ -361,28 +355,28 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrMultStatisTypes(int _index) {
         String type_ = boostStatisTypes.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatistics_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatisTypesStat(int _indexOne, int _indexTwo) {
         Statistic type_ = boostStatisTypes.getValue(_indexOne).getKey(_indexTwo);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public TreeMap<Statistic, Byte> getMapMultStatisTypesStat(int _index) {
+    public DictionaryComparator<Statistic, Byte> getMapMultStatisTypesStat(int _index) {
         return boostStatisTypes.getValue(_index);
     }
     public String getTrMultStatisSuperEff(int _index) {
         Statistic type_ = boostStatisSuperEff.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
     public String getTrTrapMove(int _index) {
         String type_ = increasingMaxNbRoundTrap.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
@@ -393,7 +387,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrGlobalMove(int _index) {
         String type_ = increasingMaxNbRoundGlobalMove.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
@@ -404,7 +398,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrTeamMove(int _index) {
         String type_ = increasingMaxNbRoundTeamMove.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
@@ -415,7 +409,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrImmuMove(int _index) {
         String type_ = immuMoves.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
@@ -426,7 +420,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrWeather(int _index) {
         String type_ = immuWeather.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
@@ -437,7 +431,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String getTrHatching(int _index) {
         String type_ = hatching.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(type_);
     }
@@ -554,7 +548,7 @@ public class ItemForBattleBean extends ItemBean {
         return multDamage;
     }
 
-    public TreeMap<Statistic,Byte> getMultStatRank() {
+    public DictionaryComparator<Statistic,Byte> getMultStatRank() {
         return multStatRank;
     }
 
@@ -562,19 +556,19 @@ public class ItemForBattleBean extends ItemBean {
         return multStatPokemonRank;
     }
 
-    public TreeMap<Statistic,Byte> getBoostStatisSuperEff() {
+    public DictionaryComparator<Statistic,Byte> getBoostStatisSuperEff() {
         return boostStatisSuperEff;
     }
 
-    public TreeMap<String,TreeMap<Statistic,Byte>> getBoostStatisTypes() {
+    public DictionaryComparator<String,DictionaryComparator<Statistic,Byte>> getBoostStatisTypes() {
         return boostStatisTypes;
     }
 
-    public TreeMap<Statistic,String> getMultStat() {
+    public DictionaryComparator<Statistic,String> getMultStat() {
         return multStat;
     }
 
-    public TreeMap<String,String> getFailStatus() {
+    public DictionaryComparator<String,String> getFailStatus() {
         return failStatus;
     }
 
@@ -602,19 +596,19 @@ public class ItemForBattleBean extends ItemBean {
         return synchroStatus;
     }
 
-    public TreeMap<Statistic,Short> getWinEvFight() {
+    public DictionaryComparator<Statistic,Short> getWinEvFight() {
         return winEvFight;
     }
 
-    public TreeMap<String,Short> getIncreasingMaxNbRoundTrap() {
+    public DictionaryComparator<String,Short> getIncreasingMaxNbRoundTrap() {
         return increasingMaxNbRoundTrap;
     }
 
-    public TreeMap<String,Short> getIncreasingMaxNbRoundGlobalMove() {
+    public DictionaryComparator<String,Short> getIncreasingMaxNbRoundGlobalMove() {
         return increasingMaxNbRoundGlobalMove;
     }
 
-    public TreeMap<String,Short> getIncreasingMaxNbRoundTeamMove() {
+    public DictionaryComparator<String,Short> getIncreasingMaxNbRoundTeamMove() {
         return increasingMaxNbRoundTeamMove;
     }
 

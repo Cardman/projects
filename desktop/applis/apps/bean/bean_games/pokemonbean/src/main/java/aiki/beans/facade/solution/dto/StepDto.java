@@ -1,14 +1,14 @@
 package aiki.beans.facade.solution.dto;
-import aiki.map.util.PlaceLevel;
+
+import aiki.comparators.DictionaryComparatorPlaceLevel;
 import code.util.CustList;
-import code.util.TreeMap;
 
 public final class StepDto {
 
-    private final TreeMap<PlaceLevel,CustList<WildPokemonDto>> pokemon;
-    private CustList<PlaceTrainerDto> names = new CustList<PlaceTrainerDto>();
+    private final DictionaryComparatorPlaceLevel<CustList<WildPokemonDto>> pokemon;
+    private final CustList<PlaceTrainerDto> names = new CustList<PlaceTrainerDto>();
 
-    public StepDto(TreeMap<PlaceLevel,CustList<WildPokemonDto>> _pokemon) {
+    public StepDto(DictionaryComparatorPlaceLevel<CustList<WildPokemonDto>> _pokemon) {
         pokemon = _pokemon;
     }
 
@@ -16,7 +16,7 @@ public final class StepDto {
         return names;
     }
 
-    public TreeMap<PlaceLevel,CustList<WildPokemonDto>> getPokemon() {
+    public DictionaryComparatorPlaceLevel<CustList<WildPokemonDto>> getPokemon() {
         return pokemon;
     }
 }

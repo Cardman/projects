@@ -1,8 +1,9 @@
 package aiki.beans.help;
 
 import aiki.beans.CommonBean;
+import aiki.beans.items.ItemsBean;
 import aiki.comparators.ComparatorMiniMapCoords;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
@@ -73,14 +74,14 @@ public class GeneralHelpBean extends CommonBean {
                 pokemonDefaultEggGroup.add(p);
             }
         }
-        pokemonDefaultEggGroup.sortElts(new ComparatorTrStrings(data_.getTranslatedPokemon().getVal(getLanguage())));
+        pokemonDefaultEggGroup.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         defaultMoney = data_.getDefaultMoney();
         tm = new StringList(data_.getTm().values());
         tm.sortElts(new TrMovesComparator(data_));
         hm = new StringList(data_.getHm().values());
         hm.sortElts(new TrMovesComparator(data_));
         types = new StringList(data_.getTypes());
-        types.sortElts(new ComparatorTrStrings(data_.getTranslatedTypes().getVal(getLanguage())));
+        types.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
     }
     public String getMiniMapImage(int _index) {
         int[][] image_ = miniMap.getValue(_index);
@@ -168,49 +169,50 @@ public class GeneralHelpBean extends CommonBean {
         String item_ = firstPokemon.getItem();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
-        if (it_ instanceof Ball) {
-            return CST_BALL;
-        }
-        if (it_ instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (it_ instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (it_ instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (it_ instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (it_ instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (it_ instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (it_ instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (it_ instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (it_ instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (it_ instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (it_ instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (it_ instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (it_ instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
+        return ItemsBean.switchItem(it_);
+//        if (it_ instanceof Ball) {
+//            return CST_BALL;
+//        }
+//        if (it_ instanceof Berry) {
+//            return CST_BERRY;
+//        }
+//        if (it_ instanceof Boost) {
+//            return CST_BOOST;
+//        }
+//        if (it_ instanceof EvolvingItem) {
+//            return CST_EVOLVINGITEM;
+//        }
+//        if (it_ instanceof EvolvingStone) {
+//            return CST_EVOLVINGSTONE;
+//        }
+//        if (it_ instanceof Fossil) {
+//            return CST_FOSSIL;
+//        }
+//        if (it_ instanceof HealingHpStatus) {
+//            return CST_HEALINGHPSTATUS;
+//        }
+//        if (it_ instanceof HealingStatus) {
+//            return CST_HEALINGSTATUS;
+//        }
+//        if (it_ instanceof HealingHp) {
+//            return CST_HEALINGHP;
+//        }
+//        if (it_ instanceof HealingPp) {
+//            return CST_HEALINGPP;
+//        }
+//        if (it_ instanceof HealingItem) {
+//            return CST_HEALINGITEM;
+//        }
+//        if (it_ instanceof ItemForBattle) {
+//            return CST_ITEMFORBATTLE;
+//        }
+//        if (it_ instanceof Repel) {
+//            return CST_REPEL;
+//        }
+//        if (it_ instanceof SellingItem) {
+//            return CST_SELLINGITEM;
+//        }
+//        return CST_ITEM;
     }
     public String getMove(int _moveIndex) {
         DataBase data_ = getDataBase();
@@ -226,10 +228,8 @@ public class GeneralHelpBean extends CommonBean {
     }
     public StringList getMovesAtLevel() {
         DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_ = data_.getPokemon(firstPokemon.getName()).getMovesAtLevel(firstPokemon.getLevel(), data_.getNbMaxMoves());
-        moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
+        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return moves_;
     }
     public String clickTm(int _moveIndex) {
@@ -282,8 +282,7 @@ public class GeneralHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         String type_ = types.get(_index);
         String color_ = data_.getTypesColors().getVal(type_);
-        String img_ = ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
-        return img_;
+        return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
     }
 
     public int getMaxLevel() {

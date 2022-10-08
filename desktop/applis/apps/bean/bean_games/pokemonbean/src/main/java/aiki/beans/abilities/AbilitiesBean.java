@@ -1,6 +1,6 @@
 package aiki.beans.abilities;
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.StringMap;
@@ -33,7 +33,7 @@ public class AbilitiesBean extends CommonBean {
             getForms().put(CST_ABILITY, sortedAbilities_.first());
             return CST_ABILITY;
         }
-        sortedAbilities_.sortElts(new ComparatorTrStrings(translationsAbilities_));
+        sortedAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         getForms().put(CST_ABILITIES_SET, sortedAbilities_);
         return CST_ABILITIES;
     }

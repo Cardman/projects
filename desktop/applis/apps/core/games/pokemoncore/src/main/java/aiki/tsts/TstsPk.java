@@ -3,12 +3,9 @@ package aiki.tsts;
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
 import aiki.fight.util.TypesDuo;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.MoveTeamPosition;
 import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.util.CommonParam;
 import code.images.ImageCsv;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -16,7 +13,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class TstsPk {
@@ -114,14 +110,5 @@ public final class TstsPk {
             }
         }
         return moves_;
-    }
-    public  static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
-        int i_ = IndexConstants.SIZE_EMPTY;
-        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
-            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
-                i_++;
-            }
-        }
-        return i_;
     }
 }

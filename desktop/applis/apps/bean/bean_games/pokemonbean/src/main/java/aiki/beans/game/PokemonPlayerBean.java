@@ -3,7 +3,8 @@ package aiki.beans.game;
 import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -38,7 +39,7 @@ public class PokemonPlayerBean extends Bean implements WithFacade {
     private short happiness;
     private String usedBallCatching;
     private short nbStepsTeamLead;
-    private TreeMap<String,String> evolutions;
+    private DictionaryComparator<String,String> evolutions;
 
     private FacadeGame dataBase;
 
@@ -88,8 +89,8 @@ public class PokemonPlayerBean extends Bean implements WithFacade {
             usedBallCatching = translatedItems_.getVal(pkPlayer_.getUsedBallCatching());
         }
         image = BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(pkPlayer_.getName()));
-        TreeMap<String,String> evolutions_;
-        evolutions_ = new TreeMap<String,String>(new ComparatorTrStrings(translatedPokemon_));
+        DictionaryComparator<String,String> evolutions_;
+        evolutions_ = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
         for (String e: pkPlayer_.getDirectEvolutions(data_)) {
             int[][] img_ = data_.getMaxiPkFront().getVal(e);
             evolutions_.put(e, BaseSixtyFourUtil.getStringByImage(img_));
@@ -176,7 +177,7 @@ public class PokemonPlayerBean extends Bean implements WithFacade {
         return image;
     }
 
-    public TreeMap<String,String> getEvolutions() {
+    public DictionaryComparator<String,String> getEvolutions() {
         return evolutions;
     }
 

@@ -1,13 +1,15 @@
 package aiki.beans.moves;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.MoveLine;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.beans.pokemon.PokedexBean;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.EffectDamage;
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -42,79 +44,17 @@ public class MovesBean extends CommonBean {
             StringList moves_ = getForms().getValList(CST_MOVES_SET);
             for (String k: moves_) {
                 MoveData moveData_ = data_.getMoves().getVal(k);
-                MoveLine line_ = new MoveLine();
-                line_.setName(k);
-                line_.setDisplayName(translationsMoves_.getVal(k));
-                StringList types_ = new StringList();
-                for (String t: moveData_.getTypes()) {
-                    types_.add(translationsTypes_.getVal(t));
-                }
-                line_.setTypes(types_);
-                line_.setPp(moveData_.getPp());
-                line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-                line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-                String power_ = DataBase.EMPTY_STRING;
-                if (line_.isDamageMove()) {
-                    DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                    line_.setDirect(damag_.isDirect());
-                    EffectDamage eff_ = (EffectDamage) damag_.getEffet(damag_.indexOfPrimaryEffect());
-                    power_ = eff_.getPower();
-                }
-                line_.setPriority(moveData_.getPriority());
-                String accuracy_ = moveData_.getAccuracy();
-                if (Rate.isValid(accuracy_)) {
-                    line_.setAccuracy(accuracy_);
-                } else {
-                    line_.setAccuracy(DataBase.EMPTY_STRING);
-                }
-                if (Rate.isValid(power_)) {
-                    line_.setPower(power_);
-                } else {
-                    line_.setPower(DataBase.EMPTY_STRING);
-                }
+                MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k, moveData_);
                 moves.add(line_);
             }
         } else {
             boolean selectedLearn_ = getForms().getValBool(CST_LEARNT);
             StringList learntMoves_ = getForms().getValList(CST_LEARNT_MOVES);
-            for (String k: data_.getMoves().getKeys()) {
-                if (StringUtil.contains(learntMoves_, k) && !selectedLearn_) {
+            for (EntryCust<String, MoveData> k: data_.getMoves().entryList()) {
+                if (StringUtil.contains(learntMoves_, k.getKey()) && !selectedLearn_ || !StringUtil.contains(learntMoves_, k.getKey()) && selectedLearn_) {
                     continue;
                 }
-                if (!StringUtil.contains(learntMoves_, k) && selectedLearn_) {
-                    continue;
-                }
-                MoveData moveData_ = data_.getMoves().getVal(k);
-                MoveLine line_ = new MoveLine();
-                line_.setName(k);
-                line_.setDisplayName(translationsMoves_.getVal(k));
-                StringList types_ = new StringList();
-                for (String t: moveData_.getTypes()) {
-                    types_.add(translationsTypes_.getVal(t));
-                }
-                line_.setTypes(types_);
-                line_.setPp(moveData_.getPp());
-                line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-                line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-                String power_ = DataBase.EMPTY_STRING;
-                if (line_.isDamageMove()) {
-                    DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                    line_.setDirect(damag_.isDirect());
-                    EffectDamage eff_ = (EffectDamage) damag_.getEffet(damag_.indexOfPrimaryEffect());
-                    power_ = eff_.getPower();
-                }
-                line_.setPriority(moveData_.getPriority());
-                String accuracy_ = moveData_.getAccuracy();
-                if (Rate.isValid(accuracy_)) {
-                    line_.setAccuracy(accuracy_);
-                } else {
-                    line_.setAccuracy(DataBase.EMPTY_STRING);
-                }
-                if (Rate.isValid(power_)) {
-                    line_.setPower(power_);
-                } else {
-                    line_.setPower(DataBase.EMPTY_STRING);
-                }
+                MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), k.getValue());
                 moves.add(line_);
             }
         }
@@ -129,6 +69,43 @@ public class MovesBean extends CommonBean {
         minAccuracy = escapedStringQuote(minAccuracy);
         maxAccuracy = escapedStringQuote(maxAccuracy);
     }
+
+    private MoveLine buildLine(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData) {
+        MoveLine line_ = new MoveLine();
+        line_.setName(_k);
+        line_.setDisplayName(_translationsMoves.getVal(_k));
+        StringList types_ = new StringList();
+        for (String t: _moveData.getTypes()) {
+            types_.add(_translationsTypes.getVal(t));
+        }
+        line_.setTypes(types_);
+        line_.setPp(_moveData.getPp());
+        line_.setCategory(_translationsCategories.getVal(_moveData.getCategory()));
+        String power_ = DataBase.EMPTY_STRING;
+        if (_moveData instanceof DamagingMoveData) {
+            DamagingMoveData damag_ = (DamagingMoveData) _moveData;
+            line_.setDirect(damag_.isDirect());
+            EffectDamage eff_ = (EffectDamage) damag_.getEffet(damag_.indexOfPrimaryEffect());
+            power_ = eff_.getPower();
+            line_.setDamageMove(true);
+        } else {
+            line_.setDamageMove(false);
+        }
+        line_.setPriority(_moveData.getPriority());
+        String accuracy_ = _moveData.getAccuracy();
+        if (Rate.isValid(accuracy_)) {
+            line_.setAccuracy(accuracy_);
+        } else {
+            line_.setAccuracy(DataBase.EMPTY_STRING);
+        }
+        if (Rate.isValid(power_)) {
+            line_.setPower(power_);
+        } else {
+            line_.setPower(DataBase.EMPTY_STRING);
+        }
+        return line_;
+    }
+
     public String search() {
         DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
@@ -137,98 +114,56 @@ public class MovesBean extends CommonBean {
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         moves_ = new StringList();
-        for (String k: data_.getMoves().getKeys()) {
-            String displayName_ = translationsMoves_.getVal(k);
+        for (EntryCust<String, MoveData> k: data_.getMoves().entryList()) {
+            String displayName_ = translationsMoves_.getVal(k.getKey());
             if (!StringUtil.match(displayName_, typedName)) {
                 continue;
             }
-            MoveData moveData_ = data_.getMoves().getVal(k);
-            boolean atLeastMatchType_ = false;
-            for (String t: moveData_.getTypes()) {
-                String displayType_;
-                displayType_ = translationsTypes_.getVal(t);
-                if (wholeWord) {
-                    if (typedType == null) {
-                        continue;
-                    }
-                    if (!StringUtil.quickEq(displayType_, typedType)) {
-                        continue;
-                    }
-                } else {
-                    if (!StringUtil.match(displayType_, typedType)) {
-                        continue;
-                    }
-                }
-                atLeastMatchType_ = true;
+            MoveData moveData_ = k.getValue();
+            if (PokedexBean.atLeastMatchType(translationsTypes_, wholeWord, typedType, moveData_.getTypes()) && (StringUtil.quickEq(category, DataBase.EMPTY_STRING) || StringUtil.quickEq(category, moveData_.getCategory())) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
+                moves_.add(k.getKey());
             }
-            if (!atLeastMatchType_) {
-                continue;
-            }
-            if (!StringUtil.quickEq(category, DataBase.EMPTY_STRING)) {
-                if (!StringUtil.quickEq(category, moveData_.getCategory())) {
-                    continue;
-                }
-            }
-            if (Rate.isValid(minAccuracy)) {
-                Rate accurary_ = new Rate(minAccuracy);
-                String accuraryStr_ = moveData_.getAccuracy();
-                if (!Rate.isValid(accuraryStr_)) {
-                    continue;
-                }
-                Rate accuraryLoc_ = new Rate(accuraryStr_);
-                if (!Rate.greaterEq(accuraryLoc_, accurary_)) {
-                    continue;
-                }
-            }
-            if (Rate.isValid(maxAccuracy)) {
-                Rate accurary_ = new Rate(maxAccuracy);
-                String accuraryStr_ = moveData_.getAccuracy();
-                if (Rate.isValid(accuraryStr_)) {
-                    Rate accuraryLoc_ = new Rate(accuraryStr_);
-                    if (!Rate.lowerEq(accuraryLoc_, accurary_)) {
-                        continue;
-                    }
-                }
-            }
-            if (Rate.isValid(minPower)) {
-                if (!(moveData_ instanceof DamagingMoveData)) {
-                    continue;
-                }
-                DamagingMoveData damage_ = (DamagingMoveData) moveData_;
-                EffectDamage eff_ = (EffectDamage) damage_.getEffet(damage_.indexOfPrimaryEffect());
-                Rate power_ = new Rate(minPower);
-                if (!power_.isZeroOrLt()) {
-                    if (!Rate.isValid(eff_.getPower())) {
-                        continue;
-                    }
-                    Rate powerLoc_ = new Rate(eff_.getPower());
-                    if (!Rate.greaterEq(powerLoc_, power_)) {
-                        continue;
-                    }
-                }
-            }
-            if (Rate.isValid(maxPower)) {
-                if (moveData_ instanceof DamagingMoveData) {
-                    DamagingMoveData damage_ = (DamagingMoveData) moveData_;
-                    EffectDamage eff_ = (EffectDamage) damage_.getEffet(damage_.indexOfPrimaryEffect());
-                    Rate power_ = new Rate(maxPower);
-                    if (Rate.isValid(eff_.getPower())) {
-                        Rate powerLoc_ = new Rate(eff_.getPower());
-                        if (!Rate.lowerEq(powerLoc_, power_)) {
-                            continue;
-                        }
-                    }
-                }
-            }
-            moves_.add(k);
         }
-        moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
+        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         getForms().put(CST_MOVES_SET, moves_);
         if (moves_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             getForms().put(CST_MOVE, moves_.first());
             return CST_MOVE;
         }
         return CST_MOVES;
+    }
+    private boolean excludeByAccuracy(MoveData _move) {
+        if (Rate.isValid(minAccuracy)) {
+            String accuraryStr_ = _move.getAccuracy();
+            if (!Rate.isValid(accuraryStr_) || !Rate.greaterEq(new Rate(accuraryStr_), new Rate(minAccuracy))) {
+                return true;
+            }
+        }
+        if (Rate.isValid(maxAccuracy)) {
+            String accuraryStr_ = _move.getAccuracy();
+            return Rate.isValid(accuraryStr_) && !Rate.lowerEq(new Rate(accuraryStr_), new Rate(maxAccuracy));
+        }
+        return false;
+    }
+    private boolean excludeByPower(MoveData _move) {
+        if (Rate.isValid(minPower)) {
+            if (!(_move instanceof DamagingMoveData)) {
+                return true;
+            }
+            DamagingMoveData damage_ = (DamagingMoveData) _move;
+            EffectDamage eff_ = (EffectDamage) damage_.getEffet(damage_.indexOfPrimaryEffect());
+            Rate power_ = new Rate(minPower);
+            if (!power_.isZeroOrLt() && (!Rate.isValid(eff_.getPower()) || !Rate.greaterEq(new Rate(eff_.getPower()), power_))) {
+                return true;
+            }
+        }
+        if (Rate.isValid(maxPower) && _move instanceof DamagingMoveData) {
+            DamagingMoveData damage_ = (DamagingMoveData) _move;
+            EffectDamage eff_ = (EffectDamage) damage_.getEffet(damage_.indexOfPrimaryEffect());
+            Rate power_ = new Rate(maxPower);
+            return Rate.isValid(eff_.getPower()) && !Rate.lowerEq(new Rate(eff_.getPower()), power_);
+        }
+        return false;
     }
     public String clickLink(int _number) {
         getForms().put(CST_MOVE,moves.get(_number).getName());

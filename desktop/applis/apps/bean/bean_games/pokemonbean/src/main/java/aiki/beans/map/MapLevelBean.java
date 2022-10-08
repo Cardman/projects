@@ -5,6 +5,7 @@ import aiki.beans.facade.comparators.ComparatorDirection;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.comparators.ComparatorPoint;
 import aiki.beans.facade.map.dto.PlaceIndex;
+import aiki.beans.items.ItemsBean;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
 import aiki.map.buildings.Building;
@@ -265,49 +266,50 @@ public class MapLevelBean extends CommonBean {
                 String item_ = l_.getItems().getVal(pt_);
                 getForms().put(CST_ITEM, item_);
                 Item it_ = data_.getItem(item_);
-                if (it_ instanceof Ball) {
-                    return CST_BALL;
-                }
-                if (it_ instanceof Berry) {
-                    return CST_BERRY;
-                }
-                if (it_ instanceof Boost) {
-                    return CST_BOOST;
-                }
-                if (it_ instanceof EvolvingItem) {
-                    return CST_EVOLVINGITEM;
-                }
-                if (it_ instanceof EvolvingStone) {
-                    return CST_EVOLVINGSTONE;
-                }
-                if (it_ instanceof Fossil) {
-                    return CST_FOSSIL;
-                }
-                if (it_ instanceof HealingHpStatus) {
-                    return CST_HEALINGHPSTATUS;
-                }
-                if (it_ instanceof HealingStatus) {
-                    return CST_HEALINGSTATUS;
-                }
-                if (it_ instanceof HealingHp) {
-                    return CST_HEALINGHP;
-                }
-                if (it_ instanceof HealingPp) {
-                    return CST_HEALINGPP;
-                }
-                if (it_ instanceof HealingItem) {
-                    return CST_HEALINGITEM;
-                }
-                if (it_ instanceof ItemForBattle) {
-                    return CST_ITEMFORBATTLE;
-                }
-                if (it_ instanceof Repel) {
-                    return CST_REPEL;
-                }
-                if (it_ instanceof SellingItem) {
-                    return CST_SELLINGITEM;
-                }
-                return CST_ITEM;
+                return ItemsBean.switchItem(it_);
+//                if (it_ instanceof Ball) {
+//                    return CST_BALL;
+//                }
+//                if (it_ instanceof Berry) {
+//                    return CST_BERRY;
+//                }
+//                if (it_ instanceof Boost) {
+//                    return CST_BOOST;
+//                }
+//                if (it_ instanceof EvolvingItem) {
+//                    return CST_EVOLVINGITEM;
+//                }
+//                if (it_ instanceof EvolvingStone) {
+//                    return CST_EVOLVINGSTONE;
+//                }
+//                if (it_ instanceof Fossil) {
+//                    return CST_FOSSIL;
+//                }
+//                if (it_ instanceof HealingHpStatus) {
+//                    return CST_HEALINGHPSTATUS;
+//                }
+//                if (it_ instanceof HealingStatus) {
+//                    return CST_HEALINGSTATUS;
+//                }
+//                if (it_ instanceof HealingHp) {
+//                    return CST_HEALINGHP;
+//                }
+//                if (it_ instanceof HealingPp) {
+//                    return CST_HEALINGPP;
+//                }
+//                if (it_ instanceof HealingItem) {
+//                    return CST_HEALINGITEM;
+//                }
+//                if (it_ instanceof ItemForBattle) {
+//                    return CST_ITEMFORBATTLE;
+//                }
+//                if (it_ instanceof Repel) {
+//                    return CST_REPEL;
+//                }
+//                if (it_ instanceof SellingItem) {
+//                    return CST_SELLINGITEM;
+//                }
+//                return CST_ITEM;
             }
             if (l_.getTm().contains(pt_)) {
                 Short tm_ = l_.getTm().getVal(pt_);

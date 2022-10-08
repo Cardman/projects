@@ -1,7 +1,7 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.util.TypesDuo;
@@ -20,7 +20,6 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
         super.beforeDisplaying();
         EffectUnprotectFromTypes effect_ = (EffectUnprotectFromTypes) getEffect();
         DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         CustList<TypesDuo> types_;
         types_ = new CustList<TypesDuo>();
         for (TypesDuo duo_: effect_.getTypes()) {
@@ -45,16 +44,15 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
         for (String type_: effect_.getDisableImmuAgainstTypes()) {
             disableImmuAgainstTypes_.add(type_);
         }
-        disableImmuAgainstTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
+        disableImmuAgainstTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         disableImmuAgainstTypes = disableImmuAgainstTypes_;
-        StringList disableImmuFromMoves_ = getDisableImmuFromMoves(effect_);
-        disableImmuFromMoves = disableImmuFromMoves_;
+        disableImmuFromMoves = getDisableImmuFromMoves(effect_);
         StringList attackTargetWithTypes_;
         attackTargetWithTypes_ = new StringList();
         for (String type_: effect_.getAttackTargetWithTypes()) {
             attackTargetWithTypes_.add(type_);
         }
-        attackTargetWithTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
+        attackTargetWithTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         attackTargetWithTypes = attackTargetWithTypes_;
     }
     public String getTrDamageType(int _index) {
@@ -96,13 +94,12 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
 
     private StringList getDisableImmuFromMoves(EffectUnprotectFromTypes _effect) {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList disableImmuFromMoves_;
         disableImmuFromMoves_ = new StringList();
         for (String type_: _effect.getDisableImmuFromMoves()) {
             disableImmuFromMoves_.add(type_);
         }
-        disableImmuFromMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        disableImmuFromMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return disableImmuFromMoves_;
     }
     public String getTrAttackTargetType(int _index) {

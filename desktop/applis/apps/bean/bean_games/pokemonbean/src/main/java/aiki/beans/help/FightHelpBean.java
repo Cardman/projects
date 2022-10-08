@@ -6,10 +6,9 @@ import aiki.beans.facade.comparators.ComparatorDifficultyModelLaw;
 import aiki.beans.facade.comparators.ComparatorDifficultyWinPointsFight;
 import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Item;
@@ -25,7 +24,6 @@ import aiki.fight.status.Status;
 import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusType;
-import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.fight.util.*;
 import aiki.game.fight.Fight;
 import aiki.game.params.enums.DifficultyModelLaw;
@@ -225,111 +223,28 @@ public class FightHelpBean extends CommonBean {
         long minBoost_ = data_.getMinBoost();
         long maxBoost_ = data_.getMaxBoost();
         initBoosts(minBoost_, maxBoost_);
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         initSendingMembers();
-        privatingMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectRestriction)) {
-                    continue;
-                }
-                EffectRestriction e_ = (EffectRestriction) e;
-                if (e_.getChoiceRestriction() != MoveChoiceRestrictionType.NOTHING) {
-                    privatingMoves.add(m);
-                    break;
-                }
-            }
-        }
-        privatingMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
+        initPrivateMoves();
         movesHealingSubstitute = new StringList(data_.getMovesFullHeal());
-        movesHealingSubstitute.sortElts(new ComparatorTrStrings(translatedMoves_));
-        substitutingMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (move_.getSwitchType() == SwitchType.LANCEUR) {
-                substitutingMoves.add(m);
-            }
-        }
-        substitutingMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesHealingSubstitute.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        initSubstitutingMoves();
         initSpeedElements();
         initSwitchingMembers();
         initBeginRoundStatusMembers();
         initBeginRoundPreparingMembers();
         initInvokingMembers();
-        copyMoveTypesAb = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isCopyMovesTypes()) {
-                continue;
-            }
-            copyMoveTypesAb.add(a);
-        }
-        copyMoveTypesAb.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        beginRoundStatusFoe = new StringList();
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() == StatusType.INDIVIDUEL) {
-                continue;
-            }
-            if (!(st_ instanceof StatusBeginRound)) {
-                continue;
-            }
-            beginRoundStatusFoe.add(s);
-        }
-        beginRoundStatusFoe.sortElts(new ComparatorTrStrings(translatedStatus_));
-        movesSecEffItems = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (move_.getSecEffectsByItem().isEmpty()) {
-                continue;
-            }
-            movesSecEffItems.add(m);
-        }
-        movesSecEffItems.sortElts(new ComparatorTrStrings(translatedMoves_));
-        pressureAbilities = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getNbUsedPp() <= 0) {
-                continue;
-            }
-            pressureAbilities.add(a);
-        }
-        pressureAbilities.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        initCopyMoveTypesAb();
+        copyMoveTypesAb.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initBeginRoundStatusFoe();
+        initMovesSecEffItems();
+        initPressureAbilities();
         initProtectingMembers();
-        effMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (!move_.getSecEffectIfNoDamage()) {
-                continue;
-            }
-            effMoves.add(m);
-        }
-        effMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
-        abilitiesPartStatis = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuLowStatisTypes().isEmpty()) {
-                continue;
-            }
-            abilitiesPartStatis.add(a);
-        }
-        abilitiesPartStatis.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        initEffMoves();
+        initAbilitiesPartStatis();
         movesTeam = new StringList(data_.getMovesEffectTeam());
-        movesTeam.sortElts(new ComparatorTrStrings(translatedMoves_));
-        abilitiesRateStatis = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultEvtRateSecEffectOwner().isZero()) {
-                continue;
-            }
-            abilitiesRateStatis.add(a);
-        }
-        abilitiesRateStatis.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        movesTeam.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        initAbilitiesRateStatis();
         initStatisticsImmuElements();
         initStatusElements();
         initWhileDamageElements();
@@ -340,88 +255,40 @@ public class FightHelpBean extends CommonBean {
         initSuccessEffectsElements();
         initAccuracyEvasinessElements();
         initStatisticsCalculationElements();
-        movesTypesDefItem = new StringList();
-        itemsTypesDef = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (move_.getTypesByOwnedItem().isEmpty()) {
-                continue;
-            }
-            itemsTypesDef.addAllElts(move_.getTypesByOwnedItem().getKeys());
-            movesTypesDefItem.add(m);
-        }
-        movesTypesDefItem.sortElts(new ComparatorTrStrings(translatedMoves_));
-        itemsTypesDef.removeDuplicates();
-        StringUtil.removeObj(itemsTypesDef, DataBase.EMPTY_STRING);
-        itemsTypesDef.sortElts(new ComparatorTrStrings(translatedItems_));
+        initTypeDef();
         movesTypesDefWeather = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
-            if (move_.getTypesByWeather().isEmpty()) {
-                continue;
+            if (!move_.getTypesByWeather().isEmpty()) {
+                movesTypesDefWeather.add(m);
             }
-            movesTypesDefWeather.add(m);
         }
-        movesTypesDefWeather.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesTypesDefWeather.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         abilitiesTypeDefMoves = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getTypeForMoves().isEmpty()) {
-                continue;
+            if (!ab_.getTypeForMoves().isEmpty()) {
+                abilitiesTypeDefMoves.add(a);
             }
-            abilitiesTypeDefMoves.add(a);
         }
-        abilitiesTypeDefMoves.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesTypeDefMoves.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesChangeTypeMoves = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getChangingBoostTypes().isEmpty()) {
-                continue;
-            }
-            abilitiesChangeTypeMoves.add(a);
-        }
-        abilitiesChangeTypeMoves.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        movesTypeDefMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectSwitchMoveTypes)) {
-                    continue;
-                }
-                EffectSwitchMoveTypes e_ = (EffectSwitchMoveTypes) e;
-                if (e_.getReplacingTypes().isEmpty()) {
-                    continue;
-                }
-                movesTypeDefMoves.add(m);
-                break;
+            if (!ab_.getChangingBoostTypes().isEmpty()) {
+                abilitiesChangeTypeMoves.add(a);
             }
         }
-        movesTypeDefMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
-        movesChangeTypeMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectSwitchMoveTypes)) {
-                    continue;
-                }
-                EffectSwitchMoveTypes e_ = (EffectSwitchMoveTypes) e;
-                if (e_.getChangeTypes().isEmpty()) {
-                    continue;
-                }
-                movesChangeTypeMoves.add(m);
-                break;
-            }
-        }
-        movesChangeTypeMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
+        abilitiesChangeTypeMoves.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initMovesEffectSwitchMoveTypes();
         abilitiesBreakImmu = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getBreakFoeImmune().isEmpty()) {
-                continue;
+            if (!ab_.getBreakFoeImmune().isEmpty()) {
+                abilitiesBreakImmu.add(a);
             }
-            abilitiesBreakImmu.add(a);
         }
-        abilitiesBreakImmu.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesBreakImmu.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initCriticalHitElements();
         //getMultEvtRateCh
         //getMultDamageCh
@@ -448,319 +315,323 @@ public class FightHelpBean extends CommonBean {
         initFormulaElements();
     }
 
+    private void initTypeDef() {
+        DataBase data_ = getDataBase();
+        movesTypesDefItem = new StringList();
+        itemsTypesDef = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            if (!move_.getTypesByOwnedItem().isEmpty()) {
+                itemsTypesDef.addAllElts(move_.getTypesByOwnedItem().getKeys());
+                movesTypesDefItem.add(m);
+            }
+        }
+        movesTypesDefItem.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        itemsTypesDef.removeDuplicates();
+        StringUtil.removeObj(itemsTypesDef, DataBase.EMPTY_STRING);
+        itemsTypesDef.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+
+    private void initAbilitiesRateStatis() {
+        DataBase data_ = getDataBase();
+        abilitiesRateStatis = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getMultEvtRateSecEffectOwner().isZero()) {
+                abilitiesRateStatis.add(a);
+            }
+        }
+        abilitiesRateStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initAbilitiesPartStatis() {
+        DataBase data_ = getDataBase();
+        abilitiesPartStatis = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getImmuLowStatisTypes().isEmpty()) {
+                abilitiesPartStatis.add(a);
+            }
+        }
+        abilitiesPartStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initEffMoves() {
+        DataBase data_ = getDataBase();
+        effMoves = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            if (move_.getSecEffectIfNoDamage()) {
+                effMoves.add(m);
+            }
+        }
+        effMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initPressureAbilities() {
+        DataBase data_ = getDataBase();
+        pressureAbilities = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (ab_.getNbUsedPp() > 0) {
+                pressureAbilities.add(a);
+            }
+        }
+        pressureAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initMovesSecEffItems() {
+        DataBase data_ = getDataBase();
+        movesSecEffItems = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            if (!move_.getSecEffectsByItem().isEmpty()) {
+                movesSecEffItems.add(m);
+            }
+        }
+        movesSecEffItems.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initBeginRoundStatusFoe() {
+        DataBase data_ = getDataBase();
+        beginRoundStatusFoe = new StringList();
+        for (String s: data_.getStatus().getKeys()) {
+            Status st_ = data_.getStatus(s);
+            if (st_.getStatusType() != StatusType.INDIVIDUEL && st_ instanceof StatusBeginRound) {
+                beginRoundStatusFoe.add(s);
+            }
+        }
+        beginRoundStatusFoe.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+    }
+
+    private void initCopyMoveTypesAb() {
+        DataBase data_ = getDataBase();
+        copyMoveTypesAb = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (ab_.isCopyMovesTypes()) {
+                copyMoveTypesAb.add(a);
+            }
+        }
+    }
+
+    private void initSubstitutingMoves() {
+        DataBase data_ = getDataBase();
+        substitutingMoves = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            if (move_.getSwitchType() == SwitchType.LANCEUR) {
+                substitutingMoves.add(m);
+            }
+        }
+        substitutingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initMovesEffectSwitchMoveTypes() {
+        DataBase data_ = getDataBase();
+        movesTypeDefMoves = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectSwitchMoveTypes && !((EffectSwitchMoveTypes) e).getReplacingTypes().isEmpty()) {
+                    movesTypeDefMoves.add(m);
+                    break;
+                }
+            }
+        }
+        movesTypeDefMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesChangeTypeMoves = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectSwitchMoveTypes && !((EffectSwitchMoveTypes) e).getChangeTypes().isEmpty()) {
+                    movesChangeTypeMoves.add(m);
+                    break;
+                }
+            }
+        }
+        movesChangeTypeMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initPrivateMoves() {
+        DataBase data_ = getDataBase();
+        privatingMoves = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectRestriction && ((EffectRestriction) e).getChoiceRestriction() != MoveChoiceRestrictionType.NOTHING) {
+                    privatingMoves.add(m);
+                    break;
+                }
+            }
+        }
+        privatingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
     private void initAccuracyEvasinessElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         movesIgnAcc = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
-            if (!move_.getIgnVarAccurUserNeg()) {
-                continue;
+            if (move_.getIgnVarAccurUserNeg() && move_.getTargetChoice() != TargetChoice.LANCEUR) {
+                movesIgnAcc.add(m);
             }
-            if (move_.getTargetChoice() == TargetChoice.LANCEUR) {
-                continue;
-            }
-            movesIgnAcc.add(m);
         }
-        movesIgnAcc.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesIgnAcc.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesIgnEva = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
-            if (!move_.getIgnVarEvasTargetPos()) {
-                continue;
+            if (move_.getIgnVarEvasTargetPos() && move_.getTargetChoice() != TargetChoice.LANCEUR) {
+                movesIgnEva.add(m);
             }
-            if (move_.getTargetChoice() == TargetChoice.LANCEUR) {
-                continue;
-            }
-            movesIgnEva.add(m);
         }
-        movesIgnEva.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesIgnEva.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesGlobalAcc = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getMultAccuracy().isZero()) {
+                    movesGlobalAcc.add(m);
+                    break;
                 }
-                EffectGlobal e_ = (EffectGlobal) e;
-                if (e_.getMultAccuracy().isZero()) {
-                    continue;
-                }
-                movesGlobalAcc.add(m);
-                break;
             }
         }
-        movesGlobalAcc.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesGlobalAcc.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initStatusElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         successfulStatus = new StringList();
         for (String s: data_.getStatus().getKeys()) {
             Status st_ = data_.getStatus(s);
-            if (st_.getEffectsPartner().isEmpty()) {
-                continue;
+            if (!st_.getEffectsPartner().isEmpty() && st_.getEffectsPartner().first().getWeddingAlly()) {
+                successfulStatus.add(s);
             }
-            if (!st_.getEffectsPartner().first().getWeddingAlly()) {
-                continue;
-            }
-            successfulStatus.add(s);
         }
-        successfulStatus.sortElts(new ComparatorTrStrings(translatedStatus_));
+        successfulStatus.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+        initGlobalMovesStatus();
+        abilitiesPartStatus = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getImmuStatusTypes().isEmpty()) {
+                abilitiesPartStatus.add(a);
+            }
+        }
+        abilitiesPartStatus.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        abilitiesFighterStatus = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getImmuStatus().isEmpty()) {
+                abilitiesFighterStatus.add(a);
+            }
+        }
+        abilitiesFighterStatus.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        itemsFighterStatus = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuStatus().isEmpty()) {
+                itemsFighterStatus.add(i);
+            }
+        }
+        itemsFighterStatus.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+
+    private void initGlobalMovesStatus() {
+        DataBase data_ = getDataBase();
         globalMovesStatus = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal e_ = (EffectGlobal) e;
-                if (!e_.getPreventStatus().isEmpty()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getPreventStatus().isEmpty()) {
                     globalMovesStatus.add(m);
                 }
             }
         }
-        globalMovesStatus.sortElts(new ComparatorTrStrings(translatedMoves_));
-        abilitiesPartStatus = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuStatusTypes().isEmpty()) {
-                continue;
-            }
-            abilitiesPartStatus.add(a);
-        }
-        abilitiesPartStatus.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesFighterStatus = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuStatus().isEmpty()) {
-                continue;
-            }
-            abilitiesFighterStatus.add(a);
-        }
-        abilitiesFighterStatus.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        itemsFighterStatus = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getImmuStatus().isEmpty()) {
-                continue;
-            }
-            itemsFighterStatus.add(i);
-        }
-        itemsFighterStatus.sortElts(new ComparatorTrStrings(translatedItems_));
+        globalMovesStatus.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initCriticalHitElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         abilitiesImmuCh = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isImmuCh()) {
-                continue;
+            if (ab_.isImmuCh()) {
+                abilitiesImmuCh.add(a);
             }
-            abilitiesImmuCh.add(a);
         }
-        abilitiesImmuCh.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesImmuCh.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initMovesBoostCh();
+        abilitesMultEvtCh = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getMultEvtRateCh().isZero()) {
+                abilitesMultEvtCh.add(a);
+            }
+        }
+        abilitesMultEvtCh.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        abilitesMultRateCh = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getMultDamageCh().isZero()) {
+                abilitesMultRateCh.add(a);
+            }
+        }
+        abilitesMultRateCh.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initMovesBoostCh() {
+        DataBase data_ = getDataBase();
         movesBoostCh = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectDamage)) {
-                    continue;
+                if (e instanceof EffectDamage && ((EffectDamage) e).getChRate() > 0) {
+                    movesBoostCh.add(m);
+                    break;
                 }
-                EffectDamage e_ = (EffectDamage) e;
-                if (e_.getChRate() <= 0) {
-                    continue;
-                }
-                movesBoostCh.add(m);
-                break;
             }
         }
-        movesBoostCh.sortElts(new ComparatorTrStrings(translatedMoves_));
-        abilitesMultEvtCh = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultEvtRateCh().isZero()) {
-                continue;
-            }
-            abilitesMultEvtCh.add(a);
-        }
-        abilitesMultEvtCh.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitesMultRateCh = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultDamageCh().isZero()) {
-                continue;
-            }
-            abilitesMultRateCh.add(a);
-        }
-        abilitesMultRateCh.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        movesBoostCh.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initStatisticsCalculationElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         abilitiesBoostingStat = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getBonusStatRank().isEmpty()) {
-                continue;
-            }
-            abilitiesBoostingStat.add(a);
-        }
-        abilitiesBoostingStat.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        itemsBoostingStat = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getMultStatRank().isEmpty()) {
-                if (i_.getMultStatPokemonRank().isEmpty()) {
-                    continue;
-                }
-            }
-            itemsBoostingStat.add(i);
-        }
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
-            }
-            Berry i_ = (Berry) it_;
-            if (i_.getMultStat().isEmpty()) {
-                continue;
-            }
-            itemsBoostingStat.add(i);
-        }
-        itemsBoostingStat.sortElts(new ComparatorTrStrings(translatedItems_));
-        abilitiesMultStat = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultStat().isEmpty()) {
-                if (ab_.getMultStatIfCat().isEmpty()) {
-                    continue;
-                }
-            }
-            abilitiesMultStat.add(a);
-        }
-        abilitiesMultStat.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        itemsMultStat = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getMultStat().isEmpty()) {
-                continue;
-            }
-            itemsMultStat.add(i);
-        }
-        itemsMultStat.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        movesGlobalMultStat = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal e_ = (EffectGlobal) e;
-                if (e_.getMultStatIfContainsType().isEmpty()) {
-                    continue;
-                }
-                movesGlobalMultStat.add(m);
-                break;
+            if (!ab_.getBonusStatRank().isEmpty()) {
+                abilitiesBoostingStat.add(a);
             }
         }
-        movesGlobalMultStat.sortElts(new ComparatorTrStrings(translatedMoves_));
-        movesTeamMultStat = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectTeam)) {
-                    continue;
-                }
-                EffectTeam e_ = (EffectTeam) e;
-                if (e_.getMultStatistic().isEmpty()) {
-                    continue;
-                }
-                movesTeamMultStat.add(m);
-                break;
-            }
-        }
-        movesTeamMultStat.sortElts(new ComparatorTrStrings(translatedMoves_));
-        movesFoeTeamMultStat = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectTeam)) {
-                    continue;
-                }
-                EffectTeam e_ = (EffectTeam) e;
-                if (e_.getMultStatisticFoe().isEmpty()) {
-                    continue;
-                }
-                movesFoeTeamMultStat.add(m);
-                break;
-            }
-        }
-        movesFoeTeamMultStat.sortElts(new ComparatorTrStrings(translatedMoves_));
+        abilitiesBoostingStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initItemsBoostingStat();
+        initAbItMultStat();
+        initMultStatTeamGlobal();
         abilitiesAllyMultStat = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultStatAlly().isEmpty()) {
-                continue;
+            if (!ab_.getMultStatAlly().isEmpty()) {
+                abilitiesAllyMultStat.add(a);
             }
-            abilitiesAllyMultStat.add(a);
         }
-        abilitiesAllyMultStat.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesAllyMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         statusMultStat = new StringList();
         for (String s: data_.getStatus().getKeys()) {
             Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() == StatusType.RELATION_UNIQUE) {
-                continue;
+            if (st_.getStatusType() != StatusType.RELATION_UNIQUE && !st_.getMultStat().isEmpty()) {
+                statusMultStat.add(s);
             }
-            if (st_.getMultStat().isEmpty()) {
-                continue;
-            }
-            statusMultStat.add(s);
         }
-        statusMultStat.sortElts(new ComparatorTrStrings(translatedStatus_));
+        statusMultStat.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         abilitiesImmuMultStat = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuLowStatIfStatus().isEmpty()) {
-                continue;
+            if (!ab_.getImmuLowStatIfStatus().isEmpty()) {
+                abilitiesImmuMultStat.add(a);
             }
-            abilitiesImmuMultStat.add(a);
         }
-        abilitiesImmuMultStat.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        comboMultStat = new CustList<StringList>();
-        for (StringList g: data_.getCombos().getEffects().getKeys()) {
-            EffectCombo effect_ = data_.getCombos().getEffects().getVal(g);
-            if (!effect_.estActifEquipe()) {
-                continue;
-            }
-            comboMultStat.add(new StringList(g));
-        }
-        for (StringList v: comboMultStat) {
-            v.sortElts(new ComparatorTrStrings(translatedMoves_));
-        }
+        abilitiesImmuMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initComboMultStat();
 //        comboMultStat.sort(new NaturalComparator<StringList>(){
 //            public int compare(StringList _key1, StringList _key2) {
 //                DataBase dataCmp_ = (DataBase) getDataBase();
@@ -782,17 +653,7 @@ public class FightHelpBean extends CommonBean {
 //            }
 //        });
         comboMultStat.sortElts(new ComparatorStringList(data_, getLanguage(), false));
-        comboEvtStat = new CustList<StringList>();
-        for (StringList g: data_.getCombos().getEffects().getKeys()) {
-            EffectCombo effect_ = data_.getCombos().getEffects().getVal(g);
-            if (effect_.getMultEvtRateSecEff().isZero()) {
-                continue;
-            }
-            comboEvtStat.add(new StringList(g));
-        }
-        for (StringList v: comboEvtStat) {
-            v.sortElts(new ComparatorTrStrings(translatedMoves_));
-        }
+        initComboEvtStat();
 //        comboEvtStat.sort(new NaturalComparator<StringList>(){
 //            public int compare(StringList _key1, StringList _key2) {
 //                DataBase dataCmp_ = (DataBase) getDataBase();
@@ -816,174 +677,157 @@ public class FightHelpBean extends CommonBean {
         comboEvtStat.sortElts(new ComparatorStringList(data_, getLanguage(), false));
     }
 
+    private void initAbItMultStat() {
+        DataBase data_ = getDataBase();
+        abilitiesMultStat = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getMultStat().isEmpty() || !ab_.getMultStatIfCat().isEmpty()) {
+                abilitiesMultStat.add(a);
+            }
+        }
+        abilitiesMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        itemsMultStat = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getMultStat().isEmpty()) {
+                itemsMultStat.add(i);
+            }
+        }
+        itemsMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initMultStatTeamGlobal() {
+        DataBase data_ = getDataBase();
+        movesGlobalMultStat = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getMultStatIfContainsType().isEmpty()) {
+                    movesGlobalMultStat.add(m);
+                    break;
+                }
+            }
+        }
+        movesGlobalMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        initMultStatTeam();
+    }
+
+    private void initMultStatTeam() {
+        DataBase data_ = getDataBase();
+        movesTeamMultStat = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectTeam && !((EffectTeam) e).getMultStatistic().isEmpty()) {
+                    movesTeamMultStat.add(m);
+                    break;
+                }
+            }
+        }
+        movesTeamMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesFoeTeamMultStat = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectTeam && !((EffectTeam) e).getMultStatisticFoe().isEmpty()) {
+                    movesFoeTeamMultStat.add(m);
+                    break;
+                }
+            }
+        }
+        movesFoeTeamMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initComboMultStat() {
+        DataBase data_ = getDataBase();
+        comboMultStat = new CustList<StringList>();
+        for (StringList g: data_.getCombos().getEffects().getKeys()) {
+            EffectCombo effect_ = data_.getCombos().getEffects().getVal(g);
+            if (effect_.estActifEquipe()) {
+                comboMultStat.add(new StringList(g));
+            }
+        }
+        for (StringList v: comboMultStat) {
+            v.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        }
+    }
+
+    private void initComboEvtStat() {
+        DataBase data_ = getDataBase();
+        comboEvtStat = new CustList<StringList>();
+        for (StringList g: data_.getCombos().getEffects().getKeys()) {
+            EffectCombo effect_ = data_.getCombos().getEffects().getVal(g);
+            if (!effect_.getMultEvtRateSecEff().isZero()) {
+                comboEvtStat.add(new StringList(g));
+            }
+        }
+        for (StringList v: comboEvtStat) {
+            v.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        }
+    }
+
+    private void initItemsBoostingStat() {
+        DataBase data_ = getDataBase();
+        itemsBoostingStat = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && (!((ItemForBattle) it_).getMultStatRank().isEmpty() || !((ItemForBattle) it_).getMultStatPokemonRank().isEmpty())) {
+                itemsBoostingStat.add(i);
+            }
+        }
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getMultStat().isEmpty()) {
+                itemsBoostingStat.add(i);
+            }
+        }
+        itemsBoostingStat.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+
     private void initSuccessEffectsElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        itemsCancelImmu = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (!i_.getCancelImmuType()) {
-                continue;
-            }
-            itemsCancelImmu.add(i);
-        }
-        itemsCancelImmu.sortElts(new ComparatorTrStrings(translatedItems_));
+        initItemsCancelImmu();
         movesProtectingTypes = new StringList(data_.getMovesEffectProt());
-        movesProtectingTypes.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesProtectingTypes.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesUnprotectingTypes = new StringList(data_.getMovesEffectUnprot());
-        movesUnprotectingTypes.sortElts(new ComparatorTrStrings(translatedMoves_));
-        movesGlobalBreakImmu = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal e_ = (EffectGlobal) e;
-                if (e_.getEfficiencyMoves().isEmpty()) {
-                    continue;
-                }
-                movesGlobalBreakImmu.add(m);
-                break;
-            }
-        }
-        movesGlobalBreakImmu.sortElts(new ComparatorTrStrings(translatedMoves_));
-        movesGlobalBreakImmuAb = new StringList();
-        abilitiesBreakable = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal e_ = (EffectGlobal) e;
-                if (e_.getCancelProtectingAbilities().isEmpty()) {
-                    continue;
-                }
-                abilitiesBreakable.addAllElts(e_.getCancelProtectingAbilities());
-                movesGlobalBreakImmuAb.add(m);
-                break;
-            }
-        }
-        movesGlobalBreakImmuAb.sortElts(new ComparatorTrStrings(translatedMoves_));
-        abilitiesBreakable.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesImmuTypes = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuMoveTypesByWeather().isEmpty()) {
-                continue;
-            }
-            abilitiesImmuTypes.add(a);
-        }
-        abilitiesImmuTypes.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        itemsImmuTypes = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getImmuTypes().isEmpty()) {
-                continue;
-            }
-            itemsImmuTypes.add(i);
-        }
-        itemsImmuTypes.sortElts(new ComparatorTrStrings(translatedItems_));
-        abilitiesImmuAllies = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuAllyFromMoves().isEmpty()) {
-                continue;
-            }
-            abilitiesImmuAllies.add(a);
-        }
-        abilitiesImmuAllies.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesImmuAlliesDam = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isImmuDamageAllyMoves()) {
-                continue;
-            }
-            abilitiesImmuAlliesDam.add(a);
-        }
-        abilitiesImmuAlliesDam.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesImmu = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuMove().isEmpty()) {
-                if (!ab_.isImmuSufferedDamageLowEff()) {
-                    continue;
-                }
-            }
-            abilitiesImmu.add(a);
-        }
-        abilitiesImmu.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        itemsImmu = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getImmuMoves().isEmpty()) {
-                continue;
-            }
-            itemsImmu.add(i);
-        }
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
-            }
-            Berry b_ = (Berry) it_;
-            if (b_.getHealHpBySuperEffMove().isZero()) {
-                continue;
-            }
-            itemsImmu.add(i);
-        }
-        itemsImmu.sortElts(new ComparatorTrStrings(translatedItems_));
+        movesUnprotectingTypes.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        initMovesBrImmu();
+        initImmuTypes();
+        initAbilitiesImmu();
+        initItImmu();
         abilitiesImmuSecEffOther = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isCancelSecEffectOther()) {
-                continue;
+            if (ab_.isCancelSecEffectOther()) {
+                abilitiesImmuSecEffOther.add(a);
             }
-            abilitiesImmuSecEffOther.add(a);
         }
-        abilitiesImmuSecEffOther.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesImmuSecEffOther.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesImmuSecEffOwner = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isCancelSecEffectOwner()) {
-                continue;
+            if (ab_.isCancelSecEffectOwner()) {
+                abilitiesImmuSecEffOwner.add(a);
             }
-            abilitiesImmuSecEffOwner.add(a);
         }
-        abilitiesImmuSecEffOwner.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesImmuSecEffOwner.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesAchieveTarget = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isAchievedDisappearedPk()) {
-                continue;
+            if (ab_.isAchievedDisappearedPk()) {
+                abilitiesAchieveTarget.add(a);
             }
-            abilitiesAchieveTarget.add(a);
         }
-        abilitiesAchieveTarget.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesAchieveTarget.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesBreakProtectMoves = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isBreakProtection()) {
-                continue;
+            if (ab_.isBreakProtection()) {
+                abilitiesBreakProtectMoves.add(a);
             }
-            abilitiesBreakProtectMoves.add(a);
         }
-        abilitiesBreakProtectMoves.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesBreakProtectMoves.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         movesProtecting = new StringList();
         movesProtecting.addAllElts(data_.getMovesProtAgainstDamageMoves());
         movesProtecting.addAllElts(data_.getMovesProtAgainstStatusMoves());
@@ -991,638 +835,629 @@ public class FightHelpBean extends CommonBean {
         movesProtecting.addAllElts(data_.getMovesProtAgainstPrio());
         movesProtecting.addAllElts(data_.getMovesProtSingleTarget());
         movesProtecting.removeDuplicates();
-        movesProtecting.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesProtecting.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initItemsCancelImmu() {
+        DataBase data_ = getDataBase();
+        itemsCancelImmu = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getCancelImmuType()) {
+                itemsCancelImmu.add(i);
+            }
+        }
+        itemsCancelImmu.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+
+    private void initAbilitiesImmu() {
+        DataBase data_ = getDataBase();
+        abilitiesImmuAllies = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getImmuAllyFromMoves().isEmpty()) {
+                abilitiesImmuAllies.add(a);
+            }
+        }
+        abilitiesImmuAllies.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        abilitiesImmuAlliesDam = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (ab_.isImmuDamageAllyMoves()) {
+                abilitiesImmuAlliesDam.add(a);
+            }
+        }
+        abilitiesImmuAlliesDam.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        abilitiesImmu = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getImmuMove().isEmpty() || ab_.isImmuSufferedDamageLowEff()) {
+                abilitiesImmu.add(a);
+            }
+        }
+        abilitiesImmu.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initItImmu() {
+        DataBase data_ = getDataBase();
+        itemsImmu = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuMoves().isEmpty()) {
+                itemsImmu.add(i);
+            }
+        }
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getHealHpBySuperEffMove().isZero()) {
+                itemsImmu.add(i);
+            }
+        }
+        itemsImmu.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+
+    private void initImmuTypes() {
+        DataBase data_ = getDataBase();
+        abilitiesImmuTypes = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getImmuMoveTypesByWeather().isEmpty()) {
+                abilitiesImmuTypes.add(a);
+            }
+        }
+        abilitiesImmuTypes.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        itemsImmuTypes = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuTypes().isEmpty()) {
+                itemsImmuTypes.add(i);
+            }
+        }
+        itemsImmuTypes.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+
+    private void initMovesBrImmu() {
+        DataBase data_ = getDataBase();
+        movesGlobalBreakImmu = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getEfficiencyMoves().isEmpty()) {
+                    movesGlobalBreakImmu.add(m);
+                    break;
+                }
+            }
+        }
+        movesGlobalBreakImmu.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesGlobalBreakImmuAb = new StringList();
+        abilitiesBreakable = new StringList();
+        for (String m: data_.getMoves().getKeys()) {
+            MoveData move_ = data_.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getCancelProtectingAbilities().isEmpty()) {
+                    abilitiesBreakable.addAllElts(((EffectGlobal) e).getCancelProtectingAbilities());
+                    movesGlobalBreakImmuAb.add(m);
+                    break;
+                }
+            }
+        }
+        movesGlobalBreakImmuAb.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        abilitiesBreakable.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
 
     private void initDamageCalculationElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        initMovesUserAllyDamage();
+        abilitiesTargetDamage = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getMultDamageFoe().isEmpty() || !ab_.getMultSufferedDamageSuperEff().isZero()) {
+                abilitiesTargetDamage.add(a);
+            }
+        }
+        abilitiesTargetDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initMovesTargetTeamDamage();
+        abilitiesUserIgnTargetTeam = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getIgnFoeTeamMove().isEmpty()) {
+                abilitiesUserIgnTargetTeam.add(a);
+            }
+        }
+        abilitiesUserIgnTargetTeam.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        abilitiesGlobal = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getMultPowerMovesTypesGlobal().isEmpty() || ab_.isReverseEffectsPowerMovesTypesGlobal()) {
+                abilitiesGlobal.add(a);
+            }
+        }
+        abilitiesGlobal.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initMovesGlobal();
+        initDamageDefElement();
+        initAbilitiesUserDamage();
+        movesIgn();
+    }
+
+    private void initDamageDefElement() {
+        DataBase data_ = getDataBase();
+        itemsUserDamage = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getMultDamage().isEmpty()) {
+                itemsUserDamage.add(i);
+            }
+        }
+        itemsUserDamage.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        abilitiesUserDamage = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getMultDamage().isEmpty()) {
+                abilitiesUserDamage.add(a);
+            }
+        }
+        abilitiesUserDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initMovesInvokDamage();
+        itemsTargetDamage = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getMultFoesDamage().isEmpty()) {
+                itemsTargetDamage.add(i);
+            }
+        }
+        itemsTargetDamage.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        initMovesGlobalPrepaDamage();
+        statusDamage = new StringList();
+        for (String s: data_.getStatus().getKeys()) {
+            Status st_ = data_.getStatus(s);
+            if (st_.getStatusType() != StatusType.INDIVIDUEL && st_.estActifPartenaire() && st_.getEffectsPartner().first().getWeddingAlly()) {
+                statusDamage.add(s);
+            }
+        }
+        statusDamage.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+    }
+
+    private void initMovesUserAllyDamage() {
+        DataBase data_ = getDataBase();
         movesUserAllyDamage = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectAlly)) {
-                    continue;
-                }
-                EffectAlly e_ = (EffectAlly) e;
-                if (e_.getMultAllyDamage().isZero()) {
-                    continue;
-                }
-                movesUserAllyDamage.add(m);
-                break;
-            }
-        }
-        movesUserAllyDamage.sortElts(new ComparatorTrStrings(translatedMoves_));
-        abilitiesTargetDamage = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultDamageFoe().isEmpty()) {
-                if (ab_.getMultSufferedDamageSuperEff().isZero()) {
-                    continue;
+                if (e instanceof EffectAlly && !((EffectAlly) e).getMultAllyDamage().isZero()) {
+                    movesUserAllyDamage.add(m);
+                    break;
                 }
             }
-            abilitiesTargetDamage.add(a);
         }
-        abilitiesTargetDamage.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        movesUserAllyDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initMovesTargetTeamDamage() {
+        DataBase data_ = getDataBase();
         movesTargetTeamDamage = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectTeam)) {
-                    continue;
-                }
-                EffectTeam e_ = (EffectTeam) e;
-                if (e_.getMultDamage().isEmpty()) {
-                    continue;
-                }
-                movesTargetTeamDamage.add(m);
-                break;
-            }
-        }
-        movesTargetTeamDamage.sortElts(new ComparatorTrStrings(translatedMoves_));
-        abilitiesUserIgnTargetTeam = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getIgnFoeTeamMove().isEmpty()) {
-                continue;
-            }
-            abilitiesUserIgnTargetTeam.add(a);
-        }
-        abilitiesUserIgnTargetTeam.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesGlobal = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultPowerMovesTypesGlobal().isEmpty()) {
-                if (!ab_.isReverseEffectsPowerMovesTypesGlobal()) {
-                    continue;
+                if (e instanceof EffectTeam && !((EffectTeam) e).getMultDamage().isEmpty()) {
+                    movesTargetTeamDamage.add(m);
+                    break;
                 }
             }
-            abilitiesGlobal.add(a);
         }
-        abilitiesGlobal.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        movesTargetTeamDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initMovesGlobal() {
+        DataBase data_ = getDataBase();
         movesGlobal = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
+                if (e instanceof EffectGlobal && (!((EffectGlobal) e).getMultPowerMoves().isEmpty() || !((EffectGlobal) e).getMultDamageTypesMoves().isEmpty())) {
+                    movesGlobal.add(m);
+                    break;
                 }
-                EffectGlobal e_ = (EffectGlobal) e;
-                if (e_.getMultPowerMoves().isEmpty()) {
-                    if (e_.getMultDamageTypesMoves().isEmpty()) {
-                        continue;
-                    }
-                }
-                movesGlobal.add(m);
-                break;
             }
         }
-        movesGlobal.sortElts(new ComparatorTrStrings(translatedMoves_));
-        itemsUserDamage = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getMultDamage().isEmpty()) {
-                continue;
-            }
-            itemsUserDamage.add(i);
-        }
-        itemsUserDamage.sortElts(new ComparatorTrStrings(translatedItems_));
-        abilitiesUserDamage = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultDamage().isEmpty()) {
-                continue;
-            }
-            abilitiesUserDamage.add(a);
-        }
-        abilitiesUserDamage.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        movesGlobal.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initMovesInvokDamage() {
+        DataBase data_ = getDataBase();
         movesInvokDamage = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectInvoke)) {
-                    continue;
+                if (e instanceof EffectInvoke && !((EffectInvoke) e).getRateInvokationMove().isZero()) {
+                    movesInvokDamage.add(m);
+                    break;
                 }
-                EffectInvoke e_ = (EffectInvoke) e;
-                if (e_.getRateInvokationMove().isZero()) {
-                    continue;
-                }
-                movesInvokDamage.add(m);
-                break;
             }
         }
-        movesInvokDamage.sortElts(new ComparatorTrStrings(translatedMoves_));
-        itemsTargetDamage = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
-            }
-            Berry b_ = (Berry) it_;
-            if (b_.getMultFoesDamage().isEmpty()) {
-                continue;
-            }
-            itemsTargetDamage.add(i);
-        }
-        itemsTargetDamage.sortElts(new ComparatorTrStrings(translatedItems_));
+        movesInvokDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initMovesGlobalPrepaDamage() {
+        DataBase data_ = getDataBase();
         movesGlobalPrepaDamage = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getMovesUsedByTargetedFighters().isEmpty() && !((EffectGlobal) e).getMultDamagePrepaRound().isEmpty()) {
+                    movesGlobalPrepaDamage.add(m);
+                    break;
                 }
-                EffectGlobal e_ = (EffectGlobal) e;
-                if (e_.getMovesUsedByTargetedFighters().isEmpty()) {
-                    continue;
-                }
-                if (e_.getMultDamagePrepaRound().isEmpty()) {
-                    continue;
-                }
-                movesGlobalPrepaDamage.add(m);
-                break;
             }
         }
-        movesGlobalPrepaDamage.sortElts(new ComparatorTrStrings(translatedMoves_));
-        statusDamage = new StringList();
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() == StatusType.INDIVIDUEL) {
-                continue;
-            }
-            if(!st_.estActifPartenaire()){
-                continue;
-            }
-            EffectPartnerStatus effetPart_=st_.getEffectsPartner().first();
-            if(!effetPart_.getWeddingAlly()){
-                continue;
-            }
-            statusDamage.add(s);
-        }
-        statusDamage.sortElts(new ComparatorTrStrings(translatedStatus_));
+        movesGlobalPrepaDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initAbilitiesUserDamage() {
+        DataBase data_ = getDataBase();
         abilitiesUserTargetDamage = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultAllyDamage().isZero()) {
-                continue;
+            if (!ab_.getMultAllyDamage().isZero()) {
+                abilitiesUserTargetDamage.add(a);
             }
-            abilitiesUserTargetDamage.add(a);
         }
-        abilitiesUserTargetDamage.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesUserTargetDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesUserStabDamage = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultStab().isZero()) {
-                continue;
+            if (!ab_.getMultStab().isZero()) {
+                abilitiesUserStabDamage.add(a);
             }
-            abilitiesUserStabDamage.add(a);
         }
-        abilitiesUserStabDamage.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesUserStabDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void movesIgn() {
+        DataBase data_ = getDataBase();
         movesIgnLowAtt = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectDamage)) {
-                    continue;
+                if (e instanceof EffectDamage && !((EffectDamage) e).getIgnVarStatUserNeg().isEmpty()) {
+                    movesIgnLowAtt.add(m);
+                    break;
                 }
-                EffectDamage e_ = (EffectDamage) e;
-                if (e_.getIgnVarStatUserNeg().isEmpty()) {
-                    continue;
-                }
-                movesIgnLowAtt.add(m);
-                break;
             }
         }
-        movesIgnLowAtt.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesIgnLowAtt.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesIgnIncDef = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectDamage)) {
-                    continue;
+                if (e instanceof EffectDamage && !((EffectDamage) e).getIgnVarStatTargetPos().isEmpty()) {
+                    movesIgnIncDef.add(m);
+                    break;
                 }
-                EffectDamage e_ = (EffectDamage) e;
-                if (e_.getIgnVarStatTargetPos().isEmpty()) {
-                    continue;
-                }
-                movesIgnIncDef.add(m);
-                break;
             }
         }
-        movesIgnIncDef.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesIgnIncDef.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initPowerElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         damagingMoves = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectDamage)) {
-                    continue;
+                if (e instanceof EffectDamage) {
+                    damagingMoves.add(m);
                 }
-                damagingMoves.add(m);
             }
         }
-        damagingMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
+        damagingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         itemsUserPower = new StringList();
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getMultPower().isEmpty()) {
+                itemsUserPower.add(i);
             }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getMultPower().isEmpty()) {
-                continue;
-            }
-            itemsUserPower.add(i);
         }
-        itemsUserPower.sortElts(new ComparatorTrStrings(translatedItems_));
+        itemsUserPower.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        initMovePowerUserTarget();
+        abilitiesUserPower = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getChangingBoostTypes().isEmpty()) {
+                abilitiesUserPower.add(a);
+            }
+        }
+        abilitiesUserPower.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initMovePowerUserTarget() {
+        DataBase data_ = getDataBase();
         movesUserPower = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectMultUsedMovePower)) {
-                    continue;
+                if (e instanceof EffectMultUsedMovePower) {
+                    movesUserPower.add(m);
+                    break;
                 }
-                movesUserPower.add(m);
-                break;
             }
         }
-        movesUserPower.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesUserPower.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesTargetPower = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectMultSufferedMovePower)) {
-                    continue;
+                if (e instanceof EffectMultSufferedMovePower) {
+                    movesTargetPower.add(m);
+                    break;
                 }
-                movesTargetPower.add(m);
-                break;
             }
         }
-        movesTargetPower.sortElts(new ComparatorTrStrings(translatedMoves_));
-        abilitiesUserPower = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getChangingBoostTypes().isEmpty()) {
-                continue;
-            }
-            abilitiesUserPower.add(a);
-        }
-        abilitiesUserPower.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        movesTargetPower.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initWhileDamageElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         movesProtAgainstKo = new StringList(data_.getMovesProtSingleTargetAgainstKo());
-        movesProtAgainstKo.sortElts(new ComparatorTrStrings(translatedMoves_));
-        itemsProtAgainstKo = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getProtectAgainstKo().isZero()) {
-                if (i_.getProtectAgainstKoIfFullHp().isZero()) {
-                    continue;
-                }
-            }
-            itemsProtAgainstKo.add(i);
-        }
-        itemsProtAgainstKo.sortElts(new ComparatorTrStrings(translatedItems_));
+        movesProtAgainstKo.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        initItemsProtAgainstKo();
         movesCannotKo = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
-            if (!(move_ instanceof DamagingMoveData)) {
-                continue;
+            if (move_ instanceof DamagingMoveData && ((DamagingMoveData) move_).getCannotKo()) {
+                movesCannotKo.add(m);
             }
-            DamagingMoveData dam_ = (DamagingMoveData) move_;
-            if (!dam_.getCannotKo()) {
-                continue;
-            }
-            movesCannotKo.add(m);
         }
         minHpNotKo = data_.getMinHp();
-        movesCannotKo.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesCannotKo.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         itemsAbs = new StringList();
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getDrainedHpByDamageRate().isZero()) {
+                itemsAbs.add(i);
             }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getDrainedHpByDamageRate().isZero()) {
-                continue;
-            }
-            itemsAbs.add(i);
         }
-        itemsAbs.sortElts(new ComparatorTrStrings(translatedItems_));
+        itemsAbs.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         initWhileDamageAbilities();
         initRecoilMembers();
         abilitiesKoTarget = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultStatIfKoFoe().isEmpty()) {
-                continue;
+            if (!ab_.getMultStatIfKoFoe().isEmpty()) {
+                abilitiesKoTarget.add(a);
             }
-            abilitiesKoTarget.add(a);
         }
-        abilitiesKoTarget.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesKoTarget.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initMovesKoTarget();
+    }
+
+    private void initMovesKoTarget() {
+        DataBase data_ = getDataBase();
         movesKoTarget = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectDamage)) {
-                    continue;
-                }
-                EffectDamage e_ = (EffectDamage) e;
-                if (!e_.getBoostStatisOnceKoFoe().isEmpty()) {
+                if (e instanceof EffectDamage && !((EffectDamage) e).getBoostStatisOnceKoFoe().isEmpty()) {
                     movesKoTarget.add(m);
                 }
             }
         }
-        movesKoTarget.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesKoTarget.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+
+    private void initItemsProtAgainstKo() {
+        DataBase data_ = getDataBase();
+        itemsProtAgainstKo = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && (!((ItemForBattle) it_).getProtectAgainstKo().isZero() || !((ItemForBattle) it_).getProtectAgainstKoIfFullHp().isZero())) {
+                itemsProtAgainstKo.add(i);
+            }
+        }
+        itemsProtAgainstKo.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
     }
 
     private void initWhileDamageAbilities() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilitiesRevAbs = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isInflictingDamageInsteadOfSuffering()) {
-                continue;
+            if (ab_.isInflictingDamageInsteadOfSuffering()) {
+                abilitiesRevAbs.add(a);
             }
-            abilitiesRevAbs.add(a);
         }
-        abilitiesRevAbs.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesDamageStatis = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMaxStatisticsIfCh().isEmpty()) {
-                if (ab_.getMultStatIfDamgeType().isEmpty()) {
-                    if (ab_.getMultStatIfDamageCat().isEmpty()) {
-                        continue;
-                    }
-                }
-            }
-            abilitiesDamageStatis.add(a);
-        }
-        abilitiesDamageStatis.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesChangingTypesDamage = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isChgtTypeByDamage()) {
-                continue;
-            }
-            abilitiesChangingTypesDamage.add(a);
-        }
-        abilitiesChangingTypesDamage.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesRevAbs.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        initAbilitiesDamageStatis();
+        initAbilitiesChangingTypesDamage();
         abilitiesTakingItem = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isTakeItemByDamagingMove()) {
-                continue;
+            if (ab_.isTakeItemByDamagingMove()) {
+                abilitiesTakingItem.add(a);
             }
-            abilitiesTakingItem.add(a);
         }
-        abilitiesTakingItem.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesTakingItem.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesStatisVarUser = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getLowStatFoeHit().isEmpty()) {
-                continue;
+            if (!ab_.getLowStatFoeHit().isEmpty()) {
+                abilitiesStatisVarUser.add(a);
             }
-            abilitiesStatisVarUser.add(a);
         }
-        abilitiesStatisVarUser.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesStatisVarUser.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesStatus = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getSingleStatus().events().isEmpty()) {
-                continue;
+            if (!ab_.getSingleStatus().events().isEmpty()) {
+                abilitiesStatus.add(a);
             }
-            abilitiesStatus.add(a);
         }
-        abilitiesStatus.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesStatus.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesCopyAb = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isMumy()) {
-                continue;
+            if (ab_.isMumy()) {
+                abilitiesCopyAb.add(a);
             }
-            abilitiesCopyAb.add(a);
         }
-        abilitiesCopyAb.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesCopyAb.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initAbilitiesChangingTypesDamage() {
+        DataBase data_ = getDataBase();
+        abilitiesChangingTypesDamage = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (ab_.isChgtTypeByDamage()) {
+                abilitiesChangingTypesDamage.add(a);
+            }
+        }
+        abilitiesChangingTypesDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initAbilitiesDamageStatis() {
+        DataBase data_ = getDataBase();
+        abilitiesDamageStatis = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (!ab_.getMaxStatisticsIfCh().isEmpty() || !ab_.getMultStatIfDamgeType().isEmpty() || !ab_.getMultStatIfDamageCat().isEmpty()) {
+                abilitiesDamageStatis.add(a);
+            }
+        }
+        abilitiesDamageStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
 
     private void initEndRoundUserMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         abilitiesEndRound = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getBoostStatRankEndRound().isEmpty()) {
-                continue;
+            if (!ab_.getBoostStatRankEndRound().isEmpty()) {
+                abilitiesEndRound.add(a);
             }
-            abilitiesEndRound.add(a);
         }
-        abilitiesEndRound.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesEndRound.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         berryEndRound = new StringList();
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
+            if (it_ instanceof Berry && ((Berry) it_).getHealPp() > 0) {
+                berryEndRound.add(i);
             }
-            Berry b_ = (Berry) it_;
-            if (b_.getHealPp() <= 0) {
-                continue;
-            }
-            berryEndRound.add(i);
         }
-        berryEndRound.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        berryEndRound.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         movesChangingAttOrder = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectOrder)) {
-                    continue;
+                if (e instanceof EffectOrder) {
+                    movesChangingAttOrder.add(m);
                 }
-                movesChangingAttOrder.add(m);
             }
         }
-        movesChangingAttOrder.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesChangingAttOrder.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initBerryEndEffectMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         berryUser = new StringList();
         berryTarget = new StringList();
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
+            if (it_ instanceof Berry && (!((Berry) it_).getHealHp().isZero() || !((Berry) it_).getHealHpRate().isZero())) {
+                berryUser.add(i);
+                berryTarget.add(i);
             }
-            Berry b_ = (Berry) it_;
-            if (b_.getHealHp().isZero()) {
-                if (b_.getHealHpRate().isZero()) {
-                    continue;
-                }
-            }
-            berryUser.add(i);
-            berryTarget.add(i);
         }
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
+            if (it_ instanceof Berry && !((Berry) it_).getCategoryBoosting().isEmpty()) {
+                berryTarget.add(i);
             }
-            Berry b_ = (Berry) it_;
-            if (b_.getCategoryBoosting().isEmpty()) {
-                continue;
-            }
-            berryTarget.add(i);
         }
         berryTarget.removeDuplicates();
-        berryUser.sortElts(new ComparatorTrStrings(translatedItems_));
-        berryTarget.sortElts(new ComparatorTrStrings(translatedItems_));
+        berryUser.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        berryTarget.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
     }
 
     private void initRecoilMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         recoilItems = new StringList();
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getDamageRecoil().isZero()) {
+                recoilItems.add(i);
             }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getDamageRecoil().isZero()) {
-                continue;
-            }
-            recoilItems.add(i);
         }
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
+            if (it_ instanceof Berry && !((Berry) it_).getDamageRateRecoilFoe().isEmpty()) {
+                recoilItems.add(i);
             }
-            Berry b_ = (Berry) it_;
-            if (b_.getDamageRateRecoilFoe().isEmpty()) {
-                continue;
-            }
-            recoilItems.add(i);
         }
-        recoilItems.sortElts(new ComparatorTrStrings(translatedItems_));
+        recoilItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         recoilAbilities = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getRecoilDamageFoe().isZero()) {
-                continue;
+            if (!ab_.getRecoilDamageFoe().isZero()) {
+                recoilAbilities.add(a);
             }
-            recoilAbilities.add(a);
         }
-        recoilAbilities.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        recoilAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
 
     private void initStatisticsImmuElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilitiesFighterStatis = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuLowStat().isEmpty()) {
-                if (ab_.getImmuLowStatIfStatus().isEmpty()) {
-                    continue;
-                }
+            if (!ab_.getImmuLowStat().isEmpty() || !ab_.getImmuLowStatIfStatus().isEmpty()) {
+                abilitiesFighterStatis.add(a);
             }
-            abilitiesFighterStatis.add(a);
         }
-        abilitiesFighterStatis.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesFighterStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         itemsFighterStatis = new StringList();
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
+            if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getImmuLowStatis()) {
+                itemsFighterStatis.add(i);
             }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (!i_.getImmuLowStatis()) {
-                continue;
-            }
-            itemsFighterStatis.add(i);
         }
-        itemsFighterStatis.sortElts(new ComparatorTrStrings(translatedItems_));
+        itemsFighterStatis.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         abilitiesFighterStatisVar = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getMultVarBoost().isZero()) {
-                if (ab_.getMultStatIfLowStat().isEmpty()) {
-                    continue;
-                }
+            if (!ab_.getMultVarBoost().isZero() || !ab_.getMultStatIfLowStat().isEmpty()) {
+                abilitiesFighterStatisVar.add(a);
             }
-            abilitiesFighterStatisVar.add(a);
         }
-        abilitiesFighterStatisVar.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesFighterStatisVar.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
 
     private void initProtectingMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         protectItems = new StringList();
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
+            if (it_ instanceof Berry && !((Berry) it_).getHealHpBySuperEffMove().isZero()) {
+                protectItems.add(i);
             }
-            Berry b_ = (Berry) it_;
-            if (b_.getHealHpBySuperEffMove().isZero()) {
-                continue;
-            }
-            protectItems.add(i);
         }
-        protectItems.sortElts(new ComparatorTrStrings(translatedItems_));
+        protectItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         protectAbilities = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getBoostStatRankProtected().isEmpty()) {
-                if (ab_.getHealHpByTypeIfWeather().isEmpty()) {
-                    continue;
-                }
+            if (!ab_.getBoostStatRankProtected().isEmpty() || !ab_.getHealHpByTypeIfWeather().isEmpty()) {
+                protectAbilities.add(a);
             }
-            protectAbilities.add(a);
         }
-        protectAbilities.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        protectAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         protectMoves = new StringList(data_.getMovesCountering());
-        protectMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
+        protectMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initInvokingMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         movesInvoking = new StringList(data_.getMovesInvoking());
-        movesInvoking.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesInvoking.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesThieving = new StringList();
         movesAttracting = new StringList();
         movesMirror = new StringList();
@@ -1645,18 +1480,15 @@ public class FightHelpBean extends CommonBean {
             }
         }
         movesThieving.removeDuplicates();
-        movesThieving.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesThieving.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesAttracting.removeDuplicates();
-        movesAttracting.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesAttracting.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesMirror.removeDuplicates();
-        movesMirror.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesMirror.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initBeginRoundPreparingMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         prepaRoundMoves = new StringList();
         disappearingRoundMoves = new StringList();
         for (String m: data_.getMoves().getKeys()) {
@@ -1669,85 +1501,68 @@ public class FightHelpBean extends CommonBean {
             }
             prepaRoundMoves.add(m);
         }
-        prepaRoundMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
+        prepaRoundMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         rechargeMoves = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
-            if (!move_.getRechargeRound()) {
-                continue;
+            if (move_.getRechargeRound()) {
+                rechargeMoves.add(m);
             }
-            rechargeMoves.add(m);
         }
-        rechargeMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
-        disappearingRoundMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
+        rechargeMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        disappearingRoundMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         speedPreparingItems = new StringList();
         for (String i: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
+            if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getAttacksSoon()) {
+                speedPreparingItems.add(i);
             }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (!i_.getAttacksSoon()) {
-                continue;
-            }
-            speedPreparingItems.add(i);
         }
-        speedPreparingItems.sortElts(new ComparatorTrStrings(translatedItems_));
+        speedPreparingItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         immuRecharging = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isImmuRechargeRound()) {
-                continue;
+            if (ab_.isImmuRechargeRound()) {
+                immuRecharging.add(a);
             }
-            immuRecharging.add(a);
         }
-        immuRecharging.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        immuRecharging.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
 
     private void initBeginRoundStatusMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         beginRoundStatus = new StringList();
         for (String s: data_.getStatus().getKeys()) {
             Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() == StatusType.RELATION_UNIQUE) {
-                continue;
+            if (st_.getStatusType() != StatusType.RELATION_UNIQUE && st_ instanceof StatusBeginRound) {
+                beginRoundStatus.add(s);
             }
-            if (!(st_ instanceof StatusBeginRound)) {
-                continue;
-            }
-            beginRoundStatus.add(s);
         }
-        beginRoundStatus.sortElts(new ComparatorTrStrings(translatedStatus_));
+        beginRoundStatus.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         deleteStatusMove = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
-            if (move_.getDeletedStatus().isEmpty()) {
-                continue;
+            if (!move_.getDeletedStatus().isEmpty()) {
+                deleteStatusMove.add(m);
             }
-            deleteStatusMove.add(m);
         }
-        deleteStatusMove.sortElts(new ComparatorTrStrings(translatedMoves_));
+        deleteStatusMove.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         immuStatusAbility = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuStatusBeginRound().isEmpty()) {
-                continue;
+            if (!ab_.getImmuStatusBeginRound().isEmpty()) {
+                immuStatusAbility.add(a);
             }
-            immuStatusAbility.add(a);
         }
-        immuStatusAbility.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        immuStatusAbility.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         autoDamage = new StringList();
         for (String s: data_.getStatus().getKeys()) {
             Status st_ = data_.getStatus(s);
-            if (!(st_ instanceof StatusBeginRoundAutoDamage)) {
-                continue;
+            if (st_ instanceof StatusBeginRoundAutoDamage) {
+                autoDamage.add(s);
             }
-            autoDamage.add(s);
         }
-        autoDamage.sortElts(new ComparatorTrStrings(translatedStatus_));
+        autoDamage.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         damgeFormula = data_.getFormula(data_.getDamageFormula(), getLanguage());
         mapVar = new NatStringTreeMap<String>();
         mapVar.putAllMap(data_.getDescriptions(data_.getDamageFormula(), getLanguage()));
@@ -1762,126 +1577,133 @@ public class FightHelpBean extends CommonBean {
 
     private void initSwitchingMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         abilitiesSwitch = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getHealedHpRateBySwitch().isZero()) {
-                if (!ab_.isHealedStatusBySwitch()) {
-                    continue;
-                }
+            if (!ab_.getHealedHpRateBySwitch().isZero() || ab_.isHealedStatusBySwitch()) {
+                abilitiesSwitch.add(a);
             }
-            abilitiesSwitch.add(a);
         }
-        abilitiesSwitch.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesSwitch.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         deletedStatusSwitch = new StringList();
         for (String a: data_.getStatus().getKeys()) {
             Status ab_ = data_.getStatus(a);
-            if (!ab_.getDisabledEffIfSwitch()) {
-                continue;
+            if (ab_.getDisabledEffIfSwitch()) {
+                deletedStatusSwitch.add(a);
             }
-            deletedStatusSwitch.add(a);
         }
         for (String s: data_.getStatus().getKeys()) {
             Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() == StatusType.INDIVIDUEL) {
-                continue;
+            if (st_.getStatusType() != StatusType.INDIVIDUEL) {
+                deletedStatusSwitch.add(s);
             }
-            deletedStatusSwitch.add(s);
         }
         deletedStatusSwitch.removeDuplicates();
-        deletedStatusSwitch.sortElts(new ComparatorTrStrings(translatedStatus_));
+        deletedStatusSwitch.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         entryHazard = new StringList(data_.getMovesEffectWhileSending());
-        entryHazard.sortElts(new ComparatorTrStrings(translatedMoves_));
+        entryHazard.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initSpeedElements() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         abilitiesPrio = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getIncreasedPrio().isEmpty()) {
-                if (ab_.getIncreasedPrioTypes().isEmpty()) {
-                    continue;
-                }
+            if (!ab_.getIncreasedPrio().isEmpty() || !ab_.getIncreasedPrioTypes().isEmpty()) {
+                abilitiesPrio.add(a);
             }
-            abilitiesPrio.add(a);
         }
-        abilitiesPrio.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesPrio.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         slowAbilities = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isSlowing()) {
-                continue;
+            if (ab_.isSlowing()) {
+                slowAbilities.add(a);
             }
-            slowAbilities.add(a);
         }
-        slowAbilities.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        slowAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         slowItems = new StringList();
         for (String a: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(a);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
+            if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getAttackLast()) {
+                slowItems.add(a);
             }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (!i_.getAttackLast()) {
-                continue;
-            }
-            slowItems.add(a);
         }
-        slowItems.sortElts(new ComparatorTrStrings(translatedItems_));
+        slowItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        initReverseSpeedMoves();
+        initItSpeed();
+    }
+
+    private void initItSpeed() {
+        DataBase data_ = getDataBase();
+        berrySpeed = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof Berry && ((Berry) it_).getLawForAttackFirst()) {
+                berrySpeed.add(i);
+            }
+        }
+        berrySpeed.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        itemSpeed = new StringList();
+        for (String i: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getLawForAttackFirst().events().isEmpty()) {
+                itemSpeed.add(i);
+            }
+        }
+        itemSpeed.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+
+    private void initReverseSpeedMoves() {
+        DataBase data_ = getDataBase();
         reverseSpeedMoves = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal eff_ = (EffectGlobal) e;
-                if (eff_.getReverseOrderOfSortBySpeed()) {
+                if (e instanceof EffectGlobal && ((EffectGlobal) e).getReverseOrderOfSortBySpeed()) {
                     reverseSpeedMoves.add(m);
                     break;
                 }
             }
         }
-        reverseSpeedMoves.sortElts(new ComparatorTrStrings(translatedMoves_));
-        berrySpeed = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof Berry)) {
-                continue;
-            }
-            Berry berry_ = (Berry) it_;
-            if (!berry_.getLawForAttackFirst()) {
-                continue;
-            }
-            berrySpeed.add(i);
-        }
-        berrySpeed.sortElts(new ComparatorTrStrings(translatedItems_));
-        itemSpeed = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (i_.getLawForAttackFirst().events().isEmpty()) {
-                continue;
-            }
-            itemSpeed.add(i);
-        }
-        itemSpeed.sortElts(new ComparatorTrStrings(translatedItems_));
+        reverseSpeedMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
 
     private void initSendingMembers() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+        initSendingAbilities();
+        initSendingItems();
+        changingTypesAbilities = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (ab_.isPlate()) {
+                changingTypesAbilities.add(a);
+            }
+        }
+        changingTypesAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+
+    private void initSendingItems() {
+        DataBase data_ = getDataBase();
+        itemsSentBeginWeather = new StringList();
+        itemsSentBeginOther = new StringList();
+        for (String a: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(a);
+            if (!(it_ instanceof ItemForBattle) || !((ItemForBattle) it_).enabledSending()) {
+                continue;
+            }
+            if (((ItemForBattle) it_).getEffectSending().first().getEnabledWeather().isEmpty() && !((ItemForBattle) it_).getEffectSending().first().getDisableWeather()) {
+                itemsSentBeginOther.add(a);
+            } else {
+                itemsSentBeginWeather.add(a);
+            }
+        }
+        itemsSentBeginOther.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        itemsSentBeginWeather.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+
+    private void initSendingAbilities() {
+        DataBase data_ = getDataBase();
         abilitiesSentBeginWeather = new StringList();
         abilitiesSentBeginOther = new StringList();
         abilitiesSentStatis = new StringList();
@@ -1891,56 +1713,23 @@ public class FightHelpBean extends CommonBean {
             if (!ab_.enabledSending()) {
                 continue;
             }
-            if (ab_.getEffectSending().first() instanceof EffectWhileSendingWithStatistic) {
-                abilitiesSentStatis.add(a);
-                continue;
-            }
+            abilitiesSentStatis.add(a);
+//            if (ab_.getEffectSending().first() instanceof EffectWhileSendingWithStatistic) {
+//                abilitiesSentStatis.add(a);
+//                continue;
+//            }
             if (ab_.getEffectSending().first().getCopyingAbility()) {
                 copyAbilities.add(a);
-                continue;
+            } else if (ab_.getEffectSending().first().getEnabledWeather().isEmpty() && !ab_.getEffectSending().first().getDisableWeather()) {
+                abilitiesSentBeginOther.add(a);
+            } else {
+                abilitiesSentBeginWeather.add(a);
             }
-            if (ab_.getEffectSending().first().getEnabledWeather().isEmpty()) {
-                if (!ab_.getEffectSending().first().getDisableWeather()) {
-                    abilitiesSentBeginOther.add(a);
-                    continue;
-                }
-            }
-            abilitiesSentBeginWeather.add(a);
         }
-        abilitiesSentStatis.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesSentBeginOther.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        abilitiesSentBeginWeather.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        copyAbilities.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        itemsSentBeginWeather = new StringList();
-        itemsSentBeginOther = new StringList();
-        for (String a: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(a);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle i_ = (ItemForBattle) it_;
-            if (!i_.enabledSending()) {
-                continue;
-            }
-            if (i_.getEffectSending().first().getEnabledWeather().isEmpty()) {
-                if (!i_.getEffectSending().first().getDisableWeather()) {
-                    itemsSentBeginOther.add(a);
-                    continue;
-                }
-            }
-            itemsSentBeginWeather.add(a);
-        }
-        itemsSentBeginOther.sortElts(new ComparatorTrStrings(translatedItems_));
-        itemsSentBeginWeather.sortElts(new ComparatorTrStrings(translatedItems_));
-        changingTypesAbilities = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.isPlate()) {
-                continue;
-            }
-            changingTypesAbilities.add(a);
-        }
-        changingTypesAbilities.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilitiesSentStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        abilitiesSentBeginOther.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        abilitiesSentBeginWeather.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        copyAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
 
     private void initBoosts(long _minBoost, long _maxBoost) {
@@ -2011,24 +1800,14 @@ public class FightHelpBean extends CommonBean {
             char cur_ = _catchingFormula.charAt(i_);
             if (MathExpUtil.isWordChar(cur_)) {
                 boolean dig_ = cur_ >= '0' && cur_ <= '9';
-                int j_ = i_;
-                while (MathExpUtil.isWordChar(cur_)&&j_<len_) {
-                    cur_ = _catchingFormula.charAt(j_);
-                    j_++;
-                }
+                int j_ = incrNext(_catchingFormula, i_, cur_);
                 String word_ = _catchingFormula.substring(i_, j_);
-                if (dig_) {
-                    str_.append(word_);
-                    i_ = NumberUtil.max(j_,i_+1);
-                    continue;
+                if (!dig_) {
+                    String next_ = _catchingFormula.substring(j_).trim();
+                    if (next_.isEmpty() || next_.charAt(0) != CST_LEFT_PAR) {
+                        str_.append(DataBase.VAR_PREFIX);
+                    }
                 }
-                String next_ = _catchingFormula.substring(j_).trim();
-                if (!next_.isEmpty() && next_.charAt(0) == CST_LEFT_PAR) {
-                    str_.append(word_);
-                    i_ = NumberUtil.max(j_,i_+1);
-                    continue;
-                }
-                str_.append(DataBase.VAR_PREFIX);
                 str_.append(word_);
                 i_ = NumberUtil.max(j_,i_+1);
                 continue;
@@ -2037,6 +1816,17 @@ public class FightHelpBean extends CommonBean {
             i_++;
         }
         return str_;
+    }
+
+    private static int incrNext(String _catchingFormula, int _i, char _c) {
+        char cur_ = _c;
+        int len_ = _catchingFormula.length();
+        int j_ = _i;
+        while (MathExpUtil.isWordChar(cur_)&&j_< len_) {
+            cur_ = _catchingFormula.charAt(j_);
+            j_++;
+        }
+        return j_;
     }
 
     public String getTrStatistic(int _index) {
@@ -4423,10 +4213,9 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultNormal(int _index) {
         StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
-            tmp_.sortElts(new ComparatorTrStrings(translatedMoves_));
+            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
             if (!StringUtil.eqStrings(tmp_, combo_)) {
                 continue;
             }
@@ -4448,10 +4237,9 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultEvasiness(int _index) {
         StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
-            tmp_.sortElts(new ComparatorTrStrings(translatedMoves_));
+            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
             if (!StringUtil.eqStrings(tmp_, combo_)) {
                 continue;
             }
@@ -4473,10 +4261,9 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultSpeed(int _index) {
         StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
-            tmp_.sortElts(new ComparatorTrStrings(translatedMoves_));
+            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
             if (!StringUtil.eqStrings(tmp_, combo_)) {
                 continue;
             }
@@ -4498,10 +4285,9 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultAccuracy(int _index) {
         StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
-            tmp_.sortElts(new ComparatorTrStrings(translatedMoves_));
+            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
             if (!StringUtil.eqStrings(tmp_, combo_)) {
                 continue;
             }

@@ -1,6 +1,7 @@
 package aiki.beans.status;
+
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.StringMap;
@@ -32,7 +33,7 @@ public class StatusSetBean extends CommonBean {
             getForms().put(CST_STATUS, sortedAbilities_.first());
             return CST_STATUS;
         }
-        sortedAbilities_.sortElts(new ComparatorTrStrings(translationsStatus_));
+        sortedAbilities_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         getForms().put(CST_STATUS_SET, sortedAbilities_);
         return CST_STATUS_SET;
     }

@@ -1,14 +1,14 @@
 package aiki.beans.map.elements;
 
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.beans.items.ItemsBean;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
 import code.util.AbsMap;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -17,7 +17,7 @@ public class LegendaryPokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        pokemon = (WildPk)getForms().getValPk(CST_LEG_PK);
+        pokemon = getForms().getValPk(CST_LEG_PK);
     }
     public String getImage() {
         DataBase data_ = getDataBase();
@@ -71,49 +71,50 @@ public class LegendaryPokemonBean extends CommonBean {
         String item_ = pokemon.getItem();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
-        if (it_ instanceof Ball) {
-            return CST_BALL;
-        }
-        if (it_ instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (it_ instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (it_ instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (it_ instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (it_ instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (it_ instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (it_ instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (it_ instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (it_ instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (it_ instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (it_ instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (it_ instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (it_ instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
+        return ItemsBean.switchItem(it_);
+//        if (it_ instanceof Ball) {
+//            return CST_BALL;
+//        }
+//        if (it_ instanceof Berry) {
+//            return CST_BERRY;
+//        }
+//        if (it_ instanceof Boost) {
+//            return CST_BOOST;
+//        }
+//        if (it_ instanceof EvolvingItem) {
+//            return CST_EVOLVINGITEM;
+//        }
+//        if (it_ instanceof EvolvingStone) {
+//            return CST_EVOLVINGSTONE;
+//        }
+//        if (it_ instanceof Fossil) {
+//            return CST_FOSSIL;
+//        }
+//        if (it_ instanceof HealingHpStatus) {
+//            return CST_HEALINGHPSTATUS;
+//        }
+//        if (it_ instanceof HealingStatus) {
+//            return CST_HEALINGSTATUS;
+//        }
+//        if (it_ instanceof HealingHp) {
+//            return CST_HEALINGHP;
+//        }
+//        if (it_ instanceof HealingPp) {
+//            return CST_HEALINGPP;
+//        }
+//        if (it_ instanceof HealingItem) {
+//            return CST_HEALINGITEM;
+//        }
+//        if (it_ instanceof ItemForBattle) {
+//            return CST_ITEMFORBATTLE;
+//        }
+//        if (it_ instanceof Repel) {
+//            return CST_REPEL;
+//        }
+//        if (it_ instanceof SellingItem) {
+//            return CST_SELLINGITEM;
+//        }
+//        return CST_ITEM;
     }
     public String getMove(int _moveIndex) {
         DataBase data_ = getDataBase();
@@ -129,10 +130,8 @@ public class LegendaryPokemonBean extends CommonBean {
     }
     public StringList getMovesAtLevel() {
         DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_ = data_.getPokemon(pokemon.getName()).getMovesAtLevel(pokemon.getLevel(), data_.getNbMaxMoves());
-        moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
+        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return moves_;
     }
 

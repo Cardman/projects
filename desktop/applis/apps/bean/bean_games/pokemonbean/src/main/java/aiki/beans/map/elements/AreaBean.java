@@ -1,7 +1,8 @@
 package aiki.beans.map.elements;
 
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.beans.items.ItemsBean;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
 import aiki.map.levels.AreaApparition;
@@ -9,7 +10,6 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
 import code.util.AbsMap;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -85,49 +85,50 @@ public class AreaBean extends CommonBean {
         String item_ = pk_.getItem();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
-        if (it_ instanceof Ball) {
-            return CST_BALL;
-        }
-        if (it_ instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (it_ instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (it_ instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (it_ instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (it_ instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (it_ instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (it_ instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (it_ instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (it_ instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (it_ instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (it_ instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (it_ instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (it_ instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
+        return ItemsBean.switchItem(it_);
+//        if (it_ instanceof Ball) {
+//            return CST_BALL;
+//        }
+//        if (it_ instanceof Berry) {
+//            return CST_BERRY;
+//        }
+//        if (it_ instanceof Boost) {
+//            return CST_BOOST;
+//        }
+//        if (it_ instanceof EvolvingItem) {
+//            return CST_EVOLVINGITEM;
+//        }
+//        if (it_ instanceof EvolvingStone) {
+//            return CST_EVOLVINGSTONE;
+//        }
+//        if (it_ instanceof Fossil) {
+//            return CST_FOSSIL;
+//        }
+//        if (it_ instanceof HealingHpStatus) {
+//            return CST_HEALINGHPSTATUS;
+//        }
+//        if (it_ instanceof HealingStatus) {
+//            return CST_HEALINGSTATUS;
+//        }
+//        if (it_ instanceof HealingHp) {
+//            return CST_HEALINGHP;
+//        }
+//        if (it_ instanceof HealingPp) {
+//            return CST_HEALINGPP;
+//        }
+//        if (it_ instanceof HealingItem) {
+//            return CST_HEALINGITEM;
+//        }
+//        if (it_ instanceof ItemForBattle) {
+//            return CST_ITEMFORBATTLE;
+//        }
+//        if (it_ instanceof Repel) {
+//            return CST_REPEL;
+//        }
+//        if (it_ instanceof SellingItem) {
+//            return CST_SELLINGITEM;
+//        }
+//        return CST_ITEM;
     }
     public String getMove(int _index, int _moveIndex) {
         DataBase data_ = getDataBase();
@@ -143,12 +144,10 @@ public class AreaBean extends CommonBean {
     }
     public StringList getMovesAtLevel(int _index) {
         DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         StringList moves_ = data_.getPokemon(pk_.getName()).getMovesAtLevel(pk_.getLevel(), data_.getNbMaxMoves());
-        moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
+        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return moves_;
     }
     public String getImageFishing(int _index) {
@@ -216,49 +215,50 @@ public class AreaBean extends CommonBean {
         String item_ = pk_.getItem();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
-        if (it_ instanceof Ball) {
-            return CST_BALL;
-        }
-        if (it_ instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (it_ instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (it_ instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (it_ instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (it_ instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (it_ instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (it_ instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (it_ instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (it_ instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (it_ instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (it_ instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (it_ instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (it_ instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
+        return ItemsBean.switchItem(it_);
+//        if (it_ instanceof Ball) {
+//            return CST_BALL;
+//        }
+//        if (it_ instanceof Berry) {
+//            return CST_BERRY;
+//        }
+//        if (it_ instanceof Boost) {
+//            return CST_BOOST;
+//        }
+//        if (it_ instanceof EvolvingItem) {
+//            return CST_EVOLVINGITEM;
+//        }
+//        if (it_ instanceof EvolvingStone) {
+//            return CST_EVOLVINGSTONE;
+//        }
+//        if (it_ instanceof Fossil) {
+//            return CST_FOSSIL;
+//        }
+//        if (it_ instanceof HealingHpStatus) {
+//            return CST_HEALINGHPSTATUS;
+//        }
+//        if (it_ instanceof HealingStatus) {
+//            return CST_HEALINGSTATUS;
+//        }
+//        if (it_ instanceof HealingHp) {
+//            return CST_HEALINGHP;
+//        }
+//        if (it_ instanceof HealingPp) {
+//            return CST_HEALINGPP;
+//        }
+//        if (it_ instanceof HealingItem) {
+//            return CST_HEALINGITEM;
+//        }
+//        if (it_ instanceof ItemForBattle) {
+//            return CST_ITEMFORBATTLE;
+//        }
+//        if (it_ instanceof Repel) {
+//            return CST_REPEL;
+//        }
+//        if (it_ instanceof SellingItem) {
+//            return CST_SELLINGITEM;
+//        }
+//        return CST_ITEM;
     }
     public String getMoveFishing(int _index, int _moveIndex) {
         DataBase data_ = getDataBase();
@@ -274,12 +274,10 @@ public class AreaBean extends CommonBean {
     }
     public StringList getMovesAtLevelFishing(int _index) {
         DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         StringList moves_ = data_.getPokemon(pk_.getName()).getMovesAtLevel(pk_.getLevel(), data_.getNbMaxMoves());
-        moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
+        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return moves_;
     }
 

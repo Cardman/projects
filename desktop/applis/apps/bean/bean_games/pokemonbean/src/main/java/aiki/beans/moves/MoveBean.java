@@ -1,7 +1,8 @@
 package aiki.beans.moves;
 
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.beans.items.ItemsBean;
+import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.*;
@@ -74,14 +75,14 @@ public class MoveBean extends CommonBean {
     private boolean rechargeRound;
     private boolean constUserChoice;
     private boolean secEffectIfNoDamage;
-    private TreeMap<String, Ints> secEffectsByItem;
+    private DictionaryComparator<String, Ints> secEffectsByItem;
     private boolean ignVarAccurUserNeg;
     private boolean ignVarEvasTargetPos;
     private StringList achieveDisappearedPkUsingMove;
 
     private SwitchType switchType;
-    private TreeMap<String,String> typesByOwnedItems;
-    private TreeMap<String,String> typesByWeathers;
+    private DictionaryComparator<String,String> typesByOwnedItems;
+    private DictionaryComparator<String,String> typesByWeathers;
     private TargetChoice targetChoice;
     private StringList deletedStatus;
     private StringList requiredStatus;
@@ -99,10 +100,7 @@ public class MoveBean extends CommonBean {
     public void beforeDisplaying() {
         String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         name = name_;
         displayName = translatedMoves_.getVal(name_);
         MoveData moveData_ = data_.getMove(name_);
@@ -114,8 +112,8 @@ public class MoveBean extends CommonBean {
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
 //        CustList<ItemTypeLine> typesByOwnedItem_;
 //        typesByOwnedItem_ = new CustList<>();
-        TreeMap<String,String> typesByOwnedItems_;
-        typesByOwnedItems_ = new TreeMap<String, String>(new ComparatorTrStrings(translatedItems_));
+        DictionaryComparator<String,String> typesByOwnedItems_;
+        typesByOwnedItems_ =DictionaryComparatorUtil.buildItemsStr(data_,getLanguage());
         boolean hasDefault_ = false;
         for (String k: moveData_.getTypesByOwnedItem().getKeys()) {
             //ItemTypeLine line_ = new ItemTypeLine();
@@ -144,8 +142,8 @@ public class MoveBean extends CommonBean {
 
 //        CustList<WeatherTypeLine> typesByWeather_;
 //        typesByWeather_ = new CustList<>();
-        TreeMap<String,String> typesByWeathers_;
-        typesByWeathers_ = new TreeMap<String, String>(new ComparatorTrStrings(translatedMoves_));
+        DictionaryComparator<String,String> typesByWeathers_;
+        typesByWeathers_ = DictionaryComparatorUtil.buildMovesStr(data_,getLanguage());
         for (String k: moveData_.getTypesByWeather().getKeys()) {
             //WeatherTypeLine line_ = new WeatherTypeLine();
 //            if (translatedMoves_.contains(k)) {
@@ -210,7 +208,7 @@ public class MoveBean extends CommonBean {
         for (String m: moveData_.getAchieveDisappearedPkUsingMove()) {
             achieveDisappearedPkUsingMove_.add(m);
         }
-        achieveDisappearedPkUsingMove_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        achieveDisappearedPkUsingMove_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         achieveDisappearedPkUsingMove = achieveDisappearedPkUsingMove_;
         StringList abilities_ = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
@@ -219,7 +217,7 @@ public class MoveBean extends CommonBean {
                 abilities_.add(a);
             }
         }
-        abilities_.sortElts(new ComparatorTrStrings(translatedAbilities_));
+        abilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilities = abilities_;
         StringList items_ = new StringList();
         for (String a: data_.getItems().getKeys()) {
@@ -232,7 +230,7 @@ public class MoveBean extends CommonBean {
                 items_.add(a);
             }
         }
-        items_.sortElts(new ComparatorTrStrings(translatedItems_));
+        items_.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         items = items_;
         if (moveData_ instanceof DamagingMoveData) {
             cannotKo = ((DamagingMoveData)moveData_).getCannotKo();
@@ -280,7 +278,7 @@ public class MoveBean extends CommonBean {
                 }
             }
         }
-        affectedByMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        affectedByMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         affectedByMoves_.removeDuplicates();
         affectedByMoves = affectedByMoves_;
         Ints effects_ = new Ints();
@@ -305,17 +303,17 @@ public class MoveBean extends CommonBean {
         for (String s: moveData_.getDeletedStatus()) {
             deletedStatus_.add(s);
         }
-        deletedStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        deletedStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         deletedStatus = deletedStatus_;
         StringList requiredStatus_;
         requiredStatus_ = new StringList();
         for (String s: moveData_.getRequiredStatus()) {
             requiredStatus_.add(s);
         }
-        requiredStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        requiredStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         requiredStatus = requiredStatus_;
-        TreeMap<String, Ints> secEffectsByItem_;
-        secEffectsByItem_ = new TreeMap<String, Ints>(new ComparatorTrStrings(translatedItems_));
+        DictionaryComparator<String, Ints> secEffectsByItem_;
+        secEffectsByItem_ = DictionaryComparatorUtil.buildItemsLs(data_,getLanguage());
         for (String s: moveData_.getSecEffectsByItem().getKeys()) {
             secEffectsByItem_.put(s, moveData_.getSecEffectsByItem().getVal(s));
         }
@@ -336,7 +334,7 @@ public class MoveBean extends CommonBean {
             }
         }
         for (StringList v: movesLevelLearntByPokemon_.values()) {
-            v.sortElts(new ComparatorTrStrings(translatedPokemon_));
+            v.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         }
         movesLevelLearntByPokemon = movesLevelLearntByPokemon_;
         StringList movesTmLearntByPokemon_;
@@ -353,7 +351,7 @@ public class MoveBean extends CommonBean {
                     movesTmLearntByPokemon_.add(p);
                 }
             }
-            movesTmLearntByPokemon_.sortElts(new ComparatorTrStrings(translatedPokemon_));
+            movesTmLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         }
         movesTmLearntByPokemon = movesTmLearntByPokemon_;
         StringList movesHmLearntByPokemon_;
@@ -370,7 +368,7 @@ public class MoveBean extends CommonBean {
                     movesHmLearntByPokemon_.add(p);
                 }
             }
-            movesHmLearntByPokemon_.sortElts(new ComparatorTrStrings(translatedPokemon_));
+            movesHmLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         }
         movesHmLearntByPokemon = movesHmLearntByPokemon_;
         StringList movesMtLearntByPokemon_;
@@ -381,7 +379,7 @@ public class MoveBean extends CommonBean {
                 movesMtLearntByPokemon_.add(p);
             }
         }
-        movesMtLearntByPokemon_.sortElts(new ComparatorTrStrings(translatedPokemon_));
+        movesMtLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         movesMtLearntByPokemon = movesMtLearntByPokemon_;
     }
     public String clickMoves() {
@@ -401,10 +399,9 @@ public class MoveBean extends CommonBean {
                     continue;
                 }
                 EffectSwitchPointView effetChgtPointVueAttLoc_=(EffectSwitchPointView)effetLoc_;
-                if (effetChgtPointVueAttLoc_.getPointViewChangement() != PointViewChangementType.THIEF_BONUSES) {
-                    continue;
+                if (effetChgtPointVueAttLoc_.getPointViewChangement() == PointViewChangementType.THIEF_BONUSES) {
+                    moves_.add(m);
                 }
-                moves_.add(m);
             }
         }
         return moves_;
@@ -422,10 +419,9 @@ public class MoveBean extends CommonBean {
                     continue;
                 }
                 EffectSwitchPointView effetChgtPointVueAttLoc_=(EffectSwitchPointView)effetLoc_;
-                if (effetChgtPointVueAttLoc_.getPointViewChangement() != PointViewChangementType.MIRROR_AGAINST_THROWER) {
-                    continue;
+                if (effetChgtPointVueAttLoc_.getPointViewChangement() == PointViewChangementType.MIRROR_AGAINST_THROWER) {
+                    moves_.add(m);
                 }
-                moves_.add(m);
             }
         }
         return moves_;
@@ -553,49 +549,50 @@ public class MoveBean extends CommonBean {
         DataBase data_ = getDataBase();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
-        if (it_ instanceof Ball) {
-            return CST_BALL;
-        }
-        if (it_ instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (it_ instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (it_ instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (it_ instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (it_ instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (it_ instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (it_ instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (it_ instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (it_ instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (it_ instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (it_ instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (it_ instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (it_ instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
+        return ItemsBean.switchItem(it_);
+//        if (it_ instanceof Ball) {
+//            return CST_BALL;
+//        }
+//        if (it_ instanceof Berry) {
+//            return CST_BERRY;
+//        }
+//        if (it_ instanceof Boost) {
+//            return CST_BOOST;
+//        }
+//        if (it_ instanceof EvolvingItem) {
+//            return CST_EVOLVINGITEM;
+//        }
+//        if (it_ instanceof EvolvingStone) {
+//            return CST_EVOLVINGSTONE;
+//        }
+//        if (it_ instanceof Fossil) {
+//            return CST_FOSSIL;
+//        }
+//        if (it_ instanceof HealingHpStatus) {
+//            return CST_HEALINGHPSTATUS;
+//        }
+//        if (it_ instanceof HealingStatus) {
+//            return CST_HEALINGSTATUS;
+//        }
+//        if (it_ instanceof HealingHp) {
+//            return CST_HEALINGHP;
+//        }
+//        if (it_ instanceof HealingPp) {
+//            return CST_HEALINGPP;
+//        }
+//        if (it_ instanceof HealingItem) {
+//            return CST_HEALINGITEM;
+//        }
+//        if (it_ instanceof ItemForBattle) {
+//            return CST_ITEMFORBATTLE;
+//        }
+//        if (it_ instanceof Repel) {
+//            return CST_REPEL;
+//        }
+//        if (it_ instanceof SellingItem) {
+//            return CST_SELLINGITEM;
+//        }
+//        return CST_ITEM;
     }
     public String getTrTypesByOwnedItems(int _index) {
         String item_ = typesByOwnedItems.getKey(_index);
@@ -622,49 +619,50 @@ public class MoveBean extends CommonBean {
         DataBase data_ = getDataBase();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
-        if (it_ instanceof Ball) {
-            return CST_BALL;
-        }
-        if (it_ instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (it_ instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (it_ instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (it_ instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (it_ instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (it_ instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (it_ instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (it_ instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (it_ instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (it_ instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (it_ instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (it_ instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (it_ instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
+        return ItemsBean.switchItem(it_);
+//        if (it_ instanceof Ball) {
+//            return CST_BALL;
+//        }
+//        if (it_ instanceof Berry) {
+//            return CST_BERRY;
+//        }
+//        if (it_ instanceof Boost) {
+//            return CST_BOOST;
+//        }
+//        if (it_ instanceof EvolvingItem) {
+//            return CST_EVOLVINGITEM;
+//        }
+//        if (it_ instanceof EvolvingStone) {
+//            return CST_EVOLVINGSTONE;
+//        }
+//        if (it_ instanceof Fossil) {
+//            return CST_FOSSIL;
+//        }
+//        if (it_ instanceof HealingHpStatus) {
+//            return CST_HEALINGHPSTATUS;
+//        }
+//        if (it_ instanceof HealingStatus) {
+//            return CST_HEALINGSTATUS;
+//        }
+//        if (it_ instanceof HealingHp) {
+//            return CST_HEALINGHP;
+//        }
+//        if (it_ instanceof HealingPp) {
+//            return CST_HEALINGPP;
+//        }
+//        if (it_ instanceof HealingItem) {
+//            return CST_HEALINGITEM;
+//        }
+//        if (it_ instanceof ItemForBattle) {
+//            return CST_ITEMFORBATTLE;
+//        }
+//        if (it_ instanceof Repel) {
+//            return CST_REPEL;
+//        }
+//        if (it_ instanceof SellingItem) {
+//            return CST_SELLINGITEM;
+//        }
+//        return CST_ITEM;
     }
     public String translateItemSecEffect(int _index) {
         String it_ = getItemSecEffect(_index);
@@ -674,8 +672,7 @@ public class MoveBean extends CommonBean {
     }
 
     private String getItemSecEffect(int _index) {
-        String it_ = secEffectsByItem.getKey(_index);
-        return it_;
+        return secEffectsByItem.getKey(_index);
     }
     public String clickAbility(int _index) {
         String key_ = abilities.get(_index);
@@ -693,49 +690,50 @@ public class MoveBean extends CommonBean {
         DataBase data_ = getDataBase();
         getForms().put(CST_ITEM, key_);
         Item it_ = data_.getItem(key_);
-        if (it_ instanceof Ball) {
-            return CST_BALL;
-        }
-        if (it_ instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (it_ instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (it_ instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (it_ instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (it_ instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (it_ instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (it_ instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (it_ instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (it_ instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (it_ instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (it_ instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (it_ instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (it_ instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
+        return ItemsBean.switchItem(it_);
+//        if (it_ instanceof Ball) {
+//            return CST_BALL;
+//        }
+//        if (it_ instanceof Berry) {
+//            return CST_BERRY;
+//        }
+//        if (it_ instanceof Boost) {
+//            return CST_BOOST;
+//        }
+//        if (it_ instanceof EvolvingItem) {
+//            return CST_EVOLVINGITEM;
+//        }
+//        if (it_ instanceof EvolvingStone) {
+//            return CST_EVOLVINGSTONE;
+//        }
+//        if (it_ instanceof Fossil) {
+//            return CST_FOSSIL;
+//        }
+//        if (it_ instanceof HealingHpStatus) {
+//            return CST_HEALINGHPSTATUS;
+//        }
+//        if (it_ instanceof HealingStatus) {
+//            return CST_HEALINGSTATUS;
+//        }
+//        if (it_ instanceof HealingHp) {
+//            return CST_HEALINGHP;
+//        }
+//        if (it_ instanceof HealingPp) {
+//            return CST_HEALINGPP;
+//        }
+//        if (it_ instanceof HealingItem) {
+//            return CST_HEALINGITEM;
+//        }
+//        if (it_ instanceof ItemForBattle) {
+//            return CST_ITEMFORBATTLE;
+//        }
+//        if (it_ instanceof Repel) {
+//            return CST_REPEL;
+//        }
+//        if (it_ instanceof SellingItem) {
+//            return CST_SELLINGITEM;
+//        }
+//        return CST_ITEM;
     }
     public String getTrItem(int _index) {
         String ab_ = items.get(_index);
@@ -977,11 +975,11 @@ public class MoveBean extends CommonBean {
         return types;
     }
 
-    public TreeMap<String,String> getTypesByOwnedItems() {
+    public DictionaryComparator<String,String> getTypesByOwnedItems() {
         return typesByOwnedItems;
     }
 
-    public TreeMap<String,String> getTypesByWeathers() {
+    public DictionaryComparator<String,String> getTypesByWeathers() {
         return typesByWeathers;
     }
 
@@ -1049,7 +1047,7 @@ public class MoveBean extends CommonBean {
         return affectedByMoves;
     }
 
-    public TreeMap<String,Ints> getSecEffectsByItem() {
+    public DictionaryComparator<String,Ints> getSecEffectsByItem() {
         return secEffectsByItem;
     }
 

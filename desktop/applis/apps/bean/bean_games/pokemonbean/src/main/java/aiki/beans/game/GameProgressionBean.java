@@ -2,8 +2,8 @@ package aiki.beans.game;
 
 import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorPlaceNumber;
-import aiki.comparators.ComparatorTrStrings;
 import aiki.comparators.ComparatorTrainerPlaceNames;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.GameProgression;
@@ -11,7 +11,10 @@ import aiki.map.DataMap;
 import code.bean.Bean;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
-import code.util.*;
+import code.util.CustList;
+import code.util.NatStringTreeMap;
+import code.util.StringList;
+import code.util.TreeMap;
 
 public class GameProgressionBean extends Bean implements WithFacade {
     private String heroImage;
@@ -53,7 +56,6 @@ public class GameProgressionBean extends Bean implements WithFacade {
     @Override
     public void beforeDisplaying() {
         FacadeGame facade_ = getDataBase();
-        StringMap<String> tr_ = facade_.getData().getTranslatedPokemon().getVal(getLanguage());
         heroImage = facade_.getFrontChosenHeros();
         heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex();
         GameProgression progression_ = facade_.getGameProgression();
@@ -68,7 +70,7 @@ public class GameProgressionBean extends Bean implements WithFacade {
                 for (String e: l) {
                     list_.add(e);
                 }
-                list_.sortElts(new ComparatorTrStrings(tr_));
+                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(facade_.getData(),getLanguage()));
                 lists_.add(list_);
             }
             notAtAllFamiliesBase.put(facade_.translatePokemon(b), lists_);
@@ -81,7 +83,7 @@ public class GameProgressionBean extends Bean implements WithFacade {
                 for (String e: l) {
                     list_.add(e);
                 }
-                list_.sortElts(new ComparatorTrStrings(tr_));
+                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(facade_.getData(),getLanguage()));
                 lists_.add(list_);
             }
             partialFamiliesBaseCaught.put(facade_.translatePokemon(b), lists_);
@@ -94,7 +96,7 @@ public class GameProgressionBean extends Bean implements WithFacade {
                 for (String e: l) {
                     list_.add(e);
                 }
-                list_.sortElts(new ComparatorTrStrings(tr_));
+                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(facade_.getData(),getLanguage()));
                 lists_.add(list_);
             }
             partialFamiliesBaseNotCaught.put(facade_.translatePokemon(b), lists_);
@@ -107,7 +109,7 @@ public class GameProgressionBean extends Bean implements WithFacade {
                 for (String e: l) {
                     list_.add(e);
                 }
-                list_.sortElts(new ComparatorTrStrings(tr_));
+                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(facade_.getData(),getLanguage()));
                 lists_.add(list_);
             }
             fullFamiliesBase.put(facade_.translatePokemon(b), lists_);
@@ -168,8 +170,7 @@ public class GameProgressionBean extends Bean implements WithFacade {
     }
     public StringList getKeyPokemon(int _key, int _indexList) {
         CustList<StringList> values_ = partialFamiliesBaseCaught.getValue(_key);
-        StringList value_ = values_.get(_indexList);
-        return value_;
+        return values_.get(_indexList);
     }
 
     private static String getTrPokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {

@@ -2600,6 +2600,9 @@ public final class Fighter {
     public CustList<MoveTeamPosition> getStatusRelatSet() {
         return statusRelat.getKeys();
     }
+    public Shorts getStatusRelatValues() {
+        return new Shorts(statusRelat.values());
+    }
 
     public void setStatusRelat(MoveTeamPositionsShort _statusRelat) {
         statusRelat = _statusRelat;

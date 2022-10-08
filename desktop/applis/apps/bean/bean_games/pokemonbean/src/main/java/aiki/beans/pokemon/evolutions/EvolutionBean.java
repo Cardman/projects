@@ -1,6 +1,7 @@
 package aiki.beans.pokemon.evolutions;
+
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.Evolution;
@@ -33,9 +34,7 @@ public class EvolutionBean extends CommonBean {
         DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(base);
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
-        StringMap<String> translationsPokemon_;
-        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        evolutions_.sortElts(new ComparatorTrStrings(translationsPokemon_));
+        evolutions_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         getForms().put(CST_PK,evolutions_.get(_index));
         return CST_POKEMON;
     }

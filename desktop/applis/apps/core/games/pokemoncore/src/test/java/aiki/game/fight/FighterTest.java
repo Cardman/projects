@@ -843,8 +843,8 @@ public class FighterTest extends InitializationDataBase {
         fighter_.ajouterRelationAutre(fighterCoords_, data_);
         assertEq(12, fighter_.getStatusRelat().size());
 //        assertEq(11, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(12, getNbStatusRelatByRounds(fighter_,(short) 0));
-        assertEq(0, getNbStatusRelatByRounds(fighter_,(short) 1));
+        assertEq(0, fighter_.getStatusRelatValues().getMinimum(-1));
+        assertEq(0, fighter_.getStatusRelatValues().getMaximum(-1));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR_FOU,fighterCoords_)));
@@ -914,7 +914,8 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initCreatureRelationsAutre(fightersCoords_, data_);
         assertEq(24, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(24, getNbStatusRelatByRounds(fighter_,(short) 0));
+        assertEq(0, fighter_.getStatusRelatValues().getMinimum(-1));
+        assertEq(0, fighter_.getStatusRelatValues().getMaximum(-1));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR_MOU,fighterCoordsOne_)));
@@ -7269,16 +7270,16 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getRemainingHp().affectZero();
         assertTrue(fighter_.isKoAt((byte) 0));
     }
-
-    static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
-//        int i_ = IndexConstants.SIZE_EMPTY;
-//        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
-//            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
-//                i_++;
-//            }
-//        }
-//        return i_;
-        return TstsPk.getNbStatusRelatByRounds(_f, _nbRounds);
-    }
+//
+//    static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
+////        int i_ = IndexConstants.SIZE_EMPTY;
+////        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+////            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
+////                i_++;
+////            }
+////        }
+////        return i_;
+//        return TstsPk.getNbStatusRelatByRounds(_f, _nbRounds);
+//    }
 
 }

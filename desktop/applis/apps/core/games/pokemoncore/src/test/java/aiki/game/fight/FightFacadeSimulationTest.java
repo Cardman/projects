@@ -12,10 +12,7 @@ import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.player.Player;
-import aiki.map.characters.Ally;
-import aiki.map.characters.DualFight;
 import aiki.map.characters.GymLeader;
-import aiki.map.characters.TempTrainer;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.Pokemon;
@@ -2703,7 +2700,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(data_);
         assertTrue(!fightSimulation_.getProbleme());
-        assertTrue(fightSimulation_.hasNextFight(data_));
+        assertTrue(fightSimulation_.hasNextFight());
     }
 
     @Test
@@ -2765,7 +2762,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(data_);
         assertTrue(!fightSimulation_.getProbleme());
-        assertTrue(!fightSimulation_.hasNextFight(data_));
+        assertTrue(!fightSimulation_.hasNextFight());
     }
 
     @Test
@@ -2819,7 +2816,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, data_);
         fightSimulation_.simulateFight(data_);
         assertTrue(!fightSimulation_.getProbleme());
-        assertTrue(!fightSimulation_.hasNextFight(data_));
+        assertTrue(!fightSimulation_.hasNextFight());
     }
 
     @Test
@@ -2888,7 +2885,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 0, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, data_);
         //fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(data_);
-        assertTrue(!fightSimulation_.hasNextFight(data_));
+        assertTrue(!fightSimulation_.hasNextFight());
     }
 
     @Test
@@ -2950,7 +2947,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(data_);
         assertTrue(!fightSimulation_.getProbleme());
-        fightSimulation_.nextFight(data_);
+        fightSimulation_.nextFight();
         assertEq(newCoords(6, 1, 4, 4), fightSimulation_.getFoeCoords());
         assertEq(1, fightSimulation_.getMaxActions().size());
         assertEq(1, fightSimulation_.getMaxActions().first());

@@ -53,14 +53,18 @@ public class FightSimulation {
     private final Game game;
 
     private Coords foeCoords;
+    private final CustList<Coords> foeCoordsAll;
 
     private int noFight;
 
     private final Bytes mult;
+    private final Bytes multAll;
 
     private final Ints maxActions;
+    private final Ints maxActionsAll;
 
     private final CustList<CustList<PkTrainer>> foeTeams;
+    private final CustList<CustList<PkTrainer>> foeTeamsAll;
 
     private final CustList<PkTrainer> allyTeam = new CustList<PkTrainer>();
 
@@ -139,8 +143,11 @@ public class FightSimulation {
     private boolean ok;
 
     private EnvironmentType environment = EnvironmentType.ROAD;
+    private final CustList<EnvironmentType> environmentAll;
 
     private FightType fightType = FightType.NOTHING;
+
+    private int indexFight;
 
     public FightSimulation(Difficulty _diff, DataBase _import) {
         game = new Game(_import);
@@ -150,10 +157,15 @@ public class FightSimulation {
         evolutions = new CustList<CustList<NameLevel>>();
         frontFighters = new CustList<CustList<ByteMap<Byte>>>();
         mult = new Bytes();
+        multAll = new Bytes();
+        foeCoordsAll = new CustList<Coords>();
+        environmentAll = new CustList<EnvironmentType>();
         maxActions = new Ints();
+        maxActionsAll = new Ints();
         infosRealEvolutions = new CustList<CustList<NameLevel>>();
         usedStones = new CustList<CustList<StringList>>();
         foeTeams = new CustList<CustList<PkTrainer>>();
+        foeTeamsAll = new CustList<CustList<PkTrainer>>();
         moves = new ByteMap<TreeMap<KeyFightRound,StringList>>();
         abilities = new ByteMap<TreeMap<KeyFightRound,StringList>>();
         movesBetweenFights = new ByteMap<CustList<CustList<StringList>>>();
@@ -177,10 +189,12 @@ public class FightSimulation {
             for (Level l: place_.getLevelsList()) {
                 LevelLeague level_ = (LevelLeague) l;
                 initializeFightLeague(level_);
+                environmentAll.add(_import.envType(foeCoordsAll.last()));
             }
             fightType = FightType.DRESSEUR_LIGUE;
         } else {
             initializeFightNonLeague(place_);
+            environmentAll.add(_import.envType(foeCoordsAll.last()));
         }
     }
 
@@ -191,19 +205,44 @@ public class FightSimulation {
             LevelLeague l_ = (LevelLeague) place_.getLevelsList().get(foeCoords.getLevel().getLevelIndex());
             foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
             initializeFightLeague(l_);
+            environmentAll.add(_import.envType(foeCoordsAll.last()));
+            for (LevelLeague l: ((League) place_).getRooms().mid(foeCoords.getLevel().getLevelIndex()+1)) {
+                TrainerLeague t_ = l.getTrainer();
+                byte mult_ = t_.getMultiplicityFight();
+                Coords co_ = new Coords(_foeCoords);
+                co_.getLevel().setLevelIndex((byte) (foeCoords.getLevel().getLevelIndex()+foeCoordsAll.size()));
+                co_.getLevel().getPoint().affect(l.getTrainerCoords());
+                store(mult_,mult_,t_.getTeam(), co_);
+                environmentAll.add(_import.envType(foeCoordsAll.last()));
+            }
             fightType = FightType.DRESSEUR_LIGUE;
         } else {
             initializeFightNonLeague(place_);
+            environmentAll.add(_import.envType(foeCoordsAll.last()));
         }
     }
 
     private void initializeFightLeague(LevelLeague _l) {
+        items();
         byte mult_ = _l.getTrainer().getMultiplicityFight();
         maxActions.add((int) mult_);
         mult.add(mult_);
+        foeTeams.add(new CustList<PkTrainer>(_l.getTrainer().getTeam()));
+        Coords co_ = new Coords(foeCoords);
+        co_.getLevel().getPoint().affect(_l.getTrainerCoords());
+        store(maxActions.last(), mult.last(), foeTeams.last(), co_);
+    }
+
+    private void items() {
         items.add(new StringList());
         usedStones.add(new CustList<StringList>());
-        foeTeams.add(new CustList<PkTrainer>(_l.getTrainer().getTeam()));
+    }
+
+    private void store(int _max, byte _m, CustList<PkTrainer> _t, Coords _c) {
+        maxActionsAll.add(_max);
+        multAll.add(_m);
+        foeTeamsAll.add(_t);
+        foeCoordsAll.add(_c);
     }
 
     private void initializeFightNonLeague(Place _place) {
@@ -216,6 +255,7 @@ public class FightSimulation {
                 mult_ = dual_.getFoeTrainer().getMultiplicityFight();
                 nbMax_ = 1;
                 foeTeams.add(new CustList<PkTrainer>(dual_.getFoeTrainer().getTeam()));
+                foeTeamsAll.add(foeTeams.last());
                 allyTeam.addAllElts(dual_.getAlly().getTeam());
                 fightType = FightType.TMP_TRAINER;
             } else {
@@ -224,6 +264,7 @@ public class FightSimulation {
                 mult_ = tr_.getMultiplicityFight();
                 nbMax_ = mult_;
                 foeTeams.add(new CustList<PkTrainer>(team_));
+                foeTeamsAll.add(foeTeams.last());
                 fightType = FightType.DRESSEUR;
             }
         } else {
@@ -231,17 +272,22 @@ public class FightSimulation {
                 GymTrainer tr_ = ((LevelIndoorGym)l_).getGymTrainers().getVal(foeCoords.getLevel().getPoint());
                 mult_ = tr_.getMultiplicityFight();
                 foeTeams.add(new CustList<PkTrainer>(tr_.getTeam()));
+                foeTeamsAll.add(foeTeams.last());
                 fightType = FightType.DRESSEUR_GYM;
             } else {
                 GymLeader tr_ = ((LevelIndoorGym)l_).getGymLeader();
                 mult_ = tr_.getMultiplicityFight();
                 foeTeams.add(new CustList<PkTrainer>(tr_.getTeam()));
+                foeTeamsAll.add(foeTeams.last());
                 fightType = FightType.GYM_LEADER;
             }
             nbMax_ = mult_;
         }
         mult.add(mult_);
+        multAll.add(mult_);
         maxActions.add(nbMax_);
+        maxActionsAll.add(nbMax_);
+        foeCoordsAll.add(new Coords(foeCoords));
         items.add(new StringList());
         usedStones.add(new CustList<StringList>());
     }
@@ -250,39 +296,57 @@ public class FightSimulation {
         freeTeams = false;
         noFight = _index;
         Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
+        indexFight=0;
         maxActions.clear();
+        foeCoordsAll.clear();
+        environmentAll.clear();
+        maxActionsAll.clear();
         mult.clear();
+        multAll.clear();
         items.clear();
         usedStones.clear();
         foeTeams.clear();
+        foeTeamsAll.clear();
         allyTeam.clear();
         return place_;
     }
 
     public void setTeams(CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam, int _multiplicity, int _nbMaxActions, EnvironmentType _env, Coords _coords) {
         foeCoords = new Coords(_coords);
+        indexFight=0;
         environment = _env;
         freeTeams = true;
         maxActions.clear();
+        maxActionsAll.clear();
+        foeCoordsAll.clear();
+        environmentAll.clear();
         mult.clear();
+        multAll.clear();
         items.clear();
         usedStones.clear();
         foeTeams.clear();
+        foeTeamsAll.clear();
         allyTeam.clear();
         allyTeam.addAllElts(_allyTeam);
         maxActions.add(_nbMaxActions);
+        maxActionsAll.add(_nbMaxActions);
+        foeCoordsAll.add(new Coords(_coords));
+        environmentAll.add(_env);
         mult.add((byte) _multiplicity);
+        multAll.add((byte) _multiplicity);
         items.add(new StringList());
         usedStones.add(new CustList<StringList>());
         foeTeams.add(_foeTeam);
+        foeTeamsAll.add(_foeTeam);
     }
 
-    public void nextFight(DataBase _import) {
-        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
-        CustList<Level> list_ = place_.getLevelsList();
-        byte index_ = foeCoords.getLevel().getLevelIndex();
-        index_++;
-        LevelLeague l_ = (LevelLeague)list_.get(index_);
+    public void nextFight() {
+//        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
+//        CustList<Level> list_ = place_.getLevelsList();
+//        byte index_ = foeCoords.getLevel().getLevelIndex();
+//        index_++;
+        indexFight++;
+//        LevelLeague l_ = (LevelLeague)list_.get(index_);
         maxActions.clear();
         mult.clear();
         items.clear();
@@ -291,28 +355,34 @@ public class FightSimulation {
         evolutions.clear();
         usedStones.clear();
         foeTeams.clear();
-        foeCoords.getLevel().setLevelIndex(index_);
-        foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
-        byte mult_ = l_.getTrainer().getMultiplicityFight();
-        maxActions.add((int) mult_);
-        mult.add(mult_);
+//        foeCoords.getLevel().setLevelIndex(index_);
+//        foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
+//        byte mult_ = l_.getTrainer().getMultiplicityFight();
+        maxActions.add(maxActionsAll.get(indexFight));
+//        maxActions.add((int) mult_);
+        mult.add(multAll.get(indexFight));
+//        mult.add(mult_);
         items.add(new StringList());
         usedStones.add(new CustList<StringList>());
-        foeTeams.add(l_.getTrainer().getTeam());
+        foeTeams.add(foeTeamsAll.get(indexFight));
+        foeCoords = foeCoordsAll.get(indexFight);
+        environment = environmentAll.get(indexFight);
+//        foeTeams.add(l_.getTrainer().getTeam());
     }
 
-    public boolean hasNextFight(DataBase _import) {
-        if (freeTeams) {
-            return false;
-        }
-        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
-        if (!(place_ instanceof League)) {
-            return false;
-        }
-        CustList<Level> list_ = place_.getLevelsList();
-        byte index_ = foeCoords.getLevel().getLevelIndex();
-        index_++;
-        return list_.isValidIndex(index_);
+    public boolean hasNextFight() {
+        return foeTeamsAll.isValidIndex(indexFight+1);
+//        if (freeTeams) {
+//            return false;
+//        }
+//        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
+//        if (!(place_ instanceof League)) {
+//            return false;
+//        }
+//        CustList<Level> list_ = place_.getLevelsList();
+//        byte index_ = foeCoords.getLevel().getLevelIndex();
+//        index_++;
+//        return list_.isValidIndex(index_);
     }
 
     public static StringList possiblesInitialMoves(String _name, short _level, DataBase _import) {
@@ -1428,11 +1498,12 @@ public class FightSimulation {
         fightType(fight_);
         FightInitialization.initEquipeAdversaire(_import, player_, foeTeam(), diff_, fight_);
         FightFacade.beginFight(fight_, _import);
-        if (!freeTeams) {
-            FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
-        } else {
-            FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
-        }
+//        if (!freeTeams) {
+//            FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
+//        } else {
+//            FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
+//        }
+        FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
         game.simuler(fightSimulationActions,IndexConstants.FIRST_INDEX, _import);
         setComment(game.getFight().getComment().getMessages());
         if (!game.getFight().getAcceptableChoices()) {
@@ -1697,7 +1768,8 @@ public class FightSimulation {
 
     private boolean issueFight(DataBase _import, byte _i, Fight _fight, Player _player, Bytes _indexes) {
         FightFacade.beginFight(_fight, _import);
-        FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
+        FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
+//        FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
         game.simuler(fightSimulationActions, _i, _import);
         if (!game.getFight().getAcceptableChoices()) {
             probleme = true;

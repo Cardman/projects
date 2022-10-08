@@ -14,7 +14,6 @@ import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.AbsMap;
-import code.util.IdMap;
 import code.util.TreeMap;
 
 public class DifficultyBean extends Bean implements WithFacade {
@@ -66,12 +65,12 @@ public class DifficultyBean extends Bean implements WithFacade {
         AbsMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
         for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //            winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
-            winPointsFight.put(k.name(), trWinPts_.getVal(k));
+            winPointsFight.put(k.getWinName(), trWinPts_.getVal(k));
         }
         AbsMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
         for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
 //            damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
-            damageRates.put(k.name(), trWinLaw_.getVal(k));
+            damageRates.put(k.getModelName(), trWinLaw_.getVal(k));
         }
 
 //        damageRates = new TreeMap<new>(new);
@@ -79,7 +78,7 @@ public class DifficultyBean extends Bean implements WithFacade {
 //        Map<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
 //        winPointsFight.putAll(trWinPts_);
 //        damageRates.putAll(data_.getTranslatedDiffModelLaw().getVal(getLanguage()));
-        diffWinningExpPtsFight = diff_.getDiffWinningExpPtsFight().name();
+        diffWinningExpPtsFight = diff_.getDiffWinningExpPtsFight().getWinName();
         allowCatchingKo = diff_.getAllowCatchingKo();
         allowedSwitchPlacesEndRound = diff_.getAllowedSwitchPlacesEndRound();
         winTrainerExp = diff_.getWinTrainerExp();
@@ -94,8 +93,8 @@ public class DifficultyBean extends Bean implements WithFacade {
         enabledClosing = diff_.getEnabledClosing();
         randomWildFight = diff_.getRandomWildFight();
         skipLearningMovesWhileNotGrowingLevel = diff_.isSkipLearningMovesWhileNotGrowingLevel();
-        damageRatePlayer = diff_.getDamageRatePlayer().name();
-        damageRateLawFoe = diff_.getDamageRateLawFoe().name();
+        damageRatePlayer = diff_.getDamageRatePlayer().getModelName();
+        damageRateLawFoe = diff_.getDamageRateLawFoe().getModelName();
         damageRatePlayerTable = new TreeMap<Rate, Rate>(new ComparatorRate());
         MonteCarloNumber law_;
         law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();

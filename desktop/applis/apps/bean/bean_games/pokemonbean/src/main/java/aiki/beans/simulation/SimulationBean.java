@@ -11,7 +11,8 @@ import aiki.beans.facade.simulation.dto.RadioLineMove;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
@@ -87,9 +88,8 @@ public class SimulationBean extends CommonBean {
     private final CustList<PokemonTrainerDto> allyTeam = new CustList<PokemonTrainerDto>();
     private int multiplicity = 1;
 
-    private int nbMaxActions;
-    private String environment = EnvironmentType.ROAD.name();
-    private TreeMap<String, String> environments;
+    private String environment = EnvironmentType.ROAD.getEnvName();
+    private DictionaryComparator<String, String> environments;
 
     private boolean enableEvolutions = true;
     private final CustList<PokemonPlayerDto> team = new CustList<PokemonPlayerDto>();
@@ -99,7 +99,7 @@ public class SimulationBean extends CommonBean {
     private String selectedAction = TeamCrud.NOTHING.name();
 
     private StringMap<Short> availableEvosLevel = new StringMap<Short>();
-    private TreeMap<String, String> availableEvos;
+    private DictionaryComparator<String, String> availableEvos;
 
     private String chosenEvo = DataBase.EMPTY_STRING;
     private int levelEvo;
@@ -117,7 +117,7 @@ public class SimulationBean extends CommonBean {
     private String target ="0";
     private IntTreeMap< String> targetFight = new IntTreeMap< String>();
     private String currentAbility = DataBase.EMPTY_STRING;
-    private TreeMap<String,String> abilities;
+    private DictionaryComparator<String,String> abilities;
     private final CustList<SelectLineMove> keptMoves = new CustList<SelectLineMove>();
     private final CustList<RadioLineMove> movesSet = new CustList<RadioLineMove>();
     private int selectedMove;
@@ -128,9 +128,9 @@ public class SimulationBean extends CommonBean {
     private final CustList<KeptMovesAfterFight> keptMovesAbilitiesDto = new CustList<KeptMovesAfterFight>();
     private final CustList<SelectLineMove> keptMovesAfterFight = new CustList<SelectLineMove>();
     private String evolutionAfterFight = DataBase.EMPTY_STRING;
-    private TreeMap<String,String> evolutionsAfterFight;
+    private DictionaryComparator<String,String> evolutionsAfterFight;
     private String abilityAfterFight = DataBase.EMPTY_STRING;
-    private TreeMap<String,String> abilitiesAfterFight;
+    private DictionaryComparator<String,String> abilitiesAfterFight;
     private int stepNumber;
     private boolean ok;
     private boolean displayIfError;
@@ -146,14 +146,14 @@ public class SimulationBean extends CommonBean {
             AbsMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
             for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //                winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
-                winPointsFight.put(k.name(), trWinPts_.getVal(k));
+                winPointsFight.put(k.getWinName(), trWinPts_.getVal(k));
             }
             AbsMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
             for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
 //                damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
-                damageRates.put(k.name(), trWinLaw_.getVal(k));
+                damageRates.put(k.getModelName(), trWinLaw_.getVal(k));
             }
-            diffWinningExpPtsFight = difficulty.getDiffWinningExpPtsFight().name();
+            diffWinningExpPtsFight = difficulty.getDiffWinningExpPtsFight().getWinName();
             allowCatchingKo = difficulty.getAllowCatchingKo();
             allowedSwitchPlacesEndRound = difficulty.getAllowedSwitchPlacesEndRound();
             winTrainerExp = difficulty.getWinTrainerExp();
@@ -168,8 +168,8 @@ public class SimulationBean extends CommonBean {
             enabledClosing = difficulty.getEnabledClosing();
             randomWildFight = difficulty.getRandomWildFight();
             skipLearningMovesWhileNotGrowingLevel = difficulty.isSkipLearningMovesWhileNotGrowingLevel();
-            damageRatePlayer = difficulty.getDamageRatePlayer().name();
-            damageRateLawFoe = difficulty.getDamageRateLawFoe().name();
+            damageRatePlayer = difficulty.getDamageRatePlayer().getModelName();
+            damageRateLawFoe = difficulty.getDamageRateLawFoe().getModelName();
             damageRatePlayerTable = new TreeMap<Rate, Rate>(new ComparatorRate());
             MonteCarloNumber law_;
             law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
@@ -280,8 +280,8 @@ public class SimulationBean extends CommonBean {
                 boolean heal_ = getForms().getValBool(CST_HEAL_EDIT_PK);
                 getForms().removeKey(CST_HEAL_EDIT_PK);
                 for (Statistic s:Statistic.getStatisticsWithBase()) {
-                    int ev_ = getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.name()));
-                    getForms().removeKey(StringUtil.concat(CST_POKEMON_EV_VAR,s.name()));
+                    int ev_ = getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName()));
+                    getForms().removeKey(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()));
                     if (ev_ > data_.getMaxEv()) {
                         ev_ = (short) data_.getMaxEv();
                     }
@@ -315,49 +315,47 @@ public class SimulationBean extends CommonBean {
             //.
             StringMap<String> translationsAbilities_;
             translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-            abilities = new TreeMap<String, String>(new ComparatorTrStrings(translationsAbilities_));
+            abilities = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
             currentAbility = DataBase.EMPTY_STRING;
-            if (selectedIndexForMoves()) {
-                if (isAvailableMoves()) {
-                    if (isAvailableAbilities()) {
-                        for (String a: getAvailableAbilities()) {
-                            abilities.put(a, translationsAbilities_.getVal(a));
-                        }
-                        currentAbility = abilities.firstKey();
+            if (selectedIndexForMoves() && isAvailableMoves()) {
+                if (isAvailableAbilities()) {
+                    for (String a : getAvailableAbilities()) {
+                        abilities.put(a, translationsAbilities_.getVal(a));
                     }
-                    //keptMoves
-                    keptMoves.clear();
-                    StringMap<String> translationsMoves_;
-                    translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-                    StringMap<String> translationsTypes_;
-                    translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-                    StringMap<String> translationsCategories_;
-                    translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-                    AvailableMovesInfos info_;
-                    info_ = simulation.getAvailableMoves().getVal((byte) selectedPk);
-                    for (String k: info_.getMoves().getKeys()) {
-                        MoveData moveData_ = data_.getMoves().getVal(k);
-                        SelectLineMove line_ = new SelectLineMove();
-                        line_.setName(k);
-                        line_.setDisplayName(translationsMoves_.getVal(k));
-                        StringList types_ = new StringList();
-                        for (String t: moveData_.getTypes()) {
-                            types_.add(translationsTypes_.getVal(t));
-                        }
-                        line_.setTypes(types_);
-                        line_.setPp(moveData_.getPp());
-                        line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-                        line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-                        if (line_.isDamageMove()) {
-                            DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                            line_.setDirect(damag_.isDirect());
-                        }
-                        line_.setPriority(moveData_.getPriority());
-                        line_.setSelected(info_.getMoves().getVal(k) == BoolVal.TRUE);
-                        keptMoves.add(line_);
-                    }
-                    keptMoves.sortElts(new ComparatorMoves());
+                    currentAbility = abilities.firstKey();
                 }
+                //keptMoves
+                keptMoves.clear();
+                StringMap<String> translationsMoves_;
+                translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+                StringMap<String> translationsTypes_;
+                translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+                StringMap<String> translationsCategories_;
+                translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+                AvailableMovesInfos info_;
+                info_ = simulation.getAvailableMoves().getVal((byte) selectedPk);
+                for (String k : info_.getMoves().getKeys()) {
+                    MoveData moveData_ = data_.getMoves().getVal(k);
+                    SelectLineMove line_ = new SelectLineMove();
+                    line_.setName(k);
+                    line_.setDisplayName(translationsMoves_.getVal(k));
+                    StringList types_ = new StringList();
+                    for (String t : moveData_.getTypes()) {
+                        types_.add(translationsTypes_.getVal(t));
+                    }
+                    line_.setTypes(types_);
+                    line_.setPp(moveData_.getPp());
+                    line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
+                    line_.setDamageMove(moveData_ instanceof DamagingMoveData);
+                    if (line_.isDamageMove()) {
+                        DamagingMoveData damag_ = (DamagingMoveData) moveData_;
+                        line_.setDirect(damag_.isDirect());
+                    }
+                    line_.setPriority(moveData_.getPriority());
+                    line_.setSelected(info_.getMoves().getVal(k) == BoolVal.TRUE);
+                    keptMoves.add(line_);
+                }
+                keptMoves.sortElts(new ComparatorMoves());
             }
 
         } else if (simu_ == SimulationSteps.MOVES_FIGHT) {
@@ -592,20 +590,14 @@ public class SimulationBean extends CommonBean {
         simulation = new FightSimulation(difficulty, data_);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.FOE);
         stepNumber++;
-        StringMap<String> translated_ = new StringMap<String>();
-        AbsMap<EnvironmentType, String> tr_;
-        tr_ = data_.getTranslatedEnvironment().getVal(getLanguage());
-        for (EntryCust<EnvironmentType,String> s: tr_.entryList()) {
-            translated_.addEntry(s.getKey().name(),s.getValue());
-        }
         if (freeTeams) {
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
-            environments = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
-            environments.putAllMap(translated_);
+            environments = DictionaryComparatorUtil.buildEnvStr(data_,getLanguage());
+            environments.addAllEntries(DictionaryComparatorUtil.trEnvs(data_,getLanguage()));
             selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
             selectedAllyPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         } else {
-            environments = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
+            environments = DictionaryComparatorUtil.buildEnvStr(data_,getLanguage());
         }
     }
     public void cancelDiffChoice() {
@@ -811,10 +803,10 @@ public class SimulationBean extends CommonBean {
         if (multiplicity >= DataBase.MAX_MULT_FIGHT) {
             multiplicity = DataBase.MAX_MULT_FIGHT;
         }
-        nbMaxActions = multiplicity;
+        int nbMaxAct_ = multiplicity;
         if (!allyTeam.isEmpty()) {
             multiplicity = 2;
-            nbMaxActions = 1;
+            nbMaxAct_ = 1;
         }
         CustList<PkTrainer> ally_;
         ally_ = new CustList<PkTrainer>();
@@ -826,7 +818,7 @@ public class SimulationBean extends CommonBean {
         for (PokemonTrainerDto p: foeTeam) {
             foe_.add(p.toPokemonTrainer());
         }
-        simulation.setTeams(ally_, foe_, multiplicity, nbMaxActions, PokemonStandards.getEnvByName(environment), coords);
+        simulation.setTeams(ally_, foe_, multiplicity, nbMaxAct_, PokemonStandards.getEnvByName(environment), coords);
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
         getForms().removeKey(CST_POKEMON_INDEX_EDIT);
@@ -854,7 +846,7 @@ public class SimulationBean extends CommonBean {
             getForms().put(CST_POKEMON_HP, simulation.getTeam().get(selectedPk).getRemainingHp());
             getForms().put(CST_CATCHING_BALL, simulation.getTeam().get(selectedPk).getUsedBallCatching());
             for (Statistic s: Statistic.getStatisticsWithBase()) {
-                getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.name()), (int)simulation.getTeam().get(selectedPk).getEv().getVal(s));
+                getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), simulation.getTeam().get(selectedPk).getEv().getVal(s));
             }
             return CST_EDIT_POKEMON_PLAYER;
         }
@@ -1000,7 +992,7 @@ public class SimulationBean extends CommonBean {
         DataBase data_ = getDataBase();
         availableEvosLevel = new StringMap<Short>(evos_);
         StringMap<String> map_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        availableEvos = new TreeMap<String, String>(new ComparatorTrStrings(map_));
+        availableEvos = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
         for (String e: evos_.getKeys()) {
             availableEvos.put(e, map_.getVal(e));
         }
@@ -1016,7 +1008,7 @@ public class SimulationBean extends CommonBean {
         StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(index_);
         availableEvosLevel = new StringMap<Short>(evos_);
         StringMap<String> map_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        availableEvos = new TreeMap<String, String>(new ComparatorTrStrings(map_));
+        availableEvos = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
         for (String e: evos_.getKeys()) {
             availableEvos.put(e, map_.getVal(e));
         }
@@ -1031,7 +1023,7 @@ public class SimulationBean extends CommonBean {
         StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(index_);
         availableEvosLevel = new StringMap<Short>(evos_);
         StringMap<String> map_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        availableEvos = new TreeMap<String, String>(new ComparatorTrStrings(map_));
+        availableEvos = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
         for (String e: evos_.getKeys()) {
             availableEvos.put(e, map_.getVal(e));
         }
@@ -1214,8 +1206,7 @@ public class SimulationBean extends CommonBean {
         if (teamAfterFight.isEmpty()) {
             return false;
         }
-        DataBase data_ = getDataBase();
-        return simulation.hasNextFight(data_);
+        return simulation.hasNextFight();
     }
     public String getImageAfterFight(int _index) {
         DataBase data_ = getDataBase();
@@ -1294,7 +1285,7 @@ public class SimulationBean extends CommonBean {
         PokemonPlayer pk_ = teamAfterFight.get(selectedPk);
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        evolutionsAfterFight = new TreeMap<String, String>(new ComparatorTrStrings(translationsPokemon_));
+        evolutionsAfterFight = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
         StringList evolutions_ = pk_.directEvolutionsByStone(lastPk_, data_);
         for (String e: evolutions_) {
             evolutionsAfterFight.put(e, translationsPokemon_.getVal(e));
@@ -1329,7 +1320,7 @@ public class SimulationBean extends CommonBean {
         StringList abilities_ = data_.getPokemon(lastPk_).getAbilities();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        abilitiesAfterFight = new TreeMap<String, String>(new ComparatorTrStrings(translationsAbilities_));
+        abilitiesAfterFight = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
         for (String a: abilities_) {
             abilitiesAfterFight.put(a, translationsAbilities_.getVal(a));
         }
@@ -1374,7 +1365,7 @@ public class SimulationBean extends CommonBean {
         StringList abilities_ = data_.getPokemon(evolutionAfterFight).getAbilities();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        abilitiesAfterFight = new TreeMap<String, String>(new ComparatorTrStrings(translationsAbilities_));
+        abilitiesAfterFight = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
         for (String a: abilities_) {
             abilitiesAfterFight.put(a, translationsAbilities_.getVal(a));
         }
@@ -1426,7 +1417,7 @@ public class SimulationBean extends CommonBean {
         StringList abilities_ = data_.getPokemon(evolutionAfterFight).getAbilities();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        abilitiesAfterFight = new TreeMap<String, String>(new ComparatorTrStrings(translationsAbilities_));
+        abilitiesAfterFight = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
         for (String a: abilities_) {
             abilitiesAfterFight.put(a, translationsAbilities_.getVal(a));
         }
@@ -1471,7 +1462,7 @@ public class SimulationBean extends CommonBean {
         }
         simulation.getTeam().clear();
         simulation.getTeam().addAllElts(teamAfterFight);
-        simulation.nextFight(data_);
+        simulation.nextFight();
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber = 2;
     }
@@ -1721,7 +1712,7 @@ public class SimulationBean extends CommonBean {
         return multiplicity;
     }
 
-    public TreeMap<String,String> getEnvironments() {
+    public DictionaryComparator<String,String> getEnvironments() {
         return environments;
     }
 
@@ -1801,7 +1792,7 @@ public class SimulationBean extends CommonBean {
         return selectedAction;
     }
 
-    public TreeMap<String,String> getAvailableEvos() {
+    public DictionaryComparator<String,String> getAvailableEvos() {
         return availableEvos;
     }
 
@@ -1849,7 +1840,7 @@ public class SimulationBean extends CommonBean {
         return displayIfError;
     }
 
-    public TreeMap<String,String> getAbilities() {
+    public DictionaryComparator<String,String> getAbilities() {
         return abilities;
     }
 
@@ -1905,7 +1896,7 @@ public class SimulationBean extends CommonBean {
         return teamAfterFight;
     }
 
-    public TreeMap<String,String> getEvolutionsAfterFight() {
+    public DictionaryComparator<String,String> getEvolutionsAfterFight() {
         return evolutionsAfterFight;
     }
 
@@ -1917,7 +1908,7 @@ public class SimulationBean extends CommonBean {
         evolutionAfterFight = _evolutionAfterFight;
     }
 
-    public TreeMap<String,String> getAbilitiesAfterFight() {
+    public DictionaryComparator<String,String> getAbilitiesAfterFight() {
         return abilitiesAfterFight;
     }
 

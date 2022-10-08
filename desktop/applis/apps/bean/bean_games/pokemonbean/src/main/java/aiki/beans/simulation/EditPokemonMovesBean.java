@@ -1,8 +1,10 @@
 package aiki.beans.simulation;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.beans.pokemon.PokedexBean;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
@@ -47,10 +49,12 @@ public class EditPokemonMovesBean extends CommonBean {
             line_.setTypes(types_);
             line_.setPp(moveData_.getPp());
             line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-            if (line_.isDamageMove()) {
+            if (moveData_ instanceof DamagingMoveData) {
                 DamagingMoveData damag_ = (DamagingMoveData) moveData_;
                 line_.setDirect(damag_.isDirect());
+                line_.setDamageMove(true);
+            } else {
+                line_.setDamageMove(false);
             }
             line_.setPriority(moveData_.getPriority());
             line_.setSelected(false);
@@ -107,35 +111,11 @@ public class EditPokemonMovesBean extends CommonBean {
                 continue;
             }
             MoveData moveData_ = data_.getMoves().getVal(k);
-            boolean atLeastMatchType_ = false;
-            for (String t: moveData_.getTypes()) {
-                String displayType_;
-                displayType_ = translationsTypes_.getVal(t);
-                if (wholeWord) {
-                    if (typedType == null) {
-                        continue;
-                    }
-                    if (!StringUtil.quickEq(displayType_, typedType)) {
-                        continue;
-                    }
-                } else {
-                    if (!StringUtil.match(displayType_, typedType)) {
-                        continue;
-                    }
-                }
-                atLeastMatchType_ = true;
+            if (PokedexBean.atLeastMatchType(translationsTypes_,wholeWord,typedType,moveData_.getTypes()) && (StringUtil.quickEq(category, DataBase.EMPTY_STRING) || StringUtil.quickEq(category, moveData_.getCategory()))) {
+                moves_.add(k);
             }
-            if (!atLeastMatchType_) {
-                continue;
-            }
-            if (!StringUtil.quickEq(category, DataBase.EMPTY_STRING)) {
-                if (!StringUtil.quickEq(category, moveData_.getCategory())) {
-                    continue;
-                }
-            }
-            moves_.add(k);
         }
-        moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
+        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         getForms().put(CST_MOVES_SET, moves_);
     }
 

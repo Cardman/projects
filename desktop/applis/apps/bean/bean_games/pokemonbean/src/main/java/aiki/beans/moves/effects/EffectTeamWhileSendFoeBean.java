@@ -1,8 +1,9 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorStatisticTr;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.ComparatorTr;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
@@ -12,7 +13,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
     private ShortTreeMap< String> statusByNbUses;
     private StringList deletedByFoeTypes;
     private String damageRateAgainstFoe;
-    private TreeMap<Statistic,Byte> statistics;
+    private DictionaryComparator<Statistic,Byte> statistics;
     private StringList reasonsSending;
     private NatStringTreeMap<String> mapVarsFailSending;
     private NatStringTreeMap<String> mapVarsDamageSentFoe;
@@ -21,10 +22,9 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect();
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        TreeMap<Statistic,Byte> statistics_;
-        statistics_ = new TreeMap<Statistic, Byte>(new ComparatorStatisticTr(data_, getLanguage()));
+        DataBase data_ = getDataBase();
+        DictionaryComparator<Statistic,Byte> statistics_;
+        statistics_ = DictionaryComparatorUtil.buildStatisByte(data_, getLanguage());
         for (Statistic s: effect_.getStatistics().getKeys()) {
             statistics_.put(s, effect_.getStatistics().getVal(s));
         }
@@ -34,7 +34,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         for (String t: effect_.getDeletedByFoeTypes()) {
             deletedByFoeTypes_.add(t);
         }
-        deletedByFoeTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
+        deletedByFoeTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         deletedByFoeTypes = deletedByFoeTypes_;
         ShortTreeMap< String> statusByNbUses_;
         statusByNbUses_ = new ShortTreeMap< String>();
@@ -49,8 +49,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
 //        locHtml_.put(ELT, E_LT);
 //        locHtml_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        locHtml_.put(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        StringList reasonsSending_ = CommonBean.getFormattedReasons(data_, getFailSendingReasons(), getLanguage());
-//        reasonsSending_ = new StringList();
+        //        reasonsSending_ = new StringList();
 //        for (String f: getFailSendingReasons()) {
 //            String formula_ = data_.getFormula(f, getLanguage());
 ////            formula_ = StringList.replace(formula_, locHtml_);
@@ -61,7 +60,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
 ////            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            reasonsSending_.add(formula_);
 //        }
-        reasonsSending = reasonsSending_;
+        reasonsSending = CommonBean.getFormattedReasons(data_, getFailSendingReasons(), getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailSending(),getLanguage());
         NatStringTreeMap<String> mapVarsFailSending_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
@@ -88,20 +87,20 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
     }
     public String getTranslatedStatistic(int _index) {
         Statistic st_ = getSortedStatistics().get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
     public CustList<Statistic> getSortedStatistics() {
         IdList<Statistic> list_;
         list_ = new IdList<Statistic>(statistics.getKeys());
-        DataBase data_ = (DataBase) getDataBase();
-        list_.sortElts(new ComparatorStatisticTr(data_, getLanguage()));
+        DataBase data_ = getDataBase();
+        list_.sortElts(new ComparatorTr<Statistic>(data_.getTranslatedStatistics().getVal(getLanguage())));
         return list_;
     }
     public String getTranslatedType(int _index) {
         String type_ = deletedByFoeTypes.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
@@ -119,7 +118,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
     }
     public String getTranslatedStatus(int _index) {
         String status_ = statusByNbUses.getValue(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(status_);
     }
@@ -137,7 +136,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return mapVarsDamageSentFoe;
     }
 
-    public TreeMap<Statistic,Byte> getStatistics() {
+    public DictionaryComparator<Statistic,Byte> getStatistics() {
         return statistics;
     }
 

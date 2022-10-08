@@ -1,15 +1,16 @@
 package aiki.beans.moves.effects;
-import aiki.comparators.ComparatorTrStrings;
+
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectStatus;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.TreeMap;
 
 public class EffectStatusBean extends EffectBean {
-    private TreeMap<String, Rate> lawStatus;
+    private DictionaryComparator<String, Rate> lawStatus;
     private StringList deletedStatus;
 
     private NatStringTreeMap< String> localFailStatus;
@@ -21,10 +22,10 @@ public class EffectStatusBean extends EffectBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         EffectStatus effect_ = (EffectStatus) getEffect();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        TreeMap<String, Rate> lawStatus_;
-        lawStatus_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedStatus_));
+        DictionaryComparator<String, Rate> lawStatus_;
+        lawStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
         for (String s: effect_.getLawStatus().events()) {
             lawStatus_.put(s, effect_.getLawStatus().normalizedRate(s));
         }
@@ -51,30 +52,29 @@ public class EffectStatusBean extends EffectBean {
         for (String s: effect_.getDeletedStatus()) {
             deletedStatus_.add(s);
         }
-        deletedStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        deletedStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         deletedStatus = deletedStatus_;
         koUserHealSubst = effect_.getKoUserHealSubst();
         statusFromUser = effect_.getStatusFromUser();
     }
     public String clickLink(int _indexEffect, int _index) {
-        TreeMap<String, Rate> lawStatus_ = getLawStatus(_indexEffect);
+        DictionaryComparator<String, Rate> lawStatus_ = getLawStatus(_indexEffect);
         String status_ = lawStatus_.getKey(_index);
         getForms().put(CST_STATUS, status_);
         return CST_STATUS;
     }
     public String getTrLink(int _index) {
         String status_ = lawStatus.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(status_);
     }
 
-    private TreeMap<String, Rate> getLawStatus(int _indexEffect) {
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+    private DictionaryComparator<String, Rate> getLawStatus(int _indexEffect) {
+        DataBase data_ = getDataBase();
         EffectStatus effect_ = (EffectStatus) getEffect(_indexEffect);
-        TreeMap<String, Rate> lawStatus_;
-        lawStatus_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedStatus_));
+        DictionaryComparator<String, Rate> lawStatus_;
+        lawStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
         for (String s: effect_.getLawStatus().events()) {
             lawStatus_.put(s, effect_.getLawStatus().normalizedRate(s));
         }
@@ -88,21 +88,20 @@ public class EffectStatusBean extends EffectBean {
     }
     public String getTrLinkDeleted(int _index) {
         String status_ = deletedStatus.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(status_);
     }
 
     private StringList getDeletedStatus(int _indexEffect) {
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+        DataBase data_ = getDataBase();
         EffectStatus effect_ = (EffectStatus) getEffect(_indexEffect);
         StringList deletedStatus_;
         deletedStatus_ = new StringList();
         for (String s: effect_.getDeletedStatus()) {
             deletedStatus_.add(s);
         }
-        deletedStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
+        deletedStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         return deletedStatus_;
     }
     public boolean isStatus(int _index) {
@@ -116,7 +115,7 @@ public class EffectStatusBean extends EffectBean {
         return localFailStatus.getVal(status_);
     }
 
-    public TreeMap<String,Rate> getLawStatus() {
+    public DictionaryComparator<String,Rate> getLawStatus() {
         return lawStatus;
     }
 

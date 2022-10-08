@@ -1,5 +1,6 @@
 package aiki.beans.pokemon.evolutions;
-import aiki.comparators.ComparatorTrStrings;
+
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.EvolutionItem;
@@ -14,17 +15,15 @@ public class EvolutionItemBean extends EvolutionBean {
         super.beforeDisplaying();
         EvolutionItem evo_ = (EvolutionItem) getEvo();
         StringMap<String> translationsItems_;
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         item = translationsItems_.getVal(evo_.getItem());
     }
     public String clickItem(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(getBase());
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
-        StringMap<String> translationsPokemon_;
-        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        evolutions_.sortElts(new ComparatorTrStrings(translationsPokemon_));
+        evolutions_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         EvolutionItem evo_ = (EvolutionItem) pk_.getEvolutions().getVal(evolutions_.get(_index));
         getForms().put(CST_ITEM,evo_.getItem());
         return CST_EVO_ITEM;

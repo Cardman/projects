@@ -59,6 +59,7 @@ import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;
 import aiki.map.enums.Direction;
+import aiki.map.levels.Block;
 import aiki.map.levels.Level;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Place;
@@ -424,6 +425,22 @@ public class DataBase {
             words_.addEntry(p, p);
         }
         return words_;
+    }
+
+    public EnvironmentType envType(Coords _coords) {
+        DataMap d_ = getMap();
+        EnvironmentType e_;
+        if (_coords.isValid()) {
+            Block bl_ = d_.currentBlock(_coords);
+            if (bl_.isValid()) {
+                e_ = bl_.getType();
+            } else {
+                e_ = EnvironmentType.ROAD;
+            }
+        } else {
+            e_ = EnvironmentType.ROAD;
+        }
+        return e_;
     }
 
     public LgInt getMaxRd() {
@@ -2891,16 +2908,28 @@ public class DataBase {
         return status.getVal(_name);
     }
 
-    StringList getVariables() {
-        return variables;
-    }
-
     public StringMap<PokemonData> getPokedex() {
         return pokedex;
     }
 
     public StringMap<MoveData> getMoves() {
         return moves;
+    }
+
+    public StringMap<Item> getItems() {
+        return items;
+    }
+
+    public StringMap<AbilityData> getAbilities() {
+        return abilities;
+    }
+
+    public StringMap<Status> getStatus() {
+        return status;
+    }
+
+    StringList getVariables() {
+        return variables;
     }
 
     public ShortMap< String> getTm() {
@@ -2933,18 +2962,6 @@ public class DataBase {
             }
         }
         return tms_;
-    }
-
-    public StringMap<Item> getItems() {
-        return items;
-    }
-
-    public StringMap<AbilityData> getAbilities() {
-        return abilities;
-    }
-
-    public StringMap<Status> getStatus() {
-        return status;
     }
 
     public IdMap<ExpType, String> getExpGrowth() {

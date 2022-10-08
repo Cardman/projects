@@ -3,7 +3,9 @@ package aiki.beans.simulation;
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.PokemonLine;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.beans.pokemon.PokedexBean;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.CriteriaForSearching;
 import aiki.facade.enums.SelectedBoolean;
@@ -21,20 +23,16 @@ public class SelectPokemonBean extends CommonBean {
     private String isEvo = SelectedBoolean.YES_AND_NO.name();
     private String isLeg = SelectedBoolean.YES_AND_NO.name();
     private boolean wholeWord;
-    private TreeMap<String,String> booleans;
+    private DictionaryComparator<String,String> booleans;
 
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
         AbsMap<SelectedBoolean,String> translatedBooleans_;
         translatedBooleans_ = data_.getTranslatedBooleans().getVal(getLanguage());
-        StringMap<String> translated_ = new StringMap<String>();
-        for (EntryCust<SelectedBoolean,String> s: translatedBooleans_.entryList()) {
-            translated_.addEntry(s.getKey().name(),s.getValue());
-        }
-        booleans = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
+        booleans = DictionaryComparatorUtil.buildBoolStr(data_,getLanguage());
         for (SelectedBoolean s: translatedBooleans_.getKeys()) {
-            booleans.put(s.name(), translatedBooleans_.getVal(s));
+            booleans.put(s.getBoolName(), translatedBooleans_.getVal(s));
         }
         StringList pokedex_ = getForms().getValList(CST_POKEMON_SET);
         pokedex.clear();
@@ -68,45 +66,17 @@ public class SelectPokemonBean extends CommonBean {
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringList pokedex_ = new StringList();
-        for (String k: data_.getPokedex().getKeys()) {
-            String displayName_ = translationsPk_.getVal(k);
+        for (EntryCust<String, PokemonData> k: data_.getPokedex().entryList()) {
+            String displayName_ = translationsPk_.getVal(k.getKey());
             if (!StringUtil.match(displayName_, typedName)) {
                 continue;
             }
-            PokemonData pkData_ = data_.getPokedex().getVal(k);
-            boolean atLeastMatchType_ = false;
-            for (String t: pkData_.getTypes()) {
-                String displayType_;
-                displayType_ = translationsTypes_.getVal(t);
-                if (wholeWord) {
-                    if (typedType == null) {
-                        continue;
-                    }
-                    if (!StringUtil.quickEq(displayType_, typedType)) {
-                        continue;
-                    }
-                } else {
-                    if (!StringUtil.match(displayType_, typedType)) {
-                        continue;
-                    }
-                }
-                atLeastMatchType_ = true;
+            PokemonData pkData_ = k.getValue();
+            if (PokedexBean.atLeastMatchType(translationsTypes_,wholeWord,typedType,pkData_.getTypes()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(hasEvo), pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(isEvo), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(isLeg), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
+                pokedex_.add(k.getKey());
             }
-            if (!atLeastMatchType_) {
-                continue;
-            }
-            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(hasEvo),pkData_.getEvolutions().isEmpty())) {
-                continue;
-            }
-            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isEvo),!StringUtil.quickEq(k, pkData_.getBaseEvo()))) {
-                continue;
-            }
-            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isLeg),pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
-                continue;
-            }
-            pokedex_.add(k);
         }
-        pokedex_.sortElts(new ComparatorTrStrings(translationsPk_));
+        pokedex_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         getForms().put(CST_POKEMON_SET, pokedex_);
         if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             getForms().put(CST_POKEMON_NAME_EDIT,pokedex_.first());
@@ -150,7 +120,7 @@ public class SelectPokemonBean extends CommonBean {
         return wholeWord;
     }
 
-    public TreeMap<String,String> getBooleans() {
+    public DictionaryComparator<String,String> getBooleans() {
         return booleans;
     }
 

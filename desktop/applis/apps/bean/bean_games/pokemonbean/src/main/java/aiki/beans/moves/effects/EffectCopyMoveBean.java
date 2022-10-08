@@ -1,5 +1,5 @@
 package aiki.beans.moves.effects;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
@@ -28,9 +28,9 @@ public class EffectCopyMoveBean extends EffectBean {
         for (String m: effect_.getMovesNotToBeCopied()) {
             movesNotToBeCopied_.add(m);
         }
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        movesNotToBeCopied_.sortElts(new ComparatorTrStrings(translatedMoves_));
+        movesNotToBeCopied_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesNotToBeCopied = movesNotToBeCopied_;
         displayName = translatedMoves_.getVal(getMove());
         defaultMove = data_.getDefMove();
@@ -46,7 +46,7 @@ public class EffectCopyMoveBean extends EffectBean {
                     movesTransforming_.add(m);
                 }
             }
-            movesTransforming_.sortElts(new ComparatorTrStrings(translatedMoves_));
+            movesTransforming_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
             movesTransforming = movesTransforming_;
         } else {
             movesTransforming = new StringList();
@@ -62,7 +62,7 @@ public class EffectCopyMoveBean extends EffectBean {
     }
     public String getTrMove(int _index) {
         String move_ = movesNotToBeCopied.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
@@ -73,7 +73,7 @@ public class EffectCopyMoveBean extends EffectBean {
     }
     public String getTrMoveTrans(int _index) {
         String move_ = movesTransforming.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
@@ -82,7 +82,7 @@ public class EffectCopyMoveBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrDefaultMove() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(defaultMove);
     }

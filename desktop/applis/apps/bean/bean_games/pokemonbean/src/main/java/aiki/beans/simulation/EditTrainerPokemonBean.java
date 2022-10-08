@@ -4,7 +4,8 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
@@ -17,7 +18,7 @@ public class EditTrainerPokemonBean extends CommonBean {
     private String ability = DataBase.EMPTY_STRING;
     private String gender = Gender.NO_GENDER.name();
     private int level;
-    private TreeMap<String,String> genders;
+    private DictionaryComparator<String,String> genders;
     private String item = DataBase.EMPTY_STRING;
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private boolean allyPk;
@@ -74,10 +75,10 @@ public class EditTrainerPokemonBean extends CommonBean {
         StringMap<String> translated_;
         translated_ = new StringMap<String>();
         for (EntryCust<Gender,String> s: translatedGenders_.entryList()) {
-            translated_.addEntry(s.getKey().name(),s.getValue());
+            translated_.addEntry(s.getKey().getGenderName(),s.getValue());
         }
-        genders = new TreeMap<String, String>(new ComparatorTrStrings(translated_));
-        genders.putAllMap(translated_);
+        genders = DictionaryComparatorUtil.buildGenderStr(data_,getLanguage());
+        genders.addAllEntries(translated_);
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
@@ -168,7 +169,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         return moves;
     }
 
-    public TreeMap<String,String> getGenders() {
+    public DictionaryComparator<String,String> getGenders() {
         return genders;
     }
 

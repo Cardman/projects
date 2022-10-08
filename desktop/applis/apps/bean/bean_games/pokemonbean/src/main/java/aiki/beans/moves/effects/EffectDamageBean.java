@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectDamage;
@@ -25,7 +26,7 @@ public class EffectDamageBean extends EffectBean {
     private String statisAtt;
     private boolean targetDefense;
     private String statisDef;
-    private TreeMap<Statistic, Byte> boostStatisOnceKoFoe;
+    private DictionaryComparator<Statistic, Byte> boostStatisOnceKoFoe;
     private NatStringTreeMap<String> mapVarsDamage;
 
     @Override
@@ -105,17 +106,17 @@ public class EffectDamageBean extends EffectBean {
         for (Statistic s: effect_.getIgnVarStatTargetPos()) {
             ignVarStatTargetPos_.add(s);
         }
-        ignVarStatTargetPos_.sortElts(new ComparatorTrStringStatistic(translatedStatistics_));
+        ignVarStatTargetPos_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
         ignVarStatTargetPos = ignVarStatTargetPos_;
         IdList<Statistic> ignVarStatUserNeg_;
         ignVarStatUserNeg_ = new IdList<Statistic>();
         for (Statistic s: effect_.getIgnVarStatUserNeg()) {
             ignVarStatUserNeg_.add(s);
         }
-        ignVarStatUserNeg_.sortElts(new ComparatorTrStringStatistic(translatedStatistics_));
+        ignVarStatUserNeg_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
         ignVarStatUserNeg = ignVarStatUserNeg_;
-        TreeMap<Statistic, Byte> boostStatisOnceKoFoe_;
-        boostStatisOnceKoFoe_ = new TreeMap<Statistic, Byte>(new ComparatorTrStringStatistic(translatedStatistics_));
+        DictionaryComparator<Statistic, Byte> boostStatisOnceKoFoe_;
+        boostStatisOnceKoFoe_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: effect_.getBoostStatisOnceKoFoe().getKeys()) {
             boostStatisOnceKoFoe_.put(s, effect_.getBoostStatisOnceKoFoe().getVal(s));
         }
@@ -235,7 +236,7 @@ public class EffectDamageBean extends EffectBean {
         return randMax;
     }
 
-    public TreeMap<Statistic,Byte> getBoostStatisOnceKoFoe() {
+    public DictionaryComparator<Statistic,Byte> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 

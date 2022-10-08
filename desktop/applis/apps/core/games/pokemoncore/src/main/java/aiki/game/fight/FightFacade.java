@@ -1,6 +1,6 @@
 package aiki.game.fight;
 import aiki.comments.Comment;
-import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.ComparatorTr;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -26,13 +26,11 @@ import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
-import aiki.map.DataMap;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
-import aiki.map.levels.Block;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
@@ -126,17 +124,7 @@ public final class FightFacade {
     }
 
     public static void initTypeEnv(Fight _fight,Coords _coords, Difficulty _diff, DataBase _d){
-        DataMap d_ = _d.getMap();
-        if (_coords.isValid()) {
-            Block bl_ = d_.currentBlock(_coords);
-            if (bl_.isValid()) {
-                _fight.setEnvType(bl_.getType());
-            } else {
-                _fight.setEnvType(EnvironmentType.ROAD);
-            }
-        } else {
-            _fight.setEnvType(EnvironmentType.ROAD);
-        }
+        _fight.setEnvType(_d.envType(_coords));
         FightSending.firstEffectWhileSendingTeams(_fight, _diff, _d);
         choiceArtificialIntelligenceMovesChoiceWhenTrainerFight(_fight,_diff,_d);
     }
@@ -1717,7 +1705,7 @@ public final class FightFacade {
         String lg_ = _d.getLanguage();
         StringMap<String> m_ = _d.getTranslatedPokemonCurLanguage(lg_);
         EvolutionChoiceMap map_;
-        map_ = new EvolutionChoiceMap(new ComparatorTrStrings(m_));
+        map_ = new EvolutionChoiceMap(new ComparatorTr<String>(m_));
         map_.put(DataBase.EMPTY_STRING, BoolVal.TRUE);
         for (String e: fighter_.getMovesAbilitiesEvos().getKeys()) {
             map_.put(e, BoolVal.FALSE);

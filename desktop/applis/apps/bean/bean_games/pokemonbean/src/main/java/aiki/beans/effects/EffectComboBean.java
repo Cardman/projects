@@ -1,7 +1,8 @@
 package aiki.beans.effects;
 
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCombo;
@@ -9,14 +10,16 @@ import aiki.fight.moves.effects.EffectEndRound;
 import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.*;
+import code.util.AbsMap;
+import code.util.NatStringTreeMap;
+import code.util.StringList;
+import code.util.TreeMap;
 
 public class EffectComboBean extends CommonBean {
     private ComboDto combos;
     private int index;
     private StringList moves;
 
-    private EffectCombo effect;
     private Rate multEvtRateSecEff;
     private TreeMap<LgInt,Rate> repeatedRoundsLaw;
     private short rankIncrementNbRound;
@@ -24,7 +27,7 @@ public class EffectComboBean extends CommonBean {
     private int endRoundRank;
     private StringList reasonsEndRound;
     private NatStringTreeMap<String> mapVarsFailEndRound;
-    private TreeMap<Statistic, Rate> multStatisticFoe;
+    private DictionaryComparator<Statistic, Rate> multStatisticFoe;
 
     @Override
     public void beforeDisplaying() {
@@ -33,10 +36,10 @@ public class EffectComboBean extends CommonBean {
         for (String m: combos.getKey(index)) {
             moves.add(data_.translateMove(m));
         }
-        effect = combos.getValue(index);
-        if (!effect.getEffectEndRound().isEmpty()) {
+        EffectCombo e_ = combos.getValue(index);
+        if (!e_.getEffectEndRound().isEmpty()) {
             endRound = true;
-            EffectEndRound effect_ = effect.getEffectEndRound().first();
+            EffectEndRound effect_ = e_.getEffectEndRound().first();
             endRoundRank = effect_.getEndRoundRank();
             reasonsEndRound = getFormattedReasons(data_, getReasons(effect_.getFailEndRound()), getLanguage());
             mapVarsFailEndRound = getMapVarsFail(data_, effect_.getFailEndRound(), getLanguage());
@@ -46,22 +49,20 @@ public class EffectComboBean extends CommonBean {
             reasonsEndRound = new StringList();
             mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
-        AbsMap<Statistic,String> translatedStatistics_;
-        translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        if (!effect.getTeamMove().isEmpty()) {
-            TreeMap<Statistic, Rate> multStatisticFoe_;
-            multStatisticFoe_ = new TreeMap<Statistic, Rate>(new ComparatorTrStringStatistic(translatedStatistics_));
-            multStatisticFoe_.putAllMap(effect.getTeamMove().first().getMultStatisticFoe());
+        if (!e_.getTeamMove().isEmpty()) {
+            DictionaryComparator<Statistic, Rate> multStatisticFoe_;
+            multStatisticFoe_ = DictionaryComparatorUtil.buildStatisRate(data_,getLanguage());
+            multStatisticFoe_.putAllMap(e_.getTeamMove().first().getMultStatisticFoe());
             multStatisticFoe = multStatisticFoe_;
         } else {
-            multStatisticFoe = new TreeMap<Statistic, Rate>(new ComparatorTrStringStatistic(translatedStatistics_));
+            multStatisticFoe = DictionaryComparatorUtil.buildStatisRate(data_,getLanguage());
         }
-        multEvtRateSecEff = effect.getMultEvtRateSecEff();
-        rankIncrementNbRound = effect.getRankIncrementNbRound();
+        multEvtRateSecEff = e_.getMultEvtRateSecEff();
+        rankIncrementNbRound = e_.getRankIncrementNbRound();
         TreeMap<LgInt,Rate> repeatedRoundsLaw_;
         repeatedRoundsLaw_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
-        for (Rate e: effect.getRepeatedRoundsLaw().events()) {
-            repeatedRoundsLaw_.put(e.intPart(), effect.getRepeatedRoundsLaw().normalizedRate(e));
+        for (Rate e: e_.getRepeatedRoundsLaw().events()) {
+            repeatedRoundsLaw_.put(e.intPart(), e_.getRepeatedRoundsLaw().normalizedRate(e));
         }
         repeatedRoundsLaw = repeatedRoundsLaw_;
     }
@@ -110,7 +111,7 @@ public class EffectComboBean extends CommonBean {
         return multEvtRateSecEff;
     }
 
-    public TreeMap<Statistic,Rate> getMultStatisticFoe() {
+    public DictionaryComparator<Statistic,Rate> getMultStatisticFoe() {
         return multStatisticFoe;
     }
 
