@@ -78,6 +78,11 @@ public final class GameTarotTeamsRelation {
         return _joueur == (_joueurPrecedent + 1) % _nombreJoueurs;
     }
 
+    Bytes equipe(byte _joueur) {
+        Bytes pls_ = tousCoequipiers(_joueur);
+        pls_.add(_joueur);
+        return pls_;
+    }
     Bytes tousCoequipiers(byte _joueur) {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         return coequipiers(_joueur,tousJoueurs(nombreDeJoueurs_));

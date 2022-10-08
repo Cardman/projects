@@ -1613,59 +1613,96 @@ public final class EndTarotGame {
     }
 
     public CustList<IdMap<Handfuls,Short>> calculHandfulsScorePlayer(byte _player) {
-        return calculHandfulsScorePlayer(_player, relations, declaresHandfuls);
+        Bytes pls_ = relations.equipe(_player);
+        return calculHandfulsScorePlayer(relations.getNombreDeJoueurs(),pls_, declaresHandfuls);
     }
 
-    static CustList<IdMap<Handfuls, Short>> calculHandfulsScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<IdList<Handfuls>> _declaresHandfuls) {
-        byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
-        CustList<IdMap<Handfuls,Short>> scores1_ = new CustList<IdMap<Handfuls,Short>>();
+    static CustList<IdMap<Handfuls, Short>> calculHandfulsScorePlayer(int _nbPlayers,Bytes _team, CustList<IdList<Handfuls>> _declaresHandfuls) {
+        int nombreDeJoueurs_ = _team.size();
+        CustList<IdMap<Handfuls,Short>> scores1_ = handfulsScore(_nbPlayers);
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
+
+            byte pl_ = _team.get(joueur2_);
+            for (Handfuls poignee_ : _declaresHandfuls.get(pl_)) {
+                scores1_.get(pl_).put(poignee_,
+                        (short) poignee_.getPoints());
+            }
+        }
+        return scores1_;
+    }
+
+    private static CustList<IdMap<Handfuls, Short>> handfulsScore(int _nbPlayers) {
+        CustList<IdMap<Handfuls, Short>> scores1_ = new CustList<IdMap<Handfuls, Short>>();
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < _nbPlayers; joueur2_++) {
             scores1_.add(new IdMap<Handfuls,Short>());
-
-            if (_relations.memeEquipe(joueur2_,_player)) {
-                for (Handfuls poignee_ : _declaresHandfuls.get(joueur2_)) {
-                    scores1_.last().put(poignee_,
-                            (short) poignee_.getPoints());
-                }
-            }
         }
         return scores1_;
     }
+    static Shorts calculBonusScorePlayer(int _nbPlayers,Bytes _team, Shorts _additional) {
+        int nombreDeJoueurs_ = _team.size();
+        Shorts bonus_ = bonusScore(_nbPlayers);
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
+            byte pl_ = _team.get(joueur2_);
+            bonus_.set(pl_,_additional.get(pl_));
+        }
+        return bonus_;
+    }
 
+    private static Shorts bonusScore(int _nbPlayers) {
+        Shorts scores1_ = new Shorts();
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < _nbPlayers; joueur2_++) {
+            scores1_.add((short)0);
+        }
+        return scores1_;
+    }
     public CustList<IdMap<Miseres,Short>> calculMiseresScorePlayer(byte _player) {
-        return calculMiseresScorePlayer(_player, relations, declaresMiseres);
+        Bytes pls_ = relations.equipe(_player);
+        return calculMiseresScorePlayer(relations.getNombreDeJoueurs(),pls_, declaresMiseres);
     }
 
-    static CustList<IdMap<Miseres, Short>> calculMiseresScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<IdList<Miseres>> _declaresMiseres) {
-        byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
-        CustList<IdMap<Miseres,Short>> scores1_ = new CustList<IdMap<Miseres,Short>>();
+    static CustList<IdMap<Miseres, Short>> calculMiseresScorePlayer(int _nbPlayers,Bytes _team, CustList<IdList<Miseres>> _declaresMiseres) {
+        int nombreDeJoueurs_ = _team.size();
+        CustList<IdMap<Miseres,Short>> scores1_ = miseresScore(_nbPlayers);
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
-            scores1_.add(new IdMap<Miseres,Short>());
 
-            if (_relations.memeEquipe(joueur2_,_player)) {
-                for (Miseres poignee_ : _declaresMiseres.get(joueur2_)) {
-                    scores1_.last().put(poignee_,
-                            (short) poignee_.getPoints());
-                }
+            byte pl_ = _team.get(joueur2_);
+            for (Miseres poignee_ : _declaresMiseres.get(pl_)) {
+                scores1_.get(pl_).put(poignee_,
+                        (short) poignee_.getPoints());
             }
         }
         return scores1_;
     }
 
+    private static CustList<IdMap<Miseres, Short>> miseresScore(int _nbPlayers) {
+        CustList<IdMap<Miseres, Short>> scores1_ = new CustList<IdMap<Miseres, Short>>();
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < _nbPlayers; joueur2_++) {
+            scores1_.add(new IdMap<Miseres, Short>());
+        }
+        return scores1_;
+    }
     public CustList<Shorts> calculSmallLastTurnScorePlayer(byte _player) {
-        return calculSmallLastTurnScorePlayer(_player, relations, smallBound);
+        Bytes pls_ = relations.equipe(_player);
+        return calculSmallLastTurnScorePlayer(relations.getNombreDeJoueurs(),pls_, smallBound);
     }
 
-    static CustList<Shorts> calculSmallLastTurnScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<BoolVal> _smallBound) {
-        byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
-        CustList<Shorts> scores1_ = new CustList<Shorts>();
+    static CustList<Shorts> calculSmallLastTurnScorePlayer(int _nbPlayers,Bytes _team, CustList<BoolVal> _smallBound) {
+        int nombreDeJoueurs_ = _team.size();
+        CustList<Shorts> scores1_ = smallLastTurn(_nbPlayers);
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
-            scores1_.add(new Shorts());
 
-            if (_relations.memeEquipe(joueur2_, _player) && _smallBound.get(joueur2_) == BoolVal.TRUE) {
-                scores1_.last().add(
+            byte pl_ = _team.get(joueur2_);
+            if (_smallBound.get(pl_) == BoolVal.TRUE) {
+                scores1_.get(pl_).add(
                         (short) BonusTarot.SMALL_BOUND.getPoints());
             }
+        }
+        return scores1_;
+    }
+    private static CustList<Shorts> smallLastTurn(int _nbPlayers) {
+        CustList<Shorts> scores1_ = new CustList<Shorts>();
+        for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < _nbPlayers; joueur2_++) {
+            scores1_.add(new Shorts());
         }
         return scores1_;
     }
@@ -1745,46 +1782,50 @@ public final class EndTarotGame {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         Shorts scores_ = new Shorts();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-            short pointsAnnoncesAutresJoueurs_ = 0;
-            short pointsAnnoncesJoueur_ = pointsAnnoncesJoueur(_relations, _declaresHandfuls, _declaresMiseres, _smallBound, joueur_);
-            short sommePrimeSupplementaire_ = 0;
-            short sommePrimeSupplementaireEq_ = 0;
-            for (byte j_ = IndexConstants.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
-                if (_relations.memeEquipe(j_, joueur_)) {
-                    sommePrimeSupplementaireEq_ += _primeSupplementaire.get(j_);
-                    continue;
-                }
-                sommePrimeSupplementaire_ += _primeSupplementaire.get(j_);
-                for (Handfuls h : _declaresHandfuls.get(j_)) {
-                    pointsAnnoncesAutresJoueurs_ += h.getPoints();
-                }
-                for (Miseres h : _declaresMiseres.get(j_)) {
-                    pointsAnnoncesAutresJoueurs_ += h.getPoints();
-                }
-                if (_smallBound.get(j_) == BoolVal.TRUE) {
-                    pointsAnnoncesAutresJoueurs_ += BonusTarot.SMALL_BOUND.getPoints();
-                }
-            }
+            Bytes equipe_ = _relations.equipe(joueur_);
+            short pointsAnnoncesAutresJoueurs_ = pointsAnnoncesJoueur(nombreJoueurs_,_primeSupplementaire,_declaresHandfuls,_declaresMiseres,_smallBound,_relations.adversaires(joueur_,GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_)));
+            short pointsAnnoncesJoueur_ = pointsAnnoncesJoueur(nombreJoueurs_,_primeSupplementaire,_declaresHandfuls, _declaresMiseres, _smallBound, equipe_);
+//            short sommePrimeSupplementaire_ = 0;
+//            int nbTeam_ = 0;
+//            for (byte j_ = IndexConstants.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
+//                if (_relations.memeEquipe(j_, joueur_)) {
+//                    nbTeam_++;
+//                    continue;
+//                }
+//                sommePrimeSupplementaire_ += _primeSupplementaire.get(j_);
+//                for (Handfuls h : _declaresHandfuls.get(j_)) {
+//                    pointsAnnoncesAutresJoueurs_ += h.getPoints();
+//                }
+//                for (Miseres h : _declaresMiseres.get(j_)) {
+//                    pointsAnnoncesAutresJoueurs_ += h.getPoints();
+//                }
+//                if (_smallBound.get(j_) == BoolVal.TRUE) {
+//                    pointsAnnoncesAutresJoueurs_ += BonusTarot.SMALL_BOUND.getPoints();
+//                }
+//            }
+            int rate_ = 1;
             short score_ = (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + _sumLoc / 2)
-                    + (nombreJoueurs_ - 1) * (pointsAnnoncesJoueur_ + sommePrimeSupplementaireEq_)
-                    - pointsAnnoncesAutresJoueurs_ - sommePrimeSupplementaire_));
+                    + (nombreJoueurs_ - rate_) * pointsAnnoncesJoueur_
+                    - rate_ * pointsAnnoncesAutresJoueurs_));
+//                    + (nombreJoueurs_ - nbTeam_) * (pointsAnnoncesJoueur_)
+//                    - nbTeam_ * (pointsAnnoncesAutresJoueurs_)));
             scores_.add(
                     score_);
         }
         return scores_;
     }
 
-    private static short pointsAnnoncesJoueur(GameTarotTeamsRelation _relations, CustList<IdList<Handfuls>> _declaresHandfuls, CustList<IdList<Miseres>> _declaresMiseres, CustList<BoolVal> _smallBound, byte _joueur) {
-        short pointsAnnoncesJoueur_ = 0;
-        for (IdMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(_joueur, _relations, _declaresHandfuls)) {
+    private static short pointsAnnoncesJoueur(int _nbPlayers,Shorts _primeSupplementaire, CustList<IdList<Handfuls>> _declaresHandfuls, CustList<IdList<Miseres>> _declaresMiseres, CustList<BoolVal> _smallBound, Bytes _equipe) {
+        short pointsAnnoncesJoueur_ = sum(calculBonusScorePlayer(_nbPlayers,_equipe,_primeSupplementaire));
+        for (IdMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(_nbPlayers,_equipe, _declaresHandfuls)) {
             CustList<Short> values_ = annoncesJoueur_.values();
             pointsAnnoncesJoueur_ += sum(values_);
         }
-        for (IdMap<Miseres,Short> annoncesJoueur_ : calculMiseresScorePlayer(_joueur, _relations, _declaresMiseres)) {
+        for (IdMap<Miseres,Short> annoncesJoueur_ : calculMiseresScorePlayer(_nbPlayers,_equipe, _declaresMiseres)) {
             CustList<Short> values_ = annoncesJoueur_.values();
             pointsAnnoncesJoueur_ += sum(values_);
         }
-        for (Shorts annoncesJoueur_ : calculSmallLastTurnScorePlayer(_joueur, _relations, _smallBound)) {
+        for (Shorts annoncesJoueur_ : calculSmallLastTurnScorePlayer(_nbPlayers,_equipe, _smallBound)) {
             pointsAnnoncesJoueur_ += sum(annoncesJoueur_);
         }
         return pointsAnnoncesJoueur_;
