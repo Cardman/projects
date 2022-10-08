@@ -7,13 +7,13 @@ import cards.tarot.tsts.TstsTarotTriplet;
 import code.util.*;
 
 public abstract class CommonGameTarot extends EquallableTarotUtil {
-    protected static GameTarot newGameTarotWithourDecl(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
-                                                       int _dealer,
-                                                       IdList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
-        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet(nbPl_);
-        return newGameTarot(_currentHand,_r,_trs,_prog,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(),_dealer,_bids,_calledCards,_call,_lastHand);
-    }
+//    protected static GameTarot newGameTarotWithourDecl(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
+//                                                       int _dealer,
+//                                                       IdList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
+//        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
+//        TstsTarotTriplet triplet_ = new TstsTarotTriplet(nbPl_);
+//        return newGameTarot(_currentHand,_r,_trs,_prog,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(),_dealer,_bids,_calledCards,_call,_lastHand);
+//    }
     protected static GameTarot newGameTarotWithourDecl(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                                        int _dealer,
                                                        IdList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
@@ -35,13 +35,13 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         TstsTarotTriplet triplet_ = new TstsTarotTriplet(nbPl_);
         return newGameTarot(_r,_trs,_prog,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(),_dealer,_bids,_calledCards,_call,_lastHand);
     }
-    protected static GameTarot newGameTarot(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
-                                            CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                            IdList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
-        GameTarot g_ = newGameTarot(_r,_trs,_prog,_m,_dh,_h,_dealer,_bids,_calledCards,_call,_lastHand);
-//        check(g_,_calledCards,_currentHand);
-        return g_;
-    }
+//    protected static GameTarot newGameTarot(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
+//                                            CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+//                                            IdList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
+//        GameTarot g_ = newGameTarot(_r,_trs,_prog,_m,_dh,_h,_dealer,_bids,_calledCards,_call,_lastHand);
+////        check(g_,_calledCards,_currentHand);
+//        return g_;
+//    }
     protected static GameTarot newGameTarot(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
                                             CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                             IdList<BidTarot> _bids, HandTarot _calledCards, int _call, DealTarot _lastHand) {
@@ -316,16 +316,16 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
 //        }
         return GameTarot.bidding(_g.getDealing(),_bids,(byte)_dealer).getTaker();
     }
-    protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g, HandTarot _currentHand) {
-//        check(_g,_g.getCalledCards(),_currentHand);
-        Ints handLengths_ = TstsTarot.handLengths(_g);
-        GameTarotTrickInfo gameTarotTrickInfo_ = new GameTarotTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
-                _g.getDeclaresMiseres(),
-                _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
-                handLengths_);
-        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
-        return gameTarotTrickInfo_;
-    }
+//    protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g, HandTarot _currentHand) {
+////        check(_g,_g.getCalledCards(),_currentHand);
+//        Ints handLengths_ = TstsTarot.handLengths(_g);
+//        GameTarotTrickInfo gameTarotTrickInfo_ = new GameTarotTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
+//                _g.getDeclaresMiseres(),
+//                _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
+//                handLengths_);
+//        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
+//        return gameTarotTrickInfo_;
+//    }
     protected static GameTarotTrickInfo newGameTarotTrickInfoDeal(GameTarot _g, HandTarot _currentHand) {
 //        CheckerGameTarotWithRules.check(_g);
 //        assertTrue("Error",_g.getError().isEmpty());

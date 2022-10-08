@@ -4,9 +4,7 @@ import cards.consts.GameType;
 import cards.tarot.enumerations.*;
 import cards.tarot.tsts.TstsTarotTriplet;
 import code.util.*;
-import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 public final class EndTarotGameOtherTest extends CommonGameTarot {
@@ -163,8 +161,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
         endTarotGame_.setupPlayersWonTricks();
         Ints firstTrick_ = endTarotGame_.getFirstTrick();
         CustList<HandTarot> wonPlayersTeam_ = endTarotGame_.getWonPlayersTeam();
@@ -1778,13 +1775,18 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
         endTarotGame_.setupPlayersWonTricks();
         assertEq(3,endTarotGame_.calculHandfulsScorePlayer((byte) 0).size());
         assertEq(3,endTarotGame_.calculMiseresScorePlayer((byte)0).size());
         assertEq(3,endTarotGame_.calculSmallLastTurnScorePlayer((byte)0).size());
     }
+
+    private EndTarotGame newEndTarotGame(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _dSlam, CustList<BoolVal> _small) {
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
+        return newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _dSlam, _small);
+    }
+
     private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){
         return getConfi(_b, _r, _taker);
     }

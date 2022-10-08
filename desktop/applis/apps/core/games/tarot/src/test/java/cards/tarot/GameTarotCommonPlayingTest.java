@@ -4878,14 +4878,13 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         p_.ajouter(CardTarot.TRUMP_5);
         p_.ajouter(CardTarot.TRUMP_6);
         p_.ajouter(CardTarot.TRUMP_7);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet(5);
         Ints ls_ = new Ints();
         ls_.add(14);
         ls_.add(14);
         ls_.add(15);
         ls_.add(15);
         ls_.add(14);
-        GameTarotTrickInfo gt_ = new GameTarotTrickInfo(p_,trs_,triplet_.getMiseres(),triplet_.getHands(),BidTarot.TAKE,new HandTarot(),ls_);
+        GameTarotTrickInfo gt_ = newGameTarotTrickInfo(trs_, p_, ls_);
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
         CustList<CustList<BoolVal>> confidence_ = TstsTarot.initConf(4);
@@ -4916,4 +4915,10 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         assertTrue(s_.containsObj(Suit.HEART));
         assertTrue(s_.containsObj(Suit.DIAMOND));
     }
+
+    private GameTarotTrickInfo newGameTarotTrickInfo(CustList<TrickTarot> _trs, TrickTarot _p, Ints _ls) {
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet(5);
+        return new GameTarotTrickInfo(_p, _trs,triplet_.getMiseres(),triplet_.getHands(),BidTarot.TAKE,new HandTarot(), _ls);
+    }
+
 }

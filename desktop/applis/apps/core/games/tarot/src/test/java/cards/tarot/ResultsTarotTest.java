@@ -180,8 +180,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        GameTarot g_ = newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
+        GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
         res_.getRes().setUser((byte) 0);
@@ -335,8 +334,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        GameTarot g_ = newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
+        GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
         res_.getRes().setUser((byte) 0);
@@ -494,8 +492,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        GameTarot g_ = newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
+        GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
         res_.getRes().setUser((byte) 0);
@@ -662,8 +659,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        GameTarot g_ = newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
+        GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
         res_.getRes().setUser((byte) 0);
@@ -674,6 +670,12 @@ public final class ResultsTarotTest extends CommonGameTarot {
         res_.initialize(new StringList("1","2","3"),new CustList<Longs>(sc_));
         assertSame(EndGameState.WIN,res_.getEndTarotGame());
     }
+
+    private GameTarot newEndedGameTarot(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last) {
+        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
+        return newEndedGameTarot(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last);
+    }
+
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
                                                CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {

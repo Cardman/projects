@@ -193,8 +193,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        GameTarot game_ = newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
+        GameTarot game_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
@@ -539,8 +538,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        return newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
+        return newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
     }
     static GameTarot newSimpleDealOther() {
         RulesTarot rules_ = new RulesTarot();
@@ -685,8 +683,12 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
+        return newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
+    }
+
+    private static GameTarot newEndedGameTarot(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last) {
         TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        return newEndedGameTarot(rules_, trs_, triplet_.getMiseres(), triplet_.getHandfuls(), triplet_.getHands(), dealer_, bids_, new HandTarot(), last_);
+        return newEndedGameTarot(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last);
     }
 
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
