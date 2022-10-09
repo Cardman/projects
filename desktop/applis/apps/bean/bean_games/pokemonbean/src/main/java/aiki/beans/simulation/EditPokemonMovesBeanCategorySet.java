@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class EditPokemonMovesBeanCategorySet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_instance).getInstance()).setCategory(NumParsers.getString(_args[0]).getInstance());
+        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_instance).getInstance()).setTypedCategory(NumParsers.getString(_args[0]).getInstance());
         return NullStruct.NULL_VALUE;
     }
 }

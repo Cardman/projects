@@ -9,12 +9,11 @@ import code.util.core.StringUtil;
 
 public class StatusSetBean extends CommonBean {
     private StringList sortedStatus = new StringList();
-    private String typedStatus = DataBase.EMPTY_STRING;
 
     @Override
     public void beforeDisplaying() {
         sortedStatus = getForms().getValList(CST_STATUS_SET);
-        typedStatus = escapedStringQuote(typedStatus);
+        escapeInputs();
     }
     public String search() {
         StringList sortedAbilities_;
@@ -24,10 +23,9 @@ public class StatusSetBean extends CommonBean {
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         for (String i: data_.getStatus().getKeys()) {
             String displayName_ = translationsStatus_.getVal(i);
-            if (!StringUtil.match(displayName_, typedStatus)) {
-                continue;
+            if (StringUtil.match(displayName_, getTypedStatus())) {
+                sortedAbilities_.add(i);
             }
-            sortedAbilities_.add(i);
         }
         if (sortedAbilities_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             getForms().put(CST_STATUS, sortedAbilities_.first());
@@ -47,14 +45,6 @@ public class StatusSetBean extends CommonBean {
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(ability_);
-    }
-
-    public void setTypedStatus(String _typedStatus) {
-        typedStatus = _typedStatus;
-    }
-
-    public String getTypedStatus() {
-        return typedStatus;
     }
 
     public StringList getSortedStatus() {

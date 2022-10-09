@@ -1,13 +1,14 @@
 package aiki.beans.simulation;
+
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.beans.moves.MovesBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.map.pokemon.enums.Gender;
 import code.util.*;
@@ -43,24 +44,26 @@ public class EditTrainerPokemonBean extends CommonBean {
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         for (String k: getForms().getValList(CST_POKEMON_MOVES_EDIT)) {
             MoveData moveData_ = data_.getMoves().getVal(k);
-            SelectLineMove line_ = new SelectLineMove();
-            line_.setName(k);
-            line_.setDisplayName(translationsMoves_.getVal(k));
-            StringList types_ = new StringList();
-            for (String t: moveData_.getTypes()) {
-                types_.add(translationsTypes_.getVal(t));
-            }
-            line_.setTypes(types_);
-            line_.setPp(moveData_.getPp());
-            line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-            if (line_.isDamageMove()) {
-                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                line_.setDirect(damag_.isDirect());
-            }
-            line_.setPriority(moveData_.getPriority());
-            line_.setSelected(false);
-            moves.add(line_);
+//            SelectLineMove line_ = new SelectLineMove();
+//            line_.setName(k);
+//            line_.setDisplayName(translationsMoves_.getVal(k));
+//            StringList types_ = new StringList();
+//            for (String t: moveData_.getTypes()) {
+//                types_.add(translationsTypes_.getVal(t));
+//            }
+//            line_.setTypes(types_);
+//            line_.setPp(moveData_.getPp());
+//            line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
+//            if (moveData_ instanceof DamagingMoveData) {
+//                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
+//                line_.setDirect(damag_.isDirect());
+//                line_.setDamageMove(true);
+//            } else {
+//                line_.setDamageMove(false);
+//            }
+//            line_.setPriority(moveData_.getPriority());
+//            line_.setSelected(false);
+            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_));
         }
         moves.sortElts(new ComparatorMoves());
 //        Map<SelectedBoolean,String> translatedBooleans_;

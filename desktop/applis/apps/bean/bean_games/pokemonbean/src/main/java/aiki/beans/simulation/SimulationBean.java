@@ -11,11 +11,11 @@ import aiki.beans.facade.simulation.dto.RadioLineMove;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.beans.moves.MovesBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
-import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
@@ -138,295 +138,76 @@ public class SimulationBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         SimulationSteps simu_ = getForms().getValSimStep(CST_SIMULATION_STATE);
-        DataBase data_ = getDataBase();
         if (simu_ == SimulationSteps.DIFF) {
 
-            damageRates = new TreeMap<String, String>(new ComparatorDifficultyModelLaw());
-            winPointsFight = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
-            AbsMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
-            for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
-//                winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
-                winPointsFight.put(k.getWinName(), trWinPts_.getVal(k));
-            }
-            AbsMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
-            for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
-//                damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
-                damageRates.put(k.getModelName(), trWinLaw_.getVal(k));
-            }
-            diffWinningExpPtsFight = difficulty.getDiffWinningExpPtsFight().getWinName();
-            allowCatchingKo = difficulty.getAllowCatchingKo();
-            allowedSwitchPlacesEndRound = difficulty.getAllowedSwitchPlacesEndRound();
-            winTrainerExp = difficulty.getWinTrainerExp();
-            rateWinningExpPtsFight = difficulty.getRateWinningExpPtsFight();
-            endFightIfOneTeamKo = difficulty.getEndFightIfOneTeamKo();
-            ivPlayer = difficulty.getIvPlayer();
-            ivFoe = difficulty.getIvFoe();
-            rateWinMoneyBase = difficulty.getRateWinMoneyBase();
-            rateLooseMoneyWin = difficulty.getRateLooseMoneyWin();
-            stillPossibleFlee = difficulty.getStillPossibleFlee();
-            restoredMovesEndFight = difficulty.getRestoredMovesEndFight();
-            enabledClosing = difficulty.getEnabledClosing();
-            randomWildFight = difficulty.getRandomWildFight();
-            skipLearningMovesWhileNotGrowingLevel = difficulty.isSkipLearningMovesWhileNotGrowingLevel();
-            damageRatePlayer = difficulty.getDamageRatePlayer().getModelName();
-            damageRateLawFoe = difficulty.getDamageRateLawFoe().getModelName();
-            damageRatePlayerTable = new TreeMap<Rate, Rate>(new ComparatorRate());
-            MonteCarloNumber law_;
-            law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
-            for (Rate e: law_.events()) {
-                damageRatePlayerTable.put(e, law_.normalizedRate(e));
-            }
-            damageRateFoeTable = new TreeMap<Rate, Rate>(new ComparatorRate());
-            law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw();
-            for (Rate e: law_.events()) {
-                damageRateFoeTable.put(e, law_.normalizedRate(e));
-            }
+            stateDiff();
         } else if (simu_ == SimulationSteps.FOE) {
-            if (freeTeams) {
-                if (!foeTeam.isEmpty()) {
-                    ok = true;
-                }
-                boolean remove_ = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.REMOVE;
-                if (remove_) {
-                    return;
-                }
-                boolean nothing_ = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.NOTHING;
-                if (nothing_) {
-                    return;
-                }
-                boolean add_ = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.ADD;
-                if (add_) {
-                    boolean foe_ = getForms().getValBool(CST_POKEMON_FOE);
-                    PokemonTrainerDto pk_;
-                    pk_ = new PokemonTrainerDto();
-                    pk_.getPkTrainer().getMoves().addAllElts(getForms().getValList(CST_POKEMON_MOVES_EDIT));
-                    pk_.getPkTrainer().setAbility(getForms().getValStr(CST_POKEMON_ABILITY_EDIT));
-                    pk_.getPkTrainer().setName(getForms().getValStr(CST_POKEMON_NAME_EDIT));
-                    pk_.getPkTrainer().setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT));
-                    pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
-                    pk_.getPkTrainer().setLevel((short) getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
-                    if (foe_) {
-                        pk_.setIndex(foeTeam.size());
-                        foeTeam.add(pk_);
-                    } else {
-                        pk_.setIndex(allyTeam.size());
-                        allyTeam.add(pk_);
-                    }
-                } else {
-                    boolean foe_ = getForms().getValBool(CST_POKEMON_FOE);
-                    PokemonTrainerDto pk_;
-                    if (foe_) {
-                        pk_ = foeTeam.get(selectedFoePk);
-                    } else {
-                        pk_ = allyTeam.get(selectedAllyPk);
-                    }
-                    pk_.getPkTrainer().getMoves().clear();
-                    pk_.getPkTrainer().getMoves().addAllElts(getForms().getValList(CST_POKEMON_MOVES_EDIT));
-                    pk_.getPkTrainer().setAbility(getForms().getValStr(CST_POKEMON_ABILITY_EDIT));
-                    pk_.getPkTrainer().setName(getForms().getValStr(CST_POKEMON_NAME_EDIT));
-                    pk_.getPkTrainer().setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT));
-                    pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
-                    pk_.getPkTrainer().setLevel((short) getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
-                }
-            } else {
-                if (!getForms().contains(CST_NO_FIGHT)) {
-                    getForms().put(CST_NO_FIGHT, IndexConstants.FIRST_INDEX);
-                }
-                noFight = getForms().getValInt(CST_NO_FIGHT);
-                coords = getForms().getValCoords(CST_COORDS);
-                if (coords != null) {
-                    ok = true;
-                }
-                places = new CustList<PlaceIndex>();
-                short i_ = 0;
-                for (Place p: data_.getMap().getPlaces()) {
-                    PlaceIndex pl_ = new PlaceIndex();
-                    pl_.setIndex(i_);
-                    pl_.setPlace(p);
-                    places.add(pl_);
-                    i_++;
-                }
-                places.sortElts(new ComparatorPlaceIndex());
-            }
+            stateFoe();
         } else if (simu_ == SimulationSteps.TEAM) {
-            if (!simulation.getTeam().isEmpty()) {
-                ok = true;
-            }
-            if (getForms().contains(CST_POKEMON_ADDED)) {
-                PokemonPlayerDto pk_ = getForms().getVal(CST_POKEMON_ADDED);
-                getForms().removeKey(CST_POKEMON_ADDED);
-                pk_.setIndex(team.size());
-                team.add(pk_);
-                simulation.addPokemonPlayer(pk_.getPokemon(), pk_.getMoves(), (byte) 0, Rate.zero(), data_);
-            } else if(getForms().contains(CST_POKEMON_INDEX_EDIT)) {
-                int index_ = getForms().getValInt(CST_POKEMON_INDEX_EDIT);
-                getForms().removeKey(CST_POKEMON_INDEX_EDIT);
-                team.get(index_).setMoves(getForms().getValList(CST_POKEMON_MOVES_EDIT));
-                getForms().removeKey(CST_POKEMON_MOVES_EDIT);
-                team.get(index_).getPokemon().setItem(getForms().getValStr(CST_ITEM_EDIT));
-                getForms().removeKey(CST_ITEM_EDIT);
-                simulation.setPokemonPlayerObject(index_, team.get(index_).getPokemon().getItem());
-                Rate exp_ = getForms().getValRate(CST_POKEMON_EXPERIENCE);
-                getForms().removeKey(CST_POKEMON_EXPERIENCE);
-                PokemonPlayer pkPlayer_ = simulation.getTeam().get(index_);
-                pkPlayer_.setWonExpSinceLastLevel(exp_);
-                String ball_ = getForms().getValStr(CST_CATCHING_BALL);
-                getForms().removeKey(CST_CATCHING_BALL);
-                pkPlayer_.setUsedBallCatching(ball_);
-                int happy_ = getForms().getValInt(CST_POKEMON_HAPPINESS);
-                getForms().removeKey(CST_POKEMON_HAPPINESS);
-                Rate hp_ = getForms().getValRate(CST_POKEMON_HP);
-                getForms().removeKey(CST_POKEMON_HP);
-                boolean heal_ = getForms().getValBool(CST_HEAL_EDIT_PK);
-                getForms().removeKey(CST_HEAL_EDIT_PK);
-                for (Statistic s:Statistic.getStatisticsWithBase()) {
-                    int ev_ = getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName()));
-                    getForms().removeKey(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()));
-                    if (ev_ > data_.getMaxEv()) {
-                        ev_ = (short) data_.getMaxEv();
-                    }
-                    pkPlayer_.getEv().put(s, (short) ev_);
-                }
-                if (Rate.strGreater(hp_, pkPlayer_.pvMax(data_)) || hp_.isZeroOrLt() || heal_) {
-                    pkPlayer_.setRemainingHp(pkPlayer_.pvMax(data_));
-                } else {
-                    pkPlayer_.setRemainingHp(hp_);
-                }
-                pkPlayer_.setHappiness((short) happy_);
-                simulation.setInitialMoves(index_, team.get(index_).getMoves(), data_);
-                getForms().removeKey(CST_ITEMS_SET_EDIT);
-                getForms().removeKey(CST_POKEMON_NAME_EDIT);
-                getForms().removeKey(CST_POKEMON_LEVEL_EDIT);
-            }
+            stateTeam();
         } else if (simu_ == SimulationSteps.FRONT) {
-            round = new IntTreeMap< Integer>();
-            placesFight = new IntTreeMap< String>();
-            int nbRounds_ = simulation.nbRounds();
-            for (int i = IndexConstants.FIRST_INDEX; i < nbRounds_; i++) {
-                round.put(i, i);
-            }
-            int mult_ = simulation.getFirstMult();
-            placesFight.put((int) Fighter.BACK, DataBase.EMPTY_STRING);
-            for (int i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
-                placesFight.put(i, Long.toString(i));
-            }
+            stateFront();
             //display front fighters
         } else if (simu_ == SimulationSteps.MOVES) {
             //.
-            StringMap<String> translationsAbilities_;
-            translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-            abilities = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
-            currentAbility = DataBase.EMPTY_STRING;
-            if (selectedIndexForMoves() && isAvailableMoves()) {
-                if (isAvailableAbilities()) {
-                    for (String a : getAvailableAbilities()) {
-                        abilities.put(a, translationsAbilities_.getVal(a));
-                    }
-                    currentAbility = abilities.firstKey();
-                }
-                //keptMoves
-                keptMoves.clear();
-                StringMap<String> translationsMoves_;
-                translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-                StringMap<String> translationsTypes_;
-                translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-                StringMap<String> translationsCategories_;
-                translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-                AvailableMovesInfos info_;
-                info_ = simulation.getAvailableMoves().getVal((byte) selectedPk);
-                for (String k : info_.getMoves().getKeys()) {
-                    MoveData moveData_ = data_.getMoves().getVal(k);
-                    SelectLineMove line_ = new SelectLineMove();
-                    line_.setName(k);
-                    line_.setDisplayName(translationsMoves_.getVal(k));
-                    StringList types_ = new StringList();
-                    for (String t : moveData_.getTypes()) {
-                        types_.add(translationsTypes_.getVal(t));
-                    }
-                    line_.setTypes(types_);
-                    line_.setPp(moveData_.getPp());
-                    line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-                    line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-                    if (line_.isDamageMove()) {
-                        DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                        line_.setDirect(damag_.isDirect());
-                    }
-                    line_.setPriority(moveData_.getPriority());
-                    line_.setSelected(info_.getMoves().getVal(k) == BoolVal.TRUE);
-                    keptMoves.add(line_);
-                }
-                keptMoves.sortElts(new ComparatorMoves());
-            }
+            stateMoves();
 
         } else if (simu_ == SimulationSteps.MOVES_FIGHT) {
-            if (selectedPk != IndexConstants.INDEX_NOT_FOUND_ELT) {
-                targetFight = new IntTreeMap< String>();
-                int mult_ = simulation.getFirstMult();
-                for (int i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
-                    targetFight.put(i, Long.toString(i));
-                }
-                movesSet.clear();
-                if (NumberUtil.parseInt(selectedRound) == 0) {
-                    StringMap<String> translationsMoves_;
-                    translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-                    StringMap<String> translationsTypes_;
-                    translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-                    StringMap<String> translationsCategories_;
-                    translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-                    StringList moves_ = team.get(selectedPk).getMoves();
-                    for (String k: moves_) {
-                        MoveData moveData_ = data_.getMoves().getVal(k);
-                        RadioLineMove line_ = new RadioLineMove();
-                        line_.setName(k);
-                        line_.setDisplayName(translationsMoves_.getVal(k));
-                        StringList types_ = new StringList();
-                        for (String t: moveData_.getTypes()) {
-                            types_.add(translationsTypes_.getVal(t));
-                        }
-                        line_.setTypes(types_);
-                        line_.setPp(moveData_.getPp());
-                        line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-                        line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-                        if (line_.isDamageMove()) {
-                            DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                            line_.setDirect(damag_.isDirect());
-                        }
-                        line_.setPriority(moveData_.getPriority());
-                        movesSet.add(line_);
-                    }
-                    int i_ = IndexConstants.FIRST_INDEX;
-                    movesSet.sortElts(new ComparatorRadioLineMoves());
-                    for (RadioLineMove l: movesSet) {
-                        l.setIndex(i_);
-                        i_++;
-                    }
-                    return;
-                }
+            stateMovesFight();
+        } else if (simu_ == SimulationSteps.SIMULATION) {
+            stateSimu();
+        }
+    }
+
+    private void stateSimu() {
+        if (isIssue()) {
+            comments.clear();
+            for (String l: simulation.getComment()) {
+                comments.add(escapedStringQuote(l));
+            }
+        }
+        teamAfterFight = new CustList<PokemonPlayer>();
+        if (!simulation.getProbleme()) {
+            teamAfterFight = simulation.getTeamAfterFight();
+        }
+    }
+
+    private void stateMovesFight() {
+        DataBase data_ = getDataBase();
+        if (selectedPk != IndexConstants.INDEX_NOT_FOUND_ELT) {
+            targetFight = new IntTreeMap< String>();
+            int mult_ = simulation.getFirstMult();
+            for (int i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
+                targetFight.put(i, Long.toString(i));
+            }
+            movesSet.clear();
+            if (NumberUtil.parseInt(selectedRound) == 0) {
                 StringMap<String> translationsMoves_;
                 translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
                 StringMap<String> translationsTypes_;
                 translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
                 StringMap<String> translationsCategories_;
                 translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(IndexConstants.FIRST_INDEX, (byte)(NumberUtil.parseInt(selectedRound) -1)));
+                StringList moves_ = team.get(selectedPk).getMoves();
                 for (String k: moves_) {
                     MoveData moveData_ = data_.getMoves().getVal(k);
                     RadioLineMove line_ = new RadioLineMove();
-                    line_.setName(k);
-                    line_.setDisplayName(translationsMoves_.getVal(k));
-                    StringList types_ = new StringList();
-                    for (String t: moveData_.getTypes()) {
-                        types_.add(translationsTypes_.getVal(t));
-                    }
-                    line_.setTypes(types_);
-                    line_.setPp(moveData_.getPp());
-                    line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-                    line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-                    if (line_.isDamageMove()) {
-                        DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                        line_.setDirect(damag_.isDirect());
-                    }
-                    line_.setPriority(moveData_.getPriority());
+                    MovesBean.line(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,line_);
+//                        line_.setName(k);
+//                        line_.setDisplayName(translationsMoves_.getVal(k));
+//                        StringList types_ = new StringList();
+//                        for (String t: moveData_.getTypes()) {
+//                            types_.add(translationsTypes_.getVal(t));
+//                        }
+//                        line_.setTypes(types_);
+//                        line_.setPp(moveData_.getPp());
+//                        line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
+//                        line_.setDamageMove(moveData_ instanceof DamagingMoveData);
+//                        if (line_.isDamageMove()) {
+//                            DamagingMoveData damag_ = (DamagingMoveData) moveData_;
+//                            line_.setDirect(damag_.isDirect());
+//                        }
+//                        line_.setPriority(moveData_.getPriority());
                     movesSet.add(line_);
                 }
                 int i_ = IndexConstants.FIRST_INDEX;
@@ -435,20 +216,278 @@ public class SimulationBean extends CommonBean {
                     l.setIndex(i_);
                     i_++;
                 }
+                return;
             }
-        } else if (simu_ == SimulationSteps.SIMULATION) {
-            if (isIssue()) {
-                comments.clear();
-                for (String l: simulation.getComment()) {
-                    comments.add(escapedStringQuote(l));
-                }
+            StringMap<String> translationsMoves_;
+            translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+            StringMap<String> translationsTypes_;
+            translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+            StringMap<String> translationsCategories_;
+            translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+            StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(IndexConstants.FIRST_INDEX, (byte)(NumberUtil.parseInt(selectedRound) -1)));
+            for (String k: moves_) {
+                MoveData moveData_ = data_.getMoves().getVal(k);
+                RadioLineMove line_ = new RadioLineMove();
+                MovesBean.line(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,line_);
+//                    line_.setName(k);
+//                    line_.setDisplayName(translationsMoves_.getVal(k));
+//                    StringList types_ = new StringList();
+//                    for (String t: moveData_.getTypes()) {
+//                        types_.add(translationsTypes_.getVal(t));
+//                    }
+//                    line_.setTypes(types_);
+//                    line_.setPp(moveData_.getPp());
+//                    line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
+//                    line_.setDamageMove(moveData_ instanceof DamagingMoveData);
+//                    if (line_.isDamageMove()) {
+//                        DamagingMoveData damag_ = (DamagingMoveData) moveData_;
+//                        line_.setDirect(damag_.isDirect());
+//                    }
+//                    line_.setPriority(moveData_.getPriority());
+                movesSet.add(line_);
             }
-            teamAfterFight = new CustList<PokemonPlayer>();
-            if (!simulation.getProbleme()) {
-                teamAfterFight = simulation.getTeamAfterFight();
+            int i_ = IndexConstants.FIRST_INDEX;
+            movesSet.sortElts(new ComparatorRadioLineMoves());
+            for (RadioLineMove l: movesSet) {
+                l.setIndex(i_);
+                i_++;
             }
         }
     }
+
+    private void stateMoves() {
+        DataBase data_ = getDataBase();
+        StringMap<String> translationsAbilities_;
+        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+        abilities = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
+        currentAbility = DataBase.EMPTY_STRING;
+        if (selectedIndexForMoves() && isAvailableMoves()) {
+            if (isAvailableAbilities()) {
+                for (String a : getAvailableAbilities()) {
+                    abilities.put(a, translationsAbilities_.getVal(a));
+                }
+                currentAbility = abilities.firstKey();
+            }
+            //keptMoves
+            keptMoves.clear();
+            StringMap<String> translationsMoves_;
+            translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+            StringMap<String> translationsTypes_;
+            translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+            StringMap<String> translationsCategories_;
+            translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+            AvailableMovesInfos info_;
+            info_ = simulation.getAvailableMoves().getVal((byte) selectedPk);
+            for (String k : info_.getMoves().getKeys()) {
+                MoveData moveData_ = data_.getMoves().getVal(k);
+                SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_);
+//                    line_.setName(k);
+//                    line_.setDisplayName(translationsMoves_.getVal(k));
+//                    StringList types_ = new StringList();
+//                    for (String t : moveData_.getTypes()) {
+//                        types_.add(translationsTypes_.getVal(t));
+//                    }
+//                    line_.setTypes(types_);
+//                    line_.setPp(moveData_.getPp());
+//                    line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
+//                    line_.setDamageMove(moveData_ instanceof DamagingMoveData);
+//                    if (line_.isDamageMove()) {
+//                        DamagingMoveData damag_ = (DamagingMoveData) moveData_;
+//                        line_.setDirect(damag_.isDirect());
+//                    }
+//                    line_.setPriority(moveData_.getPriority());
+                line_.setSelected(info_.getMoves().getVal(k) == BoolVal.TRUE);
+                keptMoves.add(line_);
+            }
+            keptMoves.sortElts(new ComparatorMoves());
+        }
+    }
+
+    private void stateFront() {
+        round = new IntTreeMap< Integer>();
+        placesFight = new IntTreeMap< String>();
+        int nbRounds_ = simulation.nbRounds();
+        for (int i = IndexConstants.FIRST_INDEX; i < nbRounds_; i++) {
+            round.put(i, i);
+        }
+        int mult_ = simulation.getFirstMult();
+        placesFight.put((int) Fighter.BACK, DataBase.EMPTY_STRING);
+        for (int i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
+            placesFight.put(i, Long.toString(i));
+        }
+    }
+
+    private void stateTeam() {
+        DataBase data_ = getDataBase();
+        if (!simulation.getTeam().isEmpty()) {
+            ok = true;
+        }
+        if (getForms().contains(CST_POKEMON_ADDED)) {
+            PokemonPlayerDto pk_ = getForms().getVal(CST_POKEMON_ADDED);
+            getForms().removeKey(CST_POKEMON_ADDED);
+            pk_.setIndex(team.size());
+            team.add(pk_);
+            simulation.addPokemonPlayer(pk_.getPokemon(), pk_.getMoves(), (byte) 0, Rate.zero(), data_);
+        } else if(getForms().contains(CST_POKEMON_INDEX_EDIT)) {
+            int index_ = getForms().getValInt(CST_POKEMON_INDEX_EDIT);
+            getForms().removeKey(CST_POKEMON_INDEX_EDIT);
+            team.get(index_).setMoves(getForms().getValList(CST_POKEMON_MOVES_EDIT));
+            getForms().removeKey(CST_POKEMON_MOVES_EDIT);
+            team.get(index_).getPokemon().setItem(getForms().getValStr(CST_ITEM_EDIT));
+            getForms().removeKey(CST_ITEM_EDIT);
+            simulation.setPokemonPlayerObject(index_, team.get(index_).getPokemon().getItem());
+            Rate exp_ = getForms().getValRate(CST_POKEMON_EXPERIENCE);
+            getForms().removeKey(CST_POKEMON_EXPERIENCE);
+            PokemonPlayer pkPlayer_ = simulation.getTeam().get(index_);
+            pkPlayer_.setWonExpSinceLastLevel(exp_);
+            String ball_ = getForms().getValStr(CST_CATCHING_BALL);
+            getForms().removeKey(CST_CATCHING_BALL);
+            pkPlayer_.setUsedBallCatching(ball_);
+            int happy_ = getForms().getValInt(CST_POKEMON_HAPPINESS);
+            getForms().removeKey(CST_POKEMON_HAPPINESS);
+            Rate hp_ = getForms().getValRate(CST_POKEMON_HP);
+            getForms().removeKey(CST_POKEMON_HP);
+            boolean heal_ = getForms().getValBool(CST_HEAL_EDIT_PK);
+            getForms().removeKey(CST_HEAL_EDIT_PK);
+            for (Statistic s:Statistic.getStatisticsWithBase()) {
+                int ev_ = getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName()));
+                getForms().removeKey(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()));
+                if (ev_ > data_.getMaxEv()) {
+                    ev_ = (short) data_.getMaxEv();
+                }
+                pkPlayer_.getEv().put(s, (short) ev_);
+            }
+            if (Rate.strGreater(hp_, pkPlayer_.pvMax(data_)) || hp_.isZeroOrLt() || heal_) {
+                pkPlayer_.setRemainingHp(pkPlayer_.pvMax(data_));
+            } else {
+                pkPlayer_.setRemainingHp(hp_);
+            }
+            pkPlayer_.setHappiness((short) happy_);
+            simulation.setInitialMoves(index_, team.get(index_).getMoves(), data_);
+            getForms().removeKey(CST_ITEMS_SET_EDIT);
+            getForms().removeKey(CST_POKEMON_NAME_EDIT);
+            getForms().removeKey(CST_POKEMON_LEVEL_EDIT);
+        }
+    }
+
+    private void stateFoe() {
+        DataBase data_ = getDataBase();
+        if (freeTeams) {
+            stateFoeFree();
+        } else {
+            if (!getForms().contains(CST_NO_FIGHT)) {
+                getForms().put(CST_NO_FIGHT, IndexConstants.FIRST_INDEX);
+            }
+            noFight = getForms().getValInt(CST_NO_FIGHT);
+            coords = getForms().getValCoords(CST_COORDS);
+            if (coords != null) {
+                ok = true;
+            }
+            places = new CustList<PlaceIndex>();
+            short i_ = 0;
+            for (Place p: data_.getMap().getPlaces()) {
+                PlaceIndex pl_ = new PlaceIndex();
+                pl_.setIndex(i_);
+                pl_.setPlace(p);
+                places.add(pl_);
+                i_++;
+            }
+            places.sortElts(new ComparatorPlaceIndex());
+        }
+    }
+
+    private void stateFoeFree() {
+        if (!foeTeam.isEmpty()) {
+            ok = true;
+        }
+        boolean remove_ = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.REMOVE;
+        if (remove_) {
+            return;
+        }
+        boolean nothing_ = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.NOTHING;
+        if (nothing_) {
+            return;
+        }
+        boolean add_ = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.ADD;
+        if (add_) {
+            boolean foe_ = getForms().getValBool(CST_POKEMON_FOE);
+            PokemonTrainerDto pk_;
+            pk_ = new PokemonTrainerDto();
+            pk_.getPkTrainer().getMoves().addAllElts(getForms().getValList(CST_POKEMON_MOVES_EDIT));
+            pk_.getPkTrainer().setAbility(getForms().getValStr(CST_POKEMON_ABILITY_EDIT));
+            pk_.getPkTrainer().setName(getForms().getValStr(CST_POKEMON_NAME_EDIT));
+            pk_.getPkTrainer().setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT));
+            pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
+            pk_.getPkTrainer().setLevel((short) getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
+            if (foe_) {
+                pk_.setIndex(foeTeam.size());
+                foeTeam.add(pk_);
+            } else {
+                pk_.setIndex(allyTeam.size());
+                allyTeam.add(pk_);
+            }
+        } else {
+            boolean foe_ = getForms().getValBool(CST_POKEMON_FOE);
+            PokemonTrainerDto pk_;
+            if (foe_) {
+                pk_ = foeTeam.get(selectedFoePk);
+            } else {
+                pk_ = allyTeam.get(selectedAllyPk);
+            }
+            pk_.getPkTrainer().getMoves().clear();
+            pk_.getPkTrainer().getMoves().addAllElts(getForms().getValList(CST_POKEMON_MOVES_EDIT));
+            pk_.getPkTrainer().setAbility(getForms().getValStr(CST_POKEMON_ABILITY_EDIT));
+            pk_.getPkTrainer().setName(getForms().getValStr(CST_POKEMON_NAME_EDIT));
+            pk_.getPkTrainer().setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT));
+            pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
+            pk_.getPkTrainer().setLevel((short) getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
+        }
+    }
+
+    private void stateDiff() {
+        DataBase data_ = getDataBase();
+        damageRates = new TreeMap<String, String>(new ComparatorDifficultyModelLaw());
+        winPointsFight = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
+        AbsMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
+        for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
+//                winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
+            winPointsFight.put(k.getWinName(), trWinPts_.getVal(k));
+        }
+        AbsMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
+        for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
+//                damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
+            damageRates.put(k.getModelName(), trWinLaw_.getVal(k));
+        }
+        diffWinningExpPtsFight = difficulty.getDiffWinningExpPtsFight().getWinName();
+        allowCatchingKo = difficulty.getAllowCatchingKo();
+        allowedSwitchPlacesEndRound = difficulty.getAllowedSwitchPlacesEndRound();
+        winTrainerExp = difficulty.getWinTrainerExp();
+        rateWinningExpPtsFight = difficulty.getRateWinningExpPtsFight();
+        endFightIfOneTeamKo = difficulty.getEndFightIfOneTeamKo();
+        ivPlayer = difficulty.getIvPlayer();
+        ivFoe = difficulty.getIvFoe();
+        rateWinMoneyBase = difficulty.getRateWinMoneyBase();
+        rateLooseMoneyWin = difficulty.getRateLooseMoneyWin();
+        stillPossibleFlee = difficulty.getStillPossibleFlee();
+        restoredMovesEndFight = difficulty.getRestoredMovesEndFight();
+        enabledClosing = difficulty.getEnabledClosing();
+        randomWildFight = difficulty.getRandomWildFight();
+        skipLearningMovesWhileNotGrowingLevel = difficulty.isSkipLearningMovesWhileNotGrowingLevel();
+        damageRatePlayer = difficulty.getDamageRatePlayer().getModelName();
+        damageRateLawFoe = difficulty.getDamageRateLawFoe().getModelName();
+        damageRatePlayerTable = new TreeMap<Rate, Rate>(new ComparatorRate());
+        MonteCarloNumber law_;
+        law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
+        for (Rate e: law_.events()) {
+            damageRatePlayerTable.put(e, law_.normalizedRate(e));
+        }
+        damageRateFoeTable = new TreeMap<Rate, Rate>(new ComparatorRate());
+        law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw();
+        for (Rate e: law_.events()) {
+            damageRateFoeTable.put(e, law_.normalizedRate(e));
+        }
+    }
+
     public boolean isDiffState() {
         SimulationSteps simu_ = getForms().getValSimStep(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.DIFF;
@@ -1292,26 +1331,31 @@ public class SimulationBean extends CommonBean {
         }
         StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), lastPk_, data_);
         keptMovesAfterFight.clear();
+        StringMap<String> translationsCategories_;
+        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         for (String m: selectedMoves_.getKeys()) {
             MoveData moveData_ = data_.getMoves().getVal(m);
-            SelectLineMove line_ = new SelectLineMove();
-            line_.setName(m);
-            line_.setDisplayName(data_.translateMove(m));
-            line_.setCategory(data_.getTranslatedCategories().getVal(getLanguage()).getVal(moveData_.getCategory()));
-            StringList types_ = new StringList();
-            for (String t: moveData_.getTypes()) {
-                types_.add(translationsTypes_.getVal(t));
-            }
-            line_.setTypes(types_);
-            line_.setPp(moveData_.getPp());
-            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-            if (line_.isDamageMove()) {
-                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                line_.setDirect(damag_.isDirect());
-            }
-            line_.setPriority(moveData_.getPriority());
+            SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,m,moveData_);
+//            SelectLineMove line_ = new SelectLineMove();
+//            line_.setName(m);
+//            line_.setDisplayName(data_.translateMove(m));
+//            line_.setCategory(data_.getTranslatedCategories().getVal(getLanguage()).getVal(moveData_.getCategory()));
+//            StringList types_ = new StringList();
+//            for (String t: moveData_.getTypes()) {
+//                types_.add(translationsTypes_.getVal(t));
+//            }
+//            line_.setTypes(types_);
+//            line_.setPp(moveData_.getPp());
+//            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
+//            if (line_.isDamageMove()) {
+//                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
+//                line_.setDirect(damag_.isDirect());
+//            }
+//            line_.setPriority(moveData_.getPriority());
             line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
             keptMovesAfterFight.add(line_);
         }
@@ -1338,26 +1382,31 @@ public class SimulationBean extends CommonBean {
         }
         StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), evolutionAfterFight, data_);
         keptMovesAfterFight.clear();
+        StringMap<String> translationsCategories_;
+        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         for (String m: selectedMoves_.getKeys()) {
             MoveData moveData_ = data_.getMoves().getVal(m);
-            SelectLineMove line_ = new SelectLineMove();
-            line_.setName(m);
-            line_.setDisplayName(data_.translateMove(m));
-            line_.setCategory(data_.getTranslatedCategories().getVal(getLanguage()).getVal(moveData_.getCategory()));
-            StringList types_ = new StringList();
-            for (String t: moveData_.getTypes()) {
-                types_.add(translationsTypes_.getVal(t));
-            }
-            line_.setTypes(types_);
-            line_.setPp(moveData_.getPp());
-            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-            if (line_.isDamageMove()) {
-                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                line_.setDirect(damag_.isDirect());
-            }
-            line_.setPriority(moveData_.getPriority());
+            SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,m,moveData_);
+//            SelectLineMove line_ = new SelectLineMove();
+//            line_.setName(m);
+//            line_.setDisplayName(data_.translateMove(m));
+//            line_.setCategory(data_.getTranslatedCategories().getVal(getLanguage()).getVal(moveData_.getCategory()));
+//            StringList types_ = new StringList();
+//            for (String t: moveData_.getTypes()) {
+//                types_.add(translationsTypes_.getVal(t));
+//            }
+//            line_.setTypes(types_);
+//            line_.setPp(moveData_.getPp());
+//            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
+//            if (line_.isDamageMove()) {
+//                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
+//                line_.setDirect(damag_.isDirect());
+//            }
+//            line_.setPriority(moveData_.getPriority());
             line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
             keptMovesAfterFight.add(line_);
         }
@@ -1390,26 +1439,31 @@ public class SimulationBean extends CommonBean {
         }
         StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), evolutionAfterFight, data_);
         keptMovesAfterFight.clear();
+        StringMap<String> translationsCategories_;
+        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         for (String m: selectedMoves_.getKeys()) {
             MoveData moveData_ = data_.getMoves().getVal(m);
-            SelectLineMove line_ = new SelectLineMove();
-            line_.setName(m);
-            line_.setDisplayName(data_.translateMove(m));
-            line_.setCategory(data_.getTranslatedCategories().getVal(getLanguage()).getVal(moveData_.getCategory()));
-            StringList types_ = new StringList();
-            for (String t: moveData_.getTypes()) {
-                types_.add(translationsTypes_.getVal(t));
-            }
-            line_.setTypes(types_);
-            line_.setPp(moveData_.getPp());
-            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-            if (line_.isDamageMove()) {
-                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-                line_.setDirect(damag_.isDirect());
-            }
-            line_.setPriority(moveData_.getPriority());
+            SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,m,moveData_);
+//            SelectLineMove line_ = new SelectLineMove();
+//            line_.setName(m);
+//            line_.setDisplayName(data_.translateMove(m));
+//            line_.setCategory(data_.getTranslatedCategories().getVal(getLanguage()).getVal(moveData_.getCategory()));
+//            StringList types_ = new StringList();
+//            for (String t: moveData_.getTypes()) {
+//                types_.add(translationsTypes_.getVal(t));
+//            }
+//            line_.setTypes(types_);
+//            line_.setPp(moveData_.getPp());
+//            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
+//            if (line_.isDamageMove()) {
+//                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
+//                line_.setDirect(damag_.isDirect());
+//            }
+//            line_.setPriority(moveData_.getPriority());
             line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
             keptMovesAfterFight.add(line_);
         }

@@ -15,10 +15,7 @@ import code.util.core.StringUtil;
 public class SelectItemBean extends CommonBean {
     private String item = DataBase.EMPTY_STRING;
     private final CustList<ItemLine> items = new CustList<ItemLine>();
-    private String typedName = DataBase.EMPTY_STRING;
-    private String typedPrice = DataBase.EMPTY_STRING;
 
-    private String typedClass = DataBase.EMPTY_STRING;
     private boolean player;
 
     @Override
@@ -43,9 +40,7 @@ public class SelectItemBean extends CommonBean {
             item_.setDescriptionClass(class_);
             items.add(item_);
         }
-        typedPrice = escapedStringQuote(typedPrice);
-        typedName = escapedStringQuote(typedName);
-        typedClass = escapedStringQuote(typedClass);
+        escapeInputs();
     }
     public String cancel() {
         if (player) {
@@ -61,7 +56,7 @@ public class SelectItemBean extends CommonBean {
         return CST_POKEMON_EDIT;
     }
     public String search() {
-        StringList sortedItems_ = sortedItems(getDataBase(), typedPrice, typedName, typedClass, getLanguage());
+        StringList sortedItems_ = sortedItems(getDataBase());
         getForms().put(CST_ITEMS_SET_EDIT, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             item = sortedItems_.first();
@@ -114,30 +109,6 @@ public class SelectItemBean extends CommonBean {
         String item_ = items.get(_number).getName();
         DataBase data_ = getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
-    }
-
-    public void setTypedName(String _typedName) {
-        typedName = _typedName;
-    }
-
-    public String getTypedName() {
-        return typedName;
-    }
-
-    public void setTypedPrice(String _typedPrice) {
-        typedPrice = _typedPrice;
-    }
-
-    public String getTypedPrice() {
-        return typedPrice;
-    }
-
-    public void setTypedClass(String _typedClass) {
-        typedClass = _typedClass;
-    }
-
-    public String getTypedClass() {
-        return typedClass;
     }
 
     public CustList<ItemLine> getItems() {

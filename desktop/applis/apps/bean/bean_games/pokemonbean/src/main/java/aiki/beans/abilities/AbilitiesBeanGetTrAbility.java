@@ -8,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class AbilitiesBeanGetTrAbility implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (AbilitiesBean) ((PokemonBeanStruct)_instance).getInstance()).getTrAbility(NumParsers.convertToNumber(_args[0]).intStruct()));
+        return new StringStruct(( (AbilitiesBean) ((PokemonBeanStruct)_instance).getInstance()).getTrSortedAbility(NumParsers.convertToNumber(_args[0]).intStruct()));
     }
 }

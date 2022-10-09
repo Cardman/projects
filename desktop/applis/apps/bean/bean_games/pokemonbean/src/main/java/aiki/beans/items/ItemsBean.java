@@ -2,7 +2,6 @@ package aiki.beans.items;
 
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.ItemLine;
-import aiki.beans.simulation.SelectItemBean;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
 import code.images.BaseSixtyFourUtil;
@@ -12,10 +11,6 @@ import code.util.StringMap;
 
 public class ItemsBean extends CommonBean {
     private final CustList<ItemLine> items = new CustList<ItemLine>();
-    private String typedName = DataBase.EMPTY_STRING;
-    private String typedPrice = DataBase.EMPTY_STRING;
-
-    private String typedClass = DataBase.EMPTY_STRING;
 
     @Override
     public void beforeDisplaying() {
@@ -38,9 +33,7 @@ public class ItemsBean extends CommonBean {
             item_.setDescriptionClass(class_);
             items.add(item_);
         }
-        typedPrice = escapedStringQuote(typedPrice);
-        typedName = escapedStringQuote(typedName);
-        typedClass = escapedStringQuote(typedClass);
+        escapeInputs();
     }
     public String search() {
 //        Integer price_;
@@ -49,7 +42,7 @@ public class ItemsBean extends CommonBean {
 //        } else {
 //            price_ = null;
 //        }
-        StringList sortedItems_ = SelectItemBean.sortedItems(getDataBase(),typedPrice,typedName,typedClass,getLanguage());
+        StringList sortedItems_ = sortedItems(getDataBase());
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsItems_;
 //        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
@@ -154,30 +147,6 @@ public class ItemsBean extends CommonBean {
         String item_ = items.get(_number).getName();
         DataBase data_ = getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
-    }
-
-    public void setTypedName(String _typedName) {
-        typedName = _typedName;
-    }
-
-    public String getTypedName() {
-        return typedName;
-    }
-
-    public void setTypedPrice(String _typedPrice) {
-        typedPrice = _typedPrice;
-    }
-
-    public String getTypedPrice() {
-        return typedPrice;
-    }
-
-    public void setTypedClass(String _typedClass) {
-        typedClass = _typedClass;
-    }
-
-    public String getTypedClass() {
-        return typedClass;
     }
 
     public CustList<ItemLine> getItems() {
