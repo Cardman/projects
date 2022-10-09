@@ -1,19 +1,16 @@
 package aiki.beans.fight;
 
-import aiki.beans.StringMapObject;
-import aiki.beans.WithFacade;
-import aiki.beans.WithForms;
+import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
-import code.bean.Bean;
 import code.util.Bytes;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class CommonFightBean extends Bean implements WithFacade, WithForms {
+public abstract class CommonFightBean extends CommonBean {
 
     protected static final String FIGHTER = "fighter";
     protected static final String NO_FIGHTER = "no_fighter";
@@ -23,28 +20,8 @@ public abstract class CommonFightBean extends Bean implements WithFacade, WithFo
     protected static final String MOVES_SEPARATOR = ";";
     protected static final String SPACE = " ";
 
-    private FacadeGame dataBase;
-
-    public FacadeGame getDataBase() {
+    public FacadeGame facade() {
         return db();
-    }
-
-    @Override
-    public FacadeGame db() {
-        return dataBase;
-    }
-
-    @Override
-    public void setDataBase(FacadeGame _dataBase) {
-        dataBase = _dataBase;
-    }
-
-    public StringMapObject getForms() {
-        return (StringMapObject) getBaseForms();
-    }
-
-    public void setForms(StringMapObject _forms) {
-        setBaseForms(_forms);
     }
 
     protected static String getFighterAtPosition(FacadeGame _facade, TeamPosition _teamPosition) {
@@ -54,10 +31,7 @@ public abstract class CommonFightBean extends Bean implements WithFacade, WithFo
         Bytes membersIndex_ = getMembers(_facade,_teamPosition.getTeam());
         byte i_ = IndexConstants.FIRST_INDEX;
         byte nb_ = IndexConstants.FIRST_INDEX;
-        while (true) {
-            if (i_ >= membersIndex_.size()) {
-                break;
-            }
+        while (i_ < membersIndex_.size()) {
             byte iTmp_ = membersIndex_.get(i_);
             if (iTmp_ >= _teamPosition.getPosition()) {
                 break;

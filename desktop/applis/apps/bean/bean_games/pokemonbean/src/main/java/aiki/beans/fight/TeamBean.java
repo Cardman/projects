@@ -21,7 +21,7 @@ public class TeamBean extends CommonFightBean {
 
     @Override
     public void beforeDisplaying() {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         foeTeam = noTeam_ == Fight.CST_FOE;
@@ -120,13 +120,13 @@ public class TeamBean extends CommonFightBean {
         }
     }
     public Bytes getMembers() {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         return getMembers(dataBaseFight_, noTeam_);
     }
     public String getTrPokemonLink(int _index) {
         byte index_ = getMembers().get(_index);
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_);
@@ -170,7 +170,7 @@ public class TeamBean extends CommonFightBean {
     }
 
     private String getDisplayName(byte _indexOne, int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         Team team_ = dataBaseFight_.getGame().getFight().getUserTeam();
         Fighter fighter_ = team_.getMembers().getVal(_indexOne);
@@ -192,7 +192,7 @@ public class TeamBean extends CommonFightBean {
     }
 
     private String getDisplayFoeName(byte _indexOne, int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         Team team_ = dataBaseFight_.getGame().getFight().getFoeTeam();
         Fighter fighter_ = team_.getMembers().getVal(_indexOne);

@@ -27,21 +27,8 @@ public class FightCalculationBean extends CommonFightBean {
 
     @Override
     public void beforeDisplaying() {
-        FacadeGame dataBaseFight_ = getDataBase();
-        TeamPositionsStringMapTeamPositionsRate resTh_;
-        resTh_ = dataBaseFight_.remainingThrowersTargetsHp();
-        damage = new CustList<KeyHypothesis>();
-        for (TeamPosition p: resTh_.getKeys()) {
-            for (String m: resTh_.getVal(p).getKeys()) {
-                for (TeamPosition t: resTh_.getVal(p).getVal(m).getKeys()) {
-                    KeyHypothesis key_;
-                    key_ = new KeyHypothesis(dataBaseFight_, p, m, t);
-                    key_.setDamage(resTh_.getVal(p).getVal(m).getVal(t));
-                    damage.add(key_);
-                }
-            }
-        }
-        damage.sortElts(new ComparatorKeyHypothesis());
+        FacadeGame dataBaseFight_ = facade();
+        damageInit(dataBaseFight_);
         if (!dataBaseFight_.getGame().getFight().getFightType().isWild()) {
             sortedFighters = dataBaseFight_.sortedFightersBeginRound();
         } else {
@@ -100,14 +87,32 @@ public class FightCalculationBean extends CommonFightBean {
         foeChoices = foeChoices_;
         foeChoicesTargets = foeChoicesTargets_;
     }
+
+    private void damageInit(FacadeGame _dataBaseFight) {
+        TeamPositionsStringMapTeamPositionsRate resTh_;
+        resTh_ = _dataBaseFight.remainingThrowersTargetsHp();
+        damage = new CustList<KeyHypothesis>();
+        for (TeamPosition p: resTh_.getKeys()) {
+            for (String m: resTh_.getVal(p).getKeys()) {
+                for (TeamPosition t: resTh_.getVal(p).getVal(m).getKeys()) {
+                    KeyHypothesis key_;
+                    key_ = new KeyHypothesis(_dataBaseFight, p, m, t);
+                    key_.setDamage(resTh_.getVal(p).getVal(m).getVal(t));
+                    damage.add(key_);
+                }
+            }
+        }
+        damage.sortElts(new ComparatorKeyHypothesis());
+    }
+
     public String getFighterWildFight(int _indexOne, int _indexTwo) {
         TeamPosition f_ = sortedFightersWildFight.getValue(_indexOne).get(_indexTwo);
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         return getFighterAtPosition(dataBaseFight_, f_);
     }
     public String getFighter(int _index) {
         TeamPosition f_ = sortedFighters.get(_index);
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         return getFighterAtPosition(dataBaseFight_, f_);
     }
     public boolean isFoeTargetChoiceTeam(int _index) {
@@ -123,7 +128,7 @@ public class FightCalculationBean extends CommonFightBean {
         return allyChoice.getValue(_index).getTarget().getPosition() == Fighter.BACK;
     }
     public String getTargetNameAllyChoiceCondition(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         MoveTarget mTarget_ = allyChoice.getKey(_index);
         TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
@@ -131,7 +136,7 @@ public class FightCalculationBean extends CommonFightBean {
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
     public String getTargetNameAllyChoice(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         MoveTarget mTarget_ = allyChoice.getValue(_index);
         TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
@@ -142,7 +147,7 @@ public class FightCalculationBean extends CommonFightBean {
         return foeChoicesTargets.getValue(_index) == BoolVal.TRUE;
     }
     public String getTargetNameFoeChoice(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         MoveTarget mTarget_ = foeChoices.getVal((byte) _index);
         TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
@@ -150,7 +155,7 @@ public class FightCalculationBean extends CommonFightBean {
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
     public String getFoeFighterName(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         Team team_ = fight_.getFoeTeam();
         byte key_ = foeChoices.getKey(_index);

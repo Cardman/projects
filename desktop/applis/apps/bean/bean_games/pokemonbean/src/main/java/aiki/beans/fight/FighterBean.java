@@ -88,7 +88,7 @@ public class FighterBean extends CommonFightBean {
 
     @Override
     public void beforeDisplaying() {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         int noFighter_ = getForms().getValInt(NO_FIGHTER);
@@ -101,16 +101,8 @@ public class FighterBean extends CommonFightBean {
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         AbsMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        StringMap<String> translationsCategories_;
-        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         keyName = fighter_.getName();
         name = translationsPokemon_.getVal(fighter_.getName());
         currentName = translationsPokemon_.getVal(fighter_.getCurrentName());
@@ -171,77 +163,9 @@ public class FighterBean extends CommonFightBean {
         } else {
             usedBallCatching = translationsItems_.getVal(fighter_.getUsedBallCatching());
         }
-        CustList<StatisticInfo> statistics_;
-        statistics_ = new CustList<StatisticInfo>();
-        for (Statistic s: Statistic.values()) {
-            if (s == Statistic.PV_RESTANTS) {
-                continue;
-            }
-            StatisticInfo stat_;
-            stat_ = new StatisticInfo();
-            stat_.setStatistic(s);
-            if (s.isBoost()) {
-                stat_.setStatisBoost(fighter_.getStatisBoost().getVal(s));
-            }
-            if (s.isWithBaseStatistic()) {
-                stat_.setStatisBase(fighter_.getStatisBase().getVal(s));
-                stat_.setEv(fighter_.getEv().getVal(s));
-                stat_.setIv(fighter_.getIv().getVal(s));
-            }
-            stat_.setDisplayStatistic(translationsStatistics_.getVal(s));
-            statistics_.add(stat_);
-        }
-        statistics_.sortElts(new ComparatorStatisticInfo());
-        statistics = statistics_;
-        NatStringTreeMap<ActivityOfMove> enabledMoves_;
-        enabledMoves_ = new NatStringTreeMap<ActivityOfMove>();
-        for (String m: fighter_.getEnabledMoves().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledMoves().getVal(m));
-        }
-        for (String m: fighter_.getEnabledMovesConstChoices().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledMovesConstChoices().getVal(m));
-        }
-        for (String m: fighter_.getEnabledCounteringMoves().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledCounteringMoves().getVal(m));
-        }
-        for (String m: fighter_.getEnabledChangingTypesMoves().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledChangingTypesMoves().getVal(m));
-        }
-        for (String m: fighter_.getEnabledMovesEndRound().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledMovesEndRound().getVal(m));
-        }
-        for (String m: fighter_.getEnabledMovesProt().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledMovesProt().getVal(m));
-        }
-        for (String m: fighter_.getEnabledMovesUnprot().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledMovesUnprot().getVal(m));
-        }
-        enabledMoves = enabledMoves_;
-        NatStringTreeMap<UsesOfMove> moves_;
-        moves_ = new NatStringTreeMap<UsesOfMove>();
-        for (String m: fighter_.getMovesSet()) {
-            moves_.put(translationsMoves_.getVal(m), fighter_.getMove(m));
-        }
-        moves = moves_;
-        NatStringTreeMap<UsesOfMove> currentMoves_;
-        currentMoves_ = new NatStringTreeMap<UsesOfMove>();
-        for (String m: fighter_.getCurrentMovesSet()) {
-            currentMoves_.put(translationsMoves_.getVal(m), fighter_.getCurrentMove(m));
-        }
-        currentMoves = currentMoves_;
-        NatStringTreeMap<Integer> nbUsesMoves_;
-        nbUsesMoves_ = new NatStringTreeMap<Integer>();
-        for (String m: fighter_.getNbUsesMoves().getKeys()) {
-            nbUsesMoves_.put(translationsMoves_.getVal(m), fighter_.getNbUsesMoves().getVal(m));
-        }
-        nbUsesMoves = nbUsesMoves_;
-        NatStringTreeMap<Short> status_;
-        status_ = new NatStringTreeMap<Short>();
-        for (String m: fighter_.getStatusSet()) {
-            status_.put(translationsStatus_.getVal(m), fighter_.getStatusNbRound(m));
-        }
-        status = status_;
-        TreeMap<MoveTeamPosition,Short> statusRelat_;
+        statistics = initFighterStats(fighter_);
+        fighterMoves(fighter_);
+        status = status(fighter_);
 //        statusRelat_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
 //            public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {
@@ -256,51 +180,13 @@ public class FighterBean extends CommonFightBean {
 //                return Integer.compare(_o1.getTeamPosition().getPosition(), _o2.getTeamPosition().getPosition());
 //            }
 //        });
-        statusRelat_ = new TreeMap<MoveTeamPosition, Short>(new ComparatorMoveTeamPosition());
-        for (MoveTeamPosition m: fighter_.getStatusRelatSet()) {
-            String move_ = translationsStatus_.getVal(m.getMove());
-            MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            statusRelat_.put(m_, fighter_.getStatusRelatNbRound(m));
-        }
-        statusRelat = statusRelat_;
+        statusRelat = statusRelat(fighter_);
         nbRepeatingSuccessfulMoves = fighter_.getNbRepeatingSuccessfulMoves();
-        NatStringTreeMap<CopiedMove> copiedMoves_;
-        copiedMoves_ = new NatStringTreeMap<CopiedMove>();
-        for (String c: fighter_.getCopiedMoves().getKeys()) {
-            CopiedMove copied_;
-            copied_ = new CopiedMove();
-            String move_ = fighter_.getCopiedMoves().getVal(c).getMove();
-            if (!move_.isEmpty()) {
-                move_ = translationsMoves_.getVal(fighter_.getCopiedMoves().getVal(c).getMove());
-            }
-            copied_.setMove(move_);
-            copied_.setPp(fighter_.getCopiedMoves().getVal(c).getPp());
-            copiedMoves_.put(translationsMoves_.getVal(c), copied_);
-        }
-        copiedMoves = copiedMoves_;
+        copiedMoves = copiedMoves(fighter_);
         groundPlace = fighter_.getGroundPlace();
         groundPlaceSubst = fighter_.getGroundPlaceSubst();
         disappeared = fighter_.isDisappeared();
-        if (fighter_.getLastSufferedMove().isEmpty()) {
-            lastSufferedMove = DataBase.EMPTY_STRING;
-        } else {
-            lastSufferedMove = translationsMoves_.getVal(fighter_.getLastSufferedMove());
-        }
-        if (fighter_.getLastUsedMove().isEmpty()) {
-            lastUsedMove = DataBase.EMPTY_STRING;
-        } else {
-            lastUsedMove = translationsMoves_.getVal(fighter_.getLastUsedMove());
-        }
-        if (fighter_.getLastSuccessfulMove().isEmpty()) {
-            lastSuccessfulMove = DataBase.EMPTY_STRING;
-        } else {
-            lastSuccessfulMove = translationsMoves_.getVal(fighter_.getLastSuccessfulMove());
-        }
-        if (fighter_.getUsedMoveLastRound().isEmpty()) {
-            usedMoveLastRound = DataBase.EMPTY_STRING;
-        } else {
-            usedMoveLastRound = translationsMoves_.getVal(fighter_.getUsedMoveLastRound());
-        }
+        pastMove(fighter_);
         successfulMove = fighter_.isSuccessfulMove();
         StringList lastSufferedMoveTypes_ = new StringList();
         for (String t: fighter_.getLastSufferedMoveTypes()) {
@@ -308,12 +194,7 @@ public class FighterBean extends CommonFightBean {
         }
         lastSufferedMoveTypes_.sort();
         lastSufferedMoveTypes = lastSufferedMoveTypes_;
-        StringList alreadyInvokedMovesRound_ = new StringList();
-        for (String t: fighter_.getAlreadyInvokedMovesRound()) {
-            alreadyInvokedMovesRound_.add(translationsMoves_.getVal(t));
-        }
-        alreadyInvokedMovesRound_.sort();
-        alreadyInvokedMovesRound = alreadyInvokedMovesRound_;
+        alreadyInvokedMovesRound = alreadyInvokedMovesRound(fighter_);
         usingItem = fighter_.isUsingItem();
         changed = fighter_.isChanged();
         NatStringTreeMap<MultPowerMoves> damageRateByType_;
@@ -325,22 +206,133 @@ public class FighterBean extends CommonFightBean {
             damageRateByType_.put(translationsTypes_.getVal(c), mult_);
         }
         damageRateByType = damageRateByType_;
+        damageSufferedCateg = damageSufferedCateg(fighter_);
+        enabledMovesForAlly = enabledMovesForAll(fighter_);
+        relMoves(fighter_);
+    }
+
+    private TreeMap<MoveTeamPosition, Short> statusRelat(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsStatus_;
+        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+        TreeMap<MoveTeamPosition, Short> statusRelat_ = new TreeMap<MoveTeamPosition, Short>(new ComparatorMoveTeamPosition());
+        for (MoveTeamPosition m: _fighter.getStatusRelatSet()) {
+            String move_ = translationsStatus_.getVal(m.getMove());
+            MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
+            statusRelat_.put(m_, _fighter.getStatusRelatNbRound(m));
+        }
+        return statusRelat_;
+    }
+
+    private NatStringTreeMap<Short> status(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsStatus_;
+        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+        NatStringTreeMap<Short> status_;
+        status_ = new NatStringTreeMap<Short>();
+        for (String m: _fighter.getStatusSet()) {
+            status_.put(translationsStatus_.getVal(m), _fighter.getStatusNbRound(m));
+        }
+        return status_;
+    }
+
+    private NatStringTreeMap<SufferedDamageCategory> damageSufferedCateg(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsCategories_;
+        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         NatStringTreeMap<SufferedDamageCategory> damageSufferedCateg_;
         damageSufferedCateg_ = new NatStringTreeMap<SufferedDamageCategory>();
         for (String c: data_.getCategories()) {
             SufferedDamageCategory suff_;
             suff_ = new SufferedDamageCategory();
-            suff_.setRound(fighter_.getDamageSufferedCategRound().getVal(c));
-            suff_.setUsing(fighter_.getDamageSufferedCateg().getVal(c));
+            suff_.setRound(_fighter.getDamageSufferedCategRound().getVal(c));
+            suff_.setUsing(_fighter.getDamageSufferedCateg().getVal(c));
             damageSufferedCateg_.put(translationsCategories_.getVal(c), suff_);
         }
-        damageSufferedCateg = damageSufferedCateg_;
+        return damageSufferedCateg_;
+    }
+
+    private NatStringTreeMap<CopiedMove> copiedMoves(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        NatStringTreeMap<CopiedMove> copiedMoves_;
+        copiedMoves_ = new NatStringTreeMap<CopiedMove>();
+        for (String c: _fighter.getCopiedMoves().getKeys()) {
+            CopiedMove copied_;
+            copied_ = new CopiedMove();
+            String move_ = _fighter.getCopiedMoves().getVal(c).getMove();
+            if (!move_.isEmpty()) {
+                move_ = translationsMoves_.getVal(_fighter.getCopiedMoves().getVal(c).getMove());
+            }
+            copied_.setMove(move_);
+            copied_.setPp(_fighter.getCopiedMoves().getVal(c).getPp());
+            copiedMoves_.put(translationsMoves_.getVal(c), copied_);
+        }
+        return copiedMoves_;
+    }
+
+    private NatStringTreeMap<BoolVal> enabledMovesForAll(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         NatStringTreeMap<BoolVal> enabledMovesForAlly_;
         enabledMovesForAlly_ = new NatStringTreeMap<BoolVal>();
-        for (String c: fighter_.getEnabledMovesForAlly().getKeys()) {
-            enabledMovesForAlly_.put(translationsMoves_.getVal(c), fighter_.getEnabledMovesForAlly().getVal(c));
+        for (String c: _fighter.getEnabledMovesForAlly().getKeys()) {
+            enabledMovesForAlly_.put(translationsMoves_.getVal(c), _fighter.getEnabledMovesForAlly().getVal(c));
         }
-        enabledMovesForAlly = enabledMovesForAlly_;
+        return enabledMovesForAlly_;
+    }
+
+    private StringList alreadyInvokedMovesRound(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        StringList alreadyInvokedMovesRound_ = new StringList();
+        for (String t: _fighter.getAlreadyInvokedMovesRound()) {
+            alreadyInvokedMovesRound_.add(translationsMoves_.getVal(t));
+        }
+        alreadyInvokedMovesRound_.sort();
+        return alreadyInvokedMovesRound_;
+    }
+
+    private void fighterMoves(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        enabledMoves = initEnabledMoves(_fighter);
+        NatStringTreeMap<UsesOfMove> moves_;
+        moves_ = new NatStringTreeMap<UsesOfMove>();
+        for (String m: _fighter.getMovesSet()) {
+            moves_.put(translationsMoves_.getVal(m), _fighter.getMove(m));
+        }
+        moves = moves_;
+        NatStringTreeMap<UsesOfMove> currentMoves_;
+        currentMoves_ = new NatStringTreeMap<UsesOfMove>();
+        for (String m: _fighter.getCurrentMovesSet()) {
+            currentMoves_.put(translationsMoves_.getVal(m), _fighter.getCurrentMove(m));
+        }
+        currentMoves = currentMoves_;
+        NatStringTreeMap<Integer> nbUsesMoves_;
+        nbUsesMoves_ = new NatStringTreeMap<Integer>();
+        for (String m: _fighter.getNbUsesMoves().getKeys()) {
+            nbUsesMoves_.put(translationsMoves_.getVal(m), _fighter.getNbUsesMoves().getVal(m));
+        }
+        nbUsesMoves = nbUsesMoves_;
+    }
+
+    private void relMoves(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         TreeMap<MoveTeamPosition,String> privateMoves_;
 //        privateMoves_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
@@ -357,9 +349,9 @@ public class FighterBean extends CommonFightBean {
 //            }
 //        });
         privateMoves_ = new TreeMap<MoveTeamPosition, String>(new ComparatorMoveTeamPosition());
-        for (MoveTeamPosition m: fighter_.getPrivateMoves().getKeys()) {
+        for (MoveTeamPosition m: _fighter.getPrivateMoves().getKeys()) {
             StringList movesPr_ = new StringList();
-            for (String move_: fighter_.getPrivateMoves().getVal(m)) {
+            for (String move_: _fighter.getPrivateMoves().getVal(m)) {
                 movesPr_.add(translationsMoves_.getVal(move_));
             }
             movesPr_.sort();
@@ -384,9 +376,9 @@ public class FighterBean extends CommonFightBean {
 //            }
 //        });
         trappingMoves_ = new TreeMap<MoveTeamPosition, ActivityOfMove>(new ComparatorMoveTeamPosition());
-        for (MoveTeamPosition m: fighter_.getTrappingMoves().getKeys()) {
+        for (MoveTeamPosition m: _fighter.getTrappingMoves().getKeys()) {
             ActivityOfMove activity_;
-            activity_ = new ActivityOfMove(fighter_.getTrappingMoves().getVal(m));
+            activity_ = new ActivityOfMove(_fighter.getTrappingMoves().getVal(m));
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
             trappingMoves_.put(m_, activity_);
@@ -408,11 +400,11 @@ public class FighterBean extends CommonFightBean {
 //            }
 //        });
         trackingMoves_ = new TreeMap<MoveTeamPosition, AffectedMove>(new ComparatorMoveTeamPosition());
-        for (MoveTeamPosition m: fighter_.getTrackingMoves().getKeys()) {
+        for (MoveTeamPosition m: _fighter.getTrackingMoves().getKeys()) {
             ActivityOfMove activity_;
-            activity_ = new ActivityOfMove(fighter_.getTrackingMoves().getVal(m).getActivity());
+            activity_ = new ActivityOfMove(_fighter.getTrackingMoves().getVal(m).getActivity());
             String move_ = translationsMoves_.getVal(m.getMove());
-            String affectedMove_ = fighter_.getTrackingMoves().getVal(m).getMove();
+            String affectedMove_ = _fighter.getTrackingMoves().getVal(m).getMove();
             String affectedMoveTr_ = DataBase.EMPTY_STRING;
             if (!affectedMove_.isEmpty()) {
                 affectedMoveTr_ = translationsMoves_.getVal(affectedMove_);
@@ -437,16 +429,103 @@ public class FighterBean extends CommonFightBean {
 //            }
 //        });
         incrUserAccuracy_ = new TreeMap<MoveTeamPosition, BoolVal>(new ComparatorMoveTeamPosition());
-        for (MoveTeamPosition m: fighter_.getIncrUserAccuracy().getKeys()) {
+        for (MoveTeamPosition m: _fighter.getIncrUserAccuracy().getKeys()) {
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            incrUserAccuracy_.put(m_, fighter_.getIncrUserAccuracy().getVal(m));
+            incrUserAccuracy_.put(m_, _fighter.getIncrUserAccuracy().getVal(m));
         }
         incrUserAccuracy = incrUserAccuracy_;
     }
 
+    private void pastMove(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        if (_fighter.getLastSufferedMove().isEmpty()) {
+            lastSufferedMove = DataBase.EMPTY_STRING;
+        } else {
+            lastSufferedMove = translationsMoves_.getVal(_fighter.getLastSufferedMove());
+        }
+        if (_fighter.getLastUsedMove().isEmpty()) {
+            lastUsedMove = DataBase.EMPTY_STRING;
+        } else {
+            lastUsedMove = translationsMoves_.getVal(_fighter.getLastUsedMove());
+        }
+        if (_fighter.getLastSuccessfulMove().isEmpty()) {
+            lastSuccessfulMove = DataBase.EMPTY_STRING;
+        } else {
+            lastSuccessfulMove = translationsMoves_.getVal(_fighter.getLastSuccessfulMove());
+        }
+        if (_fighter.getUsedMoveLastRound().isEmpty()) {
+            usedMoveLastRound = DataBase.EMPTY_STRING;
+        } else {
+            usedMoveLastRound = translationsMoves_.getVal(_fighter.getUsedMoveLastRound());
+        }
+    }
+
+    private NatStringTreeMap<ActivityOfMove> initEnabledMoves(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        NatStringTreeMap<ActivityOfMove> enabledMoves_;
+        enabledMoves_ = new NatStringTreeMap<ActivityOfMove>();
+        for (String m: _fighter.getEnabledMoves().getKeys()) {
+            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMoves().getVal(m));
+        }
+        for (String m: _fighter.getEnabledMovesConstChoices().getKeys()) {
+            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMovesConstChoices().getVal(m));
+        }
+        for (String m: _fighter.getEnabledCounteringMoves().getKeys()) {
+            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledCounteringMoves().getVal(m));
+        }
+        for (String m: _fighter.getEnabledChangingTypesMoves().getKeys()) {
+            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledChangingTypesMoves().getVal(m));
+        }
+        for (String m: _fighter.getEnabledMovesEndRound().getKeys()) {
+            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMovesEndRound().getVal(m));
+        }
+        for (String m: _fighter.getEnabledMovesProt().getKeys()) {
+            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMovesProt().getVal(m));
+        }
+        for (String m: _fighter.getEnabledMovesUnprot().getKeys()) {
+            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMovesUnprot().getVal(m));
+        }
+        return enabledMoves_;
+    }
+
+    private CustList<StatisticInfo> initFighterStats(Fighter _fighter) {
+        FacadeGame dataBaseFight_ = facade();
+        DataBase data_ = dataBaseFight_.getData();
+        AbsMap<Statistic,String> translationsStatistics_;
+        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+        CustList<StatisticInfo> statistics_;
+        statistics_ = new CustList<StatisticInfo>();
+        for (Statistic s: Statistic.values()) {
+            if (s == Statistic.PV_RESTANTS) {
+                continue;
+            }
+            StatisticInfo stat_;
+            stat_ = new StatisticInfo();
+            stat_.setStatistic(s);
+            if (s.isBoost()) {
+                stat_.setStatisBoost(_fighter.getStatisBoost().getVal(s));
+            }
+            if (s.isWithBaseStatistic()) {
+                stat_.setStatisBase(_fighter.getStatisBase().getVal(s));
+                stat_.setEv(_fighter.getEv().getVal(s));
+                stat_.setIv(_fighter.getIv().getVal(s));
+            }
+            stat_.setDisplayStatistic(translationsStatistics_.getVal(s));
+            statistics_.add(stat_);
+        }
+        statistics_.sortElts(new ComparatorStatisticInfo());
+        return statistics_;
+    }
+
     Rate numberNecessaryPointsForGrowingLevel(){
-        FacadeGame facadeGame_ = getDataBase();
+        FacadeGame facadeGame_ = facade();
         DataBase data_ = facadeGame_.getData();
         PokemonData fPk_=data_.getPokemon(keyName);
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
@@ -463,14 +542,14 @@ public class FighterBean extends CommonFightBean {
         return diff_;
     }
     public boolean isBack() {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         int noFighter_ = getForms().getValInt(NO_FIGHTER);
         Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
         return fighter_.estArriere();
     }
     public boolean isBackSubst() {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         int noFighter_ = getForms().getValInt(NO_FIGHTER);
         Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
@@ -481,7 +560,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getStatusRelatTeam(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         MoveTeamPosition mt_ = statusRelat.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
@@ -493,7 +572,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrPrivateMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         MoveTeamPosition mt_ = privateMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
@@ -502,7 +581,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrTrappingMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         MoveTeamPosition mt_ = trappingMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
@@ -511,7 +590,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrTrackingMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         MoveTeamPosition mt_ = trackingMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
@@ -520,7 +599,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrUserAccuracyTeam(int _index) {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }

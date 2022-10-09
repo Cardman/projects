@@ -19,7 +19,7 @@ public class FightBean extends CommonFightBean {
 
     @Override
     public void beforeDisplaying() {
-        FacadeGame dataBaseFight_ = getDataBase();
+        FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());

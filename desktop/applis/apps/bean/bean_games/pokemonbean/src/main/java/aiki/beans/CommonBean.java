@@ -1,27 +1,15 @@
 package aiki.beans;
 
-import aiki.beans.facade.dto.PokemonLine;
-import aiki.beans.pokemon.PokedexBean;
-import aiki.beans.simulation.SelectItemBean;
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.facade.CriteriaForSearching;
 import aiki.facade.FacadeGame;
-import aiki.facade.enums.SelectedBoolean;
-import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.enums.GenderRepartition;
 import code.bean.Bean;
-import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
-import code.util.*;
+import code.util.NatStringTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public abstract class CommonBean extends Bean implements WithFacade,WithForms {
