@@ -90,12 +90,14 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         s_.put("2","");
         s_.put("3", Rate.zero());
         s_.put("4", new StringList());
+        s_.put("5", new BasicBeanStruct(new BeanThree()));
         assertTrue(s_.containsBase("0"));
         assertTrue(s_.containsBase("1"));
         assertTrue(s_.containsBase("2"));
         assertTrue(s_.containsBase("3"));
         assertTrue(s_.containsBase("4"));
-        assertFalse(s_.containsBase("5"));
+        assertTrue(s_.containsBase("5"));
+        assertFalse(s_.containsBase("6"));
         s_.removeKeyBase("1");
         assertEq(0, s_.getMapBoolean().size());
     }
@@ -2727,13 +2729,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private SampleBeanStruct init(BeanOne _b) {
-        _b.getBaseForms().getBeansOthers().put("other",new BeanThree());
+        _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
         _b.getBaseForms().put("typedShort",0);
         return new SampleBeanStruct(_b);
     }
 
     private SampleBeanStruct init(BeanTwo _b) {
-        _b.getBaseForms().getBeansOthers().put("other",new BeanThree());
+        _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
         _b.getBaseForms().put("typedShort",0);
         return new SampleBeanStruct(_b);
     }

@@ -15,7 +15,6 @@ import code.util.StringMap;
 
 public final class StringMapObject extends StringMapObjectBase {
 
-    private final StringMap<AreaApparition> mapArea = new StringMap<AreaApparition>();
     private final StringMap<Ally> mapAlly = new StringMap<Ally>();
     private final StringMap<WildPk> mapWildPk = new StringMap<WildPk>();
     private final StringMap<Person> mapPerson = new StringMap<Person>();
@@ -27,7 +26,7 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<PokemonPlayerDto> mapPokemonPlayerDto = new StringMap<PokemonPlayerDto>();
 
     public void put(String _key, AreaApparition _v) {
-        mapArea.put(_key, _v);
+        getBeansOthers().put(_key,new AreaApparitionStruct(_v,PokemonStandards.TYPE_AREA_APPARITION));
     }
 
     public void put(String _key, Ally _v) {
@@ -65,7 +64,6 @@ public final class StringMapObject extends StringMapObjectBase {
 
     public boolean contains(String _key) {
         return containsBase(_key)||
-                mapArea.contains(_key)||
                 mapAlly.contains(_key)||
                 mapWildPk.contains(_key)||
                 mapPerson.contains(_key)||
@@ -87,7 +85,7 @@ public final class StringMapObject extends StringMapObjectBase {
         return mapWildPk.getVal(_key);
     }
     public AreaApparition getValArea(String _key) {
-        return mapArea.getVal(_key);
+        return ((AreaApparitionStruct)getBeansOthers().getVal(_key)).getWildPk();
     }
     public Person getValPers(String _key) {
         return mapPerson.getVal(_key);
@@ -117,7 +115,6 @@ public final class StringMapObject extends StringMapObjectBase {
     }
     public void putAllMap(StringMapObject _m) {
         putAllMapBase(_m);
-        mapArea.putAllMap(_m.mapArea);
         mapAlly.putAllMap(_m.mapAlly);
         mapWildPk.putAllMap(_m.mapWildPk);
         mapPerson.putAllMap(_m.mapPerson);
@@ -131,7 +128,6 @@ public final class StringMapObject extends StringMapObjectBase {
 
     public void removeKey(String _key) {
         removeKeyBase(_key);
-        mapArea.removeKey(_key);
         mapAlly.removeKey(_key);
         mapWildPk.removeKey(_key);
         mapPerson.removeKey(_key);

@@ -1,6 +1,6 @@
 package code.bean.nat;
 
-import code.bean.Bean;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
@@ -13,7 +13,7 @@ public class StringMapObjectBase {
     private final StringMap<String> mapString = new StringMap<String>();
     private final StringMap<StringList> mapStringList = new StringMap<StringList>();
     private final StringMap<BoolVal> mapBoolean = new StringMap<BoolVal>();
-    private final StringMap<Bean> beansOthers = new StringMap<Bean>();
+    private final StringMap<Struct> beansOthers = new StringMap<Struct>();
 
     private final NatStringTreeMap< Integer> tree = new NatStringTreeMap< Integer>();
 
@@ -31,7 +31,7 @@ public class StringMapObjectBase {
                 mapInt.contains(_key)||
                 mapString.contains(_key)||
                 mapStringList.contains(_key)||
-                mapBoolean.contains(_key);
+                mapBoolean.contains(_key)||beansOthers.contains(_key);
     }
     public static boolean from(BoolVal _v) {
         return _v == BoolVal.TRUE;
@@ -46,6 +46,7 @@ public class StringMapObjectBase {
         mapString.putAllMap(_m.mapString);
         mapStringList.putAllMap(_m.mapStringList);
         mapBoolean.putAllMap(_m.mapBoolean);
+        beansOthers.putAllMap(_m.beansOthers);
     }
     public void removeKeyBase(String _key) {
         mapRate.removeKey(_key);
@@ -53,6 +54,7 @@ public class StringMapObjectBase {
         mapString.removeKey(_key);
         mapStringList.removeKey(_key);
         mapBoolean.removeKey(_key);
+        beansOthers.removeKey(_key);
     }
     public void put(String _key, Rate _v) {
         mapRate.put(_key, _v);
@@ -73,6 +75,10 @@ public class StringMapObjectBase {
     public void put(String _key, StringList _v) {
         mapStringList.put(_key, _v);
     }
+
+    public void put(String _key, Struct _v) {
+        beansOthers.put(_key, _v);
+    }
     public Rate getValRate(String _key) {
         return mapRate.getVal(_key);
     }
@@ -91,7 +97,7 @@ public class StringMapObjectBase {
         return mapInt.getVal(_key);
     }
 
-    public StringMap<Bean> getBeansOthers() {
+    public StringMap<Struct> getBeansOthers() {
         return beansOthers;
     }
 

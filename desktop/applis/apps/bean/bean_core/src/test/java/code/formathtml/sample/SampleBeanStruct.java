@@ -4,6 +4,7 @@ import code.bean.Bean;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanStruct;
 import code.bean.nat.StringMapObjectBase;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
@@ -20,7 +21,7 @@ public final class SampleBeanStruct extends BeanStruct {
         setTypedShort((short) 0);
         getMap().put("ONE",1);
         getMap().put("TWO",2);
-        getOthers().addEntry("",new BeanThree());
+        getOthers().addEntry("",new BasicBeanStruct(new BeanThree()));
     }
 
     static void spec(Bean _bean) {
@@ -36,10 +37,10 @@ public final class SampleBeanStruct extends BeanStruct {
         return "change";
     }
     public Bean getComposite() {
-        return getOthers().lastValue();
+        return ((BeanStruct)getOthers().lastValue()).getBean();
     }
 
-    public StringMap<Bean> getOthers() {
+    public StringMap<Struct> getOthers() {
         return getBean().getBaseForms().getBeansOthers();
     }
 

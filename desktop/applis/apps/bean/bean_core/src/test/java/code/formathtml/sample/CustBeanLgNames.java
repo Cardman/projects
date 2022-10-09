@@ -818,7 +818,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
         StringMap<Integer> oldMap_ = ((SampleBeanStruct) bean_).getMap();
-        StringMap<Bean> others_ = ((SampleBeanStruct) bean_).getOthers();
+        StringMap<Struct> others_ = ((SampleBeanStruct) bean_).getOthers();
         NatStringTreeMap<Integer> oldTree_ = ((SampleBeanStruct) bean_).getTree();
         ((SampleBeanStruct) bean_).setForms(forms_);
         ((SampleBeanStruct) bean_).getMap().addAllEntries(oldMap_);
@@ -846,7 +846,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     }
 
     private SampleBeanStruct bean(Bean _bean) {
-        _bean.getBaseForms().getBeansOthers().put("other",new BeanThree());
+        _bean.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
         _bean.getBaseForms().put("typedShort",0);
         return (new SampleBeanStruct(_bean));
     }
