@@ -163,7 +163,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         StringMapObject stringMapObject_ = new StringMapObject();
-        stringMapObject_.putAllMapBase(_bean);
+        stringMapObject_.putAllMapGene(_bean);
         String currentBeanName_;
         NatDocumentBlock rendDocumentBlock_ = getRender(_dest,_curUrl);
         currentBeanName_ = rendDocumentBlock_.getBeanName();

@@ -11,7 +11,6 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.Point;
 import code.bean.nat.StringMapObjectBase;
-import code.util.EntryCust;
 import code.util.StringMap;
 
 public final class StringMapObject extends StringMapObjectBase {
@@ -109,38 +108,25 @@ public final class StringMapObject extends StringMapObjectBase {
         return mapPoint.getVal(_key);
     }
 
+    public void putAllMapGene(StringMapObjectBase _m) {
+        if (_m instanceof StringMapObject) {
+            putAllMap((StringMapObject) _m);
+        } else {
+            putAllMapBase(_m);
+        }
+    }
     public void putAllMap(StringMapObject _m) {
         putAllMapBase(_m);
-        for (EntryCust<String, AreaApparition> e: _m.mapArea.entryList()) {
-            mapArea.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, Ally> e: _m.mapAlly.entryList()) {
-            mapAlly.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, WildPk> e: _m.mapWildPk.entryList()) {
-            mapWildPk.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, Person> e: _m.mapPerson.entryList()) {
-            mapPerson.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, Point> e: _m.mapPoint.entryList()) {
-            mapPoint.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, Coords> e: _m.mapCoords.entryList()) {
-            mapCoords.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, SimulationSteps> e: _m.mapSimulationSteps.entryList()) {
-            mapSimulationSteps.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, TeamCrud> e: _m.mapTeamCrud.entryList()) {
-            mapTeamCrud.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, Gender> e: _m.mapGender.entryList()) {
-            mapGender.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, PokemonPlayerDto> e: _m.mapPokemonPlayerDto.entryList()) {
-            mapPokemonPlayerDto.put(e.getKey(), e.getValue());
-        }
+        mapArea.putAllMap(_m.mapArea);
+        mapAlly.putAllMap(_m.mapAlly);
+        mapWildPk.putAllMap(_m.mapWildPk);
+        mapPerson.putAllMap(_m.mapPerson);
+        mapPoint.putAllMap(_m.mapPoint);
+        mapCoords.putAllMap(_m.mapCoords);
+        mapSimulationSteps.putAllMap(_m.mapSimulationSteps);
+        mapTeamCrud.putAllMap(_m.mapTeamCrud);
+        mapGender.putAllMap(_m.mapGender);
+        mapPokemonPlayerDto.putAllMap(_m.mapPokemonPlayerDto);
     }
 
     public void removeKey(String _key) {
