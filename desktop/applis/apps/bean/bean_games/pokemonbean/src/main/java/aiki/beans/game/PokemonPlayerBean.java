@@ -1,6 +1,6 @@
 package aiki.beans.game;
 
-import aiki.beans.WithFacade;
+import aiki.beans.CommonSingleBean;
 import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 import aiki.comparators.DictionaryComparator;
@@ -13,13 +13,12 @@ import aiki.game.UsesOfMove;
 import aiki.game.fight.Fighter;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
-import code.bean.Bean;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public class PokemonPlayerBean extends Bean implements WithFacade {
+public class PokemonPlayerBean extends CommonSingleBean {
     private String name;
     private String image;
     private short level;
@@ -40,22 +39,6 @@ public class PokemonPlayerBean extends Bean implements WithFacade {
     private String usedBallCatching;
     private short nbStepsTeamLead;
     private DictionaryComparator<String,String> evolutions;
-
-    private FacadeGame dataBase;
-
-    public FacadeGame getDataBase() {
-        return db();
-    }
-
-    @Override
-    public FacadeGame db() {
-        return dataBase;
-    }
-
-    @Override
-    public void setDataBase(FacadeGame _dataBase) {
-        dataBase = _dataBase;
-    }
 
     @Override
     public void beforeDisplaying() {

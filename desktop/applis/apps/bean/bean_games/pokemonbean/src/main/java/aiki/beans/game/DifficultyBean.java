@@ -1,7 +1,7 @@
 package aiki.beans.game;
 
+import aiki.beans.CommonSingleBean;
 import aiki.beans.PokemonStandards;
-import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorDifficultyModelLaw;
 import aiki.beans.facade.comparators.ComparatorDifficultyWinPointsFight;
 import aiki.db.DataBase;
@@ -9,14 +9,13 @@ import aiki.facade.FacadeGame;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import code.bean.Bean;
 import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.AbsMap;
 import code.util.TreeMap;
 
-public class DifficultyBean extends Bean implements WithFacade {
+public class DifficultyBean extends CommonSingleBean {
     private boolean allowCatchingKo;
     private boolean allowedSwitchPlacesEndRound;
     private String diffWinningExpPtsFight;
@@ -38,22 +37,6 @@ public class DifficultyBean extends Bean implements WithFacade {
     private boolean enabledClosing;
     private boolean randomWildFight;
     private boolean skipLearningMovesWhileNotGrowingLevel;
-
-    private FacadeGame dataBase;
-
-    public FacadeGame getDataBase() {
-        return db();
-    }
-
-    @Override
-    public FacadeGame db() {
-        return dataBase;
-    }
-
-    @Override
-    public void setDataBase(FacadeGame _dataBase) {
-        dataBase = _dataBase;
-    }
 
     @Override
     public void beforeDisplaying() {

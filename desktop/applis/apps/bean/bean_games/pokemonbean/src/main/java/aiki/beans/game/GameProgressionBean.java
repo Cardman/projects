@@ -1,6 +1,6 @@
 package aiki.beans.game;
 
-import aiki.beans.WithFacade;
+import aiki.beans.CommonSingleBean;
 import aiki.beans.facade.comparators.ComparatorPlaceNumber;
 import aiki.comparators.ComparatorTrainerPlaceNames;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -8,7 +8,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.GameProgression;
 import aiki.map.DataMap;
-import code.bean.Bean;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.util.CustList;
@@ -16,7 +15,7 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.TreeMap;
 
-public class GameProgressionBean extends Bean implements WithFacade {
+public class GameProgressionBean extends CommonSingleBean {
     private String heroImage;
     private String heroImageOppositeSex;
     private String nickname;
@@ -37,22 +36,6 @@ public class GameProgressionBean extends Bean implements WithFacade {
     private int nbRemainingNotMaxLevel;
     private int nbRemainingNotMaxHappiness;
 
-    private FacadeGame dataBase;
-
-    public FacadeGame getDataBase() {
-        return db();
-    }
-
-    @Override
-    public FacadeGame db() {
-        return dataBase;
-    }
-
-    @Override
-    public void setDataBase(FacadeGame _dataBase) {
-        dataBase = _dataBase;
-    }
-
     @Override
     public void beforeDisplaying() {
         FacadeGame facade_ = getDataBase();
@@ -62,58 +45,10 @@ public class GameProgressionBean extends Bean implements WithFacade {
         finishedGame = progression_.isFinishedGame();
         endGameImage = BaseSixtyFourUtil.getStringByImage(facade_.getData().getEndGameImage());
         nickname = progression_.getNickname();
-        notAtAllFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
-        for (String b: progression_.getNotAtAllFamiliesBase().getKeys()) {
-            CustList<StringList> lists_ = new CustList<StringList>();
-            for (StringList l: progression_.getNotAtAllFamiliesBase().getVal(b)) {
-                StringList list_ = new StringList();
-                for (String e: l) {
-                    list_.add(e);
-                }
-                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(facade_.getData(),getLanguage()));
-                lists_.add(list_);
-            }
-            notAtAllFamiliesBase.put(facade_.translatePokemon(b), lists_);
-        }
-        partialFamiliesBaseCaught = new NatStringTreeMap<CustList<StringList>>();
-        for (String b: progression_.getPartialFamiliesBaseCaught().getKeys()) {
-            CustList<StringList> lists_ = new CustList<StringList>();
-            for (StringList l: progression_.getPartialFamiliesBaseCaught().getVal(b)) {
-                StringList list_ = new StringList();
-                for (String e: l) {
-                    list_.add(e);
-                }
-                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(facade_.getData(),getLanguage()));
-                lists_.add(list_);
-            }
-            partialFamiliesBaseCaught.put(facade_.translatePokemon(b), lists_);
-        }
-        partialFamiliesBaseNotCaught = new NatStringTreeMap<CustList<StringList>>();
-        for (String b: progression_.getPartialFamiliesBaseNotCaught().getKeys()) {
-            CustList<StringList> lists_ = new CustList<StringList>();
-            for (StringList l: progression_.getPartialFamiliesBaseNotCaught().getVal(b)) {
-                StringList list_ = new StringList();
-                for (String e: l) {
-                    list_.add(e);
-                }
-                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(facade_.getData(),getLanguage()));
-                lists_.add(list_);
-            }
-            partialFamiliesBaseNotCaught.put(facade_.translatePokemon(b), lists_);
-        }
-        fullFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
-        for (String b: progression_.getFullFamiliesBase().getKeys()) {
-            CustList<StringList> lists_ = new CustList<StringList>();
-            for (StringList l: progression_.getFullFamiliesBase().getVal(b)) {
-                StringList list_ = new StringList();
-                for (String e: l) {
-                    list_.add(e);
-                }
-                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(facade_.getData(),getLanguage()));
-                lists_.add(list_);
-            }
-            fullFamiliesBase.put(facade_.translatePokemon(b), lists_);
-        }
+        notAtAllFamiliesBaseInit(facade_, progression_);
+        partialFamiliesBaseCaughtInit(facade_, progression_);
+        partialFamiliesBaseNotCaughtInit(facade_, progression_);
+        fullFamiliesBaseInit(facade_, progression_);
         unBeatenImportantTrainers = progression_.getUnBeatenImportantTrainers();
         unBeatenImportantTrainers.sortElts(new ComparatorTrainerPlaceNames());
         beatenImportantTrainers = progression_.getBeatenImportantTrainers();
@@ -129,6 +64,70 @@ public class GameProgressionBean extends Bean implements WithFacade {
         nbRemainingEggs = progression_.getNbRemainingEggs();
         nbRemainingNotMaxHappiness = progression_.getNbRemainingNotMaxHappiness();
         nbRemainingNotMaxLevel = progression_.getNbRemainingNotMaxLevel();
+    }
+
+    private void fullFamiliesBaseInit(FacadeGame _facade, GameProgression _progression) {
+        fullFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
+        for (String b: _progression.getFullFamiliesBase().getKeys()) {
+            CustList<StringList> lists_ = new CustList<StringList>();
+            for (StringList l: _progression.getFullFamiliesBase().getVal(b)) {
+                StringList list_ = new StringList();
+                for (String e: l) {
+                    list_.add(e);
+                }
+                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(_facade.getData(),getLanguage()));
+                lists_.add(list_);
+            }
+            fullFamiliesBase.put(_facade.translatePokemon(b), lists_);
+        }
+    }
+
+    private void partialFamiliesBaseNotCaughtInit(FacadeGame _facade, GameProgression _progression) {
+        partialFamiliesBaseNotCaught = new NatStringTreeMap<CustList<StringList>>();
+        for (String b: _progression.getPartialFamiliesBaseNotCaught().getKeys()) {
+            CustList<StringList> lists_ = new CustList<StringList>();
+            for (StringList l: _progression.getPartialFamiliesBaseNotCaught().getVal(b)) {
+                StringList list_ = new StringList();
+                for (String e: l) {
+                    list_.add(e);
+                }
+                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(_facade.getData(),getLanguage()));
+                lists_.add(list_);
+            }
+            partialFamiliesBaseNotCaught.put(_facade.translatePokemon(b), lists_);
+        }
+    }
+
+    private void partialFamiliesBaseCaughtInit(FacadeGame _facade, GameProgression _progression) {
+        partialFamiliesBaseCaught = new NatStringTreeMap<CustList<StringList>>();
+        for (String b: _progression.getPartialFamiliesBaseCaught().getKeys()) {
+            CustList<StringList> lists_ = new CustList<StringList>();
+            for (StringList l: _progression.getPartialFamiliesBaseCaught().getVal(b)) {
+                StringList list_ = new StringList();
+                for (String e: l) {
+                    list_.add(e);
+                }
+                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(_facade.getData(),getLanguage()));
+                lists_.add(list_);
+            }
+            partialFamiliesBaseCaught.put(_facade.translatePokemon(b), lists_);
+        }
+    }
+
+    private void notAtAllFamiliesBaseInit(FacadeGame _facade, GameProgression _progression) {
+        notAtAllFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
+        for (String b: _progression.getNotAtAllFamiliesBase().getKeys()) {
+            CustList<StringList> lists_ = new CustList<StringList>();
+            for (StringList l: _progression.getNotAtAllFamiliesBase().getVal(b)) {
+                StringList list_ = new StringList();
+                for (String e: l) {
+                    list_.add(e);
+                }
+                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(_facade.getData(),getLanguage()));
+                lists_.add(list_);
+            }
+            notAtAllFamiliesBase.put(_facade.translatePokemon(b), lists_);
+        }
     }
     public String getRemainingOtherTrainersPlaceName(int _index) {
         FacadeGame facade_ = getDataBase();
