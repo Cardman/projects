@@ -1,6 +1,6 @@
 package aiki.beans.moves;
 
-import aiki.beans.CommonBean;
+import aiki.beans.WithFilterBean;
 import aiki.beans.facade.dto.MoveLine;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.db.DataBase;
@@ -14,7 +14,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public class MovesBean extends CommonBean {
+public class MovesBean extends WithFilterBean {
     static final String MOVES_BEAN="web/html/moves/moveline.html";
     private final CustList<MoveLine> moves = new CustList<MoveLine>();
     private final StringList sortedMoves = new StringList();

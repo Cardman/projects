@@ -1,13 +1,13 @@
 package aiki.beans.status;
 
-import aiki.beans.CommonBean;
+import aiki.beans.WithFilterBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public class StatusSetBean extends CommonBean {
+public class StatusSetBean extends WithFilterBean {
     private StringList sortedStatus = new StringList();
 
     @Override

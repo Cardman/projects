@@ -1,40 +1,19 @@
 package aiki.beans.items;
 
-import aiki.beans.CommonBean;
-import aiki.beans.facade.dto.ItemLine;
+import aiki.beans.WithFilterBean;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
 import code.images.BaseSixtyFourUtil;
-import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 
-public class ItemsBean extends CommonBean {
-    private final CustList<ItemLine> items = new CustList<ItemLine>();
+public class ItemsBean extends WithFilterBean {
 
     @Override
     public void beforeDisplaying() {
         StringList sortedItems_ = getForms().getValList(CST_ITEMS_SET);
-        DataBase data_ = getDataBase();
-        items.clear();
-        StringMap<String> translationsItems_;
-        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> translationsClasses_;
-        translationsClasses_ = data_.getTranslatedClassesDescriptions().getVal(getLanguage());
-        for (String i: sortedItems_) {
-            Item i_ = data_.getItem(i);
-//            String class_ = translationsClasses_.getVal(i_.getClass().getName());
-            String class_ = translationsClasses_.getVal(i_.getItemType());
-//            class_ = XmlParser.transformSpecialChars(class_);
-            ItemLine item_ = new ItemLine();
-            item_.setName(i);
-            item_.setDisplayName(translationsItems_.getVal(i));
-            item_.setPrice(i_.getPrice());
-            item_.setDescriptionClass(class_);
-            items.add(item_);
-        }
-        escapeInputs();
+        itemInit(sortedItems_);
     }
+
     public String search() {
 //        Integer price_;
 //        if (!typedPrice.isEmpty()) {
@@ -138,18 +117,14 @@ public class ItemsBean extends CommonBean {
 
     public String clickLink(int _index) {
         DataBase data_ = getDataBase();
-        String item_ = items.get(_index).getName();
+        String item_ = getItems().get(_index).getName();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
         return switchItem(it_);
     }
     public String getMiniImage(int _number) {
-        String item_ = items.get(_number).getName();
+        String item_ = getItems().get(_number).getName();
         DataBase data_ = getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
-    }
-
-    public CustList<ItemLine> getItems() {
-        return items;
     }
 }

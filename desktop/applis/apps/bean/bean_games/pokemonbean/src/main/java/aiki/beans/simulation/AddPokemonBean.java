@@ -1,22 +1,19 @@
 package aiki.beans.simulation;
 
-import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
+import aiki.beans.WithFilterBean;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import code.images.BaseSixtyFourUtil;
 import code.util.AbsMap;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
 
-public class AddPokemonBean extends CommonBean {
+public class AddPokemonBean extends WithFilterBean {
     private String namePk = DataBase.EMPTY_STRING;
     private String ability = DataBase.EMPTY_STRING;
     private String gender = Gender.NO_GENDER.name();
@@ -27,9 +24,6 @@ public class AddPokemonBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
-        AbsMap<SelectedBoolean,String> translatedBooleans_;
-        translatedBooleans_ = data_.getTranslatedBooleans().getVal(getLanguage());
-        setBooleans(DictionaryComparatorUtil.buildBoolStr(data_, getLanguage()));
         StringMap<String> translatedAbilities_;
         translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilities = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
@@ -40,9 +34,7 @@ public class AddPokemonBean extends CommonBean {
             translated_.addEntry(s.getKey().name(),s.getValue());
         }
         genders = DictionaryComparatorUtil.buildGenderStr(data_,getLanguage());
-        for (SelectedBoolean s: translatedBooleans_.getKeys()) {
-            getBooleans().put(s.getBoolName(), translatedBooleans_.getVal(s));
-        }
+        bools();
         if (getForms().contains(CST_PK_NAME)) {
             namePk = getForms().getValStr(CST_PK_NAME);
             PokemonData pkData_ = data_.getPokemon(namePk);
@@ -53,8 +45,7 @@ public class AddPokemonBean extends CommonBean {
                 genders.put(g.getGenderName(), translatedGenders_.getVal(g));
             }
         }
-        StringList pokedex_ = getForms().getValList(CST_POKEMON_SET_SIMU);
-        setupPokedex(pokedex_);
+        setupPokedex(getForms().getValList(CST_POKEMON_SET_SIMU));
     }
     public String add() {
         if (!getForms().contains(CST_PK_NAME)) {
@@ -89,18 +80,12 @@ public class AddPokemonBean extends CommonBean {
         return CST_SIMULATION;
     }
     public void search() {
-        StringList pokedex_ = pokedex();
-        getForms().put(CST_POKEMON_SET_SIMU, pokedex_);
-        if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(CST_PK_NAME,pokedex_.first());
-        }
-    }
-    public String getMiniImage(int _number) {
-        String name_ = getPokedex().get(_number).getName();
-        DataBase data_ = getDataBase();
-//        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
-        return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(name_));
-        //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
+        search(CST_POKEMON_SET_SIMU, CST_PK_NAME);
+//        StringList pokedex_ = pokedex();
+//        getForms().put(CST_POKEMON_SET_SIMU, pokedex_);
+//        if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
+//            getForms().put(CST_PK_NAME,pokedex_.first());
+//        }
     }
     public void clickLink(int _number) {
         getForms().put(CST_PK_NAME, getPokedex().get(_number).getName());

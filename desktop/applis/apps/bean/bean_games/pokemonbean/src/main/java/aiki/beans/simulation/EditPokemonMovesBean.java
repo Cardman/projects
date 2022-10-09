@@ -1,6 +1,6 @@
 package aiki.beans.simulation;
 
-import aiki.beans.CommonBean;
+import aiki.beans.WithFilterBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.moves.MovesBean;
@@ -11,7 +11,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class EditPokemonMovesBean extends CommonBean {
+public class EditPokemonMovesBean extends WithFilterBean {
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private final StringMap<String> categories = new StringMap<String>();
     private boolean player;
