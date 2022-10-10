@@ -5,6 +5,7 @@ import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.comparators.ComparatorStatistic;
 import aiki.beans.facade.simulation.dto.EvLine;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
+import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.moves.MovesBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -119,7 +120,8 @@ public class EditPokemonBean extends CommonBean {
         AbsMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return tr_.getVal(st_);
     }
-    public static String cancel() {
+    public String cancel() {
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         return CST_SIMULATION;
     }
     public void deleteMoves() {

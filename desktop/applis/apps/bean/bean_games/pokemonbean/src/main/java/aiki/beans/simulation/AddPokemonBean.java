@@ -3,6 +3,7 @@ package aiki.beans.simulation;
 import aiki.beans.PokemonStandards;
 import aiki.beans.WithFilterBean;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
+import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -76,7 +77,8 @@ public class AddPokemonBean extends WithFilterBean {
         getForms().put(CST_POKEMON_ADDED, pkDto_);
         return CST_SIMULATION;
     }
-    public static String cancel() {
+    public String cancel() {
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         return CST_SIMULATION;
     }
     public void search() {

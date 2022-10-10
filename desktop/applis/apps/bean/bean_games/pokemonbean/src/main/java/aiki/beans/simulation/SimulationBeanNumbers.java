@@ -1,12 +1,13 @@
 package aiki.beans.simulation;
 
 import aiki.beans.PokemonBeanStruct;
+import aiki.beans.PokemonStandards;
 import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-public class AddPokemonBeanCancel implements NatCaller{
+
+public class SimulationBeanNumbers implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).cancel());
+        return PokemonStandards.getIntArray(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getNumbers());
     }
 }
