@@ -83,15 +83,19 @@ public class SimulationBean extends CommonBean {
 
     private Coords coords;
     private boolean freeTeams;
-//    private int nbTeams;
+    private int nbTeams;
 //    private int indexTeam;
     private int selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
     private final CustList<PokemonTrainerDto> foeTeam = new CustList<PokemonTrainerDto>();
+//    private final CustList<PokemonTrainerDto> foeTeams = new CustList<PokemonTrainerDto>();
     private int selectedAllyPk = IndexConstants.INDEX_NOT_FOUND_ELT;
     private final CustList<PokemonTrainerDto> allyTeam = new CustList<PokemonTrainerDto>();
+//    private final CustList<PokemonTrainerDto> allyTeams = new CustList<PokemonTrainerDto>();
     private int multiplicity = 1;
+//    private Ints multiplicities = new Ints();
 
     private String environment = EnvironmentType.ROAD.getEnvName();
+//    private StringList environmentsList = new StringList();
     private DictionaryComparator<String, String> environments;
 
     private boolean enableEvolutions = true;
@@ -1767,6 +1771,15 @@ public class SimulationBean extends CommonBean {
 
     public boolean getFreeTeams() {
         return freeTeams;
+    }
+
+    public int getNbTeams() {
+        return nbTeams;
+    }
+
+    public void setNbTeams(int _n) {
+        this.nbTeams = _n;
+        freeTeams = _n > 0;
     }
 
     public void setMultiplicity(int _multiplicity) {

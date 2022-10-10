@@ -196,6 +196,7 @@ public final class AikiBeansSimulationStd{
     private static final String DAMAGE_RATE_LAW_FOE = "damageRateLawFoe";
     private static final String DAMAGE_RATE_FOE_TABLE = "damageRateFoeTable";
     private static final String FREE_TEAMS = "freeTeams";
+    private static final String NB_TEAMS = "nbTeams";
     private static final String MULTIPLICITY = "multiplicity";
     private static final String ENVIRONMENTS = "environments";
     private static final String ENVIRONMENT = "environment";
@@ -412,6 +413,7 @@ public final class AikiBeansSimulationStd{
         fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false,new SimulationBeanDamageRateLawFoeGet(),new SimulationBeanDamageRateLawFoeSet()));
         fields_.add(new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new SimulationBeanDamageRateFoeTableGet(),null));
         fields_.add(new StandardField(FREE_TEAMS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new SimulationBeanFreeTeamsGet(),new SimulationBeanFreeTeamsSet()));
+        fields_.add(new StandardField(NB_TEAMS,BeanNatCommonLgNames.PRIM_INTEGER,false,false,new SimulationBeanNbTeamsGet(),new SimulationBeanNbTeamsSet()));
         fields_.add(new StandardField(MULTIPLICITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new SimulationBeanMultiplicityGet(),new SimulationBeanMultiplicitySet()));
         fields_.add(new StandardField(ENVIRONMENTS, BeanNatCommonLgNames.TYPE_MAP,false,false,new SimulationBeanEnvironmentsGet(),null));
         fields_.add(new StandardField(ENVIRONMENT,BeanNatCommonLgNames.STRING,false,false,new SimulationBeanEnvironmentGet(),new SimulationBeanEnvironmentSet()));
