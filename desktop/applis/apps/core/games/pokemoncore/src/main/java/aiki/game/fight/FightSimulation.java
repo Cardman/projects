@@ -67,6 +67,7 @@ public class FightSimulation {
     private final CustList<CustList<PkTrainer>> foeTeamsAll;
 
     private final CustList<PkTrainer> allyTeam = new CustList<PkTrainer>();
+    private final CustList<CustList<PkTrainer>> allyTeamAll = new CustList<CustList<PkTrainer>>();
 
     private boolean freeTeams;
 
@@ -243,6 +244,7 @@ public class FightSimulation {
         multAll.add(_m);
         foeTeamsAll.add(_t);
         foeCoordsAll.add(_c);
+        allyTeamAll.add(new CustList<PkTrainer>());
     }
 
     private void initializeFightNonLeague(Place _place) {
@@ -283,6 +285,7 @@ public class FightSimulation {
             }
             nbMax_ = mult_;
         }
+        allyTeamAll.add(allyTeam);
         mult.add(mult_);
         multAll.add(mult_);
         maxActions.add(nbMax_);
@@ -307,14 +310,15 @@ public class FightSimulation {
         usedStones.clear();
         foeTeams.clear();
         foeTeamsAll.clear();
+        allyTeamAll.clear();
         allyTeam.clear();
         return place_;
     }
 
-    public void setTeams(CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam, int _multiplicity, int _nbMaxActions, EnvironmentType _env, Coords _coords) {
+    public void setTeams(CustList<FreeTeamChoice> _choice, Coords _coords) {
         foeCoords = new Coords(_coords);
         indexFight=0;
-        environment = _env;
+        environment = _choice.get(0).getEnv();
         freeTeams = true;
         maxActions.clear();
         maxActionsAll.clear();
@@ -327,17 +331,21 @@ public class FightSimulation {
         foeTeams.clear();
         foeTeamsAll.clear();
         allyTeam.clear();
-        allyTeam.addAllElts(_allyTeam);
-        maxActions.add(_nbMaxActions);
-        maxActionsAll.add(_nbMaxActions);
-        foeCoordsAll.add(new Coords(_coords));
-        environmentAll.add(_env);
-        mult.add((byte) _multiplicity);
-        multAll.add((byte) _multiplicity);
+        allyTeamAll.clear();
+        allyTeam.addAllElts(_choice.get(0).getAllyTeam());
+        maxActions.add(_choice.get(0).getNbMaxActions());
+        mult.add((byte) _choice.get(0).getMultiplicity());
+        foeTeams.add(_choice.get(0).getFoeTeam());
+        for (FreeTeamChoice l: _choice) {
+            allyTeamAll.add(l.getAllyTeam());
+            foeCoordsAll.add(new Coords(_coords));
+            maxActionsAll.add(l.getNbMaxActions());
+            environmentAll.add(l.getEnv());
+            multAll.add((byte) l.getMultiplicity());
+            foeTeamsAll.add(l.getFoeTeam());
+        }
         items.add(new StringList());
         usedStones.add(new CustList<StringList>());
-        foeTeams.add(_foeTeam);
-        foeTeamsAll.add(_foeTeam);
     }
 
     public void nextFight() {
@@ -355,6 +363,7 @@ public class FightSimulation {
         evolutions.clear();
         usedStones.clear();
         foeTeams.clear();
+        allyTeam.clear();
 //        foeCoords.getLevel().setLevelIndex(index_);
 //        foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
 //        byte mult_ = l_.getTrainer().getMultiplicityFight();
@@ -365,6 +374,7 @@ public class FightSimulation {
         items.add(new StringList());
         usedStones.add(new CustList<StringList>());
         foeTeams.add(foeTeamsAll.get(indexFight));
+        allyTeam.addAllElts(allyTeamAll.get(indexFight));
         foeCoords = foeCoordsAll.get(indexFight);
         environment = environmentAll.get(indexFight);
 //        foeTeams.add(l_.getTrainer().getTeam());

@@ -16,6 +16,7 @@ import aiki.map.levels.LevelCave;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.Place;
+import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoordsList;
 import aiki.tsts.TstsPerCentImpl;
@@ -1689,6 +1690,18 @@ public class InitializationDataBase extends EquallablePkUtil {
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         level_.setLinksOtherLevels(new PointsLink());
         _cave.getLevels().add(level_);
+    }
+
+    protected static void setTeams(FightSimulation _fightSimulation, CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam, int _multiplicity, int _nbMaxActions, EnvironmentType _rock, Coords _begin) {
+        CustList<FreeTeamChoice> chs_ = new CustList<FreeTeamChoice>();
+        FreeTeamChoice ch_ = new FreeTeamChoice();
+        ch_.setNbMaxActions(_nbMaxActions);
+        ch_.setMultiplicity(_multiplicity);
+        ch_.setEnv(_rock);
+        ch_.getAllyTeam().addAllElts(_allyTeam);
+        ch_.getFoeTeam().addAllElts(_foeTeam);
+        chs_.add(ch_);
+        _fightSimulation.setTeams(chs_, _begin);
     }
 
 }

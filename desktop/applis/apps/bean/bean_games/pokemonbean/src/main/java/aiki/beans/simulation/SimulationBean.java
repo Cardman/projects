@@ -21,6 +21,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.FightSimulation;
 import aiki.game.fight.Fighter;
+import aiki.game.fight.FreeTeamChoice;
 import aiki.game.fight.KeyFightRound;
 import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.AvailableMovesInfos;
@@ -82,6 +83,8 @@ public class SimulationBean extends CommonBean {
 
     private Coords coords;
     private boolean freeTeams;
+//    private int nbTeams;
+//    private int indexTeam;
     private int selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
     private final CustList<PokemonTrainerDto> foeTeam = new CustList<PokemonTrainerDto>();
     private int selectedAllyPk = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -857,7 +860,15 @@ public class SimulationBean extends CommonBean {
         for (PokemonTrainerDto p: foeTeam) {
             foe_.add(p.toPokemonTrainer());
         }
-        simulation.setTeams(ally_, foe_, multiplicity, nbMaxAct_, PokemonStandards.getEnvByName(environment), coords);
+        CustList<FreeTeamChoice> chs_ = new CustList<FreeTeamChoice>();
+        FreeTeamChoice ch_ = new FreeTeamChoice();
+        ch_.setNbMaxActions(nbMaxAct_);
+        ch_.setMultiplicity(multiplicity);
+        ch_.setEnv(PokemonStandards.getEnvByName(environment));
+        ch_.getAllyTeam().addAllElts(ally_);
+        ch_.getFoeTeam().addAllElts(foe_);
+        chs_.add(ch_);
+        simulation.setTeams(chs_, coords);
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
         getForms().removeKey(CST_POKEMON_INDEX_EDIT);
