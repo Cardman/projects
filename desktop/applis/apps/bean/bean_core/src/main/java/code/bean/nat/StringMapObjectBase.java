@@ -2,7 +2,6 @@ package code.bean.nat;
 
 import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
-import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -15,9 +14,6 @@ public class StringMapObjectBase {
     private final StringMap<BoolVal> mapBoolean = new StringMap<BoolVal>();
     private final StringMap<Struct> beansOthers = new StringMap<Struct>();
 
-    private final NatStringTreeMap< Integer> tree = new NatStringTreeMap< Integer>();
-
-    private final StringMap<Integer> map = new StringMap<Integer>();
     public static BoolVal to(boolean _v) {
         if (_v) {
             return BoolVal.TRUE;
@@ -94,18 +90,21 @@ public class StringMapObjectBase {
     }
 
     public int getValInt(String _key) {
-        return mapInt.getVal(_key);
+        return defInt(mapInt.getVal(_key));
+    }
+    private int defInt(Integer _i) {
+        if (_i == null) {
+            return 0;
+        }
+        return _i;
     }
 
     public StringMap<Struct> getBeansOthers() {
         return beansOthers;
     }
 
-    public StringMap<Integer> getMap() {
-        return map;
+    public StringMap<Integer> getMapInt() {
+        return mapInt;
     }
 
-    public NatStringTreeMap<Integer> getTree() {
-        return tree;
-    }
 }

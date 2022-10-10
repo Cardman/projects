@@ -734,9 +734,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         getStrings(v_).add("FIRST");
         getStrings(v_).add("SECOND");
         setInteger(v_);
-        v_.getTree().put("ONE", 1);
-        v_.getTree().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+        v_.getMap().put("ONE", 1);
+        v_.getMap().put("TWO", 2);
+        assertEq("<html><body><table><tr><td>typedShort</td><td>0</td></tr><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
     }
 
     @Test
@@ -753,9 +753,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         getStrings(v_).add("FIRST");
         getStrings(v_).add("SECOND");
         setInteger(v_);
-        v_.getTree().put("ONE", 1);
-        v_.getTree().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+        v_.getMap().put("ONE", 1);
+        v_.getMap().put("TWO", 2);
+        assertEq("<html><body><table><tr><td>typedShort</td><td>0</td></tr><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
     }
 
     @Test
@@ -772,9 +772,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         getStrings(v_).add("FIRST");
         getStrings(v_).add("SECOND");
         setInteger(v_);
-        v_.getTree().put("ONE", 1);
-        v_.getTree().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+        v_.getMap().put("ONE", 1);
+        v_.getMap().put("TWO", 2);
+        assertEq("<html><body><table><tr><td>typedShort</td><td>0</td><td>typedShort</td><td>0</td></tr><tr><td>typedShort</td><td>0</td><td>ONE</td><td>1</td></tr><tr><td>typedShort</td><td>0</td><td>TWO</td><td>2</td></tr><tr><td>ONE</td><td>1</td><td>typedShort</td><td>0</td></tr><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>typedShort</td><td>0</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
     }
 
     @Test
@@ -1258,8 +1258,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanOne bean_ = new BeanOne();
         bean_.setBaseForms(new StringMapObjectBase());
         SampleBeanStruct v1_ = init(bean_);
-        v1_.getTree().put("ONE", 1);
-        v1_.getTree().put("TWO", 2);
+        v1_.getMap().put("ONE", 1);
+        v1_.getMap().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setBaseForms(new StringMapObjectBase());
         SampleBeanStruct v2_ = init(beanTwo_);
@@ -1299,8 +1299,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanOne bean_ = new BeanOne();
         bean_.setBaseForms(new StringMapObjectBase());
         SampleBeanStruct v1_ = init(bean_);
-        v1_.getTree().put("ONE", 1);
-        v1_.getTree().put("TWO", 2);
+        v1_.getMap().put("ONE", 1);
+        v1_.getMap().put("TWO", 2);
         v1_.getForms().put("key", "sample_value");
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setBaseForms(new StringMapObjectBase());
@@ -1593,7 +1593,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.selectedString\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.selectedString\" n-i=\"0\"><option value=\"typedShort\">0</option><option value=\"typedShort\">0</option><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
 
@@ -2085,7 +2085,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$go\"><input c:className='$short' type=\"number\" name=\"typedShort\" c:varValue=\"typedShort\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$go\"><input c:className='$short' type=\"number\" name=\"typedInt2\" c:varValue=\"typedInt2\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
@@ -2124,7 +2124,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         form(lgNames_, nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"$short\" type=\"number\" name=\"bean_two.typedShort\" n-i=\"0\" value=\"12\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"$short\" type=\"number\" name=\"bean_two.typedInt2\" n-i=\"0\" value=\"12\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
 //        assertEq(8, map_.size());
@@ -2291,7 +2291,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"typedShort\">0</option><option value=\"typedShort\">0</option><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
 //    @Test
@@ -2731,12 +2731,14 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     private SampleBeanStruct init(BeanOne _b) {
         _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
         _b.getBaseForms().put("typedShort",0);
+//        _b.getBaseForms().put("typedInt2",0);
         return new SampleBeanStruct(_b);
     }
 
     private SampleBeanStruct init(BeanTwo _b) {
         _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
         _b.getBaseForms().put("typedShort",0);
+//        _b.getBaseForms().put("typedInt2",0);
         return new SampleBeanStruct(_b);
     }
 

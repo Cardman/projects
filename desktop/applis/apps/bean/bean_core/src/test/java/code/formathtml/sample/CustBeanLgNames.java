@@ -83,6 +83,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     private static final String GET_CHOSEN_NUMBERS = "getChosenNumbers";
     private static final String TYPED_STRING = "typedString";
     private static final String TYPED_INT = "typedInt";
+    private static final String TYPED_INT2 = "typedInt2";
     private static final String TYPED_SHORT = "typedShort";
     private static final String RATE = "rate";
     private static final String NULLABLE_INT = "nullableInt";
@@ -327,6 +328,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         fields_.add(new StandardField(NULLABLE_INT_2, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
         fields_.add(new StandardField(RATE, TYPE_RATE, false, false,null,null));
         fields_.add(new StandardField(TYPED_INT, PRIM_INTEGER,false,false,new SampleStrFct(),new SampleStrFct()));
+        fields_.add(new StandardField(TYPED_INT2, PRIM_INTEGER,false,false,new SampleBeanTwoTypedInt(),new SampleBeanTwoTypedIntSet()));
         fields_.add(new StandardField(TYPED_SHORT, PRIM_INTEGER,false,false, new SampleBeanTwoTypedShort(),new SampleBeanTwoTypedShortSet()));
         fields_.add(new StandardField(TYPED_STRING, STRING,false,false, new SampleBeanTwoTypedString(),new SampleBeanTwoTypedStringSet()));
         //params_ = new StringList();
@@ -812,6 +814,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         _rendStack.addPage(ip_);
         StringMapObjectBase forms_ = new StringMapObjectBase();
         forms_.put("typedShort",0);
+//        forms_.put("typedInt2",0);
         forms_.putAllMapBase(_bean);
         String currentBeanName_;
         NatDocumentBlock rendDocumentBlock_ = getRender(_dest,_curUrl);
@@ -819,10 +822,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         Struct bean_ = getBeanOrNull(currentBeanName_);
         StringMap<Integer> oldMap_ = ((SampleBeanStruct) bean_).getMap();
         StringMap<Struct> others_ = ((SampleBeanStruct) bean_).getOthers();
-        NatStringTreeMap<Integer> oldTree_ = ((SampleBeanStruct) bean_).getTree();
         ((SampleBeanStruct) bean_).setForms(forms_);
         ((SampleBeanStruct) bean_).getMap().addAllEntries(oldMap_);
-        ((SampleBeanStruct) bean_).getTree().addAllEntries(oldTree_);
         ((SampleBeanStruct) bean_).getOthers().addAllEntries(others_);
         _rendStack.clearPages();
         String res_ = getRes(rendDocumentBlock_, _conf, _rendStack);
@@ -848,6 +849,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     private SampleBeanStruct bean(Bean _bean) {
         _bean.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
         _bean.getBaseForms().put("typedShort",0);
+//        _bean.getBaseForms().put("typedInt2",0);
         return (new SampleBeanStruct(_bean));
     }
 

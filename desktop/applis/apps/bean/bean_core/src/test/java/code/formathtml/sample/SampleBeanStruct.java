@@ -15,6 +15,7 @@ public final class SampleBeanStruct extends BeanStruct {
     public static final String TYPED_STRING = "typedString";
     public static final String CHECKED = "checked";
     public static final String TYPED_SHORT = "typedShort";
+    public static final String TYPED_INT2 = "typedInt2";
 
     public SampleBeanStruct(Bean _bean) {
         super(_bean);
@@ -44,12 +45,8 @@ public final class SampleBeanStruct extends BeanStruct {
         return getBean().getBaseForms().getBeansOthers();
     }
 
-    public NatStringTreeMap<Integer> getTree() {
-        return getForms().getTree();
-    }
-
     public StringMap<Integer> getMap() {
-        return getForms().getMap();
+        return getForms().getMapInt();
     }
 
     public Rate getNullableInt() {
@@ -87,5 +84,13 @@ public final class SampleBeanStruct extends BeanStruct {
 
     public void setTypedShort(short _v) {
         getBean().getBaseForms().put(TYPED_SHORT,_v);
+    }
+
+    public int getTypedInt() {
+        return getBean().getBaseForms().getValInt(TYPED_INT2);
+    }
+
+    public void setTypedInt(short _v) {
+        getBean().getBaseForms().put(TYPED_INT2,_v);
     }
 }
