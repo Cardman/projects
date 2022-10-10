@@ -1970,6 +1970,22 @@ public class FightSimulation {
         return noFight;
     }
 
+    public CustList<CustList<PkTrainer>> getAllyTeamAll() {
+        return allyTeamAll;
+    }
+
+    public Bytes getMultAll() {
+        return multAll;
+    }
+
+    public CustList<EnvironmentType> getEnvironmentAll() {
+        return environmentAll;
+    }
+
+    public CustList<CustList<PkTrainer>> getFoeTeamsAll() {
+        return foeTeamsAll;
+    }
+
     public CustList<PokemonPlayer> getTeamAfterFight() {
         return new CustList<PokemonPlayer>(game.getPlayer().getPokemonPlayerList().values());
     }
