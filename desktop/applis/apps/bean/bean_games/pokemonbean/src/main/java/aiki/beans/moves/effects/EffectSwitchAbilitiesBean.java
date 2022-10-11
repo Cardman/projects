@@ -33,7 +33,7 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
         return !constAbility.isEmpty();
     }
     public String getTrAbility(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect(_index);
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(effect_.getConstAbility());

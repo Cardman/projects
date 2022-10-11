@@ -427,6 +427,27 @@ public class DataBase {
         return words_;
     }
 
+    public static int countValues(CustList<BoolVal> _map, BoolVal _taken) {
+        int n_ = IndexConstants.FIRST_INDEX;
+        for (BoolVal e: _map) {
+            if (e == _taken) {
+                n_++;
+            }
+        }
+        return n_;
+    }
+
+    public static StringList keysWithValue(StringMap<BoolVal> _map, BoolVal _learn) {
+        StringList moves_;
+        moves_ = new StringList();
+        for (EntryCust<String,BoolVal> e: _map.entryList()) {
+            if (e.getValue() == _learn) {
+                moves_.add(e.getKey());
+            }
+        }
+        return moves_;
+    }
+
     public EnvironmentType envType(Coords _coords) {
         DataMap d_ = getMap();
         EnvironmentType e_;

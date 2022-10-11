@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectStatisticBeanRandomStatis implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (EffectStatisticBean) ((PokemonBeanStruct)_instance).getInstance()).randomStatis());
+        return BooleanStruct.of(((EffectStatisticBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().randomStatis());
     }
 }

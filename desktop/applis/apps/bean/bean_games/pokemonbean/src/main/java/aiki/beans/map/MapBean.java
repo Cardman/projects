@@ -1,8 +1,8 @@
 package aiki.beans.map;
+
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorPlaceIndex;
+import aiki.beans.StringMapObject;
 import aiki.beans.facade.map.dto.PlaceIndex;
-import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
@@ -11,6 +11,7 @@ import aiki.map.levels.Level;
 import aiki.map.places.City;
 import aiki.map.places.Place;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -20,17 +21,7 @@ public class MapBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         getForms().removeKey(CST_INSIDE);
-        places = new CustList<PlaceIndex>();
-        DataBase data_ = (DataBase) getDataBase();
-        short i_ = 0;
-        for (Place p: data_.getMap().getPlaces()) {
-            PlaceIndex pl_ = new PlaceIndex();
-            pl_.setIndex(i_);
-            pl_.setPlace(p);
-            places.add(pl_);
-            i_++;
-        }
-        places.sortElts(new ComparatorPlaceIndex());
+        places = PlaceIndex.places(getDataBase());
     }
     public boolean isMultiLayer(int _index) {
         return layers(_index).size() > IndexConstants.ONE_ELEMENT;
@@ -57,14 +48,18 @@ public class MapBean extends CommonBean {
         return places.get(_index).getPlace() instanceof City;
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
-        getForms().removeKey(CST_INSIDE);
-        getForms().put(CST_LEVEL_MAP_INDEX, _indexTwo);
-        getForms().put(CST_PLACE_MAP_INDEX, _indexOne);
-        getForms().put(CST_PROPONE_LINK, false);
-        getForms().put(CST_PROPONE_TILE, false);
-        getForms().put(CST_SEE_AREA, false);
-        for (Direction d: Direction.values()) {
-            getForms().put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
+        return clickMapLevel(_indexOne, _indexTwo, getForms());
+    }
+
+    public static String clickMapLevel(int _indexOne, int _indexTwo, StringMapObject _forms) {
+        _forms.removeKey(CST_INSIDE);
+        _forms.put(CST_LEVEL_MAP_INDEX, _indexTwo);
+        _forms.put(CST_PLACE_MAP_INDEX, _indexOne);
+        _forms.put(CST_PROPONE_LINK, false);
+        _forms.put(CST_PROPONE_TILE, false);
+        _forms.put(CST_SEE_AREA, false);
+        for (Direction d: Direction.all()) {
+            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
         }
         return CST_LEVEL;
     }

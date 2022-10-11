@@ -36,19 +36,14 @@ public class EffectSwitchTypesBean extends EffectBean {
         for (EnvironmentType env_: effect_.getChgtTypeByEnv().getKeys()) {
             String type_;
             type_ = effect_.getChgtTypeByEnv().getVal(env_);
-            chgtTypeByEnv_.put(env_.name(), translatedTypes_.getVal(type_));
+            chgtTypeByEnv_.put(env_.getEnvName(), translatedTypes_.getVal(type_));
         }
         chgtTypeByEnv = chgtTypeByEnv_;
-        StringList globalMoves_;
-        globalMoves_ = new StringList();
+        StringList globalMoves_ = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal eff_ = (EffectGlobal) e;
-                if (!eff_.getChangedTypesTerrain().isEmpty()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getChangedTypesTerrain().isEmpty()) {
                     globalMoves_.add(m);
                 }
             }

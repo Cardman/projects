@@ -7,6 +7,6 @@ import code.formathtml.util.BeanLgNames;
 public class SimulationBeanDamageRatePlayerGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BeanLgNames.wrapStd(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getDamageRatePlayer());
+        return BeanLgNames.wrapStd(((SimulationBean) ((PokemonBeanStruct) _instance).getInstance()).getDifficultyCommon().getDamageRatePlayer());
     }
 }

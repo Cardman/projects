@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class SimulationBeanIvPlayerSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).setIvPlayer(NumParsers.convertToNumber(_args[0]).intStruct());
+        ( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getDifficultyCommon().setIvPlayer(NumParsers.convertToNumber(_args[0]).intStruct());
         return NullStruct.NULL_VALUE;
     }
 }

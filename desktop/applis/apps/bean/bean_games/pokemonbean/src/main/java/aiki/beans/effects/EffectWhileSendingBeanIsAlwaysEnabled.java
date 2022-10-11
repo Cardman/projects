@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectWhileSendingBeanIsAlwaysEnabled implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance()).isAlwaysEnabled());
+        return BooleanStruct.of(((EffectWhileSendingBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().isAlwaysEnabled());
     }
 }

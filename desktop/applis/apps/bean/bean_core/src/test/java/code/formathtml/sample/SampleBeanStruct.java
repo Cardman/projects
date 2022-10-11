@@ -6,7 +6,6 @@ import code.bean.nat.BeanStruct;
 import code.bean.nat.StringMapObjectBase;
 import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
-import code.util.NatStringTreeMap;
 import code.util.StringMap;
 
 public final class SampleBeanStruct extends BeanStruct {
@@ -19,7 +18,6 @@ public final class SampleBeanStruct extends BeanStruct {
 
     public SampleBeanStruct(Bean _bean) {
         super(_bean);
-        setTypedShort((short) 0);
         getMap().put("ONE",1);
         getMap().put("TWO",2);
         getOthers().addEntry("",new BasicBeanStruct(new BeanThree()));

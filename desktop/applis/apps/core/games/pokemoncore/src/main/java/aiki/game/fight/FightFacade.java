@@ -2475,6 +2475,11 @@ public final class FightFacade {
         }
         return exist_;
     }
+
+    public static Rate numberNecessaryPointsForGrowingLevel(String _name, long _niveau, DataBase _import) {
+        return Fighter.numberNecessaryPointsForGrowingLevel(_name,_niveau,_import);
+    }
+
     public static void initializeFromSavedGame(Fight _fight, Difficulty _diff,Player _user,DataBase _data) {
         _fight.setAcceptableChoices(true);
         _fight.setIssue(IssueSimulation.NOTHING);

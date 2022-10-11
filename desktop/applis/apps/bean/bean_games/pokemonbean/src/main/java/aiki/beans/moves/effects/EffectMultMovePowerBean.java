@@ -3,17 +3,17 @@ package aiki.beans.moves.effects;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.fight.moves.effects.EffectMultUsedMovePower;
+import aiki.fight.moves.effects.EffectMultMovePower;
 import code.maths.Rate;
 import code.util.StringMap;
 
-public class EffectMultUsedMovePowerBean extends EffectBean {
+public class EffectMultMovePowerBean extends EffectBean {
     private DictionaryComparator<String, Rate> multMovePowerFctType;
 
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        EffectMultUsedMovePower effect_ = (EffectMultUsedMovePower) getEffect();
+        EffectMultMovePower effect_ = (EffectMultMovePower) getEffect();
         DataBase data_ = getDataBase();
         DictionaryComparator<String, Rate> multMovePowerFctType_;
         multMovePowerFctType_ = DictionaryComparatorUtil.buildTypesRate(data_,getLanguage());

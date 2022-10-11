@@ -2,7 +2,6 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.game.fight.actions.*;
-import aiki.tsts.TstsPk;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -6068,7 +6067,7 @@ public class FighterTest extends InitializationDataBase {
     }
 
     private static StringList getMoves(StringMap<BoolVal> _map, boolean _learn) {
-        return TstsPk.moves(_map, ComparatorBoolean.of(_learn));
+        return DataBase.keysWithValue(_map, ComparatorBoolean.of(_learn));
     }
 
     @Test

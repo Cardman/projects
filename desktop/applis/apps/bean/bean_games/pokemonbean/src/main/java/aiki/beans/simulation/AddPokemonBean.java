@@ -11,15 +11,15 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.util.AbsMap;
-import code.util.EntryCust;
 import code.util.StringMap;
 
 public class AddPokemonBean extends WithFilterBean {
+    private final CrudPkCommon common = new CrudPkCommon();
     private String namePk = DataBase.EMPTY_STRING;
     private String ability = DataBase.EMPTY_STRING;
-    private String gender = Gender.NO_GENDER.name();
-    private int level;
-    private DictionaryComparator<String,String> genders;
+//    private String gender = Gender.NO_GENDER.getGenderName();
+//    private int level;
+//    private DictionaryComparator<String,String> genders;
     private DictionaryComparator<String,String> abilities;
 
     @Override
@@ -30,11 +30,8 @@ public class AddPokemonBean extends WithFilterBean {
         abilities = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
         AbsMap<Gender,String> translatedGenders_;
         translatedGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
-        StringMap<String> translated_ = new StringMap<String>();
-        for (EntryCust<Gender,String> s: translatedGenders_.entryList()) {
-            translated_.addEntry(s.getKey().name(),s.getValue());
-        }
-        genders = DictionaryComparatorUtil.buildGenderStr(data_,getLanguage());
+//        genders = DictionaryComparatorUtil.buildGenderStr(data_,getLanguage());
+        common.init(data_,getLanguage());
         bools();
         if (getForms().contains(CST_PK_NAME)) {
             namePk = getForms().getValStr(CST_PK_NAME);
@@ -43,7 +40,7 @@ public class AddPokemonBean extends WithFilterBean {
                 abilities.put(a, translatedAbilities_.getVal(a));
             }
             for (Gender g: pkData_.getGenderRep().getPossibleGenders()) {
-                genders.put(g.getGenderName(), translatedGenders_.getVal(g));
+                common.getGenders().put(g.getGenderName(), translatedGenders_.getVal(g));
             }
         }
         setupPokedex(getForms().getValList(CST_POKEMON_SET_SIMU));
@@ -52,28 +49,29 @@ public class AddPokemonBean extends WithFilterBean {
         if (!getForms().contains(CST_PK_NAME)) {
             return DataBase.EMPTY_STRING;
         }
-        if (!genders.contains(gender)) {
+        if (!common.getGenders().contains(common.getGender())) {
             return DataBase.EMPTY_STRING;
         }
         if (!abilities.contains(ability)) {
             return DataBase.EMPTY_STRING;
         }
         DataBase data_ = getDataBase();
-        if (level < data_.getMinLevel()) {
+        common.patchLevel(data_);
+        /*if (level < data_.getMinLevel()) {
             level = (short) data_.getMinLevel();
         }
         if (level > data_.getMaxLevel()) {
             level = (short) data_.getMaxLevel();
-        }
+        }*/
         WildPk pk_ = new WildPk();
         pk_.setName(namePk);
-        pk_.setLevel((short) level);
+        pk_.setLevel((short) common.getLevel());
         pk_.setAbility(ability);
-        pk_.setGender(PokemonStandards.getGenderByName(gender));
+        pk_.setGender(PokemonStandards.getGenderByName(common.getGender()));
         PokemonData pkData_ = data_.getPokemon(namePk);
         PokemonPlayerDto pkDto_ = new PokemonPlayerDto();
         pkDto_.setPokemon(pk_);
-        pkDto_.setMoves(pkData_.getMovesAtLevel((short) level, data_.getNbMaxMoves()));
+        pkDto_.setMoves(pkData_.getMovesAtLevel((short) common.getLevel(), data_.getNbMaxMoves()));
         getForms().put(CST_POKEMON_ADDED, pkDto_);
         return CST_SIMULATION;
     }
@@ -109,23 +107,27 @@ public class AddPokemonBean extends WithFilterBean {
         ability = _ability;
     }
 
+    public CrudPkCommon getCommon() {
+        return common;
+    }
+
     public DictionaryComparator<String,String> getGenders() {
-        return genders;
+        return getCommon().getGenders();
     }
 
     public String getGender() {
-        return gender;
+        return getCommon().getGender();
     }
 
     public void setGender(String _gender) {
-        gender = _gender;
+        getCommon().setGender(_gender);
     }
 
     public void setLevel(int _level) {
-        level = _level;
+        getCommon().setLevel(_level);
     }
 
     public int getLevel() {
-        return level;
+        return getCommon().getLevel();
     }
 }

@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class DifficultyBeanAllowedSwitchPlacesEndRoundGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).getAllowedSwitchPlacesEndRound());
+        return BooleanStruct.of(((DifficultyBean) ((PokemonBeanStruct) _instance).getInstance()).getDifficultyCommon().getAllowedSwitchPlacesEndRound());
     }
 }

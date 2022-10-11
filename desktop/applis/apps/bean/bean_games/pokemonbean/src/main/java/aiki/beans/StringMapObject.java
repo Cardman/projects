@@ -12,6 +12,7 @@ import aiki.util.Coords;
 import aiki.util.Point;
 import code.bean.nat.StringMapObjectBase;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public final class StringMapObject extends StringMapObjectBase {
 
@@ -23,6 +24,7 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<SimulationSteps> mapSimulationSteps = new StringMap<SimulationSteps>();
     private final StringMap<TeamCrud> mapTeamCrud = new StringMap<TeamCrud>();
     private final StringMap<Gender> mapGender = new StringMap<Gender>();
+    private final StringMap<BoolVal> mapDirection = new StringMap<BoolVal>();
     private final StringMap<PokemonPlayerDto> mapPokemonPlayerDto = new StringMap<PokemonPlayerDto>();
 
     public void put(String _key, AreaApparition _v) {
@@ -61,6 +63,9 @@ public final class StringMapObject extends StringMapObjectBase {
     public void put(String _key, Gender _v) {
         mapGender.put(_key, _v);
     }
+    public void putDir(String _key, BoolVal _v) {
+        mapDirection.put(_key, _v);
+    }
 
     public boolean contains(String _key) {
         return containsBase(_key)||
@@ -72,7 +77,8 @@ public final class StringMapObject extends StringMapObjectBase {
                 mapSimulationSteps.contains(_key)||
                 mapTeamCrud.contains(_key)||
                 mapGender.contains(_key)||
-                mapPokemonPlayerDto.contains(_key);
+                mapPokemonPlayerDto.contains(_key)||
+                mapDirection.contains(_key);
     }
 
     public PokemonPlayerDto getVal(String _key) {
@@ -124,6 +130,7 @@ public final class StringMapObject extends StringMapObjectBase {
         mapTeamCrud.putAllMap(_m.mapTeamCrud);
         mapGender.putAllMap(_m.mapGender);
         mapPokemonPlayerDto.putAllMap(_m.mapPokemonPlayerDto);
+        mapDirection.putAllMap(_m.mapDirection);
     }
 
     public void removeKey(String _key) {
@@ -137,6 +144,10 @@ public final class StringMapObject extends StringMapObjectBase {
         mapTeamCrud.removeKey(_key);
         mapGender.removeKey(_key);
         mapPokemonPlayerDto.removeKey(_key);
+        mapDirection.removeKey(_key);
     }
 
+    public StringMap<BoolVal> getMapDirection() {
+        return mapDirection;
+    }
 }

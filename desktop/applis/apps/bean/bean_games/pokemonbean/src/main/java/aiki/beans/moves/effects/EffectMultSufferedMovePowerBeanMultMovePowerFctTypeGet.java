@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return PokemonStandards.getStrRate(( (EffectMultSufferedMovePowerBean) ((PokemonBeanStruct)_instance).getInstance()).getMultMovePowerFctType());
+        return PokemonStandards.getStrRate(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_instance).getInstance()).getMultMovePowerFctType());
     }
 }

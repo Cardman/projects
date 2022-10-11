@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class DifficultyBeanDamageRatePlayerSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).setDamageRatePlayer(NumParsers.getString(_args[0]).getInstance());
+        ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).getDifficultyCommon().setDamageRatePlayer(NumParsers.getString(_args[0]).getInstance());
         return NullStruct.NULL_VALUE;
     }
 }

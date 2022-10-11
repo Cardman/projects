@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectStatisticBeanEvtRatePerCentGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (EffectStatisticBean) ((PokemonBeanStruct)_instance).getInstance()).getEvtRatePerCent());
+        return new StringStruct(((EffectStatisticBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().getEvtRatePerCent());
     }
 }

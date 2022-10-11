@@ -7,6 +7,6 @@ import code.formathtml.util.BeanLgNames;
 public class SimulationBeanDiffWinningExpPtsFightGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BeanLgNames.wrapStd(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getDiffWinningExpPtsFight());
+        return BeanLgNames.wrapStd(((SimulationBean) ((PokemonBeanStruct) _instance).getInstance()).getDifficultyCommon().getDiffWinningExpPtsFight());
     }
 }

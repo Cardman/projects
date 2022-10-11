@@ -5,9 +5,10 @@ import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatCaller;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.Struct;
+
 public class SimulationBeanRateWinMoneyBaseGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new RateStruct(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getRateWinMoneyBase(),BeanNatCommonLgNames.TYPE_RATE);
+        return new RateStruct(((SimulationBean) ((PokemonBeanStruct) _instance).getInstance()).getDifficultyCommon().getRateWinMoneyBase(),BeanNatCommonLgNames.TYPE_RATE);
     }
 }

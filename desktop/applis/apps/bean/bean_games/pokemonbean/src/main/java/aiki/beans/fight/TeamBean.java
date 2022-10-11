@@ -131,17 +131,7 @@ public class TeamBean extends CommonFightBean {
         int noTeam_ = getForms().getValInt(NO_TEAM);
         Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_);
         Fighter fighter_ = team_.getMembers().getVal(index_);
-        byte i_ = IndexConstants.FIRST_INDEX;
-        byte nb_ = IndexConstants.FIRST_INDEX;
-        while (i_ < _index) {
-            byte iTmp_ = getMembers().get(i_);
-            Fighter current_ = team_.getMembers().getVal(iTmp_);
-            //fighter_ != current_
-            if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
-                nb_++;
-            }
-            i_++;
-        }
+        byte nb_ = number(team_, index_, _index);
         if (nb_ == IndexConstants.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
@@ -174,17 +164,7 @@ public class TeamBean extends CommonFightBean {
         DataBase data_ = dataBaseFight_.getData();
         Team team_ = dataBaseFight_.getGame().getFight().getUserTeam();
         Fighter fighter_ = team_.getMembers().getVal(_indexOne);
-        byte i_ = IndexConstants.FIRST_INDEX;
-        byte nb_ = IndexConstants.FIRST_INDEX;
-        while (i_ < _index) {
-            byte iTmp_ = getMembers().get(i_);
-            Fighter current_ = team_.getMembers().getVal(iTmp_);
-            //fighter_ != current_
-            if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
-                nb_++;
-            }
-            i_++;
-        }
+        byte nb_ = number(team_, _indexOne,_index);
         if (nb_ == IndexConstants.FIRST_INDEX) {
             return data_.translatePokemon(fighter_.getName());
         }
@@ -196,21 +176,27 @@ public class TeamBean extends CommonFightBean {
         DataBase data_ = dataBaseFight_.getData();
         Team team_ = dataBaseFight_.getGame().getFight().getFoeTeam();
         Fighter fighter_ = team_.getMembers().getVal(_indexOne);
+        byte nb_ = number(team_, _indexOne, _index);
+        if (nb_ == IndexConstants.FIRST_INDEX) {
+            return data_.translatePokemon(fighter_.getName());
+        }
+        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+    }
+
+    private byte number(Team _team, byte _indexOne, int _index) {
+        Fighter fighter_ = _team.getMembers().getVal(_indexOne);
         byte i_ = IndexConstants.FIRST_INDEX;
         byte nb_ = IndexConstants.FIRST_INDEX;
         while (i_ < _index) {
             byte iTmp_ = getMembers().get(i_);
-            Fighter current_ = team_.getMembers().getVal(iTmp_);
+            Fighter current_ = _team.getMembers().getVal(iTmp_);
             //fighter_ != current_
             if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
                 nb_++;
             }
             i_++;
         }
-        if (nb_ == IndexConstants.FIRST_INDEX) {
-            return data_.translatePokemon(fighter_.getName());
-        }
-        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+        return nb_;
     }
 
     public boolean getFoeTeam() {

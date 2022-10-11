@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 
+import aiki.beans.facade.simulation.enums.TeamCrud;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -7,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class SimulationBeanRemoveCst implements NatCaller {
     @Override
     public Struct re(Struct _instance, Struct[] _args) {
-        return new StringStruct("REMOVE");
+        return new StringStruct(TeamCrud.REMOVE.getTeamCrudString());
     }
 }

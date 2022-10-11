@@ -8,12 +8,8 @@ import aiki.beans.facade.fight.SufferedDamageCategory;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
-import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.MoveTeamPosition;
+import aiki.game.fight.*;
 import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.CopiedMove;
 import aiki.map.pokemon.enums.Gender;
@@ -502,7 +498,7 @@ public class FighterBean extends CommonFightBean {
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         CustList<StatisticInfo> statistics_;
         statistics_ = new CustList<StatisticInfo>();
-        for (Statistic s: Statistic.values()) {
+        for (Statistic s: Statistic.all()) {
             if (s == Statistic.PV_RESTANTS) {
                 continue;
             }
@@ -527,17 +523,7 @@ public class FighterBean extends CommonFightBean {
     Rate numberNecessaryPointsForGrowingLevel(){
         FacadeGame facadeGame_ = facade();
         DataBase data_ = facadeGame_.getData();
-        PokemonData fPk_=data_.getPokemon(keyName);
-        String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
-        StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level + 1L));
-        Rate next_;
-        next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
-        Rate current_;
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level));
-        current_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
-        vars_.clear();
-        Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
+        Rate diff_ = FightFacade.numberNecessaryPointsForGrowingLevel(keyName,level+1L,data_);
         diff_.removeNb(wonExpSinceLastLevel);
         return diff_;
     }

@@ -15,6 +15,10 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
+        movesSameCategory = moves();
+    }
+
+    private StringList moves() {
         DataBase data_ = getDataBase();
         StringList moves_;
         moves_ = new StringList();
@@ -28,7 +32,7 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
         }
         moves_.removeDuplicates();
         moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesSameCategory = moves_;
+        return moves_;
     }
 
     public StringList getMovesSameCategory() {
@@ -43,19 +47,7 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
     }
 
     public String clickTargetRelationMove(int _index) {
-        DataBase data_ = getDataBase();
-        StringList moves_;
-        moves_ = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (e instanceof EffectEndRoundPositionTargetRelation) {
-                    moves_.add(m);
-                }
-            }
-        }
-        moves_.removeDuplicates();
-        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        StringList moves_ = moves();
         getForms().put(CST_MOVE, moves_.get(_index));
         return CST_MOVE;
     }

@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectWhileSendingBeanDefaultBoostGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance()).getDefaultBoost());
+        return new IntStruct(((EffectWhileSendingBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().getDefaultBoost());
     }
 }

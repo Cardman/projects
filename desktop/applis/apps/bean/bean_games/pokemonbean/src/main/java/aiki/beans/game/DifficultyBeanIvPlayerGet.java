@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class DifficultyBeanIvPlayerGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).getIvPlayer());
+        return new IntStruct(((DifficultyBean) ((PokemonBeanStruct) _instance).getInstance()).getDifficultyCommon().getIvPlayer());
     }
 }

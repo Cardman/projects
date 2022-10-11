@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class DifficultyBeanStillPossibleFleeGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).getStillPossibleFlee());
+        return BooleanStruct.of(((DifficultyBean) ((PokemonBeanStruct) _instance).getInstance()).getDifficultyCommon().getStillPossibleFlee());
     }
 }

@@ -8,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class DealerBeanGetTm implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (DealerBean) ((PokemonBeanStruct)_instance).getInstance()).getTm(NumParsers.convertToNumber(_args[0]).intStruct()));
+        return new StringStruct(( (DealerBean) ((PokemonBeanStruct)_instance).getInstance()).getTmDealer(NumParsers.convertToNumber(_args[0]).intStruct()));
     }
 }

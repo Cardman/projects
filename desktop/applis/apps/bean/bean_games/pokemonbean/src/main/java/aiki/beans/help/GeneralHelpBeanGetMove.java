@@ -8,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class GeneralHelpBeanGetMove implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (GeneralHelpBean) ((PokemonBeanStruct)_instance).getInstance()).getMove(NumParsers.convertToNumber(_args[0]).intStruct()));
+        return new StringStruct(( (GeneralHelpBean) ((PokemonBeanStruct)_instance).getInstance()).getMoveFirstPk(NumParsers.convertToNumber(_args[0]).intStruct()));
     }
 }

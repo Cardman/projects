@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class DifficultyBeanIvFoeSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).setIvFoe(NumParsers.convertToNumber(_args[0]).intStruct());
+        ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).getDifficultyCommon().setIvFoe(NumParsers.convertToNumber(_args[0]).intStruct());
         return NullStruct.NULL_VALUE;
     }
 }

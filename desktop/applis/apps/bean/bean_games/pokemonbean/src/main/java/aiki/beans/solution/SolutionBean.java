@@ -21,7 +21,6 @@ import aiki.util.Coords;
 import aiki.util.PlaceLevelsCustListGenderName;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
-import code.util.TreeMap;
 import code.util.core.StringUtil;
 
 public class SolutionBean extends CommonBean {

@@ -82,7 +82,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
     }
 
     Rate numberNecessaryPointsForGrowingLevel(short _niveau,DataBase _import){
-        return Fighter.numberNecessaryPointsForGrowingLevel(getName(),_niveau,_import);
+        return FightFacade.numberNecessaryPointsForGrowingLevel(getName(),_niveau,_import);
     }
 
     void changeWonPoints(short _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {

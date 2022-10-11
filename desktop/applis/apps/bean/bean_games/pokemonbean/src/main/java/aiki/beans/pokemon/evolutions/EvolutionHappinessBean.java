@@ -7,7 +7,7 @@ public class EvolutionHappinessBean extends EvolutionBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         min = data_.getHappinessEvo();
     }
 

@@ -2,7 +2,6 @@ package aiki.beans.simulation;
 
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
-import aiki.beans.facade.comparators.ComparatorStatistic;
 import aiki.beans.facade.simulation.dto.EvLine;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
@@ -24,7 +23,7 @@ public class EditPokemonBean extends CommonBean {
     private int happiness;
     private boolean heal;
     private Rate remainingHp;
-    private TreeMap<Statistic, EvLine> ev;
+    private IdMap<Statistic, EvLine> ev;
     private String item = DataBase.EMPTY_STRING;
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private String ball;
@@ -32,7 +31,7 @@ public class EditPokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        ev = new TreeMap<Statistic, EvLine>(new ComparatorStatistic());
+        ev = new IdMap<Statistic, EvLine>();
         DataBase data_ = getDataBase();
         heal = false;
         ball = getForms().getValStr(CST_CATCHING_BALL);
@@ -51,7 +50,7 @@ public class EditPokemonBean extends CommonBean {
         item = getForms().getValStr(CST_ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.setEv(getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.name())));
+            ev_.setEv(getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName())));
             ev.put(s, ev_);
         }
         remainingHp = getForms().getValRate(CST_POKEMON_HP);
@@ -139,7 +138,7 @@ public class EditPokemonBean extends CommonBean {
         getForms().put(CST_POKEMON_HAPPINESS, happiness);
         getForms().put(CST_POKEMON_HP, remainingHp);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
-            getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.name()), ev.getVal(s).getEv());
+            getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), ev.getVal(s).getEv());
         }
         getForms().put(CST_HEAL_EDIT_PK, heal);
         getForms().put(CST_CATCHING_BALL, ball);
@@ -217,7 +216,7 @@ public class EditPokemonBean extends CommonBean {
         return heal;
     }
 
-    public TreeMap<Statistic,EvLine> getEv() {
+    public IdMap<Statistic,EvLine> getEv() {
         return ev;
     }
 }

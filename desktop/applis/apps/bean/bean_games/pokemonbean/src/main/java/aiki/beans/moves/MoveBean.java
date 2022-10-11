@@ -108,82 +108,9 @@ public class MoveBean extends CommonBean {
         category = translatedCategories_.getVal(moveData_.getCategory());
         pp = moveData_.getPp();
         priority = moveData_.getPriority();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
 //        CustList<ItemTypeLine> typesByOwnedItem_;
 //        typesByOwnedItem_ = new CustList<>();
-        DictionaryComparator<String,String> typesByOwnedItems_;
-        typesByOwnedItems_ =DictionaryComparatorUtil.buildItemsStr(data_,getLanguage());
-        boolean hasDefault_ = false;
-        for (String k: moveData_.getTypesByOwnedItem().getKeys()) {
-            //ItemTypeLine line_ = new ItemTypeLine();
-            if (!translatedItems_.contains(k)) {
-                if (!moveData_.getTypesByWeather().isEmpty()) {
-                    continue;
-                }
-                hasDefault_ = true;
-            }
-//            if (translatedItems_.contains(k)) {
-//                line_.setItem(translatedItems_.getVal(k));
-//            } else {
-//                if (!moveData_.getTypesByWeather().isEmpty()) {
-//                    continue;
-//                }
-//                line_.setItem(messages_.getVal(OTHER_ITEM));
-//                hasDefault_ = true;
-//            }
-            String type_ = moveData_.getTypesByOwnedItem().getVal(k);
-            //line_.setType(translatedTypes_.getVal(type_));
-            typesByOwnedItems_.put(k, translatedTypes_.getVal(type_));
-            //typesByOwnedItem_.add(line_);
-        }
-        //typesByOwnedItem = typesByOwnedItem_;
-        typesByOwnedItems = typesByOwnedItems_;
-
-//        CustList<WeatherTypeLine> typesByWeather_;
-//        typesByWeather_ = new CustList<>();
-        DictionaryComparator<String,String> typesByWeathers_;
-        typesByWeathers_ = DictionaryComparatorUtil.buildMovesStr(data_,getLanguage());
-        for (String k: moveData_.getTypesByWeather().getKeys()) {
-            //WeatherTypeLine line_ = new WeatherTypeLine();
-//            if (translatedMoves_.contains(k)) {
-//                line_.setWeather(translatedMoves_.getVal(k));
-//            } else {
-//                line_.setWeather(messages_.getVal(OTHER_WEATHER));
-//                hasDefault_ = true;
-//            }
-            if (!translatedMoves_.contains(k)) {
-                //line_.setWeather(translatedMoves_.getVal(k));
-                hasDefault_ = true;
-            }
-//            else {
-//                //line_.setWeather(messages_.getVal(OTHER_WEATHER));
-//                //hasDefault_ = true;
-//            }
-            String type_ = moveData_.getTypesByWeather().getVal(k);
-            //line_.setType(translatedTypes_.getVal(type_));
-            //typesByWeather_.add(line_);
-            typesByWeathers_.put(k, translatedTypes_.getVal(type_));
-        }
-        //typesByWeather = typesByWeather_;
-        typesByWeathers = typesByWeathers_;
-        if (hasDefault_) {
-            types = new StringList();
-        } else {
-            StringList types_ = new StringList();
-            for (String t: moveData_.getTypes()) {
-                types_.add(translatedTypes_.getVal(t));
-            }
-            types_.sort();
-            types = types_;
-        }
-        StringList boostedTypes_ = new StringList();
-        for (String t: moveData_.getBoostedTypes()) {
-            boostedTypes_.add(translatedTypes_.getVal(t));
-        }
-        boostedTypes_.sort();
-        boostedTypes = boostedTypes_;
-        hasDefaultTypes = hasDefault_;
+        withDef(moveData_);
 //        Map<String,String> loc_ = new Map<>();
 //        loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        loc_.put(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
@@ -191,96 +118,19 @@ public class MoveBean extends CommonBean {
 //        accuracy = StringList.replace(accuracy, loc_);
 //        accuracy = accuracy.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        accuracy = accuracy.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(moveData_.getAccuracy(),getLanguage());
-        NatStringTreeMap<String> mapVarsAccuracy_ = new NatStringTreeMap<String>();
-        StringList desc_ = new StringList(mapVars_.getKeys());
-        desc_.sort();
-        for (String k: desc_) {
-            mapVarsAccuracy_.put(k, mapVars_.getVal(k));
-        }
-        mapVarsAccuracy = mapVarsAccuracy_;
+        mapVarsAccuracy = mapVarsAccuracy(moveData_);
         ignVarAccurUserNeg = moveData_.getIgnVarAccurUserNeg();
         ignVarEvasTargetPos = moveData_.getIgnVarEvasTargetPos();
         nbPrepaRound = moveData_.getNbPrepaRound();
         disappearBeforeUse = moveData_.getDisappearBeforeUse();
         targetChoice = moveData_.getTargetChoice();
-        StringList achieveDisappearedPkUsingMove_ = new StringList();
-        for (String m: moveData_.getAchieveDisappearedPkUsingMove()) {
-            achieveDisappearedPkUsingMove_.add(m);
-        }
-        achieveDisappearedPkUsingMove_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        achieveDisappearedPkUsingMove = achieveDisappearedPkUsingMove_;
-        StringList abilities_ = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (StringUtil.contains(ab_.getImmuMove(), name_)) {
-                abilities_.add(a);
-            }
-        }
-        abilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilities = abilities_;
-        StringList items_ = new StringList();
-        for (String a: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(a);
-            if (!(it_ instanceof ItemForBattle)) {
-                continue;
-            }
-            ItemForBattle itBattle_ = (ItemForBattle) it_;
-            if (StringUtil.contains(itBattle_.getImmuMoves(), name_)) {
-                items_.add(a);
-            }
-        }
-        items_.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        items = items_;
+        achieveDisappearedPkUsingMove = achieveDisappearedPkUsingMove(moveData_);
+        abilities = abilities();
+        items = items();
         if (moveData_ instanceof DamagingMoveData) {
             cannotKo = ((DamagingMoveData)moveData_).getCannotKo();
         }
-        StringList affectedByMoves_ = new StringList();
-        if (moveData_.getStoppableMoveMulti()) {
-            for (String move_ : data_.getMovesProtAgainstMultiTarget()) {
-                affectedByMoves_.add(move_);
-            }
-        }
-        if (moveData_.getStoppableMovePrio() && priority > 0) {
-            for (String move_ : data_.getMovesProtAgainstPrio()) {
-                affectedByMoves_.add(move_);
-            }
-        }
-        if (moveData_.getStoppableMoveSolo()) {
-            for (String move_ : data_.getMovesProtSingleTarget()) {
-                affectedByMoves_.add(move_);
-            }
-        }
-        if (moveData_ instanceof DamagingMoveData) {
-            for (String move_ : data_.getMovesProtAgainstDamageMoves()) {
-                affectedByMoves_.add(move_);
-            }
-            DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-            if (damag_.getStoppableMoveKoSingle()) {
-                for (String move_ : data_.getMovesProtSingleTargetAgainstKo()) {
-                    affectedByMoves_.add(move_);
-                }
-            }
-        }
-        if (moveData_ instanceof StatusMoveData) {
-            for (String move_ : data_.getMovesProtAgainstStatusMoves()) {
-                affectedByMoves_.add(move_);
-            }
-            StatusMoveData stMove_ = (StatusMoveData) moveData_;
-            if (stMove_.getThievableMove()) {
-                for (String move_ : getMovesThieve()) {
-                    affectedByMoves_.add(move_);
-                }
-            }
-            if (stMove_.getCounterableMove()) {
-                for (String move_ : getMovesCounter()) {
-                    affectedByMoves_.add(move_);
-                }
-            }
-        }
-        affectedByMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        affectedByMoves_.removeDuplicates();
-        affectedByMoves = affectedByMoves_;
+        affectedByMoves = affectedByMoves(moveData_);
         Ints effects_ = new Ints();
         int nbEffects_ = moveData_.nbEffets();
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
@@ -318,42 +168,8 @@ public class MoveBean extends CommonBean {
             secEffectsByItem_.put(s, moveData_.getSecEffectsByItem().getVal(s));
         }
         secEffectsByItem = secEffectsByItem_;
-        ShortTreeMap<StringList> movesLevelLearntByPokemon_;
-        movesLevelLearntByPokemon_ = new ShortTreeMap<StringList>();
-        for (String p: data_.getPokedex().getKeys()) {
-            PokemonData pkData_ = data_.getPokemon(p);
-            for (LevelMove l: pkData_.getLevMoves()) {
-                if (!StringUtil.quickEq(l.getMove(), name)) {
-                    continue;
-                }
-                if (!movesLevelLearntByPokemon_.contains(l.getLevel())) {
-                    movesLevelLearntByPokemon_.put(l.getLevel(), new StringList(p));
-                } else {
-                    movesLevelLearntByPokemon_.getVal(l.getLevel()).add(p);
-                }
-            }
-        }
-        for (StringList v: movesLevelLearntByPokemon_.values()) {
-            v.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
-        }
-        movesLevelLearntByPokemon = movesLevelLearntByPokemon_;
-        StringList movesTmLearntByPokemon_;
-        movesTmLearntByPokemon_ = new StringList();
-        Shorts tms_ = data_.getTmByMove(name_);
-//        if (Map.<Short>hasString(data_.getTm(), name_))
-        if (!tms_.isEmpty()) {
-//            short tm_ = data_.getTm().getKeys(name_).first();
-//            short tm_ = data_.getTmByMove(name_).first();
-            short tm_ = tms_.first();
-            for (String p: data_.getPokedex().getKeys()) {
-                PokemonData pkData_ = data_.getPokemon(p);
-                if (pkData_.getTechnicalMoves().containsObj(tm_)) {
-                    movesTmLearntByPokemon_.add(p);
-                }
-            }
-            movesTmLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
-        }
-        movesTmLearntByPokemon = movesTmLearntByPokemon_;
+        movesLevelLearntByPokemon = movesLevelLearntByPokemon();
+        movesTmLearntByPokemon = movesTmLearntByPokemon();
         StringList movesHmLearntByPokemon_;
         movesHmLearntByPokemon_ = new StringList();
         Shorts hms_ = data_.getHmByMove(name_);
@@ -382,32 +198,254 @@ public class MoveBean extends CommonBean {
         movesMtLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         movesMtLearntByPokemon = movesMtLearntByPokemon_;
     }
+
+    private StringList movesTmLearntByPokemon() {
+        DataBase data_ = getDataBase();
+        StringList movesTmLearntByPokemon_;
+        movesTmLearntByPokemon_ = new StringList();
+        Shorts tms_ = data_.getTmByMove(name);
+//        if (Map.<Short>hasString(data_.getTm(), name_))
+        if (!tms_.isEmpty()) {
+//            short tm_ = data_.getTm().getKeys(name_).first();
+//            short tm_ = data_.getTmByMove(name_).first();
+            short tm_ = tms_.first();
+            for (String p: data_.getPokedex().getKeys()) {
+                PokemonData pkData_ = data_.getPokemon(p);
+                if (pkData_.getTechnicalMoves().containsObj(tm_)) {
+                    movesTmLearntByPokemon_.add(p);
+                }
+            }
+            movesTmLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+        }
+        return movesTmLearntByPokemon_;
+    }
+
+    private ShortTreeMap<StringList> movesLevelLearntByPokemon() {
+        DataBase data_ = getDataBase();
+        ShortTreeMap<StringList> movesLevelLearntByPokemon_;
+        movesLevelLearntByPokemon_ = new ShortTreeMap<StringList>();
+        for (String p: data_.getPokedex().getKeys()) {
+            PokemonData pkData_ = data_.getPokemon(p);
+            for (LevelMove l: pkData_.getLevMoves()) {
+                if (!StringUtil.quickEq(l.getMove(), name)) {
+                    continue;
+                }
+                if (!movesLevelLearntByPokemon_.contains(l.getLevel())) {
+                    movesLevelLearntByPokemon_.put(l.getLevel(), new StringList(p));
+                } else {
+                    movesLevelLearntByPokemon_.getVal(l.getLevel()).add(p);
+                }
+            }
+        }
+        for (StringList v: movesLevelLearntByPokemon_.values()) {
+            v.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+        }
+        return movesLevelLearntByPokemon_;
+    }
+
+    private StringList affectedByMoves(MoveData _moveData) {
+        DataBase data_ = getDataBase();
+        StringList affectedByMoves_ = new StringList();
+        if (_moveData.getStoppableMoveMulti()) {
+            for (String move_ : data_.getMovesProtAgainstMultiTarget()) {
+                affectedByMoves_.add(move_);
+            }
+        }
+        if (_moveData.getStoppableMovePrio() && priority > 0) {
+            for (String move_ : data_.getMovesProtAgainstPrio()) {
+                affectedByMoves_.add(move_);
+            }
+        }
+        if (_moveData.getStoppableMoveSolo()) {
+            for (String move_ : data_.getMovesProtSingleTarget()) {
+                affectedByMoves_.add(move_);
+            }
+        }
+        if (_moveData instanceof DamagingMoveData) {
+            damMove((DamagingMoveData) _moveData, affectedByMoves_);
+        }
+        if (_moveData instanceof StatusMoveData) {
+            statMove((StatusMoveData) _moveData, affectedByMoves_);
+        }
+        affectedByMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        affectedByMoves_.removeDuplicates();
+        return affectedByMoves_;
+    }
+
+    private void statMove(StatusMoveData _moveData, StringList _affectedByMoves) {
+        DataBase data_ = getDataBase();
+        for (String move_ : data_.getMovesProtAgainstStatusMoves()) {
+            _affectedByMoves.add(move_);
+        }
+        if (_moveData.getThievableMove()) {
+            for (String move_ : getMovesThieve()) {
+                _affectedByMoves.add(move_);
+            }
+        }
+        if (_moveData.getCounterableMove()) {
+            for (String move_ : getMovesCounter()) {
+                _affectedByMoves.add(move_);
+            }
+        }
+    }
+
+    private void damMove(DamagingMoveData _moveData, StringList _affectedByMoves) {
+        DataBase data_ = getDataBase();
+        for (String move_ : data_.getMovesProtAgainstDamageMoves()) {
+            _affectedByMoves.add(move_);
+        }
+        if (_moveData.getStoppableMoveKoSingle()) {
+            for (String move_ : data_.getMovesProtSingleTargetAgainstKo()) {
+                _affectedByMoves.add(move_);
+            }
+        }
+    }
+
+    private StringList items() {
+        DataBase data_ = getDataBase();
+        StringList items_ = new StringList();
+        for (String a: data_.getItems().getKeys()) {
+            Item it_ = data_.getItem(a);
+            if (!(it_ instanceof ItemForBattle)) {
+                continue;
+            }
+            ItemForBattle itBattle_ = (ItemForBattle) it_;
+            if (StringUtil.contains(itBattle_.getImmuMoves(), name)) {
+                items_.add(a);
+            }
+        }
+        items_.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        return items_;
+    }
+
+    private StringList abilities() {
+        DataBase data_ = getDataBase();
+        StringList abilities_ = new StringList();
+        for (String a: data_.getAbilities().getKeys()) {
+            AbilityData ab_ = data_.getAbility(a);
+            if (StringUtil.contains(ab_.getImmuMove(), name)) {
+                abilities_.add(a);
+            }
+        }
+        abilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilities_;
+    }
+
+    private StringList achieveDisappearedPkUsingMove(MoveData _moveData) {
+        DataBase data_ = getDataBase();
+        StringList achieveDisappearedPkUsingMove_ = new StringList();
+        for (String m: _moveData.getAchieveDisappearedPkUsingMove()) {
+            achieveDisappearedPkUsingMove_.add(m);
+        }
+        achieveDisappearedPkUsingMove_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return achieveDisappearedPkUsingMove_;
+    }
+
+    private NatStringTreeMap<String> mapVarsAccuracy(MoveData _moveData) {
+        DataBase data_ = getDataBase();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(_moveData.getAccuracy(),getLanguage());
+        NatStringTreeMap<String> mapVarsAccuracy_ = new NatStringTreeMap<String>();
+        StringList desc_ = new StringList(mapVars_.getKeys());
+        desc_.sort();
+        for (String k: desc_) {
+            mapVarsAccuracy_.put(k, mapVars_.getVal(k));
+        }
+        return mapVarsAccuracy_;
+    }
+
+    private void withDef(MoveData _moveData) {
+        DataBase data_ = getDataBase();
+        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
+        DictionaryComparator<String,String> typesByOwnedItems_;
+        typesByOwnedItems_ =DictionaryComparatorUtil.buildItemsStr(data_,getLanguage());
+        boolean hasDefault_ = false;
+        for (String k: _moveData.getTypesByOwnedItem().getKeys()) {
+            //ItemTypeLine line_ = new ItemTypeLine();
+            if (!translatedItems_.contains(k)) {
+                if (!_moveData.getTypesByWeather().isEmpty()) {
+                    continue;
+                }
+                hasDefault_ = true;
+            }
+//            if (translatedItems_.contains(k)) {
+//                line_.setItem(translatedItems_.getVal(k));
+//            } else {
+//                if (!moveData_.getTypesByWeather().isEmpty()) {
+//                    continue;
+//                }
+//                line_.setItem(messages_.getVal(OTHER_ITEM));
+//                hasDefault_ = true;
+//            }
+            String type_ = _moveData.getTypesByOwnedItem().getVal(k);
+            //line_.setType(translatedTypes_.getVal(type_));
+            typesByOwnedItems_.put(k, translatedTypes_.getVal(type_));
+            //typesByOwnedItem_.add(line_);
+        }
+        //typesByOwnedItem = typesByOwnedItem_;
+        typesByOwnedItems = typesByOwnedItems_;
+
+//        CustList<WeatherTypeLine> typesByWeather_;
+//        typesByWeather_ = new CustList<>();
+        DictionaryComparator<String,String> typesByWeathers_;
+        typesByWeathers_ = DictionaryComparatorUtil.buildMovesStr(data_,getLanguage());
+        for (String k: _moveData.getTypesByWeather().getKeys()) {
+            //WeatherTypeLine line_ = new WeatherTypeLine();
+//            if (translatedMoves_.contains(k)) {
+//                line_.setWeather(translatedMoves_.getVal(k));
+//            } else {
+//                line_.setWeather(messages_.getVal(OTHER_WEATHER));
+//                hasDefault_ = true;
+//            }
+            if (!translatedMoves_.contains(k)) {
+                //line_.setWeather(translatedMoves_.getVal(k));
+                hasDefault_ = true;
+            }
+//            else {
+//                //line_.setWeather(messages_.getVal(OTHER_WEATHER));
+//                //hasDefault_ = true;
+//            }
+            String type_ = _moveData.getTypesByWeather().getVal(k);
+            //line_.setType(translatedTypes_.getVal(type_));
+            //typesByWeather_.add(line_);
+            typesByWeathers_.put(k, translatedTypes_.getVal(type_));
+        }
+        //typesByWeather = typesByWeather_;
+        typesByWeathers = typesByWeathers_;
+        if (hasDefault_) {
+            types = new StringList();
+        } else {
+            StringList types_ = new StringList();
+            for (String t: _moveData.getTypes()) {
+                types_.add(translatedTypes_.getVal(t));
+            }
+            types_.sort();
+            types = types_;
+        }
+        StringList boostedTypes_ = new StringList();
+        for (String t: _moveData.getBoostedTypes()) {
+            boostedTypes_.add(translatedTypes_.getVal(t));
+        }
+        boostedTypes_.sort();
+        boostedTypes = boostedTypes_;
+        hasDefaultTypes = hasDefault_;
+    }
+
     public String clickMoves() {
         getForms().put(CST_MOVES_SET, new StringList());
         return CST_MOVES;
     }
 
     private StringList getMovesThieve() {
-        DataBase data_ = getDataBase();
-        StringList moves_ = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData fAttCible_ = data_.getMove(m);
-            int nbEffetsCible_=fAttCible_.nbEffets();
-            for (int i = IndexConstants.FIRST_INDEX; i<nbEffetsCible_; i++){
-                Effect effetLoc_=fAttCible_.getEffet(i);
-                if(!(effetLoc_ instanceof EffectSwitchPointView)){
-                    continue;
-                }
-                EffectSwitchPointView effetChgtPointVueAttLoc_=(EffectSwitchPointView)effetLoc_;
-                if (effetChgtPointVueAttLoc_.getPointViewChangement() == PointViewChangementType.THIEF_BONUSES) {
-                    moves_.add(m);
-                }
-            }
-        }
-        return moves_;
+        return movesSwitchPointView(PointViewChangementType.THIEF_BONUSES);
     }
 
     private StringList getMovesCounter() {
+        return movesSwitchPointView(PointViewChangementType.MIRROR_AGAINST_THROWER);
+    }
+
+    private StringList movesSwitchPointView(PointViewChangementType _pt) {
         DataBase data_ = getDataBase();
         StringList moves_ = new StringList();
         for (String m: data_.getMoves().getKeys()) {
@@ -419,7 +457,7 @@ public class MoveBean extends CommonBean {
                     continue;
                 }
                 EffectSwitchPointView effetChgtPointVueAttLoc_=(EffectSwitchPointView)effetLoc_;
-                if (effetChgtPointVueAttLoc_.getPointViewChangement() == PointViewChangementType.MIRROR_AGAINST_THROWER) {
+                if (effetChgtPointVueAttLoc_.getPointViewChangement() == _pt) {
                     moves_.add(m);
                 }
             }
@@ -890,70 +928,78 @@ public class MoveBean extends CommonBean {
         if (eff_ instanceof EffectSwitchMoveTypes) {
             return PAGE_SWITCHMOVETYPES;
         }
-        if (eff_ instanceof EffectCounterAttack) {
+        return red(eff_);
+    }
+
+    private String red(Effect _eff) {
+        if (_eff instanceof EffectCounterAttack) {
             return PAGE_COUNTERATTACK;
         }
-        if (eff_ instanceof EffectProtection) {
+        if (_eff instanceof EffectProtection) {
             return PAGE_PROTECTION;
         }
-        if (eff_ instanceof EffectAccuracy) {
+        if (_eff instanceof EffectAccuracy) {
             return PAGE_ACCURACY;
         }
-        if (eff_ instanceof EffectCopyFighter) {
+        if (_eff instanceof EffectCopyFighter) {
             return PAGE_COPYFIGHTER;
         }
-        if (eff_ instanceof EffectProtectFromTypes) {
+        if (_eff instanceof EffectProtectFromTypes) {
             return PAGE_PROTECTFROMTYPES;
         }
-        if (eff_ instanceof EffectUnprotectFromTypes) {
+        if (_eff instanceof EffectUnprotectFromTypes) {
             return PAGE_UNPROTECTFROMTYPES;
         }
-        if (eff_ instanceof EffectAlly) {
+        if (_eff instanceof EffectAlly) {
             return PAGE_ALLY;
         }
-        if (eff_ instanceof EffectBatonPass) {
+        if (_eff instanceof EffectBatonPass) {
             return PAGE_BATONPASS;
         }
-        if (eff_ instanceof EffectClone) {
+        if (_eff instanceof EffectClone) {
             return PAGE_CLONE;
         }
-        if (eff_ instanceof EffectCommonStatistics) {
+        if (_eff instanceof EffectCommonStatistics) {
             return PAGE_COMMONSTATISTICS;
         }
-        if (eff_ instanceof EffectOrder) {
+        return redir(_eff);
+    }
+
+    private String redir(Effect _eff) {
+        if (_eff instanceof EffectOrder) {
             return PAGE_ORDER;
         }
-        if (eff_ instanceof EffectRestriction) {
+        if (_eff instanceof EffectRestriction) {
             return PAGE_RESTRICTION;
         }
-        if (eff_ instanceof EffectSwitchAbilities) {
+        if (_eff instanceof EffectSwitchAbilities) {
             return PAGE_SWITCHABILITIES;
         }
-        if (eff_ instanceof EffectSwitchItems) {
+        if (_eff instanceof EffectSwitchItems) {
             return PAGE_SWITCHITEMS;
         }
-        if (eff_ instanceof EffectSwitchTypes) {
+        if (_eff instanceof EffectSwitchTypes) {
             return PAGE_SWITCHTYPES;
         }
-        if (eff_ instanceof EffectSwitchPointView) {
+        if (_eff instanceof EffectSwitchPointView) {
             return PAGE_SWITCHPOINTVIEW;
         }
-        if (eff_ instanceof EffectRemainedHpRate) {
+        if (_eff instanceof EffectRemainedHpRate) {
             return PAGE_REMAINEDHPRATE;
         }
-        if (eff_ instanceof EffectMultUsedMovePower) {
+        if (_eff instanceof EffectMultUsedMovePower) {
             return PAGE_MULTUSEDMOVEPOWER;
         }
-        if (eff_ instanceof EffectMultSufferedMovePower) {
+        if (_eff instanceof EffectMultSufferedMovePower) {
             return PAGE_MULTSUFFEREDMOVEPOWER;
         }
-        if (eff_ instanceof EffectSwitchPosition) {
+        if (_eff instanceof EffectSwitchPosition) {
             return PAGE_SWITCHPOSITION;
         }
-        if (eff_ instanceof EffectVarPP) {
+        if (_eff instanceof EffectVarPP) {
             return PAGE_VARPP;
         }
-        if (eff_ instanceof EffectWinMoney) {
+        if (_eff instanceof EffectWinMoney) {
             return PAGE_WINMONEY;
         }
         return DataBase.EMPTY_STRING;

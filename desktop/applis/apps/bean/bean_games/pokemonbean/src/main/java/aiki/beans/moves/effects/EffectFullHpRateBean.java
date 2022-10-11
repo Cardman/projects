@@ -14,7 +14,7 @@ public class EffectFullHpRateBean extends EffectBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EffectFullHpRate effect_ = (EffectFullHpRate) getEffect();
         leftUserHp = effect_.getLeftUserHp();
 //        Map<String,String> loc_ = new Map<>();

@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class GeneralHelpBeanGetMovesAtLevel implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BeanNatCommonLgNames.getStringArray(( (GeneralHelpBean) ((PokemonBeanStruct)_instance).getInstance()).getMovesAtLevel());
+        return BeanNatCommonLgNames.getStringArray(( (GeneralHelpBean) ((PokemonBeanStruct)_instance).getInstance()).getMovesAtLevelFirstPk());
     }
 }

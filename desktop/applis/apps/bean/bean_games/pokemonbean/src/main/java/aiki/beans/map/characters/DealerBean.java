@@ -21,10 +21,10 @@ public class DealerBean extends CommonBean {
         DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String item_ = getItems().get(_index);
+        String item_ = getItemsDealer().get(_index);
         return translationsItems_.getVal(item_);
     }
-    public StringList getItems() {
+    public StringList getItemsDealer() {
         DataBase data_ = getDataBase();
         StringList items_ = new StringList(dealer.getItems());
         items_.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
@@ -32,7 +32,7 @@ public class DealerBean extends CommonBean {
     }
     public String clickItem(int _index) {
         DataBase data_ = getDataBase();
-        String item_ = getItems().get(_index);
+        String item_ = getItemsDealer().get(_index);
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
         return ItemsBean.switchItem(it_);
@@ -80,14 +80,14 @@ public class DealerBean extends CommonBean {
 //        }
 //        return CST_ITEM;
     }
-    public String getTm(int _index) {
+    public String getTmDealer(int _index) {
         DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getAllTm().get(_index);
+        String move_ = getAllTmDealer().get(_index);
         return translationsMoves_.getVal(move_);
     }
-    public StringList getAllTm() {
+    public StringList getAllTmDealer() {
         DataBase data_ = getDataBase();
         StringList moves_ = new StringList();
         for (Short s: dealer.getTechnicalMoves()) {
@@ -97,7 +97,7 @@ public class DealerBean extends CommonBean {
         return moves_;
     }
     public String clickTm(int _index) {
-        String move_ = getAllTm().get(_index);
+        String move_ = getAllTmDealer().get(_index);
         getForms().put(CST_MOVE, move_);
         return CST_MOVE;
     }

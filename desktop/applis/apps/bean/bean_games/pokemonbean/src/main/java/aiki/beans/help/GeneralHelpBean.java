@@ -214,19 +214,19 @@ public class GeneralHelpBean extends CommonBean {
 //        }
 //        return CST_ITEM;
     }
-    public String getMove(int _moveIndex) {
+    public String getMoveFirstPk(int _moveIndex) {
         DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getMovesAtLevel().get(_moveIndex);
+        String move_ = getMovesAtLevelFirstPk().get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String clickMove(int _moveIndex) {
-        String move_ = getMovesAtLevel().get(_moveIndex);
+    public String clickMoveFirstPk(int _moveIndex) {
+        String move_ = getMovesAtLevelFirstPk().get(_moveIndex);
         getForms().put(CST_MOVE, move_);
         return CST_MOVE;
     }
-    public StringList getMovesAtLevel() {
+    public StringList getMovesAtLevelFirstPk() {
         DataBase data_ = getDataBase();
         StringList moves_ = data_.getPokemon(firstPokemon.getName()).getMovesAtLevel(firstPokemon.getLevel(), data_.getNbMaxMoves());
         moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));

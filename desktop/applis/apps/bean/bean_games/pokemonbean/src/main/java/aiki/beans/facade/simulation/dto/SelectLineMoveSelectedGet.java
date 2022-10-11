@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class SelectLineMoveSelectedGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (SelectLineMove) ((MvLineStruct) _instance).getWildPk()).getSelected());
+        return BooleanStruct.of(((SelectLineMove) ((MvLineStruct) _instance).getWildPk()).isSelected());
     }
 }

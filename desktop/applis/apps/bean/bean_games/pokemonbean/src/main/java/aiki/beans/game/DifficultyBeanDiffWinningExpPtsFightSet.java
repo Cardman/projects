@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class DifficultyBeanDiffWinningExpPtsFightSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).setDiffWinningExpPtsFight(NumParsers.getString(_args[0]).getInstance());
+        ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).getDifficultyCommon().setDiffWinningExpPtsFight(NumParsers.getString(_args[0]).getInstance());
         return NullStruct.NULL_VALUE;
     }
 }

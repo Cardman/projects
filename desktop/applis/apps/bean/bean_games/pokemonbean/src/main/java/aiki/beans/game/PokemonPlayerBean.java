@@ -8,15 +8,13 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
-import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.Fighter;
+import aiki.game.fight.FightFacade;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public class PokemonPlayerBean extends CommonSingleBean {
     private String name;
@@ -137,17 +135,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
     Rate numberNecessaryPointsForGrowingLevel(String _name){
         FacadeGame facadeGame_ = getDataBase();
         DataBase data_ = facadeGame_.getData();
-        PokemonData fPk_=data_.getPokemon(_name);
-        String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
-        StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level + 1L));
-        Rate next_;
-        next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
-        Rate current_;
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level));
-        current_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
-        vars_.clear();
-        Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
+        Rate diff_ = FightFacade.numberNecessaryPointsForGrowingLevel(_name,level+1L,data_);
         diff_.removeNb(wonExpSinceLastLevel);
         return diff_;
     }

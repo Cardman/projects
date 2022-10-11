@@ -12,7 +12,4 @@ public final class SelectLineMove extends MoveLine {
         selected = _selected;
     }
 
-    public boolean getSelected() {
-        return selected;
-    }
 }

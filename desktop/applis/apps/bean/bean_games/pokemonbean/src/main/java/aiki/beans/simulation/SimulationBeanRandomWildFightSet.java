@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class SimulationBeanRandomWildFightSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).setRandomWildFight(BooleanStruct.isTrue(_args[0]));
+        ( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getDifficultyCommon().setRandomWildFight(BooleanStruct.isTrue(_args[0]));
         return NullStruct.NULL_VALUE;
     }
 }

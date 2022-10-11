@@ -1,8 +1,8 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.map.dto.PlaceIndex;
+import aiki.beans.map.MapBean;
 import aiki.comparators.ComparatorMiniMapCoords;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -11,7 +11,6 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
-import aiki.map.enums.Direction;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelWithWildPokemon;
@@ -73,22 +72,13 @@ public class PokemonBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
-        places = new CustList<PlaceIndex>();
-        short i_ = 0;
-        for (Place p: data_.getMap().getPlaces()) {
-            PlaceIndex pl_ = new PlaceIndex();
-            pl_.setIndex(i_);
-            pl_.setPlace(p);
-            places.add(pl_);
-            i_++;
-        }
+        places = PlaceIndex.places(data_);
 //        places.sort(new NaturalComparator<PlaceIndex>() {
 //            @Override
 //            public int compare(PlaceIndex _o1, PlaceIndex _o2) {
 //                return _o1.getPlace().getName().compareTo(_o2.getPlace().getName());
 //            }
 //        });
-        places.sortElts(new ComparatorPlaceIndex());
         images = data_.getMap().getImages(data_);
         namesPlaces = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
         placesAppears = new Shorts();
@@ -144,7 +134,7 @@ public class PokemonBean extends CommonBean {
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         statisticsEnum = new IdList<Statistic>();
         statistics = new StringList();
-        for (Statistic s: Statistic.values()) {
+        for (Statistic s: Statistic.all()) {
             if (!s.isWithBaseStatistic()) {
                 continue;
             }
@@ -171,10 +161,16 @@ public class PokemonBean extends CommonBean {
         moveTutors = new StringList(pk_.getMoveTutors());
         moveTutors.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         //eggGroups = new StringList();
+        initEggGroup(pk_);
+        hatchingSteps = pk_.getHatchingSteps();
+    }
+
+    private void initEggGroup(PokemonData _pk) {
+        DataBase data_ = getDataBase();
         eggGroupsPk = new StringList();
         //Map<String,String> translationsEggs_;
         //translationsEggs_ = data_.getTranslatedEggs().getVal(getLanguage());
-        for (String e: pk_.getEggGroups()) {
+        for (String e: _pk.getEggGroups()) {
             //eggGroups.add(translationsEggs_.getVal(e));
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
@@ -193,8 +189,8 @@ public class PokemonBean extends CommonBean {
         //eggGroups.removeDuplicates();
         eggGroupsPk.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         eggGroupsPk.removeDuplicates();
-        hatchingSteps = pk_.getHatchingSteps();
     }
+
     public String getMiniMapImage(int _index) {
         int[][] image_ = images.getValue(_index);
         MiniMapCoords key_ = images.getKey(_index);
@@ -401,16 +397,7 @@ public class PokemonBean extends CommonBean {
         return false;
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
-        getForms().removeKey(CST_INSIDE);
-        getForms().put(CST_LEVEL_MAP_INDEX, _indexTwo);
-        getForms().put(CST_PLACE_MAP_INDEX, _indexOne);
-        getForms().put(CST_PROPONE_LINK, false);
-        getForms().put(CST_PROPONE_TILE, false);
-        getForms().put(CST_SEE_AREA, false);
-        for (Direction d: Direction.values()) {
-            getForms().put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
-        }
-        return CST_LEVEL;
+        return MapBean.clickMapLevel(_indexOne,_indexTwo,getForms());
     }
 
     public String getDisplayName() {

@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class SimulationBeanEndFightIfOneTeamKoSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).setEndFightIfOneTeamKo(BooleanStruct.isTrue(_args[0]));
+        ( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getDifficultyCommon().setEndFightIfOneTeamKo(BooleanStruct.isTrue(_args[0]));
         return NullStruct.NULL_VALUE;
     }
 }

@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class MapLevelBeanDirsGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return PokemonStandards.getStrBool(( (MapLevelBean) ((PokemonBeanStruct)_instance).getInstance()).getDirs());
+        return PokemonStandards.getDirBool(( (MapLevelBean) ((PokemonBeanStruct)_instance).getInstance()).getDirs());
     }
 }

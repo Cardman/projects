@@ -1,5 +1,6 @@
 package aiki.beans.items;
 
+import aiki.beans.EndRoundCommon;
 import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -56,30 +57,20 @@ public class ItemForBattleBean extends ItemBean {
     private StringList immuWeather;
     private DictionaryComparator<Statistic, Byte> boostStatisSuperEff;
     private DictionaryComparator<String, DictionaryComparator<Statistic, Byte>> boostStatisTypes;
-    private boolean endRound;
-    private int endRoundRank;
-    private StringList reasonsEndRound;
-    private NatStringTreeMap<String> mapVarsFailEndRound;
+//    private boolean endRound;
+//    private int endRoundRank;
+//    private StringList reasonsEndRound;
+//    private NatStringTreeMap<String> mapVarsFailEndRound;
     private boolean sending;
     private NatStringTreeMap<String> mapVars;
+    private final EndRoundCommon endRoundCommon = new EndRoundCommon();
 
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();
         DataBase data_ = getDataBase();
         ItemForBattle item_ = (ItemForBattle)getItem();
-        if (!item_.getEffectEndRound().isEmpty()) {
-            endRound = true;
-            EffectEndRound effect_ = item_.getEffectEndRound().first();
-            endRoundRank = effect_.getEndRoundRank();
-            reasonsEndRound = getFormattedReasons(data_, getReasons(effect_.getFailEndRound()), getLanguage());
-            mapVarsFailEndRound = getMapVarsFail(data_, effect_.getFailEndRound(), getLanguage());
-        } else {
-            endRound = false;
-            endRoundRank = 0;
-            reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatStringTreeMap<String>();
-        }
+        endRound(item_);
         sending = !item_.getEffectSending().isEmpty();
         cancelImmuType = item_.getCancelImmuType();
         againstEvo = item_.getAgainstEvo();
@@ -115,15 +106,7 @@ public class ItemForBattleBean extends ItemBean {
         }
         typesPk_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         typesPk = typesPk_;
-        StringList typesPkAbilities_;
-        typesPkAbilities_ = new StringList();
-        for (String ability_: data_.getAbilities().getKeys()) {
-            if (data_.getAbility(ability_).isPlate()) {
-                typesPkAbilities_.add(ability_);
-            }
-        }
-        typesPkAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        typesPkAbilities = typesPkAbilities_;
+        typesPkAbilities = typesPkAbilities();
         StringList immuTypes_;
         immuTypes_ = new StringList();
         for (String type_: item_.getImmuTypes()) {
@@ -198,20 +181,7 @@ public class ItemForBattleBean extends ItemBean {
             failStatus_.put(s, formula_);
         }
         failStatus = failStatus_;
-        DictionaryComparator<String, Short> increasingMaxNbRoundTrap_;
-        increasingMaxNbRoundTrap_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
-        for (String m: item_.getIncreasingMaxNbRoundTrap().getKeys()) {
-            short nb_ = item_.getIncreasingMaxNbRoundTrap().getVal(m);
-            for (Effect e: data_.getMove(m).getEffects()) {
-                if (!(e instanceof EffectEndRoundSingleRelation)) {
-                    continue;
-                }
-                EffectEndRoundSingleRelation eff_ = (EffectEndRoundSingleRelation) e;
-                nb_ += eff_.getLawForEnablingEffect().maximum().ll();
-            }
-            increasingMaxNbRoundTrap_.put(m, nb_);
-        }
-        increasingMaxNbRoundTrap = increasingMaxNbRoundTrap_;
+        increasingMaxNbRoundTrap = increasingMaxNbRoundTrap(item_);
         DictionaryComparator<String, Short> increasingMaxNbRoundGlobalMove_;
         increasingMaxNbRoundGlobalMove_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
         for (String m: item_.getIncreasingMaxNbRoundGlobalMove().getKeys()) {
@@ -249,18 +219,77 @@ public class ItemForBattleBean extends ItemBean {
         hatching_ = new StringList(item_.getHatching());
         hatching_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         hatching = hatching_;
+        boostStatisTypes = boostStatisTypes(item_);
+        lawForAttackFirst = item_.getLawForAttackFirst();
+    }
+
+    private DictionaryComparator<String, DictionaryComparator<Statistic, Byte>> boostStatisTypes(ItemForBattle _item) {
+        DataBase data_ = getDataBase();
         DictionaryComparator<String, DictionaryComparator<Statistic, Byte>> boostStatisTypes_;
         boostStatisTypes_ = DictionaryComparatorUtil.buildTypesTypeDic(data_,getLanguage());
-        for (String t: item_.getBoostStatisTypes().getKeys()) {
+        for (String t: _item.getBoostStatisTypes().getKeys()) {
             DictionaryComparator<Statistic, Byte> boost_;
             boost_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
-            for (Statistic s: item_.getBoostStatisTypes().getVal(t).getKeys()) {
-                boost_.put(s, item_.getBoostStatisTypes().getVal(t).getVal(s));
+            for (Statistic s: _item.getBoostStatisTypes().getVal(t).getKeys()) {
+                boost_.put(s, _item.getBoostStatisTypes().getVal(t).getVal(s));
             }
             boostStatisTypes_.put(t, boost_);
         }
-        boostStatisTypes = boostStatisTypes_;
-        lawForAttackFirst = item_.getLawForAttackFirst();
+        return boostStatisTypes_;
+    }
+
+    private DictionaryComparator<String, Short> increasingMaxNbRoundTrap(ItemForBattle _item) {
+        DataBase data_ = getDataBase();
+        DictionaryComparator<String, Short> increasingMaxNbRoundTrap_;
+        increasingMaxNbRoundTrap_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
+        for (String m: _item.getIncreasingMaxNbRoundTrap().getKeys()) {
+            short nb_ = _item.getIncreasingMaxNbRoundTrap().getVal(m);
+            for (Effect e: data_.getMove(m).getEffects()) {
+                if (!(e instanceof EffectEndRoundSingleRelation)) {
+                    continue;
+                }
+                EffectEndRoundSingleRelation eff_ = (EffectEndRoundSingleRelation) e;
+                nb_ += eff_.getLawForEnablingEffect().maximum().ll();
+            }
+            increasingMaxNbRoundTrap_.put(m, nb_);
+        }
+        return increasingMaxNbRoundTrap_;
+    }
+
+    private StringList typesPkAbilities() {
+        DataBase data_ = getDataBase();
+        StringList typesPkAbilities_;
+        typesPkAbilities_ = new StringList();
+        for (String ability_: data_.getAbilities().getKeys()) {
+            if (data_.getAbility(ability_).isPlate()) {
+                typesPkAbilities_.add(ability_);
+            }
+        }
+        typesPkAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return typesPkAbilities_;
+    }
+
+    private void endRound(ItemForBattle _item) {
+        DataBase data_ = getDataBase();
+        EffectEndRound effect_;
+        if (!_item.getEffectEndRound().isEmpty()) {
+//            endRound = true;
+            effect_ = _item.getEffectEndRound().first();
+//            endRoundRank = effect_.getEndRoundRank();
+//            reasonsEndRound = getFormattedReasons(data_, getReasons(effect_.getFailEndRound()), getLanguage());
+//            mapVarsFailEndRound = getMapVarsFail(data_, effect_.getFailEndRound(), getLanguage());
+        } else {
+//            endRound = false;
+            effect_ = null;
+//            endRoundRank = 0;
+//            reasonsEndRound = new StringList();
+//            mapVarsFailEndRound = new NatStringTreeMap<String>();
+        }
+        endRoundCommon.endRondElts(data_,effect_,getLanguage());
+    }
+
+    public EndRoundCommon getEndRoundCommon() {
+        return endRoundCommon;
     }
     public String getTrTypesPk(int _index) {
         String type_ = typesPk.get(_index);
@@ -453,19 +482,19 @@ public class ItemForBattleBean extends ItemBean {
     }
 
     public boolean getEndRound() {
-        return endRound;
+        return getEndRoundCommon().getEndRound();
     }
 
     public int getEndRoundRank() {
-        return endRoundRank;
+        return getEndRoundCommon().getEndRoundRank();
     }
 
     public StringList getReasonsEndRound() {
-        return reasonsEndRound;
+        return getEndRoundCommon().getReasonsEndRound();
     }
 
     public NatStringTreeMap<String> getMapVarsFailEndRound() {
-        return mapVarsFailEndRound;
+        return getEndRoundCommon().getMapVarsFailEndRound();
     }
 
     public boolean getSending() {

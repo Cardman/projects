@@ -31,9 +31,9 @@ public abstract class WithFilterBean extends CommonBean {
     private String typedStatus = DataBase.EMPTY_STRING;
     private String typedCategory = DataBase.EMPTY_STRING;
     private boolean wholeWord;
-    private String hasEvo = SelectedBoolean.YES_AND_NO.name();
-    private String isEvo = SelectedBoolean.YES_AND_NO.name();
-    private String isLeg = SelectedBoolean.YES_AND_NO.name();
+    private String hasEvo = SelectedBoolean.YES_AND_NO.getBoolName();
+    private String isEvo = SelectedBoolean.YES_AND_NO.getBoolName();
+    private String isLeg = SelectedBoolean.YES_AND_NO.getBoolName();
     private String typedMinNbPossEvos = DataBase.EMPTY_STRING;
     private String typedMaxNbPossEvos = DataBase.EMPTY_STRING;
     private String minPower = DataBase.EMPTY_STRING;

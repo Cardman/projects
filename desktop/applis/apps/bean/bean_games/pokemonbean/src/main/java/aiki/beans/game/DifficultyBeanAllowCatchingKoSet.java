@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class DifficultyBeanAllowCatchingKoSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).setAllowCatchingKo(BooleanStruct.isTrue(_args[0]));
+        ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).getDifficultyCommon().setAllowCatchingKo(BooleanStruct.isTrue(_args[0]));
         return NullStruct.NULL_VALUE;
     }
 }

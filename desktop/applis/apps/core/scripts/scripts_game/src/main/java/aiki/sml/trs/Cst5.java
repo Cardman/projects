@@ -9,10 +9,10 @@ static final String CS_FACILE="FACILE";
 private Cst5(){}
 static IdMap<DifficultyWinPointsFight,String> di(){
 IdMap<DifficultyWinPointsFight,String> e=new IdMap<DifficultyWinPointsFight,String>(new CollCapacity(4));
-e.addEntry(DifficultyWinPointsFight.TRES_DIFFICILE,"caracferme(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),0,1)*puis(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),3)+caracdroiteouvert(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),1)");
-e.addEntry(DifficultyWinPointsFight.DIFFICILE,"1");
 e.addEntry(DifficultyWinPointsFight.TRES_FACILE,"caracferme(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),0,1)+caracdroiteouvert(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),1)*puis(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),3)");
 e.addEntry(DifficultyWinPointsFight.FACILE,"puis(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),3)");
+e.addEntry(DifficultyWinPointsFight.DIFFICILE,"1");
+e.addEntry(DifficultyWinPointsFight.TRES_DIFFICILE,"caracferme(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),0,1)*puis(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),3)+caracdroiteouvert(div(VAR__LEVEL_LOOSER,VAR__LEVEL_WINNER),1)");
 return e;
 }
 }

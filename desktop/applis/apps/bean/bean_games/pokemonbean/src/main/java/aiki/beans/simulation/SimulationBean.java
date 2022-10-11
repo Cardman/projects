@@ -1,8 +1,9 @@
 package aiki.beans.simulation;
 
 import aiki.beans.CommonBean;
-import aiki.beans.PokemonStandards;
-import aiki.beans.facade.comparators.*;
+import aiki.beans.DifficultyCommon;
+import aiki.beans.facade.comparators.ComparatorMoves;
+import aiki.beans.facade.comparators.ComparatorRadioLineMoves;
 import aiki.beans.facade.dto.KeptMovesAfterFight;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
@@ -17,17 +18,11 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
-import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.FightSimulation;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.FreeTeamChoice;
-import aiki.game.fight.KeyFightRound;
+import aiki.game.fight.*;
 import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.AvailableMovesInfos;
 import aiki.game.params.Difficulty;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.levels.Level;
@@ -47,10 +42,8 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.images.BaseSixtyFourUtil;
-import code.maths.ComparatorRate;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -58,27 +51,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class SimulationBean extends CommonBean {
-    private boolean allowCatchingKo;
-    private boolean allowedSwitchPlacesEndRound;
-    private String diffWinningExpPtsFight;
-    private TreeMap<String, String> winPointsFight;
-    private Rate rateWinningExpPtsFight;
-    private Rate winTrainerExp;
-    private TreeMap<String, String> damageRates;
-    private String damageRatePlayer;
-    private TreeMap<Rate,Rate> damageRatePlayerTable;
-    private String damageRateLawFoe;
-    private TreeMap<Rate,Rate> damageRateFoeTable;
-    private boolean endFightIfOneTeamKo;
-    private Rate rateWinMoneyBase;
-    private Rate rateLooseMoneyWin;
-    private int ivPlayer;
-    private int ivFoe;
-    private boolean stillPossibleFlee;
-    private boolean restoredMovesEndFight;
-    private boolean enabledClosing;
-    private boolean randomWildFight;
-    private boolean skipLearningMovesWhileNotGrowingLevel;
+    private final DifficultyCommon difficultyCommon = new DifficultyCommon();
     private CustList<PlaceIndex> places = new CustList<PlaceIndex>();
 
     private Coords coords;
@@ -97,9 +70,9 @@ public class SimulationBean extends CommonBean {
     private boolean enableEvolutions = true;
     private final CustList<PokemonPlayerDto> team = new CustList<PokemonPlayerDto>();
     private int selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-    private String selectedFoeAction = TeamCrud.NOTHING.name();
-    private String selectedAllyAction = TeamCrud.NOTHING.name();
-    private String selectedAction = TeamCrud.NOTHING.name();
+    private String selectedFoeAction = TeamCrud.NOTHING.getTeamCrudString();
+    private String selectedAllyAction = TeamCrud.NOTHING.getTeamCrudString();
+    private String selectedAction = TeamCrud.NOTHING.getTeamCrudString();
 
     private StringMap<Short> availableEvosLevel = new StringMap<Short>();
     private DictionaryComparator<String, String> availableEvos;
@@ -176,7 +149,6 @@ public class SimulationBean extends CommonBean {
     }
 
     private void stateMovesFight() {
-        DataBase data_ = getDataBase();
         if (selectedPk != IndexConstants.INDEX_NOT_FOUND_ELT) {
             targetFight = new IntTreeMap< String>();
             int mult_ = simulation.getFirstMult();
@@ -185,76 +157,34 @@ public class SimulationBean extends CommonBean {
             }
             movesSet.clear();
             if (NumberUtil.parseInt(selectedRound) == 0) {
-                StringMap<String> translationsMoves_;
-                translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-                StringMap<String> translationsTypes_;
-                translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-                StringMap<String> translationsCategories_;
-                translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
                 StringList moves_ = team.get(selectedPk).getMoves();
-                for (String k: moves_) {
-                    MoveData moveData_ = data_.getMoves().getVal(k);
-                    RadioLineMove line_ = new RadioLineMove();
-                    MovesBean.line(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,line_);
-//                        line_.setName(k);
-//                        line_.setDisplayName(translationsMoves_.getVal(k));
-//                        StringList types_ = new StringList();
-//                        for (String t: moveData_.getTypes()) {
-//                            types_.add(translationsTypes_.getVal(t));
-//                        }
-//                        line_.setTypes(types_);
-//                        line_.setPp(moveData_.getPp());
-//                        line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-//                        line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-//                        if (line_.isDamageMove()) {
-//                            DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-//                            line_.setDirect(damag_.isDirect());
-//                        }
-//                        line_.setPriority(moveData_.getPriority());
-                    movesSet.add(line_);
-                }
-                int i_ = IndexConstants.FIRST_INDEX;
-                movesSet.sortElts(new ComparatorRadioLineMoves());
-                for (RadioLineMove l: movesSet) {
-                    l.setIndex(i_);
-                    i_++;
-                }
+                moveSetInit(moves_);
                 return;
             }
-            StringMap<String> translationsMoves_;
-            translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-            StringMap<String> translationsTypes_;
-            translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-            StringMap<String> translationsCategories_;
-            translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
             StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(IndexConstants.FIRST_INDEX, (byte)(NumberUtil.parseInt(selectedRound) -1)));
-            for (String k: moves_) {
-                MoveData moveData_ = data_.getMoves().getVal(k);
-                RadioLineMove line_ = new RadioLineMove();
-                MovesBean.line(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,line_);
-//                    line_.setName(k);
-//                    line_.setDisplayName(translationsMoves_.getVal(k));
-//                    StringList types_ = new StringList();
-//                    for (String t: moveData_.getTypes()) {
-//                        types_.add(translationsTypes_.getVal(t));
-//                    }
-//                    line_.setTypes(types_);
-//                    line_.setPp(moveData_.getPp());
-//                    line_.setCategory(translationsCategories_.getVal(moveData_.getCategory()));
-//                    line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-//                    if (line_.isDamageMove()) {
-//                        DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-//                        line_.setDirect(damag_.isDirect());
-//                    }
-//                    line_.setPriority(moveData_.getPriority());
-                movesSet.add(line_);
-            }
-            int i_ = IndexConstants.FIRST_INDEX;
-            movesSet.sortElts(new ComparatorRadioLineMoves());
-            for (RadioLineMove l: movesSet) {
-                l.setIndex(i_);
-                i_++;
-            }
+            moveSetInit(moves_);
+        }
+    }
+
+    private void moveSetInit(StringList _moves) {
+        DataBase data_ = getDataBase();
+        StringMap<String> translationsMoves_;
+        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        StringMap<String> translationsTypes_;
+        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+        StringMap<String> translationsCategories_;
+        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+        for (String k: _moves) {
+            MoveData moveData_ = data_.getMoves().getVal(k);
+            RadioLineMove line_ = new RadioLineMove();
+            MovesBean.line(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,line_);
+            movesSet.add(line_);
+        }
+        int i_ = IndexConstants.FIRST_INDEX;
+        movesSet.sortElts(new ComparatorRadioLineMoves());
+        for (RadioLineMove l: movesSet) {
+            l.setIndex(i_);
+            i_++;
         }
     }
 
@@ -386,16 +316,7 @@ public class SimulationBean extends CommonBean {
             if (coords != null) {
                 ok = true;
             }
-            places = new CustList<PlaceIndex>();
-            short i_ = 0;
-            for (Place p: data_.getMap().getPlaces()) {
-                PlaceIndex pl_ = new PlaceIndex();
-                pl_.setIndex(i_);
-                pl_.setPlace(p);
-                places.add(pl_);
-                i_++;
-            }
-            places.sortElts(new ComparatorPlaceIndex());
+            places = PlaceIndex.places(data_);
         }
     }
 
@@ -449,46 +370,7 @@ public class SimulationBean extends CommonBean {
 
     private void stateDiff() {
         DataBase data_ = getDataBase();
-        damageRates = new TreeMap<String, String>(new ComparatorDifficultyModelLaw());
-        winPointsFight = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
-        AbsMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
-        for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
-//                winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
-            winPointsFight.put(k.getWinName(), trWinPts_.getVal(k));
-        }
-        AbsMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
-        for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
-//                damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
-            damageRates.put(k.getModelName(), trWinLaw_.getVal(k));
-        }
-        diffWinningExpPtsFight = difficulty.getDiffWinningExpPtsFight().getWinName();
-        allowCatchingKo = difficulty.getAllowCatchingKo();
-        allowedSwitchPlacesEndRound = difficulty.getAllowedSwitchPlacesEndRound();
-        winTrainerExp = difficulty.getWinTrainerExp();
-        rateWinningExpPtsFight = difficulty.getRateWinningExpPtsFight();
-        endFightIfOneTeamKo = difficulty.getEndFightIfOneTeamKo();
-        ivPlayer = difficulty.getIvPlayer();
-        ivFoe = difficulty.getIvFoe();
-        rateWinMoneyBase = difficulty.getRateWinMoneyBase();
-        rateLooseMoneyWin = difficulty.getRateLooseMoneyWin();
-        stillPossibleFlee = difficulty.getStillPossibleFlee();
-        restoredMovesEndFight = difficulty.getRestoredMovesEndFight();
-        enabledClosing = difficulty.getEnabledClosing();
-        randomWildFight = difficulty.getRandomWildFight();
-        skipLearningMovesWhileNotGrowingLevel = difficulty.isSkipLearningMovesWhileNotGrowingLevel();
-        damageRatePlayer = difficulty.getDamageRatePlayer().getModelName();
-        damageRateLawFoe = difficulty.getDamageRateLawFoe().getModelName();
-        damageRatePlayerTable = new TreeMap<Rate, Rate>(new ComparatorRate());
-        MonteCarloNumber law_;
-        law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
-        for (Rate e: law_.events()) {
-            damageRatePlayerTable.put(e, law_.normalizedRate(e));
-        }
-        damageRateFoeTable = new TreeMap<Rate, Rate>(new ComparatorRate());
-        law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw();
-        for (Rate e: law_.events()) {
-            damageRateFoeTable.put(e, law_.normalizedRate(e));
-        }
+        difficultyCommon.init(data_,getLanguage(),difficulty);
     }
 
     public boolean isDiffState() {
@@ -611,24 +493,7 @@ public class SimulationBean extends CommonBean {
     public void validateDiffChoice() {
         ok = true;
         DataBase data_ = getDataBase();
-        difficulty.setDiffWinningExpPtsFight(PokemonStandards.getDiffWonPtsByName(diffWinningExpPtsFight));
-        difficulty.setAllowCatchingKo(allowCatchingKo);
-        difficulty.setAllowedSwitchPlacesEndRound(allowedSwitchPlacesEndRound);
-        difficulty.setWinTrainerExp(winTrainerExp);
-        difficulty.setRateWinningExpPtsFight(rateWinningExpPtsFight);
-        difficulty.setEndFightIfOneTeamKo(endFightIfOneTeamKo);
-        difficulty.setIvPlayer((short) ivPlayer);
-        difficulty.setIvFoe((short) ivFoe);
-        difficulty.setRateWinMoneyBase(rateWinMoneyBase);
-        difficulty.setRateLooseMoneyWin(rateLooseMoneyWin);
-        difficulty.setRestoredMovesEndFight(restoredMovesEndFight);
-        difficulty.setEnabledClosing(enabledClosing);
-        difficulty.setRandomWildFight(randomWildFight);
-        difficulty.setStillPossibleFlee(stillPossibleFlee);
-        difficulty.setSkipLearningMovesWhileNotGrowingLevel(skipLearningMovesWhileNotGrowingLevel);
-        difficulty.setDamageRateLawFoe(PokemonStandards.getModelByName(damageRateLawFoe));
-        difficulty.setDamageRatePlayer(PokemonStandards.getModelByName(damageRatePlayer));
-        difficulty.validate(data_);
+        difficultyCommon.apply(data_,difficulty);
         simulation = new FightSimulation(difficulty, data_);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.FOE);
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
@@ -682,7 +547,7 @@ public class SimulationBean extends CommonBean {
         environmentsList.addAllElts(simulation.getEnvironmentAll());
         indexTeam=0;
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        selectedAction = TeamCrud.NOTHING.name();
+        selectedAction = TeamCrud.NOTHING.getTeamCrudString();
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
@@ -889,7 +754,7 @@ public class SimulationBean extends CommonBean {
         }
         simulation.setTeams(chs_, coords);
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        selectedAction = TeamCrud.NOTHING.name();
+        selectedAction = TeamCrud.NOTHING.getTeamCrudString();
         indexTeam=0;
         getForms().removeKey(CST_POKEMON_INDEX_EDIT);
         getForms().removeKey(CST_POKEMON_ADDED);
@@ -1045,7 +910,7 @@ public class SimulationBean extends CommonBean {
         simulation.cancelEvolutions();
         getForms().removeKey(CST_POKEMON_INDEX_EDIT);
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        selectedAction = TeamCrud.NOTHING.name();
+        selectedAction = TeamCrud.NOTHING.getTeamCrudString();
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber--;
@@ -1128,7 +993,7 @@ public class SimulationBean extends CommonBean {
             stepNumber--;
             return;
         }
-        selectedAction = TeamCrud.NOTHING.name();
+        selectedAction = TeamCrud.NOTHING.getTeamCrudString();
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.EVOLUTIONS);
         stepNumber--;
     }
@@ -1341,17 +1206,7 @@ public class SimulationBean extends CommonBean {
         DataBase data_ = getDataBase();
         PokemonPlayer pk_ = teamAfterFight.get(_index);
         short level_ = pk_.getLevel();
-        PokemonData fPk_=data_.getPokemon(pk_.getName());
-        String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
-        StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level_ + 1L));
-        Rate next_;
-        next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
-        Rate current_;
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level_));
-        current_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
-        vars_.clear();
-        Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());
+        Rate diff_ = FightFacade.numberNecessaryPointsForGrowingLevel(pk_.getName(),level_+1L,data_);
         diff_.removeNb(pk_.getWonExpSinceLastLevel());
         return diff_;
     }
@@ -1361,18 +1216,43 @@ public class SimulationBean extends CommonBean {
         }
         DataBase data_ = getDataBase();
         KeptMovesAfterFight k_ = keptMovesAbilitiesDto.get(selectedPk);
-        String lastPk_ = k_.getEvolutions().last();
-        evolutionAfterFight = lastPk_;
+        evolutionAfterFight = k_.getEvolutions().last();
         abilityAfterFight = k_.getAbility();
+        evolutionsAfterFight = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
+        afterFighter(k_);
+    }
+
+    public void validateEvolutionAfterFight() {
+        KeptMovesAfterFight k_ = keptMovesAbilitiesDto.get(selectedPk);
+        k_.getEvolutions().add(evolutionAfterFight);
+        afterFighter(k_);
+        abilityAfterFight = abilitiesAfterFight.firstKey();
+    }
+
+    public void cancelEvolutionsAfterFight() {
+        KeptMovesAfterFight k_ = keptMovesAbilitiesDto.get(selectedPk);
+        String base_ = k_.getEvolutions().first();
+        k_.getEvolutions().clear();
+        k_.getEvolutions().add(base_);
+        evolutionAfterFight = base_;
+        PokemonPlayer pk_ = teamAfterFight.get(selectedPk);
+        k_.getMoves().clear();
+        k_.getMoves().addAllElts(pk_.getMoves().getKeys());
+        k_.setAbility(pk_.getAbility());
+        afterFighter(k_);
+        abilityAfterFight = k_.getAbility();
+    }
+
+    private void afterFighter(KeptMovesAfterFight _k) {
+        DataBase data_ = getDataBase();
         PokemonPlayer pk_ = teamAfterFight.get(selectedPk);
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        evolutionsAfterFight = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
-        StringList evolutions_ = pk_.directEvolutionsByStone(lastPk_, data_);
+        StringList evolutions_ = pk_.directEvolutionsByStone(evolutionAfterFight, data_);
         for (String e: evolutions_) {
             evolutionsAfterFight.put(e, translationsPokemon_.getVal(e));
         }
-        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), lastPk_, data_);
+        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), _k.getMoves(), evolutionAfterFight, data_);
         keptMovesAfterFight.clear();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
@@ -1404,56 +1284,6 @@ public class SimulationBean extends CommonBean {
         }
         keptMovesAfterFight.sortElts(new ComparatorMoves());
         //StringList moves_ = data_.getPokemon(lastPk_).getMovesBeforeLevel(pk_.getLevel());
-        StringList abilities_ = data_.getPokemon(lastPk_).getAbilities();
-        StringMap<String> translationsAbilities_;
-        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        abilitiesAfterFight = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
-        for (String a: abilities_) {
-            abilitiesAfterFight.put(a, translationsAbilities_.getVal(a));
-        }
-    }
-    public void validateEvolutionAfterFight() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsPokemon_;
-        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        KeptMovesAfterFight k_ = keptMovesAbilitiesDto.get(selectedPk);
-        k_.getEvolutions().add(evolutionAfterFight);
-        PokemonPlayer pk_ = teamAfterFight.get(selectedPk);
-        StringList evolutions_ = pk_.directEvolutionsByStone(evolutionAfterFight, data_);
-        for (String e: evolutions_) {
-            evolutionsAfterFight.put(e, translationsPokemon_.getVal(e));
-        }
-        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), evolutionAfterFight, data_);
-        keptMovesAfterFight.clear();
-        StringMap<String> translationsCategories_;
-        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        for (String m: selectedMoves_.getKeys()) {
-            MoveData moveData_ = data_.getMoves().getVal(m);
-            SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,m,moveData_);
-//            SelectLineMove line_ = new SelectLineMove();
-//            line_.setName(m);
-//            line_.setDisplayName(data_.translateMove(m));
-//            line_.setCategory(data_.getTranslatedCategories().getVal(getLanguage()).getVal(moveData_.getCategory()));
-//            StringList types_ = new StringList();
-//            for (String t: moveData_.getTypes()) {
-//                types_.add(translationsTypes_.getVal(t));
-//            }
-//            line_.setTypes(types_);
-//            line_.setPp(moveData_.getPp());
-//            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-//            if (line_.isDamageMove()) {
-//                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-//                line_.setDirect(damag_.isDirect());
-//            }
-//            line_.setPriority(moveData_.getPriority());
-            line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
-            keptMovesAfterFight.add(line_);
-        }
-        keptMovesAfterFight.sortElts(new ComparatorMoves());
         StringList abilities_ = data_.getPokemon(evolutionAfterFight).getAbilities();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
@@ -1461,65 +1291,8 @@ public class SimulationBean extends CommonBean {
         for (String a: abilities_) {
             abilitiesAfterFight.put(a, translationsAbilities_.getVal(a));
         }
-        abilityAfterFight = abilitiesAfterFight.firstKey();
     }
-    public void cancelEvolutionsAfterFight() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsPokemon_;
-        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        KeptMovesAfterFight k_ = keptMovesAbilitiesDto.get(selectedPk);
-        String base_ = k_.getEvolutions().first();
-        k_.getEvolutions().clear();
-        k_.getEvolutions().add(base_);
-        evolutionAfterFight = base_;
-        PokemonPlayer pk_ = teamAfterFight.get(selectedPk);
-        k_.getMoves().clear();
-        k_.getMoves().addAllElts(pk_.getMoves().getKeys());
-        k_.setAbility(pk_.getAbility());
-        StringList evolutions_ = pk_.directEvolutionsByStone(evolutionAfterFight, data_);
-        for (String e: evolutions_) {
-            evolutionsAfterFight.put(e, translationsPokemon_.getVal(e));
-        }
-        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), k_.getMoves(), evolutionAfterFight, data_);
-        keptMovesAfterFight.clear();
-        StringMap<String> translationsCategories_;
-        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        for (String m: selectedMoves_.getKeys()) {
-            MoveData moveData_ = data_.getMoves().getVal(m);
-            SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,m,moveData_);
-//            SelectLineMove line_ = new SelectLineMove();
-//            line_.setName(m);
-//            line_.setDisplayName(data_.translateMove(m));
-//            line_.setCategory(data_.getTranslatedCategories().getVal(getLanguage()).getVal(moveData_.getCategory()));
-//            StringList types_ = new StringList();
-//            for (String t: moveData_.getTypes()) {
-//                types_.add(translationsTypes_.getVal(t));
-//            }
-//            line_.setTypes(types_);
-//            line_.setPp(moveData_.getPp());
-//            line_.setDamageMove(moveData_ instanceof DamagingMoveData);
-//            if (line_.isDamageMove()) {
-//                DamagingMoveData damag_ = (DamagingMoveData) moveData_;
-//                line_.setDirect(damag_.isDirect());
-//            }
-//            line_.setPriority(moveData_.getPriority());
-            line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
-            keptMovesAfterFight.add(line_);
-        }
-        keptMovesAfterFight.sortElts(new ComparatorMoves());
-        StringList abilities_ = data_.getPokemon(evolutionAfterFight).getAbilities();
-        StringMap<String> translationsAbilities_;
-        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        abilitiesAfterFight = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
-        for (String a: abilities_) {
-            abilitiesAfterFight.put(a, translationsAbilities_.getVal(a));
-        }
-        abilityAfterFight = k_.getAbility();
-    }
+
     public void validateMovesAbilityAfterFight() {
         KeptMovesAfterFight k_ = keptMovesAbilitiesDto.get(selectedPk);
         StringList moves_ = new StringList();
@@ -1643,156 +1416,9 @@ public class SimulationBean extends CommonBean {
         return CST_LEVEL;
     }
 
-    public TreeMap<String,String> getWinPointsFight() {
-        return winPointsFight;
-    }
 
-    public String getDiffWinningExpPtsFight() {
-        return diffWinningExpPtsFight;
-    }
-
-    public void setDiffWinningExpPtsFight(String _diffWinningExpPtsFight) {
-        diffWinningExpPtsFight = _diffWinningExpPtsFight;
-    }
-
-    public void setAllowCatchingKo(boolean _allowCatchingKo) {
-        allowCatchingKo = _allowCatchingKo;
-    }
-
-    public boolean getAllowCatchingKo() {
-        return allowCatchingKo;
-    }
-
-    public void setAllowedSwitchPlacesEndRound(boolean _allowedSwitchPlacesEndRound) {
-        allowedSwitchPlacesEndRound = _allowedSwitchPlacesEndRound;
-    }
-
-    public boolean getAllowedSwitchPlacesEndRound() {
-        return allowedSwitchPlacesEndRound;
-    }
-
-    public void setWinTrainerExp(Rate _winTrainerExp) {
-        winTrainerExp = _winTrainerExp;
-    }
-
-    public Rate getWinTrainerExp() {
-        return winTrainerExp;
-    }
-
-    public void setRateWinningExpPtsFight(Rate _rateWinningExpPtsFight) {
-        rateWinningExpPtsFight = _rateWinningExpPtsFight;
-    }
-
-    public Rate getRateWinningExpPtsFight() {
-        return rateWinningExpPtsFight;
-    }
-
-    public void setEndFightIfOneTeamKo(boolean _endFightIfOneTeamKo) {
-        endFightIfOneTeamKo = _endFightIfOneTeamKo;
-    }
-
-    public boolean getEndFightIfOneTeamKo() {
-        return endFightIfOneTeamKo;
-    }
-
-    public void setIvPlayer(int _ivPlayer) {
-        ivPlayer = _ivPlayer;
-    }
-
-    public int getIvPlayer() {
-        return ivPlayer;
-    }
-
-    public void setIvFoe(int _ivFoe) {
-        ivFoe = _ivFoe;
-    }
-
-    public int getIvFoe() {
-        return ivFoe;
-    }
-
-    public void setRateWinMoneyBase(Rate _rateWinMoneyBase) {
-        rateWinMoneyBase = _rateWinMoneyBase;
-    }
-
-    public Rate getRateWinMoneyBase() {
-        return rateWinMoneyBase;
-    }
-
-    public void setRateLooseMoneyWin(Rate _rateLooseMoneyWin) {
-        rateLooseMoneyWin = _rateLooseMoneyWin;
-    }
-
-    public Rate getRateLooseMoneyWin() {
-        return rateLooseMoneyWin;
-    }
-
-    public void setRestoredMovesEndFight(boolean _restoredMovesEndFight) {
-        restoredMovesEndFight = _restoredMovesEndFight;
-    }
-
-    public boolean getRestoredMovesEndFight() {
-        return restoredMovesEndFight;
-    }
-
-    public void setEnabledClosing(boolean _enabledClosing) {
-        enabledClosing = _enabledClosing;
-    }
-
-    public boolean getEnabledClosing() {
-        return enabledClosing;
-    }
-
-    public void setRandomWildFight(boolean _randomWildFight) {
-        randomWildFight = _randomWildFight;
-    }
-
-    public boolean getRandomWildFight() {
-        return randomWildFight;
-    }
-
-    public void setStillPossibleFlee(boolean _stillPossibleFlee) {
-        stillPossibleFlee = _stillPossibleFlee;
-    }
-
-    public boolean getStillPossibleFlee() {
-        return stillPossibleFlee;
-    }
-
-    public void setSkipLearningMovesWhileNotGrowingLevel(boolean _skipLearningMovesWhileNotGrowingLevel) {
-        skipLearningMovesWhileNotGrowingLevel = _skipLearningMovesWhileNotGrowingLevel;
-    }
-
-    public boolean getSkipLearningMovesWhileNotGrowingLevel() {
-        return skipLearningMovesWhileNotGrowingLevel;
-    }
-
-    public TreeMap<String,String> getDamageRates() {
-        return damageRates;
-    }
-
-    public String getDamageRatePlayer() {
-        return damageRatePlayer;
-    }
-
-    public void setDamageRatePlayer(String _damageRatePlayer) {
-        damageRatePlayer = _damageRatePlayer;
-    }
-
-    public TreeMap<Rate,Rate> getDamageRatePlayerTable() {
-        return damageRatePlayerTable;
-    }
-
-    public String getDamageRateLawFoe() {
-        return damageRateLawFoe;
-    }
-
-    public void setDamageRateLawFoe(String _damageRateLawFoe) {
-        damageRateLawFoe = _damageRateLawFoe;
-    }
-
-    public TreeMap<Rate,Rate> getDamageRateFoeTable() {
-        return damageRateFoeTable;
+    public DifficultyCommon getDifficultyCommon() {
+        return difficultyCommon;
     }
 
     public void setFreeTeams(boolean _freeTeams) {

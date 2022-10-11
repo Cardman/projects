@@ -1,7 +1,6 @@
 package aiki.game;
 
 import aiki.db.DataBase;
-import aiki.tsts.TstsPk;
 import aiki.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -813,7 +812,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
 //            }
 //        }
 //        return n_;
-        return TstsPk.nbBeatTrainersVa(_map.values(), ComparatorBoolean.of(_taken));
+        return DataBase.countValues(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test
@@ -1027,7 +1026,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
 //            }
 //        }
 //        return n_;
-        return TstsPk.nbBeatTrainersVa(_map.values(), ComparatorBoolean.of(_taken));
+        return DataBase.countValues(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test

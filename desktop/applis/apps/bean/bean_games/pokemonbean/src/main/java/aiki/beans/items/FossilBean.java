@@ -15,7 +15,7 @@ public class FossilBean extends ItemBean {
         level = item_.getLevel();
     }
     public String getTrPokemon() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(pokemon);
     }

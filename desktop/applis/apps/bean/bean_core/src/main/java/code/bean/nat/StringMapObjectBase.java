@@ -65,7 +65,11 @@ public class StringMapObjectBase {
     }
 
     public void put(String _key, boolean _v) {
-        mapBoolean.put(_key, to(_v));
+        put(_key, to(_v));
+    }
+
+    public void put(String _key, BoolVal _v) {
+        mapBoolean.put(_key, _v);
     }
 
     public void put(String _key, StringList _v) {

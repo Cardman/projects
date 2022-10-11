@@ -2,7 +2,6 @@ package aiki.game;
 
 import aiki.db.DataBase;
 import aiki.map.pokemon.*;
-import aiki.tsts.TstsPk;
 import aiki.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -916,7 +915,7 @@ public class GameTest extends InitializationDataBase {
 //                }
 //            }
 //        }
-        return TstsPk.nbBeatTrainersVa(_map.values(), ComparatorBoolean.of(_taken));
+        return DataBase.countValues(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test

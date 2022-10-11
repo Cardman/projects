@@ -17,7 +17,7 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         MoveData move_ = data_.getMove(getElement().getElement());
         EffectGlobal effect_ = null;
         for (Effect e: move_.getEffects()) {

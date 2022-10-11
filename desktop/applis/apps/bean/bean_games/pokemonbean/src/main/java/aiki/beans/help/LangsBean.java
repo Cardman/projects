@@ -34,7 +34,7 @@ public class LangsBean extends CommonBean {
         languages = new StringList();
         String curLg_ = getLanguage();
         languages.add(curLg_);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringList lgs_ = data_.getLanguages();
         for (String l: lgs_) {
             if (StringUtil.quickEq(l, curLg_)) {
@@ -43,51 +43,11 @@ public class LangsBean extends CommonBean {
             languages.add(l);
         }
         translatedCategories = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedCategories(), curLg_, languages));
-        StringMap<StringMap<String>> translatedEnvironment_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,IdMap<EnvironmentType, String>> e:data_.getTranslatedEnvironment().entryList()) {
-            StringMap<String> tr_ = new StringMap<String>();
-            for (EntryCust<EnvironmentType, String> f:e.getValue().entryList()) {
-                tr_.addEntry(f.getKey().name(),f.getValue());
-            }
-            translatedEnvironment_.addEntry(e.getKey(),tr_);
-        }
-        translatedEnvironment = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedEnvironment_, curLg_, languages));
-        StringMap<StringMap<String>> translatedBooleans_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,IdMap<SelectedBoolean, String>> e:data_.getTranslatedBooleans().entryList()) {
-            StringMap<String> tr_ = new StringMap<String>();
-            for (EntryCust<SelectedBoolean, String> f:e.getValue().entryList()) {
-                tr_.addEntry(f.getKey().name(),f.getValue());
-            }
-            translatedBooleans_.addEntry(e.getKey(),tr_);
-        }
-        translatedBooleans = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedBooleans_, curLg_, languages));
-        StringMap<StringMap<String>> translatedGenders_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,IdMap<Gender, String>> e:data_.getTranslatedGenders().entryList()) {
-            StringMap<String> tr_ = new StringMap<String>();
-            for (EntryCust<Gender, String> f:e.getValue().entryList()) {
-                tr_.addEntry(f.getKey().name(),f.getValue());
-            }
-            translatedGenders_.addEntry(e.getKey(),tr_);
-        }
-        translatedGenders = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedGenders_, curLg_, languages));
-        StringMap<StringMap<String>> translatedStatistics_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,IdMap<Statistic, String>> e:data_.getTranslatedStatistics().entryList()) {
-            StringMap<String> tr_ = new StringMap<String>();
-            for (EntryCust<Statistic, String> f:e.getValue().entryList()) {
-                tr_.addEntry(f.getKey().name(),f.getValue());
-            }
-            translatedStatistics_.addEntry(e.getKey(),tr_);
-        }
-        translatedStatistics = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedStatistics_, curLg_, languages));
-        StringMap<StringMap<String>> translatedTargets_ = new StringMap<StringMap<String>>();
-        for (EntryCust<String,IdMap<TargetChoice, String>> e:data_.getTranslatedTargets().entryList()) {
-            StringMap<String> tr_ = new StringMap<String>();
-            for (EntryCust<TargetChoice, String> f:e.getValue().entryList()) {
-                tr_.addEntry(f.getKey().name(),f.getValue());
-            }
-            translatedTargets_.addEntry(e.getKey(),tr_);
-        }
-        translatedTargets = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedTargets_, curLg_, languages));
+        translatedEnvironment = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedEnvironment(), curLg_, languages));
+        translatedBooleans = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedBooleans(), curLg_, languages));
+        translatedGenders = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedGenders(), curLg_, languages));
+        translatedStatistics = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedStatistics(), curLg_, languages));
+        translatedTargets = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedTargets(), curLg_, languages));
         translatedTypes = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedTypes(), curLg_, languages));
         translatedPokemon = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedPokemon(), curLg_, languages));
         translatedMoves = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedMoves(), curLg_, languages));
@@ -96,6 +56,60 @@ public class LangsBean extends CommonBean {
         translatedStatus = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedStatus(), curLg_, languages));
         translatedClassesDescriptions = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedClassesDescriptions(), curLg_, languages));
         translatedFctMath = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedFctMath(), curLg_, languages));
+        for (String l:lgs_) {
+            loopLgs(l);
+        }
+    }
+
+    private void loopLgs(String _l) {
+        DataBase data_ = getDataBase();
+        for (String c: data_.getAllCategories()) {
+            translatedCategories.put(new LanguageElementStringKey(_l,c), data_.getTranslatedCategories().getVal(_l).getVal(c));
+        }
+        for (EnvironmentType e: EnvironmentType.all()) {
+            translatedEnvironment.put(new LanguageElementStringKey(_l,e.getEnvName()), data_.getTranslatedEnvironment().getVal(_l).getVal(e));
+        }
+        for (SelectedBoolean e: SelectedBoolean.all()) {
+            translatedBooleans.put(new LanguageElementStringKey(_l,e.getBoolName()), data_.getTranslatedBooleans().getVal(_l).getVal(e));
+        }
+        for (Gender e: Gender.all()) {
+            translatedGenders.put(new LanguageElementStringKey(_l,e.getGenderName()), data_.getTranslatedGenders().getVal(_l).getVal(e));
+        }
+        for (Statistic e: Statistic.all()) {
+            translatedStatistics.put(new LanguageElementStringKey(_l,e.getStatName()), data_.getTranslatedStatistics().getVal(_l).getVal(e));
+        }
+        for (TargetChoice e: TargetChoice.all()) {
+            translatedTargets.put(new LanguageElementStringKey(_l,e.getTargetName()), data_.getTranslatedTargets().getVal(_l).getVal(e));
+        }
+        for (String e: data_.getTypes()) {
+            translatedTypes.put(new LanguageElementStringKey(_l,e), data_.getTranslatedTypes().getVal(_l).getVal(e));
+        }
+        for (String e: data_.getPokedex().getKeys()) {
+            translatedPokemon.put(new LanguageElementStringKey(_l,e), data_.getTranslatedPokemon().getVal(_l).getVal(e));
+        }
+        for (String e: data_.getMoves().getKeys()) {
+            translatedMoves.put(new LanguageElementStringKey(_l,e), data_.getTranslatedMoves().getVal(_l).getVal(e));
+        }
+        for (String e: data_.getItems().getKeys()) {
+            translatedItems.put(new LanguageElementStringKey(_l,e), data_.getTranslatedItems().getVal(_l).getVal(e));
+        }
+        for (String e: data_.getAbilities().getKeys()) {
+            translatedAbilities.put(new LanguageElementStringKey(_l,e), data_.getTranslatedAbilities().getVal(_l).getVal(e));
+        }
+        for (String e: data_.getStatus().getKeys()) {
+            translatedStatus.put(new LanguageElementStringKey(_l,e), data_.getTranslatedStatus().getVal(_l).getVal(e));
+        }
+        for (String e: classesItems()) {
+            translatedClassesDescriptions.put(new LanguageElementStringKey(_l,e), data_.getTranslatedClassesDescriptions().getVal(_l).getVal(e));
+        }
+        StringMap<String> fcts_ = data_.getTranslatedFctMath().getVal(_l);
+        for (EntryCust<String, String> e: fcts_.entryList()) {
+            translatedFctMath.put(new LanguageElementStringKey(_l,e.getKey()), e.getValue());
+        }
+    }
+
+    private StringList classesItems() {
+        DataBase data_ = getDataBase();
         StringList classesItems_;
         classesItems_ = new StringList();
         for (Item i: data_.getItems().values()) {
@@ -103,55 +117,77 @@ public class LangsBean extends CommonBean {
             classesItems_.add(i.getItemType());
         }
         classesItems_.removeDuplicates();
-        for (String l:lgs_) {
-            for (String c: data_.getAllCategories()) {
-                translatedCategories.put(new LanguageElementStringKey(l,c), data_.getTranslatedCategories().getVal(l).getVal(c));
-            }
-            for (EnvironmentType e: EnvironmentType.values()) {
-                translatedEnvironment.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedEnvironment().getVal(l).getVal(e));
-            }
-            for (SelectedBoolean e: SelectedBoolean.values()) {
-                translatedBooleans.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedBooleans().getVal(l).getVal(e));
-            }
-            for (Gender e: Gender.values()) {
-                translatedGenders.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedGenders().getVal(l).getVal(e));
-            }
-            for (Statistic e: Statistic.values()) {
-                translatedStatistics.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedStatistics().getVal(l).getVal(e));
-            }
-            for (TargetChoice e: TargetChoice.values()) {
-                translatedTargets.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedTargets().getVal(l).getVal(e));
-            }
-            for (String e: data_.getTypes()) {
-                translatedTypes.put(new LanguageElementStringKey(l,e), data_.getTranslatedTypes().getVal(l).getVal(e));
-            }
-            for (String e: data_.getPokedex().getKeys()) {
-                translatedPokemon.put(new LanguageElementStringKey(l,e), data_.getTranslatedPokemon().getVal(l).getVal(e));
-            }
-            for (String e: data_.getMoves().getKeys()) {
-                translatedMoves.put(new LanguageElementStringKey(l,e), data_.getTranslatedMoves().getVal(l).getVal(e));
-            }
-            for (String e: data_.getItems().getKeys()) {
-                translatedItems.put(new LanguageElementStringKey(l,e), data_.getTranslatedItems().getVal(l).getVal(e));
-            }
-            for (String e: data_.getAbilities().getKeys()) {
-                translatedAbilities.put(new LanguageElementStringKey(l,e), data_.getTranslatedAbilities().getVal(l).getVal(e));
-            }
-            for (String e: data_.getStatus().getKeys()) {
-                translatedStatus.put(new LanguageElementStringKey(l,e), data_.getTranslatedStatus().getVal(l).getVal(e));
-            }
-            for (String e: classesItems_) {
-                translatedClassesDescriptions.put(new LanguageElementStringKey(l,e), data_.getTranslatedClassesDescriptions().getVal(l).getVal(e));
-            }
-            StringMap<String> fcts_ = data_.getTranslatedFctMath().getVal(l);
-            for (EntryCust<String, String> e: fcts_.entryList()) {
-                translatedFctMath.put(new LanguageElementStringKey(l,e.getKey()), e.getValue());
-            }
-        }
+        return classesItems_;
     }
+
+    private StringMap<StringMap<String>> translatedTargets() {
+        DataBase data_ = getDataBase();
+        StringMap<StringMap<String>> translatedTargets_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,IdMap<TargetChoice, String>> e: data_.getTranslatedTargets().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<TargetChoice, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().getTargetName(),f.getValue());
+            }
+            translatedTargets_.addEntry(e.getKey(),tr_);
+        }
+        return translatedTargets_;
+    }
+
+    private StringMap<StringMap<String>> translatedStatistics() {
+        DataBase data_ = getDataBase();
+        StringMap<StringMap<String>> translatedStatistics_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,IdMap<Statistic, String>> e: data_.getTranslatedStatistics().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<Statistic, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().getStatName(),f.getValue());
+            }
+            translatedStatistics_.addEntry(e.getKey(),tr_);
+        }
+        return translatedStatistics_;
+    }
+
+    private StringMap<StringMap<String>> translatedGenders() {
+        DataBase data_ = getDataBase();
+        StringMap<StringMap<String>> translatedGenders_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,IdMap<Gender, String>> e: data_.getTranslatedGenders().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<Gender, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().getGenderName(),f.getValue());
+            }
+            translatedGenders_.addEntry(e.getKey(),tr_);
+        }
+        return translatedGenders_;
+    }
+
+    private StringMap<StringMap<String>> translatedBooleans() {
+        DataBase data_ = getDataBase();
+        StringMap<StringMap<String>> translatedBooleans_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,IdMap<SelectedBoolean, String>> e: data_.getTranslatedBooleans().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<SelectedBoolean, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().getBoolName(),f.getValue());
+            }
+            translatedBooleans_.addEntry(e.getKey(),tr_);
+        }
+        return translatedBooleans_;
+    }
+
+    private StringMap<StringMap<String>> translatedEnvironment() {
+        DataBase data_ = getDataBase();
+        StringMap<StringMap<String>> translatedEnvironment_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,IdMap<EnvironmentType, String>> e: data_.getTranslatedEnvironment().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<EnvironmentType, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().getEnvName(),f.getValue());
+            }
+            translatedEnvironment_.addEntry(e.getKey(),tr_);
+        }
+        return translatedEnvironment_;
+    }
+
     public String getTrLang(int _index) {
         String lang_ = languages.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         return data_.getDisplayLanguages().getVal(lang_);
     }
     public StringList getKeysCategories() {

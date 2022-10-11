@@ -10,7 +10,7 @@ public class BallBean extends ItemBean {
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         Ball item_ = (Ball) getItem();
         catchingRate = data_.getFormula(item_.getCatchingRate(),getLanguage());
 //        Map<String,String> loc_ = new Map<>();

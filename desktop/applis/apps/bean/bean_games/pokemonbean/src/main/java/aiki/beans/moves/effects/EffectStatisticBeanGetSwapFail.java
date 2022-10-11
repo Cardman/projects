@@ -8,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectStatisticBeanGetSwapFail implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (EffectStatisticBean) ((PokemonBeanStruct)_instance).getInstance()).getSwapFail(NumParsers.convertToNumber(_args[0]).intStruct()));
+        return new StringStruct(((EffectStatisticBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().getSwapFail(NumParsers.convertToNumber(_args[0]).intStruct()));
     }
 }

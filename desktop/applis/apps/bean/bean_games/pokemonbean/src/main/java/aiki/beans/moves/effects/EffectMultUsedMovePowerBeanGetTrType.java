@@ -8,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectMultUsedMovePowerBeanGetTrType implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (EffectMultUsedMovePowerBean) ((PokemonBeanStruct)_instance).getInstance()).getTrType(NumParsers.convertToNumber(_args[0]).intStruct()));
+        return new StringStruct(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_instance).getInstance()).getTrType(NumParsers.convertToNumber(_args[0]).intStruct()));
     }
 }

@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectStatisticBeanNotEmptyVarBoost implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (EffectStatisticBean) ((PokemonBeanStruct)_instance).getInstance()).notEmptyVarBoost());
+        return BooleanStruct.of(((EffectStatisticBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().notEmptyVarBoost());
     }
 }

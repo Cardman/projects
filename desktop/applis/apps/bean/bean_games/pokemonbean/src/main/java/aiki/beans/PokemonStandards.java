@@ -34,6 +34,7 @@ import aiki.game.fight.util.MoveTarget;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.instances.Instances;
+import aiki.map.enums.Direction;
 import aiki.map.levels.Level;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.*;
@@ -1017,6 +1018,16 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         int i_ = 0;
         for (EntryCust<String,BoolVal> e: _map.entryList()){
             PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),BooleanStruct.of(e.getValue() == BoolVal.TRUE));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getDirBool(AbsMap<Direction, BoolVal> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
+        int i_ = 0;
+        for (EntryCust<Direction,BoolVal> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(e.getKey().getDirName()),BooleanStruct.of(e.getValue() == BoolVal.TRUE));
             arr_.set(i_,p_);
             i_++;
         }

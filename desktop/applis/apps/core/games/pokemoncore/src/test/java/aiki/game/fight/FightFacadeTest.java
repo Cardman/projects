@@ -2,7 +2,6 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.game.fight.actions.*;
-import aiki.tsts.TstsPk;
 import aiki.util.*;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -12325,7 +12324,7 @@ public class FightFacadeTest extends InitializationDataBase {
 //            }
 //        }
 //        return nb_;
-        return TstsPk.nbBeatTrainersVa(_map.values(), _value);
+        return DataBase.countValues(_map.values(), _value);
     }
 
     private static Fight saveFight(Fight _currentFight) {

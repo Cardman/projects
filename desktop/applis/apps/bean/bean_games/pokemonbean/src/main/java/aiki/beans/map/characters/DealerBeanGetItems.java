@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class DealerBeanGetItems implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BeanNatCommonLgNames.getStringArray(( (DealerBean) ((PokemonBeanStruct)_instance).getInstance()).getItems());
+        return BeanNatCommonLgNames.getStringArray(( (DealerBean) ((PokemonBeanStruct)_instance).getInstance()).getItemsDealer());
     }
 }

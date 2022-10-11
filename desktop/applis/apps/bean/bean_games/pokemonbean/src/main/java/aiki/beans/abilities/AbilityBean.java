@@ -1,6 +1,7 @@
 package aiki.beans.abilities;
 
 import aiki.beans.CommonBean;
+import aiki.beans.EndRoundCommon;
 import aiki.beans.facade.comparators.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -102,10 +103,11 @@ public class AbilityBean extends CommonBean {
     private DictionaryComparator<String, StringList> immuMoveTypesByWeather;
     private DictionaryComparator<String, StringList> immuStatus;
     private DictionaryComparator<String, StringList> immuStatusTypes;
-    private boolean endRound;
-    private int endRoundRank;
-    private StringList reasonsEndRound;
-    private NatStringTreeMap<String> mapVarsFailEndRound;
+    private final EndRoundCommon endRoundCommon = new EndRoundCommon();
+//    private boolean endRound;
+//    private int endRoundRank;
+//    private StringList reasonsEndRound;
+//    private NatStringTreeMap<String> mapVarsFailEndRound;
     private boolean sending;
     private NatStringTreeMap<String> mapVars;
     private final Rate defEff = Rate.one();
@@ -592,19 +594,25 @@ public class AbilityBean extends CommonBean {
     }
 
     private void endRondElts(AbilityData _ability) {
+        EffectEndRound effect_;
         DataBase data_ = getDataBase();
         if (!_ability.getEffectEndRound().isEmpty()) {
-            endRound = true;
-            EffectEndRound effect_ = _ability.getEffectEndRound().first();
-            endRoundRank = effect_.getEndRoundRank();
-            reasonsEndRound = getFormattedReasons(data_, getReasons(effect_.getFailEndRound()), getLanguage());
-            mapVarsFailEndRound = getMapVarsFail(data_, effect_.getFailEndRound(), getLanguage());
+//            endRound = true;
+            effect_ = _ability.getEffectEndRound().first();
+//            endRoundRank = effect_.getEndRoundRank();
+//            reasonsEndRound = getFormattedReasons(data_, getReasons(effect_.getFailEndRound()), getLanguage());
+//            mapVarsFailEndRound = getMapVarsFail(data_, effect_.getFailEndRound(), getLanguage());
         } else {
-            endRound = false;
-            endRoundRank = 0;
-            reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatStringTreeMap<String>();
+//            endRound = false;
+            effect_ = null;
+//            endRoundRank = 0;
+//            reasonsEndRound = new StringList();
+//            mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
+        endRoundCommon.endRondElts(data_,effect_,getLanguage());
+    }
+    public EndRoundCommon getEndRoundCommon() {
+        return endRoundCommon;
     }
 
     private StringList immuAllyFromMoves(AbilityData _ability) {
@@ -711,19 +719,14 @@ public class AbilityBean extends CommonBean {
         return translatedMoves_.getVal(type_);
     }
     public String clickImmuAllyFromMoves(int _index) {
-        String type_ = immuAllyFromMoves.get(_index);
-        getForms().put(CST_MOVE, type_);
+        getForms().put(CST_MOVE, immuAllyFromMoves.get(_index));
         return CST_MOVE;
     }
     public String getTrWeather(int _index) {
-        String type_ = immuWeather.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(type_);
+        return getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(immuWeather.get(_index));
     }
     public String clickWeather(int _index) {
-        String type_ = immuWeather.get(_index);
-        getForms().put(CST_MOVE, type_);
+        getForms().put(CST_MOVE, immuWeather.get(_index));
         return CST_MOVE;
     }
     public String getTrIgnAbility(int _index) {
@@ -1239,19 +1242,19 @@ public class AbilityBean extends CommonBean {
     }
 
     public boolean getEndRound() {
-        return endRound;
+        return getEndRoundCommon().getEndRound();
     }
 
     public int getEndRoundRank() {
-        return endRoundRank;
+        return getEndRoundCommon().getEndRoundRank();
     }
 
     public StringList getReasonsEndRound() {
-        return reasonsEndRound;
+        return getEndRoundCommon().getReasonsEndRound();
     }
 
     public NatStringTreeMap<String> getMapVarsFailEndRound() {
-        return mapVarsFailEndRound;
+        return getEndRoundCommon().getMapVarsFailEndRound();
     }
 
     public boolean getSending() {

@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class SimulationBeanRestoredMovesEndFightGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getRestoredMovesEndFight());
+        return BooleanStruct.of(((SimulationBean) ((PokemonBeanStruct) _instance).getInstance()).getDifficultyCommon().getRestoredMovesEndFight());
     }
 }

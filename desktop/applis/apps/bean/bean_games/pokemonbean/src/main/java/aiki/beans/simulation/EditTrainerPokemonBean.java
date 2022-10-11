@@ -7,19 +7,19 @@ import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.moves.MovesBean;
 import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.map.pokemon.enums.Gender;
 import code.util.*;
 
 public class EditTrainerPokemonBean extends CommonBean {
+    private final CrudPkCommon common = new CrudPkCommon();
     private boolean add;
     private String namePk = DataBase.EMPTY_STRING;
     private String ability = DataBase.EMPTY_STRING;
-    private String gender = Gender.NO_GENDER.name();
-    private int level;
-    private DictionaryComparator<String,String> genders;
+//    private String gender = Gender.NO_GENDER.getGenderName();
+//    private int level;
+//    private DictionaryComparator<String,String> genders;
     private String item = DataBase.EMPTY_STRING;
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private boolean allyPk;
@@ -31,8 +31,8 @@ public class EditTrainerPokemonBean extends CommonBean {
         namePk = getForms().getValStr(CST_POKEMON_NAME_EDIT);
         item = getForms().getValStr(CST_ITEM_EDIT);
         ability = getForms().getValStr(CST_POKEMON_ABILITY_EDIT);
-        gender = getForms().getValGen(CST_POKEMON_GENDER_EDIT).name();
-        level = getForms().getValInt(CST_POKEMON_LEVEL_EDIT);
+        common.setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT).getGenderName());
+        common.setLevel(getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
 
         moves.clear();
         DataBase data_ = getDataBase();
@@ -75,13 +75,14 @@ public class EditTrainerPokemonBean extends CommonBean {
 //        abilities = new TreeMap<new>(new ComparatorTrString<>(translatedAbilities_));
         AbsMap<Gender,String> translatedGenders_;
         translatedGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
+//        genders = DictionaryComparatorUtil.buildGenderStr(data_,getLanguage());
+        common.init(data_,getLanguage());
         StringMap<String> translated_;
         translated_ = new StringMap<String>();
         for (EntryCust<Gender,String> s: translatedGenders_.entryList()) {
             translated_.addEntry(s.getKey().getGenderName(),s.getValue());
         }
-        genders = DictionaryComparatorUtil.buildGenderStr(data_,getLanguage());
-        genders.addAllEntries(translated_);
+        common.getGenders().addAllEntries(translated_);
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
@@ -116,12 +117,13 @@ public class EditTrainerPokemonBean extends CommonBean {
     }
     public String validateTrainerPk() {
         DataBase data_ = getDataBase();
-        if (level <= data_.getMinLevel()) {
-            level = (short) data_.getMinLevel();
-        }
-        if (level > data_.getMaxLevel()) {
-            level = (short) data_.getMaxLevel();
-        }
+        common.patchLevel(data_);
+//        if (level <= data_.getMinLevel()) {
+//            level = (short) data_.getMinLevel();
+//        }
+//        if (level > data_.getMaxLevel()) {
+//            level = (short) data_.getMaxLevel();
+//        }
         if (ability.isEmpty()) {
             ability = data_.getMap().getFirstPokemon().getAbility();
         }
@@ -133,15 +135,15 @@ public class EditTrainerPokemonBean extends CommonBean {
             selected_.add(s.getName());
         }
         if (selected_.isEmpty()) {
-            selected_ = data_.getPokemon(namePk).getMovesBeforeLevel((short) level);
+            selected_ = data_.getPokemon(namePk).getMovesBeforeLevel((short) common.getLevel());
         }
         if (add) {
             getForms().put(CST_POKEMON_FOE, !allyPk);
         }
         getForms().put(CST_POKEMON_NAME_EDIT, namePk);
-        getForms().put(CST_POKEMON_LEVEL_EDIT, level);
+        getForms().put(CST_POKEMON_LEVEL_EDIT, common.getLevel());
         getForms().put(CST_ITEM_EDIT, item);
-        getForms().put(CST_POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(gender));
+        getForms().put(CST_POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(common.getGender()));
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
         getForms().put(CST_POKEMON_ABILITY_EDIT, ability);
         return CST_VALIDATE_TRAINER_PK;
@@ -172,24 +174,28 @@ public class EditTrainerPokemonBean extends CommonBean {
         return moves;
     }
 
+    public CrudPkCommon getCommon() {
+        return common;
+    }
+
     public DictionaryComparator<String,String> getGenders() {
-        return genders;
+        return getCommon().getGenders();
     }
 
     public String getGender() {
-        return gender;
+        return getCommon().getGender();
     }
 
     public void setGender(String _gender) {
-        gender = _gender;
+        getCommon().setGender(_gender);
     }
 
     public void setLevel(int _level) {
-        level = _level;
+        getCommon().setLevel(_level);
     }
 
     public int getLevel() {
-        return level;
+        return getCommon().getLevel();
     }
 
     public boolean getAdd() {

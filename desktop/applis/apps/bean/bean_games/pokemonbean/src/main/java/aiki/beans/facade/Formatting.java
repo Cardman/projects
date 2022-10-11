@@ -64,24 +64,21 @@ final class Formatting {
         int iPostSep_ = IndexConstants.FIRST_INDEX;
         int nbLeftPar_ = 0;
         int nbRightPar_ = 0;
-        String fail_ = _booleanString;
-        while (i_ < fail_.length()) {
-            if (fail_.charAt(i_) == LEFT_PAR) {
+        while (i_ < _booleanString.length()) {
+            if (_booleanString.charAt(i_) == LEFT_PAR) {
                 nbLeftPar_++;
             }
-            if (fail_.charAt(i_) == RIGHT_PAR) {
+            if (_booleanString.charAt(i_) == RIGHT_PAR) {
                 nbRightPar_++;
             }
-            if (fail_.charAt(i_) == PIPE_CHAR) {
-                if (nbLeftPar_ == nbRightPar_) {
-                    reasons_.add(fail_.substring(iPostSep_, i_));
-                    iPostSep_ = i_ + 1;
-                }
+            if (_booleanString.charAt(i_) == PIPE_CHAR && nbLeftPar_ == nbRightPar_) {
+                reasons_.add(_booleanString.substring(iPostSep_, i_));
+                iPostSep_ = i_ + 1;
             }
             i_++;
         }
-        if (iPostSep_ < fail_.length()) {
-            reasons_.add(fail_.substring(iPostSep_));
+        if (iPostSep_ < _booleanString.length()) {
+            reasons_.add(_booleanString.substring(iPostSep_));
         }
         return reasons_;
     }

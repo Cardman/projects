@@ -235,8 +235,8 @@ public final class PkData extends PokemonStandards {
         getBeansStruct().setValue(42,bean(new EffectSwitchTypesBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_TYPES_BEAN, _language));
         getBeansStruct().setValue(43,bean(new EffectSwitchPointViewBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_POINT_VIEW_BEAN, _language));
         getBeansStruct().setValue(44,bean(new EffectRemainedHpRateBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_REMAINED_HP_RATE_BEAN, _language));
-        getBeansStruct().setValue(45,bean(new EffectMultUsedMovePowerBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_MULT_USED_MOVE_POWER_BEAN, _language));
-        getBeansStruct().setValue(46,bean(new EffectMultSufferedMovePowerBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER_BEAN, _language));
+        getBeansStruct().setValue(45,bean(new EffectMultMovePowerBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_MULT_USED_MOVE_POWER_BEAN, _language));
+        getBeansStruct().setValue(46,bean(new EffectMultMovePowerBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER_BEAN, _language));
         getBeansStruct().setValue(47,bean(new EffectBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, _language));
         getBeansStruct().setValue(48,bean(new EffectVarPPBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_VAR_P_P_BEAN, _language));
         getBeansStruct().setValue(49,bean(new EffectWinMoneyBean(), AikiBeansMovesEffectsStd.TYPE_EFFECT_WIN_MONEY_BEAN, _language));

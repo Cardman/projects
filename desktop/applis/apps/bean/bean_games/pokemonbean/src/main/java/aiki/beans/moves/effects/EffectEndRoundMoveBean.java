@@ -13,7 +13,7 @@ public class EffectEndRoundMoveBean extends EffectBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EffectEndRound effect_ = (EffectEndRound) getEffect();
         endRoundRank = effect_.getEndRoundRank();
 //        Map<String,String> loc_ = new Map<>();
@@ -22,7 +22,6 @@ public class EffectEndRoundMoveBean extends EffectBean {
 //        loc_.put(ELT, E_LT);
 //        loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        loc_.put(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        StringList reasons_ = CommonBean.getFormattedReasons(data_, getFailEndRoundReasons(), getLanguage());
 //        reasons_ = new StringList();
 //        for (String f: getFailEndRoundReasons()) {
 //            String formula_ = data_.getFormula(f, getLanguage());
@@ -34,7 +33,7 @@ public class EffectEndRoundMoveBean extends EffectBean {
 ////            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            reasons_.add(formula_);
 //        }
-        reasonsEndRound = reasons_;
+        reasonsEndRound = CommonBean.getFormattedReasons(data_, getFailEndRoundReasons(), getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
         NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());

@@ -4,9 +4,10 @@ import aiki.beans.PokemonBeanStruct;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
+
 public class EffectStatisticBeanCancelChgtStatGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BeanNatCommonLgNames.getStringArray(( (EffectStatisticBean) ((PokemonBeanStruct)_instance).getInstance()).getCancelChgtStat());
+        return BeanNatCommonLgNames.getStringArray(((EffectStatisticBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().getCancelChgtStat());
     }
 }

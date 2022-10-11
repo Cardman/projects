@@ -28,7 +28,7 @@ public class EndRoundBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         evts = data_.getEvtEndRound();
     }
 
@@ -38,7 +38,7 @@ public class EndRoundBean extends CommonBean {
         if (elt_.isIncrementNumberOfRounds()) {
             return PAGE_EFF;
         }
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EffectEndRound effect_ = null;
         if (elt_.getEndRoundType() == EndTurnType.ATTAQUE) {
             String move_ = elt_.getElement();
@@ -69,41 +69,46 @@ public class EndRoundBean extends CommonBean {
             }
             effect_ = data_.getStatus(status_).getEffectEndRound().first();
         }
-        if (effect_ == null) {
+        return endRound(effect_);
+    }
+
+    private String endRound(EffectEndRound _effect) {
+        if (_effect == null) {
             return PAGE_EFF;
         }
-        if (effect_ instanceof EffectEndRoundGlobal) {
+        if (_effect instanceof EffectEndRoundGlobal) {
             return PAGE_GLOBAL;
         }
-        if (effect_ instanceof EffectEndRoundIndividual) {
+        if (_effect instanceof EffectEndRoundIndividual) {
             return PAGE_INDIVIDUAL;
         }
-        if (effect_ instanceof EffectEndRoundStatusRelation) {
+        if (_effect instanceof EffectEndRoundStatusRelation) {
             return PAGE_STATUSRELATION;
         }
-        if (effect_ instanceof EffectEndRoundStatus) {
+        if (_effect instanceof EffectEndRoundStatus) {
             return PAGE_STATUS;
         }
-        if (effect_ instanceof EffectEndRoundSingleRelation) {
+        if (_effect instanceof EffectEndRoundSingleRelation) {
             return PAGE_SINGLERELATION;
         }
-        if (effect_ instanceof EffectEndRoundFoe) {
+        if (_effect instanceof EffectEndRoundFoe) {
             return PAGE_FOE;
         }
-        if (effect_ instanceof EffectEndRoundTeam) {
+        if (_effect instanceof EffectEndRoundTeam) {
             return PAGE_TEAM;
         }
-        if (effect_ instanceof EffectEndRoundMultiRelation) {
+        if (_effect instanceof EffectEndRoundMultiRelation) {
             return PAGE_MULTIRELATION;
         }
-        if (effect_ instanceof EffectEndRoundPositionRelation) {
+        if (_effect instanceof EffectEndRoundPositionRelation) {
             return PAGE_POSITIONRELATION;
         }
-        if (effect_ instanceof EffectEndRoundPositionTargetRelation) {
+        if (_effect instanceof EffectEndRoundPositionTargetRelation) {
             return PAGE_POSITIONTARGET;
         }
         return DataBase.EMPTY_STRING;
     }
+
     public CustList<EndRoundMainElements> getEvts() {
         return evts;
     }

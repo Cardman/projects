@@ -7,12 +7,10 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.items.Boost;
 import code.maths.Rate;
 import code.util.AbsMap;
-import code.util.StringMap;
 
 public class BoostBean extends ItemBean {
     private Rate winPp;
     private int maxEv;
-    private DictionaryComparator<String, Short> happiness;
     private DictionaryComparator<Statistic, Short> evs;
 
     @Override
@@ -22,33 +20,13 @@ public class BoostBean extends ItemBean {
         maxEv = data_.getMaxEv();
         Boost item_ = (Boost) getItem();
         winPp = item_.getWinPp();
-        DictionaryComparator<String, Short> happiness_;
-        happiness_ = DictionaryComparatorUtil.buildItemsShort(data_,getLanguage());
-        for (String i: item_.getHappiness().getKeys()) {
-            happiness_.put(i, item_.getHappiness().getVal(i));
-        }
-        happiness = happiness_;
+        initHappiness(item_.getHappiness());
         DictionaryComparator<Statistic, Short> evs_;
         evs_ = DictionaryComparatorUtil.buildStatisShort(data_,getLanguage());
         for (Statistic s: item_.getEvs().getKeys()) {
             evs_.put(s, item_.getEvs().getVal(s));
         }
         evs = evs_;
-    }
-    public boolean isBall(int _index) {
-        String item_ = happiness.getKey(_index);
-        return !item_.isEmpty();
-    }
-    public String getTrHappiness(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String item_ = happiness.getKey(_index);
-        return translatedItems_.getVal(item_);
-    }
-    public String clickHappiness(int _index) {
-        String item_ = happiness.getKey(_index);
-        getForms().put(CST_ITEM, item_);
-        return CST_BALL;
     }
     public String getTrEv(int _index) {
         DataBase data_ = getDataBase();
@@ -59,10 +37,6 @@ public class BoostBean extends ItemBean {
 
     public Rate getWinPp() {
         return winPp;
-    }
-
-    public DictionaryComparator<String,Short> getHappiness() {
-        return happiness;
     }
 
     public DictionaryComparator<Statistic,Short> getEvs() {

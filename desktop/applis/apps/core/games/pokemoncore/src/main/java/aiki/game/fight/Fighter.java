@@ -1094,7 +1094,7 @@ public final class Fighter {
         return numberNecessaryPointsForGrowingLevel(name, _niveau, _import);
     }
 
-    static Rate numberNecessaryPointsForGrowingLevel(String _name, short _niveau, DataBase _import) {
+    static Rate numberNecessaryPointsForGrowingLevel(String _name, long _niveau, DataBase _import) {
         PokemonData fPk_= _import.getPokemon(_name);
         String expLitt_=_import.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();

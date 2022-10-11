@@ -14,7 +14,7 @@ public class WelcomeBean extends CommonBean {
         if (moves.isEmpty()) {
             StringList learntMoves_ = new StringList();
 //            StringList notLearntMoves_ = new StringList();
-            DataBase data_ = (DataBase) getDataBase();
+            DataBase data_ = getDataBase();
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
                 for (LevelMove l: pkData_.getLevMoves()) {

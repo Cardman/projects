@@ -35,19 +35,14 @@ public class EffectInvokeBean extends EffectBean {
         DictionaryComparator<String, String> moveFctEnv_;
         moveFctEnv_ = DictionaryComparatorUtil.buildEnvStr(data_,getLanguage());
         for (EnvironmentType e: effect_.getMoveFctEnv().getKeys()) {
-            moveFctEnv_.put(e.name(), effect_.getMoveFctEnv().getVal(e));
+            moveFctEnv_.put(e.getEnvName(), effect_.getMoveFctEnv().getVal(e));
         }
         moveFctEnv = moveFctEnv_;
-        StringList globalMoves_;
-        globalMoves_ = new StringList();
+        StringList globalMoves_ = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal eff_ = (EffectGlobal) e;
-                if (!eff_.getInvokedMoveTerrain().isEmpty()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getInvokedMoveTerrain().isEmpty()) {
                     globalMoves_.add(m);
                 }
             }
