@@ -56,7 +56,7 @@ e+=M_26_52+"=4, 2, 0, -2, -2, -2; if there is dispute between three players exac
 e+=M_26_53+"=8, 0, -2, -2, -2, -2; if there is dispute between four players exactly.\n";
 e+=M_26_54+"=10, -2, -2, -2, -2, -2; if there is dispute between five players exactly.\n";
 e+=M_26_55+"=A successful slam is by default 200 points. (The slam is regarded as not declared.)\n";
-e+=M_26_56+"=Score of a player = 4 x (Rate x (25 + Maximal difference points for players rounded to the greater integer + number of points in the dog rounded to the greater integer) + (number of players - 1) x Declaring points of player - Declaring of each one of other players).\n";
+e+=M_26_56+"=Score of a player = 4 x (Rate x (25 + Maximal difference points for players rounded to the greater integer + number of points in the dog rounded to the greater integer) + (number of players - team size) x Declaring points of player team - team size x Declaring of each one of other players teams).\n";
 e+=M_26_57+"=By teams of two players, rates are the following one:\n";
 e+=M_26_58+"=4 players\n";
 e+=M_26_59+"=&#160;&#160;Rate is worth from the winner team to the looser team:\n";
@@ -122,7 +122,7 @@ f+=M_26_52+"=4, 2, 0, -2, -2, -2; s''il y a litige entre trois joueurs exactemen
 f+=M_26_53+"=8, 0, -2, -2, -2, -2; s''il y a litige entre quatre joueurs exactement.\n";
 f+=M_26_54+"=10, -2, -2, -2, -2, -2; s''il y a litige entre cinq joueurs exactement.\n";
 f+=M_26_55+"=Un chelem r&#233;ussi vaut de base 200 points. (Il est consid&#233;r&#233; comme non demand&#233;.)\n";
-f+=M_26_56+"=Score d''un joueur = 4 x (Coefficient x (25 + Diff&#233;rence max pour les joueurs arrondie &#224; l''entier sup&#233;rieur + nombre points chien arrondi &#224; l''entier sup&#233;rieur) + (nombre de joueurs - 1) x Annonces du joueur - Annonces de chacun des autres joueurs).\n";
+f+=M_26_56+"=Score d''un joueur = 4 x (Coefficient x (25 + Diff&#233;rence max pour les joueurs arrondie &#224; l''entier sup&#233;rieur + nombre points chien arrondi &#224; l''entier sup&#233;rieur) + (nombre de joueurs - taille &eacute;quipe) x Annonces de l''&eacute;quipe joueur - taille &eacute;quipe x Annonces de chacun des autres &eacute;quipes des joueurs).\n";
 f+=M_26_57+"=En &#233;quipes de deux joueurs, les coefficients sont les suivants:\n";
 f+=M_26_58+"=4 joueurs\n";
 f+=M_26_59+"=&#160;&#160;Coefficient vaut de l''&#233;quipe gagnante &#224; l''&#233;quipe perdante:\n";

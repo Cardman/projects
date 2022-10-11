@@ -1803,7 +1803,7 @@ public final class EndTarotGame {
 //                    pointsAnnoncesAutresJoueurs_ += BonusTarot.SMALL_BOUND.getPoints();
 //                }
 //            }
-            int rate_ = 1;
+            int rate_ = equipe_.size();
             short score_ = (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + _sumLoc / 2)
                     + (nombreJoueurs_ - rate_) * pointsAnnoncesJoueur_
                     - rate_ * pointsAnnoncesAutresJoueurs_));
