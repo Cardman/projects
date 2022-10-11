@@ -14,6 +14,10 @@ public final class PkInd extends PokemonStandards{
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,bean(new PokemonPlayerBean(), AikiBeansGameStd.TYPE_POKEMON_PLAYER_BEAN, _language));
+        getBeansStruct().setValue(0, beanPk(_language));
+    }
+
+    public PokemonBeanStruct beanPk(String _language) {
+        return bean(new PokemonPlayerBean(), AikiBeansGameStd.TYPE_POKEMON_PLAYER_BEAN, _language);
     }
 }
